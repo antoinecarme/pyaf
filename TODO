@@ -1,0 +1,64 @@
+# TODO
+# save / reload the model
+#        self.serialize() => to_dict every where + json
+
+# forecast future values => update datasets + forecast
+
+# signal transformation => almost done
+	- cumulative (integrated) tranformation
+# Cutting into Estim/Valid (NE*H , NV*H) => cross-validation
+	# ratio_E = 0.5
+	# N_train = N_Estim + N_Valid + N_test (=H)
+	# N_Estim = ratio_E * (N_train - H) 
+
+# prediction intervals
+	use cross validation 
+	http://robjhyndman.com/hyndsight/tscvexample/
+	book : https://www.otexts.org/fpp
+	https://www.otexts.org/fpp/2/5
+
+# improve plotting ... shaded area around prediction intervals
+	neeed prediction intervals first
+
+#Residual diagnostics	
+	https://www.otexts.org/fpp/2/6
+
+# other trends
+	Exponential smoothing
+	exogenous variables
+	moving average(N)
+	moving median(N)
+
+# other cycles
+	seasonal
+	user holidays etc (external tables?)
+
+# other AR
+  - ARX ,  VAR ?
+  - order control (look at timedelta ??).
+
+# Configuration (Options)
+ - activate/disable transfromations/models/decomposition.
+ - configure trends
+ - configure cycles (CycleLength = ?)
+	- cycle length should be in [5, 7, 12, 24 , 30, 60]
+ - configure ARs (p = ?)
+ - processing : threads etc
+ - 
+
+# Benchmarking
+  - MComp
+  - NN5
+  - NN3
+  - Yahoo stocks
+	
+# speedup things
+  - python is sloooooooooooow (cython ?)
+  - multiprocessing seems OK
+
+#timedelta adaptive estimation
+  - allow user control.
+  - truncate timedelta to the nearest unit.
+  - avoid saturday/sunday if not present in the dataset.
+  
+# 
