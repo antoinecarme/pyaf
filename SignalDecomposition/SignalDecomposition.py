@@ -17,6 +17,7 @@ from . import SignalDecomposition_Perf as tsperf
 from . import SignalDecomposition_Trend as tstr
 from . import SignalDecomposition_Cycle as tscy
 from . import SignalDecomposition_AR as tsar
+from . import SignalDecomposition_PredictionIntervals as predint
 from . import SignalDecomposition_Plots as tsplot
 from . import SignalDecomposition_Options as tsopts
 
@@ -35,14 +36,13 @@ class cSignalDecompositionOneTransform:
         self.mForecastFrame = pd.DataFrame()
         self.mTransformation = tssig.cSignalTransform_None();
         
-    def plotSignal(self):
-        self.mSignalFrame.plot.line(self.mTimeInfo.mNormalizedTimeColumn , self.mSignal)
-        
-    def plotForecast(self):
-        self.mSignalFrame.plot.line(self.mTime ,
-                                    ['Trend_residue', 'Trend_residue_bestCycle' ,
-                                     'Trend_residue_bestCycle_Residue'] ,
-                                    figsize=[8, 8])
+
+    def info(self):
+        lSignal = self.mSignalFrame[self.mSignal];
+        lStr1 = "SignalVariable='" + self.mSignal +"'";
+        lStr1 += " Min=" + str(np.min(lSignal)) + " Max="  + str(np.max(lSignal)) + " ";
+        lStr1 += " Mean=" + str(np.mean(lSignal)) + " StdDev="  + str(np.std(lSignal));
+        return lStr1;
 
     def computeForecast(self, nextTime):
         trendvalue = computeTrend(self , nextTime);
@@ -75,6 +75,8 @@ class cSignalDecompositionOneTransform:
         self.mSignalFrame['row_number'] = np.arange(0, iInputDS.shape[0]);
         self.mSignalFrame.dropna(inplace = True);
         assert(self.mSignalFrame.shape[0] > 0);
+
+        print("SIGNAL_INFO " , self.info());
         
         self.mTimeInfo = tsti.cTimeInfo();
         self.mTimeInfo.mTime = self.mTime;
@@ -254,7 +256,8 @@ class cSignalDecompositionOneTransform:
         self.mPerfDetails.sort_values('ForecastMAPE' , inplace=True)
         self.mBestModelName = self.mPerfDetails.iloc[0]['Model']
         self.reviewBestModel();
-
+        # Prediction Intervals
+        
 
 
 
@@ -420,6 +423,15 @@ class cSignalDecomposition:
             if(lTranformName == self.mBestTransformationName):
                 self.mBestTransformation = sigdec;
 
+        # predcition intervals
+        self.mPredictionIntervalsEstimator = predint.cPredictionIntervalsEstimator();
+        self.mPredictionIntervalsEstimator.mSignalFrame = iInputDS;
+        self.mPredictionIntervalsEstimator.mTime = iTime;
+        self.mPredictionIntervalsEstimator.mSignal = iSignal;
+        self.mPredictionIntervalsEstimator.mHorizon = iHorizon;
+        self.mPredictionIntervalsEstimator.mSignalDecomposition = self;
+        
+        self.mPredictionIntervalsEstimator.computePerformances();
         
         end_time = time.time()
         print("END_TRAINING_TIME_IN_SECONDS '" + iSignal + "' " + str(end_time - start_time))
@@ -427,7 +439,25 @@ class cSignalDecomposition:
 
     def forecast(self , iInputDS, iHorizon):
         lForecastFrame = self.mBestTransformation.forecastModel(iInputDS, iHorizon);
+
+        lSignalColumn = self.mBestTransformation.mOriginalSignal;
+        lLowerBound = lForecastFrame[lSignalColumn].apply(lambda x : np.nan)
+        lUpperBound = lLowerBound.copy();
+
+        N = iInputDS.shape[0];
+        lForecastColumn = lSignalColumn + "_BestModelForecast";
+        lConfidence = 2.0 ; # 0.95
+        for h in range(0 , iHorizon):
+            lHorizonName = lForecastColumn + "_" + str(h + 1);
+            lWidth = lConfidence * self.mPredictionIntervalsEstimator.mForecastPerformances[lHorizonName].mL2;
+            lLowerBound.loc[N + h ] = lForecastFrame.loc[N + h , lForecastColumn] - lWidth;
+            lUpperBound.loc[N + h ] = lForecastFrame.loc[N + h , lForecastColumn] + lWidth;
+            
+        lForecastFrame[lForecastColumn + '_Lower_Bound'] = lLowerBound; 
+        lForecastFrame[lForecastColumn + '_Upper_Bound'] = lUpperBound; 
         return lForecastFrame;
+
+
 
     def getModelFormula(self):
         lFormula = self.mBestTransformation.mBestModelTrend.mFormula + " + ";
@@ -437,9 +467,10 @@ class cSignalDecomposition:
 
 
     def getModelInfo(self):
-        print("Time Info" + self.mBestTransformation.mTimeInfo.info());
+        print("Time Info : " + self.mBestTransformation.mTimeInfo.info());
+        print("Signal Info : " + self.mBestTransformation.info());
         print("Transoformation Info : Type='" + self.mBestTransformation.mTransformation.get_name("") + "'");
-        print("Signal Info : Variable='" + self.mBestTransformation.mOriginalSignal + "'");
+        # print("Signal Info : Variable='" + self.mBestTransformation.mOriginalSignal + "'");
         print("Signal length=" + str(self.mBestTransformation.mBestModelFrame.shape[0])) ;
         print("Decomposition Info Model = '" + self.mBestTransformation.mBestModelName + "' [" + self.getModelFormula() + "]");
         print("Trend Info Trend='" + self.mBestTransformation.mBestModelTrend.mOutName + "' [" + self.mBestTransformation.mBestModelTrend.mFormula + "]");
@@ -462,4 +493,19 @@ class cSignalDecomposition:
         
     def standrdPlots(self):
         self.mBestTransformation.plotModel(self.mBestTransformation.mBestModelFrame);
+        sigdec = self.mBestTransformation;
+        lInput = sigdec.mSignalFrame[[sigdec.mTime, sigdec.mSignal]];
+        lOutput = self.forecast(lInput ,  sigdec.mHorizon);
+        print(lOutput.columns)
+        lPrefix = sigdec.mOriginalSignal + "_BestModel";
+        lForecastColumn = lPrefix + 'Forecast';
+        lTime = sigdec.mTimeInfo.mNormalizedTimeColumn;            
+        tsplot.prediction_interval_plot(lOutput,
+                                        lTime, sigdec.mOriginalSignal,
+                                        lForecastColumn  ,
+                                        lForecastColumn + '_Lower_Bound',
+                                        lForecastColumn + '_Upper_Bound',
+                                        max_length = (4 * sigdec.mHorizon));
+        #lOutput.plot()
+        
         

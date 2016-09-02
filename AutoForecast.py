@@ -23,13 +23,12 @@ class cAutoForecast:
 
     def forecast(self , iInputDS, iHorizon):
         try:
-            lForecastFrame = self.mSignalDecomposition.mBestTransformation.forecastModel(iInputDS, iHorizon);
+            lForecastFrame = self.mSignalDecomposition.forecast(iInputDS, iHorizon);
             return lForecastFrame;
         except tsutil.ForecastError as error:
             print('caught this forecast error: ' + repr(error))
             print("AUTO_FORECAST_FAILED" , name)
             raise;
-        
         
     def getModelInfo(self):
         return  self.mSignalDecomposition.getModelInfo();
