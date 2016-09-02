@@ -430,6 +430,7 @@ def load_yahoo_stock_price( stock ) :
         print("already downloaded " + stock , "reloading " , filename);
         df_train = pd.read_csv(filename);
     else:
+        return None;
         stock_obj = Share(stock)
         today = date.today()
         today
