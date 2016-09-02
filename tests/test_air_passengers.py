@@ -25,9 +25,10 @@ dfapp_in.tail()
 dfapp_out = lAutoF.forecast(dfapp_in, H);
 dfapp_out.tail(2 * H)
 print("Forecast Columns " , dfapp_out.columns);
-Forecast_DF = dfapp_out[[b1.mTimeVar , b1.mSignalVar, b1.mSignalVar + '_BestModelForecast']]
+lForecastColumnName = b1.mSignalVar + '_BestModelForecast'
+Forecast_DF = dfapp_out[[b1.mTimeVar , b1.mSignalVar, lForecastColumnName , lForecastColumnName + '_Lower_Bound',  lForecastColumnName + '_Upper_Bound' ]]
 print(Forecast_DF.info())
-print("Forecasts\n" , Forecast_DF.tail(H).values);
+print("Forecasts\n" , Forecast_DF.tail(2*H).values);
 
 print("\n\n<ModelInfo>")
 print(lAutoF.to_json());
