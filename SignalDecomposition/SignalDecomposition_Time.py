@@ -36,16 +36,16 @@ class cTimeInfo:
         
 
     def info(self):
-        lStr = "SignalVariable='" + self.mSignal +"'";
-        lStr += " TimeVariable='" + self.mTime +"'";
-        lStr += " TimeMin=" + str(self.mTimeMin) +"";
-        lStr += " TimeMax=" + str(self.mTimeMax) +"";
-        lStr += " TimeDelta=" + str(self.mTimeDelta) +"";
-        lStr += " Estimation = (" + str(self.mEstimStart) + " , " + str(self.mEstimEnd) + ")";
-        lStr += " Validation = (" + str(self.mValidStart) + " , " + str(self.mValidEnd) + ")";
-        lStr += " Test = (" + str(self.mTestStart) + " , " + str(self.mTestEnd) + ")";
-        lStr += " Horizon=" + str(self.mHorizon) +"";
-        return lStr;
+        lStr2 = "TimeVariable='" + self.mTime +"'";
+        lStr2 += " TimeMin=" + str(self.mTimeMin) +"";
+        lStr2 += " TimeMax=" + str(self.mTimeMax) +"";
+        lStr2 += " TimeDelta=" + str(self.mTimeDelta) +"";
+        lStr2 += " Estimation = (" + str(self.mEstimStart) + " , " + str(self.mEstimEnd) + ")";
+        lStr2 += " Validation = (" + str(self.mValidStart) + " , " + str(self.mValidEnd) + ")";
+        lStr2 += " Test = (" + str(self.mTestStart) + " , " + str(self.mTestEnd) + ")";
+        lStr2 += " Horizon=" + str(self.mHorizon) +"";
+        return lStr2;
+
 
     def to_json(self):
         dict1 = {};
@@ -246,7 +246,11 @@ class cTimeInfo:
         
         self.computeTimeDelta();
         self.mSignalFrame[self.mNormalizedTimeColumn] = self.normalizeTime(self.mSignalFrame[self.mTime])
-        print("TIME_INFO " + self.info());
+        self.dump();
+
+    def dump(self):
+        time_info = self.info(); 
+        
 
     def normalizeTime(self , iTime):
         return (iTime - self.mTimeMin) / self.mTimeMinMaxDiff
