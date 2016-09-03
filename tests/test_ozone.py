@@ -23,6 +23,8 @@ lAutoF.getModelInfo();
 
 lAutoF.mSignalDecomposition.mBestTransformation.mTimeInfo.mResolution
 
+lAutoF.standrdPlots("my_ozone");
+
 dfapp_in = df.copy();
 dfapp_in.tail()
 
@@ -40,3 +42,4 @@ print("</ModelInfo>\n\n")
 print("\n\n<Forecast>")
 print(Forecast_DF.to_json(date_format='iso'))
 print("</Forecast>\n\n")
+

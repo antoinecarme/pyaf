@@ -130,13 +130,13 @@ class cSignalDecompositionOneTransform:
                            'TestCount', 'TestL2', 'TestMAPE')) 
         return df;
 
-    def plotModel(self, df):
+    def plotModel(self, df , name = None):
         lTime = self.mTimeInfo.mNormalizedTimeColumn;
         lPrefix = self.mSignal + "_BestModel";
-        tsplot.decomp_plot(df, lTime, self.mSignal, lPrefix + 'Trend' , lPrefix + 'Trend_residue');
-        tsplot.decomp_plot(df, lTime, lPrefix + 'Trend_residue' , lPrefix + 'Cycle', lPrefix + 'Cycle_residue');
-        tsplot.decomp_plot(df, lTime, lPrefix + 'Cycle_residue' , lPrefix + 'AR' , lPrefix + 'AR_residue');
-        tsplot.decomp_plot(df, lTime, self.mSignal, lPrefix + 'Forecast' , lPrefix + 'Residue');
+        tsplot.decomp_plot(df, lTime, self.mSignal, lPrefix + 'Trend' , lPrefix + 'Trend_residue', name = name + "_trend");
+        tsplot.decomp_plot(df, lTime, lPrefix + 'Trend_residue' , lPrefix + 'Cycle', lPrefix + 'Cycle_residue', name = name + "_cycle");
+        tsplot.decomp_plot(df, lTime, lPrefix + 'Cycle_residue' , lPrefix + 'AR' , lPrefix + 'AR_residue', name = name + "_AR");
+        tsplot.decomp_plot(df, lTime, self.mSignal, lPrefix + 'Forecast' , lPrefix + 'Residue', name = name + "_forecast");
 
     def reviewBestModel(self):
         self.mBestModelFrame = pd.DataFrame();
@@ -491,8 +491,8 @@ class cSignalDecomposition:
         dict1["Performance Info"] = self.mTrPerfDetails.to_json();
         return dict1;
         
-    def standrdPlots(self):
-        self.mBestTransformation.plotModel(self.mBestTransformation.mBestModelFrame);
+    def standrdPlots(self, name = None):
+        self.mBestTransformation.plotModel(self.mBestTransformation.mBestModelFrame, name = name);
         sigdec = self.mBestTransformation;
         lInput = sigdec.mSignalFrame[[sigdec.mTime, sigdec.mSignal]];
         lOutput = self.forecast(lInput ,  sigdec.mHorizon);
@@ -505,6 +505,7 @@ class cSignalDecomposition:
                                         lForecastColumn  ,
                                         lForecastColumn + '_Lower_Bound',
                                         lForecastColumn + '_Upper_Bound',
+                                        name = name,
                                         max_length = (4 * sigdec.mHorizon));
         #lOutput.plot()
         
