@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import AutoForecast as autof
+
 import Bench.TS_datasets as tsds
 import sys,os
 
@@ -18,6 +19,12 @@ def createDirIfNeeded(dirname):
     except:
         pass
 
+class cBenchmarkError(Exception):
+    def __init__(self, msg):
+        super().__init__(msg);
+        pass
+    
+    
 def run_bench_process(a):
     createDirIfNeeded("logs");
     createDirIfNeeded("logs/" + a.mBenchName);    
@@ -28,6 +35,9 @@ def run_bench_process(a):
         tester.testSignal(a.mSignal, a.mHorizon)
         print("TRAIN_SUCCESS '" + a.getName() + "'");
         logfile.close();
+    except cBenchmarkError as error:
+        logger.error(error)
+        pass;
     except:
         print("TRAIN_FAILURE '" + a.getName() + "'");
         logfile.close();
@@ -68,7 +78,11 @@ class cGeneric_OneSignal_Tester:
         print("SIGNAL : ", iSignal , "N=", df[iSignal].shape[0], "H=", iHorizon,
               "HEAD=", df[iSignal].head().values, "TAIL=", df[iSignal].tail().values);
         # print(df.head());
-        
+
+    def checkHorizon(self, N , iHorizon):
+        if(N <= iHorizon):
+            raise cBenchmarkError('Dataset too short for the requested horizon N=' + str(N) + " H=" + str(iHorizon));
+
 
     def getTrainingDataset(self, iSignal, iHorizon):
         df = pd.DataFrame();
@@ -77,7 +91,9 @@ class cGeneric_OneSignal_Tester:
         #.astype(np.double)
         N = lFullDF.shape[0]
         # iHorizon = iHorizon; #self.mTSSpec.mHorizon[iSignal]
-        df[iSignal] = lFullDF[0: N - iHorizon];
+        lSize = N - iHorizon;
+        self.checkHorizon(N , iHorizon);
+        df[iSignal] = lFullDF[0: lSize];
         df['Date'] = range(0 , df.shape[0]);
         self.mTrainDataset[iSignal  + "_" + str(iHorizon)] = df;
         self.reportTrainingDataInfo(iSignal, iHorizon);
@@ -119,8 +135,10 @@ class cGeneric_OneSignal_Tester:
         lFullDF = lSignalDataset[iSignal].dropna();
         #.astype(np.double)
         N = lFullDF.shape[0]
-        self.mApplyIn[iSignal] = lFullDF[0: N - iHorizon];
-        self.mApplyIn['Date'] = range(0 , N - iHorizon);
+        lSize = N - iHorizon;
+        self.checkHorizon(N , iHorizon);
+        self.mApplyIn[iSignal] = lFullDF[0: lSize];
+        self.mApplyIn['Date'] = range(0 , lSize);
         #self.mApplyIn.to_csv(iSignal + "_applyIn.csv");
 
     def applyModel(self, iSignal, iHorizon):

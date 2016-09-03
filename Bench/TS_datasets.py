@@ -103,7 +103,8 @@ def load_ozone() :
 
 def generate_random_TS(N , FREQ, seed, trendtype, cycle_length, transform, sigma = 1.0) :
     tsspec = cTimeSeriesDatasetSpec();
-    tsspec.mName = "Random_Generated_Dataset_" + str(N) + "_" + str(FREQ);
+    tsspec.mName = "Signal_" + str(N) + "_" + str(FREQ) +  "_" + str(seed)  + "_" + str(trendtype) +  "_" + str(cycle_length)   + "_" + str(transform)   + "_" + str(sigma) ;
+    print("GENERATING_RANDOM_DATASET" , tsspec.mName);
     tsspec.mDescription = "Random generated dataset";
 
     np.random.seed(seed);
@@ -123,36 +124,45 @@ def generate_random_TS(N , FREQ, seed, trendtype, cycle_length, transform, sigma
     df_train['Date'] = pd.date_range('2000-1-1', periods=N, freq=FREQ)
 
     if(trendtype == "constant"):
-        df_train['GeneratedTrend'] = 0.5
+        df_train['GeneratedTrend'] = N *  (2 * np.random.random() - 1)
     if(trendtype == "linear"):
-        x = np.arange(0,N)  * (10.0 / N);
-        df_train['GeneratedTrend'] = 200.0 - 2.0 * x
+        x = np.arange(0,N) / (N + 0.1);
+        df_train['GeneratedTrend'] =  N * ((2 * np.random.random() - 1) -  (2 * np.random.random() - 1) * x)
     if(trendtype == "poly"):
-        x = np.arange(0,N)  * (10.0 / N);
-        df_train['GeneratedTrend'] = 200.0 - 2.0 * x
-        df_train['GeneratedTrend'] += 4.0 * x ** 2
+        x = np.arange(0, N);
+        df_train['GeneratedTrend'] =  (2 * np.random.random() - 1) + (2 * np.random.random() - 1) * x
+        df_train['GeneratedTrend'] +=  (2 * np.random.random() - 1) * x ** 2
+        df_train['GeneratedTrend'] = N * df_train['GeneratedTrend'];
 
     if(cycle_length > 0):
         df_train['GeneratedCycle'] = np.arange(0,N) % cycle_length;
+        lValues = np.random.randint(0, cycle_length, size=(cycle_length, 1)) * (N + 0.0)/cycle_length;
+        df_train['GeneratedCycle'] = df_train['GeneratedCycle'].apply(lambda x : lValues[int(x)][0]);
     if(cycle_length == 0):
         df_train['GeneratedCycle'] = 0;
         
-    df_train['Noise'] = np.random.randint(0, N, size=(N, 1)) * sigma;
+    df_train['Noise'] = np.random.randn(N, 1) * sigma;
     df_train['Signal'] = df_train['GeneratedTrend'] +  df_train['GeneratedCycle'] + df_train['Noise']
 
+    # print(df_train.head());
+    # print(df_train.info());
+    # print(df_train.describe());
+    
     min_sig = df_train['Signal'].min();
     pos_signal = df_train['Signal'] - min_sig + 1.0;
 
     if(transform == "exp"):
         df_train['Signal'] = np.exp(-pos_signal)
 
-#    df_train.to_csv(tsspec.mName + ".csv");
+    # df_train.to_csv(tsspec.mName + ".csv");
 
     tsspec.mTimeVar = "Date";
     tsspec.mSignalVar = "Signal";
     tsspec.mHorizon = 12;
     if(tsspec.mHorizon > (N//2)):
         tsspec.mHorizon = N // 2;
+    tsspec.mFullDataset = df_train;
+    tsspec.mFullDataset[tsspec.mName] = tsspec.mFullDataset['Signal'];
     tsspec.mPastData = df_train[:-tsspec.mHorizon];
     tsspec.mFutureData = df_train.tail(tsspec.mHorizon);
     
@@ -519,3 +529,36 @@ def download_yahoo_stock_prices() :
 
 def get_yahoo_symbol_lists():
     return symlist.SYMBOL_LIST;
+
+
+
+
+def generate_datasets(ds_type = "S"):
+    datasets = {};
+    lRange_N = range(5, 100, 20)
+    if(ds_type == "M"):
+        lRange_N = range(100, 500, 50)
+    if(ds_type == "L"):
+        lRange_N = range(500, 2000, 100)
+    if(ds_type == "XL"):
+        lRange_N = range(2000, 8000, 500)
+    
+    for N in lRange_N:
+        for trend in ["constant" , "linear" , "poly"]:
+            for cycle_length in range(0, 65 , 15):
+                for transf in ["" , "exp"]:            
+                    for sigma in range(0, 5, 2):
+                        for seed in range(0, 1):
+                            ds = generate_random_TS(N , 'D', seed, trend, cycle_length, transf, sigma);
+                            ds.mCategory = "ARTIFICIAL_" + ds_type; 
+                            datasets[ds.mName] = ds
+    return datasets;
+
+
+def load_artificial_datsets(ds_type = "S") :
+
+    tsspecs = generate_datasets(ds_type);
+    print("ARTIFICIAL_DATASETS_TESTED" , len(tsspecs))
+
+    return tsspecs
+
