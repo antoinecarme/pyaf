@@ -18,6 +18,8 @@ lAutoF.getModelInfo();
 
 lAutoF.mSignalDecomposition.mBestTransformation.mTimeInfo.mResolution
 
+lAutoF.standrdPlots(name = "my_airline_passengers")
+
 dfapp_in = df.copy();
 dfapp_in.tail()
 

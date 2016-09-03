@@ -34,8 +34,8 @@ class cAutoForecast:
         return  self.mSignalDecomposition.getModelInfo();
 
     
-    def standrdPlots(self):
-        self.mSignalDecomposition.standrdPlots();
+    def standrdPlots(self , name = None):
+        self.mSignalDecomposition.standrdPlots(name);
 
     def to_json(self):
         self.mSignalDecomposition.to_json();
