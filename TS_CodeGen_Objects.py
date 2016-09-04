@@ -34,10 +34,14 @@ class cDecompositionCodeGenObject:
       lTestTableAlias = lTestTable.alias('ApplyDataset')
       return lTestTableAlias;
 
+    def getFloatLiteral(self, iValue):
+        return sqlalchemy.sql.expression.literal(iValue, sqlalchemy.types.FLOAT);
+
+
     def generateCode(self, iAutoForecast):
         self.mAutoForecast = iAutoForecast;
         self.generateCode_Internal();
-        statement = select([self.mModel_CTE]);
+        statement = alias(select([self.mModel_CTE]) , "SQLGenResult");
         return self.generate_Sql(statement);
 
     def generateCode_Internal(self):
@@ -61,10 +65,14 @@ class cDecompositionCodeGenObject:
          self.mDateName = self.mAutoForecast.mSignalDecomposition.mBestTransformation.mTime
          self.mModelName =  self.mAutoForecast.mSignalDecomposition.mBestTransformation.mBestModelName
 
-         self.Shortify[self.mTrend.mOutName] = "STrend";
-         self.Shortify[self.mCycle.mOutName] = "SCycle";
-         self.Shortify[self.mAR.mOutName] = "SAR";
-
+         self.Shortened = {};
+         self.Shortened[self.mTrend.mOutName] = "STrend";
+         self.Shortened[self.mCycle.mOutName] = "SCycle";
+         self.Shortened[self.mAR.mOutName] = "SAR";
+         self.Shortened[self.mCycle.getCycleName()] = "SCycle";
+         self.Shortened[self.mCycle.getCycleResidueName()] = "SCycleRes";
+         self.Shortened[self.mModelName] = "SModel";
+         
          table = self.createLogicalTable("TestTableForCodeGen");         
          self.generateTransformationCode(table); # => Transformation_CTE
          self.generateTrendInputCode(); # => Trend_Inputs_CTE
@@ -119,30 +127,51 @@ class cDecompositionCodeGenObject:
         normalized_time_2 = normalized_time_2.label("NTime_2")
         normalized_time_3 = normalized_time_2 * normalized_time     
         normalized_time_3 = normalized_time_3.label("NTime_3")
-        exprs = exprs + [row_number_column , normalized_time, normalized_time_2, normalized_time_3]
+        lag1 = self.getFloatLiteral(0.0);
+        lag1 = lag1.label("Lag1")
+        exprs = exprs + [row_number_column , normalized_time, normalized_time_2, normalized_time_3, lag1]
         return exprs
     
     def generateTrendInputCode(self):
         # => Trend_Inputs_CTE
         trend_inputs = self.addTrendInputs(self.mTransformation_CTE, self.mDateName) 
-        self.mTrend_inputs_CTE = select([self.mTransformation_CTE] + trend_inputs).cte("CTE_Trend_Inputs")
+        self.mTrend_inputs_CTE = select([self.mTransformation_CTE] + trend_inputs).cte("TICTE")
+
+    def generateTrendExpression(self, table):
+        trend_expr = None;
+        if(self.mTrend.mFormula == "ConstantTrend"):
+            trend_expr = self.getFloatLiteral(self.mTrend.mMean);
+            pass
+        elif(self.mTrend.mFormula == "LinearTrend"):
+            trend_expr = self.mTrend.mTrendRidge.coef_[0] * table.c["NTime"] + self.mTrend.mTrendRidge.intercept_
+            pass
+        elif(self.mTrend.mFormula == "PolyTrend"):
+            trend_expr = self.mTrend.mTrendRidge.coef_[0] * table.c["NTime"];
+            trend_expr += self.mTrend.mTrendRidge.coef_[1] * table.c["NTime_2"];
+            trend_expr += self.mTrend.mTrendRidge.coef_[2] * table.c["NTime_3"];
+            trend_expr += self.mTrend.mTrendRidge.intercept_
+            pass
+        elif(self.mTrend.mFormula == "Lag1Trend"):
+            trend_expr = table.c["Lag1"];
+            pass
+        return trend_expr;
 
 
     def addTrends(self, table):
         exprs = []
-        trend_expr = table.c["normalized_time"]
+        trend_expr = self.generateTrendExpression(table);
         #print(type(trend_expr))
-        trend_expr = self.mTrend.mTrendRidge.coef_[0] * trend_expr + self.mTrend.mTrendRidge.intercept_
-        trend_expr = trend_expr.label(self.Shortify[self.mTrend.mOutName]);
+        
+        trend_expr = trend_expr.label(self.Shortened[self.mTrend.mOutName]);
         exprs = exprs + [trend_expr]
         return exprs
 
     def generateTrendCode(self):
         # => Trend_CTE
-        sel1 = alias(select([self.mTrend_inputs_CTE]), "TrendInputAlias")
+        sel1 = alias(select([self.mTrend_inputs_CTE]), "TIN")
         # print(sel1.columns)
         trends = self.addTrends(sel1)
-        self.mTrend_CTE = select([self.mTrend_inputs_CTE] + trends).cte("trend_CTE")
+        self.mTrend_CTE = select([self.mTrend_inputs_CTE] + trends).cte("TCTE")
 
 
 
@@ -163,49 +192,68 @@ class cDecompositionCodeGenObject:
 
     def generateCycleInputCode(self):
         # => Cycle_Inputs_CTE
-        sel1 = alias(select([self.mTrend_CTE]), "Trend_CTE1")
+        sel1 = alias(select([self.mTrend_CTE]), "TCTE1")
         # print(sel1.columns)
         cycle_inputs = self.addCycleInputs(sel1)
-        self.mCycle_input_CTE = select([self.mTrend_CTE] + cycle_inputs).cte("cycle_input_CTE")
+        self.mCycle_input_CTE = select([self.mTrend_CTE] + cycle_inputs).cte("CICTE")
+
+
+    def generateCycleExpression(self, table):
+        cycle_expr = None;
+        if(self.mCycle.mFormula == "NoCycle"):
+            cycle_expr = self.getFloatLiteral(0.0);
+            pass
+        elif(self.mCycle.mFormula.startswith("Seasonal_")):
+            cycle_expr = self.getFloatLiteral(0.0);
+            pass
+        elif(self.mCycle.mFormula.startswith("Cycle_None")):
+            cycle_expr = self.getFloatLiteral(0.0);
+            pass
+        elif(self.mCycle.mFormula.startswith("Cycle_")):
+            cycle_expr = self.getFloatLiteral(0.0);
+            pass
+        return cycle_expr;
+    
 
 
     def addCycles(self, table):
         exprs = []
-        cycle_expr = table.c["RN"] * 0.0;
-        cycle_expr = cycle_expr.label(self.mCycle.getCycleName())
+        cycle_expr = self.generateCycleExpression(table);
+        cycle_expr = cycle_expr.label(self.Shortened[self.mCycle.getCycleName()])
         exprs = exprs + [cycle_expr]
         return exprs
     
     def generateCycleCode(self):
         # => Cycle_CTE
-        sel1 = alias(select([self.mCycle_input_CTE]), "CycleInputAlias")
+        sel1 = alias(select([self.mCycle_input_CTE]), "CIN")
         # print(sel1.columns)
         cycles = self.addCycles(sel1)
-        self.mCycle_CTE = select([self.mCycle_input_CTE] + cycles).cte("cycle_CTE")
+        self.mCycle_CTE = select([self.mCycle_input_CTE] + cycles).cte("CYCTE")
 
 
     def addCycleResidues(self, table):
         exprs = []
-        cycle_expr = table.c[self.mCycle.getCycleName()];
-        trend_expr = table.c[self.Shortify[self.mTrend.mOutName]];
+        cycle_expr = table.c[self.Shortened[self.mCycle.getCycleName()]];
+        trend_expr = table.c[self.Shortened[self.mTrend.mOutName]];
         cycle_residue_expr = trend_expr + cycle_expr - table.c[self.mSignalName]
-        cycle_residue_expr = cycle_residue_expr.label(self.mCycle.getCycleResidueName())
+        cycle_residue_expr = cycle_residue_expr.label(self.Shortened[self.mCycle.getCycleResidueName()])
         exprs = exprs + [cycle_residue_expr]
         return exprs
 
 
     def generateCycleResidueCode(self):
         # => Cycle_Residue_CTE
-        sel1 = alias(select([self.mCycle_CTE]), "CycleAlias")
+        sel1 = alias(select([self.mCycle_CTE]), "CYIN")
         # print(sel1.columns)
         cycle_resdiues = self.addCycleResidues(sel1)
-        self.mCycle_residues_CTE = select([self.mCycle_CTE] + cycle_resdiues).cte("cycle_residues_CTE")
+        self.mCycle_residues_CTE = select([self.mCycle_CTE] + cycle_resdiues).cte("CYRESCTE")
 
 
 
     def createLags(self, table , H , col, index_col):
         TS = table
-        TS1 = table.alias("t");
+        TS1 = alias(table, "t");
+        # TS2 = text(TS1);
         col_expr_1 = TS1.c[col];
         index_expr = TS.c[index_col]
         index_expr_1 = TS1.c[index_col]
@@ -218,60 +266,69 @@ class cDecompositionCodeGenObject:
         return exprs;
 
     def addARInputs(self, table):
-        residue_name = self.mCycle.getCycleResidueName();
-        exprs = self.createLags(table, 
-                           len(self.mAR.mARLagNames), 
-                           residue_name,
-                           "RN");
-        exprs = exprs
+        exprs = []
+        if(self.mAR.mFormula != "NoAR"):
+            residue_name = self.Shortened[self.mCycle.getCycleResidueName()];
+            exprs = self.createLags(table, 
+                                    len(self.mAR.mARLagNames), 
+                                    residue_name,
+                                    "RN");
         return exprs
 
 
     def generateARInputCode(self):
         # => AR_Inputs_CTE
-        sel1 = alias(select([self.mCycle_residues_CTE]), "AR_CTE1")
+        sel1 = alias(select([self.mCycle_residues_CTE]), "CYRESCTE1")
         # print(sel1.columns)
         ar_inputs = self.addARInputs(sel1)
-        self.mAR_input_CTE = select([self.mCycle_residues_CTE] + ar_inputs).cte("ar_input_CTE")
+        self.mAR_input_CTE = select([self.mCycle_residues_CTE] + ar_inputs).cte("ARICTE")
 
     def addARModel(self, table):
         exprs = table.columns
         ar_expr = None;
-        i = 0 ;
-        for feat in self.mAR.mARLagNames:
-            if(ar_expr is None):
-                ar_expr = self.mAR.mARRidge.coef_[i] * table.c[feat];
-            else:
-                ar_expr = ar_expr + self.mAR.mARRidge.coef_[i] * table.c[feat];
-            i = i + 1;
-        ar_expr = ar_expr + self.mAR.mARRidge.intercept_;
-        ar_expr = ar_expr.label(self.Shortify[self.mAR.mOutName])
+        if(self.mAR.mFormula != "NoAR"):
+            i = 0 ;
+            for i in range(len(self.mAR.mARLagNames)):
+                feat = self.Shortened[self.mCycle.getCycleResidueName()] + "_Lag" + str(i+1);
+                if(ar_expr is None):
+                    ar_expr = self.mAR.mARRidge.coef_[i] * table.c[feat];
+                else:
+                    ar_expr = ar_expr + self.mAR.mARRidge.coef_[i] * table.c[feat];
+                i = i + 1;
+            ar_expr = ar_expr + self.mAR.mARRidge.intercept_;
+        else:
+            ar_expr = self.getFloatLiteral(0.0);
+        ar_expr = ar_expr.label(self.Shortened[self.mAR.mOutName])
         exprs = exprs + [ar_expr]
         return exprs
 
     def generateARCode(self):
         # => AR_CTE
-        sel1 = alias(select([self.mAR_input_CTE]), "ARInputAlias")
+        sel1 = alias(select([self.mAR_input_CTE]), "ARI")
         # print(sel1.columns)
         ars = self.addARModel(sel1)
-        self.mAR_CTE = select([self.mAR_input_CTE] + ars).cte("ar_CTE")
+        self.mAR_CTE = select([self.mAR_input_CTE] + ars).cte("ARCTE")
 
 
 
 
     def add_TS_Model(self, table):
         exprs = table.columns
-        model_expr = table.c[self.Shortify[self.mTrend.mOutName]] + table.c[self.Shortify[self.mCycle.mOutName]] + table.c[self.Shortify[self.mAR.mOutName]];
-        model_expr = model_expr.label(self.mModelName)
+        sum_1 = table.c[self.Shortened[self.mTrend.mOutName]];
+        sum_1 += table.c[self.Shortened[self.mCycle.mOutName]];
+        sum_1 += table.c[self.Shortened[self.mAR.mOutName]];
+        model_expr = sum_1;
+        model_expr = model_expr.label(self.Shortened[self.mModelName])
+        # model_residue = sum_1 - table.c[self.mSignalName]
         model_residue = model_expr - table.c[self.mSignalName]
-        model_residue = model_residue.label(self.mModelName + "Residue")
+        model_residue = model_residue.label(self.Shortened[self.mModelName] + "Residue")
         exprs = exprs + [model_expr , model_residue]
         return exprs
 
     def generateModelCode(self):
         # => Model_CTE
-        sel1 = alias(select([self.mAR_CTE]), "AR_Alias")
+        sel1 = alias(select([self.mAR_CTE]), "AR")
         # print(sel1.columns)
         model_vars = self.add_TS_Model(sel1)
-        self.mModel_CTE = select([self.mAR_CTE] + model_vars).cte("model_CTE")
+        self.mModel_CTE = select([self.mAR_CTE] + model_vars).cte("MODCTE")
 
