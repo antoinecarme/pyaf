@@ -3,6 +3,8 @@ from SignalDecomposition import SignalDecomposition_Options as tsopts
 from SignalDecomposition import SignalDecomposition_Perf as tsperf
 from SignalDecomposition import SignalDecomposition_utils as tsutil
 
+import TS_CodeGen_Objects as tscodegen
+
 class cAutoForecast:
         
     def __init__(self):
@@ -38,9 +40,15 @@ class cAutoForecast:
         self.mSignalDecomposition.standrdPlots(name);
 
     def to_json(self):
-        self.mSignalDecomposition.to_json();
+        return self.mSignalDecomposition.to_json();
 
     def computePerf(self, actual, predicted , name):
         lForecastPerf =  tsperf.cPerf();
         lForecastPerf.compute(actual, predicted, name);
         return lForecastPerf;
+
+    def generateCode(self):
+        lCodeGenerator = tscodegen.cDecompositionCodeGenObject();
+        lSQL = lCodeGenerator.generateCode(self);
+        print("GENERATED_SQL_CODE" , lSQL);
+        return lSQL;
