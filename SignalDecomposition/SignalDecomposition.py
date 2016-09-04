@@ -233,6 +233,7 @@ class cSignalDecompositionOneTransform:
         # estimate time info
         # assert(self.mTimeInfo.mSignalFrame.shape[0] == iInputDS.shape[0])
         self.mTimeInfo.estimate();
+        print("TIME_INFO " , self.mTimeInfo.info());
         self.mSignalFrame[self.mTimeInfo.mNormalizedTimeColumn] = self.mTimeInfo.mSignalFrame[self.mTimeInfo.mNormalizedTimeColumn]
         if(self.mOptions.mEnablePlots):    
             self.plotSignal()
