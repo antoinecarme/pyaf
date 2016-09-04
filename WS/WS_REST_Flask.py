@@ -27,7 +27,7 @@ def get_backend():
 def jsonify_models():
     backend = get_backend();
     dict1 = backend.models
-    return jsonify({'models' : [{'name': k, 'model': v.as_dict()} for k,v in dict1.items()]})    
+    return jsonify({'models' : [{k : v.as_dict()} for k,v in dict1.items()]})    
 
 
 # GET requests

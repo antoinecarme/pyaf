@@ -49,14 +49,9 @@ class cTimeInfo:
 
     def to_json(self):
         dict1 = {};
-        dict1["SignalVariable"] =  self.mSignal;
         dict1["TimeVariable"] =  self.mTime;
-        dict1["TimeMin"] =  self.mTimeMin;
-        dict1["TimeMax"] =  self.mTimeMax;
+        dict1["TimeMinMax"] =  [self.mTimeMin , self.mTimeMax];
         dict1["Horizon"] =  self.mHorizon;
-        dict1["Estimation"] =  [self.mEstimStart , self.mEstimEnd];
-        dict1["Validation"] =  [self.mValidStart , self.mValidEnd];
-        dict1["Test"] =  [self.mTestStart , self.mTestEnd];
         return dict1;
 
     def addVars(self, df):
