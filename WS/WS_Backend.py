@@ -59,10 +59,18 @@ class cWSModel:
         self.mForecast_DataFrame = self.mDetailedForecast_DataFrame[[self.mTimeVar , self.mSignalVar, self.mSignalVar + '_BestModelForecast']]
         self.mForecastData = self.mForecast_DataFrame.tail(self.mHorizon);
 
+    def generateCode(self):
+        self.mSQL = None;
+        try:
+            self.mSQL = self.mAutoForecast.generateCode();
+        except:
+            pass
+
     def create(self):
         self.readData();
         self.trainModel();
         self.applyModel();
+        self.generateCode();
 
     def update(self):
         self.create();
@@ -98,7 +106,8 @@ class cWSModel:
             "Present" : self.mPresentTime,
             "Horizon" : self.mHorizon,
             "ModelInfo" : [lModelInfo],
-            "ForecastData" : [lForecastData]
+            "ForecastData" : [lForecastData],
+            "SQL" : [self.mSQL]
         }
         return obj_d
 
