@@ -21,64 +21,13 @@ def get_backend():
     return backend;
 
 
-# DATASETS
-
-# GET requests
-
-def jsonify_datasets():
-    backend = get_backend();
-    dict1 = backend.datasets
-    return jsonify({'datasets' : [{'name': k, 'dataset': v.as_dict()} for k,v in dict1.items()]})    
-
-@app.route('/datasets', methods=['GET'])
-def returnAllDS():
-    backend = get_backend();
-    return jsonify_datasets();
-
-@app.route('/dataset/<string:name>', methods=['GET'])
-def returnOneDS(name):
-    backend = get_backend();
-    ds = backend.get_dataset(name);
-    if(ds):
-        return jsonify({'dataset' : ds.as_dict()})
-    return jsonify({})
-
-# POST requests
-
-@app.route('/dataset', methods=['POST'])
-def addOneDS():
-    backend = get_backend();
-    print("JSON : " , request.json);
-    print("JSON : " , request.__dict__);
-    backend.add_dataset(request.json);
-    return jsonify_datasets();
-
-# PUT requests 
-
-@app.route('/dataset/<string:name>', methods=['PUT'])
-def editOneDS(name):
-    backend = get_backend();
-    backend = get_backend();
-    backend.update_dataset(name , request.json['name']);
-    ds = backend.get_dataset(name);
-    if(ds):
-        return jsonify({'dataset' : ds.as_dict()})
-    return jsonify({})
-
-# DELETE requests
-
-@app.route('/dataset/<string:name>', methods=['DELETE'])
-def removeOneDS(name):
-    backend = get_backend();
-    backend.remove_dataset(name);
-    return jsonify_datasets();
 
 # MODELS
 
 def jsonify_models():
     backend = get_backend();
     dict1 = backend.models
-    return jsonify({'models' : [{'name': k, 'dataset': v.as_dict()} for k,v in dict1.items()]})    
+    return jsonify({'models' : [{'name': k, 'model': v.as_dict()} for k,v in dict1.items()]})    
 
 
 # GET requests
