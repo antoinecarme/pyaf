@@ -56,7 +56,7 @@ class cWSModel:
     def applyModel(self):
         self.mApplyIn = self.mTrainDataFrame;
         self.mDetailedForecast_DataFrame = self.mAutoForecast.forecast(self.mApplyIn, self.mHorizon);
-        self.mForecast_DataFrame = self.mDetailedForecast_DataFrame[[self.mTimeVar , self.mSignalVar, self.mSignalVar + '_BestModelForecast']]
+        self.mForecast_DataFrame = self.mDetailedForecast_DataFrame; # [[self.mTimeVar , self.mSignalVar, self.mSignalVar + '_BestModelForecast']];
         self.mForecastData = self.mForecast_DataFrame.tail(self.mHorizon);
 
     def generateCode(self):
