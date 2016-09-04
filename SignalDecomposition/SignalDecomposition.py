@@ -481,14 +481,14 @@ class cSignalDecomposition:
 
     def to_json(self):
         dict1 = {};
-        dict1["Dataset"] = { "Time Info" : self.mBestTransformation.mTimeInfo.to_json(),
-                             "Signal Info" : self.mBestTransformation.mOriginalSignal,
-                             "Signal length" : self.mBestTransformation.mBestModelFrame.shape[0]};
-        dict1["Model"] = { "Best Decomposition" : self.mBestTransformation.mBestModelName,
-                           "Transoformation Info" : self.mBestTransformation.mTransformation.get_name(""),
-                           "Trend Info" : self.mBestTransformation.mBestModelTrend.mOutName,
-                           "Cycle Info" : self.mBestTransformation.mBestModelCycle.mOutName,
-                           "AR Info" : self.mBestTransformation.mBestModelAR.mOutName};
+        dict1["Dataset"] = { "Time" : self.mBestTransformation.mTimeInfo.to_json(),
+                             "Signal" : self.mBestTransformation.mOriginalSignal,
+                             "Signal_length" : self.mBestTransformation.mBestModelFrame.shape[0]};
+        dict1["Model"] = { "Best_Decomposition" : self.mBestTransformation.mBestModelName,
+                           "Signal_Transoformation" : self.mBestTransformation.mTransformation.get_name(""),
+                           "Trend" : self.mBestTransformation.mBestModelTrend.mOutName,
+                           "Cycle" : self.mBestTransformation.mBestModelCycle.mOutName,
+                           "AR_Model" : self.mBestTransformation.mBestModelAR.mOutName};
         dict1["Performance Info By Transformation"] = self.mTrPerfDetails.to_json();
         return dict1;
         

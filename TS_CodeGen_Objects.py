@@ -95,7 +95,20 @@ class cDecompositionCodeGenObject:
         # date2 = dt.datetime(year1, 7, 11, 12, 47, 28)
         # trasformed_time = func.dateadd(func.cast(trasformed_time, bindparam('tomorrow', timedelta(days=1), Interval()))
         # trasformed_signal = trasformed_signal.label("Time");
-        exprs = exprs + [ trasformed_signal ]; # , trasformed_time, year1, ratio, date2]
+        normalized_time = None;
+        lTimeInfo = self.mAutoForecast.mSignalDecomposition.mBestTransformation.mTimeInfo
+        if(lTimeInfo.isPhysicalTime()):
+            # count the number of days here if date. number of seconds if datetime
+            lAmplitude = func.cast(lTimeInfo.mTimeMax , DATETIME) - func.cast(lTimeInfo.mTimeMin , DATETIME)
+            normalized_time = (func.cast(table.c[self.mDateName] , DATETIME) - func.cast(lTimeInfo.mTimeMin, DATETIME)) ;
+        else:
+            lAmplitude = lTimeInfo.mTimeMax - lTimeInfo.mTimeMin
+            normalized_time = table.c[self.mDateName] - lTimeInfo.mTimeMin ;
+        normalized_time = normalized_time / lAmplitude
+        normalized_time = normalized_time.label("NTime")
+        row_number_column = func.row_number().over(order_by=asc(table.c[self.mDateName])).label('RN') - 1
+        row_number_column = row_number_column.label("RN")
+        exprs = exprs + [ row_number_column , normalized_time, trasformed_signal ]; # , trasformed_time, year1, ratio, date2]
         return exprs
 
     def generateTransformationCode(self, table):
@@ -103,38 +116,27 @@ class cDecompositionCodeGenObject:
         signal_exprs = self.addTransformedSignal(table) 
         self.mTransformation_CTE = select([table] + signal_exprs).cte("CTE_Transformation")
 
-    def julian_day(date_expr):
-        expr_months = extract('year', date_expr) * 12 + extract('month', date_expr) 
-        return expr_months;
-
     def julian_day(self, date_expr):
         expr_months = extract('year', date_expr) * 12 + extract('month', date_expr) 
         return expr_months;
 
 
-    def addTrendInputs(self, table , time_col):
+    def addTrendInputs(self, table):
+        lSecondsInADay = 3600.0 * 24;
         exprs = []
-        lTimeInfo = self.mAutoForecast.mSignalDecomposition.mBestTransformation.mTimeInfo
-        lAmplitude = lTimeInfo.mTimeMax - lTimeInfo.mTimeMin
-        lAmplitude = lAmplitude
-        row_number_column = func.row_number().over(order_by=asc(table.c[time_col])).label('RN') - 1
-        row_number_column = row_number_column.label("RN")
-        #    normalized_time = func.datediff(text('month'), table.c[time_col] , lTimeInfo.mTimeMin) / func.datediff(text('month'), lTimeInfo.mTimeMax , lTimeInfo.mTimeMin)
-        normalized_time = (self.julian_day(table.c[time_col]) - self.julian_day(lTimeInfo.mTimeMin)) ;
-        normalized_time = normalized_time / lAmplitude
-        normalized_time = normalized_time.label("NTime")
+        normalized_time = table.c["NTime"];
         normalized_time_2 = normalized_time * normalized_time
         normalized_time_2 = normalized_time_2.label("NTime_2")
         normalized_time_3 = normalized_time_2 * normalized_time     
         normalized_time_3 = normalized_time_3.label("NTime_3")
         lag1 = self.getFloatLiteral(0.0);
         lag1 = lag1.label("Lag1")
-        exprs = exprs + [row_number_column , normalized_time, normalized_time_2, normalized_time_3, lag1]
+        exprs = exprs + [ normalized_time_2, normalized_time_3, lag1]
         return exprs
     
     def generateTrendInputCode(self):
         # => Trend_Inputs_CTE
-        trend_inputs = self.addTrendInputs(self.mTransformation_CTE, self.mDateName) 
+        trend_inputs = self.addTrendInputs(self.mTransformation_CTE) 
         self.mTrend_inputs_CTE = select([self.mTransformation_CTE] + trend_inputs).cte("TICTE")
 
     def generateTrendExpression(self, table):
