@@ -96,15 +96,18 @@ class cWSModel:
         if(self.mForecastData is not None):
             lForecastData = self.mForecastData.to_json(date_format='iso');
         lModelInfo = self.getModelInfo();
-        obj_d = {
-            "Name" : self.mName,
-            "CreationDate" : self.mCreationDate.isoformat(),            
+        lTrainOptions =  {
             'CSVFile': self.mCSVFile,
             'DateFormat': self.mDateFormat,
             "SignalVar" : self.mSignalVar,
             "TimeVar" : self.mTimeVar,
             "Present" : self.mPresentTime,
             "Horizon" : self.mHorizon,
+        }
+        obj_d = {
+            "Name" : self.mName,
+            "CreationDate" : self.mCreationDate.isoformat(),            
+            'TrainOptions': [ lTrainOptions ],
             "ModelInfo" : [lModelInfo],
             "ForecastData" : [lForecastData],
             "SQL" : [self.mSQL]

@@ -481,15 +481,15 @@ class cSignalDecomposition:
 
     def to_json(self):
         dict1 = {};
-        dict1["Time Info"] = self.mBestTransformation.mTimeInfo.to_json();
-        dict1["Transoformation Info"] = self.mBestTransformation.mTransformation.get_name("");
-        dict1["Signal Info"] = self.mBestTransformation.mOriginalSignal;
-        dict1["Signal length"] = self.mBestTransformation.mBestModelFrame.shape[0] ;
-        dict1["Decomposition Info Model"] =  self.mBestTransformation.mBestModelName;
-        dict1["Trend Info"] = self.mBestTransformation.mBestModelTrend.mOutName;
-        dict1["Cycle Info"] = self.mBestTransformation.mBestModelCycle.mOutName;
-        dict1["AR Info"] = self.mBestTransformation.mBestModelAR.mOutName;
-        dict1["Performance Info"] = self.mTrPerfDetails.to_json();
+        dict1["Dataset"] = { "Time Info" : self.mBestTransformation.mTimeInfo.to_json(),
+                             "Signal Info" : self.mBestTransformation.mOriginalSignal,
+                             "Signal length" : self.mBestTransformation.mBestModelFrame.shape[0]};
+        dict1["Model"] = { "Best Decomposition" : self.mBestTransformation.mBestModelName,
+                           "Transoformation Info" : self.mBestTransformation.mTransformation.get_name(""),
+                           "Trend Info" : self.mBestTransformation.mBestModelTrend.mOutName,
+                           "Cycle Info" : self.mBestTransformation.mBestModelCycle.mOutName,
+                           "AR Info" : self.mBestTransformation.mBestModelAR.mOutName};
+        dict1["Performance Info By Transformation"] = self.mTrPerfDetails.to_json();
         return dict1;
         
     def standrdPlots(self, name = None):
