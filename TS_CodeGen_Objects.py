@@ -61,6 +61,10 @@ class cDecompositionCodeGenObject:
          self.mDateName = self.mAutoForecast.mSignalDecomposition.mBestTransformation.mTime
          self.mModelName =  self.mAutoForecast.mSignalDecomposition.mBestTransformation.mBestModelName
 
+         self.Shortify[self.mTrend.mOutName] = "STrend";
+         self.Shortify[self.mCycle.mOutName] = "SCycle";
+         self.Shortify[self.mAR.mOutName] = "SAR";
+
          table = self.createLogicalTable("TestTableForCodeGen");         
          self.generateTransformationCode(table); # => Transformation_CTE
          self.generateTrendInputCode(); # => Trend_Inputs_CTE
@@ -105,16 +109,16 @@ class cDecompositionCodeGenObject:
         lTimeInfo = self.mAutoForecast.mSignalDecomposition.mBestTransformation.mTimeInfo
         lAmplitude = lTimeInfo.mTimeMax - lTimeInfo.mTimeMin
         lAmplitude = lAmplitude
-        row_number_column = func.row_number().over(order_by=asc(table.c[time_col])).label('row_number') - 1
-        row_number_column = row_number_column.label("row_number")
+        row_number_column = func.row_number().over(order_by=asc(table.c[time_col])).label('RN') - 1
+        row_number_column = row_number_column.label("RN")
         #    normalized_time = func.datediff(text('month'), table.c[time_col] , lTimeInfo.mTimeMin) / func.datediff(text('month'), lTimeInfo.mTimeMax , lTimeInfo.mTimeMin)
         normalized_time = (self.julian_day(table.c[time_col]) - self.julian_day(lTimeInfo.mTimeMin)) ;
         normalized_time = normalized_time / lAmplitude
-        normalized_time = normalized_time.label("normalized_time")
+        normalized_time = normalized_time.label("NTime")
         normalized_time_2 = normalized_time * normalized_time
-        normalized_time_2 = normalized_time_2.label("normalized_time_2")
+        normalized_time_2 = normalized_time_2.label("NTime_2")
         normalized_time_3 = normalized_time_2 * normalized_time     
-        normalized_time_3 = normalized_time_3.label("normalized_time_3")
+        normalized_time_3 = normalized_time_3.label("NTime_3")
         exprs = exprs + [row_number_column , normalized_time, normalized_time_2, normalized_time_3]
         return exprs
     
@@ -129,7 +133,7 @@ class cDecompositionCodeGenObject:
         trend_expr = table.c["normalized_time"]
         #print(type(trend_expr))
         trend_expr = self.mTrend.mTrendRidge.coef_[0] * trend_expr + self.mTrend.mTrendRidge.intercept_
-        trend_expr = trend_expr.label(self.mTrend.mOutName);
+        trend_expr = trend_expr.label(self.Shortify[self.mTrend.mOutName]);
         exprs = exprs + [trend_expr]
         return exprs
 
@@ -146,12 +150,12 @@ class cDecompositionCodeGenObject:
         lTime =  self.mDateName;
         exprs = []
         date_expr = table.c[lTime]
-        date_parts = [extract('year', date_expr).label(lTime + "_year") ,  
-                      extract('month', date_expr).label(lTime + "_month") ,  
-                      extract('day', date_expr).label(lTime + "_day") ,  
-                      extract('hour', date_expr).label(lTime + "_hour") ,  
-                      extract('minute', date_expr).label(lTime + "_minute") ,  
-                      extract('second', date_expr).label(lTime + "_second") ,  
+        date_parts = [extract('year', date_expr).label(lTime + "_Y") ,  
+                      extract('month', date_expr).label(lTime + "_M") ,  
+                      extract('day', date_expr).label(lTime + "_D") ,  
+                      extract('hour', date_expr).label(lTime + "_h") ,  
+                      extract('minute', date_expr).label(lTime + "_m") ,  
+                      extract('second', date_expr).label(lTime + "_s") ,  
                       extract('dow', date_expr).label(lTime + "_dow") ,  
                       extract('week', date_expr).label(lTime + "_woy")]
         exprs = exprs + date_parts
@@ -167,7 +171,7 @@ class cDecompositionCodeGenObject:
 
     def addCycles(self, table):
         exprs = []
-        cycle_expr = table.c["row_number"] * 0.0;
+        cycle_expr = table.c["RN"] * 0.0;
         cycle_expr = cycle_expr.label(self.mCycle.getCycleName())
         exprs = exprs + [cycle_expr]
         return exprs
@@ -183,7 +187,7 @@ class cDecompositionCodeGenObject:
     def addCycleResidues(self, table):
         exprs = []
         cycle_expr = table.c[self.mCycle.getCycleName()];
-        trend_expr = table.c[self.mTrend.mOutName];
+        trend_expr = table.c[self.Shortify[self.mTrend.mOutName]];
         cycle_residue_expr = trend_expr + cycle_expr - table.c[self.mSignalName]
         cycle_residue_expr = cycle_residue_expr.label(self.mCycle.getCycleResidueName())
         exprs = exprs + [cycle_residue_expr]
@@ -218,7 +222,7 @@ class cDecompositionCodeGenObject:
         exprs = self.createLags(table, 
                            len(self.mAR.mARLagNames), 
                            residue_name,
-                           "row_number");
+                           "RN");
         exprs = exprs
         return exprs
 
@@ -241,7 +245,7 @@ class cDecompositionCodeGenObject:
                 ar_expr = ar_expr + self.mAR.mARRidge.coef_[i] * table.c[feat];
             i = i + 1;
         ar_expr = ar_expr + self.mAR.mARRidge.intercept_;
-        ar_expr = ar_expr.label(self.mAR.mOutName)
+        ar_expr = ar_expr.label(self.Shortify[self.mAR.mOutName])
         exprs = exprs + [ar_expr]
         return exprs
 
@@ -257,7 +261,7 @@ class cDecompositionCodeGenObject:
 
     def add_TS_Model(self, table):
         exprs = table.columns
-        model_expr = table.c[self.mTrend.mOutName] + table.c[self.mCycle.mOutName] + table.c[self.mAR.mOutName];
+        model_expr = table.c[self.Shortify[self.mTrend.mOutName]] + table.c[self.Shortify[self.mCycle.mOutName]] + table.c[self.Shortify[self.mAR.mOutName]];
         model_expr = model_expr.label(self.mModelName)
         model_residue = model_expr - table.c[self.mSignalName]
         model_residue = model_residue.label(self.mModelName + "Residue")
