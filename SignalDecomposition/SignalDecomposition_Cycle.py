@@ -185,7 +185,7 @@ class cBestCycleForTrend(cAbstractCycle):
         self.generate_cycles(NbCycles);
         self.computeBestCycle();
         self.mOutName = self.getCycleName()
-        self.mFormula = "NoCycleDetected"
+        self.mFormula = "Cycle_None"
         if(self.mBestCycleLength > 0):
             self.mFormula = "Cycle_Length_" + str(self.mBestCycleLength);
             

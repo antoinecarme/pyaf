@@ -20,7 +20,7 @@ class cAbstractTrend:
         self.mTrendFrame = pd.DataFrame()
         self.mTrendPerf = tsperf.cPerf();
         self.mOutName = ""
-        self.mFormula = self.mOutName;    
+        self.mFormula = None;    
 
     def computePerf(self):
         self.mTrendFitPerf = tsperf.cPerf();
