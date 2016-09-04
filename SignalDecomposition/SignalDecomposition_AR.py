@@ -86,7 +86,7 @@ class cAutoRegressiveModel(cAbstractAR):
         self.mDefaultValue = self.mAREstimFrame[series].mean()
         self.mARFrame.fillna(self.mDefaultValue , inplace=True)
         self.mAREstimFrame.fillna(self.mDefaultValue , inplace=True)
-        self.mARLagNames = self.mARFrame.columns;
+        self.mARLagNames = self.mARFrame.columns[1:];
         
         lARInputs = self.mAREstimFrame.drop([series]  , axis=1).values
         lARTarget = self.mAREstimFrame[series].values
