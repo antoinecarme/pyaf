@@ -102,7 +102,7 @@ class cDecompositionCodeGenObject:
         # connected mode.
         # lDSN = "sqlite://";
         lDSN = "postgresql:///GitHubtest";
-        lDSN = "mysql://user:pass@localhost/GitHubtest";
+        # lDSN = "mysql://user:pass@localhost/GitHubtest";
         self.mEngine = create_engine(lDSN , echo=True)
         self.mConnection = self.mEngine.connect()
         self.mMeta = MetaData(bind = self.mConnection);
@@ -128,7 +128,7 @@ class cDecompositionCodeGenObject:
                            self.mMeta,
                            autoload=True,
                            autoload_with = self.mEngine);
-        #lTestTable.drop();
+        lTestTable.drop();
         del self.mEngine;
         del self.mConnection;
         del self.mMeta;
@@ -191,7 +191,9 @@ class cDecompositionCodeGenObject:
          print(self.Shortened);
 
          
-         table = self.createLogicalTable("TestTableForCodeGen");         
+         table = self.createLogicalTable("TestTableForCodeGen");
+         
+         self.generateRowNumberCode(table); # => RowNumber_CTE
          self.generateTransformationCode(table); # => Transformation_CTE
          self.generateTrendInputCode(); # => Trend_Inputs_CTE
          self.generateTrendCode(); # => Trend_CTE
@@ -202,17 +204,8 @@ class cDecompositionCodeGenObject:
          self.generateARCode(); # => AR_CTE
          self.generateModelCode(); # => Model_CTE
 
-    def addTransformedSignal(self, table):
+    def addRowNumber(self, table):
         exprs = []; # table.c[self.mDateName].label(self.mDateAlias), table.c[self.mSignalName].label(self.mSignalAlias)]
-        trasformed_signal = table.c[ self.mSignalName ];
-        trasformed_signal = trasformed_signal.label("Signal");
-        # trasformed_time = table.c[lTimeName];
-        # year1 = func.extract('year' , trasformed_time);
-        # year1 = func.cast(trasformed_time , Integer);
-        # ratio = trasformed_time - year1
-        # date2 = dt.datetime(year1, 7, 11, 12, 47, 28)
-        # trasformed_time = func.dateadd(func.cast(trasformed_time, bindparam('tomorrow', timedelta(days=1), Interval()))
-        # trasformed_signal = trasformed_signal.label("Time");
         normalized_time = None;
         lTimeInfo = self.mAutoForecast.mSignalDecomposition.mBestTransformation.mTimeInfo
         if(lTimeInfo.isPhysicalTime()):
@@ -229,13 +222,26 @@ class cDecompositionCodeGenObject:
         normalized_time = normalized_time.label("NTime")
         row_number_column = func.row_number().over(order_by=asc(table.c[self.mDateName])) - 1
         row_number_column = row_number_column.label(self.mRowNumberAlias)
-        exprs = exprs + [ row_number_column , normalized_time, trasformed_signal ]; # , trasformed_time, year1, ratio, date2]
+        exprs = exprs + [ row_number_column , normalized_time];
+        return exprs
+
+    def generateRowNumberCode(self, table):
+        # => Transformation_CTE
+        signal_exprs = self.addRowNumber(table) 
+        self.mRowNumber_CTE = self.generate_CTE(table.columns  + signal_exprs, "RowNumber_CTE")
+        self.debrief_cte(self.mRowNumber_CTE)
+
+    def addTransformedSignal(self, table):
+        exprs = []; # table.c[self.mDateName].label(self.mDateAlias), table.c[self.mSignalName].label(self.mSignalAlias)]
+        trasformed_signal = table.c[ self.mSignalName ];
+        trasformed_signal = trasformed_signal.label("Signal");
+        exprs = exprs + [ trasformed_signal ];
         return exprs
 
     def generateTransformationCode(self, table):
         # => Transformation_CTE
-        signal_exprs = self.addTransformedSignal(table) 
-        self.mTransformation_CTE = self.generate_CTE(table.columns  + signal_exprs, "CTE_Transformation")
+        signal_exprs = self.addTransformedSignal(self.mRowNumber_CTE) 
+        self.mTransformation_CTE = self.generate_CTE([self.mRowNumber_CTE]  + signal_exprs, "Transformation_CTE")
         self.debrief_cte(self.mTransformation_CTE)
 
     def julian_day(self, date_expr):
