@@ -97,11 +97,16 @@ class cDecompositionCodeGenObject:
             cte1 = select(exprs).alias(name);
             return cte1
 
+    def hasAnalyticalRowNumber(self):
+        lDialectName = self.getDialectName();
+        return (("sqlite" != lDialectName) and
+                ("mysql" != lDialectName));
+
     
     def createConnection(self):
         # connected mode.
-        # lDSN = "sqlite://";
-        lDSN = "postgresql:///GitHubtest";
+        lDSN = "sqlite://";
+        # lDSN = "postgresql:///GitHubtest";
         # lDSN = "mysql://user:pass@localhost/GitHubtest";
         self.mEngine = create_engine(lDSN , echo=True)
         self.mConnection = self.mEngine.connect()
@@ -158,8 +163,9 @@ class cDecompositionCodeGenObject:
 
     def generateCode_Internal(self):
          # M = T + C + AR
-         # 0. the input is a table Table1 containing he date and the signal, normalized date and row number
-         # 0.1 compute the transformed sgnal in a CTE, CTE_Transformation, contains Table1
+         # 0. the input is a table Table1 containing he date , normalized date and row number
+         # 0.1 the input is a table Table1 containing he date and the signal, normalized date and row number
+         # 0.2 compute the transformed sgnal in a CTE, CTE_Transformation, contains Table1
          # 1. collect trend inputs in a CTE , CTE_Trend_Inputs, containing CTE_Transformation, lag1, time, normalized time, row_number etc
          # 2. generate trend value in a CTE, CTE_Trend_value, containing Table1, time, normalized time, row number etc
          # 3. collect cycle inputs in a CTE, CTE_Cycle_Inputs, containing CTE_Trend_value and used date parts, this CTE may be the same as CTE_Trend_value
@@ -204,8 +210,9 @@ class cDecompositionCodeGenObject:
          self.generateARCode(); # => AR_CTE
          self.generateModelCode(); # => Model_CTE
 
-    def addRowNumber(self, table):
-        exprs = []; # table.c[self.mDateName].label(self.mDateAlias), table.c[self.mSignalName].label(self.mSignalAlias)]
+
+    def addNormalizedTime(self, table):
+        exprs = [];
         normalized_time = None;
         lTimeInfo = self.mAutoForecast.mSignalDecomposition.mBestTransformation.mTimeInfo
         if(lTimeInfo.isPhysicalTime()):
@@ -220,15 +227,37 @@ class cDecompositionCodeGenObject:
             normalized_time = table.c[self.mDateName] - lTimeInfo.mTimeMin ;
         normalized_time = normalized_time / lAmplitude
         normalized_time = normalized_time.label("NTime")
+        exprs = exprs + [normalized_time];
+        return exprs
+        
+    def addRowNumber_analytical(self, table):
+        exprs = [];
         row_number_column = func.row_number().over(order_by=asc(table.c[self.mDateName])) - 1
         row_number_column = row_number_column.label(self.mRowNumberAlias)
-        exprs = exprs + [ row_number_column , normalized_time];
+        exprs = exprs + [ row_number_column];
+        return exprs
+
+    def addRowNumber_as_count(self, table):
+        exprs = [];
+        TS1 = alias(select([table.columns[self.mDateName]]), "t1");
+        time_expr_1 = table.c[self.mDateName];
+        time_expr_2 = TS1.c[self.mDateName];
+        
+        expr = select([func.count(time_expr_2)]).where(time_expr_1 > time_expr_2);
+        row_number_column = expr;
+        row_number_column = row_number_column.label(self.mRowNumberAlias)
+        exprs = exprs + [ row_number_column];
         return exprs
 
     def generateRowNumberCode(self, table):
-        # => Transformation_CTE
-        signal_exprs = self.addRowNumber(table) 
-        self.mRowNumber_CTE = self.generate_CTE(table.columns  + signal_exprs, "RowNumber_CTE")
+        # => RowNumber_CTE
+        exprs1 = None;
+        if(self.hasAnalyticalRowNumber()):
+            exprs1 = self.addRowNumber_analytical(table);
+        else:
+            exprs1 = self.addRowNumber_as_count(table);
+        exprs2 = self.addNormalizedTime(table);
+        self.mRowNumber_CTE = self.generate_CTE(table.columns  + exprs1 + exprs2, "RowNumber_CTE")
         self.debrief_cte(self.mRowNumber_CTE)
 
     def addTransformedSignal(self, table):
