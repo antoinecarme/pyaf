@@ -105,9 +105,9 @@ class cDecompositionCodeGenObject:
     
     def createConnection(self):
         # connected mode.
-        lDSN = "sqlite://";
+        # lDSN = "sqlite://";
         # lDSN = "postgresql:///GitHubtest";
-        # lDSN = "mysql://user:pass@localhost/GitHubtest";
+        lDSN = "mysql://user:pass@localhost/GitHubtest";
         self.mEngine = create_engine(lDSN , echo=True)
         self.mConnection = self.mEngine.connect()
         self.mMeta = MetaData(bind = self.mConnection);
@@ -123,7 +123,7 @@ class cDecompositionCodeGenObject:
 
     def testGeneration(self, iAutoForecast):
         self.createConnection();
-        df = iAutoForecast.mSignalDecomposition.mBestTransformation.mSignalFrame;
+        df = iAutoForecast.mSignalDecomposition.mTrainingDataset;
         df.index.names = [ "PrimaryKey" ];
         lTestTableName = "TestTableForCodeGen";
         df.to_sql(lTestTableName , self.mConnection,  if_exists='replace', index=True)
@@ -183,8 +183,8 @@ class cDecompositionCodeGenObject:
          self.mDateName = self.mAutoForecast.mSignalDecomposition.mBestTransformation.mTime
          self.mModelName =  self.mAutoForecast.mSignalDecomposition.mBestTransformation.mBestModelName
 
-         self.mDateAlias = "Date" 
-         self.mSignalAlias = "Signal" 
+         self.mDateAlias = "DateAlias" 
+         self.mSignalAlias = "SignalAlias" 
          self.mRowNumberAlias = "RN";
 
          self.Shortened = {};
@@ -263,7 +263,7 @@ class cDecompositionCodeGenObject:
     def addTransformedSignal(self, table):
         exprs = []; # table.c[self.mDateName].label(self.mDateAlias), table.c[self.mSignalName].label(self.mSignalAlias)]
         trasformed_signal = table.c[ self.mSignalName ];
-        trasformed_signal = trasformed_signal.label("Signal");
+        trasformed_signal = trasformed_signal.label(self.mSignalAlias);
         exprs = exprs + [ trasformed_signal ];
         return exprs
 
@@ -272,10 +272,6 @@ class cDecompositionCodeGenObject:
         signal_exprs = self.addTransformedSignal(self.mRowNumber_CTE) 
         self.mTransformation_CTE = self.generate_CTE([self.mRowNumber_CTE]  + signal_exprs, "Transformation_CTE")
         self.debrief_cte(self.mTransformation_CTE)
-
-    def julian_day(self, date_expr):
-        expr_months = extract('year', date_expr) * 12 + extract('month', date_expr) 
-        return expr_months;
 
 
     def addTrendInputs(self, table):
@@ -345,14 +341,15 @@ class cDecompositionCodeGenObject:
         lTimeInfo = self.mAutoForecast.mSignalDecomposition.mBestTransformation.mTimeInfo
         if(lTimeInfo.isPhysicalTime()):
             date_expr = table.c[lTime]
-            date_parts = [extract('year', date_expr).label(lTime + "_Y") ,  
-                          extract('month', date_expr).label(lTime + "_M") ,  
-                          extract('day', date_expr).label(lTime + "_D") ,  
-                          extract('hour', date_expr).label(lTime + "_h") ,  
-                          extract('minute', date_expr).label(lTime + "_m") ,  
-                          extract('second', date_expr).label(lTime + "_s") ,  
-                          extract('dow', date_expr).label(lTime + "_dow") ,  
-                          extract('week', date_expr).label(lTime + "_woy")]
+            date_parts = [extract('year', date_expr).label(lTime + "_Year") ,  
+                          extract('month', date_expr).label(lTime + "_Month") ,  
+                          extract('day', date_expr).label(lTime + "_Day") ,  
+                          extract('hour', date_expr).label(lTime + "_hour") ,  
+                          extract('minute', date_expr).label(lTime + "_min") ,  
+                          extract('second', date_expr).label(lTime + "_sec") ,  
+                          # extract('dow', date_expr).label(lTime + "_dow") ,  
+                          # extract('week', date_expr).label(lTime + "_woy")
+                          ]
             exprs = exprs + date_parts
         return exprs
 
@@ -364,6 +361,27 @@ class cDecompositionCodeGenObject:
         self.mCycle_input_CTE = self.generate_CTE([self.mTrend_CTE] + cycle_inputs, "CICTE")
         self.debrief_cte(self.mCycle_input_CTE)
 
+    
+    def generateCaseWhen(self, iExpr , iValue , iOutput, iElse):
+        cond1 = None;
+        cond1 = (iExpr == iValue);
+        expr1 = case([(cond1 , iOutput)], else_ = iElse);
+        return expr1;
+
+
+    def generateCycleSpecificExpression(self, iExpr, iDict, iDefault):
+        expr_2 = None;
+        lDict = iDict;
+        key, value = lDict.popitem()
+        expr_1 = None;
+        if(len(lDict) > 0):
+            expr_1 = self.generateCycleSpecificExpression(iExpr, lDict, iDefault);
+        else:
+            return self.getFloatLiteral(iDefault);
+        valueexpr =  self.getFloatLiteral(value);
+        expr_2 = self.generateCaseWhen(iExpr, int(key), valueexpr, expr_1);
+        return expr_2;
+
 
     def generateCycleExpression(self, table):
         cycle_expr = None;
@@ -371,13 +389,20 @@ class cDecompositionCodeGenObject:
             cycle_expr = self.getFloatLiteral(0.0);
             pass
         elif(self.mCycle.mFormula.startswith("Seasonal_")):
-            cycle_expr = self.getFloatLiteral(0.0);
+            lExpr = table.c[self.mDateName + "_Day"]
+            cycle_expr = self.generateCycleSpecificExpression(lExpr ,
+                                                              self.mCycle.mEncodedValueDict,
+                                                              self.mCycle.mDefaultValue);
             pass
         elif(self.mCycle.mFormula.startswith("Cycle_None")):
             cycle_expr = self.getFloatLiteral(0.0);
             pass
         elif(self.mCycle.mFormula.startswith("Cycle_")):
-            cycle_expr = self.getFloatLiteral(0.0);
+            lExpr = table.c[self.mRowNumberAlias]
+            lExpr = lExpr % int(self.mCycle.mBestCycleLength)
+            cycle_expr = self.generateCycleSpecificExpression(lExpr ,
+                                                              self.mCycle.mBestCycleValueDict,
+                                                              self.mCycle.mDefaultValue);
             pass
         return cycle_expr;
     
