@@ -22,7 +22,15 @@ def testTranform(tr1):
 class cAbstractSignalTransform:
     def __init__(self):
         pass
-    
+
+    def dump_apply_invert(self, df_before_apply, df_after_apply):
+        df = pd.DataFrame();
+        df['before_apply'] = df_before_apply;
+        df['after_apply'] = df_after_apply;
+        print("dump_apply_invert_head", df.head());
+        print("dump_apply_invert_tail", df.tail());
+        
+
 
 class cSignalTransform_None(cAbstractSignalTransform):
 
@@ -233,6 +241,7 @@ class cSignalTransform_RelativeDifferencing(cAbstractSignalTransform):
         df_shifted = df1.shift(1)
         df_shifted.fillna((self.mFirstValue - self.mMinValue) / self.mDelta, inplace = True);
         r = (df1 - df_shifted) / (df_shifted + 1)
+        # self.dump_apply_invert(df , r);
         return r;
     
     def invert(self, df):
@@ -244,6 +253,8 @@ class cSignalTransform_RelativeDifferencing(cAbstractSignalTransform):
             df_orig.iloc[i] = (r.iloc[i] + 1) * (previous_value + 1) - 1
         for i in range(0,df.shape[0]):
             df_orig.iloc[i] = df_orig.iloc[i] * self.mDelta + self.mMinValue;
+        
+        # self.dump_apply_invert(df_orig , r);
         return df_orig;
 
     def transformDataset(self, df, isig):
