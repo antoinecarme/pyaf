@@ -10,8 +10,6 @@ df = b1.mPastData
 df.head()
 
 
-lAutoF = autof.cAutoForecast()
-lAutoF
 
 H = b1.mHorizon;
 
@@ -19,6 +17,8 @@ H = b1.mHorizon;
 N = df.shape[0];
 for n in range(2*H,  N , 10):
     df1 = df.head(n).copy();
+    lAutoF = autof.cAutoForecast()
+    lAutoF
     lAutoF.train(df1 , b1.mTimeVar , b1.mSignalVar, H);
     lAutoF.getModelInfo();
     lAutoF.mSignalDecomposition.mBestTransformation.mTimeInfo.mResolution
