@@ -70,6 +70,7 @@ class cSignalDecompositionOneTransform:
         self.mHorizon = iHorizon;
         self.mSignalFrame = pd.DataFrame()
 #        self.mSignalFrame = iInputDS.copy()
+        self.mSignalFrame[self.mOriginalSignal] = iInputDS[iSignal];
         self.mSignalFrame[self.mSignal] = self.mTransformation.apply(iInputDS[iSignal]);
         self.mSignalFrame[self.mTime] = iInputDS[self.mTime].copy();
         self.mSignalFrame['row_number'] = np.arange(0, iInputDS.shape[0]);
@@ -97,7 +98,8 @@ class cSignalDecompositionOneTransform:
 
     
     def collectPerformanceIndices(self) :
-        rows_list = []
+        self.mPerfsByModel = {}
+        rows_list = [];
         self.mFitPerf = {}
         self.mForecastPerf = {}
         self.mTestPerf = {}
@@ -106,8 +108,9 @@ class cSignalDecompositionOneTransform:
                 cycle_residue = cycle.getCycleResidueName();
                 for autoreg in self.mAREstimator.mARList[cycle_residue]:
                     df = pd.DataFrame();
-                    df['Signal'] = self.mSignalFrame[self.mSignal]
+                    df['Signal'] = self.mSignalFrame[self.mOriginalSignal]
                     df['Model'] = df['Signal'] - autoreg.mARFrame[autoreg.mOutName + "_residue"]
+                    df['Model'] = self.mTransformation.invert(df['Model']);
                     lFitPerf = tsperf.cPerf();
                     lForecastPerf = tsperf.cPerf();
                     lTestPerf = tsperf.cPerf();
@@ -118,6 +121,7 @@ class cSignalDecompositionOneTransform:
                     self.mFitPerf[autoreg] = lFitPerf
                     self.mForecastPerf[autoreg] = lForecastPerf;
                     self.mTestPerf[autoreg] = lTestPerf;
+                    self.mPerfsByModel[autoreg.mOutName] = [lFitPerf , lForecastPerf, lTestPerf];
                     row = [autoreg.mOutName ,
                            lFitPerf.mCount, lFitPerf.mL2, lFitPerf.mMAPE,
                            lForecastPerf.mCount, lForecastPerf.mL2, lForecastPerf.mMAPE,
@@ -255,6 +259,7 @@ class cSignalDecompositionOneTransform:
         # forecast perfs
         self.mPerfDetails = self.collectPerformanceIndices()        
         self.mPerfDetails.sort_values('ForecastMAPE' , inplace=True)
+        #print(self.mPerfDetails.head(self.mPerfDetails.shape[0]));
         self.mBestModelName = self.mPerfDetails.iloc[0]['Model']
         self.reviewBestModel();
         # Prediction Intervals
@@ -336,6 +341,7 @@ class cSignalDecomposition:
 	
         
     def train_not_threaded(self , iInputDS, iTime, iSignal, iHorizon):
+        self.mTrainingDataset = iInputDS; 
         self.defineTransformations(iInputDS);
         for transform1 in self.mTransformList:
             sigdec = cSignalDecompositionOneTransform();
@@ -416,6 +422,7 @@ class cSignalDecomposition:
 
         self.mTrPerfDetails = self.collectPerformanceIndices();
         self.mTrPerfDetails.sort_values('ForecastMAPE' , inplace=True)
+        # print(self.mTrPerfDetails.head(self.mTrPerfDetails.shape[0]));
         self.mBestTransformationName = self.mTrPerfDetails.iloc[0]['Transformation']
 
         for transform1 in self.mTransformList:
