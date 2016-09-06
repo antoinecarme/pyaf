@@ -79,6 +79,8 @@ class cPerf:
         sum_abs = np.abs(signal1.values) + np.abs(estimator1.values)
         self.mMAPE = np.mean(abs(myerror / signal1.values))
         self.mSMAPE = np.mean(abs(myerror) / sum_abs)
+        self.mMAPE = round( self.mMAPE , 2 )
+        self.mSMAPE = round( self.mSMAPE , 2 )
         self.mL1 = np.mean(abs_error)
         self.mL2 = np.sqrt(np.mean(abs_error ** 2))
         self.mCount = signal.shape[0];
@@ -118,11 +120,13 @@ class cPerf:
             return self.mAE;
         if(criterion == "SMAPE"):
             self.mSMAPE = np.mean(abs(myerror) / sum_abs)
+            self.mSMAPE = round( self.mSMAPE , 2 )
             return self.mSMAPE;
         if(criterion == "COUNT"):
             return self.mCount;
         
         self.mMAPE = np.mean(abs(myerror / signal1.values))
+        self.mMAPE = round( self.mMAPE , 2 )
         return self.mMAPE;
 
     def getCriterionValue(self, criterion):
