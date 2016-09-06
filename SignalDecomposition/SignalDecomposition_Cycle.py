@@ -129,14 +129,27 @@ class cBestCycleForTrend(cAbstractCycle):
     def getCycleName(self):
         return self.mTrend_residue_name + "_bestCycle_by" + self.mCriterion;
 
+    def dumpCyclePerfs(self):
+        print(self.mCyclePerfDict);
+
     def computeBestCycle(self):
+        self.dumpCyclePerfs();
         self.mBestCycleFrame = pd.DataFrame()
         self.mCycleFrame[self.getCycleName()] = np.zeros_like(self.mCycleFrame[self.mTrend_residue_name])
         self.mCycleFrame[self.getCycleResidueName()] = self.mCycleFrame[self.mTrend_residue_name]
         lCycleFrameEstim = self.mTimeInfo.getEstimPart(self.mCycleFrame);
         self.mBestCycleLength = 0;
+        lBestCycleIdx = 0;
+        lBestCriterion = None;
         if(self.mCyclePerfDict):
-            lBestCycleIdx = min(self.mCyclePerfDict, key=self.mCyclePerfDict.get)
+            for k in sorted(self.mCyclePerfDict.keys()):
+                # smallest cycles are better
+                if((lBestCriterion is None) or (self.mCyclePerfDict[k] < lBestCriterion)):
+                    lBestCycleIdx = k;
+                    lBestCriterion = self.mCyclePerfDict[k];
+                    
+            # lBestCycleIdx = min(self.mCyclePerfDict, key=self.mCyclePerfDict.get)
+            
             best = self.mTrend_residue_name + '_Cycle_' + str(lBestCycleIdx)
             self.mBestCycleValueDict = lCycleFrameEstim.groupby([best])[self.mTrend_residue_name].mean().to_dict()
             self.mTimeInfo.addVars(self.mBestCycleFrame);
@@ -148,16 +161,18 @@ class cBestCycleForTrend(cAbstractCycle):
                 self.mCycleFrame[self.getCycleName()] = self.mBestCycleFrame[self.getCycleName()];
                 self.mCycleFrame[self.getCycleResidueName()] = self.mBestCycleFrame[self.getCycleResidueName()];
                 self.mDefaultValue = lCycleFrameEstim[self.mTrend_residue_name].mean();
+        print("BEST_CYCLE_PERF" , self.mTrend_residue_name, self.mBestCycleLength)
         pass
         
-    def generate_cycles(self, K):
+    def generate_cycles(self):
         self.mTimeInfo.addVars(self.mCycleFrame);
         self.mCycleFrame[self.mTrend_residue_name ] = self.mTrendFrame[self.mTrend_residue_name]
         self.mCyclePerfs = {}
         self.mCyclePerfDict = {}
         lMaxRobustCycle = self.mTrendFrame.shape[0]/12;
+        print("MAX_ROBUST_CYCLE_LENGTH", self.mTrendFrame.shape[0], lMaxRobustCycle);
         for i in self.mOptions.mCycleLengths:
-            if ((i > 1) and (i < lMaxRobustCycle)):
+            if ((i > 1) and (i <= lMaxRobustCycle)):
                 name_i = self.mTrend_residue_name + '_Cycle_' + str(i)
                 self.mCycleFrame[name_i] = self.mCycleFrame[self.mTimeInfo.mRowNumberColumn] % i
                 lCycleFrameEstim = self.mTimeInfo.getEstimPart(self.mCycleFrame);
@@ -179,10 +194,10 @@ class cBestCycleForTrend(cAbstractCycle):
         pass
 
     def fit(self):
+        print("cycle_fit" , self.mTrend_residue_name);
         self.mTime = self.mTimeInfo.mTime;
         self.mSignal = self.mTimeInfo.mSignal;
-        NbCycles = int(self.mTrendFrame.shape[0] / 4)
-        self.generate_cycles(NbCycles);
+        self.generate_cycles();
         self.computeBestCycle();
         self.mOutName = self.getCycleName()
         self.mFormula = "Cycle_None"
@@ -267,7 +282,7 @@ class cCycleEstimator:
             for cycle in self.mCycleList[trend]:
                 cycle.fit();
                 cycle.computePerf();
-                # self.dumpCyclePerf(cycle)
+                self.dumpCyclePerf(cycle)
                 self.mCycleFrame[cycle.getCycleName()] = cycle.mCycleFrame[cycle.getCycleName()]
                 self.mCycleFrame[cycle.getCycleResidueName()] = cycle.mCycleFrame[cycle.getCycleResidueName()]
                 check_not_nan(self.mCycleFrame[cycle.getCycleResidueName()].values , cycle.getCycleResidueName())
