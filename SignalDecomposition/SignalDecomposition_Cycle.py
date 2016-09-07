@@ -133,7 +133,7 @@ class cBestCycleForTrend(cAbstractCycle):
         print(self.mCyclePerfDict);
 
     def computeBestCycle(self):
-        self.dumpCyclePerfs();
+        # self.dumpCyclePerfs();
         self.mBestCycleFrame = pd.DataFrame()
         self.mCycleFrame[self.getCycleName()] = np.zeros_like(self.mCycleFrame[self.mTrend_residue_name])
         self.mCycleFrame[self.getCycleResidueName()] = self.mCycleFrame[self.mTrend_residue_name]
@@ -161,7 +161,7 @@ class cBestCycleForTrend(cAbstractCycle):
                 self.mCycleFrame[self.getCycleName()] = self.mBestCycleFrame[self.getCycleName()];
                 self.mCycleFrame[self.getCycleResidueName()] = self.mBestCycleFrame[self.getCycleResidueName()];
                 self.mDefaultValue = lCycleFrameEstim[self.mTrend_residue_name].mean();
-        print("BEST_CYCLE_PERF" , self.mTrend_residue_name, self.mBestCycleLength)
+        # print("BEST_CYCLE_PERF" , self.mTrend_residue_name, self.mBestCycleLength)
         pass
         
     def generate_cycles(self):
@@ -170,7 +170,7 @@ class cBestCycleForTrend(cAbstractCycle):
         self.mCyclePerfs = {}
         self.mCyclePerfDict = {}
         lMaxRobustCycle = self.mTrendFrame.shape[0]/12;
-        print("MAX_ROBUST_CYCLE_LENGTH", self.mTrendFrame.shape[0], lMaxRobustCycle);
+        # print("MAX_ROBUST_CYCLE_LENGTH", self.mTrendFrame.shape[0], lMaxRobustCycle);
         for i in self.mOptions.mCycleLengths:
             if ((i > 1) and (i <= lMaxRobustCycle)):
                 name_i = self.mTrend_residue_name + '_Cycle_' + str(i)
@@ -194,7 +194,7 @@ class cBestCycleForTrend(cAbstractCycle):
         pass
 
     def fit(self):
-        print("cycle_fit" , self.mTrend_residue_name);
+        # print("cycle_fit" , self.mTrend_residue_name);
         self.mTime = self.mTimeInfo.mTime;
         self.mSignal = self.mTimeInfo.mSignal;
         self.generate_cycles();
@@ -264,11 +264,15 @@ class cCycleEstimator:
 
     def dumpCyclePerf(self, cycle):
         if(self.mOptions.mDebugCycles):
-            print("CYCLE_PERF_DETAIL" , cycle.mOutName,
-                  "%.3f" % (cycle.mCycleFitPerf.mCount), "%.3f" % (cycle.mCycleForecastPerf.mCount),
-                  "%.3f" % (cycle.mCycleFitPerf.mMAPE), "%.3f" % (cycle.mCycleForecastPerf.mMAPE),
-                  "%.3f" % (cycle.mCycleFitPerf.mL2),  "%.3f" % (cycle.mCycleForecastPerf.mL2),
-                  "%.3f" % (cycle.mCycleFitPerf.mR2),  "%.3f" % (cycle.mCycleForecastPerf.mR2),
+            print("CYCLE_PERF_DETAIL_COUNT_FIT_FORECAST" , cycle.mOutName,
+                  "%.3f" % (cycle.mCycleFitPerf.mCount), "%.3f" % (cycle.mCycleForecastPerf.mCount));
+            print("CYCLE_PERF_DETAIL_MAPE_FIT_FORECAST" , cycle.mOutName,
+                  "%.3f" % (cycle.mCycleFitPerf.mMAPE), "%.3f" % (cycle.mCycleForecastPerf.mMAPE));
+            print("CYCLE_PERF_DETAIL_L2_FIT_FORECAST" , cycle.mOutName,
+                  "%.3f" % (cycle.mCycleFitPerf.mL2),  "%.3f" % (cycle.mCycleForecastPerf.mL2));
+            print("CYCLE_PERF_DETAIL_R2_FIT_FORECAST" , cycle.mOutName,
+                  "%.3f" % (cycle.mCycleFitPerf.mR2),  "%.3f" % (cycle.mCycleForecastPerf.mR2));
+            print("CYCLE_PERF_DETAIL_PEARSONR_FIT_FORECAST" , cycle.mOutName,
                   "%.3f" % (cycle.mCycleFitPerf.mPearsonR),  "%.3f" % (cycle.mCycleForecastPerf.mPearsonR));
 
 
