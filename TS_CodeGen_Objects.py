@@ -16,6 +16,10 @@ from sqlalchemy.sql.functions import GenericFunction
 
 import pandas as pd;
 
+import psycopg2 as psy;
+#register_adapter, AsIs
+from psycopg2.extensions import adapt, register_adapter, AsIs
+    
 class date_diff(GenericFunction):
     type = Float
     
@@ -36,18 +40,50 @@ def _my_date_diff(element, compiler, **kw):  # pragma: no cover
 
 @compiles(date_diff, 'postgresql')
 def _my_date_diff(element, compiler, **kw):  # pragma: no cover
-#    return "extract(epoch from (%s - %s))::int" % (compiler.process(element.clauses.clauses[0]),
-#                                              compiler.process(element.clauses.clauses[1]),
-#                                     )
-    return "(extract(epoch from (%s))::bigint  - extract(epoch from (%s))::bigint)" % (compiler.process(element.clauses.clauses[0]),
-                                                                     compiler.process(element.clauses.clauses[1]),
-                                     )
+    return "extract(epoch from (%s - %s))::int" % (compiler.process(element.clauses.clauses[0]),
+                                                   compiler.process(element.clauses.clauses[1]));
 
 @compiles(date_diff, 'sqlite')
 def _sl_date_diff(element, compiler, **kw):    # pragma: no cover
     return "julianday(%s) - julianday(%s)" % (compiler.process(element.clauses.clauses[0]),
                                               compiler.process(element.clauses.clauses[1]),
                                               )
+class weekday(GenericFunction):
+    type = Float
+
+@compiles(weekday, 'mysql')
+def _my_date_diff(element, compiler, **kw):  # pragma: no cover
+    return "WEEKDAY(%s)" % (compiler.process(element.clauses.clauses[0]))
+
+@compiles(weekday, 'postgresql')
+def _my_date_diff(element, compiler, **kw):  # pragma: no cover
+    return "EXTRACT(dow from %s)" % (compiler.process(element.clauses.clauses[0]))
+
+@compiles(weekday, 'sqlite')
+def _my_date_diff(element, compiler, **kw):  # pragma: no cover
+    return "EXTRACT(dow, %s)" % (compiler.process(element.clauses.clauses[0]))
+
+class week(GenericFunction):
+    type = Float
+
+@compiles(week, 'mysql')
+def _my_date_diff(element, compiler, **kw):  # pragma: no cover
+    return "WEEK(%s)" % (compiler.process(element.clauses.clauses[0]))
+
+@compiles(week, 'postgresql')
+def _my_date_diff(element, compiler, **kw):  # pragma: no cover
+    return "EXTRACT(week from %s)" % (compiler.process(element.clauses.clauses[0]))
+
+@compiles(week, 'sqlite')
+def _my_date_diff(element, compiler, **kw):  # pragma: no cover
+    return "EXTRACT(week, %s)" % (compiler.process(element.clauses.clauses[0]))
+
+
+
+def cast_point(value, cur):
+    if value is None:
+        return None
+    return value;
 
 class cDecompositionCodeGenObject:
     
@@ -55,6 +91,9 @@ class cDecompositionCodeGenObject:
         self.mAutoForecast = None;
         self.mMeta = MetaData();
         self.mDialect = sqlalchemy.dialects.sqlite.dialect();
+        # POINT = psy.extensions.new_type((1114,), "POINT", cast_point)
+        # psy.extensions.register_type(POINT)
+        # psy.extensions.register_adapter(psy.extensions.new_type((1114,), AsIs("'%s'")));
         pass
     
     def generate_Sql(self, statement, iDialect = None):
@@ -105,15 +144,15 @@ class cDecompositionCodeGenObject:
     
     def createConnection(self):
         # connected mode.
-        # lDSN = "sqlite://";
-        # lDSN = "postgresql:///GitHubtest";
-        lDSN = "mysql://user:pass@localhost/GitHubtest";
+        lDSN = "sqlite://";
+        # lDSN = "postgresql+psycopg2:///GitHubtest";
+        # lDSN = "mysql://user:pass@localhost/GitHubtest";
         self.mEngine = create_engine(lDSN , echo=True)
         self.mConnection = self.mEngine.connect()
         self.mMeta = MetaData(bind = self.mConnection);
         
     def executeSQL(self, iSQL):
-        stmt = alias(select([self.mModel_CTE] + []), "SQLGenResult");
+        stmt = alias(select([self.mModel_CTE]), "SQLGenResult");
         # stmt = text(iSQL);
         result = self.mConnection.execute(stmt)
         lGeneratedApplyOut = pd.DataFrame(result.fetchall());
@@ -142,7 +181,7 @@ class cDecompositionCodeGenObject:
         return sqlalchemy.sql.expression.literal(iValue, sqlalchemy.types.FLOAT);
 
     def getDateTimeLiteral(self, iValue):
-        return sqlalchemy.sql.expression.literal(iValue, sqlalchemy.types.Date);
+        return sqlalchemy.sql.expression.literal(iValue, sqlalchemy.types.DateTime);
 
 
     def generateCode(self, iAutoForecast, iDialect = None):
@@ -218,10 +257,10 @@ class cDecompositionCodeGenObject:
         if(lTimeInfo.isPhysicalTime()):
             lType = sqlalchemy.types.TIMESTAMP;
             # count the number of days here if date. number of seconds if datetime
-            lAmplitude = func.date_diff(self.getDateTimeLiteral(lTimeInfo.mTimeMax),
-                                        self.getDateTimeLiteral(lTimeInfo.mTimeMin))
+            lAmplitude = func.date_diff(lTimeInfo.mTimeMax,
+                                        lTimeInfo.mTimeMin)
             normalized_time = func.date_diff(table.c[self.mDateName],
-                                             self.getDateTimeLiteral(lTimeInfo.mTimeMin));
+                                             lTimeInfo.mTimeMin);
         else:
             lAmplitude = lTimeInfo.mTimeMax - lTimeInfo.mTimeMin
             normalized_time = table.c[self.mDateName] - lTimeInfo.mTimeMin ;
@@ -260,30 +299,58 @@ class cDecompositionCodeGenObject:
         self.mRowNumber_CTE = self.generate_CTE(table.columns  + exprs1 + exprs2, "RowNumber_CTE")
         self.debrief_cte(self.mRowNumber_CTE)
 
-    def addTransformedSignal(self, table):
-        exprs = []; # table.c[self.mDateName].label(self.mDateAlias), table.c[self.mSignalName].label(self.mSignalAlias)]
-        trasformed_signal = table.c[ self.mSignalName ];
+    def addTransformedSignal(self, table, tr):
+        exprs = [];
+        lName = tr.mTransformation.get_name("");
+        # lName = "Diff_"
+        TS1 = alias(select([table.columns[self.mSignalName], table.columns[self.mRowNumberAlias]]), "t1");
+        sig_expr = TS1.c[ self.mSignalName ];
+        if(lName == ""):            
+            trasformed_signal = table.c[ self.mSignalName ];
+        elif(lName == "CumSum_"):
+            rn_expr_1 = table.c[self.mRowNumberAlias];
+            rn_expr_2 = TS1.c[self.mRowNumberAlias];            
+            trasformed_signal  = select([func.sum(sig_expr)]).where(rn_expr_1 >= rn_expr_2);
+        elif(lName == "Diff_"):
+            rn_expr_1 = table.c[self.mRowNumberAlias];
+            rn_expr_2 = TS1.c[self.mRowNumberAlias];
+            lDefault_expr = self.getFloatLiteral(tr.mTransformation.mFirstValue)
+            previous_expr = select([func.coalesce(func.sum(sig_expr) , lDefault_expr)]).where(rn_expr_1 == (rn_expr_2 + 1));
+            trasformed_signal  = table.c[ self.mSignalName ] - previous_expr;
+        else:
+            assert(0);
+            
         trasformed_signal = trasformed_signal.label(self.mSignalAlias);
         exprs = exprs + [ trasformed_signal ];
         return exprs
 
     def generateTransformationCode(self, table):
         # => Transformation_CTE
-        signal_exprs = self.addTransformedSignal(self.mRowNumber_CTE) 
+        signal_exprs = self.addTransformedSignal(self.mRowNumber_CTE,
+                                                 self.mAutoForecast.mSignalDecomposition.mBestTransformation) 
         self.mTransformation_CTE = self.generate_CTE([self.mRowNumber_CTE]  + signal_exprs, "Transformation_CTE")
         self.debrief_cte(self.mTransformation_CTE)
 
 
     def addTrendInputs(self, table):
-        exprs = [] ; # [table.c[self.mDateAlias], table.c[self.mSignalAlias], table.c[self.mRowNumberAlias]]
+        tr = self.mAutoForecast.mSignalDecomposition.mBestTransformation;
+        lName = tr.mTransformation.get_name("");
+        exprs = [] ;
         normalized_time = table.c["NTime"];
         normalized_time_2 = normalized_time * normalized_time
         normalized_time_2 = normalized_time_2.label("NTime_2")
         normalized_time_3 = normalized_time_2 * normalized_time     
         normalized_time_3 = normalized_time_3.label("NTime_3")
-        lag1 = self.getFloatLiteral(0.0);
-        lag1 = lag1.label("Lag1")
-        exprs = exprs + [ normalized_time, normalized_time_2, normalized_time_3, lag1]
+        if(self.mTrend.mFormula == "Lag1Trend"):
+            TS1 = alias(select([table.columns[self.mSignalAlias], table.columns[self.mRowNumberAlias]]), "t1");
+            sig_expr = TS1.c[ self.mSignalAlias ];
+            rn_expr_1 = table.c[self.mRowNumberAlias];
+            rn_expr_2 = TS1.c[self.mRowNumberAlias];
+            lDefault_expr = self.getFloatLiteral(self.mTrend.mMean);
+            lag1 = select([func.coalesce(func.sum(sig_expr) , lDefault_expr)]).where(rn_expr_1 == (rn_expr_2 + 1));
+            lag1 = lag1.label("Lag1")
+            exprs = exprs + [lag1];
+        exprs = exprs + [ normalized_time, normalized_time_2, normalized_time_3]
         return exprs
     
     def generateTrendInputCode(self):
@@ -342,13 +409,13 @@ class cDecompositionCodeGenObject:
         if(lTimeInfo.isPhysicalTime()):
             date_expr = table.c[lTime]
             date_parts = [extract('year', date_expr).label(lTime + "_Year") ,  
-                          extract('month', date_expr).label(lTime + "_Month") ,  
-                          extract('day', date_expr).label(lTime + "_Day") ,  
-                          extract('hour', date_expr).label(lTime + "_hour") ,  
-                          extract('minute', date_expr).label(lTime + "_min") ,  
-                          extract('second', date_expr).label(lTime + "_sec") ,  
-                          # extract('dow', date_expr).label(lTime + "_dow") ,  
-                          # extract('week', date_expr).label(lTime + "_woy")
+                          extract('month', date_expr).label(lTime + "_MonthOfYear") ,  
+                          extract('day', date_expr).label(lTime + "_DayOfMonth") ,  
+                          extract('hour', date_expr).label(lTime + "_Hour") ,  
+                          extract('minute', date_expr).label(lTime + "_Minute") ,  
+                          extract('second', date_expr).label(lTime + "_Second") ,  
+                          func.weekday(date_expr).label(lTime + "_DayOfWeek") ,  
+                          func.week(date_expr).label(lTime + "_WeekOfYear")
                           ]
             exprs = exprs + date_parts
         return exprs
@@ -389,7 +456,7 @@ class cDecompositionCodeGenObject:
             cycle_expr = self.getFloatLiteral(0.0);
             pass
         elif(self.mCycle.mFormula.startswith("Seasonal_")):
-            lExpr = table.c[self.mDateName + "_Day"]
+            lExpr = table.c[self.mDateName + "_" + self.mCycle.mDatePart]
             cycle_expr = self.generateCycleSpecificExpression(lExpr ,
                                                               self.mCycle.mEncodedValueDict,
                                                               self.mCycle.mDefaultValue);
@@ -483,13 +550,15 @@ class cDecompositionCodeGenObject:
         exprs = [];
         ar_expr = None;
         if(self.mAR.mFormula != "NoAR"):
+            lDefault_expr = self.getFloatLiteral(self.mAR.mDefaultValue);
             i = 0 ;
             for i in range(len(self.mAR.mARLagNames)):
                 feat = self.Shortened[self.mCycle.getCycleResidueName()] + "_Lag" + str(i+1);
+                feat_value = func.coalesce(table.c[feat] , lDefault_expr);
                 if(ar_expr is None):
-                    ar_expr = self.mAR.mARRidge.coef_[i] * table.c[feat];
+                    ar_expr = self.mAR.mARRidge.coef_[i] * feat_value;
                 else:
-                    ar_expr = ar_expr + self.mAR.mARRidge.coef_[i] * table.c[feat];
+                    ar_expr = ar_expr + self.mAR.mARRidge.coef_[i] * feat_value;
                 i = i + 1;
             ar_expr = ar_expr + self.getFloatLiteral(self.mAR.mARRidge.intercept_);
         else:
