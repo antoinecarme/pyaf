@@ -19,11 +19,17 @@ class cPerf:
         self.mCount = np.nan;
         self.mName = "No_Name";
 
+    def protect_small_value(self, x , eps):
+        if((x < eps) and (x >= 0)):
+            return eps;
+        if((x > -eps) and (x <= 0)):
+            return -eps;
+        return x;
+    
     def protect_small_values(self, signal):
         eps = 1.0e-10;
-        signal1 = signal.copy()
-        signal1[signal1 < eps][signal1 >= 0] = eps
-        signal1[signal1 > -eps][signal1 <= 0] = -eps
+        signal1 = signal.apply(lambda x : self.protect_small_value(x, eps));
+        # self.dump_perf_data(signal , signal1);        
         return signal1;
 
     def check_not_nan(self, sig , name):
