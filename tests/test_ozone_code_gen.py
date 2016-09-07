@@ -15,14 +15,18 @@ df = b1.mPastData
 #df.describe()
 
 
-lAutoF = autof.cAutoForecast()
-lAutoF
 
 H = b1.mHorizon;
 
 N = df.shape[0];
 for n in range(2*H,  N , 10):
     df1 = df.head(n).copy();
+    lAutoF = autof.cAutoForecast()
+    lAutoF
+#    lAutoF.mOptions.mEnableSeasonals = False;
+#    lAutoF.mOptions.mEnableCycles = False;
+#    lAutoF.mOptions.mEnableARModels = False;
+#    lAutoF.mOptions.mDebugCycles = True;
     lAutoF.train(df1 , b1.mTimeVar , b1.mSignalVar, H);
     lAutoF.getModelInfo();
     lAutoF.mSignalDecomposition.mBestTransformation.mTimeInfo.mResolution
