@@ -20,8 +20,8 @@ N = df.shape[0];
 for n in range(24*H,  N , 10):
     df1 = df.head(n).copy();
     lAutoF = autof.cAutoForecast()
-    lAutoF.mOptions.mEnableSeasonals = False;
-    lAutoF.mOptions.mDebugCycles = True;
+    # lAutoF.mOptions.mEnableSeasonals = False;
+    # lAutoF.mOptions.mDebugCycles = True;
     lAutoF
     lAutoF.train(df1 , b1.mTimeVar , b1.mSignalVar, H);
     lAutoF.getModelInfo();
