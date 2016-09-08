@@ -103,13 +103,13 @@ class cDecompositionCodeGenObject:
     
     def createLogicalTable(self, iTableName):
         lTestTableName = iTableName;
-        lPrimaryKeyName = "PrimaryKey";
+        lPrimaryKeyName = self.mDateName;
         
         lTestTable = Table(lTestTableName,
                            self.mMeta);
 
-        lTestTable.append_column(Column(lPrimaryKeyName, Integer, primary_key=True));
-        lTestTable.append_column(Column(self.mDateName, Float));
+        # lTestTable.append_column(Column(lPrimaryKeyName, Integer, primary_key=True));
+        lTestTable.append_column(Column(self.mDateName, self.mDateType));
         lTestTable.append_column(Column(self.mSignalName, Float));
         lTestTable.c[ lPrimaryKeyName ].primary_key = True;
         lTestTableAlias = lTestTable.alias('ApplyDataset')
@@ -120,11 +120,25 @@ class cDecompositionCodeGenObject:
             return self.mEngine.dialect.name;
         return "";
 
+    def isNewMySQL(self):
+        lDialectName = self.getDialectName();
+        if(self.mConnection is None):
+            # risky , but no connection anyway !!!
+            return True;
+        if("mysql" != lDialectName):
+            return False;
+        (lMajor, lMinor) = self.mConnection.connection.connection._server_version;
+        if((lMajor > 10) or (lMajor >= 10) and (lMinor >= 2)):
+            print("MYSQL_DATABASE_SUPPORTS_CTE_AND_ROW_NUMBER" , str(lMajor) +"." + str(lMinor));
+            return True;
+        return False;
+
     def supports_CTE(self):
         #return False;
         lDialectName = self.getDialectName();
-        return (("sqlite" != lDialectName) and
-                ("mysql" != lDialectName));
+        if(("sqlite" == lDialectName) or not self.isNewMySQL()):
+            return False;
+        return True;
 
     
     def generate_CTE(self, exprs, name):
@@ -133,20 +147,21 @@ class cDecompositionCodeGenObject:
             return cte1
         else :
             # plain sub-select
-            cte1 = select(exprs).alias(name);
-            return cte1
+            subselect1 = alias(select(exprs), name);
+            return subselect1
 
     def hasAnalyticalRowNumber(self):
         lDialectName = self.getDialectName();
-        return (("sqlite" != lDialectName) and
-                ("mysql" != lDialectName));
+        if(("sqlite" == lDialectName) or not self.isNewMySQL()):
+            return False;
+        return True;
 
     
     def createConnection(self):
         # connected mode.
-        lDSN = "sqlite://";
+        # lDSN = "sqlite://";
         # lDSN = "postgresql+psycopg2:///GitHubtest";
-        # lDSN = "mysql://user:pass@localhost/GitHubtest";
+        lDSN = "mysql://user:pass@localhost/GitHubtest";
         self.mEngine = create_engine(lDSN , echo=True)
         self.mConnection = self.mEngine.connect()
         self.mMeta = MetaData(bind = self.mConnection);
@@ -163,9 +178,9 @@ class cDecompositionCodeGenObject:
     def testGeneration(self, iAutoForecast):
         self.createConnection();
         df = iAutoForecast.mSignalDecomposition.mTrainingDataset;
-        df.index.names = [ "PrimaryKey" ];
+        # df.index.names = [ "PrimaryKey" ];
         lTestTableName = "TestTableForCodeGen";
-        df.to_sql(lTestTableName , self.mConnection,  if_exists='replace', index=True)
+        df.to_sql(lTestTableName , self.mConnection,  if_exists='replace', index=False)
         lSQL = self.generateCode(iAutoForecast, self.mEngine.dialect);
         self.executeSQL(lSQL);
         lTestTable = Table(lTestTableName,
@@ -225,6 +240,11 @@ class cDecompositionCodeGenObject:
          self.mDateAlias = "DateAlias" 
          self.mSignalAlias = "SignalAlias" 
          self.mRowNumberAlias = "RN";
+
+         self.mDateType = sqlalchemy.types.FLOAT
+         lTimeInfo = self.mAutoForecast.mSignalDecomposition.mBestTransformation.mTimeInfo
+         if(lTimeInfo.isPhysicalTime()):
+             self.mDateType = sqlalchemy.types.TIMESTAMP;
 
          self.Shortened = {};
          self.Shortened[self.mTrend.mOutName] = "STrend";
@@ -392,9 +412,6 @@ class cDecompositionCodeGenObject:
 
     def generateTrendCode(self):
         # => Trend_CTE
-        # sel1 = select(['*']).select_from(self.mTrend_inputs_CTE)
-        # alias(select([self.mTrend_inputs_CTE]), "TIN")
-        # print(sel1.columns)
         trends = self.addTrends(self.mTrend_inputs_CTE)
         self.mTrend_CTE = self.generate_CTE([self.mTrend_inputs_CTE] + trends, "TCTE")
         self.debrief_cte(self.mTrend_CTE)
@@ -422,8 +439,6 @@ class cDecompositionCodeGenObject:
 
     def generateCycleInputCode(self):
         # => Cycle_Inputs_CTE
-        # sel1 = alias(select([self.mTrend_CTE]), "TCTE1")
-        # print(sel1.columns)
         cycle_inputs = self.addCycleInputs(self.mTrend_CTE)
         self.mCycle_input_CTE = self.generate_CTE([self.mTrend_CTE] + cycle_inputs, "CICTE")
         self.debrief_cte(self.mCycle_input_CTE)
@@ -504,25 +519,26 @@ class cDecompositionCodeGenObject:
 
     def generateCycleResidueCode(self):
         # => Cycle_Residue_CTE
-        # sel1 = alias(select([self.mCycle_CTE]), "CYIN")
-        # print(sel1.columns)
         cycle_resdiues = self.addCycleResidues(self.mCycle_CTE)
         self.mCycle_residues_CTE = self.generate_CTE([self.mCycle_CTE] + cycle_resdiues, "CYRESCTE")
         self.debrief_cte(self.mCycle_residues_CTE)
 
 
     def createLags(self, table , H , col, index_col):
-        TS = table;
-        TS1 = alias(select([table.columns[index_col], table.columns[col]]), "t1");
-        # TS1 = alias(table, "t");
-        # TS2 = text(TS1);
+        # TS0 = table;
+        TS1 = None;
+        if(self.supports_CTE()):
+            TS1 = alias(select([table.c[index_col] , table.c[col]]), "KKKKKK");
+        else:
+            TS1 = alias(select([table.c[index_col] , table.c[col]]), "KKKKKK");
         col_expr_1 = TS1.c[col];
-        index_expr = TS.c[index_col]
-        index_expr_1 = TS1.c[index_col]
+        index_expr = table.c[index_col];
+        index_expr_1 = TS1.c[index_col];
         exprs = [];
-        for h in range(1 , H+1):
-            expr = select([col_expr_1]).where(index_expr == (index_expr_1 + h));
-            expr = expr.label(col + "_Lag" + str(h));
+        for h1 in range(1 , H+1):
+            case1 = case([(index_expr == (index_expr_1 + h1) , col_expr_1)] , else_ = null());
+            expr = select([func.sum(case1)]).select_from(table);
+            expr = expr.label(col + "_Lag" + str(h1));
             exprs = exprs + [expr];
         return exprs;
 
@@ -539,8 +555,6 @@ class cDecompositionCodeGenObject:
 
     def generateARInputCode(self):
         # => AR_Inputs_CTE
-        # sel1 = alias(select([self.mCycle_residues_CTE]), "CYRESCTE1")
-        # print(sel1.columns)
         ar_inputs = self.addARInputs(self.mCycle_residues_CTE)
         self.mAR_input_CTE = self.generate_CTE([self.mCycle_residues_CTE] + ar_inputs, "ARICTE")
         self.debrief_cte(self.mAR_input_CTE)
@@ -569,8 +583,6 @@ class cDecompositionCodeGenObject:
 
     def generateARCode(self):
         # => AR_CTE
-        # sel1 = alias(select([]), "ARI")
-        # print(sel1.columns)
         ars = self.addARModel(self.mAR_input_CTE)
         self.mAR_CTE = self.generate_CTE([self.mAR_input_CTE] + ars, "ARCTE")
         self.debrief_cte(self.mAR_CTE)
