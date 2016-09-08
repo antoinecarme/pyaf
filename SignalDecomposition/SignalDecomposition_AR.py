@@ -61,16 +61,17 @@ class cAutoRegressiveModel(cAbstractAR):
     def __init__(self , cycle_residue_name):
         super().__init__(cycle_residue_name)
         self.mARRidge = linear_model.Ridge()
-        self.mARLagNames = [];
 
     
     def generateLags(self, df, P):
+        self.mARLagNames = [];
         lag_df = pd.DataFrame()
         series = self.mCycleResidueName; 
         lag_df[series] = df[series]
-        for i in range(1,P):
+        for i in range(1,P+1):
             name = series+'_Lag' + str(i);
             lag_df[name] = df[series].shift(i)
+            self.mARLagNames = self.mARLagNames + [name];
         return lag_df;
     
     def fit(self):
@@ -86,7 +87,6 @@ class cAutoRegressiveModel(cAbstractAR):
         self.mDefaultValue = self.mAREstimFrame[series].mean()
         self.mARFrame.fillna(self.mDefaultValue , inplace=True)
         self.mAREstimFrame.fillna(self.mDefaultValue , inplace=True)
-        self.mARLagNames = self.mARFrame.columns[1:];
         
         lARInputs = self.mAREstimFrame.drop([series]  , axis=1).values
         lARTarget = self.mAREstimFrame[series].values
