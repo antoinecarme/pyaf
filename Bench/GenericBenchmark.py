@@ -171,6 +171,7 @@ class cGeneric_OneSignal_Tester:
         lAutoF = self.mAutoForecastBySignal[iSignal  + "_" + str(iHorizon)]
         lCodeGenerator = tscodegen.cTimeSeriesCodeGenerator();
         lSQL = lCodeGenerator.testGeneration(lAutoF);
+        del lCodeGenerator;
 
     def getTestPerfs(self, iSignal, iHorizon):
         self.getApplyInDatset(iSignal, iHorizon);
