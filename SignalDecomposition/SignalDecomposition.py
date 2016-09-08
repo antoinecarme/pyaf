@@ -275,7 +275,7 @@ def run_transform_thread(iInputDS, iTime, iSignal, iHorizon, transform1, iOption
 class cSignalDecomposition:
         
     def __init__(self):
-        self.mSigDecByTranform = {};
+        self.mSigDecByTransform = {};
         self.mOptions = tsopts.cSignalDecomposition_Options();
         pass
 
@@ -347,17 +347,17 @@ class cSignalDecomposition:
             sigdec = cSignalDecompositionOneTransform();
             sigdec.mOptions = self.mOptions;
             sigdec.train(iInputDS, iTime, iSignal, iHorizon, transform1);
-            self.mSigDecByTranform[transform1.get_name("")] = sigdec
+            self.mSigDecByTransform[transform1.get_name("")] = sigdec
 
     def createBestModelFrame(self):
         self.mBestModelFrame = pd.DataFrame();
         for transform1 in self.mTransformList:
-            sigdec = self.mSigDecByTranform[transform1.get_name("")]
+            sigdec = self.mSigDecByTransform[transform1.get_name("")]
             sigdec.mTimeInfo.addVars(self.mBestModelFrame);
 
     def plotModelForecasts(self, df):
         for transform1 in self.mTransformList:
-            sigdec = self.mSigDecByTranform[transform1.get_name("")]
+            sigdec = self.mSigDecByTransform[transform1.get_name("")]
             lPrefix = sigdec.mSignal + "_BestModel";
             lTime = sigdec.mTimeInfo.mNormalizedTimeColumn;            
             tsplot.decomp_plot(df,
@@ -370,7 +370,7 @@ class cSignalDecomposition:
         self.mForecastPerf = {}
         self.mTestPerf = {}
         for transform1 in self.mTransformList:
-            sigdec = self.mSigDecByTranform[transform1.get_name("")]
+            sigdec = self.mSigDecByTransform[transform1.get_name("")]
             lTranformName = sigdec.mSignal;
             lPrefix = sigdec.mSignal + "_BestModel";
             lSig = self.mBestModelFrame[lPrefix + 'Signal']
@@ -411,7 +411,7 @@ class cSignalDecomposition:
     
         self.createBestModelFrame();
         for transform1 in self.mTransformList:
-            sigdec = self.mSigDecByTranform[transform1.get_name("")]
+            sigdec = self.mSigDecByTransform[transform1.get_name("")]
             lPrefix = sigdec.mSignal + "_BestModel";
             self.mBestModelFrame[lPrefix + 'Forecast'] = sigdec.mTransformation.invert(sigdec.mBestModelFrame[lPrefix + 'Forecast']);
             self.mBestModelFrame[lPrefix + 'Signal'] = sigdec.mTransformation.invert(sigdec.mBestModelFrame[sigdec.mSignal]);
@@ -426,7 +426,7 @@ class cSignalDecomposition:
         self.mBestTransformationName = self.mTrPerfDetails.iloc[0]['Transformation']
 
         for transform1 in self.mTransformList:
-            sigdec = self.mSigDecByTranform[transform1.get_name("")]
+            sigdec = self.mSigDecByTransform[transform1.get_name("")]
             lTranformName = sigdec.mSignal;
             if(lTranformName == self.mBestTransformationName):
                 self.mBestTransformation = sigdec;
