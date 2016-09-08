@@ -1,16 +1,18 @@
 import pandas as pd
 import numpy as np
+
 import AutoForecast as autof
-
+import TS_CodeGenerator as tscodegen
 import Bench.TS_datasets as tsds
-import sys,os
 
+import sys,os
 # for timing
 import time
 
 import multiprocessing as mp
 import threading
 from multiprocessing.dummy import Pool as ThreadPool
+
 
 
 def createDirIfNeeded(dirname):
@@ -162,7 +164,12 @@ class cGeneric_OneSignal_Tester:
         lAutoF1 = self.mAutoForecastBySignal[iSignal  + "_" + str(iHorizon)]
         lForecastPerf = lAutoF1.computePerf(self.mActual, self.mPredicted, self.mBenchName + "_" + self.mTSSpec.mName + "_" + iSignal );
         self.mTestPerfData[iSignal  + "_" + str(iHorizon)] = lForecastPerf;
-        
+
+
+    def generateCode(self, iSignal, iHorizon):
+        lAutoF = self.mAutoForecastBySignal[iSignal  + "_" + str(iHorizon)]
+        lCodeGenerator = tscodegen.cTimeSeriesCodeGenerator();
+        lSQL = lCodeGenerator.testGeneration(lAutoF);
 
     def getTestPerfs(self, iSignal, iHorizon):
         self.getApplyInDatset(iSignal, iHorizon);
@@ -173,6 +180,7 @@ class cGeneric_OneSignal_Tester:
         self.mPredicted = self.mApplyOut[iSignal + '_BestModelForecast'].tail(iHorizon);
         self.reportActualAndPredictedData(iSignal, iHorizon);
         self.computePerfOnForecasts(iSignal, iHorizon);
+        self.generateCode(iSignal, iHorizon);
         
     def dumpForecastPerfs(self, iSignal, iHorizon):
         lAutoF1 = self.mAutoForecastBySignal[iSignal  + "_" + str(iHorizon)]
