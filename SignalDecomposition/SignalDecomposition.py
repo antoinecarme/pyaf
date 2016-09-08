@@ -60,6 +60,9 @@ class cSignalDecompositionOneTransform:
         assert(iTime in iInputDS.columns)
         assert(iSignal in iInputDS.columns)
 
+        # print("setParams , head", iInputDS.head());
+        # print("setParams , tail", iInputDS.tail());
+        
         self.mTime = iTime
         self.mOriginalSignal = iSignal;
         
@@ -110,7 +113,7 @@ class cSignalDecompositionOneTransform:
                     df = pd.DataFrame();
                     df['Signal'] = self.mSignalFrame[self.mOriginalSignal]
                     df['Model'] = df['Signal'] - autoreg.mARFrame[autoreg.mOutName + "_residue"]
-                    df['Model'] = self.mTransformation.invert(df['Model']);
+                    # df.to_csv("model_perfs_" + autoreg.mOutName + ".csv");
                     lFitPerf = tsperf.cPerf();
                     lForecastPerf = tsperf.cPerf();
                     lTestPerf = tsperf.cPerf();
