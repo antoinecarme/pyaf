@@ -35,13 +35,13 @@ def run_bench_process(a):
     try:
         tester = cGeneric_OneSignal_Tester(a.mTSSpec , a.mBenchName);
         tester.testSignal(a.mSignal, a.mHorizon)
-        print("TRAIN_SUCCESS '" + a.getName() + "'");
+        print("BENCHMARK_SUCCESS '" + a.getName() + "'");
         logfile.close();
     except cBenchmarkError as error:
         logger.error(error)
         pass;
     except:
-        print("TRAIN_FAILURE '" + a.getName() + "'");
+        print("BENCHMARK_FAILURE '" + a.getName() + "'");
         logfile.close();
         raise
 
@@ -79,6 +79,7 @@ class cGeneric_OneSignal_Tester:
               "HEAD=", df[lDate].head().values, "TAIL=", df[lDate].tail().values);
         print("SIGNAL : ", iSignal , "N=", df[iSignal].shape[0], "H=", iHorizon,
               "HEAD=", df[iSignal].head().values, "TAIL=", df[iSignal].tail().values);
+        df.to_csv("bench.csv");
         # print(df.head());
 
     def checkHorizon(self, N , iHorizon):
@@ -228,7 +229,7 @@ class cGeneric_Tester:
             tester.testSignal(sig, iHorizon);
         pass
     
-    def testSignals(self, iSignals, iHorizon):
+    def testSignals(self, iSignals, iHorizon = 2):
         sigs = iSignals.split(" ");
         for sig in sigs:
             tester = cGeneric_OneSignal_Tester(self.mTSSpecPerSignal[sig] , self.mBenchName);
