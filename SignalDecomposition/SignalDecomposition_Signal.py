@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import datetime
+from . import SignalDecomposition_utils as tsutil
 
 def testTranform(tr1):
     df = pd.DataFrame();
@@ -30,6 +31,13 @@ class cAbstractSignalTransform:
         print("dump_apply_invert_head", df.head());
         print("dump_apply_invert_tail", df.tail());
         
+    def check_not_nan(self, sig , name):
+        return;
+        #print("check_not_nan");
+        if(np.isnan(sig).any()):
+            print("TRANSFORMATION_RESULT_WITH_NAN_IN_SIGNAL" , sig);
+            raise tsutil.InternalForecastError("Invalid transformation for column '" + name + "'");
+        pass
 
 
 class cSignalTransform_None(cAbstractSignalTransform):
@@ -230,7 +238,8 @@ class cSignalTransform_RelativeDifferencing(cAbstractSignalTransform):
         self.mDelta = self.mMaxValue - self.mMinValue;
         eps = 1.0e-10
         if(self.mDelta < eps):
-            self.mDelta = eps;            
+            self.mDelta = eps;
+        # print("cSignalTransform_RelativeDifferencing_Fit" , self.mMinValue, self.mMaxValue, self.mFirstValue, self.mDelta);
         pass
 
     def apply(self, df):
@@ -242,6 +251,8 @@ class cSignalTransform_RelativeDifferencing(cAbstractSignalTransform):
         df_shifted.fillna((self.mFirstValue - self.mMinValue) / self.mDelta, inplace = True);
         r = (df1 - df_shifted) / (df_shifted + 1)
         # self.dump_apply_invert(df , r);
+        self.check_not_nan(df, "before_Apply");
+        self.check_not_nan(r, "after_Apply");
         return r;
     
     def invert(self, df):
@@ -250,11 +261,14 @@ class cSignalTransform_RelativeDifferencing(cAbstractSignalTransform):
         df_orig.iloc[0] = (self.mFirstValue - self.mMinValue) / self.mDelta
         for i in range(1,df.shape[0]):
             previous_value = df_orig.iloc[i - 1] 
-            df_orig.iloc[i] = (r.iloc[i] + 1) * (previous_value + 1) - 1
+            df_orig.iloc[i] = previous_value + r.iloc[i]  * (previous_value + 1)
+            # print("rel_diff_detail", r.iloc[i - 1] , df_orig.iloc[i - 1] ,  r.iloc[i] , df_orig.iloc[i]); 
         for i in range(0,df.shape[0]):
             df_orig.iloc[i] = df_orig.iloc[i] * self.mDelta + self.mMinValue;
         
         # self.dump_apply_invert(df_orig , r);
+        self.check_not_nan(df_orig, "after_invert");
+        self.check_not_nan(r, "before_invert");
         return df_orig;
 
     def transformDataset(self, df, isig):
