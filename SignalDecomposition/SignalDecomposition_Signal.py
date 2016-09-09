@@ -43,6 +43,7 @@ class cAbstractSignalTransform:
 class cSignalTransform_None(cAbstractSignalTransform):
 
     def __init__(self):
+        self.mFormula = "None";
         pass
 
     def get_name(self, iSig):
@@ -69,6 +70,7 @@ class cSignalTransform_None(cAbstractSignalTransform):
 class cSignalTransform_Accumulate(cAbstractSignalTransform):
 
     def __init__(self):
+        self.mFormula = "Integration";
         pass
 
     def get_name(self, iSig):
@@ -101,6 +103,7 @@ class cSignalTransform_Quantize(cAbstractSignalTransform):
 
     def __init__(self, iQuantiles):
         self.mQuantiles = iQuantiles;
+        self.mFormula = "Quantization";
         pass
 
     def get_name(self, iSig):
@@ -152,6 +155,7 @@ class cSignalTransform_BoxCox(cAbstractSignalTransform):
         self.mMin = np.min(sig);
         self.mMax = np.max(sig);
 #        print("minimum  : " , self.mMin);
+        self.mFormula = "BoxCox(Lambda=" + str(self.mLambda) + ")";
         pass
     
 
@@ -189,6 +193,7 @@ class cSignalTransform_Differencing(cAbstractSignalTransform):
 
     def __init__(self):
         self.mFirstValue = np.nan;
+        self.mFormula = "Difference";
         pass
 
     def get_name(self, iSig):
@@ -226,6 +231,7 @@ class cSignalTransform_RelativeDifferencing(cAbstractSignalTransform):
     def __init__(self):
         self.mFirstValue = np.nan;
         self.mMinValue = np.nan;
+        self.mFormula = "RelativeDifference";
         pass
 
     def get_name(self, iSig):
