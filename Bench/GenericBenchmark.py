@@ -36,6 +36,7 @@ def run_bench_process(a):
         tester = cGeneric_OneSignal_Tester(a.mTSSpec , a.mBenchName);
         tester.testSignal(a.mSignal, a.mHorizon)
         print("BENCHMARK_SUCCESS '" + a.getName() + "'");
+        del tester;
         logfile.close();
     except cBenchmarkError as error:
         logger.error(error)
@@ -228,6 +229,7 @@ class cGeneric_Tester:
         for sig in self.mTSSpecPerSignal.keys():
             tester = cGeneric_OneSignal_Tester(self.mTSSpecPerSignal[sig] , self.mBenchName);
             tester.testSignal(sig, iHorizon);
+            del tester;
         pass
     
     def testSignals(self, iSignals, iHorizon = 2):
@@ -235,6 +237,7 @@ class cGeneric_Tester:
         for sig in sigs:
             tester = cGeneric_OneSignal_Tester(self.mTSSpecPerSignal[sig] , self.mBenchName);
             tester.testSignal(sig, iHorizon);
+            del tester;
         pass
 
 
