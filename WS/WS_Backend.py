@@ -52,6 +52,7 @@ class cWSModel:
         self.mFullDataFrame = pd.read_csv(self.mCSVFile, sep=r',', engine='python');
         self.guess_Columns_if_needed();
         self.mFullDataFrame[self.mTimeVar] = self.mFullDataFrame[self.mTimeVar].apply(self.convert_string_to_date);
+        self.mFullDataFrame.sort_values(by = self.mTimeVar, inplace = True);
         self.mPresent = self.convert_string_to_date(self.mPresentTime);
         
     def trainModel(self):
@@ -227,6 +228,21 @@ class cFlaskBackend:
             del self.models[name];
         pass
 
+
+    def add_yahoo_symbol(self, symbol):
+        lSymbol = symbol
+        lYahooURL = "http://ichart.finance.yahoo.com/table.csv?g=d&f=2015&e=12&c=2014&b=10&a=7&d=7&s=" + lSymbol;
+        lYahoo = { "CSVFile" : lYahooURL,
+                   "DateFormat" : "%Y-%m-%d", # ISO format
+                   "SignalVar" : "Open",
+                   "TimeVar" : "Date",
+                   "Present" : "2014-12-31",
+                   "Horizon" : 7,
+                   "Name" : lSymbol + "_Model"
+                   };
+        self.add_model(lYahoo);
+        
+
     # samples
     def fillSampleModels(self):
         lOzone = { "CSVFile" : "https://raw.githubusercontent.com/antoinecarme/TimeSeriesData/master/ozone-la.csv", 
@@ -248,4 +264,9 @@ class cFlaskBackend:
                      };
         self.add_model(lOzone);
         self.add_model(lAirline);
-        
+        # yahoo symbols ... online
+        self.add_yahoo_symbol("AAPL")
+        self.add_yahoo_symbol("GOOG")
+        self.add_yahoo_symbol("MSFT")
+        self.add_yahoo_symbol("SAP")
+        self.add_yahoo_symbol("^FCHI")
