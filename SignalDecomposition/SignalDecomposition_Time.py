@@ -50,7 +50,8 @@ class cTimeInfo:
     def to_json(self):
         dict1 = {};
         dict1["TimeVariable"] =  self.mTime;
-        dict1["TimeMinMax"] =  [self.mTimeMin , self.mTimeMax];
+        dict1["TimeMinMax"] =  [str(self.mSignalFrame[self.mTime].min()) ,
+                                str(self.mSignalFrame[self.mTime].max())];
         dict1["Horizon"] =  self.mHorizon;
         return dict1;
 
@@ -159,7 +160,7 @@ class cTimeInfo:
 
     def defineCuttingParameters(self):
         lStr = "CUTTING_START SignalVariable='" + self.mSignal +"'";
-        print(lStr);
+        # print(lStr);
         #print(self.mSignalFrame.head())
         self.mTrainSize = self.mSignalFrame.shape[0];
         assert(self.mTrainSize > 0);
