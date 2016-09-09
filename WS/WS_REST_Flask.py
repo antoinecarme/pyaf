@@ -46,6 +46,31 @@ def returnOneModel(name):
         return jsonify({'model' : model.as_dict()})
     return jsonify({})
 
+@app.route('/model/<string:name>/plot/<string:plot_type>', methods=['GET'])
+def returnOneModelPlot(name, plot_type):
+    backend = get_backend();
+    model = backend.get_model(name);
+    if(model):
+        if(plot_type != "all"):
+            lPlot_PNG_Base64 = model.mPlots[plot_type];
+            lOutput = "<img src=\"data:image/png;base64," + str(lPlot_PNG_Base64) + "\"\>";
+        else:
+            lOutput = "";
+            for k in model.mPlots.keys():
+                lPlot_PNG_Base64 = model.mPlots[k];
+                lOutput = lOutput + "<img src=\"data:image/png;base64," + str(lPlot_PNG_Base64) + "\"\>\n\n\n";            
+        return lOutput;
+    return jsonify({})
+
+@app.route('/model/<string:name>/SQL/<string:sql_dialect>', methods=['GET'])
+def returnOneModelSQL(name, sql_dialect):
+    backend = get_backend();
+    model = backend.get_model(name);
+    if(model):
+        lSQL = model.mSQL[sql_dialect];
+        return lSQL
+    return jsonify({})
+
 # POST requests
 
 @app.route('/model', methods=['POST'])
