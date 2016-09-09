@@ -39,6 +39,9 @@ class cAutoForecast:
     def standrdPlots(self , name = None):
         self.mSignalDecomposition.standrdPlots(name);
 
+    def getPlotsAsDict(self):
+        return self.mSignalDecomposition.getPlotsAsDict();
+
     def to_json(self):
         return self.mSignalDecomposition.to_json();
 
@@ -47,8 +50,8 @@ class cAutoForecast:
         lForecastPerf.compute(actual, predicted, name);
         return lForecastPerf;
 
-    def generateCode(self):
-        lCodeGenerator = tscodegen.cDecompositionCodeGenObject();
+    def generateCode(self, iDSN = None, iDialect = None):
+        lCodeGenerator = tscodegen.cDecompositionCodeGenObject(iDSN, iDialect);
         lSQL = lCodeGenerator.generateCode(self);
-        print("GENERATED_SQL_CODE" , lSQL);
+        # print("GENERATED_SQL_CODE" , lSQL);
         return lSQL;
