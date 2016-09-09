@@ -55,31 +55,39 @@ def _sl_date_diff(element, compiler, **kw):    # pragma: no cover
 class weekday(GenericFunction):
     type = Float
 
+@compiles(weekday)
+def _my_weekday(element, compiler, **kw):  # pragma: no cover
+    return "EXTRACT(dow from %s)" % (compiler.process(element.clauses.clauses[0]))
+
 @compiles(weekday, 'mysql')
-def _my_date_diff(element, compiler, **kw):  # pragma: no cover
+def _my_weekday(element, compiler, **kw):  # pragma: no cover
     return "WEEKDAY(%s)" % (compiler.process(element.clauses.clauses[0]))
 
 @compiles(weekday, 'postgresql')
-def _my_date_diff(element, compiler, **kw):  # pragma: no cover
+def _my_weekday(element, compiler, **kw):  # pragma: no cover
     return "EXTRACT(dow from %s)" % (compiler.process(element.clauses.clauses[0]))
 
 @compiles(weekday, 'sqlite')
-def _my_date_diff(element, compiler, **kw):  # pragma: no cover
+def _my_weekday(element, compiler, **kw):  # pragma: no cover
     return "EXTRACT(dow, %s)" % (compiler.process(element.clauses.clauses[0]))
 
 class week(GenericFunction):
     type = Float
 
+@compiles(week)
+def _my_week(element, compiler, **kw):  # pragma: no cover
+    return "EXTRACT(week from %s)" % (compiler.process(element.clauses.clauses[0]))
+
 @compiles(week, 'mysql')
-def _my_date_diff(element, compiler, **kw):  # pragma: no cover
+def _my_week(element, compiler, **kw):  # pragma: no cover
     return "WEEK(%s)" % (compiler.process(element.clauses.clauses[0]))
 
 @compiles(week, 'postgresql')
-def _my_date_diff(element, compiler, **kw):  # pragma: no cover
+def _my_week(element, compiler, **kw):  # pragma: no cover
     return "EXTRACT(week from %s)" % (compiler.process(element.clauses.clauses[0]))
 
 @compiles(week, 'sqlite')
-def _my_date_diff(element, compiler, **kw):  # pragma: no cover
+def _my_week(element, compiler, **kw):  # pragma: no cover
     return "EXTRACT(week, %s)" % (compiler.process(element.clauses.clauses[0]))
 
 
@@ -92,6 +100,8 @@ def cast_point(value, cur):
 class cDatabaseBackend:
     
     def __init__(self, iDSN = None, iDialect = None):
+        self.mDebug = False;
+        
         print("CREATING_DATABASE_BACKEND_DSN_DIALECT", sqlalchemy.__version__, iDSN, iDialect);
         self.mDSN = iDSN;
         self.mDialectString = iDialect;
@@ -118,7 +128,7 @@ class cDatabaseBackend:
     def initializeEngine(self):
         if(self.mDSN is not None):
             # connected mode.
-            self.mEngine = create_engine(self.mDSN , echo=False)
+            self.mEngine = create_engine(self.mDSN , echo = False, pool_size=5, max_overflow=5)
             self.mConnection = self.mEngine.connect()
             self.mMeta = MetaData(bind = self.mConnection);
             self.mDialect = self.mEngine.dialect;
@@ -163,7 +173,7 @@ class cDatabaseBackend:
             return False;
         (lMajor, lMinor) = self.mConnection.connection.connection._server_version;
         if((lMajor > 10) or (lMajor >= 10) and (lMinor >= 2)):
-            print("MYSQL_DATABASE_SUPPORTS_CTE_AND_ROW_NUMBER" , str(lMajor) +"." + str(lMinor));
+            # print("MYSQL_DATABASE_SUPPORTS_CTE_AND_ROW_NUMBER" , str(lMajor) +"." + str(lMinor));
             return True;
         return False;
 
@@ -220,15 +230,16 @@ class cDatabaseBackend:
         return sqlalchemy.sql.expression.literal(iValue, sqlalchemy.types.FLOAT);
 
     def getDateTimeLiteral(self, iValue):
-        return sqlalchemy.sql.expression.literal(iValue, sqlalchemy.types.DateTime);
+        return sqlalchemy.sql.expression.literal(iValue, sqlalchemy.types.Date);
 
     def debrief_cte(self, cte):
         statement = select(['*']).select_from(cte);
         lSQL = self.generate_Sql(statement);
-        print("*************************************************************************");
-        print(lSQL);
-        print("*************************************************************************");
-        return lSQL;
+        if(self.mDebug):
+            print("*************************************************************************");
+            print(lSQL);
+            print("*************************************************************************");
+            return lSQL;
 
     def generateSQLForStatement(self, cte):
         statement = alias(select([cte]), "SQLGenResult");
@@ -268,7 +279,7 @@ class cDecompositionCodeGenObject:
         lGeneratedApplyOut = self.mBackEnd.testGeneration(df , lSQL, lTableName);
         select1 = select([self.mModel_CTE]);
         lGeneratedApplyOut.columns = select1.columns.keys();
-        print(lGeneratedApplyOut.head());
+        # print(lGeneratedApplyOut.head());
 
     def generateCode_Internal(self, iTableName = None):
          # M = T + C + AR
@@ -308,7 +319,7 @@ class cDecompositionCodeGenObject:
          self.Shortened[self.mCycle.getCycleName()] = "SCycle";
          self.Shortened[self.mCycle.getCycleResidueName()] = "SCycleRes";
          # self.Shortened[self.mModelName] = "SModel";
-         print(self.Shortened);
+         # print(self.Shortened);
 
          lTableName = iTableName;
          if(lTableName is None):
@@ -335,10 +346,10 @@ class cDecompositionCodeGenObject:
         if(lTimeInfo.isPhysicalTime()):
             lType = sqlalchemy.types.TIMESTAMP;
             # count the number of days here if date. number of seconds if datetime
-            lAmplitude = func.date_diff(lTimeInfo.mTimeMax,
-                                        lTimeInfo.mTimeMin)
+            lAmplitude = func.date_diff(self.mBackEnd.getDateTimeLiteral(lTimeInfo.mTimeMax),
+                                        self.mBackEnd.getDateTimeLiteral(lTimeInfo.mTimeMin))
             normalized_time = func.date_diff(table.c[self.mDateName],
-                                             lTimeInfo.mTimeMin);
+                                             self.mBackEnd.getDateTimeLiteral(lTimeInfo.mTimeMin));
         else:
             lAmplitude = lTimeInfo.mTimeMax - lTimeInfo.mTimeMin
             normalized_time = table.c[self.mDateName] - lTimeInfo.mTimeMin ;
@@ -481,11 +492,11 @@ class cDecompositionCodeGenObject:
             trend_expr = self.mBackEnd.getFloatLiteral(self.mTrend.mMean);
             pass
         elif(self.mTrend.mFormula == "LinearTrend"):
-            print(self.mTrend.mTrendRidge.__dict__);
+            # print(self.mTrend.mTrendRidge.__dict__);
             trend_expr = self.mTrend.mTrendRidge.coef_[0] * table.c["NTime"] + self.mBackEnd.getFloatLiteral(self.mTrend.mTrendRidge.intercept_)
             pass
         elif(self.mTrend.mFormula == "PolyTrend"):
-            print(self.mTrend.mTrendRidge.__dict__);
+            # print(self.mTrend.mTrendRidge.__dict__);
             trend_expr = self.mTrend.mTrendRidge.coef_[0] * table.c["NTime"];
             trend_expr += self.mTrend.mTrendRidge.coef_[1] * table.c["NTime_2"];
             trend_expr += self.mTrend.mTrendRidge.coef_[2] * table.c["NTime_3"];
@@ -519,7 +530,7 @@ class cDecompositionCodeGenObject:
     def addCycleInputs(self, table):
         lTime =  self.mDateName;
         exprs = [];
-        print(table.columns);
+        # print(table.columns);
         lTimeInfo = self.mAutoForecast.mSignalDecomposition.mBestTransformation.mTimeInfo
         if(lTimeInfo.isPhysicalTime()):
             date_expr = table.c[lTime]
@@ -550,14 +561,11 @@ class cDecompositionCodeGenObject:
 
 
     def generateCycleSpecificExpression(self, iExpr, iDict, iDefault):
-        expr_2 = None;
+        if(len(iDict) == 0):
+            return self.mBackEnd.getFloatLiteral(iDefault);
         lDict = iDict;
         key, value = lDict.popitem()
-        expr_1 = None;
-        if(len(lDict) > 0):
-            expr_1 = self.generateCycleSpecificExpression(iExpr, lDict, iDefault);
-        else:
-            return self.mBackEnd.getFloatLiteral(iDefault);
+        expr_1 = self.generateCycleSpecificExpression(iExpr, lDict, iDefault);
         valueexpr =  self.mBackEnd.getFloatLiteral(value);
         expr_2 = self.generateCaseWhen(iExpr, int(key), valueexpr, expr_1);
         return expr_2;
@@ -626,9 +634,9 @@ class cDecompositionCodeGenObject:
         # TS0 = table;
         TS1 = None;
         if(self.mBackEnd.supports_CTE()):
-            TS1 = alias(select([table.c[index_col] , table.c[col]]), "KKKKKK");
+            TS1 = alias(select([table.c[index_col] , table.c[col]]), "LagInput");
         else:
-            TS1 = alias(select([table.c[index_col] , table.c[col]]), "KKKKKK");
+            TS1 = alias(select([table.c[index_col] , table.c[col]]), "LagInput");
         col_expr_1 = TS1.c[col];
         index_expr = table.c[index_col];
         index_expr_1 = TS1.c[index_col];
