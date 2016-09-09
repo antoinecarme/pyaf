@@ -6,6 +6,10 @@ import AutoForecast as autof
 from Bench import TS_datasets as tsds
 
 from flask import Flask, jsonify, request
+import logging
+
+# for timing
+import time
 
 class cWSModel:
 
@@ -18,7 +22,9 @@ class cWSModel:
         self.mHorizon = 1;
         self.mMaxHistoryForDisplay = 1000; # max length of data frames returned in json
         self.mForecastData = None;
-
+        self.mPlots = {};
+        self.mURI = "http://192.168.88.88:8080/";
+        
     def convert_string_to_date(self, iString):
         if(self.mDateFormat is not None and self.mDateFormat != ""):
             return dt.datetime.strptime(iString, self.mDateFormat);
@@ -27,9 +33,9 @@ class cWSModel:
     def guess_Columns_if_needed(self):
         print("DATASET_DETECTED_COLUMNS", self.mFullDataFrame.columns);
         if(len(self.mFullDataFrame.columns) == 1):
+            lLastColumn = self.mFullDataFrame.columns[-1];
             lDataFrame = pd.DataFrame();
             lDataFrame[self.mTimeVar] = range(0, self.mFullDataFrame.shape[0]);
-            lLastColumn = self.mFullDataFrame.columns[-1];
             lDataFrame[self.mSignalVar] = self.mFullDataFrame[lLastColumn]
             self.mFullDataFrame = lDataFrame;
         else:
@@ -37,7 +43,7 @@ class cWSModel:
                 lFirstColumn = self.mFullDataFrame.columns[0];
                 self.mFullDataFrame[self.mTimeVar] = self.mFullDataFrame[lFirstColumn]
             if(self.mSignalVar not in self.mFullDataFrame.columns):
-                lLastColumn = self.mFullDataFrame.columns[-1];
+                lLastColumn = self.mFullDataFrame.columns[1];
                 self.mFullDataFrame[self.mSignalVar] = self.mFullDataFrame[lLastColumn]
         print("DATASET_FINAL_COLUMNS", self.mFullDataFrame.columns);
                 
@@ -58,19 +64,44 @@ class cWSModel:
         self.mDetailedForecast_DataFrame = self.mAutoForecast.forecast(self.mApplyIn, self.mHorizon);
         self.mForecast_DataFrame = self.mDetailedForecast_DataFrame; # [[self.mTimeVar , self.mSignalVar, self.mSignalVar + '_BestModelForecast']];
         self.mForecastData = self.mForecast_DataFrame.tail(self.mHorizon);
+        lForecastName = self.mSignalVar + '_BestModelForecast';
+        self.mForecast = self.mForecastData[[self.mTimeVar, lForecastName,
+                                             lForecastName + "_Lower_Bound",
+                                             lForecastName + "_Upper_Bound"]]
 
     def generateCode(self):
-        self.mSQL = None;
+        logger = logging.getLogger(__name__)
+        self.mSQL = {};
         try:
-            self.mSQL = self.mAutoForecast.generateCode();
-        except:
+            self.mSQL["Default"] = self.mAutoForecast.generateCode(iDSN = None, iDialect = None);
+            self.mSQL["postgresql"] = self.mAutoForecast.generateCode(iDSN = None, iDialect = "postgresql");
+            self.mSQL["mssql"] = self.mAutoForecast.generateCode(iDSN = None, iDialect = "mssql");
+            self.mSQL["oracle"] = self.mAutoForecast.generateCode(iDSN = None, iDialect = "oracle");
+            self.mSQL["mysql"] = self.mAutoForecast.generateCode(iDSN = None, iDialect = "mysql");
+            self.mSQL["sybase"] = self.mAutoForecast.generateCode(iDSN = None, iDialect = "sybase");
+            self.mSQL["sqlite"] = self.mAutoForecast.generateCode(iDSN = None, iDialect = "sqlite");
+        except Exception as e:
+            logger.error("FAILED_TO_GENERATE_CODE_FOR " + self.mName + " " + str(e));
+            pass
+
+    def generatePlots(self):
+        logger = logging.getLogger(__name__)
+        self.mPlots = {};
+        try:
+            self.mPlots = self.mAutoForecast.getPlotsAsDict();
+        except Exception as e:
+            logger.error("FAILED_TO_GENERATE_PLOTS " + self.mName + " " + str(e));
+            raise
             pass
 
     def create(self):
+        start_time = time.time()
         self.readData();
         self.trainModel();
         self.applyModel();
         self.generateCode();
+        self.generatePlots();
+        self.mTrainingTime = time.time() - start_time;
 
     def update(self):
         self.create();
@@ -91,10 +122,28 @@ class cWSModel:
         self.create();
         
 
+    def get_dataset_info(self):
+        lDatasetInfo = {};
+        lDatasetInfo["Signal_Stats"] = {"Length" : str(self.mFullDataFrame[self.mSignalVar].shape[0]),
+                                        "Min" : str(self.mFullDataFrame[self.mSignalVar].min()),
+                                        "Max" : str(self.mFullDataFrame[self.mSignalVar].max()),
+                                        "Mean" : str(self.mFullDataFrame[self.mSignalVar].mean()),
+                                        "StdDev" : str(self.mFullDataFrame[self.mSignalVar].std()),
+                                        };
+        lDatasetInfo["Time_Stats"] = {"Min" : str(self.mFullDataFrame[self.mTimeVar].min()),
+                                      "Max" : str(self.mFullDataFrame[self.mTimeVar].max()),
+                                      };
+        return lDatasetInfo;
+
     def as_dict(self):
-        lForecastData = None;
+        lForecastName = self.mSignalVar + '_BestModelForecast';
+        lForecastData = {};
         if(self.mForecastData is not None):
-            lForecastData = self.mForecastData.to_json(date_format='iso');
+            lForecastData["Time"] = self.mForecast[self.mTimeVar].apply(str).tolist();
+            lForecastData["Forecast"] = self.mForecast[lForecastName].tolist();
+            lForecastData["Forecast" + "_Lower_Bound"] = self.mForecast[lForecastName + "_Lower_Bound"].tolist();
+            lForecastData["Forecast" + "_Upper_Bound"] = self.mForecast[lForecastName + "_Upper_Bound"].tolist();
+
         lModelInfo = self.getModelInfo();
         lTrainOptions =  {
             'CSVFile': self.mCSVFile,
@@ -104,13 +153,40 @@ class cWSModel:
             "Present" : self.mPresentTime,
             "Horizon" : self.mHorizon,
         }
-        obj_d = {
+        lPlotLinks = {};
+        lPlotLinks["all"] = self.mURI + "model/" + self.mName + "/plot/" + "all";
+        for k in self.mPlots.keys():
+            lPlotLinks[k] = self.mURI + "model/" + self.mName + "/plot/" + k;
+        lTrainOptionsDescription =  {
+            'CSVFile': "A CSV file (URIs are also welcome!!!) containing a date column (optional, a integer sequence starting at zero is used if not present), and a signal column, for which the future values are to be predicted. ",
+            'DateFormat': "The format of the date column , if it is a physcial date/time/datetime column (iso : yyyy-mm-dd by default), empty otherwise",
+            "SignalVar" : "Name of the signal column to be predicted",
+            "TimeVar" : "Name of the date/time column",
+            "Present" : "date/time of the last known signal value. Predictions start after this date/time",
+            "Horizon" : "number of future time periods to be predicted. The length of a period is inferred from data (most frequent difference between two consecutive dates)",
+            "Name" : "Name used to identify the model in the API"
+        }
+
+        lSQLLinks = {};
+        for k in self.mSQL.keys():
+            lSQLLinks[k] = self.mURI + "model/" + self.mName + "/SQL/" + k;
+
+        lMetaData = {
             "Name" : self.mName,
-            "CreationDate" : self.mCreationDate.isoformat(),            
+            "ModelFormat" : "0.1",
+            "CreationDate" : str(self.mCreationDate),
+            "Training_Time" : str(self.mTrainingTime)
+            }
+        
+        obj_d = {
+            'MetaData' : [ lMetaData ],
             'TrainOptions': [ lTrainOptions ],
+            'TrainOptionsHelp': [ lTrainOptionsDescription ],
+            "CSVFileInfo" : [ self.get_dataset_info() ],
             "ModelInfo" : [lModelInfo],
             "ForecastData" : [lForecastData],
-            "SQL" : [self.mSQL]
+            "SQL" : [ lSQLLinks ],
+            "Plots" : [ lPlotLinks ]
         }
         return obj_d
 
@@ -157,7 +233,7 @@ class cFlaskBackend:
                    "DateFormat" : "%Y-%m", 
                    "SignalVar" : "Ozone",
                    "TimeVar" : "Month",
-                   "Present" : "1960-08",
+                   "Present" : "1968-08",
                    "Horizon" : 12,
                    "Name" : "Ozone_Model_12"
                    };
@@ -166,7 +242,7 @@ class cFlaskBackend:
                      "DateFormat" : "", # not a date ... a number
                      "SignalVar" : "AirPassengers",
                      "TimeVar" : "Time",
-                     "Present" : "100",
+                     "Present" : "150",
                      "Horizon" : 7,
                      "Name" : "AirPassengers_Model"
                      };
