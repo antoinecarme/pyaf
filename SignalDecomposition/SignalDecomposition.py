@@ -80,7 +80,7 @@ class cSignalDecompositionOneTransform:
         self.mSignalFrame.dropna(inplace = True);
         assert(self.mSignalFrame.shape[0] > 0);
 
-        print("SIGNAL_INFO " , self.info());
+        # print("SIGNAL_INFO " , self.info());
         
         self.mTimeInfo = tsti.cTimeInfo();
         self.mTimeInfo.mTime = self.mTime;
@@ -240,7 +240,7 @@ class cSignalDecompositionOneTransform:
         # estimate time info
         # assert(self.mTimeInfo.mSignalFrame.shape[0] == iInputDS.shape[0])
         self.mTimeInfo.estimate();
-        print("TIME_INFO " , self.mTimeInfo.info());
+        # print("TIME_INFO " , self.mTimeInfo.info());
         self.mSignalFrame[self.mTimeInfo.mNormalizedTimeColumn] = self.mTimeInfo.mSignalFrame[self.mTimeInfo.mNormalizedTimeColumn]
         if(self.mOptions.mEnablePlots):    
             self.plotSignal()
@@ -290,7 +290,7 @@ class cSignalDecomposition:
 
     def validateTransformation(self , transf):
         lName = transf.get_name("");
-        print("Adding Transformation " , lName);
+        # print("Adding Transformation " , lName);
         self.mTransformList = self.mTransformList + [transf];
     
     def defineTransformations(self , df):
@@ -434,7 +434,7 @@ class cSignalDecomposition:
             if(lTranformName == self.mBestTransformationName):
                 self.mBestTransformation = sigdec;
 
-        # predcition intervals
+        # prediction intervals
         self.mPredictionIntervalsEstimator = predint.cPredictionIntervalsEstimator();
         self.mPredictionIntervalsEstimator.mSignalFrame = iInputDS;
         self.mPredictionIntervalsEstimator.mTime = iTime;
@@ -445,7 +445,8 @@ class cSignalDecomposition:
         self.mPredictionIntervalsEstimator.computePerformances();
         
         end_time = time.time()
-        print("END_TRAINING_TIME_IN_SECONDS '" + iSignal + "' " + str(end_time - start_time))
+        self.mTrainingTime = end_time - start_time;
+        print("END_TRAINING_TIME_IN_SECONDS '" + iSignal + "' " + str(self.mTrainingTime))
         pass
 
     def forecast(self , iInputDS, iHorizon):
@@ -493,13 +494,17 @@ class cSignalDecomposition:
         dict1 = {};
         dict1["Dataset"] = { "Time" : self.mBestTransformation.mTimeInfo.to_json(),
                              "Signal" : self.mBestTransformation.mOriginalSignal,
-                             "Signal_length" : self.mBestTransformation.mBestModelFrame.shape[0]};
+                             "Training_Signal_Length" : self.mBestTransformation.mBestModelFrame.shape[0]};
+        lTransformation = self.mBestTransformation.mTransformation.mFormula;
         dict1["Model"] = { "Best_Decomposition" : self.mBestTransformation.mBestModelName,
-                           "Signal_Transoformation" : self.mBestTransformation.mTransformation.get_name(""),
-                           "Trend" : self.mBestTransformation.mBestModelTrend.mOutName,
-                           "Cycle" : self.mBestTransformation.mBestModelCycle.mOutName,
-                           "AR_Model" : self.mBestTransformation.mBestModelAR.mOutName};
-        dict1["Performance Info By Transformation"] = self.mTrPerfDetails.to_json();
+                           "Signal_Transoformation" : lTransformation,
+                           "Trend" : self.mBestTransformation.mBestModelTrend.mFormula,
+                           "Cycle" : self.mBestTransformation.mBestModelCycle.mFormula,
+                           "AR_Model" : self.mBestTransformation.mBestModelAR.mFormula,
+                           };
+        dict1["Model_Performance"] = {"MAPE" : str(self.mTrPerfDetails.iloc[0].ForecastMAPE),
+                                      "RMSE" : str(self.mTrPerfDetails.iloc[0].ForecastL2)};
+        
         return dict1;
         
     def standrdPlots(self, name = None):
@@ -517,7 +522,33 @@ class cSignalDecomposition:
                                         lForecastColumn + '_Lower_Bound',
                                         lForecastColumn + '_Upper_Bound',
                                         name = name,
-                                        max_length = (4 * sigdec.mHorizon));
+                                        max_length = (16 * sigdec.mHorizon));
         #lOutput.plot()
         
-        
+
+    def getPlotsAsDict(self):
+        lDict = {};
+        df = self.mBestTransformation.mBestModelFrame;
+        lTime = self.mBestTransformation.mTimeInfo.mTime;
+        lSignalColumn = self.mBestTransformation.mSignal;
+        lPrefix = lSignalColumn + "_BestModel";
+        lDict["Trend"] = tsplot.decomp_plot_as_png_base64(df, lTime, lSignalColumn, lPrefix + 'Trend' , lPrefix + 'Trend_residue', name = "trend");
+        lDict["Cycle"] = tsplot.decomp_plot_as_png_base64(df, lTime, lPrefix + 'Trend_residue' , lPrefix + 'Cycle', lPrefix + 'Cycle_residue', name = "cycle");
+        lDict["AR"] = tsplot.decomp_plot_as_png_base64(df, lTime, lPrefix + 'Cycle_residue' , lPrefix + 'AR' , lPrefix + 'AR_residue', name = "AR");
+        lDict["Forecast"] = tsplot.decomp_plot_as_png_base64(df, lTime, lSignalColumn, lPrefix + 'Forecast' , lPrefix + 'Residue', name = "forecast");
+
+        sigdec = self.mBestTransformation;
+        lInput = sigdec.mSignalFrame[[sigdec.mTime, sigdec.mSignal]];
+        lOutput = self.forecast(lInput ,  sigdec.mHorizon);
+        print(lOutput.columns)
+        lPrefix = sigdec.mOriginalSignal + "_BestModel";
+        lForecastColumn = lPrefix + 'Forecast';
+        lTime = sigdec.mTimeInfo.mNormalizedTimeColumn;            
+        lDict["Prediction_Intervals"] = tsplot.prediction_interval_plot_as_png_base64(lOutput,
+                                                                                      lTime, sigdec.mOriginalSignal,
+                                                                                      lForecastColumn  ,
+                                                                                      lForecastColumn + '_Lower_Bound',
+                                                                                      lForecastColumn + '_Upper_Bound',
+                                                                                      name = "prediction_intervals",
+                                                                                      max_length = (16 * sigdec.mHorizon));
+        return lDict;
