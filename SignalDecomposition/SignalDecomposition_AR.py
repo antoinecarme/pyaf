@@ -58,10 +58,10 @@ class cZeroAR(cAbstractAR):
 
 
 class cAutoRegressiveModel(cAbstractAR):
-    def __init__(self , cycle_residue_name):
+    def __init__(self , cycle_residue_name, P):
         super().__init__(cycle_residue_name)
         self.mARRidge = linear_model.Ridge()
-
+        self.mNbLags = P;
     
     def generateLags(self, df, P):
         self.mARLagNames = [];
@@ -78,7 +78,6 @@ class cAutoRegressiveModel(cAbstractAR):
         series = self.mCycleResidueName; 
         self.mTime = self.mTimeInfo.mTime;
         self.mSignal = self.mTimeInfo.mSignal;
-        self.mNbLags = int(self.mCycleFrame.shape[0] / 4)
         if(self.mNbLags > self.mOptions.mMaxAROrder):
             self.mNbLags = self.mOptions.mMaxAROrder;
         self.mOutName = self.mCycleResidueName +  '_AR(' + str(self.mNbLags) + ")"; 
@@ -132,7 +131,14 @@ class cAutoRegressiveEstimator:
                 self.mARList[cycle_residue] = [ cZeroAR(cycle_residue)];
                 if(self.mOptions.mEnableARModels):
                     if((self.mCycleFrame[cycle_residue].shape[0] > 12) and (self.mCycleFrame[cycle_residue].std() > 0.00001)):
-                        self.mARList[cycle_residue] = self.mARList[cycle_residue] + [cAutoRegressiveModel(cycle_residue)];
+                        N = 10;
+                        lStep = self.mCycleFrame.shape[0] / (N*4.0);
+                        for n in range(1, 10):
+                            lLags = int(lStep * n);
+                            if(lLags > 1):
+                                lAR = cAutoRegressiveModel(cycle_residue, lLags);
+                                self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lAR];
+
                 for autoreg in self.mARList[cycle_residue]:
                     autoreg.mOptions = self.mOptions;
                     autoreg.mCycleFrame = self.mCycleFrame;
