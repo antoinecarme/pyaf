@@ -41,7 +41,7 @@ class cPredictionIntervalsEstimator:
             self.mTestPerformances[lHorizonName] = tsperf.cPerf();
             self.mTestPerformances[lHorizonName].compute(lOriginalTest[lSignalColumn], lFrameTest[lForecastColumn], lHorizonName);
             df1[lSignalColumn] = df2[lForecastColumn];
-        self.dump();
+        # self.dump();
 
     def dump_detailed(self):
         lForecastColumn = self.mSignal + "_BestModelForecast";
