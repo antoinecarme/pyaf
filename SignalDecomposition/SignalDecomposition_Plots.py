@@ -6,6 +6,9 @@ import scipy.stats as scistats
 
 import matplotlib.pyplot as plt
 
+from io import BytesIO
+import base64
+
 def decomp_plot(df, time, signal, estimator, residue, name = None, max_length = 1000) :
     assert(df.shape[0] > 0)
     assert(df.shape[1] > 0)
@@ -40,12 +43,11 @@ def decomp_plot_as_png_base64(df, time, signal, estimator, residue, name = None,
     lErrorStdDev = np.std(residues)
     scistats.probplot(residues, dist="norm", plot=axs[1])
 
-    from io import BytesIO
     figfile = BytesIO()
     fig.savefig(figfile, format='png')
     figfile.seek(0)  # rewind to beginning of file
-    import base64
     figdata_png = base64.b64encode(figfile.getvalue())
+    plt.close(fig)
     return figdata_png.decode('utf8')
     
 
@@ -70,7 +72,7 @@ def prediction_interval_plot(df, time, signal, estimator, lower, upper, name = N
 
     if(name is not None):
         fig.savefig(name + '_prediction_intervals_output.png')
-
+    
 
 def prediction_interval_plot_as_png_base64(df, time, signal, estimator, lower, upper, name = None, max_length = 1000) :
     assert(df.shape[0] > 0)
@@ -91,11 +93,10 @@ def prediction_interval_plot_as_png_base64(df, time, signal, estimator, lower, u
     df1.plot.line(time, [signal, estimator, lower, upper], ax=axs, grid = True)
     axs.fill_between(df1[time], df1[lower], df1[upper], color='blue', alpha=.5)
 
-    from io import BytesIO
     figfile = BytesIO()
     fig.savefig(figfile, format='png')
+    plt.close(fig)
     figfile.seek(0)  # rewind to beginning of file
-    import base64
     figdata_png = base64.b64encode(figfile.getvalue())
     return figdata_png.decode('utf8')
 
