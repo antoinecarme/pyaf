@@ -630,38 +630,44 @@ class cDecompositionCodeGenObject:
         self.mBackEnd.debrief_cte(self.mCycle_residues_CTE)
 
 
-    def createLags(self, table , H , col, index_col):
+    def createLags(self, table , P , cols, index_col):
         # TS0 = table;
         TS1 = None;
+        lColumnVars = [ table.c[index_col] ];
+        for col in cols:
+            lColumnVars = lColumnVars + [ table.c[col] ];
         if(self.mBackEnd.supports_CTE()):
-            TS1 = alias(select([table.c[index_col] , table.c[col]]), "LagInput");
+            TS1 = alias(select([lColumnVars]), "LagInput");
         else:
-            TS1 = alias(select([table.c[index_col] , table.c[col]]), "LagInput");
-        col_expr_1 = TS1.c[col];
+            TS1 = alias(select([lColumnVars]), "LagInput");
         index_expr = table.c[index_col];
         index_expr_1 = TS1.c[index_col];
         exprs = [];
-        for h1 in range(1 , H+1):
-            case1 = case([(index_expr == (index_expr_1 + h1) , col_expr_1)] , else_ = null());
-            expr = select([func.sum(case1)]).select_from(table);
-            expr = expr.label(col + "_Lag" + str(h1));
-            exprs = exprs + [expr];
+        for p in range(1 , P+1):
+            for col in cols:
+                col_expr_1 = TS1.c[col];
+                case1 = case([(index_expr == (index_expr_1 + p) , col_expr_1)] , else_ = null());
+                expr = select([func.sum(case1)]).select_from(table);
+                expr = expr.label(col + "_Lag" + str(p));
+                exprs = exprs + [expr];
         return exprs;
 
     def addARInputs(self, table):
         exprs = [];
-        if(self.mAR.mFormula != "NoAR"):
-            residue_name = self.Shortened[self.mCycle.getCycleResidueName()];
+        if(self.mAR.mFormula != "NoAR"):            
+            lVars = [ self.Shortened[self.mCycle.getCycleResidueName()] ];
+            for exog in self.mExogenousVariables:
+                lVars = lVars + [exog];
             exprs = exprs + self.createLags(table, 
-                                            len(self.mAR.mARLagNames), 
-                                            residue_name,
+                                            self.mAR.mNbLags, 
+                                            lVars,
                                             self.mRowNumberAlias);
         return exprs
 
 
     def generateARInputCode(self):
         # => AR_Inputs_CTE
-        ar_inputs = self.addARInputs(self.mCycle_residues_CTE)
+        self.mAR_inputs = self.addARInputs(self.mCycle_residues_CTE)
         self.mAR_input_CTE = self.mBackEnd.generate_CTE([self.mCycle_residues_CTE] + ar_inputs, "ARICTE")
         self.mBackEnd.debrief_cte(self.mAR_input_CTE)
         
@@ -670,10 +676,11 @@ class cDecompositionCodeGenObject:
         exprs = [];
         ar_expr = None;
         if(self.mAR.mFormula != "NoAR"):
-            lDefault_expr = self.mBackEnd.getFloatLiteral(self.mAR.mDefaultValue);
             i = 0 ;
-            for i in range(len(self.mAR.mARLagNames)):
-                feat = self.Shortened[self.mCycle.getCycleResidueName()] + "_Lag" + str(i+1);
+            for i in range(len(self.mAR_inputs)):
+                lag = self.mAR_inputs[i];
+                feat = lag.key();
+                lDefault_expr = self.mBackEnd.getFloatLiteral(self.mAR.getDefaultValue(lag));
                 feat_value = func.coalesce(table.c[feat] , lDefault_expr);
                 if(ar_expr is None):
                     ar_expr = self.mAR.mARRidge.coef_[i] * feat_value;
