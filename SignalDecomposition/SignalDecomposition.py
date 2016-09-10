@@ -291,6 +291,7 @@ class cSignalDecomposition:
         self.mSigDecByTransform = {};
         self.mOptions = tsopts.cSignalDecomposition_Options();
         self.mExogenousVariables = [];
+        self.mExogenousDummies = [];
         pass
 
     def needQuantile(self, df , i):
@@ -413,18 +414,38 @@ class cSignalDecomposition:
                            'TestCount', 'TestL2', 'TestMAPE')) 
         return df;
 
+    def createExogenousDummies(self, iInputDS, iTime, iSignal):
+        lInputDS = iInputDS.copy();
+        self.mExogenousDummies = [];
+        for exog in self.mExogenousVariables:
+            lList = self.mExogenousVariableCategories[exog];
+            for lCat in lList:
+                lDummyName = exog + "_d_" + str(lCat);
+                lInputDS[lDummyName] = iInputDS[exog].apply(lambda x : 1 if (x == lCat) else 0);
+                self.mExogenousDummies = self.mExogenousDummies + [lDummyName];
+        return lInputDS;
+
+    def updateExogenousVariableInfo(self, iInputDS, iTime, iSignal):
+        self.mExogenousVariableCategories = None;
+        if(len(self.mExogenousVariables) > 0):
+            self.mExogenousVariableCategories = {};
+            for exog in self.mExogenousVariables:
+                # use nan as a category
+                lVC = iInputDS[exog].value_counts(dropna = False);
+                # TODO : 5 categories. to be added in options.
+                NCat = 5;
+                lList = lVC.index[0:NCat].tolist();
+                print("most_frequent_categories_for" , exog, lList);
+                self.mExogenousVariableCategories[exog] = lList;
+                
+
     def preProcessExogenousVariables(self, iInputDS, iTime, iSignal):
-        # print("preProcessExogenousVariables , columns", iInputDS.columns);
         lInputDS = iInputDS;
         if(len(self.mExogenousVariables) > 0):
-            lExogenousDummiesDS = pd.get_dummies(iInputDS[self.mExogenousVariables]);
-            # print("preProcessExogenousVariables , dummy columns", lExogenousDummiesDS.columns);
-            self.mExogenousDummies = lExogenousDummiesDS.columns;
-            lInputDS = lExogenousDummiesDS;
-            lInputDS[iTime] = iInputDS[iTime];
-            lInputDS[iSignal] = iInputDS[iSignal];
-            
-        # print("preProcessExogenousVariables , columns", lInputDS.columns);
+            print("preProcessExogenousVariables , columns", self.mExogenousVariables);
+            self.updateExogenousVariableInfo(iInputDS, iTime, iSignal);
+            lInputDS = self.createExogenousDummies(iInputDS, iTime, iSignal);
+            print("preProcessExogenousVariables , columns", self.mExogenousDummies);
         return lInputDS;
         
     def train(self , iInputDS, iTime, iSignal, iHorizon, iExogenous = []):
@@ -478,9 +499,9 @@ class cSignalDecomposition:
         pass
 
     def forecast(self , iInputDS, iHorizon):
-        lInputDS = self.preProcessExogenousVariables(iInputDS,
-                                                     self.mBestTransformation.mTime,
-                                                     self.mBestTransformation.mSignal);
+        lInputDS = self.createExogenousDummies(iInputDS,
+                                               self.mBestTransformation.mTime,
+                                               self.mBestTransformation.mSignal);
         lForecastFrame = self.mBestTransformation.forecastModel(lInputDS, iHorizon);
 
         lSignalColumn = self.mBestTransformation.mOriginalSignal;

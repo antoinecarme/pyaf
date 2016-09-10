@@ -27,6 +27,7 @@ def decomp_plot(df, time, signal, estimator, residue, name = None, max_length = 
 
     if(name is not None):
         fig.savefig(name + '_decomp_output.png')
+        plt.close(fig)
 
 def decomp_plot_as_png_base64(df, time, signal, estimator, residue, name = None, max_length = 1000) :
     assert(df.shape[0] > 0)
@@ -72,6 +73,7 @@ def prediction_interval_plot(df, time, signal, estimator, lower, upper, name = N
 
     if(name is not None):
         fig.savefig(name + '_prediction_intervals_output.png')
+        plt.close(fig)
     
 
 def prediction_interval_plot_as_png_base64(df, time, signal, estimator, lower, upper, name = None, max_length = 1000) :
