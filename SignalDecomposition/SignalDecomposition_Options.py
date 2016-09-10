@@ -17,6 +17,7 @@ class cSignalDecomposition_Options:
         self.mEnableTrends = True;
         self.mEnableCycles = True;
         self.mEnableARModels = True;
+        self.mEnableARXModels = True;
         self.disableDebuggingOptions();
 
     def activateDebuggingOptions(self):

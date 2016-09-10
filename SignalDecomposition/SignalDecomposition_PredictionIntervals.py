@@ -20,13 +20,15 @@ class cPredictionIntervalsEstimator:
         lTimeColumn = self.mTime;
         lSignalColumn = self.mSignal;
         lForecastColumn = self.mSignal + "_BestModelForecast";
-        df = self.mSignalFrame[[lTimeColumn, lSignalColumn]];
+        df = self.mSignalFrame;
         N = df.shape[0];
         (lOriginalFit, lOriginalForecast, lOriginalTest) = best_dec.mTimeInfo.cutFrame(df);
         df1 = df.copy();
         for h in range(0 , self.mHorizon):
             df2 = None;
             df2 = best_dec.forecastModelOneStepAhead(df1.copy());
+            for exog in best_dec.mExogenousVariables:
+                df2[ exog ] = df[ exog ];
             df2 = df2.head(N);
             # print(df1[[lTimeColumn, lSignalColumn]].head());
             # print(df2[[lTimeColumn, lSignalColumn, lForecastColumn]].head());
