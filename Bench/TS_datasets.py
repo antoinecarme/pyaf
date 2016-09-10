@@ -100,6 +100,29 @@ def load_ozone() :
     
     return tsspec
 
+def load_ozone_exogenous() :
+    tsspec = cTimeSeriesDatasetSpec();
+    tsspec.mName = "Ozone"
+    tsspec.mDescription = "https://datamarket.com/data/set/22u8/ozon-concentration-downtown-l-a-1955-1972"
+    
+    #trainfile = "data/ozone-la.csv"
+    trainfile = "data/ozone-la-exogrenous.csv"
+    # "https://raw.githubusercontent.com/antoinecarme/TimeSeriesData/master/ozone-la.csv"
+
+    cols = ["Date", "Month", "Exog2", "Exog3", "Exog4", "Ozone"];
+    
+    df_train = pd.read_csv(trainfile, names = cols, sep=r',', engine='python', skiprows=1);
+    df_train['Time'] = df_train['Date'].apply(lambda x : datetime.datetime.strptime(x, "%Y-%m"))
+
+    tsspec.mTimeVar = "Time";
+    tsspec.mSignalVar = "Ozone";
+    tsspec.mExogenousVariables = ["Month", "Exog2", "Exog3", "Exog4"];
+    tsspec.mHorizon = 12;
+    tsspec.mPastData = df_train[:-tsspec.mHorizon];
+    tsspec.mFutureData = df_train.tail(tsspec.mHorizon);
+    
+    return tsspec
+
 
 def generate_random_TS(N , FREQ, seed, trendtype, cycle_length, transform, sigma = 1.0) :
     tsspec = cTimeSeriesDatasetSpec();
