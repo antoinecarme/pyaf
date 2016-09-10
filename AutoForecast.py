@@ -3,7 +3,7 @@ from SignalDecomposition import SignalDecomposition_Options as tsopts
 from SignalDecomposition import SignalDecomposition_Perf as tsperf
 from SignalDecomposition import SignalDecomposition_utils as tsutil
 
-import TS_CodeGen_Objects as tscodegen
+from CodeGen import TS_CodeGen_Objects as tscodegen
 
 class cAutoForecast:
         
