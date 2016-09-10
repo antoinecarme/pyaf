@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import AutoForecast as autof
 import Bench.TS_datasets as tsds
-import TS_CodeGen_Objects as tscodegen
+import TS_CodeGenerator as tscodegen
 
 #get_ipython().magic('matplotlib inline')
 
@@ -30,5 +30,5 @@ for n in range(2*H,  N , 10):
     lAutoF.train(df1 , b1.mTimeVar , b1.mSignalVar, H);
     lAutoF.getModelInfo();
     lAutoF.mSignalDecomposition.mBestTransformation.mTimeInfo.mResolution
-    lCodeGenerator = tscodegen.cDecompositionCodeGenObject();
+    lCodeGenerator = tscodegen.cTimeSeriesCodeGenerator();
     lSQL = lCodeGenerator.testGeneration(lAutoF);
