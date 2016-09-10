@@ -17,8 +17,11 @@ from sqlalchemy.dialects.postgresql import *
 from sqlalchemy.schema import DropTable
 from sqlalchemy.ext.compiler import compiles
 from sqlalchemy.sql.functions import GenericFunction
+from sqlalchemy.sql import expression
 
 import pandas as pd;
+
+from dateutil.tz import tzutc
 
 import psycopg2 as psy;
 #register_adapter, AsIs
@@ -26,6 +29,7 @@ from psycopg2.extensions import adapt, register_adapter, AsIs
     
 class date_diff(GenericFunction):
     type = Float
+    name = 'date_diff'
     
 @compiles(DropTable, "postgresql")
 def _compile_drop_table(element, compiler, **kwargs):
@@ -43,9 +47,10 @@ def _my_date_diff(element, compiler, **kw):  # pragma: no cover
                                  )
 
 @compiles(date_diff, 'postgresql')
-def _my_date_diff(element, compiler, **kw):  # pragma: no cover
-    return "extract(epoch from (%s - %s))::int" % (compiler.process(element.clauses.clauses[0]),
-                                                   compiler.process(element.clauses.clauses[1]));
+def _pg_date_diff(element, compiler, **kw):  # pragma: no cover
+    arg1, arg2 = list(element.clauses)
+    return "(extract(epoch from %s) - extract(epoch from %s))" % (compiler.process(arg1),
+                                                                  compiler.process(arg2));
 
 @compiles(date_diff, 'sqlite')
 def _sl_date_diff(element, compiler, **kw):    # pragma: no cover
@@ -56,7 +61,7 @@ class weekday(GenericFunction):
     type = Float
 
 @compiles(weekday)
-def _my_weekday(element, compiler, **kw):  # pragma: no cover
+def _def_weekday(element, compiler, **kw):  # pragma: no cover
     return "EXTRACT(dow from %s)" % (compiler.process(element.clauses.clauses[0]))
 
 @compiles(weekday, 'mysql')
@@ -64,18 +69,18 @@ def _my_weekday(element, compiler, **kw):  # pragma: no cover
     return "WEEKDAY(%s)" % (compiler.process(element.clauses.clauses[0]))
 
 @compiles(weekday, 'postgresql')
-def _my_weekday(element, compiler, **kw):  # pragma: no cover
+def _pg_weekday(element, compiler, **kw):  # pragma: no cover
     return "EXTRACT(dow from %s)" % (compiler.process(element.clauses.clauses[0]))
 
 @compiles(weekday, 'sqlite')
-def _my_weekday(element, compiler, **kw):  # pragma: no cover
+def _sl_weekday(element, compiler, **kw):  # pragma: no cover
     return "EXTRACT(dow, %s)" % (compiler.process(element.clauses.clauses[0]))
 
 class week(GenericFunction):
     type = Float
 
 @compiles(week)
-def _my_week(element, compiler, **kw):  # pragma: no cover
+def _def_week(element, compiler, **kw):  # pragma: no cover
     return "EXTRACT(week from %s)" % (compiler.process(element.clauses.clauses[0]))
 
 @compiles(week, 'mysql')
@@ -83,24 +88,18 @@ def _my_week(element, compiler, **kw):  # pragma: no cover
     return "WEEK(%s)" % (compiler.process(element.clauses.clauses[0]))
 
 @compiles(week, 'postgresql')
-def _my_week(element, compiler, **kw):  # pragma: no cover
+def _pg_week(element, compiler, **kw):  # pragma: no cover
     return "EXTRACT(week from %s)" % (compiler.process(element.clauses.clauses[0]))
 
 @compiles(week, 'sqlite')
-def _my_week(element, compiler, **kw):  # pragma: no cover
+def _sl_week(element, compiler, **kw):  # pragma: no cover
     return "EXTRACT(week, %s)" % (compiler.process(element.clauses.clauses[0]))
 
-
-
-def cast_point(value, cur):
-    if value is None:
-        return None
-    return value;
 
 class cDatabaseBackend:
     
     def __init__(self, iDSN = None, iDialect = None):
-        self.mDebug = False;
+        self.mDebug = True;
         
         print("CREATING_DATABASE_BACKEND_DSN_DIALECT", sqlalchemy.__version__, iDSN, iDialect);
         self.mDSN = iDSN;
@@ -123,12 +122,16 @@ class cDatabaseBackend:
 
         self.initializeEngine();
 
+        self.mShortLabels = {};
         pass
+
+    def addShortLabel(self, iLongName, iShortName):
+        self.mShortLabels[iLongName] = iShortName;
 
     def initializeEngine(self):
         if(self.mDSN is not None):
             # connected mode.
-            self.mEngine = create_engine(self.mDSN , echo = False, pool_size=5, max_overflow=5)
+            self.mEngine = create_engine(self.mDSN , echo = True, pool_size=5, max_overflow=5)
             self.mConnection = self.mEngine.connect()
             self.mMeta = MetaData(bind = self.mConnection);
             self.mDialect = self.mEngine.dialect;
@@ -140,9 +143,12 @@ class cDatabaseBackend:
                 self.mDialect = self.KNOWN_DIALECTS[self.mDialectString];
     
     def generate_Sql(self, statement):
-        return statement.compile(dialect=self.mDialect, compile_kwargs={'literal_binds': True}).string;
+        print("generate_Sql_statement" , statement);
+        lResult = statement.compile(bind=self.mEngine, compile_kwargs={'literal_binds': True});
+        print("generate_Sql_result" , lResult);
+        return lResult.string;
     
-    def createLogicalTable(self, iTableName, iDateName, iSignalName, iDateType):
+    def createLogicalTable(self, iTableName, iDateName, iSignalName, iDateType, iExogenousVariables = []):
         lTestTableName = iTableName;
         lPrimaryKeyName = iDateName;
         
@@ -152,6 +158,8 @@ class cDatabaseBackend:
         # lTestTable.append_column(Column(lPrimaryKeyName, Integer, primary_key=True));
         lTestTable.append_column(Column(iDateName, iDateType));
         lTestTable.append_column(Column(iSignalName, Float));
+        for exog in iExogenousVariables:
+            lTestTable.append_column(Column(exog, String));            
         lTestTable.c[ lPrimaryKeyName ].primary_key = True;
         lTestTableAlias = lTestTable.alias('ApplyDataset')
         return lTestTableAlias;
@@ -230,10 +238,14 @@ class cDatabaseBackend:
         return sqlalchemy.sql.expression.literal(iValue, sqlalchemy.types.FLOAT);
 
     def getDateTimeLiteral(self, iValue):
-        return sqlalchemy.sql.expression.literal(iValue, sqlalchemy.types.Date);
+        # return sqlalchemy.sql.expression.literal(iValue, sqlalchemy.types.TIMESTAMP);
+        # return func.cast(iValue, sqlalchemy.types.TIMESTAMP);
+        return sqlalchemy.sql.expression.literal_column("TIMESTAMP '" + str(iValue) + "'", sqlalchemy.types.DATETIME); # .strftime("%Y-%m-%d %H:%M:%S")
 
     def debrief_cte(self, cte):
-        statement = select(['*']).select_from(cte);
+        statement = select(cte.columns);
+        print("debrief_cte_cte" , cte);
+        print("debrief_cte_statement" , statement);
         lSQL = self.generate_Sql(statement);
         if(self.mDebug):
             print("*************************************************************************");
@@ -242,7 +254,8 @@ class cDatabaseBackend:
             return lSQL;
 
     def generateSQLForStatement(self, cte):
-        statement = alias(select([cte]), "SQLGenResult");
+        statement = select([cte] , use_labels=True)
+        # statement = alias(select([cte]), "SQLGenResult");
         lSQL = self.generate_Sql(statement);
         return lSQL;
 
@@ -258,6 +271,7 @@ class cDatabaseBackend:
 
 class cDecompositionCodeGenObject:
     def __init__(self, iDSN = None, iDialect = None):
+        sys.setrecursionlimit(10000)
         self.mAutoForecast = None;
         self.mBackEnd = cDatabaseBackend(iDSN , iDialect);
     
@@ -279,7 +293,22 @@ class cDecompositionCodeGenObject:
         lGeneratedApplyOut = self.mBackEnd.testGeneration(df , lSQL, lTableName);
         select1 = select([self.mModel_CTE]);
         lGeneratedApplyOut.columns = select1.columns.keys();
-        # print(lGeneratedApplyOut.head());
+        print(lGeneratedApplyOut.head());
+
+    def shorten(self, iName):
+        if(iName in self.mBackEnd.mShortLabels.keys()):
+            return self.mBackEnd.mShortLabels[iName];
+        lLength = len(iName);
+        if(lLength < 30):
+            return iName;
+        chars = string.ascii_uppercase + string.digits;
+        lPrefix = "AutoLabel_";
+        lRandomChars = ''.join(random.choice(chars) for _ in range(6));
+        lName = iName[(lLength - 15) : ];
+        lShort = lPrefix + lRandomChars + "_" + lName;
+        self.mBackEnd.addShortLabel(iName, lShort);
+        return lShort; 
+
 
     def generateCode_Internal(self, iTableName = None):
          # M = T + C + AR
@@ -312,19 +341,20 @@ class cDecompositionCodeGenObject:
          if(lTimeInfo.isPhysicalTime()):
              self.mDateType = sqlalchemy.types.TIMESTAMP;
 
-         self.Shortened = {};
-         self.Shortened[self.mTrend.mOutName] = "STrend";
-         self.Shortened[self.mCycle.mOutName] = "SCycle";
-         self.Shortened[self.mAR.mOutName] = "SAR";
-         self.Shortened[self.mCycle.getCycleName()] = "SCycle";
-         self.Shortened[self.mCycle.getCycleResidueName()] = "SCycleRes";
+         self.mBackEnd.addShortLabel(self.mTrend.mOutName, "STrend");
+         self.mBackEnd.addShortLabel(self.mCycle.mOutName, "SCycle");
+         self.mBackEnd.addShortLabel(self.mAR.mOutName, "SAR");
+         self.mBackEnd.addShortLabel(self.mCycle.getCycleName(), "SCycle");
+         # self.Shortened[self.mCycle.getCycleResidueName()] = "SCycleRes";
          # self.Shortened[self.mModelName] = "SModel";
          # print(self.Shortened);
 
          lTableName = iTableName;
          if(lTableName is None):
              lTableName = self.mBackEnd.generateRandomTableName();
-         table = self.mBackEnd.createLogicalTable(lTableName , self.mDateName, self.mSignalName, self.mDateType);
+         table = self.mBackEnd.createLogicalTable(lTableName , self.mDateName,
+                                                  self.mSignalName, self.mDateType,
+                                                  self.mAutoForecast.mSignalDecomposition.mExogenousVariables);
          
          self.generateRowNumberCode(table); # => RowNumber_CTE
          self.generateTransformationInputCode(table); # => Transformation_CTE
@@ -345,11 +375,12 @@ class cDecompositionCodeGenObject:
         lTimeInfo = self.mAutoForecast.mSignalDecomposition.mBestTransformation.mTimeInfo
         if(lTimeInfo.isPhysicalTime()):
             lType = sqlalchemy.types.TIMESTAMP;
+            lMinExpr = self.mBackEnd.getDateTimeLiteral(lTimeInfo.mTimeMin);
+            lMaxExpr = self.mBackEnd.getDateTimeLiteral(lTimeInfo.mTimeMax)
+            # exprs = exprs + [lMinExpr, lMaxExpr];
             # count the number of days here if date. number of seconds if datetime
-            lAmplitude = func.date_diff(self.mBackEnd.getDateTimeLiteral(lTimeInfo.mTimeMax),
-                                        self.mBackEnd.getDateTimeLiteral(lTimeInfo.mTimeMin))
-            normalized_time = func.date_diff(table.c[self.mDateName],
-                                             self.mBackEnd.getDateTimeLiteral(lTimeInfo.mTimeMin));
+            lAmplitude = func.date_diff(lMaxExpr, lMinExpr);
+            normalized_time = func.date_diff(table.c[self.mDateName],  lMinExpr);
         else:
             lAmplitude = lTimeInfo.mTimeMax - lTimeInfo.mTimeMin
             normalized_time = table.c[self.mDateName] - lTimeInfo.mTimeMin ;
@@ -419,11 +450,25 @@ class cDecompositionCodeGenObject:
         exprs = [cumulated_signal , previous_expr, relatve_diff];
         return exprs
 
+    def addExogenousDummies(self, table):
+        exprs = [];
+        for exog in self.mAutoForecast.mSignalDecomposition.mExogenousVariables:
+            lList = self.mAutoForecast.mSignalDecomposition.mExogenousVariableCategories[exog];
+            for lCat in lList:
+                lDummyName = exog + "_d_" + str(lCat);
+                lCatExpr = sqlalchemy.sql.expression.literal(str(lCat), String);
+                expr1 = case([((table.c[exog] == lCatExpr) , self.mBackEnd.getFloatLiteral(1.0))],
+                             else_ = self.mBackEnd.getFloatLiteral(0.0));
+                expr1 = expr1.label(lDummyName);
+                exprs = exprs + [expr1];
+        return exprs;
+
     def generateTransformationInputCode(self, table):
         # => TransformationInput_CTE
         exprs1 = self.addOriginalSignalAggreagtes(self.mRowNumber_CTE,
                                                   self.mAutoForecast.mSignalDecomposition.mBestTransformation);
-        self.mTransformationInputs_CTE = self.mBackEnd.generate_CTE(self.mRowNumber_CTE.columns  + exprs1, "TransformationInput_CTE")
+        exprs2 = self.addExogenousDummies(self.mRowNumber_CTE);
+        self.mTransformationInputs_CTE = self.mBackEnd.generate_CTE(self.mRowNumber_CTE.columns  + exprs1 + exprs2, "TransformationInput_CTE")
         self.mBackEnd.debrief_cte(self.mTransformationInputs_CTE)
 
     def addTransformedSignal(self, table, tr):
@@ -515,7 +560,7 @@ class cDecompositionCodeGenObject:
         trend_expr = self.generateTrendExpression(table);
         #print(type(trend_expr))
         
-        trend_expr = trend_expr.label(self.Shortened[self.mTrend.mOutName]);
+        trend_expr = trend_expr.label(self.shorten(self.mTrend.mOutName));
         exprs = exprs + [trend_expr]
         return exprs
 
@@ -599,7 +644,7 @@ class cDecompositionCodeGenObject:
     def addCycles(self, table):
         exprs = [];
         cycle_expr = self.generateCycleExpression(table);
-        cycle_expr = cycle_expr.label(self.Shortened[self.mCycle.getCycleName()])
+        cycle_expr = cycle_expr.label(self.shorten(self.mCycle.getCycleName()))
         exprs = exprs + [cycle_expr]
         return exprs
     
@@ -615,10 +660,10 @@ class cDecompositionCodeGenObject:
     def addCycleResidues(self, table):
         exprs = [];
         # exprs = [table]
-        cycle_expr = table.c[self.Shortened[self.mCycle.getCycleName()]];
-        trend_expr = table.c[self.Shortened[self.mTrend.mOutName]];
+        cycle_expr = table.c[self.shorten(self.mCycle.getCycleName())];
+        trend_expr = table.c[self.shorten(self.mTrend.mOutName)];
         cycle_residue_expr = trend_expr + cycle_expr - table.c[self.mSignalAlias]
-        cycle_residue_expr = cycle_residue_expr.label(self.Shortened[self.mCycle.getCycleResidueName()])
+        cycle_residue_expr = cycle_residue_expr.label(self.mCycle.getCycleResidueName())
         exprs = exprs + [cycle_residue_expr]
         return exprs
 
@@ -632,31 +677,34 @@ class cDecompositionCodeGenObject:
 
     def createLags(self, table , P , cols, index_col):
         # TS0 = table;
-        TS1 = None;
-        lColumnVars = [ table.c[index_col] ];
-        for col in cols:
-            lColumnVars = lColumnVars + [ table.c[col] ];
-        if(self.mBackEnd.supports_CTE()):
-            TS1 = alias(select([lColumnVars]), "LagInput");
-        else:
-            TS1 = alias(select([lColumnVars]), "LagInput");
         index_expr = table.c[index_col];
-        index_expr_1 = TS1.c[index_col];
         exprs = [];
+        self.mDefaultARLagValues = {};
         for p in range(1 , P+1):
             for col in cols:
+                lColumnVars = [ table.c[index_col] ];
+                lColumnVars = lColumnVars + [ table.c[col] ];
+                TS1 = None;
+                if(self.mBackEnd.supports_CTE()):
+                    TS1 = alias(select(lColumnVars), "LagInput");
+                else:
+                    TS1 = alias(select(lColumnVars), "LagInput");
                 col_expr_1 = TS1.c[col];
+                index_expr_1 = TS1.c[index_col];                
                 case1 = case([(index_expr == (index_expr_1 + p) , col_expr_1)] , else_ = null());
                 expr = select([func.sum(case1)]).select_from(table);
-                expr = expr.label(col + "_Lag" + str(p));
+                lLong = col + "_Lag" + str(p);
+                lLabel = self.shorten(lLong);
+                self.mDefaultARLagValues[lLabel] = self.mAR.getDefaultValue(lLong);
+                expr = expr.label(lLabel);
                 exprs = exprs + [expr];
         return exprs;
 
     def addARInputs(self, table):
         exprs = [];
         if(self.mAR.mFormula != "NoAR"):            
-            lVars = [ self.Shortened[self.mCycle.getCycleResidueName()] ];
-            for exog in self.mExogenousVariables:
+            lVars = [ self.mCycle.getCycleResidueName() ];
+            for exog in self.mAR.mExogenousVariables:
                 lVars = lVars + [exog];
             exprs = exprs + self.createLags(table, 
                                             self.mAR.mNbLags, 
@@ -668,7 +716,7 @@ class cDecompositionCodeGenObject:
     def generateARInputCode(self):
         # => AR_Inputs_CTE
         self.mAR_inputs = self.addARInputs(self.mCycle_residues_CTE)
-        self.mAR_input_CTE = self.mBackEnd.generate_CTE([self.mCycle_residues_CTE] + ar_inputs, "ARICTE")
+        self.mAR_input_CTE = self.mBackEnd.generate_CTE([self.mCycle_residues_CTE] + self.mAR_inputs, "ARICTE")
         self.mBackEnd.debrief_cte(self.mAR_input_CTE)
         
 
@@ -679,8 +727,8 @@ class cDecompositionCodeGenObject:
             i = 0 ;
             for i in range(len(self.mAR_inputs)):
                 lag = self.mAR_inputs[i];
-                feat = lag.key();
-                lDefault_expr = self.mBackEnd.getFloatLiteral(self.mAR.getDefaultValue(lag));
+                feat = lag.key;
+                lDefault_expr = self.mBackEnd.getFloatLiteral(self.mDefaultARLagValues[feat]);
                 feat_value = func.coalesce(table.c[feat] , lDefault_expr);
                 if(ar_expr is None):
                     ar_expr = self.mAR.mARRidge.coef_[i] * feat_value;
@@ -690,7 +738,7 @@ class cDecompositionCodeGenObject:
             ar_expr = ar_expr + self.mBackEnd.getFloatLiteral(self.mAR.mARRidge.intercept_);
         else:
             ar_expr = self.mBackEnd.getFloatLiteral(0.0);
-        ar_expr = ar_expr.label(self.Shortened[self.mAR.mOutName])
+        ar_expr = ar_expr.label(self.shorten(self.mAR.mOutName))
         exprs = exprs + [ar_expr]
         return exprs
 
@@ -702,9 +750,9 @@ class cDecompositionCodeGenObject:
 
     def add_TS_Model(self, table):
         exprs = [];
-        sum_1 = table.c[self.Shortened[self.mTrend.mOutName]];
-        sum_1 += table.c[self.Shortened[self.mCycle.mOutName]];
-        sum_1 += table.c[self.Shortened[self.mAR.mOutName]];
+        sum_1 = table.c[self.shorten(self.mTrend.mOutName)];
+        sum_1 += table.c[self.shorten(self.mCycle.mOutName)];
+        sum_1 += table.c[self.shorten(self.mAR.mOutName)];
         model_expr = sum_1;
         model_expr = model_expr.label("TSModel")
         # model_residue = sum_1 - table.c[self.mSignalAlias]
