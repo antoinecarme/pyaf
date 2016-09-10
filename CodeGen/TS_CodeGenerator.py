@@ -1,4 +1,4 @@
-import TS_CodeGen_Objects as tscodegen
+from CodeGen import TS_CodeGen_Objects as tscodegen
 
 class cTimeSeriesCodeGenerator:
     
@@ -16,7 +16,8 @@ class cTimeSeriesCodeGenerator:
         # "sqlite://",
         # "sqlite:///a.db",
         lKnownDSNs = ["postgresql:///GitHubtest",
-                      "mysql://user:pass@localhost/GitHubtest"];
+                      "mysql://user:pass@localhost/GitHubtest",
+                      ];
         for lDSN in lKnownDSNs:            
             try:
                 self.mInternalCodeGen = tscodegen.cDecompositionCodeGenObject(lDSN, iDialect);
