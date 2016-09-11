@@ -123,10 +123,14 @@ def load_ozone_exogenous() :
     
     return tsspec
 
+def add_some_noise(x , p):
+    if(np.random.random() < p):
+        return "A" + str(int(0.01*x));
+    return "";
 
-def generate_random_TS(N , FREQ, seed, trendtype, cycle_length, transform, sigma = 1.0) :
+def generate_random_TS(N , FREQ, seed, trendtype, cycle_length, transform, sigma = 1.0, exog_count = 20) :
     tsspec = cTimeSeriesDatasetSpec();
-    tsspec.mName = "Signal_" + str(N) + "_" + str(FREQ) +  "_" + str(seed)  + "_" + str(trendtype) +  "_" + str(cycle_length)   + "_" + str(transform)   + "_" + str(sigma) ;
+    tsspec.mName = "Signal_" + str(N) + "_" + str(FREQ) +  "_" + str(seed)  + "_" + str(trendtype) +  "_" + str(cycle_length)   + "_" + str(transform)   + "_" + str(sigma) + "_" + str(exog_count) ;
     print("GENERATING_RANDOM_DATASET" , tsspec.mName);
     tsspec.mDescription = "Random generated dataset";
 
@@ -163,14 +167,16 @@ def generate_random_TS(N , FREQ, seed, trendtype, cycle_length, transform, sigma
         df_train['GeneratedCycle'] = df_train['GeneratedCycle'].apply(lambda x : lValues[int(x)][0]);
     if(cycle_length == 0):
         df_train['GeneratedCycle'] = 0;
-        
+
     df_train['Noise'] = np.random.randn(N, 1) * sigma;
     df_train['Signal'] = df_train['GeneratedTrend'] +  df_train['GeneratedCycle'] + df_train['Noise']
 
-    # print(df_train.head());
-    # print(df_train.info());
-    # print(df_train.describe());
-    
+    tsspec.mExogenousVariables = [];
+    for e in range(exog_count):
+        label = "exog_" + str(e+1);
+        df_train[label] = df_train['Signal'].apply(lambda x : add_some_noise(x , 0.1));
+        tsspec.mExogenousVariables = tsspec.mExogenousVariables + [ label ];
+
     min_sig = df_train['Signal'].min();
     pos_signal = df_train['Signal'] - min_sig + 1.0;
 
@@ -558,7 +564,7 @@ def get_yahoo_symbol_lists():
 
 def generate_datasets(ds_type = "S"):
     datasets = {};
-    lRange_N = range(5, 100, 20)
+    lRange_N = range(10, 100, 10)
     if(ds_type == "M"):
         lRange_N = range(100, 500, 50)
     if(ds_type == "L"):
@@ -568,13 +574,14 @@ def generate_datasets(ds_type = "S"):
     
     for N in lRange_N:
         for trend in ["constant" , "linear" , "poly"]:
-            for cycle_length in range(0, 65 , 15):
+            for cycle_length in range(0, int(N/4) , 15):
                 for transf in ["" , "exp"]:            
                     for sigma in range(0, 5, 2):
-                        for seed in range(0, 1):
-                            ds = generate_random_TS(N , 'D', seed, trend, cycle_length, transf, sigma);
-                            ds.mCategory = "ARTIFICIAL_" + ds_type; 
-                            datasets[ds.mName] = ds
+                        for exogc in range(0, 100, 10):
+                            for seed in range(0, 1):
+                                ds = generate_random_TS(N , 'D', seed, trend, cycle_length, transf, sigma, exog_count = exogc);
+                                ds.mCategory = "ARTIFICIAL_" + ds_type; 
+                                datasets[ds.mName] = ds
     return datasets;
 
 
