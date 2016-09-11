@@ -15,7 +15,7 @@ class cTimeSeriesCodeGenerator:
         lSQL = None;
         # "sqlite://",
         # "sqlite:///a.db",
-        lKnownDSNs = ["postgresql:///GitHubtest",
+        lKnownDSNs = ["postgresql://antoine:@/githubtest?port=5433",
                       "mysql://user:pass@localhost/GitHubtest",
                       ];
         for lDSN in lKnownDSNs:            

@@ -20,6 +20,7 @@ from sqlalchemy.sql.functions import GenericFunction
 from sqlalchemy.sql import expression
 
 import pandas as pd;
+import numpy as np;
 
 from dateutil.tz import tzutc
 
@@ -391,7 +392,7 @@ class cDecompositionCodeGenObject:
         
     def addRowNumber_analytical(self, table):
         exprs = [];
-        row_number_column = func.row_number().over(order_by=asc(table.c[self.mDateName])) - 1
+        row_number_column = func.row_number().over(order_by=asc(table.c[self.mDateName]))
         row_number_column = row_number_column.label(self.mRowNumberAlias)
         exprs = exprs + [ row_number_column];
         return exprs
@@ -457,7 +458,11 @@ class cDecompositionCodeGenObject:
             for lCat in lList:
                 lDummyName = exog + "_d_" + str(lCat);
                 lCatExpr = sqlalchemy.sql.expression.literal(str(lCat), String);
-                expr1 = case([((table.c[exog] == lCatExpr) , self.mBackEnd.getFloatLiteral(1.0))],
+                if((lCat == "") or (lCat is None)):                    
+                    cond = (table.c[exog] == None);
+                else:
+                    cond = (table.c[exog] == lCatExpr);
+                expr1 = case([(cond , self.mBackEnd.getFloatLiteral(1.0))],
                              else_ = self.mBackEnd.getFloatLiteral(0.0));
                 expr1 = expr1.label(lDummyName);
                 exprs = exprs + [expr1];
@@ -631,7 +636,7 @@ class cDecompositionCodeGenObject:
             cycle_expr = self.mBackEnd.getFloatLiteral(0.0);
             pass
         elif(self.mCycle.mFormula.startswith("Cycle_")):
-            lExpr = table.c[self.mRowNumberAlias]
+            lExpr = table.c[self.mRowNumberAlias] - 1
             lExpr = lExpr % int(self.mCycle.mBestCycleLength)
             cycle_expr = self.generateCycleSpecificExpression(lExpr ,
                                                               self.mCycle.mBestCycleValueDict,
