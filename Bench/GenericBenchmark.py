@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 import AutoForecast as autof
-import TS_CodeGenerator as tscodegen
+from CodeGen import TS_CodeGenerator as tscodegen
 import Bench.TS_datasets as tsds
 
 import sys,os
@@ -34,15 +34,17 @@ def run_bench_process(a):
     sys.stdout = logfile    
     try:
         tester = cGeneric_OneSignal_Tester(a.mTSSpec , a.mBenchName);
+        tester.mTestCodeGeneration = False;
         tester.testSignal(a.mSignal, a.mHorizon)
         print("BENCHMARK_SUCCESS '" + a.getName() + "'");
         del tester;
         logfile.close();
+        # print("BENCHMARK_SUCCESS '" + a.getName() + "'");
     except cBenchmarkError as error:
         logger.error(error)
         pass;
     except:
-        print("BENCHMARK_FAILURE '" + a.getName() + "'");
+        #print("BENCHMARK_FAILURE '" + a.getName() + "'");
         logfile.close();
         raise
 
@@ -71,7 +73,7 @@ class cGeneric_OneSignal_Tester:
         self.mTestPerfData = {}
         self.mTrainTime = {};
         self.mBenchName = bench_name;
-
+        self.mTestCodeGeneration = True;
 
     def reportTrainingDataInfo(self, iSignal, iHorizon):
         df = self.mTrainDataset[iSignal  + "_" + str(iHorizon)];
@@ -183,7 +185,8 @@ class cGeneric_OneSignal_Tester:
         self.mPredicted = self.mApplyOut[iSignal + '_BestModelForecast'].tail(iHorizon);
         self.reportActualAndPredictedData(iSignal, iHorizon);
         self.computePerfOnForecasts(iSignal, iHorizon);
-        self.generateCode(iSignal, iHorizon);
+        if(self.mTestCodeGeneration):
+            self.generateCode(iSignal, iHorizon);
         
     def dumpForecastPerfs(self, iSignal, iHorizon):
         lAutoF1 = self.mAutoForecastBySignal[iSignal  + "_" + str(iHorizon)]
@@ -209,6 +212,7 @@ class cGeneric_Tester:
         print("BENCH_DATA" , bench_name, tsspec)
         self.mTSSpec = tsspec;
         self.mBenchName = bench_name;
+        self.mTestCodeGeneration = True;
         self.mType = "OneDataFramePerSignal";
         if(hasattr(self.mTSSpec , "mFullDataset")):
             self.mType = "OneDataFrameForAllSignals";
