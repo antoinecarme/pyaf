@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import Bench.TS_datasets as tsds
 import AutoForecast as autof
-import TS_CodeGenerator as tscodegen
+from CodeGen import TS_CodeGenerator as tscodegen
 
 b1 = tsds.load_airline_passengers()
 df = b1.mPastData
@@ -19,6 +19,9 @@ for n in range(2*H,  N , 10):
     df1 = df.head(n).copy();
     lAutoF = autof.cAutoForecast()
     lAutoF
+    lAutoF.mOptions.mEnableARModels = False;
+    # lAutoF.mOptions.mDebugCycles = True;
+
     lAutoF.train(df1 , b1.mTimeVar , b1.mSignalVar, H);
     lAutoF.getModelInfo();
     lAutoF.mSignalDecomposition.mBestTransformation.mTimeInfo.mResolution
@@ -33,7 +36,7 @@ for n in range(2*H,  N , 10):
     Forecast_DF = dfapp_out;
     # [[b1.mTimeVar , b1.mSignalVar, lForecastColumnName , lForecastColumnName + '_Lower_Bound',  lForecastColumnName + '_Upper_Bound' ]]
     print(Forecast_DF.info())
-    print("Forecasts_HEAD\n" , Forecast_DF.head(2*H).values);
-    print("Forecasts_TAIL\n" , Forecast_DF.tail(2*H).values);
+    # print("Forecasts_HEAD\n" , Forecast_DF.head(2*H).values);
+    # print("Forecasts_TAIL\n" , Forecast_DF.tail(2*H).values);
     lCodeGenerator = tscodegen.cTimeSeriesCodeGenerator();
     lSQL = lCodeGenerator.testGeneration(lAutoF);
