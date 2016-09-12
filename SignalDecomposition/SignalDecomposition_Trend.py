@@ -66,7 +66,7 @@ class cConstantTrend(cAbstractTrend):
 
 class cLag1Trend(cAbstractTrend):
     def __init__(self):
-        self.mMean = 0.0
+        self.mDefaultValue = None
         self.mOutName = "Lag1Trend"
         self.mFormula = self.mOutName;
         
@@ -80,16 +80,17 @@ class cLag1Trend(cAbstractTrend):
     def fit(self):
         # real lag1
         target = self.mTrendFrame[self.mSignal].values
-        self.mTrendFrame[self.mOutName] = self.mTrendFrame[self.mSignal].shift(1)
+        self.mTrendFrame[self.mOutName] = self.mTrendFrame[self.mSignal].shift(1);
         # all except the horizon
-        self.mMean = self.mTimeInfo.getEstimPart(self.mTrendFrame)[self.mSignal].mean()
-        self.mTrendFrame[self.mOutName].fillna(self.mMean , inplace=True)
+        self.mDefaultValue = self.mTimeInfo.getEstimPart(self.mTrendFrame)[self.mSignal].iloc[0]
+        self.mTrendFrame[self.mOutName].iloc[0] = self.mDefaultValue;
         self.mTrendFrame[self.mOutName + '_residue'] =  target - self.mTrendFrame[self.mOutName].values
 
 
     def transformDataset(self, df):
         target = df[self.mSignal].values
-        df[self.mOutName] = df[self.mSignal].shift(1).fillna(self.mMean);
+        df[self.mOutName] = df[self.mSignal].shift(1);
+        df[self.mOutName].iloc[0] = self.mDefaultValue;
         df[self.mOutName + '_residue'] = target - df[self.mOutName].values        
         return df;
 
