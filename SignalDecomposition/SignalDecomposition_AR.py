@@ -163,7 +163,7 @@ class cAutoRegressiveEstimator:
                                 if(self.mOptions.mEnableARModels):
                                     lAR = cAutoRegressiveModel(cycle_residue, lLags);
                                     self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lAR];
-                                if(self.mOptions.mEnableARXModels):
+                                if(self.mOptions.mEnableARXModels and (len(self.mExogenousVariables) > 0)):
                                     lARX = cAutoRegressiveModel(cycle_residue, lLags, self.mExogenousVariables);
                                     self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lARX];
 
