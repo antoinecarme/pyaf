@@ -77,20 +77,27 @@ class cLag1Trend(cAbstractTrend):
         self.mTrendFrame = pd.DataFrame()
         self.mTimeInfo.addVars(self.mTrendFrame);
 
+    def replaceFirstMissingValue(self, df, series):
+        print(self.mDefaultValue, type(self.mDefaultValue));
+        # Be explicit here .... some integer index does not work.
+        df.loc[df.index[0] , series] = self.mDefaultValue;
+        print(df.head());
+        
     def fit(self):
         # real lag1
         target = self.mTrendFrame[self.mSignal].values
+        lEstim = self.mTimeInfo.getEstimPart(self.mTrendFrame);
+        self.mDefaultValue = lEstim[self.mSignal ].iloc[0]        
         self.mTrendFrame[self.mOutName] = self.mTrendFrame[self.mSignal].shift(1);
-        # all except the horizon
-        self.mDefaultValue = self.mTimeInfo.getEstimPart(self.mTrendFrame)[self.mSignal].iloc[0]
-        self.mTrendFrame[self.mOutName].iloc[0] = self.mDefaultValue;
+        print(self.mTrendFrame[self.mSignal].shape , self.mTrendFrame[self.mOutName].shape)
+        self.replaceFirstMissingValue(self.mTrendFrame, self.mOutName);
         self.mTrendFrame[self.mOutName + '_residue'] =  target - self.mTrendFrame[self.mOutName].values
 
 
     def transformDataset(self, df):
         target = df[self.mSignal].values
         df[self.mOutName] = df[self.mSignal].shift(1);
-        df[self.mOutName].iloc[0] = self.mDefaultValue;
+        self.replaceFirstMissingValue(df, self.mOutName);
         df[self.mOutName + '_residue'] = target - df[self.mOutName].values        
         return df;
 
