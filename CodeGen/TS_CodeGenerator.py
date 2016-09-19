@@ -13,20 +13,26 @@ class cTimeSeriesCodeGenerator:
 
     def testGeneration(self, iAutoForecast, iDSN = None, iDialect = None):
         lSQL = None;
-        # "sqlite://",
-        # "sqlite:///a.db",
-        lKnownDSNs = ["postgresql://antoine:@/githubtest?port=5433",
+        # 
+        # 
+        lKnownDSNs = ["sqlite://",
+                      "sqlite:///a.db",
+                      "postgresql://antoine:@/githubtest?port=5433",
                       "mysql://user:pass@localhost/GitHubtest",
                       ];
         for lDSN in lKnownDSNs:            
+            print(" ******************************** testGeneration_start  ", lDSN , " ******************************** ");
             try:
                 self.mInternalCodeGen = tscodegen.cDecompositionCodeGenObject(lDSN, iDialect);
                 lSQL = self.mInternalCodeGen.testGeneration(iAutoForecast);
                 print("TS_CODE_GEN_SUCCESS" , lDSN);
-            except:
+            except Exception as e: 
                 print("TS_CODE_GEN_FAILURE" , lDSN);
+                print("FAILURE_WITH_EXCEPTION : " , lDSN, str(e)[:200])
+                # traceback.print_exc()
                 lSQL = None;
-                raise;
+                # raise;
+            print(" ******************************** testGeneration_end  ", lDSN , " ******************************** ");
         
         
     

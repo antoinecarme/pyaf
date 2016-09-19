@@ -60,7 +60,7 @@ def _sl_date_diff(element, compiler, **kw):    # pragma: no cover
                                               )
 
 class date_add(GenericFunction):
-    type = Float
+    type = DateTime
     name = 'date_add'
     
 @compiles(date_add, 'default')
@@ -70,15 +70,15 @@ def _default_date_add(element, compiler, **kw):  # pragma: no cover
                                  )
 @compiles(date_add, 'mysql')
 def _my_date_add(element, compiler, **kw):  # pragma: no cover
-    return "DATEDIFF(%s, %s)" % (compiler.process(element.clauses.clauses[0]),
+    return "DATE_ADD(%s, INTERVAL %s SECOND)" % (compiler.process(element.clauses.clauses[0]),
                                  compiler.process(element.clauses.clauses[1]),
                                  )
 
 @compiles(date_add, 'postgresql')
 def _pg_date_add(element, compiler, **kw):  # pragma: no cover
     arg1, arg2 = list(element.clauses)
-    return "(extract(epoch from %s) - extract(epoch from %s))" % (compiler.process(arg1),
-                                                                  compiler.process(arg2));
+    return "(%s + (%s) * INTERVAL '1 SECOND')" % (compiler.process(element.clauses.clauses[0]),
+                                                  compiler.process(element.clauses.clauses[1]));
 
 @compiles(date_add, 'sqlite')
 def _sl_date_add(element, compiler, **kw):    # pragma: no cover
@@ -160,7 +160,7 @@ class cDatabaseBackend:
     def initializeEngine(self):
         if(self.mDSN is not None):
             # connected mode.
-            self.mEngine = create_engine(self.mDSN , echo = True, pool_size=5, max_overflow=5)
+            self.mEngine = create_engine(self.mDSN , echo = True, pool_size=5)
             self.mConnection = self.mEngine.connect()
             self.mMeta = MetaData(bind = self.mConnection);
             self.mDialect = self.mEngine.dialect;
@@ -273,6 +273,9 @@ class cDatabaseBackend:
         # return func.cast(iValue, sqlalchemy.types.TIMESTAMP);
         return sqlalchemy.sql.expression.literal_column("TIMESTAMP '" + str(iValue) + "'", sqlalchemy.types.DATETIME); # .strftime("%Y-%m-%d %H:%M:%S")
 
+    def getIntervalLiteral(self, iValue, h):
+        return sqlalchemy.sql.expression.literal_column(str(h) + " * INTERVAL '" + str(iValue) + "'", sqlalchemy.types.Interval);
+    
     def debrief_cte(self, cte):
         statement = select(cte.columns);
         print("debrief_cte_cte" , cte);
@@ -403,7 +406,8 @@ class cDecompositionCodeGenObject:
          H = self.getHorizon();
          for h in range(1, H+1):
              lRowTypeExpr = self.mBackEnd.getIntegerLiteral(h);
-             lNextDateExpr = func.max(base_table.c[self.mDateName]) + h;
+             lPreviousDate = func.max(base_table.c[self.mDateName]);
+             lNextDateExpr = self.generate_next_time(lPreviousDate , h);
              empty_line = [];
              empty_line = empty_line + [lRowTypeExpr];
              empty_line = empty_line + [lNextDateExpr];
@@ -423,6 +427,18 @@ class cDecompositionCodeGenObject:
          self.generateARCode(); # => AR_CTE
          self.generateModelCode(); # => Model_CTE
 
+
+    def generate_next_time(self, current, h):
+        lTimeInfo = self.mAutoForecast.mSignalDecomposition.mBestTransformation.mTimeInfo
+        if(lTimeInfo.isPhysicalTime()):
+            lNbSeconds = str(int(h * lTimeInfo.mTimeDelta.total_seconds()));
+            lIntervalExpr = sqlalchemy.sql.expression.literal_column(lNbSeconds, sqlalchemy.types.String);
+            lNextDateExpr = func.date_add(current , lIntervalExpr);
+            return lNextDateExpr;        
+        lIntervalExpr = self.mBackEnd.getFloatLiteral(h * lTimeInfo.mTimeDelta);
+        lNextDateExpr = current + lIntervalExpr;
+        return lNextDateExpr;
+        
 
     def addNormalizedTime(self, table):
         exprs = [];
@@ -480,9 +496,9 @@ class cDecompositionCodeGenObject:
         sig_expr = TS1.c[ self.mSignalName ]; # original signal
         rn_expr_1 = table.c[self.mRowNumberAlias];
         rn_expr_2 = TS1.c[self.mRowNumberAlias];
-        cumulated_signal = null();
-        previous_expr = null();
-        relatve_diff = null();
+        cumulated_signal = None;
+        previous_expr = None;
+        relatve_diff = None;
         if(lName == ""):
             pass;
         elif (lName == "CumSum_"):           
@@ -499,10 +515,19 @@ class cDecompositionCodeGenObject:
         else:
             assert(0);
 
-        cumulated_signal = cumulated_signal.label("Cum_" + self.mSignalName);
-        previous_expr = previous_expr.label("Lag1_" + self.mSignalName);
-        relatve_diff = relatve_diff.label("RelDiff_" + self.mSignalName);
-        exprs = [cumulated_signal , previous_expr, relatve_diff];
+        exprs = [];
+        if(cumulated_signal is not None):
+            cumulated_signal = cumulated_signal.label("Cum_" + self.mSignalName);
+            exprs = [cumulated_signal] + exprs;
+            
+        if(previous_expr is not None):
+            previous_expr = previous_expr.label("Lag1_" + self.mSignalName);
+            exprs = [previous_expr] + exprs;
+        
+        if(relatve_diff is not None):
+            relatve_diff = relatve_diff.label("RelDiff_" + self.mSignalName);
+            exprs = [relatve_diff] + exprs;
+
         return exprs
 
     def addExogenousDummies(self, table):
