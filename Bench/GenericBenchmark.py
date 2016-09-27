@@ -32,6 +32,7 @@ def run_bench_process(a):
     createDirIfNeeded("logs/" + a.mBenchName);    
     logfile = open("logs/" + a.mBenchName + "/PyAutoForecast_" + a.getName()+ ".log", 'w');    
     sys.stdout = logfile    
+    sys.stderr = logfile    
     try:
         tester = cGeneric_OneSignal_Tester(a.mTSSpec , a.mBenchName);
         tester.mTestCodeGeneration = False;
