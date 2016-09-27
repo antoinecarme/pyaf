@@ -1,4 +1,5 @@
 from CodeGen import TS_CodeGen_Objects as tscodegen
+import traceback
 
 class cTimeSeriesCodeGenerator:
     
@@ -15,10 +16,10 @@ class cTimeSeriesCodeGenerator:
         lSQL = None;
         # 
         # 
-        lKnownDSNs = ["sqlite://",
-                      "sqlite:///a.db",
-                      "postgresql://antoine:@/githubtest?port=5433",
+        lKnownDSNs = ["postgresql://db:db@localhost/db?port=5432",
                       "mysql://user:pass@localhost/GitHubtest",
+                      "sqlite://",
+                      "sqlite:///a.db",
                       ];
         for lDSN in lKnownDSNs:            
             print(" ******************************** testGeneration_start  ", lDSN , " ******************************** ");
@@ -27,9 +28,9 @@ class cTimeSeriesCodeGenerator:
                 lSQL = self.mInternalCodeGen.testGeneration(iAutoForecast);
                 print("TS_CODE_GEN_SUCCESS" , lDSN);
             except Exception as e: 
-                print("TS_CODE_GEN_FAILURE" , lDSN);
+                print("TS_CODE_GEN_FAILURE" , lDSN , str(e)[:200]);
                 print("FAILURE_WITH_EXCEPTION : " , lDSN, str(e)[:200])
-                # traceback.print_exc()
+                traceback.print_exc()
                 lSQL = None;
                 # raise;
             print(" ******************************** testGeneration_end  ", lDSN , " ******************************** ");
