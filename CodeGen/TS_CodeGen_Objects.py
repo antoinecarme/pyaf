@@ -345,7 +345,7 @@ class cDecompositionCodeGenObject:
         print(lGeneratedApplyOut.info());
         print(lGeneratedApplyOut.head(H));
         print(lGeneratedApplyOut.tail(H));
-        lGeneratedApplyOut.to_csv("sql_generated.csv");
+        # lGeneratedApplyOut.to_csv("sql_generated.csv");
 
     def shorten(self, iName):
         if(iName in self.mBackEnd.mShortLabels.keys()):
