@@ -82,7 +82,7 @@ def _pg_date_add(element, compiler, **kw):  # pragma: no cover
 
 @compiles(date_add, 'sqlite')
 def _sl_date_add(element, compiler, **kw):    # pragma: no cover
-    return "julianday(%s) - julianday(%s)" % (compiler.process(element.clauses.clauses[0]),
+    return "datetime(%s, '+%s seconds')" % (compiler.process(element.clauses.clauses[0]),
                                               compiler.process(element.clauses.clauses[1]),
                                               )
 
@@ -160,7 +160,7 @@ class cDatabaseBackend:
     def initializeEngine(self):
         if(self.mDSN is not None):
             # connected mode.
-            self.mEngine = create_engine(self.mDSN , echo = True, pool_size=5)
+            self.mEngine = create_engine(self.mDSN , echo = True)
             self.mConnection = self.mEngine.connect()
             self.mMeta = MetaData(bind = self.mConnection);
             self.mDialect = self.mEngine.dialect;
@@ -216,8 +216,8 @@ class cDatabaseBackend:
     def supports_CTE(self):
         #return False;
         lDialectName = self.getDialectName();
-        if(("sqlite" == lDialectName) or (("mysql" == lDialectName) and not self.isNewMySQL())):
-            return False;
+        # if(("sqlite" == lDialectName) or (("mysql" == lDialectName) and not self.isNewMySQL())):
+        #     return False;
         return True;
 
     
@@ -241,6 +241,7 @@ class cDatabaseBackend:
         stmt = text(iSQL);
         result = self.mConnection.execute(stmt)
         lGeneratedApplyOut = pd.DataFrame(result.fetchall());
+        lGeneratedApplyOut.columns = result.keys();
         return lGeneratedApplyOut;
 
     def generateRandomTableName(self, length = 8):
@@ -251,16 +252,15 @@ class cDatabaseBackend:
         return lPrefix + lRandomChars;
 
 
-    def testGeneration(self, iDataFrame, iSQL, iTableName):
+    def materializeTable(self, iDataFrame, iTableName):
         lTestTableName = iTableName;
         iDataFrame.to_sql(lTestTableName , self.mConnection,  if_exists='replace', index=False)
         lTestTable = Table(lTestTableName,
                            self.mMeta,
                            autoload=True,
                            autoload_with = self.mEngine);
-        lGeneratedApplyOut = self.executeSQL(iSQL);
-        lTestTable.drop();
-        return lGeneratedApplyOut;
+        return lTestTable;
+        
         
     def getIntegerLiteral(self, iValue):
         return sqlalchemy.sql.expression.literal(iValue, sqlalchemy.types.Integer);
@@ -269,23 +269,35 @@ class cDatabaseBackend:
         return sqlalchemy.sql.expression.literal(iValue, sqlalchemy.types.FLOAT);
 
     def getDateTimeLiteral(self, iValue):
+        lDialectName = self.getDialectName();
+
         # return sqlalchemy.sql.expression.literal(iValue, sqlalchemy.types.TIMESTAMP);
-        # return func.cast(iValue, sqlalchemy.types.TIMESTAMP);
+        if("sqlite" == lDialectName):
+            return sqlalchemy.sql.expression.literal_column("'" + str(iValue) + "'", sqlalchemy.types.DATETIME);
+        # return func.cast(str(iValue), sqlalchemy.types.TIMESTAMP);
         return sqlalchemy.sql.expression.literal_column("TIMESTAMP '" + str(iValue) + "'", sqlalchemy.types.DATETIME); # .strftime("%Y-%m-%d %H:%M:%S")
 
     def getIntervalLiteral(self, iValue, h):
         return sqlalchemy.sql.expression.literal_column(str(h) + " * INTERVAL '" + str(iValue) + "'", sqlalchemy.types.Interval);
     
     def debrief_cte(self, cte):
-        statement = select(cte.columns);
+        if(not self.mDebug):
+            return;
         print("debrief_cte_cte" , cte);
+        print("CTE_COLUMNS" , cte.columns);
+        print("CTE_COLUMNS_TYPES" , [col.type for col in cte.columns]);
+        statement = select(cte.columns);
         print("debrief_cte_statement" , statement);
         lSQL = self.generate_Sql(statement);
-        if(self.mDebug):
-            print("*************************************************************************");
-            print(lSQL);
-            print("*************************************************************************");
-            return lSQL;
+        print("********************" , self.getDialectName() , "***********************************");
+        print(lSQL);
+        if(self.isConnected()):
+            lGeneratedApplyOut = self.executeSQL(lSQL);
+            print(lGeneratedApplyOut.info());
+            print(lGeneratedApplyOut.head());
+            print(lGeneratedApplyOut.tail());
+        print("********************" , self.getDialectName() , "***********************************");
+        return lSQL;
 
     def generateSQLForStatement(self, cte):
         statement = select([cte] , use_labels=True)
@@ -315,7 +327,7 @@ class cDecompositionCodeGenObject:
             lTableName = self.mBackEnd.generateRandomTableName();
         self.mAutoForecast = iAutoForecast;
         self.generateCode_Internal(lTableName);
-        lSQL = self.mBackEnd.generateSQLForStatement(self.mModel_CTE);
+        lSQL = self.mBackEnd.generateSQLForStatement(self.mFinal_CTE);
         return lSQL;
 
     def testGeneration(self, iAutoForecast, iTableName = None):
@@ -323,11 +335,14 @@ class cDecompositionCodeGenObject:
         lTableName = iTableName;
         if(lTableName is None):
             lTableName = self.mBackEnd.generateRandomTableName();
+        lTestTable = self.mBackEnd.materializeTable(df, lTableName);
         lSQL = self.generateCode(iAutoForecast, lTableName);
-        lGeneratedApplyOut = self.mBackEnd.testGeneration(df , lSQL, lTableName);
-        select1 = select([self.mModel_CTE]);
+        lGeneratedApplyOut = self.mBackEnd.executeSQL(lSQL);
+        lTestTable.drop();
+        select1 = select([self.mFinal_CTE]);
         lGeneratedApplyOut.columns = select1.columns.keys();
-        H = self.getHorizon();
+        H = self.getHorizon();        
+        print(lGeneratedApplyOut.info());
         print(lGeneratedApplyOut.head(H));
         print(lGeneratedApplyOut.tail(H));
         lGeneratedApplyOut.to_csv("sql_generated.csv");
@@ -371,6 +386,9 @@ class cDecompositionCodeGenObject:
          self.mDateName = self.mAutoForecast.mSignalDecomposition.mBestTransformation.mTime
          self.mModelName =  self.mAutoForecast.mSignalDecomposition.mBestTransformation.mBestModelName
 
+         lName = self.mAutoForecast.mSignalDecomposition.mBestTransformation.mTransformation.get_name("");
+         lNeedTransformation = (lName != "");
+
          self.mRowTypeAlias = "HType" 
          self.mDateAlias = "DateAlias" 
          self.mSignalAlias = "SignalAlias" 
@@ -396,28 +414,12 @@ class cDecompositionCodeGenObject:
                                                        self.mDateName,
                                                        self.mSignalName, self.mDateType,
                                                        self.mAutoForecast.mSignalDecomposition.mExogenousVariables);
-         lRowTypeExpr = func.cast(null(), Integer);
-         lRowTypeExpr = lRowTypeExpr.label(self.mRowTypeAlias)
-         table_with_row_type_columns = [ lRowTypeExpr ];
-         for col in base_table.columns:
-             table_with_row_type_columns = table_with_row_type_columns + [ col ];
-         table_with_row_type = alias(select(table_with_row_type_columns) , "base_table_with_row_type");
-         table = table_with_row_type;
-         H = self.getHorizon();
-         for h in range(1, H+1):
-             lRowTypeExpr = self.mBackEnd.getIntegerLiteral(h);
-             lPreviousDate = func.max(base_table.c[self.mDateName]);
-             lNextDateExpr = self.generate_next_time(lPreviousDate , h);
-             empty_line = [];
-             empty_line = empty_line + [lRowTypeExpr];
-             empty_line = empty_line + [lNextDateExpr];
-             for (key, col) in base_table.columns.items()[1:]:
-                 empty_line = empty_line + [ func.cast(null(), col.type) ];
-             table = alias(select([table]).union(select(empty_line)) , "base_table_with_horizon" + str(h));
-         
+         table = base_table;
+
          self.generateRowNumberCode(table); # => RowNumber_CTE
          self.generateTransformationInputCode(table); # => Transformation_CTE
          self.generateTransformationCode(table); # => Transformation_CTE
+             
          self.generateTrendInputCode(); # => Trend_Inputs_CTE
          self.generateTrendCode(); # => Trend_CTE
          self.generateCycleInputCode(); # => Cycle_Inputs_CTE
@@ -426,19 +428,15 @@ class cDecompositionCodeGenObject:
          self.generateARInputCode(); # => AR_Inputs_CTE
          self.generateARCode(); # => AR_CTE
          self.generateModelCode(); # => Model_CTE
+         if(lNeedTransformation):
+             self.generateModelInvTransformationInputCode();
+             self.generateInverseTransformationCode(); # => Model_CTE
+             self.mFinal_CTE = self.mModelInvTransformation_CTE;
+         else:
+             self.mFinal_CTE = self.mModel_CTE;
+         # self.generateForecasts();
+         # self.mFinal_CTE = self.mForecast_CTE;
 
-
-    def generate_next_time(self, current, h):
-        lTimeInfo = self.mAutoForecast.mSignalDecomposition.mBestTransformation.mTimeInfo
-        if(lTimeInfo.isPhysicalTime()):
-            lNbSeconds = str(int(h * lTimeInfo.mTimeDelta.total_seconds()));
-            lIntervalExpr = sqlalchemy.sql.expression.literal_column(lNbSeconds, sqlalchemy.types.String);
-            lNextDateExpr = func.date_add(current , lIntervalExpr);
-            return lNextDateExpr;        
-        lIntervalExpr = self.mBackEnd.getFloatLiteral(h * lTimeInfo.mTimeDelta);
-        lNextDateExpr = current + lIntervalExpr;
-        return lNextDateExpr;
-        
 
     def addNormalizedTime(self, table):
         exprs = [];
@@ -451,10 +449,12 @@ class cDecompositionCodeGenObject:
             # exprs = exprs + [lMinExpr, lMaxExpr];
             # count the number of days here if date. number of seconds if datetime
             lAmplitude = func.date_diff(lMaxExpr, lMinExpr);
+            lAmplitude = func.cast(lAmplitude, sqlalchemy.types.FLOAT);
             normalized_time = func.date_diff(table.c[self.mDateName],  lMinExpr);
+            normalized_time = func.cast(normalized_time, sqlalchemy.types.FLOAT);
         else:
-            lAmplitude = lTimeInfo.mTimeMax - lTimeInfo.mTimeMin
-            normalized_time = table.c[self.mDateName] - lTimeInfo.mTimeMin ;
+            lAmplitude = self.as_float(lTimeInfo.mTimeMax - lTimeInfo.mTimeMin)
+            normalized_time = table.c[self.mDateName] - self.as_float(lTimeInfo.mTimeMin);
         normalized_time = normalized_time / lAmplitude
         normalized_time = normalized_time.label("NTime")
         exprs = exprs + [normalized_time];
@@ -463,13 +463,14 @@ class cDecompositionCodeGenObject:
     def addRowNumber_analytical(self, table):
         exprs = [];
         row_number_column = func.row_number().over(order_by=asc(table.c[self.mDateName]))
+        row_number_column = func.cast(row_number_column, sqlalchemy.types.Integer);
         row_number_column = row_number_column.label(self.mRowNumberAlias)
         exprs = exprs + [ row_number_column];
         return exprs
 
     def addRowNumber_as_count(self, table):
         exprs = [];
-        TS1 = alias(select([table.columns[self.mDateName]]), "t1");
+        TS1 = alias(select([table.columns[self.mDateName]]), "TS_CTE_RowNum");
         time_expr_1 = table.c[self.mDateName];
         time_expr_2 = TS1.c[self.mDateName];
         
@@ -487,12 +488,13 @@ class cDecompositionCodeGenObject:
         else:
             exprs1 = self.addRowNumber_as_count(table);
         exprs2 = self.addNormalizedTime(table);
-        self.mRowNumber_CTE = self.mBackEnd.generate_CTE(table.columns  + exprs1 + exprs2, "RowNumber_CTE")
+        lMainColumns = [table.c[self.mDateName] , table.c[self.mSignalName] ]
+        self.mRowNumber_CTE = self.mBackEnd.generate_CTE(lMainColumns  + exprs1 + exprs2, "TS_CTE_RowNumber")
         self.mBackEnd.debrief_cte(self.mRowNumber_CTE)
 
     def addOriginalSignalAggreagtes(self, table, tr):
         lName = tr.mTransformation.get_name("");
-        TS1 = alias(select([table.columns[self.mSignalName], table.columns[self.mRowNumberAlias]]), "t1");
+        TS1 = alias(select([table.columns[self.mSignalName], table.columns[self.mRowNumberAlias]]), "t_SigRowNum");
         sig_expr = TS1.c[ self.mSignalName ]; # original signal
         rn_expr_1 = table.c[self.mRowNumberAlias];
         rn_expr_2 = TS1.c[self.mRowNumberAlias];
@@ -505,10 +507,9 @@ class cDecompositionCodeGenObject:
             cumulated_signal  = select([func.sum(sig_expr)]).where(rn_expr_1 >= rn_expr_2);
         elif (lName == "Diff_"):
             previous_expr = select([func.sum(sig_expr)]).where(rn_expr_1 == (rn_expr_2 + 1));
-            previous_expr = select([func.sum(sig_expr)]).where(rn_expr_1 == (rn_expr_2 + 1));
         elif (lName == "RelDiff_"):
-            lMinExpr = self.mBackEnd.getFloatLiteral(tr.mTransformation.mMinValue);
-            lDeltaExpr = self.mBackEnd.getFloatLiteral(tr.mTransformation.mDelta);
+            lMinExpr = self.as_float(tr.mTransformation.mMinValue);
+            lDeltaExpr = self.as_float(tr.mTransformation.mDelta);
             lNormalizedSignal = (sig_expr - lMinExpr) / lDeltaExpr;
             lNormalizedLag1 = (previous_expr - lMinExpr) / lDeltaExpr;
             relatve_diff = (lNormalizedSignal - lNormalizedLag1) / (lNormalizedLag1 + 1.0);
@@ -541,8 +542,8 @@ class cDecompositionCodeGenObject:
                     cond = (table.c[exog] == None);
                 else:
                     cond = (table.c[exog] == lCatExpr);
-                expr1 = case([(cond , self.mBackEnd.getFloatLiteral(1.0))],
-                             else_ = self.mBackEnd.getFloatLiteral(0.0));
+                expr1 = case([(cond , self.as_float(1.0))],
+                             else_ = self.as_float(0.0));
                 expr1 = expr1.label(lDummyName);
                 exprs = exprs + [expr1];
         return exprs;
@@ -552,25 +553,25 @@ class cDecompositionCodeGenObject:
         exprs1 = self.addOriginalSignalAggreagtes(self.mRowNumber_CTE,
                                                   self.mAutoForecast.mSignalDecomposition.mBestTransformation);
         exprs2 = self.addExogenousDummies(self.mRowNumber_CTE);
-        self.mTransformationInputs_CTE = self.mBackEnd.generate_CTE(self.mRowNumber_CTE.columns  + exprs1 + exprs2, "TransformationInput_CTE")
+        self.mTransformationInputs_CTE = self.mBackEnd.generate_CTE(self.mRowNumber_CTE.columns  + exprs1 + exprs2, "TS_CTE_TransformationInput")
         self.mBackEnd.debrief_cte(self.mTransformationInputs_CTE)
 
     def addTransformedSignal(self, table, tr):
         exprs = [];
         lName = tr.mTransformation.get_name("");
         # lName = "Diff_"
-        TS1 = alias(select([table.columns[self.mSignalName], table.columns[self.mRowNumberAlias]]), "t1");
+        TS1 = alias(select([table.columns[self.mSignalName], table.columns[self.mRowNumberAlias]]), "t_SigRowNum2");
         sig_expr = TS1.c[ self.mSignalName ]; # original signal
         if(lName == ""):            
             trasformed_signal = table.c[ self.mSignalName ];
         elif(lName == "CumSum_"):
             trasformed_signal  = table.c["Cum_" + self.mSignalName];
         elif(lName == "Diff_"):
-            lDefault_expr = self.mBackEnd.getFloatLiteral(tr.mTransformation.mFirstValue)
+            lDefault_expr = self.as_float(tr.mTransformation.mFirstValue)
             previous_expr = func.coalesce(table.c["Lag1_" + self.mSignalName] , lDefault_expr);
             trasformed_signal  = table.c[ self.mSignalName ] - previous_expr;
         elif(lName == "RelDiff_"):
-            lDefault_expr = self.mBackEnd.getFloatLiteral(tr.mTransformation.mFirstValue)
+            lDefault_expr = self.as_float(tr.mTransformation.mFirstValue)
             lDefault_expr = (lDefault_expr - tr.mTransformation.mMinValue) / tr.mTransformation.mDelta;
             lRelDiff = func.coalesce(table.c["RelDiff_" + self.mSignalName] , lDefault_expr);
             trasformed_signal  = lRelDiff;
@@ -585,7 +586,7 @@ class cDecompositionCodeGenObject:
         # => Transformation_CTE
         signal_exprs = self.addTransformedSignal(self.mTransformationInputs_CTE,
                                                  self.mAutoForecast.mSignalDecomposition.mBestTransformation) 
-        self.mTransformation_CTE = self.mBackEnd.generate_CTE([self.mTransformationInputs_CTE]  + signal_exprs, "Transformation_CTE")
+        self.mTransformation_CTE = self.mBackEnd.generate_CTE([self.mTransformationInputs_CTE]  + signal_exprs, "TS_CTE_Transformation")
         self.mBackEnd.debrief_cte(self.mTransformation_CTE)
 
 
@@ -599,7 +600,7 @@ class cDecompositionCodeGenObject:
         normalized_time_3 = normalized_time_2 * normalized_time     
         normalized_time_3 = normalized_time_3.label("NTime_3")
         if(self.mTrend.mFormula == "Lag1Trend"):
-            TS1 = alias(select([table.columns[self.mSignalAlias], table.columns[self.mRowNumberAlias]]), "t1");
+            TS1 = alias(select([table.columns[self.mSignalAlias], table.columns[self.mRowNumberAlias]]), "t_SigRowNum3");
             sig_expr = TS1.c[ self.mSignalAlias ];
             rn_expr_1 = table.c[self.mRowNumberAlias];
             rn_expr_2 = TS1.c[self.mRowNumberAlias];
@@ -612,29 +613,34 @@ class cDecompositionCodeGenObject:
     def generateTrendInputCode(self):
         # => Trend_Inputs_CTE
         trend_inputs = self.addTrendInputs(self.mTransformation_CTE) 
-        self.mTrend_inputs_CTE = self.mBackEnd.generate_CTE([self.mTransformation_CTE] + trend_inputs, "TICTE")
+        self.mTrend_inputs_CTE = self.mBackEnd.generate_CTE([self.mTransformation_CTE] + trend_inputs, "TS_CTE_Trend_Input")
         self.mBackEnd.debrief_cte(self.mTrend_inputs_CTE)
+
+    def as_float(self, x):
+        return self.mBackEnd.getFloatLiteral(float(x));
 
     def generateTrendExpression(self, table):
         trend_expr = None;
         if(self.mTrend.mFormula == "ConstantTrend"):
-            trend_expr = self.mBackEnd.getFloatLiteral(self.mTrend.mMean);
+            trend_expr = self.as_float(self.mTrend.mMean);
             pass
         elif(self.mTrend.mFormula == "LinearTrend"):
             # print(self.mTrend.mTrendRidge.__dict__);
-            trend_expr = self.mTrend.mTrendRidge.coef_[0] * table.c["NTime"] + self.mBackEnd.getFloatLiteral(self.mTrend.mTrendRidge.intercept_)
+            lCoeffs = self.mTrend.mTrendRidge.coef_;
+            trend_expr = self.as_float(lCoeffs[0]) * table.c["NTime"] + self.as_float(self.mTrend.mTrendRidge.intercept_)
             pass
         elif(self.mTrend.mFormula == "PolyTrend"):
             # print(self.mTrend.mTrendRidge.__dict__);
-            trend_expr = self.mTrend.mTrendRidge.coef_[0] * table.c["NTime"];
-            trend_expr += self.mTrend.mTrendRidge.coef_[1] * table.c["NTime_2"];
-            trend_expr += self.mTrend.mTrendRidge.coef_[2] * table.c["NTime_3"];
-            trend_expr += self.mBackEnd.getFloatLiteral(self.mTrend.mTrendRidge.intercept_)
+            lCoeffs = self.mTrend.mTrendRidge.coef_;
+            trend_expr = self.as_float(lCoeffs[0]) * table.c["NTime"];
+            trend_expr += self.as_float(lCoeffs[1]) * table.c["NTime_2"];
+            trend_expr += self.as_float(lCoeffs[2]) * table.c["NTime_3"];
+            trend_expr += self.as_float(self.mTrend.mTrendRidge.intercept_)
             pass
         elif(self.mTrend.mFormula == "Lag1Trend"):
-            lDefault_expr = self.mBackEnd.getFloatLiteral(self.mTrend.mDefaultValue);
+            lDefault_expr = self.as_float(self.mTrend.mDefaultValue);
             lag1 = func.coalesce(table.c["Lag1"] , lDefault_expr);
-            trend_expr = self.generateCaseWhen(table.c[self.mRowTypeAlias], null() , lag1, table.c["Lag1"]);
+            trend_expr = lag1;
             pass
         return trend_expr;
 
@@ -651,7 +657,7 @@ class cDecompositionCodeGenObject:
     def generateTrendCode(self):
         # => Trend_CTE
         trends = self.addTrends(self.mTrend_inputs_CTE)
-        self.mTrend_CTE = self.mBackEnd.generate_CTE([self.mTrend_inputs_CTE] + trends, "TCTE")
+        self.mTrend_CTE = self.mBackEnd.generate_CTE([self.mTrend_inputs_CTE] + trends, "TS_CTE_Trend")
         self.mBackEnd.debrief_cte(self.mTrend_CTE)
 
 
@@ -660,8 +666,7 @@ class cDecompositionCodeGenObject:
         lTime =  self.mDateName;
         exprs = [];
         # print(table.columns);
-        lTimeInfo = self.mAutoForecast.mSignalDecomposition.mBestTransformation.mTimeInfo
-        if(lTimeInfo.isPhysicalTime()):
+        if(self.mCycle.mFormula.startswith("Seasonal_")):
             date_expr = table.c[lTime]
             date_parts = [extract('year', date_expr).label(lTime + "_Year") ,  
                           extract('month', date_expr).label(lTime + "_MonthOfYear") ,  
@@ -678,7 +683,7 @@ class cDecompositionCodeGenObject:
     def generateCycleInputCode(self):
         # => Cycle_Inputs_CTE
         cycle_inputs = self.addCycleInputs(self.mTrend_CTE)
-        self.mCycle_input_CTE = self.mBackEnd.generate_CTE([self.mTrend_CTE] + cycle_inputs, "CICTE")
+        self.mCycle_input_CTE = self.mBackEnd.generate_CTE([self.mTrend_CTE] + cycle_inputs, "TS_CTE_CylceInputs")
         self.mBackEnd.debrief_cte(self.mCycle_input_CTE)
 
     
@@ -691,19 +696,19 @@ class cDecompositionCodeGenObject:
 
     def generateCycleSpecificExpression(self, iExpr, iDict, iDefault):
         if(len(iDict) == 0):
-            return self.mBackEnd.getFloatLiteral(iDefault);
+            return self.as_float(iDefault);
         lDict = iDict;
         key, value = lDict.popitem()
         expr_1 = self.generateCycleSpecificExpression(iExpr, lDict, iDefault);
-        valueexpr =  self.mBackEnd.getFloatLiteral(value);
-        expr_2 = self.generateCaseWhen(iExpr, int(key), valueexpr, expr_1);
+        valueexpr =  self.as_float(value);
+        expr_2 = self.generateCaseWhen(iExpr, self.mBackEnd.getIntegerLiteral(key), valueexpr, expr_1);
         return expr_2;
 
 
     def generateCycleExpression(self, table):
         cycle_expr = None;
         if(self.mCycle.mFormula == "NoCycle"):
-            cycle_expr = self.mBackEnd.getFloatLiteral(0.0);
+            cycle_expr = self.as_float(0.0);
             pass
         elif(self.mCycle.mFormula.startswith("Seasonal_")):
             lExpr = table.c[self.mDateName + "_" + self.mCycle.mDatePart]
@@ -712,11 +717,11 @@ class cDecompositionCodeGenObject:
                                                               self.mCycle.mDefaultValue);
             pass
         elif(self.mCycle.mFormula.startswith("Cycle_None")):
-            cycle_expr = self.mBackEnd.getFloatLiteral(0.0);
+            cycle_expr = self.as_float(0.0);
             pass
         elif(self.mCycle.mFormula.startswith("Cycle_")):
             lExpr = table.c[self.mRowNumberAlias] - 1
-            lExpr = lExpr % int(self.mCycle.mBestCycleLength)
+            lExpr = lExpr % self.mBackEnd.getIntegerLiteral(int(self.mCycle.mBestCycleLength))
             cycle_expr = self.generateCycleSpecificExpression(lExpr ,
                                                               self.mCycle.mBestCycleValueDict,
                                                               self.mCycle.mDefaultValue);
@@ -737,7 +742,7 @@ class cDecompositionCodeGenObject:
         # sel1 = alias(select([]), "CIN")
         # print(sel1.columns)
         cycles = self.addCycles(self.mCycle_input_CTE)
-        self.mCycle_CTE = self.mBackEnd.generate_CTE([self.mCycle_input_CTE] + cycles, "CYCTE")
+        self.mCycle_CTE = self.mBackEnd.generate_CTE([self.mCycle_input_CTE] + cycles, "TS_CTE_Cycle")
         self.mBackEnd.debrief_cte(self.mCycle_CTE)    
 
     def addCycleResidues(self, table):
@@ -753,7 +758,7 @@ class cDecompositionCodeGenObject:
     def generateCycleResidueCode(self):
         # => Cycle_Residue_CTE
         cycle_resdiues = self.addCycleResidues(self.mCycle_CTE)
-        self.mCycle_residues_CTE = self.mBackEnd.generate_CTE([self.mCycle_CTE] + cycle_resdiues, "CYRESCTE")
+        self.mCycle_residues_CTE = self.mBackEnd.generate_CTE([self.mCycle_CTE] + cycle_resdiues, "TS_CTE_CycleResidue")
         self.mBackEnd.debrief_cte(self.mCycle_residues_CTE)
 
 
@@ -800,7 +805,7 @@ class cDecompositionCodeGenObject:
     def generateARInputCode(self):
         # => AR_Inputs_CTE
         self.mAR_inputs = self.addARInputs(self.mCycle_residues_CTE)
-        self.mAR_input_CTE = self.mBackEnd.generate_CTE([self.mCycle_residues_CTE] + self.mAR_inputs, "ARICTE")
+        self.mAR_input_CTE = self.mBackEnd.generate_CTE([self.mCycle_residues_CTE] + self.mAR_inputs, "TS_CTE_AR_Inputs")
         self.mBackEnd.debrief_cte(self.mAR_input_CTE)
         
 
@@ -812,16 +817,16 @@ class cDecompositionCodeGenObject:
             for i in range(len(self.mAR_inputs)):
                 lag = self.mAR_inputs[i];
                 feat = lag.key;
-                lDefault_expr = self.mBackEnd.getFloatLiteral(self.mDefaultARLagValues[feat]);
+                lDefault_expr = self.as_float(self.mDefaultARLagValues[feat]);
                 feat_value = func.coalesce(table.c[feat] , lDefault_expr);
                 if(ar_expr is None):
                     ar_expr = self.mAR.mARRidge.coef_[i] * feat_value;
                 else:
                     ar_expr = ar_expr + self.mAR.mARRidge.coef_[i] * feat_value;
                 i = i + 1;
-            ar_expr = ar_expr + self.mBackEnd.getFloatLiteral(self.mAR.mARRidge.intercept_);
+            ar_expr = ar_expr + self.as_float(self.mAR.mARRidge.intercept_);
         else:
-            ar_expr = self.mBackEnd.getFloatLiteral(0.0);
+            ar_expr = self.as_float(0.0);
         ar_expr = ar_expr.label(self.shorten(self.mAR.mOutName))
         exprs = exprs + [ar_expr]
         return exprs
@@ -829,7 +834,7 @@ class cDecompositionCodeGenObject:
     def generateARCode(self):
         # => AR_CTE
         ars = self.addARModel(self.mAR_input_CTE)
-        self.mAR_CTE = self.mBackEnd.generate_CTE([self.mAR_input_CTE] + ars, "ARCTE")
+        self.mAR_CTE = self.mBackEnd.generate_CTE([self.mAR_input_CTE] + ars, "TS_CTE_AR")
         self.mBackEnd.debrief_cte(self.mAR_CTE)
 
     def add_TS_Model(self, table):
@@ -851,6 +856,136 @@ class cDecompositionCodeGenObject:
         # sel1 = alias(select([]), "AR")
         # print(sel1.columns)
         model_vars = self.add_TS_Model(self.mAR_CTE)
-        self.mModel_CTE = self.mBackEnd.generate_CTE([self.mAR_CTE] + model_vars, "MODCTE")
+        self.mModel_CTE = self.mBackEnd.generate_CTE([self.mAR_CTE] + model_vars, "TS_CTE_Model")
         self.mBackEnd.debrief_cte(self.mModel_CTE)
+
+
+    def addModelAggreagtes(self, table, tr):
+        lName = tr.mTransformation.get_name("");
+        lModelName = self.shorten("Model");
+        TS1 = alias(select([ table.c[lModelName] , table.c[self.mRowNumberAlias] ]), "t_ModelComp");
+        model_expr = TS1.c[ lModelName ]; # original signal
+        rn_expr_1 = table.c[self.mRowNumberAlias];
+        rn_expr_2 = TS1.c[self.mRowNumberAlias];
+        cumulated_model = None;
+        previous_model = None;
+        if(lName == ""):
+            pass;
+        elif (lName == "CumSum_"):
+            previous_model = select([func.sum(model_expr)]).where(rn_expr_1 == (rn_expr_2 + 1));
+            pass
+        elif (lName == "Diff_"):
+            cumulated_model  = select([func.sum(model_expr)]).where(rn_expr_1 >= rn_expr_2);
+            pass
+        elif (lName == "RelDiff_"):
+            lMinExpr = self.as_float(tr.mTransformation.mMinValue);
+            lDeltaExpr = self.as_float(tr.mTransformation.mDelta);
+            # lNormalizedSignal = (sig_expr - lMinExpr) / lDeltaExpr;
+            # lNormalizedLag1 = (previous_expr - lMinExpr) / lDeltaExpr;
+            # relatve_diff = (lNormalizedSignal - lNormalizedLag1) / (lNormalizedLag1 + 1.0);
+        else:
+            assert(0);
+
+        exprs = [];
+        if(cumulated_model is not None):
+            cumulated_model = cumulated_model.label("Cum_" + lModelName);
+            exprs = [ cumulated_model ] + exprs;
+            
+        if(previous_model is not None):
+            previous_model = previous_model.label("Lag1_" + lModelName);
+            exprs = [ previous_model ] + exprs;
+        
+        return exprs
+
+    def generateModelInvTransformationInputCode(self):
+        exprs1 = self.addModelAggreagtes(self.mModel_CTE,
+                                         self.mAutoForecast.mSignalDecomposition.mBestTransformation);
+        self.mModelInvTransformationInputs_CTE = self.mBackEnd.generate_CTE(self.mModel_CTE.columns  + exprs1, "TS_CTE_ModelInvTransformationInput")
+        self.mBackEnd.debrief_cte(self.mModelInvTransformationInputs_CTE)
+
+    def addTransformedModel(self, table, tr):
+        exprs = [];
+        lName = tr.mTransformation.get_name("");
+        # lName = "Diff_"
+        lModelName = self.shorten("Model");
+        # TS1 = alias(select([ table.c[lModelName] , table.c[self.mRowNumberAlias] ]), "t_ModelAgg");
+        model_expr = table.c[ lModelName ]; # original signal
+        transformed_model = model_expr;
+        if(lName == "CumSum_"):
+            lDefault_expr = self.as_float(tr.mTransformation.mFirstValue);            
+            previous_expr = func.coalesce(table.c["Lag1_" + lModelName] , lDefault_expr);
+            transformed_model  = model_expr - previous_expr;
+        elif(lName == "Diff_"):
+            lDefault_expr = self.as_float(tr.mTransformation.mFirstValue);            
+            cum_expr = func.coalesce(table.c["Cum_" + lModelName] , lDefault_expr);
+            transformed_model  = cum_expr;
+        elif(lName == "RelDiff_"):
+            lDefault_expr = self.as_float(tr.mTransformation.mFirstValue)
+            lDefault_expr = (lDefault_expr - tr.mTransformation.mMinValue) / tr.mTransformation.mDelta;
+            lRelDiff = func.coalesce(table.c["RelDiff_" + self.mSignalName] , lDefault_expr);
+            transformed_model  = lRelDiff;
+        else:
+            assert(0);
+
+        transformed_model = transformed_model.label("OriginalForecast");
+        transformed_model_residue =  transformed_model - table.c[ self.mSignalName ];
+        transformed_model_residue = transformed_model_residue.label("OriginalForecast_Residue");
+        exprs = exprs + [ transformed_model , transformed_model_residue];
+        return exprs
+
+    def generateInverseTransformationCode(self):
+        model_exprs = self.addTransformedModel(self.mModelInvTransformationInputs_CTE,
+                                               self.mAutoForecast.mSignalDecomposition.mBestTransformation) 
+        self.mModelInvTransformation_CTE = self.mBackEnd.generate_CTE([self.mModelInvTransformationInputs_CTE]  + model_exprs, "TS_CTE_InvTransformedModel")
+        self.mBackEnd.debrief_cte(self.mModelInvTransformation_CTE)
+
+
+    def generate_next_time(self, current, h):
+        lTimeInfo = self.mAutoForecast.mSignalDecomposition.mBestTransformation.mTimeInfo
+        if(lTimeInfo.isPhysicalTime()):
+            lNbSeconds = str(int(h * lTimeInfo.mTimeDelta.total_seconds()));
+            lIntervalExpr = sqlalchemy.sql.expression.literal_column(lNbSeconds, sqlalchemy.types.String);
+            lNextDateExpr = func.date_add(current , lIntervalExpr);
+            return lNextDateExpr;        
+        lIntervalExpr = self.as_float(h * lTimeInfo.mTimeDelta);
+        lNextDateExpr = current + lIntervalExpr;
+        return lNextDateExpr;
+        
+
+    def generateForecasts(self):
+        base_table = self.mFinal_CTE;
+        table = alias(select([base_table]) , "base_table_with_horizon_0");
+        H = self.getHorizon();
+        lCTEs = {};
+        lCTEs [ 0 ] = base_table; 
+        for h in range(1, H+1):
+            # lRowTypeExpr = self.mBackEnd.getIntegerLiteral(h).label(self.mRowTypeAlias);
+            table2 = alias(select([lCTEs[ h - 1 ]]) , "base_table_with_horizon_" + str(h-1) + "_1");
+            lPreviousDate = select([ func.max(table2.c[self.mDateName]) ]).as_scalar();
+            lNextDateExpr = self.generate_next_time(lPreviousDate , 1);
+            lNextDateExpr = lNextDateExpr.label(self.mDateName);
+            empty_line = [];
+            # empty_line = empty_line + [lRowTypeExpr];
+            empty_line = empty_line + [lNextDateExpr];
+            for (key, col) in table.columns.items():
+                if(key != self.mDateName):
+                    empty_line = empty_line + [ func.cast(null(), col.type).label(key) ];
+            lSignal = func.coalesce(table.c[self.mSignalName], table.c["PredictedSignal"]);
+            lSignal = lSignal.label(self.mSignalName);
+            lModifiedTableColumns = [table.c[self.mDateName] , lSignal];
+            for (key, col) in table.columns.items()[2:]:
+                lModifiedTableColumns = lModifiedTableColumns + [ col ]
+            sel1 = select(lModifiedTableColumns);
+            sel2 = select(empty_line);
+            print(sel1.columns);
+            print(sel2.columns);
+            lUnion = sel1.union_all(sel2);
+            lUnion = alias(lUnion, "FC_Union_" + str(h))
+            print("HORIZON_UNION" , h , lUnion.columns);
+            print("HORIZON_UNION_TYPES" , h , [col.type for col in lUnion.columns]);
+            lCTEs[ h ] = self.mBackEnd.generate_CTE([lUnion], "TS_CTE_Forecast_" + str(h))
+            table = alias( select([lCTEs[ h ]]) , "base_table_with_horizon" + str(h));
+            
+        self.mForecast_CTE = lCTEs[ H ]
+        self.mBackEnd.debrief_cte(self.mForecast_CTE)
 
