@@ -145,11 +145,18 @@ class cSignalDecompositionOneTransform:
     def plotModel(self, df , name = None):
         lTime = self.mTimeInfo.mNormalizedTimeColumn;
         lPrefix = self.mSignal + "_BestModel";
-        tsplot.decomp_plot(df, lTime, self.mSignal, lPrefix + 'Trend' , lPrefix + 'Trend_residue', name = name + "_trend");
-        tsplot.decomp_plot(df, lTime, lPrefix + 'Trend_residue' , lPrefix + 'Cycle', lPrefix + 'Cycle_residue', name = name + "_cycle");
-        tsplot.decomp_plot(df, lTime, lPrefix + 'Cycle_residue' , lPrefix + 'AR' , lPrefix + 'AR_residue', name = name + "_AR");
-        tsplot.decomp_plot(df, lTime, self.mSignal, lPrefix + 'Forecast' , lPrefix + 'Residue', name = name + "_forecast");
+        if(name is not None):
+            tsplot.decomp_plot(df, lTime, self.mSignal, lPrefix + 'Trend' , lPrefix + 'Trend_residue', name = name + "_trend");
+            tsplot.decomp_plot(df, lTime, lPrefix + 'Trend_residue' , lPrefix + 'Cycle', lPrefix + 'Cycle_residue', name = name + "_cycle");
+            tsplot.decomp_plot(df, lTime, lPrefix + 'Cycle_residue' , lPrefix + 'AR' , lPrefix + 'AR_residue', name = name + "_AR");
+            tsplot.decomp_plot(df, lTime, self.mSignal, lPrefix + 'Forecast' , lPrefix + 'Residue', name = name + "_forecast");
+        else:
+            tsplot.decomp_plot(df, lTime, self.mSignal, lPrefix + 'Trend' , lPrefix + 'Trend_residue');
+            tsplot.decomp_plot(df, lTime, lPrefix + 'Trend_residue' , lPrefix + 'Cycle', lPrefix + 'Cycle_residue');
+            tsplot.decomp_plot(df, lTime, lPrefix + 'Cycle_residue' , lPrefix + 'AR' , lPrefix + 'AR_residue');
+            tsplot.decomp_plot(df, lTime, self.mSignal, lPrefix + 'Forecast' , lPrefix + 'Residue');
 
+            
     def reviewBestModel(self):
         self.mBestModelFrame = pd.DataFrame();
         lSignal = self.mSignalFrame[self.mSignal]
@@ -511,7 +518,8 @@ class cSignalDecomposition:
         N = lInputDS.shape[0];
         lForecastColumn = lSignalColumn + "_BestModelForecast";
         lConfidence = 2.0 ; # 0.95
-        for h in range(0 , iHorizon):
+        # the prediction intervals are only computed for the training horizon
+        for h in range(0 , self.mBestTransformation.mHorizon):
             lHorizonName = lForecastColumn + "_" + str(h + 1);
             lWidth = lConfidence * self.mPredictionIntervalsEstimator.mForecastPerformances[lHorizonName].mL2;
             lLowerBound.loc[N + h ] = lForecastFrame.loc[N + h , lForecastColumn] - lWidth;
