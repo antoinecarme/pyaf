@@ -10,7 +10,7 @@ from CodeGen import TS_CodeGenerator as tscodegen
 
 
 with warnings.catch_warnings():
-    warnings.simplefilter("error")
+    # warnings.simplefilter("error")
 
     b1 = tsds.load_ozone()
     df = b1.mPastData

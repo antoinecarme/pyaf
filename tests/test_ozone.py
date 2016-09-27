@@ -30,6 +30,7 @@ dfapp_in.tail()
 
 #H = 12
 dfapp_out = lAutoF.forecast(dfapp_in, H);
+dfapp_out.to_csv("ozone_apply_out.csv")
 dfapp_out.tail(2 * H)
 print("Forecast Columns " , dfapp_out.columns);
 Forecast_DF = dfapp_out[[b1.mTimeVar , b1.mSignalVar, b1.mSignalVar + '_BestModelForecast']]
