@@ -1,11 +1,11 @@
-from SignalDecomposition import SignalDecomposition as tsdec
-from SignalDecomposition import SignalDecomposition_Options as tsopts
-from SignalDecomposition import SignalDecomposition_Perf as tsperf
-from SignalDecomposition import SignalDecomposition_utils as tsutil
+from .TS import SignalDecomposition as tsdec
+from .TS import Options as tsopts
+from .TS import Perf as tsperf
+from .TS import Utils as tsutil
 
-from CodeGen import TS_CodeGen_Objects as tscodegen
+from .CodeGen import TS_CodeGen_Objects as tscodegen
 
-class cAutoForecast:
+class cForecastEngine:
         
     def __init__(self):
         self.mSignalDecomposition = tsdec.cSignalDecomposition();
