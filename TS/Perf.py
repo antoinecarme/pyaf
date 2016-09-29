@@ -3,7 +3,7 @@ import numpy as np
 import datetime
 from scipy.stats import pearsonr 
 
-from . import SignalDecomposition_utils as tsutil
+from . import Utils as tsutil
 
 class cPerf:
     def __init__(self):

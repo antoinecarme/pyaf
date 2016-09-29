@@ -3,9 +3,9 @@ import pandas as pd
 import numpy as np
 import datetime
 
-from . import SignalDecomposition_Time as tsti
-from . import SignalDecomposition_Perf as tsperf
-from . import SignalDecomposition_Plots as tsplot
+from . import Time as tsti
+from . import Perf as tsperf
+from . import Plots as tsplot
 
 import sklearn as skl
 import sklearn.preprocessing as preprocessing
@@ -20,7 +20,8 @@ class cAbstractTrend:
         self.mTrendFrame = pd.DataFrame()
         self.mTrendPerf = tsperf.cPerf();
         self.mOutName = ""
-        self.mFormula = None;    
+        self.mFormula = None;
+        self.mComplexity = 1;
 
     def computePerf(self):
         self.mTrendFitPerf = tsperf.cPerf();
@@ -34,9 +35,11 @@ class cAbstractTrend:
 
 class cConstantTrend(cAbstractTrend):
     def __init__(self):
+        cAbstractTrend.__init__(self);
         self.mMean = 0.0
         self.mOutName = "ConstantTrend"
         self.mFormula = self.mOutName;    
+        self.mComplexity = 0;
         
     def addTrendInputVariables(self):
         self.mTime = self.mTimeInfo.mTime;
@@ -66,6 +69,7 @@ class cConstantTrend(cAbstractTrend):
 
 class cLag1Trend(cAbstractTrend):
     def __init__(self):
+        cAbstractTrend.__init__(self);
         self.mDefaultValue = None
         self.mOutName = "Lag1Trend"
         self.mFormula = self.mOutName;
@@ -108,6 +112,7 @@ class cLag1Trend(cAbstractTrend):
 
 class cMovingAverageTrend(cAbstractTrend):
     def __init__(self, iWindow):
+        cAbstractTrend.__init__(self);
         self.mOutName = "MovingAverage(" + str(iWindow) + ")";
         self.mWindow = iWindow;
         self.mFormula = self.mOutName;
@@ -140,6 +145,7 @@ class cMovingAverageTrend(cAbstractTrend):
 
 class cMovingMedianTrend(cAbstractTrend):
     def __init__(self, iWindow):
+        cAbstractTrend.__init__(self);
         self.mOutName = "MovingMedian(" + str(iWindow) + ")";
         self.mWindow = iWindow;
         self.mFormula = self.mOutName;
@@ -172,6 +178,7 @@ class cMovingMedianTrend(cAbstractTrend):
 
 class cLinearTrend(cAbstractTrend):
     def __init__(self):
+        cAbstractTrend.__init__(self);
         self.mTrendRidge = linear_model.Ridge()
         self.mOutName = "LinearTrend"
         self.mFormula = self.mOutName;
@@ -217,6 +224,7 @@ class cLinearTrend(cAbstractTrend):
 
 class cPolyTrend(cAbstractTrend):
     def __init__(self):
+        cAbstractTrend.__init__(self);
         self.mTrendRidge = linear_model.Ridge()
         self.mOutName = "PolyTrend"
         self.mFormula = self.mOutName

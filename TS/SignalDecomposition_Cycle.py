@@ -1,10 +1,9 @@
 import pandas as pd
 import numpy as np
 import datetime
-from . import SignalDecomposition_Time as tsti
-from . import SignalDecomposition_Perf as tsperf
-from . import SignalDecomposition_Quant as tsquant
-from . import SignalDecomposition_Plots as tsplot
+from . import Time as tsti
+from . import Perf as tsperf
+from . import Plots as tsplot
 
 def check_not_nan(sig, name):
     #    print("check_not_nan "  + name);
@@ -21,6 +20,8 @@ class cAbstractCycle:
         self.mCycleFrame = pd.DataFrame()
         self.mTrend = trend;
         self.mTrend_residue_name = self.mTrend.mOutName + '_residue'
+        self.mFormula = None;
+        self.mComplexity = 2;
     
 
     def getCycleResidueName(self):
@@ -48,6 +49,7 @@ class cZeroCycle(cAbstractCycle):
     def __init__(self , trend):
         super().__init__(trend);
         self.mFormula = "NoCycle"
+        self.mComplexity = 0;
 
     def getCycleName(self):
         return self.mTrend_residue_name + "_zeroCycle";

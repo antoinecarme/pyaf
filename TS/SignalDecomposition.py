@@ -11,15 +11,15 @@ import time
 import threading
 from multiprocessing.dummy import Pool as ThreadPool
 
-from . import SignalDecomposition_Time as tsti
-from . import SignalDecomposition_Signal as tssig
-from . import SignalDecomposition_Perf as tsperf
+from . import Time as tsti
+from . import Signal_Transformation as tstransf
+from . import Perf as tsperf
 from . import SignalDecomposition_Trend as tstr
 from . import SignalDecomposition_Cycle as tscy
 from . import SignalDecomposition_AR as tsar
-from . import SignalDecomposition_PredictionIntervals as predint
-from . import SignalDecomposition_Plots as tsplot
-from . import SignalDecomposition_Options as tsopts
+from . import PredictionIntervals as predint
+from . import Plots as tsplot
+from . import Options as tsopts
 
 from sklearn.externals import joblib
 
@@ -35,7 +35,7 @@ class cSignalDecompositionOneTransform:
         self.mCycleEstimator = tscy.cCycleEstimator();
         self.mAREstimator = tsar.cAutoRegressiveEstimator();
         self.mForecastFrame = pd.DataFrame()
-        self.mTransformation = tssig.cSignalTransform_None();
+        self.mTransformation = tstransf.cSignalTransform_None();
         
 
     def info(self):
@@ -104,6 +104,10 @@ class cSignalDecompositionOneTransform:
         self.mAREstimator.mExogenousVariables = self.mExogenousVariables
         self.mAREstimator.mOptions = self.mOptions;
 
+
+    def computeModelComplexity(self, trend, cycle, autoreg):
+        lComplexity = trend.mComplexity + cycle.mComplexity + autoreg.mComplexity;
+        return lComplexity;        
     
     def collectPerformanceIndices(self) :
         self.mPerfsByModel = {}
@@ -130,13 +134,14 @@ class cSignalDecompositionOneTransform:
                     self.mForecastPerf[autoreg] = lForecastPerf;
                     self.mTestPerf[autoreg] = lTestPerf;
                     self.mPerfsByModel[autoreg.mOutName] = [lFitPerf , lForecastPerf, lTestPerf];
-                    row = [autoreg.mOutName ,
-                           lFitPerf.mCount, lFitPerf.mL2, lFitPerf.mMAPE,
-                           lForecastPerf.mCount, lForecastPerf.mL2, lForecastPerf.mMAPE,
-                           lTestPerf.mCount, lTestPerf.mL2, lTestPerf.mMAPE]
+                    lComplexity = self.computeModelComplexity(trend, cycle, autoreg);
+                    row = [autoreg.mOutName , lComplexity,
+                           lFitPerf.mCount, lFitPerf.mL2, round(lFitPerf.mMAPE , 2),
+                           lForecastPerf.mCount, lForecastPerf.mL2, round(lForecastPerf.mMAPE , 2),
+                           lTestPerf.mCount, lTestPerf.mL2, round(lTestPerf.mMAPE, 2)]
                     rows_list.append(row);
         df = pd.DataFrame(rows_list, columns=
-                          ('Model',
+                          ('Model', 'Complexity',
                            'FitCount', 'FitL2', 'FitMAPE',
                            'ForecastCount', 'ForecastL2', 'ForecastMAPE',
                            'TestCount', 'TestL2', 'TestMAPE')) 
@@ -277,7 +282,7 @@ class cSignalDecompositionOneTransform:
         #self.mAREstimator.plotAR();
         # forecast perfs
         self.mPerfDetails = self.collectPerformanceIndices()        
-        self.mPerfDetails.sort_values('ForecastMAPE' , inplace=True)
+        self.mPerfDetails.sort_values(by=['ForecastMAPE' , 'Complexity'] , inplace=True)
         #print(self.mPerfDetails.head(self.mPerfDetails.shape[0]));
         self.mBestModelName = self.mPerfDetails.iloc[0]['Model']
         self.reviewBestModel();
@@ -314,23 +319,23 @@ class cSignalDecomposition:
     
     def defineTransformations(self , df):
         self.mTransformList = [];
-        self.validateTransformation(tssig.cSignalTransform_None());
+        self.validateTransformation(tstransf.cSignalTransform_None());
 
         if(self.mOptions.mEnableDifferentiationTransforms):
-            self.validateTransformation(tssig.cSignalTransform_Differencing());
-            self.validateTransformation(tssig.cSignalTransform_RelativeDifferencing());
+            self.validateTransformation(tstransf.cSignalTransform_Differencing());
+            self.validateTransformation(tstransf.cSignalTransform_RelativeDifferencing());
             
         if(self.mOptions.mEnableIntegrationTransforms):
-            self.validateTransformation(tssig.cSignalTransform_Accumulate());
+            self.validateTransformation(tstransf.cSignalTransform_Accumulate());
 
         if(self.mOptions.mEnableCoxBox):
             for i in self.mOptions.mCoxBoxOrders:
-                self.validateTransformation(tssig.cSignalTransform_BoxCox(i));
+                self.validateTransformation(tstransf.cSignalTransform_BoxCox(i));
 
         if(self.mOptions.mEnableQuantization):
             for i in self.mOptions.mQuantiles:
                 if(self.needQuantile(df , i)):
-                    self.validateTransformation(tssig.cSignalTransform_Quantize(i));
+                    self.validateTransformation(tstransf.cSignalTransform_Quantize(i));
         
 
         for transform1 in self.mTransformList:
@@ -408,14 +413,15 @@ class cSignalDecomposition:
             self.mFitPerf[lTranformName] = lFitPerf
             self.mForecastPerf[lTranformName] = lForecastPerf;
             self.mTestPerf[lTranformName] = lTestPerf;
-            row = [lTranformName, lModelFormula ,
-                   lFitPerf.mCount, lFitPerf.mL2, lFitPerf.mMAPE,
-                   lForecastPerf.mCount, lForecastPerf.mL2, lForecastPerf.mMAPE,
-                   lTestPerf.mCount, lTestPerf.mL2, lTestPerf.mMAPE]
+            lComplexity = sigdec.computeModelComplexity(sigdec.mBestModelTrend, sigdec.mBestModelCycle, sigdec.mBestModelAR);
+            row = [lTranformName, lModelFormula , lComplexity,
+                   lFitPerf.mCount, lFitPerf.mL2, round(lFitPerf.mMAPE , 2),
+                   lForecastPerf.mCount, lForecastPerf.mL2, round(lForecastPerf.mMAPE , 2),
+                   lTestPerf.mCount, lTestPerf.mL2, round(lTestPerf.mMAPE , 2)]
             rows_list.append(row);
 
         df = pd.DataFrame(rows_list, columns=
-                          ('Transformation', 'Model',
+                          ('Transformation', 'Model', 'Complexity',
                            'FitCount', 'FitL2', 'FitMAPE',
                            'ForecastCount', 'ForecastL2', 'ForecastMAPE',
                            'TestCount', 'TestL2', 'TestMAPE')) 
@@ -480,7 +486,7 @@ class cSignalDecomposition:
             self.plotModelForecasts(self.mBestModelFrame);
 
         self.mTrPerfDetails = self.collectPerformanceIndices();
-        self.mTrPerfDetails.sort_values('ForecastMAPE' , inplace=True)
+        self.mTrPerfDetails.sort_values(by=['ForecastMAPE' , 'Complexity'] , inplace=True)
         # print(self.mTrPerfDetails.head(self.mTrPerfDetails.shape[0]));
         self.mBestTransformationName = self.mTrPerfDetails.iloc[0]['Transformation']
 
@@ -539,16 +545,15 @@ class cSignalDecomposition:
 
 
     def getModelInfo(self):
-        print("Time Info : " + self.mBestTransformation.mTimeInfo.info());
-        print("Signal Info : " + self.mBestTransformation.info());
-        print("Transoformation Info : Type='" + self.mBestTransformation.mTransformation.get_name("") + "'");
-        # print("Signal Info : Variable='" + self.mBestTransformation.mOriginalSignal + "'");
-        print("Signal length=" + str(self.mBestTransformation.mBestModelFrame.shape[0])) ;
-        print("Decomposition Info Model = '" + self.mBestTransformation.mBestModelName + "' [" + self.getModelFormula() + "]");
-        print("Trend Info Trend='" + self.mBestTransformation.mBestModelTrend.mOutName + "' [" + self.mBestTransformation.mBestModelTrend.mFormula + "]");
-        print("Cycle Info Cycle='"+ self.mBestTransformation.mBestModelCycle.mOutName + "' [" + self.mBestTransformation.mBestModelCycle.mFormula + "]");
-        print("AR Info AR='" + self.mBestTransformation.mBestModelAR.mOutName + "' [" + self.mBestTransformation.mBestModelAR.mFormula + "]");
-        print("Performance Info MAPE_Fit=" + str(self.mTrPerfDetails.iloc[0].FitMAPE) + " MAPE_Forecast=" + str(self.mTrPerfDetails.iloc[0].ForecastMAPE)  + " MAPE_Test=" + str(self.mTrPerfDetails.iloc[0].TestMAPE) );
+        print("TIME_DETAIL " + self.mBestTransformation.mTimeInfo.info());
+        print("SIGNAL_DETAIL " + self.mBestTransformation.info());
+        print("BEST_TRANSOFORMATION_TYPE '" + self.mBestTransformation.mTransformation.get_name("") + "'");
+        print("BEST_DECOMPOSITION  '" + self.mBestTransformation.mBestModelName + "' [" + self.getModelFormula() + "]");
+        print("TREND_DETAIL '" + self.mBestTransformation.mBestModelTrend.mOutName + "' [" + self.mBestTransformation.mBestModelTrend.mFormula + "]");
+        print("CYCLE_DETAIL '"+ self.mBestTransformation.mBestModelCycle.mOutName + "' [" + self.mBestTransformation.mBestModelCycle.mFormula + "]");
+        print("AUTOREG_DETAIL '" + self.mBestTransformation.mBestModelAR.mOutName + "' [" + self.mBestTransformation.mBestModelAR.mFormula + "]");
+        print("MODEL_MAPE MAPE_Fit=" + str(self.mTrPerfDetails.iloc[0].FitMAPE) + " MAPE_Forecast=" + str(self.mTrPerfDetails.iloc[0].ForecastMAPE)  + " MAPE_Test=" + str(self.mTrPerfDetails.iloc[0].TestMAPE) );
+        print("MODEL_COMPLEXITY ", str(self.mTrPerfDetails.iloc[0].Complexity) );
 
     def to_json(self):
         dict1 = {};
@@ -563,7 +568,8 @@ class cSignalDecomposition:
                            "AR_Model" : self.mBestTransformation.mBestModelAR.mFormula,
                            };
         dict1["Model_Performance"] = {"MAPE" : str(self.mTrPerfDetails.iloc[0].ForecastMAPE),
-                                      "RMSE" : str(self.mTrPerfDetails.iloc[0].ForecastL2)};
+                                      "RMSE" : str(self.mTrPerfDetails.iloc[0].ForecastL2),
+                                      "COMPLEXITY" : str(self.mTrPerfDetails.iloc[0].Complexity)};
         
         return dict1;
         
