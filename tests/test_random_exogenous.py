@@ -24,7 +24,7 @@ with warnings.catch_warnings():
     for nbex in range(0, 2000, 10):
         for n in range(4*H,  N , 10):
             df1 = df.head(n).copy();
-            lAutoF = autof.cAutoForecast()
+            lAutoF = autof.cForecastEngine()
             # lAutoF.mOptions.mEnableSeasonals = False;
             # lAutoF.mOptions.mDebugCycles = True;
             lAutoF
