@@ -1,8 +1,8 @@
 
 #from __future__ import absolute_import
-from . import SignalDecomposition
+from . import TS
 from . import Bench
 from . import CodeGen
 
 
-__version__ = '0.0.1'
+__version__ = '0.0.2'
