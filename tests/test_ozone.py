@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
-import AutoForecast as autof
-import Bench.TS_datasets as tsds
+import AutoForecast.ForecastEngine as autof
+import AutoForecast.Bench.TS_datasets as tsds
 
 #get_ipython().magic('matplotlib inline')
 
@@ -14,12 +14,13 @@ df = b1.mPastData
 #df.describe()
 
 
-lAutoF = autof.cAutoForecast()
+lAutoF = autof.cForecastEngine()
 lAutoF
 
 H = b1.mHorizon;
 lAutoF.train(df , b1.mTimeVar , b1.mSignalVar, H);
 lAutoF.getModelInfo();
+print(lAutoF.mSignalDecomposition.mTrPerfDetails.head());
 
 lAutoF.mSignalDecomposition.mBestTransformation.mTimeInfo.mResolution
 

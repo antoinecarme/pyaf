@@ -7,7 +7,7 @@ trainfile = "data/bugs/M4_C0808_failure.csv";
 #cols = ["ID" , "time", "AirPassengers"];
 df = pd.read_csv(trainfile, sep=r',', engine='python');
     
-lAutoF = autof.cAutoForecast()
+lAutoF = autof.cForecastEngine()
 lAutoF
 
 print(df.head());

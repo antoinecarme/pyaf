@@ -9,7 +9,7 @@ df = b1.mPastData
 df.head()
 
 
-lAutoF = autof.cAutoForecast()
+lAutoF = autof.cForecastEngine()
 lAutoF
 
 H = b1.mHorizon;

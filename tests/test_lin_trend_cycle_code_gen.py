@@ -19,7 +19,7 @@ H = b1.mHorizon;
 N = df.shape[0];
 for n in range(24*H,  N , 10):
     df1 = df.head(n).copy();
-    lAutoF = autof.cAutoForecast()
+    lAutoF = autof.cForecastEngine()
     # lAutoF.mOptions.mEnableSeasonals = False;
     # lAutoF.mOptions.mDebugCycles = True;
     lAutoF

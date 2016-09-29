@@ -14,7 +14,7 @@ df = b1.mPastData
 #df.describe()
 
 
-lAutoF = autof.cAutoForecast()
+lAutoF = autof.cForecastEngine()
 lAutoF
 
 H = b1.mHorizon;

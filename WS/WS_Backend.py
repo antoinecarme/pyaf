@@ -57,7 +57,7 @@ class cWSModel:
         
     def trainModel(self):
         self.mTrainDataFrame = self.mFullDataFrame[self.mFullDataFrame[self.mTimeVar] <= self.mPresent];
-        self.mAutoForecast = autof.cAutoForecast()
+        self.mAutoForecast = autof.cForecastEngine()
         self.mAutoForecast.train(self.mTrainDataFrame , self.mTimeVar , self.mSignalVar, self.mHorizon);        
 
     def applyModel(self):
