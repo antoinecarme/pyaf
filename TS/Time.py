@@ -3,7 +3,7 @@ import numpy as np
 import datetime as dt
 import calendar
 
-from . import SignalDecomposition_utils as tsutil
+from . import Utils as tsutil
 
 from scipy.stats import mode
 

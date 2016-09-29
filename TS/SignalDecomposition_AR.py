@@ -2,9 +2,9 @@ import pandas as pd
 import numpy as np
 import datetime
 
-from . import SignalDecomposition_Time as tsti
-from . import SignalDecomposition_Perf as tsperf
-from . import SignalDecomposition_Plots as tsplot
+from . import Time as tsti
+from . import Perf as tsperf
+from . import Plots as tsplot
 
 import sklearn as skl
 import sklearn.preprocessing as preprocessing
@@ -18,6 +18,8 @@ class cAbstractAR:
         self.mCycleFrame = pd.DataFrame()
         self.mARFrame = pd.DataFrame()        
         self.mCycleResidueName = cycle_residue_name
+        self.mComplexity = 4;
+        self.mFormula = None;
 
 
     def plot(self):
@@ -38,6 +40,7 @@ class cZeroAR(cAbstractAR):
         super().__init__(cycle_residue_name)
         self.mOutName = self.mCycleResidueName +  '_NoAR'
         self.mFormula = "NoAR";
+        self.mComplexity = 0;
         
     def fit(self):
         series = self.mCycleResidueName; 

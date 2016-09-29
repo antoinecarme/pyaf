@@ -3,7 +3,7 @@ import numpy as np
 
 from . import SignalDecomposition as sigdec
 
-from . import SignalDecomposition_Perf as tsperf
+from . import Perf as tsperf
 
 class cPredictionIntervalsEstimator:
     
