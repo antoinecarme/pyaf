@@ -1,9 +1,9 @@
 import pandas as pd
 import numpy as np
 
-import AutoForecast as autof
-from CodeGen import TS_CodeGenerator as tscodegen
-import Bench.TS_datasets as tsds
+import AutoForecast.ForecastEngine as autof
+from AutoForecast.CodeGen import TS_CodeGenerator as tscodegen
+import AutoForecast.Bench.TS_datasets as tsds
 
 import sys,os
 # for timing
@@ -42,10 +42,11 @@ def run_bench_process(a):
         logfile.close();
         # print("BENCHMARK_SUCCESS '" + a.getName() + "'");
     except cBenchmarkError as error:
+        print("BENCHMARKING_ERROR '" + a.getName() + "'");
         logger.error(error)
         pass;
     except:
-        #print("BENCHMARK_FAILURE '" + a.getName() + "'");
+        print("BENCHMARK_FAILURE '" + a.getName() + "'");
         logfile.close();
         raise
 
@@ -74,7 +75,7 @@ class cGeneric_OneSignal_Tester:
         self.mTestPerfData = {}
         self.mTrainTime = {};
         self.mBenchName = bench_name;
-        self.mTestCodeGeneration = True;
+        self.mTestCodeGeneration = False;
 
     def reportTrainingDataInfo(self, iSignal, iHorizon):
         df = self.mTrainDataset[iSignal  + "_" + str(iHorizon)];
@@ -83,7 +84,7 @@ class cGeneric_OneSignal_Tester:
               "HEAD=", df[lDate].head().values, "TAIL=", df[lDate].tail().values);
         print("SIGNAL : ", iSignal , "N=", df[iSignal].shape[0], "H=", iHorizon,
               "HEAD=", df[iSignal].head().values, "TAIL=", df[iSignal].tail().values);
-        df.to_csv("bench.csv");
+        # df.to_csv("bench.csv");
         # print(df.head());
 
     def checkHorizon(self, N , iHorizon):
@@ -111,10 +112,11 @@ class cGeneric_OneSignal_Tester:
         
     def trainModel(self, iSignal, iHorizon):
         df = self.mTrainDataset[iSignal  + "_" + str(iHorizon)];
-        lAutoF1 = autof.cAutoForecast();
+        lAutoF1 = autof.cForecastEngine();
         self.mAutoForecastBySignal[iSignal  + "_" + str(iHorizon)] = lAutoF1
         lAutoF1.train(df , 'Date' , iSignal, iHorizon)
         self.reportModelInfo(lAutoF1);
+        print(lAutoF1.mSignalDecomposition.mTrPerfDetails.head());
 
     def computeModelPerfOnTraining(self, iModel):
         lPerfData = pd.DataFrame()
@@ -134,7 +136,8 @@ class cGeneric_OneSignal_Tester:
         self.getTestPerfs(iSignal, iHorizon);
         end_time = time.time()
         self.mTrainTime[iSignal  + "_" + str(iHorizon)] = end_time - start_time;
-        self.dumpForecastPerfs(iSignal, iHorizon);        
+        self.dumpForecastPerfs(iSignal, iHorizon);
+        self.testIdempotency(iSignal, iHorizon);
 
     def getApplyInDatset(self, iSignal, iHorizon):
         self.mApplyIn = pd.DataFrame();
@@ -202,7 +205,31 @@ class cGeneric_OneSignal_Tester:
               lPerf.mMAPE,  lPerf.mSMAPE);
         pass
 
+    def testSignalIdempotency(self, iSignal, iHorizon, tr, cy, ar):
+        lAutoF1 = self.mAutoForecastBySignal[iSignal  + "_" + str(iHorizon)];
+        lApplyOut = self.mApplyOut.head(self.mApplyIn.shape[0]);
+        lNewSignal = iSignal + "_" + str(tr) + "_" + str(cy) + "_" + str(ar);
+        lTransformedSignal = lAutoF1.mSignalDecomposition.mBestTransformation.mSignal;
+        lSignal = 0.0 * lApplyOut[iSignal];
+        if(tr is not None):
+            lSignal = lSignal + lApplyOut[lTransformedSignal + "_BestModelTrend"];
+        if(cy is not None ):
+            lSignal = lSignal + lApplyOut[lTransformedSignal + "_BestModelCycle"];
+        if(ar is not None ):
+            lSignal = lSignal + lApplyOut[lTransformedSignal + "_BestModelAR"];
+        df= pd.DataFrame();
+        df['Date'] = lApplyOut['Date'];
+        df[lNewSignal] = lSignal;
+        lAutoF1 = autof.cForecastEngine();
+        lAutoF1.train(df , 'Date' , lNewSignal, iHorizon)
+        self.reportModelInfo(lAutoF1);
 
+    def testIdempotency(self, iSignal, iHorizon):
+        for tr in [None , "TR"]:
+            for cy in [None , "CY"]:
+                for ar in [None , "AR"]:
+                    if((tr is not None) or (cy is not None) or (ar is not None)):
+                        self.testSignalIdempotency(iSignal, iHorizon, tr, cy, ar);
 
 class cGeneric_Tester:
     '''
@@ -210,10 +237,10 @@ class cGeneric_Tester:
     '''
 
     def __init__(self , tsspec, bench_name):
-        print("BENCH_DATA" , bench_name, tsspec)
+        # print("BENCH_DATA" , bench_name, tsspec)
         self.mTSSpec = tsspec;
         self.mBenchName = bench_name;
-        self.mTestCodeGeneration = True;
+        self.mTestCodeGeneration = False;
         self.mType = "OneDataFramePerSignal";
         if(hasattr(self.mTSSpec , "mFullDataset")):
             self.mType = "OneDataFrameForAllSignals";

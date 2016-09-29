@@ -5,7 +5,7 @@ import datetime
 from datetime import date
 from yahoo_finance import Share
 import os.path
-import data.stocks_symbol_list as symlist
+import AutoForecast.data.stocks_symbol_list as symlist
 
 import multiprocessing as mp
 import threading
@@ -466,7 +466,7 @@ def load_yahoo_stock_price( stock ) :
     df_train = pd.DataFrame();
     filename = "data/yahoo/yahoo_" + stock +".csv"
     if(os.path.isfile(filename)):
-        print("already downloaded " + stock , "reloading " , filename);
+        # print("already downloaded " + stock , "reloading " , filename);
         df_train = pd.read_csv(filename);
     else:
         return None;
@@ -520,6 +520,7 @@ def load_yahoo_stock_prices(symbol_list_key) :
             tsspec1.mCategory = symbol_list_key;
             tsspecs[stock] = tsspec1; 
 
+    print("load_yahoo_stock_prices" , symbol_list_key, len(tsspecs.keys()));
     return tsspecs
 
 
