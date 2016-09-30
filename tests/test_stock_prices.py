@@ -1,10 +1,13 @@
 import pandas as pd
 import numpy as np
-import SignalDecomposition as SigDec
-import TS_datasets as tsds
+
+import AutoForecast.ForecastEngine as autof
+import AutoForecast.Bench.TS_datasets as tsds
+
+import AutoForecast.CodeGen.TS_CodeGenerator as tscodegen
 
 
-b1 = tsds.load_yahoo_stock_prices()
+b1 = tsds.load_yahoo_stock_prices("cac40")["BNP.PA"]
 df = b1.mPastData
 
 df.head()

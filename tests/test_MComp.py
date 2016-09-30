@@ -1,8 +1,12 @@
 import pandas as pd
 import numpy as np
-import SignalDecomposition as SigDec
-import TS_datasets as tsds
-import MComp as mcomp
+
+import AutoForecast.ForecastEngine as autof
+import AutoForecast.Bench.TS_datasets as tsds
+
+import AutoForecast.CodeGen.TS_CodeGenerator as tscodegen
+
+import AutoForecast.Bench.MComp as mcomp
 
 
 #tester1 = mcomp.cMComp_Tester(tsds.load_M1_comp());
@@ -29,6 +33,6 @@ import MComp as mcomp
 #tester1.testSignal('')
 #tester6.testAllSignals()
 
-tester7 = mcomp.cMComp_Tester(tsds.load_M4_comp());
+tester7 = mcomp.cMComp_Tester(tsds.load_M4_comp() . "M4COMP");
 #tester7.testSignal('FIN1')
 tester7.testAllSignals()

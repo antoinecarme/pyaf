@@ -1,8 +1,10 @@
 import pandas as pd
 import numpy as np
-import SignalDecomposition as SigDec
-import SignalDecomposition_utils as util
-import TS_datasets as tsds
+
+import AutoForecast.ForecastEngine as autof
+import AutoForecast.Bench.TS_datasets as tsds
+
+import AutoForecast.CodeGen.TS_CodeGenerator as tscodegen
 
 import sys, traceback
 

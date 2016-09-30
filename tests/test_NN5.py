@@ -1,8 +1,12 @@
 import pandas as pd
 import numpy as np
-#import SignalDecomposition as SigDec
-import Bench.TS_datasets as tsds
-import Bench.NN3 as tNN3
+
+import AutoForecast.ForecastEngine as autof
+import AutoForecast.Bench.TS_datasets as tsds
+
+import AutoForecast.CodeGen.TS_CodeGenerator as tscodegen
+
+import AutoForecast.Bench.NN3 as tNN3
 import warnings
 
 #%matplotlib inline
