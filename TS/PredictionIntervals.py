@@ -27,8 +27,6 @@ class cPredictionIntervalsEstimator:
         for h in range(0 , self.mHorizon):
             df2 = None;
             df2 = best_dec.forecastModelOneStepAhead(df1.copy());
-            for exog in best_dec.mExogenousVariables:
-                df2[ exog ] = df[ exog ];
             df2 = df2.head(N);
             # print(df1.info());
             # print(df2.info());

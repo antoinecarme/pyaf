@@ -12,6 +12,7 @@ import threading
 from multiprocessing.dummy import Pool as ThreadPool
 
 from . import Time as tsti
+from . import Exogenous as tsexog
 from . import Signal_Transformation as tstransf
 from . import Perf as tsperf
 from . import SignalDecomposition_Trend as tstr
@@ -30,7 +31,6 @@ class cSignalDecompositionOneTransform:
         self.mTime = "time"
         self.mSignal = "AirPassengers"
         self.mTimeInfo = tsti.cTimeInfo();
-        self.mExogenousVariables = [];
         self.mTrendEstimator = tstr.cTrendEstimator()
         self.mCycleEstimator = tscy.cCycleEstimator();
         self.mAREstimator = tsar.cAutoRegressiveEstimator();
@@ -55,7 +55,7 @@ class cSignalDecompositionOneTransform:
     def serialize(self):
         joblib.dump(self, self.mTimeInfo.mTime + "_" + self.mSignal + "_TS.pkl")        
 
-    def setParams(self , iInputDS, iTime, iSignal, iHorizon, iTransformation):
+    def setParams(self , iInputDS, iTime, iSignal, iHorizon, iTransformation, iExogenousData = None):
         assert(iInputDS.shape[0] > 0)
         assert(iInputDS.shape[1] > 0)
         assert(iTime in iInputDS.columns)
@@ -77,8 +77,6 @@ class cSignalDecompositionOneTransform:
 #        self.mSignalFrame = iInputDS.copy()
         self.mSignalFrame[self.mOriginalSignal] = iInputDS[iSignal];
         self.mSignalFrame[self.mSignal] = self.mTransformation.apply(iInputDS[iSignal]);
-        for exog in self.mExogenousVariables:
-            self.mSignalFrame[ exog ] = iInputDS[ exog ];
         self.mSignalFrame[self.mTime] = iInputDS[self.mTime].copy();
         self.mSignalFrame['row_number'] = np.arange(0, iInputDS.shape[0]);
         self.mSignalFrame.dropna(inplace = True);
@@ -92,6 +90,13 @@ class cSignalDecompositionOneTransform:
         self.mTimeInfo.mHorizon = self.mHorizon;
         self.mTimeInfo.mSignalFrame = self.mSignalFrame;
         self.mTimeInfo.mOptions = self.mOptions;
+
+        self.mExogenousInfo = None;
+        if(iExogenousData is not None):
+            self.mExogenousInfo = tsexog.cExogenousInfo();
+            self.mExogenousInfo.mExogenousData = iExogenousData;
+            self.mExogenousInfo.mDateVariable = self.mTime;
+            self.mExogenousInfo.mOptions = self.mOptions;
         
         self.mTrendEstimator.mSignalFrame = self.mSignalFrame
         self.mTrendEstimator.mTimeInfo = self.mTimeInfo
@@ -101,7 +106,7 @@ class cSignalDecompositionOneTransform:
         self.mCycleEstimator.mOptions = self.mOptions;
 
         self.mAREstimator.mTimeInfo = self.mTimeInfo
-        self.mAREstimator.mExogenousVariables = self.mExogenousVariables
+        self.mAREstimator.mExogenousInfo = self.mExogenousInfo;
         self.mAREstimator.mOptions = self.mOptions;
 
 
@@ -193,28 +198,36 @@ class cSignalDecompositionOneTransform:
         if(self.mOptions.mEnablePlots):    
             self.plotModel(self.mBestModelFrame)
 
+
+
     def forecastModelOneStepAhead(self , df):
         assert(self.mTime in df.columns)
         assert(self.mOriginalSignal in df.columns)
+        lPrefix = self.mSignal + "_BestModel";
         df1 = df.copy();
+        df1.to_csv("before.csv");
         # add new line with new time value, row_number and nromalized time
         df1 = self.mTimeInfo.transformDataset(df1);
-        #print("TimeInfo update : " , df1.columns);
+        df1.to_csv("after_time.csv");
+        # print("TimeInfo update : " , df1.columns);
         # add signal tranformed column
         df1 = self.mTransformation.transformDataset(df1, self.mOriginalSignal);
+        df1.to_csv("after_transformation.csv");
         #print("Transformation update : " , df1.columns);
         # compute the trend based on the transformed column and compute trend residue
         df1 = self.mBestModelTrend.transformDataset(df1);
         #print("Trend update : " , df1.columns);
+        df1.to_csv("after_trend.csv");
         # compute the cycle and its residue based on the trend residue
         df1 = self.mBestModelCycle.transformDataset(df1);
+        df1.to_csv("after_cycle.csv");
         #print("Cycle update : " , df1.columns);
         # compute the AR componnet and its residue based on the cycle residue
         df1 = self.mBestModelAR.transformDataset(df1);
+        df1.to_csv("after_ar.csv");
         #print("AR update : " , df1.columns);
         # compute the forecast and its residue (forecast = trend  + cycle + AR)
         df2 = df1.copy();
-        lPrefix = self.mSignal + "_BestModel";
         lTrendColumn = df2[self.mBestModelTrend.mOutName]
         lCycleColumn = df2[self.mBestModelCycle.mOutName]
         lARColumn = df2[self.mBestModelAR.mOutName]
@@ -243,19 +256,24 @@ class cSignalDecompositionOneTransform:
         for h in range(0 , iHorizon - 1):
             N = df1.shape[0];
             # replace the signal with the forecast in the last line  of the dataset
-            df1.loc[N - 1 , self.mOriginalSignal] = df1.loc[N - 1 , lForecastColumnName];
+            lPos = df1.index[N - 1];
+            lSignal = df1.loc[lPos , lForecastColumnName];
+            df1.loc[lPos , self.mOriginalSignal] = lSignal;
+            # df1.loc[lPos , self.mBestModelTrend.mOutName + "_residue"] = lSignal - df1.loc[lPos , self.mBestModelTrend.mOutName];
+            # df1.loc[lPos , self.mBestModelCycle.mOutName + "_residue"] = lSignal - df1.loc[lPos , self.mBestModelTrend.mOutName] - df1.loc[lPos , self.mBestModelCycle.mOutName];
+            df1 = df1[[self.mTime , self.mOriginalSignal]];
             df1 = self.forecastModelOneStepAhead(df1)
-            for exog in self.mExogenousVariables:
-                df1[ exog ] = df[ exog ];
+
         assert((N0 + iHorizon) == df1.shape[0])
         N1 = df1.shape[0];
         for h in range(0 , iHorizon):
-            df1.loc[N1 - 1 - h, self.mOriginalSignal] = np.nan;
+            # df1.loc[N1 - 1 - h, self.mOriginalSignal] = np.nan;
+            pass
         return df1
     
     def train(self , iInputDS, iTime, iSignal,
               iHorizon, iTransformation):
-        self.setParams(iInputDS, iTime, iSignal, iHorizon, iTransformation);
+        self.setParams(iInputDS, iTime, iSignal, iHorizon, iTransformation, self.mExogenousData);
         # estimate time info
         # assert(self.mTimeInfo.mSignalFrame.shape[0] == iInputDS.shape[0])
         self.mTimeInfo.estimate();
@@ -263,6 +281,9 @@ class cSignalDecompositionOneTransform:
         self.mSignalFrame[self.mTimeInfo.mNormalizedTimeColumn] = self.mTimeInfo.mSignalFrame[self.mTimeInfo.mNormalizedTimeColumn]
         if(self.mOptions.mEnablePlots):    
             self.plotSignal()
+
+        if(self.mExogenousInfo is not None):
+            self.mExogenousInfo.fit();
         # estimate the trend
         self.mTrendEstimator.estimateTrend();
         #self.mTrendEstimator.plotTrend();
@@ -274,8 +295,6 @@ class cSignalDecompositionOneTransform:
             # self.mCycleEstimator.plotCycles();
         # autoregressive
         self.mAREstimator.mCycleFrame = self.mCycleEstimator.mCycleFrame;
-        for exog in self.mExogenousVariables:
-            self.mAREstimator.mCycleFrame[ exog ] = iInputDS[ exog ];
         self.mAREstimator.mTrendList = self.mCycleEstimator.mTrendList;
         self.mAREstimator.mCycleList = self.mCycleEstimator.mCycleList;
         self.mAREstimator.estimate();
@@ -291,10 +310,10 @@ class cSignalDecompositionOneTransform:
 
 
 
-def run_transform_thread(iInputDS, iTime, iSignal, iHorizon, transform1, iOptions, iExogenous):
+def run_transform_thread(iInputDS, iTime, iSignal, iHorizon, transform1, iOptions, iExogenousData):
     sigdec = cSignalDecompositionOneTransform();
     sigdec.mOptions = iOptions;
-    sigdec.mExogenousVariables = iExogenous;
+    sigdec.mExogenousData = iExogenousData;
     sigdec.train(iInputDS, iTime, iSignal, iHorizon, transform1);    
 
 class cSignalDecomposition:
@@ -302,13 +321,12 @@ class cSignalDecomposition:
     def __init__(self):
         self.mSigDecByTransform = {};
         self.mOptions = tsopts.cSignalDecomposition_Options();
-        self.mExogenousVariables = [];
-        self.mExogenousDummies = [];
+        self.mExogenousData = None;
         pass
 
-    def needQuantile(self, df , i):
+    def needQuantile(self, df , q):
         N = df.shape[0];
-        if(N < (12 * i)) :
+        if(N < (12 * q)) :
             return False;
         return True;
 
@@ -333,8 +351,8 @@ class cSignalDecomposition:
                 self.validateTransformation(tstransf.cSignalTransform_BoxCox(i));
 
         if(self.mOptions.mEnableQuantization):
-            for i in self.mOptions.mQuantiles:
-                if(self.needQuantile(df , i)):
+            for q in self.mOptions.mQuantiles:
+                if(self.needQuantile(df , q)):
                     self.validateTransformation(tstransf.cSignalTransform_Quantize(i));
         
 
@@ -348,7 +366,7 @@ class cSignalDecomposition:
         self.defineTransformations();
         for transform1 in self.mTransformList:
             t = threading.Thread(target=run_transform_thread,
-                                 args = (iInputDS, iTime, iSignal, iHorizon, transform1, self.mOptions, self.mExogenousDummies))
+                                 args = (iInputDS, iTime, iSignal, iHorizon, transform1, self.mOptions, self.mExogenousData))
             t.daemon = False
             threads += [t] 
             t.start()
@@ -361,7 +379,7 @@ class cSignalDecomposition:
         self.defineTransformations();
         for transform1 in self.mTransformList:
             args = (iInputDS, iTime, iSignal, iHorizon,
-                    transform1, self.mOptions, self.mExogenousDummies);
+                    transform1, self.mOptions, self.mExogenousData);
             asyncResult = pool.map_async(run_transform_thread, args);
 
         resultList = asyncResult.get()
@@ -372,7 +390,7 @@ class cSignalDecomposition:
         for transform1 in self.mTransformList:
             sigdec = cSignalDecompositionOneTransform();
             sigdec.mOptions = self.mOptions;
-            sigdec.mExogenousVariables = self.mExogenousDummies;
+            sigdec.mExogenousData = self.mExogenousData;
             sigdec.train(iInputDS, iTime, iSignal, iHorizon, transform1);
             self.mSigDecByTransform[transform1.get_name("")] = sigdec
 
@@ -427,52 +445,17 @@ class cSignalDecomposition:
                            'TestCount', 'TestL2', 'TestMAPE')) 
         return df;
 
-    def createExogenousDummies(self, iInputDS, iTime, iSignal):
-        lInputDS = iInputDS.copy();
-        self.mExogenousDummies = [];
-        for exog in self.mExogenousVariables:
-            lList = self.mExogenousVariableCategories[exog];
-            for lCat in lList:
-                lDummyName = exog + "_d_" + str(lCat);
-                lInputDS[lDummyName] = iInputDS[exog].apply(lambda x : 1 if (x == lCat) else 0);
-                self.mExogenousDummies = self.mExogenousDummies + [lDummyName];
-        return lInputDS;
-
-    def updateExogenousVariableInfo(self, iInputDS, iTime, iSignal):
-        self.mExogenousVariableCategories = None;
-        if(len(self.mExogenousVariables) > 0):
-            self.mExogenousVariableCategories = {};
-            for exog in self.mExogenousVariables:
-                # use nan as a category
-                lVC = iInputDS[exog].value_counts(dropna = False);
-                # TODO : 5 categories. to be added in options.
-                NCat = 5;
-                lList = lVC.index[0:NCat].tolist();
-                print("most_frequent_categories_for" , exog, lList);
-                self.mExogenousVariableCategories[exog] = lList;
-                
-
-    def preProcessExogenousVariables(self, iInputDS, iTime, iSignal):
-        lInputDS = iInputDS;
-        if(len(self.mExogenousVariables) > 0):
-            print("preProcessExogenousVariables , columns", self.mExogenousVariables);
-            self.updateExogenousVariableInfo(iInputDS, iTime, iSignal);
-            lInputDS = self.createExogenousDummies(iInputDS, iTime, iSignal);
-            print("preProcessExogenousVariables , columns", self.mExogenousDummies);
-        return lInputDS;
-        
-    def train(self , iInputDS, iTime, iSignal, iHorizon, iExogenous = []):
+    def train(self , iInputDS, iTime, iSignal, iHorizon, iExogenousData = None):
         print("START_TRAINING '" + iSignal + "'")
         start_time = time.time()
 
         self.mTrainingDataset = iInputDS; 
-        self.mExogenousVariables = iExogenous;
-        lInputDS = self.preProcessExogenousVariables(iInputDS,  iTime, iSignal);
+        self.mExogenousData = iExogenousData;
         
         if(self.mOptions.mParallelMode):
-            self.train_multiprocessed(lInputDS, iTime, iSignal, iHorizon);
+            self.train_multiprocessed(iInputDS, iTime, iSignal, iHorizon);
         else:
-            self.train_not_threaded(lInputDS, iTime, iSignal, iHorizon);
+            self.train_not_threaded(iInputDS, iTime, iSignal, iHorizon);
     
         self.createBestModelFrame();
         for transform1 in self.mTransformList:
@@ -498,7 +481,7 @@ class cSignalDecomposition:
 
         # prediction intervals
         self.mPredictionIntervalsEstimator = predint.cPredictionIntervalsEstimator();
-        self.mPredictionIntervalsEstimator.mSignalFrame = lInputDS;
+        self.mPredictionIntervalsEstimator.mSignalFrame = iInputDS;
         self.mPredictionIntervalsEstimator.mTime = iTime;
         self.mPredictionIntervalsEstimator.mSignal = iSignal;
         self.mPredictionIntervalsEstimator.mHorizon = iHorizon;
@@ -512,16 +495,13 @@ class cSignalDecomposition:
         pass
 
     def forecast(self , iInputDS, iHorizon):
-        lInputDS = self.createExogenousDummies(iInputDS,
-                                               self.mBestTransformation.mTime,
-                                               self.mBestTransformation.mSignal);
-        lForecastFrame = self.mBestTransformation.forecastModel(lInputDS, iHorizon);
+        lForecastFrame = self.mBestTransformation.forecastModel(iInputDS, iHorizon);
 
         lSignalColumn = self.mBestTransformation.mOriginalSignal;
         lLowerBound = lForecastFrame[lSignalColumn].apply(lambda x : np.nan)
         lUpperBound = lLowerBound.copy();
 
-        N = lInputDS.shape[0];
+        N = iInputDS.shape[0];
         lForecastColumn = lSignalColumn + "_BestModelForecast";
         lConfidence = 2.0 ; # 0.95
         # the prediction intervals are only computed for the training horizon
