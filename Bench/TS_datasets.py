@@ -568,22 +568,24 @@ def get_yahoo_symbol_lists():
 
 def generate_datasets(ds_type = "S"):
     datasets = {};
-    lRange_N = range(10, 100, 10)
+    lRange_N = range(20, 101, 20)
     if(ds_type == "M"):
-        lRange_N = range(100, 500, 50)
+        lRange_N = range(150, 501, 50)
     if(ds_type == "L"):
-        lRange_N = range(500, 2000, 100)
+        lRange_N = range(600, 2001, 100)
     if(ds_type == "XL"):
-        lRange_N = range(2000, 8000, 500)
+        lRange_N = range(2500, 8000, 500)
     
     for N in lRange_N:
         for trend in ["constant" , "linear" , "poly"]:
-            for cycle_length in range(0, int(N/4) , 15):
+            for cycle_length in range(0, N // 4 ,  max(N // 16 , 1)):
                 for transf in ["" , "exp"]:            
                     for sigma in range(0, 5, 2):
-                        for exogc in range(0, 100, 10):
+                        for exogc in range(0, 51, 20):
                             for seed in range(0, 1):
-                                ds = generate_random_TS(N , 'D', seed, trend, cycle_length, transf, sigma, exog_count = exogc);
+                                ds = generate_random_TS(N , 'D', seed, trend,
+                                                        cycle_length, transf,
+                                                        sigma, exog_count = exogc);
                                 ds.mCategory = "ARTIFICIAL_" + ds_type; 
                                 datasets[ds.mName] = ds
     return datasets;
