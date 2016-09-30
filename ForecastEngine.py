@@ -13,10 +13,10 @@ class cForecastEngine:
         pass
 
     
-    def train(self , iInputDS, iTime, iSignal, iHorizon, iExogenous = []):
+    def train(self , iInputDS, iTime, iSignal, iHorizon, iExogenousData = None):
         try:
             self.mSignalDecomposition.mOptions = self.mOptions;
-            self.mSignalDecomposition.train(iInputDS, iTime, iSignal, iHorizon, iExogenous);
+            self.mSignalDecomposition.train(iInputDS, iTime, iSignal, iHorizon, iExogenousData);
         except tsutil.ForecastError as error:
             print('caught this training error: ' + repr(error))
             print("AUTO_FORECAST_FAILED" , name)
