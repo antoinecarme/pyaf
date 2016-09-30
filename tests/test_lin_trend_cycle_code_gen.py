@@ -10,7 +10,7 @@ import AutoForecast.CodeGen.TS_CodeGenerator as tscodegen
 
 b1 = tsds.generate_random_TS(N = 3200 , FREQ = 'D', seed = 0, trendtype = "linear", cycle_length = 12, transform = "", sigma = 0.0);
 df = b1.mPastData
-df.to_csv("acfrefefs_cycle.csv")
+df.to_csv("outputs/acfrefefs_cycle.csv")
 #df.tail(10)
 #df[:-10].tail()
 #df[:-10:-1]
@@ -19,7 +19,7 @@ df.to_csv("acfrefefs_cycle.csv")
 H = b1.mHorizon;
 
 N = df.shape[0];
-for n in range(24*H,  N , 10):
+for n in [N//8 , N//4 , N//2 , N]:
     df1 = df.head(n).copy();
     lEngine = autof.cForecastEngine()
     # lEngine.mOptions.mEnableSeasonals = False;
