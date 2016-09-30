@@ -18,8 +18,8 @@ class cTimeSeriesCodeGenerator:
         # 
         lKnownDSNs = ["postgresql://db:db@localhost/db?port=5432",
                       "mysql://user:pass@localhost/GitHubtest",
-                      "sqlite://",
-                      "sqlite:///a.db",
+                      # "sqlite://",
+                      # "sqlite:///a.db",
                       ];
         for lDSN in lKnownDSNs:            
             print(" ******************************** testGeneration_start  ", lDSN , " ******************************** ");

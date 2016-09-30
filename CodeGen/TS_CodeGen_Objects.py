@@ -160,7 +160,7 @@ class cDatabaseBackend:
     def initializeEngine(self):
         if(self.mDSN is not None):
             # connected mode.
-            self.mEngine = create_engine(self.mDSN , echo = True)
+            self.mEngine = create_engine(self.mDSN , echo = False)
             self.mConnection = self.mEngine.connect()
             self.mMeta = MetaData(bind = self.mConnection);
             self.mDialect = self.mEngine.dialect;
