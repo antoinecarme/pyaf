@@ -106,7 +106,7 @@ def load_ozone_exogenous() :
     tsspec.mDescription = "https://datamarket.com/data/set/22u8/ozon-concentration-downtown-l-a-1955-1972"
     
     #trainfile = "data/ozone-la.csv"
-    trainfile = "data/ozone-la-exogrenous.csv"
+    trainfile = "data/ozone-la-exogenous.csv"
     # "https://raw.githubusercontent.com/antoinecarme/TimeSeriesData/master/ozone-la.csv"
 
     cols = ["Date", "Month", "Exog2", "Exog3", "Exog4", "Ozone"];
@@ -117,6 +117,9 @@ def load_ozone_exogenous() :
     tsspec.mTimeVar = "Time";
     tsspec.mSignalVar = "Ozone";
     tsspec.mExogenousVariables = ["Month", "Exog2", "Exog3", "Exog4"];
+    # this is the full dataset . must contain future exogenius data
+    tsspec.mExogenousDataFrame = df_train;
+    # tsspec.mExogenousVariables = ["Exog2"];
     tsspec.mHorizon = 12;
     tsspec.mPastData = df_train[:-tsspec.mHorizon];
     tsspec.mFutureData = df_train.tail(tsspec.mHorizon);
