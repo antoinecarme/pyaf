@@ -66,9 +66,10 @@ class cTimeInfo:
         lLastRow = df.tail(1).copy();
         lLastRow[self.mTime] = self.nextTime(df, 1);
         lLastRow[self.mSignal] = np.nan;
-        df = df.append(lLastRow);        
+        df = df.append(lLastRow, ignore_index=True, verify_integrity = True);        
         df[self.mRowNumberColumn] = np.arange(0, df.shape[0]);
         df[self.mNormalizedTimeColumn] = self.normalizeTime(df[self.mTime]);
+        # print(df.tail());
         return df;
 
         

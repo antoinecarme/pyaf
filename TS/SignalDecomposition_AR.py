@@ -61,11 +61,11 @@ class cZeroAR(cAbstractAR):
 
 
 class cAutoRegressiveModel(cAbstractAR):
-    def __init__(self , cycle_residue_name, P, iExogenous = []):
+    def __init__(self , cycle_residue_name, P, iExogenousInfo = None ):
         super().__init__(cycle_residue_name)
         self.mARRidge = linear_model.Ridge()
         self.mNbLags = P;
-        self.mExogenousVariables = iExogenous;
+        self.mExogenousInfo = iExogenousInfo;
         self.mDefaultValues = {};
         self.mLagOrigins = {};
 
@@ -73,24 +73,35 @@ class cAutoRegressiveModel(cAbstractAR):
         return self.mDefaultValues[lag];
 
     def addLag(self, df, lag_df, series, p):
-        lag_df[series] = df[series]
         name = series+'_Lag' + str(p);
-        lag_df[name] = df[series].shift(p)
+        lSeries = df[series];
+        lShiftedSeries = lSeries.shift(p)
+        lDefaultValue = lSeries.iloc[0];
+        if(series in self.mDefaultValues.keys()):
+            lDefaultValue = self.mDefaultValues[series];
+        else:
+            self.mDefaultValues[series] = lDefaultValue;
+            
+        for i in range(p):
+            lShiftedSeries.iloc[ i ] = lDefaultValue;
+            
+        lag_df[name] = lShiftedSeries;
         self.mARLagNames = self.mARLagNames + [name];        
         self.mLagOrigins[name] = series;
         
     def generateLags(self, df, P):
         self.mARLagNames = [];
         lag_df = pd.DataFrame()
+        lag_df[self.mCycleResidueName] = df[self.mCycleResidueName]
         for p in range(1,P+1):
             # signal lags ... plain old AR model
             self.addLag(df, lag_df, self.mCycleResidueName, p);
             # Exogenous variables lags
-            for ex in self.mExogenousVariables:
-                self.addLag(df, lag_df, ex, p);
-        self.mNonUsedInputs = [self.mCycleResidueName];
-        for ex in self.mExogenousVariables:
-            self.mNonUsedInputs = self.mNonUsedInputs + [ex]
+            if(self.mExogenousInfo is not None):
+                # print(self.mExogenousInfo.mExogenousDummies);
+                # print(df.columns);
+                for ex in self.mExogenousInfo.mExogenousDummies:
+                    self.addLag(df, lag_df, ex, p);
         return lag_df;
     
     def fit(self):
@@ -100,33 +111,30 @@ class cAutoRegressiveModel(cAbstractAR):
         if(self.mNbLags > self.mOptions.mMaxAROrder):
             self.mNbLags = self.mOptions.mMaxAROrder;
         self.mOutName = self.mCycleResidueName +  '_AR(' + str(self.mNbLags) + ")";
-        if(len(self.mExogenousVariables) > 0):
+        self.mFormula = "AR(" + str(self.mNbLags) + ")";
+        if(self.mExogenousInfo is not None):
+            self.mCycleFrame = self.mExogenousInfo.transformDataset(self.mCycleFrame);
             self.mOutName = self.mCycleResidueName +  '_ARX(' + str(self.mNbLags) + ")";
+            self.mFormula = "ARX(" + str(self.mNbLags) + ")";
         self.mARFrame = self.generateLags(self.mCycleFrame, self.mNbLags);
         self.mAREstimFrame = self.mTimeInfo.getEstimPart(self.mARFrame)
-        for lag in self.mARLagNames:
-            self.mDefaultValues[lag] = self.mAREstimFrame[ self.mLagOrigins[lag] ].mean()
-            self.mARFrame[lag].fillna(self.mDefaultValues[lag] , inplace=True)
-            self.mAREstimFrame[lag].fillna(self.mDefaultValues[lag] , inplace=True)
 
         # print("mAREstimFrame columns :" , self.mAREstimFrame.columns);
-        lARInputs = self.mAREstimFrame.drop(self.mNonUsedInputs  , axis=1).values
+        lARInputs = self.mAREstimFrame.drop([self.mCycleResidueName]  , axis=1).values
         lARTarget = self.mAREstimFrame[series].values
         self.mARRidge.fit(lARInputs, lARTarget)
         
-        lARInputsFull = self.mARFrame.drop(self.mNonUsedInputs  , axis=1).values
+        lARInputsFull = self.mARFrame.drop([self.mCycleResidueName]  , axis=1).values
         self.mARFrame[self.mOutName] = self.mARRidge.predict(lARInputsFull)
         self.mARFrame[self.mOutName + '_residue'] =  self.mARFrame[series] - self.mARFrame[self.mOutName]
-        self.mFormula = "AR(" + str(self.mNbLags) + ")";
-        if(len(self.mExogenousVariables) > 0):
-            self.mFormula = "ARX(" + str(self.mNbLags) + ")";
 
     def transformDataset(self, df):
         series = self.mCycleResidueName; 
+        if(self.mExogenousInfo is not None):
+            df = self.mExogenousInfo.transformDataset(df);
         lag_df = self.generateLags(df, self.mNbLags);
-        for lag in self.mARLagNames:
-            lag_df[lag].fillna(self.mDefaultValues[lag] , inplace=True)
-        inputs = lag_df.drop(self.mNonUsedInputs , axis=1).values
+        lag_df.to_csv("LAGGED_ " + str(self.mNbLags) + ".csv");
+        inputs = lag_df.drop([self.mCycleResidueName]  , axis=1).values
         pred = self.mARRidge.predict(inputs)
         df[self.mOutName] = pred;
         target = df[series].values
@@ -140,7 +148,7 @@ class cAutoRegressiveEstimator:
         self.mCycleFrame = pd.DataFrame()
         self.mARFrame = pd.DataFrame()
         self.mARList = {}
-        self.mExogenousVariables = [];
+        self.mExogenousInfo = None;
         
     def plotAR(self):
         for trend in self.mTrendList:
@@ -166,8 +174,10 @@ class cAutoRegressiveEstimator:
                                 if(self.mOptions.mEnableARModels):
                                     lAR = cAutoRegressiveModel(cycle_residue, lLags);
                                     self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lAR];
-                                if(self.mOptions.mEnableARXModels and (len(self.mExogenousVariables) > 0)):
-                                    lARX = cAutoRegressiveModel(cycle_residue, lLags, self.mExogenousVariables);
+                                if(self.mOptions.mEnableARXModels and
+                                   (self.mExogenousInfo is not None)):
+                                    lARX = cAutoRegressiveModel(cycle_residue, lLags,
+                                                                self.mExogenousInfo);
                                     self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lARX];
 
                 for autoreg in self.mARList[cycle_residue]:
