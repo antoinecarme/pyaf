@@ -1,10 +1,11 @@
 import pandas as pd
 import numpy as np
-import AutoForecast as autof
-import Bench.TS_datasets as tsds
 import warnings
 
-from CodeGen import TS_CodeGenerator as tscodegen
+import AutoForecast.ForecastEngine as autof
+import AutoForecast.Bench.TS_datasets as tsds
+
+import AutoForecast.CodeGen.TS_CodeGenerator as tscodegen
 
 #get_ipython().magic('matplotlib inline')
 
@@ -18,16 +19,16 @@ with warnings.catch_warnings():
     H = b1.mHorizon;
     
     N = df.shape[0];
-    for n in range(2*H,  N , 10):
+    for n in [N//4, N//2 , N]:
         df1 = df.head(n).copy();
-        lAutoF = autof.cForecastEngine()
-        lAutoF
-        #    lAutoF.mOptions.mEnableSeasonals = False;
-        #    lAutoF.mOptions.mEnableCycles = False;
-        #    lAutoF.mOptions.mEnableARModels = False;
-        #    lAutoF.mOptions.mDebugCycles = True;
-        lAutoF.train(df1 , b1.mTimeVar , b1.mSignalVar, H);
-        lAutoF.getModelInfo();
-        lAutoF.mSignalDecomposition.mBestTransformation.mTimeInfo.mResolution
+        lEngine = autof.cForecastEngine()
+        lEngine
+        #    lEngine.mOptions.mEnableSeasonals = False;
+        #    lEngine.mOptions.mEnableCycles = False;
+        #    lEngine.mOptions.mEnableARModels = False;
+        #    lEngine.mOptions.mDebugCycles = True;
+        lEngine.train(df1 , b1.mTimeVar , b1.mSignalVar, H);
+        lEngine.getModelInfo();
+        lEngine.mSignalDecomposition.mBestTransformation.mTimeInfo.mResolution
         lCodeGenerator = tscodegen.cTimeSeriesCodeGenerator();
-        lSQL = lCodeGenerator.testGeneration(lAutoF);
+        lSQL = lCodeGenerator.testGeneration(lEngine);

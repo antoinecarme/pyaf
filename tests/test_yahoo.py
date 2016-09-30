@@ -1,9 +1,11 @@
 import pandas as pd
 import numpy as np
-#import SignalDecomposition as SigDec
-import Bench.TS_datasets as tsds
-import Bench.YahooStocks as ys
+
+import AutoForecast.ForecastEngine as autof
+import AutoForecast.Bench.TS_datasets as tsds
+
+import AutoForecast.CodeGen.TS_CodeGenerator as tscodegen
 
 tester7 = ys.cYahoo_Tester(tsds.load_yahoo_stock_prices("my_test") , "YAHOO_my_test");
 #tester7.testAllSignals(12);
-tester7.run_multiprocessed(18);
+# tester7.run_multiprocessed(18);

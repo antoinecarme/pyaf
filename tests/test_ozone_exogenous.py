@@ -1,7 +1,10 @@
 import pandas as pd
 import numpy as np
-import AutoForecast as autof
-import Bench.TS_datasets as tsds
+
+import AutoForecast.ForecastEngine as autof
+import AutoForecast.Bench.TS_datasets as tsds
+
+import AutoForecast.CodeGen.TS_CodeGenerator as tscodegen
 
 #get_ipython().magic('matplotlib inline')
 
@@ -18,15 +21,35 @@ df = b1.mPastData
 H = b1.mHorizon;
 
 N = df.shape[0];
-for n in range(2*H,  N , 10):
-    df1 = df.head(n).copy();
-    lAutoF = autof.cForecastEngine()
-    lAutoF
-#    lAutoF.mOptions.mEnableSeasonals = False;
-#    lAutoF.mOptions.mEnableCycles = False;
-#    lAutoF.mOptions.mEnableARModels = False;
-#    lAutoF.mOptions.mDebugCycles = True;
-    lAutoF.train(df1 , b1.mTimeVar , b1.mSignalVar, H, b1.mExogenousVariables);
-    lAutoF.getModelInfo();
-    lAutoF.mSignalDecomposition.mBestTransformation.mTimeInfo.mResolution
-    lAutoF.standrdPlots(name = "my_arx_ozone_" + str(n))
+for n in [N]:
+    df1 = df.head(n);
+    lEngine = autof.cForecastEngine()
+    lEngine
+    #    lEngine.mOptions.mEnableSeasonals = False;
+    #    lEngine.mOptions.mEnableCycles = False;
+    #    lEngine.mOptions.mEnableARModels = False;
+    #    lEngine.mOptions.mDebugCycles = True;
+    lExogenousData = (b1.mExogenousDataFrame , b1.mExogenousVariables) 
+    lEngine.train(df1 , b1.mTimeVar , b1.mSignalVar, H, lExogenousData);
+    lEngine.getModelInfo();
+    lEngine.mSignalDecomposition.mBestTransformation.mTimeInfo.mResolution
+    lEngine.standrdPlots(name = "my_arx_ozone_" + str(n))
+
+    dfapp_in = df1.copy();
+    dfapp_in.tail()
+
+    dfapp_out = lEngine.forecast(dfapp_in, H);
+    dfapp_out.to_csv("arx_ozone_apply_out.csv")
+    dfapp_out.tail(2 * H)
+    print("Forecast Columns " , dfapp_out.columns);
+    Forecast_DF = dfapp_out[[b1.mTimeVar , b1.mSignalVar, b1.mSignalVar + '_BestModelForecast']]
+    print(Forecast_DF.info())
+    print("Forecasts\n" , Forecast_DF.tail(H).values);
+    
+    print("\n\n<ModelInfo>")
+    print(lEngine.to_json());
+    print("</ModelInfo>\n\n")
+    print("\n\n<Forecast>")
+    print(Forecast_DF.to_json(date_format='iso'))
+    print("</Forecast>\n\n")
+

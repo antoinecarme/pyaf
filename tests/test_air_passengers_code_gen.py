@@ -1,8 +1,10 @@
 import pandas as pd
 import numpy as np
-import Bench.TS_datasets as tsds
-import AutoForecast as autof
-from CodeGen import TS_CodeGenerator as tscodegen
+
+import AutoForecast.ForecastEngine as autof
+import AutoForecast.Bench.TS_datasets as tsds
+
+import AutoForecast.CodeGen.TS_CodeGenerator as tscodegen
 
 b1 = tsds.load_airline_passengers()
 df = b1.mPastData
@@ -17,19 +19,19 @@ H = b1.mHorizon;
 N = df.shape[0];
 for n in range(2*H,  N , 10):
     df1 = df.head(n).copy();
-    lAutoF = autof.cForecastEngine()
-    lAutoF
-    lAutoF.mOptions.mEnableARModels = False;
-    # lAutoF.mOptions.mDebugCycles = True;
+    lEngine = autof.cForecastEngine()
+    lEngine
+    lEngine.mOptions.mEnableARModels = False;
+    # lEngine.mOptions.mDebugCycles = True;
 
-    lAutoF.train(df1 , b1.mTimeVar , b1.mSignalVar, H);
-    lAutoF.getModelInfo();
-    lAutoF.mSignalDecomposition.mBestTransformation.mTimeInfo.mResolution
+    lEngine.train(df1 , b1.mTimeVar , b1.mSignalVar, H);
+    lEngine.getModelInfo();
+    lEngine.mSignalDecomposition.mBestTransformation.mTimeInfo.mResolution
     dfapp_in = df1.copy();
     dfapp_in.tail()
 
     # H = 12
-    dfapp_out = lAutoF.forecast(dfapp_in, H);
+    dfapp_out = lEngine.forecast(dfapp_in, H);
     dfapp_out.tail(2 * H)
     print("Forecast Columns " , dfapp_out.columns);
     lForecastColumnName = b1.mSignalVar + '_BestModelForecast'
@@ -39,4 +41,4 @@ for n in range(2*H,  N , 10):
     # print("Forecasts_HEAD\n" , Forecast_DF.head(2*H).values);
     # print("Forecasts_TAIL\n" , Forecast_DF.tail(2*H).values);
     lCodeGenerator = tscodegen.cTimeSeriesCodeGenerator();
-    lSQL = lCodeGenerator.testGeneration(lAutoF);
+    lSQL = lCodeGenerator.testGeneration(lEngine);

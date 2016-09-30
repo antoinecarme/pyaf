@@ -14,23 +14,23 @@ df = b1.mPastData
 #df.describe()
 
 
-lAutoF = autof.cForecastEngine()
-lAutoF
+lEngine = autof.cForecastEngine()
+lEngine
 
 H = b1.mHorizon;
-lAutoF.train(df , b1.mTimeVar , b1.mSignalVar, H);
-lAutoF.getModelInfo();
-print(lAutoF.mSignalDecomposition.mTrPerfDetails.head());
+lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H);
+lEngine.getModelInfo();
+print(lEngine.mSignalDecomposition.mTrPerfDetails.head());
 
-lAutoF.mSignalDecomposition.mBestTransformation.mTimeInfo.mResolution
+lEngine.mSignalDecomposition.mBestTransformation.mTimeInfo.mResolution
 
-lAutoF.standrdPlots("my_ozone");
+lEngine.standrdPlots("my_ozone");
 
 dfapp_in = df.copy();
 dfapp_in.tail()
 
 #H = 12
-dfapp_out = lAutoF.forecast(dfapp_in, H);
+dfapp_out = lEngine.forecast(dfapp_in, H);
 dfapp_out.to_csv("ozone_apply_out.csv")
 dfapp_out.tail(2 * H)
 print("Forecast Columns " , dfapp_out.columns);
@@ -39,7 +39,7 @@ print(Forecast_DF.info())
 print("Forecasts\n" , Forecast_DF.tail(H).values);
 
 print("\n\n<ModelInfo>")
-print(lAutoF.to_json());
+print(lEngine.to_json());
 print("</ModelInfo>\n\n")
 print("\n\n<Forecast>")
 print(Forecast_DF.to_json(date_format='iso'))

@@ -1,7 +1,12 @@
 import pandas as pd
 import numpy as np
-import Bench.TS_datasets as tsds
-import Bench.Artificial as art
+
+import AutoForecast.ForecastEngine as autof
+import AutoForecast.Bench.TS_datasets as tsds
+
+import AutoForecast.CodeGen.TS_CodeGenerator as tscodegen
+
+import AutoForecast.Bench.Artificial as art
 import warnings
 
 
@@ -10,11 +15,11 @@ H = 2;
 with warnings.catch_warnings():
     warnings.simplefilter("error")
     tester1 = art.cArtificial_Tester(tsds.load_artificial_datsets("S") , "ARTIFICIAL_S");
-    tester1.testSignals("Signal_5_D_0_poly_30__0" , H);
+    tester1.testSignals("Signal_90_D_0_poly_15_exp_4_90" , H);
     # tester1.run_multiprocessed(18);
     del tester1;
     tester2 = art.cArtificial_Tester(tsds.load_artificial_datsets("M") , "ARTIFICIAL_M");
-    tester2.testSignals("Signal_400_D_0_linear_0__2" , H);
+    tester2.testSignals("Signal_450_D_0_poly_105_exp_4_90" , H);
     # tester2.run_multiprocessed(18);
     del tester2;
     tester3 = art.cArtificial_Tester(tsds.load_artificial_datsets("L") , "ARTIFICIAL_L");
