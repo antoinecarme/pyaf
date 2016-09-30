@@ -267,9 +267,13 @@ class cGeneric_Tester:
     def testSignals(self, iSignals, iHorizon = 2):
         sigs = iSignals.split(" ");
         for sig in sigs:
-            tester = cGeneric_OneSignal_Tester(self.mTSSpecPerSignal[sig] , self.mBenchName);
-            tester.testSignal(sig, iHorizon);
-            del tester;
+            if(sig in self.mTSSpecPerSignal.keys()):
+                tester = cGeneric_OneSignal_Tester(self.mTSSpecPerSignal[sig] , self.mBenchName);
+                tester.testSignal(sig, iHorizon);
+                del tester;
+            else:
+                raise cBenchmarkError("UNKNOWN_SIGNAL '" + sig + "'");
+                pass;
         pass
 
 
