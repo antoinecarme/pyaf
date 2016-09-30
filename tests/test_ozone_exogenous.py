@@ -33,13 +33,13 @@ for n in [N]:
     lEngine.train(df1 , b1.mTimeVar , b1.mSignalVar, H, lExogenousData);
     lEngine.getModelInfo();
     lEngine.mSignalDecomposition.mBestTransformation.mTimeInfo.mResolution
-    lEngine.standrdPlots(name = "my_arx_ozone_" + str(n))
+    lEngine.standrdPlots(name = "outputs/my_arx_ozone_" + str(n))
 
     dfapp_in = df1.copy();
     dfapp_in.tail()
 
     dfapp_out = lEngine.forecast(dfapp_in, H);
-    dfapp_out.to_csv("arx_ozone_apply_out.csv")
+    dfapp_out.to_csv("outputs/arx_ozone_apply_out.csv")
     dfapp_out.tail(2 * H)
     print("Forecast Columns " , dfapp_out.columns);
     Forecast_DF = dfapp_out[[b1.mTimeVar , b1.mSignalVar, b1.mSignalVar + '_BestModelForecast']]

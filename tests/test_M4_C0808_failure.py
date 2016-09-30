@@ -21,7 +21,7 @@ lEngine.getModelInfo();
 
 lEngine.mSignalDecomposition.mBestTransformation.mTimeInfo.mResolution
 
-lEngine.standrdPlots("my_ozone");
+lEngine.standrdPlots("outputs/M4_C0808_failure");
 
 dfapp_in = df.copy();
 dfapp_in.tail()

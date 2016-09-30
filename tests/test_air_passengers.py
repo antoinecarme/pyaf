@@ -21,7 +21,7 @@ lEngine.getModelInfo();
 
 lEngine.mSignalDecomposition.mBestTransformation.mTimeInfo.mResolution
 
-lEngine.standrdPlots(name = "my_airline_passengers")
+lEngine.standrdPlots(name = "outputs/my_airline_passengers")
 
 dfapp_in = df.copy();
 dfapp_in.tail()

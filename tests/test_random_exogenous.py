@@ -16,7 +16,7 @@ with warnings.catch_warnings():
     # this script works on mysql with N = 600, exog_count = 20 when thread_stack = 1920K in
     # /etc/mysql/mysql.conf.d/mysqld.cnf
 
-    df.to_csv("rand_exogenous.csv")
+    df.to_csv("outputs/rand_exogenous.csv")
     
     H = b1.mHorizon;
     
@@ -30,7 +30,7 @@ with warnings.catch_warnings():
             lEngine
             lEngine.train(df1 , b1.mTimeVar , b1.mSignalVar, H, b1.mExogenousVariables[0:nbex]);
             lEngine.getModelInfo();
-            lEngine.standrdPlots(name = "my_exog_" + str(n));
+            lEngine.standrdPlots(name = "outputs/my_exog_" str(nbex) + "_" + str(n));
             lEngine.mSignalDecomposition.mBestTransformation.mTimeInfo.mResolution
 
             dfapp_in = df1.copy();
