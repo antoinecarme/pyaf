@@ -205,26 +205,26 @@ class cSignalDecompositionOneTransform:
         assert(self.mOriginalSignal in df.columns)
         lPrefix = self.mSignal + "_BestModel";
         df1 = df.copy();
-        df1.to_csv("before.csv");
+        # df1.to_csv("before.csv");
         # add new line with new time value, row_number and nromalized time
         df1 = self.mTimeInfo.transformDataset(df1);
-        df1.to_csv("after_time.csv");
+        # df1.to_csv("after_time.csv");
         # print("TimeInfo update : " , df1.columns);
         # add signal tranformed column
         df1 = self.mTransformation.transformDataset(df1, self.mOriginalSignal);
-        df1.to_csv("after_transformation.csv");
+        # df1.to_csv("after_transformation.csv");
         #print("Transformation update : " , df1.columns);
         # compute the trend based on the transformed column and compute trend residue
         df1 = self.mBestModelTrend.transformDataset(df1);
         #print("Trend update : " , df1.columns);
-        df1.to_csv("after_trend.csv");
+        # df1.to_csv("after_trend.csv");
         # compute the cycle and its residue based on the trend residue
         df1 = self.mBestModelCycle.transformDataset(df1);
-        df1.to_csv("after_cycle.csv");
+        # df1.to_csv("after_cycle.csv");
         #print("Cycle update : " , df1.columns);
         # compute the AR componnet and its residue based on the cycle residue
         df1 = self.mBestModelAR.transformDataset(df1);
-        df1.to_csv("after_ar.csv");
+        # df1.to_csv("after_ar.csv");
         #print("AR update : " , df1.columns);
         # compute the forecast and its residue (forecast = trend  + cycle + AR)
         df2 = df1.copy();

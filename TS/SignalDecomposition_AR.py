@@ -133,7 +133,7 @@ class cAutoRegressiveModel(cAbstractAR):
         if(self.mExogenousInfo is not None):
             df = self.mExogenousInfo.transformDataset(df);
         lag_df = self.generateLags(df, self.mNbLags);
-        lag_df.to_csv("LAGGED_ " + str(self.mNbLags) + ".csv");
+        # lag_df.to_csv("LAGGED_ " + str(self.mNbLags) + ".csv");
         inputs = lag_df.drop([self.mCycleResidueName]  , axis=1).values
         pred = self.mARRidge.predict(inputs)
         df[self.mOutName] = pred;
