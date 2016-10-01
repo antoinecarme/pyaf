@@ -126,8 +126,8 @@ class cAutoRegressiveModel(cAbstractAR):
             df = self.mExogenousInfo.transformDataset(df);
         # print(df.columns);
         lag_df = self.generateLagsForForecast(df, self.mNbLags);
-        print(self.mInputNames);
-        print(self.mFormula, "\n", lag_df.columns);
+        # print(self.mInputNames);
+        # print(self.mFormula, "\n", lag_df.columns);
         # lag_df.to_csv("LAGGED_ " + str(self.mNbLags) + ".csv");
         inputs = lag_df[self.mInputNames].values
         pred = self.mARRidge.predict(inputs)
@@ -188,7 +188,7 @@ class cAutoRegressiveEstimator:
                     # print(df.columns);
                     for ex in self.mExogenousInfo.mExogenousDummies:
                         self.addLagForTraining(df, self.mARFrame, ex, autoreg, p);
-            print("AUTOREG_DETAIL" , P , len(autoreg.mInputNames));
+            # print("AUTOREG_DETAIL" , P , len(autoreg.mInputNames));
             if(autoreg.mExogenousInfo is not None):
                 assert((P + P*len(self.mExogenousInfo.mExogenousDummies)) == len(autoreg.mInputNames));
             else:
@@ -231,7 +231,7 @@ class cAutoRegressiveEstimator:
         for cycle_residue in self.mARList.keys():
             self.addLagsForTraining(self.mCycleFrame, cycle_residue, lHasARX);
 
-        print(list(self.mARFrame.columns));
+        # print(list(self.mARFrame.columns));
 
         for cycle_residue in self.mARList.keys(): 
             for autoreg in self.mARList[cycle_residue]:
