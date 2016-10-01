@@ -6,24 +6,37 @@ import AutoForecast.Bench.TS_datasets as tsds
 
 import AutoForecast.CodeGen.TS_CodeGenerator as tscodegen
 
-
-b1 = tsds.load_yahoo_stock_prices("cac40")["BNP.PA"]
+stock = "BNP.PA";
+b1 = tsds.load_yahoo_stock_prices("cac40")[stock]
 df = b1.mPastData
 
 df.head()
+df.info();
 
-lDecomp = SigDec.cSignalDecomposition()
-lDecomp
+lEngine = autof.cForecastEngine()
+lEngine
 
-lDecomp.train(df , b1.mTimeVar , b1.mSignalVar , b1.mHorizon)
+lEngine.train(df , b1.mTimeVar , b1.mSignalVar , b1.mHorizon)
+lEngine.getModelInfo();
+print(lEngine.mSignalDecomposition.mTrPerfDetails.head());
 
 
 dfapp_in = df.copy();
 dfapp_in.tail()
 
 H = b1.mHorizon
-dfapp_out = lDecomp.forecast(dfapp_in, H);
+dfapp_out = lEngine.forecast(dfapp_in, H);
+dfapp_out.to_csv("outputs/ozone_apply_out.csv")
 dfapp_out.tail(2 * H)
 print("Forecast Columns " , dfapp_out.columns);
-print("Forecasts\n" , dfapp_out.tail(H)[[b1.mTimeVar , b1.mSignalVar + '_BestModelForecast']].values);
+Forecast_DF = dfapp_out[[b1.mTimeVar , b1.mSignalVar, b1.mSignalVar + '_BestModelForecast']]
+print(Forecast_DF.info())
+print("Forecasts\n" , Forecast_DF.tail(H).values);
+
+print("\n\n<ModelInfo>")
+print(lEngine.to_json());
+print("</ModelInfo>\n\n")
+print("\n\n<Forecast>")
+print(Forecast_DF.to_json(date_format='iso'))
+print("</Forecast>\n\n")
 
