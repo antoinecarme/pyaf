@@ -85,7 +85,8 @@ class cGeneric_OneSignal_Tester:
         print("SIGNAL : ", iSignal , "N=", df[iSignal].shape[0], "H=", iHorizon,
               "HEAD=", df[iSignal].head().values, "TAIL=", df[iSignal].tail().values);
         # df.to_csv("bench.csv");
-        # print(df.head());
+        print(df.head());
+        print(df.info());
 
     def checkHorizon(self, N , iHorizon):
         if(N <= iHorizon):
