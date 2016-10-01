@@ -259,8 +259,6 @@ class cSignalDecompositionOneTransform:
             lPos = df1.index[N - 1];
             lSignal = df1.loc[lPos , lForecastColumnName];
             df1.loc[lPos , self.mOriginalSignal] = lSignal;
-            # df1.loc[lPos , self.mBestModelTrend.mOutName + "_residue"] = lSignal - df1.loc[lPos , self.mBestModelTrend.mOutName];
-            # df1.loc[lPos , self.mBestModelCycle.mOutName + "_residue"] = lSignal - df1.loc[lPos , self.mBestModelTrend.mOutName] - df1.loc[lPos , self.mBestModelCycle.mOutName];
             df1 = df1[[self.mTime , self.mOriginalSignal]];
             df1 = self.forecastModelOneStepAhead(df1)
 
