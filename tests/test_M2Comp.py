@@ -8,10 +8,10 @@ import warnings
 import AutoForecast.Bench.MComp as mcomp
 
 
-tester2 = mcomp.cMComp_Tester(tsds.load_M2_comp() , "M2_COMP");
+tester1 = mcomp.cMComp_Tester(tsds.load_M2_comp() , "M2_COMP");
 
 with warnings.catch_warnings():
     warnings.simplefilter("error")
-    tester1.testSignal('ADDD')
+    tester1.testSignals('ADDD')
     # tester2.testAllSignals()
     # tester2.run_multiprocessed();
