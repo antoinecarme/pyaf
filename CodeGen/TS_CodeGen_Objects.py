@@ -413,7 +413,7 @@ class cDecompositionCodeGenObject:
          base_table = self.mBackEnd.createLogicalTable(lTableName , 
                                                        self.mDateName,
                                                        self.mSignalName, self.mDateType,
-                                                       self.mAutoForecast.mSignalDecomposition.mExogenousVariables);
+                                                       self.getExogenousVariables());
          table = base_table;
 
          self.generateRowNumberCode(table); # => RowNumber_CTE
@@ -437,6 +437,13 @@ class cDecompositionCodeGenObject:
          # self.generateForecasts();
          # self.mFinal_CTE = self.mForecast_CTE;
 
+
+    def getExogenousVariables(self):
+        lExogenousVariables = [];
+        lExogenousInfo = self.mAutoForecast.mSignalDecomposition.mBestTransformation.mExogenousInfo;
+        if(lExogenousInfo is not None):
+            lExogenousVariables = lExogenousInfo.mExogenousVariables;
+        return lExogenousVariables;
 
     def addNormalizedTime(self, table):
         exprs = [];
@@ -533,10 +540,16 @@ class cDecompositionCodeGenObject:
 
     def addExogenousDummies(self, table):
         exprs = [];
-        for exog in self.mAutoForecast.mSignalDecomposition.mExogenousVariables:
-            lList = self.mAutoForecast.mSignalDecomposition.mExogenousVariableCategories[exog];
+        lExogenousInfo = self.mAutoForecast.mSignalDecomposition.mBestTransformation.mExogenousInfo;
+        if(lExogenousInfo is None):
+            return exprs;
+
+        lExogenousVariables = self.getExogenousVariables();
+
+        for exog in lExogenousVariables:
+            lList = lExogenousInfo.mExogenousVariableCategories[exog];
             for lCat in lList:
-                lDummyName = exog + "_d_" + str(lCat);
+                lDummyName = "exog_dummy_" + exog + "=" + str(lCat);
                 lCatExpr = sqlalchemy.sql.expression.literal(str(lCat), String);
                 if((lCat == "") or (lCat is None)):                    
                     cond = (table.c[exog] == None);
@@ -784,7 +797,7 @@ class cDecompositionCodeGenObject:
                 expr = select([func.sum(case1)]).select_from(table);
                 lLong = col + "_Lag" + str(p);
                 lLabel = self.shorten(col) + "_Lag" + str(p);
-                self.mDefaultARLagValues[lLabel] = self.mAR.getDefaultValue(lLong);
+                self.mDefaultARLagValues[lLabel] = self.mAR.getDefaultValue(col);
                 expr = expr.label(lLabel);
                 exprs = exprs + [expr];
         return exprs;
