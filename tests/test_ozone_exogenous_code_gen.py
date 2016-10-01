@@ -29,7 +29,8 @@ with warnings.catch_warnings():
         #    lEngine.mOptions.mEnableCycles = False;
         #    lEngine.mOptions.mEnableARModels = False;
         #    lEngine.mOptions.mDebugCycles = True;
-        lEngine.train(df1 , b1.mTimeVar , b1.mSignalVar, H, b1.mExogenousVariables);
+        lExogenousData = (b1.mExogenousDataFrame , b1.mExogenousVariables) 
+        lEngine.train(df1 , b1.mTimeVar , b1.mSignalVar, H, lExogenousData);
         lEngine.getModelInfo();
         lEngine.mSignalDecomposition.mBestTransformation.mTimeInfo.mResolution
         lEngine.standrdPlots(name = "outputs/my_arx_ozone_")
