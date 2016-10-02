@@ -200,13 +200,15 @@ class cSignalTransform_Differencing(cAbstractSignalTransform):
         return "Diff_" + iSig;
 
     def fit(self, sig):
+        print(sig.head());
         self.mFirstValue = sig.iloc[0];
+        print("cSignalTransform_Differencing()_FirstValue" , self.mFirstValue);
         pass
     
 
     def apply(self, df):
         df_shifted = df.shift(1)
-        df_shifted.fillna(self.mFirstValue, inplace = True);
+        df_shifted.iloc[0] = self.mFirstValue;
         return (df - df_shifted);
     
     def invert(self, df):
@@ -254,7 +256,7 @@ class cSignalTransform_RelativeDifferencing(cAbstractSignalTransform):
         df1[df1 >= self.mMaxValue] = self.mMaxValue;
         df1 = (df1 - self.mMinValue) / self.mDelta;
         df_shifted = df1.shift(1)
-        df_shifted.fillna((self.mFirstValue - self.mMinValue) / self.mDelta, inplace = True);
+        df_shifted.iloc[0] = (self.mFirstValue - self.mMinValue) / self.mDelta;
         r = (df1 - df_shifted) / (df_shifted + 1)
         # self.dump_apply_invert(df , r);
         self.check_not_nan(df, "before_Apply");
