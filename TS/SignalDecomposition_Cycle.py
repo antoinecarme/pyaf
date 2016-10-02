@@ -39,7 +39,7 @@ class cAbstractCycle:
     def computePerf(self):
         self.mCycleFitPerf = tsperf.cPerf();
         self.mCycleForecastPerf = tsperf.cPerf();
-        self.mCycleFrame[[self.mTrend_residue_name, self.getCycleName()]].to_csv(self.getCycleName() + ".csv");
+        # self.mCycleFrame[[self.mTrend_residue_name, self.getCycleName()]].to_csv(self.getCycleName() + ".csv");
         (lFrameFit, lFrameForecast, lFrameTest) = self.mTimeInfo.cutFrame(self.mCycleFrame);
         
         self.mCycleFitPerf.compute(
@@ -102,7 +102,7 @@ class cSeasonalPeriodic(cAbstractCycle):
         lGroupBy = lCycleFrameEstim.groupby([lName])[self.mTrend_residue_name].mean(); 
         self.mEncodedValueDict = lGroupBy.to_dict()
         self.mDefaultValue = lTrendMeanEstim;
-        print("cSeasonalPeriodic_DefaultValue" , self.getCycleName(), self.mDefaultValue);
+        # print("cSeasonalPeriodic_DefaultValue" , self.getCycleName(), self.mDefaultValue);
 
         self.mCycleFrame[lName + '_enc'] = self.mCycleFrame[lName].apply(lambda x : self.mEncodedValueDict.get(x , self.mDefaultValue))
         self.mCycleFrame[lName + '_enc'].fillna(lTrendMeanEstim, inplace=True);

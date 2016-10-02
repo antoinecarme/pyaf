@@ -62,7 +62,7 @@ class cConstantTrend(cAbstractTrend):
         self.mTrendFrame[self.mOutName] = self.mMean * np.ones_like(target);
         self.mTrendFrame[self.mOutName + '_residue'] = target - self.mTrendFrame[self.mOutName]
         #self.mTrendFrame.to_csv("aaaa.csv")
-        print("cConstantTrend" , self.mMean);
+        # print("cConstantTrend" , self.mMean);
 
     def compute(self):
         Y_pred = self.mMean
@@ -97,7 +97,7 @@ class cLag1Trend(cAbstractTrend):
         # print(self.mTrendFrame[self.mSignal].shape , self.mTrendFrame[self.mOutName].shape)
         self.replaceFirstMissingValue(self.mTrendFrame, self.mOutName);
         self.mTrendFrame[self.mOutName + '_residue'] =  target - self.mTrendFrame[self.mOutName].values
-        print("cLag1Trend_FirstValue" , self.mDefaultValue);
+        # print("cLag1Trend_FirstValue" , self.mDefaultValue);
 
 
     def transformDataset(self, df):

@@ -200,9 +200,9 @@ class cSignalTransform_Differencing(cAbstractSignalTransform):
         return "Diff_" + iSig;
 
     def fit(self, sig):
-        print(sig.head());
+        # print(sig.head());
         self.mFirstValue = sig.iloc[0];
-        print("cSignalTransform_Differencing()_FirstValue" , self.mFirstValue);
+        # print("cSignalTransform_Differencing()_FirstValue" , self.mFirstValue);
         pass
     
 
