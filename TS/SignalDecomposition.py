@@ -125,16 +125,18 @@ class cSignalDecompositionOneTransform:
                 cycle_residue = cycle.getCycleResidueName();
                 for autoreg in self.mAREstimator.mARList[cycle_residue]:
                     df = pd.DataFrame();
-                    df['Signal'] = self.mSignalFrame[self.mOriginalSignal]
+                    df['Signal'] = self.mSignalFrame[self.mSignal]
                     df['Model'] = df['Signal'] - autoreg.mARFrame[autoreg.mOutName + "_residue"]
+                    df['OriginalSignal'] = self.mSignalFrame[self.mOriginalSignal]
+                    df['OriginalModel'] = self.mTransformation.invert(df['Model']);
                     # df.to_csv("model_perfs_" + autoreg.mOutName + ".csv");
                     lFitPerf = tsperf.cPerf();
                     lForecastPerf = tsperf.cPerf();
                     lTestPerf = tsperf.cPerf();
                     (lFrameFit, lFrameForecast, lFrameTest) = self.mTimeInfo.cutFrame(df);
-                    lFitPerf.compute(lFrameFit['Signal'] , lFrameFit['Model'] , 'Model')
-                    lForecastPerf.compute(lFrameForecast['Signal'] , lFrameForecast['Model'], 'Model')
-                    lTestPerf.compute(lFrameTest['Signal'] , lFrameTest['Model'], 'Model')
+                    lFitPerf.compute(lFrameFit['OriginalSignal'] , lFrameFit['OriginalModel'] , 'OriginalModel')
+                    lForecastPerf.compute(lFrameForecast['OriginalSignal'] , lFrameForecast['OriginalModel'], 'OriginalModel')
+                    lTestPerf.compute(lFrameTest['OriginalSignal'] , lFrameTest['Model'], 'OriginalModel')
                     self.mFitPerf[autoreg] = lFitPerf
                     self.mForecastPerf[autoreg] = lForecastPerf;
                     self.mTestPerf[autoreg] = lTestPerf;
@@ -145,6 +147,8 @@ class cSignalDecompositionOneTransform:
                            lForecastPerf.mCount, lForecastPerf.mL2, round(lForecastPerf.mMAPE , 2),
                            lTestPerf.mCount, lTestPerf.mL2, round(lTestPerf.mMAPE, 2)]
                     rows_list.append(row);
+                    if(self.mOptions.mDebugPerformance):
+                        print("collectPerformanceIndices : " , row[0] , " ", row[1] , " " , row[7]);
         df = pd.DataFrame(rows_list, columns=
                           ('Model', 'Complexity',
                            'FitCount', 'FitL2', 'FitMAPE',
@@ -356,7 +360,7 @@ class cSignalDecomposition:
 
         for transform1 in self.mTransformList:
             transform1.mOptions = self.mOptions;
-            transform1.test();
+            # transform1.test();
 
             
     def train_threaded(self , iInputDS, iTime, iSignal, iHorizon):
@@ -435,6 +439,8 @@ class cSignalDecomposition:
                    lForecastPerf.mCount, lForecastPerf.mL2, round(lForecastPerf.mMAPE , 2),
                    lTestPerf.mCount, lTestPerf.mL2, round(lTestPerf.mMAPE , 2)]
             rows_list.append(row);
+            if(self.mOptions.mDebugPerformance):
+                print("collectPerformanceIndices : " , row[0] , " ", row[1] , " " , row[2] , " ", row[8]);
 
         df = pd.DataFrame(rows_list, columns=
                           ('Transformation', 'Model', 'Complexity',
