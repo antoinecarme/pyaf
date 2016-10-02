@@ -20,13 +20,11 @@ class cSignalDecomposition_Options:
         self.mEnableARXModels = True;
         self.disableDebuggingOptions();
 
-    def activateDebuggingOptions(self):
-        self.mDebug = False;
-        self.mDebugCycles = False;
-        
     def disableDebuggingOptions(self):
         self.mDebug = False;
         self.mDebugCycles = False;
+        self.mDebugProfile = False;
+        self.mDebugPerformance = False;
         
         
     def enable_slow_mode(self):
@@ -44,12 +42,12 @@ class cSignalDecomposition_Options:
         
         self.mCycleLengths = [5, 7, 12, 24 , 30, 60];
         self.mCycle_Criterion = "MAPE";
-        self.mCycle_Criterion_Threshold = 0.2;
+        self.mCycle_Criterion_Threshold = None;
 
         self.mEnableSeasonals = True;
 
         
-        self.mMaxAROrder = 30;
+        self.mMaxAROrder = 256;
 
     def enable_fast_mode(self):
         self.mEnableCoxBox = False;
@@ -66,12 +64,12 @@ class cSignalDecomposition_Options:
         self.mEnableCycles = True;
         self.mCycleLengths = [5, 7, 12, 24 , 30, 60];
         self.mCycle_Criterion = "MAPE";
-        self.mCycle_Criterion_Threshold = 0.2;
+        self.mCycle_Criterion_Threshold = None;
 
         self.mEnableSeasonals = True;
 
         
         self.mEnableARModels = True;
-        self.mMaxAROrder = 30;
+        self.mMaxAROrder = 256;
 
     
