@@ -12,6 +12,9 @@ import sklearn.linear_model as linear_model
 from sklearn.feature_selection import RFE
 from sklearn.linear_model import LinearRegression
 
+# for timing
+import time
+
 class cAbstractAR:
     def __init__(self , cycle_residue_name):
         self.mTimeInfo = tsti.cTimeInfo()
@@ -49,8 +52,8 @@ class cZeroAR(cAbstractAR):
         series = self.mCycleResidueName; 
         self.mTime = self.mTimeInfo.mTime;
         self.mSignal = self.mTimeInfo.mSignal;
-        self.mTimeInfo.addVars(self.mARFrame);
-        self.mARFrame[series] = self.mCycleFrame[series]
+        # self.mTimeInfo.addVars(self.mARFrame);
+        # self.mARFrame[series] = self.mCycleFrame[series]
         self.mARFrame[self.mOutName] = self.mARFrame[series] * 0.0;
         self.mARFrame[self.mOutName + '_residue'] = self.mARFrame[series];
                 
@@ -109,11 +112,11 @@ class cAutoRegressiveModel(cAbstractAR):
         if(self.mExogenousInfo is not None):
             self.mOutName = self.mCycleResidueName +  '_ARX(' + str(self.mNbLags) + ")";
             self.mFormula = "ARX(" + str(self.mNbLags) + ")";
-        self.mAREstimFrame = self.mTimeInfo.getEstimPart(self.mARFrame)
+        lAREstimFrame = self.mTimeInfo.getEstimPart(self.mARFrame)
 
         # print("mAREstimFrame columns :" , self.mAREstimFrame.columns);
-        lARInputs = self.mAREstimFrame[self.mInputNames].values
-        lARTarget = self.mAREstimFrame[series].values
+        lARInputs = lAREstimFrame[self.mInputNames].values
+        lARTarget = lAREstimFrame[series].values
         self.mARRidge.fit(lARInputs, lARTarget)
         
         lARInputsFull = self.mARFrame[self.mInputNames].values
@@ -144,8 +147,6 @@ class cAutoRegressiveEstimator:
         self.mARFrame = pd.DataFrame()
         self.mARList = {}
         self.mExogenousInfo = None;
-        self.mDefaultValues = {};
-        self.mLagOrigins = {};
         
     def plotAR(self):
         for trend in self.mTrendList:
@@ -194,6 +195,50 @@ class cAutoRegressiveEstimator:
             else:
                 assert(P == len(autoreg.mInputNames));
 
+    def estimate_ar_models_for_cycle(self, cycle_residue):
+        self.mARFrame = pd.DataFrame();
+        self.mTimeInfo.addVars(self.mARFrame);
+        self.mARFrame[cycle_residue] = self.mCycleFrame[cycle_residue]            
+
+        self.mDefaultValues = {};
+        self.mLagOrigins = {};
+
+        if(self.mOptions.mDebugProfile):
+            print("AR_MODEL_ADD_LAGS_START '" +
+                  cycle_residue + "' " + str(self.mCycleFrame.shape[0]) + " "
+                  + str(self.mARFrame.shape[1]));
+
+        self.addLagsForTraining(self.mCycleFrame, cycle_residue);
+
+        if(self.mOptions.mDebugProfile):
+            print("AR_MODEL_ADD_LAGS_END '" +
+                  cycle_residue + "' " + str(self.mCycleFrame.shape[0]) + " "
+                  + str(self.mARFrame.shape[1]));
+
+        # print(list(self.mARFrame.columns));
+        
+        for autoreg in self.mARList[cycle_residue]:
+            start_time = time.time()
+            if(self.mOptions.mDebugProfile):
+                print("AR_MODEL_START_TRAINING_TIME '" +
+                      cycle_residue + "' " + str(self.mCycleFrame.shape[0]) +
+                      " " +  str(len(autoreg.mInputNames)) + " " + str(start_time));
+            autoreg.mOptions = self.mOptions;
+            autoreg.mCycleFrame = self.mCycleFrame;
+            autoreg.mARFrame = self.mARFrame;
+            autoreg.mTimeInfo = self.mTimeInfo;
+            autoreg.mLagOrigins = self.mLagOrigins;
+            autoreg.mDefaultValues = self.mDefaultValues;
+            autoreg.fit();
+            autoreg.computePerf();
+            end_time = time.time()
+            lTrainingTime = round(end_time - start_time , 2);
+            if(self.mOptions.mDebugProfile):
+                print("AR_MODEL_TRAINING_TIME_IN_SECONDS '" +
+                      autoreg.mOutName + "' " + str(self.mCycleFrame.shape[0]) +
+                      " " +  str(len(autoreg.mInputNames)) + " " + str(lTrainingTime));
+        
+
     def estimate(self):
         mARList = {}
         for trend in self.mTrendList:
@@ -203,13 +248,12 @@ class cAutoRegressiveEstimator:
                 lHasARX = False;
                 if(self.mOptions.mEnableARModels or self.mOptions.mEnableARXModels):
                     if((self.mCycleFrame[cycle_residue].shape[0] > 12) and (self.mCycleFrame[cycle_residue].std() > 0.00001)):
-                        N = 10;
-                        lStep = self.mCycleFrame.shape[0] / (N*4.0);
+                        lLags = 1;
                         for n in range(1, 10):
-                            lLags = int(lStep * n);
-                            if(lLags > self.mOptions.mMaxAROrder):
-                                lLags = self.mOptions.mMaxAROrder;
-                            if(lLags > 1):
+                            lLags = lLags * 4;
+                            lValid = (lLags <= (self.mCycleFrame[cycle_residue].shape[0] / 4));
+                            lValid = lValid and (lLags <= self.mOptions.mMaxAROrder);
+                            if(lValid):
                                 if(self.mOptions.mEnableARModels):
                                     lAR = cAutoRegressiveModel(cycle_residue, lLags);
                                     self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lAR];
@@ -221,26 +265,11 @@ class cAutoRegressiveEstimator:
                                     lHasARX = True;
 
         if(lHasARX):
+            if(self.mOptions.mDebugProfile):
+                print("AR_MODEL_ADD_EXOGENOUS '" + str(self.mCycleFrame.shape[0]) +
+                      " " + str(len(self.mExogenousInfo.mExogenousDummies)));
             self.mCycleFrame = self.mExogenousInfo.transformDataset(self.mCycleFrame);
         
-        self.mARFrame = pd.DataFrame();
-        self.mTimeInfo.addVars(self.mARFrame);
         for cycle_residue in self.mARList.keys():
-            self.mARFrame[cycle_residue] = self.mCycleFrame[cycle_residue]            
-            
-        for cycle_residue in self.mARList.keys():
-            self.addLagsForTraining(self.mCycleFrame, cycle_residue, lHasARX);
-
-        # print(list(self.mARFrame.columns));
-
-        for cycle_residue in self.mARList.keys(): 
-            for autoreg in self.mARList[cycle_residue]:
-                autoreg.mOptions = self.mOptions;
-                autoreg.mCycleFrame = self.mCycleFrame;
-                autoreg.mARFrame = self.mARFrame;
-                autoreg.mTimeInfo = self.mTimeInfo;
-                autoreg.mLagOrigins = self.mLagOrigins;
-                autoreg.mDefaultValues = self.mDefaultValues;
-                autoreg.fit();
-                autoreg.computePerf();
-
+            self.estimate_ar_models_for_cycle(cycle_residue);
+            self.mARFrame = pd.DataFrame();
