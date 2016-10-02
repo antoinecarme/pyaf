@@ -21,22 +21,24 @@ class cPerf:
 
     def protect_small_value(self, x , eps):
         if((x < eps) and (x >= 0)):
-            return eps;
+            return False;
         if((x > -eps) and (x <= 0)):
-            return -eps;
-        return x;
+            return False;
+        return True;
     
-    def protect_small_values(self, signal):
-        eps = 1.0e-10;
-        signal1 = signal.apply(lambda x : self.protect_small_value(x, eps));
+    def protect_small_values(self, signal, estimator):
+        eps = 1.0e-3;
+        keepThis = signal.apply(lambda x : self.protect_small_value(x, eps));
+        signal1 =  signal[keepThis];       
+        estimator1 = estimator[keepThis];
         # self.dump_perf_data(signal , signal1);        
-        return signal1;
+        return (signal1 , estimator1);
 
     def check_not_nan(self, sig , name):
         #print("check_not_nan");
         if(np.isnan(sig).any()):
             print("PERF_WITH_NAN_IN_SIGNAL" , sig);
-            raise tsutil.InternalForecastError("Invalid column for perf ['" + self.mName + "'] '" + name + "'");
+            raise tsutil.InternalForecastError("INVALID_COLUMN _FOR_PERF ['" + self.mName + "'] '" + name + "'");
         pass
 
     def compute_R2(self, signal , estimator):
@@ -74,17 +76,17 @@ class cPerf:
         signal_std = np.std(signal);
         estimator_std = np.std(estimator);
         
-        signal1 = self.protect_small_values(signal)
-        estimator1 = self.protect_small_values(estimator);
+        (signal1 , estimator1) = self.protect_small_values(signal, estimator)
 
         myerror = (estimator.values - signal.values);
+        myerror1 = (estimator1.values - signal1.values);
         abs_error = abs(myerror)
         self.mErrorMean = np.mean(myerror)
         self.mErrorStdDev = np.std(myerror)        
         self.mMAE = np.mean(abs_error)
         sum_abs = np.abs(signal1.values) + np.abs(estimator1.values)
-        self.mMAPE = np.mean(abs(myerror / signal1.values))
-        self.mSMAPE = np.mean(abs(myerror) / sum_abs)
+        self.mMAPE = np.mean(abs(myerror1 / signal1.values))
+        self.mSMAPE = np.mean(abs(myerror1) / sum_abs)
         self.mMAPE = round( self.mMAPE , 4 )
         self.mSMAPE = round( self.mSMAPE , 4 )
         self.mL1 = np.mean(abs_error)
@@ -93,7 +95,7 @@ class cPerf:
         self.mR2 = self.compute_R2(signal1, estimator1)
         self.mPearsonR = 0.0;
         if((signal_std > 0.0) and (estimator_std > 0.0)):
-            (r , pval) = pearsonr(signal1 , estimator1)
+            (r , pval) = pearsonr(signal , estimator)
             self.mPearsonR = r;
 #            print("COMPUTED_PERF_DETAIL " , name, self.mCount ,
 #                  self.mErrorMean ,  self.mErrorStdDev ,  self.mMAE ,
@@ -104,10 +106,10 @@ class cPerf:
     def computeCriterion(self, signal , estimator, criterion):
         self.mCount = signal.shape[0];
 
-        signal1 = self.protect_small_values(signal)
-        estimator1 = self.protect_small_values(estimator);
+        (signal1 , estimator1) = self.protect_small_values(signal, estimator)
 
         myerror = (estimator.values - signal.values);
+        myerror1 = (estimator1.values - signal1.values);
         abs_error = abs(myerror)
         if(criterion == "L1"):
             self.mL1 = np.mean(abs_error)
@@ -125,13 +127,13 @@ class cPerf:
             self.mMAE = np.mean(abs_error)
             return self.mAE;
         if(criterion == "SMAPE"):
-            self.mSMAPE = np.mean(abs(myerror) / sum_abs)
+            self.mSMAPE = np.mean(abs(myerror1) / sum_abs)
             self.mSMAPE = round( self.mSMAPE , 4 )
             return self.mSMAPE;
         if(criterion == "COUNT"):
             return self.mCount;
         
-        self.mMAPE = np.mean(abs(myerror / signal1.values))
+        self.mMAPE = np.mean(abs(myerror1 / signal1.values))
         self.mMAPE = round( self.mMAPE , 4 )
         return self.mMAPE;
 
