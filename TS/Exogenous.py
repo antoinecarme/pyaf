@@ -54,6 +54,7 @@ class cExogenousInfo:
             for lCat in lList:
                 lDummyName = "exog_dummy_" + exog + "=" + str(lCat);
                 lInputDS[lDummyName] = iInputDS[exog].apply(lambda x : 1 if (x == lCat) else 0);
+                lInputDS[lDummyName] = lInputDS[lDummyName].astype(np.dtype('i1'));
         return df;
 
         
