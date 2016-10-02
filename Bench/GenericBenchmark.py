@@ -245,7 +245,7 @@ class cGeneric_Tester:
         self.mType = "OneDataFramePerSignal";
         if(hasattr(self.mTSSpec , "mFullDataset")):
             self.mType = "OneDataFrameForAllSignals";
-        print("Bench type" , self.mType);
+        print("BENCH_TYPE" , bench_name, self.mType);
         self.fillSignalInfo();
 
     def fillSignalInfo(self):
