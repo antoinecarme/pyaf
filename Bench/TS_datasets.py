@@ -180,6 +180,8 @@ def generate_random_TS(N , FREQ, seed, trendtype, cycle_length, transform, sigma
         df_train[label] = df_train['Signal'].apply(lambda x : add_some_noise(x , 0.1));
         tsspec.mExogenousVariables = tsspec.mExogenousVariables + [ label ];
 
+    # this is the full dataset . must contain future exogenius data
+    tsspec.mExogenousDataFrame = df_train;
     min_sig = df_train['Signal'].min();
     pos_signal = df_train['Signal'] - min_sig + 1.0;
 
@@ -253,6 +255,50 @@ def load_NN3_part2():
     return tsspec;
 
 
+def load_MWH_dataset(name):
+    tsspec = cTimeSeriesDatasetSpec();
+    tsspec.mName = "MWH " + name;
+    tsspec.mDescription = "MWH dataset ... " + name;
+
+    lSignal = name;
+    lTime = 'Time';
+    
+    trainfile = "data/FMA/" + name + ".csv"
+    df_train = pd.read_csv(trainfile, sep=r',', header=None,  engine='python', skipinitialspace=True);
+    # print(df_train.head(3));
+    type1 = np.dtype(df_train[df_train.columns[0]])
+    if(type1.kind == 'O'):
+        # there is (probably) a header, re-read the csv file
+        df_train = pd.read_csv(trainfile, sep=r',', header=0,  engine='python', skipinitialspace=True);
+
+    if(df_train.shape[1] == 1):
+        # add dome fake date column
+        df_train2 = pd.DataFrame();
+        df_train2[lTime] = range(0, df_train.shape[0]);
+        df_train2[lSignal] = df_train[df_train.columns[0]];
+        df_train = df_train2.copy();
+    # keep only the first two columns (as date and signal)
+    df_train = df_train[[df_train.columns[0] , df_train.columns[1]]].dropna();
+    # rename the first two columns (as date and signal)
+    df_train.columns = [lTime , lSignal];
+    # print("MWH_SIGNAL_DTYPE", df_train[lSignal].dtype)
+    # print(df_train.head())
+    df_train.to_csv("mwh-" + name + ".csv");
+    # print(df_train.info())
+    if(df_train[lSignal].dtype == np.object):
+        df_train[lSignal] = df_train[lSignal].astype(np.float64); ## apply(lambda x : float(str(x).replace(" ", "")));
+    
+    # df_train[lSignal] = df_train[lSignal].apply(float)
+
+    tsspec.mFullDataset = df_train;
+    # print(tsspec.mFullDataset.info())
+    tsspec.mTimeVar = lTime;
+    tsspec.mSignalVar = lSignal;
+    tsspec.mHorizon = 1;
+    tsspec.mPastData = df_train[:-tsspec.mHorizon];
+    tsspec.mFutureData = df_train.tail(tsspec.mHorizon);
+    
+    return tsspec
 
 
 def load_M1_comp() :
@@ -578,3 +624,15 @@ def load_artificial_datsets(ds_type = "S") :
 
     return tsspecs
 
+def load_MWH_datsets() :
+    datasets = "10-6 11-2 9-10 9-11 9-12 9-13 9-17a 9-17b 9-1 9-2 9-3 9-4 9-5 9-9 advert adv_sale airline bankdata beer2 bicoal books boston bricksq canadian capital cars cement computer condmilk cow cpi_mel deaths dexter dj dole dowjones eknives elco elec2 elec elecnew ex2_6 ex5_2 expendit fancy french fsales gas housing hsales2 hsales huron ibm2 input invent15 jcars kkong labour lynx milk mink mortal motel motion olympic ozone paris pcv petrol pigs plastics pollutn prodc pulppric qsales res running sales schizo shampoo sheep ship shipex strikes temperat ukdeaths ustreas wagesuk wn wnoise writing".split(" ");
+
+    # datasets = "milk".split(" ");
+
+    tsspecs = {};
+    for ds in datasets:
+        if(ds != "cars"):
+            tsspecs[ds] = load_MWH_dataset(ds);
+            tsspecs[ds].mCategory = "MWH"; 
+
+    return tsspecs;
