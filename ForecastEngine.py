@@ -18,9 +18,8 @@ class cForecastEngine:
             self.mSignalDecomposition.mOptions = self.mOptions;
             self.mSignalDecomposition.train(iInputDS, iTime, iSignal, iHorizon, iExogenousData);
         except tsutil.ForecastError as error:
-            print('caught this training error: ' + repr(error))
-            print("AUTO_FORECAST_FAILED" , name)
-            raise;
+            print('caught this training error: ' + repr(error))            
+            raise Exception("TRAIN_FAILED");
         pass
 
     def forecast(self , iInputDS, iHorizon):
@@ -29,8 +28,7 @@ class cForecastEngine:
             return lForecastFrame;
         except tsutil.ForecastError as error:
             print('caught this forecast error: ' + repr(error))
-            print("AUTO_FORECAST_FAILED" , name)
-            raise;
+            raise Exception("FORECAST_FAILED");
         
     def getModelInfo(self):
         return  self.mSignalDecomposition.getModelInfo();
