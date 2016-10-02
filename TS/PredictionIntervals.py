@@ -37,11 +37,11 @@ class cPredictionIntervalsEstimator:
             lHorizonName = lForecastColumn + "_" + str(h + 1);
             (lFrameFit, lFrameForecast, lFrameTest) = best_dec.mTimeInfo.cutFrame(df2);
             self.mFitPerformances[lHorizonName] = tsperf.cPerf();
-            self.mFitPerformances[lHorizonName].compute(lOriginalFit[lSignalColumn], lFrameFit[lForecastColumn], lHorizonName);
+            self.mFitPerformances[lHorizonName].compute(lFrameFit[lSignalColumn], lFrameFit[lForecastColumn], lHorizonName);
             self.mForecastPerformances[lHorizonName] = tsperf.cPerf();
-            self.mForecastPerformances[lHorizonName].compute(lOriginalForecast[lSignalColumn], lFrameForecast[lForecastColumn], lHorizonName);
+            self.mForecastPerformances[lHorizonName].compute(lFrameForecast[lSignalColumn], lFrameForecast[lForecastColumn], lHorizonName);
             self.mTestPerformances[lHorizonName] = tsperf.cPerf();
-            self.mTestPerformances[lHorizonName].compute(lOriginalTest[lSignalColumn], lFrameTest[lForecastColumn], lHorizonName);
+            self.mTestPerformances[lHorizonName].compute(lFrameTest[lSignalColumn], lFrameTest[lForecastColumn], lHorizonName);
             df1[lSignalColumn] = df2[lForecastColumn];
         # self.dump();
 
