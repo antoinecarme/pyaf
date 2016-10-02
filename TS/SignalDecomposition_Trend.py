@@ -47,8 +47,6 @@ class cConstantTrend(cAbstractTrend):
         self.mOutName = self.mSignal + "_" + self.mOutName;
         self.mTrendFrame = pd.DataFrame()
         self.mTimeInfo.addVars(self.mTrendFrame);
-        self.mTrendEstimFrame = self.mTimeInfo.getEstimPart(self.mTrendFrame);
-        self.mMean = self.mTrendEstimFrame[self.mSignal].mean()
 
     def transformDataset(self, df):
         target = df[self.mSignal].values
@@ -58,10 +56,13 @@ class cConstantTrend(cAbstractTrend):
     
     def fit(self):
         # real lag1
+        lTrendEstimFrame = self.mTimeInfo.getEstimPart(self.mTrendFrame);
+        self.mMean = lTrendEstimFrame[self.mSignal].mean()
         target = self.mTrendFrame[self.mSignal]
-        self.mTrendFrame[self.mOutName] = self.mTrendFrame[self.mSignal].apply(lambda x : self.mMean);
+        self.mTrendFrame[self.mOutName] = self.mMean * np.ones_like(target);
         self.mTrendFrame[self.mOutName + '_residue'] = target - self.mTrendFrame[self.mOutName]
         #self.mTrendFrame.to_csv("aaaa.csv")
+        print("cConstantTrend" , self.mMean);
 
     def compute(self):
         Y_pred = self.mMean
@@ -96,6 +97,7 @@ class cLag1Trend(cAbstractTrend):
         # print(self.mTrendFrame[self.mSignal].shape , self.mTrendFrame[self.mOutName].shape)
         self.replaceFirstMissingValue(self.mTrendFrame, self.mOutName);
         self.mTrendFrame[self.mOutName + '_residue'] =  target - self.mTrendFrame[self.mOutName].values
+        print("cLag1Trend_FirstValue" , self.mDefaultValue);
 
 
     def transformDataset(self, df):
@@ -189,11 +191,11 @@ class cLinearTrend(cAbstractTrend):
         self.mOutName = self.mSignal + "_" + self.mOutName;
         self.mTrendFrame = pd.DataFrame()
         self.mTimeInfo.addVars(self.mTrendFrame);
-        self.mTrendEstimFrame = self.mTimeInfo.getEstimPart(self.mTrendFrame);
 
     def fit(self):
-        est_target = self.mTrendEstimFrame[self.mSignal].values
-        est_inputs = self.mTrendEstimFrame[[self.mTimeInfo.mNormalizedTimeColumn]].values
+        lTrendEstimFrame = self.mTimeInfo.getEstimPart(self.mTrendFrame);
+        est_target = lTrendEstimFrame[self.mSignal].values
+        est_inputs = lTrendEstimFrame[[self.mTimeInfo.mNormalizedTimeColumn]].values
         self.mTrendRidge.fit(est_inputs, est_target)
         self.mTrendRidge.score(est_inputs, est_target)
         target = self.mTrendFrame[self.mSignal].values
@@ -237,11 +239,11 @@ class cPolyTrend(cAbstractTrend):
         self.mTimeInfo.addVars(self.mTrendFrame);
         self.mTrendFrame[self.mTimeInfo.mNormalizedTimeColumn + "_^2"] = self.mTrendFrame[self.mTimeInfo.mNormalizedTimeColumn] ** 2;    
         self.mTrendFrame[self.mTimeInfo.mNormalizedTimeColumn + "_^3"] = self.mTrendFrame[self.mTimeInfo.mNormalizedTimeColumn] ** 3;    
-        self.mTrendEstimFrame = self.mTimeInfo.getEstimPart(self.mTrendFrame);
 
     def fit(self):
-        est_target = self.mTrendEstimFrame[self.mSignal].values
-        est_inputs = self.mTrendEstimFrame[
+        lTrendEstimFrame = self.mTimeInfo.getEstimPart(self.mTrendFrame);
+        est_target = lTrendEstimFrame[self.mSignal].values
+        est_inputs = lTrendEstimFrame[
             [self.mTimeInfo.mNormalizedTimeColumn,
              self.mTimeInfo.mNormalizedTimeColumn + "_^2",
              self.mTimeInfo.mNormalizedTimeColumn + "_^3"]].values
