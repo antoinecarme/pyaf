@@ -21,16 +21,17 @@ with warnings.catch_warnings():
     H = b1.mHorizon;
     
     N = df.shape[0];
-    for nbex in range(0, 2000, 10):
-        for n in range(4*H,  N , 10):
+    for n in [N//4 , N//2 ,  N]:
+        for nbex in [10 , 20 , 40 , 80, 160, 320, 640, 1280]:
             df1 = df.head(n).copy();
             lEngine = autof.cForecastEngine()
             # lEngine.mOptions.mEnableSeasonals = False;
             # lEngine.mOptions.mDebugCycles = True;
             lEngine
-            lEngine.train(df1 , b1.mTimeVar , b1.mSignalVar, H, b1.mExogenousVariables[0:nbex]);
+            lExogenousData = (b1.mExogenousDataFrame , b1.mExogenousVariables[0:nbex]) 
+            lEngine.train(df1 , b1.mTimeVar , b1.mSignalVar, H, lExogenousData);
             lEngine.getModelInfo();
-            lEngine.standrdPlots(name = "outputs/my_exog_" str(nbex) + "_" + str(n));
+            lEngine.standrdPlots(name = "outputs/my_exog_" + str(nbex) + "_" + str(n));
             lEngine.mSignalDecomposition.mBestTransformation.mTimeInfo.mResolution
 
             dfapp_in = df1.copy();
