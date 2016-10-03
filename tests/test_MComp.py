@@ -33,6 +33,6 @@ import AutoForecast.Bench.MComp as mcomp
 #tester1.testSignal('')
 #tester6.testAllSignals()
 
-tester7 = mcomp.cMComp_Tester(tsds.load_M4_comp() . "M4COMP");
-#tester7.testSignal('FIN1')
-tester7.testAllSignals()
+tester7 = mcomp.cMComp_Tester(tsds.load_M4_comp() , "M4COMP");
+# tester7.testSignal('FIN1')
+# tester7.testAllSignals()

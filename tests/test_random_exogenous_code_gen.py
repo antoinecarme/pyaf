@@ -28,7 +28,8 @@ with warnings.catch_warnings():
         # lEngine.mOptions.mEnableSeasonals = False;
         # lEngine.mOptions.mDebugCycles = True;
         lEngine
-        lEngine.train(df1 , b1.mTimeVar , b1.mSignalVar, H, b1.mExogenousVariables);
+        lExogenousData = (b1.mExogenousDataFrame , b1.mExogenousVariables) 
+        lEngine.train(df1 , b1.mTimeVar , b1.mSignalVar, H, lExogenousData);
         lEngine.getModelInfo();
         lEngine.standrdPlots(name = "outputs/my_rand_exog_" + str(n));
         lEngine.mSignalDecomposition.mBestTransformation.mTimeInfo.mResolution
