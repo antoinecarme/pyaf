@@ -32,7 +32,7 @@ with warnings.catch_warnings():
             lEngine.train(df1 , b1.mTimeVar , b1.mSignalVar, H, lExogenousData);
             lEngine.getModelInfo();
             lEngine.standrdPlots(name = "outputs/my_exog_" + str(nbex) + "_" + str(n));
-            lEngine.mSignalDecomposition.mBestTransformation.mTimeInfo.mResolution
+            lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
 
             dfapp_in = df1.copy();
             dfapp_in.tail()
@@ -41,7 +41,7 @@ with warnings.catch_warnings():
             dfapp_out = lEngine.forecast(dfapp_in, H);
             dfapp_out.tail(2 * H)
             print("Forecast Columns " , dfapp_out.columns);
-            Forecast_DF = dfapp_out[[b1.mTimeVar , b1.mSignalVar, b1.mSignalVar + '_BestModelForecast']]
+            Forecast_DF = dfapp_out[[b1.mTimeVar , b1.mSignalVar, b1.mSignalVar + '_Forecast']]
             print(Forecast_DF.info())
             print("Forecasts\n" , Forecast_DF.tail(H).values);
 

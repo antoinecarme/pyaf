@@ -32,6 +32,6 @@ with warnings.catch_warnings():
         lEngine.train(df1 , b1.mTimeVar , b1.mSignalVar, H, lExogenousData);
         lEngine.getModelInfo();
         lEngine.standrdPlots(name = "outputs/my_rand_exog_" + str(n));
-        lEngine.mSignalDecomposition.mBestTransformation.mTimeInfo.mResolution
+        lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
         lCodeGenerator = tscodegen.cTimeSeriesCodeGenerator();
         lSQL = lCodeGenerator.testGeneration(lEngine);

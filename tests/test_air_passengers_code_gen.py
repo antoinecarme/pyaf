@@ -26,7 +26,7 @@ for n in range(2*H,  N , 10):
 
     lEngine.train(df1 , b1.mTimeVar , b1.mSignalVar, H);
     lEngine.getModelInfo();
-    lEngine.mSignalDecomposition.mBestTransformation.mTimeInfo.mResolution
+    lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
     dfapp_in = df1.copy();
     dfapp_in.tail()
 
@@ -34,7 +34,7 @@ for n in range(2*H,  N , 10):
     dfapp_out = lEngine.forecast(dfapp_in, H);
     dfapp_out.tail(2 * H)
     print("Forecast Columns " , dfapp_out.columns);
-    lForecastColumnName = b1.mSignalVar + '_BestModelForecast'
+    lForecastColumnName = b1.mSignalVar + '_Forecast'
     Forecast_DF = dfapp_out;
     # [[b1.mTimeVar , b1.mSignalVar, lForecastColumnName , lForecastColumnName + '_Lower_Bound',  lForecastColumnName + '_Upper_Bound' ]]
     print(Forecast_DF.info())

@@ -30,6 +30,6 @@ for n in range(N,  N+1 , 10):
     lEngine.mOptions.mCycle_Criterion_Threshold = 20000;
     lEngine.train(df1 , b1.mTimeVar , b1.mSignalVar, H);
     lEngine.getModelInfo();
-    lEngine.mSignalDecomposition.mBestTransformation.mTimeInfo.mResolution
+    lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
     lCodeGenerator = tscodegen.cTimeSeriesCodeGenerator();
     lSQL = lCodeGenerator.testGeneration(lEngine);

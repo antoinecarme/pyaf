@@ -19,7 +19,7 @@ H = 2
 lEngine.train(df , "Date" , "C0808", H);
 lEngine.getModelInfo();
 
-lEngine.mSignalDecomposition.mBestTransformation.mTimeInfo.mResolution
+lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
 
 lEngine.standrdPlots("outputs/M4_C0808_failure");
 
@@ -30,7 +30,7 @@ dfapp_in.tail()
 dfapp_out = lEngine.forecast(dfapp_in, H);
 dfapp_out.tail(2 * H)
 print("Forecast Columns " , dfapp_out.columns);
-Forecast_DF = dfapp_out[["Date" , "C0808", "C0808" + '_BestModelForecast']]
+Forecast_DF = dfapp_out[["Date" , "C0808", "C0808" + '_Forecast']]
 print(Forecast_DF.info())
 print("Forecasts\n" , Forecast_DF.tail(H).values);
 

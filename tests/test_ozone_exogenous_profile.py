@@ -33,5 +33,5 @@ for n in [N]:
     #    lEngine.mOptions.mDebugCycles = True;
     cProfile.run(lEngine.train(df1 , b1.mTimeVar , b1.mSignalVar, H, b1.mExogenousVariables));
     lEngine.getModelInfo();
-    # lEngine.mSignalDecomposition.mBestTransformation.mTimeInfo.mResolution
+    # lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
     # lEngine.standrdPlots(name = "my_arx_ozone_" + str(n))

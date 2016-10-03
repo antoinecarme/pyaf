@@ -20,7 +20,7 @@ lEngine.mOptions.mDebugPerformance = True;
 lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H);
 lEngine.getModelInfo();
 
-lEngine.mSignalDecomposition.mBestTransformation.mTimeInfo.mResolution
+lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
 
 lEngine.standrdPlots(name = "outputs/my_airline_passengers")
 
@@ -31,7 +31,7 @@ dfapp_in.tail()
 dfapp_out = lEngine.forecast(dfapp_in, H);
 dfapp_out.tail(2 * H)
 print("Forecast Columns " , dfapp_out.columns);
-lForecastColumnName = b1.mSignalVar + '_BestModelForecast'
+lForecastColumnName = b1.mSignalVar + '_Forecast'
 Forecast_DF = dfapp_out[[b1.mTimeVar , b1.mSignalVar, lForecastColumnName , lForecastColumnName + '_Lower_Bound',  lForecastColumnName + '_Upper_Bound' ]]
 print(Forecast_DF.info())
 print("Forecasts\n" , Forecast_DF.tail(2*H).values);
