@@ -283,7 +283,7 @@ def load_MWH_dataset(name):
     df_train.columns = [lTime , lSignal];
     # print("MWH_SIGNAL_DTYPE", df_train[lSignal].dtype)
     # print(df_train.head())
-    df_train.to_csv("mwh-" + name + ".csv");
+    # df_train.to_csv("mwh-" + name + ".csv");
     # print(df_train.info())
     if(df_train[lSignal].dtype == np.object):
         df_train[lSignal] = df_train[lSignal].astype(np.float64); ## apply(lambda x : float(str(x).replace(" ", "")));

@@ -186,8 +186,10 @@ class cGeneric_OneSignal_Tester:
         self.applyModel(iSignal, iHorizon);
         lSignalDataset = self.mTSSpec.mFullDataset;
         lFullDF = lSignalDataset[iSignal].dropna()
-        self.mActual = lFullDF.tail(iHorizon);
-        self.mPredicted = self.mApplyOut[iSignal + '_BestModelForecast'].tail(iHorizon);
+        self.mActual = lFullDF.tail(iHorizon).reset_index(drop = True);
+        self.mPredicted = self.mApplyOut[iSignal + '_BestModelForecast'].tail(iHorizon).reset_index(drop = True);
+        print(iHorizon , self.mActual.head(iHorizon));
+        print(iHorizon , self.mPredicted.head(iHorizon));
         self.reportActualAndPredictedData(iSignal, iHorizon);
         self.computePerfOnForecasts(iSignal, iHorizon);
         if(self.mTestCodeGeneration):
