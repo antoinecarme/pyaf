@@ -85,14 +85,15 @@ class cPerf:
         self.mErrorStdDev = np.std(myerror)        
         self.mMAE = np.mean(abs_error)
         sum_abs = np.abs(signal1.values) + np.abs(estimator1.values)
-        self.mMAPE = np.mean(abs(myerror1 / signal1.values))
-        self.mSMAPE = np.mean(abs(myerror1) / sum_abs)
-        self.mMAPE = round( self.mMAPE , 4 )
-        self.mSMAPE = round( self.mSMAPE , 4 )
+        if(signal1.shape[0] > 0):
+            self.mMAPE = np.mean(abs(myerror1 / signal1.values))
+            self.mSMAPE = np.mean(abs(myerror1) / sum_abs)
+            self.mMAPE = round( self.mMAPE , 4 )
+            self.mSMAPE = round( self.mSMAPE , 4 )
         self.mL1 = np.mean(abs_error)
         self.mL2 = np.sqrt(np.mean(abs_error ** 2))
         self.mCount = signal.shape[0];
-        self.mR2 = self.compute_R2(signal1, estimator1)
+        self.mR2 = self.compute_R2(signal, estimator)
         self.mPearsonR = 0.0;
         if((signal_std > 0.0) and (estimator_std > 0.0)):
             (r , pval) = pearsonr(signal , estimator)
@@ -118,7 +119,7 @@ class cPerf:
             self.mL2 = np.sqrt(np.mean(abs_error ** 2))
             return self.mL2;
         if(criterion == "R2"):
-            self.mR2 = self.compute_R2(signal1, estimator1)
+            self.mR2 = self.compute_R2(signal, estimator)
             return self.mR2;
         if(criterion == "PEARSONR"):
             (self.mPearsonR , pval) = pearsonr(signal1 , estimator1)
@@ -127,14 +128,16 @@ class cPerf:
             self.mMAE = np.mean(abs_error)
             return self.mAE;
         if(criterion == "SMAPE"):
-            self.mSMAPE = np.mean(abs(myerror1) / sum_abs)
-            self.mSMAPE = round( self.mSMAPE , 4 )
+            if(signal1.shape[0] > 0):
+                self.mSMAPE = np.mean(abs(myerror1) / sum_abs)
+                self.mSMAPE = round( self.mSMAPE , 4 )
             return self.mSMAPE;
         if(criterion == "COUNT"):
             return self.mCount;
         
-        self.mMAPE = np.mean(abs(myerror1 / signal1.values))
-        self.mMAPE = round( self.mMAPE , 4 )
+        if(signal1.shape[0] > 0):
+            self.mMAPE = np.mean(abs(myerror1 / signal1.values))
+            self.mMAPE = round( self.mMAPE , 4 )
         return self.mMAPE;
 
     def getCriterionValue(self, criterion):
