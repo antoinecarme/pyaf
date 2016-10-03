@@ -22,6 +22,7 @@ def testTranform(tr1):
 
 class cAbstractSignalTransform:
     def __init__(self):
+        self.mOriginalSignal = None;
         pass
 
     def dump_apply_invert(self, df_before_apply, df_after_apply):

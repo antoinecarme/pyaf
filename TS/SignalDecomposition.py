@@ -18,9 +18,8 @@ from . import Perf as tsperf
 from . import SignalDecomposition_Trend as tstr
 from . import SignalDecomposition_Cycle as tscy
 from . import SignalDecomposition_AR as tsar
-from . import PredictionIntervals as predint
-from . import Plots as tsplot
 from . import Options as tsopts
+from . import TimeSeriesModel as tsmodel
 
 from sklearn.externals import joblib
 
@@ -37,13 +36,6 @@ class cSignalDecompositionOneTransform:
         self.mForecastFrame = pd.DataFrame()
         self.mTransformation = tstransf.cSignalTransform_None();
         
-
-    def info(self):
-        lSignal = self.mSignalFrame[self.mSignal];
-        lStr1 = "SignalVariable='" + self.mSignal +"'";
-        lStr1 += " Min=" + str(np.min(lSignal)) + " Max="  + str(np.max(lSignal)) + " ";
-        lStr1 += " Mean=" + str(np.mean(lSignal)) + " StdDev="  + str(np.std(lSignal));
-        return lStr1;
 
     def computeForecast(self, nextTime):
         trendvalue = computeTrend(self , nextTime);
@@ -69,6 +61,7 @@ class cSignalDecompositionOneTransform:
         self.mOriginalSignal = iSignal;
         
         self.mTransformation = iTransformation;
+        self.mTransformation.mOriginalSignal = iSignal; 
         self.mTransformation.fit(iInputDS[iSignal]);
 
         self.mSignal = iTransformation.get_name(iSignal)
@@ -110,10 +103,6 @@ class cSignalDecompositionOneTransform:
         self.mAREstimator.mOptions = self.mOptions;
 
 
-    def computeModelComplexity(self, trend, cycle, autoreg):
-        lComplexity = trend.mComplexity + cycle.mComplexity + autoreg.mComplexity;
-        return lComplexity;        
-    
     def collectPerformanceIndices(self) :
         self.mPerfsByModel = {}
         rows_list = [];
@@ -124,154 +113,31 @@ class cSignalDecompositionOneTransform:
             for cycle in self.mAREstimator.mCycleList[trend]:
                 cycle_residue = cycle.getCycleResidueName();
                 for autoreg in self.mAREstimator.mARList[cycle_residue]:
-                    df = pd.DataFrame();
-                    df['Signal'] = self.mSignalFrame[self.mSignal]
-                    df['Model'] = df['Signal'] - autoreg.mARFrame[autoreg.mOutName + "_residue"]
-                    df['OriginalSignal'] = self.mSignalFrame[self.mOriginalSignal]
-                    df['OriginalModel'] = self.mTransformation.invert(df['Model']);
-                    # df.to_csv("model_perfs_" + autoreg.mOutName + ".csv");
-                    lFitPerf = tsperf.cPerf();
-                    lForecastPerf = tsperf.cPerf();
-                    lTestPerf = tsperf.cPerf();
-                    (lFrameFit, lFrameForecast, lFrameTest) = self.mTimeInfo.cutFrame(df);
-                    lFitPerf.compute(lFrameFit['OriginalSignal'] , lFrameFit['OriginalModel'] , 'OriginalModel')
-                    lForecastPerf.compute(lFrameForecast['OriginalSignal'] , lFrameForecast['OriginalModel'], 'OriginalModel')
-                    lTestPerf.compute(lFrameTest['OriginalSignal'] , lFrameTest['Model'], 'OriginalModel')
-                    self.mFitPerf[autoreg] = lFitPerf
-                    self.mForecastPerf[autoreg] = lForecastPerf;
-                    self.mTestPerf[autoreg] = lTestPerf;
-                    self.mPerfsByModel[autoreg.mOutName] = [lFitPerf , lForecastPerf, lTestPerf];
-                    lComplexity = self.computeModelComplexity(trend, cycle, autoreg);
-                    row = [autoreg.mOutName , lComplexity,
+                    lModel = tsmodel.cTimeSeriesModel(self.mTransformation, trend, cycle, autoreg);
+                    lModel.updatePerfs();
+                    lComplexity = lModel.getComplexity();
+                    lFitPerf = lModel.mFitPerf;
+                    lForecastPerf = lModel.mForecastPerf;
+                    lTestPerf = lModel.mTestPerf;
+                    self.mPerfsByModel[lModel.mOutName] = [lModel, lComplexity, lFitPerf , lForecastPerf, lTestPerf];
+                    row = [lModel.mOutName , lComplexity,
                            lFitPerf.mCount, lFitPerf.mL2, round(lFitPerf.mMAPE , 2),
                            lForecastPerf.mCount, lForecastPerf.mL2, round(lForecastPerf.mMAPE , 2),
                            lTestPerf.mCount, lTestPerf.mL2, round(lTestPerf.mMAPE, 2)]
                     rows_list.append(row);
                     if(self.mOptions.mDebugPerformance):
                         print("collectPerformanceIndices : " , row[0] , " ", row[1] , " " , row[7]);
-        df = pd.DataFrame(rows_list, columns=
-                          ('Model', 'Complexity',
-                           'FitCount', 'FitL2', 'FitMAPE',
-                           'ForecastCount', 'ForecastL2', 'ForecastMAPE',
-                           'TestCount', 'TestL2', 'TestMAPE')) 
-        return df;
+        self.mPerfDetails = pd.DataFrame(rows_list, columns=
+                                         ('Model', 'Complexity',
+                                          'FitCount', 'FitL2', 'FitMAPE',
+                                          'ForecastCount', 'ForecastL2', 'ForecastMAPE',
+                                          'TestCount', 'TestL2', 'TestMAPE')) 
+        self.mPerfDetails.sort_values(by=['ForecastMAPE' , 'Complexity'] , inplace=True);
+        lBestName = self.mPerfDetails.iloc[0]['Model'];
+        self.mBestModel = self.mPerfsByModel[lBestName][0];
+        return self.mBestModel;
+    
 
-    def plotModel(self, df , name = None):
-        lTime = self.mTimeInfo.mNormalizedTimeColumn;
-        lPrefix = self.mSignal + "_BestModel";
-        if(name is not None):
-            tsplot.decomp_plot(df, lTime, self.mSignal, lPrefix + 'Trend' , lPrefix + 'Trend_residue', name = name + "_trend");
-            tsplot.decomp_plot(df, lTime, lPrefix + 'Trend_residue' , lPrefix + 'Cycle', lPrefix + 'Cycle_residue', name = name + "_cycle");
-            tsplot.decomp_plot(df, lTime, lPrefix + 'Cycle_residue' , lPrefix + 'AR' , lPrefix + 'AR_residue', name = name + "_AR");
-            tsplot.decomp_plot(df, lTime, self.mSignal, lPrefix + 'Forecast' , lPrefix + 'Residue', name = name + "_forecast");
-        else:
-            tsplot.decomp_plot(df, lTime, self.mSignal, lPrefix + 'Trend' , lPrefix + 'Trend_residue');
-            tsplot.decomp_plot(df, lTime, lPrefix + 'Trend_residue' , lPrefix + 'Cycle', lPrefix + 'Cycle_residue');
-            tsplot.decomp_plot(df, lTime, lPrefix + 'Cycle_residue' , lPrefix + 'AR' , lPrefix + 'AR_residue');
-            tsplot.decomp_plot(df, lTime, self.mSignal, lPrefix + 'Forecast' , lPrefix + 'Residue');
-
-            
-    def reviewBestModel(self):
-        self.mBestModelFrame = pd.DataFrame();
-        lSignal = self.mSignalFrame[self.mSignal]
-        for trend in self.mAREstimator.mTrendList:
-            for cycle in self.mAREstimator.mCycleList[trend]:
-                cycle_residue = cycle.getCycleResidueName();
-                for autoreg in self.mAREstimator.mARList[cycle_residue]:
-                    if(autoreg.mOutName == self.mBestModelName):
-                        self.mBestModelTrend = trend;
-                        self.mBestModelCycle = cycle
-                        self.mBestModelAR = autoreg;
-                        self.mBestModelFitPerf = self.mFitPerf[autoreg]
-                        self.mBestModelForecastPerf = self.mForecastPerf[autoreg]
-                        self.mBestModelFrames = [trend.mTrendFrame, cycle.mCycleFrame, autoreg.mARFrame]
-                        self.mTimeInfo.addVars(self.mBestModelFrame);
-                        lTrendColumn = trend.mTrendFrame[self.mBestModelTrend.mOutName]
-                        lCycleColumn = cycle.mCycleFrame[self.mBestModelCycle.mOutName]
-                        lARColumn = autoreg.mARFrame[self.mBestModelAR.mOutName]
-                        lPrefix = self.mSignal + "_BestModel";
-                        self.mBestModelFrame[lPrefix + 'Trend'] =  lTrendColumn;
-                        self.mBestModelFrame[lPrefix + 'Trend_residue'] =  lSignal - lTrendColumn;
-                        self.mBestModelFrame[lPrefix + 'Cycle'] =  lCycleColumn;
-                        self.mBestModelFrame[lPrefix + 'Cycle_residue'] = self.mBestModelFrame[lPrefix + 'Trend_residue'] - lCycleColumn;
-                        self.mBestModelFrame[lPrefix + 'AR'] =  lARColumn ;
-                        self.mBestModelFrame[lPrefix + 'AR_residue'] = self.mBestModelFrame[lPrefix + 'Cycle_residue'] - lARColumn;
-                        self.mBestModelFrame[lPrefix + 'Forecast'] =  lTrendColumn + lCycleColumn + lARColumn ;
-                        self.mBestModelFrame[lPrefix + 'Residue'] =  lSignal - self.mBestModelFrame[lPrefix + 'Forecast']
-                        
-        if(self.mOptions.mEnablePlots):    
-            self.plotModel(self.mBestModelFrame)
-
-
-
-    def forecastModelOneStepAhead(self , df):
-        assert(self.mTime in df.columns)
-        assert(self.mOriginalSignal in df.columns)
-        lPrefix = self.mSignal + "_BestModel";
-        df1 = df.copy();
-        # df1.to_csv("before.csv");
-        # add new line with new time value, row_number and nromalized time
-        df1 = self.mTimeInfo.transformDataset(df1);
-        # df1.to_csv("after_time.csv");
-        # print("TimeInfo update : " , df1.columns);
-        # add signal tranformed column
-        df1 = self.mTransformation.transformDataset(df1, self.mOriginalSignal);
-        # df1.to_csv("after_transformation.csv");
-        #print("Transformation update : " , df1.columns);
-        # compute the trend based on the transformed column and compute trend residue
-        df1 = self.mBestModelTrend.transformDataset(df1);
-        #print("Trend update : " , df1.columns);
-        # df1.to_csv("after_trend.csv");
-        # compute the cycle and its residue based on the trend residue
-        df1 = self.mBestModelCycle.transformDataset(df1);
-        # df1.to_csv("after_cycle.csv");
-        #print("Cycle update : " , df1.columns);
-        # compute the AR componnet and its residue based on the cycle residue
-        df1 = self.mBestModelAR.transformDataset(df1);
-        # df1.to_csv("after_ar.csv");
-        #print("AR update : " , df1.columns);
-        # compute the forecast and its residue (forecast = trend  + cycle + AR)
-        df2 = df1.copy();
-        lTrendColumn = df2[self.mBestModelTrend.mOutName]
-        lCycleColumn = df2[self.mBestModelCycle.mOutName]
-        lARColumn = df2[self.mBestModelAR.mOutName]
-        lSignal = df2[self.mSignal]
-        df2[lPrefix + 'Trend'] =  lTrendColumn;
-        df2[lPrefix + 'Trend_residue'] =  lSignal - lTrendColumn;
-        df2[lPrefix + 'Cycle'] =  lCycleColumn;
-        df2[lPrefix + 'Cycle_residue'] = df2[lPrefix + 'Trend_residue'] - lCycleColumn;
-        df2[lPrefix + 'AR'] =  lARColumn ;
-        df2[lPrefix + 'AR_residue'] = df2[lPrefix + 'Cycle_residue'] - lARColumn;
-        df2[lPrefix + 'TransformedForecast'] =  lTrendColumn + lCycleColumn + lARColumn ;
-        df2[lPrefix + 'TransformedResidue'] =  lSignal - df2[lPrefix + 'TransformedForecast']
-
-        lPrefix2 = self.mOriginalSignal + "_BestModel";
-        df2[lPrefix2 + 'Forecast'] = self.mTransformation.invert(df2[lPrefix + 'TransformedForecast']);
-        lOriginalSignal = df2[self.mOriginalSignal]
-        df2[lPrefix2 + 'Residue'] =  lOriginalSignal - df2[lPrefix2 + 'Forecast']
-        df2.reset_index(drop=True, inplace=True);
-        return df2;
-
-
-    def forecastModel(self , df , iHorizon):
-        N0 = df.shape[0];
-        df1 = self.forecastModelOneStepAhead(df)
-        lForecastColumnName = self.mOriginalSignal + "_BestModelForecast";
-        for h in range(0 , iHorizon - 1):
-            N = df1.shape[0];
-            # replace the signal with the forecast in the last line  of the dataset
-            lPos = df1.index[N - 1];
-            lSignal = df1.loc[lPos , lForecastColumnName];
-            df1.loc[lPos , self.mOriginalSignal] = lSignal;
-            df1 = df1[[self.mTime , self.mOriginalSignal]];
-            df1 = self.forecastModelOneStepAhead(df1)
-
-        assert((N0 + iHorizon) == df1.shape[0])
-        N1 = df1.shape[0];
-        for h in range(0 , iHorizon):
-            # df1.loc[N1 - 1 - h, self.mOriginalSignal] = np.nan;
-            pass
-        return df1
     
     def train(self , iInputDS, iTime, iSignal,
               iHorizon, iTransformation):
@@ -302,12 +168,7 @@ class cSignalDecompositionOneTransform:
         self.mAREstimator.estimate();
         #self.mAREstimator.plotAR();
         # forecast perfs
-        self.mPerfDetails = self.collectPerformanceIndices()        
-        self.mPerfDetails.sort_values(by=['ForecastMAPE' , 'Complexity'] , inplace=True)
-        #print(self.mPerfDetails.head(self.mPerfDetails.shape[0]));
-        self.mBestModelName = self.mPerfDetails.iloc[0]['Model']
-        self.reviewBestModel();
-        # Prediction Intervals
+        self.collectPerformanceIndices()        
         
 
 
@@ -396,58 +257,38 @@ class cSignalDecomposition:
             sigdec.train(iInputDS, iTime, iSignal, iHorizon, transform1);
             self.mSigDecByTransform[transform1.get_name("")] = sigdec
 
-    def createBestModelFrame(self):
-        self.mBestModelFrame = pd.DataFrame();
-        for transform1 in self.mTransformList:
-            sigdec = self.mSigDecByTransform[transform1.get_name("")]
-            sigdec.mTimeInfo.addVars(self.mBestModelFrame);
-
-    def plotModelForecasts(self, df):
-        for transform1 in self.mTransformList:
-            sigdec = self.mSigDecByTransform[transform1.get_name("")]
-            lPrefix = sigdec.mSignal + "_BestModel";
-            lTime = sigdec.mTimeInfo.mNormalizedTimeColumn;            
-            tsplot.decomp_plot(df,
-                               lTime, lPrefix + 'Signal',
-                               lPrefix + 'Forecast' , lPrefix + 'Residue');
 
     def collectPerformanceIndices(self) :
         rows_list = []
-        self.mFitPerf = {}
-        self.mForecastPerf = {}
-        self.mTestPerf = {}
+        self.mPerfsByModel = {}
         for transform1 in self.mTransformList:
             sigdec = self.mSigDecByTransform[transform1.get_name("")]
-            lTranformName = sigdec.mSignal;
-            lPrefix = sigdec.mSignal + "_BestModel";
-            lSig = self.mBestModelFrame[lPrefix + 'Signal']
-            lModelFormula = sigdec.mBestModelName
-            lModel = self.mBestModelFrame[lPrefix + 'Forecast']
-            lFitPerf = tsperf.cPerf();
-            lForecastPerf = tsperf.cPerf();
-            lTestPerf = tsperf.cPerf();
-            (lFrameFit, lFrameForecast, lFrameTest) = sigdec.mTimeInfo.cutFrame(self.mBestModelFrame);
-            lFitPerf.compute(lFrameFit[lPrefix + 'Signal'] , lFrameFit[lPrefix + 'Forecast'] , lPrefix + 'Forecast')
-            lForecastPerf.compute(lFrameForecast[lPrefix + 'Signal'] , lFrameForecast[lPrefix + 'Forecast'], lPrefix + 'Forecast')
-            lTestPerf.compute(lFrameTest[lPrefix + 'Signal'] , lFrameTest[lPrefix + 'Forecast'], lPrefix + 'Forecast')
-            self.mFitPerf[lTranformName] = lFitPerf
-            self.mForecastPerf[lTranformName] = lForecastPerf;
-            self.mTestPerf[lTranformName] = lTestPerf;
-            lComplexity = sigdec.computeModelComplexity(sigdec.mBestModelTrend, sigdec.mBestModelCycle, sigdec.mBestModelAR);
-            row = [lTranformName, lModelFormula , lComplexity,
-                   lFitPerf.mCount, lFitPerf.mL2, round(lFitPerf.mMAPE , 2),
-                   lForecastPerf.mCount, lForecastPerf.mL2, round(lForecastPerf.mMAPE , 2),
-                   lTestPerf.mCount, lTestPerf.mL2, round(lTestPerf.mMAPE , 2)]
-            rows_list.append(row);
-            if(self.mOptions.mDebugPerformance):
-                print("collectPerformanceIndices : " , row[0] , " ", row[1] , " " , row[2] , " ", row[8]);
+            for (model , value) in sigdec.mPerfsByModel.items():
+                self.mPerfsByModel[model] = value;
+                lTranformName = sigdec.mSignal;
+                lModelFormula = model
+                #  value format : self.mPerfsByModel[lModel.mOutName] = [lModel, lComplexity, lFitPerf , lForecastPerf, lTestPerf];
+                lComplexity = value[1];
+                lFitPerf = value[2];
+                lForecastPerf = value[3];
+                lTestPerf = value[4];
+                row = [lTranformName, lModelFormula , lComplexity,
+                       lFitPerf.mCount, lFitPerf.mL2, round(lFitPerf.mMAPE , 2),
+                       lForecastPerf.mCount, lForecastPerf.mL2, round(lForecastPerf.mMAPE , 2),
+                       lTestPerf.mCount, lTestPerf.mL2, round(lTestPerf.mMAPE , 2)]
+                rows_list.append(row);
+                if(self.mOptions.mDebugPerformance):
+                    print("collectPerformanceIndices : " , row[0] , " ", row[1] , " " , row[2] , " ", row[8]);
 
-        df = pd.DataFrame(rows_list, columns=
-                          ('Transformation', 'Model', 'Complexity',
-                           'FitCount', 'FitL2', 'FitMAPE',
-                           'ForecastCount', 'ForecastL2', 'ForecastMAPE',
-                           'TestCount', 'TestL2', 'TestMAPE')) 
-        return df;
+        self.mTrPerfDetails =  pd.DataFrame(rows_list, columns=
+                                            ('Transformation', 'Model', 'Complexity',
+                                             'FitCount', 'FitL2', 'FitMAPE',
+                                             'ForecastCount', 'ForecastL2', 'ForecastMAPE',
+                                             'TestCount', 'TestL2', 'TestMAPE')) 
+        self.mTrPerfDetails.sort_values(by=['ForecastMAPE' , 'Complexity'] , inplace=True)
+        # print(self.mTrPerfDetails.head(self.mTrPerfDetails.shape[0]));
+        lBestName = self.mTrPerfDetails.iloc[0]['Model'];
+        self.mBestModel = self.mPerfsByModel[lBestName][0];
 
     def train(self , iInputDS, iTime, iSignal, iHorizon, iExogenousData = None):
         print("START_TRAINING '" + iSignal + "'")
@@ -461,144 +302,36 @@ class cSignalDecomposition:
         else:
             self.train_not_threaded(iInputDS, iTime, iSignal, iHorizon);
     
-        self.createBestModelFrame();
-        for transform1 in self.mTransformList:
-            sigdec = self.mSigDecByTransform[transform1.get_name("")]
-            lPrefix = sigdec.mSignal + "_BestModel";
-            self.mBestModelFrame[lPrefix + 'Forecast'] = sigdec.mTransformation.invert(sigdec.mBestModelFrame[lPrefix + 'Forecast']);
-            self.mBestModelFrame[lPrefix + 'Signal'] = sigdec.mTransformation.invert(sigdec.mBestModelFrame[sigdec.mSignal]);
-            self.mBestModelFrame[lPrefix + 'Residue'] =  self.mBestModelFrame[lPrefix + 'Signal'] - self.mBestModelFrame[lPrefix + 'Forecast'];
+        self.collectPerformanceIndices();
 
         if(self.mOptions.mEnablePlots):    
-            self.plotModelForecasts(self.mBestModelFrame);
+            self.mBestModel.plotForecasts();
 
-        self.mTrPerfDetails = self.collectPerformanceIndices();
-        self.mTrPerfDetails.sort_values(by=['ForecastMAPE' , 'Complexity'] , inplace=True)
-        # print(self.mTrPerfDetails.head(self.mTrPerfDetails.shape[0]));
-        self.mBestTransformationName = self.mTrPerfDetails.iloc[0]['Transformation']
-
-        for transform1 in self.mTransformList:
-            sigdec = self.mSigDecByTransform[transform1.get_name("")]
-            lTranformName = sigdec.mSignal;
-            if(lTranformName == self.mBestTransformationName):
-                self.mBestTransformation = sigdec;
-
-        # prediction intervals
-        self.mPredictionIntervalsEstimator = predint.cPredictionIntervalsEstimator();
-        self.mPredictionIntervalsEstimator.mSignalFrame = iInputDS;
-        self.mPredictionIntervalsEstimator.mTime = iTime;
-        self.mPredictionIntervalsEstimator.mSignal = iSignal;
-        self.mPredictionIntervalsEstimator.mHorizon = iHorizon;
-        self.mPredictionIntervalsEstimator.mSignalDecomposition = self;
-        
-        self.mPredictionIntervalsEstimator.computePerformances();
-        
         end_time = time.time()
         self.mTrainingTime = end_time - start_time;
         print("END_TRAINING_TIME_IN_SECONDS '" + iSignal + "' " + str(self.mTrainingTime))
         pass
 
     def forecast(self , iInputDS, iHorizon):
-        lForecastFrame = self.mBestTransformation.forecastModel(iInputDS, iHorizon);
-
-        lSignalColumn = self.mBestTransformation.mOriginalSignal;
-        lLowerBound = lForecastFrame[lSignalColumn].apply(lambda x : np.nan)
-        lUpperBound = lLowerBound.copy();
-
-        N = iInputDS.shape[0];
-        lForecastColumn = lSignalColumn + "_BestModelForecast";
-        lConfidence = 2.0 ; # 0.95
-        # the prediction intervals are only computed for the training horizon
-        for h in range(0 , self.mBestTransformation.mHorizon):
-            lHorizonName = lForecastColumn + "_" + str(h + 1);
-            lWidth = lConfidence * self.mPredictionIntervalsEstimator.mForecastPerformances[lHorizonName].mL2;
-            lLowerBound.loc[N + h ] = lForecastFrame.loc[N + h , lForecastColumn] - lWidth;
-            lUpperBound.loc[N + h ] = lForecastFrame.loc[N + h , lForecastColumn] + lWidth;
-            
-        lForecastFrame[lForecastColumn + '_Lower_Bound'] = lLowerBound; 
-        lForecastFrame[lForecastColumn + '_Upper_Bound'] = lUpperBound; 
+        lForecastFrame = self.mBestModel.forecast(iInputDS, iHorizon);
         return lForecastFrame;
 
 
-
     def getModelFormula(self):
-        lFormula = self.mBestTransformation.mBestModelTrend.mFormula + " + ";
-        lFormula += self.mBestTransformation.mBestModelCycle.mFormula + " + ";
-        lFormula += self.mBestTransformation.mBestModelAR.mFormula;
+        lFormula = self.mBestModel.getFormula();
         return lFormula;
 
 
     def getModelInfo(self):
-        print("TIME_DETAIL " + self.mBestTransformation.mTimeInfo.info());
-        print("SIGNAL_DETAIL " + self.mBestTransformation.info());
-        print("BEST_TRANSOFORMATION_TYPE '" + self.mBestTransformation.mTransformation.get_name("") + "'");
-        print("BEST_DECOMPOSITION  '" + self.mBestTransformation.mBestModelName + "' [" + self.getModelFormula() + "]");
-        print("TREND_DETAIL '" + self.mBestTransformation.mBestModelTrend.mOutName + "' [" + self.mBestTransformation.mBestModelTrend.mFormula + "]");
-        print("CYCLE_DETAIL '"+ self.mBestTransformation.mBestModelCycle.mOutName + "' [" + self.mBestTransformation.mBestModelCycle.mFormula + "]");
-        print("AUTOREG_DETAIL '" + self.mBestTransformation.mBestModelAR.mOutName + "' [" + self.mBestTransformation.mBestModelAR.mFormula + "]");
-        print("MODEL_MAPE MAPE_Fit=" + str(self.mTrPerfDetails.iloc[0].FitMAPE) + " MAPE_Forecast=" + str(self.mTrPerfDetails.iloc[0].ForecastMAPE)  + " MAPE_Test=" + str(self.mTrPerfDetails.iloc[0].TestMAPE) );
-        print("MODEL_COMPLEXITY ", str(self.mTrPerfDetails.iloc[0].Complexity) );
+        return self.mBestModel.getInfo();
 
     def to_json(self):
-        dict1 = {};
-        dict1["Dataset"] = { "Time" : self.mBestTransformation.mTimeInfo.to_json(),
-                             "Signal" : self.mBestTransformation.mOriginalSignal,
-                             "Training_Signal_Length" : self.mBestTransformation.mBestModelFrame.shape[0]};
-        lTransformation = self.mBestTransformation.mTransformation.mFormula;
-        dict1["Model"] = { "Best_Decomposition" : self.mBestTransformation.mBestModelName,
-                           "Signal_Transoformation" : lTransformation,
-                           "Trend" : self.mBestTransformation.mBestModelTrend.mFormula,
-                           "Cycle" : self.mBestTransformation.mBestModelCycle.mFormula,
-                           "AR_Model" : self.mBestTransformation.mBestModelAR.mFormula,
-                           };
-        dict1["Model_Performance"] = {"MAPE" : str(self.mTrPerfDetails.iloc[0].ForecastMAPE),
-                                      "RMSE" : str(self.mTrPerfDetails.iloc[0].ForecastL2),
-                                      "COMPLEXITY" : str(self.mTrPerfDetails.iloc[0].Complexity)};
-        
+        dict1 = self.mBestModel.to_json();
         return dict1;
         
     def standrdPlots(self, name = None):
-        self.mBestTransformation.plotModel(self.mBestTransformation.mBestModelFrame, name = name);
-        sigdec = self.mBestTransformation;
-        lInput = self.mTrainingDataset;
-        lOutput = self.forecast(lInput ,  sigdec.mHorizon);
-        print(lOutput.columns)
-        lPrefix = sigdec.mOriginalSignal + "_BestModel";
-        lForecastColumn = lPrefix + 'Forecast';
-        lTime = sigdec.mTimeInfo.mNormalizedTimeColumn;            
-        tsplot.prediction_interval_plot(lOutput,
-                                        lTime, sigdec.mOriginalSignal,
-                                        lForecastColumn  ,
-                                        lForecastColumn + '_Lower_Bound',
-                                        lForecastColumn + '_Upper_Bound',
-                                        name = name,
-                                        max_length = (16 * sigdec.mHorizon));
-        #lOutput.plot()
+        self.mBestModel.standrdPlots(name);
         
-
     def getPlotsAsDict(self):
-        lDict = {};
-        df = self.mBestTransformation.mBestModelFrame;
-        lTime = self.mBestTransformation.mTimeInfo.mTime;
-        lSignalColumn = self.mBestTransformation.mSignal;
-        lPrefix = lSignalColumn + "_BestModel";
-        lDict["Trend"] = tsplot.decomp_plot_as_png_base64(df, lTime, lSignalColumn, lPrefix + 'Trend' , lPrefix + 'Trend_residue', name = "trend");
-        lDict["Cycle"] = tsplot.decomp_plot_as_png_base64(df, lTime, lPrefix + 'Trend_residue' , lPrefix + 'Cycle', lPrefix + 'Cycle_residue', name = "cycle");
-        lDict["AR"] = tsplot.decomp_plot_as_png_base64(df, lTime, lPrefix + 'Cycle_residue' , lPrefix + 'AR' , lPrefix + 'AR_residue', name = "AR");
-        lDict["Forecast"] = tsplot.decomp_plot_as_png_base64(df, lTime, lSignalColumn, lPrefix + 'Forecast' , lPrefix + 'Residue', name = "forecast");
-
-        sigdec = self.mBestTransformation;
-        lInput = sigdec.mSignalFrame[[sigdec.mTime, sigdec.mSignal]];
-        lOutput = self.forecast(lInput ,  sigdec.mHorizon);
-        print(lOutput.columns)
-        lPrefix = sigdec.mOriginalSignal + "_BestModel";
-        lForecastColumn = lPrefix + 'Forecast';
-        lTime = sigdec.mTimeInfo.mNormalizedTimeColumn;            
-        lDict["Prediction_Intervals"] = tsplot.prediction_interval_plot_as_png_base64(lOutput,
-                                                                                      lTime, sigdec.mOriginalSignal,
-                                                                                      lForecastColumn  ,
-                                                                                      lForecastColumn + '_Lower_Bound',
-                                                                                      lForecastColumn + '_Upper_Bound',
-                                                                                      name = "prediction_intervals",
-                                                                                      max_length = (16 * sigdec.mHorizon));
+        lDict = self.mBestModel.getPlotsAsDict();
         return lDict;
