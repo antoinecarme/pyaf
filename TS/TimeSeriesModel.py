@@ -62,8 +62,6 @@ class cTimeSeriesModel:
         self.mFitPerf = lFitPerf
         self.mForecastPerf = lForecastPerf;
         self.mTestPerf = lTestPerf;
-        # Prediction Intervals
-        self.computePredictionIntervals();
         
     def computePredictionIntervals(self):
         # prediction intervals

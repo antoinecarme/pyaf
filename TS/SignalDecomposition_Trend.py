@@ -21,7 +21,7 @@ class cAbstractTrend:
         self.mTrendPerf = tsperf.cPerf();
         self.mOutName = ""
         self.mFormula = None;
-        self.mComplexity = 1;
+        self.mComplexity = None;
 
     def computePerf(self):
         self.mTrendFitPerf = tsperf.cPerf();
@@ -74,6 +74,7 @@ class cLag1Trend(cAbstractTrend):
         self.mDefaultValue = None
         self.mOutName = "Lag1Trend"
         self.mFormula = self.mOutName;
+        self.mComplexity = 2;
         
     def addTrendInputVariables(self):
         self.mTime = self.mTimeInfo.mTime;
@@ -118,6 +119,7 @@ class cMovingAverageTrend(cAbstractTrend):
         self.mOutName = "MovingAverage(" + str(iWindow) + ")";
         self.mWindow = iWindow;
         self.mFormula = self.mOutName;
+        self.mComplexity = 3;
         
     def addTrendInputVariables(self):
         self.mTime = self.mTimeInfo.mTime;
@@ -151,6 +153,7 @@ class cMovingMedianTrend(cAbstractTrend):
         self.mOutName = "MovingMedian(" + str(iWindow) + ")";
         self.mWindow = iWindow;
         self.mFormula = self.mOutName;
+        self.mComplexity = 3;
         
     def addTrendInputVariables(self):
         self.mTime = self.mTimeInfo.mTime;
@@ -184,6 +187,7 @@ class cLinearTrend(cAbstractTrend):
         self.mTrendRidge = linear_model.Ridge()
         self.mOutName = "LinearTrend"
         self.mFormula = self.mOutName;
+        self.mComplexity = 1;
 
     def addTrendInputVariables(self):
         self.mTime = self.mTimeInfo.mTime;
@@ -230,6 +234,7 @@ class cPolyTrend(cAbstractTrend):
         self.mTrendRidge = linear_model.Ridge()
         self.mOutName = "PolyTrend"
         self.mFormula = self.mOutName
+        self.mComplexity = 1;
 
     def addTrendInputVariables(self):
         self.mTime = self.mTimeInfo.mTime;
