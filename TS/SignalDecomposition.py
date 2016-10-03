@@ -304,6 +304,9 @@ class cSignalDecomposition:
     
         self.collectPerformanceIndices();
 
+        # Prediction Intervals
+        self.mBestModel.computePredictionIntervals();
+
         if(self.mOptions.mEnablePlots):    
             self.mBestModel.plotForecasts();
 

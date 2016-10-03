@@ -21,7 +21,7 @@ class cAbstractAR:
         self.mCycleFrame = pd.DataFrame()
         self.mARFrame = pd.DataFrame()        
         self.mCycleResidueName = cycle_residue_name
-        self.mComplexity = 4;
+        self.mComplexity = None;
         self.mFormula = None;
         self.mTargetName = self.mCycleResidueName;
         self.mInputNames = None;
@@ -74,6 +74,7 @@ class cAutoRegressiveModel(cAbstractAR):
         self.mExogenousInfo = iExogenousInfo;
         self.mDefaultValues = {};
         self.mLagOrigins = {};
+        self.mComplexity = 8 + P;
 
     def getDefaultValue(self, lag):
         return self.mDefaultValues[lag];
