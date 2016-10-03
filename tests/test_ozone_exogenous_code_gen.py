@@ -32,7 +32,7 @@ with warnings.catch_warnings():
         lExogenousData = (b1.mExogenousDataFrame , b1.mExogenousVariables) 
         lEngine.train(df1 , b1.mTimeVar , b1.mSignalVar, H, lExogenousData);
         lEngine.getModelInfo();
-        lEngine.mSignalDecomposition.mBestTransformation.mTimeInfo.mResolution
+        lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
         lEngine.standrdPlots(name = "outputs/my_arx_ozone_")
         lCodeGenerator = tscodegen.cTimeSeriesCodeGenerator();
         lSQL = lCodeGenerator.testGeneration(lEngine);

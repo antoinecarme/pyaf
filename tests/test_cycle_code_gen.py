@@ -14,15 +14,15 @@ df = b1.mPastData
 H = b1.mHorizon;
 
 N = df.shape[0];
-for n in range(24*H,  N , 10):
+for n in [N // 8 , N // 4 , N // 2 , N]:
     df1 = df.head(n).copy();
     lEngine = autof.cForecastEngine()
     lEngine.mOptions.mEnableSeasonals = False;
     lEngine.mOptions.mDebugCycles = True;
     lEngine
-    lEngine.train(df1 , b1.mTimeVar , b1.mSignalVar, H, b1.mExogenousVariables);
+    lEngine.train(df1 , b1.mTimeVar , b1.mSignalVar, H, None);
     lEngine.getModelInfo();
     # lEngine.standrdPlots(name = "my_cycle_" + str(n));
-    lEngine.mSignalDecomposition.mBestTransformation.mTimeInfo.mResolution
+    lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
     lCodeGenerator = tscodegen.cTimeSeriesCodeGenerator();
     lSQL = lCodeGenerator.testGeneration(lEngine);

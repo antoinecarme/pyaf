@@ -28,6 +28,6 @@ for n in [N//8 , N//4 , N//2 , N]:
     lEngine.train(df1 , b1.mTimeVar , b1.mSignalVar, H);
     lEngine.getModelInfo();
     # lEngine.standrdPlots(name = "my_cycle_" + str(n));
-    lEngine.mSignalDecomposition.mBestTransformation.mTimeInfo.mResolution
+    lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
     lCodeGenerator = tscodegen.cTimeSeriesCodeGenerator();
     lSQL = lCodeGenerator.testGeneration(lEngine);

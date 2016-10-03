@@ -28,7 +28,7 @@ for cyc in lValues:
     lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H);
     lEngine.getModelInfo();
 
-    lEngine.mSignalDecomposition.mBestTransformation.mTimeInfo.mResolution
+    lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
 
     dfapp_in = df.copy();
     dfapp_in.tail()
@@ -37,7 +37,7 @@ for cyc in lValues:
     dfapp_out = lEngine.forecast(dfapp_in, H);
     dfapp_out.tail(2 * H)
     print("Forecast Columns " , dfapp_out.columns);
-    Forecast_DF = dfapp_out[[b1.mTimeVar , b1.mSignalVar, b1.mSignalVar + '_BestModelForecast']]
+    Forecast_DF = dfapp_out[[b1.mTimeVar , b1.mSignalVar, b1.mSignalVar + '_Forecast']]
     print(Forecast_DF.info())
     print("Forecasts\n" , Forecast_DF.tail(H).values);
 
