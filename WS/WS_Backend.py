@@ -63,9 +63,9 @@ class cWSModel:
     def applyModel(self):
         self.mApplyIn = self.mTrainDataFrame;
         self.mDetailedForecast_DataFrame = self.mAutoForecast.forecast(self.mApplyIn, self.mHorizon);
-        self.mForecast_DataFrame = self.mDetailedForecast_DataFrame; # [[self.mTimeVar , self.mSignalVar, self.mSignalVar + '_BestModelForecast']];
+        self.mForecast_DataFrame = self.mDetailedForecast_DataFrame; # [[self.mTimeVar , self.mSignalVar, self.mSignalVar + '_Forecast']];
         self.mForecastData = self.mForecast_DataFrame.tail(self.mHorizon);
-        lForecastName = self.mSignalVar + '_BestModelForecast';
+        lForecastName = self.mSignalVar + '_Forecast';
         self.mForecast = self.mForecastData[[self.mTimeVar, lForecastName,
                                              lForecastName + "_Lower_Bound",
                                              lForecastName + "_Upper_Bound"]]
@@ -137,7 +137,7 @@ class cWSModel:
         return lDatasetInfo;
 
     def as_dict(self):
-        lForecastName = self.mSignalVar + '_BestModelForecast';
+        lForecastName = self.mSignalVar + '_Forecast';
         lForecastData = {};
         if(self.mForecastData is not None):
             lForecastData["Time"] = self.mForecast[self.mTimeVar].apply(str).tolist();
