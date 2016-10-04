@@ -212,7 +212,7 @@ class cTimeSeriesModel:
 
     def plotResidues(self, name = None):
         df = self.mModelFrame;
-        lTime = self.mTimeInfo.mNormalizedTimeColumn;
+        lTime = self.mTimeInfo.mTime; # NormalizedTimeColumn;
         lPrefix = self.mSignal + "_";
         if(name is not None):
             tsplot.decomp_plot(df, lTime, self.mSignal, lPrefix + 'Trend' , lPrefix + 'Trend_residue', name = name + "_trend");
@@ -232,7 +232,9 @@ class cTimeSeriesModel:
         print(lOutput.columns)
         lPrefix = self.mOriginalSignal + "_";
         lForecastColumn = lPrefix + 'Forecast';
-        lTime = self.mTimeInfo.mNormalizedTimeColumn;            
+        lTime = self.mTimeInfo.mTime;            
+        lOutput.set_index(lTime, inplace=True, drop=False);
+        print(lOutput[lTime].dtype);
         tsplot.prediction_interval_plot(lOutput,
                                         lTime, self.mOriginalSignal,
                                         lForecastColumn  ,
@@ -258,7 +260,8 @@ class cTimeSeriesModel:
         print(lOutput.columns)
         lPrefix = self.mModel.mOriginalSignal + "_Model";
         lForecastColumn = lPrefix + 'Forecast';
-        lTime = self.mModel.mTimeInfo.mNormalizedTimeColumn;            
+        lTime = self.mModel.mTimeInfo.mTime;
+        lOutput.set_index(lTime, inplace=True, drop=False);
         lDict["Prediction_Intervals"] = tsplot.prediction_interval_plot_as_png_base64(lOutput,
                                                                                       lTime, self.mOriginalSignal,
                                                                                       lForecastColumn  ,

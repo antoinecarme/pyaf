@@ -18,7 +18,7 @@ lEngine = autof.cForecastEngine()
 lEngine
 
 H = b1.mHorizon;
-lEngine.mOptions.enable_slow_mode();
+# lEngine.mOptions.enable_slow_mode();
 lEngine.mOptions.mDebugPerformance = True;
 lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H);
 lEngine.getModelInfo();
@@ -47,3 +47,4 @@ print("\n\n<Forecast>")
 print(Forecast_DF.to_json(date_format='iso'))
 print("</Forecast>\n\n")
 
+lEngine.standrdPlots(name = "outputs/ozone")

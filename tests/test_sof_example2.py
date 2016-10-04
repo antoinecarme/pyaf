@@ -6,19 +6,20 @@ import datetime
 
 #get_ipython().magic('matplotlib inline')
 
-trainfile = "data/sof_example.csv";
-df = pd.read_csv(trainfile, sep=r',', engine='python', skiprows=0);
-df['Date'] = df['Date'].apply(lambda x : datetime.datetime.strptime(x, "%m/%d/%Y"))
+# http://stackoverflow.com/questions/32693048/forecast-with-r
+trainfile = "https://raw.githubusercontent.com/antoinecarme/TimeSeriesData/master/misc/r_wikipedia-googletrends-model.csv";
+df = pd.read_csv(trainfile, sep=r';', engine='python', skiprows=0);
+df['date'] = df['date'].apply(lambda x : datetime.datetime.strptime(x, "%m/%d/%Y"))
 
 print(df.head());
 
-lDateVar = 'Date'
-lSignalVar = 'Used'
+lDateVar = 'date'
+lSignalVar = 'dengue_index'
 
 lEngine = autof.cForecastEngine()
 lEngine
 
-H = 10;
+H = 500;
 
 #lEngine.mOptions.enable_slow_mode();
 lEngine.mOptions.mDebugPerformance = True;
@@ -28,14 +29,14 @@ print(lEngine.mSignalDecomposition.mTrPerfDetails.head());
 
 lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
 
-lEngine.standrdPlots("outputs/sof_example");
+lEngine.standrdPlots("outputs/sof_example2");
 
 dfapp_in = df.copy();
 dfapp_in.tail()
 
 #H = 12
 dfapp_out = lEngine.forecast(dfapp_in, H);
-dfapp_out.to_csv("outputs/sof_example_apply_out.csv")
+dfapp_out.to_csv("outputs/sof_example2_apply_out.csv")
 dfapp_out.tail(2 * H)
 print("Forecast Columns " , dfapp_out.columns);
 Forecast_DF = dfapp_out[[lDateVar , lSignalVar,
@@ -52,3 +53,4 @@ print("\n\n<Forecast>")
 print(Forecast_DF.to_json(date_format='iso'))
 print("</Forecast>\n\n")
 
+lEngine.standrdPlots(name = "outputs/sof_example2")

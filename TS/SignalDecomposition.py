@@ -121,9 +121,9 @@ class cSignalDecompositionOneTransform:
                     lTestPerf = lModel.mTestPerf;
                     self.mPerfsByModel[lModel.mOutName] = [lModel, lComplexity, lFitPerf , lForecastPerf, lTestPerf];
                     row = [lModel.mOutName , lComplexity,
-                           lFitPerf.mCount, lFitPerf.mL2, round(lFitPerf.mMAPE , 2),
-                           lForecastPerf.mCount, lForecastPerf.mL2, round(lForecastPerf.mMAPE , 2),
-                           lTestPerf.mCount, lTestPerf.mL2, round(lTestPerf.mMAPE, 2)]
+                           lFitPerf.mCount, lFitPerf.mL2, lFitPerf.mMAPE,
+                           lForecastPerf.mCount, lForecastPerf.mL2, lForecastPerf.mMAPE,
+                           lTestPerf.mCount, lTestPerf.mL2, lTestPerf.mMAPE]
                     rows_list.append(row);
                     if(self.mOptions.mDebugPerformance):
                         print("collectPerformanceIndices : " , row[0] , " ", row[1] , " " , row[7]);
@@ -273,9 +273,9 @@ class cSignalDecomposition:
                 lForecastPerf = value[3];
                 lTestPerf = value[4];
                 row = [lTranformName, lModelFormula , lComplexity,
-                       lFitPerf.mCount, lFitPerf.mL2, round(lFitPerf.mMAPE , 2),
-                       lForecastPerf.mCount, lForecastPerf.mL2, round(lForecastPerf.mMAPE , 2),
-                       lTestPerf.mCount, lTestPerf.mL2, round(lTestPerf.mMAPE , 2)]
+                       lFitPerf.mCount, lFitPerf.mL2, lFitPerf.mMAPE,
+                       lForecastPerf.mCount, lForecastPerf.mL2, lForecastPerf.mMAPE,
+                       lTestPerf.mCount, lTestPerf.mL2, lTestPerf.mMAPE]
                 rows_list.append(row);
                 if(self.mOptions.mDebugPerformance):
                     print("collectPerformanceIndices : " , row[0] , " ", row[1] , " " , row[2] , " ", row[8]);
