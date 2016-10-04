@@ -23,6 +23,7 @@ def testTranform(tr1):
 class cAbstractSignalTransform:
     def __init__(self):
         self.mOriginalSignal = None;
+        self.mComplexity = None;
         pass
 
     def dump_apply_invert(self, df_before_apply, df_after_apply):
@@ -45,6 +46,7 @@ class cSignalTransform_None(cAbstractSignalTransform):
 
     def __init__(self):
         self.mFormula = "None";
+        self.mComplexity = 0;
         pass
 
     def get_name(self, iSig):
@@ -72,6 +74,7 @@ class cSignalTransform_Accumulate(cAbstractSignalTransform):
 
     def __init__(self):
         self.mFormula = "Integration";
+        self.mComplexity = 1;
         pass
 
     def get_name(self, iSig):
@@ -105,6 +108,7 @@ class cSignalTransform_Quantize(cAbstractSignalTransform):
     def __init__(self, iQuantiles):
         self.mQuantiles = iQuantiles;
         self.mFormula = "Quantization";
+        self.mComplexity = 2;
         pass
 
     def get_name(self, iSig):
@@ -147,6 +151,7 @@ class cSignalTransform_BoxCox(cAbstractSignalTransform):
     def __init__(self, iLambda):
         self.mLambda = iLambda;
         self.mMin = 0;
+        self.mComplexity = 2;
         pass
 
     def get_name(self, iSig):
@@ -195,6 +200,7 @@ class cSignalTransform_Differencing(cAbstractSignalTransform):
     def __init__(self):
         self.mFirstValue = np.nan;
         self.mFormula = "Difference";
+        self.mComplexity = 1;
         pass
 
     def get_name(self, iSig):
@@ -235,6 +241,7 @@ class cSignalTransform_RelativeDifferencing(cAbstractSignalTransform):
         self.mFirstValue = np.nan;
         self.mMinValue = np.nan;
         self.mFormula = "RelativeDifference";
+        self.mComplexity = 1;
         pass
 
     def get_name(self, iSig):

@@ -74,7 +74,7 @@ class cAutoRegressiveModel(cAbstractAR):
         self.mExogenousInfo = iExogenousInfo;
         self.mDefaultValues = {};
         self.mLagOrigins = {};
-        self.mComplexity = 8 + P;
+        self.mComplexity = P;
 
     def getDefaultValue(self, lag):
         return self.mDefaultValues[lag];

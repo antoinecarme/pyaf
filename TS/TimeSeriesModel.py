@@ -31,7 +31,7 @@ class cTimeSeriesModel:
 
         
     def getComplexity(self):
-        lComplexity = self.mTrend.mComplexity + self.mCycle.mComplexity + self.mAR.mComplexity;
+        lComplexity = 32 * self.mTransformation.mComplexity +  16 * self.mTrend.mComplexity + 4 * self.mCycle.mComplexity + 1 * self.mAR.mComplexity;
         return lComplexity;     
 
     def updatePerfs(self):

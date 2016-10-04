@@ -16,6 +16,7 @@ lEngine = autof.cForecastEngine()
 lEngine
 
 H = b1.mHorizon;
+lEngine.mOptions.enable_slow_mode();
 lEngine.mOptions.mDebugPerformance = True;
 lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H);
 lEngine.getModelInfo();
@@ -35,7 +36,7 @@ print("Forecast Columns " , dfapp_out.columns);
 lForecastColumnName = b1.mSignalVar + '_Forecast'
 Forecast_DF = dfapp_out[[b1.mTimeVar , b1.mSignalVar, lForecastColumnName , lForecastColumnName + '_Lower_Bound',  lForecastColumnName + '_Upper_Bound' ]]
 print(Forecast_DF.info())
-print("Forecasts\n" , Forecast_DF.tail(2*H).values);
+print("Forecasts\n" , Forecast_DF.tail(2*H));
 
 print("\n\n<ModelInfo>")
 print(lEngine.to_json());
