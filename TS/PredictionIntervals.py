@@ -19,10 +19,10 @@ class cPredictionIntervalsEstimator:
         lTimeColumn = self.mTime;
         lSignalColumn = self.mSignal;
         lForecastColumn = self.mSignal + "_Forecast";
-        df = self.mSignalFrame;
+        df = self.mSignalFrame.reset_index();
         N = df.shape[0];
         (lOriginalFit, lOriginalForecast, lOriginalTest) = self.mModel.mTimeInfo.cutFrame(df);
-        df1 = df.reset_index().copy();
+        df1 = df.copy();
         for h in range(0 , self.mHorizon):
             df2 = None;
             df2 = self.mModel.forecastOneStepAhead(df1.copy());
@@ -35,17 +35,19 @@ class cPredictionIntervalsEstimator:
             # print(df2[[lTimeColumn, lSignalColumn, lForecastColumn]].tail());
             lHorizonName = lForecastColumn + "_" + str(h + 1);
             (lFrameFit, lFrameForecast, lFrameTest) = self.mModel.mTimeInfo.cutFrame(df2);
+            # print(lFrameForecast[[lSignalColumn, lForecastColumn]].head());
+            # print(lFrameForecast[[lSignalColumn, lForecastColumn]].tail());
             self.mFitPerformances[lHorizonName] = tsperf.cPerf();
-            self.mFitPerformances[lHorizonName].compute(lFrameFit[lSignalColumn], lFrameFit[lForecastColumn], lHorizonName);
+            self.mFitPerformances[lHorizonName].compute(lOriginalFit[lSignalColumn], lFrameFit[lForecastColumn], lHorizonName);
             self.mForecastPerformances[lHorizonName] = tsperf.cPerf();
-            self.mForecastPerformances[lHorizonName].compute(lFrameForecast[lSignalColumn], lFrameForecast[lForecastColumn], lHorizonName);
+            self.mForecastPerformances[lHorizonName].compute(lOriginalForecast[lSignalColumn], lFrameForecast[lForecastColumn], lHorizonName);
             self.mTestPerformances[lHorizonName] = tsperf.cPerf();
-            self.mTestPerformances[lHorizonName].compute(lFrameTest[lSignalColumn], lFrameTest[lForecastColumn], lHorizonName);
+            self.mTestPerformances[lHorizonName].compute(lOriginalTest[lSignalColumn], lFrameTest[lForecastColumn], lHorizonName);
             df1[lSignalColumn] = df2[lForecastColumn];
-        # self.dump();
+        # self.dump_detailed();
 
     def dump_detailed(self):
-        lForecastColumn = self.mSignal + "_ModelForecast";
+        lForecastColumn = self.mSignal + "_Forecast";
         for h in range(0 , self.mHorizon):
             lHorizonName = lForecastColumn + "_" + str(h + 1);
             hn = lHorizonName;
@@ -55,7 +57,7 @@ class cPredictionIntervalsEstimator:
 
 
     def dump(self):
-        lForecastColumn = self.mSignal + "_ModelForecast";
+        lForecastColumn = self.mSignal + "_Forecast";
         for h in range(0 , self.mHorizon):
             lHorizonName = lForecastColumn + "_" + str(h + 1);
             hn = lHorizonName;
