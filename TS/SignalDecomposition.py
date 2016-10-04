@@ -191,7 +191,7 @@ class cSignalDecomposition:
         N = df.shape[0];
         if(N < (12 * q)) :
             return False;
-        return True;
+        return False;
 
     def validateTransformation(self , transf):
         lName = transf.get_name("");
@@ -216,7 +216,7 @@ class cSignalDecomposition:
         if(self.mOptions.mEnableQuantization):
             for q in self.mOptions.mQuantiles:
                 if(self.needQuantile(df , q)):
-                    self.validateTransformation(tstransf.cSignalTransform_Quantize(i));
+                    self.validateTransformation(tstransf.cSignalTransform_Quantize(q));
         
 
         for transform1 in self.mTransformList:
@@ -285,9 +285,13 @@ class cSignalDecomposition:
                                              'FitCount', 'FitL2', 'FitMAPE',
                                              'ForecastCount', 'ForecastL2', 'ForecastMAPE',
                                              'TestCount', 'TestL2', 'TestMAPE')) 
-        self.mTrPerfDetails.sort_values(by=['ForecastMAPE' , 'Complexity'] , inplace=True)
         # print(self.mTrPerfDetails.head(self.mTrPerfDetails.shape[0]));
-        lBestName = self.mTrPerfDetails.iloc[0]['Model'];
+        lBestPerf = self.mTrPerfDetails['ForecastMAPE'].min();
+        # allow a loss of one point (0.01 of MAPE) if complexity is reduced.
+        self.mTrPerfDetails.sort_values(by=['ForecastMAPE', 'Complexity'] , inplace=True)
+        lInterestingModels = self.mTrPerfDetails[self.mTrPerfDetails['ForecastMAPE'] <= (lBestPerf + 0.01)].copy();
+        lInterestingModels.sort_values(by=['Complexity'] , inplace=True)        
+        lBestName = lInterestingModels.iloc[0]['Model'];
         self.mBestModel = self.mPerfsByModel[lBestName][0];
 
     def train(self , iInputDS, iTime, iSignal, iHorizon, iExogenousData = None):

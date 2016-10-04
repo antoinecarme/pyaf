@@ -80,7 +80,7 @@ class cSeasonalPeriodic(cAbstractCycle):
         self.mDatePart = date_part;
         self.mEncodedValueDict = {}
         self.mFormula = "Seasonal_" + self.mDatePart;
-        self.mComplexity = 4;
+        self.mComplexity = 1;
         
     def getCycleName(self):
         return self.mTrend_residue_name + "_Seasonal_" + self.mDatePart;
@@ -131,7 +131,7 @@ class cBestCycleForTrend(cAbstractCycle):
         self.mBestCycleValueDict = {}
         self.mBestCycleLength = None
         self.mCriterion = criterion
-        self.mComplexity = 6;
+        self.mComplexity = 2;
         
     def getCycleName(self):
         return self.mTrend_residue_name + "_bestCycle_by" + self.mCriterion;
