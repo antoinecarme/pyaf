@@ -69,7 +69,12 @@ def prediction_interval_plot(df, time, signal, estimator, lower, upper, name = N
     df1[upper] = df1[upper].apply(lambda x : x if (np.isnan(x) or x <= lMax) else np.nan);
     fig, axs = plt.subplots(ncols=1, figsize=(16, 8))
     df1.plot.line(time, [signal, estimator, lower, upper], ax=axs, grid = True)
-    axs.fill_between(df1[time], df1[lower], df1[upper], color='blue', alpha=.5)
+
+    x = df1[time];
+    type1 = np.dtype(x)
+    if(type1.kind == 'M'):
+        x = x.apply(lambda t : t.date());
+    axs.fill_between(x.values, df1[lower], df1[upper], color='blue', alpha=.5)
 
     if(name is not None):
         fig.savefig(name + '_prediction_intervals_output.png')
@@ -93,7 +98,12 @@ def prediction_interval_plot_as_png_base64(df, time, signal, estimator, lower, u
     df1[upper] = df1[upper].apply(lambda x : x if (np.isnan(x) or x <= lMax) else np.nan);
     fig, axs = plt.subplots(ncols=1, figsize=(16, 8))
     df1.plot.line(time, [signal, estimator, lower, upper], ax=axs, grid = True)
-    axs.fill_between(df1[time], df1[lower], df1[upper], color='blue', alpha=.5)
+
+    x = df1[time];
+    type1 = np.dtype(x)
+    if(type1.kind == 'M'):
+        x = x.apply(lambda t : t.date());
+    axs.fill_between(x.values, df1[lower], df1[upper], color='blue', alpha=.5)
 
     figfile = BytesIO()
     fig.savefig(figfile, format='png')
