@@ -202,8 +202,7 @@ class cGeneric_OneSignal_Tester:
               self.mTrainDataset[iSignal  + "_" + str(iHorizon)].shape[0] ,
               iHorizon,
               str(self.mTrainTime[iSignal  + "_" + str(iHorizon)]),
-              lAutoF1.mSignalDecomposition.mBestTransformationName,
-              lAutoF1.mSignalDecomposition.mBestTransformation.mBestModelName,
+              lAutoF1.mSignalDecomposition.mBestModel.getFormula(),
               lPerf.mCount,
               lPerf.mMAPE,  lPerf.mSMAPE);
         pass
@@ -211,15 +210,16 @@ class cGeneric_OneSignal_Tester:
     def testSignalIdempotency(self, iSignal, iHorizon, tr, cy, ar):
         lAutoF1 = self.mAutoForecastBySignal[iSignal  + "_" + str(iHorizon)];
         lApplyOut = self.mApplyOut.head(self.mApplyIn.shape[0]);
+        print(lApplyOut.columns);
         lNewSignal = iSignal + "_" + str(tr) + "_" + str(cy) + "_" + str(ar);
-        lTransformedSignal = lAutoF1.mSignalDecomposition.mBestTransformation.mSignal;
+        lTransformedSignal = lAutoF1.mSignalDecomposition.mBestModel.mSignal;
         lSignal = 0.0 * lApplyOut[iSignal];
         if(tr is not None):
-            lSignal = lSignal + lApplyOut[lTransformedSignal + "_BestModelTrend"];
+            lSignal = lSignal + lApplyOut[lTransformedSignal + "_ModelTrend"];
         if(cy is not None ):
-            lSignal = lSignal + lApplyOut[lTransformedSignal + "_BestModelCycle"];
+            lSignal = lSignal + lApplyOut[lTransformedSignal + "_ModelCycle"];
         if(ar is not None ):
-            lSignal = lSignal + lApplyOut[lTransformedSignal + "_BestModelAR"];
+            lSignal = lSignal + lApplyOut[lTransformedSignal + "_ModelAR"];
         df= pd.DataFrame();
         df['Date'] = lApplyOut['Date'];
         df[lNewSignal] = lSignal;

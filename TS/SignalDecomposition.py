@@ -67,8 +67,7 @@ class cSignalDecompositionOneTransform:
         self.mSignal = iTransformation.get_name(iSignal)
         self.mHorizon = iHorizon;
         self.mSignalFrame = pd.DataFrame()
-#        self.mSignalFrame = iInputDS.copy()
-        self.mSignalFrame[self.mOriginalSignal] = iInputDS[iSignal];
+        self.mSignalFrame[self.mOriginalSignal] = iInputDS[iSignal].copy();
         self.mSignalFrame[self.mSignal] = self.mTransformation.apply(iInputDS[iSignal]);
         self.mSignalFrame[self.mTime] = iInputDS[self.mTime].copy();
         self.mSignalFrame['row_number'] = np.arange(0, iInputDS.shape[0]);
@@ -288,10 +287,14 @@ class cSignalDecomposition:
         # print(self.mTrPerfDetails.head(self.mTrPerfDetails.shape[0]));
         lBestPerf = self.mTrPerfDetails['ForecastMAPE'].min();
         # allow a loss of one point (0.01 of MAPE) if complexity is reduced.
-        self.mTrPerfDetails.sort_values(by=['ForecastMAPE', 'Complexity'] , inplace=True)
-        lInterestingModels = self.mTrPerfDetails[self.mTrPerfDetails['ForecastMAPE'] <= (lBestPerf + 0.01)].copy();
-        lInterestingModels.sort_values(by=['Complexity'] , inplace=True)        
-        lBestName = lInterestingModels.iloc[0]['Model'];
+        if(not np.isnan(lBestPerf)):
+            self.mTrPerfDetails.sort_values(by=['ForecastMAPE', 'Complexity'] , inplace=True)
+            lInterestingModels = self.mTrPerfDetails[self.mTrPerfDetails['ForecastMAPE'] <= (lBestPerf + 0.01)].reset_index();
+        else:
+            lInterestingModels = self.mTrPerfDetails;
+        lInterestingModels.sort_values(by=['Complexity'] , inplace=True)
+        # print(lInterestingModels.head());
+        lBestName = lInterestingModels['Model'].iloc[0];
         self.mBestModel = self.mPerfsByModel[lBestName][0];
 
     def train(self , iInputDS, iTime, iSignal, iHorizon, iExogenousData = None):
