@@ -85,9 +85,6 @@ exog/test_ozone_exogenous.py  :
  exog :  exog/test_ozone_exogenous.py exog/test_ozone_exogenous_profile.py exog/test_random_exogenous.py  
  
 
-#PROCESSING FILE :  tests/func/test_ozone_DHMS.py func/test_ozone_DHMS.py logs/func_test_ozone_DHMS.log
-func/test_ozone_DHMS.py  :  
-	 -ipython3 tests/func/test_ozone_DHMS.py  >  logs/func_test_ozone_DHMS.log  2>&1
 #PROCESSING FILE :  tests/func/test_cycle.py func/test_cycle.py logs/func_test_cycle.log
 func/test_cycle.py  :  
 	 -ipython3 tests/func/test_cycle.py  >  logs/func_test_cycle.log  2>&1
@@ -105,7 +102,7 @@ func/test_const_signal.py  :
 	 -ipython3 tests/func/test_const_signal.py  >  logs/func_test_const_signal.log  2>&1
 
 
- func :  func/test_const_signal.py func/test_air_passengers.py func/test_cycles_full.py func/test_ozone.py func/test_cycle.py func/test_ozone_DHMS.py  
+ func :  func/test_const_signal.py func/test_air_passengers.py func/test_cycles_full.py func/test_ozone.py func/test_cycle.py  
  
 
 #PROCESSING FILE :  tests/perf/test_perf1.py perf/test_perf1.py logs/perf_test_perf1.log
@@ -150,9 +147,23 @@ time_res/test_ozone_Hourly.py  :
  time_res :  time_res/test_ozone_Hourly.py time_res/test_ozone_Secondly.py time_res/test_ozone_Minutely.py time_res/test_ozone_Weekly.py time_res/test_ozone_Daily.py  
  
 
+#PROCESSING FILE :  tests/hierarchical/test_hier_prototyping_2.py hierarchical/test_hier_prototyping_2.py logs/hierarchical_test_hier_prototyping_2.log
+hierarchical/test_hier_prototyping_2.py  :  
+	 -ipython3 tests/hierarchical/test_hier_prototyping_2.py  >  logs/hierarchical_test_hier_prototyping_2.log  2>&1
+#PROCESSING FILE :  tests/hierarchical/test_hier_prototyping_1.py hierarchical/test_hier_prototyping_1.py logs/hierarchical_test_hier_prototyping_1.log
+hierarchical/test_hier_prototyping_1.py  :  
+	 -ipython3 tests/hierarchical/test_hier_prototyping_1.py  >  logs/hierarchical_test_hier_prototyping_1.log  2>&1
+#PROCESSING FILE :  tests/hierarchical/test_hier_prototyping_3.py hierarchical/test_hier_prototyping_3.py logs/hierarchical_test_hier_prototyping_3.log
+hierarchical/test_hier_prototyping_3.py  :  
+	 -ipython3 tests/hierarchical/test_hier_prototyping_3.py  >  logs/hierarchical_test_hier_prototyping_3.log  2>&1
+
+
+ hierarchical :  hierarchical/test_hier_prototyping_3.py hierarchical/test_hier_prototyping_1.py hierarchical/test_hier_prototyping_2.py  
+ 
+
 
 # ********************************************** 
 
-all:  bench codegen exog func perf real-life time_res 
+all:  bench codegen exog func perf real-life time_res hierarchical 
 	
 
