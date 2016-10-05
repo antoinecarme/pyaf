@@ -249,21 +249,18 @@ class cAutoRegressiveEstimator:
                 lHasARX = False;
                 if(self.mOptions.mEnableARModels or self.mOptions.mEnableARXModels):
                     if((self.mCycleFrame[cycle_residue].shape[0] > 12) and (self.mCycleFrame[cycle_residue].std() > 0.00001)):
-                        lLags = 1;
-                        for n in range(1, 10):
-                            lLags = lLags * 4;
-                            lValid = (lLags <= (self.mCycleFrame[cycle_residue].shape[0] / 4));
-                            lValid = lValid and (lLags <= self.mOptions.mMaxAROrder);
-                            if(lValid):
-                                if(self.mOptions.mEnableARModels):
-                                    lAR = cAutoRegressiveModel(cycle_residue, lLags);
-                                    self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lAR];
-                                if(self.mOptions.mEnableARXModels and
-                                   (self.mExogenousInfo is not None)):
-                                    lARX = cAutoRegressiveModel(cycle_residue, lLags,
-                                                                self.mExogenousInfo);
-                                    self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lARX];
-                                    lHasARX = True;
+                        lLags = self.mCycleFrame[cycle_residue].shape[0] // 4;
+                        if(lLags >= self.mOptions.mMaxAROrder):
+                            lLags = self.mOptions.mMaxAROrder;
+                        if(self.mOptions.mEnableARModels):
+                            lAR = cAutoRegressiveModel(cycle_residue, lLags);
+                            self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lAR];
+                        if(self.mOptions.mEnableARXModels and
+                           (self.mExogenousInfo is not None)):
+                            lARX = cAutoRegressiveModel(cycle_residue, lLags,
+                                                        self.mExogenousInfo);
+                            self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lARX];
+                            lHasARX = True;
 
         if(lHasARX):
             if(self.mOptions.mDebugProfile):
