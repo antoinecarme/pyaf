@@ -87,7 +87,7 @@ class cSignalDecompositionOneTransform:
         if(iExogenousData is not None):
             self.mExogenousInfo = tsexog.cExogenousInfo();
             self.mExogenousInfo.mExogenousData = iExogenousData;
-            self.mExogenousInfo.mDateVariable = self.mTime;
+            self.mExogenousInfo.mTimeInfo = self.mTimeInfo;
             self.mExogenousInfo.mOptions = self.mOptions;
         
         self.mTrendEstimator.mSignalFrame = self.mSignalFrame

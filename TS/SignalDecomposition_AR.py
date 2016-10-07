@@ -98,9 +98,9 @@ class cAutoRegressiveModel(cAbstractAR):
             self.addLagForForecast(df, lag_df, self.mCycleResidueName, p);
             # Exogenous variables lags
             if(self.mExogenousInfo is not None):
-                # print(self.mExogenousInfo.mExogenousDummies);
+                # print(self.mExogenousInfo.mEncodedExogenous);
                 # print(df.columns);
-                for ex in self.mExogenousInfo.mExogenousDummies:
+                for ex in self.mExogenousInfo.mEncodedExogenous:
                     self.addLagForForecast(df, lag_df, ex, p);
         return lag_df;
     
@@ -186,13 +186,13 @@ class cAutoRegressiveEstimator:
                 self.addLagForTraining(df, self.mARFrame, cycle_residue, autoreg, p);
                 # Exogenous variables lags
                 if(autoreg.mExogenousInfo is not None):
-                    # print(self.mExogenousInfo.mExogenousDummies);
+                    # print(self.mExogenousInfo.mEncodedExogenous);
                     # print(df.columns);
-                    for ex in self.mExogenousInfo.mExogenousDummies:
+                    for ex in self.mExogenousInfo.mEncodedExogenous:
                         self.addLagForTraining(df, self.mARFrame, ex, autoreg, p);
             # print("AUTOREG_DETAIL" , P , len(autoreg.mInputNames));
             if(autoreg.mExogenousInfo is not None):
-                assert((P + P*len(self.mExogenousInfo.mExogenousDummies)) == len(autoreg.mInputNames));
+                assert((P + P*len(self.mExogenousInfo.mEncodedExogenous)) == len(autoreg.mInputNames));
             else:
                 assert(P == len(autoreg.mInputNames));
 
@@ -265,7 +265,7 @@ class cAutoRegressiveEstimator:
         if(lHasARX):
             if(self.mOptions.mDebugProfile):
                 print("AR_MODEL_ADD_EXOGENOUS '" + str(self.mCycleFrame.shape[0]) +
-                      " " + str(len(self.mExogenousInfo.mExogenousDummies)));
+                      " " + str(len(self.mExogenousInfo.mEncodedExogenous)));
             self.mCycleFrame = self.mExogenousInfo.transformDataset(self.mCycleFrame);
         
         for cycle_residue in self.mARList.keys():
