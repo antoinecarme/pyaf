@@ -48,16 +48,6 @@ class cExogenousInfo:
         df = self.addVars(df);
         # print("AFTER_EXOG_TRANSFORM_DATASET" , df.shape, df.columns);
         return df;
-
-    def updateFutureEncodedExogenous(self, df):
-        for exog in self.mExogenousVariables:
-            lList = self.mExogenousVariableCategories[exog];
-            for lCat in lList:
-                lDummyName = "exog_dummy_" + exog + "=" + str(lCat);
-                lInputDS[lDummyName] = iInputDS[exog].apply(lambda x : 1 if (x == lCat) else 0);
-                lInputDS[lDummyName] = lInputDS[lDummyName].astype(np.dtype('i1'));
-        return df;
-
         
     def createEncodedExogenous(self):
         self.mExogDummiesDataFrame = pd.DataFrame();
@@ -86,8 +76,7 @@ class cExogenousInfo:
             if(self.mExogenousDataFrame[exog].dtype == np.object):
                 # use nan as a category
                 lVC = lEstimFrame[exog].value_counts(dropna = False);
-                # TODO : 5 categories. to be added in options.
-                NCat = 5;
+                NCat = self.mOptions.mMaxExogenousCategories;
                 lList = lVC.index[0:NCat].tolist();
                 print("most_frequent_categories_for" , exog, lList);
                 self.mExogenousVariableCategories[exog] = lList;
