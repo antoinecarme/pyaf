@@ -15,7 +15,10 @@ class cTimeSeriesDatasetSpec:
 
     def __init__(self):
         self.mSignalFrame = pd.DataFrame()
-
+        self.mExogenousDataFrame = None;
+        self.mExogenousVariables = None;
+        self.mHierarchy = None;
+        
     def getName(self):
         return self.mName;
 
@@ -636,3 +639,43 @@ def load_MWH_datsets() :
             tsspecs[ds].mCategory = "MWH"; 
 
     return tsspecs;
+
+
+def load_AU_hierarchical_dataset():
+    tsspec = cTimeSeriesDatasetSpec();
+    tsspec.mName = "Ozone"
+    tsspec.mDescription = "https://www.otexts.org/fpp/9/4"
+
+    trainfile = "data/Hierarchical/hts_dataset.csv";
+    lDateColumn = 'Date'
+
+    df_train = pd.read_csv(trainfile, sep=r',', engine='python', skiprows=0);
+    df_train[lDateColumn] = df_train[lDateColumn].apply(lambda x : datetime.datetime.strptime(x, "%Y-%m-%d"))
+    
+    tsspec.mTimeVar = lDateColumn;
+    tsspec.mSignalVar = None;
+    tsspec.mHorizon = 12;
+    tsspec.mPastData = df_train[:-tsspec.mHorizon];
+    tsspec.mFutureData = df_train.tail(tsspec.mHorizon);
+
+    rows_list = [];
+    # Sydney    NSW  Melbourne    VIC  BrisbaneGC    QLD  Capitals Other
+    rows_list.append(['Sydney' , 'NSW_State' , 'Australia']);
+    rows_list.append(['NSW' , 'NSW_State' , 'Australia']);
+    rows_list.append(['Melbourne' , 'VIC_State' , 'Australia']);
+    rows_list.append(['VIC' , 'VIC_State' , 'Australia']);
+    rows_list.append(['BrisbaneGC' , 'QLD_State' , 'Australia']);
+    rows_list.append(['QLD' , 'QLD_State' , 'Australia']);
+    rows_list.append(['Capitals' , 'Other_State' , 'Australia']);
+    rows_list.append(['Other' , 'Other_State' , 'Australia']);
+
+    lLevels = ['City' , 'State' , 'Country'];
+    lHierarchy = {};
+    lHierarchy['Levels'] = lLevels;
+    lHierarchy['Data'] = pd.DataFrame(rows_list, columns =  lLevels);
+    
+    print(lHierarchy['Data'].head(lHierarchy['Data'].shape[0]));
+
+    tsspec.mHierarchy = lHierarchy;
+    
+    return tsspec
