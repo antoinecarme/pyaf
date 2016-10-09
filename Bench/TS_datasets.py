@@ -673,9 +673,45 @@ def load_AU_hierarchical_dataset():
     lHierarchy = {};
     lHierarchy['Levels'] = lLevels;
     lHierarchy['Data'] = pd.DataFrame(rows_list, columns =  lLevels);
+    lHierarchy['Type'] = "Hierarchical";
     
     print(lHierarchy['Data'].head(lHierarchy['Data'].shape[0]));
 
+    tsspec.mHierarchy = lHierarchy;
+    
+    return tsspec
+
+
+
+def load_AU_infant_grouped_dataset():
+    tsspec = cTimeSeriesDatasetSpec();
+    tsspec.mName = "Ozone"
+    tsspec.mDescription = "https://cran.r-project.org/web/packages/hts/hts.pdf";
+    
+    trainfile = "data/Hierarchical/infant_gts.csv";
+    lDateColumn = 'Index'
+
+    df_train = pd.read_csv(trainfile, sep=r',', engine='python', skiprows=0);
+    # df_train[lDateColumn] = df_train[lDateColumn].apply(lambda x : datetime.datetime.strptime(x, "%Y-%m-%d"))
+    
+    tsspec.mTimeVar = lDateColumn;
+    tsspec.mSignalVar = None;
+    tsspec.mHorizon = 12;
+    tsspec.mPastData = df_train[:-tsspec.mHorizon];
+    tsspec.mFutureData = df_train.tail(tsspec.mHorizon);
+
+    lGroups = {};
+    lGroups["State"] = ["NSW","VIC","QLD","SA","WA","NT","ACT","TAS"];
+    lGroups["Gender"] = ["female","male"];
+    # lGroups["Gender1"] = ["femme","homme"];
+    # lGroups["age"] = ["1", "2","3"];
+    lHierarchy = {};
+    lHierarchy['Levels'] = None;
+    lHierarchy['Data'] = None;
+    lHierarchy['Groups']= lGroups;
+    lHierarchy['GroupOrder']= ["State" , "Gender"];
+    lHierarchy['Type'] = "Grouped";
+    
     tsspec.mHierarchy = lHierarchy;
     
     return tsspec
