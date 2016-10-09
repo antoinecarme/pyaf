@@ -42,7 +42,7 @@ class cTimeSeriesModel:
         lCycleColumn = self.mCycle.mCycleFrame[self.mCycle.mOutName]
         lARColumn = self.mAR.mARFrame[self.mAR.mOutName]
         lPrefix = self.mSignal + "_";
-        self.mModelFrame[lPrefix + 'OriginalSignal'] = self.mTrend.mSignalFrame[self.mOriginalSignal]
+        self.mModelFrame[self.mOriginalSignal] = self.mTrend.mSignalFrame[self.mOriginalSignal]
         self.mModelFrame[lPrefix + 'Trend'] =  lTrendColumn;
         self.mModelFrame[lPrefix + 'Trend_residue'] =  lSignal - lTrendColumn;
         self.mModelFrame[lPrefix + 'Cycle'] =  lCycleColumn;
@@ -56,17 +56,19 @@ class cTimeSeriesModel:
         lForecastPerf = tsperf.cPerf();
         lTestPerf = tsperf.cPerf();
         (lFrameFit, lFrameForecast, lFrameTest) = self.mTrend.mTimeInfo.cutFrame(self.mModelFrame);
-        lFitPerf.compute(lFrameFit[lPrefix + 'OriginalSignal'] , lFrameFit[lPrefix + 'OriginalModel'] , 'OriginalModel')
-        lForecastPerf.compute(lFrameForecast[lPrefix + 'OriginalSignal'] , lFrameForecast[lPrefix + 'OriginalModel'], 'OriginalModel')
-        lTestPerf.compute(lFrameTest[lPrefix + 'OriginalSignal'] , lFrameTest[lPrefix + 'OriginalModel'], 'OriginalModel')
+        lFitPerf.compute(lFrameFit[self.mOriginalSignal] , lFrameFit[lPrefix + 'OriginalModel'] , 'OriginalModel')
+        lForecastPerf.compute(lFrameForecast[self.mOriginalSignal] , lFrameForecast[lPrefix + 'OriginalModel'], 'OriginalModel')
+        lTestPerf.compute(lFrameTest[self.mOriginalSignal] , lFrameTest[lPrefix + 'OriginalModel'], 'OriginalModel')
         self.mFitPerf = lFitPerf
         self.mForecastPerf = lForecastPerf;
         self.mTestPerf = lTestPerf;
+        # print("PERF_COMPUTATION" , self.mOutName, self.mFitPerf.mMAPE);
+        self.computePredictionIntervals();
         
     def computePredictionIntervals(self):
         # prediction intervals
         self.mPredictionIntervalsEstimator = predint.cPredictionIntervalsEstimator();
-        self.mPredictionIntervalsEstimator.mSignalFrame = self.mTrend.mSignalFrame;
+        self.mPredictionIntervalsEstimator.mSignalFrame = self.mTrend.mSignalFrame.copy();
         self.mPredictionIntervalsEstimator.mTime = self.mTime;
         self.mPredictionIntervalsEstimator.mSignal = self.mOriginalSignal;
         self.mPredictionIntervalsEstimator.mHorizon = self.mTimeInfo.mHorizon;
