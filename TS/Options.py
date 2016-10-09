@@ -4,7 +4,8 @@ import numpy as np
 class cSignalDecomposition_Options:
     
     def __init__(self):
-        self.mParallelMode = False;
+        self.mParallelMode = True;
+        self.mNbCores = 8;
         self.mEnablePlots = False;
         self.mEstimRatio = 0.8;
         self.enable_fast_mode();
@@ -19,6 +20,7 @@ class cSignalDecomposition_Options:
         self.mEnableCycles = True;
         self.mEnableARModels = True;
         self.mEnableARXModels = True;
+        self.mMaxFeatrureForAutoreg = 1000;
         self.disableDebuggingOptions();
 
     def disableDebuggingOptions(self):
