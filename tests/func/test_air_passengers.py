@@ -16,7 +16,7 @@ lEngine = autof.cForecastEngine()
 lEngine
 
 H = b1.mHorizon;
-# lEngine.mOptions.enable_slow_mode();
+lEngine.mOptions.enable_slow_mode();
 lEngine.mOptions.mDebugPerformance = True;
 lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H);
 lEngine.getModelInfo();
