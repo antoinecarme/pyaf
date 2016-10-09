@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import datetime
 import sys
+import traceback
 
 import multiprocessing as mp
 
@@ -22,6 +23,26 @@ from . import Options as tsopts
 from . import TimeSeriesModel as tsmodel
 
 from sklearn.externals import joblib
+
+
+class cPerf_Arg:
+    def __init__(self , name):
+        self.mName = name;
+        self.mModel = None;
+        self.mResult = None;
+
+def compute_perf_func(arg):
+    try:
+        arg.mModel.updatePerfs();
+        return arg;
+    except Exception as e:
+        print("FAILURE_WITH_EXCEPTION : " , str(e)[:200]);
+        print("BENCHMARKING_FAILURE '" + arg.mName + "'");
+        traceback.print_exc()
+        raise;
+    except:
+        print("BENCHMARK_FAILURE '" + arg.mName + "'");
+        raise
 
 class cSignalDecompositionOneTransform:
         
@@ -101,37 +122,66 @@ class cSignalDecompositionOneTransform:
         self.mAREstimator.mExogenousInfo = self.mExogenousInfo;
         self.mAREstimator.mOptions = self.mOptions;
 
+    def computePerfsInParallel(self, args):
+        lModels = {};
+        pool = mp.Pool(self.mOptions.mNbCores)
+        for res in pool.imap(compute_perf_func, args):
+            print("FINISHED_PERF_FOR_MODEL" , res.mName);
+            lModels[res.mName] = res.mModel;
+        return lModels;
+            
 
-    def collectPerformanceIndices(self) :
+    def updatePerfsForAllModels(self):
         self.mPerfsByModel = {}
-        rows_list = [];
-        self.mFitPerf = {}
-        self.mForecastPerf = {}
-        self.mTestPerf = {}
+        args = [];
         for trend in self.mAREstimator.mTrendList:
             for cycle in self.mAREstimator.mCycleList[trend]:
                 cycle_residue = cycle.getCycleResidueName();
                 for autoreg in self.mAREstimator.mARList[cycle_residue]:
                     lModel = tsmodel.cTimeSeriesModel(self.mTransformation, trend, cycle, autoreg);
-                    lModel.updatePerfs();
-                    lComplexity = lModel.getComplexity();
-                    lFitPerf = lModel.mFitPerf;
-                    lForecastPerf = lModel.mForecastPerf;
-                    lTestPerf = lModel.mTestPerf;
-                    self.mPerfsByModel[lModel.mOutName] = [lModel, lComplexity, lFitPerf , lForecastPerf, lTestPerf];
-                    row = [lModel.mOutName , lComplexity,
-                           lFitPerf.mCount, lFitPerf.mL2, lFitPerf.mMAPE,
-                           lForecastPerf.mCount, lForecastPerf.mL2, lForecastPerf.mMAPE,
-                           lTestPerf.mCount, lTestPerf.mL2, lTestPerf.mMAPE]
-                    rows_list.append(row);
-                    if(self.mOptions.mDebugPerformance):
-                        print("collectPerformanceIndices : " , row[0] , " ", row[1] , " " , row[7]);
+                    arg = cPerf_Arg(lModel.mOutName);
+                    arg.mModel = lModel;
+                    args.append(arg);
+
+        lModels = self.computePerfsInParallel(args);
+                    
+        for (name, model) in lModels.items():
+            # print(name, model.__dict__);
+            lComplexity = model.getComplexity();
+            lFitPerf = model.mFitPerf;
+            lForecastPerf = model.mForecastPerf;
+            lTestPerf = model.mTestPerf;
+            self.mPerfsByModel[model.mOutName] = [model, lComplexity, lFitPerf , lForecastPerf, lTestPerf];
+        return lModels;
+
+    def collectPerformanceIndices(self) :
+        rows_list = [];
+        self.mFitPerf = {}
+        self.mForecastPerf = {}
+        self.mTestPerf = {}
+        
+        lModels = self.updatePerfsForAllModels();
+        for name in self.mPerfsByModel.keys():
+            lModel = self.mPerfsByModel[name][0];
+            lComplexity = self.mPerfsByModel[name][1];
+            lFitPerf = self.mPerfsByModel[name][2];
+            lForecastPerf = self.mPerfsByModel[name][3];
+            lTestPerf = self.mPerfsByModel[name][4];
+            row = [lModel.mOutName , lComplexity,
+                   lFitPerf.mCount, lFitPerf.mL2, lFitPerf.mMAPE,
+                   lForecastPerf.mCount, lForecastPerf.mL2, lForecastPerf.mMAPE,
+                   lTestPerf.mCount, lTestPerf.mL2, lTestPerf.mMAPE]
+            rows_list.append(row);
+            if(self.mOptions.mDebugPerformance):
+                print("collectPerformanceIndices : " , row[0] , " ", row[1] , " " , row[7]);
+                
         self.mPerfDetails = pd.DataFrame(rows_list, columns=
                                          ('Model', 'Complexity',
                                           'FitCount', 'FitL2', 'FitMAPE',
                                           'ForecastCount', 'ForecastL2', 'ForecastMAPE',
                                           'TestCount', 'TestL2', 'TestMAPE')) 
         self.mPerfDetails.sort_values(by=['ForecastMAPE' , 'Complexity'] , inplace=True);
+        print(self.mPerfDetails.head());
         lBestName = self.mPerfDetails.iloc[0]['Model'];
         self.mBestModel = self.mPerfsByModel[lBestName][0];
         return self.mBestModel;
@@ -140,6 +190,7 @@ class cSignalDecompositionOneTransform:
     
     def train(self , iInputDS, iTime, iSignal,
               iHorizon, iTransformation):
+        start_time = time.time()
         self.setParams(iInputDS, iTime, iSignal, iHorizon, iTransformation, self.mExogenousData);
         # estimate time info
         # assert(self.mTimeInfo.mSignalFrame.shape[0] == iInputDS.shape[0])
@@ -149,34 +200,54 @@ class cSignalDecompositionOneTransform:
         if(self.mOptions.mEnablePlots):    
             self.plotSignal()
 
+        exog_start_time = time.time()
         if(self.mExogenousInfo is not None):
             self.mExogenousInfo.fit();
+        print("EXOGENOUS_ENCODING_TIME_IN_SECONDS " + self.mSignal + " " + str(time.time() - exog_start_time))
+
         # estimate the trend
+        trend_start_time = time.time()
         self.mTrendEstimator.estimateTrend();
         #self.mTrendEstimator.plotTrend();
+        print("TREND_TIME_IN_SECONDS "  + self.mSignal + " " + str(time.time() - trend_start_time))
+
         # estimate cycles
+        cycle_start_time = time.time()
         self.mCycleEstimator.mTrendFrame = self.mTrendEstimator.mTrendFrame;
         self.mCycleEstimator.mTrendList = self.mTrendEstimator.mTrendList;
         self.mCycleEstimator.estimateAllCycles();
         # if(self.mOptions.mDebugCycles):
             # self.mCycleEstimator.plotCycles();
+        print("CYCLE_TIME_IN_SECONDS "  + self.mSignal + " " + str( str(time.time() - cycle_start_time)))
+
         # autoregressive
+        ar_start_time = time.time()
         self.mAREstimator.mCycleFrame = self.mCycleEstimator.mCycleFrame;
         self.mAREstimator.mTrendList = self.mCycleEstimator.mTrendList;
         self.mAREstimator.mCycleList = self.mCycleEstimator.mCycleList;
         self.mAREstimator.estimate();
         #self.mAREstimator.plotAR();
+        print("AUTOREG_TIME_IN_SECONDS " + self.mSignal + " " + str( str(time.time() - ar_start_time)))
         # forecast perfs
-        self.collectPerformanceIndices()        
+        print("TRAINING_TIME_IN_SECONDS "  + self.mSignal + " " + str(time.time() - start_time))
         
 
 
+class cTraining_Arg:
+    def __init__(self , name):
+        self.mName = name;
+        self.mInputDS = None;
+        self.mTime = None;
+        self.mSignal = None;
+        self.mHorizon = None;
+        self.mTransformation = None;
+        self.mSigDec = None;
+        self.mResult = None;
 
-def run_transform_thread(iInputDS, iTime, iSignal, iHorizon, transform1, iOptions, iExogenousData):
-    sigdec = cSignalDecompositionOneTransform();
-    sigdec.mOptions = iOptions;
-    sigdec.mExogenousData = iExogenousData;
-    sigdec.train(iInputDS, iTime, iSignal, iHorizon, transform1);    
+
+def run_transform_thread(arg):
+    arg.mSigDec.train(arg.mInputDS, arg.mTime, arg.mSignal, arg.mHorizon, arg.mTransformation);
+    return arg;
 
 class cSignalDecomposition:
         
@@ -237,14 +308,29 @@ class cSignalDecomposition:
             t.join()
         
     def train_multiprocessed(self , iInputDS, iTime, iSignal, iHorizon):
-        pool = mp.Pool()
-        self.defineTransformations();
+        pool = mp.Pool(self.mOptions.mNbCores)
+        self.defineTransformations(iInputDS);
+        args = [];
         for transform1 in self.mTransformList:
-            args = (iInputDS, iTime, iSignal, iHorizon,
-                    transform1, self.mOptions, self.mExogenousData);
-            asyncResult = pool.map_async(run_transform_thread, args);
-
-        resultList = asyncResult.get()
+            arg = cTraining_Arg(transform1.get_name(""));
+            arg.mSigDec = cSignalDecompositionOneTransform();
+            arg.mSigDec.mOptions = self.mOptions;
+            arg.mSigDec.mExogenousData = self.mExogenousData;
+            arg.mInputDS = iInputDS;
+            arg.mTime = iTime;
+            arg.mSignal = iSignal;
+            arg.mHorizon = iHorizon;
+            arg.mTransformation = transform1;
+            arg.mOptions = self.mOptions;
+            arg.mExogenousData = self.mExogenousData;
+            arg.mResult = None;
+            
+            args.append(arg);
+            
+        for res in pool.imap(run_transform_thread, args):
+            print("FINISHED_TRAINING" , res.mName);
+            self.mSigDecByTransform[res.mTransformation.get_name("")] = res.mSigDec;
+        
 	
         
     def train_not_threaded(self , iInputDS, iTime, iSignal, iHorizon):
@@ -309,10 +395,14 @@ class cSignalDecomposition:
         else:
             self.train_not_threaded(iInputDS, iTime, iSignal, iHorizon);
     
+
+        for (name, sigdec) in self.mSigDecByTransform.items():
+            sigdec.collectPerformanceIndices();        
+
         self.collectPerformanceIndices();
 
         # Prediction Intervals
-        self.mBestModel.computePredictionIntervals();
+        # self.mBestModel.computePredictionIntervals();
 
         if(self.mOptions.mEnablePlots):    
             self.mBestModel.plotForecasts();
