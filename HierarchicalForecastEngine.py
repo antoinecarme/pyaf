@@ -7,6 +7,7 @@ from .TS import Options as tsopts
 from .TS import Perf as tsperf
 from .TS import Utils as tsutil
 from .TS import SignalHierarchy as sighier
+from .TS import Signal_Grouping as siggroup
 
 from .CodeGen import TS_CodeGen_Objects as tscodegen
 
@@ -59,7 +60,11 @@ class cHierarchicalForecastEngine:
 
 
     def train_HierarchicalModel(self , iInputDS, iTime, iSignal, iHorizon, iHierarchy, iExogenousData = None):
-        self.mSignalHierarchy = sighier.cSignalHierarchy();
+        if(iHierarchy['Type'] == "Grouped"):
+            self.mSignalHierarchy = siggroup.cSignalGrouping();
+        else:
+            self.mSignalHierarchy = sighier.cSignalHierarchy();
+            
         self.mSignalHierarchy.mHierarchy = iHierarchy;
         self.mSignalHierarchy.mDateColumn = iTime;
         self.mSignalHierarchy.mHorizon = iHorizon;
