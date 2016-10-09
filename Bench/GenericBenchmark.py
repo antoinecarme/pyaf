@@ -114,6 +114,7 @@ class cGeneric_OneSignal_Tester:
     def trainModel(self, iSignal, iHorizon):
         df = self.mTrainDataset[iSignal  + "_" + str(iHorizon)];
         lAutoF1 = autof.cForecastEngine();
+        lAutoF1.mOptions.mParallelMode = False;
         self.mAutoForecastBySignal[iSignal  + "_" + str(iHorizon)] = lAutoF1
         lAutoF1.train(df , 'Date' , iSignal, iHorizon)
         self.reportModelInfo(lAutoF1);
@@ -224,6 +225,7 @@ class cGeneric_OneSignal_Tester:
         df['Date'] = lApplyOut['Date'];
         df[lNewSignal] = lSignal;
         lAutoF1 = autof.cForecastEngine();
+        lAutoF1.mOptions.mParallelMode = False;
         lAutoF1.train(df , 'Date' , lNewSignal, iHorizon)
         self.reportModelInfo(lAutoF1);
 
