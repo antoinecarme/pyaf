@@ -27,6 +27,10 @@ class cPredictionIntervalsEstimator:
             df2 = None;
             df2 = self.mModel.forecastOneStepAhead(df1.copy());
             df2 = df2.head(N);
+            lNullCount = df2.isnull().sum().sum();
+            if(lNullCount):
+                print(df2.tail(self.mHorizon * 2));                
+            assert(lNullCount == 0);
             # print(df1.info());
             # print(df2.info());
             # print(df1[[lTimeColumn, lSignalColumn]].head());
