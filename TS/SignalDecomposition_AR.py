@@ -6,11 +6,9 @@ from . import Time as tsti
 from . import Perf as tsperf
 from . import Plots as tsplot
 
-import sklearn as skl
-import sklearn.preprocessing as preprocessing
 import sklearn.linear_model as linear_model
-from sklearn.feature_selection import RFE
-from sklearn.linear_model import LinearRegression
+from sklearn.feature_selection import SelectKBest
+from sklearn.feature_selection import f_regression
 
 # for timing
 import time
@@ -118,9 +116,16 @@ class cAutoRegressiveModel(cAbstractAR):
         # print("mAREstimFrame columns :" , self.mAREstimFrame.columns);
         lARInputs = lAREstimFrame[self.mInputNames].values
         lARTarget = lAREstimFrame[series].values
-        self.mARRidge.fit(lARInputs, lARTarget)
+        lMaxFeatures = self.mOptions.mMaxFeatrureForAutoreg;
+        if(lMaxFeatures >= lARInputs.shape[1]):
+            lMaxFeatures = lARInputs.shape[1];
+        self.mFeatureSelector =  SelectKBest(f_regression, k= lMaxFeatures);
+        self.mFeatureSelector.fit(lARInputs, lARTarget);
+        lARInputsAfterSelection =  self.mFeatureSelector.transform(lARInputs);
+        print("FEATURE_SELECTION" , self.mOutName, lARInputs.shape[1] , lARInputsAfterSelection.shape[1]);
+        self.mARRidge.fit(lARInputsAfterSelection, lARTarget)
         
-        lARInputsFull = self.mARFrame[self.mInputNames].values
+        lARInputsFull = self.mFeatureSelector.transform(self.mARFrame[self.mInputNames].values)
         self.mARFrame[self.mOutName] = self.mARRidge.predict(lARInputsFull)
         self.mARFrame[self.mOutName + '_residue'] =  self.mARFrame[series] - self.mARFrame[self.mOutName]
 
@@ -134,7 +139,8 @@ class cAutoRegressiveModel(cAbstractAR):
         # print(self.mFormula, "\n", lag_df.columns);
         # lag_df.to_csv("LAGGED_ " + str(self.mNbLags) + ".csv");
         inputs = lag_df[self.mInputNames].values
-        pred = self.mARRidge.predict(inputs)
+        inputs_after_feat_selection = self.mFeatureSelector.transform(inputs);
+        pred = self.mARRidge.predict(inputs_after_feat_selection)
         df[self.mOutName] = pred;
         target = df[series].values
         df[self.mOutName + '_residue'] = target - df[self.mOutName].values        
@@ -178,6 +184,7 @@ class cAutoRegressiveEstimator:
         return lag_df;
 
     def addLagsForTraining(self, df, cycle_residue, iHasARX = False):
+        add_lag_start_time = time.time()
         for autoreg in self.mARList[cycle_residue]:
             autoreg.mInputNames = [];
             P = autoreg.mNbLags;
@@ -195,6 +202,9 @@ class cAutoRegressiveEstimator:
                 assert((P + P*len(self.mExogenousInfo.mEncodedExogenous)) == len(autoreg.mInputNames));
             else:
                 assert(P == len(autoreg.mInputNames));
+        print("LAG_TIME_IN_SECONDS " + self.mTimeInfo.mSignal + " " +
+              str(len(self.mARFrame.columns)) + " " +
+              str(time.time() - add_lag_start_time))
 
     def estimate_ar_models_for_cycle(self, cycle_residue):
         self.mARFrame = pd.DataFrame();
