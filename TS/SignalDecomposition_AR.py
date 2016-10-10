@@ -2,13 +2,12 @@ import pandas as pd
 import numpy as np
 import datetime
 
+# from memory_profiler import profile
+
 from . import Time as tsti
 from . import Perf as tsperf
 from . import Plots as tsplot
 
-import sklearn.linear_model as linear_model
-from sklearn.feature_selection import SelectKBest
-from sklearn.feature_selection import f_regression
 
 # for timing
 import time
@@ -67,7 +66,6 @@ class cZeroAR(cAbstractAR):
 class cAutoRegressiveModel(cAbstractAR):
     def __init__(self , cycle_residue_name, P, iExogenousInfo = None ):
         super().__init__(cycle_residue_name)
-        self.mARRidge = linear_model.Ridge()
         self.mNbLags = P;
         self.mExogenousInfo = iExogenousInfo;
         self.mDefaultValues = {};
@@ -103,6 +101,11 @@ class cAutoRegressiveModel(cAbstractAR):
         return lag_df;
     
     def fit(self):
+        import sklearn.linear_model as linear_model
+        from sklearn.feature_selection import SelectKBest
+        from sklearn.feature_selection import f_regression
+        self.mARRidge = linear_model.Ridge()
+
         series = self.mCycleResidueName; 
         self.mTime = self.mTimeInfo.mTime;
         self.mSignal = self.mTimeInfo.mSignal;
@@ -122,7 +125,7 @@ class cAutoRegressiveModel(cAbstractAR):
         self.mFeatureSelector =  SelectKBest(f_regression, k= lMaxFeatures);
         self.mFeatureSelector.fit(lARInputs, lARTarget);
         lARInputsAfterSelection =  self.mFeatureSelector.transform(lARInputs);
-        print("FEATURE_SELECTION" , self.mOutName, lARInputs.shape[1] , lARInputsAfterSelection.shape[1]);
+        # print("FEATURE_SELECTION" , self.mOutName, lARInputs.shape[1] , lARInputsAfterSelection.shape[1]);
         self.mARRidge.fit(lARInputsAfterSelection, lARTarget)
         
         lARInputsFull = self.mFeatureSelector.transform(self.mARFrame[self.mInputNames].values)
@@ -202,10 +205,12 @@ class cAutoRegressiveEstimator:
                 assert((P + P*len(self.mExogenousInfo.mEncodedExogenous)) == len(autoreg.mInputNames));
             else:
                 assert(P == len(autoreg.mInputNames));
-        print("LAG_TIME_IN_SECONDS " + self.mTimeInfo.mSignal + " " +
-              str(len(self.mARFrame.columns)) + " " +
-              str(time.time() - add_lag_start_time))
+        if(self.mOptions.mDebugProfile):
+            print("LAG_TIME_IN_SECONDS " + self.mTimeInfo.mSignal + " " +
+                  str(len(self.mARFrame.columns)) + " " +
+                  str(time.time() - add_lag_start_time))
 
+    # @profile
     def estimate_ar_models_for_cycle(self, cycle_residue):
         self.mARFrame = pd.DataFrame();
         self.mTimeInfo.addVars(self.mARFrame);
@@ -249,7 +254,7 @@ class cAutoRegressiveEstimator:
                       autoreg.mOutName + "' " + str(self.mCycleFrame.shape[0]) +
                       " " +  str(len(autoreg.mInputNames)) + " " + str(lTrainingTime));
         
-
+    # @profile
     def estimate(self):
         mARList = {}
         for trend in self.mTrendList:
@@ -281,3 +286,4 @@ class cAutoRegressiveEstimator:
         for cycle_residue in self.mARList.keys():
             self.estimate_ar_models_for_cycle(cycle_residue);
             self.mARFrame = pd.DataFrame();
+            # del [self.mARFrame];
