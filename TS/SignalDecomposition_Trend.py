@@ -207,15 +207,10 @@ class cLinearTrend(cAbstractTrend):
         self.mTrendFrame[self.mOutName] = self.mTrendRidge.predict(inputs)
         self.mTrendFrame[self.mOutName + '_residue'] =  target - self.mTrendFrame[self.mOutName].values
 
-    def predict_inputs(self, inputs):
-        df = pd.DataFrame([inputs])
-        pred = self.mTrendRidge.predict(df.values)
-        return pred
 
     def transformDataset(self, df):
         target = df[self.mSignal].values
         inputs = df[[self.mTimeInfo.mNormalizedTimeColumn]].values
-        #        df[self.mOutName] = df[self.mTimeInfo.mNormalizedTimeColumn].apply(self.predict_inputs);
         df[self.mOutName] = self.mTrendRidge.predict(inputs)
         df[self.mOutName + '_residue'] = target - df[self.mOutName].values        
         return df;
