@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 import datetime
-from scipy.stats import pearsonr 
 
 from . import Utils as tsutil
 
@@ -95,6 +94,8 @@ class cPerf:
         self.mCount = signal.shape[0];
         self.mR2 = self.compute_R2(signal, estimator)
         self.mPearsonR = 0.0;
+        
+        from scipy.stats import pearsonr 
         if((signal_std > 0.0) and (estimator_std > 0.0)):
             (r , pval) = pearsonr(signal , estimator)
             self.mPearsonR = r;
@@ -122,6 +123,7 @@ class cPerf:
             self.mR2 = self.compute_R2(signal, estimator)
             return self.mR2;
         if(criterion == "PEARSONR"):
+            from scipy.stats import pearsonr 
             (self.mPearsonR , pval) = pearsonr(signal1 , estimator1)
             return self.mPearsonR;
         if(criterion == "MAE"):
