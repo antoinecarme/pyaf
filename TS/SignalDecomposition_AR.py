@@ -28,6 +28,9 @@ class cAbstractAR:
         tsplot.decomp_plot(self.mARFrame, self.mTimeInfo.mNormalizedTimeColumn,
                            self.mCycleResidueName, self.mOutName , self.mOutName + '_residue');
 
+    def dumpCoefficients(self):
+        pass
+
     def computePerf(self):
         self.mARFitPerf= tsperf.cPerf();
         self.mARForecastPerf= tsperf.cPerf();
@@ -99,6 +102,14 @@ class cAutoRegressiveModel(cAbstractAR):
                 for ex in self.mExogenousInfo.mEncodedExogenous:
                     self.addLagForForecast(df, lag_df, ex, p);
         return lag_df;
+
+    def dumpCoefficients(self):
+        lDict = dict(zip(self.mInputNames , self.mARRidge.coef_));
+        i = 1;
+        for k in sorted(lDict.keys()):
+            print("AR_MODEL_COEFF" , i, k , lDict[k]);
+            i = i + 1;
+
     
     def fit(self):
         import sklearn.linear_model as linear_model
