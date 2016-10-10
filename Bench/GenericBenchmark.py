@@ -38,13 +38,14 @@ def run_bench_process(a):
         tester.mTestCodeGeneration = False;
         tester.testSignal(a.mSignal, a.mHorizon)
         print("BENCHMARK_SUCCESS '" + a.getName() + "'");
-        del tester;
         logfile.close();
         # print("BENCHMARK_SUCCESS '" + a.getName() + "'");
+        a.mResult = tester;
+        return a;
     except cBenchmarkError as error:
         print("BENCHMARKING_ERROR '" + a.getName() + "'");
         logger.error(error)
-        pass;
+        return a;
     except:
         print("BENCHMARK_FAILURE '" + a.getName() + "'");
         logfile.close();
@@ -56,7 +57,8 @@ class cGeneric_Tester_Arg:
         self.mSignal = sig;
         self.mTSSpec = tsspec;
         self.mHorizon = horizon
-
+        self.mResult = None;
+        
     def getName(self):
         return self.mBenchName + "_" + self.mSignal + "_" + str(self.mHorizon);
 
@@ -122,10 +124,10 @@ class cGeneric_OneSignal_Tester:
 
     def computeModelPerfOnTraining(self, iModel):
         lPerfData = pd.DataFrame()
-        self.mTrainPerfData[iSignal] = lPerfData;
         lPerfData = lPerfData.append(iModel.mSignalDecomposition.mTrPerfDetails)
         lPerfData.reset_index(inplace = True)
         #lPerfData.plot.line('level_0', 'ForecastMAPE')
+        self.mTrainPerfData[iSignal] = lPerfData;
 
     def trainSignal(self, iSignal, iHorizon):
         self.getTrainingDataset(iSignal, iHorizon);
@@ -175,6 +177,17 @@ class cGeneric_OneSignal_Tester:
         lForecastPerf = lAutoF1.computePerf(self.mActual, self.mPredicted, self.mBenchName + "_" + self.mTSSpec.mName + "_" + iSignal );
         self.mTestPerfData[iSignal  + "_" + str(iHorizon)] = lForecastPerf;
 
+
+    def summary(self):
+        str1 = "";
+        for k in self.mTestPerfData.keys():
+            lAutoF1 = self.mAutoForecastBySignal[k]
+            lModelFormula = lAutoF1.mSignalDecomposition.mBestModel.getFormula();
+            N  = self.mTrainDataset[k].shape[0]
+            lPerf = self.mTestPerfData[k];
+            str1 = str(k) + " " + str(N) + " '" + lModelFormula + "' ";
+            str1 = str1 + str(lPerf.mCount) + " " + str(lPerf.mL2) + " " +  str(lPerf.mMAPE) + "\n";            
+        return str1;
 
     def generateCode(self, iSignal, iHorizon):
         lAutoF = self.mAutoForecastBySignal[iSignal  + "_" + str(iHorizon)]
@@ -288,9 +301,16 @@ class cGeneric_Tester:
         for sig in self.mTSSpecPerSignal.keys():
             a = cGeneric_Tester_Arg(self.mBenchName, self.mTSSpecPerSignal[sig], sig , 2);
             args = args + [a];
-                
-        asyncResult = pool.map_async(run_bench_process, args);
-            
-        resultList = asyncResult.get()
 
+        lResults = {};
+        i = 1;
+        for res in pool.imap(run_bench_process, args):
+            print("FINISHED_BENCH_FOR_SIGNAL" , res.mSignal , i , "/" , len(args));
+            lResults[res.mSignal] = res.mResult;
+            i = i + 1;
+        
+        pool.close()
+        pool.join()
 
+        for (name, tester) in lResults.items():
+            print("BENCH_RESULT_DETAIL" , name, tester.summary());
