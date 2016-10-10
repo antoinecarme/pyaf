@@ -59,7 +59,7 @@ class cExogenousInfo:
             if(lList is not None):
                 for lCat in lList:
                     lDummyName = "exog_dummy_" + exog + "=" + str(lCat);
-                    self.mEncodedExogenousDataFrame[lDummyName] = self.mExogenousDataFrame[exog].apply(lambda x : 1 if (x == lCat) else 0);
+                    self.mEncodedExogenousDataFrame[lDummyName] = np.where(self.mExogenousDataFrame[exog] == lCat , 1, 0);
                     self.mEncodedExogenous = self.mEncodedExogenous + [lDummyName];
             else:
                 lExogStats = self.mContExogenousStats[exog];
