@@ -4,6 +4,8 @@ import datetime
 import sys
 import traceback
 
+# from memory_profiler import profile
+
 import multiprocessing as mp
 
 # for timing
@@ -126,8 +128,11 @@ class cSignalDecompositionOneTransform:
         lModels = {};
         pool = mp.Pool(self.mOptions.mNbCores)
         for res in pool.imap(compute_perf_func, args):
-            print("FINISHED_PERF_FOR_MODEL" , res.mName);
+            # print("FINISHED_PERF_FOR_MODEL" , res.mName);
             lModels[res.mName] = res.mModel;
+        
+        pool.close()
+        pool.join()
         return lModels;
             
 
@@ -143,8 +148,15 @@ class cSignalDecompositionOneTransform:
                     arg.mModel = lModel;
                     args.append(arg);
 
-        lModels = self.computePerfsInParallel(args);
-                    
+        lModels = {};
+        if(self.mOptions.mParallelMode):
+            lModels = self.computePerfsInParallel(args);
+        else:
+            for arg in args:
+                arg.mModel.updatePerfs();
+                lModels[arg.mModel.mOutName] = arg.mModel;
+                
+            
         for (name, model) in lModels.items():
             # print(name, model.__dict__);
             lComplexity = model.getComplexity();
@@ -181,13 +193,15 @@ class cSignalDecompositionOneTransform:
                                           'ForecastCount', 'ForecastL2', 'ForecastMAPE',
                                           'TestCount', 'TestL2', 'TestMAPE')) 
         self.mPerfDetails.sort_values(by=['ForecastMAPE' , 'Complexity'] , inplace=True);
-        print(self.mPerfDetails.head());
+        # print(self.mPerfDetails.head());
         lBestName = self.mPerfDetails.iloc[0]['Model'];
         self.mBestModel = self.mPerfsByModel[lBestName][0];
         return self.mBestModel;
     
 
     
+
+    # @profile
     def train(self , iInputDS, iTime, iSignal,
               iHorizon, iTransformation):
         start_time = time.time()
@@ -196,7 +210,7 @@ class cSignalDecompositionOneTransform:
         # assert(self.mTimeInfo.mSignalFrame.shape[0] == iInputDS.shape[0])
         self.mTimeInfo.estimate();
         # print("TIME_INFO " , self.mTimeInfo.info());
-        self.mSignalFrame[self.mTimeInfo.mNormalizedTimeColumn] = self.mTimeInfo.mSignalFrame[self.mTimeInfo.mNormalizedTimeColumn]
+        # self.mSignalFrame[self.mTimeInfo.mNormalizedTimeColumn] = self.mTimeInfo.mSignalFrame[self.mTimeInfo.mNormalizedTimeColumn]
         if(self.mOptions.mEnablePlots):    
             self.plotSignal()
 
@@ -330,6 +344,8 @@ class cSignalDecomposition:
         for res in pool.imap(run_transform_thread, args):
             print("FINISHED_TRAINING" , res.mName);
             self.mSigDecByTransform[res.mTransformation.get_name("")] = res.mSigDec;
+        pool.close()
+        pool.join()
         
 	
         
@@ -383,6 +399,7 @@ class cSignalDecomposition:
         lBestName = lInterestingModels['Model'].iloc[0];
         self.mBestModel = self.mPerfsByModel[lBestName][0];
 
+    # @profile
     def train(self , iInputDS, iTime, iSignal, iHorizon, iExogenousData = None):
         print("START_TRAINING '" + iSignal + "'")
         start_time = time.time()
@@ -402,7 +419,7 @@ class cSignalDecomposition:
         self.collectPerformanceIndices();
 
         # Prediction Intervals
-        # self.mBestModel.computePredictionIntervals();
+        self.mBestModel.computePredictionIntervals();
 
         if(self.mOptions.mEnablePlots):    
             self.mBestModel.plotForecasts();
