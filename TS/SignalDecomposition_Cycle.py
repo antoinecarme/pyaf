@@ -226,7 +226,6 @@ class cBestCycleForTrend(cAbstractCycle):
 class cCycleEstimator:
     
     def __init__(self):
-        self.mSignalFrame = pd.DataFrame()
         self.mTimeInfo = tsti.cTimeInfo()
         self.mTrendFrame = pd.DataFrame()
         self.mCycleFrame = pd.DataFrame()
@@ -255,7 +254,6 @@ class cCycleEstimator:
                 
         for trend in self.mTrendList:
             for cycle in self.mCycleList[trend]:
-                cycle.mSignalFrame = self.mSignalFrame;
                 cycle.mTrendFrame = self.mTrendFrame;
                 cycle.mTimeInfo = self.mTimeInfo;
                 cycle.mOptions = self.mOptions;
