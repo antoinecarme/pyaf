@@ -60,6 +60,7 @@ class cTimeInfo:
         df[self.mTime] = self.mSignalFrame[self.mTime]
         df[self.mNormalizedTimeColumn] = self.mSignalFrame[self.mNormalizedTimeColumn]
         df[self.mSignal] = self.mSignalFrame[self.mSignal]
+        df[self.mOriginalSignal] = self.mSignalFrame[self.mOriginalSignal]
 
     def transformDataset(self, df):
         # new row

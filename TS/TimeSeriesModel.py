@@ -37,28 +37,19 @@ class cTimeSeriesModel:
     def updatePerfs(self):
         self.mModelFrame = pd.DataFrame();
         lSignal = self.mTrend.mSignalFrame[self.mSignal]
+        N = lSignal.shape[0];
         self.mTrend.mTimeInfo.addVars(self.mModelFrame);
-        lTrendColumn = self.mTrend.mTrendFrame[self.mTrend.mOutName]
-        lCycleColumn = self.mCycle.mCycleFrame[self.mCycle.mOutName]
-        lARColumn = self.mAR.mARFrame[self.mAR.mOutName]
+        df = self.forecastOneStepAhead(self.mModelFrame);
+        self.mModelFrame = df.head(N);
+        # print(self.mModelFrame.columns);
         lPrefix = self.mSignal + "_";
-        self.mModelFrame[self.mOriginalSignal] = self.mTrend.mSignalFrame[self.mOriginalSignal]
-        self.mModelFrame[lPrefix + 'Trend'] =  lTrendColumn;
-        self.mModelFrame[lPrefix + 'Trend_residue'] =  lSignal - lTrendColumn;
-        self.mModelFrame[lPrefix + 'Cycle'] =  lCycleColumn;
-        self.mModelFrame[lPrefix + 'Cycle_residue'] = self.mModelFrame[lPrefix + 'Trend_residue'] - lCycleColumn;
-        self.mModelFrame[lPrefix + 'AR'] =  lARColumn ;
-        self.mModelFrame[lPrefix + 'AR_residue'] = self.mModelFrame[lPrefix + 'Cycle_residue'] - lARColumn;
-        self.mModelFrame[lPrefix + 'Forecast'] =  lTrendColumn + lCycleColumn + lARColumn ;
-        self.mModelFrame[lPrefix + 'Residue'] =  lSignal - self.mModelFrame[lPrefix + 'Forecast']
-        self.mModelFrame[lPrefix + 'OriginalModel'] = self.mTransformation.invert(self.mModelFrame[lPrefix + 'Forecast']);
         lFitPerf = tsperf.cPerf();
         lForecastPerf = tsperf.cPerf();
         lTestPerf = tsperf.cPerf();
         (lFrameFit, lFrameForecast, lFrameTest) = self.mTrend.mTimeInfo.cutFrame(self.mModelFrame);
-        lFitPerf.compute(lFrameFit[self.mOriginalSignal] , lFrameFit[lPrefix + 'OriginalModel'] , 'OriginalModel')
-        lForecastPerf.compute(lFrameForecast[self.mOriginalSignal] , lFrameForecast[lPrefix + 'OriginalModel'], 'OriginalModel')
-        lTestPerf.compute(lFrameTest[self.mOriginalSignal] , lFrameTest[lPrefix + 'OriginalModel'], 'OriginalModel')
+        lFitPerf.compute(lFrameFit[self.mOriginalSignal] , lFrameFit[lPrefix + 'TransformedForecast'] , 'TransformedForecast')
+        lForecastPerf.compute(lFrameForecast[self.mOriginalSignal] , lFrameForecast[lPrefix + 'TransformedForecast'], 'TransformedForecast')
+        lTestPerf.compute(lFrameTest[self.mOriginalSignal] , lFrameTest[lPrefix + 'TransformedForecast'], 'TransformedForecast')
         self.mFitPerf = lFitPerf
         self.mForecastPerf = lForecastPerf;
         self.mTestPerf = lTestPerf;
@@ -102,7 +93,7 @@ class cTimeSeriesModel:
     def forecastOneStepAhead(self , df):
         assert(self.mTime in df.columns)
         assert(self.mOriginalSignal in df.columns)
-        lPrefix = self.mSignal + "_Model";
+        lPrefix = self.mSignal + "_";
         df1 = df;
         # df1.to_csv("before.csv");
         # add new line with new time value, row_number and nromalized time
@@ -191,7 +182,7 @@ class cTimeSeriesModel:
 
 
     def plotForecasts(self, df):
-        lPrefix = self.mSignal + "_Model";
+        lPrefix = self.mSignal + "_";
         lTime = self.mTimeInfo.mNormalizedTimeColumn;            
         tsplot.decomp_plot(df,
                            lTime, lPrefix + 'Signal',
@@ -251,7 +242,7 @@ class cTimeSeriesModel:
         
     def getPlotsAsDict(self):
         lDict = {};
-        df = self.mModelFrame.mModelFrame;
+        df = self.mModelFrame;
         lTime = self.mModel.mTime;
         lSignalColumn = self.mModel.mSignal;
         lPrefix = lSignalColumn + "_";
@@ -263,7 +254,7 @@ class cTimeSeriesModel:
         lInput = self.mModel.mSignalFrame[[self.mModel.mTime, self.mModel.mSignal]];
         lOutput = self.forecast(lInput ,  self.mModel.mTimeInfo.mHorizon);
         print(lOutput.columns)
-        lPrefix = self.mModel.mOriginalSignal + "_Model";
+        lPrefix = self.mModel.mOriginalSignal + "_";
         lForecastColumn = lPrefix + 'Forecast';
         lTime = self.mModel.mTimeInfo.mTime;
         lOutput.set_index(lTime, inplace=True, drop=False);
