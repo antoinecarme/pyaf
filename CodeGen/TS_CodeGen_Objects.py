@@ -362,7 +362,7 @@ class cDecompositionCodeGenObject:
         return lShort; 
 
     def getHorizon(self):
-        return self.mAutoForecast.mSignalDecomposition.mBestTransformation.mHorizon;
+        return self.mTimeInfo.mHorizon;
 
     def generateCode_Internal(self, iTableName = None):
          # M = T + C + AR
@@ -378,15 +378,20 @@ class cDecompositionCodeGenObject:
          # 7. compute the model as Model = Trend + cycle + AR and the residue=  Model - Signal
          # 8. add H rows (union ?) .... WIP
 
-         self.mTrend = self.mAutoForecast.mSignalDecomposition.mBestTransformation.mBestModelTrend
-         self.mCycle =  self.mAutoForecast.mSignalDecomposition.mBestTransformation.mBestModelCycle
-         self.mAR =  self.mAutoForecast.mSignalDecomposition.mBestTransformation.mBestModelAR
+         self.mBestModel = self.mAutoForecast.mSignalDecomposition.mBestModel;
+         self.mTimeInfo = self.mBestModel.mTimeInfo
 
-         self.mSignalName = self.mAutoForecast.mSignalDecomposition.mBestTransformation.mOriginalSignal
-         self.mDateName = self.mAutoForecast.mSignalDecomposition.mBestTransformation.mTime
-         self.mModelName =  self.mAutoForecast.mSignalDecomposition.mBestTransformation.mBestModelName
+         self.mTrend = self.mBestModel.mTrend
+         self.mCycle =  self.mBestModel.mCycle
+         self.mAR =  self.mBestModel.mAR
 
-         lName = self.mAutoForecast.mSignalDecomposition.mBestTransformation.mTransformation.get_name("");
+         self.mExogenousInfo = self.mAR.mExogenousInfo;
+
+         self.mSignalName = self.mBestModel.mOriginalSignal
+         self.mDateName = self.mBestModel.mTime
+         self.mModelName =  self.mBestModel.mOutName
+
+         lName = self.mBestModel.mTransformation.get_name("");
          lNeedTransformation = (lName != "");
 
          self.mRowTypeAlias = "HType" 
@@ -395,7 +400,7 @@ class cDecompositionCodeGenObject:
          self.mRowNumberAlias = "RN";
 
          self.mDateType = sqlalchemy.types.FLOAT
-         lTimeInfo = self.mAutoForecast.mSignalDecomposition.mBestTransformation.mTimeInfo
+         lTimeInfo = self.mAutoForecast.mSignalDecomposition.mBestModel.mTimeInfo
          if(lTimeInfo.isPhysicalTime()):
              self.mDateType = sqlalchemy.types.TIMESTAMP;
 
@@ -440,7 +445,7 @@ class cDecompositionCodeGenObject:
 
     def getExogenousVariables(self):
         lExogenousVariables = [];
-        lExogenousInfo = self.mAutoForecast.mSignalDecomposition.mBestTransformation.mExogenousInfo;
+        lExogenousInfo = self.mExogenousInfo;
         if(lExogenousInfo is not None):
             lExogenousVariables = lExogenousInfo.mExogenousVariables;
         return lExogenousVariables;
@@ -448,7 +453,7 @@ class cDecompositionCodeGenObject:
     def addNormalizedTime(self, table):
         exprs = [];
         normalized_time = None;
-        lTimeInfo = self.mAutoForecast.mSignalDecomposition.mBestTransformation.mTimeInfo
+        lTimeInfo = self.mAutoForecast.mSignalDecomposition.mBestModel.mTimeInfo
         if(lTimeInfo.isPhysicalTime()):
             lType = sqlalchemy.types.TIMESTAMP;
             lMinExpr = self.mBackEnd.getDateTimeLiteral(lTimeInfo.mTimeMin);
@@ -500,7 +505,7 @@ class cDecompositionCodeGenObject:
         self.mBackEnd.debrief_cte(self.mRowNumber_CTE)
 
     def addOriginalSignalAggreagtes(self, table, tr):
-        lName = tr.mTransformation.get_name("");
+        lName = tr.get_name("");
         TS1 = alias(select([table.columns[self.mSignalName], table.columns[self.mRowNumberAlias]]), "t_SigRowNum");
         sig_expr = TS1.c[ self.mSignalName ]; # original signal
         rn_expr_1 = table.c[self.mRowNumberAlias];
@@ -540,7 +545,7 @@ class cDecompositionCodeGenObject:
 
     def addExogenousDummies(self, table):
         exprs = [];
-        lExogenousInfo = self.mAutoForecast.mSignalDecomposition.mBestTransformation.mExogenousInfo;
+        lExogenousInfo = self.mExogenousInfo;
         if(lExogenousInfo is None):
             return exprs;
 
@@ -564,14 +569,14 @@ class cDecompositionCodeGenObject:
     def generateTransformationInputCode(self, table):
         # => TransformationInput_CTE
         exprs1 = self.addOriginalSignalAggreagtes(self.mRowNumber_CTE,
-                                                  self.mAutoForecast.mSignalDecomposition.mBestTransformation);
+                                                  self.mBestModel.mTransformation);
         exprs2 = self.addExogenousDummies(self.mRowNumber_CTE);
         self.mTransformationInputs_CTE = self.mBackEnd.generate_CTE(self.mRowNumber_CTE.columns  + exprs1 + exprs2, "TS_CTE_TransformationInput")
         self.mBackEnd.debrief_cte(self.mTransformationInputs_CTE)
 
     def addTransformedSignal(self, table, tr):
         exprs = [];
-        lName = tr.mTransformation.get_name("");
+        lName = tr.get_name("");
         # lName = "Diff_"
         TS1 = alias(select([table.columns[self.mSignalName], table.columns[self.mRowNumberAlias]]), "t_SigRowNum2");
         sig_expr = TS1.c[ self.mSignalName ]; # original signal
@@ -598,14 +603,14 @@ class cDecompositionCodeGenObject:
     def generateTransformationCode(self, table):
         # => Transformation_CTE
         signal_exprs = self.addTransformedSignal(self.mTransformationInputs_CTE,
-                                                 self.mAutoForecast.mSignalDecomposition.mBestTransformation) 
+                                                 self.mBestModel.mTransformation) 
         self.mTransformation_CTE = self.mBackEnd.generate_CTE([self.mTransformationInputs_CTE]  + signal_exprs, "TS_CTE_Transformation")
         self.mBackEnd.debrief_cte(self.mTransformation_CTE)
 
 
     def addTrendInputs(self, table):
-        tr = self.mAutoForecast.mSignalDecomposition.mBestTransformation;
-        lName = tr.mTransformation.get_name("");
+        tr = self.mBestModel.mTransformation;
+        lName = tr.get_name("");
         exprs = [] ;
         normalized_time = table.c["NTime"];
         normalized_time_2 = normalized_time * normalized_time
@@ -736,7 +741,7 @@ class cDecompositionCodeGenObject:
             lExpr = table.c[self.mRowNumberAlias] - 1
             lExpr = lExpr % self.mBackEnd.getIntegerLiteral(int(self.mCycle.mBestCycleLength))
             cycle_expr = self.generateCycleSpecificExpression(lExpr ,
-                                                              self.mCycle.mBestCycleValueDict,
+                                                              self.mCycle.mBestCycleValueDict[self.mCycle.mBestCycleLength],
                                                               self.mCycle.mDefaultValue);
             pass
         return cycle_expr;
@@ -803,11 +808,13 @@ class cDecompositionCodeGenObject:
         return exprs;
 
     def addARInputs(self, table):
+        lExogenousInfo = self.mExogenousInfo;
         exprs = [];
         if(self.mAR.mFormula != "NoAR"):            
             lVars = [ self.mCycle.getCycleResidueName() ];
-            for exog in self.mAR.mExogenousVariables:
-                lVars = lVars + [exog];
+            if(lExogenousInfo is not None):
+                for exog in lExogenousInfo.mEncodedExogenous:
+                    lVars = lVars + [exog];
             exprs = exprs + self.createLags(table, 
                                             self.mAR.mNbLags, 
                                             lVars,
@@ -954,7 +961,7 @@ class cDecompositionCodeGenObject:
 
 
     def generate_next_time(self, current, h):
-        lTimeInfo = self.mAutoForecast.mSignalDecomposition.mBestTransformation.mTimeInfo
+        lTimeInfo = self.mTimeInfo
         if(lTimeInfo.isPhysicalTime()):
             lNbSeconds = str(int(h * lTimeInfo.mTimeDelta.total_seconds()));
             lIntervalExpr = sqlalchemy.sql.expression.literal_column(lNbSeconds, sqlalchemy.types.String);
