@@ -2,8 +2,8 @@ import pandas as pd
 import numpy as np
 import datetime as dt
 
-import AutoForecast as autof
-from Bench import TS_datasets as tsds
+import AutoForecast.ForecastEngine as autof
+import AutoForecast.Bench.TS_datasets as tsds
 
 from flask import Flask, jsonify, request
 import logging
@@ -82,7 +82,8 @@ class cWSModel:
             self.mSQL["sybase"] = self.mAutoForecast.generateCode(iDSN = None, iDialect = "sybase");
             self.mSQL["sqlite"] = self.mAutoForecast.generateCode(iDSN = None, iDialect = "sqlite");
         except Exception as e:
-            logger.error("FAILED_TO_GENERATE_CODE_FOR " + self.mName + " " + str(e));
+            # logger.error("FAILED_TO_GENERATE_CODE_FOR " + self.mName + " " + str(e));
+            raise
             pass
 
     def generatePlots(self):
@@ -91,8 +92,8 @@ class cWSModel:
         try:
             self.mPlots = self.mAutoForecast.getPlotsAsDict();
         except Exception as e:
-            logger.error("FAILED_TO_GENERATE_PLOTS " + self.mName + " " + str(e));
-            raise
+            # logger.error("FAILED_TO_GENERATE_PLOTS " + self.mName + " " + str(e));
+            # raise
             pass
 
     def create(self):
