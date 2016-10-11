@@ -492,6 +492,13 @@ class cDecompositionCodeGenObject:
         exprs = exprs + [ row_number_column];
         return exprs
 
+    def addExogenousColumns(self, table):
+        exprs = [];
+        lExogenousVariables = self.getExogenousVariables();
+        for exog in lExogenousVariables:
+            exprs.append(table.c[exog]);
+        return exprs;
+
     def generateRowNumberCode(self, table):
         # => RowNumber_CTE
         exprs1 = None;
@@ -500,8 +507,11 @@ class cDecompositionCodeGenObject:
         else:
             exprs1 = self.addRowNumber_as_count(table);
         exprs2 = self.addNormalizedTime(table);
+        exprs3 = self.addExogenousColumns(table);
+
         lMainColumns = [table.c[self.mDateName] , table.c[self.mSignalName] ]
-        self.mRowNumber_CTE = self.mBackEnd.generate_CTE(lMainColumns  + exprs1 + exprs2, "TS_CTE_RowNumber")
+        
+        self.mRowNumber_CTE = self.mBackEnd.generate_CTE(lMainColumns  + exprs1 + exprs2 + exprs3, "TS_CTE_RowNumber")
         self.mBackEnd.debrief_cte(self.mRowNumber_CTE)
 
     def addOriginalSignalAggreagtes(self, table, tr):
@@ -551,19 +561,26 @@ class cDecompositionCodeGenObject:
 
         lExogenousVariables = self.getExogenousVariables();
 
+        print(table.columns);
         for exog in lExogenousVariables:
             lList = lExogenousInfo.mExogenousVariableCategories[exog];
-            for lCat in lList:
-                lDummyName = "exog_dummy_" + exog + "=" + str(lCat);
-                lCatExpr = sqlalchemy.sql.expression.literal(str(lCat), String);
-                if((lCat == "") or (lCat is None)):                    
-                    cond = (table.c[exog] == None);
-                else:
-                    cond = (table.c[exog] == lCatExpr);
-                expr1 = case([(cond , self.as_float(1.0))],
-                             else_ = self.as_float(0.0));
-                expr1 = expr1.label(lDummyName);
-                exprs = exprs + [expr1];
+            if(lList is not None):
+                for lCat in lList:
+                    lDummyName = "exog_dummy_" + exog + "=" + str(lCat);
+                    lCatExpr = sqlalchemy.sql.expression.literal(str(lCat), String);
+                    if((lCat == "") or (lCat is None)):                    
+                        cond = (table.c[exog] == None);
+                    else:
+                        cond = (table.c[exog] == lCatExpr);
+                    expr1 = case([(cond , self.as_float(1.0))],
+                                 else_ = self.as_float(0.0));
+                    expr1 = expr1.label(lDummyName);
+                    exprs = exprs + [expr1];
+            else:                
+                lMeanExpr = self.as_float(lExogenousInfo.mContExogenousStats[exog][0]);
+                lStdExpr = self.as_float(lExogenousInfo.mContExogenousStats[exog][1]);
+                lEncodedContExog = (table.c[exog] - lMeanExpr) / lStdExpr;
+                exprs = exprs + [lEncodedContExog];
         return exprs;
 
     def generateTransformationInputCode(self, table):
