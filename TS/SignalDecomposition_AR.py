@@ -136,8 +136,12 @@ class cAutoRegressiveModel(cAbstractAR):
         self.mFeatureSelector =  SelectKBest(f_regression, k= lMaxFeatures);
         self.mFeatureSelector.fit(lARInputs, lARTarget);
         lARInputsAfterSelection =  self.mFeatureSelector.transform(lARInputs);
+        del lARInputs;
         # print("FEATURE_SELECTION" , self.mOutName, lARInputs.shape[1] , lARInputsAfterSelection.shape[1]);
         self.mARRidge.fit(lARInputsAfterSelection, lARTarget)
+        del lARInputsAfterSelection;
+        del lARTarget;
+        del lAREstimFrame;        
         
         lARInputsFull = self.mFeatureSelector.transform(self.mARFrame[self.mInputNames].values)
         self.mARFrame[self.mOutName] = self.mARRidge.predict(lARInputsFull)
@@ -296,5 +300,6 @@ class cAutoRegressiveEstimator:
         
         for cycle_residue in self.mARList.keys():
             self.estimate_ar_models_for_cycle(cycle_residue);
-            self.mARFrame = pd.DataFrame();
-            # del [self.mARFrame];
+            for autoreg in self.mARList[cycle_residue]:
+                autoreg.mARFrame = pd.DataFrame();
+            del self.mARFrame;

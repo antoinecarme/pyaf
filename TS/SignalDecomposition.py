@@ -102,6 +102,7 @@ class cSignalDecompositionOneTransform:
         self.mTimeInfo = tsti.cTimeInfo();
         self.mTimeInfo.mTime = self.mTime;
         self.mTimeInfo.mSignal = self.mSignal;
+        self.mTimeInfo.mOriginalSignal = self.mOriginalSignal;
         self.mTimeInfo.mHorizon = self.mHorizon;
         self.mTimeInfo.mSignalFrame = self.mSignalFrame;
         self.mTimeInfo.mOptions = self.mOptions;
