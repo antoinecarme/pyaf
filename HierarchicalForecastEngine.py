@@ -2,7 +2,6 @@
 import pandas as pd
 import numpy as np
 
-import AutoForecast.ForecastEngine as autof
 from .TS import Options as tsopts
 from .TS import Perf as tsperf
 from .TS import Utils as tsutil
