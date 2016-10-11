@@ -172,41 +172,75 @@ class cSignalHierarchy:
         print("PropHistAvg\n", self.mPropHistAvg);
         pass
         
+    def computeTopDownForecastedProportions(self, iForecast_DF):
+        lLevelCount = len(self.mLevels);
+        self.mForecastedProp = {};
+        for level in range(lLevelCount):
+            if(level > 0):
+                for col in self.mStructure[level].keys():
+                    self.mForecastedProp[col] = {};
+                    for col1 in self.mStructure[level][col]:
+                        self.mForecastedProp[col][col1] = (iForecast_DF[col1] / iForecast_DF[col]).mean();
+        print("ForecastedProp\n", self.mForecastedProp);
+        pass
+        
 
-
-    def reportOnBottomUpForecasts(self, iForecast_DF):
-        lForecast_DF_BU = pd.DataFrame();
-        lDateColumn = self.mDateColumn;
-        lForecast_DF_BU[ lDateColumn ] = iForecast_DF[ lDateColumn ];
-        lPerfs = {};
+    def computeBottomUpForecasts(self, iForecast_DF):
+        lForecast_DF_BU = iForecast_DF.copy();
         for level in self.mStructure.keys():
             for signal in self.mStructure[level].keys():
-                lEngine = self.mModels[level][signal];
                 new_BU_forecast = None;
                 for col1 in self.mStructure[level][signal]:
                     if(new_BU_forecast is None):
                         new_BU_forecast = iForecast_DF[col1 + "_Forecast"];
                     else:
                         new_BU_forecast = new_BU_forecast + iForecast_DF[col1 + "_Forecast"];
-                lForecast_DF_BU[signal] = iForecast_DF[signal];            
-                lForecast_DF_BU[signal + "_Forecast"] = iForecast_DF[signal + "_Forecast"];
                 if(new_BU_forecast is None):
                     new_BU_forecast = iForecast_DF[signal + "_Forecast"];
                 lForecast_DF_BU[signal + "_BU_Forecast"] = new_BU_forecast;
-                lPerf = lEngine.computePerf(lForecast_DF_BU[signal], lForecast_DF_BU[signal + "_Forecast"], signal)
-                lPerf_BU = lEngine.computePerf(lForecast_DF_BU[signal], lForecast_DF_BU[signal + "_BU_Forecast"],  signal + "_BU")
-                lPerfs[signal] = (lPerf , lPerf_BU);
             
         print(lForecast_DF_BU.head());
         print(lForecast_DF_BU.tail());
 
+        return lForecast_DF_BU;
+
+
+    def reportOnBottomUpForecasts(self, iForecast_DF):
+        lForecast_DF_BU = iForecast_DF;
+        lPerfs = {};
+        for level in self.mStructure.keys():
+            for signal in self.mStructure[level].keys():
+                lEngine = self.mModels[level][signal];
+                lPerf = lEngine.computePerf(lForecast_DF_BU[signal], lForecast_DF_BU[signal + "_Forecast"], signal)
+                lPerf_BU = lEngine.computePerf(lForecast_DF_BU[signal], lForecast_DF_BU[signal + "_BU_Forecast"],  signal + "_BU")
+                lPerfs[signal] = (lPerf , lPerf_BU);
+            
         for (sig , perf) in lPerfs.items():
             print("PERF_REPORT_BU" , sig , perf[0].mL2,  perf[0].mMAPE, perf[1].mL2,  perf[1].mMAPE)
-        return lForecast_DF_BU;
+        return lPerfs;
+
+
+    def computeTopDownForecasts(self, iForecast_DF , iProp , iPrefix):
+        lForecast_DF_TD = iForecast_DF.copy();
+        lLevelCount = len(self.mLevels);
+        for level in reversed(list(range(lLevelCount))):
+            for signal in self.mStructure[level].keys():
+                for col in self.mStructure[level][signal]:
+                    new_TD_forecast = iForecast_DF[signal + "_Forecast"] * iProp[signal][col];
+                    lForecast_DF_TD[col +"_" + iPrefix + "_TD_Forecast"] = new_TD_forecast;            
+        print(lForecast_DF_TD.head());
+        print(lForecast_DF_TD.tail());
+
+        return lForecast_DF_TD;
+
 
     def forecast(self , iInputDS, iHorizon):
         lAllLevelsDataset = self.create_all_levels_dataset(iInputDS);
         lForecast_DF = self.forecastAllModels(lAllLevelsDataset, iHorizon, self.mDateColumn);
         self.computeTopDownHistoricalProportions(lForecast_DF);
-        self.reportOnBottomUpForecasts(lForecast_DF);
-        return lForecast_DF;
+        lForecast_DF_BU = self.computeBottomUpForecasts(lForecast_DF);
+        self.reportOnBottomUpForecasts(lForecast_DF_BU);
+        lForecast_DF_TD_AHP = self.computeTopDownForecasts(lForecast_DF_BU, self.mAvgHistProp, "AHP") 
+        lForecast_DF_TD_PHA = self.computeTopDownForecasts(lForecast_DF_TD_AHP, self.mPropHistAvg, "PHA")
+        lForecast_DF_TD_PHA.to_csv("outputs/aggregated_forecasts.csv")
+        return lForecast_DF_TD_PHA;
