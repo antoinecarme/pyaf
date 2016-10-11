@@ -225,12 +225,12 @@ class cTimeSeriesModel:
         self.plotResidues(name = name);
         lInput = self.mTrend.mSignalFrame;
         lOutput = self.forecast(lInput ,  self.mTimeInfo.mHorizon);
-        print(lOutput.columns)
+        # print(lOutput.columns)
         lPrefix = self.mOriginalSignal + "_";
         lForecastColumn = lPrefix + 'Forecast';
         lTime = self.mTimeInfo.mTime;            
         lOutput.set_index(lTime, inplace=True, drop=False);
-        print(lOutput[lTime].dtype);
+        # print(lOutput[lTime].dtype);
         tsplot.prediction_interval_plot(lOutput,
                                         lTime, self.mOriginalSignal,
                                         lForecastColumn  ,
@@ -253,7 +253,7 @@ class cTimeSeriesModel:
 
         lInput = self.mModelFrame[[self.mTime, self.mSignal]];
         lOutput = self.forecast(lInput ,  self.mTimeInfo.mHorizon);
-        print(lOutput.columns)
+        # print(lOutput.columns)
         lPrefix = self.mOriginalSignal + "_";
         lForecastColumn = lPrefix + 'Forecast';
         lTime = self.mTimeInfo.mTime;
