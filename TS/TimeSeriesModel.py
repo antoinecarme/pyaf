@@ -85,7 +85,7 @@ class cTimeSeriesModel:
         print("MODEL_MAPE MAPE_Fit=" + str(self.mFitPerf.mMAPE) + " MAPE_Forecast=" + str(self.mForecastPerf.mMAPE)  + " MAPE_Test=" + str(self.mTestPerf.mMAPE) );
         print("MODEL_COMPLEXITY ", str(self.getComplexity()) );
         print("AR_MODEL_DETAIL_START");
-        self.mAR.dumpCoefficients();
+        # self.mAR.dumpCoefficients();
         print("AR_MODEL_DETAIL_END");
 
 
