@@ -229,11 +229,11 @@ class cGeneric_OneSignal_Tester:
         lTransformedSignal = lAutoF1.mSignalDecomposition.mBestModel.mSignal;
         lSignal = 0.0 * lApplyOut[iSignal];
         if(tr is not None):
-            lSignal = lSignal + lApplyOut[lTransformedSignal + "_ModelTrend"];
+            lSignal = lSignal + lApplyOut[lTransformedSignal + "_Trend"];
         if(cy is not None ):
-            lSignal = lSignal + lApplyOut[lTransformedSignal + "_ModelCycle"];
+            lSignal = lSignal + lApplyOut[lTransformedSignal + "_Cycle"];
         if(ar is not None ):
-            lSignal = lSignal + lApplyOut[lTransformedSignal + "_ModelAR"];
+            lSignal = lSignal + lApplyOut[lTransformedSignal + "_AR"];
         df= pd.DataFrame();
         df['Date'] = lApplyOut['Date'];
         df[lNewSignal] = lSignal;
