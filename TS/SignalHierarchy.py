@@ -234,6 +234,29 @@ class cSignalHierarchy:
         return lForecast_DF_TD;
 
 
+    def computeOptimalCombination(self, iForecast_DF):
+        lBaseNames = [];
+        lLevelCount = len(self.mLevels);
+        for level in range(lLevelCount):
+            for col in self.mStructure[level].keys():
+                lBaseNames.append(col);
+        lBaseForecasts = iForecast_DF[lBaseNames];
+        # TODO : use linalg.solve here
+        S = self.mSummingMatrix;
+        print(S.shape);
+        lInv = np.linalg.inv(S.T.dot(S))
+        lOptimalForecasts = S.dot(lInv).dot(S.T).dot(lBaseForecasts.values.T)
+        print(lBaseForecasts.shape);
+        print(lOptimalForecasts.shape);
+        lOptimalNames = [(col + "_OC_Forecast") for col in lBaseNames];
+        df = pd.DataFrame(lOptimalForecasts.T);
+        df.columns = lOptimalNames;
+        lForecast_DF_OC = pd.concat([iForecast_DF , df] , axis = 1);
+        
+        print(lForecast_DF_OC.head());
+        print(lForecast_DF_OC.tail());
+        return lForecast_DF_OC;
+
     def forecast(self , iInputDS, iHorizon):
         lAllLevelsDataset = self.create_all_levels_dataset(iInputDS);
         lForecast_DF = self.forecastAllModels(lAllLevelsDataset, iHorizon, self.mDateColumn);
@@ -242,5 +265,7 @@ class cSignalHierarchy:
         self.reportOnBottomUpForecasts(lForecast_DF_BU);
         lForecast_DF_TD_AHP = self.computeTopDownForecasts(lForecast_DF_BU, self.mAvgHistProp, "AHP") 
         lForecast_DF_TD_PHA = self.computeTopDownForecasts(lForecast_DF_TD_AHP, self.mPropHistAvg, "PHA")
-        lForecast_DF_TD_PHA.to_csv("outputs/aggregated_forecasts.csv")
-        return lForecast_DF_TD_PHA;
+        lForecast_DF_TD_PHA.to_csv("outputs/aggregated_forecasts_bu_td.csv");
+        lForecast_DF_OC = self.computeOptimalCombination(lForecast_DF_TD_PHA);
+        lForecast_DF_OC.to_csv("outputs/aggregated_forecasts_bu_td_oc.csv");
+        return lForecast_DF_OC;
