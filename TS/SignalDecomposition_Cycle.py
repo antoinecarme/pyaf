@@ -188,12 +188,12 @@ class cBestCycleForTrend(cAbstractCycle):
                 self.mBestCycleValueDict[i] = lEncodedValueDict;
                 
                 lPerf = tsperf.cPerf();
-                # validate the cycles on the last H values
+                # validate the cycles on the validation part
                 lValidFrame = self.mTimeInfo.getValidPart(lCycleFrame);
                 lCritValue = lPerf.computeCriterion(lValidFrame[self.mTrend_residue_name],
                                                     lValidFrame[name_i + "_enc"],
                                                     self.mCriterion)
-                self.mCyclePerfDict[i] = lPerf.getCriterionValue(lCritValue);
+                self.mCyclePerfDict[i] = lCritValue;
         pass
 
     def fit(self):
@@ -212,6 +212,8 @@ class cBestCycleForTrend(cAbstractCycle):
         if(self.mBestCycleLength is not None):
             lValueCol = df[self.mTimeInfo.mRowNumberColumn].apply(lambda x : x % self.mBestCycleLength);
             df['cycle_internal'] = lValueCol;
+            # print("BEST_CYCLE" , self.mBestCycleLength)
+            # print(self.mBestCycleValueDict);
             lDict = self.mBestCycleValueDict[self.mBestCycleLength];
             df[self.getCycleName()] = lValueCol.apply(lambda x : lDict.get(x , self.mDefaultValue));
         else:

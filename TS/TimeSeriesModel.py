@@ -243,20 +243,20 @@ class cTimeSeriesModel:
     def getPlotsAsDict(self):
         lDict = {};
         df = self.mModelFrame;
-        lTime = self.mModel.mTime;
-        lSignalColumn = self.mModel.mSignal;
+        lTime = self.mTime;
+        lSignalColumn = self.mSignal;
         lPrefix = lSignalColumn + "_";
         lDict["Trend"] = tsplot.decomp_plot_as_png_base64(df, lTime, lSignalColumn, lPrefix + 'Trend' , lPrefix + 'Trend_residue', name = "trend");
         lDict["Cycle"] = tsplot.decomp_plot_as_png_base64(df, lTime, lPrefix + 'Trend_residue' , lPrefix + 'Cycle', lPrefix + 'Cycle_residue', name = "cycle");
         lDict["AR"] = tsplot.decomp_plot_as_png_base64(df, lTime, lPrefix + 'Cycle_residue' , lPrefix + 'AR' , lPrefix + 'AR_residue', name = "AR");
         lDict["Forecast"] = tsplot.decomp_plot_as_png_base64(df, lTime, lSignalColumn, lPrefix + 'Forecast' , lPrefix + 'Residue', name = "forecast");
 
-        lInput = self.mModel.mSignalFrame[[self.mModel.mTime, self.mModel.mSignal]];
-        lOutput = self.forecast(lInput ,  self.mModel.mTimeInfo.mHorizon);
+        lInput = self.mModelFrame[[self.mTime, self.mSignal]];
+        lOutput = self.forecast(lInput ,  self.mTimeInfo.mHorizon);
         print(lOutput.columns)
-        lPrefix = self.mModel.mOriginalSignal + "_";
+        lPrefix = self.mOriginalSignal + "_";
         lForecastColumn = lPrefix + 'Forecast';
-        lTime = self.mModel.mTimeInfo.mTime;
+        lTime = self.mTimeInfo.mTime;
         lOutput.set_index(lTime, inplace=True, drop=False);
         lDict["Prediction_Intervals"] = tsplot.prediction_interval_plot_as_png_base64(lOutput,
                                                                                       lTime, self.mOriginalSignal,

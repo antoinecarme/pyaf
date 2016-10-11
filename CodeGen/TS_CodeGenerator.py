@@ -32,7 +32,7 @@ class cTimeSeriesCodeGenerator:
                 print("FAILURE_WITH_EXCEPTION : " , lDSN, str(e)[:200])
                 traceback.print_exc()
                 lSQL = None;
-                # raise;
+                raise;
             print(" ******************************** testGeneration_end  ", lDSN , " ******************************** ");
         
         
