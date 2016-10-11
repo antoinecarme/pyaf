@@ -24,6 +24,8 @@ class cSignalHierarchy:
         
         self.mLevels = None;
         self.mStructure = None;
+        self.mSummingMatrix = None;
+
         self.mModels = None;
         
     def info(self):
@@ -53,6 +55,30 @@ class cSignalHierarchy:
         print(self.mStructure);
         pass
     
+    def create_SummingMatrix(self):
+        lLevelCount = len(self.mLevels);
+        lNbNodes = sum([len(self.mStructure[level]) for level in  range(lLevelCount)]);
+        lBaseLevelCount = len(self.mStructure[0]);
+        lIndices = {};
+        self.mSummingMatrix = np.zeros((lNbNodes, lBaseLevelCount));
+        for level in range(lLevelCount):
+            if(level > 0):
+                for col in self.mStructure[level].keys():
+                    i = len(lIndices);
+                    lIndices[ col ] = i;
+                    for col1 in self.mStructure[level][col]:
+                        ii = lIndices [ col1 ];
+                        for j in range(lBaseLevelCount):
+                            self.mSummingMatrix[ i ][j] = self.mSummingMatrix[ ii ][j]  + self.mSummingMatrix[ i ][j];
+            else:
+                for col in self.mStructure[level].keys():
+                    lNew_index = len(lIndices);
+                    lIndices[ col ] = lNew_index;
+                    self.mSummingMatrix[ lNew_index ] [ lNew_index ] = 1;
+        print(self.mSummingMatrix);
+        self.mSummingMatrixInverse = np.linalg.pinv(self.mSummingMatrix);
+        print(self.mSummingMatrixInverse);
+
     def create_all_levels_dataset(self, df):
         lAllLevelsDataset = df.copy();
         lLevelCount = len(self.mLevels);
@@ -94,6 +120,7 @@ class cSignalHierarchy:
 
     def fit(self):
         self.create_HierarchicalStructure();
+        self.create_SummingMatrix();
         lAllLevelsDataset = self.create_all_levels_dataset(self.mTrainingDataset);
         self.create_all_levels_models(lAllLevelsDataset, self.mHorizon, self.mDateColumn);
 
@@ -129,6 +156,23 @@ class cSignalHierarchy:
         print(lForecast_DF.tail());
         return lForecast_DF;
 
+    def computeTopDownHistoricalProportions(self, iForecast_DF):
+        lLevelCount = len(self.mLevels);
+        self.mAvgHistProp = {};
+        self.mPropHistAvg = {};
+        for level in range(lLevelCount):
+            if(level > 0):
+                for col in self.mStructure[level].keys():
+                    self.mAvgHistProp[col] = {};
+                    self.mPropHistAvg[col] = {};
+                    for col1 in self.mStructure[level][col]:
+                        self.mAvgHistProp[col][col1] = (iForecast_DF[col1] / iForecast_DF[col]).mean();
+                        self.mPropHistAvg[col][col1] = iForecast_DF[col1].mean() / iForecast_DF[col].mean();
+        print("AvgHitProp\n", self.mAvgHistProp);
+        print("PropHistAvg\n", self.mPropHistAvg);
+        pass
+        
+
 
     def reportOnBottomUpForecasts(self, iForecast_DF):
         lForecast_DF_BU = pd.DataFrame();
@@ -163,5 +207,6 @@ class cSignalHierarchy:
     def forecast(self , iInputDS, iHorizon):
         lAllLevelsDataset = self.create_all_levels_dataset(iInputDS);
         lForecast_DF = self.forecastAllModels(lAllLevelsDataset, iHorizon, self.mDateColumn);
+        self.computeTopDownHistoricalProportions(lForecast_DF);
         self.reportOnBottomUpForecasts(lForecast_DF);
         return lForecast_DF;
