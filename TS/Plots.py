@@ -1,9 +1,6 @@
 import pandas as pd
 import numpy as np
 
-# import pylab 
-
-
 from io import BytesIO
 import base64
 
@@ -15,6 +12,8 @@ def decomp_plot(df, time, signal, estimator, residue, name = None, max_length = 
     assert(estimator in df.columns)
     assert(residue in df.columns)
 
+    import matplotlib
+    matplotlib.use('Agg')
     import matplotlib.pyplot as plt
     df1 = df.tail(max_length);
     fig, axs = plt.subplots(ncols=2, figsize=(32, 16))
@@ -38,6 +37,8 @@ def decomp_plot_as_png_base64(df, time, signal, estimator, residue, name = None,
     assert(estimator in df.columns)
     assert(residue in df.columns)
 
+    import matplotlib
+    matplotlib.use('Agg')
     import matplotlib.pyplot as plt
     df1 = df.tail(max_length);
     fig, axs = plt.subplots(ncols=2, figsize=(16, 8))
@@ -72,6 +73,8 @@ def prediction_interval_plot(df, time, signal, estimator, lower, upper, name = N
     df1[lower] = df1[lower].apply(lambda x : x if (np.isnan(x) or x >= lMin) else np.nan);
     df1[upper] = df1[upper].apply(lambda x : x if (np.isnan(x) or x <= lMax) else np.nan);
 
+    import matplotlib
+    matplotlib.use('Agg')
     import matplotlib.pyplot as plt
     fig, axs = plt.subplots(ncols=1, figsize=(16, 8))
     df1.plot.line(time, [signal, estimator, lower, upper], ax=axs, grid = True)
@@ -103,6 +106,8 @@ def prediction_interval_plot_as_png_base64(df, time, signal, estimator, lower, u
     df1[lower] = df1[lower].apply(lambda x : x if (np.isnan(x) or x >= lMin) else np.nan);
     df1[upper] = df1[upper].apply(lambda x : x if (np.isnan(x) or x <= lMax) else np.nan);
 
+    import matplotlib
+    matplotlib.use('Agg')
     import matplotlib.pyplot as plt
     fig, axs = plt.subplots(ncols=1, figsize=(16, 8))
     df1.plot.line(time, [signal, estimator, lower, upper], ax=axs, grid = True)
