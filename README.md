@@ -104,7 +104,7 @@ Installation
 Use the source !!!!
 
 Dependencies
-~~~~~~~~~~~~
+------------
 
 PyAF requires::
 
