@@ -525,14 +525,14 @@ def load_yahoo_stock_price( stock ) :
         # print("already downloaded " + stock , "reloading " , filename);
         df_train = pd.read_csv(filename);
     else:
-        return None;
+        # return None;
         stock_obj = Share(stock)
         today = date.today()
         today
         before = date(today.year - 5, today.month, today.day)
-        print(today, before)
+        # print(today, before)
         lst = stock_obj.get_historical(before.isoformat(), today.isoformat())
-        print(stock , len(lst));
+        # print(stock , len(lst));
         if(len(lst) > 0):
             for k in lst[0].keys():
                 for i in range(0, len(lst)):
@@ -540,17 +540,17 @@ def load_yahoo_stock_price( stock ) :
                     for line1 in lst:
                         lst_k = lst_k + [line1[k]];
                 df_train[k] = lst_k;
-            df_train.to_csv(filename);
+            # df_train.to_csv(filename);
         else:
             # df_train.to_csv(filename);
             return None            
 
     tsspec.mFullDataset = pd.DataFrame();
-    tsspec.mFullDataset[stock] = df_train['Close'] 
+    tsspec.mFullDataset[stock] = df_train['Close'].apply(float);
     tsspec.mFullDataset['Date'] = df_train['Date'].apply(lambda x : datetime.datetime.strptime(x, "%Y-%m-%d"))
 #    print(tsspec.mFullDataset.head());
     tsspec.mFullDataset.sort_values(by = 'Date' , ascending=True, inplace=True)
-    tsspec.mFullDataset.reset_index(inplace = True);
+    tsspec.mFullDataset.reset_index(inplace = True, drop=True);
 #    print(tsspec.mFullDataset.head());
     tsspec.mTimeVar = "Date";
     tsspec.mSignalVar = stock;
