@@ -8,7 +8,7 @@ import pandas as pd
 import numpy as np
 
 import pyaf.ForecastEngine as autof
-from AutoForecast.CodeGen import TS_CodeGenerator as tscodegen
+from  pyaf.CodeGen import TS_CodeGenerator as tscodegen
 import pyaf.Bench.TS_datasets as tsds
 
 import sys,os
