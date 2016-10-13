@@ -123,7 +123,7 @@ Code contributions are welcome. Bug reports, request for new features and
 documentation, tests are welcome. Please use Github platform for these tasks.
 
 Source code
-~~~~~~~~~~~
+-----------
 
 You can check the latest sources of PyAF from Github with the command::
 
@@ -131,7 +131,7 @@ You can check the latest sources of PyAF from Github with the command::
 
 
 Project history
----------------
+-----------
 
 This project was started in summer 2016 as a POC to check the feasibility of an
 automatic forecasting tool based only on python available data science software
