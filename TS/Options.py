@@ -21,6 +21,9 @@ class cSignalDecomposition_Options:
         self.mEnableARModels = True;
         self.mEnableARXModels = True;
         self.mMaxFeatrureForAutoreg = 1000;
+        self.mModelSelection_Criterion = "L2";
+        self.mCycle_Criterion = "L2";
+        self.mCycle_Criterion_Threshold = None;
         self.disableDebuggingOptions();
 
     def disableDebuggingOptions(self):
@@ -44,11 +47,8 @@ class cSignalDecomposition_Options:
         self.mMovingMedianLengths = [5, 7, 12, 24 , 30, 60];
         
         self.mCycleLengths = [5, 7, 12, 24 , 30, 60];
-        self.mCycle_Criterion = "MAPE";
-        self.mCycle_Criterion_Threshold = None;
 
         self.mEnableSeasonals = True;
-
         
         self.mMaxAROrder = 256;
 
@@ -66,8 +66,6 @@ class cSignalDecomposition_Options:
         
         self.mEnableCycles = True;
         self.mCycleLengths = [5, 7, 12, 24 , 30, 60];
-        self.mCycle_Criterion = "MAPE";
-        self.mCycle_Criterion_Threshold = None;
 
         self.mEnableSeasonals = True;
 

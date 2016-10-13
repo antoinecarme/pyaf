@@ -193,7 +193,8 @@ class cSignalDecompositionOneTransform:
                                           'FitCount', 'FitL2', 'FitMAPE',
                                           'ForecastCount', 'ForecastL2', 'ForecastMAPE',
                                           'TestCount', 'TestL2', 'TestMAPE')) 
-        self.mPerfDetails.sort_values(by=['ForecastMAPE' , 'Complexity'] , inplace=True);
+        self.mPerfDetails.sort_values(by=['Forecast' + self.mOptions.mModelSelection_Criterion ,
+                                          'Complexity'] , inplace=True);
         # print(self.mPerfDetails.head());
         lBestName = self.mPerfDetails.iloc[0]['Model'];
         self.mBestModel = self.mPerfsByModel[lBestName][0];
@@ -391,7 +392,9 @@ class cSignalDecomposition:
         lBestPerf = self.mTrPerfDetails['ForecastMAPE'].min();
         # allow a loss of one point (0.01 of MAPE) if complexity is reduced.
         if(not np.isnan(lBestPerf)):
-            self.mTrPerfDetails.sort_values(by=['ForecastMAPE', 'Complexity'] , inplace=True)
+            self.mTrPerfDetails.sort_values(by=[
+                'Forecast' + self.mOptions.mModelSelection_Criterion, 'Complexity'] , inplace=True);
+                
             lInterestingModels = self.mTrPerfDetails[self.mTrPerfDetails['ForecastMAPE'] <= (lBestPerf + 0.01)].reset_index();
         else:
             lInterestingModels = self.mTrPerfDetails;
