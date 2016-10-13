@@ -6,8 +6,6 @@ import AutoForecast.Bench.TS_datasets as tsds
 
 import AutoForecast.CodeGen.TS_CodeGenerator as tscodegen
 
-import cProfile
-
 #get_ipython().magic('matplotlib inline')
 
 b1 = tsds.load_ozone_exogenous()
@@ -31,7 +29,8 @@ for n in [N]:
     #    lEngine.mOptions.mEnableCycles = False;
     #    lEngine.mOptions.mEnableARModels = False;
     #    lEngine.mOptions.mDebugCycles = True;
-    cProfile.run(lEngine.train(df1 , b1.mTimeVar , b1.mSignalVar, H, b1.mExogenousVariables));
+    lExogenousData = (b1.mExogenousDataFrame , b1.mExogenousVariables) 
+    lEngine.train(df1 , b1.mTimeVar , b1.mSignalVar, H, lExogenousData);
     lEngine.getModelInfo();
     # lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
     # lEngine.standrdPlots(name = "my_arx_ozone_" + str(n))
