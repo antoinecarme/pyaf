@@ -38,7 +38,7 @@ The following features are available :
     * PyAF uses a **machine learning approach** (The signal is cut into Estimation
       and validation parts, respectively, 80% and 20% of the signal).
    2. Forecasting a time series model on a given **horizon** (forecast result is
-      also pandas data-frame) and computes **prediction/confidence intervals** for
+      also pandas data-frame) and providing **prediction/confidence intervals** for
       the forecasts.
    3. Generic training features
     * `Signal decomposition <http://en.wikipedia.org/wiki/Decomposition_of_time_series>`_ as the sum of a trend, periodic and AR component
