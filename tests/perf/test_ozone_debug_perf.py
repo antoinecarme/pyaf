@@ -4,8 +4,8 @@ import numpy as np
 # from memory_profiler import profile
 # from memprof import *
 
-import AutoForecast.ForecastEngine as autof
-import AutoForecast.Bench.TS_datasets as tsds
+import pyaf.ForecastEngine as autof
+import pyaf.Bench.TS_datasets as tsds
 
 #get_ipython().magic('matplotlib inline')
 
