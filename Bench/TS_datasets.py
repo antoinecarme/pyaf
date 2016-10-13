@@ -1,3 +1,9 @@
+# Copyright (C) 2016 Antoine Carme <Antoine.Carme@Laposte.net>
+# All rights reserved.
+
+# This file is part of the Python Automatic Forecasting (PyAF) library and is made available under
+# the terms of the 3 Clause BSD license
+
 
 import pandas as pd
 import numpy as np
@@ -8,7 +14,7 @@ from datetime import date
 
 from yahoo_finance import Share
 import os.path
-import AutoForecast.data.stocks_symbol_list as symlist
+import pyaf.data.stocks_symbol_list as symlist
 
 import multiprocessing as mp
 import threading
