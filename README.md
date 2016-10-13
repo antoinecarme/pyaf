@@ -1,6 +1,6 @@
 
-# Author: Antoine Carme <antoine.carme@laposte.net>
-# License: BSD 3 clause
+Author: Antoine Carme <antoine.carme@laposte.net>
+License: BSD 3 clause
 
 PyAF (Python Automatic Forecasting)
 ===================================
