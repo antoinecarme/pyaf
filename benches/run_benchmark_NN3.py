@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-#import AutoForecast as autof
+#import pyaf as autof
 import Bench.TS_datasets as tsds
 import Bench.NN3 as tNN3
 import warnings
