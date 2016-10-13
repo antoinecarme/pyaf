@@ -151,13 +151,13 @@ Bug reports, Improvement requests, Documentation, Hints and Test scripts are
 welcome. Please use the Github platform for these tasks.
 
 Documentation
-~~~~~~~~~~~~~
+----------------
 
 The code is not yet fully documented. This is a top priority. The sample
 notebooks can be seen as tutorials.
 
 Communication
-~~~~~~~~~~~~~
+----------------
 
 Comments , appreciations, remarks , etc .... are welcome. Your feedback is
 welcome if you use this library in a project or a publication.
