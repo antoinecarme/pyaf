@@ -1,9 +1,9 @@
 import pandas as pd
 import numpy as np
-import AutoForecast.ForecastEngine as autof
-import AutoForecast.Bench.TS_datasets as tsds
+import pyaf.ForecastEngine as autof
+import pyaf.Bench.TS_datasets as tsds
 
-import AutoForecast.CodeGen.TS_CodeGenerator as tscodegen
+import pyaf.CodeGen.TS_CodeGenerator as tscodegen
 
 
 trainfile = "data/bugs/M4_C0808_failure.csv";

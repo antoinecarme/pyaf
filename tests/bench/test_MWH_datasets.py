@@ -1,11 +1,11 @@
 import pandas as pd
 import numpy as np
 
-import AutoForecast.ForecastEngine as autof
-import AutoForecast.Bench.TS_datasets as tsds
+import pyaf.ForecastEngine as autof
+import pyaf.Bench.TS_datasets as tsds
 
-import AutoForecast.CodeGen.TS_CodeGenerator as tscodegen
-import AutoForecast.Bench.GenericBenchmark as tBench
+import pyaf.CodeGen.TS_CodeGenerator as tscodegen
+import pyaf.Bench.GenericBenchmark as tBench
 import warnings
 
 #%matplotlib inline

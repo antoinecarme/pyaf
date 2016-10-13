@@ -1,10 +1,10 @@
 import pandas as pd
 import numpy as np
 
-import AutoForecast.ForecastEngine as autof
-import AutoForecast.Bench.TS_datasets as tsds
+import pyaf.ForecastEngine as autof
+import pyaf.Bench.TS_datasets as tsds
 
-import AutoForecast.CodeGen.TS_CodeGenerator as tscodegen
+import pyaf.CodeGen.TS_CodeGenerator as tscodegen
 
 stock = "BNP.PA";
 b1 = tsds.load_yahoo_stock_prices("cac40")[stock]
