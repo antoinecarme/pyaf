@@ -4,7 +4,7 @@
 # This file is part of the Python Automatic Forecasting (PyAF) library and is made available under
 # the terms of the 3 Clause BSD license
 
-from CodeGen import TS_CodeGen_Objects as tscodegen
+from pyaf.CodeGen import TS_CodeGen_Objects as tscodegen
 import traceback
 
 class cTimeSeriesCodeGenerator:
