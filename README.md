@@ -1,107 +1,163 @@
+
 # Author: Antoine Carme <antoine.carme@laposte.net>
 # License: BSD 3 clause
 
 PyAF (Python Automatic Forecasting)
 ===================================
 
-PyAF is a Python module for Automatic Forecasting built on top of popular data science python modules : numpy, scipy, pandas and scikit-learn. 
+PyAF is an Open Source Python library for Automatic Forecasting built on top of
+popular data science python modules : numpy, scipy, pandas and scikit-learn.
 
-PyAF works as an automated way of predicting future values of a signal using a machien learning approach. It provides a set of features similar to some commercial automatic forecasting products.
+PyAF works as an automated process for predicting future values of a signal
+using a machine learning approach. It provides a set of features that is
+comparable to some popular commercial automatic forecasting products.
 
 PyAF is distributed under the 3-Clause BSD license.
 
-PyAF is currently maintained by the original developer.
-
 Features
 --------
-PyAF allows forecasting a time series for future values in a fully automated way. 
+PyAF allows forecasting a time series for future values in a fully automated
+way.
 
-It uses pandas as a data access layer. It consumes data from a pandas dataframe (with time and signal columns), builds a time series model, and outputs the forecasts in a pandas dataframe. Pandas is an excellent data access layer, it allows reading/writing a huge set of formats, accessing differnet datasources (databases) and has an extensive set of algorithms to handle dataframes (aggregation, statstics etc).
 
-Statistical time series models are built using scikit-learn.
+PyAF **uses Pandas as a data access layer**. It consumes data coming from a pandas data-
+frame (with time and signal columns), builds a time series model, and outputs
+the forecasts in a pandas data-frame. Pandas is an excellent data access layer,
+it allows reading/writing a huge set of file formats, accessing various data
+sources (databases) and has an extensive set of algorithms to handle data-
+frames (aggregation, statistics, linear algebra, plotting etc).
 
-As of Oct. 12 2016, the following features were available :
-1. Training a model to forecast a time series (given in a pandas dataframe with time and signal columns).
-	1.1 it used a machine learning approach (the signal is cut into Estimation and validation parts, respectively, 80% and 20% of the signal).
-2. Forecasting a time series model on a given horizon (forecast result is also pandabs dataframe).  
-3. Training features
-  3.1 Signal decomposition as the sum of a trend, periodic and AR component (https://en.wikipedia.org/wiki/Decomposition_of_time_series)
-  3.2 It works as a competition between a huge set of possible decopomsitions. a set of possible trends, periodic components and AR models is generated and all the possible comibinations are estimated. The best decomposition in term of performance is kept to forecast the signal (the performance is computed on a part od the signal that was not used for the estimation).
-  3.3 All Models are estimated using standard procedures and state-pof-the-art time series modeling. for example, trend regressions and AR models are estimated using scikit learn ridge regressions. 
-  3.4 Standard performance measures are used (L1, RMSE, MAPE, etc)
-  3.5 . Allows prediction intervals for the forecasts.
-4. Exogenous data can be provided to improve the forecasts. These are expected to be stored in an external dataframe.
-  4.1 the user prodvieds exogenous data in an external dataframe (this dataframe is merged with the training dataframe)
-  4.2 Exogenous data are integrated in the mdoeling process through thoir past values (ARX models, https://en.wikipedia.org/wiki/Autoregressive%E2%80%93moving-average_model).
-  4.3 Exogenous variables can be of any type (numeric or string , date, object). 
-  4.4 Exogenous variables are dummified for the non-numeric case, and standardized for the numeric types. 
-5. A hierarchical forecasting is starting. It follows the excellent Rob J Hyndman and George Athanasopoulos book approach (https://www.otexts.org/fpp/9/4).
-	5.1 hierarchies and grouped time series are supported. 
-	5.2 boottom-up, top-down (using proportions) and optimal combinations are supported. 
 
-4. It is customizable and has a huge set of options. The default set of options should however be OK.
-5. basic lotting fiunctions using matplotlib.
-5. An object-oriented approach is used for the system design. Separation of concerns is the key factor here.
-6. Fully written in python with numpy, scipy, pandas and scikit-learn objects. Tries to be columnar-based  for perforamnce reasons.  
-6. A test-driven approach is used. A lot of exampels are available in the test directory.
-7. A benchmarking process is expected (M1, M2, M3 compeiuttions, NN3, NN5, etc). 
-8. Some jupyter notebooks are available for demo purposes.
-9. A basic web services (Flask) effort is starting.
-10. A project for SQL generation is started (using sqlalchemy). the goal is to be able to export the forecasts as a SQL code. This is a WIP.
+PyAF statistical time series models are built/estimated/trained using `scikit-
+learn library <http://scikit-learn.org>`_.
 
-PyAF is a work in progress. The set of features is evloving. Your comments, help, hints are welcome. 
+
+The following features are available :
+   1. **Training a model** to forecast a time series (given in a pandas data-frame
+      with time and signal columns).
+    * PyAF uses a **machine learning approach** (The signal is cut into Estimation
+      and validation parts, respectively, 80% and 20% of the signal).
+   2. Forecasting a time series model on a given **horizon** (forecast result is
+      also pandas data-frame) and computes **prediction/confidence intervals** for
+      the forecasts.
+   3. Generic training features
+    * `Signal decomposition <http://en.wikipedia.org/wiki/Decomposition_of_time_series>`_ as the sum of a trend, periodic and AR component
+      
+    * PyAF works as a competition between a **comprehensive set of possible signal 
+      transformations and linear decompositions**. For each transformed
+      signal , a set of possible trends, periodic components and AR models is
+      generated and all the possible combinations are estimated. The best
+      decomposition in term of performance is kept to forecast the signal (the
+      performance is computed on a part of the signal that was not used for the
+      estimation).
+    * **Signal transformation** is supported before **signal decompositions**. Four
+      transformations are supported by default. Other transformation are
+      available (Box-Cox etc).
+    * All Models are estimated using **standard procedures and state-of-the-art
+      time series modeling**. For example, trend regressions and AR/ARX models
+      are estimated using scikit-learn linear regression models.
+    * Standard performance measures are used (L1, RMSE, MAPE, etc)
+   4. **Exogenous Data Support**
+    * Exogenous data can be provided to improve the forecasts. These are
+      expected to be **stored in an external data-frame** (this data-frame will be
+      merged with the training data-frame).
+    * Exogenous data are integrated in the modeling process through their **past values**
+      (`ARX models <http://en.wikipedia.org/wiki/Autoregressive%E2%80%93moving-average_model>`_.
+    * **Exogenous variables can be of any type** (numeric, string , date, or
+      object).
+    * Exogenous variables are **dummified** for the non-numeric types, and
+      **standardized** for the numeric types.
+   5. PyAF implements **Hierarchical Forecasting**. It follows the excellent approach used in `Rob J
+      Hyndman and George Athanasopoulos book <http://www.otexts.org/fpp/9/4>`_.
+    * **Hierarchies** and **grouped time series** are supported.
+    * **Bottom-Up**, **Top-Down** (using proportions) and **Optimal Combinations** are
+      implemented.
+   6. The modeling process is **customizable** and has a huge set of **options**. The
+      default values of these options should however be OK.
+   7. A **benchmarking process** is progressing (using M1, M2, M3 competitions, NN3,
+      NN5 data).
+   8. Basic **plotting** functions using matplotlib with standard time series and
+      forecasts plots.
+   9. **Software Quality** Highlights
+    * An **object-oriented** approach is used for the system design. Separation of
+      concerns is the key factor here.
+    * **Fully written in python** with numpy, scipy, pandas and scikit-learn
+      objects. Tries to be **column-based** everywhere for performance reasons.
+    * A **test-driven approach** is used. Test scripts are available in the tests
+      directory.
+          o Some **jupyter notebooks** are available for demo purposes with
+            standard time series and forecasts plots.
+    * Very **simple API** for training and forecasting.
+  10. A basic **REST WebService** (Flask) effort is starting.
+  11. A project for **SQL generation** is started (using core **SLQAlchemy** expressions). 
+      The goal is to be able to export the forecasts as a SQL
+      code to ease the **production mode**. SLQAlchemy provides **agnostic support of
+      a large set of databases**.
+
+PyAF is a work in progress. The set of features is evolving. Your feature
+requests, comments, help, hints are very welcome.
+
 
 Installation
 ------------
 
-Use the source !!!! 
+Use the source !!!!
 
 Dependencies
 ~~~~~~~~~~~~
 
 PyAF requires::
 
-- scikit-learn and its dependencies.
-- Pandas
-- Python (>= 3.5),
-- NumPy,
-- SciPy.
-- matplotlib
-- SQLAlchemy (for code generation  , optional).
+	- scikit-learn.
+	- Pandas
+	- Python (>= 3.5),
+	- NumPy,
+	- SciPy.
+	- matplotlib
+	- SQLAlchemy (for code generation , optional).
 
 Development
 -----------
 
-Code contributions are welcome. Bu reports, request for new features and documentation, tests are welcome. Please use Github platform for these tasks.
+Code contributions are welcome. Bug reports, request for new features and
+documentation, tests are welcome. Please use Github platform for these tasks.
 
 Source code
 ~~~~~~~~~~~
 
-You can check the latest sources from Github with the command::
+You can check the latest sources of PyAF from Github with the command::
 
-    git clone https://github.com/antoinecarme/pyaf.git
+	git clone http://github.com/antoinecarme/pyaf.git
 
 
 Project history
 ---------------
 
-This project was started in summer 2016 as an individual challenge to check the feasibilty of an automatic forecasting tool only based on python availabe data science software (numpy, scipy, pandas, scikit-learn etc).
+This project was started in summer 2016 as a POC to check the feasibility of an
+automatic forecasting tool based only on python available data science software
+(numpy, scipy, pandas, scikit-learn etc).
 
-The project is provided as an open source library (BSD-3 License).
+PyAF is provided as an open source library (BSD-3 License).
 
-See the AUTHORS.rst file for a complete list of contributors.
+See the `AUTHORS.rst <AUTHORS.rst>`_ file for a complete list of contributors.
 
 Help and Support
 ----------------
 
-Support will be provided when possible. Bug reports, Improvement requests, Documentation, Hints and Test scripts are welcome.
+PyAF is currently maintained by the original developer. PyAF support will be
+provided when possible.
+
+Bug reports, Improvement requests, Documentation, Hints and Test scripts are
+welcome. Please use the Github platform for these tasks.
 
 Documentation
 ~~~~~~~~~~~~~
 
-This ia WIP. Top priority. Please, use the sample notebooks as tutorials.
+The code is not yet fully documented. This is a top priority. The sample
+notebooks can be seen as tutorials.
 
 Communication
 ~~~~~~~~~~~~~
 
-Comments , appreciations, remarks , etc .... are welcome. 
+Comments , appreciations, remarks , etc .... are welcome. Your feedback is
+welcome if you use this library in a project or a publication.
