@@ -225,13 +225,15 @@ class cSignalDecompositionOneTransform:
         exog_start_time = time.time()
         if(self.mExogenousInfo is not None):
             self.mExogenousInfo.fit();
-        print("EXOGENOUS_ENCODING_TIME_IN_SECONDS " + self.mSignal + " " + str(time.time() - exog_start_time))
+            if(self.mOptions.mDebugProfile):
+                print("EXOGENOUS_ENCODING_TIME_IN_SECONDS " + self.mSignal + " " + str(time.time() - exog_start_time))
 
         # estimate the trend
         trend_start_time = time.time()
         self.mTrendEstimator.estimateTrend();
         #self.mTrendEstimator.plotTrend();
-        print("TREND_TIME_IN_SECONDS "  + self.mSignal + " " + str(time.time() - trend_start_time))
+        if(self.mOptions.mDebugProfile):
+            print("TREND_TIME_IN_SECONDS "  + self.mSignal + " " + str(time.time() - trend_start_time))
 
         # estimate cycles
         cycle_start_time = time.time()
@@ -240,7 +242,8 @@ class cSignalDecompositionOneTransform:
         self.mCycleEstimator.estimateAllCycles();
         # if(self.mOptions.mDebugCycles):
             # self.mCycleEstimator.plotCycles();
-        print("CYCLE_TIME_IN_SECONDS "  + self.mSignal + " " + str( str(time.time() - cycle_start_time)))
+        if(self.mOptions.mDebugProfile):
+            print("CYCLE_TIME_IN_SECONDS "  + self.mSignal + " " + str( str(time.time() - cycle_start_time)))
 
         # autoregressive
         ar_start_time = time.time()
@@ -249,9 +252,11 @@ class cSignalDecompositionOneTransform:
         self.mAREstimator.mCycleList = self.mCycleEstimator.mCycleList;
         self.mAREstimator.estimate();
         #self.mAREstimator.plotAR();
-        print("AUTOREG_TIME_IN_SECONDS " + self.mSignal + " " + str( str(time.time() - ar_start_time)))
+        if(self.mOptions.mDebugProfile):
+            print("AUTOREG_TIME_IN_SECONDS " + self.mSignal + " " + str( str(time.time() - ar_start_time)))
         # forecast perfs
-        print("TRAINING_TIME_IN_SECONDS "  + self.mSignal + " " + str(time.time() - start_time))
+        if(self.mOptions.mDebugProfile):
+            print("TRAINING_TIME_IN_SECONDS "  + self.mSignal + " " + str(time.time() - start_time))
         
 
 
@@ -350,7 +355,7 @@ class cSignalDecomposition:
             args.append(arg);
             
         for res in pool.imap(run_transform_thread, args):
-            print("FINISHED_TRAINING" , res.mName);
+            # print("FINISHED_TRAINING" , res.mName);
             self.mSigDecByTransform[res.mTransformation.get_name("")] = res.mSigDec;
         pool.close()
         pool.join()
