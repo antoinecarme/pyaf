@@ -74,6 +74,9 @@ codegen/test_ozone_no_seas_code_gen.py  :
 #PROCESSING FILE :  tests/exog/test_random_exogenous.py exog/test_random_exogenous.py logs/exog_test_random_exogenous.log
 exog/test_random_exogenous.py  :  
 	 -ipython3 tests/exog/test_random_exogenous.py  >  logs/exog_test_random_exogenous.log  2>&1
+#PROCESSING FILE :  tests/exog/test_const_exogenous_signals.py exog/test_const_exogenous_signals.py logs/exog_test_const_exogenous_signals.log
+exog/test_const_exogenous_signals.py  :  
+	 -ipython3 tests/exog/test_const_exogenous_signals.py  >  logs/exog_test_const_exogenous_signals.log  2>&1
 #PROCESSING FILE :  tests/exog/test_ozone_exogenous_profile.py exog/test_ozone_exogenous_profile.py logs/exog_test_ozone_exogenous_profile.log
 exog/test_ozone_exogenous_profile.py  :  
 	 -ipython3 tests/exog/test_ozone_exogenous_profile.py  >  logs/exog_test_ozone_exogenous_profile.log  2>&1
@@ -82,7 +85,7 @@ exog/test_ozone_exogenous.py  :
 	 -ipython3 tests/exog/test_ozone_exogenous.py  >  logs/exog_test_ozone_exogenous.log  2>&1
 
 
- exog :  exog/test_ozone_exogenous.py exog/test_ozone_exogenous_profile.py exog/test_random_exogenous.py  
+ exog :  exog/test_ozone_exogenous.py exog/test_ozone_exogenous_profile.py exog/test_const_exogenous_signals.py exog/test_random_exogenous.py  
  
 
 #PROCESSING FILE :  tests/func/test_cycle.py func/test_cycle.py logs/func_test_cycle.log
@@ -108,12 +111,21 @@ func/test_const_signal.py  :
 #PROCESSING FILE :  tests/perf/test_perf1.py perf/test_perf1.py logs/perf_test_perf1.log
 perf/test_perf1.py  :  
 	 -ipython3 tests/perf/test_perf1.py  >  logs/perf_test_perf1.log  2>&1
+#PROCESSING FILE :  tests/perf/test_parallel.py perf/test_parallel.py logs/perf_test_parallel.log
+perf/test_parallel.py  :  
+	 -ipython3 tests/perf/test_parallel.py  >  logs/perf_test_parallel.log  2>&1
+#PROCESSING FILE :  tests/perf/test_ozone_long_series_2.py perf/test_ozone_long_series_2.py logs/perf_test_ozone_long_series_2.log
+perf/test_ozone_long_series_2.py  :  
+	 -ipython3 tests/perf/test_ozone_long_series_2.py  >  logs/perf_test_ozone_long_series_2.log  2>&1
+#PROCESSING FILE :  tests/perf/test_ozone_long_series.py perf/test_ozone_long_series.py logs/perf_test_ozone_long_series.log
+perf/test_ozone_long_series.py  :  
+	 -ipython3 tests/perf/test_ozone_long_series.py  >  logs/perf_test_ozone_long_series.log  2>&1
 #PROCESSING FILE :  tests/perf/test_ozone_debug_perf.py perf/test_ozone_debug_perf.py logs/perf_test_ozone_debug_perf.log
 perf/test_ozone_debug_perf.py  :  
 	 -ipython3 tests/perf/test_ozone_debug_perf.py  >  logs/perf_test_ozone_debug_perf.log  2>&1
 
 
- perf :  perf/test_ozone_debug_perf.py perf/test_perf1.py  
+ perf :  perf/test_ozone_debug_perf.py perf/test_ozone_long_series.py perf/test_ozone_long_series_2.py perf/test_parallel.py perf/test_perf1.py  
  
 
 #PROCESSING FILE :  tests/real-life/test_sof_example2.py real-life/test_sof_example2.py logs/real-life_test_sof_example2.log
@@ -147,18 +159,27 @@ time_res/test_ozone_Hourly.py  :
  time_res :  time_res/test_ozone_Hourly.py time_res/test_ozone_Secondly.py time_res/test_ozone_Minutely.py time_res/test_ozone_Weekly.py time_res/test_ozone_Daily.py  
  
 
+#PROCESSING FILE :  tests/hierarchical/test_hier_prototyping_5.py hierarchical/test_hier_prototyping_5.py logs/hierarchical_test_hier_prototyping_5.log
+hierarchical/test_hier_prototyping_5.py  :  
+	 -ipython3 tests/hierarchical/test_hier_prototyping_5.py  >  logs/hierarchical_test_hier_prototyping_5.log  2>&1
 #PROCESSING FILE :  tests/hierarchical/test_hier_prototyping_2.py hierarchical/test_hier_prototyping_2.py logs/hierarchical_test_hier_prototyping_2.log
 hierarchical/test_hier_prototyping_2.py  :  
 	 -ipython3 tests/hierarchical/test_hier_prototyping_2.py  >  logs/hierarchical_test_hier_prototyping_2.log  2>&1
 #PROCESSING FILE :  tests/hierarchical/test_hier_prototyping_1.py hierarchical/test_hier_prototyping_1.py logs/hierarchical_test_hier_prototyping_1.log
 hierarchical/test_hier_prototyping_1.py  :  
 	 -ipython3 tests/hierarchical/test_hier_prototyping_1.py  >  logs/hierarchical_test_hier_prototyping_1.log  2>&1
+#PROCESSING FILE :  tests/hierarchical/test_hier_prototyping_4.py hierarchical/test_hier_prototyping_4.py logs/hierarchical_test_hier_prototyping_4.log
+hierarchical/test_hier_prototyping_4.py  :  
+	 -ipython3 tests/hierarchical/test_hier_prototyping_4.py  >  logs/hierarchical_test_hier_prototyping_4.log  2>&1
 #PROCESSING FILE :  tests/hierarchical/test_hier_prototyping_3.py hierarchical/test_hier_prototyping_3.py logs/hierarchical_test_hier_prototyping_3.log
 hierarchical/test_hier_prototyping_3.py  :  
 	 -ipython3 tests/hierarchical/test_hier_prototyping_3.py  >  logs/hierarchical_test_hier_prototyping_3.log  2>&1
+#PROCESSING FILE :  tests/hierarchical/test_grouped_prototyping_1.py hierarchical/test_grouped_prototyping_1.py logs/hierarchical_test_grouped_prototyping_1.log
+hierarchical/test_grouped_prototyping_1.py  :  
+	 -ipython3 tests/hierarchical/test_grouped_prototyping_1.py  >  logs/hierarchical_test_grouped_prototyping_1.log  2>&1
 
 
- hierarchical :  hierarchical/test_hier_prototyping_3.py hierarchical/test_hier_prototyping_1.py hierarchical/test_hier_prototyping_2.py  
+ hierarchical :  hierarchical/test_grouped_prototyping_1.py hierarchical/test_hier_prototyping_3.py hierarchical/test_hier_prototyping_4.py hierarchical/test_hier_prototyping_1.py hierarchical/test_hier_prototyping_2.py hierarchical/test_hier_prototyping_5.py  
  
 
 
