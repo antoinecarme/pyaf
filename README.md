@@ -103,6 +103,13 @@ Installation
 
 Use the source !!!!
 
+No package is available yet. It is however easy to colne the repository in a directory called 'pyaf' using the command :
+
+	git clone http://github.com/antoinecarme/pyaf.git
+
+and add the parent directory of 'pyaf' to your PYTHONPATH environment variable, in a bash shell, this can be done with:
+        export PYTHONPATH=$PYTHONPATH:full_path_to_parent_dir_of_pyaf
+
 Dependencies
 ------------
 
@@ -153,8 +160,9 @@ welcome. Please use the Github platform for these tasks.
 Documentation
 ----------------
 
-The code is not yet fully documented. This is a top priority. The sample
-notebooks can be seen as tutorials.
+An introdcutory notebook to the time series forecasting with PyAF is available here (docs/PyAF_Introduction.ipynb). It contains some real-world examples and use cases.
+
+The code is not yet fully documented. This is a top priority. 
 
 Communication
 ----------------
