@@ -20,7 +20,7 @@ PyAF allows forecasting a time series for future values in a fully automated
 way.
 
 
-PyAF **uses Pandas as a data access layer**. It consumes data coming from a pandas data-
+PyAF **uses [Pandas](http://pandas.pydata.org/) as a data access layer**. It consumes data coming from a pandas data-
 frame (with time and signal columns), builds a time series model, and outputs
 the forecasts in a pandas data-frame. Pandas is an excellent data access layer,
 it allows reading/writing a huge set of file formats, accessing various data
@@ -28,8 +28,7 @@ sources (databases) and has an extensive set of algorithms to handle data-
 frames (aggregation, statistics, linear algebra, plotting etc).
 
 
-PyAF statistical time series models are built/estimated/trained using `scikit-
-learn library <http://scikit-learn.org>`_.
+PyAF statistical time series models are built/estimated/trained using [scikit-learn library](http://scikit-learn.org).
 
 
 The following features are available :
@@ -41,7 +40,7 @@ The following features are available :
       also pandas data-frame) and providing **prediction/confidence intervals** for
       the forecasts.
    3. Generic training features
-    * `Signal decomposition <http://en.wikipedia.org/wiki/Decomposition_of_time_series>`_ as the sum of a trend, periodic and AR component
+    * [Signal decomposition](http://en.wikipedia.org/wiki/Decomposition_of_time_series) as the sum of a trend, periodic and AR component
       
     * PyAF works as a competition between a **comprehensive set of possible signal 
       transformations and linear decompositions**. For each transformed
@@ -62,13 +61,13 @@ The following features are available :
       expected to be **stored in an external data-frame** (this data-frame will be
       merged with the training data-frame).
     * Exogenous data are integrated in the modeling process through their **past values**
-      (`ARX models <http://en.wikipedia.org/wiki/Autoregressive%E2%80%93moving-average_model>`_.
+      ([ARX models] (http://en.wikipedia.org/wiki/Autoregressive%E2%80%93moving-average_model)).
     * **Exogenous variables can be of any type** (numeric, string , date, or
       object).
     * Exogenous variables are **dummified** for the non-numeric types, and
       **standardized** for the numeric types.
-   5. PyAF implements **Hierarchical Forecasting**. It follows the excellent approach used in `Rob J
-      Hyndman and George Athanasopoulos book <http://www.otexts.org/fpp/9/4>`_.
+   5. PyAF implements **Hierarchical Forecasting**. It follows the excellent approach used in [Rob J
+      Hyndman and George Athanasopoulos book](http://www.otexts.org/fpp/9/4).
     * **Hierarchies** and **grouped time series** are supported.
     * **Bottom-Up**, **Top-Down** (using proportions) and **Optimal Combinations** are
       implemented.
@@ -88,11 +87,11 @@ The following features are available :
           o Some **jupyter notebooks** are available for demo purposes with
             standard time series and forecasts plots.
     * Very **simple API** for training and forecasting.
-  10. A basic **REST WebService** (Flask) effort is starting.
-  11. A project for **SQL generation** is started (using core **SLQAlchemy** expressions). 
-      The goal is to be able to export the forecasts as a SQL
-      code to ease the **production mode**. SLQAlchemy provides **agnostic support of
-      a large set of databases**.
+    10. A basic **REST WebService** (Flask) effort is starting.
+    11. A project for **SQL generation** is started (using core **[SLQAlchemy](http://www.sqlalchemy.org/)** expressions). 
+        The goal is to be able to export the forecasts as a SQL
+        code to ease the **production mode**. SLQAlchemy provides **agnostic support of
+        a large set of databases**.
 
 PyAF is a work in progress. The set of features is evolving. Your feature
 requests, comments, help, hints are very welcome.
@@ -146,7 +145,7 @@ automatic forecasting tool based only on python available data science software
 
 PyAF is provided as an open source library (BSD-3 License).
 
-See the `AUTHORS.rst <AUTHORS.rst>`_ file for a complete list of contributors.
+See the [AUTHORS.rst](AUTHORS.rst) file for a complete list of contributors.
 
 Help and Support
 ----------------
@@ -160,7 +159,7 @@ welcome. Please use the Github platform for these tasks.
 Documentation
 ----------------
 
-An introdcutory notebook to the time series forecasting with PyAF is available here (https://github.com/antoinecarme/pyaf/blob/master/docs/PyAF_Introduction.ipynb). It contains some real-world examples and use cases.
+An [introductory notebook](https://github.com/antoinecarme/pyaf/blob/master/docs/PyAF_Introduction.ipynb) to the time series forecasting with PyAF is available here. It contains some real-world examples and use cases.
 
 The code is not yet fully documented. This is a top priority. 
 
