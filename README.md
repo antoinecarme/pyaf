@@ -160,7 +160,7 @@ welcome. Please use the Github platform for these tasks.
 Documentation
 ----------------
 
-An introdcutory notebook to the time series forecasting with PyAF is available here (docs/PyAF_Introduction.ipynb). It contains some real-world examples and use cases.
+An introdcutory notebook to the time series forecasting with PyAF is available here (https://github.com/antoinecarme/pyaf/blob/master/docs/PyAF_Introduction.ipynb). It contains some real-world examples and use cases.
 
 The code is not yet fully documented. This is a top priority. 
 
