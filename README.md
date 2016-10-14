@@ -107,7 +107,8 @@ No package is available yet. It is however easy to colne the repository in a dir
 	git clone http://github.com/antoinecarme/pyaf.git
 
 and add the parent directory of 'pyaf' to your PYTHONPATH environment variable, in a bash shell, this can be done with:
-        export PYTHONPATH=$PYTHONPATH:full_path_to_parent_dir_of_pyaf
+        
+	export PYTHONPATH=$PYTHONPATH:full_path_to_parent_dir_of_pyaf
 
 Dependencies
 ------------
