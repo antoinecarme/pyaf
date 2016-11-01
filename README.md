@@ -67,7 +67,7 @@ The following features are available :
     * Exogenous variables are **dummified** for the non-numeric types, and
       **standardized** for the numeric types.
    5. PyAF implements **Hierarchical Forecasting**. It follows the excellent approach used in [Rob J
-      Hyndman and George Athanasopoulos book](http://www.otexts.org/fpp/9/4). Thanks @robjhyndman.
+      Hyndman and George Athanasopoulos book](http://www.otexts.org/fpp/9/4). Thanks @robjhyndman
     * **Hierarchies** and **grouped time series** are supported.
     * **Bottom-Up**, **Top-Down** (using proportions) and **Optimal Combinations** are
       implemented.
