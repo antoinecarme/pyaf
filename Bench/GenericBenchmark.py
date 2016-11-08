@@ -301,7 +301,9 @@ class cGeneric_Tester:
         pass
 
 
-    def run_multiprocessed(self, nbprocesses = 20):
+    def run_multiprocessed(self, nbprocesses = None):
+        if(nbprocesses is None):
+            nbprocesses = (mp.cpu_count() * 3) // 4;
         pool = mp.Pool(nbprocesses)
         args = []
         for sig in self.mTSSpecPerSignal.keys():
