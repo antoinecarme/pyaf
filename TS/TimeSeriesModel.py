@@ -92,7 +92,7 @@ class cTimeSeriesModel:
         print("MODEL_L2 L2_Fit=" + str(self.mFitPerf.mL2) + " L2_Forecast=" + str(self.mForecastPerf.mL2)  + " L2_Test=" + str(self.mTestPerf.mL2) );
         print("MODEL_COMPLEXITY ", str(self.getComplexity()) );
         print("AR_MODEL_DETAIL_START");
-        # self.mAR.dumpCoefficients();
+        self.mAR.dumpCoefficients();
         print("AR_MODEL_DETAIL_END");
 
 
