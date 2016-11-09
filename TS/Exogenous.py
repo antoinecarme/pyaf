@@ -42,31 +42,46 @@ class cExogenousInfo:
         # print("preProcessExogenousVariables , dummy columns", self.mEncodedExogenous);
 
     def addVars(self, df):
-        lExogDate = "exog_date_" + self.mDateVariable;
+        lExogDate = self.mDateVariable;
+        # print(np.dtype(df[self.mDateVariable]) ,
+        #      np.dtype(self.mEncodedExogenousDataFrame[self.mDateVariable]));
+        # print(df.info());
+        # print(self.mEncodedExogenousDataFrame.info());
+        # print(df.head());
+        # print(self.mEncodedExogenousDataFrame.head());
+
+        df1 = df[[self.mDateVariable]];
+        lCompleteEncoded = df1.merge(self.mEncodedExogenousDataFrame,
+                                     how='left',
+                                     left_on=self.mDateVariable,
+                                     right_on=lExogDate);
+        lCompleteEncoded.fillna(0.0, inplace=True);
+        
         # print("EXOG_COLUMNS", self.mEncodedExogenousDataFrame.columns);
-        df = df.merge(self.mEncodedExogenousDataFrame,
-                      how='left',
-                      left_on=self.mDateVariable,
-                      right_on=lExogDate);
-        df = df.drop([lExogDate] , axis = 1);
-        return df;
+        df2 = df.merge(lCompleteEncoded,
+                       how='left',
+                       left_on=self.mDateVariable,
+                       right_on=lExogDate);
+        # df1 = df1.drop([lExogDate] , axis = 1);
+        # print(df.head());
+        return df2;
 
     def transformDataset(self, df):
         # print("BEFORE_EXOG_TRANSFORM_DATASET" , df.shape, df.columns);
-        df = self.addVars(df);
+        df1 = self.addVars(df);
         # print("AFTER_EXOG_TRANSFORM_DATASET" , df.shape, df.columns);
-        return df;
+        return df1;
         
     def createEncodedExogenous(self):
         self.mExogDummiesDataFrame = pd.DataFrame();
         self.mEncodedExogenous = [];
         self.mEncodedExogenousDataFrame = pd.DataFrame();
-        self.mEncodedExogenousDataFrame["exog_date_" + self.mDateVariable] = self.mExogenousDataFrame[self.mDateVariable];
+        self.mEncodedExogenousDataFrame[self.mDateVariable] = self.mExogenousDataFrame[self.mDateVariable];
         for exog in self.mExogenousVariables:
             lList = self.mExogenousVariableCategories[exog];
             if(lList is not None):
                 for lCat in lList:
-                    lDummyName = "exog_dummy_" + exog + "=" + str(lCat);
+                    lDummyName = exog + "=" + str(lCat);
                     self.mEncodedExogenousDataFrame[lDummyName] = np.where(self.mExogenousDataFrame[exog] == lCat , 1, 0);
                     self.mEncodedExogenous = self.mEncodedExogenous + [lDummyName];
             else:
@@ -86,7 +101,7 @@ class cExogenousInfo:
                 lVC = lEstimFrame[exog].value_counts(dropna = False);
                 NCat = self.mOptions.mMaxExogenousCategories;
                 lList = lVC.index[0:NCat].tolist();
-                print("most_frequent_categories_for" , exog, lList);
+                # print("most_frequent_categories_for" , exog, lList);
                 self.mExogenousVariableCategories[exog] = lList;
             else:
                 self.mExogenousVariableCategories[exog] = None;
