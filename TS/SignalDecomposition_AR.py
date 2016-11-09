@@ -109,10 +109,12 @@ class cAutoRegressiveModel(cAbstractAR):
                     self.addLagForForecast(df, lag_df, ex, p);
         return lag_df;
 
-    def dumpCoefficients(self):
+    def dumpCoefficients(self, iMax=10):
         lDict = dict(zip(self.mInputNames , self.mARRidge.coef_));
+        lDict1 = dict(zip(self.mInputNames , abs(self.mARRidge.coef_)));
         i = 1;
-        for k in sorted(lDict.keys()):
+        lOrderedVariables = sorted(lDict1.keys(), key=lDict1.get, reverse=True);
+        for k in lOrderedVariables[0:iMax]:
             print("AR_MODEL_COEFF" , i, k , lDict[k]);
             i = i + 1;
 
@@ -158,6 +160,9 @@ class cAutoRegressiveModel(cAbstractAR):
         if(self.mExogenousInfo is not None):
             df = self.mExogenousInfo.transformDataset(df);
         # print(df.columns);
+        # print(df.info());
+        # print(df.head());
+        # print(df.tail());
         lag_df = self.generateLagsForForecast(df, self.mNbLags);
         # print(self.mInputNames);
         # print(self.mFormula, "\n", lag_df.columns);
