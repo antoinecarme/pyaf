@@ -762,7 +762,7 @@ class cDecompositionCodeGenObject:
             pass
         elif(self.mCycle.mFormula.startswith("Cycle_")):
             lExpr = table.c[self.mRowNumberAlias] - 1
-            lExpr = lExpr % self.mBackEnd.getIntegerLiteral(int(self.mCycle.mBestCycleLength))
+            lExpr = func.mod(lExpr, self.mBackEnd.getIntegerLiteral(int(self.mCycle.mBestCycleLength)))
             cycle_expr = self.generateCycleSpecificExpression(lExpr ,
                                                               self.mCycle.mBestCycleValueDict[self.mCycle.mBestCycleLength],
                                                               self.mCycle.mDefaultValue);
