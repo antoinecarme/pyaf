@@ -56,8 +56,8 @@ class cSignalDecompositionOneTransform:
         
     def __init__(self):
         self.mSignalFrame = pd.DataFrame()
-        self.mTime = "time"
-        self.mSignal = "AirPassengers"
+        self.mTime = None
+        self.mSignal = None
         self.mTimeInfo = tsti.cTimeInfo();
         self.mTrendEstimator = tstr.cTrendEstimator()
         self.mCycleEstimator = tscy.cCycleEstimator();

@@ -324,14 +324,14 @@ class cDatabaseBackend:
 class cDecompositionCodeGenObject:
     def __init__(self, iDSN = None, iDialect = None):
         sys.setrecursionlimit(10000)
-        self.mAutoForecast = None;
+        self.mForecastEngine = None;
         self.mBackEnd = cDatabaseBackend(iDSN , iDialect);
     
     def generateCode(self, iAutoForecast, iTableName = None):
         lTableName = iTableName;
         if(lTableName is None):
             lTableName = self.mBackEnd.generateRandomTableName();
-        self.mAutoForecast = iAutoForecast;
+        self.mForecastEngine = iAutoForecast;
         self.generateCode_Internal(lTableName);
         lSQL = self.mBackEnd.generateSQLForStatement(self.mFinal_CTE);
         return lSQL;
@@ -384,7 +384,7 @@ class cDecompositionCodeGenObject:
          # 7. compute the model as Model = Trend + cycle + AR and the residue=  Model - Signal
          # 8. add H rows (union ?) .... WIP
 
-         self.mBestModel = self.mAutoForecast.mSignalDecomposition.mBestModel;
+         self.mBestModel = self.mForecastEngine.mSignalDecomposition.mBestModel;
          self.mTimeInfo = self.mBestModel.mTimeInfo
 
          self.mTrend = self.mBestModel.mTrend
@@ -393,7 +393,7 @@ class cDecompositionCodeGenObject:
 
          self.mExogenousInfo = self.mAR.mExogenousInfo;
 
-         self.mSignalName = self.mBestModel.mOriginalSignal
+         self.mOriginalSignal = self.mBestModel.mOriginalSignal
          self.mDateName = self.mBestModel.mTime
          self.mModelName =  self.mBestModel.mOutName
 
@@ -401,12 +401,11 @@ class cDecompositionCodeGenObject:
          lNeedTransformation = (lName != "");
 
          self.mRowTypeAlias = "HType" 
-         self.mDateAlias = "DateAlias" 
-         self.mSignalAlias = "SignalAlias" 
+         self.mSignal = self.mBestModel.mSignal; 
          self.mRowNumberAlias = "RN";
 
          self.mDateType = sqlalchemy.types.FLOAT
-         lTimeInfo = self.mAutoForecast.mSignalDecomposition.mBestModel.mTimeInfo
+         lTimeInfo = self.mBestModel.mTimeInfo
          if(lTimeInfo.isPhysicalTime()):
              self.mDateType = sqlalchemy.types.TIMESTAMP;
 
@@ -423,7 +422,7 @@ class cDecompositionCodeGenObject:
              lTableName = self.mBackEnd.generateRandomTableName();
          base_table = self.mBackEnd.createLogicalTable(lTableName , 
                                                        self.mDateName,
-                                                       self.mSignalName, self.mDateType,
+                                                       self.mOriginalSignal, self.mDateType,
                                                        self.getExogenousVariables());
          table = base_table;
 
@@ -459,7 +458,7 @@ class cDecompositionCodeGenObject:
     def addNormalizedTime(self, table):
         exprs = [];
         normalized_time = None;
-        lTimeInfo = self.mAutoForecast.mSignalDecomposition.mBestModel.mTimeInfo
+        lTimeInfo = self.mBestModel.mTimeInfo
         if(lTimeInfo.isPhysicalTime()):
             lType = sqlalchemy.types.TIMESTAMP;
             lMinExpr = self.mBackEnd.getDateTimeLiteral(lTimeInfo.mTimeMin);
@@ -515,15 +514,15 @@ class cDecompositionCodeGenObject:
         exprs2 = self.addNormalizedTime(table);
         exprs3 = self.addExogenousColumns(table);
 
-        lMainColumns = [table.c[self.mDateName] , table.c[self.mSignalName] ]
+        lMainColumns = [table.c[self.mDateName] , table.c[self.mOriginalSignal] ]
         
         self.mRowNumber_CTE = self.mBackEnd.generate_CTE(lMainColumns  + exprs1 + exprs2 + exprs3, "TS_CTE_RowNumber")
         self.mBackEnd.debrief_cte(self.mRowNumber_CTE)
 
     def addOriginalSignalAggreagtes(self, table, tr):
         lName = tr.get_name("");
-        TS1 = alias(select([table.columns[self.mSignalName], table.columns[self.mRowNumberAlias]]), "t_SigRowNum");
-        sig_expr = TS1.c[ self.mSignalName ]; # original signal
+        TS1 = alias(select([table.columns[self.mOriginalSignal], table.columns[self.mRowNumberAlias]]), "t_SigRowNum");
+        sig_expr = TS1.c[ self.mOriginalSignal ]; # original signal
         rn_expr_1 = table.c[self.mRowNumberAlias];
         rn_expr_2 = TS1.c[self.mRowNumberAlias];
         cumulated_signal = None;
@@ -546,15 +545,15 @@ class cDecompositionCodeGenObject:
 
         exprs = [];
         if(cumulated_signal is not None):
-            cumulated_signal = cumulated_signal.label("Cum_" + self.mSignalName);
+            cumulated_signal = cumulated_signal.label("Cum_" + self.mOriginalSignal);
             exprs = [cumulated_signal] + exprs;
             
         if(previous_expr is not None):
-            previous_expr = previous_expr.label("Lag1_" + self.mSignalName);
+            previous_expr = previous_expr.label("Lag1_" + self.mOriginalSignal);
             exprs = [previous_expr] + exprs;
         
         if(relatve_diff is not None):
-            relatve_diff = relatve_diff.label("RelDiff_" + self.mSignalName);
+            relatve_diff = relatve_diff.label("RelDiff_" + self.mOriginalSignal);
             exprs = [relatve_diff] + exprs;
 
         return exprs
@@ -601,26 +600,27 @@ class cDecompositionCodeGenObject:
         exprs = [];
         lName = tr.get_name("");
         # lName = "Diff_"
-        TS1 = alias(select([table.columns[self.mSignalName], table.columns[self.mRowNumberAlias]]), "t_SigRowNum2");
-        sig_expr = TS1.c[ self.mSignalName ]; # original signal
+        TS1 = alias(select([table.columns[self.mOriginalSignal], table.columns[self.mRowNumberAlias]]), "t_SigRowNum2");
+        sig_expr = TS1.c[ self.mOriginalSignal ]; # original signal
         if(lName == ""):            
-            trasformed_signal = table.c[ self.mSignalName ];
+            trasformed_signal = table.c[ self.mOriginalSignal ];
         elif(lName == "CumSum_"):
-            trasformed_signal  = table.c["Cum_" + self.mSignalName];
+            trasformed_signal  = table.c["Cum_" + self.mOriginalSignal];
         elif(lName == "Diff_"):
             lDefault_expr = self.as_float(tr.mTransformation.mFirstValue)
-            previous_expr = func.coalesce(table.c["Lag1_" + self.mSignalName] , lDefault_expr);
-            trasformed_signal  = table.c[ self.mSignalName ] - previous_expr;
+            previous_expr = func.coalesce(table.c["Lag1_" + self.mOriginalSignal] , lDefault_expr);
+            trasformed_signal  = table.c[ self.mOriginalSignal ] - previous_expr;
         elif(lName == "RelDiff_"):
             lDefault_expr = self.as_float(tr.mTransformation.mFirstValue)
             lDefault_expr = (lDefault_expr - tr.mTransformation.mMinValue) / tr.mTransformation.mDelta;
-            lRelDiff = func.coalesce(table.c["RelDiff_" + self.mSignalName] , lDefault_expr);
+            lRelDiff = func.coalesce(table.c["RelDiff_" + self.mOriginalSignal] , lDefault_expr);
             trasformed_signal  = lRelDiff;
         else:
             assert(0);
             
-        trasformed_signal = trasformed_signal.label(self.mSignalAlias);
-        exprs = exprs + [ trasformed_signal ];
+        if(lName != ""):            
+            trasformed_signal = trasformed_signal.label(self.mSignal);
+            exprs = exprs + [ trasformed_signal ];
         return exprs
 
     def generateTransformationCode(self, table):
@@ -641,8 +641,8 @@ class cDecompositionCodeGenObject:
         normalized_time_3 = normalized_time_2 * normalized_time     
         normalized_time_3 = normalized_time_3.label("NTime_3")
         if(self.mTrend.mFormula == "Lag1Trend"):
-            TS1 = alias(select([table.columns[self.mSignalAlias], table.columns[self.mRowNumberAlias]]), "t_SigRowNum3");
-            sig_expr = TS1.c[ self.mSignalAlias ];
+            TS1 = alias(select([table.columns[self.mSignal], table.columns[self.mRowNumberAlias]]), "t_SigRowNum3");
+            sig_expr = TS1.c[ self.mSignal ];
             rn_expr_1 = table.c[self.mRowNumberAlias];
             rn_expr_2 = TS1.c[self.mRowNumberAlias];
             lag1 = select([func.sum(sig_expr)]).where(rn_expr_1 == (rn_expr_2 + 1));
@@ -687,7 +687,7 @@ class cDecompositionCodeGenObject:
 
 
     def addTrends(self, table):
-        exprs = []; # [table.c[self.mDateAlias], table.c[self.mSignalAlias], table.c[self.mRowNumberAlias]]
+        exprs = [];
         trend_expr = self.generateTrendExpression(table);
         #print(type(trend_expr))
         
@@ -790,7 +790,7 @@ class cDecompositionCodeGenObject:
         exprs = [];
         cycle_expr = table.c[self.shorten(self.mCycle.getCycleName())];
         trend_expr = table.c[self.shorten(self.mTrend.mOutName)];
-        cycle_residue_expr = trend_expr + cycle_expr - table.c[self.mSignalAlias]
+        cycle_residue_expr = trend_expr + cycle_expr - table.c[self.mSignal]
         cycle_residue_expr = cycle_residue_expr.label(self.shorten(self.mCycle.getCycleResidueName()))
         exprs = exprs + [cycle_residue_expr]
         return exprs
@@ -887,9 +887,9 @@ class cDecompositionCodeGenObject:
         sum_1 += table.c[self.shorten(self.mAR.mOutName)];
         model_expr = sum_1;
         model_expr = model_expr.label(self.shorten("Model"))
-        model_residue = model_expr - table.c[self.mSignalAlias]
+        model_residue = model_expr - table.c[self.mSignal]
         model_residue = model_residue.label("Model" + "Residue")
-        signal_or_forecast_expr = func.coalesce(table.c[self.mSignalAlias], model_expr);
+        signal_or_forecast_expr = func.coalesce(table.c[self.mSignal], model_expr);
         signal_or_forecast_expr = signal_or_forecast_expr.label("PredictedSignal")
         exprs = exprs + [model_expr , model_residue, signal_or_forecast_expr]
         return exprs
@@ -942,7 +942,7 @@ class cDecompositionCodeGenObject:
 
     def generateModelInvTransformationInputCode(self):
         exprs1 = self.addModelAggreagtes(self.mModel_CTE,
-                                         self.mAutoForecast.mSignalDecomposition.mBestTransformation);
+                                         self.mBestModel.mTransformation);
         self.mModelInvTransformationInputs_CTE = self.mBackEnd.generate_CTE(self.mModel_CTE.columns  + exprs1, "TS_CTE_ModelInvTransformationInput")
         self.mBackEnd.debrief_cte(self.mModelInvTransformationInputs_CTE)
 
@@ -965,20 +965,20 @@ class cDecompositionCodeGenObject:
         elif(lName == "RelDiff_"):
             lDefault_expr = self.as_float(tr.mTransformation.mFirstValue)
             lDefault_expr = (lDefault_expr - tr.mTransformation.mMinValue) / tr.mTransformation.mDelta;
-            lRelDiff = func.coalesce(table.c["RelDiff_" + self.mSignalName] , lDefault_expr);
+            lRelDiff = func.coalesce(table.c["RelDiff_" + self.mOriginalSignal] , lDefault_expr);
             transformed_model  = lRelDiff;
         else:
             assert(0);
 
         transformed_model = transformed_model.label("OriginalForecast");
-        transformed_model_residue =  transformed_model - table.c[ self.mSignalName ];
+        transformed_model_residue =  transformed_model - table.c[ self.mOriginalSignal ];
         transformed_model_residue = transformed_model_residue.label("OriginalForecast_Residue");
         exprs = exprs + [ transformed_model , transformed_model_residue];
         return exprs
 
     def generateInverseTransformationCode(self):
         model_exprs = self.addTransformedModel(self.mModelInvTransformationInputs_CTE,
-                                               self.mAutoForecast.mSignalDecomposition.mBestTransformation) 
+                                               self.mBestModel.mTransformation) 
         self.mModelInvTransformation_CTE = self.mBackEnd.generate_CTE([self.mModelInvTransformationInputs_CTE]  + model_exprs, "TS_CTE_InvTransformedModel")
         self.mBackEnd.debrief_cte(self.mModelInvTransformation_CTE)
 
@@ -1013,8 +1013,8 @@ class cDecompositionCodeGenObject:
             for (key, col) in table.columns.items():
                 if(key != self.mDateName):
                     empty_line = empty_line + [ func.cast(null(), col.type).label(key) ];
-            lSignal = func.coalesce(table.c[self.mSignalName], table.c["PredictedSignal"]);
-            lSignal = lSignal.label(self.mSignalName);
+            lSignal = func.coalesce(table.c[self.mOriginalSignal], table.c["PredictedSignal"]);
+            lSignal = lSignal.label(self.mOriginalSignal);
             lModifiedTableColumns = [table.c[self.mDateName] , lSignal];
             for (key, col) in table.columns.items()[2:]:
                 lModifiedTableColumns = lModifiedTableColumns + [ col ]
