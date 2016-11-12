@@ -572,7 +572,7 @@ class cDecompositionCodeGenObject:
             lList = lExogenousInfo.mExogenousVariableCategories[exog];
             if(lList is not None):
                 for lCat in lList:
-                    lDummyName = "exog_dummy_" + exog + "=" + str(lCat);
+                    lDummyName = exog + "=" + str(lCat);
                     lCatExpr = sqlalchemy.sql.expression.literal(str(lCat), String);
                     if((lCat == "") or (lCat is None)):                    
                         cond = (table.c[exog] == None);
