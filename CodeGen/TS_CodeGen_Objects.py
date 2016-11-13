@@ -30,6 +30,8 @@ import numpy as np;
 
 from dateutil.tz import tzutc
 
+import pyaf
+
 import psycopg2 as psy;
 #register_adapter, AsIs
 from psycopg2.extensions import adapt, register_adapter, AsIs
@@ -343,15 +345,20 @@ class cDecompositionCodeGenObject:
             lTableName = self.mBackEnd.generateRandomTableName();
         lTestTable = self.mBackEnd.materializeTable(df, lTableName);
         lSQL = self.generateCode(iAutoForecast, lTableName);
+        H = self.getHorizon();        
+        lInternalApplyOut = iAutoForecast.forecast(df, H);
+        print(lInternalApplyOut.info());
+        # print(lInternalApplyOut.head(2*H));
+        print(lInternalApplyOut.tail(2*H));                
         lGeneratedApplyOut = self.mBackEnd.executeSQL(lSQL);
         lTestTable.drop();
         select1 = select([self.mFinal_CTE]);
         lGeneratedApplyOut.columns = select1.columns.keys();
-        H = self.getHorizon();        
         print(lGeneratedApplyOut.info());
-        print(lGeneratedApplyOut.head(H));
-        print(lGeneratedApplyOut.tail(H));
+        # print(lGeneratedApplyOut.head(2*H));
+        print(lGeneratedApplyOut.tail(2*H));        
         # lGeneratedApplyOut.to_csv("sql_generated.csv");
+        
 
     def shorten(self, iName):
         if(iName in self.mBackEnd.mShortLabels.keys()):
@@ -444,8 +451,8 @@ class cDecompositionCodeGenObject:
              self.mFinal_CTE = self.mModelInvTransformation_CTE;
          else:
              self.mFinal_CTE = self.mModel_CTE;
-         # self.generateForecasts();
-         # self.mFinal_CTE = self.mForecast_CTE;
+         self.generateForecasts();
+         self.mFinal_CTE = self.mForecast_CTE;
 
 
     def getExogenousVariables(self):
@@ -517,7 +524,7 @@ class cDecompositionCodeGenObject:
         lMainColumns = [table.c[self.mDateName] , table.c[self.mOriginalSignal] ]
         
         self.mRowNumber_CTE = self.mBackEnd.generate_CTE(lMainColumns  + exprs1 + exprs2 + exprs3, "TS_CTE_RowNumber")
-        self.mBackEnd.debrief_cte(self.mRowNumber_CTE)
+        # self.mBackEnd.debrief_cte(self.mRowNumber_CTE)
 
     def addOriginalSignalAggreagtes(self, table, tr):
         lName = tr.get_name("");
@@ -594,7 +601,7 @@ class cDecompositionCodeGenObject:
                                                   self.mBestModel.mTransformation);
         exprs2 = self.addExogenousDummies(self.mRowNumber_CTE);
         self.mTransformationInputs_CTE = self.mBackEnd.generate_CTE(self.mRowNumber_CTE.columns  + exprs1 + exprs2, "TS_CTE_TransformationInput")
-        self.mBackEnd.debrief_cte(self.mTransformationInputs_CTE)
+        # self.mBackEnd.debrief_cte(self.mTransformationInputs_CTE)
 
     def addTransformedSignal(self, table, tr):
         exprs = [];
@@ -628,7 +635,7 @@ class cDecompositionCodeGenObject:
         signal_exprs = self.addTransformedSignal(self.mTransformationInputs_CTE,
                                                  self.mBestModel.mTransformation) 
         self.mTransformation_CTE = self.mBackEnd.generate_CTE([self.mTransformationInputs_CTE]  + signal_exprs, "TS_CTE_Transformation")
-        self.mBackEnd.debrief_cte(self.mTransformation_CTE)
+        # self.mBackEnd.debrief_cte(self.mTransformation_CTE)
 
 
     def addTrendInputs(self, table):
@@ -640,7 +647,7 @@ class cDecompositionCodeGenObject:
         normalized_time_2 = normalized_time_2.label("NTime_2")
         normalized_time_3 = normalized_time_2 * normalized_time     
         normalized_time_3 = normalized_time_3.label("NTime_3")
-        if(self.mTrend.mFormula == "Lag1Trend"):
+        if(self.mTrend.__class__ == pyaf.TS.SignalDecomposition_Trend.cLag1Trend):
             TS1 = alias(select([table.columns[self.mSignal], table.columns[self.mRowNumberAlias]]), "t_SigRowNum3");
             sig_expr = TS1.c[ self.mSignal ];
             rn_expr_1 = table.c[self.mRowNumberAlias];
@@ -655,22 +662,23 @@ class cDecompositionCodeGenObject:
         # => Trend_Inputs_CTE
         trend_inputs = self.addTrendInputs(self.mTransformation_CTE) 
         self.mTrend_inputs_CTE = self.mBackEnd.generate_CTE([self.mTransformation_CTE] + trend_inputs, "TS_CTE_Trend_Input")
-        self.mBackEnd.debrief_cte(self.mTrend_inputs_CTE)
+        # self.mBackEnd.debrief_cte(self.mTrend_inputs_CTE)
 
     def as_float(self, x):
         return self.mBackEnd.getFloatLiteral(float(x));
 
     def generateTrendExpression(self, table):
+        print("TREND" , self.mTrend.__class__, self.mTrend.mFormula)
         trend_expr = None;
-        if(self.mTrend.mFormula == "ConstantTrend"):
+        if(self.mTrend.__class__ == pyaf.TS.SignalDecomposition_Trend.cConstantTrend):
             trend_expr = self.as_float(self.mTrend.mMean);
             pass
-        elif(self.mTrend.mFormula == "LinearTrend"):
+        elif(self.mTrend.__class__ == pyaf.TS.SignalDecomposition_Trend.cLinearTrend):
             # print(self.mTrend.mTrendRidge.__dict__);
             lCoeffs = self.mTrend.mTrendRidge.coef_;
             trend_expr = self.as_float(lCoeffs[0]) * table.c["NTime"] + self.as_float(self.mTrend.mTrendRidge.intercept_)
             pass
-        elif(self.mTrend.mFormula == "PolyTrend"):
+        elif(self.mTrend.__class__ == pyaf.TS.SignalDecomposition_Trend.cPolyTrend):
             # print(self.mTrend.mTrendRidge.__dict__);
             lCoeffs = self.mTrend.mTrendRidge.coef_;
             trend_expr = self.as_float(lCoeffs[0]) * table.c["NTime"];
@@ -678,7 +686,7 @@ class cDecompositionCodeGenObject:
             trend_expr += self.as_float(lCoeffs[2]) * table.c["NTime_3"];
             trend_expr += self.as_float(self.mTrend.mTrendRidge.intercept_)
             pass
-        elif(self.mTrend.mFormula == "Lag1Trend"):
+        elif(self.mTrend.__class__ == pyaf.TS.SignalDecomposition_Trend.cLag1Trend):
             lDefault_expr = self.as_float(self.mTrend.mDefaultValue);
             lag1 = func.coalesce(table.c["Lag1"] , lDefault_expr);
             trend_expr = lag1;
@@ -699,7 +707,7 @@ class cDecompositionCodeGenObject:
         # => Trend_CTE
         trends = self.addTrends(self.mTrend_inputs_CTE)
         self.mTrend_CTE = self.mBackEnd.generate_CTE([self.mTrend_inputs_CTE] + trends, "TS_CTE_Trend")
-        self.mBackEnd.debrief_cte(self.mTrend_CTE)
+        # self.mBackEnd.debrief_cte(self.mTrend_CTE)
 
 
 
@@ -707,7 +715,7 @@ class cDecompositionCodeGenObject:
         lTime =  self.mDateName;
         exprs = [];
         # print(table.columns);
-        if(self.mCycle.mFormula.startswith("Seasonal_")):
+        if(self.mCycle.__class__ == pyaf.TS.SignalDecomposition_Cycle.cSeasonalPeriodic):
             date_expr = table.c[lTime]
             date_parts = [extract('year', date_expr).label(lTime + "_Year") ,  
                           extract('month', date_expr).label(lTime + "_MonthOfYear") ,  
@@ -725,7 +733,7 @@ class cDecompositionCodeGenObject:
         # => Cycle_Inputs_CTE
         cycle_inputs = self.addCycleInputs(self.mTrend_CTE)
         self.mCycle_input_CTE = self.mBackEnd.generate_CTE([self.mTrend_CTE] + cycle_inputs, "TS_CTE_CylceInputs")
-        self.mBackEnd.debrief_cte(self.mCycle_input_CTE)
+        # self.mBackEnd.debrief_cte(self.mCycle_input_CTE)
 
     
     def generateCaseWhen(self, iExpr , iValue , iOutput, iElse):
@@ -748,19 +756,17 @@ class cDecompositionCodeGenObject:
 
     def generateCycleExpression(self, table):
         cycle_expr = None;
-        if(self.mCycle.mFormula == "NoCycle"):
+        print("CYCLE" , self.mCycle.__class__, self.mCycle.mFormula)
+        if(self.mCycle.__class__ == pyaf.TS.SignalDecomposition_Cycle.cZeroCycle):
             cycle_expr = self.as_float(0.0);
             pass
-        elif(self.mCycle.mFormula.startswith("Seasonal_")):
+        elif(self.mCycle.__class__ == pyaf.TS.SignalDecomposition_Cycle.cSeasonalPeriodic):
             lExpr = table.c[self.mDateName + "_" + self.mCycle.mDatePart]
             cycle_expr = self.generateCycleSpecificExpression(lExpr ,
                                                               self.mCycle.mEncodedValueDict,
                                                               self.mCycle.mDefaultValue);
             pass
-        elif(self.mCycle.mFormula.startswith("Cycle_None")):
-            cycle_expr = self.as_float(0.0);
-            pass
-        elif(self.mCycle.mFormula.startswith("Cycle_")):
+        elif(self.mCycle.__class__ == pyaf.TS.SignalDecomposition_Cycle.cBestCycleForTrend):
             lExpr = table.c[self.mRowNumberAlias] - 1
             lExpr = func.mod(lExpr, self.mBackEnd.getIntegerLiteral(int(self.mCycle.mBestCycleLength)))
             cycle_expr = self.generateCycleSpecificExpression(lExpr ,
@@ -784,7 +790,7 @@ class cDecompositionCodeGenObject:
         # print(sel1.columns)
         cycles = self.addCycles(self.mCycle_input_CTE)
         self.mCycle_CTE = self.mBackEnd.generate_CTE([self.mCycle_input_CTE] + cycles, "TS_CTE_Cycle")
-        self.mBackEnd.debrief_cte(self.mCycle_CTE)    
+        # self.mBackEnd.debrief_cte(self.mCycle_CTE)    
 
     def addCycleResidues(self, table):
         exprs = [];
@@ -800,7 +806,7 @@ class cDecompositionCodeGenObject:
         # => Cycle_Residue_CTE
         cycle_resdiues = self.addCycleResidues(self.mCycle_CTE)
         self.mCycle_residues_CTE = self.mBackEnd.generate_CTE([self.mCycle_CTE] + cycle_resdiues, "TS_CTE_CycleResidue")
-        self.mBackEnd.debrief_cte(self.mCycle_residues_CTE)
+        # self.mBackEnd.debrief_cte(self.mCycle_residues_CTE)
 
 
     def createLags(self, table , P , cols, index_col):
@@ -849,13 +855,14 @@ class cDecompositionCodeGenObject:
         # => AR_Inputs_CTE
         self.mAR_inputs = self.addARInputs(self.mCycle_residues_CTE)
         self.mAR_input_CTE = self.mBackEnd.generate_CTE([self.mCycle_residues_CTE] + self.mAR_inputs, "TS_CTE_AR_Inputs")
-        self.mBackEnd.debrief_cte(self.mAR_input_CTE)
+        # self.mBackEnd.debrief_cte(self.mAR_input_CTE)
         
 
     def addARModel(self, table):
+        print("ARX" , self.mAR.__class__, self.mAR.mFormula)
         exprs = [];
         ar_expr = None;
-        if(self.mAR.mFormula != "NoAR"):
+        if(self.mAR.__class__ != pyaf.TS.SignalDecomposition_AR.cZeroAR):
             i = 0 ;
             for i in range(len(self.mAR_inputs)):
                 lag = self.mAR_inputs[i];
@@ -878,7 +885,7 @@ class cDecompositionCodeGenObject:
         # => AR_CTE
         ars = self.addARModel(self.mAR_input_CTE)
         self.mAR_CTE = self.mBackEnd.generate_CTE([self.mAR_input_CTE] + ars, "TS_CTE_AR")
-        self.mBackEnd.debrief_cte(self.mAR_CTE)
+        # self.mBackEnd.debrief_cte(self.mAR_CTE)
 
     def add_TS_Model(self, table):
         exprs = [];
@@ -900,7 +907,7 @@ class cDecompositionCodeGenObject:
         # print(sel1.columns)
         model_vars = self.add_TS_Model(self.mAR_CTE)
         self.mModel_CTE = self.mBackEnd.generate_CTE([self.mAR_CTE] + model_vars, "TS_CTE_Model")
-        self.mBackEnd.debrief_cte(self.mModel_CTE)
+        # self.mBackEnd.debrief_cte(self.mModel_CTE)
 
 
     def addModelAggreagtes(self, table, tr):
@@ -944,7 +951,7 @@ class cDecompositionCodeGenObject:
         exprs1 = self.addModelAggreagtes(self.mModel_CTE,
                                          self.mBestModel.mTransformation);
         self.mModelInvTransformationInputs_CTE = self.mBackEnd.generate_CTE(self.mModel_CTE.columns  + exprs1, "TS_CTE_ModelInvTransformationInput")
-        self.mBackEnd.debrief_cte(self.mModelInvTransformationInputs_CTE)
+        # self.mBackEnd.debrief_cte(self.mModelInvTransformationInputs_CTE)
 
     def addTransformedModel(self, table, tr):
         exprs = [];
@@ -980,7 +987,7 @@ class cDecompositionCodeGenObject:
         model_exprs = self.addTransformedModel(self.mModelInvTransformationInputs_CTE,
                                                self.mBestModel.mTransformation) 
         self.mModelInvTransformation_CTE = self.mBackEnd.generate_CTE([self.mModelInvTransformationInputs_CTE]  + model_exprs, "TS_CTE_InvTransformedModel")
-        self.mBackEnd.debrief_cte(self.mModelInvTransformation_CTE)
+        # self.mBackEnd.debrief_cte(self.mModelInvTransformation_CTE)
 
 
     def generate_next_time(self, current, h):
@@ -1030,5 +1037,5 @@ class cDecompositionCodeGenObject:
             table = alias( select([lCTEs[ h ]]) , "base_table_with_horizon" + str(h));
             
         self.mForecast_CTE = lCTEs[ H ]
-        self.mBackEnd.debrief_cte(self.mForecast_CTE)
+        # self.mBackEnd.debrief_cte(self.mForecast_CTE)
 
