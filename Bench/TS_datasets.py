@@ -738,7 +738,7 @@ def load_AU_infant_grouped_dataset():
     lHierarchy['Levels'] = None;
     lHierarchy['Data'] = None;
     lHierarchy['Groups']= lGroups;
-    lHierarchy['GroupOrder']= ["State" , "Gender"];
+    lHierarchy['GroupOrder']= ["State" , "Gender"]; # by state first, then by gender
     lHierarchy['Type'] = "Grouped";
     
     tsspec.mHierarchy = lHierarchy;
