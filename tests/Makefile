@@ -48,6 +48,9 @@ codegen/test_air_passengers_code_gen.py  :
 #PROCESSING FILE :  tests/codegen/test_ozone_code_gen_2.py codegen/test_ozone_code_gen_2.py logs/codegen_test_ozone_code_gen_2.log
 codegen/test_ozone_code_gen_2.py  :  
 	 -ipython3 tests/codegen/test_ozone_code_gen_2.py  >  logs/codegen_test_ozone_code_gen_2.log  2>&1
+#PROCESSING FILE :  tests/codegen/test_air_passengers_code_gen_proto.py codegen/test_air_passengers_code_gen_proto.py logs/codegen_test_air_passengers_code_gen_proto.log
+codegen/test_air_passengers_code_gen_proto.py  :  
+	 -ipython3 tests/codegen/test_air_passengers_code_gen_proto.py  >  logs/codegen_test_air_passengers_code_gen_proto.log  2>&1
 #PROCESSING FILE :  tests/codegen/test_random_exogenous_code_gen.py codegen/test_random_exogenous_code_gen.py logs/codegen_test_random_exogenous_code_gen.log
 codegen/test_random_exogenous_code_gen.py  :  
 	 -ipython3 tests/codegen/test_random_exogenous_code_gen.py  >  logs/codegen_test_random_exogenous_code_gen.log  2>&1
@@ -68,15 +71,12 @@ codegen/test_ozone_no_seas_code_gen.py  :
 	 -ipython3 tests/codegen/test_ozone_no_seas_code_gen.py  >  logs/codegen_test_ozone_no_seas_code_gen.log  2>&1
 
 
- codegen :  codegen/test_ozone_no_seas_code_gen.py codegen/test_ozone_exogenous_code_gen.py codegen/test_lin_trend_cycle_code_gen.py codegen/test_cycle_code_gen.py codegen/test_ozone_code_gen.py codegen/test_random_exogenous_code_gen.py codegen/test_ozone_code_gen_2.py codegen/test_air_passengers_code_gen.py  
+ codegen :  codegen/test_ozone_no_seas_code_gen.py codegen/test_ozone_exogenous_code_gen.py codegen/test_lin_trend_cycle_code_gen.py codegen/test_cycle_code_gen.py codegen/test_ozone_code_gen.py codegen/test_random_exogenous_code_gen.py codegen/test_air_passengers_code_gen_proto.py codegen/test_ozone_code_gen_2.py codegen/test_air_passengers_code_gen.py  
  
 
 #PROCESSING FILE :  tests/exog/test_random_exogenous.py exog/test_random_exogenous.py logs/exog_test_random_exogenous.log
 exog/test_random_exogenous.py  :  
 	 -ipython3 tests/exog/test_random_exogenous.py  >  logs/exog_test_random_exogenous.log  2>&1
-#PROCESSING FILE :  tests/exog/test_const_exogenous_signals.py exog/test_const_exogenous_signals.py logs/exog_test_const_exogenous_signals.log
-exog/test_const_exogenous_signals.py  :  
-	 -ipython3 tests/exog/test_const_exogenous_signals.py  >  logs/exog_test_const_exogenous_signals.log  2>&1
 #PROCESSING FILE :  tests/exog/test_ozone_exogenous_profile.py exog/test_ozone_exogenous_profile.py logs/exog_test_ozone_exogenous_profile.log
 exog/test_ozone_exogenous_profile.py  :  
 	 -ipython3 tests/exog/test_ozone_exogenous_profile.py  >  logs/exog_test_ozone_exogenous_profile.log  2>&1
@@ -85,7 +85,7 @@ exog/test_ozone_exogenous.py  :
 	 -ipython3 tests/exog/test_ozone_exogenous.py  >  logs/exog_test_ozone_exogenous.log  2>&1
 
 
- exog :  exog/test_ozone_exogenous.py exog/test_ozone_exogenous_profile.py exog/test_const_exogenous_signals.py exog/test_random_exogenous.py  
+ exog :  exog/test_ozone_exogenous.py exog/test_ozone_exogenous_profile.py exog/test_random_exogenous.py  
  
 
 #PROCESSING FILE :  tests/func/test_cycle.py func/test_cycle.py logs/func_test_cycle.log
@@ -162,24 +162,54 @@ time_res/test_ozone_Hourly.py  :
 #PROCESSING FILE :  tests/hierarchical/test_hier_prototyping_5.py hierarchical/test_hier_prototyping_5.py logs/hierarchical_test_hier_prototyping_5.log
 hierarchical/test_hier_prototyping_5.py  :  
 	 -ipython3 tests/hierarchical/test_hier_prototyping_5.py  >  logs/hierarchical_test_hier_prototyping_5.log  2>&1
+#PROCESSING FILE :  tests/hierarchical/test_grouped_signals_BU.py hierarchical/test_grouped_signals_BU.py logs/hierarchical_test_grouped_signals_BU.log
+hierarchical/test_grouped_signals_BU.py  :  
+	 -ipython3 tests/hierarchical/test_grouped_signals_BU.py  >  logs/hierarchical_test_grouped_signals_BU.log  2>&1
 #PROCESSING FILE :  tests/hierarchical/test_hier_prototyping_2.py hierarchical/test_hier_prototyping_2.py logs/hierarchical_test_hier_prototyping_2.log
 hierarchical/test_hier_prototyping_2.py  :  
 	 -ipython3 tests/hierarchical/test_hier_prototyping_2.py  >  logs/hierarchical_test_hier_prototyping_2.log  2>&1
+#PROCESSING FILE :  tests/hierarchical/test_grouped_signals_TD.py hierarchical/test_grouped_signals_TD.py logs/hierarchical_test_grouped_signals_TD.log
+hierarchical/test_grouped_signals_TD.py  :  
+	 -ipython3 tests/hierarchical/test_grouped_signals_TD.py  >  logs/hierarchical_test_grouped_signals_TD.log  2>&1
+#PROCESSING FILE :  tests/hierarchical/test_hierarchy_AU.py hierarchical/test_hierarchy_AU.py logs/hierarchical_test_hierarchy_AU.log
+hierarchical/test_hierarchy_AU.py  :  
+	 -ipython3 tests/hierarchical/test_hierarchy_AU.py  >  logs/hierarchical_test_hierarchy_AU.log  2>&1
+#PROCESSING FILE :  tests/hierarchical/test_hierarchy_AU_BU.py hierarchical/test_hierarchy_AU_BU.py logs/hierarchical_test_hierarchy_AU_BU.log
+hierarchical/test_hierarchy_AU_BU.py  :  
+	 -ipython3 tests/hierarchical/test_hierarchy_AU_BU.py  >  logs/hierarchical_test_hierarchy_AU_BU.log  2>&1
+#PROCESSING FILE :  tests/hierarchical/test_hierarchy_AU_TD.py hierarchical/test_hierarchy_AU_TD.py logs/hierarchical_test_hierarchy_AU_TD.log
+hierarchical/test_hierarchy_AU_TD.py  :  
+	 -ipython3 tests/hierarchical/test_hierarchy_AU_TD.py  >  logs/hierarchical_test_hierarchy_AU_TD.log  2>&1
+#PROCESSING FILE :  tests/hierarchical/test_hierarchy_AU_OC.py hierarchical/test_hierarchy_AU_OC.py logs/hierarchical_test_hierarchy_AU_OC.log
+hierarchical/test_hierarchy_AU_OC.py  :  
+	 -ipython3 tests/hierarchical/test_hierarchy_AU_OC.py  >  logs/hierarchical_test_hierarchy_AU_OC.log  2>&1
 #PROCESSING FILE :  tests/hierarchical/test_hier_prototyping_1.py hierarchical/test_hier_prototyping_1.py logs/hierarchical_test_hier_prototyping_1.log
 hierarchical/test_hier_prototyping_1.py  :  
 	 -ipython3 tests/hierarchical/test_hier_prototyping_1.py  >  logs/hierarchical_test_hier_prototyping_1.log  2>&1
 #PROCESSING FILE :  tests/hierarchical/test_hier_prototyping_4.py hierarchical/test_hier_prototyping_4.py logs/hierarchical_test_hier_prototyping_4.log
 hierarchical/test_hier_prototyping_4.py  :  
 	 -ipython3 tests/hierarchical/test_hier_prototyping_4.py  >  logs/hierarchical_test_hier_prototyping_4.log  2>&1
+#PROCESSING FILE :  tests/hierarchical/test_grouped_signals_OC.py hierarchical/test_grouped_signals_OC.py logs/hierarchical_test_grouped_signals_OC.log
+hierarchical/test_grouped_signals_OC.py  :  
+	 -ipython3 tests/hierarchical/test_grouped_signals_OC.py  >  logs/hierarchical_test_grouped_signals_OC.log  2>&1
 #PROCESSING FILE :  tests/hierarchical/test_hier_prototyping_3.py hierarchical/test_hier_prototyping_3.py logs/hierarchical_test_hier_prototyping_3.log
 hierarchical/test_hier_prototyping_3.py  :  
 	 -ipython3 tests/hierarchical/test_hier_prototyping_3.py  >  logs/hierarchical_test_hier_prototyping_3.log  2>&1
 #PROCESSING FILE :  tests/hierarchical/test_grouped_prototyping_1.py hierarchical/test_grouped_prototyping_1.py logs/hierarchical_test_grouped_prototyping_1.log
 hierarchical/test_grouped_prototyping_1.py  :  
 	 -ipython3 tests/hierarchical/test_grouped_prototyping_1.py  >  logs/hierarchical_test_grouped_prototyping_1.log  2>&1
+#PROCESSING FILE :  tests/hierarchical/test_hierarchy_AU_MO.py hierarchical/test_hierarchy_AU_MO.py logs/hierarchical_test_hierarchy_AU_MO.log
+hierarchical/test_hierarchy_AU_MO.py  :  
+	 -ipython3 tests/hierarchical/test_hierarchy_AU_MO.py  >  logs/hierarchical_test_hierarchy_AU_MO.log  2>&1
+#PROCESSING FILE :  tests/hierarchical/test_grouped_signals_MO.py hierarchical/test_grouped_signals_MO.py logs/hierarchical_test_grouped_signals_MO.log
+hierarchical/test_grouped_signals_MO.py  :  
+	 -ipython3 tests/hierarchical/test_grouped_signals_MO.py  >  logs/hierarchical_test_grouped_signals_MO.log  2>&1
+#PROCESSING FILE :  tests/hierarchical/test_grouped.py hierarchical/test_grouped.py logs/hierarchical_test_grouped.log
+hierarchical/test_grouped.py  :  
+	 -ipython3 tests/hierarchical/test_grouped.py  >  logs/hierarchical_test_grouped.log  2>&1
 
 
- hierarchical :  hierarchical/test_grouped_prototyping_1.py hierarchical/test_hier_prototyping_3.py hierarchical/test_hier_prototyping_4.py hierarchical/test_hier_prototyping_1.py hierarchical/test_hier_prototyping_2.py hierarchical/test_hier_prototyping_5.py  
+ hierarchical :  hierarchical/test_grouped.py hierarchical/test_grouped_signals_MO.py hierarchical/test_hierarchy_AU_MO.py hierarchical/test_grouped_prototyping_1.py hierarchical/test_hier_prototyping_3.py hierarchical/test_grouped_signals_OC.py hierarchical/test_hier_prototyping_4.py hierarchical/test_hier_prototyping_1.py hierarchical/test_hierarchy_AU_OC.py hierarchical/test_hierarchy_AU_TD.py hierarchical/test_hierarchy_AU_BU.py hierarchical/test_hierarchy_AU.py hierarchical/test_grouped_signals_TD.py hierarchical/test_hier_prototyping_2.py hierarchical/test_grouped_signals_BU.py hierarchical/test_hier_prototyping_5.py  
  
 
 
