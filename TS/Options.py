@@ -30,6 +30,7 @@ class cSignalDecomposition_Options:
         self.mModelSelection_Criterion = "L2";
         self.mCycle_Criterion = "L2";
         self.mCycle_Criterion_Threshold = None;
+        self.mHierarchicalCombinationMethod = "BU";
         self.disableDebuggingOptions();
 
     def disableDebuggingOptions(self):

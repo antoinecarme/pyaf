@@ -34,7 +34,7 @@ class cSignalGrouping (sighier.cSignalHierarchy):
         for group in self.mStructure[previous_level]:
             lGroupLabel = group; # self.tuple_to_string(group);
             lTuple = self.mLabels2Tuples[lGroupLabel]
-            for k in range(len(lTuple)):
+            for k in [previous_level]:
                 if(lTuple[k] != ""):
                     new_group = list(lTuple);
                     new_group[k] = "";
@@ -44,7 +44,7 @@ class cSignalGrouping (sighier.cSignalHierarchy):
                     if(lNewGroupLabel not in self.mStructure[level]):
                         self.mStructure[level][lNewGroupLabel] = set();
                     self.mStructure[level][lNewGroupLabel].add(lGroupLabel)
-        # print(self.mStructure[level]);
+        print("STRUCTURE_LEVEL" , level, self.mStructure[level]);
 
     def create_HierarchicalStructure(self):
         
@@ -57,19 +57,21 @@ class cSignalGrouping (sighier.cSignalHierarchy):
         self.mLevels = lGroups.keys();
         self.mLabels2Tuples = {};
         self.mStructure = {};
-        array1 = [ lGroups[k] for k in self.mHierarchy['GroupOrder'] ];
+        array1 = [ lGroups[k] for k in sorted(self.mHierarchy['GroupOrder'] , reverse=True) ];
         prod = itertools.product( *array1 );
+        # print(prod);
         # prod = itertools.product(['a' , 'b'] , ['1' , '2'] , ['cc' , 'dd']);
         level = 0;
         self.mStructure[level] = {}
         for k in prod:
-            # print(k);
+            print("PRODUCT_DETAIL", k);
             lGroupLabel = self.tuple_to_string(k);
             self.mLabels2Tuples[lGroupLabel] = k;
             self.mStructure[level][lGroupLabel] = set();
+        print("STRUCTURE_LEVEL" , level, self.mStructure[level]);
         while(len(self.mStructure[level]) > 1):
             self.add_level(level);
             level = level + 1;
         
-        # print(self.mStructure);
+        print("STRUCTURE", self.mStructure);
         pass

@@ -62,7 +62,6 @@ class cSignalHierarchy:
         pass
     
     def create_SummingMatrix(self):
-        lLevelCount = len(self.mLevels);
         lNbNodes = sum([len(self.mStructure[level]) for level in self.mStructure.keys()]);
         lBaseLevelCount = len(self.mStructure[0]);
         lIndices = {};
@@ -99,7 +98,6 @@ class cSignalHierarchy:
                 lAllLevelsDataset[k] = df[df.columns[i + 1]];
                 i = i + 1;
                 
-        lLevelCount = len(self.mLevels);
         for level in  self.mStructure.keys():
             if(level > 0):
                 for col in self.mStructure[level].keys():
@@ -124,7 +122,6 @@ class cSignalHierarchy:
 
     def create_all_levels_models(self, iAllLevelsDataset, H, iDateColumn):
         self.mModels = {};
-        lLevelCount = len(self.mLevels);
         for level in self.mStructure.keys():
             self.mModels[level] = {};
             for signal in self.mStructure[level].keys():
@@ -176,7 +173,6 @@ class cSignalHierarchy:
         return lForecast_DF;
 
     def computeTopDownHistoricalProportions(self, iForecast_DF):
-        lLevelCount = len(self.mLevels);
         self.mAvgHistProp = {};
         self.mPropHistAvg = {};
         for level in  self.mStructure.keys():
@@ -192,7 +188,6 @@ class cSignalHierarchy:
         pass
         
     def computeTopDownForecastedProportions(self, iForecast_DF):
-        lLevelCount = len(self.mLevels);
         self.mForecastedProp = {};
         for level in  self.mStructure.keys():
             if(level > 0):
@@ -202,21 +197,24 @@ class cSignalHierarchy:
                         self.mForecastedProp[col][col1] = (iForecast_DF[col1] / iForecast_DF[col]).mean();
         print("ForecastedProp\n", self.mForecastedProp);
         pass
-        
+
+    def computeBottomUpForecast(self, iForecast_DF, level, signal, iPrefix = "BU"):
+        new_BU_forecast = None;
+        for col1 in self.mStructure[level][signal]:
+            if(new_BU_forecast is None):
+                new_BU_forecast = iForecast_DF[col1 + "_Forecast"];
+            else:
+                new_BU_forecast = new_BU_forecast + iForecast_DF[col1 + "_" + iPrefix + "_Forecast"];
+        if(new_BU_forecast is None):
+            new_BU_forecast = iForecast_DF[signal + "_Forecast"];
+        return new_BU_forecast;
 
     def computeBottomUpForecasts(self, iForecast_DF):
         lForecast_DF_BU = iForecast_DF.copy();
         print("STRUCTURE " , self.mStructure.keys());
         for level in self.mStructure.keys():
             for signal in self.mStructure[level].keys():
-                new_BU_forecast = None;
-                for col1 in self.mStructure[level][signal]:
-                    if(new_BU_forecast is None):
-                        new_BU_forecast = iForecast_DF[col1 + "_Forecast"];
-                    else:
-                        new_BU_forecast = new_BU_forecast + iForecast_DF[col1 + "_Forecast"];
-                if(new_BU_forecast is None):
-                    new_BU_forecast = iForecast_DF[signal + "_Forecast"];
+                new_BU_forecast = self.computeBottomUpForecast(lForecast_DF_BU, level, signal);
                 lForecast_DF_BU[signal + "_BU_Forecast"] = new_BU_forecast;
             
         print(lForecast_DF_BU.head());
@@ -225,41 +223,74 @@ class cSignalHierarchy:
         return lForecast_DF_BU;
 
 
-    def reportOnBottomUpForecasts(self, iForecast_DF):
-        lForecast_DF_BU = iForecast_DF;
+    def reportOnCombinedForecasts(self, iForecast_DF, iPrefix):
         lPerfs = {};
         print("STRUCTURE " , self.mStructure.keys());
+        print("DATASET_COLUMNS" , iForecast_DF.columns);
         for level in self.mStructure.keys():
             print("STRUCTURE_LEVEL " , level, self.mStructure[level].keys());
             print("MODEL_LEVEL " , level, self.mModels[level].keys());
             for signal in self.mStructure[level].keys():
                 lEngine = self.mModels[level][signal];
-                lPerf = lEngine.computePerf(lForecast_DF_BU[signal], lForecast_DF_BU[signal + "_Forecast"], signal)
-                lPerf_BU = lEngine.computePerf(lForecast_DF_BU[signal], lForecast_DF_BU[signal + "_BU_Forecast"],  signal + "_BU")
-                lPerfs[signal] = (lPerf , lPerf_BU);
+                lPerf = lEngine.computePerf(iForecast_DF[signal], iForecast_DF[signal + "_Forecast"], signal)
+                lPerf_Combined = lEngine.computePerf(iForecast_DF[signal], iForecast_DF[signal + "_" + iPrefix + "_Forecast"],  signal)
+                lPerfs[signal] = (lPerf , lPerf_Combined);
             
         for (sig , perf) in lPerfs.items():
-            print("PERF_REPORT_BU" , sig , perf[0].mL2,  perf[0].mMAPE, perf[1].mL2,  perf[1].mMAPE)
+            print("PERF_REPORT_COMBINED_FORECASTS" , iPrefix, sig , perf[0].mL2,  perf[0].mMAPE, perf[1].mL2,  perf[1].mMAPE)
         return lPerfs;
 
 
     def computeTopDownForecasts(self, iForecast_DF , iProp , iPrefix):
         lForecast_DF_TD = iForecast_DF.copy();
-        lLevelCount = len(self.mLevels);
-        for level in sorted(self.mStructure.keys(), reverse=True):
+        lLevelsReversed = sorted(self.mStructure.keys(), reverse=True);
+        print("TOPDOWN_STRUCTURE", self.mStructure)
+        print("TOPDOWN_LEVELS", lLevelsReversed)
+        # highest levels (fully aggregated)
+        lHighestLevel = lLevelsReversed[0];
+        for signal in self.mStructure[lHighestLevel].keys():
+            lForecast_DF_TD[signal +"_" + iPrefix + "_Forecast"] =  iForecast_DF[signal + "_Forecast"];
+        for level in lLevelsReversed:
             for signal in self.mStructure[level].keys():
                 for col in self.mStructure[level][signal]:
-                    new_TD_forecast = iForecast_DF[signal + "_Forecast"] * iProp[signal][col];
-                    lForecast_DF_TD[col +"_" + iPrefix + "_TD_Forecast"] = new_TD_forecast;            
+                    new_TD_forecast = lForecast_DF_TD[signal + "_" + iPrefix + "_Forecast"] * iProp[signal][col];
+                    lForecast_DF_TD[col +"_" + iPrefix + "_Forecast"] = new_TD_forecast;
+        
         print(lForecast_DF_TD.head());
         print(lForecast_DF_TD.tail());
 
         return lForecast_DF_TD;
 
+    def computeMiddleOutForecasts(self, iForecast_DF , iProp , iMidLevel, iPrefix):
+        lForecast_DF_MO = iForecast_DF.copy();
+        # lower levels .... top-down starting from the middle.
+        levels_below = sorted([level for level in self.mStructure.keys()  if (level <= iMidLevel) ],
+                              reverse=True);
+        print("MIDDLE_OUT_STRUCTURE", self.mStructure)
+        print("MIDDLE_OUT_LEVELS", levels_below)
+        # mid-lewvel : do nothing ????
+        for signal in self.mStructure[iMidLevel].keys():
+            lForecast_DF_MO[signal +"_" + iPrefix + "_Forecast"] = iForecast_DF[signal + "_Forecast"];
+        # 
+        for level in levels_below:
+            for signal in self.mStructure[level].keys():
+                for col in self.mStructure[level][signal]:
+                    new_MO_forecast = lForecast_DF_MO[signal + "_" + iPrefix + "_Forecast"] * iProp[signal][col];
+                    lForecast_DF_MO[col +"_" + iPrefix + "_Forecast"] = new_MO_forecast;
+        # higher levels .... bottom-up starting from the middle
+        for level in range(iMidLevel + 1 , len(self.mStructure.keys())):
+            for signal in self.mStructure[level].keys():
+                new_MO_forecast = self.computeBottomUpForecast(lForecast_DF_MO, level, signal, iPrefix);
+                lForecast_DF_MO[signal +"_" + iPrefix + "_Forecast"] = new_MO_forecast;
+
+        print(lForecast_DF_MO.head());
+        print(lForecast_DF_MO.tail());
+
+        return lForecast_DF_MO;
+
 
     def computeOptimalCombination(self, iForecast_DF):
         lBaseNames = [];
-        lLevelCount = len(self.mLevels);
         for level in  self.mStructure.keys():
             for col in self.mStructure[level].keys():
                 lBaseNames.append(col);
@@ -283,12 +314,36 @@ class cSignalHierarchy:
     def forecast(self , iInputDS, iHorizon):
         lAllLevelsDataset = self.create_all_levels_dataset(iInputDS);
         lForecast_DF = self.forecastAllModels(lAllLevelsDataset, iHorizon, self.mDateColumn);
-        self.computeTopDownHistoricalProportions(lForecast_DF);
-        lForecast_DF_BU = self.computeBottomUpForecasts(lForecast_DF);
-        self.reportOnBottomUpForecasts(lForecast_DF_BU);
-        lForecast_DF_TD_AHP = self.computeTopDownForecasts(lForecast_DF_BU, self.mAvgHistProp, "AHP") 
-        lForecast_DF_TD_PHA = self.computeTopDownForecasts(lForecast_DF_TD_AHP, self.mPropHistAvg, "PHA")
-        lForecast_DF_TD_PHA.to_csv("outputs/aggregated_forecasts_bu_td.csv");
-        lForecast_DF_OC = self.computeOptimalCombination(lForecast_DF_TD_PHA);
-        lForecast_DF_OC.to_csv("outputs/aggregated_forecasts_bu_td_oc.csv");
-        return lForecast_DF_OC;
+        if(self.mOptions.mHierarchicalCombinationMethod == "BU"):            
+            lForecast_DF_BU = self.computeBottomUpForecasts(lForecast_DF);
+            self.reportOnCombinedForecasts(lForecast_DF_BU , "BU");
+            lForecast_DF_BU.to_csv("outputs/aggregated_forecasts_bu.csv");
+            return lForecast_DF_BU;
+        
+        if(self.mOptions.mHierarchicalCombinationMethod == "TD"):            
+            self.computeTopDownHistoricalProportions(lForecast_DF);
+            lForecast_DF_TD_AHP = self.computeTopDownForecasts(lForecast_DF, self.mAvgHistProp, "AHP_TD") 
+            lForecast_DF_TD_PHA = self.computeTopDownForecasts(lForecast_DF, self.mPropHistAvg, "PHA_TD")
+            self.reportOnCombinedForecasts(lForecast_DF_TD_AHP , "AHP_TD");
+            self.reportOnCombinedForecasts(lForecast_DF_TD_PHA , "PHA_TD");
+            lForecast_DF_TD_PHA.to_csv("outputs/aggregated_forecasts_td_pha.csv");
+            lForecast_DF_TD_PHA.to_csv("outputs/aggregated_forecasts_td_ahp.csv");
+            return lForecast_DF_TD_PHA;
+        
+        if(self.mOptions.mHierarchicalCombinationMethod == "MO"):            
+            self.computeTopDownHistoricalProportions(lForecast_DF);
+            lLevels = self.mStructure.keys();
+            lMiddleLevel = len(lLevels) // 2;
+            lForecast_DF_MO = self.computeMiddleOutForecasts(lForecast_DF,
+                                                             self.mPropHistAvg,
+                                                             lMiddleLevel,
+                                                             "MO")
+            self.reportOnCombinedForecasts(lForecast_DF_MO , "MO");
+            lForecast_DF_MO.to_csv("outputs/aggregated_forecasts_mo.csv");
+            return lForecast_DF_MO;
+
+        if(self.mOptions.mHierarchicalCombinationMethod == "OC"):            
+            lForecast_DF_OC = self.computeOptimalCombination(lForecast_DF);
+            self.reportOnCombinedForecasts(lForecast_DF_OC , "OC");
+            lForecast_DF_OC.to_csv("outputs/aggregated_forecasts_oc.csv");
+            return lForecast_DF_OC;
