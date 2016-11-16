@@ -42,6 +42,7 @@ def run_bench_process(a):
     try:
         tester = cGeneric_OneSignal_Tester(a.mTSSpec , a.mBenchName);
         tester.mTestCodeGeneration = False;
+        tester.mParallelMode = False;
         tester.testSignal(a.mSignal, a.mHorizon)
         print("BENCHMARK_SUCCESS '" + a.getName() + "'");
         logfile.close();
@@ -84,10 +85,11 @@ class cGeneric_OneSignal_Tester:
         self.mTrainTime = {};
         self.mBenchName = bench_name;
         self.mTestCodeGeneration = False;
+        self.mParallelMode = True;
 
     def reportTrainingDataInfo(self, iSignal, iHorizon):
         df = self.mTrainDataset[iSignal  + "_" + str(iHorizon)];
-        lDate = 'Date'
+        lDate = self.mTSSpec.mTimeVar
         print("TIME : ", lDate  , "N=", df[lDate].shape[0], "H=", iHorizon,
               "HEAD=", df[lDate].head().values, "TAIL=", df[lDate].tail().values);
         print("SIGNAL : ", iSignal , "N=", df[iSignal].shape[0], "H=", iHorizon,
@@ -104,14 +106,14 @@ class cGeneric_OneSignal_Tester:
     def getTrainingDataset(self, iSignal, iHorizon):
         df = pd.DataFrame();
         lSignalDataset = self.mTSSpec.mFullDataset;
-        lFullDF = lSignalDataset[iSignal].dropna()
+        lFullDF = lSignalDataset[ [iSignal , self.mTSSpec.mTimeVar] ].dropna()
         #.astype(np.double)
         N = lFullDF.shape[0]
         # iHorizon = iHorizon; #self.mTSSpec.mHorizon[iSignal]
         lSize = N - iHorizon;
         self.checkHorizon(N , iHorizon);
-        df[iSignal] = lFullDF[0: lSize];
-        df['Date'] = range(0 , df.shape[0]);
+        df = lFullDF[0: lSize];
+            
         self.mTrainDataset[iSignal  + "_" + str(iHorizon)] = df;
         self.reportTrainingDataInfo(iSignal, iHorizon);
 
@@ -122,9 +124,9 @@ class cGeneric_OneSignal_Tester:
     def trainModel(self, iSignal, iHorizon):
         df = self.mTrainDataset[iSignal  + "_" + str(iHorizon)];
         lAutoF1 = autof.cForecastEngine();
-        lAutoF1.mOptions.mParallelMode = False;
+        lAutoF1.mOptions.mParallelMode = self.mParallelMode;
         self.mAutoForecastBySignal[iSignal  + "_" + str(iHorizon)] = lAutoF1
-        lAutoF1.train(df , 'Date' , iSignal, iHorizon)
+        lAutoF1.train(df , self.mTSSpec.mTimeVar , iSignal, iHorizon)
         self.reportModelInfo(lAutoF1);
         print(lAutoF1.mSignalDecomposition.mTrPerfDetails.head());
 
@@ -152,13 +154,12 @@ class cGeneric_OneSignal_Tester:
     def getApplyInDatset(self, iSignal, iHorizon):
         self.mApplyIn = pd.DataFrame();
         lSignalDataset = self.mTSSpec.mFullDataset;
-        lFullDF = lSignalDataset[iSignal].dropna();
+        lFullDF = lSignalDataset[[iSignal , self.mTSSpec.mTimeVar]].dropna();
         #.astype(np.double)
         N = lFullDF.shape[0]
         lSize = N - iHorizon;
         self.checkHorizon(N , iHorizon);
-        self.mApplyIn[iSignal] = lFullDF[0: lSize];
-        self.mApplyIn['Date'] = range(0 , lSize);
+        self.mApplyIn = lFullDF[0: lSize];
         #self.mApplyIn.to_csv(iSignal + "_applyIn.csv");
 
     def applyModel(self, iSignal, iHorizon):
@@ -241,11 +242,11 @@ class cGeneric_OneSignal_Tester:
         if(ar is not None ):
             lSignal = lSignal + lApplyOut[lTransformedSignal + "_AR"];
         df= pd.DataFrame();
-        df['Date'] = lApplyOut['Date'];
+        df[self.mTSSpec.mTimeVar] = lApplyOut[self.mTSSpec.mTimeVar];
         df[lNewSignal] = lSignal;
         lAutoF1 = autof.cForecastEngine();
-        lAutoF1.mOptions.mParallelMode = False;
-        lAutoF1.train(df , 'Date' , lNewSignal, iHorizon)
+        lAutoF1.mOptions.mParallelMode = self.mParallelMode;
+        lAutoF1.train(df , self.mTSSpec.mTimeVar , lNewSignal, iHorizon)
         self.reportModelInfo(lAutoF1);
 
     def testIdempotency(self, iSignal, iHorizon):
@@ -284,6 +285,7 @@ class cGeneric_Tester:
     def testAllSignals(self, iHorizon):
         for sig in self.mTSSpecPerSignal.keys():
             tester = cGeneric_OneSignal_Tester(self.mTSSpecPerSignal[sig] , self.mBenchName);
+            tester.mParallelMode = False;
             tester.testSignal(sig, iHorizon);
             del tester;
         pass
@@ -294,6 +296,7 @@ class cGeneric_Tester:
             if(sig in self.mTSSpecPerSignal.keys()):
                 tester = cGeneric_OneSignal_Tester(self.mTSSpecPerSignal[sig] , self.mBenchName);
                 tester.testSignal(sig, iHorizon);
+                tester.mParallelMode = True;
                 del tester;
             else:
                 raise cBenchmarkError("UNKNOWN_SIGNAL '" + sig + "'");
