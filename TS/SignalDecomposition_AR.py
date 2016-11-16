@@ -86,6 +86,8 @@ class cAutoRegressiveModel(cAbstractAR):
 
     def addLagForForecast(self, df, lag_df, series, p):
         name = series+'_Lag' + str(p);
+        if(name not in self.mInputNames):
+            return;
         lSeries = df[series];
         lShiftedSeries = lSeries.shift(p)
         lDefaultValue = self.mDefaultValues[series];
@@ -138,6 +140,7 @@ class cAutoRegressiveModel(cAbstractAR):
         # print("mAREstimFrame columns :" , self.mAREstimFrame.columns);
         lARInputs = lAREstimFrame[self.mInputNames].values
         lARTarget = lAREstimFrame[series].values
+
         lMaxFeatures = self.mOptions.mMaxFeatrureForAutoreg;
         if(lMaxFeatures >= lARInputs.shape[1]):
             lMaxFeatures = lARInputs.shape[1];
@@ -193,8 +196,8 @@ class cAutoRegressiveEstimator:
 
     def addLagForTraining(self, df, lag_df, series, autoreg, p):
         name = series+'_Lag' + str(p);
-        autoreg.mInputNames.append(name);
         if(name in lag_df.columns):
+            autoreg.mInputNames.append(name);
             return lag_df;
 
         lSeries = df[series];
@@ -207,9 +210,11 @@ class cAutoRegressiveEstimator:
             
         for i in range(p):
             lShiftedSeries.iloc[ i ] = lDefaultValue;
-            
-        lag_df[name] = lShiftedSeries;
-        self.mLagOrigins[name] = series;
+
+        if(lShiftedSeries.std() > 1e-5):
+            autoreg.mInputNames.append(name);
+            lag_df[name] = lShiftedSeries;
+            self.mLagOrigins[name] = series;
         return lag_df;
 
     def addLagsForTraining(self, df, cycle_residue, iHasARX = False):
@@ -228,9 +233,9 @@ class cAutoRegressiveEstimator:
                         self.addLagForTraining(df, self.mARFrame, ex, autoreg, p);
             # print("AUTOREG_DETAIL" , P , len(autoreg.mInputNames));
             if(autoreg.mExogenousInfo is not None):
-                assert((P + P*len(self.mExogenousInfo.mEncodedExogenous)) == len(autoreg.mInputNames));
+                assert((P + P*len(self.mExogenousInfo.mEncodedExogenous)) >= len(autoreg.mInputNames));
             else:
-                assert(P == len(autoreg.mInputNames));
+                assert(P >= len(autoreg.mInputNames));
         if(self.mOptions.mDebugProfile):
             print("LAG_TIME_IN_SECONDS " + self.mTimeInfo.mSignal + " " +
                   str(len(self.mARFrame.columns)) + " " +
