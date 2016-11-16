@@ -20,11 +20,11 @@ class cTimeInfo:
 
     def __init__(self):
         self.mSignalFrame = pd.DataFrame()
-        self.mTimeMin = np.nan;
-        self.mTimeMax = np.nan;
-        self.mTimeMinMaxDiff = np.nan;
-        self.mTimeDelta = np.nan;
-        self.mHorizon = np.nan;        
+        self.mTimeMin = None;
+        self.mTimeMax = None;
+        self.mTimeMinMaxDiff = None;
+        self.mTimeDelta = None;
+        self.mHorizon = None;        
         self.RES_NONE = 0
         self.RES_SECOND = 1
         self.RES_MINUTE = 2
@@ -68,7 +68,26 @@ class cTimeInfo:
         df[self.mSignal] = self.mSignalFrame[self.mSignal]
         df[self.mOriginalSignal] = self.mSignalFrame[self.mOriginalSignal]
 
+    def get_time_dtype(self):
+        series = pd.Series([self.mTimeMax]);
+        lType = np.dtype(series);
+        return lType;
+
+    def cast_to_time_dtype(self, iTimeValue):
+        lType1 = self.get_time_dtype();
+        lTimeValue = np.array([iTimeValue]).astype(lType1)[0];
+        return lTimeValue;
+
+    def checkDateAndSignalTypesForNewDataset(self, df):
+        if(self.mTimeMax is not None):
+            lType1 = self.get_time_dtype();
+            lType2 = np.dtype(df[self.mTime]);
+            if(lType1 != lType2):
+                raise tsutil.ForecastError('Incompatible Time Column Type expected=' + str(lType1) + ' got: ' + str(lType2) + "'");
+        
+
     def transformDataset(self, df):
+        self.checkDateAndSignalTypesForNewDataset(df);
         # new row
         lLastRow = df.tail(1).copy();
         lLastRow[self.mTime] = self.nextTime(df, 1);
@@ -202,9 +221,10 @@ class cTimeInfo:
         pass
 
     def checkDateAndSignalTypes(self):
+        # print(self.mSignalFrame.info());
         type1 = np.dtype(self.mSignalFrame[self.mTime])
         if(type1.kind == 'O'):
-            raise tsutil.ForecastError('Invalid Time Column Type ' + self.mTime);
+            raise tsutil.ForecastError('Invalid Time Column Type ' + self.mTime + '[' + str(type1) + ']');
         type2 = np.dtype(self.mSignalFrame[self.mSignal])
         if(type2.kind == 'O'):
             raise tsutil.ForecastError('Invalid Signal Column Type ' + self.mSignal);
@@ -244,8 +264,8 @@ class cTimeInfo:
 
         self.mSecondsInResolution = self.getSecondsInResolution();
         lEstim = self.mSignalFrame[self.mEstimStart : self.mEstimEnd].copy()
-        self.mTimeMin = lEstim.min(axis = 0)[self.mTime];
-        self.mTimeMax = lEstim.max(axis = 0)[self.mTime];
+        self.mTimeMin = lEstim[self.mTime].min();
+        self.mTimeMax = lEstim[self.mTime].max();
         self.mTimeMinMaxDiff = self.mTimeMax - self.mTimeMin;
         
         self.computeTimeDelta();
@@ -269,6 +289,7 @@ class cTimeInfo:
         #print(df.tail(1)[self.mTime]);
         lLastTime = df.tail(1)[self.mTime].values[0]
         # Better handle time delta in months
+        # print("NEXT_TIME" , lLastTime, iSteps, self.mTimeDelta);
         lNextTime = lLastTime + iSteps * self.mTimeDelta;
         if(self.mResolution == self.RES_MONTH):
             lMonths = int(iSteps * self.mTimeDelta.days / 30.0);
@@ -276,4 +297,6 @@ class cTimeInfo:
         if(self.mOptions.mBusinessDaysOnly):
             lOffset = [1, 1, 1, 1, 3, 2, 1][lNextTime.weekday()];
             lNextTime = lNextTime + dt.timedelta(days = lOffset);
+
+        lNextTime = self.cast_to_time_dtype(lNextTime);
         return lNextTime;
