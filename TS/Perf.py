@@ -12,16 +12,16 @@ from . import Utils as tsutil
 
 class cPerf:
     def __init__(self):
-        self.mErrorStdDev = np.nan;
-        self.mErrorMean = np.nan;
-        self.mMAE = np.nan;
-        self.mMAPE = np.nan;
-        self.mSMAPE = np.nan;
-        self.mL1 = np.nan;
-        self.mL2 = np.nan;
-        self.mR2 = np.nan;
-        self.mPearsonR = np.nan;
-        self.mCount = np.nan;
+        self.mErrorStdDev = None;
+        self.mErrorMean = None;
+        self.mMAE = None;
+        self.mMAPE = None;
+        self.mSMAPE = None;
+        self.mL1 = None;
+        self.mL2 = None;
+        self.mR2 = None;
+        self.mPearsonR = None;
+        self.mCount = None;
         self.mName = "No_Name";
 
     def protect_small_value(self, x , eps):
@@ -101,10 +101,15 @@ class cPerf:
         self.mR2 = self.compute_R2(signal, estimator)
         self.mPearsonR = 0.0;
         
-        from scipy.stats import pearsonr 
-        if((signal_std > 0.0) and (estimator_std > 0.0)):
-            (r , pval) = pearsonr(signal , estimator)
+        from scipy.stats import pearsonr
+        # print("PEARSONR_DETAIL1" , signal_std, estimator_std)
+        # print("PEARSONR_DETAIL2" , signal)
+        # print("PEARSONR_DETAIL3" , estimator)
+        if((signal_std > 0.0) and (estimator_std > 0.0) and (self.mCount > 30)):
+            (r , pval) = pearsonr(signal.values , estimator.values)
             self.mPearsonR = r;
+        else:
+            self.mPearsonR = 0.0;
 #            print("COMPUTED_PERF_DETAIL " , name, self.mCount ,
 #                  self.mErrorMean ,  self.mErrorStdDev ,  self.mMAE ,
 #                  self.mMAPE ,  self.mSMAPE , self.mL1 ,  self.mL2 ,
