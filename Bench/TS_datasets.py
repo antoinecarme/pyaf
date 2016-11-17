@@ -92,6 +92,11 @@ def load_cashflows() :
 #ozone-la.txt
 #https://datamarket.com/data/set/22u8/ozon-concentration-downtown-l-a-1955-1972#
 
+
+def to_date(idatetime):
+    d = datetime.date(idatetime.year, idatetime.month, idatetime.day);
+    return d;
+
 # @profile    
 def load_ozone() :
     tsspec = cTimeSeriesDatasetSpec();
@@ -105,7 +110,10 @@ def load_ozone() :
     
     df_train = pd.read_csv(trainfile, names = cols, sep=r',', engine='python', skiprows=1);
     df_train['Time'] = df_train['Month'].apply(lambda x : datetime.datetime.strptime(x, "%Y-%m"))
-
+    lType = 'datetime64[D]';
+    # df_train['Time'] = df_train['Time'].apply(to_date).astype(lType);
+    print(df_train.head());
+    
     tsspec.mTimeVar = "Time";
     tsspec.mSignalVar = "Ozone";
     tsspec.mHorizon = 12;
@@ -226,8 +234,8 @@ def load_NN5():
     tsspec.mDescription = "NN5 competition final dataset";
     trainfile = "data/NN5-Final-Dataset.csv"
     tsspec.mFullDataset = pd.read_csv(trainfile, sep='\t', header=0, engine='python');
-    tsspec.mFullDataset['Date'] = tsspec.mFullDataset['Day'].apply(lambda x : datetime.datetime.strptime(x, "%d-%b-%y"))
-    tsspec.mFullDataset = tsspec.mFullDataset.drop(['Day']  , axis=1)
+    tsspec.mFullDataset['Day'] = tsspec.mFullDataset['Day'].apply(lambda x : datetime.datetime.strptime(x, "%d-%b-%y"))
+    tsspec.mFullDataset = tsspec.mFullDataset
     tsspec.mFullDataset.fillna(method = "ffill", inplace = True);
     tsspec.mHorizon = 56
 #    df_test = tsspec.mFullDataset.tail(tsspec.mHorizon);
@@ -255,6 +263,8 @@ def load_NN3_part1():
     #df_test = tsspec.mFullDataset.tail(tsspec.mHorizon);
     df_train = tsspec.mFullDataset;
     #.head(tsspec.mFullDataset.shape[0] - tsspec.mHorizon);
+    tsspec.mTimeVar = "Date";
+    tsspec.mSignalVar = "Signal";
     return tsspec;
 
 # @profile    
@@ -271,6 +281,8 @@ def load_NN3_part2():
     #df_test = tsspec.mFullDataset.tail(tsspec.mHorizon);
     df_train = tsspec.mFullDataset
     #.head(tsspec.mFullDataset.shape[0] - tsspec.mHorizon);
+    tsspec.mTimeVar = "Date";
+    tsspec.mSignalVar = "Signal";
     return tsspec;
 
 
@@ -282,7 +294,8 @@ def load_MWH_dataset(name):
 
     lSignal = name;
     lTime = 'Time';
-    
+    print("LAODING_MWH_DATASET" , name);
+    # trainfile = "https://raw.githubusercontent.com/antoinecarme/TimeSeriesData/master/FMA/" + name +".csv";
     trainfile = "data/FMA/" + name + ".csv"
     df_train = pd.read_csv(trainfile, sep=r',', header=None,  engine='python', skipinitialspace=True);
     # print(df_train.head(3));
@@ -337,6 +350,7 @@ def load_M1_comp() :
     tsspec.mFullDataset = tsspec.mFullDataset.T
     tsspec.mFullDataset.reindex()
     tsspec.mFullDataset['Date'] = range(0 , tsspec.mFullDataset.shape[0])
+    tsspec.mTimeVar = 'Date';
 
     tsspec.mHorizon = {};
     for i in range(0, tsspec.mHorizons.shape[0]):
@@ -363,6 +377,7 @@ def load_M2_comp() :
     tsspec.mFullDataset = tsspec.mFullDataset.T
     tsspec.mFullDataset.reindex()
     tsspec.mFullDataset['Date'] = range(0 , tsspec.mFullDataset.shape[0])
+    tsspec.mTimeVar = 'Date';
 
     tsspec.mHorizon = {};
     for i in range(0, tsspec.mHorizons.shape[0]):
@@ -389,6 +404,7 @@ def load_M3_Y_comp() :
     tsspec.mFullDataset = tsspec.mFullDataset.T
     tsspec.mFullDataset.reindex()
     tsspec.mFullDataset['Date'] = range(0 , tsspec.mFullDataset.shape[0])
+    tsspec.mTimeVar = 'Date';
 
     tsspec.mHorizon = {};
     for i in range(0, tsspec.mHorizons.shape[0]):
@@ -416,6 +432,7 @@ def load_M3_Q_comp() :
     tsspec.mFullDataset = tsspec.mFullDataset.T
     tsspec.mFullDataset.reindex()
     tsspec.mFullDataset['Date'] = range(0 , tsspec.mFullDataset.shape[0])
+    tsspec.mTimeVar = 'Date';
 
     tsspec.mHorizon = {};
     for i in range(0, tsspec.mHorizons.shape[0]):
@@ -442,6 +459,7 @@ def load_M3_M_comp() :
     tsspec.mFullDataset = tsspec.mFullDataset.T
     tsspec.mFullDataset.reindex()
     tsspec.mFullDataset['Date'] = range(0 , tsspec.mFullDataset.shape[0])
+    tsspec.mTimeVar = 'Date';
 
     tsspec.mHorizon = {};
     for i in range(0, tsspec.mHorizons.shape[0]):
@@ -470,6 +488,7 @@ def load_M3_Other_comp() :
     tsspec.mFullDataset = tsspec.mFullDataset.T
     tsspec.mFullDataset.reindex()
     tsspec.mFullDataset['Date'] = range(0 , tsspec.mFullDataset.shape[0])
+    tsspec.mTimeVar = 'Date';
 
     tsspec.mHorizon = {};
     for i in range(0, tsspec.mHorizons.shape[0]):
@@ -514,14 +533,35 @@ def load_M4_comp() :
 
     return tsspecs
 
+YAHOO_LINKS_DATA = {};
 
-def load_yahoo_stock_price( stock ) :
+def get_stock_web_link(stock):
+    if(len(YAHOO_LINKS_DATA) == 0):
+        lines = [line.rstrip('\n') for line in open('data/yahoo_list.txt')]
+        import re
+        for line in lines:
+            csv = line.replace('.csv', '')
+            csv = re.sub(r"^(.*)yahoo_", "", csv);
+            # print("YAHOO_LINKS_DATA" , csv, line)
+            YAHOO_LINKS_DATA[csv] = line;
+        print("ACQUIRED_YAHOO_LINKS" , len(YAHOO_LINKS_DATA));
+    result = YAHOO_LINKS_DATA.get(stock);
+    return result;
+
+def load_yahoo_stock_price( stock , iLocal = False) :
     tsspec = cTimeSeriesDatasetSpec();
     tsspec.mName = "Yahoo_Stock_Price_" + stock 
     tsspec.mDescription = "Yahoo Stock Price using yahoo-finance package"
     df_train = pd.DataFrame();
-    filename = "data/yahoo/yahoo_" + stock +".csv"
-    if(os.path.isfile(filename)):
+    filename = None;
+    if(iLocal):
+        filename = "data/yahoo/yahoo_" + stock +".csv"
+    else:
+        filename = get_stock_web_link(stock);
+        base_uri = "https://raw.githubusercontent.com/antoinecarme/TimeSeriesData/master/YahooFinance/";
+        filename =  base_uri + filename;
+        print("YAHOO_DATA_LINK" , stock, filename);
+    if(not iLocal or os.path.isfile(filename)):
         # print("already downloaded " + stock , "reloading " , filename);
         df_train = pd.read_csv(filename);
     else:
