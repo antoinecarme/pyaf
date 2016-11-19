@@ -149,12 +149,45 @@ def load_ozone_exogenous() :
     
     return tsspec
 
-def add_some_noise(x , p):
-    if(np.random.random() < p):
-        return "A" + str(int(0.01*x));
-    return "";
 
-# @profile    
+
+
+def add_some_noise(x , p , min_sig, max_sig, e , f):
+    delta = (x - min_sig) / (max_sig - min_sig);
+    if( (delta >= e) and (delta <= f) ):
+        if(np.random.random() < p):
+            return 1;
+    return 0;
+
+
+def gen_trend(N , trendtype):
+    lTrend = pd.Series();
+    a = (2 * np.random.random() - 1);
+    b = (2 * np.random.random() - 1);
+    c = (2 * np.random.random() - 1);
+    print("TREND" , a , b ,c);
+    if(trendtype == "constant"):
+        lTrend = a
+    if(trendtype == "linear"):
+        x = np.arange(0,N) / (N + 0.1);
+        lTrend =  a * x + b;
+    if(trendtype == "poly"):
+        x = np.arange(0,N) / (N + 0.1);
+        lTrend =  a * x * x + b * x + c;
+    # lTrend.plot();
+    return lTrend;
+
+def gen_cycle(N , cycle_length):
+    lCycle = pd.Series();
+    if(cycle_length > 0):
+        lCycle = np.arange(0,N) % cycle_length;
+        lValues = np.random.randint(0, cycle_length, size=(cycle_length, 1)) /cycle_length;
+        lCycle = pd.Series(lCycle).apply(lambda x : lValues[int(x)][0]);
+    if(cycle_length == 0):
+        lCycle = 0;
+    return lCycle;
+    
+
 def generate_random_TS(N , FREQ, seed, trendtype, cycle_length, transform, sigma = 1.0, exog_count = 20) :
     tsspec = cTimeSeriesDatasetSpec();
     tsspec.mName = "Signal_" + str(N) + "_" + str(FREQ) +  "_" + str(seed)  + "_" + str(trendtype) +  "_" + str(cycle_length)   + "_" + str(transform)   + "_" + str(sigma) + "_" + str(exog_count) ;
@@ -176,37 +209,28 @@ def generate_random_TS(N , FREQ, seed, trendtype, cycle_length, transform, sigma
     Specific offset logic like "month", "business day", or "one hour" is represented in its various subclasses.
     '''
     df_train['Date'] = pd.date_range('2000-1-1', periods=N, freq=FREQ)
+    df_train['GeneratedTrend'] = gen_trend(N , trendtype);
 
-    if(trendtype == "constant"):
-        df_train['GeneratedTrend'] = N *  (2 * np.random.random() - 1)
-    if(trendtype == "linear"):
-        x = np.arange(0,N) / (N + 0.1);
-        df_train['GeneratedTrend'] =  N * ((2 * np.random.random() - 1) -  (2 * np.random.random() - 1) * x)
-    if(trendtype == "poly"):
-        x = np.arange(0, N);
-        df_train['GeneratedTrend'] =  (2 * np.random.random() - 1) + (2 * np.random.random() - 1) * x
-        df_train['GeneratedTrend'] +=  (2 * np.random.random() - 1) * x ** 2
-        df_train['GeneratedTrend'] = N * df_train['GeneratedTrend'];
-
-    if(cycle_length > 0):
-        df_train['GeneratedCycle'] = np.arange(0,N) % cycle_length;
-        lValues = np.random.randint(0, cycle_length, size=(cycle_length, 1)) * (N + 0.0)/cycle_length;
-        df_train['GeneratedCycle'] = df_train['GeneratedCycle'].apply(lambda x : lValues[int(x)][0]);
-    if(cycle_length == 0):
-        df_train['GeneratedCycle'] = 0;
+    df_train['GeneratedCycle'] = gen_cycle(N , cycle_length);
 
     df_train['Noise'] = np.random.randn(N, 1) * sigma;
     df_train['Signal'] = df_train['GeneratedTrend'] +  df_train['GeneratedCycle'] + df_train['Noise']
 
+    min_sig = df_train['Signal'].min();
+    max_sig = df_train['Signal'].max();
+    print(df_train.info())
     tsspec.mExogenousVariables = [];
     for e in range(exog_count):
         label = "exog_" + str(e+1);
-        df_train[label] = df_train['Signal'].apply(lambda x : add_some_noise(x , 0.1));
+        df_train[label] = df_train['Signal'].apply(lambda x : add_some_noise(x , 0.1 , 
+                                                                             min_sig, 
+                                                                             max_sig, 
+                                                                             e/exog_count ,
+                                                                             (e+3)/exog_count ));
         tsspec.mExogenousVariables = tsspec.mExogenousVariables + [ label ];
 
     # this is the full dataset . must contain future exogenius data
     tsspec.mExogenousDataFrame = df_train;
-    min_sig = df_train['Signal'].min();
     pos_signal = df_train['Signal'] - min_sig + 1.0;
 
     if(transform == "exp"):
@@ -225,6 +249,8 @@ def generate_random_TS(N , FREQ, seed, trendtype, cycle_length, transform, sigma
     tsspec.mFutureData = df_train.tail(tsspec.mHorizon);
     
     return tsspec
+
+
 
 
 # @profile    
