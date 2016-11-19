@@ -95,6 +95,7 @@ class cAutoRegressiveModel(cAbstractAR):
         for i in range(p):
             lShiftedSeries.iloc[ i ] = lDefaultValue;
             
+        lShiftedSeries = lShiftedSeries.astype(np.dtype(lSeries));
         lag_df[name] = lShiftedSeries;
         
     def generateLagsForForecast(self, df, P):
@@ -141,14 +142,15 @@ class cAutoRegressiveModel(cAbstractAR):
         lARInputs = lAREstimFrame[self.mInputNames].values
         lARTarget = lAREstimFrame[series].values
 
-        lMaxFeatures = self.mOptions.mMaxFeatrureForAutoreg;
+        lMaxFeatures = self.mOptions.mMaxFeatureForAutoreg;
         if(lMaxFeatures >= lARInputs.shape[1]):
             lMaxFeatures = lARInputs.shape[1];
         self.mFeatureSelector =  SelectKBest(f_regression, k= lMaxFeatures);
         self.mFeatureSelector.fit(lARInputs, lARTarget);
         lARInputsAfterSelection =  self.mFeatureSelector.transform(lARInputs);
-        del lARInputs;
         # print("FEATURE_SELECTION" , self.mOutName, lARInputs.shape[1] , lARInputsAfterSelection.shape[1]);
+        del lARInputs;
+
         self.mARRidge.fit(lARInputsAfterSelection, lARTarget)
         del lARInputsAfterSelection;
         del lARTarget;
@@ -211,7 +213,23 @@ class cAutoRegressiveEstimator:
         for i in range(p):
             lShiftedSeries.iloc[ i ] = lDefaultValue;
 
-        if(lShiftedSeries.std() > 1e-5):
+        lShiftedSeries = lShiftedSeries.astype(np.dtype(lSeries));
+
+        df1 = pd.DataFrame();
+        df1[autoreg.mCycleResidueName] = df[autoreg.mCycleResidueName];
+        df1[name] = lShiftedSeries;
+        
+        lEstimFrame = self.mTimeInfo.getEstimPart(df1);
+
+        import scipy
+        lCorrelationCoeff = scipy.stats.pearsonr(lEstimFrame[autoreg.mCycleResidueName].values,
+                                                 lEstimFrame[name].values)[0];
+        lStd = lEstimFrame[name].std();
+        # print("LAG_QUALITY1" , autoreg.mCycleResidueName, name, lStd);
+        # print("LAG_QUALITY2" , autoreg.mCycleResidueName, name, lCorrelationCoeff);
+        lAcceptable = ((lStd > 1e-5) and (np.abs(lCorrelationCoeff) > 0.01));
+
+        if(lAcceptable):
             autoreg.mInputNames.append(name);
             lag_df[name] = lShiftedSeries;
             self.mLagOrigins[name] = series;
@@ -225,8 +243,14 @@ class cAutoRegressiveEstimator:
             for p in range(1,P+1):
                 # signal lags ... plain old AR model
                 self.addLagForTraining(df, self.mARFrame, cycle_residue, autoreg, p);
-                # Exogenous variables lags
-                if(autoreg.mExogenousInfo is not None):
+            # Exogenous variables lags
+            if(autoreg.mExogenousInfo is not None):
+                P1 = P;
+                lExogCount = len(self.mExogenousInfo.mEncodedExogenous);
+                lNbVars = P * lExogCount;
+                if(lNbVars >= self.mOptions.mMaxFeatureForAutoreg):
+                   P1 = self.mOptions.mMaxFeatureForAutoreg // lExogCount;
+                for p in range(1,P1+1):
                     # print(self.mExogenousInfo.mEncodedExogenous);
                     # print(df.columns);
                     for ex in self.mExogenousInfo.mEncodedExogenous:
@@ -245,7 +269,8 @@ class cAutoRegressiveEstimator:
     def estimate_ar_models_for_cycle(self, cycle_residue):
         self.mARFrame = pd.DataFrame();
         self.mTimeInfo.addVars(self.mARFrame);
-        self.mARFrame[cycle_residue] = self.mCycleFrame[cycle_residue]            
+        self.mCycleFrame[cycle_residue] = self.mCycleFrame[cycle_residue].astype(np.float32)            
+        self.mARFrame[cycle_residue] = self.mCycleFrame[cycle_residue].astype(np.float32)            
 
         self.mDefaultValues = {};
         self.mLagOrigins = {};
@@ -262,7 +287,7 @@ class cAutoRegressiveEstimator:
                   cycle_residue + "' " + str(self.mCycleFrame.shape[0]) + " "
                   + str(self.mARFrame.shape[1]));
 
-        # print(list(self.mARFrame.columns));
+        # print(self.mARFrame.info());
         
         for autoreg in self.mARList[cycle_residue]:
             start_time = time.time()
