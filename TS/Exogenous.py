@@ -85,12 +85,15 @@ class cExogenousInfo:
                     for lCat in lList:
                         lDummyName = exog + "=" + str(lCat);
                         lVec = np.where(self.mExogenousDataFrame[exog] == lCat , 1, 0);
-                        self.mEncodedExogenousDataFrame[lDummyName] = lVec;
+                        # 8-bit integer (it is boolean in fact)
+                        self.mEncodedExogenousDataFrame[lDummyName] = lVec.astype(np.int8);
                         self.mEncodedExogenous = self.mEncodedExogenous + [lDummyName];
                 else:
                     lExogStats = self.mContExogenousStats[exog];
                     self.mEncodedExogenousDataFrame[exog] = (self.mExogenousDataFrame[exog] - lExogStats[0])/ lExogStats[1];
                     self.mEncodedExogenousDataFrame[exog].fillna(0.0, inplace=True);
+                    # signle precision here ...
+                    self.mEncodedExogenousDataFrame[exog] = self.mEncodedExogenousDataFrame[exog].astype(np.float32);
                     self.mEncodedExogenous = self.mEncodedExogenous + [exog];
             else:
                 print("EXCLUDED" , exog);
