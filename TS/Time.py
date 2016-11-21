@@ -172,17 +172,17 @@ class cTimeInfo:
         return self.mSecondsInResolution.get(self.mResolution , 0.0);
 
     def cutFrame(self, df):
-        lFrameFit = df[self.mEstimStart : self.mEstimEnd].copy();
-        lFrameForecast = df[self.mValidStart : self.mValidEnd].copy();
-        lFrameTest = df[self.mTestStart : self.mTestEnd].copy();
+        lFrameFit = df[self.mEstimStart : self.mEstimEnd];
+        lFrameForecast = df[self.mValidStart : self.mValidEnd];
+        lFrameTest = df[self.mTestStart : self.mTestEnd];
         return (lFrameFit, lFrameForecast, lFrameTest)
 
     def getEstimPart(self, df):
-        lFrameFit = df[self.mEstimStart : self.mEstimEnd].copy();
+        lFrameFit = df[self.mEstimStart : self.mEstimEnd];
         return lFrameFit;
 
     def getValidPart(self, df):
-        lFrameValid = df[self.mValidStart : self.mValidEnd].copy();
+        lFrameValid = df[self.mValidStart : self.mValidEnd];
         return lFrameValid;
 
     def defineCuttingParameters(self):
@@ -233,7 +233,7 @@ class cTimeInfo:
     def computeTimeDelta(self):
         #print(self.mSignalFrame.columns);
         #print(self.mSignalFrame[self.mTime].head());
-        lEstim = self.mSignalFrame[self.mEstimStart : self.mEstimEnd].copy()
+        lEstim = self.mSignalFrame[self.mEstimStart : self.mEstimEnd]
         lTimeBefore = lEstim[self.mTime].shift(1);
         # lTimeBefore.fillna(self.mTimeMin, inplace=True)
         N = lEstim.shape[0];
@@ -263,7 +263,7 @@ class cTimeInfo:
         self.analyzeSeasonals();
 
         self.mSecondsInResolution = self.getSecondsInResolution();
-        lEstim = self.mSignalFrame[self.mEstimStart : self.mEstimEnd].copy()
+        lEstim = self.mSignalFrame[self.mEstimStart : self.mEstimEnd]
         self.mTimeMin = lEstim[self.mTime].min();
         self.mTimeMax = lEstim[self.mTime].max();
         self.mTimeMinMaxDiff = self.mTimeMax - self.mTimeMin;
