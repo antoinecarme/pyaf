@@ -76,6 +76,7 @@ class cAutoRegressiveModel(cAbstractAR):
     def __init__(self , cycle_residue_name, P, iExogenousInfo = None ):
         super().__init__(cycle_residue_name)
         self.mNbLags = P;
+        self.mNbExogenousLags = P;
         self.mExogenousInfo = iExogenousInfo;
         self.mDefaultValues = {};
         self.mLagOrigins = {};
@@ -84,30 +85,32 @@ class cAutoRegressiveModel(cAbstractAR):
     def getDefaultValue(self, lag):
         return self.mDefaultValues[lag];
 
+    def shift_series(self, series, p, idefault):
+        N = series.shape[0];
+        lType = np.dtype(series);
+        first_values = np.full((p), idefault, dtype=lType)
+        new_values = np.hstack((first_values, series.values[0:N-p]));
+        return new_values;
+
     def addLagForForecast(self, df, lag_df, series, p):
         name = series+'_Lag' + str(p);
         if(name not in self.mInputNames):
             return;
         lSeries = df[series];
-        lShiftedSeries = lSeries.shift(p)
-        lDefaultValue = self.mDefaultValues[series];
-            
-        for i in range(p):
-            lShiftedSeries.iloc[ i ] = lDefaultValue;
-            
-        lShiftedSeries = lShiftedSeries.astype(np.dtype(lSeries));
+        lShiftedSeries = self.shift_series(lSeries, p , self.mDefaultValues[series]); 
         lag_df[name] = lShiftedSeries;
         
-    def generateLagsForForecast(self, df, P):
+    def generateLagsForForecast(self, df):
         lag_df = pd.DataFrame()
         lag_df[self.mCycleResidueName] = df[self.mCycleResidueName]
-        for p in range(1,P+1):
+        for p in range(1, self.mNbLags + 1):
             # signal lags ... plain old AR model
             self.addLagForForecast(df, lag_df, self.mCycleResidueName, p);
-            # Exogenous variables lags
-            if(self.mExogenousInfo is not None):
-                # print(self.mExogenousInfo.mEncodedExogenous);
-                # print(df.columns);
+        # Exogenous variables lags
+        if(self.mExogenousInfo is not None):
+            # print(self.mExogenousInfo.mEncodedExogenous);
+            # print(df.columns);
+            for p in range(1, self.mNbExogenousLags + 1):
                 for ex in self.mExogenousInfo.mEncodedExogenous:
                     self.addLagForForecast(df, lag_df, ex, p);
         return lag_df;
@@ -135,7 +138,7 @@ class cAutoRegressiveModel(cAbstractAR):
         self.mFormula = "AR(" + str(self.mNbLags) + ")";
         if(self.mExogenousInfo is not None):
             self.mOutName = self.mCycleResidueName +  '_ARX(' + str(self.mNbLags) + ")";
-            self.mFormula = "ARX(" + str(self.mNbLags) + ")";
+            self.mFormula = "ARX(" + str(self.mNbExogenousLags) + ")";
         lAREstimFrame = self.mTimeInfo.getEstimPart(self.mARFrame)
 
         # print("mAREstimFrame columns :" , self.mAREstimFrame.columns);
@@ -168,7 +171,7 @@ class cAutoRegressiveModel(cAbstractAR):
         # print(df.info());
         # print(df.head());
         # print(df.tail());
-        lag_df = self.generateLagsForForecast(df, self.mNbLags);
+        lag_df = self.generateLagsForForecast(df);
         # print(self.mInputNames);
         # print(self.mFormula, "\n", lag_df.columns);
         # lag_df.to_csv("LAGGED_ " + str(self.mNbLags) + ".csv");
@@ -196,6 +199,20 @@ class cAutoRegressiveEstimator:
                 for autoreg in self.mARList[cycle_residue]:
                     autoreg.plot(); 
 
+    def is_not_constant(self, iSeries):
+        lFirst = iSeries[0];
+        for lValue in iSeries[1:]:
+            if(lValue != lFirst):
+                return True;
+        return False;
+
+    def shift_series(self, series, p):
+        N = series.shape[0];
+        lType = np.dtype(series);
+        first_values = np.full((p), series.values[0], dtype=lType)
+        new_values = np.hstack((first_values, series.values[0:N-p]));
+        return new_values;
+
     def addLagForTraining(self, df, lag_df, series, autoreg, p):
         name = series+'_Lag' + str(p);
         if(name in lag_df.columns):
@@ -203,32 +220,11 @@ class cAutoRegressiveEstimator:
             return lag_df;
 
         lSeries = df[series];
-        lShiftedSeries = lSeries.shift(p)
-        lDefaultValue = lSeries.iloc[0];
-        if(series in self.mDefaultValues.keys()):
-            lDefaultValue = self.mDefaultValues[series];
-        else:
-            self.mDefaultValues[series] = lDefaultValue;
-            
-        for i in range(p):
-            lShiftedSeries.iloc[ i ] = lDefaultValue;
-
-        lShiftedSeries = lShiftedSeries.astype(np.dtype(lSeries));
-
-        df1 = pd.DataFrame();
-        df1[autoreg.mCycleResidueName] = df[autoreg.mCycleResidueName];
-        df1[name] = lShiftedSeries;
+        lShiftedSeries = self.shift_series(lSeries, p);
+        self.mDefaultValues[series] = lSeries.values[0];
         
-        lEstimFrame = self.mTimeInfo.getEstimPart(df1);
-
-        import scipy
-        lCorrelationCoeff = scipy.stats.pearsonr(lEstimFrame[autoreg.mCycleResidueName].values,
-                                                 lEstimFrame[name].values)[0];
-        lStd = lEstimFrame[name].std();
-        # print("LAG_QUALITY1" , autoreg.mCycleResidueName, name, lStd);
-        # print("LAG_QUALITY2" , autoreg.mCycleResidueName, name, lCorrelationCoeff);
-        lAcceptable = ((lStd > 1e-5) and (np.abs(lCorrelationCoeff) > 0.01));
-
+        lShiftedEstim = self.mTimeInfo.getEstimPart(lShiftedSeries);
+        lAcceptable = self.is_not_constant(lShiftedEstim);
         if(lAcceptable):
             autoreg.mInputNames.append(name);
             lag_df[name] = lShiftedSeries;
@@ -250,6 +246,7 @@ class cAutoRegressiveEstimator:
                 lNbVars = P * lExogCount;
                 if(lNbVars >= self.mOptions.mMaxFeatureForAutoreg):
                    P1 = self.mOptions.mMaxFeatureForAutoreg // lExogCount;
+                autoreg.mNbExogenousLags = P1;
                 for p in range(1,P1+1):
                     # print(self.mExogenousInfo.mEncodedExogenous);
                     # print(df.columns);

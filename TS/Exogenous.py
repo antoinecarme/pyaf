@@ -84,22 +84,23 @@ class cExogenousInfo:
                 if(lList is not None):
                     for lCat in lList:
                         lDummyName = exog + "=" + str(lCat);
-                        lVec = np.where(self.mExogenousDataFrame[exog] == lCat , 1, 0);
-                        # 8-bit integer (it is boolean in fact)
-                        self.mEncodedExogenousDataFrame[lDummyName] = lVec.astype(np.int8);
+                        self.mEncodedExogenousDataFrame[lDummyName] = np.where(
+                            self.mExogenousDataFrame[exog] == lCat , np.int8(1), np.int8(0));
                         self.mEncodedExogenous = self.mEncodedExogenous + [lDummyName];
                 else:
                     lExogStats = self.mContExogenousStats[exog];
-                    self.mEncodedExogenousDataFrame[exog] = (self.mExogenousDataFrame[exog] - lExogStats[0])/ lExogStats[1];
-                    self.mEncodedExogenousDataFrame[exog].fillna(0.0, inplace=True);
                     # signle precision here ...
-                    self.mEncodedExogenousDataFrame[exog] = self.mEncodedExogenousDataFrame[exog].astype(np.float32);
+                    self.mEncodedExogenousDataFrame[exog] = np.float32((self.mExogenousDataFrame[exog] - lExogStats[0])/ lExogStats[1]);
+                    self.mEncodedExogenousDataFrame[exog].fillna(np.float32(0.0), inplace=True);
+                    # self.mEncodedExogenousDataFrame[exog] = self.mEncodedExogenousDataFrame[exog].astype(np.float32);
                     self.mEncodedExogenous = self.mEncodedExogenous + [exog];
             else:
-                print("EXCLUDED" , exog);
+                # print("EXCLUDED" , exog);
+                pass
 
 
     def updateExogenousVariableInfo(self):
+        # print(self.mExogenousDataFrame.info());
         self.mExogenousVariableCategories = {};
         self.mContExogenousStats = {};
         # Compute these stats only on the estimation part.
