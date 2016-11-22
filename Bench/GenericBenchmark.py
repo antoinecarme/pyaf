@@ -85,6 +85,7 @@ class cGeneric_OneSignal_Tester:
         self.mTrainTime = {};
         self.mBenchName = bench_name;
         self.mTestCodeGeneration = False;
+        self.mTestIdempotency = False;
         self.mParallelMode = True;
 
     def reportTrainingDataInfo(self, iSignal, iHorizon):
@@ -149,7 +150,8 @@ class cGeneric_OneSignal_Tester:
         end_time = time.time()
         self.mTrainTime[iSignal  + "_" + str(iHorizon)] = end_time - start_time;
         self.dumpForecastPerfs(iSignal, iHorizon);
-        self.testIdempotency(iSignal, iHorizon);
+        if(self.mTestIdempotency):
+            self.testIdempotency(iSignal, iHorizon);
 
     def getApplyInDatset(self, iSignal, iHorizon):
         self.mApplyIn = pd.DataFrame();
@@ -266,6 +268,7 @@ class cGeneric_Tester:
         self.mTSSpec = tsspec;
         self.mBenchName = bench_name;
         self.mTestCodeGeneration = False;
+        self.mTestIdempotency = False;
         self.mType = "OneDataFramePerSignal";
         if(hasattr(self.mTSSpec , "mFullDataset")):
             self.mType = "OneDataFrameForAllSignals";
