@@ -1,7 +1,7 @@
 import os
 import glob
 
-str1 = "bench codegen exog func perf real-life time_res hierarchical";
+str1 = "bench codegen exog func perf real-life time_res hierarchical transformations";
 subdirs = str1.split();
 
 for subdir1 in subdirs:

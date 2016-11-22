@@ -212,9 +212,35 @@ hierarchical/test_grouped.py  :
  hierarchical :  hierarchical/test_grouped.py hierarchical/test_grouped_signals_MO.py hierarchical/test_hierarchy_AU_MO.py hierarchical/test_grouped_prototyping_1.py hierarchical/test_hier_prototyping_3.py hierarchical/test_grouped_signals_OC.py hierarchical/test_hier_prototyping_4.py hierarchical/test_hier_prototyping_1.py hierarchical/test_hierarchy_AU_OC.py hierarchical/test_hierarchy_AU_TD.py hierarchical/test_hierarchy_AU_BU.py hierarchical/test_hierarchy_AU.py hierarchical/test_grouped_signals_TD.py hierarchical/test_hier_prototyping_2.py hierarchical/test_grouped_signals_BU.py hierarchical/test_hier_prototyping_5.py  
  
 
+#PROCESSING FILE :  tests/transformations/test_ozone_transf_relative_difference.py transformations/test_ozone_transf_relative_difference.py logs/transformations_test_ozone_transf_relative_difference.log
+transformations/test_ozone_transf_relative_difference.py  :  
+	 -ipython3 tests/transformations/test_ozone_transf_relative_difference.py  >  logs/transformations_test_ozone_transf_relative_difference.log  2>&1
+#PROCESSING FILE :  tests/transformations/test_ozone_transf_none.py transformations/test_ozone_transf_none.py logs/transformations_test_ozone_transf_none.log
+transformations/test_ozone_transf_none.py  :  
+	 -ipython3 tests/transformations/test_ozone_transf_none.py  >  logs/transformations_test_ozone_transf_none.log  2>&1
+#PROCESSING FILE :  tests/transformations/test_ozone_transf_difference.py transformations/test_ozone_transf_difference.py logs/transformations_test_ozone_transf_difference.log
+transformations/test_ozone_transf_difference.py  :  
+	 -ipython3 tests/transformations/test_ozone_transf_difference.py  >  logs/transformations_test_ozone_transf_difference.log  2>&1
+#PROCESSING FILE :  tests/transformations/test_ozone_transf_boxcox.py transformations/test_ozone_transf_boxcox.py logs/transformations_test_ozone_transf_boxcox.log
+transformations/test_ozone_transf_boxcox.py  :  
+	 -ipython3 tests/transformations/test_ozone_transf_boxcox.py  >  logs/transformations_test_ozone_transf_boxcox.log  2>&1
+#PROCESSING FILE :  tests/transformations/test_ozone_transf_generic.py transformations/test_ozone_transf_generic.py logs/transformations_test_ozone_transf_generic.log
+transformations/test_ozone_transf_generic.py  :  
+	 -ipython3 tests/transformations/test_ozone_transf_generic.py  >  logs/transformations_test_ozone_transf_generic.log  2>&1
+#PROCESSING FILE :  tests/transformations/test_ozone_transf_cumsum.py transformations/test_ozone_transf_cumsum.py logs/transformations_test_ozone_transf_cumsum.log
+transformations/test_ozone_transf_cumsum.py  :  
+	 -ipython3 tests/transformations/test_ozone_transf_cumsum.py  >  logs/transformations_test_ozone_transf_cumsum.log  2>&1
+#PROCESSING FILE :  tests/transformations/test_ozone_transf_quantization.py transformations/test_ozone_transf_quantization.py logs/transformations_test_ozone_transf_quantization.log
+transformations/test_ozone_transf_quantization.py  :  
+	 -ipython3 tests/transformations/test_ozone_transf_quantization.py  >  logs/transformations_test_ozone_transf_quantization.log  2>&1
+
+
+ transformations :  transformations/test_ozone_transf_quantization.py transformations/test_ozone_transf_cumsum.py transformations/test_ozone_transf_generic.py transformations/test_ozone_transf_boxcox.py transformations/test_ozone_transf_difference.py transformations/test_ozone_transf_none.py transformations/test_ozone_transf_relative_difference.py  
+ 
+
 
 # ********************************************** 
 
-all:  bench codegen exog func perf real-life time_res hierarchical 
+all:  bench codegen exog func perf real-life time_res hierarchical transformations 
 	
 
