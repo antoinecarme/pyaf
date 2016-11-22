@@ -14,14 +14,15 @@ class cSignalDecomposition_Options:
         self.mNbCores = 8;
         self.mEnablePlots = False;
         self.mEstimRatio = 0.8;
+        self.mActiveTransformation = {};
         self.enable_fast_mode();
         self.mTimeDeltaComputationMethod = "AVG"; # can be "AVG", "MODE", "USER"
         self.mUserTimeDelta = None;
         self.mBusinessDaysOnly = False;
         self.mMaxExogenousCategories = 5;
-        self.mNoCoxBoxOrders = [];
-        self.mCoxBoxOrders = [-2.0, -1.0 , 0.0,  2.0];
-        self.mExtensiveCoxBoxOrders = [-2, -1, -0.5, -0.33 , -0.25 , 0.0, 2, 0.5, 0.33 , 0.25];
+        self.mNoBoxCoxOrders = [];
+        self.mBoxCoxOrders = [-2.0, -1.0 , 0.0,  2.0];
+        self.mExtensiveBoxCoxOrders = [-2, -1, -0.5, -0.33 , -0.25 , 0.0, 2, 0.5, 0.33 , 0.25];
         self.mEnableTrends = True;
         self.mEnableCycles = True;
         self.mEnableARModels = True;
@@ -41,14 +42,9 @@ class cSignalDecomposition_Options:
         
         
     def enable_slow_mode(self):
-        self.mEnableCoxBox = True;
-        # self.mCoxBoxOrders = self.mExtensiveCoxBoxOrders;
-        self.mEnableQuantization = True;        
         self.mQuantiles = [5, 10, 20]; # quintiles, deciles, and vingtiles;)
         self.mEnableMovingAverageTrends = True;
         self.mEnableMovingMedianTrends = True;
-        self.mEnableDifferentiationTransforms = True;        
-        self.mEnableIntegrationTransforms = True;
         self.mEnableTimeBasedTrends = True;
         self.mMovingAverageLengths = [5, 7, 12, 24 , 30, 60];
         self.mMovingMedianLengths = [5, 7, 12, 24 , 30, 60];
@@ -58,15 +54,20 @@ class cSignalDecomposition_Options:
         self.mEnableSeasonals = True;
         
         self.mMaxAROrder = 256;
+        self.mActiveTransformation = {};
+        self.mActiveTransformation['None'] = True;
+        self.mActiveTransformation['Difference'] = True;
+        self.mActiveTransformation['RelativeDifference'] = True;
+        self.mActiveTransformation['Integration'] = True;
+        self.mActiveTransformation['Quantization'] = True;
+        self.mActiveTransformation['BoxCox'] = True;
 
     def enable_fast_mode(self):
-        self.mEnableCoxBox = False;
+        self.mEnableBoxCox = False;
         self.mEnableQuantization = False;        
         self.mQuantiles = [5, 10, 20]; # quintiles, deciles, and vingtiles;)
         self.mEnableMovingAverageTrends = False;
         self.mEnableMovingMedianTrends = False;
-        self.mEnableDifferentiationTransforms = True;        
-        self.mEnableIntegrationTransforms = True;
         self.mEnableTimeBasedTrends = True;
         self.mMovingAverageLengths = [5, 7, 12, 24 , 30, 60];
         self.mMovingMedianLengths = [5, 7, 12, 24 , 30, 60];
@@ -80,4 +81,21 @@ class cSignalDecomposition_Options:
         self.mEnableARModels = True;
         self.mMaxAROrder = 256;
 
+        self.mActiveTransformation = {};
+        self.mActiveTransformation['None'] = True;
+        self.mActiveTransformation['Difference'] = True;
+        self.mActiveTransformation['RelativeDifference'] = True;
+        self.mActiveTransformation['Integration'] = True;
+        self.mActiveTransformation['Quantization'] = False;
+        self.mActiveTransformation['BoxCox'] = False;
     
+
+
+    def disable_all_transformations(self):
+        self.mActiveTransformation = {};
+        self.mActiveTransformation['None'] = False;
+        self.mActiveTransformation['Difference'] = False;
+        self.mActiveTransformation['RelativeDifference'] = False;
+        self.mActiveTransformation['Integration'] = False;
+        self.mActiveTransformation['Quantization'] = False;
+        self.mActiveTransformation['BoxCox'] = False;
