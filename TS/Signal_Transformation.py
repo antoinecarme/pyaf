@@ -13,12 +13,13 @@ def testTranform(tr1):
     df = pd.DataFrame();
     df['A'] = np.random.normal(0, 1.0, 10);
     sig = df['A'];
-    
+
+    tr1.mOriginalSignal = "selfTestSignal";
     tr1.fit(sig)
     sig1 = tr1.apply(sig);
     sig2 = tr1.invert(sig1)
     n = np.linalg.norm(sig2 - sig)
-#    print("'" + tr1.get_name("Test") + "'" , " : ", n)
+    print("'" + tr1.get_name("Test") + "'" , " : ", n)
     if(n > 1.0e-10):
         print(sig.values)
         print(sig1.values)
@@ -30,7 +31,80 @@ class cAbstractSignalTransform:
     def __init__(self):
         self.mOriginalSignal = None;
         self.mComplexity = None;
+        self.mScaling = None;
         pass
+
+    def is_applicable(self, sig):
+        return True;
+
+    def fit_scaling_params(self, sig):
+        if(self.mScaling is not None):
+            self.mMeanValue = np.mean(sig);
+            self.mStdValue = np.std(sig);
+            self.mMinValue = np.min(sig);
+            self.mMaxValue = np.max(sig);
+            self.mDelta = self.mMaxValue - self.mMinValue;
+            eps = 1.0e-10
+            if(self.mDelta < eps):
+                self.mDelta = eps;
+        else:
+            return sig;
+
+    def scale_signal(self, sig):
+        if(self.mScaling is not None):
+            # print("SCALE_START", sig.values[1:5]);
+            sig1 = sig.copy();
+            sig1[sig1 <= self.mMinValue] = self.mMinValue;
+            sig1[sig1 >= self.mMaxValue] = self.mMaxValue;
+            sig1 = (sig1 - self.mMinValue) / self.mDelta;
+            # print("SCALE_END", sig1.values[1:5]);
+            return sig1;
+        else:
+            return sig;
+
+    def rescale_signal(self, sig1):
+        if(self.mScaling is not None):
+            # print("RESCALE_START", sig1.values[1:5]);
+            sig = sig1.copy();
+            sig[sig > 1.0] = 1.0;
+            sig[sig < 0.0] = 0.0;
+            sig = sig * self.mDelta + self.mMinValue;
+            # print("RESCALE_END", sig.values[1:5]);
+            return sig;
+        else:
+            return sig1;
+
+    def fit(self , sig):
+        # print("FIT_START", self.mOriginalSignal, sig.values[1:5]);
+        self.fit_scaling_params(sig);
+        sig1 = self.scale_signal(sig);
+        self.specific_fit(sig1);
+        # print("FIT_END", self.mOriginalSignal, sig1.values[1:5]);
+        pass
+    
+    def apply(self, sig):
+        # print("APPLY_START", self.mOriginalSignal, sig.values[1:5]);
+        sig1 = self.scale_signal(sig);
+        sig2 = self.specific_apply(sig1);
+        # print("APPLY_END", self.mOriginalSignal, sig2.values[1:5]);
+        return sig2;
+
+    def invert(self, sig1):
+        # print("INVERT_START", self.mOriginalSignal, sig1.values[1:5]);
+        sig2 = self.specific_invert(sig1);
+        rescaled_sig = self.rescale_signal(sig2);
+        # print("INVERT_END", self.mOriginalSignal, rescaled_sig.values[1:5]);
+        return rescaled_sig;
+
+
+    def transformDataset(self, df, isig):
+        df[self.get_name(isig)] = self.apply(df[isig])
+        return df;
+
+    def test(self):
+        import copy;
+        # tr1 = copy.deepcopy(self);
+        # testTranform(tr1);
 
     def dump_apply_invert(self, df_before_apply, df_after_apply):
         df = pd.DataFrame();
@@ -51,34 +125,29 @@ class cAbstractSignalTransform:
 class cSignalTransform_None(cAbstractSignalTransform):
 
     def __init__(self):
+        cAbstractSignalTransform.__init__(self);
         self.mFormula = "None";
         self.mComplexity = 0;
         pass
 
     def get_name(self, iSig):
-        return iSig;
+        return "_" + iSig;
     
-    def fit(self , sig):
+    def specific_fit(self , sig):
         pass
     
-    def apply(self, df):
+    def specific_apply(self, df):
         return df;
     
-    def invert(self, df):
+    def specific_invert(self, df):
         return df;
 
-    def transformDataset(self, df, isig):
-        df[self.get_name(isig)] = self.apply(df[isig])
-        return df;
-
-    def test(self):
-        tr1 = cSignalTransform_None();
-        testTranform(tr1);
         
 
 class cSignalTransform_Accumulate(cAbstractSignalTransform):
 
     def __init__(self):
+        cAbstractSignalTransform.__init__(self);
         self.mFormula = "Integration";
         self.mComplexity = 1;
         pass
@@ -86,32 +155,24 @@ class cSignalTransform_Accumulate(cAbstractSignalTransform):
     def get_name(self, iSig):
         return "CumSum_" + iSig;
     
-    def fit(self , sig):
+    def specific_fit(self , sig):
         pass
     
-    def apply(self, df):
-        return df.cumsum(axis = 0);
+    def specific_apply(self, sig):
+        return sig.cumsum(axis = 0);
     
-    def invert(self, df):
+    def specific_invert(self, df):
         df_orig = df.copy();
         df_orig.iloc[0] = df.iloc[0];
         for i in range(1,df.shape[0]):
             df_orig.iloc[i] = df.iloc[i] -  df.iloc[i - 1]
         return df_orig;
 
-    def transformDataset(self, df, isig):
-        df[self.get_name(isig)] = self.apply(df[isig])
-        return df;
-
-    def test(self):
-        tr1 = cSignalTransform_Accumulate();
-        testTranform(tr1);
-        
-
 
 class cSignalTransform_Quantize(cAbstractSignalTransform):
 
     def __init__(self, iQuantiles):
+        cAbstractSignalTransform.__init__(self);
         self.mQuantiles = iQuantiles;
         self.mFormula = "Quantization";
         self.mComplexity = 2;
@@ -120,7 +181,7 @@ class cSignalTransform_Quantize(cAbstractSignalTransform):
     def get_name(self, iSig):
         return "Quantized_" + str(self.mQuantiles) + "_" + iSig;
     
-    def fit(self , sig):
+    def specific_fit(self , sig):
         Q = self.mQuantiles;
         q = pd.Series(range(0,Q)).apply(lambda x : sig.quantile(x/Q))
         self.mCurve = q.to_dict()
@@ -130,81 +191,57 @@ class cSignalTransform_Quantize(cAbstractSignalTransform):
         curve = self.mCurve;
         return min(curve.keys(), key=lambda y:abs(float(curve[y])-x))
     
-    def apply(self, df):
+    def specific_apply(self, df):
         lSignal_Q = df.apply(lambda x : self.signal2quant(x));
         return lSignal_Q;
-
-    def transformDataset(self, df, isig):
-        df[self.get_name(isig)] = self.apply(df[isig])
-        return df;
 
     def quant2signal(self, x):
         curve = self.mCurve;
         val = curve[int(x)]
         return val;
 
-    def invert(self, df):
+    def specific_invert(self, df):
         lSignal = df.apply(lambda x : self.quant2signal(x));
         return lSignal;
 
-    def test(self):
-        tr1 = cSignalTransform_Quantize(self.mQuantiles);
-        #testTranform(tr1);
-        
 
 class cSignalTransform_BoxCox(cAbstractSignalTransform):
 
     def __init__(self, iLambda):
+        cAbstractSignalTransform.__init__(self);
         self.mLambda = iLambda;
-        self.mMin = 0;
         self.mComplexity = 2;
         pass
 
     def get_name(self, iSig):
         return "Box_Cox_" + str(self.mLambda) + "_" + iSig;
 
-    def fit(self, sig):
-        self.mMin = np.min(sig);
-        self.mMax = np.max(sig);
-#        print("minimum  : " , self.mMin);
+    def specific_fit(self, sig):
         self.mFormula = "BoxCox(Lambda=" + str(self.mLambda) + ")";
         pass
     
 
-    def apply(self, df):
-        df1 = df.copy();
-        df1[df1 <= self.mMin] = self.mMin;
-        df1[df1 >= self.mMax] = self.mMax;
-        lDelta = self.mMax - self.mMin
-        df_pos = (df1 - self.mMin) / lDelta + 1
-        log_df = np.log(df_pos);
+    def specific_apply(self, df):
+        log_df = np.log(df + 1);
         if(abs(self.mLambda) <= 0.01):
             return log_df;
         return (np.exp(log_df * self.mLambda) - 1) / self.mLambda;
     
-    def invert(self, df):
-        lDelta = self.mMax - self.mMin
+    def specific_invert(self, df):
         if(abs(self.mLambda) <= 0.01):
-            df_orig = (np.exp(df) - 1 ) * lDelta + self.mMin
+            df_orig = np.exp(df)
             return df_orig;
-        y = np.log(self.mLambda * df + 1) / self.mLambda;
-        df_pos = np.exp(y);
-        return (df_pos - 1 ) * lDelta + self.mMin;
+        y = np.log(self.mLambda * df) / self.mLambda;
+        df_pos = np.exp(y) - 1;
+        return df_pos;
 
-    def transformDataset(self, df, isig):
-        df[self.get_name(isig)] = self.apply(df[isig])
-        return df;
-
-
-    def test(self):
-        tr1 = cSignalTransform_BoxCox(self.mLambda);
-        testTranform(tr1);
 
 
 class cSignalTransform_Differencing(cAbstractSignalTransform):
 
     def __init__(self):
-        self.mFirstValue = np.nan;
+        cAbstractSignalTransform.__init__(self);
+        self.mFirstValue = None;
         self.mFormula = "Difference";
         self.mComplexity = 1;
         pass
@@ -212,40 +249,30 @@ class cSignalTransform_Differencing(cAbstractSignalTransform):
     def get_name(self, iSig):
         return "Diff_" + iSig;
 
-    def fit(self, sig):
+    def specific_fit(self, sig):
         # print(sig.head());
         self.mFirstValue = sig.iloc[0];
-        # print("cSignalTransform_Differencing()_FirstValue" , self.mFirstValue);
         pass
     
 
-    def apply(self, df):
+    def specific_apply(self, df):
         df_shifted = df.shift(1)
         df_shifted.iloc[0] = self.mFirstValue;
         return (df - df_shifted);
     
-    def invert(self, df):
+    def specific_invert(self, df):
         df_orig = df.copy();
         df_orig.iloc[0] = self.mFirstValue;
         for i in range(1,df.shape[0]):
             df_orig.iloc[i] = df.iloc[i] +  df_orig.iloc[i - 1]
         return df_orig;
 
-    def transformDataset(self, df, isig):
-        df[self.get_name(isig)] = self.apply(df[isig])
-        return df;
-
-
-    def test(self):
-        tr1 = cSignalTransform_Differencing();
-        testTranform(tr1);
-
 
 class cSignalTransform_RelativeDifferencing(cAbstractSignalTransform):
 
     def __init__(self):
-        self.mFirstValue = np.nan;
-        self.mMinValue = np.nan;
+        cAbstractSignalTransform.__init__(self);
+        self.mFirstValue = None;
         self.mFormula = "RelativeDifference";
         self.mComplexity = 1;
         pass
@@ -253,53 +280,33 @@ class cSignalTransform_RelativeDifferencing(cAbstractSignalTransform):
     def get_name(self, iSig):
         return "RelDiff_" + iSig;
 
-    def fit(self, sig):
-        self.mMinValue = np.min(sig);
-        self.mMaxValue = np.max(sig);
+    def is_applicable(self, sig):
+        lMin = sig.min();
+        if(lMin > 0):
+            return True;
+        return False;
+
+    def specific_fit(self, sig):
         self.mFirstValue = sig.iloc[0];
-        self.mDelta = self.mMaxValue - self.mMinValue;
-        eps = 1.0e-10
-        if(self.mDelta < eps):
-            self.mDelta = eps;
-        # print("cSignalTransform_RelativeDifferencing_Fit" , self.mMinValue, self.mMaxValue, self.mFirstValue, self.mDelta);
         pass
 
-    def apply(self, df):
-        df1 = df.copy();
-        df1[df1 <= self.mMinValue] = self.mMinValue;
-        df1[df1 >= self.mMaxValue] = self.mMaxValue;
-        df1 = (df1 - self.mMinValue) / self.mDelta;
-        df_shifted = df1.shift(1)
-        df_shifted.iloc[0] = (self.mFirstValue - self.mMinValue) / self.mDelta;
-        r = (df1 - df_shifted) / (df_shifted + 1)
-        # self.dump_apply_invert(df , r);
-        self.check_not_nan(df, "before_Apply");
-        self.check_not_nan(r, "after_Apply");
-        return r;
+    def specific_apply(self, df):
+        df_shifted = df.shift(1)
+        df_shifted.iloc[0] = self.mFirstValue;
+        rate = (df - df_shifted) / df_shifted
+        return rate;
     
-    def invert(self, df):
-        r = df;
-        df_orig = 0.0 * df;
-        df_orig.iloc[0] = (self.mFirstValue - self.mMinValue) / self.mDelta
+    def specific_invert(self, df):
+        # print("RelDiff_DEBUG" , self.mFirstValue, df.values);
+        rate = df;
+        df_orig = 0.0 * rate;
+        df_orig.iloc[0] = self.mFirstValue;
+
         for i in range(1,df.shape[0]):
-            previous_value = df_orig.iloc[i - 1] 
-            df_orig.iloc[i] = previous_value + r.iloc[i]  * (previous_value + 1)
-            # print("rel_diff_detail", r.iloc[i - 1] , df_orig.iloc[i - 1] ,  r.iloc[i] , df_orig.iloc[i]); 
-        for i in range(0,df.shape[0]):
-            df_orig.iloc[i] = df_orig.iloc[i] * self.mDelta + self.mMinValue;
-        
-        # self.dump_apply_invert(df_orig , r);
-        self.check_not_nan(df_orig, "after_invert");
-        self.check_not_nan(r, "before_invert");
+            # print("RelDiff_DEBUG_2", self.mOriginalSignal, i , df.shape[0],
+            #      df_orig.iloc[i-1], rate.iloc[i]);
+            df_orig.iloc[i] =  df_orig.iloc[i-1] * (1.0 + rate.iloc[i]);
+
         return df_orig;
-
-    def transformDataset(self, df, isig):
-        df[self.get_name(isig)] = self.apply(df[isig])
-        return df;
-
-
-    def test(self):
-        tr1 = cSignalTransform_RelativeDifferencing();
-        testTranform(tr1);
 
 
