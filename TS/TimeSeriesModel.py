@@ -229,7 +229,7 @@ class cTimeSeriesModel:
             tsplot.decomp_plot(df, lTime, self.mSignal, lPrefix + 'Trend' , lPrefix + 'Trend_residue');
             tsplot.decomp_plot(df, lTime, lPrefix + 'Trend_residue' , lPrefix + 'Cycle', lPrefix + 'Cycle_residue');
             tsplot.decomp_plot(df, lTime, lPrefix + 'Cycle_residue' , lPrefix + 'AR' , lPrefix + 'AR_residue');
-            tsplot.decomp_plot(df, lTime, self.mSignal, lPrefix + 'Forecast' , lPrefix + 'Residue');
+            tsplot.decomp_plot(df, lTime, self.mSignal, lPrefix2 + 'Forecast' , lPrefix2 + 'Residue');
         
     def standrdPlots(self, name = None):
         self.plotResidues(name = name);
@@ -254,7 +254,7 @@ class cTimeSeriesModel:
         lDict = {};
         df = self.mModelFrame;
         lTime = self.mTime;
-        lSignalColumn = self.mSignal;
+        lSignalColumn = self.mOriginalSignal;
         lPrefix = lSignalColumn + "_";
         lDict["Trend"] = tsplot.decomp_plot_as_png_base64(df, lTime, lSignalColumn, lPrefix + 'Trend' , lPrefix + 'Trend_residue', name = "trend");
         lDict["Cycle"] = tsplot.decomp_plot_as_png_base64(df, lTime, lPrefix + 'Trend_residue' , lPrefix + 'Cycle', lPrefix + 'Cycle_residue', name = "cycle");
