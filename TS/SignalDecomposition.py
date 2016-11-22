@@ -91,6 +91,7 @@ class cSignalDecompositionOneTransform:
         
         self.mTransformation = iTransformation;
         self.mTransformation.mOriginalSignal = iSignal; 
+
         self.mTransformation.fit(iInputDS[iSignal]);
 
         self.mSignal = iTransformation.get_name(iSignal)
@@ -217,10 +218,6 @@ class cSignalDecompositionOneTransform:
         # estimate time info
         # assert(self.mTimeInfo.mSignalFrame.shape[0] == iInputDS.shape[0])
         self.mTimeInfo.estimate();
-        # print("TIME_INFO " , self.mTimeInfo.info());
-        # self.mSignalFrame[self.mTimeInfo.mNormalizedTimeColumn] = self.mTimeInfo.mSignalFrame[self.mTimeInfo.mNormalizedTimeColumn]
-        if(self.mOptions.mEnablePlots):    
-            self.plotSignal()
 
         exog_start_time = time.time()
         if(self.mExogenousInfo is not None):
@@ -290,40 +287,46 @@ class cSignalDecomposition:
             return False;
         return False;
 
-    def validateTransformation(self , transf):
+    def validateTransformation(self , transf , df, iTime, iSignal):
         lName = transf.get_name("");
-        # print("Adding Transformation " , lName);
-        self.mTransformList = self.mTransformList + [transf];
+        lIsApplicable = transf.is_applicable(df[iSignal]);
+        if(lIsApplicable):
+            # print("Adding Transformation " , lName);
+            self.mTransformList = self.mTransformList + [transf];
     
-    def defineTransformations(self , df):
+    def defineTransformations(self , df, iTime, iSignal):
         self.mTransformList = [];
-        self.validateTransformation(tstransf.cSignalTransform_None());
+        if(self.mOptions.mActiveTransformation['None']):
+            self.validateTransformation(tstransf.cSignalTransform_None() , df, iTime, iSignal);
 
-        if(self.mOptions.mEnableDifferentiationTransforms):
-            self.validateTransformation(tstransf.cSignalTransform_Differencing());
-            self.validateTransformation(tstransf.cSignalTransform_RelativeDifferencing());
+        if(self.mOptions.mActiveTransformation['Difference']):
+            self.validateTransformation(tstransf.cSignalTransform_Differencing() , df, iTime, iSignal);
             
-        if(self.mOptions.mEnableIntegrationTransforms):
-            self.validateTransformation(tstransf.cSignalTransform_Accumulate());
+        if(self.mOptions.mActiveTransformation['RelativeDifference']):
+            self.validateTransformation(tstransf.cSignalTransform_RelativeDifferencing() , df, iTime, iSignal);
+            
+        if(self.mOptions.mActiveTransformation['Integration']):
+            self.validateTransformation(tstransf.cSignalTransform_Accumulate() , df, iTime, iSignal);
 
-        if(self.mOptions.mEnableCoxBox):
-            for i in self.mOptions.mCoxBoxOrders:
-                self.validateTransformation(tstransf.cSignalTransform_BoxCox(i));
+        if(self.mOptions.mActiveTransformation['BoxCox']):
+            for i in self.mOptions.mBoxCoxOrders:
+                self.validateTransformation(tstransf.cSignalTransform_BoxCox(i) , df, iTime, iSignal);
 
-        if(self.mOptions.mEnableQuantization):
+        if(self.mOptions.mActiveTransformation['Quantization']):
             for q in self.mOptions.mQuantiles:
                 if(self.needQuantile(df , q)):
-                    self.validateTransformation(tstransf.cSignalTransform_Quantize(q));
+                    self.validateTransformation(tstransf.cSignalTransform_Quantize(q) , df, iTime, iSignal);
         
 
         for transform1 in self.mTransformList:
             transform1.mOptions = self.mOptions;
-            # transform1.test();
+            transform1.mOriginalSignal = iSignal;
+            transform1.test();
 
             
     def train_threaded(self , iInputDS, iTime, iSignal, iHorizon):
         threads = [] 
-        self.defineTransformations();
+        self.defineTransformations(iInputDS, iTime, iSignal);
         for transform1 in self.mTransformList:
             t = threading.Thread(target=run_transform_thread,
                                  args = (iInputDS, iTime, iSignal, iHorizon, transform1, self.mOptions, self.mExogenousData))
@@ -336,7 +339,7 @@ class cSignalDecomposition:
         
     def train_multiprocessed(self , iInputDS, iTime, iSignal, iHorizon):
         pool = mp.Pool(self.mOptions.mNbCores)
-        self.defineTransformations(iInputDS);
+        self.defineTransformations(iInputDS, iTime, iSignal);
         args = [];
         for transform1 in self.mTransformList:
             arg = cTraining_Arg(transform1.get_name(""));
@@ -363,7 +366,7 @@ class cSignalDecomposition:
 	
         
     def train_not_threaded(self , iInputDS, iTime, iSignal, iHorizon):
-        self.defineTransformations(iInputDS);
+        self.defineTransformations(iInputDS, iTime, iSignal);
         for transform1 in self.mTransformList:
             sigdec = cSignalDecompositionOneTransform();
             sigdec.mOptions = self.mOptions;
@@ -435,9 +438,6 @@ class cSignalDecomposition:
 
         # Prediction Intervals
         self.mBestModel.computePredictionIntervals();
-
-        if(self.mOptions.mEnablePlots):    
-            self.mBestModel.plotForecasts();
 
         end_time = time.time()
         self.mTrainingTime = end_time - start_time;
