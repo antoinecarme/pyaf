@@ -33,20 +33,8 @@ class cPredictionIntervalsEstimator:
             df2 = None;
             df2 = self.mModel.forecastOneStepAhead(df1.copy());
             df2 = df2.head(N);
-            lNullCount = df2.isnull().sum().sum();
-            if(lNullCount):
-                print(df2.tail(self.mHorizon * 2));                
-            assert(lNullCount == 0);
-            # print(df1.info());
-            # print(df2.info());
-            # print(df1[[lTimeColumn, lSignalColumn]].head());
-            # print(df2[[lTimeColumn, lSignalColumn, lForecastColumn]].head());
-            # print(df1[[lTimeColumn, lSignalColumn]].tail());
-            # print(df2[[lTimeColumn, lSignalColumn, lForecastColumn]].tail());
             lHorizonName = lForecastColumn + "_" + str(h + 1);
             (lFrameFit, lFrameForecast, lFrameTest) = self.mModel.mTimeInfo.cutFrame(df2);
-            # print(lFrameForecast[[lSignalColumn, lForecastColumn]].head());
-            # print(lFrameForecast[[lSignalColumn, lForecastColumn]].tail());
             self.mFitPerformances[lHorizonName] = tsperf.cPerf();
             self.mFitPerformances[lHorizonName].compute(lOriginalFit[lSignalColumn], lFrameFit[lForecastColumn], lHorizonName);
             self.mForecastPerformances[lHorizonName] = tsperf.cPerf();
