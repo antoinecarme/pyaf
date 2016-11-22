@@ -156,23 +156,23 @@ def add_some_noise(x , p , min_sig, max_sig, e , f):
     delta = (x - min_sig) / (max_sig - min_sig);
     if( (delta >= e) and (delta <= f) ):
         if(np.random.random() < p):
-            return 1;
-    return 0;
+            return "A";
+    return "0";
 
 
 def gen_trend(N , trendtype):
     lTrend = pd.Series();
-    a = (2 * np.random.random() - 1);
-    b = (2 * np.random.random() - 1);
-    c = (2 * np.random.random() - 1);
+    a = 100 * (2 * np.random.random() - 1);
+    b = 10 * (2 * np.random.random() - 1);
+    c = (2 * np.random.random());
     print("TREND" , a , b ,c);
     if(trendtype == "constant"):
         lTrend = a
     if(trendtype == "linear"):
-        x = np.arange(0,N) / (N + 0.1);
+        x = np.arange(0,N) / N ;
         lTrend =  a * x + b;
     if(trendtype == "poly"):
-        x = np.arange(0,N) / (N + 0.1);
+        x = np.arange(0,N) / N;
         lTrend =  a * x * x + b * x + c;
     # lTrend.plot();
     return lTrend;
@@ -220,17 +220,19 @@ def generate_random_TS(N , FREQ, seed, trendtype, cycle_length, transform, sigma
     max_sig = df_train['Signal'].max();
     print(df_train.info())
     tsspec.mExogenousVariables = [];
+    tsspec.mExogenousDataFrame = pd.DataFrame();
+    tsspec.mExogenousDataFrame['Date'] = df_train['Date']
     for e in range(exog_count):
         label = "exog_" + str(e+1);
-        df_train[label] = df_train['Signal'].apply(lambda x : add_some_noise(x , 0.1 , 
-                                                                             min_sig, 
-                                                                             max_sig, 
-                                                                             e/exog_count ,
-                                                                             (e+3)/exog_count ));
+        tsspec.mExogenousDataFrame[label] = df_train['Signal'].apply(
+            lambda x : add_some_noise(x , 0.1 , 
+                                      min_sig, 
+                                      max_sig, 
+                                      e/exog_count ,
+                                      (e+3)/exog_count ));
         tsspec.mExogenousVariables = tsspec.mExogenousVariables + [ label ];
 
     # this is the full dataset . must contain future exogenius data
-    tsspec.mExogenousDataFrame = df_train;
     pos_signal = df_train['Signal'] - min_sig + 1.0;
 
     if(transform == "exp"):
