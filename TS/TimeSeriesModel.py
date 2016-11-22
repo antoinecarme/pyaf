@@ -49,13 +49,14 @@ class cTimeSeriesModel:
         self.mModelFrame = df.head(N);
         # print(self.mModelFrame.columns);
         lPrefix = self.mSignal + "_";
+        lForecastColumnName = self.mOriginalSignal + "_Forecast";
         lFitPerf = tsperf.cPerf();
         lForecastPerf = tsperf.cPerf();
         lTestPerf = tsperf.cPerf();
         (lFrameFit, lFrameForecast, lFrameTest) = self.mTrend.mTimeInfo.cutFrame(self.mModelFrame);
-        lFitPerf.compute(lFrameFit[self.mOriginalSignal] , lFrameFit[lPrefix + 'TransformedForecast'] , 'TransformedForecast')
-        lForecastPerf.compute(lFrameForecast[self.mOriginalSignal] , lFrameForecast[lPrefix + 'TransformedForecast'], 'TransformedForecast')
-        lTestPerf.compute(lFrameTest[self.mOriginalSignal] , lFrameTest[lPrefix + 'TransformedForecast'], 'TransformedForecast')
+        lFitPerf.compute(lFrameFit[self.mOriginalSignal] , lFrameFit[lForecastColumnName] , 'Fit')
+        lForecastPerf.compute(lFrameForecast[self.mOriginalSignal] , lFrameForecast[lForecastColumnName], 'Forecast')
+        lTestPerf.compute(lFrameTest[self.mOriginalSignal] , lFrameTest[lForecastColumnName], 'Test')
         self.mFitPerf = lFitPerf
         self.mForecastPerf = lForecastPerf;
         self.mTestPerf = lTestPerf;
@@ -139,6 +140,7 @@ class cTimeSeriesModel:
         df2[lPrefix + 'TransformedResidue'] =  lSignal - df2[lPrefix + 'TransformedForecast']
 
         lPrefix2 = self.mOriginalSignal + "_";
+        # print("TimeSeriesModel_forecast_invert");
         df2[lPrefix2 + 'Forecast'] = self.mTransformation.invert(df2[lPrefix + 'TransformedForecast']);
         lOriginalSignal = df2[self.mOriginalSignal]
         df2[lPrefix2 + 'Residue'] =  lOriginalSignal - df2[lPrefix2 + 'Forecast']
@@ -217,11 +219,12 @@ class cTimeSeriesModel:
         df = self.mModelFrame;
         lTime = self.mTimeInfo.mTime; # NormalizedTimeColumn;
         lPrefix = self.mSignal + "_";
+        lPrefix2 = self.mOriginalSignal + "_";
         if(name is not None):
             tsplot.decomp_plot(df, lTime, self.mSignal, lPrefix + 'Trend' , lPrefix + 'Trend_residue', name = name + "_trend");
             tsplot.decomp_plot(df, lTime, lPrefix + 'Trend_residue' , lPrefix + 'Cycle', lPrefix + 'Cycle_residue', name = name + "_cycle");
             tsplot.decomp_plot(df, lTime, lPrefix + 'Cycle_residue' , lPrefix + 'AR' , lPrefix + 'AR_residue', name = name + "_AR");
-            tsplot.decomp_plot(df, lTime, self.mSignal, lPrefix + 'Forecast' , lPrefix + 'Residue', name = name + "_forecast");
+            tsplot.decomp_plot(df, lTime, self.mSignal, lPrefix2 + 'Forecast' , lPrefix2 + 'Residue', name = name + "_forecast");
         else:
             tsplot.decomp_plot(df, lTime, self.mSignal, lPrefix + 'Trend' , lPrefix + 'Trend_residue');
             tsplot.decomp_plot(df, lTime, lPrefix + 'Trend_residue' , lPrefix + 'Cycle', lPrefix + 'Cycle_residue');
