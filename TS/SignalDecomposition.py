@@ -301,9 +301,10 @@ class cSignalDecomposition:
 
         if(self.mOptions.mActiveTransformation['Difference']):
             self.validateTransformation(tstransf.cSignalTransform_Differencing() , df, iTime, iSignal);
-            
-        if(self.mOptions.mActiveTransformation['RelativeDifference']):
-            self.validateTransformation(tstransf.cSignalTransform_RelativeDifferencing() , df, iTime, iSignal);
+
+        # Oops. disable this transformation for the moment.    
+        # if(self.mOptions.mActiveTransformation['RelativeDifference']):
+        #    self.validateTransformation(tstransf.cSignalTransform_RelativeDifferencing() , df, iTime, iSignal);
             
         if(self.mOptions.mActiveTransformation['Integration']):
             self.validateTransformation(tstransf.cSignalTransform_Accumulate() , df, iTime, iSignal);

@@ -275,6 +275,7 @@ class cSignalTransform_RelativeDifferencing(cAbstractSignalTransform):
         self.mFirstValue = None;
         self.mFormula = "RelativeDifference";
         self.mComplexity = 1;
+        self.mScaling = "!";
         pass
 
     def get_name(self, iSig):
@@ -303,8 +304,8 @@ class cSignalTransform_RelativeDifferencing(cAbstractSignalTransform):
         df_orig.iloc[0] = self.mFirstValue;
 
         for i in range(1,df.shape[0]):
-            # print("RelDiff_DEBUG_2", self.mOriginalSignal, i , df.shape[0],
-            #      df_orig.iloc[i-1], rate.iloc[i]);
+            print("RelDiff_DEBUG_2", self.mOriginalSignal, i , df.shape[0],
+                  df_orig.iloc[i-1], rate.iloc[i]);
             df_orig.iloc[i] =  df_orig.iloc[i-1] * (1.0 + rate.iloc[i]);
 
         return df_orig;
