@@ -533,7 +533,7 @@ def load_M4_comp() :
 
     tsspecs = {};
     
-    trainfile = "data/M4Comp.csv"
+    trainfile = "data/M4Comp.csv.gz"
 
     df_full = pd.read_csv(trainfile, sep=',', header=0, engine='python');
     lHorizons = df_full[['H' , 'ID']].copy();
