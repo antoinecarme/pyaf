@@ -168,7 +168,7 @@ class cDatabaseBackend:
     def initializeEngine(self):
         if(self.mDSN is not None):
             # connected mode.
-            self.mEngine = create_engine(self.mDSN , echo = False)
+            self.mEngine = create_engine(self.mDSN , echo = True)
             self.mConnection = self.mEngine.connect()
             self.mMeta = MetaData(bind = self.mConnection);
             self.mDialect = self.mEngine.dialect;
@@ -404,8 +404,7 @@ class cDecompositionCodeGenObject:
          self.mDateName = self.mBestModel.mTime
          self.mModelName =  self.mBestModel.mOutName
 
-         lName = self.mBestModel.mTransformation.get_name("");
-         lNeedTransformation = (lName != "");
+         lNeedTransformation = (self.mBestModel.mTransformation.__class__ != pyaf.TS.Signal_Transformation.cSignalTransform_None);
 
          self.mRowTypeAlias = "HType" 
          self.mSignal = self.mBestModel.mSignal; 
@@ -526,8 +525,8 @@ class cDecompositionCodeGenObject:
         self.mRowNumber_CTE = self.mBackEnd.generate_CTE(lMainColumns  + exprs1 + exprs2 + exprs3, "TS_CTE_RowNumber")
         # self.mBackEnd.debrief_cte(self.mRowNumber_CTE)
 
-    def addOriginalSignalAggreagtes(self, table, tr):
-        lName = tr.get_name("");
+    def addOriginalSignalAggreagtes(self, table):
+        lTrClass = self.mBestModel.mTransformation.__class__;
         TS1 = alias(select([table.columns[self.mOriginalSignal], table.columns[self.mRowNumberAlias]]), "t_SigRowNum");
         sig_expr = TS1.c[ self.mOriginalSignal ]; # original signal
         rn_expr_1 = table.c[self.mRowNumberAlias];
@@ -535,13 +534,13 @@ class cDecompositionCodeGenObject:
         cumulated_signal = None;
         previous_expr = None;
         relatve_diff = None;
-        if(lName == ""):
+        if(lTrClass == pyaf.TS.Signal_Transformation.cSignalTransform_None):
             pass;
-        elif (lName == "CumSum_"):           
+        elif (lTrClass == pyaf.TS.Signal_Transformation.cSignalTransform_Accumulate):           
             cumulated_signal  = select([func.sum(sig_expr)]).where(rn_expr_1 >= rn_expr_2);
-        elif (lName == "Diff_"):
+        elif (lTrClass == pyaf.TS.Signal_Transformation.cSignalTransform_Differencing):
             previous_expr = select([func.sum(sig_expr)]).where(rn_expr_1 == (rn_expr_2 + 1));
-        elif (lName == "RelDiff_"):
+        elif (lTrClass == pyaf.TS.Signal_Transformation.cSignalTransform_RelativeDifferencing):
             lMinExpr = self.as_float(tr.mTransformation.mMinValue);
             lDeltaExpr = self.as_float(tr.mTransformation.mDelta);
             lNormalizedSignal = (sig_expr - lMinExpr) / lDeltaExpr;
@@ -597,27 +596,26 @@ class cDecompositionCodeGenObject:
 
     def generateTransformationInputCode(self, table):
         # => TransformationInput_CTE
-        exprs1 = self.addOriginalSignalAggreagtes(self.mRowNumber_CTE,
-                                                  self.mBestModel.mTransformation);
+        exprs1 = self.addOriginalSignalAggreagtes(self.mRowNumber_CTE);
         exprs2 = self.addExogenousDummies(self.mRowNumber_CTE);
         self.mTransformationInputs_CTE = self.mBackEnd.generate_CTE(self.mRowNumber_CTE.columns  + exprs1 + exprs2, "TS_CTE_TransformationInput")
         # self.mBackEnd.debrief_cte(self.mTransformationInputs_CTE)
 
-    def addTransformedSignal(self, table, tr):
+    def addTransformedSignal(self, table):
         exprs = [];
-        lName = tr.get_name("");
+        lTrClass = self.mBestModel.mTransformation.__class__;
         # lName = "Diff_"
         TS1 = alias(select([table.columns[self.mOriginalSignal], table.columns[self.mRowNumberAlias]]), "t_SigRowNum2");
         sig_expr = TS1.c[ self.mOriginalSignal ]; # original signal
-        if(lName == ""):            
+        if(lTrClass == pyaf.TS.Signal_Transformation.cSignalTransform_None):            
             trasformed_signal = table.c[ self.mOriginalSignal ];
-        elif(lName == "CumSum_"):
+        elif(lTrClass == pyaf.TS.Signal_Transformation.cSignalTransform_Accumulate):
             trasformed_signal  = table.c["Cum_" + self.mOriginalSignal];
-        elif(lName == "Diff_"):
+        elif(lTrClass == pyaf.TS.Signal_Transformation.cSignalTransform_Differencing):
             lDefault_expr = self.as_float(tr.mTransformation.mFirstValue)
             previous_expr = func.coalesce(table.c["Lag1_" + self.mOriginalSignal] , lDefault_expr);
             trasformed_signal  = table.c[ self.mOriginalSignal ] - previous_expr;
-        elif(lName == "RelDiff_"):
+        elif(lTrClass == pyaf.TS.Signal_Transformation.cSignalTransform_RelativeDifferencing):
             lDefault_expr = self.as_float(tr.mTransformation.mFirstValue)
             lDefault_expr = (lDefault_expr - tr.mTransformation.mMinValue) / tr.mTransformation.mDelta;
             lRelDiff = func.coalesce(table.c["RelDiff_" + self.mOriginalSignal] , lDefault_expr);
@@ -625,22 +623,18 @@ class cDecompositionCodeGenObject:
         else:
             assert(0);
             
-        if(lName != ""):            
-            trasformed_signal = trasformed_signal.label(self.mSignal);
-            exprs = exprs + [ trasformed_signal ];
+        trasformed_signal = trasformed_signal.label(self.mSignal);
+        exprs = exprs + [ trasformed_signal ];
         return exprs
 
     def generateTransformationCode(self, table):
         # => Transformation_CTE
-        signal_exprs = self.addTransformedSignal(self.mTransformationInputs_CTE,
-                                                 self.mBestModel.mTransformation) 
+        signal_exprs = self.addTransformedSignal(self.mTransformationInputs_CTE) 
         self.mTransformation_CTE = self.mBackEnd.generate_CTE([self.mTransformationInputs_CTE]  + signal_exprs, "TS_CTE_Transformation")
         # self.mBackEnd.debrief_cte(self.mTransformation_CTE)
 
 
     def addTrendInputs(self, table):
-        tr = self.mBestModel.mTransformation;
-        lName = tr.get_name("");
         exprs = [] ;
         normalized_time = table.c["NTime"];
         normalized_time_2 = normalized_time * normalized_time
@@ -910,8 +904,8 @@ class cDecompositionCodeGenObject:
         # self.mBackEnd.debrief_cte(self.mModel_CTE)
 
 
-    def addModelAggreagtes(self, table, tr):
-        lName = tr.mTransformation.get_name("");
+    def addModelAggreagtes(self, table):
+        lTrClass = self.mBestModel.mTransformation.__class__;
         lModelName = self.shorten("Model");
         TS1 = alias(select([ table.c[lModelName] , table.c[self.mRowNumberAlias] ]), "t_ModelComp");
         model_expr = TS1.c[ lModelName ]; # original signal
@@ -919,15 +913,15 @@ class cDecompositionCodeGenObject:
         rn_expr_2 = TS1.c[self.mRowNumberAlias];
         cumulated_model = None;
         previous_model = None;
-        if(lName == ""):
+        if(lTrClass == pyaf.TS.Signal_Transformation.cSignalTransform_None):
             pass;
-        elif (lName == "CumSum_"):
+        elif (lTrClass == pyaf.TS.Signal_Transformation.cSignalTransform_Accumulate):
             previous_model = select([func.sum(model_expr)]).where(rn_expr_1 == (rn_expr_2 + 1));
             pass
-        elif (lName == "Diff_"):
+        elif (lTrClass == pyaf.TS.Signal_Transformation.cSignalTransform_Differencing):
             cumulated_model  = select([func.sum(model_expr)]).where(rn_expr_1 >= rn_expr_2);
             pass
-        elif (lName == "RelDiff_"):
+        elif (lTrClass == pyaf.TS.Signal_Transformation.cSignalTransform_RelativeDifferencing):
             lMinExpr = self.as_float(tr.mTransformation.mMinValue);
             lDeltaExpr = self.as_float(tr.mTransformation.mDelta);
             # lNormalizedSignal = (sig_expr - lMinExpr) / lDeltaExpr;
@@ -948,28 +942,27 @@ class cDecompositionCodeGenObject:
         return exprs
 
     def generateModelInvTransformationInputCode(self):
-        exprs1 = self.addModelAggreagtes(self.mModel_CTE,
-                                         self.mBestModel.mTransformation);
+        exprs1 = self.addModelAggreagtes(self.mModel_CTE);
         self.mModelInvTransformationInputs_CTE = self.mBackEnd.generate_CTE(self.mModel_CTE.columns  + exprs1, "TS_CTE_ModelInvTransformationInput")
         # self.mBackEnd.debrief_cte(self.mModelInvTransformationInputs_CTE)
 
-    def addTransformedModel(self, table, tr):
+    def addTransformedModel(self, table):
         exprs = [];
-        lName = tr.mTransformation.get_name("");
+        lTrClass = self.mBestModel.mTransformation.__class__;
         # lName = "Diff_"
         lModelName = self.shorten("Model");
         # TS1 = alias(select([ table.c[lModelName] , table.c[self.mRowNumberAlias] ]), "t_ModelAgg");
         model_expr = table.c[ lModelName ]; # original signal
         transformed_model = model_expr;
-        if(lName == "CumSum_"):
+        if(lTrClass == pyaf.TS.Signal_Transformation.cSignalTransform_Accumulate):
             lDefault_expr = self.as_float(tr.mTransformation.mFirstValue);            
             previous_expr = func.coalesce(table.c["Lag1_" + lModelName] , lDefault_expr);
             transformed_model  = model_expr - previous_expr;
-        elif(lName == "Diff_"):
+        elif(lTrClass == pyaf.TS.Signal_Transformation.cSignalTransform_Differencing):
             lDefault_expr = self.as_float(tr.mTransformation.mFirstValue);            
             cum_expr = func.coalesce(table.c["Cum_" + lModelName] , lDefault_expr);
             transformed_model  = cum_expr;
-        elif(lName == "RelDiff_"):
+        elif(lTrClass == pyaf.TS.Signal_Transformation.cSignalTransform_RelativeDifferencing):
             lDefault_expr = self.as_float(tr.mTransformation.mFirstValue)
             lDefault_expr = (lDefault_expr - tr.mTransformation.mMinValue) / tr.mTransformation.mDelta;
             lRelDiff = func.coalesce(table.c["RelDiff_" + self.mOriginalSignal] , lDefault_expr);
@@ -984,8 +977,7 @@ class cDecompositionCodeGenObject:
         return exprs
 
     def generateInverseTransformationCode(self):
-        model_exprs = self.addTransformedModel(self.mModelInvTransformationInputs_CTE,
-                                               self.mBestModel.mTransformation) 
+        model_exprs = self.addTransformedModel(self.mModelInvTransformationInputs_CTE) 
         self.mModelInvTransformation_CTE = self.mBackEnd.generate_CTE([self.mModelInvTransformationInputs_CTE]  + model_exprs, "TS_CTE_InvTransformedModel")
         # self.mBackEnd.debrief_cte(self.mModelInvTransformation_CTE)
 

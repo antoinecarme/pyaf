@@ -23,6 +23,7 @@ class cTimeSeriesCodeGenerator:
         # 
         # 
         lKnownDSNs = ["postgresql://db:db@localhost/db?port=5432",
+                      "oracle+cx_oracle://db:db@xe",
                       "mysql://user:pass@localhost/GitHubtest",
                       # "sqlite://",
                       # "sqlite:///a.db",
