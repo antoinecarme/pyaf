@@ -41,7 +41,6 @@ The following features are available :
       the forecasts.
    3. Generic training features
     * [Signal decomposition](http://en.wikipedia.org/wiki/Decomposition_of_time_series) as the sum of a trend, periodic and AR component
-      
     * PyAF works as a competition between a **comprehensive set of possible signal 
       transformations and linear decompositions**. For each transformed
       signal , a set of possible trends, periodic components and AR models is
