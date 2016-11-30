@@ -161,6 +161,8 @@ Documentation
 
 An [introductory notebook](https://github.com/antoinecarme/pyaf/blob/master/docs/PyAF_Introduction.ipynb) to the time series forecasting with PyAF is available here. It contains some real-world examples and use cases.
 
+A specific notebook describing the use of exogenous data is [available here](https://github.com/antoinecarme/pyaf/blob/master/docs/PyAF_Exogenous.ipynb)
+
 The code is not yet fully documented. This is a top priority. 
 
 Communication
