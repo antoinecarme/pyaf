@@ -12,8 +12,7 @@ import pyaf.ForecastEngine as autof
 from . import Options as tsopts
 from . import Perf as tsperf
 from . import Utils as tsutil
-
-from CodeGen import TS_CodeGen_Objects as tscodegen
+from . import Plots as tsplot
 
 
 class cSignalHierarchy:
@@ -136,6 +135,7 @@ class cSignalHierarchy:
 
     def fit(self):
         self.create_HierarchicalStructure();
+        # self.plot();
         self.create_SummingMatrix();
         lAllLevelsDataset = self.create_all_levels_dataset(self.mTrainingDataset);
         self.create_all_levels_models(lAllLevelsDataset, self.mHorizon, self.mDateColumn);
@@ -147,6 +147,8 @@ class cSignalHierarchy:
                 lEngine = self.mModels[level][signal];
                 lEngine.getModelInfo();
 
+    def plot(self , name = None):
+        tsplot.plot_hierarchy(self.mStructure, name)
     
     def standrdPlots(self , name = None):
         for level in self.mModels.keys():

@@ -134,3 +134,23 @@ def prediction_interval_plot_as_png_base64(df, time, signal, estimator, lower, u
 
 def qqplot_residues(df , residue):
     pass
+
+
+def plot_hierarchy(structure , name):
+    import pydot
+    graph = pydot.Dot(graph_type='graph', rankdir='LR');
+    lLevelsReversed = sorted(structure.keys(), reverse=True);
+    for level in  lLevelsReversed:
+        for col in structure[level].keys():
+            node_col = pydot.Node(col, style="filled", fillcolor="red")
+            graph.add_node(node_col);
+            for col1 in structure[level][col]:
+                node_col1 = pydot.Node(col1, style="filled", fillcolor="red")
+                graph.add_node(node_col1);
+                graph.add_edge(pydot.Edge(node_col, node_col1))
+    if(name is not None):
+        graph.write_png(name);
+    else:
+        from IPython.display import Image, display
+        plot1 = Image(graph.create_png())
+        display(plot1)

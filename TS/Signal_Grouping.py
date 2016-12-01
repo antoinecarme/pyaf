@@ -15,8 +15,6 @@ from . import Perf as tsperf
 from . import Utils as tsutil
 from . import SignalHierarchy as sighier
 
-from CodeGen import TS_CodeGen_Objects as tscodegen
-
 
 class cSignalGrouping (sighier.cSignalHierarchy):
 

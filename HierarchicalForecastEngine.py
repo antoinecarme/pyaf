@@ -62,19 +62,31 @@ class cHierarchicalForecastEngine:
         # print("GENERATED_SQL_CODE" , lSQL);
         return lSQL;
 
+    def create_signal_hierarchy(self , iInputDS, iTime, iSignal, iHorizon, iHierarchy, iExogenousData = None):
+        lSignalHierarchy = None;
+        if(iHierarchy['Type'] == "Grouped"):
+            lSignalHierarchy = siggroup.cSignalGrouping();
+        else:
+            lSignalHierarchy = sighier.cSignalHierarchy();
+            
+        lSignalHierarchy.mHierarchy = iHierarchy;
+        lSignalHierarchy.mDateColumn = iTime;
+        lSignalHierarchy.mHorizon = iHorizon;
+        lSignalHierarchy.mExogenousData = iExogenousData;        
+        lSignalHierarchy.mTrainingDataset = iInputDS;        
+        lSignalHierarchy.mOptions = self.mOptions;        
+        return lSignalHierarchy;
+
+
+    def plot_Hierarchy(self , iInputDS, iTime, iSignal, iHorizon, iHierarchy, iExogenousData = None):
+        lSignalHierarchy = self.create_signal_hierarchy(iInputDS, iTime, iSignal, iHorizon, iHierarchy, iExogenousData);
+        lSignalHierarchy.create_HierarchicalStructure();
+        lSignalHierarchy.plot();
+        return lSignalHierarchy;
 
     def train_HierarchicalModel(self , iInputDS, iTime, iSignal, iHorizon, iHierarchy, iExogenousData = None):
-        if(iHierarchy['Type'] == "Grouped"):
-            self.mSignalHierarchy = siggroup.cSignalGrouping();
-        else:
-            self.mSignalHierarchy = sighier.cSignalHierarchy();
-            
-        self.mSignalHierarchy.mHierarchy = iHierarchy;
-        self.mSignalHierarchy.mDateColumn = iTime;
-        self.mSignalHierarchy.mHorizon = iHorizon;
-        self.mSignalHierarchy.mExogenousData = iExogenousData;        
-        self.mSignalHierarchy.mTrainingDataset = iInputDS;        
-        self.mSignalHierarchy.mOptions = self.mOptions;        
+        lSignalHierarchy = self.create_signal_hierarchy(iInputDS, iTime, iSignal, iHorizon, iHierarchy, iExogenousData);
+        self.mSignalHierarchy = lSignalHierarchy;        
         self.mSignalHierarchy.fit();
 
 
