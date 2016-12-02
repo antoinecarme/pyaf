@@ -19,7 +19,6 @@ class cSignalHierarchy:
 
     def __init__(self):
         self.mHierarchy = None;
-        self.mDateVariable = None;
         self.mHierarchy = None;
         self.mDateColumn = None;
         self.mHorizon = None;
