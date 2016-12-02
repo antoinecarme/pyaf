@@ -241,6 +241,6 @@ transformations/test_ozone_transf_quantization.py  :
 
 # ********************************************** 
 
-all:  bench codegen exog func perf real-life time_res hierarchical transformations 
+all:  bench exog func perf real-life time_res hierarchical transformations 
 	
 
