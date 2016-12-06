@@ -34,3 +34,14 @@ class InternalForecastError(Exception):
     def __init__(self, reason):
         self.mReason = reason
 
+
+
+def get_pyaf_logger():
+    import logging;
+    logger = logging.getLogger('pyaf');
+    return logger;
+
+def get_pyaf_hierarchical_logger():
+    import logging;
+    logger = logging.getLogger('pyaf.hierarchical');
+    return logger;
