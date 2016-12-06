@@ -42,7 +42,8 @@ class cPerf:
     def check_not_nan(self, sig , name):
         #print("check_not_nan");
         if(np.isnan(sig).any()):
-            print("PERF_WITH_NAN_IN_SIGNAL" , sig);
+            logger = tsutil.get_pyaf_logger();
+            logger.error("PERF_WITH_NAN_IN_SIGNAL" + str(sig));
             raise tsutil.InternalForecastError("INVALID_COLUMN _FOR_PERF ['" + self.mName + "'] '" + name + "'");
         pass
 
@@ -58,11 +59,12 @@ class cPerf:
         return R2
 
     def dump_perf_data(self, signal , estimator):
+        logger = tsutil.get_pyaf_logger();
         df = pd.DataFrame();
         df['sig'] = signal.values;
         df['est'] = estimator.values;
-        print(df.head());
-        print(df.tail());
+        logger.debug(str(df.head()));
+        logger.debug(str(df.tail()));
     
     def compute(self, signal , estimator, name):
         try:
@@ -70,6 +72,8 @@ class cPerf:
             return self.real_compute(signal, estimator, name);
         except:
             self.dump_perf_data(signal, estimator);
+            logger = tsutil.get_pyaf_logger();
+            logger.error("Failure when computing perf ['" + self.mName + "'] '" + name + "'");
             raise tsutil.InternalForecastError("Failure when computing perf ['" + self.mName + "'] '" + name + "'");
         pass
             

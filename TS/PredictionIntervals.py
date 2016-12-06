@@ -10,6 +10,7 @@ import numpy as np
 from . import SignalDecomposition as sigdec
 
 from . import Perf as tsperf
+from . import Utils as tsutil
 
 class cPredictionIntervalsEstimator:
     
@@ -45,19 +46,21 @@ class cPredictionIntervalsEstimator:
         # self.dump_detailed();
 
     def dump_detailed(self):
+        logger = tsutil.get_pyaf_logger();
         lForecastColumn = self.mSignal + "_Forecast";
         for h in range(0 , self.mHorizon):
             lHorizonName = lForecastColumn + "_" + str(h + 1);
             hn = lHorizonName;
-            print("CONFIDENCE_INTERVAL_DUMP_FIT" , hn , self.mFitPerformances[hn].mL2 ,  self.mFitPerformances[hn].mMAPE);
-            print("CONFIDENCE_INTERVAL_DUMP_FORECAST" , hn , self.mForecastPerformances[hn].mL2 ,  self.mForecastPerformances[hn].mMAPE);
-            print("CONFIDENCE_INTERVAL_DUMP_TEST" , hn , self.mTestPerformances[hn].mL2 ,  self.mTestPerformances[hn].mMAPE);
+            logger.info("CONFIDENCE_INTERVAL_DUMP_FIT " +str(hn) + " " + str(self.mFitPerformances[hn].mL2) + " " + str(self.mFitPerformances[hn].mMAPE));
+            logger.info("CONFIDENCE_INTERVAL_DUMP_FORECAST " +str(hn) + " " + str(self.mForecastPerformances[hn].mL2) + " " + str(self.mForecastPerformances[hn].mMAPE));
+            logger.info("CONFIDENCE_INTERVAL_DUMP_TEST " +str(hn) + " " + str(self.mTestPerformances[hn].mL2) + " " + str(self.mTestPerformances[hn].mMAPE));
 
 
     def dump(self):
+        logger = tsutil.get_pyaf_logger();
         lForecastColumn = self.mSignal + "_Forecast";
         for h in range(0 , self.mHorizon):
             lHorizonName = lForecastColumn + "_" + str(h + 1);
             hn = lHorizonName;
-            print("CONFIDENCE_INTERVAL_DUMP_FORECAST" , hn , self.mForecastPerformances[hn].mL2);
+            logger.info("CONFIDENCE_INTERVAL_DUMP_FORECAST " + str(hn) + " " + str(self.mForecastPerformances[hn].mL2));
             

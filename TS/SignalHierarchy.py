@@ -7,7 +7,6 @@
 import pandas as pd
 import numpy as np
 
-
 import pyaf.ForecastEngine as autof
 from . import Options as tsopts
 from . import Perf as tsperf
@@ -56,7 +55,7 @@ class cSignalHierarchy:
                 if(level > 0):
                     col1 = df[df.columns[level - 1]][row];
                     self.mStructure[level][col].add(col1);    
-        print(self.mStructure);
+        # print(self.mStructure);
         pass
     
     def create_SummingMatrix(self):
@@ -78,9 +77,9 @@ class cSignalHierarchy:
                     lNew_index = len(lIndices);
                     lIndices[ col ] = lNew_index;
                     self.mSummingMatrix[ lNew_index ] [ lNew_index ] = 1;
-        print(self.mSummingMatrix);
+        # print(self.mSummingMatrix);
         self.mSummingMatrixInverse = np.linalg.pinv(self.mSummingMatrix);
-        print(self.mSummingMatrixInverse);
+        # print(self.mSummingMatrixInverse);
 
     def create_all_levels_dataset(self, df):
         lAllLevelsDataset = df.copy();
@@ -119,16 +118,18 @@ class cSignalHierarchy:
 
 
     def create_all_levels_models(self, iAllLevelsDataset, H, iDateColumn):
+        logger = tsutil.get_pyaf_hierarchical_logger();
         self.mModels = {};
         for level in self.mStructure.keys():
             self.mModels[level] = {};
             for signal in self.mStructure[level].keys():
+                logger.info("TRAINING_MODEL_LEVEL_SIGNAL " + str(level) + " " + signal);
                 lEngine = autof.cForecastEngine()
                 lEngine.mOptions = self.mOptions;
                 lEngine.train(iAllLevelsDataset , iDateColumn , signal, H);
                 lEngine.getModelInfo();
                 self.mModels[level][signal] = lEngine;
-        print("CREATED_MODELS", self.mLevels, self.mModels)
+        # print("CREATED_MODELS", self.mLevels, self.mModels)
         pass
 
 

@@ -11,6 +11,7 @@ from . import PredictionIntervals as predint
 
 from . import Plots as tsplot
 from . import Perf as tsperf
+from . import Utils as tsutil
 
 class cTimeSeriesModel:
     
@@ -82,19 +83,20 @@ class cTimeSeriesModel:
 
 
     def getInfo(self):
-        print("TIME_DETAIL " + self.mTrend.mTimeInfo.info());
-        print("SIGNAL_DETAIL " + self.info());
-        print("BEST_TRANSOFORMATION_TYPE '" + self.mTransformation.get_name("") + "'");
-        print("BEST_DECOMPOSITION  '" + self.mOutName + "' [" + self.getFormula() + "]");
-        print("TREND_DETAIL '" + self.mTrend.mOutName + "' [" + self.mTrend.mFormula + "]");
-        print("CYCLE_DETAIL '"+ self.mCycle.mOutName + "' [" + self.mCycle.mFormula + "]");
-        print("AUTOREG_DETAIL '" + self.mAR.mOutName + "' [" + self.mAR.mFormula + "]");
-        print("MODEL_MAPE MAPE_Fit=" + str(self.mFitPerf.mMAPE) + " MAPE_Forecast=" + str(self.mForecastPerf.mMAPE)  + " MAPE_Test=" + str(self.mTestPerf.mMAPE) );
-        print("MODEL_L2 L2_Fit=" + str(self.mFitPerf.mL2) + " L2_Forecast=" + str(self.mForecastPerf.mL2)  + " L2_Test=" + str(self.mTestPerf.mL2) );
-        print("MODEL_COMPLEXITY ", str(self.getComplexity()) );
-        print("AR_MODEL_DETAIL_START");
+        logger = tsutil.get_pyaf_logger();
+        logger.info("TIME_DETAIL " + self.mTrend.mTimeInfo.info());
+        logger.info("SIGNAL_DETAIL " + self.info());
+        logger.info("BEST_TRANSOFORMATION_TYPE '" + self.mTransformation.get_name("") + "'");
+        logger.info("BEST_DECOMPOSITION  '" + self.mOutName + "' [" + self.getFormula() + "]");
+        logger.info("TREND_DETAIL '" + self.mTrend.mOutName + "' [" + self.mTrend.mFormula + "]");
+        logger.info("CYCLE_DETAIL '"+ self.mCycle.mOutName + "' [" + self.mCycle.mFormula + "]");
+        logger.info("AUTOREG_DETAIL '" + self.mAR.mOutName + "' [" + self.mAR.mFormula + "]");
+        logger.info("MODEL_MAPE MAPE_Fit=" + str(self.mFitPerf.mMAPE) + " MAPE_Forecast=" + str(self.mForecastPerf.mMAPE)  + " MAPE_Test=" + str(self.mTestPerf.mMAPE) );
+        logger.info("MODEL_L2 L2_Fit=" + str(self.mFitPerf.mL2) + " L2_Forecast=" + str(self.mForecastPerf.mL2)  + " L2_Test=" + str(self.mTestPerf.mL2) );
+        logger.info("MODEL_COMPLEXITY " + str(self.getComplexity()) );
+        logger.info("AR_MODEL_DETAIL_START");
         self.mAR.dumpCoefficients();
-        print("AR_MODEL_DETAIL_END");
+        logger.info("AR_MODEL_DETAIL_END");
 
 
 

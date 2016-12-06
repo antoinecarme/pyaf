@@ -29,6 +29,7 @@ from . import SignalDecomposition_Cycle as tscy
 from . import SignalDecomposition_AR as tsar
 from . import Options as tsopts
 from . import TimeSeriesModel as tsmodel
+from . import Utils as tsutil
 
 from sklearn.externals import joblib
 
@@ -44,12 +45,13 @@ def compute_perf_func(arg):
         arg.mModel.updatePerfs();
         return arg;
     except Exception as e:
-        print("FAILURE_WITH_EXCEPTION : " , str(e)[:200]);
-        print("BENCHMARKING_FAILURE '" + arg.mName + "'");
+        logger = tsutil.get_pyaf_logger();
+        logger.error("FAILURE_WITH_EXCEPTION : " + str(e)[:200]);
+        logger.error("BENCHMARKING_FAILURE '" + arg.mName + "'");
         traceback.print_exc()
         raise;
     except:
-        print("BENCHMARK_FAILURE '" + arg.mName + "'");
+        logger.error("BENCHMARK_FAILURE '" + arg.mName + "'");
         raise
 
 class cSignalDecompositionOneTransform:
@@ -179,6 +181,8 @@ class cSignalDecompositionOneTransform:
         self.mFitPerf = {}
         self.mForecastPerf = {}
         self.mTestPerf = {}
+
+        logger = tsutil.get_pyaf_logger();
         
         lModels = self.updatePerfsForAllModels();
         for name in self.mPerfsByModel.keys():
@@ -193,7 +197,7 @@ class cSignalDecompositionOneTransform:
                    lTestPerf.mCount, lTestPerf.mL2, lTestPerf.mMAPE]
             rows_list.append(row);
             if(self.mOptions.mDebugPerformance):
-                print("collectPerformanceIndices : " , row[0] , " ", row[1] , " " , row[7]);
+                logger.debug("collectPerformanceIndices : " + str(row));
                 
         self.mPerfDetails = pd.DataFrame(rows_list, columns=
                                          ('Model', 'Complexity',
@@ -202,7 +206,7 @@ class cSignalDecompositionOneTransform:
                                           'TestCount', 'TestL2', 'TestMAPE')) 
         self.mPerfDetails.sort_values(by=['Forecast' + self.mOptions.mModelSelection_Criterion ,
                                           'Complexity'] , inplace=True);
-        # print(self.mPerfDetails.head());
+        print(self.mPerfDetails.head());
         lBestName = self.mPerfDetails.iloc[0]['Model'];
         self.mBestModel = self.mPerfsByModel[lBestName][0];
         return self.mBestModel;
@@ -213,6 +217,8 @@ class cSignalDecompositionOneTransform:
     # @profile
     def train(self , iInputDS, iTime, iSignal,
               iHorizon, iTransformation):
+        logger = tsutil.get_pyaf_logger();
+
         start_time = time.time()
         self.setParams(iInputDS, iTime, iSignal, iHorizon, iTransformation, self.mExogenousData);
         # estimate time info
@@ -223,14 +229,14 @@ class cSignalDecompositionOneTransform:
         if(self.mExogenousInfo is not None):
             self.mExogenousInfo.fit();
             if(self.mOptions.mDebugProfile):
-                print("EXOGENOUS_ENCODING_TIME_IN_SECONDS " + self.mSignal + " " + str(time.time() - exog_start_time))
+                logger.info("EXOGENOUS_ENCODING_TIME_IN_SECONDS " + self.mSignal + " " + str(time.time() - exog_start_time))
 
         # estimate the trend
         trend_start_time = time.time()
         self.mTrendEstimator.estimateTrend();
         #self.mTrendEstimator.plotTrend();
         if(self.mOptions.mDebugProfile):
-            print("TREND_TIME_IN_SECONDS "  + self.mSignal + " " + str(time.time() - trend_start_time))
+            logger.info("TREND_TIME_IN_SECONDS "  + self.mSignal + " " + str(time.time() - trend_start_time))
 
         # estimate cycles
         cycle_start_time = time.time()
@@ -240,7 +246,7 @@ class cSignalDecompositionOneTransform:
         # if(self.mOptions.mDebugCycles):
             # self.mCycleEstimator.plotCycles();
         if(self.mOptions.mDebugProfile):
-            print("CYCLE_TIME_IN_SECONDS "  + self.mSignal + " " + str( str(time.time() - cycle_start_time)))
+            logger.info("CYCLE_TIME_IN_SECONDS "  + self.mSignal + " " + str( str(time.time() - cycle_start_time)))
 
         # autoregressive
         ar_start_time = time.time()
@@ -250,10 +256,10 @@ class cSignalDecompositionOneTransform:
         self.mAREstimator.estimate();
         #self.mAREstimator.plotAR();
         if(self.mOptions.mDebugProfile):
-            print("AUTOREG_TIME_IN_SECONDS " + self.mSignal + " " + str( str(time.time() - ar_start_time)))
+            logger.info("AUTOREG_TIME_IN_SECONDS " + self.mSignal + " " + str( str(time.time() - ar_start_time)))
         # forecast perfs
         if(self.mOptions.mDebugProfile):
-            print("TRAINING_TIME_IN_SECONDS "  + self.mSignal + " " + str(time.time() - start_time))
+            logger.info("TRAINING_TIME_IN_SECONDS "  + self.mSignal + " " + str(time.time() - start_time))
         
 
 
@@ -377,6 +383,8 @@ class cSignalDecomposition:
 
 
     def collectPerformanceIndices(self) :
+        logger = tsutil.get_pyaf_logger();
+
         rows_list = []
         self.mPerfsByModel = {}
         for transform1 in self.mTransformList:
@@ -396,7 +404,7 @@ class cSignalDecomposition:
                        lTestPerf.mCount, lTestPerf.mL2, lTestPerf.mMAPE]
                 rows_list.append(row);
                 if(self.mOptions.mDebugPerformance):
-                    print("collectPerformanceIndices : " , row[0] , " ", row[1] , " " , row[2] , " ", row[8]);
+                    logger.info("collectPerformanceIndices : " , row[0] , " ", row[1] , " " , row[2] , " ", row[8]);
 
         self.mTrPerfDetails =  pd.DataFrame(rows_list, columns=
                                             ('Transformation', 'Model', 'Complexity',
@@ -420,7 +428,8 @@ class cSignalDecomposition:
 
     # @profile
     def train(self , iInputDS, iTime, iSignal, iHorizon, iExogenousData = None):
-        print("START_TRAINING '" + iSignal + "'")
+        logger = tsutil.get_pyaf_logger();
+        logger.info("START_TRAINING '" + iSignal + "'")
         start_time = time.time()
 
         self.mTrainingDataset = iInputDS; 
@@ -442,7 +451,7 @@ class cSignalDecomposition:
 
         end_time = time.time()
         self.mTrainingTime = end_time - start_time;
-        print("END_TRAINING_TIME_IN_SECONDS '" + iSignal + "' " + str(self.mTrainingTime))
+        logger.info("END_TRAINING_TIME_IN_SECONDS '" + iSignal + "' " + str(self.mTrainingTime))
         pass
 
     def forecast(self , iInputDS, iHorizon):
