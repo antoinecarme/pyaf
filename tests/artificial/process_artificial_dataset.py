@@ -17,7 +17,7 @@ def process_dataset_with_noise(idataset , sigma):
     import warnings
 
     with warnings.catch_warnings():
-        # warnings.simplefilter("error")
+        warnings.simplefilter("error")
         N = idataset.mFullDataset.shape[0];
         lSignalVar = idataset.mSignalVar + "_" + str(sigma);
         lNoise = np.random.randn(N) * sigma;
