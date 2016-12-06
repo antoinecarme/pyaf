@@ -13,6 +13,7 @@ import datetime
 from . import Time as tsti
 from . import Perf as tsperf
 from . import Plots as tsplot
+from . import Utils as tsutil
 
 
 # for timing
@@ -116,12 +117,13 @@ class cAutoRegressiveModel(cAbstractAR):
         return lag_df;
 
     def dumpCoefficients(self, iMax=10):
+        logger = tsutil.get_pyaf_logger();
         lDict = dict(zip(self.mInputNames , self.mARRidge.coef_));
         lDict1 = dict(zip(self.mInputNames , abs(self.mARRidge.coef_)));
         i = 1;
         lOrderedVariables = sorted(lDict1.keys(), key=lDict1.get, reverse=True);
         for k in lOrderedVariables[0:iMax]:
-            print("AR_MODEL_COEFF" , i, k , lDict[k]);
+            logger.info("AR_MODEL_COEFF " + str(i) + " " + str(k) + " " + str(lDict[k]));
             i = i + 1;
 
     
@@ -144,7 +146,10 @@ class cAutoRegressiveModel(cAbstractAR):
         # print("mAREstimFrame columns :" , self.mAREstimFrame.columns);
         lARInputs = lAREstimFrame[self.mInputNames].values
         lARTarget = lAREstimFrame[series].values
-
+        # print(len(self.mInputNames), lARInputs.shape , lARTarget.shape)
+        assert(lARInputs.shape[1] > 0);
+        assert(lARTarget.shape[0] > 0);
+        
         lMaxFeatures = self.mOptions.mMaxFeatureForAutoreg;
         if(lMaxFeatures >= lARInputs.shape[1]):
             lMaxFeatures = lARInputs.shape[1];
@@ -232,6 +237,7 @@ class cAutoRegressiveEstimator:
         return lag_df;
 
     def addLagsForTraining(self, df, cycle_residue, iHasARX = False):
+        logger = tsutil.get_pyaf_logger();
         add_lag_start_time = time.time()
         for autoreg in self.mARList[cycle_residue]:
             autoreg.mInputNames = [];
@@ -258,12 +264,13 @@ class cAutoRegressiveEstimator:
             else:
                 assert(P >= len(autoreg.mInputNames));
         if(self.mOptions.mDebugProfile):
-            print("LAG_TIME_IN_SECONDS " + self.mTimeInfo.mSignal + " " +
+            logger.info("LAG_TIME_IN_SECONDS " + self.mTimeInfo.mSignal + " " +
                   str(len(self.mARFrame.columns)) + " " +
                   str(time.time() - add_lag_start_time))
 
     # @profile
     def estimate_ar_models_for_cycle(self, cycle_residue):
+        logger = tsutil.get_pyaf_logger();
         self.mARFrame = pd.DataFrame();
         self.mTimeInfo.addVars(self.mARFrame);
         self.mCycleFrame[cycle_residue] = self.mCycleFrame[cycle_residue].astype(np.float32)            
@@ -273,23 +280,29 @@ class cAutoRegressiveEstimator:
         self.mLagOrigins = {};
 
         if(self.mOptions.mDebugProfile):
-            print("AR_MODEL_ADD_LAGS_START '" +
+            logger.info("AR_MODEL_ADD_LAGS_START '" +
                   cycle_residue + "' " + str(self.mCycleFrame.shape[0]) + " "
                   + str(self.mARFrame.shape[1]));
 
         self.addLagsForTraining(self.mCycleFrame, cycle_residue);
 
         if(self.mOptions.mDebugProfile):
-            print("AR_MODEL_ADD_LAGS_END '" +
+            logger.info("AR_MODEL_ADD_LAGS_END '" +
                   cycle_residue + "' " + str(self.mCycleFrame.shape[0]) + " "
                   + str(self.mARFrame.shape[1]));
 
         # print(self.mARFrame.info());
+
+        lCleanListOfArModels = [];
+        for autoreg in self.mARList[cycle_residue]:
+            if((autoreg.mFormula == "NoAR") or (len(autoreg.mInputNames) > 0)):
+                lCleanListOfArModels.append(autoreg);
+        self.mARList[cycle_residue] = lCleanListOfArModels;
         
         for autoreg in self.mARList[cycle_residue]:
             start_time = time.time()
             if(self.mOptions.mDebugProfile):
-                print("AR_MODEL_START_TRAINING_TIME '" +
+                logger.info("AR_MODEL_START_TRAINING_TIME '" +
                       cycle_residue + "' " + str(self.mCycleFrame.shape[0]) +
                       " " +  str(len(autoreg.mInputNames)) + " " + str(start_time));
             autoreg.mOptions = self.mOptions;
@@ -303,12 +316,13 @@ class cAutoRegressiveEstimator:
             end_time = time.time()
             lTrainingTime = round(end_time - start_time , 2);
             if(self.mOptions.mDebugProfile):
-                print("AR_MODEL_TRAINING_TIME_IN_SECONDS '" +
+                logger.info("AR_MODEL_TRAINING_TIME_IN_SECONDS '" +
                       autoreg.mOutName + "' " + str(self.mCycleFrame.shape[0]) +
                       " " +  str(len(autoreg.mInputNames)) + " " + str(lTrainingTime));
         
     # @profile
     def estimate(self):
+        logger = tsutil.get_pyaf_logger();
         mARList = {}
         for trend in self.mTrendList:
             for cycle in self.mCycleList[trend]:
@@ -332,7 +346,7 @@ class cAutoRegressiveEstimator:
 
         if(lHasARX):
             if(self.mOptions.mDebugProfile):
-                print("AR_MODEL_ADD_EXOGENOUS '" + str(self.mCycleFrame.shape[0]) +
+                logger.info("AR_MODEL_ADD_EXOGENOUS '" + str(self.mCycleFrame.shape[0]) +
                       " " + str(len(self.mExogenousInfo.mEncodedExogenous)));
             self.mCycleFrame = self.mExogenousInfo.transformDataset(self.mCycleFrame);
         
