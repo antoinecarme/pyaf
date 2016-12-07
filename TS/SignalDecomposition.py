@@ -206,7 +206,7 @@ class cSignalDecompositionOneTransform:
                                           'TestCount', 'TestL2', 'TestMAPE')) 
         self.mPerfDetails.sort_values(by=['Forecast' + self.mOptions.mModelSelection_Criterion ,
                                           'Complexity'] , inplace=True);
-        print(self.mPerfDetails.head());
+        # print(self.mPerfDetails.head());
         lBestName = self.mPerfDetails.iloc[0]['Model'];
         self.mBestModel = self.mPerfsByModel[lBestName][0];
         return self.mBestModel;

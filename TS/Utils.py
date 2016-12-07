@@ -38,7 +38,7 @@ class InternalForecastError(Exception):
 
 def get_pyaf_logger():
     import logging;
-    logger = logging.getLogger('pyaf');
+    logger = logging.getLogger('pyaf.std');
     return logger;
 
 def get_pyaf_hierarchical_logger():
