@@ -9,7 +9,7 @@ def process_dataset(idataset):
     idataset.mFullDataset["orig_" + idataset.mSignalVar] = idataset.mFullDataset[idataset.mSignalVar];
 
     for i in range(10):
-        sig = 0.1 * i;
+        sig = i;
         process_dataset_with_noise(idataset, sig);
 
 def process_dataset_with_noise(idataset , sigma):
@@ -60,3 +60,5 @@ def process_dataset_with_noise(idataset , sigma):
         print("\n\n<Forecast>")
         print(Forecast_DF.tail(2*H).to_json(date_format='iso'))
         print("</Forecast>\n\n")
+
+        lEngine.standrdPlots(name = "outputs/artificial_" + idataset.mName + "_" + str(sigma))
