@@ -5,11 +5,19 @@ import pyaf.ForecastEngine as autof
 
 import pyaf.CodeGen.TS_CodeGenerator as tscodegen
 
+import logging
+import logging.config
+
+#logging.config.fileConfig('logging.conf')
+
+logging.basicConfig(level=logging.INFO)
+
+
 def process_dataset(idataset):
     idataset.mFullDataset["orig_" + idataset.mSignalVar] = idataset.mFullDataset[idataset.mSignalVar];
 
-    for i in range(10):
-        sig = i;
+    for i in range(4):
+        sig = i/4.0;
         process_dataset_with_noise(idataset, sig);
 
 def process_dataset_with_noise(idataset , sigma):
