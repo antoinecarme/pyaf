@@ -32,7 +32,7 @@ class cPerf:
         return True;
     
     def protect_small_values(self, signal, estimator):
-        eps = 1.0e-3;
+        eps = 1.0e-13;
         keepThis = signal.apply(lambda x : self.protect_small_value(x, eps));
         signal1 =  signal[keepThis];       
         estimator1 = estimator[keepThis];
