@@ -289,9 +289,9 @@ class cSignalDecomposition:
 
     def needQuantile(self, df , q):
         N = df.shape[0];
-        if(N < (12 * q)) :
+        if(N < (5 * q)) :
             return False;
-        return False;
+        return True;
 
     def validateTransformation(self , transf , df, iTime, iSignal):
         lName = transf.get_name("");

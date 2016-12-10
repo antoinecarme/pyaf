@@ -196,9 +196,15 @@ class cSignalTransform_Quantize(cAbstractSignalTransform):
         return lSignal_Q;
 
     def quant2signal(self, x):
-        curve = self.mCurve;
-        val = curve[int(x)]
-        return val;
+         curve = self.mCurve;
+         key = int(x);
+         (lMin, lMax) = (min(self.mCurve.keys()), max(self.mCurve.keys()))
+         if(key >= lMax):
+             key = lMax;
+         if(key <= lMin):
+             key = lMin;            
+         val = curve[key]
+         return val;
 
     def specific_invert(self, df):
         lSignal = df.apply(lambda x : self.quant2signal(x));
