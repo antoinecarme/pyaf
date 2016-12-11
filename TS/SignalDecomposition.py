@@ -287,12 +287,6 @@ class cSignalDecomposition:
         self.mExogenousData = None;
         pass
 
-    def needQuantile(self, df , q):
-        N = df.shape[0];
-        if(N < (5 * q)) :
-            return False;
-        return True;
-
     def validateTransformation(self , transf , df, iTime, iSignal):
         lName = transf.get_name("");
         lIsApplicable = transf.is_applicable(df[iSignal]);
@@ -308,9 +302,8 @@ class cSignalDecomposition:
         if(self.mOptions.mActiveTransformation['Difference']):
             self.validateTransformation(tstransf.cSignalTransform_Differencing() , df, iTime, iSignal);
 
-        # Oops. disable this transformation for the moment.    
-        # if(self.mOptions.mActiveTransformation['RelativeDifference']):
-        #    self.validateTransformation(tstransf.cSignalTransform_RelativeDifferencing() , df, iTime, iSignal);
+        if(self.mOptions.mActiveTransformation['RelativeDifference']):
+            self.validateTransformation(tstransf.cSignalTransform_RelativeDifferencing() , df, iTime, iSignal);
             
         if(self.mOptions.mActiveTransformation['Integration']):
             self.validateTransformation(tstransf.cSignalTransform_Accumulate() , df, iTime, iSignal);
@@ -321,8 +314,7 @@ class cSignalDecomposition:
 
         if(self.mOptions.mActiveTransformation['Quantization']):
             for q in self.mOptions.mQuantiles:
-                if(self.needQuantile(df , q)):
-                    self.validateTransformation(tstransf.cSignalTransform_Quantize(q) , df, iTime, iSignal);
+                self.validateTransformation(tstransf.cSignalTransform_Quantize(q) , df, iTime, iSignal);
         
 
         for transform1 in self.mTransformList:
@@ -422,6 +414,7 @@ class cSignalDecomposition:
         else:
             lInterestingModels = self.mTrPerfDetails;
         lInterestingModels.sort_values(by=['Complexity'] , inplace=True)
+        # print(self.mTransformList);
         # print(lInterestingModels.head());
         lBestName = lInterestingModels['Model'].iloc[0];
         self.mBestModel = self.mPerfsByModel[lBestName][0];

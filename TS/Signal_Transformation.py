@@ -87,6 +87,7 @@ class cAbstractSignalTransform:
         sig1 = self.scale_signal(sig);
         sig2 = self.specific_apply(sig1);
         # print("APPLY_END", self.mOriginalSignal, sig2.values[1:5]);
+        self.check_not_nan(sig2 , "transform_apply");
         return sig2;
 
     def invert(self, sig1):
@@ -180,6 +181,12 @@ class cSignalTransform_Quantize(cAbstractSignalTransform):
 
     def get_name(self, iSig):
         return "Quantized_" + str(self.mQuantiles) + "_" + iSig;
+
+    def is_applicable(self, sig):
+        N = sig.shape[0];
+        if(N < (5 * self.mQuantiles)) :
+            return False;
+        return True;
     
     def specific_fit(self , sig):
         Q = self.mQuantiles;
@@ -217,6 +224,7 @@ class cSignalTransform_BoxCox(cAbstractSignalTransform):
         cAbstractSignalTransform.__init__(self);
         self.mLambda = iLambda;
         self.mComplexity = 2;
+        self.mScaling = True;
         pass
 
     def get_name(self, iSig):
@@ -234,10 +242,12 @@ class cSignalTransform_BoxCox(cAbstractSignalTransform):
         return (np.exp(log_df * self.mLambda) - 1) / self.mLambda;
     
     def specific_invert(self, df):
+        df1 = df.copy();
         if(abs(self.mLambda) <= 0.01):
-            df_orig = np.exp(df)
+            df_orig = np.exp(df1) - 1;
             return df_orig;
-        y = np.log(self.mLambda * df) / self.mLambda;
+        df1 [df1 <= (-1.0/self.mLambda)] = 1.0e-8;
+        y = np.log(self.mLambda * df1 + 1) / self.mLambda;
         df_pos = np.exp(y) - 1;
         return df_pos;
 
@@ -281,17 +291,11 @@ class cSignalTransform_RelativeDifferencing(cAbstractSignalTransform):
         self.mFirstValue = None;
         self.mFormula = "RelativeDifference";
         self.mComplexity = 1;
-        self.mScaling = "!";
+        self.mScaling = True;
         pass
 
     def get_name(self, iSig):
         return "RelDiff_" + iSig;
-
-    def is_applicable(self, sig):
-        lMin = sig.min();
-        if(lMin > 0):
-            return True;
-        return False;
 
     def specific_fit(self, sig):
         self.mFirstValue = sig.iloc[0];
@@ -300,7 +304,7 @@ class cSignalTransform_RelativeDifferencing(cAbstractSignalTransform):
     def specific_apply(self, df):
         df_shifted = df.shift(1)
         df_shifted.iloc[0] = self.mFirstValue;
-        rate = (df - df_shifted) / df_shifted
+        rate = (df - df_shifted) / (df_shifted + 1.0)
         return rate;
     
     def specific_invert(self, df):
@@ -310,9 +314,7 @@ class cSignalTransform_RelativeDifferencing(cAbstractSignalTransform):
         df_orig.iloc[0] = self.mFirstValue;
 
         for i in range(1,df.shape[0]):
-            print("RelDiff_DEBUG_2", self.mOriginalSignal, i , df.shape[0],
-                  df_orig.iloc[i-1], rate.iloc[i]);
-            df_orig.iloc[i] =  df_orig.iloc[i-1] * (1.0 + rate.iloc[i]);
+            df_orig.iloc[i] = (df_orig.iloc[i-1] + 1) * rate.iloc[i] + df_orig.iloc[i-1];
 
         return df_orig;
 
