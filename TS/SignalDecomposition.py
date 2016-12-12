@@ -103,10 +103,10 @@ class cSignalDecompositionOneTransform:
         self.mSignalFrame[self.mSignal] = self.mTransformation.apply(iInputDS[iSignal]);
         self.mSignalFrame[self.mTime] = iInputDS[self.mTime].copy();
         self.mSignalFrame['row_number'] = np.arange(0, iInputDS.shape[0]);
-        self.mSignalFrame.dropna(inplace = True);
+        # self.mSignalFrame.dropna(inplace = True);
         assert(self.mSignalFrame.shape[0] > 0);
 
-        # print("SIGNAL_INFO " , self.info());
+        # print("SIGNAL_INFO " , self.mSignalFrame.info());
         
         self.mTimeInfo = tsti.cTimeInfo();
         self.mTimeInfo.mTime = self.mTime;
@@ -315,6 +315,9 @@ class cSignalDecomposition:
         if(self.mOptions.mActiveTransformation['Quantization']):
             for q in self.mOptions.mQuantiles:
                 self.validateTransformation(tstransf.cSignalTransform_Quantize(q) , df, iTime, iSignal);
+        
+        if(self.mOptions.mActiveTransformation['Logit']):
+            self.validateTransformation(tstransf.cSignalTransform_Logit() , df, iTime, iSignal);
         
 
         for transform1 in self.mTransformList:

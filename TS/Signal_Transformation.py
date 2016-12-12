@@ -319,3 +319,55 @@ class cSignalTransform_RelativeDifferencing(cAbstractSignalTransform):
         return df_orig;
 
 
+class cSignalTransform_Logit(cAbstractSignalTransform):
+
+    def __init__(self):
+        cAbstractSignalTransform.__init__(self);
+        self.mFormula = "Logit";
+        self.mComplexity = 1;
+        self.mScaling = True;
+        pass
+
+    def get_name(self, iSig):
+        return "Logit_" + iSig;
+
+
+    def is_applicable(self, sig):
+        if(self.mScaling is not None):
+            return True;
+        # this has to be a proportion ( 0 <= p <= 1.0 )
+        lMinValue = np.min(sig);
+        lMaxValue = np.max(sig);
+        if((lMinValue >= 0.0) and (lMaxValue <= 1.0)):
+            return True;
+        return False;
+
+    def specific_fit(self, sig):
+        pass
+
+    def logit(self, x):
+        eps = 1.0e-8;
+        x1 = x;
+        if(x < eps):
+            x1 = eps;
+        if(x > (1.0 - eps)):
+            x1 = 1.0 - eps;
+        y = np.log(x1) - np.log(1 - x1);
+        return y;
+
+    def inv_logit(self, y):
+        x = np.exp(y);
+        p = x / (1 + x);
+        return p;
+
+    def specific_apply(self, df):
+        # logit
+        df1 = df.apply(lambda x : self.logit(x));
+        return df1;
+    
+    def specific_invert(self, df):
+        # logit
+        df1 = df.apply(lambda x : self.inv_logit(x));
+        return df1;
+
+
