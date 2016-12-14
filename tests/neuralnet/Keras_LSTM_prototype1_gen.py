@@ -22,6 +22,7 @@ def create_dataset_lags(dataset, signal, nblags=1):
 
 def load_dataset(source , signal):
     dataframe = pandas.read_csv(source, engine='python')
+    print(dataframe.columns)
     return dataframe;
 
 def get_lag_names(signal, nblags):
@@ -99,24 +100,16 @@ def predict_signal(model, signal, nblags, train_df, test_df, idataframe):
     out_df['output'] = out_df['output'];
     return out_df;
 
-def full_test(nblags , epochs):
-    lSignal = 'Ozone';
-    ozone_df = load_dataset('data/ozone-la.csv' , lSignal);
-    (train_df, test_df) = cut_dataset(ozone_df, lSignal , nblags);
-    model = train_model(train_df, lSignal , nblags, epochs);
+def full_test(dataset, signal, nblags , epochs):
+    ozone_df = load_dataset(dataset , signal);
+    (train_df, test_df) = cut_dataset(ozone_df, signal , nblags);
+    model = train_model(train_df, signal , nblags, epochs);
+    print(model.__dict__);
     plot_model(model);
-    out_df = predict_signal(model, lSignal, nblags, train_df, test_df, ozone_df);
-    lNewName = lSignal + "_" + str(nblags) +  "_" + str(epochs) 
-    out_df[lNewName] = out_df[lSignal]
+    out_df = predict_signal(model, signal, nblags, train_df, test_df, ozone_df);
+    lNewName = signal + "_" + str(nblags) +  "_" + str(epochs) 
+    out_df[lNewName] = out_df[signal]
     out_df.plot('Time' , [lNewName,  'output'] , figsize=(22,12));
 
     
     
-
-
-full_test(15, 320)
-
-for ep in [10 , 40, 160, 640]:
-    for lags in [8 ,32]:
-        full_test(lags, ep)
-
