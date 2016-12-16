@@ -12,13 +12,14 @@ import traceback
 
 # from memory_profiler import profile
 
-import multiprocessing as mp
+import dill
+# import multiprocessing as mp
+from pathos.multiprocessing import ProcessingPool # as Pool
 
 # for timing
 import time
 
 import threading
-from multiprocessing.dummy import Pool as ThreadPool
 
 from . import Time as tsti
 from . import Exogenous as tsexog
@@ -41,16 +42,19 @@ class cPerf_Arg:
         self.mResult = None;
 
 def compute_perf_func(arg):
+    # print("RUNNING " , arg.mName)
     try:
         arg.mModel.updatePerfs();
         return arg;
     except Exception as e:
         logger = tsutil.get_pyaf_logger();
+        # print("FAILURE_WITH_EXCEPTION : " + str(e)[:200]);
         logger.error("FAILURE_WITH_EXCEPTION : " + str(e)[:200]);
         logger.error("BENCHMARKING_FAILURE '" + arg.mName + "'");
         traceback.print_exc()
         raise;
     except:
+        # print("BENCHMARK_FAILURE '" + arg.mName + "'");
         logger.error("BENCHMARK_FAILURE '" + arg.mName + "'");
         raise
 
@@ -136,13 +140,16 @@ class cSignalDecompositionOneTransform:
 
     def computePerfsInParallel(self, args):
         lModels = {};
-        pool = mp.Pool(self.mOptions.mNbCores)
-        for res in pool.imap(compute_perf_func, args):
+        # print([arg.mName for arg in args]);
+        # print([arg.mModel.mOutName for arg in args]);
+        pool = ProcessingPool(self.mOptions.mNbCores)
+        # results = [compute_perf_func(arg) for arg in args];
+        for res in pool.map(compute_perf_func, args):
             # print("FINISHED_PERF_FOR_MODEL" , res.mName);
             lModels[res.mName] = res.mModel;
         
-        pool.close()
-        pool.join()
+        # pool.close()
+        # pool.join()
         return lModels;
             
 
@@ -276,6 +283,7 @@ class cTraining_Arg:
 
 
 def run_transform_thread(arg):
+    # print("RUNNING_TRANSFORM", arg.mName);
     arg.mSigDec.train(arg.mInputDS, arg.mTime, arg.mSignal, arg.mHorizon, arg.mTransformation);
     return arg;
 
@@ -340,7 +348,7 @@ class cSignalDecomposition:
             t.join()
         
     def train_multiprocessed(self , iInputDS, iTime, iSignal, iHorizon):
-        pool = mp.Pool(self.mOptions.mNbCores)
+        pool = ProcessingPool(self.mOptions.mNbCores)
         self.defineTransformations(iInputDS, iTime, iSignal);
         args = [];
         for transform1 in self.mTransformList:
@@ -358,12 +366,12 @@ class cSignalDecomposition:
             arg.mResult = None;
             
             args.append(arg);
-            
-        for res in pool.imap(run_transform_thread, args):
+
+        for res in pool.map(run_transform_thread, args):
             # print("FINISHED_TRAINING" , res.mName);
             self.mSigDecByTransform[res.mTransformation.get_name("")] = res.mSigDec;
-        pool.close()
-        pool.join()
+        # pool.close()
+        # pool.join()
         
 	
         
@@ -399,7 +407,7 @@ class cSignalDecomposition:
                        lTestPerf.mCount, lTestPerf.mL2, lTestPerf.mMAPE]
                 rows_list.append(row);
                 if(self.mOptions.mDebugPerformance):
-                    logger.info("collectPerformanceIndices : " , row[0] , " ", row[1] , " " , row[2] , " ", row[8]);
+                    logger.info("collectPerformanceIndices : " + str(row[0]) + " " + str(row[1]) + " " + str(row[2]) + " " +str(row[8]));
 
         self.mTrPerfDetails =  pd.DataFrame(rows_list, columns=
                                             ('Transformation', 'Model', 'Complexity',
