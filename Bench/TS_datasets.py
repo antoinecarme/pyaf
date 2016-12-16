@@ -16,9 +16,6 @@ from yahoo_finance import Share
 import os.path
 import pyaf.data.stocks_symbol_list as symlist
 
-import multiprocessing as mp
-import threading
-from multiprocessing.dummy import Pool as ThreadPool
 
 class cTimeSeriesDatasetSpec:
 
@@ -662,6 +659,7 @@ def download_Yahoo_list(arg):
             pass
 
 def download_yahoo_stock_prices() :
+    import multiprocessing as mp
     pool = mp.Pool()
     args = []
     for k in symlist.SYMBOL_LIST.keys():
