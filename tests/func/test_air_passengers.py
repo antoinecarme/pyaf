@@ -46,4 +46,4 @@ print("\n\n<Forecast>")
 print(Forecast_DF.to_json(date_format='iso'))
 print("</Forecast>\n\n")
 
-lEngine.standrdPlots(name = "outputs/airline_passengers")
+# lEngine.standrdPlots(name = "outputs/airline_passengers")
