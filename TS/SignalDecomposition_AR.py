@@ -20,7 +20,7 @@ from . import Utils as tsutil
 import time
 
 class cAbstractAR:
-    def __init__(self , cycle_residue_name):
+    def __init__(self , cycle_residue_name, iExogenousInfo = None):
         self.mTimeInfo = tsti.cTimeInfo()
         self.mCycleFrame = pd.DataFrame()
         self.mARFrame = pd.DataFrame()        
@@ -29,7 +29,7 @@ class cAbstractAR:
         self.mFormula = None;
         self.mTargetName = self.mCycleResidueName;
         self.mInputNames = None;
-        self.mExogenousInfo = None;
+        self.mExogenousInfo = iExogenousInfo;
 
     def plot(self):
         tsplot.decomp_plot(self.mARFrame, self.mTimeInfo.mNormalizedTimeColumn,
@@ -46,45 +46,6 @@ class cAbstractAR:
             lFrameFit[self.mCycleResidueName], lFrameFit[self.mOutName], self.mOutName)
         self.mARForecastPerf.compute(
             lFrameForecast[self.mCycleResidueName], lFrameForecast[self.mOutName], self.mOutName)
-
-class cZeroAR(cAbstractAR):
-    def __init__(self , cycle_residue_name):
-        super().__init__(cycle_residue_name)
-        self.mOutName = self.mCycleResidueName +  '_NoAR'
-        self.mNbLags = 0;
-        self.mFormula = "NoAR";
-        self.mComplexity = 0;
-        
-    def fit(self):
-        series = self.mCycleResidueName; 
-        self.mTime = self.mTimeInfo.mTime;
-        self.mSignal = self.mTimeInfo.mSignal;
-        # self.mTimeInfo.addVars(self.mARFrame);
-        # self.mARFrame[series] = self.mCycleFrame[series]
-        self.mARFrame[self.mOutName] = self.mARFrame[series] * 0.0;
-        self.mARFrame[self.mOutName + '_residue'] = self.mARFrame[series];
-                
-
-    def transformDataset(self, df):
-        series = self.mCycleResidueName; 
-        df[self.mOutName] = 0.0;
-        target = df[series].values
-        df[self.mOutName + '_residue'] = target - df[self.mOutName].values        
-        return df;
-
-
-class cAutoRegressiveModel(cAbstractAR):
-    def __init__(self , cycle_residue_name, P, iExogenousInfo = None ):
-        super().__init__(cycle_residue_name)
-        self.mNbLags = P;
-        self.mNbExogenousLags = P;
-        self.mExogenousInfo = iExogenousInfo;
-        self.mDefaultValues = {};
-        self.mLagOrigins = {};
-        self.mComplexity = P;
-
-    def getDefaultValue(self, lag):
-        return self.mDefaultValues[lag];
 
     def shift_series(self, series, p, idefault):
         N = series.shape[0];
@@ -115,6 +76,42 @@ class cAutoRegressiveModel(cAbstractAR):
                 for ex in self.mExogenousInfo.mEncodedExogenous:
                     self.addLagForForecast(df, lag_df, ex, p);
         return lag_df;
+
+
+class cZeroAR(cAbstractAR):
+    def __init__(self , cycle_residue_name):
+        super().__init__(cycle_residue_name, None)
+        self.mOutName = self.mCycleResidueName +  '_NoAR'
+        self.mNbLags = 0;
+        self.mFormula = "NoAR";
+        self.mComplexity = 0;
+        
+    def fit(self):
+        series = self.mCycleResidueName; 
+        self.mTime = self.mTimeInfo.mTime;
+        self.mSignal = self.mTimeInfo.mSignal;
+        # self.mTimeInfo.addVars(self.mARFrame);
+        # self.mARFrame[series] = self.mCycleFrame[series]
+        self.mARFrame[self.mOutName] = self.mARFrame[series] * 0.0;
+        self.mARFrame[self.mOutName + '_residue'] = self.mARFrame[series];
+                
+
+    def transformDataset(self, df):
+        series = self.mCycleResidueName; 
+        df[self.mOutName] = 0.0;
+        target = df[series].values
+        df[self.mOutName + '_residue'] = target - df[self.mOutName].values        
+        return df;
+
+
+class cAutoRegressiveModel(cAbstractAR):
+    def __init__(self , cycle_residue_name, P , iExogenousInfo = None):
+        super().__init__(cycle_residue_name, iExogenousInfo)
+        self.mNbLags = P;
+        self.mNbExogenousLags = P;
+        self.mDefaultValues = {};
+        self.mLagOrigins = {};
+        self.mComplexity = P;
 
     def dumpCoefficients(self, iMax=10):
         logger = tsutil.get_pyaf_logger();
@@ -322,6 +319,8 @@ class cAutoRegressiveEstimator:
         
     # @profile
     def estimate(self):
+        from . import Keras_Models as tskeras
+
         logger = tsutil.get_pyaf_logger();
         mARList = {}
         for trend in self.mTrendList:
@@ -329,7 +328,7 @@ class cAutoRegressiveEstimator:
                 cycle_residue = cycle.getCycleResidueName();
                 self.mARList[cycle_residue] = [ cZeroAR(cycle_residue)];
                 lHasARX = False;
-                if(self.mOptions.mEnableARModels or self.mOptions.mEnableARXModels):
+                if(self.mOptions.mEnableARModels or self.mOptions.mEnableARXModels or self.mOptions.mEnableRNNModels):
                     if((self.mCycleFrame[cycle_residue].shape[0] > 12) and (self.mCycleFrame[cycle_residue].std() > 0.00001)):
                         lLags = self.mCycleFrame[cycle_residue].shape[0] // 4;
                         if(lLags >= self.mOptions.mMaxAROrder):
@@ -343,6 +342,13 @@ class cAutoRegressiveEstimator:
                                                         self.mExogenousInfo);
                             self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lARX];
                             lHasARX = True;
+                        if(self.mOptions.mEnableRNNModels):
+                            lLSTM = tskeras.cLSTM_Model(cycle_residue, lLags,
+                                                        self.mExogenousInfo);
+                            self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lLSTM];
+                            lMLP = tskeras.cMLP_Model(cycle_residue, lLags,
+                                                      self.mExogenousInfo);
+                            self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lMLP];
 
         if(lHasARX):
             if(self.mOptions.mDebugProfile):
