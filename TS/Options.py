@@ -27,6 +27,7 @@ class cSignalDecomposition_Options:
         self.mEnableCycles = True;
         self.mEnableARModels = True;
         self.mEnableARXModels = True;
+        self.mEnableRNNModels = False;
         self.mMaxFeatureForAutoreg = 1000;
         self.mModelSelection_Criterion = "L2";
         self.mCycle_Criterion = "L2";
