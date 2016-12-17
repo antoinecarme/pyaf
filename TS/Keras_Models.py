@@ -11,8 +11,9 @@ class cAbstract_RNN_Model(tsar.cAbstractAR):
         self.mNbLags = P;
         self.mNbExogenousLags = P;
         self.mComplexity = P;
+        self.mHiddenUnits = P;
         self.mNbEpochs = 50;
-        sys.setrecursionlimit(1000000);
+        # sys.setrecursionlimit(1000000);
 
     def dumpCoefficients(self, iMax=10):
         # print(self.mModel.__dict__);
@@ -122,12 +123,12 @@ class cMLP_Model(cAbstract_RNN_Model):
 
         import copy;
         self.mModel = copy.copy(cMLP_Model.gTemplateModels[self.mNbLags]);
-        self.mModel.reset_states();
+        # self.mModel.reset_states();
         # print(cMLP_Model.gTemplateModels[self.mNbLags].__dict__);
         # print(self.mModel.__dict__);
         
-        self.mFormula = "LSTM(" + str(self.mNbLags) + ")";
-        self.mOutName = self.mCycleResidueName +  '_LSTM(' + str(self.mNbLags) + ")";
+        self.mFormula = "MLP(" + str(self.mNbLags) + ")";
+        self.mOutName = self.mCycleResidueName +  '_MLP(' + str(self.mNbLags) + ")";
 
 
     def build_RNN_Architecture_template(self):
@@ -140,7 +141,7 @@ class cMLP_Model(cAbstract_RNN_Model):
         # print(theano.config)
 
         lModel = Sequential()
-        lModel.add(Dense(40, input_dim=self.mNbLags))
+        lModel.add(Dense(self.mHiddenUnits, input_dim=self.mNbLags))
         lModel.add(Dropout(0.1))
         lModel.add(Dense(1))
         lModel.compile(loss='mse', optimizer='adam')
@@ -161,7 +162,7 @@ class cLSTM_Model(cAbstract_RNN_Model):
 
         import copy;
         self.mModel = copy.copy(cLSTM_Model.gTemplateModels[self.mNbLags]);
-        self.mModel.reset_states();
+        # self.mModel.reset_states();
         # print(cLSTM_Model.gTemplateModels[self.mNbLags].__dict__);
         # print(self.mModel.__dict__);
 
@@ -179,7 +180,7 @@ class cLSTM_Model(cAbstract_RNN_Model):
         # theano.config.cxx = ""
 
         lModel = Sequential()
-        lModel.add(LSTM(40, input_dim=self.mNbLags))
+        lModel.add(LSTM(self.mHiddenUnits, input_dim=self.mNbLags))
         lModel.add(Dropout(0.1))
         lModel.add(Dense(1))
         lModel.compile(loss='mse', optimizer='adam')
