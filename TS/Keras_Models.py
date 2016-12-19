@@ -109,7 +109,6 @@ class cAbstract_RNN_Model(tsar.cAbstractAR):
         return df;
 
 
-
 class cMLP_Model(cAbstract_RNN_Model):
     gTemplateModels = {};
     def __init__(self , cycle_residue_name, P , iExogenousInfo = None):
@@ -117,19 +116,31 @@ class cMLP_Model(cAbstract_RNN_Model):
 
 
     def build_RNN_Architecture(self):
+        lModel = None;
         if(self.mNbLags not in cMLP_Model.gTemplateModels.keys()):
             lModel = self.build_RNN_Architecture_template();
             cMLP_Model.gTemplateModels[self.mNbLags] = lModel;
 
         import copy;
         self.mModel = copy.copy(cMLP_Model.gTemplateModels[self.mNbLags]);
-        # self.mModel.reset_states();
+        self.mModel.reset_states();
         # print(cMLP_Model.gTemplateModels[self.mNbLags].__dict__);
         # print(self.mModel.__dict__);
         
         self.mFormula = "MLP(" + str(self.mNbLags) + ")";
         self.mOutName = self.mCycleResidueName +  '_MLP(' + str(self.mNbLags) + ")";
 
+    def __getstate__(self):
+        dict_out = self.__dict__.copy();
+        dict_out["mModel"] = self.mModel.to_json();
+        # print("GET_STATE_LSTM", dict_out);
+        return dict_out;
+
+    def __setstate__(self, istate):
+        # print("LSTM_SET_STATE" , istate);
+        from keras.models import model_from_json
+        self.__dict__ = istate.copy();
+        self.mModel = model_from_json(istate["mModel"]);
 
     def build_RNN_Architecture_template(self):
         from keras.models import Sequential
@@ -156,13 +167,14 @@ class cLSTM_Model(cAbstract_RNN_Model):
 
 
     def build_RNN_Architecture(self):
+        lModel = None;
         if(self.mNbLags not in cLSTM_Model.gTemplateModels.keys()):
             lModel = self.build_RNN_Architecture_template();
             cLSTM_Model.gTemplateModels[self.mNbLags] = lModel;
 
         import copy;
         self.mModel = copy.copy(cLSTM_Model.gTemplateModels[self.mNbLags]);
-        # self.mModel.reset_states();
+        self.mModel.reset_states();
         # print(cLSTM_Model.gTemplateModels[self.mNbLags].__dict__);
         # print(self.mModel.__dict__);
 
@@ -186,6 +198,18 @@ class cLSTM_Model(cAbstract_RNN_Model):
         lModel.compile(loss='mse', optimizer='adam')
         return lModel;
 
+
+    def __getstate__(self):
+        dict_out = self.__dict__.copy();
+        dict_out["mModel"] = self.mModel.to_json();
+        # print("GET_STATE_LSTM", dict_out);
+        return dict_out;
+
+    def __setstate__(self, istate):
+        # print("LSTM_SET_STATE" , istate);
+        from keras.models import model_from_json
+        self.__dict__ = istate.copy();
+        self.mModel = model_from_json(istate["mModel"]);
 
     def reshape_inputs(self, iInputs):
         lInputs = np.reshape(iInputs, (iInputs.shape[0], 1, iInputs.shape[1]))
