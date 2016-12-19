@@ -11,10 +11,11 @@ import sys
 import traceback
 
 # from memory_profiler import profile
-
 import dill
+dill.settings['recurse'] = False
+# import dill
 # import multiprocessing as mp
-from pathos.multiprocessing import ProcessingPool # as Pool
+from pathos.multiprocessing import ProcessingPool as Pool
 
 # for timing
 import time
@@ -42,7 +43,7 @@ class cPerf_Arg:
         self.mResult = None;
 
 def compute_perf_func(arg):
-    # print("RUNNING " , arg.mName)
+    print("RUNNING " , arg.mName)
     try:
         arg.mModel.updatePerfs();
         return arg;
@@ -140,11 +141,11 @@ class cSignalDecompositionOneTransform:
 
     def computePerfsInParallel(self, args):
         lModels = {};
-        # print([arg.mName for arg in args]);
-        # print([arg.mModel.mOutName for arg in args]);
-        pool = ProcessingPool(self.mOptions.mNbCores)
+        print([arg.mName for arg in args]);
+        print([arg.mModel.mOutName for arg in args]);
+        pool = Pool(self.mOptions.mNbCores)
         # results = [compute_perf_func(arg) for arg in args];
-        for res in pool.map(compute_perf_func, args):
+        for res in pool.imap(compute_perf_func, args):
             # print("FINISHED_PERF_FOR_MODEL" , res.mName);
             lModels[res.mName] = res.mModel;
         
@@ -283,7 +284,7 @@ class cTraining_Arg:
 
 
 def run_transform_thread(arg):
-    # print("RUNNING_TRANSFORM", arg.mName);
+    print("RUNNING_TRANSFORM", arg.mName);
     arg.mSigDec.train(arg.mInputDS, arg.mTime, arg.mSignal, arg.mHorizon, arg.mTransformation);
     return arg;
 
@@ -348,7 +349,7 @@ class cSignalDecomposition:
             t.join()
         
     def train_multiprocessed(self , iInputDS, iTime, iSignal, iHorizon):
-        pool = ProcessingPool(self.mOptions.mNbCores)
+        pool = Pool(self.mOptions.mNbCores)
         self.defineTransformations(iInputDS, iTime, iSignal);
         args = [];
         for transform1 in self.mTransformList:
@@ -367,7 +368,7 @@ class cSignalDecomposition:
             
             args.append(arg);
 
-        for res in pool.map(run_transform_thread, args):
+        for res in pool.imap(run_transform_thread, args):
             # print("FINISHED_TRAINING" , res.mName);
             self.mSigDecByTransform[res.mTransformation.get_name("")] = res.mSigDec;
         # pool.close()
