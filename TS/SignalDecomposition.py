@@ -43,7 +43,7 @@ class cPerf_Arg:
         self.mResult = None;
 
 def compute_perf_func(arg):
-    print("RUNNING " , arg.mName)
+    # print("RUNNING " , arg.mName)
     try:
         arg.mModel.updatePerfs();
         return arg;
@@ -141,8 +141,8 @@ class cSignalDecompositionOneTransform:
 
     def computePerfsInParallel(self, args):
         lModels = {};
-        print([arg.mName for arg in args]);
-        print([arg.mModel.mOutName for arg in args]);
+        # print([arg.mName for arg in args]);
+        # print([arg.mModel.mOutName for arg in args]);
         pool = Pool(self.mOptions.mNbCores)
         # results = [compute_perf_func(arg) for arg in args];
         for res in pool.imap(compute_perf_func, args):
@@ -284,7 +284,7 @@ class cTraining_Arg:
 
 
 def run_transform_thread(arg):
-    print("RUNNING_TRANSFORM", arg.mName);
+    # print("RUNNING_TRANSFORM", arg.mName);
     arg.mSigDec.train(arg.mInputDS, arg.mTime, arg.mSignal, arg.mHorizon, arg.mTransformation);
     return arg;
 
