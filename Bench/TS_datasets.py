@@ -229,6 +229,8 @@ def generate_random_TS(N , FREQ, seed, trendtype, cycle_length, transform, sigma
                                       (e+3)/exog_count ));
         tsspec.mExogenousVariables = tsspec.mExogenousVariables + [ label ];
 
+    print(tsspec.mExogenousDataFrame.info())
+
     # this is the full dataset . must contain future exogenius data
     pos_signal = df_train['Signal'] - min_sig + 1.0;
 
