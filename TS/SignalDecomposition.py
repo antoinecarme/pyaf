@@ -328,6 +328,12 @@ class cSignalDecomposition:
         if(self.mOptions.mActiveTransformation['Logit']):
             self.validateTransformation(tstransf.cSignalTransform_Logit() , df, iTime, iSignal);
         
+        if(self.mOptions.mActiveTransformation['Fisher']):
+            self.validateTransformation(tstransf.cSignalTransform_Fisher() , df, iTime, iSignal);
+        
+        if(self.mOptions.mActiveTransformation['Anscombe']):
+            self.validateTransformation(tstransf.cSignalTransform_Anscombe() , df, iTime, iSignal);
+        
 
         for transform1 in self.mTransformList:
             transform1.mOptions = self.mOptions;

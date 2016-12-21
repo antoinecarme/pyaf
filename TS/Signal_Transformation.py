@@ -371,3 +371,59 @@ class cSignalTransform_Logit(cAbstractSignalTransform):
         return df1;
 
 
+        
+
+class cSignalTransform_Anscombe(cAbstractSignalTransform):
+    '''
+    More suitable for poissonnian signals (counts)
+    See https://en.wikipedia.org/wiki/Anscombe_transform
+    '''
+
+    def __init__(self):
+        cAbstractSignalTransform.__init__(self);
+        self.mComplexity = 1;
+        self.mFormula = "Anscombe";
+        self.mConstant = 3.0/ 8.0;
+        pass
+
+    def get_name(self, iSig):
+        return "Anscombe_" + iSig;
+    
+    def specific_fit(self , sig):
+        pass
+    
+    def specific_apply(self, sig):
+        y = 2 * np.sqrt(sig.values + self.mConstant);
+        return y;
+    
+    def specific_invert(self, sig):
+        x = (sig / 2) *  (sig / 2) - self.mConstant ;
+        return x;
+
+
+class cSignalTransform_Fisher(cAbstractSignalTransform):
+    '''
+    https://en.wikipedia.org/wiki/Fisher_transformation
+    '''
+
+    def __init__(self):
+        cAbstractSignalTransform.__init__(self);
+        self.mFormula = "Fischer";
+        self.mComplexity = 1;
+        self.mScaling = True;
+        pass
+
+    def get_name(self, iSig):
+        return "Fisher_" + iSig;
+    
+    def specific_fit(self , sig):
+        pass
+    
+    def specific_apply(self, sig):
+        eps = 1.0e-8;
+        y = np.arctanh(np.clip(sig.values , -1 + eps , 1.0 - eps));
+        return y;
+    
+    def specific_invert(self, sig):
+        x = np.tanh(sig.values);
+        return x;

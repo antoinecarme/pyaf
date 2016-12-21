@@ -63,6 +63,8 @@ class cSignalDecomposition_Options:
         self.mActiveTransformation['Quantization'] = True;
         self.mActiveTransformation['BoxCox'] = True;
         self.mActiveTransformation['Logit'] = True;
+        self.mActiveTransformation['Fisher'] = True;
+        self.mActiveTransformation['Anscombe'] = True;
 
     def enable_fast_mode(self):
         self.mEnableBoxCox = False;
@@ -91,6 +93,8 @@ class cSignalDecomposition_Options:
         self.mActiveTransformation['Quantization'] = False;
         self.mActiveTransformation['BoxCox'] = False;
         self.mActiveTransformation['Logit'] = False;
+        self.mActiveTransformation['Fisher'] = False;
+        self.mActiveTransformation['Anscombe'] = False;
     
 
 
@@ -103,3 +107,5 @@ class cSignalDecomposition_Options:
         self.mActiveTransformation['Quantization'] = False;
         self.mActiveTransformation['BoxCox'] = False;
         self.mActiveTransformation['Logit'] = False;
+        self.mActiveTransformation['Fisher'] = False;
+        self.mActiveTransformation['Anscombe'] = False;
