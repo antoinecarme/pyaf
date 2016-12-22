@@ -307,7 +307,8 @@ class cTrendEstimator:
         if(not self.mOptions.mEnableTrends):
             return;
         
-        self.mTrendList = self.mTrendList + [cLag1Trend()];
+        if(self.mOptions.mEnableStochasticTrends):
+            self.mTrendList = self.mTrendList + [cLag1Trend()];
 
         if(self.mOptions.mEnableTimeBasedTrends):
             self.mTrendList = self.mTrendList + [cLinearTrend(), cPolyTrend()]

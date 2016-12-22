@@ -104,87 +104,6 @@ class cZeroAR(cAbstractAR):
         return df;
 
 
-class cAutoRegressiveModel(cAbstractAR):
-    def __init__(self , cycle_residue_name, P , iExogenousInfo = None):
-        super().__init__(cycle_residue_name, iExogenousInfo)
-        self.mNbLags = P;
-        self.mNbExogenousLags = P;
-        self.mDefaultValues = {};
-        self.mLagOrigins = {};
-        self.mComplexity = P;
-
-    def dumpCoefficients(self, iMax=10):
-        logger = tsutil.get_pyaf_logger();
-        lDict = dict(zip(self.mInputNames , self.mARRidge.coef_));
-        lDict1 = dict(zip(self.mInputNames , abs(self.mARRidge.coef_)));
-        i = 1;
-        lOrderedVariables = sorted(lDict1.keys(), key=lDict1.get, reverse=True);
-        for k in lOrderedVariables[0:iMax]:
-            logger.info("AR_MODEL_COEFF " + str(i) + " " + str(k) + " " + str(lDict[k]));
-            i = i + 1;
-
-    
-    def fit(self):
-        import sklearn.linear_model as linear_model
-        from sklearn.feature_selection import SelectKBest
-        from sklearn.feature_selection import f_regression
-        self.mARRidge = linear_model.Ridge()
-
-        series = self.mCycleResidueName; 
-        self.mTime = self.mTimeInfo.mTime;
-        self.mSignal = self.mTimeInfo.mSignal;
-        self.mOutName = self.mCycleResidueName +  '_AR(' + str(self.mNbLags) + ")";
-        self.mFormula = "AR(" + str(self.mNbLags) + ")";
-        if(self.mExogenousInfo is not None):
-            self.mOutName = self.mCycleResidueName +  '_ARX(' + str(self.mNbLags) + ")";
-            self.mFormula = "ARX(" + str(self.mNbExogenousLags) + ")";
-        lAREstimFrame = self.mTimeInfo.getEstimPart(self.mARFrame)
-
-        # print("mAREstimFrame columns :" , self.mAREstimFrame.columns);
-        lARInputs = lAREstimFrame[self.mInputNames].values
-        lARTarget = lAREstimFrame[series].values
-        # print(len(self.mInputNames), lARInputs.shape , lARTarget.shape)
-        assert(lARInputs.shape[1] > 0);
-        assert(lARTarget.shape[0] > 0);
-        
-        lMaxFeatures = self.mOptions.mMaxFeatureForAutoreg;
-        if(lMaxFeatures >= lARInputs.shape[1]):
-            lMaxFeatures = lARInputs.shape[1];
-        self.mFeatureSelector =  SelectKBest(f_regression, k= lMaxFeatures);
-        self.mFeatureSelector.fit(lARInputs, lARTarget);
-        lARInputsAfterSelection =  self.mFeatureSelector.transform(lARInputs);
-        # print("FEATURE_SELECTION" , self.mOutName, lARInputs.shape[1] , lARInputsAfterSelection.shape[1]);
-        del lARInputs;
-
-        self.mARRidge.fit(lARInputsAfterSelection, lARTarget)
-        del lARInputsAfterSelection;
-        del lARTarget;
-        del lAREstimFrame;        
-        
-        lARInputsFull = self.mFeatureSelector.transform(self.mARFrame[self.mInputNames].values)
-        self.mARFrame[self.mOutName] = self.mARRidge.predict(lARInputsFull)
-        self.mARFrame[self.mOutName + '_residue'] =  self.mARFrame[series] - self.mARFrame[self.mOutName]
-
-    def transformDataset(self, df):
-        series = self.mCycleResidueName; 
-        if(self.mExogenousInfo is not None):
-            df = self.mExogenousInfo.transformDataset(df);
-        # print(df.columns);
-        # print(df.info());
-        # print(df.head());
-        # print(df.tail());
-        lag_df = self.generateLagsForForecast(df);
-        # print(self.mInputNames);
-        # print(self.mFormula, "\n", lag_df.columns);
-        # lag_df.to_csv("LAGGED_ " + str(self.mNbLags) + ".csv");
-        inputs = lag_df[self.mInputNames].values
-        inputs_after_feat_selection = self.mFeatureSelector.transform(inputs);
-        pred = self.mARRidge.predict(inputs_after_feat_selection)
-        df[self.mOutName] = pred;
-        target = df[series].values
-        df[self.mOutName + '_residue'] = target - df[self.mOutName].values        
-        return df;
-        
 
 class cAutoRegressiveEstimator:
     def __init__(self):
@@ -320,6 +239,7 @@ class cAutoRegressiveEstimator:
     # @profile
     def estimate(self):
         from . import Keras_Models as tskeras
+        from . import Scikit_Models as tsscikit
 
         logger = tsutil.get_pyaf_logger();
         mARList = {}
@@ -328,27 +248,30 @@ class cAutoRegressiveEstimator:
                 cycle_residue = cycle.getCycleResidueName();
                 self.mARList[cycle_residue] = [ cZeroAR(cycle_residue)];
                 lHasARX = False;
-                if(self.mOptions.mEnableARModels or self.mOptions.mEnableARXModels or self.mOptions.mEnableRNNModels):
-                    if((self.mCycleFrame[cycle_residue].shape[0] > 12) and (self.mCycleFrame[cycle_residue].std() > 0.00001)):
-                        lLags = self.mCycleFrame[cycle_residue].shape[0] // 4;
-                        if(lLags >= self.mOptions.mMaxAROrder):
-                            lLags = self.mOptions.mMaxAROrder;
-                        if(self.mOptions.mEnableARModels):
-                            lAR = cAutoRegressiveModel(cycle_residue, lLags);
-                            self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lAR];
-                        if(self.mOptions.mEnableARXModels and
-                           (self.mExogenousInfo is not None)):
-                            lARX = cAutoRegressiveModel(cycle_residue, lLags,
-                                                        self.mExogenousInfo);
-                            self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lARX];
-                            lHasARX = True;
-                        if(self.mOptions.mEnableRNNModels):
-                            lLSTM = tskeras.cLSTM_Model(cycle_residue, lLags,
-                                                        self.mExogenousInfo);
-                            self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lLSTM];
-                            lMLP = tskeras.cMLP_Model(cycle_residue, lLags,
+                lLags = self.mCycleFrame[cycle_residue].shape[0] // 4;
+                if(lLags >= self.mOptions.mMaxAROrder):
+                    lLags = self.mOptions.mMaxAROrder;
+                if((self.mCycleFrame[cycle_residue].shape[0] > 12) and (self.mCycleFrame[cycle_residue].std() > 0.00001)):
+                    if(self.mOptions.mEnableARModels):
+                        lAR = tsscikit.cAutoRegressiveModel(cycle_residue, lLags);
+                        self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lAR];
+                    if(self.mOptions.mEnableARXModels and (self.mExogenousInfo is not None)):
+                        lARX = tsscikit.cAutoRegressiveModel(cycle_residue, lLags,
+                                                             self.mExogenousInfo);
+                        self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lARX];
+                        lHasARX = True;
+                    if(self.mOptions.mEnableRNNModels):
+                        lLSTM = tskeras.cLSTM_Model(cycle_residue, lLags,
+                                                    self.mExogenousInfo);
+                        self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lLSTM];
+                        lMLP = tskeras.cMLP_Model(cycle_residue, lLags,
                                                       self.mExogenousInfo);
-                            self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lMLP];
+                        self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lMLP];
+                    if(self.mOptions.mEnableSVRModels):
+                        lSVR = tsscikit.cSVR_Model(cycle_residue, lLags,
+                                                    self.mExogenousInfo);
+                        self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lSVR];
+                        
 
         if(lHasARX):
             if(self.mOptions.mDebugProfile):

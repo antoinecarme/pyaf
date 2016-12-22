@@ -24,10 +24,15 @@ class cSignalDecomposition_Options:
         self.mBoxCoxOrders = [-2.0, -1.0 , 0.0,  2.0];
         self.mExtensiveBoxCoxOrders = [-2, -1, -0.5, -0.33 , -0.25 , 0.0, 2, 0.5, 0.33 , 0.25];
         self.mEnableTrends = True;
+        self.mEnableMovingAverageTrends = False;
+        self.mEnableMovingMedianTrends = False;
+        self.mEnableTimeBasedTrends = True;
+        self.mEnableStochasticTrends = True;
         self.mEnableCycles = True;
         self.mEnableARModels = True;
         self.mEnableARXModels = True;
         self.mEnableRNNModels = False;
+        self.mEnableSVRModels = False;
         self.mMaxFeatureForAutoreg = 1000;
         self.mModelSelection_Criterion = "L2";
         self.mCycle_Criterion = "L2";
