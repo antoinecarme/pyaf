@@ -2,7 +2,7 @@
 Author: Antoine Carme <antoine.carme@laposte.net>
 License: BSD 3 clause
 
-[https://travis-ci.org/antoinecarme/pyaf.svg?branch=master]
+[![Build Status](https://travis-ci.org/antoinecarme/pyaf.svg?branch=master)](https://travis-ci.org/antoinecarme/pyaf)
 
 PyAF (Python Automatic Forecasting)
 ===================================
