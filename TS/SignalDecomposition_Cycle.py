@@ -138,6 +138,7 @@ class cBestCycleForTrend(cAbstractCycle):
         self.mBestCycleLength = None
         self.mCriterion = criterion
         self.mComplexity = 2;
+        self.mFormula = "BestCycle"
         
     def getCycleName(self):
         return self.mTrend_residue_name + "_bestCycle_by" + self.mCriterion;
@@ -241,16 +242,21 @@ class cCycleEstimator:
 
     def addSeasonal(self, trend, seas_type, resolution):
         if(resolution >= self.mTimeInfo.mResolution):
-            self.mCycleList[trend] = self.mCycleList[trend] + [cSeasonalPeriodic(trend, seas_type)];
+            lSeasonal = cSeasonalPeriodic(trend, seas_type);
+            if(self.mOptions.mActivePeriodics[lSeasonal.mFormula]):
+                self.mCycleList[trend] = self.mCycleList[trend] + [lSeasonal];
         pass
     
     def defineCycles(self):
         for trend in self.mTrendList:
-            self.mCycleList[trend] = [cZeroCycle(trend)];
-            if(self.mOptions.mEnableCycles):
+            self.mCycleList[trend] = [];
+
+            if(self.mOptions.mActivePeriodics['NoCycle']):
+                self.mCycleList[trend] = [cZeroCycle(trend)];
+            if(self.mOptions.mActivePeriodics['BestCycle']):
                 self.mCycleList[trend] = self.mCycleList[trend] + [
                     cBestCycleForTrend(trend, self.mOptions.mCycle_Criterion)];
-            if(self.mOptions.mEnableSeasonals and self.mTimeInfo.isPhysicalTime()):
+            if(self.mTimeInfo.isPhysicalTime()):
                 self.addSeasonal(trend, "MonthOfYear", self.mTimeInfo.RES_MONTH);
                 self.addSeasonal(trend, "DayOfMonth", self.mTimeInfo.RES_DAY);
                 self.addSeasonal(trend, "Hour", self.mTimeInfo.RES_HOUR);
@@ -261,6 +267,8 @@ class cCycleEstimator:
                 self.addSeasonal(trend, "DayOfWeek", self.mTimeInfo.RES_DAY);
                 
         for trend in self.mTrendList:
+            if(len(self.mCycleList[trend]) == 0):
+                self.mCycleList[trend] = [cZeroCycle(trend)];
             for cycle in self.mCycleList[trend]:
                 cycle.mTrendFrame = self.mTrendFrame;
                 cycle.mTimeInfo = self.mTimeInfo;

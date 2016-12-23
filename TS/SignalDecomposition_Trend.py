@@ -122,7 +122,7 @@ class cLag1Trend(cAbstractTrend):
 class cMovingAverageTrend(cAbstractTrend):
     def __init__(self, iWindow):
         cAbstractTrend.__init__(self);
-        self.mOutName = "MovingAverage(" + str(iWindow) + ")";
+        self.mOutName = "MovingAverage";
         self.mWindow = iWindow;
         self.mFormula = self.mOutName;
         self.mComplexity = 3;
@@ -135,6 +135,8 @@ class cMovingAverageTrend(cAbstractTrend):
         self.mTimeInfo.addVars(self.mTrendFrame);
 
     def fit(self):
+        self.mOutName = "MovingAverage(" + str(self.mWindow) + ")";
+        self.mFormula = self.mOutName;
         # real lag1
         target = self.mTrendFrame[self.mSignal].values
         self.mTrendFrame[self.mOutName] = self.mTrendFrame[self.mSignal].shift(1).rolling(self.mWindow).mean().fillna(method='bfill')
@@ -156,7 +158,7 @@ class cMovingAverageTrend(cAbstractTrend):
 class cMovingMedianTrend(cAbstractTrend):
     def __init__(self, iWindow):
         cAbstractTrend.__init__(self);
-        self.mOutName = "MovingMedian(" + str(iWindow) + ")";
+        self.mOutName = "MovingMedian";
         self.mWindow = iWindow;
         self.mFormula = self.mOutName;
         self.mComplexity = 3;
@@ -169,6 +171,8 @@ class cMovingMedianTrend(cAbstractTrend):
         self.mTimeInfo.addVars(self.mTrendFrame);
 
     def fit(self):
+        self.mOutName = "MovingMedian(" + str(self.mWindow) + ")";
+        self.mFormula = self.mOutName;
         # real lag1
         target = self.mTrendFrame[self.mSignal].values
         self.mTrendFrame[self.mOutName] = self.mTrendFrame[self.mSignal].shift(1).rolling(self.mWindow).median().fillna(method='bfill')
@@ -302,23 +306,27 @@ class cTrendEstimator:
         return True;
         
     def defineTrends(self):
+
+        self.mTrendList = [];
         
-        self.mTrendList = [cConstantTrend()];
-        if(not self.mOptions.mEnableTrends):
-            return;
+        if(self.mOptions.mActiveTrends['ConstantTrend']):
+            self.mTrendList = [cConstantTrend()];
         
-        if(self.mOptions.mEnableStochasticTrends):
+        if(self.mOptions.mActiveTrends['Lag1Trend']):
             self.mTrendList = self.mTrendList + [cLag1Trend()];
 
-        if(self.mOptions.mEnableTimeBasedTrends):
-            self.mTrendList = self.mTrendList + [cLinearTrend(), cPolyTrend()]
+        if(self.mOptions.mActiveTrends['LinearTrend']):
+            self.mTrendList = self.mTrendList + [cLinearTrend()]
+
+        if(self.mOptions.mActiveTrends['PolyTrend']):
+            self.mTrendList = self.mTrendList + [cPolyTrend()]
                 
-        if(self.mOptions.mEnableMovingAverageTrends):
+        if(self.mOptions.mActiveTrends['MovingAverage']):
             for i in self.mOptions.mMovingAverageLengths:
                 if(self.needMovingTrend(self.mSignalFrame , i)):
                     self.mTrendList = self.mTrendList + [cMovingAverageTrend(i)]
 
-        if(self.mOptions.mEnableMovingMedianTrends):
+        if(self.mOptions.mActiveTrends['MovingMedian']):
             for i in self.mOptions.mMovingMedianLengths:
                 if(self.needMovingTrend(self.mSignalFrame , i)):
                     self.mTrendList = self.mTrendList + [cMovingMedianTrend(i)]

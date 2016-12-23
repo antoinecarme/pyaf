@@ -222,6 +222,7 @@ class cSignalTransform_BoxCox(cAbstractSignalTransform):
 
     def __init__(self, iLambda):
         cAbstractSignalTransform.__init__(self);
+        self.mFormula = "BoxCox";
         self.mLambda = iLambda;
         self.mComplexity = 2;
         self.mScaling = True;
@@ -408,7 +409,7 @@ class cSignalTransform_Fisher(cAbstractSignalTransform):
 
     def __init__(self):
         cAbstractSignalTransform.__init__(self);
-        self.mFormula = "Fischer";
+        self.mFormula = "Fisher";
         self.mComplexity = 1;
         self.mScaling = True;
         pass

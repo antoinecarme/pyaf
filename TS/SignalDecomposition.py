@@ -305,33 +305,33 @@ class cSignalDecomposition:
     
     def defineTransformations(self , df, iTime, iSignal):
         self.mTransformList = [];
-        if(self.mOptions.mActiveTransformation['None']):
+        if(self.mOptions.mActiveTransformations['None']):
             self.validateTransformation(tstransf.cSignalTransform_None() , df, iTime, iSignal);
 
-        if(self.mOptions.mActiveTransformation['Difference']):
+        if(self.mOptions.mActiveTransformations['Difference']):
             self.validateTransformation(tstransf.cSignalTransform_Differencing() , df, iTime, iSignal);
 
-        if(self.mOptions.mActiveTransformation['RelativeDifference']):
+        if(self.mOptions.mActiveTransformations['RelativeDifference']):
             self.validateTransformation(tstransf.cSignalTransform_RelativeDifferencing() , df, iTime, iSignal);
             
-        if(self.mOptions.mActiveTransformation['Integration']):
+        if(self.mOptions.mActiveTransformations['Integration']):
             self.validateTransformation(tstransf.cSignalTransform_Accumulate() , df, iTime, iSignal);
 
-        if(self.mOptions.mActiveTransformation['BoxCox']):
+        if(self.mOptions.mActiveTransformations['BoxCox']):
             for i in self.mOptions.mBoxCoxOrders:
                 self.validateTransformation(tstransf.cSignalTransform_BoxCox(i) , df, iTime, iSignal);
 
-        if(self.mOptions.mActiveTransformation['Quantization']):
+        if(self.mOptions.mActiveTransformations['Quantization']):
             for q in self.mOptions.mQuantiles:
                 self.validateTransformation(tstransf.cSignalTransform_Quantize(q) , df, iTime, iSignal);
         
-        if(self.mOptions.mActiveTransformation['Logit']):
+        if(self.mOptions.mActiveTransformations['Logit']):
             self.validateTransformation(tstransf.cSignalTransform_Logit() , df, iTime, iSignal);
         
-        if(self.mOptions.mActiveTransformation['Fisher']):
+        if(self.mOptions.mActiveTransformations['Fisher']):
             self.validateTransformation(tstransf.cSignalTransform_Fisher() , df, iTime, iSignal);
         
-        if(self.mOptions.mActiveTransformation['Anscombe']):
+        if(self.mOptions.mActiveTransformations['Anscombe']):
             self.validateTransformation(tstransf.cSignalTransform_Anscombe() , df, iTime, iSignal);
         
 
@@ -357,6 +357,7 @@ class cSignalDecomposition:
     def train_multiprocessed(self , iInputDS, iTime, iSignal, iHorizon):
         pool = Pool(self.mOptions.mNbCores)
         self.defineTransformations(iInputDS, iTime, iSignal);
+        # print([transform1.mFormula for transform1 in self.mTransformList]);
         args = [];
         for transform1 in self.mTransformList:
             arg = cTraining_Arg(transform1.get_name(""));

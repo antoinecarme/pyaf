@@ -243,34 +243,39 @@ class cAutoRegressiveEstimator:
 
         logger = tsutil.get_pyaf_logger();
         mARList = {}
+        lHasARX = False;
         for trend in self.mTrendList:
             for cycle in self.mCycleList[trend]:
                 cycle_residue = cycle.getCycleResidueName();
-                self.mARList[cycle_residue] = [ cZeroAR(cycle_residue)];
-                lHasARX = False;
+                self.mARList[cycle_residue] = [];
+                if(self.mOptions.mActiveAutoRegressions['NoAR']):
+                    self.mARList[cycle_residue] = [ cZeroAR(cycle_residue)];
                 lLags = self.mCycleFrame[cycle_residue].shape[0] // 4;
                 if(lLags >= self.mOptions.mMaxAROrder):
                     lLags = self.mOptions.mMaxAROrder;
                 if((self.mCycleFrame[cycle_residue].shape[0] > 12) and (self.mCycleFrame[cycle_residue].std() > 0.00001)):
-                    if(self.mOptions.mEnableARModels):
+                    if(self.mOptions.mActiveAutoRegressions['AR']):
                         lAR = tsscikit.cAutoRegressiveModel(cycle_residue, lLags);
                         self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lAR];
-                    if(self.mOptions.mEnableARXModels and (self.mExogenousInfo is not None)):
+                    if(self.mOptions.mActiveAutoRegressions['ARX'] and (self.mExogenousInfo is not None)):
                         lARX = tsscikit.cAutoRegressiveModel(cycle_residue, lLags,
                                                              self.mExogenousInfo);
                         self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lARX];
                         lHasARX = True;
-                    if(self.mOptions.mEnableRNNModels):
+                    if(self.mOptions.mActiveAutoRegressions['LSTM']):
                         lLSTM = tskeras.cLSTM_Model(cycle_residue, lLags,
                                                     self.mExogenousInfo);
                         self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lLSTM];
+                    if(self.mOptions.mActiveAutoRegressions['MLP']):
                         lMLP = tskeras.cMLP_Model(cycle_residue, lLags,
                                                       self.mExogenousInfo);
                         self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lMLP];
-                    if(self.mOptions.mEnableSVRModels):
+                    if(self.mOptions.mActiveAutoRegressions['SVR']):
                         lSVR = tsscikit.cSVR_Model(cycle_residue, lLags,
                                                     self.mExogenousInfo);
                         self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lSVR];
+                if(len(self.mARList[cycle_residue]) == 0):
+                    self.mARList[cycle_residue] = [ cZeroAR(cycle_residue)];
                         
 
         if(lHasARX):

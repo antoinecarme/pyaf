@@ -7,14 +7,101 @@
 import pandas as pd
 import numpy as np
 
-class cSignalDecomposition_Options:
+
+class cModelControl:
+
+    def __init__(self):
+        self.mActiveTransformations = {};
+        self.mActivePeriodics = {};
+        self.mActiveTrends = {};
+        self.mActiveAutoRegressions = {};
+        self.mKnownTransformations = ['None', 'Difference', 'RelativeDifference',
+                                      'Integration', 'BoxCox',
+                                      'Quantization', 'Logit',
+                                      'Fisher', 'Anscombe'];
+        self.mKnownTrends = ['ConstantTrend', 
+                             'Lag1Trend', 'LinearTrend', 'PolyTrend', 
+                             'MovingAverage', 'MovingMedian'];
+        self.mKnownPeriodics = ['NoCycle', 'BestCycle',
+                                'Seasonal_MonthOfYear' ,
+                                'Seasonal_Second' ,
+                                'Seasonal_Minute' ,
+                                'Seasonal_Hour' ,
+                                'Seasonal_DayOfWeek' ,
+                                'Seasonal_DayOfMonth',
+                                'Seasonal_WeekOfYear'];
+        self.mKnownAutoRegressions = ['NoAR' , 'AR' , 'ARX' , 'SVR' , 'MLP' , 'LSTM'];
+        # now , set he default models
+        self.set_active_transformations(self.mKnownTransformations[0:4]);
+        self.set_active_trends(self.mKnownTrends[0:4]);
+        self.set_active_periodics(self.mKnownPeriodics);
+        self.set_active_autoregressions(self.mKnownAutoRegressions[0:2]);
+        
+    def set_active_transformations(self, transformations):
+        self.mActiveTransformations = {};
+        for transformation in self.mKnownTransformations:
+            if(transformation in transformations):
+                self.mActiveTransformations[transformation] = True;
+            else:
+                self.mActiveTransformations[transformation] = False;
+        if(len(transformations) == 0):
+            # default
+            self.mActiveTransformations['None'] = True;
+    
+    def set_active_trends(self, trends):
+        self.mActiveTrends = {};
+        for trend in self.mKnownTrends:
+            if(trend in trends):
+                self.mActiveTrends[trend] = True;
+            else:
+                self.mActiveTrends[trend] = False;
+        if(len(trends) == 0):
+            # default
+            self.mActiveTrends['ConstantTrend'] = True;                
+    
+    def set_active_periodics(self, periodics):
+        self.mActivePeriodics = {};
+        for period in self.mKnownPeriodics:
+            if(period in periodics):
+                self.mActivePeriodics[period] = True;
+            else:
+                self.mActivePeriodics[period] = False;
+        if(len(periodics) == 0):
+            # default
+            self.mActivePeriodics['NoCycle'] = True;
+                    
+    def set_active_autoregressions(self, autoregs):
+        self.mActiveAutoRegressions = {};
+        for autoreg in self.mKnownAutoRegressions:
+            if(autoreg in autoregs):
+                self.mActiveAutoRegressions[autoreg] = True;
+            else:
+                self.mActiveAutoRegressions[autoreg] = False;                
+        if(len(autoregs) == 0):
+            # default
+            self.mActiveAutoRegressions['NoAR'] = True;
+
+    def disable_all_transformations(self):
+        self.set_active_transformations([]);
+    
+    def disable_all_trends(self):
+        self.set_active_trends([]);
+    
+    def disable_all_periodics(self):
+        self.set_active_periodics([]);
+    
+    def disable_all_autoregressions(self):
+        self.set_active_autoregressions([]);
+    
+
+
+class cSignalDecomposition_Options(cModelControl):
     
     def __init__(self):
+        super().__init__();
         self.mParallelMode = True;
         self.mNbCores = 8;
-        self.mEnablePlots = False;
         self.mEstimRatio = 0.8;
-        self.mActiveTransformation = {};
         self.enable_fast_mode();
         self.mTimeDeltaComputationMethod = "AVG"; # can be "AVG", "MODE", "USER"
         self.mUserTimeDelta = None;
@@ -23,16 +110,6 @@ class cSignalDecomposition_Options:
         self.mNoBoxCoxOrders = [];
         self.mBoxCoxOrders = [-2.0, -1.0 , 0.0,  2.0];
         self.mExtensiveBoxCoxOrders = [-2, -1, -0.5, -0.33 , -0.25 , 0.0, 2, 0.5, 0.33 , 0.25];
-        self.mEnableTrends = True;
-        self.mEnableMovingAverageTrends = False;
-        self.mEnableMovingMedianTrends = False;
-        self.mEnableTimeBasedTrends = True;
-        self.mEnableStochasticTrends = True;
-        self.mEnableCycles = True;
-        self.mEnableARModels = True;
-        self.mEnableARXModels = True;
-        self.mEnableRNNModels = False;
-        self.mEnableSVRModels = False;
         self.mMaxFeatureForAutoreg = 1000;
         self.mModelSelection_Criterion = "L2";
         self.mCycle_Criterion = "L2";
@@ -49,68 +126,25 @@ class cSignalDecomposition_Options:
         
     def enable_slow_mode(self):
         self.mQuantiles = [5, 10, 20]; # quintiles, deciles, and vingtiles;)
-        self.mEnableMovingAverageTrends = True;
-        self.mEnableMovingMedianTrends = True;
-        self.mEnableTimeBasedTrends = True;
         self.mMovingAverageLengths = [5, 7, 12, 24 , 30, 60];
         self.mMovingMedianLengths = [5, 7, 12, 24 , 30, 60];
         
         self.mCycleLengths = [5, 7, 12, 24 , 30, 60];
 
-        self.mEnableSeasonals = True;
+        self.set_active_transformations(self.mKnownTransformations);
+        self.set_active_trends(self.mKnownTrends);
+        self.set_active_periodics(self.mKnownPeriodics);
+        self.set_active_autoregressions(self.mKnownAutoRegressions);
         
         self.mMaxAROrder = 256;
-        self.mActiveTransformation = {};
-        self.mActiveTransformation['None'] = True;
-        self.mActiveTransformation['Difference'] = True;
-        self.mActiveTransformation['RelativeDifference'] = True;
-        self.mActiveTransformation['Integration'] = True;
-        self.mActiveTransformation['Quantization'] = True;
-        self.mActiveTransformation['BoxCox'] = True;
-        self.mActiveTransformation['Logit'] = True;
-        self.mActiveTransformation['Fisher'] = True;
-        self.mActiveTransformation['Anscombe'] = True;
 
     def enable_fast_mode(self):
-        self.mEnableBoxCox = False;
-        self.mEnableQuantization = False;        
         self.mQuantiles = [5, 10, 20]; # quintiles, deciles, and vingtiles;)
-        self.mEnableMovingAverageTrends = False;
-        self.mEnableMovingMedianTrends = False;
-        self.mEnableTimeBasedTrends = True;
         self.mMovingAverageLengths = [5, 7, 12, 24 , 30, 60];
         self.mMovingMedianLengths = [5, 7, 12, 24 , 30, 60];
         
-        self.mEnableCycles = True;
         self.mCycleLengths = [5, 7, 12, 24 , 30, 60];
 
-        self.mEnableSeasonals = True;
-
-        
-        self.mEnableARModels = True;
         self.mMaxAROrder = 256;
 
-        self.mActiveTransformation = {};
-        self.mActiveTransformation['None'] = True;
-        self.mActiveTransformation['Difference'] = True;
-        self.mActiveTransformation['RelativeDifference'] = True;
-        self.mActiveTransformation['Integration'] = True;
-        self.mActiveTransformation['Quantization'] = False;
-        self.mActiveTransformation['BoxCox'] = False;
-        self.mActiveTransformation['Logit'] = False;
-        self.mActiveTransformation['Fisher'] = False;
-        self.mActiveTransformation['Anscombe'] = False;
     
-
-
-    def disable_all_transformations(self):
-        self.mActiveTransformation = {};
-        self.mActiveTransformation['None'] = False;
-        self.mActiveTransformation['Difference'] = False;
-        self.mActiveTransformation['RelativeDifference'] = False;
-        self.mActiveTransformation['Integration'] = False;
-        self.mActiveTransformation['Quantization'] = False;
-        self.mActiveTransformation['BoxCox'] = False;
-        self.mActiveTransformation['Logit'] = False;
-        self.mActiveTransformation['Fisher'] = False;
-        self.mActiveTransformation['Anscombe'] = False;
