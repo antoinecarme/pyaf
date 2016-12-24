@@ -26,14 +26,7 @@ H = b1.mHorizon;
 # lEngine.mOptions.enable_slow_mode();
 lEngine.mOptions.mDebugPerformance = True;
 lEngine.mOptions.mParallelMode = True;
-lEngine.mOptions.mEnableTimeBasedTrends = False;
-lEngine.mOptions.mEnableStochasticTrends = False;
-lEngine.mOptions.mEnableARModels = False;
-lEngine.mOptions.mEnableARXModels = False;
-lEngine.mOptions.mEnableRNNModels = False;
-lEngine.mOptions.mEnableSVRModels = True;
-lEngine.mOptions.disable_all_transformations();
-lEngine.mOptions.mActiveTransformation["None"] = True;
+lEngine.mOptions.set_active_autoregressions(['SVR']);
 
 lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H);
 lEngine.getModelInfo();
