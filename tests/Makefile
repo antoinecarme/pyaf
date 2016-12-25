@@ -1,27 +1,15 @@
 PYTHON=python3
 
 
-artificial/gen_makefile.py  :  
-	 -$(PYTHON)  tests/artificial/gen_makefile.py  >  logs/artificial_gen_makefile.log  2>&1
-	 -diff  logs/artificial_gen_makefile.log tests/references/artificial_gen_makefile.log  >  logs/artificial_gen_makefile.log.diff 
-
-	 cat  logs/artificial_gen_makefile.log.diff 
-
 artificial/process_artificial_dataset.py  :  
 	 -$(PYTHON)  tests/artificial/process_artificial_dataset.py  >  logs/artificial_process_artificial_dataset.log  2>&1
 	 -diff  logs/artificial_process_artificial_dataset.log tests/references/artificial_process_artificial_dataset.log  >  logs/artificial_process_artificial_dataset.log.diff 
 
 	 cat  logs/artificial_process_artificial_dataset.log.diff 
 
-artificial/gen_all.py  :  
-	 -$(PYTHON)  tests/artificial/gen_all.py  >  logs/artificial_gen_all.log  2>&1
-	 -diff  logs/artificial_gen_all.log tests/references/artificial_gen_all.log  >  logs/artificial_gen_all.log.diff 
-
-	 cat  logs/artificial_gen_all.log.diff 
 
 
-
- artificial :  artificial/gen_all.py artificial/process_artificial_dataset.py artificial/gen_makefile.py  
+ artificial :  artificial/process_artificial_dataset.py  
  
 
 bugs/test_random_exogenous.py  :  
@@ -53,12 +41,6 @@ exog/test_random_exogenous.py  :
 
 	 cat  logs/exog_test_random_exogenous.log.diff 
 
-exog/gen_makefile.py  :  
-	 -$(PYTHON)  tests/exog/gen_makefile.py  >  logs/exog_gen_makefile.log  2>&1
-	 -diff  logs/exog_gen_makefile.log tests/references/exog_gen_makefile.log  >  logs/exog_gen_makefile.log.diff 
-
-	 cat  logs/exog_gen_makefile.log.diff 
-
 exog/test_ozone_exogenous_profile.py  :  
 	 -$(PYTHON)  tests/exog/test_ozone_exogenous_profile.py  >  logs/exog_test_ozone_exogenous_profile.log  2>&1
 	 -diff  logs/exog_test_ozone_exogenous_profile.log tests/references/exog_test_ozone_exogenous_profile.log  >  logs/exog_test_ozone_exogenous_profile.log.diff 
@@ -71,15 +53,9 @@ exog/test_ozone_exogenous.py  :
 
 	 cat  logs/exog_test_ozone_exogenous.log.diff 
 
-exog/gen_all.py  :  
-	 -$(PYTHON)  tests/exog/gen_all.py  >  logs/exog_gen_all.log  2>&1
-	 -diff  logs/exog_gen_all.log tests/references/exog_gen_all.log  >  logs/exog_gen_all.log.diff 
-
-	 cat  logs/exog_gen_all.log.diff 
 
 
-
- exog :  exog/gen_all.py exog/test_ozone_exogenous.py exog/test_ozone_exogenous_profile.py exog/gen_makefile.py exog/test_random_exogenous.py  
+ exog :  exog/test_ozone_exogenous.py exog/test_ozone_exogenous_profile.py exog/test_random_exogenous.py  
  
 
 hierarchical/test_hier_prototyping_5.py  :  
@@ -183,12 +159,6 @@ hierarchical/test_grouped.py  :
  hierarchical :  hierarchical/test_grouped.py hierarchical/test_grouped_signals_MO.py hierarchical/test_hierarchy_AU_MO.py hierarchical/test_grouped_prototyping_1.py hierarchical/test_hier_prototyping_3.py hierarchical/test_grouped_signals_OC.py hierarchical/test_hier_prototyping_4.py hierarchical/test_hier_prototyping_1.py hierarchical/test_hierarchy_AU_OC.py hierarchical/test_hierarchy_AU_TD.py hierarchical/test_hierarchy_AU_BU.py hierarchical/test_hierarchy_AU.py hierarchical/test_grouped_signals_TD.py hierarchical/test_hier_prototyping_2.py hierarchical/test_grouped_signals_BU.py hierarchical/test_hier_prototyping_5.py  
  
 
-model_control/gen_makefile.py  :  
-	 -$(PYTHON)  tests/model_control/gen_makefile.py  >  logs/model_control_gen_makefile.log  2>&1
-	 -diff  logs/model_control_gen_makefile.log tests/references/model_control_gen_makefile.log  >  logs/model_control_gen_makefile.log.diff 
-
-	 cat  logs/model_control_gen_makefile.log.diff 
-
 model_control/test_ozone_all_models_enabled.py  :  
 	 -$(PYTHON)  tests/model_control/test_ozone_all_models_enabled.py  >  logs/model_control_test_ozone_all_models_enabled.log  2>&1
 	 -diff  logs/model_control_test_ozone_all_models_enabled.log tests/references/model_control_test_ozone_all_models_enabled.log  >  logs/model_control_test_ozone_all_models_enabled.log.diff 
@@ -207,15 +177,9 @@ model_control/test_ozone_no_models_enabled.py  :
 
 	 cat  logs/model_control_test_ozone_no_models_enabled.log.diff 
 
-model_control/gen_all.py  :  
-	 -$(PYTHON)  tests/model_control/gen_all.py  >  logs/model_control_gen_all.log  2>&1
-	 -diff  logs/model_control_gen_all.log tests/references/model_control_gen_all.log  >  logs/model_control_gen_all.log.diff 
-
-	 cat  logs/model_control_gen_all.log.diff 
 
 
-
- model_control :  model_control/gen_all.py model_control/test_ozone_no_models_enabled.py model_control/test_ozone_custom_models_enabled.py model_control/test_ozone_all_models_enabled.py model_control/gen_makefile.py  
+ model_control :  model_control/test_ozone_no_models_enabled.py model_control/test_ozone_custom_models_enabled.py model_control/test_ozone_all_models_enabled.py  
  
 
 perf/test_perf1.py  :  
