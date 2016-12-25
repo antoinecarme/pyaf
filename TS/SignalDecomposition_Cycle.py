@@ -10,6 +10,7 @@ import datetime
 from . import Time as tsti
 from . import Perf as tsperf
 from . import Plots as tsplot
+from . import Utils as tsutil
 
 # for timing
 import time
@@ -313,7 +314,8 @@ class cCycleEstimator:
                 end_time = time.time()
                 lTrainingTime = round(end_time - start_time , 2);
                 if(self.mOptions.mDebugProfile):
-                    print("CYCLE_TRAINING_TIME_IN_SECONDS '" + cycle.mOutName + "' " + str(lTrainingTime))
+                    logger = tsutil.get_pyaf_logger();
+                    logger.info("CYCLE_TRAINING_TIME_IN_SECONDS '" + cycle.mOutName + "' " + str(lTrainingTime))
         pass
 
     def estimateAllCycles(self):
