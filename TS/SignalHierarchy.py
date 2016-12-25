@@ -63,17 +63,17 @@ class cSignalHierarchy:
         lBaseLevelCount = len(self.mStructure[0]);
         lIndices = {};
         self.mSummingMatrix = np.zeros((lNbNodes, lBaseLevelCount));
-        for level in  self.mStructure.keys():
+        for level in  sorted(self.mStructure.keys()):
             if(level > 0):
-                for col in self.mStructure[level].keys():
+                for col in sorted(self.mStructure[level].keys()):
                     i = len(lIndices);
                     lIndices[ col ] = i;
-                    for col1 in self.mStructure[level][col]:
+                    for col1 in sorted(self.mStructure[level][col]):
                         ii = lIndices [ col1 ];
                         for j in range(lBaseLevelCount):
                             self.mSummingMatrix[ i ][j] = self.mSummingMatrix[ ii ][j]  + self.mSummingMatrix[ i ][j];
             else:
-                for col in self.mStructure[level].keys():
+                for col in sorted(self.mStructure[level].keys()):
                     lNew_index = len(lIndices);
                     lIndices[ col ] = lNew_index;
                     self.mSummingMatrix[ lNew_index ] [ lNew_index ] = 1;
@@ -95,11 +95,11 @@ class cSignalHierarchy:
                 lAllLevelsDataset[k] = df[df.columns[i + 1]];
                 i = i + 1;
                 
-        for level in  self.mStructure.keys():
+        for level in  sorted(self.mStructure.keys()):
             if(level > 0):
-                for col in self.mStructure[level].keys():
+                for col in sorted(self.mStructure[level].keys()):
                     new_col = None;
-                    for col1 in self.mStructure[level][col]:
+                    for col1 in sorted(self.mStructure[level][col]):
                         if(new_col is None):
                             new_col = lAllLevelsDataset[col1];
                         else:
@@ -120,9 +120,9 @@ class cSignalHierarchy:
     def create_all_levels_models(self, iAllLevelsDataset, H, iDateColumn):
         logger = tsutil.get_pyaf_hierarchical_logger();
         self.mModels = {};
-        for level in self.mStructure.keys():
+        for level in sorted(self.mStructure.keys()):
             self.mModels[level] = {};
-            for signal in self.mStructure[level].keys():
+            for signal in sorted(self.mStructure[level].keys()):
                 logger.info("TRAINING_MODEL_LEVEL_SIGNAL " + str(level) + " " + signal);
                 lEngine = autof.cForecastEngine()
                 lEngine.mOptions = self.mOptions;
@@ -142,8 +142,8 @@ class cSignalHierarchy:
 
 
     def getModelInfo(self):
-        for level in self.mModels.keys():
-            for signal in self.mModels[level].keys():
+        for level in sorted(self.mModels.keys()):
+            for signal in sorted(self.mModels[level].keys()):
                 lEngine = self.mModels[level][signal];
                 lEngine.getModelInfo();
 
@@ -151,8 +151,8 @@ class cSignalHierarchy:
         tsplot.plot_hierarchy(self.mStructure, name)
     
     def standrdPlots(self , name = None):
-        for level in self.mModels.keys():
-            for signal in self.mModels[level].keys():
+        for level in sorted(self.mModels.keys()):
+            for signal in sorted(self.mModels[level].keys()):
                 lEngine = self.mModels[level][signal];
                 lEngine.standrdPlots(name + "_Hierarchy_Level_Signal_" + str(level) + "_" + signal);
 
@@ -160,8 +160,8 @@ class cSignalHierarchy:
     def forecastAllModels(self, iAllLevelsDataset, H, iDateColumn):
         lForecast_DF = pd.DataFrame();
         lForecast_DF[iDateColumn] = iAllLevelsDataset[iDateColumn]
-        for level in self.mModels.keys():
-            for signal in self.mModels[level].keys():
+        for level in sorted(self.mModels.keys()):
+            for signal in sorted(self.mModels[level].keys()):
                 lEngine = self.mModels[level][signal];
                 dfapp_in = iAllLevelsDataset.copy();
                 # dfapp_in.tail()
@@ -177,32 +177,32 @@ class cSignalHierarchy:
     def computeTopDownHistoricalProportions(self, iForecast_DF):
         self.mAvgHistProp = {};
         self.mPropHistAvg = {};
-        for level in  self.mStructure.keys():
+        for level in  sorted(self.mStructure.keys()):
             if(level > 0):
-                for col in self.mStructure[level].keys():
+                for col in sorted(self.mStructure[level].keys()):
                     self.mAvgHistProp[col] = {};
                     self.mPropHistAvg[col] = {};
-                    for col1 in self.mStructure[level][col]:
+                    for col1 in sorted(self.mStructure[level][col]):
                         self.mAvgHistProp[col][col1] = (iForecast_DF[col1] / iForecast_DF[col]).mean();
                         self.mPropHistAvg[col][col1] = iForecast_DF[col1].mean() / iForecast_DF[col].mean();
-        print("AvgHitProp\n", self.mAvgHistProp);
-        print("PropHistAvg\n", self.mPropHistAvg);
+        # print("AvgHitProp\n", self.mAvgHistProp);
+        # print("PropHistAvg\n", self.mPropHistAvg);
         pass
         
     def computeTopDownForecastedProportions(self, iForecast_DF):
         self.mForecastedProp = {};
-        for level in  self.mStructure.keys():
+        for level in  sorted(self.mStructure.keys()):
             if(level > 0):
-                for col in self.mStructure[level].keys():
+                for col in sorted(self.mStructure[level].keys()):
                     self.mForecastedProp[col] = {};
-                    for col1 in self.mStructure[level][col]:
+                    for col1 in sorted(self.mStructure[level][col]):
                         self.mForecastedProp[col][col1] = (iForecast_DF[col1] / iForecast_DF[col]).mean();
-        print("ForecastedProp\n", self.mForecastedProp);
+        # print("ForecastedProp\n", self.mForecastedProp);
         pass
 
     def computeBottomUpForecast(self, iForecast_DF, level, signal, iPrefix = "BU"):
         new_BU_forecast = None;
-        for col1 in self.mStructure[level][signal]:
+        for col1 in sorted(self.mStructure[level][signal]):
             if(new_BU_forecast is None):
                 new_BU_forecast = iForecast_DF[col1 + "_Forecast"];
             else:
@@ -213,9 +213,9 @@ class cSignalHierarchy:
 
     def computeBottomUpForecasts(self, iForecast_DF):
         lForecast_DF_BU = iForecast_DF.copy();
-        print("STRUCTURE " , self.mStructure.keys());
-        for level in self.mStructure.keys():
-            for signal in self.mStructure[level].keys():
+        # print("STRUCTURE " , self.mStructure.keys());
+        for level in sorted(self.mStructure.keys()):
+            for signal in sorted(self.mStructure[level].keys()):
                 new_BU_forecast = self.computeBottomUpForecast(lForecast_DF_BU, level, signal);
                 lForecast_DF_BU[signal + "_BU_Forecast"] = new_BU_forecast;
             
@@ -227,18 +227,18 @@ class cSignalHierarchy:
 
     def reportOnCombinedForecasts(self, iForecast_DF, iPrefix):
         lPerfs = {};
-        print("STRUCTURE " , self.mStructure.keys());
+        print("STRUCTURE " , sorted(list(self.mStructure.keys())));
         print("DATASET_COLUMNS" , iForecast_DF.columns);
-        for level in self.mStructure.keys():
-            print("STRUCTURE_LEVEL " , level, self.mStructure[level].keys());
-            print("MODEL_LEVEL " , level, self.mModels[level].keys());
-            for signal in self.mStructure[level].keys():
+        for level in sorted(self.mStructure.keys()):
+            print("STRUCTURE_LEVEL " , level, sorted(list(self.mStructure[level].keys())));
+            print("MODEL_LEVEL " , level, sorted(list(self.mModels[level].keys())));
+            for signal in sorted(self.mStructure[level].keys()):
                 lEngine = self.mModels[level][signal];
                 lPerf = lEngine.computePerf(iForecast_DF[signal], iForecast_DF[signal + "_Forecast"], signal)
                 lPerf_Combined = lEngine.computePerf(iForecast_DF[signal], iForecast_DF[signal + "_" + iPrefix + "_Forecast"],  signal)
                 lPerfs[signal] = (lPerf , lPerf_Combined);
             
-        for (sig , perf) in lPerfs.items():
+        for (sig , perf) in sorted(lPerfs.items()):
             print("PERF_REPORT_COMBINED_FORECASTS" , iPrefix, sig , perf[0].mL2,  perf[0].mMAPE, perf[1].mL2,  perf[1].mMAPE)
         return lPerfs;
 
@@ -246,15 +246,15 @@ class cSignalHierarchy:
     def computeTopDownForecasts(self, iForecast_DF , iProp , iPrefix):
         lForecast_DF_TD = iForecast_DF.copy();
         lLevelsReversed = sorted(self.mStructure.keys(), reverse=True);
-        print("TOPDOWN_STRUCTURE", self.mStructure)
-        print("TOPDOWN_LEVELS", lLevelsReversed)
+        # print("TOPDOWN_STRUCTURE", self.mStructure)
+        # print("TOPDOWN_LEVELS", lLevelsReversed)
         # highest levels (fully aggregated)
         lHighestLevel = lLevelsReversed[0];
-        for signal in self.mStructure[lHighestLevel].keys():
+        for signal in sorted(self.mStructure[lHighestLevel].keys()):
             lForecast_DF_TD[signal +"_" + iPrefix + "_Forecast"] =  iForecast_DF[signal + "_Forecast"];
         for level in lLevelsReversed:
-            for signal in self.mStructure[level].keys():
-                for col in self.mStructure[level][signal]:
+            for signal in sorted(self.mStructure[level].keys()):
+                for col in sorted(self.mStructure[level][signal]):
                     new_TD_forecast = lForecast_DF_TD[signal + "_" + iPrefix + "_Forecast"] * iProp[signal][col];
                     lForecast_DF_TD[col +"_" + iPrefix + "_Forecast"] = new_TD_forecast;
         
@@ -268,20 +268,20 @@ class cSignalHierarchy:
         # lower levels .... top-down starting from the middle.
         levels_below = sorted([level for level in self.mStructure.keys()  if (level <= iMidLevel) ],
                               reverse=True);
-        print("MIDDLE_OUT_STRUCTURE", self.mStructure)
-        print("MIDDLE_OUT_LEVELS", levels_below)
+        # print("MIDDLE_OUT_STRUCTURE", self.mStructure)
+        # print("MIDDLE_OUT_LEVELS", levels_below)
         # mid-lewvel : do nothing ????
-        for signal in self.mStructure[iMidLevel].keys():
+        for signal in sorted(self.mStructure[iMidLevel].keys()):
             lForecast_DF_MO[signal +"_" + iPrefix + "_Forecast"] = iForecast_DF[signal + "_Forecast"];
         # 
         for level in levels_below:
-            for signal in self.mStructure[level].keys():
-                for col in self.mStructure[level][signal]:
+            for signal in sorted(self.mStructure[level].keys()):
+                for col in sorted(self.mStructure[level][signal]):
                     new_MO_forecast = lForecast_DF_MO[signal + "_" + iPrefix + "_Forecast"] * iProp[signal][col];
                     lForecast_DF_MO[col +"_" + iPrefix + "_Forecast"] = new_MO_forecast;
         # higher levels .... bottom-up starting from the middle
         for level in range(iMidLevel + 1 , len(self.mStructure.keys())):
-            for signal in self.mStructure[level].keys():
+            for signal in sorted(self.mStructure[level].keys()):
                 new_MO_forecast = self.computeBottomUpForecast(lForecast_DF_MO, level, signal, iPrefix);
                 lForecast_DF_MO[signal +"_" + iPrefix + "_Forecast"] = new_MO_forecast;
 
@@ -293,17 +293,17 @@ class cSignalHierarchy:
 
     def computeOptimalCombination(self, iForecast_DF):
         lBaseNames = [];
-        for level in  self.mStructure.keys():
-            for col in self.mStructure[level].keys():
+        for level in  sorted(self.mStructure.keys()):
+            for col in sorted(self.mStructure[level].keys()):
                 lBaseNames.append(col);
         lBaseForecasts = iForecast_DF[lBaseNames];
         # TODO : use linalg.solve here
         S = self.mSummingMatrix;
-        print(S.shape);
+        # print(S.shape);
         lInv = np.linalg.inv(S.T.dot(S))
         lOptimalForecasts = S.dot(lInv).dot(S.T).dot(lBaseForecasts.values.T)
-        print(lBaseForecasts.shape);
-        print(lOptimalForecasts.shape);
+        # print(lBaseForecasts.shape);
+        # print(lOptimalForecasts.shape);
         lOptimalNames = [(col + "_OC_Forecast") for col in lBaseNames];
         df = pd.DataFrame(lOptimalForecasts.T);
         df.columns = lOptimalNames;

@@ -201,20 +201,22 @@ class cTimeSeriesModel:
 
     def to_json(self):
         dict1 = {};
-        dict1["Dataset"] = { "Time" : self.mTimeInfo.to_json(),
-                             "Signal" : self.mOriginalSignal,
-                             "Training_Signal_Length" : self.mModelFrame.shape[0]};
+        d1 = { "Time" : self.mTimeInfo.to_json(),
+               "Signal" : self.mOriginalSignal,
+               "Training_Signal_Length" : self.mModelFrame.shape[0]};
+        dict1["Dataset"] = d1;
         lTransformation = self.mTransformation.mFormula;
-        dict1["Model"] = { "Best_Decomposition" : self.mOutName,
-                           "Signal_Transoformation" : lTransformation,
-                           "Trend" : self.mTrend.mFormula,
-                           "Cycle" : self.mCycle.mFormula,
-                           "AR_Model" : self.mAR.mFormula,
-                           };
-        dict1["Model_Performance"] = {"MAPE" : str(self.mForecastPerf.mMAPE),
-                                      "RMSE" : str(self.mForecastPerf.mL2),
-                                      "COMPLEXITY" : str(self.getComplexity())};
-        
+        d2 = { "Best_Decomposition" : self.mOutName,
+               "Signal_Transoformation" : lTransformation,
+               "Trend" : self.mTrend.mFormula,
+               "Cycle" : self.mCycle.mFormula,
+               "AR_Model" : self.mAR.mFormula,
+               };
+        dict1["Model"] = d2;
+        d3 = {"MAPE" : str(self.mForecastPerf.mMAPE),
+              "RMSE" : str(self.mForecastPerf.mL2),
+              "COMPLEXITY" : str(self.getComplexity())};
+        dict1["Model_Performance"] = d3;
         return dict1;
 
     def plotResidues(self, name = None):

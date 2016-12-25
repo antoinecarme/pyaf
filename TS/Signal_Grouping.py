@@ -42,7 +42,7 @@ class cSignalGrouping (sighier.cSignalHierarchy):
                     if(lNewGroupLabel not in self.mStructure[level]):
                         self.mStructure[level][lNewGroupLabel] = set();
                     self.mStructure[level][lNewGroupLabel].add(lGroupLabel)
-        print("STRUCTURE_LEVEL" , level, self.mStructure[level]);
+        # print("STRUCTURE_LEVEL" , level, self.mStructure[level]);
 
     def create_HierarchicalStructure(self):
         
@@ -62,14 +62,14 @@ class cSignalGrouping (sighier.cSignalHierarchy):
         level = 0;
         self.mStructure[level] = {}
         for k in prod:
-            print("PRODUCT_DETAIL", k);
+            # print("PRODUCT_DETAIL", k);
             lGroupLabel = self.tuple_to_string(k);
             self.mLabels2Tuples[lGroupLabel] = k;
             self.mStructure[level][lGroupLabel] = set();
-        print("STRUCTURE_LEVEL" , level, self.mStructure[level]);
+        # print("STRUCTURE_LEVEL" , level, self.mStructure[level]);
         while(len(self.mStructure[level]) > 1):
             self.add_level(level);
             level = level + 1;
         
-        print("STRUCTURE", self.mStructure);
+        # print("STRUCTURE", self.mStructure);
         pass

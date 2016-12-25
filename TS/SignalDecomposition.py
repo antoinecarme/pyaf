@@ -213,7 +213,8 @@ class cSignalDecompositionOneTransform:
                                           'ForecastCount', 'ForecastL2', 'ForecastMAPE',
                                           'TestCount', 'TestL2', 'TestMAPE')) 
         self.mPerfDetails.sort_values(by=['Forecast' + self.mOptions.mModelSelection_Criterion ,
-                                          'Complexity'] , inplace=True);
+                                          'Complexity', 'Model'] , inplace=True);
+        self.mPerfDetails = self.mPerfDetails.reset_index(drop=True);
         # print(self.mPerfDetails.head());
         lBestName = self.mPerfDetails.iloc[0]['Model'];
         self.mBestModel = self.mPerfsByModel[lBestName][0];
@@ -427,9 +428,10 @@ class cSignalDecomposition:
         # allow a loss of one point (0.01 of MAPE) if complexity is reduced.
         if(not np.isnan(lBestPerf)):
             self.mTrPerfDetails.sort_values(by=[
-                'Forecast' + self.mOptions.mModelSelection_Criterion, 'Complexity'] , inplace=True);
+                'Forecast' + self.mOptions.mModelSelection_Criterion, 'Complexity', 'Model'] , inplace=True);
+            self.mTrPerfDetails = self.mTrPerfDetails.reset_index(drop=True);
                 
-            lInterestingModels = self.mTrPerfDetails[self.mTrPerfDetails['ForecastMAPE'] <= (lBestPerf + 0.01)].reset_index();
+            lInterestingModels = self.mTrPerfDetails[self.mTrPerfDetails['ForecastMAPE'] <= (lBestPerf + 0.01)].reset_index(drop=True);
         else:
             lInterestingModels = self.mTrPerfDetails;
         lInterestingModels.sort_values(by=['Complexity'] , inplace=True)
@@ -481,7 +483,8 @@ class cSignalDecomposition:
 
     def to_json(self):
         dict1 = self.mBestModel.to_json();
-        return dict1;
+        import json
+        return json.dumps(dict1, indent=4, sort_keys=True);
         
     def standrdPlots(self, name = None):
         self.mBestModel.standrdPlots(name);
