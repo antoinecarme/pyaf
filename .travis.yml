@@ -5,13 +5,13 @@ python:
 before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -y ipython3
-  - fc-cache
   
 install: pip install -r requirements.txt
 
 script: 
     - export PYTHONPATH=$PYTHONPATH:..
     - mkdir -p logs
-    - python tests/func/test_ozone.py
+    - fc-cache 
+    -  python tests/func/test_ozone.py
     - python tests/func/test_air_passengers.py
-    - make PYTHON=python -f tests/Makefile all 
+    - make PYTHON=python -f tests/Makefile build-test
