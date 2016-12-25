@@ -1,0 +1,41 @@
+INFO:pyaf.std:START_TRAINING 'AirPassengers'
+Using TensorFlow backend.
+INFO:pyaf.std:collectPerformanceIndices : _AirPassengers _AirPassengers_ConstantTrend_residue_zeroCycle_residue_LSTM(7) 7 0.4189
+ESTIMATE_RNN_MODEL_START _AirPassengers_ConstantTrend_residue_zeroCycle_residue
+ESTIMATE_RNN_MODEL_END _AirPassengers_ConstantTrend_residue_zeroCycle_residue_LSTM(7)
+Using TensorFlow backend.
+Using TensorFlow backend.
+Traceback (most recent call last):
+  File "tests/neuralnet/test_air_passengers_tensorflow.py", line 45, in <module>
+    lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H);
+  File "/home/antoine/dev/python/packages/pyaf/ForecastEngine.py", line 26, in train
+    self.mSignalDecomposition.train(iInputDS, iTime, iSignal, iHorizon, iExogenousData);
+  File "/home/antoine/dev/python/packages/pyaf/TS/SignalDecomposition.py", line 464, in train
+    self.mBestModel.computePredictionIntervals();
+  File "/home/antoine/dev/python/packages/pyaf/TS/TimeSeriesModel.py", line 76, in computePredictionIntervals
+    self.mPredictionIntervalsEstimator.computePerformances();
+  File "/home/antoine/dev/python/packages/pyaf/TS/PredictionIntervals.py", line 35, in computePerformances
+    df2 = self.mModel.forecastOneStepAhead(df1.copy());
+  File "/home/antoine/dev/python/packages/pyaf/TS/TimeSeriesModel.py", line 126, in forecastOneStepAhead
+    df1 = self.mAR.transformDataset(df1);
+  File "/home/antoine/dev/python/packages/pyaf/TS/Keras_Models.py", line 105, in transformDataset
+    pred = self.mModel.predict(inputs)
+  File "/usr/lib/python3/dist-packages/keras/models.py", line 648, in predict
+    return self.model.predict(x, batch_size=batch_size, verbose=verbose)
+  File "/usr/lib/python3/dist-packages/keras/engine/training.py", line 1177, in predict
+    self._make_predict_function()
+  File "/usr/lib/python3/dist-packages/keras/engine/training.py", line 735, in _make_predict_function
+    **kwargs)
+  File "/usr/lib/python3/dist-packages/keras/backend/tensorflow_backend.py", line 952, in function
+    return Function(inputs, outputs, updates=updates)
+  File "/usr/lib/python3/dist-packages/keras/backend/tensorflow_backend.py", line 918, in __init__
+    with tf.control_dependencies(self.outputs):
+  File "/usr/local/lib/python3.5/dist-packages/tensorflow/python/framework/ops.py", line 3487, in control_dependencies
+    return get_default_graph().control_dependencies(control_inputs)
+  File "/usr/local/lib/python3.5/dist-packages/tensorflow/python/framework/ops.py", line 3218, in control_dependencies
+    c = self.as_graph_element(c)
+  File "/usr/local/lib/python3.5/dist-packages/tensorflow/python/framework/ops.py", line 2318, in as_graph_element
+    return self._as_graph_element_locked(obj, allow_tensor, allow_operation)
+  File "/usr/local/lib/python3.5/dist-packages/tensorflow/python/framework/ops.py", line 2397, in _as_graph_element_locked
+    raise ValueError("Tensor %s is not an element of this graph." % obj)
+ValueError: Tensor Tensor("add_25:0", shape=(?, 1), dtype=float32) is not an element of this graph.

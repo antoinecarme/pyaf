@@ -1,0 +1,103 @@
+     Month  Ozone       Time
+0  1955-01    2.7 1955-01-01
+1  1955-02    2.0 1955-02-01
+2  1955-03    3.6 1955-03-01
+3  1955-04    5.0 1955-04-01
+4  1955-05    6.5 1955-05-01
+       Transformation                                              Model  \
+0   Box_Cox_0.0_Ozone  Box_Cox_0.0_Ozone_LinearTrend_residue_Seasonal...   
+1   Box_Cox_0.0_Ozone  Box_Cox_0.0_Ozone_LinearTrend_residue_bestCycl...   
+2  Box_Cox_0.25_Ozone  Box_Cox_0.25_Ozone_LinearTrend_residue_Seasona...   
+3  Box_Cox_0.25_Ozone  Box_Cox_0.25_Ozone_LinearTrend_residue_bestCyc...   
+4  Box_Cox_0.33_Ozone  Box_Cox_0.33_Ozone_LinearTrend_residue_Seasona...   
+
+   Complexity  FitCount     FitL2  FitMAPE  ForecastCount  ForecastL2  \
+0          84       153  0.900417   0.1828             39    0.605508   
+1          88       153  0.900417   0.1828             39    0.605508   
+2          84       153  0.898842   0.1835             39    0.611156   
+3          88       153  0.898842   0.1835             39    0.611156   
+4          84       153  0.898412   0.1838             39    0.613378   
+
+   ForecastMAPE  TestCount    TestL2  TestMAPE  
+0        0.1637         12  0.602980    0.2347  
+1        0.1637         12  0.602980    0.2347  
+2        0.1655         12  0.617818    0.2397  
+3        0.1655         12  0.617818    0.2397  
+4        0.1663         12  0.623019    0.2413  
+Forecast Columns  Index(['Box_Cox_0.0_Ozone', 'Ozone', 'Time', 'row_number', 'Time_Normalized',
+       'Box_Cox_0.0_Ozone_LinearTrend',
+       'Box_Cox_0.0_Ozone_LinearTrend_residue',
+       'Box_Cox_0.0_Ozone_LinearTrend_residue_zeroCycle',
+       'Box_Cox_0.0_Ozone_LinearTrend_residue_zeroCycle_residue',
+       'Box_Cox_0.0_Ozone_LinearTrend_residue_zeroCycle_residue_AR(51)',
+       'Box_Cox_0.0_Ozone_LinearTrend_residue_zeroCycle_residue_AR(51)_residue',
+       'Box_Cox_0.0_Ozone_Trend', 'Box_Cox_0.0_Ozone_Trend_residue',
+       'Box_Cox_0.0_Ozone_Cycle', 'Box_Cox_0.0_Ozone_Cycle_residue',
+       'Box_Cox_0.0_Ozone_AR', 'Box_Cox_0.0_Ozone_AR_residue',
+       'Box_Cox_0.0_Ozone_TransformedForecast',
+       'Box_Cox_0.0_Ozone_TransformedResidue', 'Ozone_Forecast',
+       'Ozone_Residue', 'Ozone_Forecast_Lower_Bound',
+       'Ozone_Forecast_Upper_Bound'],
+      dtype='object')
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 216 entries, 0 to 215
+Data columns (total 3 columns):
+Time              216 non-null datetime64[ns]
+Ozone             204 non-null float64
+Ozone_Forecast    216 non-null float64
+dtypes: datetime64[ns](1), float64(2)
+memory usage: 5.1 KB
+None
+Forecasts
+           Time  Ozone  Ozone_Forecast
+204 1972-01-01    NaN        1.200000
+205 1972-02-01    NaN        1.607676
+206 1972-03-01    NaN        2.076456
+207 1972-04-01    NaN        2.452880
+208 1972-05-01    NaN        2.888306
+209 1972-06-01    NaN        3.303096
+210 1972-07-01    NaN        3.372363
+211 1972-08-01    NaN        3.504635
+212 1972-09-01    NaN        2.980585
+213 1972-10-01    NaN        2.157431
+214 1972-11-01    NaN        1.529978
+215 1972-12-01    NaN        1.201450
+
+
+<ModelInfo>
+{
+    "Dataset": {
+        "Signal": "Ozone",
+        "Time": {
+            "Horizon": 12,
+            "TimeMinMax": [
+                "1955-01-01 00:00:00",
+                "1971-12-01 00:00:00"
+            ],
+            "TimeVariable": "Time"
+        },
+        "Training_Signal_Length": 204
+    },
+    "Model": {
+        "AR_Model": "AR(51)",
+        "Best_Decomposition": "Box_Cox_0.0_Ozone_LinearTrend_residue_zeroCycle_residue_AR(51)",
+        "Cycle": "NoCycle",
+        "Signal_Transoformation": "BoxCox(Lambda=0.0)",
+        "Trend": "LinearTrend"
+    },
+    "Model_Performance": {
+        "COMPLEXITY": "131",
+        "MAPE": "0.1389",
+        "RMSE": "0.647548524062"
+    }
+}
+</ModelInfo>
+
+
+
+
+<Forecast>
+{"Time":{"0":"1955-01-01T00:00:00.000Z","1":"1955-02-01T00:00:00.000Z","2":"1955-03-01T00:00:00.000Z","3":"1955-04-01T00:00:00.000Z","4":"1955-05-01T00:00:00.000Z","5":"1955-06-01T00:00:00.000Z","6":"1955-07-01T00:00:00.000Z","7":"1955-08-01T00:00:00.000Z","8":"1955-09-01T00:00:00.000Z","9":"1955-10-01T00:00:00.000Z","10":"1955-11-01T00:00:00.000Z","11":"1955-12-01T00:00:00.000Z"},"Ozone":{"0":2.7,"1":2.0,"2":3.6,"3":5.0,"4":6.5,"5":6.1,"6":5.9,"7":5.0,"8":6.4,"9":7.4,"10":8.2,"11":3.9},"Ozone_Forecast":{"0":4.2362409612,"1":4.2240907162,"2":4.0154527117,"3":4.3934598366,"4":4.7973443537,"5":5.2948846896,"6":5.5079634101,"7":5.5116461617,"8":5.3787317984,"9":5.4894396747,"10":5.5287772193,"11":5.5015679929}}
+</Forecast>
+
+
