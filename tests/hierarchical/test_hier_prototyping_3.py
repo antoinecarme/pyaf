@@ -28,10 +28,10 @@ def define_hierarchy_info():
     # Sydney    NSW  Melbourne    VIC  BrisbaneGC    QLD  Capitals Other
     rows_list.append(['Sydney' , 'NSW_State' , 'Australia']);
     rows_list.append(['NSW' , 'NSW_State' , 'Australia']);
-    rows_list.append(['Melbourne' , 'VIC_State' , 'Australia']);
-    rows_list.append(['VIC' , 'VIC_State' , 'Australia']);
-    rows_list.append(['BrisbaneGC' , 'QLD_State' , 'Australia']);
-    rows_list.append(['QLD' , 'QLD_State' , 'Australia']);
+    # rows_list.append(['Melbourne' , 'VIC_State' , 'Australia']);
+    # rows_list.append(['VIC' , 'VIC_State' , 'Australia']);
+    # rows_list.append(['BrisbaneGC' , 'QLD_State' , 'Australia']);
+    # rows_list.append(['QLD' , 'QLD_State' , 'Australia']);
     rows_list.append(['Capitals' , 'Other_State' , 'Australia']);
     rows_list.append(['Other' , 'Other_State' , 'Australia']);
 
