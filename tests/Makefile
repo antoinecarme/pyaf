@@ -51,20 +51,10 @@ exog/test_ozone_exogenous.py  :
  exog :  exog/test_ozone_exogenous.py exog/test_ozone_exogenous_profile.py exog/test_random_exogenous.py  
  
 
-hierarchical/test_hier_prototyping_5.py  :  
-	 -time $(PYTHON)  tests/hierarchical/test_hier_prototyping_5.py  >  logs/hierarchical_test_hier_prototyping_5.log  2>&1
-	 -diff  logs/hierarchical_test_hier_prototyping_5.log tests/references/hierarchical_test_hier_prototyping_5.log  >  logs/hierarchical_test_hier_prototyping_5.log.diff
-	 cat  logs/hierarchical_test_hier_prototyping_5.log.diff 
-
 hierarchical/test_grouped_signals_BU.py  :  
 	 -time $(PYTHON)  tests/hierarchical/test_grouped_signals_BU.py  >  logs/hierarchical_test_grouped_signals_BU.log  2>&1
 	 -diff  logs/hierarchical_test_grouped_signals_BU.log tests/references/hierarchical_test_grouped_signals_BU.log  >  logs/hierarchical_test_grouped_signals_BU.log.diff
 	 cat  logs/hierarchical_test_grouped_signals_BU.log.diff 
-
-hierarchical/test_hier_prototyping_2.py  :  
-	 -time $(PYTHON)  tests/hierarchical/test_hier_prototyping_2.py  >  logs/hierarchical_test_hier_prototyping_2.log  2>&1
-	 -diff  logs/hierarchical_test_hier_prototyping_2.log tests/references/hierarchical_test_hier_prototyping_2.log  >  logs/hierarchical_test_hier_prototyping_2.log.diff
-	 cat  logs/hierarchical_test_hier_prototyping_2.log.diff 
 
 hierarchical/test_grouped_signals_TD.py  :  
 	 -time $(PYTHON)  tests/hierarchical/test_grouped_signals_TD.py  >  logs/hierarchical_test_grouped_signals_TD.log  2>&1
@@ -91,30 +81,10 @@ hierarchical/test_hierarchy_AU_OC.py  :
 	 -diff  logs/hierarchical_test_hierarchy_AU_OC.log tests/references/hierarchical_test_hierarchy_AU_OC.log  >  logs/hierarchical_test_hierarchy_AU_OC.log.diff
 	 cat  logs/hierarchical_test_hierarchy_AU_OC.log.diff 
 
-hierarchical/test_hier_prototyping_1.py  :  
-	 -time $(PYTHON)  tests/hierarchical/test_hier_prototyping_1.py  >  logs/hierarchical_test_hier_prototyping_1.log  2>&1
-	 -diff  logs/hierarchical_test_hier_prototyping_1.log tests/references/hierarchical_test_hier_prototyping_1.log  >  logs/hierarchical_test_hier_prototyping_1.log.diff
-	 cat  logs/hierarchical_test_hier_prototyping_1.log.diff 
-
-hierarchical/test_hier_prototyping_4.py  :  
-	 -time $(PYTHON)  tests/hierarchical/test_hier_prototyping_4.py  >  logs/hierarchical_test_hier_prototyping_4.log  2>&1
-	 -diff  logs/hierarchical_test_hier_prototyping_4.log tests/references/hierarchical_test_hier_prototyping_4.log  >  logs/hierarchical_test_hier_prototyping_4.log.diff
-	 cat  logs/hierarchical_test_hier_prototyping_4.log.diff 
-
 hierarchical/test_grouped_signals_OC.py  :  
 	 -time $(PYTHON)  tests/hierarchical/test_grouped_signals_OC.py  >  logs/hierarchical_test_grouped_signals_OC.log  2>&1
 	 -diff  logs/hierarchical_test_grouped_signals_OC.log tests/references/hierarchical_test_grouped_signals_OC.log  >  logs/hierarchical_test_grouped_signals_OC.log.diff
 	 cat  logs/hierarchical_test_grouped_signals_OC.log.diff 
-
-hierarchical/test_hier_prototyping_3.py  :  
-	 -time $(PYTHON)  tests/hierarchical/test_hier_prototyping_3.py  >  logs/hierarchical_test_hier_prototyping_3.log  2>&1
-	 -diff  logs/hierarchical_test_hier_prototyping_3.log tests/references/hierarchical_test_hier_prototyping_3.log  >  logs/hierarchical_test_hier_prototyping_3.log.diff
-	 cat  logs/hierarchical_test_hier_prototyping_3.log.diff 
-
-hierarchical/test_grouped_prototyping_1.py  :  
-	 -time $(PYTHON)  tests/hierarchical/test_grouped_prototyping_1.py  >  logs/hierarchical_test_grouped_prototyping_1.log  2>&1
-	 -diff  logs/hierarchical_test_grouped_prototyping_1.log tests/references/hierarchical_test_grouped_prototyping_1.log  >  logs/hierarchical_test_grouped_prototyping_1.log.diff
-	 cat  logs/hierarchical_test_grouped_prototyping_1.log.diff 
 
 hierarchical/test_hierarchy_AU_MO.py  :  
 	 -time $(PYTHON)  tests/hierarchical/test_hierarchy_AU_MO.py  >  logs/hierarchical_test_hierarchy_AU_MO.log  2>&1
@@ -133,7 +103,7 @@ hierarchical/test_grouped.py  :
 
 
 
- hierarchical :  hierarchical/test_grouped.py hierarchical/test_grouped_signals_MO.py hierarchical/test_hierarchy_AU_MO.py hierarchical/test_grouped_prototyping_1.py hierarchical/test_hier_prototyping_3.py hierarchical/test_grouped_signals_OC.py hierarchical/test_hier_prototyping_4.py hierarchical/test_hier_prototyping_1.py hierarchical/test_hierarchy_AU_OC.py hierarchical/test_hierarchy_AU_TD.py hierarchical/test_hierarchy_AU_BU.py hierarchical/test_hierarchy_AU.py hierarchical/test_grouped_signals_TD.py hierarchical/test_hier_prototyping_2.py hierarchical/test_grouped_signals_BU.py hierarchical/test_hier_prototyping_5.py  
+ hierarchical :  hierarchical/test_grouped.py hierarchical/test_grouped_signals_MO.py hierarchical/test_hierarchy_AU_MO.py hierarchical/test_grouped_signals_OC.py hierarchical/test_hierarchy_AU_OC.py hierarchical/test_hierarchy_AU_TD.py hierarchical/test_hierarchy_AU_BU.py hierarchical/test_hierarchy_AU.py hierarchical/test_grouped_signals_TD.py hierarchical/test_grouped_signals_BU.py  
  
 
 model_control/test_ozone_all_models_enabled.py  :  
@@ -391,21 +361,6 @@ neuralnet/test_air_passengers_tensorflow.py  :
 	 -diff  logs/neuralnet_test_air_passengers_tensorflow.log tests/references/neuralnet_test_air_passengers_tensorflow.log  >  logs/neuralnet_test_air_passengers_tensorflow.log.diff
 	 cat  logs/neuralnet_test_air_passengers_tensorflow.log.diff 
 
-neuralnet/Keras_LSTM_prototype1_gen.py  :  
-	 -time $(PYTHON)  tests/neuralnet/Keras_LSTM_prototype1_gen.py  >  logs/neuralnet_Keras_LSTM_prototype1_gen.log  2>&1
-	 -diff  logs/neuralnet_Keras_LSTM_prototype1_gen.log tests/references/neuralnet_Keras_LSTM_prototype1_gen.log  >  logs/neuralnet_Keras_LSTM_prototype1_gen.log.diff
-	 cat  logs/neuralnet_Keras_LSTM_prototype1_gen.log.diff 
-
-neuralnet/Keras_LSTM_prototype1_airline_passengers.py  :  
-	 -time $(PYTHON)  tests/neuralnet/Keras_LSTM_prototype1_airline_passengers.py  >  logs/neuralnet_Keras_LSTM_prototype1_airline_passengers.log  2>&1
-	 -diff  logs/neuralnet_Keras_LSTM_prototype1_airline_passengers.log tests/references/neuralnet_Keras_LSTM_prototype1_airline_passengers.log  >  logs/neuralnet_Keras_LSTM_prototype1_airline_passengers.log.diff
-	 cat  logs/neuralnet_Keras_LSTM_prototype1_airline_passengers.log.diff 
-
-neuralnet/Keras_LSTM_prototype1_ozone.py  :  
-	 -time $(PYTHON)  tests/neuralnet/Keras_LSTM_prototype1_ozone.py  >  logs/neuralnet_Keras_LSTM_prototype1_ozone.log  2>&1
-	 -diff  logs/neuralnet_Keras_LSTM_prototype1_ozone.log tests/references/neuralnet_Keras_LSTM_prototype1_ozone.log  >  logs/neuralnet_Keras_LSTM_prototype1_ozone.log.diff
-	 cat  logs/neuralnet_Keras_LSTM_prototype1_ozone.log.diff 
-
 neuralnet/test_ozone__GPU.py  :  
 	 -time $(PYTHON)  tests/neuralnet/test_ozone__GPU.py  >  logs/neuralnet_test_ozone__GPU.log  2>&1
 	 -diff  logs/neuralnet_test_ozone__GPU.log tests/references/neuralnet_test_ozone__GPU.log  >  logs/neuralnet_test_ozone__GPU.log.diff
@@ -418,7 +373,7 @@ neuralnet/test_air_passengers_rnn_only.py  :
 
 
 
- neuralnet :  neuralnet/test_air_passengers_rnn_only.py neuralnet/test_ozone__GPU.py neuralnet/Keras_LSTM_prototype1_ozone.py neuralnet/Keras_LSTM_prototype1_airline_passengers.py neuralnet/Keras_LSTM_prototype1_gen.py neuralnet/test_air_passengers_tensorflow.py neuralnet/test_ozone_rnn_only.py neuralnet/test_air_passengers_GPU.py neuralnet/test_ozone_tensorflow.py  
+ neuralnet :  neuralnet/test_air_passengers_rnn_only.py neuralnet/test_ozone__GPU.py neuralnet/test_air_passengers_tensorflow.py neuralnet/test_ozone_rnn_only.py neuralnet/test_air_passengers_GPU.py neuralnet/test_ozone_tensorflow.py  
  
 
 real-life/test_sof_example2.py  :  

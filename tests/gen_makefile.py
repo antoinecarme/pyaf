@@ -12,7 +12,7 @@ for subdir1 in subdirs:
         lShortName = os.path.basename(filename);
         if(not lShortName.lower().startswith("gen_all") and
            not lShortName.lower().startswith("gen_makefile") and
-           not "protoyp" in lShortName.lower()):
+           not "prototyp" in lShortName.lower()):
             bn = subdir1 + "/" + lShortName;
             logfile = bn.replace("/" , "_");
             logname = logfile.replace(".py" , ".log");
