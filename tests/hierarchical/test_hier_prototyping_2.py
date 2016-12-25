@@ -90,19 +90,21 @@ for signal in lAllLevelColumns:
 
     # lEngine.mOptions.enable_slow_mode();
     # lEngine.mOptions.mDebugPerformance = True;
+    lEngine.mOptions.set_active_autoregressions([]);
+
     lEngine.train(df1 , lDateColumn , signal, H);
     lEngine.getModelInfo();
     print(lEngine.mSignalDecomposition.mTrPerfDetails.head());
 
     lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
 
-    lEngine.standrdPlots("outputs/hierarchical_" + signal);
+    #lEngine.standrdPlots("outputs/hierarchical_" + signal);
 
     dfapp_in = df1.copy();
     dfapp_in.tail()
 
     dfapp_out = lEngine.forecast(dfapp_in, H);
-    dfapp_out.to_csv("outputs/ozone_apply_out.csv")
+    #dfapp_out.to_csv("outputs/ozone_apply_out.csv")
     dfapp_out.tail(2 * H)
     print("Forecast Columns " , dfapp_out.columns);
     Forecast_DF = dfapp_out[[lDateColumn , signal, signal + '_Forecast']]

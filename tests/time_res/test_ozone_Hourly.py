@@ -13,7 +13,7 @@ for k in range(1,32):
     df[b1.mTimeVar + "_" + str(k) + '_Hourly'] = pd.date_range('2000-1-1', periods=df.shape[0], freq=str(k) + 'h')
 
 
-df.to_csv("outputs/ozone_WDHMS.csv");
+#df.to_csv("outputs/ozone_WDHMS.csv");
 #df.tail(10)
 #df[:-10].tail()
 #df[:-10:-1]
@@ -40,7 +40,7 @@ for k in range(1,32):
         
         # H = 12
         dfapp_out = lEngine.forecast(dfapp_in, H);
-        dfapp_out.to_csv("outputs/ozone_" + timevar + "apply_out.csv")
+        #dfapp_out.to_csv("outputs/ozone_" + timevar + "apply_out.csv")
         dfapp_out.tail(2 * H)
         print("Forecast Columns " , dfapp_out.columns);
         Forecast_DF = dfapp_out[[timevar , b1.mSignalVar, b1.mSignalVar + '_Forecast']]

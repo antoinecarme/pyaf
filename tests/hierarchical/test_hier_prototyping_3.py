@@ -83,6 +83,7 @@ def createModelForAllLevels(df, hier, iStrcture, H, iDateColumn):
 
             # lEngine.mOptions.enable_slow_mode();
             # lEngine.mOptions.mDebugPerformance = True;
+            lEngine.mOptions.set_active_autoregressions([]);
             lEngine.train(df1 , lDateColumn , signal, H);
             lEngine.getModelInfo();
             lModels[level][signal] = lEngine;

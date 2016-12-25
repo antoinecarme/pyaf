@@ -10,7 +10,7 @@ import pyaf.CodeGen.TS_CodeGenerator as tscodegen
 
 b1 = tsds.generate_random_TS(N = 3200 , FREQ = 'D', seed = 0, trendtype = "linear", cycle_length = 12, transform = "", sigma = 0.0);
 df = b1.mPastData
-df.to_csv("outputs/acfrefefs_cycle.csv")
+#df.to_csv("outputs/acfrefefs_cycle.csv")
 #df.tail(10)
 #df[:-10].tail()
 #df[:-10:-1]

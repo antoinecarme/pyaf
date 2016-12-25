@@ -11,6 +11,7 @@ b1 = tsds.load_AU_hierarchical_dataset();
 df = b1.mPastData;
 
 lEngine = hautof.cHierarchicalForecastEngine()
+lEngine.mOptions.set_active_autoregressions([]);
 lEngine
 
 H = b1.mHorizon;

@@ -19,7 +19,7 @@ def test_random_exogenous(n , nbex):
         # this script works on mysql with N = 600, exog_count = 20 when thread_stack = 1920K in
         # /etc/mysql/mysql.conf.d/mysqld.cnf
 
-        # df.to_csv("outputs/rand_exogenous.csv")
+        # #df.to_csv("outputs/rand_exogenous.csv")
     
         H = b1.mHorizon;
     

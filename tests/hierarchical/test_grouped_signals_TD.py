@@ -16,6 +16,7 @@ df = b1.mPastData;
 
 lEngine = hautof.cHierarchicalForecastEngine()
 lEngine.mOptions.mHierarchicalCombinationMethod = "TD";
+lEngine.mOptions.set_active_autoregressions([]);
 lEngine
 
 H = b1.mHorizon;
@@ -25,10 +26,10 @@ H = b1.mHorizon;
 lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H, b1.mHierarchy, None);
 
 lEngine.getModelInfo();
-lEngine.standrdPlots("outputs/AU_infant_");
+#lEngine.standrdPlots("outputs/AU_infant_");
 
 dfapp_in = df.copy();
 dfapp_in.tail()
 
 dfapp_out = lEngine.forecast(dfapp_in, H);
-dfapp_out.to_csv("outputs/Grouped_AU_apply_out.csv")
+#dfapp_out.to_csv("outputs/Grouped_AU_apply_out.csv")
