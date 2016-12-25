@@ -11,7 +11,8 @@ for subdir1 in subdirs:
     for filename in glob.glob("tests/" + subdir1 + "/*.py"):
         lShortName = os.path.basename(filename);
         if(not lShortName.lower().startswith("gen_all") and
-           not lShortName.lower().startswith("gen_makefile") ):
+           not lShortName.lower().startswith("gen_makefile") and
+           not "protoyp" in lShortName.lower()):
             bn = subdir1 + "/" + lShortName;
             logfile = bn.replace("/" , "_");
             logname = logfile.replace(".py" , ".log");
@@ -21,7 +22,7 @@ for subdir1 in subdirs:
             # print("#PROCESSING FILE : " , filename, bn , logfile);
         
             print(bn , " : " , "\n\t", "-time $(PYTHON) " , filename , " > " , logfile, " 2>&1");
-            print("\t", "-diff -q " , logfile , reflogfile , " > " , difffile);
+            print("\t", "-diff " , logfile , reflogfile , " > " , difffile);
             print("\t", "cat " ,  difffile, "\n");
                 
             test_target = bn + " " + test_target;
@@ -31,3 +32,7 @@ for subdir1 in subdirs:
 print("\n# ********************************************** \n");
 
 print("all: " , str1 , "\n\t\n");
+
+str2 = "bugs exog hierarchical model_control perf svr transformations func real-life  time_res";
+
+print("build-test : " , str2 , "\n\t\n");

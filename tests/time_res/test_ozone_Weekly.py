@@ -28,7 +28,9 @@ for k in range(1,32):
 
         H = b1.mHorizon;
         # lEngine.mOptions.enable_slow_mode();
-        lEngine.mOptions.mDebugPerformance = True;
+        # lEngine.mOptions.mDebugPerformance = True;
+        lEngine.mOptions.set_active_autoregressions([]);
+
         lEngine.train(df , timevar , b1.mSignalVar, H);
         lEngine.getModelInfo();
         print(lEngine.mSignalDecomposition.mTrPerfDetails.head());
