@@ -35,7 +35,7 @@ class cModelControl:
         self.set_active_transformations(self.mKnownTransformations[0:4]);
         self.set_active_trends(self.mKnownTrends[0:4]);
         self.set_active_periodics(self.mKnownPeriodics);
-        self.set_active_autoregressions(self.mKnownAutoRegressions[0:2]);
+        self.set_active_autoregressions(self.mKnownAutoRegressions[0:3]);
         
     def set_active_transformations(self, transformations):
         self.mActiveTransformations = {};
