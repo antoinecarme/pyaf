@@ -427,6 +427,6 @@ time_res/test_ozone_Hourly.py  :
 all:  artificial bugs exog hierarchical model_control perf svr transformations bench func neuralnet real-life  time_res 
 	
 
-build-test :  bugs exog hierarchical model_control perf svr transformations func real-life  time_res 
+build-test :  bugs exog hierarchical model_control svr transformations func real-life  time_res 
 	
 
