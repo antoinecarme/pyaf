@@ -18,7 +18,7 @@ lSignalVar = 'dengue_index'
 lEngine = autof.cForecastEngine()
 lEngine
 
-H = 500;
+H = 5;
 
 #lEngine.mOptions.enable_slow_mode();
 lEngine.mOptions.mDebugPerformance = True;
