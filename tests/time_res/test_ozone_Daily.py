@@ -9,7 +9,7 @@ b1 = tsds.load_ozone()
 df = b1.mPastData
 
 
-for k in range(1,32):
+for k in [1 , 5]:
     df[b1.mTimeVar + "_" + str(k) + '_Daily'] = pd.date_range('2000-1-1', periods=df.shape[0], freq=str(k) + 'D')
 
 
@@ -20,7 +20,7 @@ for k in range(1,32):
 #df.describe()
 
 
-for k in range(1,32):
+for k in [1 , 5]:
     for timevar in [b1.mTimeVar +  "_" + str(k) + '_Daily']:
 
         lEngine = autof.cForecastEngine()

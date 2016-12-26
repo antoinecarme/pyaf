@@ -9,7 +9,7 @@ b1 = tsds.load_ozone()
 df = b1.mPastData
 
 
-for k in range(1,32):
+for k in [1 , 5]:
     df[b1.mTimeVar + "_" + str(k) + '_PerMinute'] = pd.date_range('2000-1-1', periods=df.shape[0], freq=str(k) + 'min')
 
 
@@ -20,7 +20,7 @@ for k in range(1,32):
 #df.describe()
 
 
-for k in range(1,32):
+for k in [1 , 5]:
     for timevar in [b1.mTimeVar +  "_" + str(k) + '_PerMinute']:
 
         lEngine = autof.cForecastEngine()
@@ -29,6 +29,7 @@ for k in range(1,32):
         H = b1.mHorizon;
         # lEngine.mOptions.enable_slow_mode();
         lEngine.mOptions.mDebugPerformance = True;
+        lEngine.mOptions.set_active_autoregressions([]);
         lEngine.train(df , timevar , b1.mSignalVar, H);
         lEngine.getModelInfo();
         print(lEngine.mSignalDecomposition.mTrPerfDetails.head());
