@@ -54,4 +54,4 @@ for k in range(1,32):
         print(Forecast_DF.to_json(date_format='iso'))
         print("</Forecast>\n\n")
         
-        lEngine.standrdPlots(name = "outputs/ozone_" + timevar)
+        # lEngine.standrdPlots(name = "outputs/ozone_" + timevar)
