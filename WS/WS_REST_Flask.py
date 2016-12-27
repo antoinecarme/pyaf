@@ -108,5 +108,5 @@ def removeOneModel(name):
     return jsonify_models();
 
 if __name__ == '__main__':
-    app.run(host='192.168.88.88', debug=True, port=8080) #run app on port 8080 in debug mode
+    app.run(host='0.0.0.0', debug=True)
     
