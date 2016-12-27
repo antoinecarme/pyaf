@@ -20,5 +20,7 @@ ozone_dataframe['Date'] = ozone_dataframe['Month'].apply(lambda x : datetime.dat
 lExogenousData = (exog_dataframe , ['Exog2' , 'Exog3' , 'Exog4',  'Exog5']) 
 
 lEngine.train(ozone_dataframe , 'Date' , 'Ozone', 12 , lExogenousData);
+lEngine.getModelInfo();
+print(lEngine.mSignalDecomposition.mTrPerfDetails.head());
 
 forecast_dataframe = lEngine.forecast(ozone_dataframe, 12)
