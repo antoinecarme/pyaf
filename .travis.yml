@@ -11,7 +11,9 @@ install: pip install -r requirements.txt
 script: 
     - export PYTHONPATH=$PYTHONPATH:..
     - mkdir -p logs
+    - rm -rf ~/.matplotlib
+    - rm -rf ~/.matplotlib/fontList.cache
     - fc-cache 
-    -  python tests/func/test_ozone.py
+    - python tests/func/test_ozone.py
     - python tests/func/test_air_passengers.py
     - make PYTHON=python -f tests/Makefile build-test

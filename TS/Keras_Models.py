@@ -26,7 +26,7 @@ class cAbstract_RNN_Model(tsar.cAbstractAR):
         return iInputs;
     
     def fit(self):
-        print("ESTIMATE_RNN_MODEL_START" , self.mCycleResidueName);
+        # print("ESTIMATE_RNN_MODEL_START" , self.mCycleResidueName);
         from keras import callbacks
 
         self.build_RNN_Architecture();
@@ -86,7 +86,7 @@ class cAbstract_RNN_Model(tsar.cAbstractAR):
 
         self.mARFrame[self.mOutName + '_residue'] =  self.mARFrame[series] - self.mARFrame[self.mOutName]
 
-        print("ESTIMATE_RNN_MODEL_END" , self.mOutName);
+        # print("ESTIMATE_RNN_MODEL_END" , self.mOutName);
 
     def transformDataset(self, df):
         series = self.mCycleResidueName; 
