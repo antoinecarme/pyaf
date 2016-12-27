@@ -4,12 +4,13 @@
 # This file is part of the Python Automatic Forecasting (PyAF) library and is made available under
 # the terms of the 3 Clause BSD license
 
+from __future__ import absolute_import
+
 import pandas as pd
 import numpy as np
 import datetime as dt
 
-import pyaf.ForecastEngine as autof
-import pyaf.Bench.TS_datasets as tsds
+import ForecastEngine as autof
 
 from flask import Flask, jsonify, request
 import logging

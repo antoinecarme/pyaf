@@ -4,8 +4,11 @@
 # This file is part of the Python Automatic Forecasting (PyAF) library and is made available under
 # the terms of the 3 Clause BSD license
 
+from __future__ import absolute_import
+
 from flask import Flask, jsonify, request #import objects from the Flask model
 
+# from .
 import WS_Backend as be;
 
 app = Flask(__name__) #define app using Flask
