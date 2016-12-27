@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
-import pyaf.HierarchicalForecastEngine as hautof
-import pyaf.Bench.TS_datasets as tsds
+import HierarchicalForecastEngine as hautof
+import Bench.TS_datasets as tsds
 
 import datetime
 

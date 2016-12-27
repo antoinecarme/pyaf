@@ -2,11 +2,11 @@ import pandas as pd
 import numpy as np
 import warnings
 
-import pyaf.ForecastEngine as autof
-import pyaf.Bench.TS_datasets as tsds
+import ForecastEngine as autof
+import Bench.TS_datasets as tsds
 
-import pyaf.CodeGen.TS_CodeGenerator as tscodegen
-import pyaf.Bench.MComp as mcomp
+import CodeGen.TS_CodeGenerator as tscodegen
+import Bench.MComp as mcomp
 
 tester7 = mcomp.cMComp_Tester(tsds.load_M4_comp() , "M4_COMP");
 with warnings.catch_warnings():

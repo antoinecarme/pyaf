@@ -1,9 +1,9 @@
 
 import pandas as pd
 import numpy as np
-import pyaf.ForecastEngine as autof
+import ForecastEngine as autof
 
-import pyaf.CodeGen.TS_CodeGenerator as tscodegen
+import CodeGen.TS_CodeGenerator as tscodegen
 
 import logging
 import logging.config

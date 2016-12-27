@@ -36,6 +36,6 @@ for transf in lKnownTransformations:
                 filename= "tests/model_control/detailed/transf_" + str(transf) + "/model_control_one_enabled_" + str(transf) + "_" + str(trend) + "_" + str(per) + "_" + str(autoreg) + ".py";
                 file = open(filename, "w");
                 print("WRTITING_FILE" , filename);
-                file.write("import pyaf.tests.model_control.test_ozone_custom_models_enabled as testmod\n");
+                file.write("import tests.model_control.test_ozone_custom_models_enabled as testmod\n");
                 file.write("\n\ntestmod.build_model( ['" + str(transf) + "'] , ['" + str(trend) + "'] , ['" + str(per) + "'] , ['" + str(autoreg) + "'] );");
                 file.close();

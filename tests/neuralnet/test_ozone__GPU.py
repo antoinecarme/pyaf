@@ -3,8 +3,8 @@ os.environ["THEANO_FLAGS"] = "mode=FAST_RUN,device=gpu,floatX=float32,lib.cnmem=
 
 import pandas as pd
 import numpy as np
-import pyaf.ForecastEngine as autof
-import pyaf.Bench.TS_datasets as tsds
+import ForecastEngine as autof
+import Bench.TS_datasets as tsds
 
 
 import logging

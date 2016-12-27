@@ -1,10 +1,10 @@
 import pandas as pd
 import numpy as np
 
-import pyaf.ForecastEngine as autof
-import pyaf.Bench.TS_datasets as tsds
+import ForecastEngine as autof
+import Bench.TS_datasets as tsds
 
-import pyaf.CodeGen.TS_CodeGenerator as tscodegen
+import CodeGen.TS_CodeGenerator as tscodegen
 
 # get_ipython().magic('matplotlib inline')
 # %load_ext memory_profiler

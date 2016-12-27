@@ -1,7 +1,14 @@
+from __future__ import absolute_import
+
 import pandas as pd
 import numpy as np
-import pyaf.ForecastEngine as autof
-import pyaf.Bench.TS_datasets as tsds
+
+
+# import '.' as pyaf_new_name
+# pyaf=pyaf_new_name
+# from pyaf
+import ForecastEngine as autof
+import Bench.TS_datasets as tsds
 
 #get_ipython().magic('matplotlib inline')
 

@@ -1,7 +1,9 @@
-import pyaf.Bench.TS_datasets as tsds
+# from __future__ import absolute_import
+
+import ForecastEngine as autof
+import Bench.TS_datasets as tsds
 import warnings
 
-import pyaf.ForecastEngine as autof
 
 
 def process_dataset(idataset):
