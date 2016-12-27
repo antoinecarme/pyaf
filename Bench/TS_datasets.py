@@ -14,7 +14,7 @@ from datetime import date
 
 from yahoo_finance import Share
 import os.path
-import pyaf.data.stocks_symbol_list as symlist
+import data.stocks_symbol_list as symlist
 
 
 class cTimeSeriesDatasetSpec:
