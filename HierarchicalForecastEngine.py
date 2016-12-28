@@ -7,13 +7,13 @@
 import pandas as pd
 import numpy as np
 
-from .TS import Options as tsopts
-from .TS import Perf as tsperf
-from .TS import Utils as tsutil
-from .TS import SignalHierarchy as sighier
-from .TS import Signal_Grouping as siggroup
+from TS import Options as tsopts
+from TS import Perf as tsperf
+from TS import Utils as tsutil
+from TS import SignalHierarchy as sighier
+from TS import Signal_Grouping as siggroup
 
-from .CodeGen import TS_CodeGen_Objects as tscodegen
+from CodeGen import TS_CodeGen_Objects as tscodegen
 
 class cHierarchicalForecastEngine:
         
