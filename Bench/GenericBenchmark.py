@@ -7,9 +7,9 @@
 import pandas as pd
 import numpy as np
 
-import pyaf.ForecastEngine as autof
+import ForecastEngine as autof
 from  pyaf.CodeGen import TS_CodeGenerator as tscodegen
-import pyaf.Bench.TS_datasets as tsds
+import Bench.TS_datasets as tsds
 
 import sys,os
 # for timing

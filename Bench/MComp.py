@@ -6,11 +6,10 @@
 
 import pandas as pd
 import numpy as np
-import pyaf as autof
-import pyaf.Bench.TS_datasets as tsds
+import Bench.TS_datasets as tsds
 import sys,os
 
-import pyaf.Bench.GenericBenchmark as ben
+import Bench.GenericBenchmark as ben
 
 
 

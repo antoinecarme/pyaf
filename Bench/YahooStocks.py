@@ -9,7 +9,7 @@ import numpy as np
 
 import sys, os, traceback
 
-import pyaf.Bench.GenericBenchmark as ben
+import Bench.GenericBenchmark as ben
 
 
 class cYahoo_Tester(ben.cGeneric_Tester):
