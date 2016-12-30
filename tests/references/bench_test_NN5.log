@@ -1,9 +1,243 @@
-Traceback (most recent call last):
-  File "tests/bench/test_NN5.py", line 9, in <module>
-    import pyaf.Bench.NN3 as tNN3
-  File "/home/antoine/dev/python/packages/pyaf/Bench/NN3.py", line 10, in <module>
-    import Bench.TS_datasets as tsds
-ImportError: No module named 'Bench'
-Command exited with non-zero status 1
-1.62user 0.12system 0:02.37elapsed 73%CPU (0avgtext+0avgdata 95052maxresident)k
-0inputs+16outputs (0major+30523minor)pagefaults 0swaps
+BENCH_TYPE NN5 OneDataFrameForAllSignals
+BENCH_DATA NN5 <Bench.TS_datasets.cTimeSeriesDatasetSpec object at 0x7f08f6252710>
+TIME :  Day N= 789 H= 2 HEAD= ['1996-03-18T00:00:00.000000000' '1996-03-19T00:00:00.000000000'
+ '1996-03-20T00:00:00.000000000' '1996-03-21T00:00:00.000000000'
+ '1996-03-22T00:00:00.000000000'] TAIL= ['1998-05-11T00:00:00.000000000' '1998-05-12T00:00:00.000000000'
+ '1998-05-13T00:00:00.000000000' '1998-05-14T00:00:00.000000000'
+ '1998-05-15T00:00:00.000000000']
+SIGNAL :  NN5-025 N= 789 H= 2 HEAD= [  9.467  11.876  17.956  25.071  19.827] TAIL= [ 17.829  15.59   22.676  32.625  32.129]
+   NN5-025        Day
+0    9.467 1996-03-18
+1   11.876 1996-03-19
+2   17.956 1996-03-20
+3   25.071 1996-03-21
+4   19.827 1996-03-22
+<class 'pandas.core.frame.DataFrame'>
+Int64Index: 789 entries, 0 to 788
+Data columns (total 2 columns):
+NN5-025    789 non-null float64
+Day        789 non-null datetime64[ns]
+dtypes: datetime64[ns](1), float64(1)
+memory usage: 18.5 KB
+None
+      Transformation                                              Model  \
+0     CumSum_NN5-025  CumSum_NN5-025_PolyTrend_residue_Seasonal_DayO...   
+1     CumSum_NN5-025  CumSum_NN5-025_PolyTrend_residue_bestCycle_byL...   
+2       Diff_NN5-025  Diff_NN5-025_LinearTrend_residue_Seasonal_DayO...   
+3       Diff_NN5-025  Diff_NN5-025_LinearTrend_residue_bestCycle_byL...   
+4           _NN5-025  _NN5-025_PolyTrend_residue_Seasonal_DayOfWeek_...   
+5           _NN5-025  _NN5-025_PolyTrend_residue_bestCycle_byL2_resi...   
+6           _NN5-025  _NN5-025_LinearTrend_residue_Seasonal_DayOfWee...   
+7           _NN5-025  _NN5-025_LinearTrend_residue_bestCycle_byL2_re...   
+8       Diff_NN5-025  Diff_NN5-025_ConstantTrend_residue_Seasonal_Da...   
+9       Diff_NN5-025  Diff_NN5-025_ConstantTrend_residue_bestCycle_b...   
+10          _NN5-025  _NN5-025_ConstantTrend_residue_Seasonal_DayOfW...   
+11          _NN5-025  _NN5-025_ConstantTrend_residue_bestCycle_byL2_...   
+12          _NN5-025  _NN5-025_PolyTrend_residue_Seasonal_WeekOfYear...   
+13          _NN5-025  _NN5-025_PolyTrend_residue_Seasonal_DayOfWeek_...   
+14          _NN5-025  _NN5-025_PolyTrend_residue_bestCycle_byL2_resi...   
+15          _NN5-025  _NN5-025_ConstantTrend_residue_Seasonal_DayOfW...   
+16          _NN5-025  _NN5-025_ConstantTrend_residue_bestCycle_byL2_...   
+17    CumSum_NN5-025  CumSum_NN5-025_LinearTrend_residue_Seasonal_Da...   
+18          _NN5-025  _NN5-025_LinearTrend_residue_Seasonal_DayOfWee...   
+19          _NN5-025  _NN5-025_LinearTrend_residue_bestCycle_byL2_re...   
+20          _NN5-025  _NN5-025_PolyTrend_residue_Seasonal_MonthOfYea...   
+21          _NN5-025  _NN5-025_Lag1Trend_residue_Seasonal_DayOfWeek_...   
+22          _NN5-025  _NN5-025_Lag1Trend_residue_bestCycle_byL2_resi...   
+23          _NN5-025  _NN5-025_Lag1Trend_residue_Seasonal_WeekOfYear...   
+24          _NN5-025  _NN5-025_LinearTrend_residue_Seasonal_WeekOfYe...   
+25          _NN5-025  _NN5-025_ConstantTrend_residue_Seasonal_WeekOf...   
+26    CumSum_NN5-025  CumSum_NN5-025_PolyTrend_residue_zeroCycle_res...   
+27          _NN5-025  _NN5-025_PolyTrend_residue_Seasonal_DayOfMonth...   
+28      Diff_NN5-025  Diff_NN5-025_ConstantTrend_residue_zeroCycle_r...   
+29      Diff_NN5-025  Diff_NN5-025_PolyTrend_residue_Seasonal_DayOfW...   
+..               ...                                                ...   
+162  RelDiff_NN5-025  RelDiff_NN5-025_PolyTrend_residue_zeroCycle_re...   
+163  RelDiff_NN5-025  RelDiff_NN5-025_LinearTrend_residue_Seasonal_D...   
+164  RelDiff_NN5-025  RelDiff_NN5-025_LinearTrend_residue_Seasonal_D...   
+165  RelDiff_NN5-025  RelDiff_NN5-025_LinearTrend_residue_Seasonal_M...   
+166  RelDiff_NN5-025  RelDiff_NN5-025_LinearTrend_residue_Seasonal_W...   
+167  RelDiff_NN5-025  RelDiff_NN5-025_PolyTrend_residue_Seasonal_Day...   
+168  RelDiff_NN5-025  RelDiff_NN5-025_PolyTrend_residue_Seasonal_Day...   
+169  RelDiff_NN5-025  RelDiff_NN5-025_PolyTrend_residue_Seasonal_Mon...   
+170  RelDiff_NN5-025  RelDiff_NN5-025_PolyTrend_residue_Seasonal_Wee...   
+171  RelDiff_NN5-025  RelDiff_NN5-025_LinearTrend_residue_bestCycle_...   
+172  RelDiff_NN5-025  RelDiff_NN5-025_PolyTrend_residue_bestCycle_by...   
+173  RelDiff_NN5-025  RelDiff_NN5-025_Lag1Trend_residue_zeroCycle_re...   
+174  RelDiff_NN5-025  RelDiff_NN5-025_Lag1Trend_residue_Seasonal_Day...   
+175  RelDiff_NN5-025  RelDiff_NN5-025_Lag1Trend_residue_Seasonal_Day...   
+176  RelDiff_NN5-025  RelDiff_NN5-025_Lag1Trend_residue_Seasonal_Mon...   
+177  RelDiff_NN5-025  RelDiff_NN5-025_Lag1Trend_residue_Seasonal_Wee...   
+178  RelDiff_NN5-025  RelDiff_NN5-025_Lag1Trend_residue_bestCycle_by...   
+179     Diff_NN5-025  Diff_NN5-025_Lag1Trend_residue_Seasonal_DayOfM...   
+180   CumSum_NN5-025  CumSum_NN5-025_ConstantTrend_residue_Seasonal_...   
+181     Diff_NN5-025  Diff_NN5-025_PolyTrend_residue_Seasonal_WeekOf...   
+182   CumSum_NN5-025  CumSum_NN5-025_ConstantTrend_residue_Seasonal_...   
+183     Diff_NN5-025  Diff_NN5-025_PolyTrend_residue_Seasonal_MonthO...   
+184     Diff_NN5-025  Diff_NN5-025_LinearTrend_residue_zeroCycle_res...   
+185     Diff_NN5-025  Diff_NN5-025_Lag1Trend_residue_Seasonal_WeekOf...   
+186     Diff_NN5-025  Diff_NN5-025_ConstantTrend_residue_Seasonal_Mo...   
+187   CumSum_NN5-025  CumSum_NN5-025_ConstantTrend_residue_Seasonal_...   
+188   CumSum_NN5-025  CumSum_NN5-025_ConstantTrend_residue_Seasonal_...   
+189     Diff_NN5-025  Diff_NN5-025_LinearTrend_residue_Seasonal_Mont...   
+190   CumSum_NN5-025  CumSum_NN5-025_ConstantTrend_residue_Seasonal_...   
+191   CumSum_NN5-025  CumSum_NN5-025_ConstantTrend_residue_Seasonal_...   
+
+     Complexity  FitCount       FitL2  FitMAPE  ForecastCount  ForecastL2  \
+0            52       629   16.576367   0.3930            158    6.834463   
+1            56       629   16.576367   0.3930            158    6.834463   
+2            52       629    6.773523   0.5122            158    6.873718   
+3            56       629    6.773523   0.5122            158    6.873718   
+4            20       629    4.944571   0.2855            158    6.882791   
+5            24       629    4.944571   0.2855            158    6.882791   
+6            20       629    4.970688   0.2912            158    7.018754   
+7            24       629    4.970688   0.2912            158    7.018754   
+8            36       629    5.375975   0.3574            158    7.465501   
+9            40       629    5.375975   0.3574            158    7.465501   
+10            4       629    5.022606   0.2931            158    7.573948   
+11            8       629    5.022606   0.2931            158    7.573948   
+12          217       629    3.627957   0.2281            158    7.717433   
+13          217       629    3.798619   0.2426            158    7.827071   
+14          221       629    3.798619   0.2426            158    7.827071   
+15          201       629    3.822011   0.2434            158    7.934702   
+16          205       629    3.822011   0.2434            158    7.934702   
+17           52       629    5.392996   0.3005            158    7.934865   
+18          217       629    3.803798   0.2431            158    7.975015   
+19          221       629    3.803798   0.2431            158    7.975015   
+20          217       629    3.878043   0.2524            158    8.020024   
+21          233       629    3.942380   0.2484            158    8.083765   
+22          237       629    3.942380   0.2484            158    8.083765   
+23          233       629    3.923764   0.2531            158    8.128528   
+24          217       629    3.637507   0.2287            158    8.150348   
+25          201       629    3.683693   0.2280            158    8.177475   
+26           48       629   17.221261   0.4826            158    8.180089   
+27          217       629    3.864763   0.2498            158    8.191835   
+28           32       629    7.500825   0.3890            158    8.231308   
+29           52       629    6.443251   0.4889            158    8.237784   
+..          ...       ...         ...      ...            ...         ...   
+162         245       629   35.884292   2.6455            158   37.732646   
+163         249       629   35.624427   2.6269            158   37.732646   
+164         249       629   34.253032   2.4878            158   37.732646   
+165         249       629   34.885245   2.5608            158   37.732646   
+166         249       629   33.994477   2.4886            158   37.732646   
+167         249       629   35.514398   2.6155            158   37.732646   
+168         249       629   34.113213   2.4698            158   37.732646   
+169         249       629   34.309966   2.5026            158   37.732646   
+170         249       629   33.302439   2.4161            158   37.732646   
+171         253       629   34.253032   2.4878            158   37.732646   
+172         253       629   34.113213   2.4698            158   37.732646   
+173         261       629   33.395885   2.4663            158   37.732646   
+174         265       629   33.847295   2.4902            158   37.732646   
+175         265       629   30.375972   2.1062            158   37.732646   
+176         265       629   34.597754   2.5792            158   37.732646   
+177         265       629   32.667832   2.3804            158   37.732646   
+178         269       629   30.375972   2.1062            158   37.732646   
+179         265       629   17.179940   0.9827            158   40.777703   
+180         233       629   47.191043   2.1833            158   57.008703   
+181         249       629   51.867295   3.2700            158   61.545694   
+182          36       629  214.830337   3.0047            158   79.982365   
+183         249       629   38.448699   2.0359            158   80.716244   
+184         245       629   52.576294   3.6337            158   80.955603   
+185         265       629   44.669140   2.7926            158   91.556272   
+186         233       629   57.090705   3.6996            158   94.142867   
+187         233       629  141.784034   3.9501            158  126.497048   
+188          36       629  213.937853   3.0231            158  137.811254   
+189         249       629   28.882781   1.6516            158  183.243866   
+190          36       629  204.013987   3.2135            158  319.733232   
+191         233       629  190.323847   3.8887            158  333.152472   
+
+     ForecastMAPE  TestCount      TestL2  TestMAPE  
+0          0.5427          2    5.280554    0.1517  
+1          0.5427          2    5.280554    0.1517  
+2          0.5553          2    7.626849    0.2278  
+3          0.5553          2    7.626849    0.2278  
+4          0.5639          2    3.812120    0.1013  
+5          0.5639          2    3.812120    0.1013  
+6          0.4990          2    7.643239    0.2285  
+7          0.4990          2    7.643239    0.2285  
+8          0.6672          2    2.613937    0.0615  
+9          0.6672          2    2.613937    0.0615  
+10         0.4959          2    9.470316    0.2865  
+11         0.4959          2    9.470316    0.2865  
+12         0.6034          2    7.830457    0.2407  
+13         0.6099          2    5.129029    0.1427  
+14         0.6099          2    5.129029    0.1427  
+15         0.5903          2    6.741869    0.1524  
+16         0.5903          2    6.741869    0.1524  
+17         0.5024          2    9.470316    0.2865  
+18         0.5817          2    7.211235    0.1721  
+19         0.5817          2    7.211235    0.1721  
+20         0.6373          2    5.878341    0.1813  
+21         0.6337          2    6.580056    0.1459  
+22         0.6337          2    6.580056    0.1459  
+23         0.6223          2    8.385180    0.1867  
+24         0.5513          2    9.199693    0.2422  
+25         0.5591          2    9.979340    0.2432  
+26         0.6071          2   11.600868    0.3582  
+27         0.6512          2    9.130862    0.2734  
+28         0.5848          2   11.770077    0.3634  
+29         0.7439          2    2.905703    0.0660  
+..            ...        ...         ...       ...  
+162        2.9014          2   24.696245    0.7628  
+163        2.9014          2   24.696245    0.7628  
+164        2.9014          2   24.696245    0.7628  
+165        2.9014          2   24.696245    0.7628  
+166        2.9014          2   24.696245    0.7628  
+167        2.9014          2   24.696245    0.7628  
+168        2.9014          2   24.696245    0.7628  
+169        2.9014          2   24.696245    0.7628  
+170        2.9014          2   24.696245    0.7628  
+171        2.9014          2   24.696245    0.7628  
+172        2.9014          2   24.696245    0.7628  
+173        2.9014          2   24.696245    0.7628  
+174        2.9014          2   24.696245    0.7628  
+175        2.9014          2   24.696245    0.7628  
+176        2.9014          2   24.696245    0.7628  
+177        2.9014          2   24.696245    0.7628  
+178        2.9014          2   24.696245    0.7628  
+179        2.2707          2   50.372271    1.5466  
+180        2.8214          2   27.363056    0.8194  
+181        4.0627          2  110.717580    3.4140  
+182        1.9911          2   15.520670    0.4790  
+183        5.1429          2   51.369393    1.5816  
+184        4.7336          2  130.495062    4.0285  
+185        6.1332          2  136.362970    4.2090  
+186        5.9965          2  107.159342    3.3076  
+187        3.8932          2    5.438662    0.1639  
+188        2.3283          2   32.377950    1.0000  
+189       11.4899          2  271.731157    8.3928  
+190        4.4267          2   32.377950    1.0000  
+191        5.9228          2   12.665606    0.3215  
+
+[192 rows x 12 columns]
+   Transformation                                              Model  \
+0  CumSum_NN5-025  CumSum_NN5-025_PolyTrend_residue_Seasonal_DayO...   
+1  CumSum_NN5-025  CumSum_NN5-025_PolyTrend_residue_bestCycle_byL...   
+2    Diff_NN5-025  Diff_NN5-025_LinearTrend_residue_Seasonal_DayO...   
+3    Diff_NN5-025  Diff_NN5-025_LinearTrend_residue_bestCycle_byL...   
+4        _NN5-025  _NN5-025_PolyTrend_residue_Seasonal_DayOfWeek_...   
+
+   Complexity  FitCount      FitL2  FitMAPE  ForecastCount  ForecastL2  \
+0          52       629  16.576367   0.3930            158    6.834463   
+1          56       629  16.576367   0.3930            158    6.834463   
+2          52       629   6.773523   0.5122            158    6.873718   
+3          56       629   6.773523   0.5122            158    6.873718   
+4          20       629   4.944571   0.2855            158    6.882791   
+
+   ForecastMAPE  TestCount    TestL2  TestMAPE  
+0        0.5427          2  5.280554    0.1517  
+1        0.5427          2  5.280554    0.1517  
+2        0.5553          2  7.626849    0.2278  
+3        0.5553          2  7.626849    0.2278  
+4        0.5639          2  3.812120    0.1013  
+2 0     6.25
+1    18.41
+Name: NN5-025, dtype: float64
+2 0    14.380033
+1    14.260056
+Name: NN5-025_Forecast, dtype: float64
+FORECAST_DETAIL_ACTUAL NN5 NN5-025 [  6.25  18.41]
+FORECAST_DETAIL_PREDICTED NN5 NN5-025 [ 14.38003333  14.26005618]
+BENCHMARK_PERF_DETAIL NN5 NN5-025 789 2 54.50314712524414 ConstantTrend + Seasonal_DayOfWeek + NoAR 2 0.7631 0.2606
+148.00user 1.16system 0:58.12elapsed 256%CPU (0avgtext+0avgdata 272480maxresident)k
+0inputs+48outputs (0major+230968minor)pagefaults 0swaps
