@@ -8,7 +8,7 @@ exog_dataframe['Date'] = exog_dataframe['Date'].astype(np.datetime64);
 # print(exog_dataframe.info())
 exog_dataframe.head()
 
-import pyaf.ForecastEngine as autof
+import ForecastEngine as autof
 lEngine = autof.cForecastEngine()
 
 csvfile_link = "https://raw.githubusercontent.com/antoinecarme/TimeSeriesData/master/ozone-la.csv"
