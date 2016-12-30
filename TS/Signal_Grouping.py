@@ -9,7 +9,7 @@ import numpy as np
 import itertools
 
 
-import pyaf.ForecastEngine as autof
+import ForecastEngine as autof
 from . import Options as tsopts
 from . import Perf as tsperf
 from . import Utils as tsutil
