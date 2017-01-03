@@ -1,12 +1,13 @@
 import os
 import glob
 
-str1 = "artificial";
-subdirs = str1.split();
+subdirs = glob.glob("tests/artificial/transf_*");
 
-for subdir1 in subdirs:
+lAllTarget = "";
+for subdir1 in sorted(subdirs):
+    lBase = os.path.basename(subdir1);
     test_target = "";
-    for filename in glob.glob("tests/" + subdir1 + "/*/*/*/*/*.py"):
+    for filename in sorted(glob.glob(subdir1 + "/*/*/*/*.py")):
         bn = os.path.basename(filename);
         logfile = bn.replace("/" , "_");
         logfile = "logs/" + logfile.replace(".py" , ".log");
@@ -15,8 +16,9 @@ for subdir1 in subdirs:
         print(bn , " : " , "\n\t", "-ipython3" , filename , " > " , logfile , " 2>&1");
         test_target = bn + " " + test_target;
 
-    print("\n\n", subdir1, ": ", test_target, "\n" , "\n");
+    lAllTarget = lAllTarget + " " + lBase;
+    print("\n\n", lBase , ": ", test_target, "\n" , "\n");
 
 print("\n# ********************************************** \n");
 
-print("all: " , str1 , "\n\t\n");
+print("all: " , lAllTarget , "\n\t\n");
