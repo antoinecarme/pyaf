@@ -10,7 +10,7 @@ createDirIfNeeded("tests/artificial");
 
 
 for N in [32, 128, 1024]:
-    for transf in ["", "exp"]:
+    for transf in ["", "exp" , "log" , "sqrt" , "sqr", "pow3" , "inv" , "diff" , "cumsum"]:
         for trend in ["constant" , "linear" , "poly"]:
             for cycle_length in [0, 5, 7 , 12 , 30]:
                 for ar in [""]:
