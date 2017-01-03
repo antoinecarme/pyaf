@@ -236,6 +236,20 @@ def generate_random_TS(N , FREQ, seed, trendtype, cycle_length, transform, sigma
 
     if(transform == "exp"):
         df_train['Signal'] = np.exp(-pos_signal)
+    if(transform == "log"):
+        df_train['Signal'] = np.log(pos_signal)
+    if(transform == "sqrt"):
+        df_train['Signal'] = np.sqrt(pos_signal)
+    if(transform == "sqr"):
+        df_train['Signal'] = np.pow(pos_signal , 2)
+    if(transform == "pow3"):
+        df_train['Signal'] = np.pow(pos_signal , 3)
+    if(transform == "inv"):
+        df_train['Signal'] = 1.0 / (pos_signal)
+    if(transform == "diff"):
+        df_train['Signal'] = pos_signal - pos_signal.shift(1).fillna(0.0);
+    if(transform == "cumsum"):
+        df_train['Signal'] = pos_signal.cumsum();
 
     # df_train.to_csv(tsspec.mName + ".csv");
 
