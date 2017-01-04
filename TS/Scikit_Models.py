@@ -51,8 +51,16 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
         lARInputsAfterSelection =  self.mFeatureSelector.transform(lARInputs);
         # print("FEATURE_SELECTION" , self.mOutName, lARInputs.shape[1] , lARInputsAfterSelection.shape[1]);
         del lARInputs;
-        
-        self.mScikitModel.fit(lARInputsAfterSelection, lARTarget)
+
+        try:
+            self.mScikitModel.fit(lARInputsAfterSelection, lARTarget)
+        except Exception as e:
+            print("SCIKIT_MODEL_FIT_FAILURE" , lARInputsAfterSelection.shape, e);
+            # df1 = pd.DataFrame(lARInputsAfterSelection);
+            # df1['TGT'] = lARTarget;
+            # df1.to_csv("SCIKIT_MODEL_FIT_FAILURE.csv");
+            raise;
+            
         del lARInputsAfterSelection;
         del lARTarget;
         del lAREstimFrame;     
@@ -108,7 +116,8 @@ class cAutoRegressiveModel(cAbstract_Scikit_Model):
 
     def build_Scikit_Model(self):
         import sklearn.linear_model as linear_model
-        self.mScikitModel = linear_model.Ridge()
+        # issue_22 : warning about singular matrix => change the solver by default. 
+        self.mScikitModel = linear_model.Ridge(solver='svd')
 
     def set_name(self):
         self.mOutName = self.mCycleResidueName +  '_AR(' + str(self.mNbLags) + ")";
