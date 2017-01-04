@@ -58,7 +58,8 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
         del lAREstimFrame;     
         
         lFullARInputs = self.mARFrame[self.mInputNames].values;
-        lPredicted = self.mScikitModel.predict(lFullARInputs);
+        lFullARInputsAfterSelection =  self.mFeatureSelector.transform(lFullARInputs);
+        lPredicted = self.mScikitModel.predict(lFullARInputsAfterSelection);
             
         self.mARFrame[self.mOutName] = lPredicted
 
