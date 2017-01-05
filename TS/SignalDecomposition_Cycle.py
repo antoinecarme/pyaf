@@ -229,7 +229,8 @@ class cBestCycleForTrend(cAbstractCycle):
 
         target = df[self.mTrend_residue_name]
         df[self.getCycleResidueName()] = target - df[self.getCycleName()].values
-        check_not_nan(self.mCycleFrame[self.getCycleName()].values , self.getCycleName());
+        if(self.mOptions.mDebug):
+            check_not_nan(self.mCycleFrame[self.getCycleName()].values , self.getCycleName());
 
         return df;
 
@@ -310,7 +311,9 @@ class cCycleEstimator:
                 self.dumpCyclePerf(cycle)
                 self.mCycleFrame[cycle.getCycleName()] = cycle.mCycleFrame[cycle.getCycleName()]
                 self.mCycleFrame[cycle.getCycleResidueName()] = cycle.mCycleFrame[cycle.getCycleResidueName()]
-                check_not_nan(self.mCycleFrame[cycle.getCycleResidueName()].values , cycle.getCycleResidueName())
+                if(self.mOptions.mDebug):
+                    check_not_nan(self.mCycleFrame[cycle.getCycleResidueName()].values ,
+                                  cycle.getCycleResidueName())
                 end_time = time.time()
                 lTrainingTime = round(end_time - start_time , 2);
                 if(self.mOptions.mDebugProfile):
