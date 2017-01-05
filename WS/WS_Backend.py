@@ -16,7 +16,7 @@ from flask import Flask, jsonify, request
 import logging
 
 # for timing
-import time
+import time, os
 
 class cWSModel:
 
@@ -30,7 +30,7 @@ class cWSModel:
         self.mMaxHistoryForDisplay = 1000; # max length of data frames returned in json
         self.mForecastData = None;
         self.mPlots = {};
-        self.mURI = "http://192.168.88.88:8080/";
+        self.mURI = os.environ.get("PYAF_URL", "http://192.168.88.88:8080/");
         
     def convert_string_to_date(self, iString):
         if(self.mDateFormat is not None and self.mDateFormat != ""):
