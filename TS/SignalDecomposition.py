@@ -186,7 +186,7 @@ class cSignalDecompositionOneTransform:
         logger = tsutil.get_pyaf_logger();
         
         lModels = self.updatePerfsForAllModels();
-        for name in self.mPerfsByModel.keys():
+        for name in sorted(self.mPerfsByModel.keys()):
             lModel = self.mPerfsByModel[name][0];
             lComplexity = self.mPerfsByModel[name][1];
             lFitPerf = self.mPerfsByModel[name][2];
@@ -206,7 +206,9 @@ class cSignalDecompositionOneTransform:
                                           'ForecastCount', 'ForecastL2', 'ForecastMAPE',
                                           'TestCount', 'TestL2', 'TestMAPE')) 
         self.mPerfDetails.sort_values(by=['Forecast' + self.mOptions.mModelSelection_Criterion ,
-                                          'Complexity', 'Model'] , inplace=True);
+                                          'Complexity', 'Model'] ,
+                                      ascending=[True, True, True],
+                                      inplace=True);
         self.mPerfDetails = self.mPerfDetails.reset_index(drop=True);
         # print(self.mPerfDetails.head());
         lBestName = self.mPerfDetails.iloc[0]['Model'];
@@ -394,7 +396,7 @@ class cSignalDecomposition:
         self.mPerfsByModel = {}
         for transform1 in self.mTransformList:
             sigdec = self.mSigDecByTransform[transform1.get_name("")]
-            for (model , value) in sigdec.mPerfsByModel.items():
+            for (model , value) in sorted(sigdec.mPerfsByModel.items()):
                 self.mPerfsByModel[model] = value;
                 lTranformName = sigdec.mSignal;
                 lModelFormula = model
@@ -417,17 +419,19 @@ class cSignalDecomposition:
                                              'ForecastCount', 'ForecastL2', 'ForecastMAPE',
                                              'TestCount', 'TestL2', 'TestMAPE')) 
         # print(self.mTrPerfDetails.head(self.mTrPerfDetails.shape[0]));
-        lBestPerf = self.mTrPerfDetails['ForecastMAPE'].min();
+        lIndicator = 'Forecast' + self.mOptions.mModelSelection_Criterion;
+        lBestPerf = self.mTrPerfDetails[ lIndicator ].min();
         # allow a loss of one point (0.01 of MAPE) if complexity is reduced.
         if(not np.isnan(lBestPerf)):
-            self.mTrPerfDetails.sort_values(by=[
-                'Forecast' + self.mOptions.mModelSelection_Criterion, 'Complexity', 'Model'] , inplace=True);
+            self.mTrPerfDetails.sort_values(by=[lIndicator, 'Complexity', 'Model'] ,
+                                            ascending=[True, True, True],
+                                            inplace=True);
             self.mTrPerfDetails = self.mTrPerfDetails.reset_index(drop=True);
                 
-            lInterestingModels = self.mTrPerfDetails[self.mTrPerfDetails['ForecastMAPE'] <= (lBestPerf + 0.01)].reset_index(drop=True);
+            lInterestingModels = self.mTrPerfDetails[self.mTrPerfDetails[lIndicator] <= (lBestPerf + 0.01)].reset_index(drop=True);
         else:
             lInterestingModels = self.mTrPerfDetails;
-        lInterestingModels.sort_values(by=['Complexity'] , inplace=True)
+        lInterestingModels.sort_values(by=['Complexity'] , ascending=True, inplace=True)
         # print(self.mTransformList);
         # print(lInterestingModels.head());
         lBestName = lInterestingModels['Model'].iloc[0];
