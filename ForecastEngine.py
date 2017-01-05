@@ -56,7 +56,7 @@ class cForecastEngine:
         return lForecastPerf;
 
     def generateCode(self, iDSN = None, iDialect = None):
-        lCodeGenerator = tscodegen.cDecompositionCodeGenObject(iDSN, iDialect);
-        lSQL = lCodeGenerator.generateCode(self);
+        # lCodeGenerator = tscodegen.cDecompositionCodeGenObject(iDSN, iDialect);
+        lSQL = ""; # lCodeGenerator.generateCode(self);
         # print("GENERATED_SQL_CODE" , lSQL);
         return lSQL;
