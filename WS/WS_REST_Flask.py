@@ -7,6 +7,7 @@
 from __future__ import absolute_import
 
 from flask import Flask, jsonify, request #import objects from the Flask model
+import os
 
 # from .
 import WS_Backend as be;
