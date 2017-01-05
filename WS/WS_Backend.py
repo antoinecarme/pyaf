@@ -273,8 +273,8 @@ class cFlaskBackend:
         self.add_model(lOzone);
         self.add_model(lAirline);
         # yahoo symbols ... online
-        self.add_yahoo_symbol("AAPL")
-        self.add_yahoo_symbol("GOOG")
-        self.add_yahoo_symbol("MSFT")
-        self.add_yahoo_symbol("SAP")
-        self.add_yahoo_symbol("^FCHI")
+        # self.add_yahoo_symbol("AAPL")
+        # self.add_yahoo_symbol("GOOG")
+        # self.add_yahoo_symbol("MSFT")
+        # self.add_yahoo_symbol("SAP")
+        # self.add_yahoo_symbol("^FCHI")
