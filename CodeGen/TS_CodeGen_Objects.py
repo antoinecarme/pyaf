@@ -825,7 +825,7 @@ class cDecompositionCodeGenObject:
                 expr = select([func.sum(case1)]).select_from(table);
                 lLong = col + "_Lag" + str(p);
                 lLabel = self.shorten(col) + "_Lag" + str(p);
-                self.mDefaultARLagValues[lLabel] = self.mAR.getDefaultValue(col);
+                self.mDefaultARLagValues[lLabel] = 0.0; # self.mAR.getDefaultValue(col);
                 expr = expr.label(lLabel);
                 exprs = exprs + [expr];
         return exprs;
