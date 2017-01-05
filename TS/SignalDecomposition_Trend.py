@@ -359,7 +359,9 @@ class cTrendEstimator:
             trend.computePerf();
             self.mTrendFrame[trend.mOutName] = trend.mTrendFrame[trend.mOutName]
             self.mTrendFrame[trend.mOutName + "_residue"] = trend.mTrendFrame[trend.mOutName + "_residue"]
-            self.check_residue(self.mTrendFrame[trend.mOutName + "_residue"].values, trend.mOutName + "_residue");
+            if(self.mOptions.mDebug):
+                self.check_residue(self.mTrendFrame[trend.mOutName + "_residue"].values,
+                                   trend.mOutName + "_residue");
         pass
 
     def estimateTrend(self):
@@ -370,10 +372,3 @@ class cTrendEstimator:
         self.addTrendInputVariables();
         self.estimateTrends()
         
-#    def computeTrend(self, iSteps):
-#        lTimeAfterSomeSteps = self.mTimeInfo.nextTime(iSteps)
-#        lTimeAfterSomeStepsNormalized = self.mTimeInfo.normalizeTime(lTimeAfterSomeSteps)
-#        df = pd.DataFrame([lTimeAfterSomeStepsNormalized , lTimeAfterSomeStepsNormalized ** 2])
-#        Y_pred = self.mTrendRidge.predict(df.values)
-#        return Y_pred
-
