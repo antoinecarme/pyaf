@@ -23,17 +23,11 @@ class cPerf:
         self.mPearsonR = None;
         self.mCount = None;
         self.mName = "No_Name";
+        self.mDebug = False;
 
-    def protect_small_value(self, x , eps):
-        if((x < eps) and (x >= 0)):
-            return False;
-        if((x > -eps) and (x <= 0)):
-            return False;
-        return True;
-    
     def protect_small_values(self, signal, estimator):
         eps = 1.0e-13;
-        keepThis = signal.apply(lambda x : self.protect_small_value(x, eps));
+        keepThis = (np.abs(signal) > eps);
         signal1 =  signal[keepThis];       
         estimator1 = estimator[keepThis];
         # self.dump_perf_data(signal , signal1);        
@@ -79,8 +73,9 @@ class cPerf:
             
     def real_compute(self, signal , estimator, name):
         self.mName = name;
-        self.check_not_nan(signal.values , "signal")
-        self.check_not_nan(estimator.values , "estimator")
+        if(self.mDebug):
+            self.check_not_nan(signal.values , "signal")
+            self.check_not_nan(estimator.values , "estimator")
 
         signal_std = np.std(signal);
         estimator_std = np.std(estimator);
