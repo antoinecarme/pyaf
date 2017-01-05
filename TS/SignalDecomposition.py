@@ -73,13 +73,6 @@ class cSignalDecompositionOneTransform:
         self.mTransformation = tstransf.cSignalTransform_None();
         
 
-    def computeForecast(self, nextTime):
-        trendvalue = computeTrend(self , nextTime);
-        cyclevalue = computeCycle(self , nextTime);
-        ar_value = computeAR(self , nextTime);
-        forecast = trendvalue + cyclevalue + ar_value
-        return forecast;
-
     def serialize(self):
         joblib.dump(self, self.mTimeInfo.mTime + "_" + self.mSignal + "_TS.pkl")        
 
