@@ -111,7 +111,7 @@ class cSignalDecomposition_Options(cModelControl):
         self.mBoxCoxOrders = [-2.0, -1.0 , 0.0,  2.0];
         self.mExtensiveBoxCoxOrders = [-2, -1, -0.5, -0.33 , -0.25 , 0.0, 2, 0.5, 0.33 , 0.25];
         self.mMaxFeatureForAutoreg = 1000;
-        self.mModelSelection_Criterion = "L2";
+        self.mModelSelection_Criterion = "MAPE";
         self.mCycle_Criterion = "L2";
         self.mCycle_Criterion_Threshold = None;
         self.mHierarchicalCombinationMethod = "BU";
