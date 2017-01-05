@@ -98,17 +98,6 @@ class cTimeInfo:
         # print(df.tail());
         return df;
 
-        
-    def predict(self, df):
-        lLastRow = df.tail(1).apply(lambda x : np.nan);
-        for i in range(1,self.mHorizon):
-            lRow = sample_row.copy();
-            lRow[self.mTime] = self.nextTime(df, 1);
-            lRow[self.mSignal] = np.nan;
-            df = df.append(lRow);
-        df[self.mNormalizedTimeColumn] = self.normalizeTime(df[self.mTime]);
-        df[self.mRowNumberColumn] = np.arange(0, df.shape[0]);
-
 
     def isPhysicalTime(self):
         type1 = np.dtype(self.mSignalFrame[self.mTime])
@@ -287,7 +276,7 @@ class cTimeInfo:
     
     def nextTime(self, df, iSteps):
         #print(df.tail(1)[self.mTime]);
-        lLastTime = df.tail(1)[self.mTime].values[0]
+        lLastTime = df[self.mTime].values[-1]
         # Better handle time delta in months
         # print("NEXT_TIME" , lLastTime, iSteps, self.mTimeDelta);
         lNextTime = lLastTime + iSteps * self.mTimeDelta;
