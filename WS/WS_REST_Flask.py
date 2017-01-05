@@ -21,6 +21,7 @@ def test():
 
 @app.route("/get_my_ip", methods=["GET"])
 def get_my_ip():
+    print(request.__dict__)
     return jsonify({'ip': request.remote_addr}), 200
 
 def get_backend():
@@ -113,6 +114,5 @@ def removeOneModel(name):
 
 if __name__ == '__main__':
     print(os.environ);
-    print(request.__dict__)
     port = int(os.environ.get("PORT", 33507))
     app.run(host='0.0.0.0', port=port, debug=True)
