@@ -30,7 +30,7 @@ class cWSModel:
         self.mMaxHistoryForDisplay = 1000; # max length of data frames returned in json
         self.mForecastData = None;
         self.mPlots = {};
-        self.mURI = os.environ.get("PYAF_URL", "http://192.168.88.88:8080/");
+        self.mURI = os.environ.get("PYAF_URL", "http://0.0.0.0:8081/");
         
     def convert_string_to_date(self, iString):
         if(self.mDateFormat is not None and self.mDateFormat != ""):
@@ -101,8 +101,8 @@ class cWSModel:
         try:
             self.mPlots = self.mAutoForecast.getPlotsAsDict();
         except Exception as e:
-            # logger.error("FAILED_TO_GENERATE_PLOTS " + self.mName + " " + str(e));
-            # raise
+            logger.error("FAILED_TO_GENERATE_PLOTS " + self.mName + " " + str(e));
+            raise
             pass
 
     def create(self):
@@ -273,7 +273,7 @@ class cFlaskBackend:
                      "Name" : "AirPassengers_Model"
                      };
         self.add_model(lOzone);
-        self.add_model(lAirline);
+        # self.add_model(lAirline);
         # yahoo symbols ... online
         # self.add_yahoo_symbol("AAPL")
         # self.add_yahoo_symbol("GOOG")
