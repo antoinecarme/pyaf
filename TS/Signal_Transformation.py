@@ -87,7 +87,8 @@ class cAbstractSignalTransform:
         sig1 = self.scale_signal(sig);
         sig2 = self.specific_apply(sig1);
         # print("APPLY_END", self.mOriginalSignal, sig2.values[1:5]);
-        self.check_not_nan(sig2 , "transform_apply");
+        if(self.mOptions.mDebug):
+            self.check_not_nan(sig2 , "transform_apply");
         return sig2;
 
     def invert(self, sig1):
@@ -115,8 +116,6 @@ class cAbstractSignalTransform:
         print("dump_apply_invert_tail", df.tail());
         
     def check_not_nan(self, sig , name):
-        return;
-        #print("check_not_nan");
         if(np.isnan(sig).any()):
             print("TRANSFORMATION_RESULT_WITH_NAN_IN_SIGNAL" , sig);
             raise tsutil.InternalForecastError("Invalid transformation for column '" + name + "'");
