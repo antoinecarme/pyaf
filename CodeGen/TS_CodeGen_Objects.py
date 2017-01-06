@@ -136,7 +136,7 @@ def _sl_week(element, compiler, **kw):  # pragma: no cover
 class cDatabaseBackend:
     
     def __init__(self, iDSN = None, iDialect = None):
-        self.mDebug = True;
+        self.mDebug = False;
         
         print("CREATING_DATABASE_BACKEND_DSN_DIALECT", sqlalchemy.__version__, iDSN, iDialect);
         self.mDSN = iDSN;
@@ -180,9 +180,9 @@ class cDatabaseBackend:
                 self.mDialect = self.KNOWN_DIALECTS[self.mDialectString];
     
     def generate_Sql(self, statement):
-        print("generate_Sql_statement" , statement);
+        # print("GENERATE_SQL_STATEMENT" , statement);
         lResult = statement.compile(bind=self.mEngine, compile_kwargs={'literal_binds': True});
-        print("generate_Sql_result" , lResult);
+        print("GENERATE_SQL_RESULT" , lResult.string[0:200]);
         return lResult.string;
     
     def createLogicalTable(self, iTableName, iDateName, iSignalName, iDateType, iExogenousVariables = []):
@@ -298,7 +298,7 @@ class cDatabaseBackend:
         print("debrief_cte_statement" , statement);
         lSQL = self.generate_Sql(statement);
         print("********************" , self.getDialectName() , "***********************************");
-        print(lSQL);
+        print(lSQL[0:200]);
         if(self.isConnected()):
             lGeneratedApplyOut = self.executeSQL(lSQL);
             print(lGeneratedApplyOut.info());
@@ -1019,12 +1019,12 @@ class cDecompositionCodeGenObject:
                 lModifiedTableColumns = lModifiedTableColumns + [ col ]
             sel1 = select(lModifiedTableColumns);
             sel2 = select(empty_line);
-            print(sel1.columns);
-            print(sel2.columns);
+            # print(sel1.columns);
+            # print(sel2.columns);
             lUnion = sel1.union_all(sel2);
             lUnion = alias(lUnion, "FC_Union_" + str(h))
-            print("HORIZON_UNION" , h , lUnion.columns);
-            print("HORIZON_UNION_TYPES" , h , [col.type for col in lUnion.columns]);
+            # print("HORIZON_UNION" , h , lUnion.columns);
+            # print("HORIZON_UNION_TYPES" , h , [col.type for col in lUnion.columns]);
             lCTEs[ h ] = self.mBackEnd.generate_CTE([lUnion], "TS_CTE_Forecast_" + str(h))
             table = alias( select([lCTEs[ h ]]) , "base_table_with_horizon" + str(h));
             
