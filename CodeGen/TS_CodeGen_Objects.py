@@ -825,7 +825,7 @@ class cDecompositionCodeGenObject:
                 expr = select([func.sum(case1)]).select_from(table);
                 lLong = col + "_Lag" + str(p);
                 lLabel = self.shorten(col) + "_Lag" + str(p);
-                self.mDefaultARLagValues[lLabel] = 0.0; # self.mAR.getDefaultValue(col);
+                self.mDefaultARLagValues[lLabel] = self.mAR.getDefaultValue(col);
                 expr = expr.label(lLabel);
                 exprs = exprs + [expr];
         return exprs;
@@ -864,11 +864,11 @@ class cDecompositionCodeGenObject:
                 lDefault_expr = self.as_float(self.mDefaultARLagValues[feat]);
                 feat_value = func.coalesce(table.c[feat] , lDefault_expr);
                 if(ar_expr is None):
-                    ar_expr = self.mAR.mARRidge.coef_[i] * feat_value;
+                    ar_expr = self.mAR.mScikitModel.coef_[i] * feat_value;
                 else:
-                    ar_expr = ar_expr + self.mAR.mARRidge.coef_[i] * feat_value;
+                    ar_expr = ar_expr + self.mAR.mScikitModel.coef_[i] * feat_value;
                 i = i + 1;
-            ar_expr = ar_expr + self.as_float(self.mAR.mARRidge.intercept_);
+            ar_expr = ar_expr + self.as_float(self.mAR.mScikitModel.intercept_);
         else:
             ar_expr = self.as_float(0.0);
         ar_expr = ar_expr.label(self.shorten(self.mAR.mOutName))
