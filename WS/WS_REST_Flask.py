@@ -15,10 +15,6 @@ import WS_Backend as be;
 app = Flask(__name__) #define app using Flask
 backends = {};
 
-@app.route('/', methods=['GET'])
-def test():
-    return jsonify({'message' : 'It works!'})
-
 @app.route("/get_my_ip", methods=["GET"])
 def get_my_ip():
     print(request.__dict__)
@@ -43,11 +39,17 @@ def jsonify_models():
 
 # GET requests
 
+@app.route('/', methods=['GET'])
+def test():
+    backend = get_backend();
+    return jsonify_models();
 
 @app.route('/models', methods=['GET'])
 def returnAllModels():
     backend = get_backend();
     return jsonify_models();
+
+
 
 @app.route('/model/<string:name>', methods=['GET'])
 def returnOneModel(name):
