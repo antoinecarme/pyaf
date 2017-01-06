@@ -21,11 +21,11 @@ def get_my_ip():
     return jsonify({'ip': request.remote_addr}), 200
 
 def get_backend():
-    backend = backends.get(request.remote_addr)
-    if(backend is None):
-        backend = be.cFlaskBackend();
-        backends[request.remote_addr] = backend;
-    return backend;
+    common_backend = backends.get(0)
+    if(common_backend is None):
+        common_backend = be.cFlaskBackend();
+        backends[0] = common_backend;
+    return common_backend;
 
 
 
