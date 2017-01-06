@@ -82,7 +82,8 @@ class cWSModel:
     def generateCode(self):
         logger = logging.getLogger(__name__)
         self.mSQL = {};
-        try:
+        lDialects = ['Default', 'postgresql', 'mssql', 'oracle', 'mysql', 'sybase', 'sqlite'];
+        try:            
             self.mSQL["Default"] = self.mForecastEngine.generateCode(iDSN = None, iDialect = None);
             self.mSQL["postgresql"] = self.mForecastEngine.generateCode(iDSN = None, iDialect = "postgresql");
             self.mSQL["mssql"] = self.mForecastEngine.generateCode(iDSN = None, iDialect = "mssql");
@@ -110,7 +111,6 @@ class cWSModel:
         self.readData();
         self.trainModel();
         self.applyModel();
-        self.generateCode();
         self.mTrainingTime = time.time() - start_time;
 
     def update(self):
@@ -168,7 +168,7 @@ class cWSModel:
         }
         lPlotLinks = {};
         lPlotLinks["all"] = self.mURI + "model/" + self.mName + "/plot/" + "all";
-        for k in self.mPlots.keys():
+        for k in ["Forecast", "Trend" , "Cycle", "AR", "Prediction_Intervals"]:
             lPlotLinks[k] = self.mURI + "model/" + self.mName + "/plot/" + k;
         lTrainOptionsDescription =  {
             'CSVFile': "A CSV file (URIs are also welcome!!!) containing a date column (optional, a integer sequence starting at zero is used if not present), and a signal column, for which the future values are to be predicted. ",
@@ -181,7 +181,8 @@ class cWSModel:
         }
 
         lSQLLinks = {};
-        for k in self.mSQL.keys():
+        lDialects = ['Default', 'postgresql', 'mssql', 'oracle', 'mysql', 'sybase', 'sqlite'];
+        for k in lDialects:
             lSQLLinks[k] = self.mURI + "model/" + self.mName + "/SQL/" + k;
 
         lMetaData = {

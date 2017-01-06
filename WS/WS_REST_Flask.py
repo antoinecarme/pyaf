@@ -78,6 +78,7 @@ def returnOneModelPlot(name, plot_type):
 def returnOneModelSQL(name, sql_dialect):
     backend = get_backend();
     model = backend.get_model(name);
+    model.generateCode();
     if(model):
         lSQL = model.mSQL[sql_dialect];
         return lSQL
