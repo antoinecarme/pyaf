@@ -64,14 +64,14 @@ class cWSModel:
         
     def trainModel(self):
         self.mTrainDataFrame = self.mFullDataFrame[self.mFullDataFrame[self.mTimeVar] <= self.mPresent];
-        self.mAutoForecast = autof.cForecastEngine()
+        self.mForecastEngine = autof.cForecastEngine()
         # heroku does not have a lot of memory!!!
-        self.mAutoForecast.mOptions.mParallelMode = False; 
-        self.mAutoForecast.train(self.mTrainDataFrame , self.mTimeVar , self.mSignalVar, self.mHorizon);        
+        self.mForecastEngine.mOptions.mParallelMode = False; 
+        self.mForecastEngine.train(self.mTrainDataFrame , self.mTimeVar , self.mSignalVar, self.mHorizon);        
 
     def applyModel(self):
         self.mApplyIn = self.mTrainDataFrame;
-        self.mDetailedForecast_DataFrame = self.mAutoForecast.forecast(self.mApplyIn, self.mHorizon);
+        self.mDetailedForecast_DataFrame = self.mForecastEngine.forecast(self.mApplyIn, self.mHorizon);
         self.mForecast_DataFrame = self.mDetailedForecast_DataFrame; # [[self.mTimeVar , self.mSignalVar, self.mSignalVar + '_Forecast']];
         self.mForecastData = self.mForecast_DataFrame.tail(self.mHorizon);
         lForecastName = self.mSignalVar + '_Forecast';
@@ -83,13 +83,13 @@ class cWSModel:
         logger = logging.getLogger(__name__)
         self.mSQL = {};
         try:
-            self.mSQL["Default"] = self.mAutoForecast.generateCode(iDSN = None, iDialect = None);
-            self.mSQL["postgresql"] = self.mAutoForecast.generateCode(iDSN = None, iDialect = "postgresql");
-            self.mSQL["mssql"] = self.mAutoForecast.generateCode(iDSN = None, iDialect = "mssql");
-            self.mSQL["oracle"] = self.mAutoForecast.generateCode(iDSN = None, iDialect = "oracle");
-            self.mSQL["mysql"] = self.mAutoForecast.generateCode(iDSN = None, iDialect = "mysql");
-            self.mSQL["sybase"] = self.mAutoForecast.generateCode(iDSN = None, iDialect = "sybase");
-            self.mSQL["sqlite"] = self.mAutoForecast.generateCode(iDSN = None, iDialect = "sqlite");
+            self.mSQL["Default"] = self.mForecastEngine.generateCode(iDSN = None, iDialect = None);
+            self.mSQL["postgresql"] = self.mForecastEngine.generateCode(iDSN = None, iDialect = "postgresql");
+            self.mSQL["mssql"] = self.mForecastEngine.generateCode(iDSN = None, iDialect = "mssql");
+            self.mSQL["oracle"] = self.mForecastEngine.generateCode(iDSN = None, iDialect = "oracle");
+            self.mSQL["mysql"] = self.mForecastEngine.generateCode(iDSN = None, iDialect = "mysql");
+            self.mSQL["sybase"] = self.mForecastEngine.generateCode(iDSN = None, iDialect = "sybase");
+            self.mSQL["sqlite"] = self.mForecastEngine.generateCode(iDSN = None, iDialect = "sqlite");
         except Exception as e:
             # logger.error("FAILED_TO_GENERATE_CODE_FOR " + self.mName + " " + str(e));
             raise
@@ -99,7 +99,7 @@ class cWSModel:
         logger = logging.getLogger(__name__)
         self.mPlots = {};
         try:
-            self.mPlots = self.mAutoForecast.getPlotsAsDict();
+            self.mPlots = self.mForecastEngine.getPlotsAsDict();
         except Exception as e:
             logger.error("FAILED_TO_GENERATE_PLOTS " + self.mName + " " + str(e));
             raise
@@ -118,7 +118,10 @@ class cWSModel:
         self.create();
 
     def getModelInfo(self):
-        return(self.mAutoForecast.to_json());
+        str1 = self.mForecastEngine.to_json();
+        import json
+        return json.loads(str1);
+        # return(str1);
 
     def getForecasts(self):
         return self.mForecastData.to_json(date_format='iso');
