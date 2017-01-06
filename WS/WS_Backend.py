@@ -72,7 +72,8 @@ class cWSModel:
             self.mTrainDataFrame = self.mFullDataFrame[self.mFullDataFrame[self.mTimeVar] <= self.mPresent];
         self.mForecastEngine = autof.cForecastEngine()
         # heroku does not have a lot of memory!!! issue #25
-        self.mForecastEngine.mOptions.enable_low_memory_mode(); 
+        self.mForecastEngine.mOptions.enable_low_memory_mode();
+        print("TRAIN_PARAMS" , self.mTrainDataFrame.shape ,  self.mTrainDataFrame.columns , self.mTimeVar , self.mSignalVar, self.mHorizon)
         self.mForecastEngine.train(self.mTrainDataFrame , self.mTimeVar , self.mSignalVar, self.mHorizon);        
 
     def applyModel(self):
@@ -135,8 +136,8 @@ class cWSModel:
         self.mCSVFile = json_dict['CSVFile'];
         self.mDateFormat = json_dict.get('DateFormat' , '%Y-%m-%d');
         self.mDateFormat = '%Y-%m-%d' if (self.mDateFormat == '') else self.mDateFormat;
-        self.mSignalVar = json_dict.get('SignalVar' , 'Signal');      
-        self.mTimeVar = json_dict.get('TimeVar' , 'Time');
+        self.mSignalVar = json_dict.get('SignalVar' , '');      
+        self.mTimeVar = json_dict.get('TimeVar' , '');
         self.mPresentTime = json_dict.get('Present' , None);      
         self.mHorizon = int(json_dict.get('Horizon' , 1));      
         self.create();
