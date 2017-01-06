@@ -111,7 +111,6 @@ class cWSModel:
         self.trainModel();
         self.applyModel();
         self.generateCode();
-        self.generatePlots();
         self.mTrainingTime = time.time() - start_time;
 
     def update(self):

@@ -61,6 +61,7 @@ def returnOneModel(name):
 def returnOneModelPlot(name, plot_type):
     backend = get_backend();
     model = backend.get_model(name);
+    model.generatePlots();
     if(model):
         if(plot_type != "all"):
             lPlot_PNG_Base64 = model.mPlots[plot_type];
