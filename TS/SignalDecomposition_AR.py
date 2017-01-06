@@ -54,6 +54,9 @@ class cAbstractAR:
         new_values = np.hstack((first_values, series.values[0:N-p]));
         return new_values;
 
+    def getDefaultValue(self, series):
+        return self.mDefaultValues[series];
+
     def addLagForForecast(self, df, lag_df, series, p):
         name = series+'_Lag' + str(p);
         if(name not in self.mInputNames):
