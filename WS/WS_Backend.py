@@ -65,8 +65,8 @@ class cWSModel:
     def trainModel(self):
         self.mTrainDataFrame = self.mFullDataFrame[self.mFullDataFrame[self.mTimeVar] <= self.mPresent];
         self.mForecastEngine = autof.cForecastEngine()
-        # heroku does not have a lot of memory!!!
-        self.mForecastEngine.mOptions.mParallelMode = False; 
+        # heroku does not have a lot of memory!!! issue #25
+        self.mForecastEngine.mOptions.enable_low_memory_mode(); 
         self.mForecastEngine.train(self.mTrainDataFrame , self.mTimeVar , self.mSignalVar, self.mHorizon);        
 
     def applyModel(self):
