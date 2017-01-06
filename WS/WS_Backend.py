@@ -42,15 +42,19 @@ class cWSModel:
         if(len(self.mFullDataFrame.columns) == 1):
             lLastColumn = self.mFullDataFrame.columns[-1];
             lDataFrame = pd.DataFrame();
+            self.mTimeVar = 'Time' if (self.mTimeVar == "") else self.mTimeVar;
             lDataFrame[self.mTimeVar] = range(0, self.mFullDataFrame.shape[0]);
+            self.mSignalVar = lLastColumn if (self.mSignalVar == "") else self.mSignalVar;
             lDataFrame[self.mSignalVar] = self.mFullDataFrame[lLastColumn]
             self.mFullDataFrame = lDataFrame;
         else:
             if(self.mTimeVar not in self.mFullDataFrame.columns):
                 lFirstColumn = self.mFullDataFrame.columns[0];
+                self.mTimeVar = lFirstColumn if (self.mTimeVar == "") else self.mTimeVar;
                 self.mFullDataFrame[self.mTimeVar] = self.mFullDataFrame[lFirstColumn]
             if(self.mSignalVar not in self.mFullDataFrame.columns):
-                lLastColumn = self.mFullDataFrame.columns[1];
+                lLastColumn = self.mFullDataFrame.columns[-1];
+                self.mSignalVar = lLastColumn if (self.mSignalVar == "") else self.mSignalVar;
                 self.mFullDataFrame[self.mSignalVar] = self.mFullDataFrame[lLastColumn]
         print("DATASET_FINAL_COLUMNS", self.mFullDataFrame.columns);
                 
@@ -132,9 +136,7 @@ class cWSModel:
         self.mDateFormat = json_dict.get('DateFormat' , '%Y-%m-%d');
         self.mDateFormat = '%Y-%m-%d' if (self.mDateFormat == '') else self.mDateFormat;
         self.mSignalVar = json_dict.get('SignalVar' , 'Signal');      
-        self.mSignalVar = 'Signal' if (self.mSignalVar == "") else self.mSignalVar;
         self.mTimeVar = json_dict.get('TimeVar' , 'Time');
-        self.mTimeVar = 'Time' if (self.mTimeVar == "") else self.mTimeVar;
         self.mPresentTime = json_dict.get('Present' , None);      
         self.mHorizon = int(json_dict.get('Horizon' , 1));      
         self.create();
