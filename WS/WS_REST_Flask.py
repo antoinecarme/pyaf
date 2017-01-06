@@ -93,8 +93,8 @@ def addOneModel():
     backend = get_backend();
     print("JSON : " , request.json);
     print("JSON : " , request.__dict__);
-    backend.add_model(request.json);
-    return jsonify_models();
+    model = backend.add_model(request.json);
+    return jsonify({'model' : model.as_dict()})
 
 # PUT requests 
 
@@ -102,11 +102,8 @@ def addOneModel():
 @app.route('/model/<string:name>', methods=['PUT'])
 def editOneModel(name):
     backend = get_backend();
-    backend.update_model(name , request.json['name']);
-    model = backend.get_model(name);
-    if(model):
-        return jsonify({'model' : model.as_dict()})
-    return jsonify({})
+    model = backend.update_model(name , request.json['name']);
+    return jsonify({'model' : model.as_dict()})
 
 # DELETE requests
 

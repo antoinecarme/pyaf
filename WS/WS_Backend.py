@@ -60,7 +60,7 @@ class cWSModel:
                 
 
     def readData(self):
-        self.mFullDataFrame = pd.read_csv(self.mCSVFile, sep=r',', engine='python');
+        self.mFullDataFrame = pd.read_csv(self.mCSVFile, sep=r',', engine='python', nrows=1000);
         self.guess_Columns_if_needed();
         self.mFullDataFrame[self.mTimeVar] = self.mFullDataFrame[self.mTimeVar].apply(self.convert_string_to_date);
         self.mFullDataFrame.sort_values(by = self.mTimeVar, inplace = True);
@@ -247,19 +247,19 @@ class cFlaskBackend:
         model  = cWSModel();
         model.from_dict(json_dict);
         self.models[model.mName] = model;
-        pass
+        return model;
 
     def update_model(self, name, value):
         model  = self.models.get(name);
         if(model):
             model.update(value);
-        pass
+        return model;
 
     def remove_model(self, name):
         model  = self.models.get(name);
         if(model):
             del self.models[name];
-        pass
+        return None 
 
 
     def add_yahoo_symbol(self, symbol):
@@ -273,7 +273,7 @@ class cFlaskBackend:
                    "Horizon" : 7,
                    "Name" : lSymbol + "_Model"
                    };
-        self.add_model(lYahoo);
+        return self.add_model(lYahoo);
         
 
     # samples
