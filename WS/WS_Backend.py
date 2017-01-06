@@ -20,7 +20,7 @@ import time, os
 
 class cWSModel:
 
-    def __init__(self , name):
+    def __init__(self , name = ""):
         self.mName = name;
         self.mCreationDate = dt.datetime.now();
         self.mSignalVar = None;
@@ -132,7 +132,17 @@ class cWSModel:
     def getForecasts(self):
         return self.mForecastData.to_json(date_format='iso');
 
+
+    def generateName(self):
+        import string, random
+        chars = string.ascii_uppercase + string.digits;
+        lPrefix = "PYAF_MODEL_";
+        lRandomChars = ''.join(random.choice(chars) for _ in range(6))
+        return lPrefix + lRandomChars;
+
+
     def from_dict(self, json_dict):
+        print("REQUEST_DETAILS" , json_dict);
         self.mCSVFile = json_dict['CSVFile'];
         self.mDateFormat = json_dict.get('DateFormat' , '%Y-%m-%d');
         self.mDateFormat = '%Y-%m-%d' if (self.mDateFormat == '') else self.mDateFormat;
@@ -140,6 +150,8 @@ class cWSModel:
         self.mTimeVar = json_dict.get('TimeVar' , '');
         self.mPresentTime = json_dict.get('Present' , None);      
         self.mHorizon = int(json_dict.get('Horizon' , 1));      
+        self.mName = json_dict.get('Name' , '');
+        self.mName = self.generateName() if (self.mName == "") else self.mName;        
         self.create();
         
 
@@ -167,6 +179,7 @@ class cWSModel:
 
         lModelInfo = self.getModelInfo();
         lTrainOptions =  {
+            'Name':self.mName,
             'CSVFile': self.mCSVFile,
             'DateFormat': self.mDateFormat,
             "SignalVar" : self.mSignalVar,
@@ -231,10 +244,9 @@ class cFlaskBackend:
 
 
     def add_model(self, json_dict):
-        name = json_dict['Name'];
-        model  = cWSModel(name);
+        model  = cWSModel();
         model.from_dict(json_dict);
-        self.models[name] = model;
+        self.models[model.mName] = model;
         pass
 
     def update_model(self, name, value):
