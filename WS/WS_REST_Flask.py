@@ -7,7 +7,7 @@
 from __future__ import absolute_import
 
 from flask import Flask, jsonify, request #import objects from the Flask model
-import os
+import os, platform
 
 # from .
 import WS_Backend as be;
@@ -113,6 +113,10 @@ def removeOneModel(name):
     return jsonify_models();
 
 if __name__ == '__main__':
+    print(platform.platform())
+    print(platform.uname())
+    print(platform.processor())
+    print(platform.python_implementation(), platform.python_version());
     print(os.environ);
     port = int(os.environ.get("PORT", 8081))
     app.run(host='0.0.0.0', port=port, debug=True)
