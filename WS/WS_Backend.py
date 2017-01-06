@@ -60,10 +60,12 @@ class cWSModel:
         self.guess_Columns_if_needed();
         self.mFullDataFrame[self.mTimeVar] = self.mFullDataFrame[self.mTimeVar].apply(self.convert_string_to_date);
         self.mFullDataFrame.sort_values(by = self.mTimeVar, inplace = True);
-        self.mPresent = self.convert_string_to_date(self.mPresentTime);
         
     def trainModel(self):
-        self.mTrainDataFrame = self.mFullDataFrame[self.mFullDataFrame[self.mTimeVar] <= self.mPresent];
+        self.mTrainDataFrame = self.mFullDataFrame;
+        if(self.mPresentTime is not None and self.mPresentTime != ""):
+            self.mPresent = self.convert_string_to_date(self.mPresentTime);
+            self.mTrainDataFrame = self.mFullDataFrame[self.mFullDataFrame[self.mTimeVar] <= self.mPresent];
         self.mForecastEngine = autof.cForecastEngine()
         # heroku does not have a lot of memory!!! issue #25
         self.mForecastEngine.mOptions.enable_low_memory_mode(); 
@@ -127,11 +129,14 @@ class cWSModel:
 
     def from_dict(self, json_dict):
         self.mCSVFile = json_dict['CSVFile'];
-        self.mDateFormat = json_dict['DateFormat'];
-        self.mSignalVar = json_dict['SignalVar'];      
-        self.mTimeVar = json_dict['TimeVar'];      
-        self.mPresentTime = json_dict['Present'];      
-        self.mHorizon = int(json_dict['Horizon']);      
+        self.mDateFormat = json_dict.get('DateFormat' , '%Y-%m-%d');
+        self.mDateFormat = '%Y-%m-%d' if (self.mDateFormat == '') else self.mDateFormat;
+        self.mSignalVar = json_dict.get('SignalVar' , 'Signal');      
+        self.mSignalVar = 'Signal' if (self.mSignalVar == "") else self.mSignalVar;
+        self.mTimeVar = json_dict.get('TimeVar' , 'Time');
+        self.mTimeVar = 'Time' if (self.mTimeVar == "") else self.mTimeVar;
+        self.mPresentTime = json_dict.get('Present' , None);      
+        self.mHorizon = int(json_dict.get('Horizon' , 1));      
         self.create();
         
 
