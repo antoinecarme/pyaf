@@ -1,5 +1,5 @@
-# PYAF_URL="http://pyaf.herokuapp.com/model"
-PYAF_URL="http://0.0.0.0:8081/model"
+PYAF_URL="http://pyaf.herokuapp.com/model"
+# PYAF_URL="http://0.0.0.0:8081/model"
 CONTENT_TYPE="Content-Type: application/json"
 
 # create a model
@@ -24,4 +24,10 @@ DATA3="{\"CSVFile\": \"http://chart.finance.yahoo.com/table.csv?s=GOOG&a=8&b=14&
 curl --header "$CONTENT_TYPE" -X POST --data "$DATA3" "$PYAF_URL"
 
 DATA3="{\"SignalVar\":\"Close\", \"CSVFile\": \"http://chart.finance.yahoo.com/table.csv?s=GOOG&a=8&b=14&c=2015&d=9&e=14&f=2016&g=d&ignore=.csv\"}";
+curl --header "$CONTENT_TYPE" -X POST --data "$DATA3" "$PYAF_URL"
+
+DATA3="{\"SignalVar\":\"Close\", \"Horizon\":\"21\", \"CSVFile\": \"http://chart.finance.yahoo.com/table.csv?s=GOOG&a=8&b=14&c=2015&d=9&e=14&f=2016&g=d&ignore=.csv\"}";
+curl --header "$CONTENT_TYPE" -X POST --data "$DATA3" "$PYAF_URL"
+
+DATA3="{\"SignalVar\":\"Close\", \"Horizon\":\"21\", \"Present\":\"2016-01-01\", \"CSVFile\": \"http://chart.finance.yahoo.com/table.csv?s=GOOG&a=8&b=14&c=2015&d=9&e=14&f=2016&g=d&ignore=.csv\"}";
 curl --header "$CONTENT_TYPE" -X POST --data "$DATA3" "$PYAF_URL"
