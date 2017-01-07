@@ -12,7 +12,6 @@ import datetime as dt
 
 import ForecastEngine as autof
 
-from flask import Flask, jsonify, request
 import logging
 
 # for timing
@@ -224,10 +223,6 @@ class cWSModel:
             "Plots" : [ lPlotLinks ]
         }
         return obj_d
-
-    @property
-    def json(self):
-        return jsonify(**self.as_dict())
 
 
 class cFlaskBackend:
