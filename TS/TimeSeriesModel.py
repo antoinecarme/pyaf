@@ -251,8 +251,7 @@ class cTimeSeriesModel:
                                         lForecastColumn  ,
                                         lForecastColumn + '_Lower_Bound',
                                         lForecastColumn + '_Upper_Bound',
-                                        name = name,
-                                        max_length = (16 * self.mTimeInfo.mHorizon));
+                                        name = name);
         #lOutput.plot()
         
     def getPlotsAsDict(self):
@@ -279,6 +278,5 @@ class cTimeSeriesModel:
                                                                                       lForecastColumn  ,
                                                                                       lForecastColumn + '_Lower_Bound',
                                                                                       lForecastColumn + '_Upper_Bound',
-                                                                                      name = "prediction_intervals",
-                                                                                      max_length = (16 * self.mTimeInfo.mHorizon));
+                                                                                      name = "prediction_intervals");
         return lDict;
