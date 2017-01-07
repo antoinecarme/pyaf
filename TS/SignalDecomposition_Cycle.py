@@ -98,10 +98,10 @@ class cSeasonalPeriodic(cAbstractCycle):
         if(self.mDatePart == "Hour"):
             return (lDays >= 10);
         if(self.mDatePart == "Minute"):
-            lHours = lTimeDelta.total_seconds() * 3600;
+            lHours = lTimeDelta.total_seconds() // 3600;
             return (lHours >= 10);
         if(self.mDatePart == "Second"):
-            lMinutes = lTimeDelta.total_seconds() * 60;
+            lMinutes = lTimeDelta.total_seconds() // 60;
             return (lMinutes >= 10);
         if(self.mDatePart == "DayOfMonth"):
             lMonths = lDays // 30;
