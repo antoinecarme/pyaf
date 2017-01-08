@@ -12,7 +12,6 @@ from datetime import date
 
 # from memory_profiler import profile
 
-from yahoo_finance import Share
 import os.path
 import data.stocks_symbol_list as symlist
 
@@ -607,6 +606,7 @@ def load_yahoo_stock_price( stock , iLocal = False) :
         df_train = pd.read_csv(filename);
     else:
         # return None;
+        from yahoo_finance import Share
         stock_obj = Share(stock)
         today = date.today()
         today

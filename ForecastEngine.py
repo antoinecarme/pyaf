@@ -10,7 +10,6 @@ from TS import Options as tsopts
 from TS import Perf as tsperf
 from TS import Utils as tsutil
 
-from CodeGen import TS_CodeGen_Objects as tscodegen
 
 class cForecastEngine:
         
@@ -56,6 +55,7 @@ class cForecastEngine:
         return lForecastPerf;
 
     def generateCode(self, iDSN = None, iDialect = None):
+        from CodeGen import TS_CodeGen_Objects as tscodegen
         lCodeGenerator = tscodegen.cDecompositionCodeGenObject(iDSN, iDialect);
         lSQL = lCodeGenerator.generateCode(self);
         # print("GENERATED_SQL_CODE" , lSQL);

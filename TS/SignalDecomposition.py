@@ -10,7 +10,6 @@ import datetime
 import sys
 import traceback
 
-# from memory_profiler import profile
 import dill
 dill.settings['recurse'] = False
 # import dill
@@ -33,7 +32,6 @@ from . import Options as tsopts
 from . import TimeSeriesModel as tsmodel
 from . import Utils as tsutil
 
-from sklearn.externals import joblib
 
 
 class cPerf_Arg:
@@ -74,6 +72,7 @@ class cSignalDecompositionOneTransform:
         
 
     def serialize(self):
+        from sklearn.externals import joblib
         joblib.dump(self, self.mTimeInfo.mTime + "_" + self.mSignal + "_TS.pkl")        
 
     def setParams(self , iInputDS, iTime, iSignal, iHorizon, iTransformation, iExogenousData = None):

@@ -32,10 +32,6 @@ from dateutil.tz import tzutc
 
 import TS
 
-import psycopg2 as psy;
-#register_adapter, AsIs
-from psycopg2.extensions import adapt, register_adapter, AsIs
-
 @compiles(DropTable, "postgresql")
 def _compile_drop_table(element, compiler, **kwargs):
     return compiler.visit_drop_table(element) + " CASCADE"

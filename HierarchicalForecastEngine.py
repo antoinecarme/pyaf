@@ -13,7 +13,6 @@ from TS import Utils as tsutil
 from TS import SignalHierarchy as sighier
 from TS import Signal_Grouping as siggroup
 
-from CodeGen import TS_CodeGen_Objects as tscodegen
 
 class cHierarchicalForecastEngine:
         
@@ -57,6 +56,7 @@ class cHierarchicalForecastEngine:
         return lForecastPerf;
 
     def generateCode(self, iDSN = None, iDialect = None):
+        from CodeGen import TS_CodeGen_Objects as tscodegen
         lCodeGenerator = tscodegen.cDecompositionCodeGenObject(iDSN, iDialect);
         lSQL = lCodeGenerator.generateCode(self);
         # print("GENERATED_SQL_CODE" , lSQL);
