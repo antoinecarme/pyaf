@@ -21,7 +21,7 @@ for subdir1 in subdirs:
             difffile = logfile + ".diff"
             # print("#PROCESSING FILE : " , filename, bn , logfile);
         
-            print(bn , " : " , "\n\t", "-time $(PYTHON) " , filename , " > " , logfile, " 2>&1");
+            print(bn , " : " , "\n\t", "-$(PYTHON) " , filename , " > " , logfile, " 2>&1");
             print("\t", "-diff " , logfile , reflogfile , " > " , difffile);
             print("\t", "cat " ,  difffile, "\n");
                 
