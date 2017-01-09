@@ -51,6 +51,31 @@ exog/test_ozone_exogenous.py  :
  exog :  exog/test_ozone_exogenous.py exog/test_ozone_exogenous_profile.py exog/test_random_exogenous.py  
  
 
+heroku/test_air_passengers_heroku.py  :  
+	 -time $(PYTHON)  tests/heroku/test_air_passengers_heroku.py  >  logs/heroku_test_air_passengers_heroku.log  2>&1
+	 -diff  logs/heroku_test_air_passengers_heroku.log tests/references/heroku_test_air_passengers_heroku.log  >  logs/heroku_test_air_passengers_heroku.log.diff
+	 cat  logs/heroku_test_air_passengers_heroku.log.diff 
+
+heroku/test_ozone_heroku.py  :  
+	 -time $(PYTHON)  tests/heroku/test_ozone_heroku.py  >  logs/heroku_test_ozone_heroku.log  2>&1
+	 -diff  logs/heroku_test_ozone_heroku.log tests/references/heroku_test_ozone_heroku.log  >  logs/heroku_test_ozone_heroku.log.diff
+	 cat  logs/heroku_test_ozone_heroku.log.diff 
+
+heroku/test_seasonal_week_of_year.py  :  
+	 -time $(PYTHON)  tests/heroku/test_seasonal_week_of_year.py  >  logs/heroku_test_seasonal_week_of_year.log  2>&1
+	 -diff  logs/heroku_test_seasonal_week_of_year.log tests/references/heroku_test_seasonal_week_of_year.log  >  logs/heroku_test_seasonal_week_of_year.log.diff
+	 cat  logs/heroku_test_seasonal_week_of_year.log.diff 
+
+heroku/build_generic_heroku_model.py  :  
+	 -time $(PYTHON)  tests/heroku/build_generic_heroku_model.py  >  logs/heroku_build_generic_heroku_model.log  2>&1
+	 -diff  logs/heroku_build_generic_heroku_model.log tests/references/heroku_build_generic_heroku_model.log  >  logs/heroku_build_generic_heroku_model.log.diff
+	 cat  logs/heroku_build_generic_heroku_model.log.diff 
+
+
+
+ heroku :  heroku/build_generic_heroku_model.py heroku/test_seasonal_week_of_year.py heroku/test_ozone_heroku.py heroku/test_air_passengers_heroku.py  
+ 
+
 hierarchical/test_grouped_signals_BU.py  :  
 	 -time $(PYTHON)  tests/hierarchical/test_grouped_signals_BU.py  >  logs/hierarchical_test_grouped_signals_BU.log  2>&1
 	 -diff  logs/hierarchical_test_grouped_signals_BU.log tests/references/hierarchical_test_grouped_signals_BU.log  >  logs/hierarchical_test_grouped_signals_BU.log.diff
@@ -341,11 +366,6 @@ func/test_const_signal.py  :
  func :  func/test_const_signal.py func/test_air_passengers.py func/test_cycles_full.py func/test_ozone.py func/test_cycle.py func/test_ozone_with_logging.py  
  
 
-neuralnet/test_ozone_tensorflow.py  :  
-	 -time $(PYTHON)  tests/neuralnet/test_ozone_tensorflow.py  >  logs/neuralnet_test_ozone_tensorflow.log  2>&1
-	 -diff  logs/neuralnet_test_ozone_tensorflow.log tests/references/neuralnet_test_ozone_tensorflow.log  >  logs/neuralnet_test_ozone_tensorflow.log.diff
-	 cat  logs/neuralnet_test_ozone_tensorflow.log.diff 
-
 neuralnet/test_air_passengers_GPU.py  :  
 	 -time $(PYTHON)  tests/neuralnet/test_air_passengers_GPU.py  >  logs/neuralnet_test_air_passengers_GPU.log  2>&1
 	 -diff  logs/neuralnet_test_air_passengers_GPU.log tests/references/neuralnet_test_air_passengers_GPU.log  >  logs/neuralnet_test_air_passengers_GPU.log.diff
@@ -355,11 +375,6 @@ neuralnet/test_ozone_rnn_only.py  :
 	 -time $(PYTHON)  tests/neuralnet/test_ozone_rnn_only.py  >  logs/neuralnet_test_ozone_rnn_only.log  2>&1
 	 -diff  logs/neuralnet_test_ozone_rnn_only.log tests/references/neuralnet_test_ozone_rnn_only.log  >  logs/neuralnet_test_ozone_rnn_only.log.diff
 	 cat  logs/neuralnet_test_ozone_rnn_only.log.diff 
-
-neuralnet/test_air_passengers_tensorflow.py  :  
-	 -time $(PYTHON)  tests/neuralnet/test_air_passengers_tensorflow.py  >  logs/neuralnet_test_air_passengers_tensorflow.log  2>&1
-	 -diff  logs/neuralnet_test_air_passengers_tensorflow.log tests/references/neuralnet_test_air_passengers_tensorflow.log  >  logs/neuralnet_test_air_passengers_tensorflow.log.diff
-	 cat  logs/neuralnet_test_air_passengers_tensorflow.log.diff 
 
 neuralnet/test_ozone__GPU.py  :  
 	 -time $(PYTHON)  tests/neuralnet/test_ozone__GPU.py  >  logs/neuralnet_test_ozone__GPU.log  2>&1
@@ -373,7 +388,7 @@ neuralnet/test_air_passengers_rnn_only.py  :
 
 
 
- neuralnet :  neuralnet/test_air_passengers_rnn_only.py neuralnet/test_ozone__GPU.py neuralnet/test_air_passengers_tensorflow.py neuralnet/test_ozone_rnn_only.py neuralnet/test_air_passengers_GPU.py neuralnet/test_ozone_tensorflow.py  
+ neuralnet :  neuralnet/test_air_passengers_rnn_only.py neuralnet/test_ozone__GPU.py neuralnet/test_ozone_rnn_only.py neuralnet/test_air_passengers_GPU.py  
  
 
 real-life/test_sof_example2.py  :  
@@ -424,7 +439,7 @@ time_res/test_ozone_Hourly.py  :
 
 # ********************************************** 
 
-all:  artificial bugs exog hierarchical model_control perf svr transformations bench func neuralnet real-life  time_res 
+all:  artificial bugs exog heroku hierarchical model_control perf svr transformations bench func neuralnet real-life  time_res 
 	
 
 build-test :  bugs exog hierarchical model_control svr transformations func real-life  time_res 

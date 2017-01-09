@@ -79,6 +79,12 @@ def prediction_interval_plot(df, time, signal, estimator, lower, upper, name = N
     df1[lower] = df1[lower].apply(lambda x : x if (np.isnan(x) or x >= lMin) else np.nan);
     df1[upper] = df1[upper].apply(lambda x : x if (np.isnan(x) or x <= lMax) else np.nan);
 
+    # last value of the signal
+    lLastSignalPos = df1[signal].dropna().tail(1).index;
+    lEstimtorValue = df1[estimator][lLastSignalPos];
+    df1.loc[lLastSignalPos , lower] = lEstimtorValue;
+    df1.loc[lLastSignalPos , upper] = lEstimtorValue;
+
     import matplotlib
     matplotlib.use('Agg')
     import matplotlib.pyplot as plt
@@ -111,6 +117,12 @@ def prediction_interval_plot_as_png_base64(df, time, signal, estimator, lower, u
     lMax = np.mean(df1[signal]) +  np.std(df1[signal]) * 3;
     df1[lower] = df1[lower].apply(lambda x : x if (np.isnan(x) or x >= lMin) else np.nan);
     df1[upper] = df1[upper].apply(lambda x : x if (np.isnan(x) or x <= lMax) else np.nan);
+
+    # last value of the signal
+    lLastSignalPos = df1[signal].dropna().tail(1).index;
+    lEstimtorValue = df1[estimator][lLastSignalPos];
+    df1.loc[lLastSignalPos , lower] = lEstimtorValue;
+    df1.loc[lLastSignalPos , upper] = lEstimtorValue;
 
     import matplotlib
     matplotlib.use('Agg')

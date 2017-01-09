@@ -12,15 +12,14 @@ import datetime as dt
 
 import ForecastEngine as autof
 
-from flask import Flask, jsonify, request
 import logging
 
 # for timing
-import time
+import time, os
 
 class cWSModel:
 
-    def __init__(self , name):
+    def __init__(self , name = ""):
         self.mName = name;
         self.mCreationDate = dt.datetime.now();
         self.mSignalVar = None;
@@ -30,7 +29,7 @@ class cWSModel:
         self.mMaxHistoryForDisplay = 1000; # max length of data frames returned in json
         self.mForecastData = None;
         self.mPlots = {};
-        self.mURI = "http://192.168.88.88:8080/";
+        self.mURI = os.environ.get("PYAF_URL", "http://0.0.0.0:8081/");
         
     def convert_string_to_date(self, iString):
         if(self.mDateFormat is not None and self.mDateFormat != ""):
@@ -42,34 +41,43 @@ class cWSModel:
         if(len(self.mFullDataFrame.columns) == 1):
             lLastColumn = self.mFullDataFrame.columns[-1];
             lDataFrame = pd.DataFrame();
+            self.mTimeVar = 'Time' if (self.mTimeVar == "") else self.mTimeVar;
             lDataFrame[self.mTimeVar] = range(0, self.mFullDataFrame.shape[0]);
+            self.mSignalVar = lLastColumn if (self.mSignalVar == "") else self.mSignalVar;
             lDataFrame[self.mSignalVar] = self.mFullDataFrame[lLastColumn]
             self.mFullDataFrame = lDataFrame;
         else:
             if(self.mTimeVar not in self.mFullDataFrame.columns):
                 lFirstColumn = self.mFullDataFrame.columns[0];
+                self.mTimeVar = lFirstColumn if (self.mTimeVar == "") else self.mTimeVar;
                 self.mFullDataFrame[self.mTimeVar] = self.mFullDataFrame[lFirstColumn]
             if(self.mSignalVar not in self.mFullDataFrame.columns):
-                lLastColumn = self.mFullDataFrame.columns[1];
+                lLastColumn = self.mFullDataFrame.columns[-1];
+                self.mSignalVar = lLastColumn if (self.mSignalVar == "") else self.mSignalVar;
                 self.mFullDataFrame[self.mSignalVar] = self.mFullDataFrame[lLastColumn]
         print("DATASET_FINAL_COLUMNS", self.mFullDataFrame.columns);
                 
 
     def readData(self):
-        self.mFullDataFrame = pd.read_csv(self.mCSVFile, sep=r',', engine='python');
+        self.mFullDataFrame = pd.read_csv(self.mCSVFile, sep=r',', engine='python', nrows=1000);
         self.guess_Columns_if_needed();
         self.mFullDataFrame[self.mTimeVar] = self.mFullDataFrame[self.mTimeVar].apply(self.convert_string_to_date);
         self.mFullDataFrame.sort_values(by = self.mTimeVar, inplace = True);
-        self.mPresent = self.convert_string_to_date(self.mPresentTime);
         
     def trainModel(self):
-        self.mTrainDataFrame = self.mFullDataFrame[self.mFullDataFrame[self.mTimeVar] <= self.mPresent];
-        self.mAutoForecast = autof.cForecastEngine()
-        self.mAutoForecast.train(self.mTrainDataFrame , self.mTimeVar , self.mSignalVar, self.mHorizon);        
+        self.mTrainDataFrame = self.mFullDataFrame;
+        if(self.mPresentTime is not None and self.mPresentTime != ""):
+            self.mPresent = self.convert_string_to_date(self.mPresentTime);
+            self.mTrainDataFrame = self.mFullDataFrame[self.mFullDataFrame[self.mTimeVar] <= self.mPresent];
+        self.mForecastEngine = autof.cForecastEngine()
+        # heroku does not have a lot of memory!!! issue #25
+        self.mForecastEngine.mOptions.enable_low_memory_mode();
+        print("TRAIN_PARAMS" , self.mTrainDataFrame.shape ,  self.mTrainDataFrame.columns , self.mTimeVar , self.mSignalVar, self.mHorizon)
+        self.mForecastEngine.train(self.mTrainDataFrame , self.mTimeVar , self.mSignalVar, self.mHorizon);        
 
     def applyModel(self):
         self.mApplyIn = self.mTrainDataFrame;
-        self.mDetailedForecast_DataFrame = self.mAutoForecast.forecast(self.mApplyIn, self.mHorizon);
+        self.mDetailedForecast_DataFrame = self.mForecastEngine.forecast(self.mApplyIn, self.mHorizon);
         self.mForecast_DataFrame = self.mDetailedForecast_DataFrame; # [[self.mTimeVar , self.mSignalVar, self.mSignalVar + '_Forecast']];
         self.mForecastData = self.mForecast_DataFrame.tail(self.mHorizon);
         lForecastName = self.mSignalVar + '_Forecast';
@@ -80,14 +88,15 @@ class cWSModel:
     def generateCode(self):
         logger = logging.getLogger(__name__)
         self.mSQL = {};
-        try:
-            self.mSQL["Default"] = self.mAutoForecast.generateCode(iDSN = None, iDialect = None);
-            self.mSQL["postgresql"] = self.mAutoForecast.generateCode(iDSN = None, iDialect = "postgresql");
-            self.mSQL["mssql"] = self.mAutoForecast.generateCode(iDSN = None, iDialect = "mssql");
-            self.mSQL["oracle"] = self.mAutoForecast.generateCode(iDSN = None, iDialect = "oracle");
-            self.mSQL["mysql"] = self.mAutoForecast.generateCode(iDSN = None, iDialect = "mysql");
-            self.mSQL["sybase"] = self.mAutoForecast.generateCode(iDSN = None, iDialect = "sybase");
-            self.mSQL["sqlite"] = self.mAutoForecast.generateCode(iDSN = None, iDialect = "sqlite");
+        lDialects = ['Default', 'postgresql', 'mssql', 'oracle', 'mysql', 'sybase', 'sqlite'];
+        try:            
+            self.mSQL["Default"] = self.mForecastEngine.generateCode(iDSN = None, iDialect = None);
+            self.mSQL["postgresql"] = self.mForecastEngine.generateCode(iDSN = None, iDialect = "postgresql");
+            self.mSQL["mssql"] = self.mForecastEngine.generateCode(iDSN = None, iDialect = "mssql");
+            self.mSQL["oracle"] = self.mForecastEngine.generateCode(iDSN = None, iDialect = "oracle");
+            self.mSQL["mysql"] = self.mForecastEngine.generateCode(iDSN = None, iDialect = "mysql");
+            self.mSQL["sybase"] = self.mForecastEngine.generateCode(iDSN = None, iDialect = "sybase");
+            self.mSQL["sqlite"] = self.mForecastEngine.generateCode(iDSN = None, iDialect = "sqlite");
         except Exception as e:
             # logger.error("FAILED_TO_GENERATE_CODE_FOR " + self.mName + " " + str(e));
             raise
@@ -97,10 +106,10 @@ class cWSModel:
         logger = logging.getLogger(__name__)
         self.mPlots = {};
         try:
-            self.mPlots = self.mAutoForecast.getPlotsAsDict();
+            self.mPlots = self.mForecastEngine.getPlotsAsDict();
         except Exception as e:
-            # logger.error("FAILED_TO_GENERATE_PLOTS " + self.mName + " " + str(e));
-            # raise
+            logger.error("FAILED_TO_GENERATE_PLOTS " + self.mName + " " + str(e));
+            raise
             pass
 
     def create(self):
@@ -108,26 +117,40 @@ class cWSModel:
         self.readData();
         self.trainModel();
         self.applyModel();
-        self.generateCode();
-        self.generatePlots();
         self.mTrainingTime = time.time() - start_time;
 
     def update(self):
         self.create();
 
     def getModelInfo(self):
-        return(self.mAutoForecast.to_json());
+        str1 = self.mForecastEngine.to_json();
+        import json
+        return json.loads(str1);
+        # return(str1);
 
     def getForecasts(self):
         return self.mForecastData.to_json(date_format='iso');
 
+
+    def generateName(self):
+        import string, random
+        chars = string.ascii_uppercase + string.digits;
+        lPrefix = "PYAF_MODEL_";
+        lRandomChars = ''.join(random.choice(chars) for _ in range(6))
+        return lPrefix + lRandomChars;
+
+
     def from_dict(self, json_dict):
+        print("REQUEST_DETAILS" , json_dict);
         self.mCSVFile = json_dict['CSVFile'];
-        self.mDateFormat = json_dict['DateFormat'];
-        self.mSignalVar = json_dict['SignalVar'];      
-        self.mTimeVar = json_dict['TimeVar'];      
-        self.mPresentTime = json_dict['Present'];      
-        self.mHorizon = int(json_dict['Horizon']);      
+        self.mDateFormat = json_dict.get('DateFormat' , '%Y-%m-%d');
+        self.mDateFormat = '%Y-%m-%d' if (self.mDateFormat == '') else self.mDateFormat;
+        self.mSignalVar = json_dict.get('SignalVar' , '');      
+        self.mTimeVar = json_dict.get('TimeVar' , '');
+        self.mPresentTime = json_dict.get('Present' , None);      
+        self.mHorizon = int(json_dict.get('Horizon' , 1));      
+        self.mName = json_dict.get('Name' , '');
+        self.mName = self.generateName() if (self.mName == "") else self.mName;        
         self.create();
         
 
@@ -155,6 +178,7 @@ class cWSModel:
 
         lModelInfo = self.getModelInfo();
         lTrainOptions =  {
+            'Name':self.mName,
             'CSVFile': self.mCSVFile,
             'DateFormat': self.mDateFormat,
             "SignalVar" : self.mSignalVar,
@@ -164,7 +188,7 @@ class cWSModel:
         }
         lPlotLinks = {};
         lPlotLinks["all"] = self.mURI + "model/" + self.mName + "/plot/" + "all";
-        for k in self.mPlots.keys():
+        for k in ["Forecast", "Trend" , "Cycle", "AR", "Prediction_Intervals"]:
             lPlotLinks[k] = self.mURI + "model/" + self.mName + "/plot/" + k;
         lTrainOptionsDescription =  {
             'CSVFile': "A CSV file (URIs are also welcome!!!) containing a date column (optional, a integer sequence starting at zero is used if not present), and a signal column, for which the future values are to be predicted. ",
@@ -177,7 +201,8 @@ class cWSModel:
         }
 
         lSQLLinks = {};
-        for k in self.mSQL.keys():
+        lDialects = ['Default', 'postgresql', 'mssql', 'oracle', 'mysql', 'sybase', 'sqlite'];
+        for k in lDialects:
             lSQLLinks[k] = self.mURI + "model/" + self.mName + "/SQL/" + k;
 
         lMetaData = {
@@ -199,10 +224,6 @@ class cWSModel:
         }
         return obj_d
 
-    @property
-    def json(self):
-        return jsonify(**self.as_dict())
-
 
 class cFlaskBackend:
 
@@ -218,23 +239,22 @@ class cFlaskBackend:
 
 
     def add_model(self, json_dict):
-        name = json_dict['Name'];
-        model  = cWSModel(name);
+        model  = cWSModel();
         model.from_dict(json_dict);
-        self.models[name] = model;
-        pass
+        self.models[model.mName] = model;
+        return model;
 
     def update_model(self, name, value):
         model  = self.models.get(name);
         if(model):
             model.update(value);
-        pass
+        return model;
 
     def remove_model(self, name):
         model  = self.models.get(name);
         if(model):
             del self.models[name];
-        pass
+        return None 
 
 
     def add_yahoo_symbol(self, symbol):
@@ -248,7 +268,7 @@ class cFlaskBackend:
                    "Horizon" : 7,
                    "Name" : lSymbol + "_Model"
                    };
-        self.add_model(lYahoo);
+        return self.add_model(lYahoo);
         
 
     # samples
@@ -271,10 +291,10 @@ class cFlaskBackend:
                      "Name" : "AirPassengers_Model"
                      };
         self.add_model(lOzone);
-        self.add_model(lAirline);
+        # self.add_model(lAirline);
         # yahoo symbols ... online
-        self.add_yahoo_symbol("AAPL")
-        self.add_yahoo_symbol("GOOG")
-        self.add_yahoo_symbol("MSFT")
-        self.add_yahoo_symbol("SAP")
-        self.add_yahoo_symbol("^FCHI")
+        # self.add_yahoo_symbol("AAPL")
+        # self.add_yahoo_symbol("GOOG")
+        # self.add_yahoo_symbol("MSFT")
+        # self.add_yahoo_symbol("SAP")
+        # self.add_yahoo_symbol("^FCHI")

@@ -92,7 +92,31 @@ class cSeasonalPeriodic(cAbstractCycle):
     def getCycleName(self):
         return self.mTrend_residue_name + "_Seasonal_" + self.mDatePart;
 
-
+    def hasEnoughData(self, iTimeMin, iTimeMax):
+        lTimeDelta = iTimeMax - iTimeMin;
+        lDays = lTimeDelta.days;
+        if(self.mDatePart == "Hour"):
+            return (lDays >= 10);
+        if(self.mDatePart == "Minute"):
+            lHours = lTimeDelta.total_seconds() // 3600;
+            return (lHours >= 10);
+        if(self.mDatePart == "Second"):
+            lMinutes = lTimeDelta.total_seconds() // 60;
+            return (lMinutes >= 10);
+        if(self.mDatePart == "DayOfMonth"):
+            lMonths = lDays // 30;
+            return (lMonths >= 10);
+        if(self.mDatePart == "DayOfWeek"):
+            lWeeks = lDays // 7;
+            return (lWeeks >= 10);
+        if(self.mDatePart == "MonthOfYear"):
+            lYears = lDays // 360;
+            return (lYears >= 10);
+        if(self.mDatePart == "WeekOfYear"):
+            lYears = lDays // 360;
+            return (lYears >= 10);
+        
+        return False;
 
     def fit(self):
         assert(self.mTimeInfo.isPhysicalTime());
@@ -246,7 +270,8 @@ class cCycleEstimator:
         if(resolution >= self.mTimeInfo.mResolution):
             lSeasonal = cSeasonalPeriodic(trend, seas_type);
             if(self.mOptions.mActivePeriodics[lSeasonal.mFormula]):
-                self.mCycleList[trend] = self.mCycleList[trend] + [lSeasonal];
+                if(lSeasonal.hasEnoughData(self.mTimeInfo.mTimeMin, self.mTimeInfo.mTimeMax)):
+                    self.mCycleList[trend] = self.mCycleList[trend] + [lSeasonal];
         pass
     
     def defineCycles(self):

@@ -7,6 +7,7 @@
 from __future__ import absolute_import
 
 from flask import Flask, jsonify, request #import objects from the Flask model
+import os, platform
 
 # from .
 import WS_Backend as be;
@@ -14,20 +15,17 @@ import WS_Backend as be;
 app = Flask(__name__) #define app using Flask
 backends = {};
 
-@app.route('/', methods=['GET'])
-def test():
-    return jsonify({'message' : 'It works!'})
-
 @app.route("/get_my_ip", methods=["GET"])
 def get_my_ip():
+    print(request.__dict__)
     return jsonify({'ip': request.remote_addr}), 200
 
 def get_backend():
-    backend = backends.get(request.remote_addr)
-    if(backend is None):
-        backend = be.cFlaskBackend();
-        backends[request.remote_addr] = backend;
-    return backend;
+    common_backend = backends.get(0)
+    if(common_backend is None):
+        common_backend = be.cFlaskBackend();
+        backends[0] = common_backend;
+    return common_backend;
 
 
 
@@ -41,11 +39,17 @@ def jsonify_models():
 
 # GET requests
 
+@app.route('/', methods=['GET'])
+def test():
+    backend = get_backend();
+    return jsonify_models();
 
 @app.route('/models', methods=['GET'])
 def returnAllModels():
     backend = get_backend();
     return jsonify_models();
+
+
 
 @app.route('/model/<string:name>', methods=['GET'])
 def returnOneModel(name):
@@ -59,6 +63,7 @@ def returnOneModel(name):
 def returnOneModelPlot(name, plot_type):
     backend = get_backend();
     model = backend.get_model(name);
+    model.generatePlots();
     if(model):
         if(plot_type != "all"):
             lPlot_PNG_Base64 = model.mPlots[plot_type];
@@ -75,6 +80,7 @@ def returnOneModelPlot(name, plot_type):
 def returnOneModelSQL(name, sql_dialect):
     backend = get_backend();
     model = backend.get_model(name);
+    model.generateCode();
     if(model):
         lSQL = model.mSQL[sql_dialect];
         return lSQL
@@ -87,8 +93,8 @@ def addOneModel():
     backend = get_backend();
     print("JSON : " , request.json);
     print("JSON : " , request.__dict__);
-    backend.add_model(request.json);
-    return jsonify_models();
+    model = backend.add_model(request.json);
+    return jsonify({'model' : model.as_dict()})
 
 # PUT requests 
 
@@ -96,11 +102,8 @@ def addOneModel():
 @app.route('/model/<string:name>', methods=['PUT'])
 def editOneModel(name):
     backend = get_backend();
-    backend.update_model(name , request.json['name']);
-    model = backend.get_model(name);
-    if(model):
-        return jsonify({'model' : model.as_dict()})
-    return jsonify({})
+    model = backend.update_model(name , request.json['name']);
+    return jsonify({'model' : model.as_dict()})
 
 # DELETE requests
 
@@ -111,5 +114,10 @@ def removeOneModel(name):
     return jsonify_models();
 
 if __name__ == '__main__':
-    app.run(debug=True)
-    
+    print(platform.platform())
+    print(platform.uname())
+    print(platform.processor())
+    print(platform.python_implementation(), platform.python_version());
+    print(os.environ);
+    port = int(os.environ.get("PORT", 8081))
+    app.run(host='0.0.0.0', port=port, debug=True)

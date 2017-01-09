@@ -147,4 +147,11 @@ class cSignalDecomposition_Options(cModelControl):
 
         self.mMaxAROrder = 256;
 
-    
+
+    # Add a low-memory mode for Heroku #25
+    def enable_low_memory_mode(self):
+        self.mMaxAROrder = 7;
+        self.set_active_transformations(['None']);
+        self.mParallelMode = False;
+        
+        

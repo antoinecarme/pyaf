@@ -251,8 +251,7 @@ class cTimeSeriesModel:
                                         lForecastColumn  ,
                                         lForecastColumn + '_Lower_Bound',
                                         lForecastColumn + '_Upper_Bound',
-                                        name = name,
-                                        max_length = (16 * self.mTimeInfo.mHorizon));
+                                        name = name);
         #lOutput.plot()
         
     def getPlotsAsDict(self):
@@ -260,13 +259,14 @@ class cTimeSeriesModel:
         df = self.mModelFrame;
         lTime = self.mTime;
         lSignalColumn = self.mOriginalSignal;
-        lPrefix = lSignalColumn + "_";
-        lDict["Trend"] = tsplot.decomp_plot_as_png_base64(df, lTime, lSignalColumn, lPrefix + 'Trend' , lPrefix + 'Trend_residue', name = "trend");
+        lPrefix = self.mSignal + "_";
+        lPrefix2 = self.mOriginalSignal + "_";
+        lDict["Trend"] = tsplot.decomp_plot_as_png_base64(df, lTime, self.mSignal, lPrefix + 'Trend' , lPrefix + 'Trend_residue', name = "trend");
         lDict["Cycle"] = tsplot.decomp_plot_as_png_base64(df, lTime, lPrefix + 'Trend_residue' , lPrefix + 'Cycle', lPrefix + 'Cycle_residue', name = "cycle");
         lDict["AR"] = tsplot.decomp_plot_as_png_base64(df, lTime, lPrefix + 'Cycle_residue' , lPrefix + 'AR' , lPrefix + 'AR_residue', name = "AR");
-        lDict["Forecast"] = tsplot.decomp_plot_as_png_base64(df, lTime, lSignalColumn, lPrefix + 'Forecast' , lPrefix + 'Residue', name = "forecast");
+        lDict["Forecast"] = tsplot.decomp_plot_as_png_base64(df, lTime, lSignalColumn, lPrefix2 + 'Forecast' , lPrefix2 + 'Residue', name = "forecast");
 
-        lInput = self.mModelFrame[[self.mTime, self.mSignal]];
+        lInput = self.mModelFrame[[self.mTime, self.mOriginalSignal]];
         lOutput = self.forecast(lInput ,  self.mTimeInfo.mHorizon);
         # print(lOutput.columns)
         lPrefix = self.mOriginalSignal + "_";
@@ -278,6 +278,5 @@ class cTimeSeriesModel:
                                                                                       lForecastColumn  ,
                                                                                       lForecastColumn + '_Lower_Bound',
                                                                                       lForecastColumn + '_Upper_Bound',
-                                                                                      name = "prediction_intervals",
-                                                                                      max_length = (16 * self.mTimeInfo.mHorizon));
+                                                                                      name = "prediction_intervals");
         return lDict;

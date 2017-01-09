@@ -3,23 +3,15 @@ python:
     - 3.5
 
 before_install:
-  - sudo apt-get -qq update
-  - sudo apt-get install -y ipython3
   
 
 cache:
 directories:
 - $HOME/.cache/matplotlib
 
-install: pip install -r requirements.txt
+install: 
+#pip install -r requirements.txt
 
 script: 
     - export PYTHONPATH=$PYTHONPATH:..
     - mkdir -p logs
-    - rm -rf ~/.matplotlib
-    - rm -rf ~/.cache/matplotlib
-    - rm -rf ~/.matplotlib/fontList.cache  
-    - fc-cache 
-    - python tests/func/test_ozone.py
-    - python tests/func/test_air_passengers.py
-#- make PYTHON=python -f tests/Makefile build-test
