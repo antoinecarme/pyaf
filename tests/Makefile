@@ -6,9 +6,14 @@ artificial/process_artificial_dataset.py  :
 	 -diff  logs/artificial_process_artificial_dataset.log tests/references/artificial_process_artificial_dataset.log  >  logs/artificial_process_artificial_dataset.log.diff
 	 cat  logs/artificial_process_artificial_dataset.log.diff 
 
+artificial/__init__.py  :  
+	 -time $(PYTHON)  tests/artificial/__init__.py  >  logs/artificial___init__.log  2>&1
+	 -diff  logs/artificial___init__.log tests/references/artificial___init__.log  >  logs/artificial___init__.log.diff
+	 cat  logs/artificial___init__.log.diff 
 
 
- artificial :  artificial/process_artificial_dataset.py  
+
+ artificial :  artificial/__init__.py artificial/process_artificial_dataset.py  
  
 
 bugs/test_random_exogenous.py  :  
@@ -156,6 +161,11 @@ perf/test_perf1.py  :
 	 -diff  logs/perf_test_perf1.log tests/references/perf_test_perf1.log  >  logs/perf_test_perf1.log.diff
 	 cat  logs/perf_test_perf1.log.diff 
 
+perf/test_cycles_full_long_long.py  :  
+	 -time $(PYTHON)  tests/perf/test_cycles_full_long_long.py  >  logs/perf_test_cycles_full_long_long.log  2>&1
+	 -diff  logs/perf_test_cycles_full_long_long.log tests/references/perf_test_cycles_full_long_long.log  >  logs/perf_test_cycles_full_long_long.log.diff
+	 cat  logs/perf_test_cycles_full_long_long.log.diff 
+
 perf/test_parallel.py  :  
 	 -time $(PYTHON)  tests/perf/test_parallel.py  >  logs/perf_test_parallel.log  2>&1
 	 -diff  logs/perf_test_parallel.log tests/references/perf_test_parallel.log  >  logs/perf_test_parallel.log.diff
@@ -171,6 +181,11 @@ perf/test_ozone_long_series.py  :
 	 -diff  logs/perf_test_ozone_long_series.log tests/references/perf_test_ozone_long_series.log  >  logs/perf_test_ozone_long_series.log.diff
 	 cat  logs/perf_test_ozone_long_series.log.diff 
 
+perf/test_cycles_full_long.py  :  
+	 -time $(PYTHON)  tests/perf/test_cycles_full_long.py  >  logs/perf_test_cycles_full_long.log  2>&1
+	 -diff  logs/perf_test_cycles_full_long.log tests/references/perf_test_cycles_full_long.log  >  logs/perf_test_cycles_full_long.log.diff
+	 cat  logs/perf_test_cycles_full_long.log.diff 
+
 perf/test_ozone_debug_perf.py  :  
 	 -time $(PYTHON)  tests/perf/test_ozone_debug_perf.py  >  logs/perf_test_ozone_debug_perf.log  2>&1
 	 -diff  logs/perf_test_ozone_debug_perf.log tests/references/perf_test_ozone_debug_perf.log  >  logs/perf_test_ozone_debug_perf.log.diff
@@ -178,7 +193,7 @@ perf/test_ozone_debug_perf.py  :
 
 
 
- perf :  perf/test_ozone_debug_perf.py perf/test_ozone_long_series.py perf/test_ozone_long_series_2.py perf/test_parallel.py perf/test_perf1.py  
+ perf :  perf/test_ozone_debug_perf.py perf/test_cycles_full_long.py perf/test_ozone_long_series.py perf/test_ozone_long_series_2.py perf/test_parallel.py perf/test_cycles_full_long_long.py perf/test_perf1.py  
  
 
 svr/test_ozone_svr_only.py  :  
@@ -366,6 +381,11 @@ func/test_const_signal.py  :
  func :  func/test_const_signal.py func/test_air_passengers.py func/test_cycles_full.py func/test_ozone.py func/test_cycle.py func/test_ozone_with_logging.py  
  
 
+neuralnet/test_ozone_tensorflow.py  :  
+	 -time $(PYTHON)  tests/neuralnet/test_ozone_tensorflow.py  >  logs/neuralnet_test_ozone_tensorflow.log  2>&1
+	 -diff  logs/neuralnet_test_ozone_tensorflow.log tests/references/neuralnet_test_ozone_tensorflow.log  >  logs/neuralnet_test_ozone_tensorflow.log.diff
+	 cat  logs/neuralnet_test_ozone_tensorflow.log.diff 
+
 neuralnet/test_air_passengers_GPU.py  :  
 	 -time $(PYTHON)  tests/neuralnet/test_air_passengers_GPU.py  >  logs/neuralnet_test_air_passengers_GPU.log  2>&1
 	 -diff  logs/neuralnet_test_air_passengers_GPU.log tests/references/neuralnet_test_air_passengers_GPU.log  >  logs/neuralnet_test_air_passengers_GPU.log.diff
@@ -375,6 +395,11 @@ neuralnet/test_ozone_rnn_only.py  :
 	 -time $(PYTHON)  tests/neuralnet/test_ozone_rnn_only.py  >  logs/neuralnet_test_ozone_rnn_only.log  2>&1
 	 -diff  logs/neuralnet_test_ozone_rnn_only.log tests/references/neuralnet_test_ozone_rnn_only.log  >  logs/neuralnet_test_ozone_rnn_only.log.diff
 	 cat  logs/neuralnet_test_ozone_rnn_only.log.diff 
+
+neuralnet/test_air_passengers_tensorflow.py  :  
+	 -time $(PYTHON)  tests/neuralnet/test_air_passengers_tensorflow.py  >  logs/neuralnet_test_air_passengers_tensorflow.log  2>&1
+	 -diff  logs/neuralnet_test_air_passengers_tensorflow.log tests/references/neuralnet_test_air_passengers_tensorflow.log  >  logs/neuralnet_test_air_passengers_tensorflow.log.diff
+	 cat  logs/neuralnet_test_air_passengers_tensorflow.log.diff 
 
 neuralnet/test_ozone__GPU.py  :  
 	 -time $(PYTHON)  tests/neuralnet/test_ozone__GPU.py  >  logs/neuralnet_test_ozone__GPU.log  2>&1
@@ -388,7 +413,7 @@ neuralnet/test_air_passengers_rnn_only.py  :
 
 
 
- neuralnet :  neuralnet/test_air_passengers_rnn_only.py neuralnet/test_ozone__GPU.py neuralnet/test_ozone_rnn_only.py neuralnet/test_air_passengers_GPU.py  
+ neuralnet :  neuralnet/test_air_passengers_rnn_only.py neuralnet/test_ozone__GPU.py neuralnet/test_air_passengers_tensorflow.py neuralnet/test_ozone_rnn_only.py neuralnet/test_air_passengers_GPU.py neuralnet/test_ozone_tensorflow.py  
  
 
 real-life/test_sof_example2.py  :  
@@ -442,6 +467,6 @@ time_res/test_ozone_Hourly.py  :
 all:  artificial bugs exog heroku hierarchical model_control perf svr transformations bench func neuralnet real-life  time_res 
 	
 
-build-test :  bugs exog hierarchical model_control svr transformations func real-life  time_res 
+build-test :  bugs exog heroku hierarchical model_control svr transformations func real-life  time_res 
 	
 

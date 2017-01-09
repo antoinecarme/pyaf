@@ -33,6 +33,6 @@ print("\n# ********************************************** \n");
 
 print("all: " , str1 , "\n\t\n");
 
-str2 = "bugs exog hierarchical model_control svr transformations func real-life  time_res";
+str2 = "bugs exog heroku hierarchical model_control svr transformations func real-life  time_res";
 
 print("build-test : " , str2 , "\n\t\n");
