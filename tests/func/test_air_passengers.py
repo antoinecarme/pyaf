@@ -1,6 +1,3 @@
-import sys
-print(sys.path)
-
 import pandas as pd
 import numpy as np
 
