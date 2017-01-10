@@ -10,6 +10,12 @@ import numpy as np
 from io import BytesIO
 import base64
 
+SIGNAL_COLOR='green'
+FORECAST_COLOR='blue'
+RESIDUE_COLOR='red'
+COMPONENT_COLOR='navy'
+SHADED_COLOR='turquoise'
+
 def decomp_plot(df, time, signal, estimator, residue, name = None, max_length = 1000) :
     assert(df.shape[0] > 0)
     assert(df.shape[1] > 0)
@@ -23,7 +29,12 @@ def decomp_plot(df, time, signal, estimator, residue, name = None, max_length = 
     import matplotlib.pyplot as plt
     df1 = df.tail(max_length);
     fig, axs = plt.subplots(ncols=2, figsize=(32, 16))
-    df1.plot.line(time, [signal, estimator, residue], ax=axs[0] , grid = True)
+    lColor = COMPONENT_COLOR;
+    if(name.endswith("Forecast")):
+        lColor = FORECAST_COLOR;
+    df1.plot.line(time, [signal, estimator, residue],
+                  color=[SIGNAL_COLOR, lColor, RESIDUE_COLOR],
+                  ax=axs[0] , grid = True)
     residues =  df1[residue].values
     lErrorStdDev = np.std(residues)
     #    axs[0].fill_between(time, df1[estimator].values - 2*lErrorStdDev,  df1[estimator].values + 2*lErrorStdDev, color='b', alpha=0.2)
@@ -48,7 +59,12 @@ def decomp_plot_as_png_base64(df, time, signal, estimator, residue, name = None,
     import matplotlib.pyplot as plt
     df1 = df.tail(max_length);
     fig, axs = plt.subplots(ncols=2, figsize=(16, 8))
-    df1.plot.line(time, [signal, estimator, residue], ax=axs[0] , grid = True)
+    lColor = COMPONENT_COLOR;
+    if(name.endswith("Forecast")):
+        lColor = FORECAST_COLOR;
+    df1.plot.line(time, [signal, estimator, residue],
+                  color=[SIGNAL_COLOR, lColor, RESIDUE_COLOR],
+                  ax=axs[0] , grid = True)
     residues =  df1[residue].values
     lErrorStdDev = np.std(residues)
 
@@ -89,13 +105,15 @@ def prediction_interval_plot(df, time, signal, estimator, lower, upper, name = N
     matplotlib.use('Agg')
     import matplotlib.pyplot as plt
     fig, axs = plt.subplots(ncols=1, figsize=(16, 8))
-    df1.plot.line(time, [signal, estimator, lower, upper], ax=axs, grid = True)
+    df1.plot.line(time, [signal, estimator, lower, upper],
+                  color=[SIGNAL_COLOR, FORECAST_COLOR, FORECAST_COLOR, FORECAST_COLOR],
+                  ax=axs, grid = True)
 
     x = df1[time];
     type1 = np.dtype(x)
     if(type1.kind == 'M'):
         x = x.apply(lambda t : t.date());
-    axs.fill_between(x.values, df1[lower], df1[upper], color='blue', alpha=.5)
+    axs.fill_between(x.values, df1[lower], df1[upper], color=SHADED_COLOR, alpha=.5)
 
     if(name is not None):
         fig.savefig(name + '_prediction_intervals_output.png')
@@ -128,13 +146,15 @@ def prediction_interval_plot_as_png_base64(df, time, signal, estimator, lower, u
     matplotlib.use('Agg')
     import matplotlib.pyplot as plt
     fig, axs = plt.subplots(ncols=1, figsize=(16, 8))
-    df1.plot.line(time, [signal, estimator, lower, upper], ax=axs, grid = True)
+    df1.plot.line(time, [signal, estimator, lower, upper],
+                  color=[SIGNAL_COLOR, FORECAST_COLOR, FORECAST_COLOR, FORECAST_COLOR],
+                  ax=axs, grid = True)
 
     x = df1[time];
     type1 = np.dtype(x)
     if(type1.kind == 'M'):
         x = x.apply(lambda t : t.date());
-    axs.fill_between(x.values, df1[lower], df1[upper], color='blue', alpha=.5)
+    axs.fill_between(x.values, df1[lower], df1[upper], color=SHADED_COLOR, alpha=.5)
 
     figfile = BytesIO()
     fig.savefig(figfile, format='png')
