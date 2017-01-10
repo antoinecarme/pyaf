@@ -215,7 +215,7 @@ class cWSModel:
             "SignalVar" : "Name of the signal column to be predicted",
             "TimeVar" : "Name of the date/time column",
             'ExogenousData': "A CSV file (URIs are also welcome!!!) containing a date column (same name and format as in CSVFile), and the columns containing the values of exogenous variables.",
-            'ExogenousVars': "(optional) a string giving the names of exogenous variables , separated by spaces."
+            'ExogenousVars': "(optional) a string giving the names of exogenous variables , separated by spaces.",
             "Present" : "date/time of the last known signal value. Predictions start after this date/time",
             "Horizon" : "number of future time periods to be predicted. The length of a period is inferred from data (most frequent difference between two consecutive dates)",
             "Name" : "Name used to identify the model in the API"
