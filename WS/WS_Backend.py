@@ -63,6 +63,17 @@ class cWSModel:
         self.guess_Columns_if_needed();
         self.mFullDataFrame[self.mTimeVar] = self.mFullDataFrame[self.mTimeVar].apply(self.convert_string_to_date);
         self.mFullDataFrame.sort_values(by = self.mTimeVar, inplace = True);
+        self.mExogenousDataFrame = None;
+        self.mExogenousVariables = None;
+        if(self.mExogenousDataFile is not None):
+            print(self.mExogenousDataFile)
+            self.mExogenousDataFrame =  pd.read_csv(self.mExogenousDataFile, sep=r',', engine='python', nrows=1000);
+            self.mExogenousDataFrame[self.mTimeVar] = self.mExogenousDataFrame[self.mTimeVar].apply(self.convert_string_to_date);
+            if(self.mExogenousVars is None):
+                self.mExogenousVariables = [col for col in self.mExogenousDataFrame.columns if
+                                            ((col != self.mTimeVar) and (col != self.mTimeVar))];
+            else:
+                self.mExogenousVariables = self.mExogenousVars.split();
         
     def trainModel(self):
         self.mTrainDataFrame = self.mFullDataFrame;
@@ -73,8 +84,11 @@ class cWSModel:
         # heroku does not have a lot of memory!!! issue #25
         self.mForecastEngine.mOptions.enable_low_memory_mode();
         print("TRAIN_PARAMS" , self.mTrainDataFrame.shape ,  self.mTrainDataFrame.columns , self.mTimeVar , self.mSignalVar, self.mHorizon)
-        self.mForecastEngine.train(self.mTrainDataFrame , self.mTimeVar , self.mSignalVar, self.mHorizon);        
-
+        lExogenousData = None;
+        if(self.mExogenousDataFrame is not None):
+            lExogenousData = (self.mExogenousDataFrame , self.mExogenousVariables)
+        self.mForecastEngine.train(self.mTrainDataFrame , self.mTimeVar , self.mSignalVar, self.mHorizon, lExogenousData);
+        
     def applyModel(self):
         self.mApplyIn = self.mTrainDataFrame;
         self.mDetailedForecast_DataFrame = self.mForecastEngine.forecast(self.mApplyIn, self.mHorizon);
@@ -141,7 +155,7 @@ class cWSModel:
 
 
     def from_dict(self, json_dict):
-        print("REQUEST_DETAILS" , json_dict);
+        print("REQUEST_DETAILS" , sorted(json_dict.items()));
         self.mCSVFile = json_dict['CSVFile'];
         self.mDateFormat = json_dict.get('DateFormat' , '%Y-%m-%d');
         self.mDateFormat = '%Y-%m-%d' if (self.mDateFormat == '') else self.mDateFormat;
@@ -149,6 +163,9 @@ class cWSModel:
         self.mTimeVar = json_dict.get('TimeVar' , '');
         self.mPresentTime = json_dict.get('Present' , None);      
         self.mHorizon = int(json_dict.get('Horizon' , 1));      
+        self.mExogenousDataFile = json_dict.get('ExogenousData', None);
+        self.mExogenousVars = json_dict.get('ExogenousVars', None);
+        print(self.mExogenousDataFile)
         self.mName = json_dict.get('Name' , '');
         self.mName = self.generateName() if (self.mName == "") else self.mName;        
         self.create();
@@ -180,6 +197,8 @@ class cWSModel:
         lTrainOptions =  {
             'Name':self.mName,
             'CSVFile': self.mCSVFile,
+            'ExogenousData': self.mExogenousDataFile,
+            'ExogenousVars': self.mExogenousVars,
             'DateFormat': self.mDateFormat,
             "SignalVar" : self.mSignalVar,
             "TimeVar" : self.mTimeVar,
