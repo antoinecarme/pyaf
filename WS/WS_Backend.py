@@ -182,6 +182,7 @@ class cWSModel:
         lDatasetInfo["Time_Stats"] = {"Min" : str(self.mFullDataFrame[self.mTimeVar].min()),
                                       "Max" : str(self.mFullDataFrame[self.mTimeVar].max()),
                                       };
+        lDatasetInfo["Exogenous_Variables"] = self.mExogenousVariables
         return lDatasetInfo;
 
     def as_dict(self):
