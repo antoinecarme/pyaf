@@ -67,10 +67,6 @@ class cTimeSeriesModel:
     def computePredictionIntervals(self):
         # prediction intervals
         self.mPredictionIntervalsEstimator = predint.cPredictionIntervalsEstimator();
-        self.mPredictionIntervalsEstimator.mSignalFrame = self.mTrend.mSignalFrame.copy();
-        self.mPredictionIntervalsEstimator.mTime = self.mTime;
-        self.mPredictionIntervalsEstimator.mSignal = self.mOriginalSignal;
-        self.mPredictionIntervalsEstimator.mHorizon = self.mTimeInfo.mHorizon;
         self.mPredictionIntervalsEstimator.mModel = self;
         
         self.mPredictionIntervalsEstimator.computePerformances();
