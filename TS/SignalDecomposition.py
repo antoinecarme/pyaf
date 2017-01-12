@@ -64,9 +64,6 @@ class cSignalDecompositionOneTransform:
         self.mTime = None
         self.mSignal = None
         self.mTimeInfo = tsti.cTimeInfo();
-        self.mTrendEstimator = tstr.cTrendEstimator()
-        self.mCycleEstimator = tscy.cCycleEstimator();
-        self.mAREstimator = tsar.cAutoRegressiveEstimator();
         self.mForecastFrame = pd.DataFrame()
         self.mTransformation = tstransf.cSignalTransform_None();
         
@@ -120,16 +117,6 @@ class cSignalDecompositionOneTransform:
             self.mExogenousInfo.mTimeInfo = self.mTimeInfo;
             self.mExogenousInfo.mOptions = self.mOptions;
         
-        self.mTrendEstimator.mSignalFrame = self.mSignalFrame
-        self.mTrendEstimator.mTimeInfo = self.mTimeInfo
-        self.mTrendEstimator.mOptions = self.mOptions;
-
-        self.mCycleEstimator.mTimeInfo = self.mTimeInfo
-        self.mCycleEstimator.mOptions = self.mOptions;
-
-        self.mAREstimator.mTimeInfo = self.mTimeInfo
-        self.mAREstimator.mExogenousInfo = self.mExogenousInfo;
-        self.mAREstimator.mOptions = self.mOptions;
 
     def computePerfsInParallel(self, args):
         lModels = {};
@@ -146,35 +133,19 @@ class cSignalDecompositionOneTransform:
         return lModels;
             
 
-    def updatePerfsForAllModels(self):
+    def updatePerfsForAllModels(self , iModels):
         self.mPerfsByModel = {}
-        args = [];
-        for trend in self.mAREstimator.mTrendList:
-            for cycle in self.mAREstimator.mCycleList[trend]:
-                cycle_residue = cycle.getCycleResidueName();
-                for autoreg in self.mAREstimator.mARList[cycle_residue]:
-                    lModel = tsmodel.cTimeSeriesModel(self.mTransformation, trend, cycle, autoreg);
-                    arg = cPerf_Arg(lModel.mOutName);
-                    arg.mModel = lModel;
-                    args.append(arg);
-
-        lModels = {};
-        if(self.mOptions.mParallelMode):
-            lModels = self.computePerfsInParallel(args);
-        else:
-            for arg in args:
-                arg.mModel.updatePerfs();
-                lModels[arg.mModel.mOutName] = arg.mModel;
-                
+        for model in iModels.keys():
+            iModels[model].updatePerfs();
             
-        for (name, model) in lModels.items():
+        for (name, model) in iModels.items():
             # print(name, model.__dict__);
             lComplexity = model.getComplexity();
             lFitPerf = model.mFitPerf;
             lForecastPerf = model.mForecastPerf;
             lTestPerf = model.mTestPerf;
             self.mPerfsByModel[model.mOutName] = [model, lComplexity, lFitPerf , lForecastPerf, lTestPerf];
-        return lModels;
+        return iModels;
 
     def collectPerformanceIndices(self) :
         rows_list = [];
@@ -184,7 +155,6 @@ class cSignalDecompositionOneTransform:
 
         logger = tsutil.get_pyaf_logger();
         
-        lModels = self.updatePerfsForAllModels();
         for name in sorted(self.mPerfsByModel.keys()):
             lModel = self.mPerfsByModel[name][0];
             lComplexity = self.mPerfsByModel[name][1];
@@ -215,8 +185,10 @@ class cSignalDecompositionOneTransform:
         return self.mBestModel;
     
 
+    def run_gc(self):
+        import gc
+        gc.collect()
     
-
     # @profile
     def train(self , iInputDS, iTime, iSignal,
               iHorizon, iTransformation):
@@ -224,9 +196,13 @@ class cSignalDecompositionOneTransform:
 
         start_time = time.time()
         self.setParams(iInputDS, iTime, iSignal, iHorizon, iTransformation, self.mExogenousData);
+
+        self.run_gc();
+
         # estimate time info
         # assert(self.mTimeInfo.mSignalFrame.shape[0] == iInputDS.shape[0])
         self.mTimeInfo.estimate();
+
 
         exog_start_time = time.time()
         if(self.mExogenousInfo is not None):
@@ -235,34 +211,72 @@ class cSignalDecompositionOneTransform:
                 logger.info("EXOGENOUS_ENCODING_TIME_IN_SECONDS " + self.mSignal + " " + str(time.time() - exog_start_time))
 
         # estimate the trend
+
+        lTrendEstimator = tstr.cTrendEstimator()
+        lTrendEstimator.mSignalFrame = self.mSignalFrame
+        lTrendEstimator.mTimeInfo = self.mTimeInfo
+        lTrendEstimator.mOptions = self.mOptions;
+        
         trend_start_time = time.time()
-        self.mTrendEstimator.estimateTrend();
-        #self.mTrendEstimator.plotTrend();
+        lTrendEstimator.estimateTrend();
+        #lTrendEstimator.plotTrend();
         if(self.mOptions.mDebugProfile):
             logger.info("TREND_TIME_IN_SECONDS "  + self.mSignal + " " + str(time.time() - trend_start_time))
 
+
         # estimate cycles
         cycle_start_time = time.time()
-        self.mCycleEstimator.mTrendFrame = self.mTrendEstimator.mTrendFrame;
-        self.mCycleEstimator.mTrendList = self.mTrendEstimator.mTrendList;
-        self.mCycleEstimator.estimateAllCycles();
+
+        lCycleEstimator = tscy.cCycleEstimator();
+        lCycleEstimator.mTrendFrame = lTrendEstimator.mTrendFrame;
+        lCycleEstimator.mTrendList = lTrendEstimator.mTrendList;
+
+        del lTrendEstimator;
+        self.run_gc();
+
+        lCycleEstimator.mTimeInfo = self.mTimeInfo
+        lCycleEstimator.mOptions = self.mOptions;
+
+        lCycleEstimator.estimateAllCycles();
         # if(self.mOptions.mDebugCycles):
-            # self.mCycleEstimator.plotCycles();
+            # lCycleEstimator.plotCycles();
         if(self.mOptions.mDebugProfile):
             logger.info("CYCLE_TIME_IN_SECONDS "  + self.mSignal + " " + str( str(time.time() - cycle_start_time)))
 
+
         # autoregressive
         ar_start_time = time.time()
-        self.mAREstimator.mCycleFrame = self.mCycleEstimator.mCycleFrame;
-        self.mAREstimator.mTrendList = self.mCycleEstimator.mTrendList;
-        self.mAREstimator.mCycleList = self.mCycleEstimator.mCycleList;
-        self.mAREstimator.estimate();
-        #self.mAREstimator.plotAR();
+        lAREstimator = tsar.cAutoRegressiveEstimator();
+        lAREstimator.mCycleFrame = lCycleEstimator.mCycleFrame;
+        lAREstimator.mTrendList = lCycleEstimator.mTrendList;
+        lAREstimator.mCycleList = lCycleEstimator.mCycleList;
+
+        del lCycleEstimator;
+        self.run_gc();
+
+        lAREstimator.mTimeInfo = self.mTimeInfo
+        lAREstimator.mExogenousInfo = self.mExogenousInfo;
+        lAREstimator.mOptions = self.mOptions;
+        lAREstimator.estimate();
+        #lAREstimator.plotAR();
         if(self.mOptions.mDebugProfile):
             logger.info("AUTOREG_TIME_IN_SECONDS " + self.mSignal + " " + str( str(time.time() - ar_start_time)))
         # forecast perfs
+
+        lModels = {};
+        for trend in lAREstimator.mTrendList:
+            for cycle in lAREstimator.mCycleList[trend]:
+                cycle_residue = cycle.getCycleResidueName();
+                for autoreg in lAREstimator.mARList[cycle_residue]:
+                    lModel = tsmodel.cTimeSeriesModel(self.mTransformation, trend, cycle, autoreg);
+                    lModels[lModel.mOutName] = lModel;
+
+        del lAREstimator;
+        self.updatePerfsForAllModels(lModels);
+        
         if(self.mOptions.mDebugProfile):
             logger.info("TRAINING_TIME_IN_SECONDS "  + self.mSignal + " " + str(time.time() - start_time))
+        self.run_gc();
         
 
 
@@ -451,8 +465,8 @@ class cSignalDecomposition:
             self.train_not_threaded(iInputDS, iTime, iSignal, iHorizon);
     
 
-        for (name, sigdec) in self.mSigDecByTransform.items():
-            sigdec.collectPerformanceIndices();        
+        # for (name, sigdec) in self.mSigDecByTransform.items():
+        #    sigdec.collectPerformanceIndices();        
 
         self.collectPerformanceIndices();
 
