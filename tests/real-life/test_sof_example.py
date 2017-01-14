@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-import ForecastEngine as autof
+import pyaf.ForecastEngine as autof
 import datetime
 
 #get_ipython().magic('matplotlib inline')
