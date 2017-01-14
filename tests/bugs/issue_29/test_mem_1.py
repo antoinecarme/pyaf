@@ -18,7 +18,7 @@ def display_used_mem():
 # from pyaf
 
 display_used_mem();
-import Bench.TS_datasets as tsds
+import pyaf.Bench.TS_datasets as tsds
 
 #get_ipython().magic('matplotlib inline')
 

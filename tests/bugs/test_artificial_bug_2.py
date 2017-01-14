@@ -1,7 +1,7 @@
 # from __future__ import absolute_import
 
-import ForecastEngine as autof
-import Bench.TS_datasets as tsds
+import pyaf.ForecastEngine as autof
+import pyaf.Bench.TS_datasets as tsds
 import warnings
 
 

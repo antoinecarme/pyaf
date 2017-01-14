@@ -1,9 +1,7 @@
 import pandas as pd
 import numpy as np
-import ForecastEngine as autof
-import Bench.TS_datasets as tsds
-
-import CodeGen.TS_CodeGenerator as tscodegen
+import pyaf.ForecastEngine as autof
+import pyaf.Bench.TS_datasets as tsds
 
 import warnings
 

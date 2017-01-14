@@ -8,7 +8,7 @@ import numpy as np
 # pyaf=pyaf_new_name
 # from pyaf
 import ForecastEngine as autof
-import Bench.TS_datasets as tsds
+import pyaf.Bench.TS_datasets as tsds
 
 #get_ipython().magic('matplotlib inline')
 

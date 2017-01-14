@@ -1,4 +1,4 @@
-import Bench.TS_datasets as tsds
+import pyaf.Bench.TS_datasets as tsds
 import tests.artificial.process_artificial_dataset as art
 import warnings
 
