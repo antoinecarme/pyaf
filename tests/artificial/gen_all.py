@@ -37,8 +37,8 @@ for N in [32, 128, 1024]:
                         
                         file = open(filename, "w");
                         print("WRTITING_FILE" , filename);
-                        file.write("import Bench.TS_datasets as tsds\n");
-                        file.write("import tests.artificial.process_artificial_dataset as art\n\n");
+                        file.write("import pyaf.Bench.TS_datasets as tsds\n");
+                        file.write("import pyaf.tests.artificial.process_artificial_dataset as art\n\n");
                         file.write("\n\n\n" + lVariable);
                         file.write("\n\nart.process_dataset(dataset);");
                         file.close();
