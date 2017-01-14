@@ -2,12 +2,11 @@ import pandas as pd
 import numpy as np
 import warnings
 
-import ForecastEngine as autof
-import Bench.TS_datasets as tsds
-
-import CodeGen.TS_CodeGenerator as tscodegen
+import pyaf.ForecastEngine as autof
+import pyaf.Bench.TS_datasets as tsds
 
 #get_ipython().magic('matplotlib inline')
+import pyaf.CodeGen.TS_CodeGenerator as tscodegen
 
 
 with warnings.catch_warnings():

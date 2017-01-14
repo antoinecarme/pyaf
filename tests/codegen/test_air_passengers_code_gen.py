@@ -1,10 +1,10 @@
 import pandas as pd
 import numpy as np
 
-import ForecastEngine as autof
-import Bench.TS_datasets as tsds
+import pyaf.ForecastEngine as autof
+import pyaf.Bench.TS_datasets as tsds
 
-import CodeGen.TS_CodeGenerator as tscodegen
+import pyaf.CodeGen.TS_CodeGenerator as tscodegen
 
 b1 = tsds.load_airline_passengers()
 df = b1.mPastData
