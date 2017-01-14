@@ -30,7 +30,7 @@ import numpy as np;
 
 from dateutil.tz import tzutc
 
-import TS
+import pyaf.TS 
 
 @compiles(DropTable, "postgresql")
 def _compile_drop_table(element, compiler, **kwargs):
@@ -400,7 +400,7 @@ class cDecompositionCodeGenObject:
          self.mDateName = self.mBestModel.mTime
          self.mModelName =  self.mBestModel.mOutName
          print(self.mBestModel.mTransformation.__class__);
-         lNeedTransformation = (self.mBestModel.mTransformation.__class__ != TS.Signal_Transformation.cSignalTransform_None);
+         lNeedTransformation = (self.mBestModel.mTransformation.__class__ != pyaf.TS.Signal_Transformation.cSignalTransform_None);
 
          self.mRowTypeAlias = "HType" 
          self.mSignal = self.mBestModel.mSignal; 
@@ -530,13 +530,13 @@ class cDecompositionCodeGenObject:
         cumulated_signal = None;
         previous_expr = None;
         relatve_diff = None;
-        if(lTrClass == TS.Signal_Transformation.cSignalTransform_None):
+        if(lTrClass == pyaf.TS.Signal_Transformation.cSignalTransform_None):
             pass;
-        elif (lTrClass == TS.Signal_Transformation.cSignalTransform_Accumulate):           
+        elif (lTrClass == pyaf.TS.Signal_Transformation.cSignalTransform_Accumulate):           
             cumulated_signal  = select([func.sum(sig_expr)]).where(rn_expr_1 >= rn_expr_2);
-        elif (lTrClass == TS.Signal_Transformation.cSignalTransform_Differencing):
+        elif (lTrClass == pyaf.TS.Signal_Transformation.cSignalTransform_Differencing):
             previous_expr = select([func.sum(sig_expr)]).where(rn_expr_1 == (rn_expr_2 + 1));
-        elif (lTrClass == TS.Signal_Transformation.cSignalTransform_RelativeDifferencing):
+        elif (lTrClass == pyaf.TS.Signal_Transformation.cSignalTransform_RelativeDifferencing):
             lMinExpr = self.as_float(tr.mTransformation.mMinValue);
             lDeltaExpr = self.as_float(tr.mTransformation.mDelta);
             lNormalizedSignal = (sig_expr - lMinExpr) / lDeltaExpr;
@@ -603,15 +603,15 @@ class cDecompositionCodeGenObject:
         # lName = "Diff_"
         TS1 = alias(select([table.columns[self.mOriginalSignal], table.columns[self.mRowNumberAlias]]), "t_SigRowNum2");
         sig_expr = TS1.c[ self.mOriginalSignal ]; # original signal
-        if(lTrClass == TS.Signal_Transformation.cSignalTransform_None):            
+        if(lTrClass == pyaf.TS.Signal_Transformation.cSignalTransform_None):            
             trasformed_signal = table.c[ self.mOriginalSignal ];
-        elif(lTrClass == TS.Signal_Transformation.cSignalTransform_Accumulate):
+        elif(lTrClass == pyaf.TS.Signal_Transformation.cSignalTransform_Accumulate):
             trasformed_signal  = table.c["Cum_" + self.mOriginalSignal];
-        elif(lTrClass == TS.Signal_Transformation.cSignalTransform_Differencing):
+        elif(lTrClass == pyaf.TS.Signal_Transformation.cSignalTransform_Differencing):
             lDefault_expr = self.as_float(tr.mTransformation.mFirstValue)
             previous_expr = func.coalesce(table.c["Lag1_" + self.mOriginalSignal] , lDefault_expr);
             trasformed_signal  = table.c[ self.mOriginalSignal ] - previous_expr;
-        elif(lTrClass == TS.Signal_Transformation.cSignalTransform_RelativeDifferencing):
+        elif(lTrClass == pyaf.TS.Signal_Transformation.cSignalTransform_RelativeDifferencing):
             lDefault_expr = self.as_float(tr.mTransformation.mFirstValue)
             lDefault_expr = (lDefault_expr - tr.mTransformation.mMinValue) / tr.mTransformation.mDelta;
             lRelDiff = func.coalesce(table.c["RelDiff_" + self.mOriginalSignal] , lDefault_expr);
@@ -637,7 +637,7 @@ class cDecompositionCodeGenObject:
         normalized_time_2 = normalized_time_2.label("NTime_2")
         normalized_time_3 = normalized_time_2 * normalized_time     
         normalized_time_3 = normalized_time_3.label("NTime_3")
-        if(self.mTrend.__class__ == TS.SignalDecomposition_Trend.cLag1Trend):
+        if(self.mTrend.__class__ == pyaf.TS.SignalDecomposition_Trend.cLag1Trend):
             TS1 = alias(select([table.columns[self.mSignal], table.columns[self.mRowNumberAlias]]), "t_SigRowNum3");
             sig_expr = TS1.c[ self.mSignal ];
             rn_expr_1 = table.c[self.mRowNumberAlias];
@@ -660,15 +660,15 @@ class cDecompositionCodeGenObject:
     def generateTrendExpression(self, table):
         print("TREND" , self.mTrend.__class__, self.mTrend.mFormula)
         trend_expr = None;
-        if(self.mTrend.__class__ == TS.SignalDecomposition_Trend.cConstantTrend):
+        if(self.mTrend.__class__ == pyaf.TS.SignalDecomposition_Trend.cConstantTrend):
             trend_expr = self.as_float(self.mTrend.mMean);
             pass
-        elif(self.mTrend.__class__ == TS.SignalDecomposition_Trend.cLinearTrend):
+        elif(self.mTrend.__class__ == pyaf.TS.SignalDecomposition_Trend.cLinearTrend):
             # print(self.mTrend.mTrendRidge.__dict__);
             lCoeffs = self.mTrend.mTrendRidge.coef_;
             trend_expr = self.as_float(lCoeffs[0]) * table.c["NTime"] + self.as_float(self.mTrend.mTrendRidge.intercept_)
             pass
-        elif(self.mTrend.__class__ == TS.SignalDecomposition_Trend.cPolyTrend):
+        elif(self.mTrend.__class__ == pyaf.TS.SignalDecomposition_Trend.cPolyTrend):
             # print(self.mTrend.mTrendRidge.__dict__);
             lCoeffs = self.mTrend.mTrendRidge.coef_;
             trend_expr = self.as_float(lCoeffs[0]) * table.c["NTime"];
@@ -676,7 +676,7 @@ class cDecompositionCodeGenObject:
             trend_expr += self.as_float(lCoeffs[2]) * table.c["NTime_3"];
             trend_expr += self.as_float(self.mTrend.mTrendRidge.intercept_)
             pass
-        elif(self.mTrend.__class__ == TS.SignalDecomposition_Trend.cLag1Trend):
+        elif(self.mTrend.__class__ == pyaf.TS.SignalDecomposition_Trend.cLag1Trend):
             lDefault_expr = self.as_float(self.mTrend.mDefaultValue);
             lag1 = func.coalesce(table.c["Lag1"] , lDefault_expr);
             trend_expr = lag1;
@@ -705,7 +705,7 @@ class cDecompositionCodeGenObject:
         lTime =  self.mDateName;
         exprs = [];
         # print(table.columns);
-        if(self.mCycle.__class__ == TS.SignalDecomposition_Cycle.cSeasonalPeriodic):
+        if(self.mCycle.__class__ == pyaf.TS.SignalDecomposition_Cycle.cSeasonalPeriodic):
             date_expr = table.c[lTime]
             date_parts = [extract('year', date_expr).label(lTime + "_Year") ,  
                           extract('month', date_expr).label(lTime + "_MonthOfYear") ,  
@@ -747,16 +747,16 @@ class cDecompositionCodeGenObject:
     def generateCycleExpression(self, table):
         cycle_expr = None;
         print("CYCLE" , self.mCycle.__class__, self.mCycle.mFormula)
-        if(self.mCycle.__class__ == TS.SignalDecomposition_Cycle.cZeroCycle):
+        if(self.mCycle.__class__ == pyaf.TS.SignalDecomposition_Cycle.cZeroCycle):
             cycle_expr = self.as_float(0.0);
             pass
-        elif(self.mCycle.__class__ == TS.SignalDecomposition_Cycle.cSeasonalPeriodic):
+        elif(self.mCycle.__class__ == pyaf.TS.SignalDecomposition_Cycle.cSeasonalPeriodic):
             lExpr = table.c[self.mDateName + "_" + self.mCycle.mDatePart]
             cycle_expr = self.generateCycleSpecificExpression(lExpr ,
                                                               self.mCycle.mEncodedValueDict,
                                                               self.mCycle.mDefaultValue);
             pass
-        elif(self.mCycle.__class__ == TS.SignalDecomposition_Cycle.cBestCycleForTrend):
+        elif(self.mCycle.__class__ == pyaf.TS.SignalDecomposition_Cycle.cBestCycleForTrend):
             lExpr = table.c[self.mRowNumberAlias] - 1
             lExpr = func.mod(lExpr, self.mBackEnd.getIntegerLiteral(int(self.mCycle.mBestCycleLength)))
             cycle_expr = self.generateCycleSpecificExpression(lExpr ,
@@ -852,7 +852,7 @@ class cDecompositionCodeGenObject:
         print("ARX" , self.mAR.__class__, self.mAR.mFormula)
         exprs = [];
         ar_expr = None;
-        if(self.mAR.__class__ != TS.SignalDecomposition_AR.cZeroAR):
+        if(self.mAR.__class__ != pyaf.TS.SignalDecomposition_AR.cZeroAR):
             i = 0 ;
             for i in range(len(self.mAR_inputs)):
                 lag = self.mAR_inputs[i];
@@ -909,15 +909,15 @@ class cDecompositionCodeGenObject:
         rn_expr_2 = TS1.c[self.mRowNumberAlias];
         cumulated_model = None;
         previous_model = None;
-        if(lTrClass == TS.Signal_Transformation.cSignalTransform_None):
+        if(lTrClass == pyaf.TS.Signal_Transformation.cSignalTransform_None):
             pass;
-        elif (lTrClass == TS.Signal_Transformation.cSignalTransform_Accumulate):
+        elif (lTrClass == pyaf.TS.Signal_Transformation.cSignalTransform_Accumulate):
             previous_model = select([func.sum(model_expr)]).where(rn_expr_1 == (rn_expr_2 + 1));
             pass
-        elif (lTrClass == TS.Signal_Transformation.cSignalTransform_Differencing):
+        elif (lTrClass == pyaf.TS.Signal_Transformation.cSignalTransform_Differencing):
             cumulated_model  = select([func.sum(model_expr)]).where(rn_expr_1 >= rn_expr_2);
             pass
-        elif (lTrClass == TS.Signal_Transformation.cSignalTransform_RelativeDifferencing):
+        elif (lTrClass == pyaf.TS.Signal_Transformation.cSignalTransform_RelativeDifferencing):
             lMinExpr = self.as_float(tr.mTransformation.mMinValue);
             lDeltaExpr = self.as_float(tr.mTransformation.mDelta);
             # lNormalizedSignal = (sig_expr - lMinExpr) / lDeltaExpr;
@@ -950,15 +950,15 @@ class cDecompositionCodeGenObject:
         # TS1 = alias(select([ table.c[lModelName] , table.c[self.mRowNumberAlias] ]), "t_ModelAgg");
         model_expr = table.c[ lModelName ]; # original signal
         transformed_model = model_expr;
-        if(lTrClass == TS.Signal_Transformation.cSignalTransform_Accumulate):
+        if(lTrClass == pyaf.TS.Signal_Transformation.cSignalTransform_Accumulate):
             lDefault_expr = self.as_float(tr.mTransformation.mFirstValue);            
             previous_expr = func.coalesce(table.c["Lag1_" + lModelName] , lDefault_expr);
             transformed_model  = model_expr - previous_expr;
-        elif(lTrClass == TS.Signal_Transformation.cSignalTransform_Differencing):
+        elif(lTrClass == pyaf.TS.Signal_Transformation.cSignalTransform_Differencing):
             lDefault_expr = self.as_float(tr.mTransformation.mFirstValue);            
             cum_expr = func.coalesce(table.c["Cum_" + lModelName] , lDefault_expr);
             transformed_model  = cum_expr;
-        elif(lTrClass == TS.Signal_Transformation.cSignalTransform_RelativeDifferencing):
+        elif(lTrClass == pyaf.TS.Signal_Transformation.cSignalTransform_RelativeDifferencing):
             lDefault_expr = self.as_float(tr.mTransformation.mFirstValue)
             lDefault_expr = (lDefault_expr - tr.mTransformation.mMinValue) / tr.mTransformation.mDelta;
             lRelDiff = func.coalesce(table.c["RelDiff_" + self.mOriginalSignal] , lDefault_expr);
