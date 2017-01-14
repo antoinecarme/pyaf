@@ -1,7 +1,7 @@
 
 
 def build_model(iDict):
-    import WS.WS_Backend as be
+    import pyaf.WS.WS_Backend as be
 
     lModel = be.cWSModel();
     lModel.from_dict(iDict);
