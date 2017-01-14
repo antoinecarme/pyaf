@@ -7,11 +7,8 @@
 import pandas as pd
 import numpy as np
 
-from TS import Options as tsopts
-from TS import Perf as tsperf
-from TS import Utils as tsutil
-from TS import SignalHierarchy as sighier
-from TS import Signal_Grouping as siggroup
+from .TS import Options as tsopts
+from .TS import Utils as tsutil
 
 
 class cHierarchicalForecastEngine:
@@ -51,6 +48,7 @@ class cHierarchicalForecastEngine:
         return self.mSignalDecomposition.to_json();
 
     def computePerf(self, actual, predicted , name):
+        from .TS import Perf as tsperf
         lForecastPerf =  tsperf.cPerf();
         lForecastPerf.compute(actual, predicted, name);
         return lForecastPerf;
@@ -65,8 +63,10 @@ class cHierarchicalForecastEngine:
     def create_signal_hierarchy(self , iInputDS, iTime, iSignal, iHorizon, iHierarchy, iExogenousData = None):
         lSignalHierarchy = None;
         if(iHierarchy['Type'] == "Grouped"):
+            from .TS import Signal_Grouping as siggroup
             lSignalHierarchy = siggroup.cSignalGrouping();
         else:
+            from .TS import SignalHierarchy as sighier
             lSignalHierarchy = sighier.cSignalHierarchy();
             
         lSignalHierarchy.mHierarchy = iHierarchy;

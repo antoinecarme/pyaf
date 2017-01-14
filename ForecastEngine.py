@@ -5,10 +5,10 @@
 # the terms of the 3 Clause BSD license
 
 
-from TS import SignalDecomposition as tsdec
-from TS import Options as tsopts
-from TS import Perf as tsperf
-from TS import Utils as tsutil
+from .TS import SignalDecomposition as tsdec
+from .TS import Options as tsopts
+from .TS import Perf as tsperf
+from .TS import Utils as tsutil
 
 
 class cForecastEngine:
