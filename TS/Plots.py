@@ -30,7 +30,7 @@ def decomp_plot(df, time, signal, estimator, residue, name = None, max_length = 
     df1 = df.tail(max_length);
     fig, axs = plt.subplots(ncols=2, figsize=(32, 16))
     lColor = COMPONENT_COLOR;
-    if(name.endswith("Forecast")):
+    if(name is not None and name.endswith("Forecast")):
         lColor = FORECAST_COLOR;
     df1.plot.line(time, [signal, estimator, residue],
                   color=[SIGNAL_COLOR, lColor, RESIDUE_COLOR],
@@ -60,7 +60,7 @@ def decomp_plot_as_png_base64(df, time, signal, estimator, residue, name = None,
     df1 = df.tail(max_length);
     fig, axs = plt.subplots(ncols=2, figsize=(16, 8))
     lColor = COMPONENT_COLOR;
-    if(name.endswith("Forecast")):
+    if(name is not None and name.endswith("Forecast")):
         lColor = FORECAST_COLOR;
     df1.plot.line(time, [signal, estimator, residue],
                   color=[SIGNAL_COLOR, lColor, RESIDUE_COLOR],
@@ -167,19 +167,42 @@ def prediction_interval_plot_as_png_base64(df, time, signal, estimator, lower, u
 def qqplot_residues(df , residue):
     pass
 
+def build_record_label(labels_list):
+    out = "<f0>" + str(labels_list[0]);
+    i = 1;
+    for l in labels_list[1:]:
+        out = out + " | <f" + str(i) + "> " + str(l) ;
+        i = i + 1;
+    return out + "";
 
-def plot_hierarchy(structure , name):
+
+def plot_hierarchy(structure , iAnnotations, name):
     import pydot
-    graph = pydot.Dot(graph_type='graph', rankdir='LR');
+    graph = pydot.Dot(graph_type='graph', rankdir='LR', fontsize="12.0");
+    graph.set_node_defaults(shape='record')
     lLevelsReversed = sorted(structure.keys(), reverse=True);
     for level in  lLevelsReversed:
+        color = '#%02x%02x%02x' % (255, 255, 127 + int(128 * (1.0 - (level + 1.0) / len(lLevelsReversed))));
         for col in structure[level].keys():
-            node_col = pydot.Node(col, style="filled", fillcolor="red")
+            lLabel = col if iAnnotations is None else str(iAnnotations[col]);
+            if iAnnotations is not None:
+                lLabel = build_record_label(iAnnotations[col]);
+            node_col = pydot.Node(col, label=lLabel, style="filled", fillcolor=color, fontsize="12.0")
             graph.add_node(node_col);
             for col1 in structure[level][col]:
-                node_col1 = pydot.Node(col1, style="filled", fillcolor="red")
+                lLabel1 = col1
+                if iAnnotations is not None:
+                    lLabel1 = build_record_label(iAnnotations[col1]);
+                color1 = '#%02x%02x%02x' % (255, 255, 128 + int(128 * (1.0 - (level + 2.0) / len(lLevelsReversed))));
+                node_col1 = pydot.Node(col1, label=lLabel1, style="filled",
+                                       fillcolor=color1, fontsize="12.0")
                 graph.add_node(node_col1);
-                graph.add_edge(pydot.Edge(node_col, node_col1))
+                lEdgeLabel = "";
+                if iAnnotations is not None:
+                    lEdgeLabel = iAnnotations[col + "_" + col1];
+                lEdge = pydot.Edge(node_col, node_col1, color="red", label=lEdgeLabel, fontsize="12.0")
+                graph.add_edge(lEdge)
+    # print(graph.obj_dict)
     if(name is not None):
         graph.write_png(name);
     else:

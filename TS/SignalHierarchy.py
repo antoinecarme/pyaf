@@ -37,8 +37,14 @@ class cSignalHierarchy:
 
 
     def to_json(self):
-        dict1 = {};
-        return dict1;
+        lDict = {};
+        lDict['Structure'] = self.mStructure;
+        lDict['Models'] = {};
+        for level in sorted(self.mModels.keys()):
+            for signal in sorted(self.mModels[level].keys()):
+                lEngine = self.mModels[level][signal];
+                lDict['Models'][signal] = lEngine.mSignalDecomposition.mBestModel.to_json();
+        return lDict;
 
     def create_HierarchicalStructure(self):
         self.mLevels = self.mHierarchy['Levels'];
@@ -139,6 +145,7 @@ class cSignalHierarchy:
         self.create_SummingMatrix();
         lAllLevelsDataset = self.create_all_levels_dataset(self.mTrainingDataset);
         self.create_all_levels_models(lAllLevelsDataset, self.mHorizon, self.mDateColumn);
+        self.computeTopDownHistoricalProportions(lAllLevelsDataset);
 
 
     def getModelInfo(self):
@@ -148,7 +155,20 @@ class cSignalHierarchy:
                 lEngine.getModelInfo();
 
     def plot(self , name = None):
-        tsplot.plot_hierarchy(self.mStructure, name)
+        lAnnotations = None;
+        lHasModels = (self.mModels is not None)
+        if(lHasModels):
+            lAnnotations = {};
+            for level in sorted(self.mStructure.keys()):
+                for signal in sorted(self.mStructure[level].keys()):
+                    lEngine = self.mModels[level][signal];
+                    lMAPE = lEngine.mSignalDecomposition.mBestModel.mForecastPerf.mMAPE;
+                    lMAPE = ('MAPE = %.4f' % lMAPE);
+                    lAnnotations[signal] = [signal , lMAPE];
+                    for col1 in sorted(self.mStructure[level][signal]):
+                        lProp = self.mAvgHistProp[signal][col1] * 100;
+                        lAnnotations[signal +"_" + col1] = ('%2.2f %%' % lProp)
+        tsplot.plot_hierarchy(self.mStructure, lAnnotations, name)
     
     def standrdPlots(self , name = None):
         for level in sorted(self.mModels.keys()):
@@ -174,17 +194,27 @@ class cSignalHierarchy:
         print(lForecast_DF.tail());
         return lForecast_DF;
 
-    def computeTopDownHistoricalProportions(self, iForecast_DF):
+    def getEstimPart(self, df):
+        level = 0;
+        signal = self.mModels[level].keys()[0];
+        lEngine = self.mModels[level][signal];
+        lFrameFit = lEngine.mTimeInfo.getEstimPart(df);
+        return lFrameFit;
+
+
+    def computeTopDownHistoricalProportions(self, iAllLevelsDataset):
         self.mAvgHistProp = {};
         self.mPropHistAvg = {};
+        # Compute these proportions only on Estimation.
+        lEstim = self.getEstimPart(iAllLevelsDataset);
         for level in  sorted(self.mStructure.keys()):
             if(level > 0):
                 for col in sorted(self.mStructure[level].keys()):
                     self.mAvgHistProp[col] = {};
                     self.mPropHistAvg[col] = {};
                     for col1 in sorted(self.mStructure[level][col]):
-                        self.mAvgHistProp[col][col1] = (iForecast_DF[col1] / iForecast_DF[col]).mean();
-                        self.mPropHistAvg[col][col1] = iForecast_DF[col1].mean() / iForecast_DF[col].mean();
+                        self.mAvgHistProp[col][col1] = (lEstim[col1] / lEstim[col]).mean();
+                        self.mPropHistAvg[col][col1] = lEstim[col1].mean() / lEstim[col].mean();
         # print("AvgHitProp\n", self.mAvgHistProp);
         # print("PropHistAvg\n", self.mPropHistAvg);
         pass
@@ -319,21 +349,19 @@ class cSignalHierarchy:
         if(self.mOptions.mHierarchicalCombinationMethod == "BU"):            
             lForecast_DF_BU = self.computeBottomUpForecasts(lForecast_DF);
             self.reportOnCombinedForecasts(lForecast_DF_BU , "BU");
-            lForecast_DF_BU.to_csv("outputs/aggregated_forecasts_bu.csv");
+            # lForecast_DF_BU.to_csv("outputs/aggregated_forecasts_bu.csv");
             return lForecast_DF_BU;
         
         if(self.mOptions.mHierarchicalCombinationMethod == "TD"):            
-            self.computeTopDownHistoricalProportions(lForecast_DF);
             lForecast_DF_TD_AHP = self.computeTopDownForecasts(lForecast_DF, self.mAvgHistProp, "AHP_TD") 
             lForecast_DF_TD_PHA = self.computeTopDownForecasts(lForecast_DF, self.mPropHistAvg, "PHA_TD")
             self.reportOnCombinedForecasts(lForecast_DF_TD_AHP , "AHP_TD");
             self.reportOnCombinedForecasts(lForecast_DF_TD_PHA , "PHA_TD");
-            lForecast_DF_TD_PHA.to_csv("outputs/aggregated_forecasts_td_pha.csv");
-            lForecast_DF_TD_PHA.to_csv("outputs/aggregated_forecasts_td_ahp.csv");
+            # lForecast_DF_TD_PHA.to_csv("outputs/aggregated_forecasts_td_pha.csv");
+            # lForecast_DF_TD_PHA.to_csv("outputs/aggregated_forecasts_td_ahp.csv");
             return lForecast_DF_TD_PHA;
         
         if(self.mOptions.mHierarchicalCombinationMethod == "MO"):            
-            self.computeTopDownHistoricalProportions(lForecast_DF);
             lLevels = self.mStructure.keys();
             lMiddleLevel = len(lLevels) // 2;
             lForecast_DF_MO = self.computeMiddleOutForecasts(lForecast_DF,
@@ -341,11 +369,11 @@ class cSignalHierarchy:
                                                              lMiddleLevel,
                                                              "MO")
             self.reportOnCombinedForecasts(lForecast_DF_MO , "MO");
-            lForecast_DF_MO.to_csv("outputs/aggregated_forecasts_mo.csv");
+            # lForecast_DF_MO.to_csv("outputs/aggregated_forecasts_mo.csv");
             return lForecast_DF_MO;
 
         if(self.mOptions.mHierarchicalCombinationMethod == "OC"):            
             lForecast_DF_OC = self.computeOptimalCombination(lForecast_DF);
             self.reportOnCombinedForecasts(lForecast_DF_OC , "OC");
-            lForecast_DF_OC.to_csv("outputs/aggregated_forecasts_oc.csv");
+            # lForecast_DF_OC.to_csv("outputs/aggregated_forecasts_oc.csv");
             return lForecast_DF_OC;
