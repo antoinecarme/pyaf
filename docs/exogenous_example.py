@@ -8,7 +8,7 @@ exog_dataframe['Date'] = exog_dataframe['Date'].astype(np.datetime64);
 # print(exog_dataframe.info())
 exog_dataframe.head()
 
-import ForecastEngine as autof
+import pyaf.ForecastEngine as autof
 lEngine = autof.cForecastEngine()
 
 csvfile_link = "https://raw.githubusercontent.com/antoinecarme/TimeSeriesData/master/ozone-la.csv"
@@ -24,3 +24,4 @@ lEngine.getModelInfo();
 print(lEngine.mSignalDecomposition.mTrPerfDetails.head());
 
 forecast_dataframe = lEngine.forecast(ozone_dataframe, 12)
+print(forecast_dataframe.tail(24))
