@@ -238,8 +238,9 @@ class cTimeInfo:
         if(self.mOptions.mTimeDeltaComputationMethod == "MODE"):
             delta_counts = pd.DataFrame(lDiffs.value_counts());
             self.mTimeDelta = delta_counts[self.mTime].argmax();
-        rounded_sec = round(self.mTimeDelta.total_seconds());
-        self.mTimeDelta = pd.Timedelta(seconds=rounded_sec);
+        if(self.isPhysicalTime()):
+            rounded_sec = round(self.mTimeDelta.total_seconds());
+            self.mTimeDelta = pd.Timedelta(seconds=rounded_sec);
 
 
     def estimate(self):
