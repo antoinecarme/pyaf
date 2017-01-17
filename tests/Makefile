@@ -61,6 +61,11 @@ heroku/test_air_passengers_heroku.py  :
 	 -diff  logs/heroku_test_air_passengers_heroku.log tests/references/heroku_test_air_passengers_heroku.log  >  logs/heroku_test_air_passengers_heroku.log.diff
 	 cat  logs/heroku_test_air_passengers_heroku.log.diff 
 
+heroku/test_ozone_exog_heroku.py  :  
+	 -$(PYTHON)  tests/heroku/test_ozone_exog_heroku.py  >  logs/heroku_test_ozone_exog_heroku.log  2>&1
+	 -diff  logs/heroku_test_ozone_exog_heroku.log tests/references/heroku_test_ozone_exog_heroku.log  >  logs/heroku_test_ozone_exog_heroku.log.diff
+	 cat  logs/heroku_test_ozone_exog_heroku.log.diff 
+
 heroku/test_ozone_heroku.py  :  
 	 -$(PYTHON)  tests/heroku/test_ozone_heroku.py  >  logs/heroku_test_ozone_heroku.log  2>&1
 	 -diff  logs/heroku_test_ozone_heroku.log tests/references/heroku_test_ozone_heroku.log  >  logs/heroku_test_ozone_heroku.log.diff
@@ -78,7 +83,7 @@ heroku/build_generic_heroku_model.py  :
 
 
 
- heroku :  heroku/build_generic_heroku_model.py heroku/test_seasonal_week_of_year.py heroku/test_ozone_heroku.py heroku/test_air_passengers_heroku.py  
+ heroku :  heroku/build_generic_heroku_model.py heroku/test_seasonal_week_of_year.py heroku/test_ozone_heroku.py heroku/test_ozone_exog_heroku.py heroku/test_air_passengers_heroku.py  
  
 
 hierarchical/test_grouped_signals_BU.py  :  
@@ -131,9 +136,14 @@ hierarchical/test_grouped.py  :
 	 -diff  logs/hierarchical_test_grouped.log tests/references/hierarchical_test_grouped.log  >  logs/hierarchical_test_grouped.log.diff
 	 cat  logs/hierarchical_test_grouped.log.diff 
 
+hierarchical/test_hierarchy_AU_AllMethods.py  :  
+	 -$(PYTHON)  tests/hierarchical/test_hierarchy_AU_AllMethods.py  >  logs/hierarchical_test_hierarchy_AU_AllMethods.log  2>&1
+	 -diff  logs/hierarchical_test_hierarchy_AU_AllMethods.log tests/references/hierarchical_test_hierarchy_AU_AllMethods.log  >  logs/hierarchical_test_hierarchy_AU_AllMethods.log.diff
+	 cat  logs/hierarchical_test_hierarchy_AU_AllMethods.log.diff 
 
 
- hierarchical :  hierarchical/test_grouped.py hierarchical/test_grouped_signals_MO.py hierarchical/test_hierarchy_AU_MO.py hierarchical/test_grouped_signals_OC.py hierarchical/test_hierarchy_AU_OC.py hierarchical/test_hierarchy_AU_TD.py hierarchical/test_hierarchy_AU_BU.py hierarchical/test_hierarchy_AU.py hierarchical/test_grouped_signals_TD.py hierarchical/test_grouped_signals_BU.py  
+
+ hierarchical :  hierarchical/test_hierarchy_AU_AllMethods.py hierarchical/test_grouped.py hierarchical/test_grouped_signals_MO.py hierarchical/test_hierarchy_AU_MO.py hierarchical/test_grouped_signals_OC.py hierarchical/test_hierarchy_AU_OC.py hierarchical/test_hierarchy_AU_TD.py hierarchical/test_hierarchy_AU_BU.py hierarchical/test_hierarchy_AU.py hierarchical/test_grouped_signals_TD.py hierarchical/test_grouped_signals_BU.py  
  
 
 model_control/test_ozone_all_models_enabled.py  :  
@@ -171,6 +181,11 @@ perf/test_parallel.py  :
 	 -diff  logs/perf_test_parallel.log tests/references/perf_test_parallel.log  >  logs/perf_test_parallel.log.diff
 	 cat  logs/perf_test_parallel.log.diff 
 
+perf/test_perf2.py  :  
+	 -$(PYTHON)  tests/perf/test_perf2.py  >  logs/perf_test_perf2.log  2>&1
+	 -diff  logs/perf_test_perf2.log tests/references/perf_test_perf2.log  >  logs/perf_test_perf2.log.diff
+	 cat  logs/perf_test_perf2.log.diff 
+
 perf/test_ozone_long_series_2.py  :  
 	 -$(PYTHON)  tests/perf/test_ozone_long_series_2.py  >  logs/perf_test_ozone_long_series_2.log  2>&1
 	 -diff  logs/perf_test_ozone_long_series_2.log tests/references/perf_test_ozone_long_series_2.log  >  logs/perf_test_ozone_long_series_2.log.diff
@@ -193,7 +208,7 @@ perf/test_ozone_debug_perf.py  :
 
 
 
- perf :  perf/test_ozone_debug_perf.py perf/test_cycles_full_long.py perf/test_ozone_long_series.py perf/test_ozone_long_series_2.py perf/test_parallel.py perf/test_cycles_full_long_long.py perf/test_perf1.py  
+ perf :  perf/test_ozone_debug_perf.py perf/test_cycles_full_long.py perf/test_ozone_long_series.py perf/test_ozone_long_series_2.py perf/test_perf2.py perf/test_parallel.py perf/test_cycles_full_long_long.py perf/test_perf1.py  
  
 
 svr/test_ozone_svr_only.py  :  
