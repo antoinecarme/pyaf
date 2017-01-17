@@ -219,6 +219,17 @@ class cTimeInfo:
             raise tsutil.ForecastError('Invalid Signal Column Type ' + self.mSignal);
         
 
+    def round_datetime_to_seconds(self, iDate):
+        lDate = dt.datetime.utcfromtimestamp(iDate.astype(int) * 1e-9)
+        lDate0 = dt.datetime(lDate.year, 1 , 1, 0, 0 , 0) 
+        delta1 = (lDate - lDate0)
+        rounded_sec = round(delta1.total_seconds())
+        delta_sec = dt.timedelta(seconds=rounded_sec)
+        lDate1 = lDate0 + delta_sec
+        # print(iDate.isoformat() , "\t" , lDate0.isoformat(), "\t", lDate1.isoformat())
+        return lDate1;
+        
+        
     def computeTimeDelta(self):
         #print(self.mSignalFrame.columns);
         #print(self.mSignalFrame[self.mTime].head());
@@ -292,4 +303,5 @@ class cTimeInfo:
             lNextTime = lNextTime + dt.timedelta(days = lOffset);
 
         lNextTime = self.cast_to_time_dtype(lNextTime);
+        lNextTime = self.round_datetime_to_seconds(lNextTime);
         return lNextTime;
