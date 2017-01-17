@@ -303,5 +303,6 @@ class cTimeInfo:
             lNextTime = lNextTime + dt.timedelta(days = lOffset);
 
         lNextTime = self.cast_to_time_dtype(lNextTime);
-        lNextTime = self.round_datetime_to_seconds(lNextTime);
+        if(self.isPhysicalTime()):
+            lNextTime = self.round_datetime_to_seconds(lNextTime);
         return lNextTime;
