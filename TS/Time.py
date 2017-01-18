@@ -219,6 +219,16 @@ class cTimeInfo:
             raise tsutil.ForecastError('Invalid Signal Column Type ' + self.mSignal);
         
 
+    def round_datetime_to_seconds(self, iDate):
+        lDate = dt.datetime.utcfromtimestamp(iDate.astype(int) * 1e-9)
+        lDate0 = dt.datetime(lDate.year, 1 , 1, 0, 0 , 0) 
+        delta1 = (lDate - lDate0)
+        rounded_sec = round(delta1.total_seconds())
+        delta_sec = dt.timedelta(seconds=rounded_sec)
+        lDate1 = lDate0 + delta_sec
+        # print(iDate.isoformat() , "\t" , lDate0.isoformat(), "\t", lDate1.isoformat())
+        return lDate1;
+
     def computeTimeDelta(self):
         #print(self.mSignalFrame.columns);
         #print(self.mSignalFrame[self.mTime].head());
@@ -238,6 +248,10 @@ class cTimeInfo:
         if(self.mOptions.mTimeDeltaComputationMethod == "MODE"):
             delta_counts = pd.DataFrame(lDiffs.value_counts());
             self.mTimeDelta = delta_counts[self.mTime].argmax();
+        if(self.isPhysicalTime()):
+            rounded_sec = round(self.mTimeDelta.total_seconds());
+            self.mTimeDelta = pd.Timedelta(seconds=rounded_sec);
+            # print(type(self.mTimeDelta), self.mTimeDelta)
 
     def estimate(self):
         #print(self.mSignalFrame.columns);
@@ -272,7 +286,8 @@ class cTimeInfo:
         lTime = dt.datetime.utcfromtimestamp(iTime.astype(int) * 1e-9)
         date_after_month = lTime + relativedelta(months=iMonths)
         #print(lTime, iMonths, date_after_month);
-        return np.datetime64(date_after_month)
+        lDate = np.datetime64(date_after_month)
+        return lDate;
     
     def nextTime(self, df, iSteps):
         #print(df.tail(1)[self.mTime]);
@@ -287,5 +302,7 @@ class cTimeInfo:
             lOffset = [1, 1, 1, 1, 3, 2, 1][lNextTime.weekday()];
             lNextTime = lNextTime + dt.timedelta(days = lOffset);
 
-        lNextTime = self.cast_to_time_dtype(lNextTime);
+        lNextTime = self.cast_to_time_dtype(lNextTime);        
+        if(self.isPhysicalTime()):
+            lNextTime = self.round_datetime_to_seconds(lNextTime);
         return lNextTime;
