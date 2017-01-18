@@ -106,6 +106,11 @@ hierarchical/test_hierarchy_AU_BU.py  :
 	 -diff  logs/hierarchical_test_hierarchy_AU_BU.log tests/references/hierarchical_test_hierarchy_AU_BU.log  >  logs/hierarchical_test_hierarchy_AU_BU.log.diff
 	 cat  logs/hierarchical_test_hierarchy_AU_BU.log.diff 
 
+hierarchical/test_grouped_signals_AllMethods.py  :  
+	 -$(PYTHON)  tests/hierarchical/test_grouped_signals_AllMethods.py  >  logs/hierarchical_test_grouped_signals_AllMethods.log  2>&1
+	 -diff  logs/hierarchical_test_grouped_signals_AllMethods.log tests/references/hierarchical_test_grouped_signals_AllMethods.log  >  logs/hierarchical_test_grouped_signals_AllMethods.log.diff
+	 cat  logs/hierarchical_test_grouped_signals_AllMethods.log.diff 
+
 hierarchical/test_hierarchy_AU_TD.py  :  
 	 -$(PYTHON)  tests/hierarchical/test_hierarchy_AU_TD.py  >  logs/hierarchical_test_hierarchy_AU_TD.log  2>&1
 	 -diff  logs/hierarchical_test_hierarchy_AU_TD.log tests/references/hierarchical_test_hierarchy_AU_TD.log  >  logs/hierarchical_test_hierarchy_AU_TD.log.diff
@@ -143,7 +148,7 @@ hierarchical/test_hierarchy_AU_AllMethods.py  :
 
 
 
- hierarchical :  hierarchical/test_hierarchy_AU_AllMethods.py hierarchical/test_grouped.py hierarchical/test_grouped_signals_MO.py hierarchical/test_hierarchy_AU_MO.py hierarchical/test_grouped_signals_OC.py hierarchical/test_hierarchy_AU_OC.py hierarchical/test_hierarchy_AU_TD.py hierarchical/test_hierarchy_AU_BU.py hierarchical/test_hierarchy_AU.py hierarchical/test_grouped_signals_TD.py hierarchical/test_grouped_signals_BU.py  
+ hierarchical :  hierarchical/test_hierarchy_AU_AllMethods.py hierarchical/test_grouped.py hierarchical/test_grouped_signals_MO.py hierarchical/test_hierarchy_AU_MO.py hierarchical/test_grouped_signals_OC.py hierarchical/test_hierarchy_AU_OC.py hierarchical/test_hierarchy_AU_TD.py hierarchical/test_grouped_signals_AllMethods.py hierarchical/test_hierarchy_AU_BU.py hierarchical/test_hierarchy_AU.py hierarchical/test_grouped_signals_TD.py hierarchical/test_grouped_signals_BU.py  
  
 
 model_control/test_ozone_all_models_enabled.py  :  
