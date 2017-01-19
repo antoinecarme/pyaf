@@ -22,7 +22,8 @@ lEngine.mOptions.enable_slow_mode();
 # lEngine.mOptions.mDebugPerformance = True;
 lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H);
 lEngine.getModelInfo();
-print(lEngine.mSignalDecomposition.mTrPerfDetails.head());
+lPerf_DF = lEngine.mSignalDecomposition.mTrPerfDetails;
+print(lPerf_DF.head(lPerf_DF.shape[0]));
 
 lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
 
@@ -44,6 +45,6 @@ print("\n\n<ModelInfo>")
 print(lEngine.to_json());
 print("</ModelInfo>\n\n")
 print("\n\n<Forecast>")
-print(Forecast_DF.to_json(date_format='iso'))
+print(Forecast_DF.tail(2*H).to_json(date_format='iso'))
 print("</Forecast>\n\n")
 
