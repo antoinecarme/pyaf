@@ -117,17 +117,13 @@ class cPerf:
 
     def computeCriterion(self, signal , estimator, criterion):
         self.mCount = signal.shape[0];
-
-        (signal1 , estimator1) = self.protect_small_values(signal, estimator)
-
         myerror = (estimator.values - signal.values);
-        myerror1 = (estimator1.values - signal1.values);
-        abs_error = abs(myerror)
         if(criterion == "L1"):
+            abs_error = abs(myerror)
             self.mL1 = np.mean(abs_error)
             return self.mL1;
         if(criterion == "L2"):
-            self.mL2 = np.sqrt(np.mean(abs_error ** 2))
+            self.mL2 = np.sqrt(np.mean(myerror ** 2))
             return self.mL2;
         if(criterion == "R2"):
             self.mR2 = self.compute_R2(signal, estimator)
@@ -137,8 +133,14 @@ class cPerf:
             (self.mPearsonR , pval) = pearsonr(signal1 , estimator1)
             return self.mPearsonR;
         if(criterion == "MAE"):
+            abs_error = abs(myerror)
             self.mMAE = np.mean(abs_error)
             return self.mAE;
+        
+        (signal1 , estimator1) = self.protect_small_values(signal, estimator)
+
+        myerror1 = (estimator1.values - signal1.values);
+
         if(criterion == "SMAPE"):
             if(signal1.shape[0] > 0):
                 self.mSMAPE = np.mean(abs(myerror1) / sum_abs)
