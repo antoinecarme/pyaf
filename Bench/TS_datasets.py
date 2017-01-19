@@ -214,7 +214,7 @@ def generate_random_TS(N , FREQ, seed, trendtype, cycle_length, transform, sigma
 
     min_sig = df_train['Signal'].min();
     max_sig = df_train['Signal'].max();
-    print(df_train.info())
+    # print(df_train.info())
     tsspec.mExogenousVariables = [];
     tsspec.mExogenousDataFrame = pd.DataFrame();
     tsspec.mExogenousDataFrame['Date'] = df_train['Date']
@@ -228,7 +228,7 @@ def generate_random_TS(N , FREQ, seed, trendtype, cycle_length, transform, sigma
                                       (e+3)/exog_count ));
         tsspec.mExogenousVariables = tsspec.mExogenousVariables + [ label ];
 
-    print(tsspec.mExogenousDataFrame.info())
+    # print(tsspec.mExogenousDataFrame.info())
 
     # this is the full dataset . must contain future exogenius data
     pos_signal = df_train['Signal'] - min_sig + 1.0;
