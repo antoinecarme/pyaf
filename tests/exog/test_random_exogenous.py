@@ -50,5 +50,5 @@ def test_random_exogenous(n , nbex):
         print(lEngine.to_json());
         print("</ModelInfo>\n\n")
         print("\n\n<Forecast>")
-        print(Forecast_DF.to_json(date_format='iso'))
+        print(Forecast_DF.tail(2*H).to_json(date_format='iso'))
         print("</Forecast>\n\n")
