@@ -1,8 +1,8 @@
 import pandas as pd
 import numpy as np
 
-import ForecastEngine as autof
-import Bench.TS_datasets as tsds
+import pyaf.ForecastEngine as autof
+import pyaf.Bench.TS_datasets as tsds
 
 import CodeGen.TS_CodeGenerator as tscodegen
 
@@ -37,6 +37,6 @@ print("\n\n<ModelInfo>")
 print(lEngine.to_json());
 print("</ModelInfo>\n\n")
 print("\n\n<Forecast>")
-print(Forecast_DF.to_json(date_format='iso'))
+print(Forecast_DF.tail(2*H).to_json(date_format='iso'))
 print("</Forecast>\n\n")
 
