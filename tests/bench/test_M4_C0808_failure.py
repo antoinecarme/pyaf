@@ -3,8 +3,6 @@ import numpy as np
 import pyaf.ForecastEngine as autof
 import pyaf.Bench.TS_datasets as tsds
 
-import CodeGen.TS_CodeGenerator as tscodegen
-
 
 trainfile = "data/bugs/M4_C0808_failure.csv";
 #cols = ["ID" , "time", "AirPassengers"];
