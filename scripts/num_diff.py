@@ -41,7 +41,7 @@ def compare_lines(line_orig, line_new):
     if('TIME' in line_orig.upper() and 'TIME' in line_new.upper()):
         return 0;
     import re
-    lRegex  = '[?,:"{}]'
+    lRegex  = '[?,:"{}] \n\t'
     split_orig = re.split(lRegex, line_orig)
     split_new = re.split(lRegex, line_new)
     # print(split_orig)
@@ -84,14 +84,17 @@ def compare_files(file_orig, file_new):
     N = min(N_orig, N_new);
     # compare the first N lines of the two files.
     out = 0;
+    diffs = [];
     for l in range(N):
         result = compare_lines(content_orig[l] , content_new[l])
+        if(result > 0):
+            diffs.append((content_orig[l] , content_new[l]));
         out = out + result;
 
     if(out > 0):
         print("NUM_DIFF_NUMBER_OF__DIFFERENT_LINES" , out)
-        print(content_orig)
-        print(content_new)
+        print(diffs[0])
+        print(diffs[-1])
         
         print("NUM_DIFF_FILES_ARE_DIFFERENT")
 
