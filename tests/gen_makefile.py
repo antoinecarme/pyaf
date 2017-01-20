@@ -22,8 +22,8 @@ for subdir1 in subdirs:
             # print("#PROCESSING FILE : " , filename, bn , logfile);
         
             print(bn , " : " , "\n\t", "-$(PYTHON) " , filename , " > " , logfile, " 2>&1");
-            print("\t", "-diff " , logfile , reflogfile , " > " , difffile);
-            print("\t", "cat " ,  difffile, "\n");
+            print("\t", "$(PYTHON) scripts/num_diff.py " , logfile , reflogfile , " > " , difffile);
+            print("\t", "tail -10 " ,  difffile, "\n");
                 
             test_target = bn + " " + test_target;
 
