@@ -117,6 +117,7 @@ class cExogenousInfo:
                 for i in range(NCat):
                     if(lVC[i] > 5):
                         lList.append(lVC.index[i]);
+                lList = sorted(lList);
                 # lListlVC.index[0:NCat].tolist();
                 # print("most_frequent_categories_for" , exog, lList);
                 if(len(lList) == 0):
