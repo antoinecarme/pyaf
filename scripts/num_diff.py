@@ -90,6 +90,9 @@ def compare_files(file_orig, file_new):
 
     if(out > 0):
         print("NUM_DIFF_NUMBER_OF__DIFFERENT_LINES" , out)
+        print(content_orig)
+        print(content_new)
+        
         print("NUM_DIFF_FILES_ARE_DIFFERENT")
 
 
