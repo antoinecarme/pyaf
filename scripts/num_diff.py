@@ -30,7 +30,7 @@ def compare_words(word_orig, word_new):
             print("NUM_DIFF_DEBUG_ALLOWED_SMALL_DIFFERENCE", word_orig, word_new, lNumber_orig, lNumber_new, lDiff)
             return 0;
     else:
-        print("NUM_DIFF_NOT_NUMERIC_DIFF", word_orig, word_new)        
+        # print("NUM_DIFF_NOT_NUMERIC_DIFF", word_orig, word_new)        
         return 1;
     
 
