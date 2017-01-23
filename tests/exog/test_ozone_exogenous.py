@@ -4,6 +4,14 @@ import numpy as np
 import pyaf.ForecastEngine as autof
 import pyaf.Bench.TS_datasets as tsds
 
+
+import logging
+import logging.config
+
+#logging.config.fileConfig('logging.conf')
+
+logging.basicConfig(level=logging.INFO)
+
 #get_ipython().magic('matplotlib inline')
 
 b1 = tsds.load_ozone_exogenous()
