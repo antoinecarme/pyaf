@@ -142,7 +142,9 @@ def load_ozone_exogenous() :
     tsspec.mHorizon = 12;
     tsspec.mPastData = df_train[:-tsspec.mHorizon];
     tsspec.mFutureData = df_train.tail(tsspec.mHorizon);
-    
+
+
+    print(df_train.head())
     return tsspec
 
 
@@ -183,8 +185,21 @@ def gen_cycle(N , cycle_length):
         lCycle = 0;
     return lCycle;
     
+def gen_ar(N , ar_order):
+    lAR = pd.Series();
+    if(ar_order > 0):
+        lSig = pd.Series(np.arange(0, N) / N);
+        lAR = 0;
+        a_p = 1;
+        for p in range(1 , ar_order+1):
+            a_p = a_p * np.random.uniform();
+            lAR = lSig.shift(p).fillna(0) * a_p + lAR;
+    if(ar_order == 0):
+        lAR = 0;
+    return lAR;
+    
 
-def generate_random_TS(N , FREQ, seed, trendtype, cycle_length, transform, sigma = 1.0, exog_count = 20) :
+def generate_random_TS(N , FREQ, seed, trendtype, cycle_length, transform, sigma = 1.0, exog_count = 20, ar_order = 0) :
     tsspec = cTimeSeriesDatasetSpec();
     tsspec.mName = "Signal_" + str(N) + "_" + str(FREQ) +  "_" + str(seed)  + "_" + str(trendtype) +  "_" + str(cycle_length)   + "_" + str(transform)   + "_" + str(sigma) + "_" + str(exog_count) ;
     print("GENERATING_RANDOM_DATASET" , tsspec.mName);
@@ -209,8 +224,10 @@ def generate_random_TS(N , FREQ, seed, trendtype, cycle_length, transform, sigma
 
     df_train['GeneratedCycle'] = gen_cycle(N , cycle_length);
 
+    df_train['GeneratedAR'] = gen_ar(N , ar_order);
+
     df_train['Noise'] = np.random.randn(N, 1) * sigma;
-    df_train['Signal'] = df_train['GeneratedTrend'] +  df_train['GeneratedCycle'] + df_train['Noise']
+    df_train['Signal'] = df_train['GeneratedTrend'] +  df_train['GeneratedCycle'] + df_train['GeneratedAR'] + df_train['Noise']
 
     min_sig = df_train['Signal'].min();
     max_sig = df_train['Signal'].max();
@@ -240,9 +257,9 @@ def generate_random_TS(N , FREQ, seed, trendtype, cycle_length, transform, sigma
     if(transform == "sqrt"):
         df_train['Signal'] = np.sqrt(pos_signal)
     if(transform == "sqr"):
-        df_train['Signal'] = np.pow(pos_signal , 2)
+        df_train['Signal'] = np.power(pos_signal , 2)
     if(transform == "pow3"):
-        df_train['Signal'] = np.pow(pos_signal , 3)
+        df_train['Signal'] = np.power(pos_signal , 3)
     if(transform == "inv"):
         df_train['Signal'] = 1.0 / (pos_signal)
     if(transform == "diff"):
