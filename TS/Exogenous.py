@@ -62,9 +62,11 @@ class cExogenousInfo:
         df2 = df.merge(lCompleteEncoded,
                        how='left',
                        left_on=self.mDateVariable,
-                       right_on=lExogDate);
+                       right_on=lExogDate,
+                       suffixes=('_x', ''));
         # df1 = df1.drop([lExogDate] , axis = 1);
-        # print(df.head());
+        # print(df2.columns);
+        # print(df2[['Month']].describe());
         return df2;
 
     def transformDataset(self, df):

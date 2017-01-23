@@ -46,9 +46,15 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
         lMaxFeatures = self.mOptions.mMaxFeatureForAutoreg;
         if(lMaxFeatures >= lARInputs.shape[1]):
             lMaxFeatures = lARInputs.shape[1];
+        if(lMaxFeatures >= (lARInputs.shape[0] // 4)):
+            lMaxFeatures = lARInputs.shape[0] // 4;
         self.mFeatureSelector =  SelectKBest(f_regression, k= lMaxFeatures);
         self.mFeatureSelector.fit(lARInputs, lARTarget);
         lARInputsAfterSelection =  self.mFeatureSelector.transform(lARInputs);
+        # print(self.mInputNames , self.mFeatureSelector.get_support(indices=True));
+        lSupport = self.mFeatureSelector.get_support(indices=True);
+        self.mInputNamesAfterSelection = [self.mInputNames[k] for k in lSupport];
+        assert(len(self.mInputNamesAfterSelection) == lARInputsAfterSelection.shape[1]);
         # print("FEATURE_SELECTION" , self.mOutName, lARInputs.shape[1] , lARInputsAfterSelection.shape[1]);
         del lARInputs;
 
@@ -56,9 +62,10 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
             self.mScikitModel.fit(lARInputsAfterSelection, lARTarget)
         except Exception as e:
             print("SCIKIT_MODEL_FIT_FAILURE" , lARInputsAfterSelection.shape, e);
-            # df1 = pd.DataFrame(lARInputsAfterSelection);
-            # df1['TGT'] = lARTarget;
-            # df1.to_csv("SCIKIT_MODEL_FIT_FAILURE.csv");
+            df1 = pd.DataFrame(lARInputsAfterSelection);
+            df1.columns = self.mInputNamesAfterSelection
+            df1['TGT'] = lARTarget;
+            df1.to_csv("SCIKIT_MODEL_FIT_FAILURE.csv");
             raise;
             
         del lARInputsAfterSelection;
@@ -105,8 +112,8 @@ class cAutoRegressiveModel(cAbstract_Scikit_Model):
 
     def dumpCoefficients(self, iMax=10):
         logger = tsutil.get_pyaf_logger();
-        lDict = dict(zip(self.mInputNames , self.mScikitModel.coef_));
-        lDict1 = dict(zip(self.mInputNames , abs(self.mScikitModel.coef_)));
+        lDict = dict(zip(self.mInputNamesAfterSelection , self.mScikitModel.coef_));
+        lDict1 = dict(zip(self.mInputNamesAfterSelection , abs(self.mScikitModel.coef_)));
         i = 1;
         lOrderedVariables = sorted(lDict1.keys(), key=lDict1.get, reverse=True);
         for k in lOrderedVariables[0:iMax]:
