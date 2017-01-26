@@ -15,7 +15,7 @@ for subdir1 in sorted(subdirs):
         logfile = "logs/" + logfile.replace(".py" , ".log");
         print("#PROCESSING FILE : " , filename, bn , logfile);
         
-        print(bn , " : " , "\n\t", "$(PYTHON) " , filename , " > " , logfile , " 2>&1");
+        print(bn , " : " , "\n\t", "-$(PYTHON) " , filename , " > " , logfile , " 2>&1");
         test_target = bn + " " + test_target;
 
     lAllTarget = lAllTarget + " " + lBase;
