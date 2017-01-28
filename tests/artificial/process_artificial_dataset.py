@@ -11,14 +11,14 @@ import logging.config
 logging.basicConfig(level=logging.INFO)
 
 
-def process_dataset(idataset):
+def process_dataset(idataset, debug=False):
     idataset.mFullDataset["orig_" + idataset.mSignalVar] = idataset.mFullDataset[idataset.mSignalVar];
 
     for i in range(4):
         sig = i/4.0;
-        process_dataset_with_noise(idataset, sig);
+        process_dataset_with_noise(idataset, sig , debug);
 
-def process_dataset_with_noise(idataset , sigma):
+def process_dataset_with_noise(idataset , sigma, debug=False):
     
     import warnings
 
@@ -39,7 +39,7 @@ def process_dataset_with_noise(idataset , sigma):
         # df1 = df;
         lEngine = autof.cForecastEngine()
         # lEngine.mOptions.mEnableSeasonals = False;
-        # lEngine.mOptions.mDebugCycles = True;
+        lEngine.mOptions.mDebug = debug;
         # lEngine.mOptions.enable_slow_mode();
         # mDebugProfile = True;
         # lEngine
