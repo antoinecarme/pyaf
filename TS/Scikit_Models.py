@@ -62,10 +62,11 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
             self.mScikitModel.fit(lARInputsAfterSelection, lARTarget)
         except Exception as e:
             print("SCIKIT_MODEL_FIT_FAILURE" , self.mOutName, lARInputsAfterSelection.shape, e);
-            df1 = pd.DataFrame(lARInputsAfterSelection);
-            df1.columns = self.mInputNamesAfterSelection
-            df1['TGT'] = lARTarget;
-            df1.to_csv("SCIKIT_MODEL_FIT_FAILURE.csv");
+            if(self.mOptions.mDebug):
+                df1 = pd.DataFrame(lARInputsAfterSelection);
+                df1.columns = self.mInputNamesAfterSelection
+                df1['TGT'] = lARTarget;
+                df1.to_csv("SCIKIT_MODEL_FIT_FAILURE.csv.gz" , compression='gzip');
             raise;
             
         del lARInputsAfterSelection;
