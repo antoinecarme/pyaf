@@ -95,7 +95,7 @@ def compare_files(file_orig, file_new):
         print("NUM_DIFF_NUMBER_OF__DIFFERENT_LINES" , out)
         print(diffs[0])
         print(diffs[-1])
-        
+        print("#cp ", file_new, file_orig)
         print("NUM_DIFF_FILES_ARE_DIFFERENT")
 
 
