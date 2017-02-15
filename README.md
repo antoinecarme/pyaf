@@ -165,7 +165,9 @@ An [introductory notebook](https://github.com/antoinecarme/pyaf/blob/master/docs
 
 A specific notebook describing the use of exogenous data is [available here](https://github.com/antoinecarme/pyaf/blob/master/docs/PyAF_Exogenous.ipynb)
 
-The code is not yet fully documented. This is a top priority. 
+A notebook describing an example of hierarchical forecasting models is [available here](https://github.com/antoinecarme/pyaf/blob/master/docs/PyAF_Hierarchical_FrenchWineExportation.ipynb)
+
+The python code is not yet fully documented. This is a top priority (TODO). 
 
 Communication
 ----------------
