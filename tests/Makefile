@@ -386,6 +386,11 @@ func/test_ozone.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/func_test_ozone.log logs/func_test_ozone.log  >  logs/func_test_ozone.log.diff
 	 tail -10  logs/func_test_ozone.log.diff 
 
+func/test_ar.py  :  
+	 -$(PYTHON)  tests/func/test_ar.py  >  logs/func_test_ar.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/func_test_ar.log logs/func_test_ar.log  >  logs/func_test_ar.log.diff
+	 tail -10  logs/func_test_ar.log.diff 
+
 func/test_cycles_full.py  :  
 	 -$(PYTHON)  tests/func/test_cycles_full.py  >  logs/func_test_cycles_full.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/func_test_cycles_full.log logs/func_test_cycles_full.log  >  logs/func_test_cycles_full.log.diff
@@ -403,7 +408,7 @@ func/test_const_signal.py  :
 
 
 
- func :  func/test_const_signal.py func/test_air_passengers.py func/test_cycles_full.py func/test_ozone.py func/test_cycle.py func/test_ozone_with_logging.py  
+ func :  func/test_const_signal.py func/test_air_passengers.py func/test_cycles_full.py func/test_ar.py func/test_ozone.py func/test_cycle.py func/test_ozone_with_logging.py  
  
 
 neuralnet/test_ozone_tensorflow.py  :  
