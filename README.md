@@ -83,8 +83,8 @@ The following features are available :
       concerns is the key factor here.
     * **Fully written in python** with numpy, scipy, pandas and scikit-learn
       objects. Tries to be **column-based** everywhere for performance reasons.
-    * A **test-driven approach** is used. Test scripts are available in the tests
-      directory.
+    * A **test-driven approach** is used. Test scripts are available in the [tests](tests)
+      directory, one directory for each feature.
       -Some **jupyter notebooks** are available for demo purposes with standard time series and forecasts plots.
     * Very **simple API** for training and forecasting.
    10. A basic **REST WebService** (Flask) effort is starting.
