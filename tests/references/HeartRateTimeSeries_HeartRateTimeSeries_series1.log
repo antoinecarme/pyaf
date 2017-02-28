@@ -1,0 +1,132 @@
+   HeartRate  Date
+0    84.2697     0
+1    84.0619     1
+2    85.6542     2
+3    87.2093     3
+4    87.1246     4
+     Transformation                                              Model  \
+0  CumSum_HeartRate  CumSum_HeartRate_ConstantTrend_residue_zeroCyc...   
+1  CumSum_HeartRate  CumSum_HeartRate_Lag1Trend_residue_zeroCycle_r...   
+2        _HeartRate  _HeartRate_Lag1Trend_residue_zeroCycle_residue...   
+3        _HeartRate  _HeartRate_Lag1Trend_residue_bestCycle_byL2_re...   
+4  CumSum_HeartRate  CumSum_HeartRate_Lag1Trend_residue_zeroCycle_r...   
+
+   Complexity  FitCount     FitL2  FitMAPE  ForecastCount  ForecastL2  \
+0         288      1431  3.293962   0.0095            358    2.005442   
+1         320      1431  3.294514   0.0095            358    2.006093   
+2          32      1431  1.341834   0.0096            358    1.659938   
+3          40      1431  1.335970   0.0097            358    1.652596   
+4          64      1431  2.595877   0.0103            358    1.659938   
+
+   ForecastMAPE  TestCount    TestL2  TestMAPE  
+0        0.0103         10  0.697350    0.0055  
+1        0.0103         10  0.697738    0.0055  
+2        0.0105         10  1.010747    0.0069  
+3        0.0105         10  1.029597    0.0072  
+4        0.0105         10  1.010747    0.0069  
+Forecast Columns  Index(['Date', 'HeartRate', '_HeartRate', 'row_number', 'Date_Normalized',
+       '_HeartRate_Lag1Trend', '_HeartRate_Lag1Trend_residue',
+       '_HeartRate_Lag1Trend_residue_zeroCycle',
+       '_HeartRate_Lag1Trend_residue_zeroCycle_residue',
+       '_HeartRate_Lag1Trend_residue_zeroCycle_residue_NoAR',
+       '_HeartRate_Lag1Trend_residue_zeroCycle_residue_NoAR_residue',
+       '_HeartRate_Trend', '_HeartRate_Trend_residue', '_HeartRate_Cycle',
+       '_HeartRate_Cycle_residue', '_HeartRate_AR', '_HeartRate_AR_residue',
+       '_HeartRate_TransformedForecast', '_HeartRate_TransformedResidue',
+       'HeartRate_Forecast', 'HeartRate_Residue',
+       'HeartRate_Forecast_Lower_Bound', 'HeartRate_Forecast_Upper_Bound'],
+      dtype='object')
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 1809 entries, 0 to 1808
+Data columns (total 5 columns):
+Date                              1809 non-null int64
+HeartRate                         1799 non-null float64
+HeartRate_Forecast                1809 non-null float64
+HeartRate_Forecast_Lower_Bound    10 non-null float64
+HeartRate_Forecast_Upper_Bound    10 non-null float64
+dtypes: float64(4), int64(1)
+memory usage: 70.7 KB
+None
+Forecasts
+       Date  HeartRate  HeartRate_Forecast  HeartRate_Forecast_Lower_Bound  \
+1789  1789   104.0240            103.3330                             NaN   
+1790  1790   104.1670            104.0240                             NaN   
+1791  1791   104.2920            104.1670                             NaN   
+1792  1792   104.5830            104.2920                             NaN   
+1793  1793   104.4410            104.5830                             NaN   
+1794  1794   103.7900            104.4410                             NaN   
+1795  1795   101.6230            103.7900                             NaN   
+1796  1796    99.5679            101.6230                             NaN   
+1797  1797    99.1835             99.5679                             NaN   
+1798  1798    98.8567             99.1835                             NaN   
+1799  1799        NaN             98.8567                       95.536825   
+1800  1800        NaN             98.8567                       93.743223   
+1801  1801        NaN             98.8567                       92.536602   
+1802  1802        NaN             98.8567                       91.654568   
+1803  1803        NaN             98.8567                       90.944789   
+1804  1804        NaN             98.8567                       90.293507   
+1805  1805        NaN             98.8567                       89.669096   
+1806  1806        NaN             98.8567                       89.105062   
+1807  1807        NaN             98.8567                       88.651051   
+1808  1808        NaN             98.8567                       88.328378   
+
+      HeartRate_Forecast_Upper_Bound  
+1789                             NaN  
+1790                             NaN  
+1791                             NaN  
+1792                             NaN  
+1793                             NaN  
+1794                             NaN  
+1795                             NaN  
+1796                             NaN  
+1797                             NaN  
+1798                             NaN  
+1799                      102.176575  
+1800                      103.970177  
+1801                      105.176798  
+1802                      106.058832  
+1803                      106.768611  
+1804                      107.419893  
+1805                      108.044304  
+1806                      108.608338  
+1807                      109.062349  
+1808                      109.385022  
+
+
+<ModelInfo>
+{
+    "Dataset": {
+        "Signal": "HeartRate",
+        "Time": {
+            "Horizon": 10,
+            "TimeMinMax": [
+                "0",
+                "1798"
+            ],
+            "TimeVariable": "Date"
+        },
+        "Training_Signal_Length": 1799
+    },
+    "Model": {
+        "AR_Model": "NoAR",
+        "Best_Decomposition": "_HeartRate_Lag1Trend_residue_zeroCycle_residue_NoAR",
+        "Cycle": "NoCycle",
+        "Signal_Transoformation": "None",
+        "Trend": "Lag1Trend"
+    },
+    "Model_Performance": {
+        "COMPLEXITY": "32",
+        "MAPE": "0.0105",
+        "RMSE": "1.65993750269"
+    }
+}
+</ModelInfo>
+
+
+
+
+<Forecast>
+{"Date":{"1789":1789,"1790":1790,"1791":1791,"1792":1792,"1793":1793,"1794":1794,"1795":1795,"1796":1796,"1797":1797,"1798":1798,"1799":1799,"1800":1800,"1801":1801,"1802":1802,"1803":1803,"1804":1804,"1805":1805,"1806":1806,"1807":1807,"1808":1808},"HeartRate":{"1789":104.024,"1790":104.167,"1791":104.292,"1792":104.583,"1793":104.441,"1794":103.79,"1795":101.623,"1796":99.5679,"1797":99.1835,"1798":98.8567,"1799":null,"1800":null,"1801":null,"1802":null,"1803":null,"1804":null,"1805":null,"1806":null,"1807":null,"1808":null},"HeartRate_Forecast":{"1789":103.333,"1790":104.024,"1791":104.167,"1792":104.292,"1793":104.583,"1794":104.441,"1795":103.79,"1796":101.623,"1797":99.5679,"1798":99.1835,"1799":98.8567,"1800":98.8567,"1801":98.8567,"1802":98.8567,"1803":98.8567,"1804":98.8567,"1805":98.8567,"1806":98.8567,"1807":98.8567,"1808":98.8567},"HeartRate_Forecast_Lower_Bound":{"1789":null,"1790":null,"1791":null,"1792":null,"1793":null,"1794":null,"1795":null,"1796":null,"1797":null,"1798":null,"1799":95.5368249946,"1800":93.7432232373,"1801":92.5366020205,"1802":91.6545675789,"1803":90.9447894039,"1804":90.2935065432,"1805":89.6690963073,"1806":89.1050624473,"1807":88.6510509057,"1808":88.3283783226},"HeartRate_Forecast_Upper_Bound":{"1789":null,"1790":null,"1791":null,"1792":null,"1793":null,"1794":null,"1795":null,"1796":null,"1797":null,"1798":null,"1799":102.1765750054,"1800":103.9701767627,"1801":105.1767979795,"1802":106.0588324211,"1803":106.7686105961,"1804":107.4198934568,"1805":108.0443036927,"1806":108.6083375527,"1807":109.0623490943,"1808":109.3850216774}}
+</Forecast>
+
+
