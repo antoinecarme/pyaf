@@ -56,6 +56,31 @@ exog/test_ozone_exogenous.py  :
  exog :  exog/test_ozone_exogenous.py exog/test_ozone_exogenous_profile.py exog/test_random_exogenous.py  
  
 
+HeartRateTimeSeries/HeartRateTimeSeries_series4.py  :  
+	 -$(PYTHON)  tests/HeartRateTimeSeries/HeartRateTimeSeries_series4.py  >  logs/HeartRateTimeSeries_HeartRateTimeSeries_series4.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/HeartRateTimeSeries_HeartRateTimeSeries_series4.log logs/HeartRateTimeSeries_HeartRateTimeSeries_series4.log  >  logs/HeartRateTimeSeries_HeartRateTimeSeries_series4.log.diff
+	 tail -10  logs/HeartRateTimeSeries_HeartRateTimeSeries_series4.log.diff 
+
+HeartRateTimeSeries/HeartRateTimeSeries_series1.py  :  
+	 -$(PYTHON)  tests/HeartRateTimeSeries/HeartRateTimeSeries_series1.py  >  logs/HeartRateTimeSeries_HeartRateTimeSeries_series1.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/HeartRateTimeSeries_HeartRateTimeSeries_series1.log logs/HeartRateTimeSeries_HeartRateTimeSeries_series1.log  >  logs/HeartRateTimeSeries_HeartRateTimeSeries_series1.log.diff
+	 tail -10  logs/HeartRateTimeSeries_HeartRateTimeSeries_series1.log.diff 
+
+HeartRateTimeSeries/HeartRateTimeSeries_series3.py  :  
+	 -$(PYTHON)  tests/HeartRateTimeSeries/HeartRateTimeSeries_series3.py  >  logs/HeartRateTimeSeries_HeartRateTimeSeries_series3.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/HeartRateTimeSeries_HeartRateTimeSeries_series3.log logs/HeartRateTimeSeries_HeartRateTimeSeries_series3.log  >  logs/HeartRateTimeSeries_HeartRateTimeSeries_series3.log.diff
+	 tail -10  logs/HeartRateTimeSeries_HeartRateTimeSeries_series3.log.diff 
+
+HeartRateTimeSeries/HeartRateTimeSeries_series2.py  :  
+	 -$(PYTHON)  tests/HeartRateTimeSeries/HeartRateTimeSeries_series2.py  >  logs/HeartRateTimeSeries_HeartRateTimeSeries_series2.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/HeartRateTimeSeries_HeartRateTimeSeries_series2.log logs/HeartRateTimeSeries_HeartRateTimeSeries_series2.log  >  logs/HeartRateTimeSeries_HeartRateTimeSeries_series2.log.diff
+	 tail -10  logs/HeartRateTimeSeries_HeartRateTimeSeries_series2.log.diff 
+
+
+
+ HeartRateTimeSeries :  HeartRateTimeSeries/HeartRateTimeSeries_series2.py HeartRateTimeSeries/HeartRateTimeSeries_series3.py HeartRateTimeSeries/HeartRateTimeSeries_series1.py HeartRateTimeSeries/HeartRateTimeSeries_series4.py  
+ 
+
 heroku/test_air_passengers_heroku.py  :  
 	 -$(PYTHON)  tests/heroku/test_air_passengers_heroku.py  >  logs/heroku_test_air_passengers_heroku.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/heroku_test_air_passengers_heroku.log logs/heroku_test_air_passengers_heroku.log  >  logs/heroku_test_air_passengers_heroku.log.diff
@@ -494,7 +519,7 @@ time_res/test_ozone_Hourly.py  :
 
 # ********************************************** 
 
-all:  artificial bugs exog heroku hierarchical model_control perf svr transformations bench func neuralnet real-life  time_res 
+all:  artificial bugs exog HeartRateTimeSeries heroku hierarchical model_control perf svr transformations bench func neuralnet real-life  time_res 
 	
 
 build-test :  bugs exog heroku hierarchical model_control svr transformations func real-life  time_res 
