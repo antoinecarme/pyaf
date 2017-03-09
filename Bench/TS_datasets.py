@@ -605,7 +605,7 @@ def get_stock_web_link(stock):
     result = YAHOO_LINKS_DATA.get(stock);
     return result;
 
-def load_yahoo_stock_price( stock , iLocal = False) :
+def load_yahoo_stock_price( stock , iLocal = True) :
     tsspec = cTimeSeriesDatasetSpec();
     tsspec.mName = "Yahoo_Stock_Price_" + stock 
     tsspec.mDescription = "Yahoo Stock Price using yahoo-finance package"
