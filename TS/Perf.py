@@ -70,6 +70,17 @@ class cPerf:
             logger.error("Failure when computing perf ['" + self.mName + "'] '" + name + "'");
             raise tsutil.InternalForecastError("Failure when computing perf ['" + self.mName + "'] '" + name + "'");
         pass
+
+    def compute_pearson_r(self, signal , estimator):
+        from scipy.stats import pearsonr
+        # print("PEARSONR_DETAIL1" , signal_std, estimator_std)
+        # print("PEARSONR_DETAIL2" , signal)
+        # print("PEARSONR_DETAIL3" , estimator)
+        r = 0.0;
+        if((signal_std > 0.0) and (estimator_std > 0.0) and (self.mCount > 30)):
+            (r , pval) = pearsonr(signal.values , estimator.values)
+        return r;
+        
             
     def real_compute(self, signal , estimator, name):
         self.mName = name;
@@ -98,22 +109,9 @@ class cPerf:
         self.mL2 = np.sqrt(np.mean(abs_error ** 2))
         self.mCount = signal.shape[0];
         self.mR2 = self.compute_R2(signal, estimator)
-        self.mPearsonR = 0.0;
         
-        from scipy.stats import pearsonr
-        # print("PEARSONR_DETAIL1" , signal_std, estimator_std)
-        # print("PEARSONR_DETAIL2" , signal)
-        # print("PEARSONR_DETAIL3" , estimator)
-        if((signal_std > 0.0) and (estimator_std > 0.0) and (self.mCount > 30)):
-            (r , pval) = pearsonr(signal.values , estimator.values)
-            self.mPearsonR = r;
-        else:
-            self.mPearsonR = 0.0;
-#            print("COMPUTED_PERF_DETAIL " , name, self.mCount ,
-#                  self.mErrorMean ,  self.mErrorStdDev ,  self.mMAE ,
-#                  self.mMAPE ,  self.mSMAPE , self.mL1 ,  self.mL2 ,
-#                  self.mR2 ,  self.mPearsonR);
-        pass
+        self.mPearsonR = self.compute_pearson_r(signal.values , estimator.values);
+        
 
     def computeCriterion(self, signal , estimator, criterion):
         self.mCount = signal.shape[0];
@@ -129,8 +127,7 @@ class cPerf:
             self.mR2 = self.compute_R2(signal, estimator)
             return self.mR2;
         if(criterion == "PEARSONR"):
-            from scipy.stats import pearsonr 
-            (self.mPearsonR , pval) = pearsonr(signal1 , estimator1)
+            self.mPearsonR = self.compute_pearson_r(signal1 , estimator1)
             return self.mPearsonR;
         if(criterion == "MAE"):
             abs_error = abs(myerror)

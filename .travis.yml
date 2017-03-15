@@ -10,7 +10,7 @@ directories:
 - $HOME/.cache/matplotlib
 
 install: 
-#pip install -r requirements.txt
+    pip install scipy
 
 script: 
     - export PYTHONPATH=$PYTHONPATH:..
@@ -19,6 +19,7 @@ script:
     - rm -rf ~/.cache/matplotlib
     - rm -rf ~/.matplotlib/fontList.cache  
     - fc-cache 
+    - python ./tests/bugs/issue_36/display_version_info.py
     - python tests/func/test_ozone.py
     - python tests/func/test_air_passengers.py
     - make PYTHON=python -f tests/Makefile build-test

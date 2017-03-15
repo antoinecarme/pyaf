@@ -11,8 +11,6 @@ import calendar
 
 from . import Utils as tsutil
 
-from scipy.stats import mode
-
 
 from dateutil.relativedelta import relativedelta
 
