@@ -76,8 +76,11 @@ class cPerf:
         # print("PEARSONR_DETAIL1" , signal_std, estimator_std)
         # print("PEARSONR_DETAIL2" , signal)
         # print("PEARSONR_DETAIL3" , estimator)
+        signal_std = np.std(signal);
+        estimator_std = np.std(estimator);
+
         r = 0.0;
-        if((signal_std > 0.0) and (estimator_std > 0.0) and (self.mCount > 30)):
+        if((signal_std > 0.0) and (estimator_std > 0.0) and (signal.shape[0] > 30)):
             (r , pval) = pearsonr(signal.values , estimator.values)
         return r;
         
@@ -110,7 +113,7 @@ class cPerf:
         self.mCount = signal.shape[0];
         self.mR2 = self.compute_R2(signal, estimator)
         
-        self.mPearsonR = self.compute_pearson_r(signal.values , estimator.values);
+        self.mPearsonR = self.compute_pearson_r(signal , estimator);
         
 
     def computeCriterion(self, signal , estimator, criterion):
@@ -127,7 +130,7 @@ class cPerf:
             self.mR2 = self.compute_R2(signal, estimator)
             return self.mR2;
         if(criterion == "PEARSONR"):
-            self.mPearsonR = self.compute_pearson_r(signal1 , estimator1)
+            self.mPearsonR = self.compute_pearson_r(signal , estimator)
             return self.mPearsonR;
         if(criterion == "MAE"):
             abs_error = abs(myerror)
