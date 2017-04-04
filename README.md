@@ -118,7 +118,7 @@ PyAF requires::
 
 	- scikit-learn.
 	- Pandas
-	- Python (>= 3.5),
+	- Python (tested with 3.5),
 	- NumPy,
 	- SciPy.
 	- matplotlib
