@@ -72,7 +72,7 @@ def load_cashflows() :
     tsspec.mName = "CashFlows"
     tsspec.mDescription = "CashFlows dataset"
 
-    trainfile = "data/CashFlows.txt"
+    trainfile = "https://raw.githubusercontent.com/antoinecarme/pyaf/master/data/CashFlows.txt"
     tsspec.mFullDataset = pd.read_csv(trainfile, sep=r'\t', engine='python');
     tsspec.mFullDataset['Date'] = tsspec.mFullDataset['Date'].apply(lambda x : datetime.datetime.strptime(x, "%Y-%m-%d"))
     tsspec.mFullDataset = tsspec.mFullDataset.head(251)
@@ -125,7 +125,7 @@ def load_ozone_exogenous() :
     tsspec.mDescription = "https://datamarket.com/data/set/22u8/ozon-concentration-downtown-l-a-1955-1972"
     
     #trainfile = "data/ozone-la.csv"
-    trainfile = "data/ozone-la-exogenous.csv"
+    trainfile = "https://raw.githubusercontent.com/antoinecarme/pyaf/master/data/ozone-la-exogenous.csv"
     # "https://raw.githubusercontent.com/antoinecarme/TimeSeriesData/master/ozone-la.csv"
 
     cols = ["Date", "Month", "Exog2", "Exog3", "Exog4", "Ozone"];
@@ -289,7 +289,7 @@ def load_NN5():
     tsspec = cTimeSeriesDatasetSpec();
     tsspec.mName = "NN5";
     tsspec.mDescription = "NN5 competition final dataset";
-    trainfile = "data/NN5-Final-Dataset.csv"
+    trainfile = "https://raw.githubusercontent.com/antoinecarme/pyaf/master/data/NN5-Final-Dataset.csv"
     tsspec.mFullDataset = pd.read_csv(trainfile, sep='\t', header=0, engine='python');
     tsspec.mFullDataset['Day'] = tsspec.mFullDataset['Day'].apply(lambda x : datetime.datetime.strptime(x, "%d-%b-%y"))
     tsspec.mFullDataset = tsspec.mFullDataset
@@ -312,7 +312,7 @@ def load_NN3_part1():
     tsspec = cTimeSeriesDatasetSpec();
     tsspec.mName = "NN3_Part1";
     tsspec.mDescription = "NN3 competition final dataset - part 1";
-    trainfile = "data/NN3-Final-Dataset-part1.csv"
+    trainfile = "https://raw.githubusercontent.com/antoinecarme/pyaf/master/data/NN3-Final-Dataset-part1.csv"
     tsspec.mFullDataset = pd.read_csv(trainfile, sep='\t', header=0, engine='python');
     tsspec.mFullDataset['Date'] = np.arange(0, tsspec.mFullDataset.shape[0])
 #    tsspec.mFullDataset.fillna(method = "ffill", inplace = True);
@@ -352,8 +352,8 @@ def load_MWH_dataset(name):
     lSignal = name;
     lTime = 'Time';
     print("LAODING_MWH_DATASET" , name);
-    # trainfile = "https://raw.githubusercontent.com/antoinecarme/TimeSeriesData/master/FMA/" + name +".csv";
-    trainfile = "data/FMA/" + name + ".csv"
+    trainfile = "https://raw.githubusercontent.com/antoinecarme/TimeSeriesData/master/FMA/" + name +".csv";
+    # trainfile = "data/FMA/" + name + ".csv"
     df_train = pd.read_csv(trainfile, sep=r',', header=None,  engine='python', skipinitialspace=True);
     # print(df_train.head(3));
     type1 = np.dtype(df_train[df_train.columns[0]])
@@ -395,7 +395,7 @@ def load_MWH_dataset(name):
 def load_M1_comp() :
     tsspec = cTimeSeriesDatasetSpec();
     tsspec.mName = "M1_COMP";
-    trainfile = "data/M1.csv"
+    trainfile = "https://raw.githubusercontent.com/antoinecarme/pyaf/master/data/M1.csv"
 
     tsspec.mFullDataset = pd.read_csv(trainfile, sep='\t', header=0, engine='python');
     tsspec.mHorizons = tsspec.mFullDataset[['NF' , 'Series']].copy();
@@ -421,7 +421,7 @@ def load_M1_comp() :
 def load_M2_comp() :
     tsspec = cTimeSeriesDatasetSpec();
     tsspec.mName = "M2_COMP";
-    trainfile = "data/M2.csv"
+    trainfile = "https://raw.githubusercontent.com/antoinecarme/pyaf/master/data/M2.csv"
 
     tsspec.mFullDataset = pd.read_csv(trainfile, sep='\t', header=0, engine='python');
     tsspec.mHorizons = tsspec.mFullDataset[['NF' , 'Series']].copy();
@@ -448,7 +448,7 @@ def load_M2_comp() :
 def load_M3_Y_comp() :
     tsspec = cTimeSeriesDatasetSpec();
     tsspec.mName = "M3_Y_COMP";
-    trainfile = "data/M3_Yearly.csv"
+    trainfile = "https://raw.githubusercontent.com/antoinecarme/pyaf/master/data/M3_Yearly.csv"
 
     tsspec.mFullDataset = pd.read_csv(trainfile, sep='\t', header=0, engine='python');
     tsspec.mHorizons = tsspec.mFullDataset[['NF' , 'Series']].copy();
@@ -476,7 +476,7 @@ def load_M3_Y_comp() :
 def load_M3_Q_comp() :
     tsspec = cTimeSeriesDatasetSpec();
     tsspec.mName = "M3_Q_COMP";
-    trainfile = "data/M3_Quarterly.csv"
+    trainfile = "https://raw.githubusercontent.com/antoinecarme/pyaf/master/data/M3_Quarterly.csv"
 
     tsspec.mFullDataset = pd.read_csv(trainfile, sep='\t', header=0, engine='python');
     tsspec.mHorizons = tsspec.mFullDataset[['NF' , 'Series']].copy();
@@ -503,7 +503,7 @@ def load_M3_Q_comp() :
 def load_M3_M_comp() :
     tsspec = cTimeSeriesDatasetSpec();
     tsspec.mName = "M3_M_COMP";
-    trainfile = "data/M3_Monthly.csv"
+    trainfile = "https://raw.githubusercontent.com/antoinecarme/pyaf/master/data/M3_Monthly.csv"
 
     tsspec.mFullDataset = pd.read_csv(trainfile, sep='\t', header=0, engine='python');
     tsspec.mHorizons = tsspec.mFullDataset[['NF' , 'Series']].copy();
@@ -532,7 +532,7 @@ def load_M3_M_comp() :
 def load_M3_Other_comp() :
     tsspec = cTimeSeriesDatasetSpec();
     tsspec.mName = "M3_Other_COMP";
-    trainfile = "data/M3_Other.csv"
+    trainfile = "https://raw.githubusercontent.com/antoinecarme/pyaf/master/data/M3_Other.csv"
 
     tsspec.mFullDataset = pd.read_csv(trainfile, sep='\t', header=0, engine='python');
     tsspec.mHorizons = tsspec.mFullDataset[['NF' , 'Series']].copy();
@@ -562,7 +562,8 @@ def load_M4_comp() :
 
     tsspecs = {};
     
-    trainfile = "data/M4Comp.csv.gz"
+    trainfile = "https://github.com/antoinecarme/pyaf/blob/master/data/M4Comp.csv.gz?raw=true"
+    # trainfile = "data/M4Comp.csv.gz"
 
     df_full = pd.read_csv(trainfile, sep=',', header=0, engine='python');
     lHorizons = df_full[['H' , 'ID']].copy();
