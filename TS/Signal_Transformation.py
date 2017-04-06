@@ -32,6 +32,7 @@ class cAbstractSignalTransform:
         self.mOriginalSignal = None;
         self.mComplexity = None;
         self.mScaling = None;
+        self.mDebug = False;
         pass
 
     def is_applicable(self, sig):
@@ -87,7 +88,7 @@ class cAbstractSignalTransform:
         sig1 = self.scale_signal(sig);
         sig2 = self.specific_apply(sig1);
         # print("APPLY_END", self.mOriginalSignal, sig2.values[1:5]);
-        if(self.mOptions.mDebug):
+        if(self.mDebug):
             self.check_not_nan(sig2 , "transform_apply");
         return sig2;
 
