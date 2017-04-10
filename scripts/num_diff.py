@@ -102,4 +102,8 @@ def compare_files(file_orig, file_new):
 file_orig = sys.argv[1]
 file_new = sys.argv[2]
 
-compare_files(file_orig, file_new);
+try:
+    compare_files(file_orig, file_new);
+except Exception as e:
+    lStr = str(type(e).__name__) + " " + str(e)
+    print("FILE_COMPARISON_FAILED_WITH_ERROR" , lStr);
