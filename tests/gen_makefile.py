@@ -1,7 +1,7 @@
 import os
 import glob
 
-str1 = "artificial bugs exog HeartRateTimeSeries heroku hierarchical model_control perf svr transformations bench func neuralnet real-life  time_res";
+str1 = "artificial bugs exog expsmooth HeartRateTimeSeries heroku hierarchical model_control perf svr transformations bench func neuralnet real-life  time_res";
 subdirs = str1.split();
 
 print("PYTHON=python3\n\n");

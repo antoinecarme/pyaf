@@ -56,6 +56,136 @@ exog/test_ozone_exogenous.py  :
  exog :  exog/test_ozone_exogenous.py exog/test_ozone_exogenous_profile.py exog/test_random_exogenous.py  
  
 
+expsmooth/expsmooth_dataset_usgdp.py  :  
+	 -$(PYTHON)  tests/expsmooth/expsmooth_dataset_usgdp.py  >  logs/expsmooth_expsmooth_dataset_usgdp.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/expsmooth_expsmooth_dataset_usgdp.log logs/expsmooth_expsmooth_dataset_usgdp.log  >  logs/expsmooth_expsmooth_dataset_usgdp.log.diff
+	 tail -10  logs/expsmooth_expsmooth_dataset_usgdp.log.diff 
+
+expsmooth/expsmooth_dataset_visitors.py  :  
+	 -$(PYTHON)  tests/expsmooth/expsmooth_dataset_visitors.py  >  logs/expsmooth_expsmooth_dataset_visitors.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/expsmooth_expsmooth_dataset_visitors.log logs/expsmooth_expsmooth_dataset_visitors.log  >  logs/expsmooth_expsmooth_dataset_visitors.log.diff
+	 tail -10  logs/expsmooth_expsmooth_dataset_visitors.log.diff 
+
+expsmooth/expsmooth_dataset_gasprice.py  :  
+	 -$(PYTHON)  tests/expsmooth/expsmooth_dataset_gasprice.py  >  logs/expsmooth_expsmooth_dataset_gasprice.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/expsmooth_expsmooth_dataset_gasprice.log logs/expsmooth_expsmooth_dataset_gasprice.log  >  logs/expsmooth_expsmooth_dataset_gasprice.log.diff
+	 tail -10  logs/expsmooth_expsmooth_dataset_gasprice.log.diff 
+
+expsmooth/expsmooth_dataset_jewelry.py  :  
+	 -$(PYTHON)  tests/expsmooth/expsmooth_dataset_jewelry.py  >  logs/expsmooth_expsmooth_dataset_jewelry.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/expsmooth_expsmooth_dataset_jewelry.log logs/expsmooth_expsmooth_dataset_jewelry.log  >  logs/expsmooth_expsmooth_dataset_jewelry.log.diff
+	 tail -10  logs/expsmooth_expsmooth_dataset_jewelry.log.diff 
+
+expsmooth/expsmooth_dataset_usnetelec.py  :  
+	 -$(PYTHON)  tests/expsmooth/expsmooth_dataset_usnetelec.py  >  logs/expsmooth_expsmooth_dataset_usnetelec.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/expsmooth_expsmooth_dataset_usnetelec.log logs/expsmooth_expsmooth_dataset_usnetelec.log  >  logs/expsmooth_expsmooth_dataset_usnetelec.log.diff
+	 tail -10  logs/expsmooth_expsmooth_dataset_usnetelec.log.diff 
+
+expsmooth/expsmooth_dataset_ausgdp.py  :  
+	 -$(PYTHON)  tests/expsmooth/expsmooth_dataset_ausgdp.py  >  logs/expsmooth_expsmooth_dataset_ausgdp.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/expsmooth_expsmooth_dataset_ausgdp.log logs/expsmooth_expsmooth_dataset_ausgdp.log  >  logs/expsmooth_expsmooth_dataset_ausgdp.log.diff
+	 tail -10  logs/expsmooth_expsmooth_dataset_ausgdp.log.diff 
+
+expsmooth/expsmooth_dataset_djiclose.py  :  
+	 -$(PYTHON)  tests/expsmooth/expsmooth_dataset_djiclose.py  >  logs/expsmooth_expsmooth_dataset_djiclose.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/expsmooth_expsmooth_dataset_djiclose.log logs/expsmooth_expsmooth_dataset_djiclose.log  >  logs/expsmooth_expsmooth_dataset_djiclose.log.diff
+	 tail -10  logs/expsmooth_expsmooth_dataset_djiclose.log.diff 
+
+expsmooth/expsmooth_dataset_fmsales.py  :  
+	 -$(PYTHON)  tests/expsmooth/expsmooth_dataset_fmsales.py  >  logs/expsmooth_expsmooth_dataset_fmsales.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/expsmooth_expsmooth_dataset_fmsales.log logs/expsmooth_expsmooth_dataset_fmsales.log  >  logs/expsmooth_expsmooth_dataset_fmsales.log.diff
+	 tail -10  logs/expsmooth_expsmooth_dataset_fmsales.log.diff 
+
+expsmooth/expsmooth_dataset_vehicles.py  :  
+	 -$(PYTHON)  tests/expsmooth/expsmooth_dataset_vehicles.py  >  logs/expsmooth_expsmooth_dataset_vehicles.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/expsmooth_expsmooth_dataset_vehicles.log logs/expsmooth_expsmooth_dataset_vehicles.log  >  logs/expsmooth_expsmooth_dataset_vehicles.log.diff
+	 tail -10  logs/expsmooth_expsmooth_dataset_vehicles.log.diff 
+
+expsmooth/expsmooth_dataset_freight.py  :  
+	 -$(PYTHON)  tests/expsmooth/expsmooth_dataset_freight.py  >  logs/expsmooth_expsmooth_dataset_freight.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/expsmooth_expsmooth_dataset_freight.log logs/expsmooth_expsmooth_dataset_freight.log  >  logs/expsmooth_expsmooth_dataset_freight.log.diff
+	 tail -10  logs/expsmooth_expsmooth_dataset_freight.log.diff 
+
+expsmooth/expsmooth_dataset_dji.py  :  
+	 -$(PYTHON)  tests/expsmooth/expsmooth_dataset_dji.py  >  logs/expsmooth_expsmooth_dataset_dji.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/expsmooth_expsmooth_dataset_dji.log logs/expsmooth_expsmooth_dataset_dji.log  >  logs/expsmooth_expsmooth_dataset_dji.log.diff
+	 tail -10  logs/expsmooth_expsmooth_dataset_dji.log.diff 
+
+expsmooth/expsmooth_dataset_utility.py  :  
+	 -$(PYTHON)  tests/expsmooth/expsmooth_dataset_utility.py  >  logs/expsmooth_expsmooth_dataset_utility.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/expsmooth_expsmooth_dataset_utility.log logs/expsmooth_expsmooth_dataset_utility.log  >  logs/expsmooth_expsmooth_dataset_utility.log.diff
+	 tail -10  logs/expsmooth_expsmooth_dataset_utility.log.diff 
+
+expsmooth/expsmooth_dataset_canadagas.py  :  
+	 -$(PYTHON)  tests/expsmooth/expsmooth_dataset_canadagas.py  >  logs/expsmooth_expsmooth_dataset_canadagas.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/expsmooth_expsmooth_dataset_canadagas.log logs/expsmooth_expsmooth_dataset_canadagas.log  >  logs/expsmooth_expsmooth_dataset_canadagas.log.diff
+	 tail -10  logs/expsmooth_expsmooth_dataset_canadagas.log.diff 
+
+expsmooth/expsmooth_dataset_frexport.py  :  
+	 -$(PYTHON)  tests/expsmooth/expsmooth_dataset_frexport.py  >  logs/expsmooth_expsmooth_dataset_frexport.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/expsmooth_expsmooth_dataset_frexport.log logs/expsmooth_expsmooth_dataset_frexport.log  >  logs/expsmooth_expsmooth_dataset_frexport.log.diff
+	 tail -10  logs/expsmooth_expsmooth_dataset_frexport.log.diff 
+
+expsmooth/expsmooth_dataset_xrates.py  :  
+	 -$(PYTHON)  tests/expsmooth/expsmooth_dataset_xrates.py  >  logs/expsmooth_expsmooth_dataset_xrates.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/expsmooth_expsmooth_dataset_xrates.log logs/expsmooth_expsmooth_dataset_xrates.log  >  logs/expsmooth_expsmooth_dataset_xrates.log.diff
+	 tail -10  logs/expsmooth_expsmooth_dataset_xrates.log.diff 
+
+expsmooth/expsmooth_dataset_mcopper.py  :  
+	 -$(PYTHON)  tests/expsmooth/expsmooth_dataset_mcopper.py  >  logs/expsmooth_expsmooth_dataset_mcopper.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/expsmooth_expsmooth_dataset_mcopper.log logs/expsmooth_expsmooth_dataset_mcopper.log  >  logs/expsmooth_expsmooth_dataset_mcopper.log.diff
+	 tail -10  logs/expsmooth_expsmooth_dataset_mcopper.log.diff 
+
+expsmooth/expsmooth_dataset_ukcars.py  :  
+	 -$(PYTHON)  tests/expsmooth/expsmooth_dataset_ukcars.py  >  logs/expsmooth_expsmooth_dataset_ukcars.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/expsmooth_expsmooth_dataset_ukcars.log logs/expsmooth_expsmooth_dataset_ukcars.log  >  logs/expsmooth_expsmooth_dataset_ukcars.log.diff
+	 tail -10  logs/expsmooth_expsmooth_dataset_ukcars.log.diff 
+
+expsmooth/expsmooth_dataset_hospital.py  :  
+	 -$(PYTHON)  tests/expsmooth/expsmooth_dataset_hospital.py  >  logs/expsmooth_expsmooth_dataset_hospital.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/expsmooth_expsmooth_dataset_hospital.log logs/expsmooth_expsmooth_dataset_hospital.log  >  logs/expsmooth_expsmooth_dataset_hospital.log.diff
+	 tail -10  logs/expsmooth_expsmooth_dataset_hospital.log.diff 
+
+expsmooth/expsmooth_dataset_enplanements.py  :  
+	 -$(PYTHON)  tests/expsmooth/expsmooth_dataset_enplanements.py  >  logs/expsmooth_expsmooth_dataset_enplanements.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/expsmooth_expsmooth_dataset_enplanements.log logs/expsmooth_expsmooth_dataset_enplanements.log  >  logs/expsmooth_expsmooth_dataset_enplanements.log.diff
+	 tail -10  logs/expsmooth_expsmooth_dataset_enplanements.log.diff 
+
+expsmooth/expsmooth_dataset_partx.py  :  
+	 -$(PYTHON)  tests/expsmooth/expsmooth_dataset_partx.py  >  logs/expsmooth_expsmooth_dataset_partx.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/expsmooth_expsmooth_dataset_partx.log logs/expsmooth_expsmooth_dataset_partx.log  >  logs/expsmooth_expsmooth_dataset_partx.log.diff
+	 tail -10  logs/expsmooth_expsmooth_dataset_partx.log.diff 
+
+expsmooth/expsmooth_dataset_test.py  :  
+	 -$(PYTHON)  tests/expsmooth/expsmooth_dataset_test.py  >  logs/expsmooth_expsmooth_dataset_test.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/expsmooth_expsmooth_dataset_test.log logs/expsmooth_expsmooth_dataset_test.log  >  logs/expsmooth_expsmooth_dataset_test.log.diff
+	 tail -10  logs/expsmooth_expsmooth_dataset_test.log.diff 
+
+expsmooth/expsmooth_dataset_unemp.cci.py  :  
+	 -$(PYTHON)  tests/expsmooth/expsmooth_dataset_unemp.cci.py  >  logs/expsmooth_expsmooth_dataset_unemp.cci.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/expsmooth_expsmooth_dataset_unemp.cci.log logs/expsmooth_expsmooth_dataset_unemp.cci.log  >  logs/expsmooth_expsmooth_dataset_unemp.cci.log.diff
+	 tail -10  logs/expsmooth_expsmooth_dataset_unemp.cci.log.diff 
+
+expsmooth/expsmooth_dataset_carparts.py  :  
+	 -$(PYTHON)  tests/expsmooth/expsmooth_dataset_carparts.py  >  logs/expsmooth_expsmooth_dataset_carparts.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/expsmooth_expsmooth_dataset_carparts.log logs/expsmooth_expsmooth_dataset_carparts.log  >  logs/expsmooth_expsmooth_dataset_carparts.log.diff
+	 tail -10  logs/expsmooth_expsmooth_dataset_carparts.log.diff 
+
+expsmooth/expsmooth_dataset_bonds.py  :  
+	 -$(PYTHON)  tests/expsmooth/expsmooth_dataset_bonds.py  >  logs/expsmooth_expsmooth_dataset_bonds.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/expsmooth_expsmooth_dataset_bonds.log logs/expsmooth_expsmooth_dataset_bonds.log  >  logs/expsmooth_expsmooth_dataset_bonds.log.diff
+	 tail -10  logs/expsmooth_expsmooth_dataset_bonds.log.diff 
+
+expsmooth/expsmooth_dataset_msales.py  :  
+	 -$(PYTHON)  tests/expsmooth/expsmooth_dataset_msales.py  >  logs/expsmooth_expsmooth_dataset_msales.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/expsmooth_expsmooth_dataset_msales.log logs/expsmooth_expsmooth_dataset_msales.log  >  logs/expsmooth_expsmooth_dataset_msales.log.diff
+	 tail -10  logs/expsmooth_expsmooth_dataset_msales.log.diff 
+
+
+
+ expsmooth :  expsmooth/expsmooth_dataset_msales.py expsmooth/expsmooth_dataset_bonds.py expsmooth/expsmooth_dataset_carparts.py expsmooth/expsmooth_dataset_unemp.cci.py expsmooth/expsmooth_dataset_test.py expsmooth/expsmooth_dataset_partx.py expsmooth/expsmooth_dataset_enplanements.py expsmooth/expsmooth_dataset_hospital.py expsmooth/expsmooth_dataset_ukcars.py expsmooth/expsmooth_dataset_mcopper.py expsmooth/expsmooth_dataset_xrates.py expsmooth/expsmooth_dataset_frexport.py expsmooth/expsmooth_dataset_canadagas.py expsmooth/expsmooth_dataset_utility.py expsmooth/expsmooth_dataset_dji.py expsmooth/expsmooth_dataset_freight.py expsmooth/expsmooth_dataset_vehicles.py expsmooth/expsmooth_dataset_fmsales.py expsmooth/expsmooth_dataset_djiclose.py expsmooth/expsmooth_dataset_ausgdp.py expsmooth/expsmooth_dataset_usnetelec.py expsmooth/expsmooth_dataset_jewelry.py expsmooth/expsmooth_dataset_gasprice.py expsmooth/expsmooth_dataset_visitors.py expsmooth/expsmooth_dataset_usgdp.py  
+ 
+
 HeartRateTimeSeries/HeartRateTimeSeries_series4.py  :  
 	 -$(PYTHON)  tests/HeartRateTimeSeries/HeartRateTimeSeries_series4.py  >  logs/HeartRateTimeSeries_HeartRateTimeSeries_series4.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/HeartRateTimeSeries_HeartRateTimeSeries_series4.log logs/HeartRateTimeSeries_HeartRateTimeSeries_series4.log  >  logs/HeartRateTimeSeries_HeartRateTimeSeries_series4.log.diff
@@ -519,7 +649,7 @@ time_res/test_ozone_Hourly.py  :
 
 # ********************************************** 
 
-all:  artificial bugs exog HeartRateTimeSeries heroku hierarchical model_control perf svr transformations bench func neuralnet real-life  time_res 
+all:  artificial bugs exog expsmooth HeartRateTimeSeries heroku hierarchical model_control perf svr transformations bench func neuralnet real-life  time_res 
 	
 
 build-test :  bugs exog heroku hierarchical model_control svr transformations func real-life  time_res 
