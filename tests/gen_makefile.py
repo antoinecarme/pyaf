@@ -1,12 +1,8 @@
 import os
 import glob
 
-str1 = "artificial bugs exog expsmooth HeartRateTimeSeries heroku hierarchical model_control perf svr transformations bench func neuralnet real-life  time_res";
-subdirs = str1.split();
 
-print("PYTHON=python3\n\n");
-
-for subdir1 in subdirs:
+def add_makefile_entry(subdir1):
     test_target = "";
     for filename in glob.glob("tests/" + subdir1 + "/*.py"):
         lShortName = os.path.basename(filename);
@@ -27,6 +23,21 @@ for subdir1 in subdirs:
                 
             test_target = bn + " " + test_target;
 
+    return test_target;
+
+
+str1 = "artificial bugs exog expsmooth HeartRateTimeSeries heroku hierarchical model_control perf svr transformations bench func neuralnet real-life  time_res";
+subdirs = str1.split();
+
+print("PYTHON=python3\n\n");
+
+for subdir1 in subdirs:
+    test_target = add_makefile_entry(subdir1)
+    if(subdir1 == "bugs"):
+        bugdirs = glob.glob("tests/bugs/*")
+        bugdirs1 = [dir1.replace("tests/" , "") for dir1 in bugdirs]
+        for dir1 in bugdirs1:
+            test_target = test_target + add_makefile_entry(dir1)
     print("\n\n", subdir1, ": ", test_target, "\n" , "\n");
 
 print("\n# ********************************************** \n");

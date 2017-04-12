@@ -31,9 +31,109 @@ bugs/test_artificial_bug_2.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_test_artificial_bug_2.log logs/bugs_test_artificial_bug_2.log  >  logs/bugs_test_artificial_bug_2.log.diff
 	 tail -10  logs/bugs_test_artificial_bug_2.log.diff 
 
+bugs/issue_34/issue_34.py  :  
+	 -$(PYTHON)  tests/bugs/issue_34/issue_34.py  >  logs/bugs_issue_34_issue_34.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_34_issue_34.log logs/bugs_issue_34_issue_34.log  >  logs/bugs_issue_34_issue_34.log.diff
+	 tail -10  logs/bugs_issue_34_issue_34.log.diff 
+
+bugs/issue_34/test_artificial_1024_sqrt_constant_7_12_100.py  :  
+	 -$(PYTHON)  tests/bugs/issue_34/test_artificial_1024_sqrt_constant_7_12_100.py  >  logs/bugs_issue_34_test_artificial_1024_sqrt_constant_7_12_100.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_34_test_artificial_1024_sqrt_constant_7_12_100.log logs/bugs_issue_34_test_artificial_1024_sqrt_constant_7_12_100.log  >  logs/bugs_issue_34_test_artificial_1024_sqrt_constant_7_12_100.log.diff
+	 tail -10  logs/bugs_issue_34_test_artificial_1024_sqrt_constant_7_12_100.log.diff 
+
+bugs/issue_34/test_artificial_1024_inv_linear_7_12_100.py  :  
+	 -$(PYTHON)  tests/bugs/issue_34/test_artificial_1024_inv_linear_7_12_100.py  >  logs/bugs_issue_34_test_artificial_1024_inv_linear_7_12_100.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_34_test_artificial_1024_inv_linear_7_12_100.log logs/bugs_issue_34_test_artificial_1024_inv_linear_7_12_100.log  >  logs/bugs_issue_34_test_artificial_1024_inv_linear_7_12_100.log.diff
+	 tail -10  logs/bugs_issue_34_test_artificial_1024_inv_linear_7_12_100.log.diff 
+
+bugs/issue_34/test_artificial_1024_sqrt_linear_30_12_20.py  :  
+	 -$(PYTHON)  tests/bugs/issue_34/test_artificial_1024_sqrt_linear_30_12_20.py  >  logs/bugs_issue_34_test_artificial_1024_sqrt_linear_30_12_20.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_34_test_artificial_1024_sqrt_linear_30_12_20.log logs/bugs_issue_34_test_artificial_1024_sqrt_linear_30_12_20.log  >  logs/bugs_issue_34_test_artificial_1024_sqrt_linear_30_12_20.log.diff
+	 tail -10  logs/bugs_issue_34_test_artificial_1024_sqrt_linear_30_12_20.log.diff 
+
+bugs/issue_34/test_artificial_1024_diff_poly_0__100.py  :  
+	 -$(PYTHON)  tests/bugs/issue_34/test_artificial_1024_diff_poly_0__100.py  >  logs/bugs_issue_34_test_artificial_1024_diff_poly_0__100.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_34_test_artificial_1024_diff_poly_0__100.log logs/bugs_issue_34_test_artificial_1024_diff_poly_0__100.log  >  logs/bugs_issue_34_test_artificial_1024_diff_poly_0__100.log.diff
+	 tail -10  logs/bugs_issue_34_test_artificial_1024_diff_poly_0__100.log.diff 
+
+bugs/issue_34/issue_34_1.py  :  
+	 -$(PYTHON)  tests/bugs/issue_34/issue_34_1.py  >  logs/bugs_issue_34_issue_34_1.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_34_issue_34_1.log logs/bugs_issue_34_issue_34_1.log  >  logs/bugs_issue_34_issue_34_1.log.diff
+	 tail -10  logs/bugs_issue_34_issue_34_1.log.diff 
+
+bugs/issue_34/test_artificial_1024_log_linear_30_12_20.py  :  
+	 -$(PYTHON)  tests/bugs/issue_34/test_artificial_1024_log_linear_30_12_20.py  >  logs/bugs_issue_34_test_artificial_1024_log_linear_30_12_20.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_34_test_artificial_1024_log_linear_30_12_20.log logs/bugs_issue_34_test_artificial_1024_log_linear_30_12_20.log  >  logs/bugs_issue_34_test_artificial_1024_log_linear_30_12_20.log.diff
+	 tail -10  logs/bugs_issue_34_test_artificial_1024_log_linear_30_12_20.log.diff 
+
+bugs/issue_34/test_artificial_1024_diff_poly_0__0.py  :  
+	 -$(PYTHON)  tests/bugs/issue_34/test_artificial_1024_diff_poly_0__0.py  >  logs/bugs_issue_34_test_artificial_1024_diff_poly_0__0.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_34_test_artificial_1024_diff_poly_0__0.log logs/bugs_issue_34_test_artificial_1024_diff_poly_0__0.log  >  logs/bugs_issue_34_test_artificial_1024_diff_poly_0__0.log.diff
+	 tail -10  logs/bugs_issue_34_test_artificial_1024_diff_poly_0__0.log.diff 
+
+bugs/issue_34/test_artificial_1024_sqr_poly_5_12_20.py  :  
+	 -$(PYTHON)  tests/bugs/issue_34/test_artificial_1024_sqr_poly_5_12_20.py  >  logs/bugs_issue_34_test_artificial_1024_sqr_poly_5_12_20.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_34_test_artificial_1024_sqr_poly_5_12_20.log logs/bugs_issue_34_test_artificial_1024_sqr_poly_5_12_20.log  >  logs/bugs_issue_34_test_artificial_1024_sqr_poly_5_12_20.log.diff
+	 tail -10  logs/bugs_issue_34_test_artificial_1024_sqr_poly_5_12_20.log.diff 
+
+bugs/issue_34/test_artificial_1024__poly_7_12_100.py  :  
+	 -$(PYTHON)  tests/bugs/issue_34/test_artificial_1024__poly_7_12_100.py  >  logs/bugs_issue_34_test_artificial_1024__poly_7_12_100.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_34_test_artificial_1024__poly_7_12_100.log logs/bugs_issue_34_test_artificial_1024__poly_7_12_100.log  >  logs/bugs_issue_34_test_artificial_1024__poly_7_12_100.log.diff
+	 tail -10  logs/bugs_issue_34_test_artificial_1024__poly_7_12_100.log.diff 
+
+bugs/issue_34/test_artificial_1024_log_linear_5_12_100.py  :  
+	 -$(PYTHON)  tests/bugs/issue_34/test_artificial_1024_log_linear_5_12_100.py  >  logs/bugs_issue_34_test_artificial_1024_log_linear_5_12_100.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_34_test_artificial_1024_log_linear_5_12_100.log logs/bugs_issue_34_test_artificial_1024_log_linear_5_12_100.log  >  logs/bugs_issue_34_test_artificial_1024_log_linear_5_12_100.log.diff
+	 tail -10  logs/bugs_issue_34_test_artificial_1024_log_linear_5_12_100.log.diff 
+
+bugs/issue_34/test_artificial_1024_inv_constant_30__20.py  :  
+	 -$(PYTHON)  tests/bugs/issue_34/test_artificial_1024_inv_constant_30__20.py  >  logs/bugs_issue_34_test_artificial_1024_inv_constant_30__20.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_34_test_artificial_1024_inv_constant_30__20.log logs/bugs_issue_34_test_artificial_1024_inv_constant_30__20.log  >  logs/bugs_issue_34_test_artificial_1024_inv_constant_30__20.log.diff
+	 tail -10  logs/bugs_issue_34_test_artificial_1024_inv_constant_30__20.log.diff 
+
+bugs/issue_32/bug_test_ozone_heroku_1.py  :  
+	 -$(PYTHON)  tests/bugs/issue_32/bug_test_ozone_heroku_1.py  >  logs/bugs_issue_32_bug_test_ozone_heroku_1.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_32_bug_test_ozone_heroku_1.log logs/bugs_issue_32_bug_test_ozone_heroku_1.log  >  logs/bugs_issue_32_bug_test_ozone_heroku_1.log.diff
+	 tail -10  logs/bugs_issue_32_bug_test_ozone_heroku_1.log.diff 
+
+bugs/issue_32/bug_test_ozone_heroku_1_ws.py  :  
+	 -$(PYTHON)  tests/bugs/issue_32/bug_test_ozone_heroku_1_ws.py  >  logs/bugs_issue_32_bug_test_ozone_heroku_1_ws.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_32_bug_test_ozone_heroku_1_ws.log logs/bugs_issue_32_bug_test_ozone_heroku_1_ws.log  >  logs/bugs_issue_32_bug_test_ozone_heroku_1_ws.log.diff
+	 tail -10  logs/bugs_issue_32_bug_test_ozone_heroku_1_ws.log.diff 
+
+bugs/issue_22/test_artificial_1024_cumsum_constant_5__20.py  :  
+	 -$(PYTHON)  tests/bugs/issue_22/test_artificial_1024_cumsum_constant_5__20.py  >  logs/bugs_issue_22_test_artificial_1024_cumsum_constant_5__20.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_22_test_artificial_1024_cumsum_constant_5__20.log logs/bugs_issue_22_test_artificial_1024_cumsum_constant_5__20.log  >  logs/bugs_issue_22_test_artificial_1024_cumsum_constant_5__20.log.diff
+	 tail -10  logs/bugs_issue_22_test_artificial_1024_cumsum_constant_5__20.log.diff 
+
+bugs/issue_29/test_mem_1.py  :  
+	 -$(PYTHON)  tests/bugs/issue_29/test_mem_1.py  >  logs/bugs_issue_29_test_mem_1.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_29_test_mem_1.log logs/bugs_issue_29_test_mem_1.log  >  logs/bugs_issue_29_test_mem_1.log.diff
+	 tail -10  logs/bugs_issue_29_test_mem_1.log.diff 
+
+bugs/issue_36/issue_36_version_info.py  :  
+	 -$(PYTHON)  tests/bugs/issue_36/issue_36_version_info.py  >  logs/bugs_issue_36_issue_36_version_info.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_36_issue_36_version_info.log logs/bugs_issue_36_issue_36_version_info.log  >  logs/bugs_issue_36_issue_36_version_info.log.diff
+	 tail -10  logs/bugs_issue_36_issue_36_version_info.log.diff 
+
+bugs/issue_36/display_version_info.py  :  
+	 -$(PYTHON)  tests/bugs/issue_36/display_version_info.py  >  logs/bugs_issue_36_display_version_info.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_36_display_version_info.log logs/bugs_issue_36_display_version_info.log  >  logs/bugs_issue_36_display_version_info.log.diff
+	 tail -10  logs/bugs_issue_36_display_version_info.log.diff 
+
+bugs/issue_21/test_artificial_1024__poly_7__20.py  :  
+	 -$(PYTHON)  tests/bugs/issue_21/test_artificial_1024__poly_7__20.py  >  logs/bugs_issue_21_test_artificial_1024__poly_7__20.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_21_test_artificial_1024__poly_7__20.log logs/bugs_issue_21_test_artificial_1024__poly_7__20.log  >  logs/bugs_issue_21_test_artificial_1024__poly_7__20.log.diff
+	 tail -10  logs/bugs_issue_21_test_artificial_1024__poly_7__20.log.diff 
+
+bugs/issue_21/test_ozone_max_autoreg_5.py  :  
+	 -$(PYTHON)  tests/bugs/issue_21/test_ozone_max_autoreg_5.py  >  logs/bugs_issue_21_test_ozone_max_autoreg_5.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_21_test_ozone_max_autoreg_5.log logs/bugs_issue_21_test_ozone_max_autoreg_5.log  >  logs/bugs_issue_21_test_ozone_max_autoreg_5.log.diff
+	 tail -10  logs/bugs_issue_21_test_ozone_max_autoreg_5.log.diff 
 
 
- bugs :  bugs/test_artificial_bug_2.py bugs/test_artificial_bug_1.py bugs/test_random_exogenous.py  
+
+ bugs :  bugs/test_artificial_bug_2.py bugs/test_artificial_bug_1.py bugs/test_random_exogenous.py bugs/issue_34/test_artificial_1024_inv_constant_30__20.py bugs/issue_34/test_artificial_1024_log_linear_5_12_100.py bugs/issue_34/test_artificial_1024__poly_7_12_100.py bugs/issue_34/test_artificial_1024_sqr_poly_5_12_20.py bugs/issue_34/test_artificial_1024_diff_poly_0__0.py bugs/issue_34/test_artificial_1024_log_linear_30_12_20.py bugs/issue_34/issue_34_1.py bugs/issue_34/test_artificial_1024_diff_poly_0__100.py bugs/issue_34/test_artificial_1024_sqrt_linear_30_12_20.py bugs/issue_34/test_artificial_1024_inv_linear_7_12_100.py bugs/issue_34/test_artificial_1024_sqrt_constant_7_12_100.py bugs/issue_34/issue_34.py bugs/issue_32/bug_test_ozone_heroku_1_ws.py bugs/issue_32/bug_test_ozone_heroku_1.py bugs/issue_22/test_artificial_1024_cumsum_constant_5__20.py bugs/issue_29/test_mem_1.py bugs/issue_36/display_version_info.py bugs/issue_36/issue_36_version_info.py bugs/issue_21/test_ozone_max_autoreg_5.py bugs/issue_21/test_artificial_1024__poly_7__20.py  
  
 
 exog/test_random_exogenous.py  :  
