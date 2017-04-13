@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-import TS.Perf as tsperf
+import pyaf.TS.Perf as tsperf
 
 def test_perf(x , y):
     lPerf = tsperf.cPerf();

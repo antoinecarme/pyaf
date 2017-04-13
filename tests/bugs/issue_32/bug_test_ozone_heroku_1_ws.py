@@ -1,5 +1,5 @@
-# PYAF_URL="http://pyaf.herokuapp.com/model"
-PYAF_URL="http://0.0.0.0:8081/model"
+PYAF_URL="http://pyaf.herokuapp.com/model"
+#PYAF_URL="http://0.0.0.0:8081/model"
 
 def test_heroku_pyaf(data):
     url = PYAF_URL
