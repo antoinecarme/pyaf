@@ -66,18 +66,22 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
                 df1 = pd.DataFrame(lARInputsAfterSelection);
                 df1.columns = self.mInputNamesAfterSelection
                 df1['TGT'] = lARTarget;
-                df1.to_csv("SCIKIT_MODEL_FIT_FAILURE.csv.gz" , compression='gzip');
-            raise;
+                # df1.to_csv("SCIKIT_MODEL_FIT_FAILURE.csv.gz" , compression='gzip');
+            del self.mScikitModel
+            self.mScikitModel = None;
             
         del lARInputsAfterSelection;
         del lARTarget;
         del lAREstimFrame;     
-        
-        lFullARInputs = self.mARFrame[self.mInputNames].values;
-        lFullARInputsAfterSelection =  self.mFeatureSelector.transform(lFullARInputs);
-        lPredicted = self.mScikitModel.predict(lFullARInputsAfterSelection);
-            
-        self.mARFrame[self.mOutName] = lPredicted
+
+        if(self.mScikitModel is not None):
+            lFullARInputs = self.mARFrame[self.mInputNames].values;
+            lFullARInputsAfterSelection =  self.mFeatureSelector.transform(lFullARInputs);
+            lPredicted = self.mScikitModel.predict(lFullARInputsAfterSelection);
+            self.mARFrame[self.mOutName] = lPredicted
+        else:
+            # issue_34 failure SVD does not converge
+            self.mARFrame[self.mOutName] = self.mDefaultValues[series]
 
         self.mARFrame[self.mOutName + '_residue'] =  self.mARFrame[series] - self.mARFrame[self.mOutName]
 
@@ -98,8 +102,12 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
         # lag_df.to_csv("LAGGED_ " + str(self.mNbLags) + ".csv");
         inputs = lag_df[self.mInputNames].values
         inputs_after_feat_selection = self.mFeatureSelector.transform(inputs);
-        pred = self.mScikitModel.predict(inputs_after_feat_selection)
-        df[self.mOutName] = pred;
+        if(self.mScikitModel is not None):
+            pred = self.mScikitModel.predict(inputs_after_feat_selection)
+            df[self.mOutName] = pred;
+        else:
+            df[self.mOutName] = self.mDefaultValues[series];
+            
         target = df[series].values
         df[self.mOutName + '_residue'] = target - df[self.mOutName].values        
         return df;
