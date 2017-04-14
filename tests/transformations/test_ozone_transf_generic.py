@@ -17,7 +17,7 @@ def test_transformation(itransformation):
     lEngine.mOptions.mDebugPerformance = True;
 
     lEngine.mOptions.disable_all_transformations();
-    lEngine.mOptions.mActiveTransformations[itransformation] = True;
+    lEngine.mOptions.set_active_transformations([itransformation]);
     lEngine.mOptions.mBoxCoxOrders = lEngine.mOptions.mExtensiveBoxCoxOrders;
 
     lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H);
