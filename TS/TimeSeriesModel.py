@@ -171,21 +171,22 @@ class cTimeSeriesModel:
 
     def addPredictionIntervals(self, iInputDS, iForecastFrame):
         lSignalColumn = self.mOriginalSignal;
-        lLowerBound = iForecastFrame[lSignalColumn].apply(lambda x : np.nan)
-        lUpperBound = lLowerBound.copy();
 
         N = iInputDS.shape[0];
         lForecastColumn = lSignalColumn + "_Forecast";
-        lConfidence = 2.0 ; # 0.95
+        lLowerBoundName = lForecastColumn + '_Lower_Bound'
+        lUpperBoundName = lForecastColumn + '_Upper_Bound';
+        iForecastFrame[lLowerBoundName] = np.nan; 
+        iForecastFrame[lUpperBoundName] = np.nan; 
+
+        lConfidence = 1.96 ; # 0.95
         # the prediction intervals are only computed for the training horizon
         for h in range(0 , self.mTimeInfo.mHorizon):
             lHorizonName = lForecastColumn + "_" + str(h + 1);
             lWidth = lConfidence * self.mPredictionIntervalsEstimator.mForecastPerformances[lHorizonName].mL2;
-            lLowerBound.loc[N + h ] = iForecastFrame.loc[N + h , lForecastColumn] - lWidth;
-            lUpperBound.loc[N + h ] = iForecastFrame.loc[N + h , lForecastColumn] + lWidth;
+            iForecastFrame.loc[N + h , lLowerBoundName] = iForecastFrame.loc[N + h , lForecastColumn] - lWidth;
+            iForecastFrame.loc[N + h , lUpperBoundName] = iForecastFrame.loc[N + h , lForecastColumn] + lWidth;
             
-        iForecastFrame[lForecastColumn + '_Lower_Bound'] = lLowerBound; 
-        iForecastFrame[lForecastColumn + '_Upper_Bound'] = lUpperBound; 
         return iForecastFrame;
 
 
