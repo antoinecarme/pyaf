@@ -15,6 +15,8 @@ FORECAST_COLOR='blue'
 RESIDUE_COLOR='red'
 COMPONENT_COLOR='navy'
 SHADED_COLOR='turquoise'
+UPPER_COLOR='grey'
+LOWER_COLOR='black'
 
 def decomp_plot(df, time, signal, estimator, residue, name = None, max_length = 1000) :
     assert(df.shape[0] > 0)
@@ -106,14 +108,14 @@ def prediction_interval_plot(df, time, signal, estimator, lower, upper, name = N
     import matplotlib.pyplot as plt
     fig, axs = plt.subplots(ncols=1, figsize=(16, 8))
     df1.plot.line(time, [signal, estimator, lower, upper],
-                  color=[SIGNAL_COLOR, FORECAST_COLOR, FORECAST_COLOR, FORECAST_COLOR],
+                  color=[SIGNAL_COLOR, FORECAST_COLOR, LOWER_COLOR, UPPER_COLOR],
                   ax=axs, grid = True)
 
     x = df1[time];
     type1 = np.dtype(x)
     if(type1.kind == 'M'):
         x = x.apply(lambda t : t.date());
-    axs.fill_between(x.values, df1[lower], df1[upper], color=SHADED_COLOR, alpha=.5)
+    axs.fill_between(x.values, df1[lower], df1[upper], color=SHADED_COLOR, alpha=.2)
 
     if(name is not None):
         fig.savefig(name + '_prediction_intervals_output.png')
