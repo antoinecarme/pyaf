@@ -4,7 +4,7 @@ import glob
 
 def add_makefile_entry(subdir1):
     test_target = "";
-    for filename in glob.glob("tests/" + subdir1 + "/*.py"):
+    for filename in sorted(glob.glob("tests/" + subdir1 + "/*.py")):
         lShortName = os.path.basename(filename);
         if(not lShortName.lower().startswith("gen_all") and
            not lShortName.lower().startswith("gen_makefile") and
@@ -26,12 +26,12 @@ def add_makefile_entry(subdir1):
     return test_target;
 
 
-str1 = "artificial bugs exog expsmooth HeartRateTimeSeries heroku hierarchical model_control perf svr transformations bench func neuralnet real-life  time_res";
+str1 = "artificial bugs exog expsmooth HeartRateTimeSeries heroku hierarchical model_control perf svr transformations bench func neuralnet real-life  time_res perfs";
 subdirs = str1.split();
 
 print("PYTHON=python3\n\n");
 
-for subdir1 in subdirs:
+for subdir1 in sorted(subdirs):
     test_target = add_makefile_entry(subdir1)
     if(subdir1 == "bugs"):
         bugdirs = glob.glob("tests/bugs/*")
