@@ -62,7 +62,7 @@ The following features are available :
       expected to be **stored in an external data-frame** (this data-frame will be
       merged with the training data-frame).
     * Exogenous data are integrated in the modeling process through their **past values**
-      ([ARX models] (http://en.wikipedia.org/wiki/Autoregressive%E2%80%93moving-average_model)).
+      ([ARX models](http://en.wikipedia.org/wiki/Autoregressive%E2%80%93moving-average_model)).
     * **Exogenous variables can be of any type** (numeric, string , date, or
       object).
     * Exogenous variables are **dummified** for the non-numeric types, and
@@ -88,7 +88,7 @@ The following features are available :
       -Some **[jupyter notebooks](docs)** are available for demo purposes with standard time series and forecasts plots.
     * Very **simple API** for training and forecasting.
    10. A basic **REST WebService** (Flask) effort is starting.
-    * See http://pyaf.herokuapp.com/ and the [related github issue] (https://github.com/antoinecarme/pyaf/issues/20)
+    * See http://pyaf.herokuapp.com/ and the [related github issue](https://github.com/antoinecarme/pyaf/issues/20)
    11. A project for **SQL generation** is started (using core **[SLQAlchemy](http://www.sqlalchemy.org/)** expressions). 
         The goal is to be able to export the forecasts as a SQL
         code to ease the **production mode**. SLQAlchemy provides **agnostic support of
