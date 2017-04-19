@@ -162,18 +162,21 @@ class cSignalDecompositionOneTransform:
             lForecastPerf = self.mPerfsByModel[name][3];
             lTestPerf = self.mPerfsByModel[name][4];
             row = [lModel.mOutName , lComplexity,
-                   lFitPerf.mCount, lFitPerf.mL2, lFitPerf.mMAPE,
-                   lForecastPerf.mCount, lForecastPerf.mL2, lForecastPerf.mMAPE,
-                   lTestPerf.mCount, lTestPerf.mL2, lTestPerf.mMAPE]
+                   lFitPerf.mCount, lFitPerf.mL1,  lFitPerf.mL2, 
+                   lFitPerf.mMAPE, lFitPerf.mMASE, 
+                   lForecastPerf.mCount, lForecastPerf.mL1, lForecastPerf.mL2,
+                   lForecastPerf.mMAPE, lForecastPerf.mMASE,
+                   lTestPerf.mCount, lTestPerf.mL1, lTestPerf.mL2,
+                   lTestPerf.mMAPE, lTestPerf.mMASE]
             rows_list.append(row);
             if(self.mOptions.mDebugPerformance):
                 logger.debug("collectPerformanceIndices : " + str(row));
                 
         self.mPerfDetails = pd.DataFrame(rows_list, columns=
                                          ('Model', 'Complexity',
-                                          'FitCount', 'FitL2', 'FitMAPE',
-                                          'ForecastCount', 'ForecastL2', 'ForecastMAPE',
-                                          'TestCount', 'TestL2', 'TestMAPE')) 
+                                          'FitCount', 'FitL1', 'FitL2', 'FitMAPE', 'FitMASE',
+                                          'ForecastCount', 'ForecastL1', 'ForecastL2', 'ForecastMAPE',  'ForecastMASE', 
+                                          'TestCount', 'TestL1', 'TestL2', 'TestMAPE', 'TestMASE')) 
         self.mPerfDetails.sort_values(by=['Forecast' + self.mOptions.mModelSelection_Criterion ,
                                           'Complexity', 'Model'] ,
                                       ascending=[True, True, True],
@@ -419,18 +422,18 @@ class cSignalDecomposition:
                 lForecastPerf = value[3];
                 lTestPerf = value[4];
                 row = [lTranformName, lModelFormula , lComplexity,
-                       lFitPerf.mCount, lFitPerf.mL2, lFitPerf.mMAPE,
-                       lForecastPerf.mCount, lForecastPerf.mL2, lForecastPerf.mMAPE,
-                       lTestPerf.mCount, lTestPerf.mL2, lTestPerf.mMAPE]
+                       lFitPerf.mCount, lFitPerf.mL1, lFitPerf.mL2, lFitPerf.mMAPE,  lFitPerf.mMASE, 
+                       lForecastPerf.mCount, lForecastPerf.mL1, lForecastPerf.mL2, lForecastPerf.mMAPE, lForecastPerf.mMASE,
+                       lTestPerf.mCount, lTestPerf.mL1, lTestPerf.mL2, lTestPerf.mMAPE, lTestPerf.mMASE]
                 rows_list.append(row);
                 if(self.mOptions.mDebugPerformance):
                     logger.info("collectPerformanceIndices : " + str(row[0]) + " " + str(row[1]) + " " + str(row[2]) + " " +str(row[8]));
 
         self.mTrPerfDetails =  pd.DataFrame(rows_list, columns=
                                             ('Transformation', 'Model', 'Complexity',
-                                             'FitCount', 'FitL2', 'FitMAPE',
-                                             'ForecastCount', 'ForecastL2', 'ForecastMAPE',
-                                             'TestCount', 'TestL2', 'TestMAPE')) 
+                                             'FitCount', 'FitL1', 'FitL2', 'FitMAPE', 'FitMASE',
+                                             'ForecastCount', 'ForecastL1', 'ForecastL2', 'ForecastMAPE', 'ForecastMASE',
+                                             'TestCount', 'TestL1', 'TestL2', 'TestMAPE', 'TestMASE')) 
         # print(self.mTrPerfDetails.head(self.mTrPerfDetails.shape[0]));
         lIndicator = 'Forecast' + self.mOptions.mModelSelection_Criterion;
         lBestPerf = self.mTrPerfDetails[ lIndicator ].min();
