@@ -89,6 +89,8 @@ class cTimeSeriesModel:
         logger.info("CYCLE_DETAIL '"+ self.mCycle.mOutName + "' [" + self.mCycle.mFormula + "]");
         logger.info("AUTOREG_DETAIL '" + self.mAR.mOutName + "' [" + self.mAR.mFormula + "]");
         logger.info("MODEL_MAPE MAPE_Fit=" + str(self.mFitPerf.mMAPE) + " MAPE_Forecast=" + str(self.mForecastPerf.mMAPE)  + " MAPE_Test=" + str(self.mTestPerf.mMAPE) );
+        logger.info("MODEL_MASE MASE_Fit=" + str(self.mFitPerf.mMASE) + " MASE_Forecast=" + str(self.mForecastPerf.mMASE)  + " MASE_Test=" + str(self.mTestPerf.mMASE) );
+        logger.info("MODEL_L1 L1_Fit=" + str(self.mFitPerf.mL2) + " L1_Forecast=" + str(self.mForecastPerf.mL2)  + " L1_Test=" + str(self.mTestPerf.mL1) );
         logger.info("MODEL_L2 L2_Fit=" + str(self.mFitPerf.mL2) + " L2_Forecast=" + str(self.mForecastPerf.mL2)  + " L2_Test=" + str(self.mTestPerf.mL2) );
         logger.info("MODEL_COMPLEXITY " + str(self.getComplexity()) );
         logger.info("AR_MODEL_DETAIL_START");
@@ -212,6 +214,8 @@ class cTimeSeriesModel:
                };
         dict1["Model"] = d2;
         d3 = {"MAPE" : str(self.mForecastPerf.mMAPE),
+              "MASE" : str(self.mForecastPerf.mMASE),
+              "MAE" : str(self.mForecastPerf.mL1),
               "RMSE" : str(self.mForecastPerf.mL2),
               "COMPLEXITY" : str(self.getComplexity())};
         dict1["Model_Performance"] = d3;
