@@ -17,6 +17,7 @@ class cPerf:
         self.mMAE = None;
         self.mMAPE = None;
         self.mSMAPE = None;
+        self.mMASE = None;
         self.mL1 = None;
         self.mL2 = None;
         self.mR2 = None;
@@ -36,15 +37,20 @@ class cPerf:
     def compute_MAPE_SMAPE(self, signal , estimator):
         self.mMAPE = None;
         self.mSMAPE = None;
+        self.mMASE = None;
         if(signal.shape[0] > 0):
             lEps = 1.0e-10;
             abs_error = np.abs(estimator.values - signal.values);
             sum_abs = np.abs(signal.values) + np.abs(estimator.values) + lEps
             abs_rel_error = abs_error / (np.abs(signal) + lEps)
+            signal_diff = signal - signal.shift(1)
+            mean_dev_signal = np.mean(abs(signal_diff.values[1:]));
             self.mMAPE = np.mean(abs_rel_error)
             self.mSMAPE = np.mean(2.0 * abs_error / sum_abs)
+            self.mMASE = np.mean(abs_error / mean_dev_signal)
             self.mMAPE = round( self.mMAPE , 4 )
             self.mSMAPE = round( self.mSMAPE , 4 )
+            self.mMASE = round( self.mMASE , 4 )
 
     def compute_R2(self, signal , estimator):
         #return 0.0;
@@ -139,6 +145,11 @@ class cPerf:
         if(criterion == "SMAPE"):
             self.compute_MAPE_SMAPE();
             return self.mSMAPE;
+
+        if(criterion == "MASE"):
+            self.compute_MAPE_SMAPE();
+            return self.mMASE;
+
         if(criterion == "COUNT"):
             return self.mCount;
         
