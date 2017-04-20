@@ -272,8 +272,10 @@ def generate_random_TS(N , FREQ, seed, trendtype, cycle_length, transform, sigma
     tsspec.mTimeVar = "Date";
     tsspec.mSignalVar = "Signal";
     tsspec.mHorizon = 12;
-    if(tsspec.mHorizon > (N//2)):
-        tsspec.mHorizon = N // 2;
+    if(tsspec.mHorizon > (N//30)):
+        tsspec.mHorizon = N // 30;
+    if(tsspec.mHorizon < 1):
+        tsspec.mHorizon = 1;
     tsspec.mFullDataset = df_train;
     tsspec.mFullDataset[tsspec.mName] = tsspec.mFullDataset['Signal'];
     tsspec.mPastData = df_train[:-tsspec.mHorizon];
