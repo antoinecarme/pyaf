@@ -15,7 +15,7 @@ def process_dataset(idataset, debug=False):
     idataset.mFullDataset["orig_" + idataset.mSignalVar] = idataset.mFullDataset[idataset.mSignalVar];
 
     for i in range(4):
-        sig = i/4.0;
+        sig = (i + 1.0)/4.0;
         process_dataset_with_noise(idataset, sig , debug);
 
 def process_dataset_with_noise(idataset , sigma, debug=False):
@@ -46,7 +46,7 @@ def process_dataset_with_noise(idataset , sigma, debug=False):
         lExogenousData = (idataset.mExogenousDataFrame , idataset.mExogenousVariables) 
         lEngine.train(training_ds , idataset.mTimeVar , lSignalVar, H, lExogenousData);
         lEngine.getModelInfo();
-        # lEngine.standrdPlots(name = "outputs/my_exog_" + str(nbex) + "_" + str(n));
+        # lEngine.standrdPlots(name = "outputs/my_artificial_" + idataset.mName + "_" + str(sigma));
         # lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
         
         dfapp_in = training_ds.copy();
