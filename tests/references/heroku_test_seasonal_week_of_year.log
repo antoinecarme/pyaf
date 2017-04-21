@@ -1,3 +1,5 @@
+INFO:pyaf.std:START_TRAINING 'Close'
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Close' 4.413106918334961
 REQUEST_DETAILS [('CSVFile', 'http://chart.finance.yahoo.com/table.csv?s=GOOG&a=8&b=14&c=2015&d=9&e=14&f=2016&g=d&ignore=.csv'), ('DateFormat', '%Y-%m-%d'), ('Horizon', 21), ('Name', 'PYAF_MODEL_DJOQFD'), ('Present', '2016-01-01'), ('SignalVar', 'Close'), ('TimeVar', 'Date')]
 None
 DATASET_DETECTED_COLUMNS Index(['Date', 'Open', 'High', 'Low', 'Close', 'Volume', 'Adj Close'], dtype='object')
@@ -10,19 +12,26 @@ TRAIN_PARAMS (77, 7) Index(['Date', 'Open', 'High', 'Low', 'Close', 'Volume', 'A
 3         _Close   _Close_PolyTrend_residue_zeroCycle_residue_AR(7)   
 4         _Close  _Close_ConstantTrend_residue_Seasonal_DayOfWee...   
 
-   Complexity  FitCount      FitL2  FitMAPE  ForecastCount  ForecastL2  \
-0          31        77   9.744200   0.0107             77    9.744200   
-1          31        77   9.776167   0.0107             77    9.776167   
-2          23        77   9.904948   0.0108             77    9.904948   
-3          23        77   9.924822   0.0108             77    9.924822   
-4          11        77  10.108641   0.0109             77   10.108641   
+   Complexity  FitCount     FitL1      FitL2  FitMAPE  FitMASE  ForecastCount  \
+0          31        77  7.435368   9.744200   0.0107   0.9399             77   
+1          31        77  7.489639   9.776167   0.0107   0.9467             77   
+2          23        77  7.540696   9.904948   0.0108   0.9532             77   
+3          23        77  7.568175   9.924822   0.0108   0.9567             77   
+4          11        77  7.585679  10.108641   0.0109   0.9589             77   
 
-   ForecastMAPE  TestCount     TestL2  TestMAPE  
-0        0.0107         77   9.744200    0.0107  
-1        0.0107         77   9.776167    0.0107  
-2        0.0108         77   9.904948    0.0108  
-3        0.0108         77   9.924822    0.0108  
-4        0.0109         77  10.108641    0.0109  
+   ForecastL1  ForecastL2  ForecastMAPE  ForecastMASE  TestCount    TestL1  \
+0    7.435368    9.744200        0.0107        0.9399         77  7.435368   
+1    7.489639    9.776167        0.0107        0.9467         77  7.489639   
+2    7.540696    9.904948        0.0108        0.9532         77  7.540696   
+3    7.568175    9.924822        0.0108        0.9567         77  7.568175   
+4    7.585679   10.108641        0.0109        0.9589         77  7.585679   
+
+      TestL2  TestMAPE  TestMASE  
+0   9.744200    0.0107    0.9399  
+1   9.776167    0.0107    0.9467  
+2   9.904948    0.0108    0.9532  
+3   9.924822    0.0108    0.9567  
+4  10.108641    0.0109    0.9589  
 Forecast Columns  Index(['Close', 'Date', '_Close', 'row_number', 'Date_Normalized',
        '_Close_ConstantTrend', '_Close_ConstantTrend_residue',
        '_Close_ConstantTrend_residue_zeroCycle',
@@ -92,7 +101,9 @@ Forecasts
     },
     "Model_Performance": {
         "COMPLEXITY": "7",
+        "MAE": "7.75051136164",
         "MAPE": "0.0111",
+        "MASE": "0.9797",
         "RMSE": "10.1027836238"
     }
 }

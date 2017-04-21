@@ -1,17 +1,36 @@
+INFO:pyaf.std:START_TRAINING 'Ozone'
      Month  Ozone       Time
 0  1955-01    2.7 1955-01-01
 1  1955-02    2.0 1955-02-01
 2  1955-03    3.6 1955-03-01
 3  1955-04    5.0 1955-04-01
 4  1955-05    6.5 1955-05-01
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 1.2775790691375732
+INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01 00:00:00 TimeMax=1967-09-01 00:00:00 TimeDelta=30 days 10:25:16 Estimation = (0 , 153) Validation = (153 , 192) Test = (192 , 204) Horizon=12
+INFO:pyaf.std:SIGNAL_DETAIL SignalVariable='_Ozone' Min=1.2 Max=8.7  Mean=3.83578431373 StdDev=1.49155921594
+INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
+INFO:pyaf.std:BEST_DECOMPOSITION  '_Ozone_ConstantTrend_residue_zeroCycle_residue_NoAR' [ConstantTrend + NoCycle + NoAR]
+INFO:pyaf.std:TREND_DETAIL '_Ozone_ConstantTrend' [ConstantTrend]
+INFO:pyaf.std:CYCLE_DETAIL '_Ozone_ConstantTrend_residue_zeroCycle' [NoCycle]
+INFO:pyaf.std:AUTOREG_DETAIL '_Ozone_ConstantTrend_residue_zeroCycle_residue_NoAR' [NoAR]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.3752 MAPE_Forecast=0.5344 MAPE_Test=0.8365
+INFO:pyaf.std:MODEL_MASE MASE_Fit=1.3939 MASE_Forecast=1.5593 MASE_Test=3.4569
+INFO:pyaf.std:MODEL_L1 L1_Fit=1.51551278999 L1_Forecast=1.42665494372 L1_Test=1.6341503268
+INFO:pyaf.std:MODEL_L2 L2_Fit=1.51551278999 L2_Forecast=1.42665494372 L2_Test=1.78670710822
+INFO:pyaf.std:MODEL_COMPLEXITY 0
+INFO:pyaf.std:AR_MODEL_DETAIL_START
+INFO:pyaf.std:AR_MODEL_DETAIL_END
   Transformation                                              Model  \
 0         _Ozone  _Ozone_ConstantTrend_residue_zeroCycle_residue...   
 
-   Complexity  FitCount     FitL2  FitMAPE  ForecastCount  ForecastL2  \
-0           0       153  1.515513   0.3752             39    1.426655   
+   Complexity  FitCount     FitL1     FitL2  FitMAPE  FitMASE  ForecastCount  \
+0           0       153  1.225136  1.515513   0.3752   1.3939             39   
 
-   ForecastMAPE  TestCount    TestL2  TestMAPE  
-0        0.5344         12  1.786707    0.8365  
+   ForecastL1  ForecastL2  ForecastMAPE  ForecastMASE  TestCount   TestL1  \
+0    1.210525    1.426655        0.5344        1.5593         12  1.63415   
+
+     TestL2  TestMAPE  TestMASE  
+0  1.786707    0.8365    3.4569  
 Forecast Columns  Index(['Ozone', 'Time', '_Ozone', 'row_number', 'Time_Normalized',
        '_Ozone_ConstantTrend', '_Ozone_ConstantTrend_residue',
        '_Ozone_ConstantTrend_residue_zeroCycle',
@@ -72,7 +91,9 @@ Forecasts
     },
     "Model_Performance": {
         "COMPLEXITY": "0",
+        "MAE": "1.2105245517",
         "MAPE": "0.5344",
+        "MASE": "1.5593",
         "RMSE": "1.42665494372"
     }
 }

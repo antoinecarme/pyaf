@@ -1,30 +1,63 @@
-         Transformation                                              Model  \
-0        _AirPassengers  _AirPassengers_Lag1Trend_residue_bestCycle_byL...   
-1        _AirPassengers  _AirPassengers_Lag1Trend_residue_zeroCycle_res...   
-2        _AirPassengers  _AirPassengers_ConstantTrend_residue_zeroCycle...   
-3        _AirPassengers  _AirPassengers_ConstantTrend_residue_bestCycle...   
-4  CumSum_AirPassengers  CumSum_AirPassengers_PolyTrend_residue_zeroCyc...   
+INFO:pyaf.std:START_TRAINING 'AirPassengers'
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'AirPassengers' 4.084228754043579
+INFO:pyaf.std:TIME_DETAIL TimeVariable='time' TimeMin=1949.0 TimeMax=1956.91666667 TimeDelta=0.0833333333334 Estimation = (0 , 96) Validation = (96 , 120) Test = (120 , 132) Horizon=12
+INFO:pyaf.std:SIGNAL_DETAIL SignalVariable='_AirPassengers' Min=104 Max=559  Mean=262.492424242 StdDev=106.221145545
+INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
+INFO:pyaf.std:BEST_DECOMPOSITION  '_AirPassengers_LinearTrend_residue_zeroCycle_residue_AR(33)' [LinearTrend + NoCycle + AR(33)]
+INFO:pyaf.std:TREND_DETAIL '_AirPassengers_LinearTrend' [LinearTrend]
+INFO:pyaf.std:CYCLE_DETAIL '_AirPassengers_LinearTrend_residue_zeroCycle' [NoCycle]
+INFO:pyaf.std:AUTOREG_DETAIL '_AirPassengers_LinearTrend_residue_zeroCycle_residue_AR(33)' [AR(33)]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0349 MAPE_Forecast=0.0217 MAPE_Test=0.0541
+INFO:pyaf.std:MODEL_MASE MASE_Fit=0.3563 MASE_Forecast=0.2287 MASE_Test=0.495
+INFO:pyaf.std:MODEL_L1 L1_Fit=8.55391701157 L1_Forecast=11.9717619353 L1_Test=22.2770802809
+INFO:pyaf.std:MODEL_L2 L2_Fit=8.55391701157 L2_Forecast=11.9717619353 L2_Test=23.5912297518
+INFO:pyaf.std:MODEL_COMPLEXITY 49
+INFO:pyaf.std:AR_MODEL_DETAIL_START
+INFO:pyaf.std:AR_MODEL_COEFF 1 _AirPassengers_LinearTrend_residue_zeroCycle_residue_Lag1 0.778631138914
+INFO:pyaf.std:AR_MODEL_COEFF 2 _AirPassengers_LinearTrend_residue_zeroCycle_residue_Lag12 0.739375700872
+INFO:pyaf.std:AR_MODEL_COEFF 3 _AirPassengers_LinearTrend_residue_zeroCycle_residue_Lag13 -0.533138881216
+INFO:pyaf.std:AR_MODEL_COEFF 4 _AirPassengers_LinearTrend_residue_zeroCycle_residue_Lag25 -0.287689191868
+INFO:pyaf.std:AR_MODEL_COEFF 5 _AirPassengers_LinearTrend_residue_zeroCycle_residue_Lag24 0.243027861553
+INFO:pyaf.std:AR_MODEL_COEFF 6 _AirPassengers_LinearTrend_residue_zeroCycle_residue_Lag33 -0.184067322881
+INFO:pyaf.std:AR_MODEL_COEFF 7 _AirPassengers_LinearTrend_residue_zeroCycle_residue_Lag5 0.171618490468
+INFO:pyaf.std:AR_MODEL_COEFF 8 _AirPassengers_LinearTrend_residue_zeroCycle_residue_Lag29 -0.16896680346
+INFO:pyaf.std:AR_MODEL_COEFF 9 _AirPassengers_LinearTrend_residue_zeroCycle_residue_Lag7 -0.168166276969
+INFO:pyaf.std:AR_MODEL_COEFF 10 _AirPassengers_LinearTrend_residue_zeroCycle_residue_Lag16 -0.164952841177
+INFO:pyaf.std:AR_MODEL_DETAIL_END
+       Transformation                                              Model  \
+0  Diff_AirPassengers  Diff_AirPassengers_Lag1Trend_residue_zeroCycle...   
+1      _AirPassengers  _AirPassengers_LinearTrend_residue_zeroCycle_r...   
+2  Diff_AirPassengers  Diff_AirPassengers_Lag1Trend_residue_bestCycle...   
+3      _AirPassengers  _AirPassengers_LinearTrend_residue_bestCycle_b...   
+4      _AirPassengers  _AirPassengers_Lag1Trend_residue_zeroCycle_res...   
 
-   Complexity  FitCount      FitL2  FitMAPE  ForecastCount  ForecastL2  \
-0          73        96   7.643494   0.0336             24   10.840950   
-1          65        96   7.893559   0.0335             24   10.457790   
-2          33        96   7.788501   0.0333             24   12.915737   
-3          41        96   7.890525   0.0339             24   13.051719   
-4          81        96  10.944485   0.0467             24   16.476840   
+   Complexity  FitCount     FitL1      FitL2  FitMAPE  FitMASE  ForecastCount  \
+0          97        96  8.177995  10.259098   0.0440   0.4374             24   
+1          49        96  6.661609   8.553917   0.0349   0.3563             24   
+2         105        96  9.799888  12.400452   0.0545   0.5242             24   
+3          57        96  6.702223   8.394503   0.0352   0.3585             24   
+4          65        96  6.574556   8.396604   0.0350   0.3517             24   
 
-   ForecastMAPE  TestCount     TestL2  TestMAPE  
-0        0.0220         12  14.289837    0.0274  
-1        0.0223         12  13.974851    0.0270  
-2        0.0293         12  12.140294    0.0192  
-3        0.0300         12  12.408218    0.0214  
-4        0.0317         12  13.963599    0.0244  
+   ForecastL1  ForecastL2  ForecastMAPE  ForecastMASE  TestCount     TestL1  \
+0    7.933146   10.397919        0.0205        0.2142         12  16.838126   
+1    8.471184   11.971762        0.0217        0.2287         12  22.277080   
+2    9.253835   11.887166        0.0244        0.2498         12  11.611477   
+3    9.853987   13.559896        0.0254        0.2660         12  24.745241   
+4   10.099148   12.345333        0.0267        0.2726         12  11.684294   
+
+      TestL2  TestMAPE  TestMASE  
+0  19.033339    0.0402    0.3742  
+1  23.591230    0.0541    0.4950  
+2  16.777455    0.0265    0.2580  
+3  25.991249    0.0596    0.5499  
+4  14.419107    0.0281    0.2597  
 Forecast Columns  Index(['AirPassengers', '_AirPassengers', 'time', 'row_number',
-       'time_Normalized', '_AirPassengers_ConstantTrend',
-       '_AirPassengers_ConstantTrend_residue',
-       '_AirPassengers_ConstantTrend_residue_zeroCycle',
-       '_AirPassengers_ConstantTrend_residue_zeroCycle_residue',
-       '_AirPassengers_ConstantTrend_residue_zeroCycle_residue_AR(33)',
-       '_AirPassengers_ConstantTrend_residue_zeroCycle_residue_AR(33)_residue',
+       'time_Normalized', '_AirPassengers_LinearTrend',
+       '_AirPassengers_LinearTrend_residue',
+       '_AirPassengers_LinearTrend_residue_zeroCycle',
+       '_AirPassengers_LinearTrend_residue_zeroCycle_residue',
+       '_AirPassengers_LinearTrend_residue_zeroCycle_residue_AR(33)',
+       '_AirPassengers_LinearTrend_residue_zeroCycle_residue_AR(33)_residue',
        '_AirPassengers_Trend', '_AirPassengers_Trend_residue',
        '_AirPassengers_Cycle', '_AirPassengers_Cycle_residue',
        '_AirPassengers_AR', '_AirPassengers_AR_residue',
@@ -46,30 +79,30 @@ memory usage: 5.7 KB
 None
 Forecasts
              time  AirPassengers  AirPassengers_Forecast  \
-120  1959.000000          360.0              363.758438   
-121  1959.083333          342.0              338.131810   
-122  1959.166667          406.0              396.519406   
-123  1959.250000          396.0              401.457909   
-124  1959.333333          420.0              421.944856   
-125  1959.416667          472.0              503.049439   
-126  1959.500000          548.0              560.590679   
-127  1959.583333          559.0              561.026532   
-128  1959.666667          463.0              468.584011   
-129  1959.750000          407.0              407.254658   
-130  1959.833333          362.0              358.367044   
-131  1959.916667          405.0              383.906044   
-132  1960.000000            NaN              427.463504   
-133  1960.083333            NaN              402.123387   
-134  1960.166667            NaN              456.120970   
-135  1960.250000            NaN              459.862757   
-136  1960.333333            NaN              495.998780   
-137  1960.416667            NaN              570.459958   
-138  1960.500000            NaN              651.115264   
-139  1960.583333            NaN              651.308801   
-140  1960.666667            NaN              536.134470   
-141  1960.750000            NaN              465.919727   
-142  1960.833333            NaN              415.479485   
-143  1960.916667            NaN              455.576226   
+120  1959.000000          360.0              336.764343   
+121  1959.083333          342.0              322.815879   
+122  1959.166667          406.0              370.197004   
+123  1959.250000          396.0              378.032859   
+124  1959.333333          420.0              398.933597   
+125  1959.416667          472.0              490.991693   
+126  1959.500000          548.0              527.605015   
+127  1959.583333          559.0              547.269293   
+128  1959.666667          463.0              447.256938   
+129  1959.750000          407.0              389.149841   
+130  1959.833333          362.0              336.587447   
+131  1959.916667          405.0              365.054515   
+132  1960.000000            NaN              404.192769   
+133  1960.083333            NaN              362.272366   
+134  1960.166667            NaN              407.366006   
+135  1960.250000            NaN              392.377378   
+136  1960.333333            NaN              426.008214   
+137  1960.416667            NaN              494.632588   
+138  1960.500000            NaN              561.124184   
+139  1960.583333            NaN              558.395101   
+140  1960.666667            NaN              437.986533   
+141  1960.750000            NaN              374.130972   
+142  1960.833333            NaN              319.906897   
+143  1960.916667            NaN              355.980739   
 
      AirPassengers_Forecast_Lower_Bound  AirPassengers_Forecast_Upper_Bound  
 120                                 NaN                                 NaN  
@@ -84,18 +117,18 @@ Forecasts
 129                                 NaN                                 NaN  
 130                                 NaN                                 NaN  
 131                                 NaN                                 NaN  
-132                          401.632030                          453.294979  
-133                          363.645058                          440.601716  
-134                          407.010523                          505.231417  
-135                          350.938752                          568.786763  
-136                          102.159387                          889.838173  
-137                         -815.947968                         1956.867883  
-138                        -3370.949367                         4673.179895  
-139                        -9721.422330                        11024.039932  
-140                       -23463.660032                        24535.928972  
-141                       -48619.923219                        49551.762673  
-142                       -89051.828491                        89882.787461  
-143                      -160834.218277                       161745.370729  
+132                          380.728115                          427.657422  
+133                          325.120722                          399.424009  
+134                          357.966362                          456.765649  
+135                          272.407085                          512.347671  
+136                           98.777762                          753.238665  
+137                         -219.494548                         1208.759724  
+138                         -928.258114                         2050.506483  
+139                        -2259.478846                         3376.269047  
+140                        -4091.734731                         4967.707797  
+141                        -5051.167461                         5799.429405  
+142                        -4712.358212                         5352.172006  
+143                        -7009.107681                         7721.069158  
 
 
 <ModelInfo>
@@ -114,15 +147,17 @@ Forecasts
     },
     "Model": {
         "AR_Model": "AR(33)",
-        "Best_Decomposition": "_AirPassengers_ConstantTrend_residue_zeroCycle_residue_AR(33)",
+        "Best_Decomposition": "_AirPassengers_LinearTrend_residue_zeroCycle_residue_AR(33)",
         "Cycle": "NoCycle",
         "Signal_Transoformation": "None",
-        "Trend": "ConstantTrend"
+        "Trend": "LinearTrend"
     },
     "Model_Performance": {
-        "COMPLEXITY": "33",
-        "MAPE": "0.0293",
-        "RMSE": "12.9157372664"
+        "COMPLEXITY": "49",
+        "MAE": "8.47118410965",
+        "MAPE": "0.0217",
+        "MASE": "0.2287",
+        "RMSE": "11.9717619353"
     }
 }
 </ModelInfo>
@@ -131,7 +166,7 @@ Forecasts
 
 
 <Forecast>
-{"time":{"120":1959.0,"121":1959.0833333333,"122":1959.1666666667,"123":1959.25,"124":1959.3333333333,"125":1959.4166666667,"126":1959.5,"127":1959.5833333333,"128":1959.6666666667,"129":1959.75,"130":1959.8333333333,"131":1959.9166666667,"132":1960.0,"133":1960.0833333333,"134":1960.1666666667,"135":1960.25,"136":1960.3333333333,"137":1960.4166666667,"138":1960.5,"139":1960.5833333333,"140":1960.6666666667,"141":1960.75,"142":1960.8333333333,"143":1960.9166666667},"AirPassengers":{"120":360.0,"121":342.0,"122":406.0,"123":396.0,"124":420.0,"125":472.0,"126":548.0,"127":559.0,"128":463.0,"129":407.0,"130":362.0,"131":405.0,"132":null,"133":null,"134":null,"135":null,"136":null,"137":null,"138":null,"139":null,"140":null,"141":null,"142":null,"143":null},"AirPassengers_Forecast":{"120":363.7584378647,"121":338.1318096987,"122":396.5194059379,"123":401.4579092855,"124":421.9448562048,"125":503.0494386258,"126":560.5906792113,"127":561.0265318465,"128":468.5840108023,"129":407.2546584253,"130":358.3670440265,"131":383.9060436481,"132":427.4635042844,"133":402.1233869927,"134":456.1209699483,"135":459.8627570999,"136":495.9987802194,"137":570.4599577124,"138":651.1152641212,"139":651.3088009979,"140":536.1344697412,"141":465.919727301,"142":415.4794849484,"143":455.576226293},"AirPassengers_Forecast_Lower_Bound":{"120":null,"121":null,"122":null,"123":null,"124":null,"125":null,"126":null,"127":null,"128":null,"129":null,"130":null,"131":null,"132":401.6320297515,"133":363.6450581275,"134":407.0105228342,"135":350.93875152,"136":102.1593870786,"137":-815.9479680344,"138":-3370.9493665212,"139":-9721.4223299925,"140":-23463.6600321271,"141":-48619.9232187881,"142":-89051.8284908553,"143":-160834.2182768378},"AirPassengers_Forecast_Upper_Bound":{"120":null,"121":null,"122":null,"123":null,"124":null,"125":null,"126":null,"127":null,"128":null,"129":null,"130":null,"131":null,"132":453.2949788173,"133":440.6017158579,"134":505.2314170624,"135":568.7867626799,"136":889.8381733601,"137":1956.8678834593,"138":4673.1798947636,"139":11024.0399319884,"140":24535.9289716095,"141":49551.7626733901,"142":89882.7874607521,"143":161745.3707294238}}
+{"time":{"120":1959.0,"121":1959.0833333333,"122":1959.1666666667,"123":1959.25,"124":1959.3333333333,"125":1959.4166666667,"126":1959.5,"127":1959.5833333333,"128":1959.6666666667,"129":1959.75,"130":1959.8333333333,"131":1959.9166666667,"132":1960.0,"133":1960.0833333333,"134":1960.1666666667,"135":1960.25,"136":1960.3333333333,"137":1960.4166666667,"138":1960.5,"139":1960.5833333333,"140":1960.6666666667,"141":1960.75,"142":1960.8333333333,"143":1960.9166666667},"AirPassengers":{"120":360.0,"121":342.0,"122":406.0,"123":396.0,"124":420.0,"125":472.0,"126":548.0,"127":559.0,"128":463.0,"129":407.0,"130":362.0,"131":405.0,"132":null,"133":null,"134":null,"135":null,"136":null,"137":null,"138":null,"139":null,"140":null,"141":null,"142":null,"143":null},"AirPassengers_Forecast":{"120":336.7643427299,"121":322.8158788027,"122":370.1970038006,"123":378.0328588791,"124":398.9335966042,"125":490.9916928851,"126":527.6050148279,"127":547.2692933609,"128":447.2569379371,"129":389.1498411626,"130":336.5874466829,"131":365.0545147259,"132":404.1927688816,"133":362.2723656317,"134":407.3660055634,"135":392.3773779143,"136":426.0082139607,"137":494.6325882225,"138":561.1241843274,"139":558.3951009218,"140":437.9865330489,"141":374.1309717012,"142":319.9068973448,"143":355.9807387258},"AirPassengers_Forecast_Lower_Bound":{"120":null,"121":null,"122":null,"123":null,"124":null,"125":null,"126":null,"127":null,"128":null,"129":null,"130":null,"131":null,"132":380.7281154884,"133":325.1207221818,"134":357.9663616401,"135":272.4070848468,"136":98.7777624236,"137":-219.4945479128,"138":-928.258114048,"139":-2259.4788456232,"140":-4091.7347311794,"141":-5051.1674613354,"142":-4712.3582117192,"143":-7009.1076810242},"AirPassengers_Forecast_Upper_Bound":{"120":null,"121":null,"122":null,"123":null,"124":null,"125":null,"126":null,"127":null,"128":null,"129":null,"130":null,"131":null,"132":427.6574222748,"133":399.4240090816,"134":456.7656494868,"135":512.3476709817,"136":753.2386654979,"137":1208.7597243578,"138":2050.5064827028,"139":3376.2690474668,"140":4967.7077972772,"141":5799.4294047379,"142":5352.1720064088,"143":7721.0691584759}}
 </Forecast>
 
 
