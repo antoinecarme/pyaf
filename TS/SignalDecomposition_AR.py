@@ -192,8 +192,8 @@ class cAutoRegressiveEstimator:
         logger = tsutil.get_pyaf_logger();
         self.mARFrame = pd.DataFrame();
         self.mTimeInfo.addVars(self.mARFrame);
-        self.mCycleFrame[cycle_residue] = self.mCycleFrame[cycle_residue].astype(np.float32)            
-        self.mARFrame[cycle_residue] = self.mCycleFrame[cycle_residue].astype(np.float32)            
+        self.mCycleFrame[cycle_residue] = self.mCycleFrame[cycle_residue].astype(np.float64)            
+        self.mARFrame[cycle_residue] = self.mCycleFrame[cycle_residue].astype(np.float64)            
 
         self.mDefaultValues = {};
         self.mLagOrigins = {};
@@ -238,6 +238,15 @@ class cAutoRegressiveEstimator:
                 logger.info("AR_MODEL_TRAINING_TIME_IN_SECONDS '" +
                       autoreg.mOutName + "' " + str(self.mCycleFrame.shape[0]) +
                       " " +  str(len(autoreg.mInputNames)) + " " + str(lTrainingTime));
+
+    def check_not_nan(self, sig , name):
+        #print("check_not_nan");
+        if(np.isnan(sig).any()):
+            logger = tsutil.get_pyaf_logger();
+            logger.error("CYCLE_RESIDUE_WITH_NAN_IN_SIGNAL" + str(sig));
+            raise tsutil.InternalForecastError("INVALID_COLUMN _FOR_CYCLE_RESIDUE ['"  + name + "'");
+        pass
+
         
     # @profile
     def estimate(self):
@@ -250,6 +259,8 @@ class cAutoRegressiveEstimator:
         for trend in self.mTrendList:
             for cycle in self.mCycleList[trend]:
                 cycle_residue = cycle.getCycleResidueName();
+                if(self.mOptions.mDebug):
+                    self.check_not_nan(self.mCycleFrame[cycle_residue], cycle_residue)
                 self.mARList[cycle_residue] = [];
                 if(self.mOptions.mActiveAutoRegressions['NoAR']):
                     self.mARList[cycle_residue] = [ cZeroAR(cycle_residue)];
