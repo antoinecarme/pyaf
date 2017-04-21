@@ -49,7 +49,16 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
         if(lMaxFeatures >= (lARInputs.shape[0] // 4)):
             lMaxFeatures = lARInputs.shape[0] // 4;
         self.mFeatureSelector =  SelectKBest(f_regression, k= lMaxFeatures);
-        self.mFeatureSelector.fit(lARInputs, lARTarget);
+        try:
+            self.mFeatureSelector.fit(lARInputs, lARTarget);
+        except Exception as e:
+            print("SCIKIT_MODEL_FEATURE_SELECTION_FAILURE" , self.mOutName, lARInputs.shape, e);
+            if(self.mOptions.mDebug):
+                df1 = pd.DataFrame(lARInputs);
+                df1.columns = self.mInputNames
+                df1['TGT'] = lARTarget;
+                # df1.to_csv("SCIKIT_MODEL_FEATURE_SELECTION_FAILURE.csv.gz" , compression='gzip');
+            
         lARInputsAfterSelection =  self.mFeatureSelector.transform(lARInputs);
         # print(self.mInputNames , self.mFeatureSelector.get_support(indices=True));
         lSupport = self.mFeatureSelector.get_support(indices=True);
