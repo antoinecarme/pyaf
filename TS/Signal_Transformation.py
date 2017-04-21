@@ -12,6 +12,7 @@ from . import Utils as tsutil
 def testTranform(tr1):
     df = pd.DataFrame();
     df['A'] = np.random.normal(0, 1.0, 10);
+    # df['A'] = range(1, 6000);
     sig = df['A'];
 
     tr1.mOriginalSignal = "selfTestSignal";
@@ -56,10 +57,6 @@ class cAbstractSignalTransform:
             return sig;
 
     def scale_value(self, x):
-        if(x < self.mMinValue):
-            return 0.0;
-        if(x > self.mMaxValue):
-            return 1.0;
         return (x - self.mMinValue) / self.mDelta;
 
     def scale_signal(self, sig):
@@ -72,10 +69,6 @@ class cAbstractSignalTransform:
             return sig;
 
     def rescale_value(self, x):
-        if(x < 0.0):
-            return self.mMinValue;
-        if(x > 1.0):
-            return self.mMaxValue;
         return self.mMinValue + x * self.mDelta;
         
 
@@ -95,7 +88,7 @@ class cAbstractSignalTransform:
         self.specific_fit(sig1);
         # print("FIT_END", self.mOriginalSignal, sig1.values[1:5]);
         pass
-    
+
     def apply(self, sig):
         # print("APPLY_START", self.mOriginalSignal, sig.values[1:5]);
         sig1 = self.scale_signal(sig);
@@ -306,7 +299,7 @@ class cSignalTransform_RelativeDifferencing(cAbstractSignalTransform):
         self.mFirstValue = None;
         self.mFormula = "RelativeDifference";
         self.mComplexity = 1;
-        self.mScaling = True;
+        # self.mScaling = True;
         pass
 
     def get_name(self, iSig):
@@ -319,7 +312,7 @@ class cSignalTransform_RelativeDifferencing(cAbstractSignalTransform):
     def specific_apply(self, df):
         lEps = 1e-8
         # print("RelDiff_apply_DEBUG" , self.mFirstValue, df.values);
-        df1 = df.apply(lambda x : x if (x > lEps) else lEps)
+        df1 = df.apply(lambda x : x if (abs(x) > lEps) else lEps)
         df_shifted = df1.shift(1)
         # df_shifted[df_shifted <= lEps] = lEps
         rate = (df1 - df_shifted) / df_shifted
@@ -335,8 +328,8 @@ class cSignalTransform_RelativeDifferencing(cAbstractSignalTransform):
         rate_cum = rate.cumprod();
         df_orig = rate_cum
         df_orig = self.mFirstValue * df_orig;
-        # print(rate)
-        # print(rate_cum)
+        # print("rate" , rate)
+        # print("rate_cum", rate_cum)
         # print(df_orig)
         return df_orig;
 
