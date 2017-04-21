@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-import HierarchicalForecastEngine as hautof
+import pyaf.HierarchicalForecastEngine as hautof
 
 import datetime
 
