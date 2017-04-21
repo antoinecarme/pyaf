@@ -29,7 +29,20 @@ class cAbstractTrend:
         self.mFormula = None;
         self.mComplexity = None;
 
+    def check_not_nan(self, sig , name):
+        #print("check_not_nan");
+        if(np.isnan(sig).any() or np.isinf(sig).any() ):
+            logger = tsutil.get_pyaf_logger();
+            logger.error("TREND_RESIDUE_WITH_NAN_IN_SIGNAL" + str(sig));
+            raise tsutil.InternalForecastError("INVALID_COLUMN _FOR_TREND_RESIDUE ['"  + name + "'");
+        pass
+
+
     def computePerf(self):
+        if(self.mOptions.mDebug):
+            self.check_not_nan(self.mTrendFrame[self.mOutName + '_residue'], self.mOutName + '_residue')
+        # self.mTrendFrame.to_csv(self.mOutName + '_residue' + ".csv");
+
         self.mTrendFitPerf = tsperf.cPerf();
         self.mTrendForecastPerf = tsperf.cPerf();
         (lFrameFit, lFrameForecast, lFrameTest) = self.mTimeInfo.cutFrame(self.mTrendFrame);
@@ -67,8 +80,9 @@ class cConstantTrend(cAbstractTrend):
         target = self.mTrendFrame[self.mSignal]
         self.mTrendFrame[self.mOutName] = self.mMean * np.ones_like(target);
         self.mTrendFrame[self.mOutName + '_residue'] = target - self.mTrendFrame[self.mOutName]
-        #self.mTrendFrame.to_csv("aaaa.csv")
+        # self.mTrendFrame.to_csv("aaaa.csv")
         # print("cConstantTrend" , self.mMean);
+        # self.mFormula = self.mOutName + "[" + str(self.mMean) + "]";    
 
     def compute(self):
         Y_pred = self.mMean
@@ -355,6 +369,7 @@ class cTrendEstimator:
         self.mTrendFrame = pd.DataFrame()
         self.mTimeInfo.addVars(self.mTrendFrame);
         for trend in self.mTrendList:
+            trend.mOptions = self.mOptions
             trend.fit();
             trend.computePerf();
             self.mTrendFrame[trend.mOutName] = trend.mTrendFrame[trend.mOutName]

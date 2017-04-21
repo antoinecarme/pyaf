@@ -15,13 +15,6 @@ from . import Utils as tsutil
 # for timing
 import time
 
-def check_not_nan(sig, name):
-    #    print("check_not_nan "  + name);
-    #    print(sig);
-    if(np.isnan(sig).any()):
-        raise ValueError("Invalid cycle '" + name + "'");
-    pass
-
 
 class cAbstractCycle:
     def __init__(self , trend):
@@ -43,7 +36,19 @@ class cAbstractCycle:
                            self.mTrend_residue_name, self.getCycleName() , self.getCycleResidueName());
 
 
+    def check_not_nan(self, sig , name):
+        #print("check_not_nan");
+        if(np.isnan(sig).any() or np.isinf(sig).any() ):
+            logger = tsutil.get_pyaf_logger();
+            logger.error("CYCLE_RESIDUE_WITH_NAN_IN_SIGNAL" + str(sig));
+            raise tsutil.InternalForecastError("CYCLE_COLUMN _FOR_TREND_RESIDUE ['"  + name + "'");
+        pass
+
+
     def computePerf(self):
+        if(self.mOptions.mDebug):
+            self.check_not_nan(self.mCycleFrame[self.getCycleResidueName()], self.getCycleResidueName())
+        # self.mCycleFrame.to_csv(self.getCycleResidueName() + ".csv");
         self.mCycleFitPerf = tsperf.cPerf();
         self.mCycleForecastPerf = tsperf.cPerf();
         # self.mCycleFrame[[self.mTrend_residue_name, self.getCycleName()]].to_csv(self.getCycleName() + ".csv");
@@ -254,7 +259,7 @@ class cBestCycleForTrend(cAbstractCycle):
         target = df[self.mTrend_residue_name]
         df[self.getCycleResidueName()] = target - df[self.getCycleName()].values
         if(self.mOptions.mDebug):
-            check_not_nan(self.mCycleFrame[self.getCycleName()].values , self.getCycleName());
+            self.check_not_nan(self.mCycleFrame[self.getCycleName()].values , self.getCycleName());
 
         return df;
 
@@ -337,7 +342,7 @@ class cCycleEstimator:
                 self.mCycleFrame[cycle.getCycleName()] = cycle.mCycleFrame[cycle.getCycleName()]
                 self.mCycleFrame[cycle.getCycleResidueName()] = cycle.mCycleFrame[cycle.getCycleResidueName()]
                 if(self.mOptions.mDebug):
-                    check_not_nan(self.mCycleFrame[cycle.getCycleResidueName()].values ,
+                    self.check_not_nan(self.mCycleFrame[cycle.getCycleResidueName()].values ,
                                   cycle.getCycleResidueName())
                 end_time = time.time()
                 lTrainingTime = round(end_time - start_time , 2);
