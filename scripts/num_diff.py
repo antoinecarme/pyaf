@@ -63,6 +63,12 @@ def compare_lines(line_orig, line_new):
     return out;
 
 def compare_files(file_orig, file_new):
+    import os.path
+    if(not os.path.exists(file_orig)):
+        print("ORIGINAL_FILE_DOES_NOT_EXIST" , file_orig)
+        print("#cp ", file_new, file_orig)
+        return
+    
     with open(file_orig) as f:
         content_orig = f.readlines()
 
@@ -78,6 +84,7 @@ def compare_files(file_orig, file_new):
     if(lDiff > 20):
        print("NUM_DIFF_FILES_WITH_TOO_MUCH_DIFF" , N_orig, N_new);
        print("NUM_DIFF_NUMBER_OF_DIFFERENT_LINES_AT_LEAST" , lDiff)
+       print("#cp ", file_new, file_orig)
        print("NUM_DIFF_FILES_ARE_DIFFERENT")
        return;
         
