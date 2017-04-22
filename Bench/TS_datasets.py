@@ -567,7 +567,7 @@ def load_M4_comp() :
     trainfile = "https://github.com/antoinecarme/pyaf/blob/master/data/M4Comp.csv.gz?raw=true"
     # trainfile = "data/M4Comp.csv.gz"
 
-    df_full = pd.read_csv(trainfile, sep=',', header=0, engine='python');
+    df_full = pd.read_csv(trainfile, sep=',', header=0, engine='python', compression='gzip');
     lHorizons = df_full[['H' , 'ID']].copy();
     lHorizons['ID'] = lHorizons['ID'].apply(lambda x  : x.replace(" ", ""));
     lHorizons['H'] = lHorizons['H'].apply(lambda x  : int(x))
