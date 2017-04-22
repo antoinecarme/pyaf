@@ -299,7 +299,7 @@ class cSignalTransform_RelativeDifferencing(cAbstractSignalTransform):
         self.mFirstValue = None;
         self.mFormula = "RelativeDifference";
         self.mComplexity = 1;
-        # self.mScaling = True;
+        self.mScaling = True;
         pass
 
     def get_name(self, iSig):
@@ -320,13 +320,15 @@ class cSignalTransform_RelativeDifferencing(cAbstractSignalTransform):
         # print(df1)
         # print(df_shifted)
         # print(rate)
+        rate = rate.clip(-1.0e+8 , +1.0e+8)
         return rate;
     
     def specific_invert(self, df):
         # print("RelDiff_invert_DEBUG" , self.mFirstValue, df.values);
         rate = df + 1;
+        rate = rate.clip(-1.0e+8 , +1.0e+8)
         rate_cum = rate.cumprod();
-        df_orig = rate_cum
+        df_orig = rate_cum.clip(-1.0e+8 , +1.0e+8)
         df_orig = self.mFirstValue * df_orig;
         # print("rate" , rate)
         # print("rate_cum", rate_cum)

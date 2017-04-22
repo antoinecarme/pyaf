@@ -55,10 +55,11 @@ class cTimeSeriesModel:
         lFitPerf = tsperf.cPerf();
         lForecastPerf = tsperf.cPerf();
         lTestPerf = tsperf.cPerf();
+        # self.mModelFrame.to_csv(self.mOutName + "_model_perf.csv");
         (lFrameFit, lFrameForecast, lFrameTest) = self.mTrend.mTimeInfo.cutFrame(self.mModelFrame);
-        lFitPerf.compute(lFrameFit[self.mOriginalSignal] , lFrameFit[lForecastColumnName] , 'Fit')
-        lForecastPerf.compute(lFrameForecast[self.mOriginalSignal] , lFrameForecast[lForecastColumnName], 'Forecast')
-        lTestPerf.compute(lFrameTest[self.mOriginalSignal] , lFrameTest[lForecastColumnName], 'Test')
+        lFitPerf.compute(lFrameFit[self.mOriginalSignal] , lFrameFit[lForecastColumnName] , self.mOutName + '_Fit')
+        lForecastPerf.compute(lFrameForecast[self.mOriginalSignal] , lFrameForecast[lForecastColumnName], self.mOutName + '_Forecast')
+        lTestPerf.compute(lFrameTest[self.mOriginalSignal] , lFrameTest[lForecastColumnName], self.mOutName + '_Test')
         self.mFitPerf = lFitPerf
         self.mForecastPerf = lForecastPerf;
         self.mTestPerf = lTestPerf;
