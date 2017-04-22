@@ -29,9 +29,9 @@ INFO:pyaf.std:collectPerformanceIndices : RelDiff_Ozone RelDiff_Ozone_PolyTrend_
 INFO:pyaf.std:collectPerformanceIndices : RelDiff_Ozone RelDiff_Ozone_PolyTrend_residue_bestCycle_byL2_residue_NoAR 56 39
 INFO:pyaf.std:collectPerformanceIndices : RelDiff_Ozone RelDiff_Ozone_PolyTrend_residue_zeroCycle_residue_AR(51) 99 39
 INFO:pyaf.std:collectPerformanceIndices : RelDiff_Ozone RelDiff_Ozone_PolyTrend_residue_zeroCycle_residue_NoAR 48 39
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 3.4848251342773438
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 18.328218698501587
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01 00:00:00 TimeMax=1967-09-01 00:00:00 TimeDelta=30 days 10:25:16 Estimation = (0 , 153) Validation = (153 , 192) Test = (192 , 204) Horizon=12
-INFO:pyaf.std:SIGNAL_DETAIL SignalVariable='RelDiff_Ozone' Min=-0.5625 Max=1.14285714286  Mean=0.0407349201194 StdDev=0.311177098168
+INFO:pyaf.std:SIGNAL_DETAIL SignalVariable='RelDiff_Ozone' Min=-0.9999998125 Max=10.0  Mean=0.201269462545 StdDev=1.02611383151
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'RelDiff_'
 INFO:pyaf.std:BEST_DECOMPOSITION  'RelDiff_Ozone_Lag1Trend_residue_zeroCycle_residue_NoAR' [Lag1Trend + NoCycle + NoAR]
 INFO:pyaf.std:TREND_DETAIL 'RelDiff_Ozone_Lag1Trend' [Lag1Trend]
@@ -48,29 +48,29 @@ INFO:pyaf.std:AR_MODEL_DETAIL_END
 0  RelDiff_Ozone  RelDiff_Ozone_Lag1Trend_residue_zeroCycle_resi...   
 1  RelDiff_Ozone  RelDiff_Ozone_Lag1Trend_residue_Seasonal_Month...   
 2  RelDiff_Ozone  RelDiff_Ozone_Lag1Trend_residue_bestCycle_byL2...   
-3  RelDiff_Ozone  RelDiff_Ozone_Lag1Trend_residue_Seasonal_Month...   
-4  RelDiff_Ozone  RelDiff_Ozone_Lag1Trend_residue_zeroCycle_resi...   
+3  RelDiff_Ozone  RelDiff_Ozone_Lag1Trend_residue_zeroCycle_resi...   
+4  RelDiff_Ozone  RelDiff_Ozone_ConstantTrend_residue_Seasonal_M...   
 
-   Complexity  FitCount     FitL1      FitL2  FitMAPE  FitMASE  ForecastCount  \
-0          64       153  0.873203   1.165742   0.2381   0.9935             39   
-1          68       153  0.913811   1.247263   0.2340   1.0397             39   
-2          72       153  1.157105   1.450037   0.2843   1.3165             39   
-3         119       153  5.391227   7.627360   1.4651   6.1337             39   
-4         115       153  7.550558  10.092366   2.0443   8.5905             39   
+   Complexity  FitCount       FitL1       FitL2  FitMAPE   FitMASE  \
+0          64       153    0.873203    1.165742   0.2381    0.9935   
+1          68       153    2.927714    4.028572   0.7771    3.3309   
+2          72       153    2.927714    4.028572   0.7771    3.3309   
+3         115       153   75.990941  168.832726  20.2999   86.4568   
+4          87       153  215.819090  655.278024  61.6712  245.5427   
 
-   ForecastL1  ForecastL2  ForecastMAPE  ForecastMASE  TestCount    TestL1  \
-0    0.800000    0.965826        0.2778        1.0305         12  0.475000   
-1    1.151989    1.399239        0.3468        1.4839         12  1.380567   
-2    1.397370    1.635803        0.4139        1.8000         12  1.236685   
-3   10.614574   12.802156        3.3304       13.6730         12  0.828652   
-4   18.192595   20.473699        5.8215       23.4345         12  5.314028   
+   ForecastCount    ForecastL1    ForecastL2  ForecastMAPE  ForecastMASE  \
+0             39      0.800000      0.965826        0.2778        1.0305   
+1             39      6.097579      8.022308        1.8931        7.8545   
+2             39      6.097579      8.022308        1.8931        7.8545   
+3             39   4307.447873  11358.334413     1338.1310     5548.5769   
+4             39  18729.928875  30166.177084     5433.1627    24126.6880   
 
-     TestL2  TestMAPE  TestMASE  
-0  0.573730    0.2132    1.0048  
-1  1.449193    0.5593    2.9204  
-2  1.335070    0.4901    2.6161  
-3  0.946693    0.3446    1.7529  
-4  5.697435    2.1282   11.2412  
+   TestCount       TestL1       TestL2   TestMAPE    TestMASE  
+0         12     0.475000     0.573730     0.2132      1.0048  
+1         12     6.830004     7.936996     2.5846     14.4481  
+2         12     6.830004     7.936996     2.5846     14.4481  
+3         12   823.847223  1268.464174   301.0833   1742.7537  
+4         12  8148.337604  8876.850295  3356.5723  17236.8680  
 Forecast Columns  Index(['Ozone', 'RelDiff_Ozone', 'Time', 'row_number', 'Time_Normalized',
        'RelDiff_Ozone_Lag1Trend', 'RelDiff_Ozone_Lag1Trend_residue',
        'RelDiff_Ozone_Lag1Trend_residue_zeroCycle',
@@ -144,7 +144,7 @@ Forecasts
 
 
 <Forecast>
-{"Time":{"192":"1971-01-01T00:00:00.000Z","193":"1971-02-01T00:00:00.000Z","194":"1971-03-01T00:00:00.000Z","195":"1971-04-01T00:00:00.000Z","196":"1971-05-01T00:00:00.000Z","197":"1971-06-01T00:00:00.000Z","198":"1971-07-01T00:00:00.000Z","199":"1971-08-01T00:00:00.000Z","200":"1971-09-01T00:00:00.000Z","201":"1971-10-01T00:00:00.000Z","202":"1971-11-01T00:00:00.000Z","203":"1971-12-01T00:00:00.000Z","204":"1972-01-01T00:00:00.000Z","205":"1972-02-01T00:00:00.000Z","206":"1972-03-01T00:00:00.000Z","207":"1972-04-01T00:00:00.000Z","208":"1972-05-01T00:00:00.000Z","209":"1972-06-01T00:00:00.000Z","210":"1972-07-01T00:00:00.000Z","211":"1972-08-01T00:00:00.000Z","212":"1972-09-01T00:00:00.000Z","213":"1972-10-01T00:00:00.000Z","214":"1972-11-01T00:00:00.000Z","215":"1972-12-01T00:00:00.000Z"},"Ozone":{"192":1.8,"193":2.0,"194":2.2,"195":3.0,"196":2.4,"197":3.5,"198":3.5,"199":3.3,"200":2.7,"201":2.5,"202":1.6,"203":1.2,"204":null,"205":null,"206":null,"207":null,"208":null,"209":null,"210":null,"211":null,"212":null,"213":null,"214":null,"215":null},"Ozone_Forecast":{"192":1.3,"193":1.8,"194":2.0,"195":2.2,"196":3.0,"197":2.4,"198":3.5,"199":3.5,"200":3.3,"201":2.7,"202":2.5,"203":1.6,"204":1.2,"205":1.2,"206":1.2,"207":1.2,"208":1.2,"209":1.2,"210":1.2,"211":1.2,"212":1.2,"213":1.2,"214":1.2,"215":1.2}}
+{"Time":{"192":"1971-01-01T00:00:00.000Z","193":"1971-02-01T00:00:00.000Z","194":"1971-03-01T00:00:00.000Z","195":"1971-04-01T00:00:00.000Z","196":"1971-05-01T00:00:00.000Z","197":"1971-06-01T00:00:00.000Z","198":"1971-07-01T00:00:00.000Z","199":"1971-08-01T00:00:00.000Z","200":"1971-09-01T00:00:00.000Z","201":"1971-10-01T00:00:00.000Z","202":"1971-11-01T00:00:00.000Z","203":"1971-12-01T00:00:00.000Z","204":"1972-01-01T00:00:00.000Z","205":"1972-02-01T00:00:00.000Z","206":"1972-03-01T00:00:00.000Z","207":"1972-04-01T00:00:00.000Z","208":"1972-05-01T00:00:00.000Z","209":"1972-06-01T00:00:00.000Z","210":"1972-07-01T00:00:00.000Z","211":"1972-08-01T00:00:00.000Z","212":"1972-09-01T00:00:00.000Z","213":"1972-10-01T00:00:00.000Z","214":"1972-11-01T00:00:00.000Z","215":"1972-12-01T00:00:00.000Z"},"Ozone":{"192":1.8,"193":2.0,"194":2.2,"195":3.0,"196":2.4,"197":3.5,"198":3.5,"199":3.3,"200":2.7,"201":2.5,"202":1.6,"203":1.2,"204":null,"205":null,"206":null,"207":null,"208":null,"209":null,"210":null,"211":null,"212":null,"213":null,"214":null,"215":null},"Ozone_Forecast":{"192":1.3,"193":1.8,"194":2.0,"195":2.2,"196":3.0,"197":2.4,"198":3.5,"199":3.5,"200":3.3,"201":2.7,"202":2.5,"203":1.6,"204":1.200000075,"205":1.200000075,"206":1.200000075,"207":1.200000075,"208":1.200000075,"209":1.200000075,"210":1.200000075,"211":1.200000075,"212":1.200000075,"213":1.200000075,"214":1.200000075,"215":1.200000075}}
 </Forecast>
 
 

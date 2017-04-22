@@ -1,3 +1,4 @@
+INFO:pyaf.std:START_TRAINING 'C0808'
    Unnamed: 0  C0808  Date
 0           0   24.0     0
 1           1   29.0     1
@@ -10,17 +11,32 @@
 2655        2655   11.0  2655
 2656        2656    9.0  2656
 2657        2657    7.0  2657
-Forecast Columns  Index(['C0808', 'Date', '_C0808', 'row_number', 'Date_Normalized',
-       '_C0808_ConstantTrend', '_C0808_ConstantTrend_residue',
-       'cycle_internal', '_C0808_ConstantTrend_residue_bestCycle_byL2',
-       '_C0808_ConstantTrend_residue_bestCycle_byL2_residue',
-       '_C0808_ConstantTrend_residue_bestCycle_byL2_residue_AR(256)',
-       '_C0808_ConstantTrend_residue_bestCycle_byL2_residue_AR(256)_residue',
-       '_C0808_Trend', '_C0808_Trend_residue', '_C0808_Cycle',
-       '_C0808_Cycle_residue', '_C0808_AR', '_C0808_AR_residue',
-       '_C0808_TransformedForecast', '_C0808_TransformedResidue',
-       'C0808_Forecast', 'C0808_Residue', 'C0808_Forecast_Lower_Bound',
-       'C0808_Forecast_Upper_Bound'],
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'C0808' 24.476690769195557
+INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=0 TimeMax=2123 TimeDelta=1.0 Estimation = (0 , 2124) Validation = (2124 , 2656) Test = (2656 , 2658) Horizon=2
+INFO:pyaf.std:SIGNAL_DETAIL SignalVariable='CumSum_C0808' Min=24.0 Max=34086.0  Mean=16480.3058691 StdDev=9873.94387126
+INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'CumSum_'
+INFO:pyaf.std:BEST_DECOMPOSITION  'CumSum_C0808_ConstantTrend_residue_zeroCycle_residue_NoAR' [ConstantTrend + NoCycle + NoAR]
+INFO:pyaf.std:TREND_DETAIL 'CumSum_C0808_ConstantTrend' [ConstantTrend]
+INFO:pyaf.std:CYCLE_DETAIL 'CumSum_C0808_ConstantTrend_residue_zeroCycle' [NoCycle]
+INFO:pyaf.std:AUTOREG_DETAIL 'CumSum_C0808_ConstantTrend_residue_zeroCycle_residue_NoAR' [NoAR]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=1.2355 MAPE_Forecast=0.9737 MAPE_Test=1.0
+INFO:pyaf.std:MODEL_MASE MASE_Fit=8.0202 MASE_Forecast=6.5869 MASE_Test=4.0
+INFO:pyaf.std:MODEL_L1 L1_Fit=282.233617463 L1_Forecast=17.0612012023 L1_Test=8.0
+INFO:pyaf.std:MODEL_L2 L2_Fit=282.233617463 L2_Forecast=17.0612012023 L2_Test=8.0622577483
+INFO:pyaf.std:MODEL_COMPLEXITY 32
+INFO:pyaf.std:AR_MODEL_DETAIL_START
+INFO:pyaf.std:AR_MODEL_DETAIL_END
+Forecast Columns  Index(['C0808', 'CumSum_C0808', 'Date', 'row_number', 'Date_Normalized',
+       'CumSum_C0808_ConstantTrend', 'CumSum_C0808_ConstantTrend_residue',
+       'CumSum_C0808_ConstantTrend_residue_zeroCycle',
+       'CumSum_C0808_ConstantTrend_residue_zeroCycle_residue',
+       'CumSum_C0808_ConstantTrend_residue_zeroCycle_residue_NoAR',
+       'CumSum_C0808_ConstantTrend_residue_zeroCycle_residue_NoAR_residue',
+       'CumSum_C0808_Trend', 'CumSum_C0808_Trend_residue',
+       'CumSum_C0808_Cycle', 'CumSum_C0808_Cycle_residue', 'CumSum_C0808_AR',
+       'CumSum_C0808_AR_residue', 'CumSum_C0808_TransformedForecast',
+       'CumSum_C0808_TransformedResidue', 'C0808_Forecast', 'C0808_Residue',
+       'C0808_Forecast_Lower_Bound', 'C0808_Forecast_Upper_Bound'],
       dtype='object')
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 2660 entries, 0 to 2659
@@ -32,8 +48,8 @@ dtypes: float64(2), int64(1)
 memory usage: 62.4 KB
 None
 Forecasts
- [[ 2658.                    nan     6.3700412 ]
- [ 2659.                    nan     6.03824947]]
+ [[ 2658.    nan     0.]
+ [ 2659.    nan     0.]]
 
 
 <ModelInfo>
@@ -51,16 +67,18 @@ Forecasts
         "Training_Signal_Length": 2658
     },
     "Model": {
-        "AR_Model": "AR(256)",
-        "Best_Decomposition": "_C0808_ConstantTrend_residue_bestCycle_byL2_residue_AR(256)",
-        "Cycle": "Cycle_Length_12",
-        "Signal_Transoformation": "None",
+        "AR_Model": "NoAR",
+        "Best_Decomposition": "CumSum_C0808_ConstantTrend_residue_zeroCycle_residue_NoAR",
+        "Cycle": "NoCycle",
+        "Signal_Transoformation": "Integration",
         "Trend": "ConstantTrend"
     },
     "Model_Performance": {
-        "COMPLEXITY": "264",
-        "MAPE": "0.3038",
-        "RMSE": "2.8799558501"
+        "COMPLEXITY": "32",
+        "MAE": "14.9229323308",
+        "MAPE": "0.9737",
+        "MASE": "6.5869",
+        "RMSE": "17.0612012023"
     }
 }
 </ModelInfo>
@@ -69,7 +87,7 @@ Forecasts
 
 
 <Forecast>
-{"Date":{"2656":2656,"2657":2657,"2658":2658,"2659":2659},"C0808":{"2656":9.0,"2657":7.0,"2658":null,"2659":null},"C0808_Forecast":{"2656":9.6031302263,"2657":7.6774191729,"2658":6.3700412022,"2659":6.0382494669}}
+{"Date":{"2656":2656,"2657":2657,"2658":2658,"2659":2659},"C0808":{"2656":9.0,"2657":7.0,"2658":null,"2659":null},"C0808_Forecast":{"2656":0.0,"2657":0.0,"2658":0.0,"2659":0.0}}
 </Forecast>
 
 

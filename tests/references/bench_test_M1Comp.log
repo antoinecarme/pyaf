@@ -1,5 +1,6 @@
+INFO:pyaf.std:START_TRAINING 'MNI21'
 BENCH_TYPE M1_COMP OneDataFrameForAllSignals
-BENCH_DATA M1_COMP <pyaf.Bench.TS_datasets.cTimeSeriesDatasetSpec object at 0x7f3b6856fcf8>
+BENCH_DATA M1_COMP <pyaf.Bench.TS_datasets.cTimeSeriesDatasetSpec object at 0x7f3998da3eb8>
 TIME :  Date N= 145 H= 2 HEAD= [0 1 2 3 4] TAIL= [140 141 142 143 144]
 SIGNAL :  MNI21 N= 145 H= 2 HEAD= [ 625.  615.  559.  660.  708.] TAIL= [ 1360.  1323.  1069.   972.  1104.]
 Index  MNI21  Date
@@ -16,226 +17,400 @@ Date     145 non-null int64
 dtypes: float64(1), int64(1)
 memory usage: 3.4+ KB
 None
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'MNI21' 8.899780988693237
+INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=0 TimeMax=113 TimeDelta=1.0 Estimation = (0 , 114) Validation = (114 , 143) Test = (143 , 145) Horizon=2
+INFO:pyaf.std:SIGNAL_DETAIL SignalVariable='_MNI21' Min=402.0 Max=1766.0  Mean=1091.48965517 StdDev=356.317025003
+INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
+INFO:pyaf.std:BEST_DECOMPOSITION  '_MNI21_LinearTrend_residue_zeroCycle_residue_AR(36)' [LinearTrend + NoCycle + AR(36)]
+INFO:pyaf.std:TREND_DETAIL '_MNI21_LinearTrend' [LinearTrend]
+INFO:pyaf.std:CYCLE_DETAIL '_MNI21_LinearTrend_residue_zeroCycle' [NoCycle]
+INFO:pyaf.std:AUTOREG_DETAIL '_MNI21_LinearTrend_residue_zeroCycle_residue_AR(36)' [AR(36)]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.084 MAPE_Forecast=0.1066 MAPE_Test=0.3552
+INFO:pyaf.std:MODEL_MASE MASE_Fit=0.459 MASE_Forecast=0.5153 MASE_Test=2.7719
+INFO:pyaf.std:MODEL_L1 L1_Fit=96.8014129575 L1_Forecast=173.722183611 L1_Test=365.888069857
+INFO:pyaf.std:MODEL_L2 L2_Fit=96.8014129575 L2_Forecast=173.722183611 L2_Test=366.439360719
+INFO:pyaf.std:MODEL_COMPLEXITY 52
+INFO:pyaf.std:AR_MODEL_DETAIL_START
+INFO:pyaf.std:AR_MODEL_COEFF 1 _MNI21_LinearTrend_residue_zeroCycle_residue_Lag12 0.569752316436
+INFO:pyaf.std:AR_MODEL_COEFF 2 _MNI21_LinearTrend_residue_zeroCycle_residue_Lag3 0.306697795551
+INFO:pyaf.std:AR_MODEL_COEFF 3 _MNI21_LinearTrend_residue_zeroCycle_residue_Lag30 -0.299010034753
+INFO:pyaf.std:AR_MODEL_COEFF 4 _MNI21_LinearTrend_residue_zeroCycle_residue_Lag36 0.289059003771
+INFO:pyaf.std:AR_MODEL_COEFF 5 _MNI21_LinearTrend_residue_zeroCycle_residue_Lag15 -0.248697607101
+INFO:pyaf.std:AR_MODEL_COEFF 6 _MNI21_LinearTrend_residue_zeroCycle_residue_Lag24 0.236763283211
+INFO:pyaf.std:AR_MODEL_COEFF 7 _MNI21_LinearTrend_residue_zeroCycle_residue_Lag14 -0.191060030439
+INFO:pyaf.std:AR_MODEL_COEFF 8 _MNI21_LinearTrend_residue_zeroCycle_residue_Lag10 -0.169767875975
+INFO:pyaf.std:AR_MODEL_COEFF 9 _MNI21_LinearTrend_residue_zeroCycle_residue_Lag6 0.149681777596
+INFO:pyaf.std:AR_MODEL_COEFF 10 _MNI21_LinearTrend_residue_zeroCycle_residue_Lag2 0.14420916817
+INFO:pyaf.std:AR_MODEL_DETAIL_END
    Transformation                                              Model  \
 0          _MNI21  _MNI21_Lag1Trend_residue_zeroCycle_residue_AR(36)   
 1          _MNI21  _MNI21_LinearTrend_residue_zeroCycle_residue_A...   
 2          _MNI21  _MNI21_ConstantTrend_residue_zeroCycle_residue...   
-3          _MNI21  _MNI21_LinearTrend_residue_bestCycle_byL2_resi...   
-4          _MNI21  _MNI21_Lag1Trend_residue_bestCycle_byL2_residu...   
-5      Diff_MNI21  Diff_MNI21_Lag1Trend_residue_bestCycle_byL2_re...   
-6          _MNI21  _MNI21_ConstantTrend_residue_bestCycle_byL2_re...   
+3      Diff_MNI21  Diff_MNI21_Lag1Trend_residue_zeroCycle_residue...   
+4          _MNI21  _MNI21_LinearTrend_residue_bestCycle_byL2_resi...   
+5          _MNI21  _MNI21_ConstantTrend_residue_bestCycle_byL2_re...   
+6          _MNI21  _MNI21_Lag1Trend_residue_bestCycle_byL2_residu...   
 7    CumSum_MNI21  CumSum_MNI21_Lag1Trend_residue_bestCycle_byL2_...   
-8    CumSum_MNI21  CumSum_MNI21_Lag1Trend_residue_bestCycle_byL2_...   
+8      Diff_MNI21  Diff_MNI21_Lag1Trend_residue_bestCycle_byL2_re...   
 9          _MNI21  _MNI21_Lag1Trend_residue_bestCycle_byL2_residu...   
-10   CumSum_MNI21  CumSum_MNI21_LinearTrend_residue_bestCycle_byL...   
-11   CumSum_MNI21  CumSum_MNI21_Lag1Trend_residue_zeroCycle_resid...   
+10   CumSum_MNI21  CumSum_MNI21_Lag1Trend_residue_bestCycle_byL2_...   
+11   CumSum_MNI21  CumSum_MNI21_PolyTrend_residue_zeroCycle_resid...   
 12   CumSum_MNI21  CumSum_MNI21_ConstantTrend_residue_zeroCycle_r...   
-13   CumSum_MNI21  CumSum_MNI21_PolyTrend_residue_zeroCycle_resid...   
-14  RelDiff_MNI21  RelDiff_MNI21_Lag1Trend_residue_bestCycle_byL2...   
-15         _MNI21  _MNI21_LinearTrend_residue_bestCycle_byL2_resi...   
-16  RelDiff_MNI21  RelDiff_MNI21_Lag1Trend_residue_zeroCycle_resi...   
-17   CumSum_MNI21  CumSum_MNI21_LinearTrend_residue_zeroCycle_res...   
-18         _MNI21  _MNI21_PolyTrend_residue_zeroCycle_residue_AR(36)   
-19         _MNI21  _MNI21_PolyTrend_residue_bestCycle_byL2_residu...   
-20   CumSum_MNI21  CumSum_MNI21_PolyTrend_residue_bestCycle_byL2_...   
-21     Diff_MNI21  Diff_MNI21_Lag1Trend_residue_bestCycle_byL2_re...   
-22  RelDiff_MNI21  RelDiff_MNI21_Lag1Trend_residue_bestCycle_byL2...   
-23     Diff_MNI21  Diff_MNI21_ConstantTrend_residue_bestCycle_byL...   
+13         _MNI21  _MNI21_PolyTrend_residue_zeroCycle_residue_AR(36)   
+14         _MNI21  _MNI21_LinearTrend_residue_bestCycle_byL2_resi...   
+15   CumSum_MNI21  CumSum_MNI21_Lag1Trend_residue_zeroCycle_resid...   
+16     Diff_MNI21  Diff_MNI21_Lag1Trend_residue_bestCycle_byL2_re...   
+17         _MNI21  _MNI21_PolyTrend_residue_bestCycle_byL2_residu...   
+18   CumSum_MNI21  CumSum_MNI21_LinearTrend_residue_zeroCycle_res...   
+19     Diff_MNI21  Diff_MNI21_ConstantTrend_residue_zeroCycle_res...   
+20   CumSum_MNI21  CumSum_MNI21_LinearTrend_residue_bestCycle_byL...   
+21     Diff_MNI21  Diff_MNI21_ConstantTrend_residue_bestCycle_byL...   
+22     Diff_MNI21  Diff_MNI21_LinearTrend_residue_zeroCycle_resid...   
+23   CumSum_MNI21  CumSum_MNI21_PolyTrend_residue_bestCycle_byL2_...   
 24         _MNI21  _MNI21_LinearTrend_residue_zeroCycle_residue_NoAR   
-25     Diff_MNI21  Diff_MNI21_Lag1Trend_residue_zeroCycle_residue...   
-26   CumSum_MNI21  CumSum_MNI21_ConstantTrend_residue_bestCycle_b...   
-27         _MNI21    _MNI21_Lag1Trend_residue_zeroCycle_residue_NoAR   
-28   CumSum_MNI21  CumSum_MNI21_Lag1Trend_residue_zeroCycle_resid...   
-29     Diff_MNI21  Diff_MNI21_Lag1Trend_residue_zeroCycle_residue...   
+25   CumSum_MNI21  CumSum_MNI21_ConstantTrend_residue_bestCycle_b...   
+26         _MNI21    _MNI21_Lag1Trend_residue_zeroCycle_residue_NoAR   
+27   CumSum_MNI21  CumSum_MNI21_Lag1Trend_residue_zeroCycle_resid...   
+28     Diff_MNI21  Diff_MNI21_Lag1Trend_residue_zeroCycle_residue...   
+29  RelDiff_MNI21  RelDiff_MNI21_Lag1Trend_residue_zeroCycle_resi...   
 ..            ...                                                ...   
-34  RelDiff_MNI21  RelDiff_MNI21_ConstantTrend_residue_bestCycle_...   
+34     Diff_MNI21  Diff_MNI21_PolyTrend_residue_bestCycle_byL2_re...   
 35     Diff_MNI21  Diff_MNI21_ConstantTrend_residue_zeroCycle_res...   
-36         _MNI21  _MNI21_PolyTrend_residue_bestCycle_byL2_residu...   
-37  RelDiff_MNI21  RelDiff_MNI21_ConstantTrend_residue_bestCycle_...   
-38     Diff_MNI21  Diff_MNI21_PolyTrend_residue_bestCycle_byL2_re...   
-39  RelDiff_MNI21  RelDiff_MNI21_LinearTrend_residue_bestCycle_by...   
-40  RelDiff_MNI21  RelDiff_MNI21_PolyTrend_residue_bestCycle_byL2...   
-41  RelDiff_MNI21  RelDiff_MNI21_LinearTrend_residue_bestCycle_by...   
-42  RelDiff_MNI21  RelDiff_MNI21_PolyTrend_residue_bestCycle_byL2...   
-43         _MNI21  _MNI21_ConstantTrend_residue_zeroCycle_residue...   
-44  RelDiff_MNI21  RelDiff_MNI21_ConstantTrend_residue_zeroCycle_...   
-45  RelDiff_MNI21  RelDiff_MNI21_LinearTrend_residue_zeroCycle_re...   
-46  RelDiff_MNI21  RelDiff_MNI21_PolyTrend_residue_zeroCycle_resi...   
-47  RelDiff_MNI21  RelDiff_MNI21_ConstantTrend_residue_zeroCycle_...   
-48  RelDiff_MNI21  RelDiff_MNI21_LinearTrend_residue_zeroCycle_re...   
-49  RelDiff_MNI21  RelDiff_MNI21_PolyTrend_residue_zeroCycle_resi...   
-50         _MNI21    _MNI21_PolyTrend_residue_zeroCycle_residue_NoAR   
-51     Diff_MNI21  Diff_MNI21_LinearTrend_residue_zeroCycle_resid...   
-52   CumSum_MNI21  CumSum_MNI21_LinearTrend_residue_bestCycle_byL...   
-53   CumSum_MNI21  CumSum_MNI21_LinearTrend_residue_zeroCycle_res...   
-54     Diff_MNI21  Diff_MNI21_PolyTrend_residue_zeroCycle_residue...   
-55     Diff_MNI21  Diff_MNI21_ConstantTrend_residue_bestCycle_byL...   
-56   CumSum_MNI21  CumSum_MNI21_PolyTrend_residue_zeroCycle_resid...   
-57   CumSum_MNI21  CumSum_MNI21_PolyTrend_residue_bestCycle_byL2_...   
-58     Diff_MNI21  Diff_MNI21_LinearTrend_residue_bestCycle_byL2_...   
-59     Diff_MNI21  Diff_MNI21_PolyTrend_residue_bestCycle_byL2_re...   
-60     Diff_MNI21  Diff_MNI21_LinearTrend_residue_zeroCycle_resid...   
-61   CumSum_MNI21  CumSum_MNI21_ConstantTrend_residue_zeroCycle_r...   
-62     Diff_MNI21  Diff_MNI21_PolyTrend_residue_zeroCycle_residue...   
-63   CumSum_MNI21  CumSum_MNI21_ConstantTrend_residue_bestCycle_b...   
+36         _MNI21  _MNI21_ConstantTrend_residue_zeroCycle_residue...   
+37         _MNI21    _MNI21_PolyTrend_residue_zeroCycle_residue_NoAR   
+38     Diff_MNI21  Diff_MNI21_LinearTrend_residue_zeroCycle_resid...   
+39   CumSum_MNI21  CumSum_MNI21_LinearTrend_residue_bestCycle_byL...   
+40   CumSum_MNI21  CumSum_MNI21_LinearTrend_residue_zeroCycle_res...   
+41     Diff_MNI21  Diff_MNI21_PolyTrend_residue_zeroCycle_residue...   
+42     Diff_MNI21  Diff_MNI21_ConstantTrend_residue_bestCycle_byL...   
+43   CumSum_MNI21  CumSum_MNI21_PolyTrend_residue_zeroCycle_resid...   
+44   CumSum_MNI21  CumSum_MNI21_PolyTrend_residue_bestCycle_byL2_...   
+45     Diff_MNI21  Diff_MNI21_LinearTrend_residue_bestCycle_byL2_...   
+46     Diff_MNI21  Diff_MNI21_PolyTrend_residue_bestCycle_byL2_re...   
+47   CumSum_MNI21  CumSum_MNI21_ConstantTrend_residue_zeroCycle_r...   
+48   CumSum_MNI21  CumSum_MNI21_ConstantTrend_residue_bestCycle_b...   
+49  RelDiff_MNI21  RelDiff_MNI21_ConstantTrend_residue_zeroCycle_...   
+50  RelDiff_MNI21  RelDiff_MNI21_ConstantTrend_residue_bestCycle_...   
+51  RelDiff_MNI21  RelDiff_MNI21_ConstantTrend_residue_zeroCycle_...   
+52  RelDiff_MNI21  RelDiff_MNI21_Lag1Trend_residue_zeroCycle_resi...   
+53  RelDiff_MNI21  RelDiff_MNI21_PolyTrend_residue_zeroCycle_resi...   
+54  RelDiff_MNI21  RelDiff_MNI21_PolyTrend_residue_zeroCycle_resi...   
+55  RelDiff_MNI21  RelDiff_MNI21_LinearTrend_residue_bestCycle_by...   
+56  RelDiff_MNI21  RelDiff_MNI21_LinearTrend_residue_bestCycle_by...   
+57  RelDiff_MNI21  RelDiff_MNI21_Lag1Trend_residue_bestCycle_byL2...   
+58  RelDiff_MNI21  RelDiff_MNI21_Lag1Trend_residue_bestCycle_byL2...   
+59  RelDiff_MNI21  RelDiff_MNI21_LinearTrend_residue_zeroCycle_re...   
+60  RelDiff_MNI21  RelDiff_MNI21_LinearTrend_residue_zeroCycle_re...   
+61  RelDiff_MNI21  RelDiff_MNI21_PolyTrend_residue_bestCycle_byL2...   
+62  RelDiff_MNI21  RelDiff_MNI21_PolyTrend_residue_bestCycle_byL2...   
+63  RelDiff_MNI21  RelDiff_MNI21_ConstantTrend_residue_bestCycle_...   
 
-    Complexity  FitCount        FitL2  FitMAPE  ForecastCount   ForecastL2  \
-0           68       114    89.899254   0.0783             29   167.989017   
-1           52       114    88.922014   0.0789             29   176.510283   
-2           36       114    89.623014   0.0777             29   190.502548   
-3           60       114    78.903746   0.0715             29   179.252125   
-4           76       114    80.749041   0.0744             29   182.875306   
-5           72       114   119.625637   0.1075             29   196.556748   
-6           44       114    82.195784   0.0747             29   186.074766   
-7          108       114   140.728949   0.1270             29   225.895101   
-8           72       114   161.150047   0.1352             29   199.593516   
-9           40       114   118.272288   0.1091             29   198.553420   
-10          92       114   203.809802   0.1784             29   251.485033   
-11         100       114   159.129787   0.1401             29   239.899151   
-12          68       114   154.998264   0.1372             29   236.809227   
-13          84       114   133.869350   0.1174             29   246.100385   
-14          72       114   319.896991   0.2671             29   250.670480   
-15          24       114   112.412630   0.1005             29   239.248180   
-16         100       114   274.445997   0.2361             29   249.461529   
-17          84       114   139.113795   0.1191             29   263.131199   
-18          52       114    87.474757   0.0762             29   267.802450   
-19          60       114    77.238383   0.0702             29   260.945785   
-20          92       114   172.136405   0.1558             29   284.457499   
-21         108       114   158.655085   0.1436             29   288.664650   
-22         108       114   216.303515   0.1876             29   291.779795   
-23          40       114   126.500541   0.1171             29   322.489048   
-24          16       114   196.031355   0.1682             29   337.765569   
-25         100       114   253.067309   0.1763             29   377.171665   
-26          76       114   426.873130   0.3019             29   430.829440   
-27          32       114   254.166578   0.1940             29   398.444302   
-28          64       114   260.609929   0.2026             29   398.444302   
-29          64       114   254.166578   0.1940             29   398.444302   
-..         ...       ...          ...      ...            ...          ...   
-34          76       114   317.814190   0.2763             29   400.035442   
-35          32       114   211.838814   0.1859             29   425.032706   
-36          24       114   106.683929   0.0922             29   432.318472   
-37          40       114   256.240971   0.2156             29   405.363943   
-38          56       114   110.314090   0.0916             29   465.527461   
-39          56       114   184.213122   0.1538             29   449.574227   
-40          56       114   187.166114   0.1564             29   449.581377   
-41          92       114   168.896342   0.1384             29   450.148268   
-42          92       114   171.015870   0.1401             29   450.160987   
-43           0       114   322.504786   0.3213             29   507.510345   
-44          68       114   595.285853   0.6074             29   459.517991   
-45          84       114   407.771895   0.3762             29   471.084956   
-46          84       114   400.878414   0.3696             29   471.129234   
-47          32       114   626.384098   0.6436             29   475.657367   
-48          48       114   525.821374   0.4993             29   475.657367   
-49          48       114   523.594420   0.4968             29   475.657367   
-50          16       114   192.102266   0.1596             29   493.140940   
-51          48       114   192.125991   0.1589             29   490.417405   
-52          56       114   476.358948   0.4043             29   645.487517   
-53          48       114   391.899708   0.3098             29   593.945885   
-54          48       114   192.245403   0.1593             29   550.827368   
-55          76       114   202.195047   0.1910             29   672.714863   
-56          48       114   603.459966   0.2934             29   675.636834   
-57          56       114   603.216407   0.3119             29   701.550993   
-58          92       114   185.648390   0.1641             29   810.866932   
-59          92       114   196.111040   0.1626             29   998.200729   
-60          84       114   242.489931   0.2057             29  1259.244138   
-61          32       114  4716.796506   1.6800             29  1444.267575   
-62          84       114   279.203696   0.2556             29  1471.735564   
-63          40       114  4748.360668   1.8902             29  1920.684725   
+    Complexity  FitCount         FitL1         FitL2       FitMAPE  \
+0           68       114  7.536893e+01  9.749034e+01  8.510000e-02   
+1           52       114  7.398719e+01  9.680141e+01  8.400000e-02   
+2           36       114  6.960317e+01  9.189841e+01  8.080000e-02   
+3          100       114  9.422752e+01  1.210068e+02  1.009000e-01   
+4           60       114  6.330201e+01  8.154007e+01  7.400000e-02   
+5           44       114  6.747317e+01  8.695327e+01  7.790000e-02   
+6           76       114  6.389749e+01  8.146745e+01  7.530000e-02   
+7           72       114  1.103864e+02  1.611500e+02  1.352000e-01   
+8           72       114  9.384113e+01  1.227865e+02  1.100000e-01   
+9           40       114  9.283509e+01  1.182723e+02  1.091000e-01   
+10         108       114  1.104550e+02  1.447218e+02  1.277000e-01   
+11          84       114  1.100424e+02  1.404447e+02  1.237000e-01   
+12          68       114  1.237151e+02  1.622992e+02  1.423000e-01   
+13          52       114  6.699525e+01  8.909346e+01  7.750000e-02   
+14          24       114  8.949733e+01  1.124126e+02  1.005000e-01   
+15         100       114  1.278732e+02  1.673365e+02  1.492000e-01   
+16         108       114  9.417829e+01  1.196746e+02  1.092000e-01   
+17          60       114  5.940892e+01  7.932882e+01  7.020000e-02   
+18          84       114  1.188197e+02  1.540714e+02  1.350000e-01   
+19          68       114  1.626276e+02  2.303276e+02  1.626000e-01   
+20          92       114  1.707302e+02  2.245688e+02  1.999000e-01   
+21          40       114  9.021754e+01  1.163632e+02  1.075000e-01   
+22          84       114  1.844016e+02  2.609160e+02  1.847000e-01   
+23          92       114  1.422974e+02  1.825159e+02  1.583000e-01   
+24          16       114  1.328776e+02  1.960314e+02  1.682000e-01   
+25          76       114  2.711195e+02  4.368136e+02  3.122000e-01   
+26          32       114  1.597895e+02  2.541666e+02  1.940000e-01   
+27          64       114  1.650965e+02  2.606099e+02  2.026000e-01   
+28          64       114  1.597895e+02  2.541666e+02  1.940000e-01   
+29          64       114  1.597895e+02  2.541666e+02  1.940000e-01   
+..         ...       ...           ...           ...           ...   
+34          56       114  9.085725e+01  1.204096e+02  9.990000e-02   
+35          32       114  1.378952e+02  2.151995e+02  1.901000e-01   
+36           0       114  2.804681e+02  3.225048e+02  3.213000e-01   
+37          16       114  1.243041e+02  1.921023e+02  1.596000e-01   
+38          48       114  1.211312e+02  1.922615e+02  1.588000e-01   
+39          56       114  3.648284e+02  4.763589e+02  4.043000e-01   
+40          48       114  2.923491e+02  3.918997e+02  3.098000e-01   
+41          48       114  1.237069e+02  1.921986e+02  1.593000e-01   
+42          76       114  1.758272e+02  2.063672e+02  2.090000e-01   
+43          48       114  2.217040e+02  6.034600e+02  2.934000e-01   
+44          56       114  2.444605e+02  6.032164e+02  3.119000e-01   
+45          92       114  2.031823e+02  2.574472e+02  2.311000e-01   
+46          92       114  2.143012e+02  2.703087e+02  2.367000e-01   
+47          32       114  1.436511e+03  4.716797e+03  1.680000e+00   
+48          40       114  1.563534e+03  4.748361e+03  1.890200e+00   
+49          32       114  2.210477e+10  2.220198e+10  2.440959e+07   
+50          40       114  2.085178e+10  2.151388e+10  2.234688e+07   
+51          68       114  2.210489e+10  2.220198e+10  2.440979e+07   
+52         100       114  2.035721e+10  2.129996e+10  2.162406e+07   
+53          48       114  2.210586e+10  2.220198e+10  2.441134e+07   
+54          84       114  2.210790e+10  2.220201e+10  2.441459e+07   
+55          56       114  2.210524e+10  2.220198e+10  2.441035e+07   
+56          92       114  2.210606e+10  2.220198e+10  2.441165e+07   
+57          72       114  2.152066e+10  2.190530e+10  2.344931e+07   
+58         108       114  2.205472e+10  2.215837e+10  2.432821e+07   
+59          48       114  2.210565e+10  2.220198e+10  2.441100e+07   
+60          84       114  2.210701e+10  2.220199e+10  2.441318e+07   
+61          56       114  2.210546e+10  2.220198e+10  2.441069e+07   
+62          92       114  2.210693e+10  2.220199e+10  2.441305e+07   
+63          76       114  2.193060e+10  2.210475e+10  2.412639e+07   
 
-    ForecastMAPE  TestCount       TestL2  TestMAPE  
-0         0.0963          2   185.712232    0.1755  
-1         0.1063          2   245.206856    0.2353  
-2         0.1212          2   245.916920    0.2351  
-3         0.1354          2   164.907637    0.1536  
-4         0.1381          2    94.535402    0.0724  
-5         0.1429          2   145.612074    0.0958  
-6         0.1442          2   196.209793    0.1771  
-7         0.1477          2   185.301696    0.1447  
-8         0.1487          2   189.442173    0.1392  
-9         0.1507          2   114.676523    0.0905  
-10        0.1629          2   251.422591    0.2396  
-11        0.1642          2   197.418872    0.1876  
-12        0.1660          2   173.443810    0.1665  
-13        0.1677          2   127.495520    0.1224  
-14        0.1690          2   359.603582    0.3377  
-15        0.1723          2   622.491385    0.6021  
-16        0.1732          2   413.723777    0.3952  
-17        0.1763          2   100.346193    0.0972  
-18        0.1816          2   500.674458    0.4851  
-19        0.2032          2   404.395088    0.3910  
-20        0.2076          2   218.640094    0.1642  
-21        0.2128          2   496.204118    0.4760  
-22        0.2156          2   721.518279    0.6987  
-23        0.2384          2   770.273382    0.7460  
-24        0.2443          2   593.109042    0.5744  
-25        0.2470          2  1225.058670    1.1826  
-26        0.2512          2   296.404010    0.1913  
-27        0.2730          2   115.829616    0.1097  
-28        0.2730          2   115.829616    0.1097  
-29        0.2730          2   115.829616    0.1097  
-..           ...        ...          ...       ...  
-34        0.3248          2   730.985636    0.7083  
-35        0.3249          2   780.253575    0.7562  
-36        0.3265          2  1014.763124    0.9835  
-37        0.3288          2   730.985636    0.7083  
-38        0.3506          2  1102.857640    1.0689  
-39        0.3616          2   730.985636    0.7083  
-40        0.3616          2   730.985636    0.7083  
-41        0.3622          2   730.985636    0.7083  
-42        0.3622          2   730.985636    0.7083  
-43        0.3639          2    71.111574    0.0622  
-44        0.3705          2   730.985636    0.7083  
-45        0.3787          2   730.985636    0.7083  
-46        0.3787          2   730.985636    0.7083  
-47        0.3816          2   730.985636    0.7083  
-48        0.3816          2   730.985636    0.7083  
-49        0.3816          2   730.985636    0.7083  
-50        0.3842          2   985.641541    0.9553  
-51        0.3858          2   951.017955    0.9218  
-52        0.4003          2   524.199043    0.3577  
-53        0.4087          2   147.644548    0.1237  
-54        0.4370          2  1112.721802    1.0784  
-55        0.5037          2  1722.533980    1.6660  
-56        0.5584          2  1246.297733    1.2078  
-57        0.5721          2  1296.545690    1.2566  
-58        0.6105          2  2006.383342    1.9403  
-59        0.7460          2  2425.930095    2.3455  
-60        0.8867          2  3240.421887    3.1267  
-61        1.0000          2  1040.096149    1.0000  
-62        1.0263          2  3719.442962    3.5892  
-63        1.1505          2  2124.978449    1.3834  
+         FitMASE  ForecastCount    ForecastL1    ForecastL2  ForecastMAPE  \
+0   4.675000e-01             29  1.307093e+02  1.690858e+02  1.030000e-01   
+1   4.590000e-01             29  1.316152e+02  1.737222e+02  1.066000e-01   
+2   4.318000e-01             29  1.489494e+02  1.893497e+02  1.203000e-01   
+3   5.845000e-01             29  1.610997e+02  2.047955e+02  1.219000e-01   
+4   3.927000e-01             29  1.301263e+02  1.643106e+02  1.238000e-01   
+5   4.186000e-01             29  1.497777e+02  1.892112e+02  1.417000e-01   
+6   3.964000e-01             29  1.498662e+02  1.916833e+02  1.470000e-01   
+7   6.848000e-01             29  1.579395e+02  1.995935e+02  1.487000e-01   
+8   5.821000e-01             29  1.594490e+02  1.971586e+02  1.487000e-01   
+9   5.759000e-01             29  1.604483e+02  1.985534e+02  1.507000e-01   
+10  6.852000e-01             29  1.872024e+02  2.332366e+02  1.579000e-01   
+11  6.826000e-01             29  1.909605e+02  2.323603e+02  1.582000e-01   
+12  7.674000e-01             29  1.946923e+02  2.335194e+02  1.632000e-01   
+13  4.156000e-01             29  2.027838e+02  2.580977e+02  1.715000e-01   
+14  5.552000e-01             29  1.728913e+02  2.392482e+02  1.723000e-01   
+15  7.932000e-01             29  2.130762e+02  2.512782e+02  1.724000e-01   
+16  5.842000e-01             29  2.031847e+02  2.450249e+02  1.861000e-01   
+17  3.685000e-01             29  2.013986e+02  2.551974e+02  1.946000e-01   
+18  7.371000e-01             29  2.387054e+02  2.958019e+02  1.997000e-01   
+19  1.008800e+00             29  2.356231e+02  3.066944e+02  2.018000e-01   
+20  1.059100e+00             29  2.502919e+02  3.123316e+02  2.040000e-01   
+21  5.596000e-01             29  2.195885e+02  3.040806e+02  2.202000e-01   
+22  1.143900e+00             29  2.592615e+02  3.339883e+02  2.218000e-01   
+23  8.827000e-01             29  2.610473e+02  3.049047e+02  2.234000e-01   
+24  8.243000e-01             29  2.001160e+02  3.377656e+02  2.443000e-01   
+25  1.681800e+00             29  3.378766e+02  4.621373e+02  2.569000e-01   
+26  9.912000e-01             29  2.552414e+02  3.984443e+02  2.730000e-01   
+27  1.024100e+00             29  2.552414e+02  3.984443e+02  2.730000e-01   
+28  9.912000e-01             29  2.552414e+02  3.984443e+02  2.730000e-01   
+29  9.912000e-01             29  2.552414e+02  3.984443e+02  2.730000e-01   
+..           ...            ...           ...           ...           ...   
+34  5.636000e-01             29  3.510709e+02  4.423481e+02  3.280000e-01   
+35  8.554000e-01             29  2.899068e+02  4.304995e+02  3.304000e-01   
+36  1.739800e+00             29  4.843067e+02  5.075103e+02  3.639000e-01   
+37  7.711000e-01             29  3.551338e+02  4.931409e+02  3.842000e-01   
+38  7.514000e-01             29  3.619858e+02  4.933545e+02  3.889000e-01   
+39  2.263200e+00             29  5.651791e+02  6.454875e+02  4.003000e-01   
+40  1.813500e+00             29  5.680568e+02  5.939459e+02  4.087000e-01   
+41  7.674000e-01             29  4.266489e+02  5.548824e+02  4.411000e-01   
+42  1.090700e+00             29  5.269101e+02  6.452626e+02  4.646000e-01   
+43  1.375300e+00             29  5.773236e+02  6.756368e+02  5.584000e-01   
+44  1.516500e+00             29  5.866125e+02  7.015510e+02  5.721000e-01   
+45  1.260400e+00             29  6.835322e+02  8.046631e+02  5.897000e-01   
+46  1.329400e+00             29  8.457484e+02  9.850221e+02  7.208000e-01   
+47  8.911200e+00             29  1.409517e+03  1.444268e+03  1.000000e+00   
+48  9.699100e+00             29  1.473628e+03  1.920685e+03  1.150500e+00   
+49  1.371233e+08             29  2.230000e+10  2.230000e+10  1.744632e+07   
+50  1.293506e+08             29  2.230000e+10  2.230000e+10  1.744632e+07   
+51  1.371241e+08             29  2.230000e+10  2.230000e+10  1.744632e+07   
+52  1.262827e+08             29  2.230000e+10  2.230000e+10  1.744632e+07   
+53  1.371301e+08             29  2.230000e+10  2.230000e+10  1.744632e+07   
+54  1.371427e+08             29  2.230000e+10  2.230000e+10  1.744632e+07   
+55  1.371263e+08             29  2.230000e+10  2.230000e+10  1.744632e+07   
+56  1.371314e+08             29  2.230000e+10  2.230000e+10  1.744632e+07   
+57  1.334999e+08             29  2.230000e+10  2.230000e+10  1.744632e+07   
+58  1.368128e+08             29  2.230000e+10  2.230000e+10  1.744632e+07   
+59  1.371288e+08             29  2.230000e+10  2.230000e+10  1.744632e+07   
+60  1.371373e+08             29  2.230000e+10  2.230000e+10  1.744632e+07   
+61  1.371276e+08             29  2.230000e+10  2.230000e+10  1.744632e+07   
+62  1.371368e+08             29  2.230000e+10  2.230000e+10  1.744632e+07   
+63  1.360429e+08             29  2.230000e+10  2.230000e+10  1.744632e+07   
 
-[64 rows x 12 columns]
+    ForecastMASE  TestCount        TestL1        TestL2      TestMAPE  \
+0   5.117000e-01          2  1.730695e+02  1.803212e+02  1.705000e-01   
+1   5.153000e-01          2  3.658881e+02  3.664394e+02  3.552000e-01   
+2   5.831000e-01          2  2.228824e+02  2.351334e+02  2.202000e-01   
+3   6.307000e-01          2  2.875789e+02  3.022291e+02  2.839000e-01   
+4   5.094000e-01          2  2.081902e+02  2.134657e+02  2.043000e-01   
+5   5.864000e-01          2  1.719896e+02  2.043427e+02  1.732000e-01   
+6   5.867000e-01          2  7.489687e+01  8.377535e+01  7.480000e-02   
+7   6.183000e-01          2  1.511722e+02  1.894422e+02  1.392000e-01   
+8   6.242000e-01          2  1.004500e+02  1.267599e+02  9.240000e-02   
+9   6.282000e-01          2  9.745000e+01  1.146765e+02  9.050000e-02   
+10  7.329000e-01          2  1.587742e+02  2.219227e+02  1.440000e-01   
+11  7.476000e-01          2  1.506529e+02  1.529339e+02  1.441000e-01   
+12  7.622000e-01          2  1.628558e+02  1.658643e+02  1.556000e-01   
+13  7.939000e-01          2  5.141629e+02  5.145917e+02  4.986000e-01   
+14  6.769000e-01          2  6.173072e+02  6.224914e+02  6.021000e-01   
+15  8.342000e-01          2  1.765626e+02  1.808043e+02  1.732000e-01   
+16  7.955000e-01          2  8.383866e+01  1.155846e+02  8.600000e-02   
+17  7.885000e-01          2  4.568492e+02  4.577481e+02  4.437000e-01   
+18  9.345000e-01          2  1.553427e+02  2.039100e+02  1.584000e-01   
+19  9.225000e-01          2  1.179959e+03  1.181546e+03  1.137600e+00   
+20  9.799000e-01          2  1.134046e+02  1.494710e+02  1.037000e-01   
+21  8.597000e-01          2  7.403167e+02  7.445145e+02  7.210000e-01   
+22  1.015000e+00          2  1.244779e+03  1.246264e+03  1.200300e+00   
+23  1.022000e+00          2  2.114145e+02  2.369118e+02  2.111000e-01   
+24  7.835000e-01          2  5.898113e+02  5.931090e+02  5.744000e-01   
+25  1.322800e+00          2  2.459837e+02  2.837828e+02  2.292000e-01   
+26  9.993000e-01          2  1.145000e+02  1.158296e+02  1.097000e-01   
+27  9.993000e-01          2  1.145000e+02  1.158296e+02  1.097000e-01   
+28  9.993000e-01          2  1.145000e+02  1.158296e+02  1.097000e-01   
+29  9.993000e-01          2  1.145000e+02  1.158296e+02  1.097000e-01   
+..           ...        ...           ...           ...           ...   
+34  1.374400e+00          2  1.071761e+03  1.074129e+03  1.041100e+00   
+35  1.135000e+00          2  7.860965e+02  7.885260e+02  7.642000e-01   
+36  1.896100e+00          2  6.600000e+01  7.111157e+01  6.220000e-02   
+37  1.390300e+00          2  9.839961e+02  9.856415e+02  9.553000e-01   
+38  1.417200e+00          2  9.532283e+02  9.550237e+02  9.257000e-01   
+39  2.212700e+00          2  3.919294e+02  5.241990e+02  3.577000e-01   
+40  2.223900e+00          2  1.320716e+02  1.476445e+02  1.237000e-01   
+41  1.670300e+00          2  1.116686e+03  1.118003e+03  1.083500e+00   
+42  2.062800e+00          2  1.705848e+03  1.705950e+03  1.651200e+00   
+43  2.260200e+00          2  1.245042e+03  1.246298e+03  1.207800e+00   
+44  2.296600e+00          2  1.294586e+03  1.296546e+03  1.256600e+00   
+45  2.676000e+00          2  2.046434e+03  2.046493e+03  1.980500e+00   
+46  3.311100e+00          2  2.437640e+03  2.437643e+03  2.358200e+00   
+47  5.518200e+00          2  1.038000e+03  1.040096e+03  1.000000e+00   
+48  5.769200e+00          2  1.524340e+03  2.124978e+03  1.383400e+00   
+49  8.730425e+07          2  2.230000e+10  2.230000e+10  2.157083e+07   
+50  8.730425e+07          2  2.230000e+10  2.230000e+10  2.157083e+07   
+51  8.730425e+07          2  2.230000e+10  2.230000e+10  2.157083e+07   
+52  8.730425e+07          2  2.230000e+10  2.230000e+10  2.157083e+07   
+53  8.730425e+07          2  2.230000e+10  2.230000e+10  2.157083e+07   
+54  8.730425e+07          2  2.230000e+10  2.230000e+10  2.157083e+07   
+55  8.730425e+07          2  2.230000e+10  2.230000e+10  2.157083e+07   
+56  8.730425e+07          2  2.230000e+10  2.230000e+10  2.157083e+07   
+57  8.730425e+07          2  2.230000e+10  2.230000e+10  2.157083e+07   
+58  8.730425e+07          2  2.230000e+10  2.230000e+10  2.157083e+07   
+59  8.730425e+07          2  2.230000e+10  2.230000e+10  2.157083e+07   
+60  8.730425e+07          2  2.230000e+10  2.230000e+10  2.157083e+07   
+61  8.730425e+07          2  2.230000e+10  2.230000e+10  2.157083e+07   
+62  8.730425e+07          2  2.230000e+10  2.230000e+10  2.157083e+07   
+63  8.730425e+07          2  2.230000e+10  2.230000e+10  2.157083e+07   
+
+        TestMASE  
+0   1.311100e+00  
+1   2.771900e+00  
+2   1.688500e+00  
+3   2.178600e+00  
+4   1.577200e+00  
+5   1.303000e+00  
+6   5.674000e-01  
+7   1.145200e+00  
+8   7.610000e-01  
+9   7.383000e-01  
+10  1.202800e+00  
+11  1.141300e+00  
+12  1.233800e+00  
+13  3.895200e+00  
+14  4.676600e+00  
+15  1.337600e+00  
+16  6.351000e-01  
+17  3.461000e+00  
+18  1.176800e+00  
+19  8.939100e+00  
+20  8.591000e-01  
+21  5.608500e+00  
+22  9.430100e+00  
+23  1.601600e+00  
+24  4.468300e+00  
+25  1.863500e+00  
+26  8.674000e-01  
+27  8.674000e-01  
+28  8.674000e-01  
+29  8.674000e-01  
+..           ...  
+34  8.119400e+00  
+35  5.955300e+00  
+36  5.000000e-01  
+37  7.454500e+00  
+38  7.221400e+00  
+39  2.969200e+00  
+40  1.000500e+00  
+41  8.459700e+00  
+42  1.292310e+01  
+43  9.432100e+00  
+44  9.807500e+00  
+45  1.550330e+01  
+46  1.846700e+01  
+47  7.863600e+00  
+48  1.154800e+01  
+49  1.689394e+08  
+50  1.689394e+08  
+51  1.689394e+08  
+52  1.689394e+08  
+53  1.689394e+08  
+54  1.689394e+08  
+55  1.689394e+08  
+56  1.689394e+08  
+57  1.689394e+08  
+58  1.689394e+08  
+59  1.689394e+08  
+60  1.689394e+08  
+61  1.689394e+08  
+62  1.689394e+08  
+63  1.689394e+08  
+
+[64 rows x 18 columns]INFO:pyaf.std:START_TRAINING 'YAD5'
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'YAD5' 6.489261150360107
+INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=0 TimeMax=31 TimeDelta=1.0 Estimation = (0 , 32) Validation = (32 , 41) Test = (41 , 43) Horizon=2
+INFO:pyaf.std:SIGNAL_DETAIL SignalVariable='_YAD5' Min=461.0 Max=522.0  Mean=497.11627907 StdDev=12.9564732898
+INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
+INFO:pyaf.std:BEST_DECOMPOSITION  '_YAD5_ConstantTrend_residue_zeroCycle_residue_NoAR' [ConstantTrend + NoCycle + NoAR]
+INFO:pyaf.std:TREND_DETAIL '_YAD5_ConstantTrend' [ConstantTrend]
+INFO:pyaf.std:CYCLE_DETAIL '_YAD5_ConstantTrend_residue_zeroCycle' [NoCycle]
+INFO:pyaf.std:AUTOREG_DETAIL '_YAD5_ConstantTrend_residue_zeroCycle_residue_NoAR' [NoAR]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0154 MAPE_Forecast=0.0347 MAPE_Test=0.0321
+INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7475 MASE_Forecast=0.9182 MASE_Test=1.8368
+INFO:pyaf.std:MODEL_L1 L1_Fit=10.1872603499 L1_Forecast=19.2689554265 L1_Test=16.53125
+INFO:pyaf.std:MODEL_L2 L2_Fit=10.1872603499 L2_Forecast=19.2689554265 L2_Test=17.132782219
+INFO:pyaf.std:MODEL_COMPLEXITY 0
+INFO:pyaf.std:AR_MODEL_DETAIL_START
+INFO:pyaf.std:AR_MODEL_DETAIL_END
+
   Transformation                                              Model  \
 0         _MNI21  _MNI21_Lag1Trend_residue_zeroCycle_residue_AR(36)   
 1         _MNI21  _MNI21_LinearTrend_residue_zeroCycle_residue_A...   
 2         _MNI21  _MNI21_ConstantTrend_residue_zeroCycle_residue...   
-3         _MNI21  _MNI21_LinearTrend_residue_bestCycle_byL2_resi...   
-4         _MNI21  _MNI21_Lag1Trend_residue_bestCycle_byL2_residu...   
+3     Diff_MNI21  Diff_MNI21_Lag1Trend_residue_zeroCycle_residue...   
+4         _MNI21  _MNI21_LinearTrend_residue_bestCycle_byL2_resi...   
 
-   Complexity  FitCount      FitL2  FitMAPE  ForecastCount  ForecastL2  \
-0          68       114  89.899254   0.0783             29  167.989017   
-1          52       114  88.922014   0.0789             29  176.510283   
-2          36       114  89.623014   0.0777             29  190.502548   
-3          60       114  78.903746   0.0715             29  179.252125   
-4          76       114  80.749041   0.0744             29  182.875306   
+   Complexity  FitCount      FitL1       FitL2  FitMAPE  FitMASE  \
+0          68       114  75.368930   97.490343   0.0851   0.4675   
+1          52       114  73.987195   96.801413   0.0840   0.4590   
+2          36       114  69.603173   91.898414   0.0808   0.4318   
+3         100       114  94.227517  121.006765   0.1009   0.5845   
+4          60       114  63.302014   81.540066   0.0740   0.3927   
 
-   ForecastMAPE  TestCount      TestL2  TestMAPE  
-0        0.0963          2  185.712232    0.1755  
-1        0.1063          2  245.206856    0.2353  
-2        0.1212          2  245.916920    0.2351  
-3        0.1354          2  164.907637    0.1536  
-4        0.1381          2   94.535402    0.0724  
+   ForecastCount  ForecastL1  ForecastL2  ForecastMAPE  ForecastMASE  \
+0             29  130.709258  169.085786        0.1030        0.5117   
+1             29  131.615214  173.722184        0.1066        0.5153   
+2             29  148.949358  189.349736        0.1203        0.5831   
+3             29  161.099652  204.795451        0.1219        0.6307   
+4             29  130.126306  164.310592        0.1238        0.5094   
+
+   TestCount      TestL1      TestL2  TestMAPE  TestMASE  
+0          2  173.069478  180.321170    0.1705    1.3111  
+1          2  365.888070  366.439361    0.3552    2.7719  
+2          2  222.882399  235.133357    0.2202    1.6885  
+3          2  287.578862  302.229096    0.2839    2.1786  
+4          2  208.190216  213.465684    0.2043    1.5772  
 2 0    1169.0
 1    1126.0
 Name: MNI21, dtype: float64
-2 0    1385.130237
-1    1384.130457
+2 0    1463.477095
+1    1557.164199
 Name: MNI21_Forecast, dtype: float64
 FORECAST_DETAIL_ACTUAL M1_COMP MNI21 [ 1169.  1126.]
-FORECAST_DETAIL_PREDICTED M1_COMP MNI21 [ 1385.13023731  1384.13045715]
-BENCHMARK_PERF_DETAIL M1_COMP MNI21 145 2 6.504430532455444 Lag1Trend + NoCycle + AR(36) 2 0.2071 0.0937
-BENCH_DATA M1_COMP <pyaf.Bench.TS_datasets.cTimeSeriesDatasetSpec object at 0x7f3b6856fcf8>
+FORECAST_DETAIL_PREDICTED M1_COMP MNI21 [ 1463.47709509  1557.16419929]
+BENCHMARK_PERF_DETAIL M1_COMP MNI21 145 2 9.619840860366821 LinearTrend + NoCycle + AR(36) 2 0.3174 0.2726
+BENCH_DATA M1_COMP <pyaf.Bench.TS_datasets.cTimeSeriesDatasetSpec object at 0x7f3998da3eb8>
 TIME :  Date N= 43 H= 2 HEAD= [0 1 2 3 4] TAIL= [38 39 40 41 42]
 SIGNAL :  YAD5 N= 43 H= 2 HEAD= [ 498.  501.  496.  508.  503.] TAIL= [ 522.  490.  515.  510.  519.]
 Index   YAD5  Date
@@ -253,26 +428,26 @@ dtypes: float64(1), int64(1)
 memory usage: 1.0+ KB
 None
    Transformation                                              Model  \
-0           _YAD5   _YAD5_Lag1Trend_residue_zeroCycle_residue_AR(10)   
-1           _YAD5  _YAD5_Lag1Trend_residue_bestCycle_byL2_residue...   
-2    RelDiff_YAD5  RelDiff_YAD5_Lag1Trend_residue_zeroCycle_resid...   
-3    RelDiff_YAD5  RelDiff_YAD5_Lag1Trend_residue_bestCycle_byL2_...   
-4           _YAD5   _YAD5_PolyTrend_residue_zeroCycle_residue_AR(10)   
-5           _YAD5  _YAD5_PolyTrend_residue_bestCycle_byL2_residue...   
-6           _YAD5  _YAD5_ConstantTrend_residue_zeroCycle_residue_...   
-7           _YAD5  _YAD5_ConstantTrend_residue_bestCycle_byL2_res...   
-8           _YAD5  _YAD5_LinearTrend_residue_zeroCycle_residue_AR...   
-9           _YAD5  _YAD5_LinearTrend_residue_bestCycle_byL2_resid...   
-10          _YAD5   _YAD5_LinearTrend_residue_zeroCycle_residue_NoAR   
-11          _YAD5  _YAD5_LinearTrend_residue_bestCycle_byL2_resid...   
-12          _YAD5     _YAD5_PolyTrend_residue_zeroCycle_residue_NoAR   
-13          _YAD5  _YAD5_PolyTrend_residue_bestCycle_byL2_residue...   
-14      Diff_YAD5  Diff_YAD5_LinearTrend_residue_zeroCycle_residu...   
-15      Diff_YAD5  Diff_YAD5_LinearTrend_residue_bestCycle_byL2_r...   
-16      Diff_YAD5  Diff_YAD5_ConstantTrend_residue_zeroCycle_resi...   
-17      Diff_YAD5  Diff_YAD5_ConstantTrend_residue_bestCycle_byL2...   
-18      Diff_YAD5  Diff_YAD5_PolyTrend_residue_zeroCycle_residue_...   
-19      Diff_YAD5  Diff_YAD5_PolyTrend_residue_bestCycle_byL2_res...   
+0           _YAD5  _YAD5_ConstantTrend_residue_zeroCycle_residue_...   
+1           _YAD5  _YAD5_ConstantTrend_residue_bestCycle_byL2_res...   
+2           _YAD5   _YAD5_PolyTrend_residue_zeroCycle_residue_AR(10)   
+3           _YAD5  _YAD5_PolyTrend_residue_bestCycle_byL2_residue...   
+4           _YAD5  _YAD5_LinearTrend_residue_zeroCycle_residue_AR...   
+5           _YAD5  _YAD5_LinearTrend_residue_bestCycle_byL2_resid...   
+6           _YAD5   _YAD5_LinearTrend_residue_zeroCycle_residue_NoAR   
+7           _YAD5  _YAD5_LinearTrend_residue_bestCycle_byL2_resid...   
+8           _YAD5     _YAD5_PolyTrend_residue_zeroCycle_residue_NoAR   
+9           _YAD5  _YAD5_PolyTrend_residue_bestCycle_byL2_residue...   
+10      Diff_YAD5  Diff_YAD5_LinearTrend_residue_zeroCycle_residu...   
+11      Diff_YAD5  Diff_YAD5_LinearTrend_residue_bestCycle_byL2_r...   
+12      Diff_YAD5  Diff_YAD5_ConstantTrend_residue_zeroCycle_resi...   
+13      Diff_YAD5  Diff_YAD5_ConstantTrend_residue_bestCycle_byL2...   
+14      Diff_YAD5  Diff_YAD5_PolyTrend_residue_zeroCycle_residue_...   
+15      Diff_YAD5  Diff_YAD5_PolyTrend_residue_bestCycle_byL2_res...   
+16          _YAD5   _YAD5_Lag1Trend_residue_zeroCycle_residue_AR(10)   
+17          _YAD5  _YAD5_Lag1Trend_residue_bestCycle_byL2_residue...   
+18      Diff_YAD5  Diff_YAD5_Lag1Trend_residue_zeroCycle_residue_...   
+19      Diff_YAD5  Diff_YAD5_Lag1Trend_residue_bestCycle_byL2_res...   
 20          _YAD5  _YAD5_ConstantTrend_residue_zeroCycle_residue_...   
 21          _YAD5  _YAD5_ConstantTrend_residue_bestCycle_byL2_res...   
 22          _YAD5     _YAD5_Lag1Trend_residue_zeroCycle_residue_NoAR   
@@ -284,190 +459,323 @@ None
 28      Diff_YAD5  Diff_YAD5_Lag1Trend_residue_bestCycle_byL2_res...   
 29   RelDiff_YAD5  RelDiff_YAD5_Lag1Trend_residue_bestCycle_byL2_...   
 ..            ...                                                ...   
-34    CumSum_YAD5  CumSum_YAD5_Lag1Trend_residue_zeroCycle_residu...   
-35    CumSum_YAD5  CumSum_YAD5_Lag1Trend_residue_bestCycle_byL2_r...   
-36      Diff_YAD5  Diff_YAD5_Lag1Trend_residue_zeroCycle_residue_...   
-37      Diff_YAD5  Diff_YAD5_Lag1Trend_residue_bestCycle_byL2_res...   
-38    CumSum_YAD5  CumSum_YAD5_PolyTrend_residue_zeroCycle_residu...   
-39    CumSum_YAD5  CumSum_YAD5_PolyTrend_residue_bestCycle_byL2_r...   
-40      Diff_YAD5  Diff_YAD5_ConstantTrend_residue_zeroCycle_resi...   
-41      Diff_YAD5  Diff_YAD5_ConstantTrend_residue_bestCycle_byL2...   
-42      Diff_YAD5  Diff_YAD5_LinearTrend_residue_zeroCycle_residu...   
-43      Diff_YAD5  Diff_YAD5_LinearTrend_residue_bestCycle_byL2_r...   
-44   RelDiff_YAD5  RelDiff_YAD5_ConstantTrend_residue_zeroCycle_r...   
-45   RelDiff_YAD5  RelDiff_YAD5_ConstantTrend_residue_bestCycle_b...   
-46   RelDiff_YAD5  RelDiff_YAD5_ConstantTrend_residue_zeroCycle_r...   
-47   RelDiff_YAD5  RelDiff_YAD5_ConstantTrend_residue_bestCycle_b...   
-48   RelDiff_YAD5  RelDiff_YAD5_LinearTrend_residue_zeroCycle_res...   
-49   RelDiff_YAD5  RelDiff_YAD5_PolyTrend_residue_zeroCycle_resid...   
-50   RelDiff_YAD5  RelDiff_YAD5_LinearTrend_residue_bestCycle_byL...   
-51   RelDiff_YAD5  RelDiff_YAD5_PolyTrend_residue_bestCycle_byL2_...   
+34      Diff_YAD5  Diff_YAD5_LinearTrend_residue_zeroCycle_residu...   
+35      Diff_YAD5  Diff_YAD5_LinearTrend_residue_bestCycle_byL2_r...   
+36    CumSum_YAD5  CumSum_YAD5_LinearTrend_residue_zeroCycle_resi...   
+37    CumSum_YAD5  CumSum_YAD5_LinearTrend_residue_bestCycle_byL2...   
+38    CumSum_YAD5  CumSum_YAD5_ConstantTrend_residue_zeroCycle_re...   
+39    CumSum_YAD5  CumSum_YAD5_ConstantTrend_residue_bestCycle_by...   
+40    CumSum_YAD5  CumSum_YAD5_Lag1Trend_residue_zeroCycle_residu...   
+41    CumSum_YAD5  CumSum_YAD5_Lag1Trend_residue_bestCycle_byL2_r...   
+42    CumSum_YAD5  CumSum_YAD5_PolyTrend_residue_zeroCycle_residu...   
+43    CumSum_YAD5  CumSum_YAD5_PolyTrend_residue_bestCycle_byL2_r...   
+44    CumSum_YAD5  CumSum_YAD5_LinearTrend_residue_zeroCycle_resi...   
+45    CumSum_YAD5  CumSum_YAD5_LinearTrend_residue_bestCycle_byL2...   
+46    CumSum_YAD5  CumSum_YAD5_PolyTrend_residue_zeroCycle_residu...   
+47    CumSum_YAD5  CumSum_YAD5_PolyTrend_residue_bestCycle_byL2_r...   
+48    CumSum_YAD5  CumSum_YAD5_ConstantTrend_residue_zeroCycle_re...   
+49    CumSum_YAD5  CumSum_YAD5_ConstantTrend_residue_bestCycle_by...   
+50   RelDiff_YAD5  RelDiff_YAD5_ConstantTrend_residue_zeroCycle_r...   
+51   RelDiff_YAD5  RelDiff_YAD5_ConstantTrend_residue_bestCycle_b...   
 52   RelDiff_YAD5  RelDiff_YAD5_LinearTrend_residue_zeroCycle_res...   
-53   RelDiff_YAD5  RelDiff_YAD5_PolyTrend_residue_zeroCycle_resid...   
-54   RelDiff_YAD5  RelDiff_YAD5_LinearTrend_residue_bestCycle_byL...   
-55   RelDiff_YAD5  RelDiff_YAD5_PolyTrend_residue_bestCycle_byL2_...   
-56      Diff_YAD5  Diff_YAD5_PolyTrend_residue_zeroCycle_residue_...   
-57      Diff_YAD5  Diff_YAD5_PolyTrend_residue_bestCycle_byL2_res...   
-58    CumSum_YAD5  CumSum_YAD5_LinearTrend_residue_zeroCycle_resi...   
-59    CumSum_YAD5  CumSum_YAD5_LinearTrend_residue_bestCycle_byL2...   
-60    CumSum_YAD5  CumSum_YAD5_PolyTrend_residue_zeroCycle_residu...   
-61    CumSum_YAD5  CumSum_YAD5_PolyTrend_residue_bestCycle_byL2_r...   
-62    CumSum_YAD5  CumSum_YAD5_ConstantTrend_residue_zeroCycle_re...   
-63    CumSum_YAD5  CumSum_YAD5_ConstantTrend_residue_bestCycle_by...   
+53   RelDiff_YAD5  RelDiff_YAD5_LinearTrend_residue_bestCycle_byL...   
+54   RelDiff_YAD5  RelDiff_YAD5_LinearTrend_residue_zeroCycle_res...   
+55   RelDiff_YAD5  RelDiff_YAD5_PolyTrend_residue_zeroCycle_resid...   
+56   RelDiff_YAD5  RelDiff_YAD5_LinearTrend_residue_bestCycle_byL...   
+57   RelDiff_YAD5  RelDiff_YAD5_PolyTrend_residue_bestCycle_byL2_...   
+58   RelDiff_YAD5  RelDiff_YAD5_ConstantTrend_residue_zeroCycle_r...   
+59   RelDiff_YAD5  RelDiff_YAD5_ConstantTrend_residue_bestCycle_b...   
+60   RelDiff_YAD5  RelDiff_YAD5_Lag1Trend_residue_zeroCycle_resid...   
+61   RelDiff_YAD5  RelDiff_YAD5_Lag1Trend_residue_bestCycle_byL2_...   
+62   RelDiff_YAD5  RelDiff_YAD5_PolyTrend_residue_zeroCycle_resid...   
+63   RelDiff_YAD5  RelDiff_YAD5_PolyTrend_residue_bestCycle_byL2_...   
 
-    Complexity  FitCount        FitL2  FitMAPE  ForecastCount  ForecastL2  \
-0           42        32     8.018102   0.0135              9   15.821187   
-1           50        32     8.018102   0.0135              9   15.821187   
-2           74        32    10.655358   0.0172              9   17.225058   
-3           82        32    10.655358   0.0172              9   17.225058   
-4           26        32     6.916816   0.0118              9   18.235944   
-5           34        32     6.916816   0.0118              9   18.235944   
-6           10        32     7.982443   0.0131              9   18.509614   
-7           18        32     7.982443   0.0131              9   18.509614   
-8           26        32     7.446970   0.0125              9   17.002592   
-9           34        32     7.446970   0.0125              9   17.002592   
-10          16        32     9.550998   0.0146              9   18.297785   
-11          24        32     9.550998   0.0146              9   18.297785   
-12          16        32     9.479325   0.0146              9   19.675319   
-13          24        32     9.479325   0.0146              9   19.675319   
-14          48        32     9.870970   0.0148              9   18.606105   
-15          56        32     9.870970   0.0148              9   18.606105   
-16          32        32    10.009834   0.0150              9   18.360338   
-17          40        32    10.009834   0.0150              9   18.360338   
-18          48        32     9.799375   0.0148              9   17.786149   
-19          56        32     9.799375   0.0148              9   17.786149   
-20           0        32    10.187260   0.0154              9   19.268955   
-21           8        32    10.187260   0.0154              9   19.268955   
-22          32        32    12.773263   0.0200              9   19.821425   
-23          40        32    12.773263   0.0200              9   19.821425   
-24          64        32    89.479921   0.0510              9   19.821425   
-25          64        32    12.773263   0.0200              9   19.821425   
-26          64        32    12.773263   0.0200              9   19.821425   
-27          72        32    89.479921   0.0510              9   19.821425   
-28          72        32    12.773263   0.0200              9   19.821425   
-29          72        32    12.773263   0.0200              9   19.821425   
-..         ...       ...          ...      ...            ...         ...   
-34          74        32   109.434234   0.0834              9   25.884220   
-35          82        32   109.434234   0.0834              9   25.884220   
-36          74        32    11.580902   0.0171              9   31.485947   
-37          82        32    11.580902   0.0171              9   31.485947   
-38          58        32    67.130169   0.0619              9   33.287423   
-39          66        32    67.130169   0.0619              9   33.287423   
-40          42        32    32.354318   0.0564              9   29.062391   
-41          50        32    32.354318   0.0564              9   29.062391   
-42          58        32    32.038527   0.0556              9   30.083531   
-43          66        32    32.038527   0.0556              9   30.083531   
-44          42        32    19.985871   0.0312              9   36.199746   
-45          50        32    19.985871   0.0312              9   36.199746   
-46          32        32    20.962352   0.0324              9   36.347092   
-47          40        32    20.962352   0.0324              9   36.347092   
-48          48        32    19.423510   0.0293              9   36.347092   
-49          48        32    17.825966   0.0262              9   36.347092   
-50          56        32    19.423510   0.0293              9   36.347092   
-51          56        32    17.825966   0.0262              9   36.347092   
-52          58        32    18.056158   0.0276              9   36.347092   
-53          58        32    16.381045   0.0243              9   36.347092   
-54          66        32    18.056158   0.0276              9   36.347092   
-55          66        32    16.381045   0.0243              9   36.347092   
-56          58        32    32.675574   0.0576              9   50.005886   
-57          66        32    32.675574   0.0576              9   50.005886   
-58          48        32   383.012285   0.3799              9  123.094978   
-59          56        32   383.012285   0.3799              9  123.094978   
-60          48        32   460.506999   0.4550              9  410.716696   
-61          56        32   460.506999   0.4550              9  410.716696   
-62          32        32  1455.482814   1.4552              9  490.539612   
-63          40        32  1455.482814   1.4552              9  490.539612   
+    Complexity  FitCount         FitL1         FitL2       FitMAPE  \
+0           10        32  6.518514e+00  8.074752e+00  1.320000e-02   
+1           18        32  6.518514e+00  8.074752e+00  1.320000e-02   
+2           26        32  5.936934e+00  6.979462e+00  1.200000e-02   
+3           34        32  5.936934e+00  6.979462e+00  1.200000e-02   
+4           26        32  6.226835e+00  7.462316e+00  1.260000e-02   
+5           34        32  6.226835e+00  7.462316e+00  1.260000e-02   
+6           16        32  7.174769e+00  9.550998e+00  1.460000e-02   
+7           24        32  7.174769e+00  9.550998e+00  1.460000e-02   
+8           16        32  7.199224e+00  9.479325e+00  1.460000e-02   
+9           24        32  7.199224e+00  9.479325e+00  1.460000e-02   
+10          48        32  7.277648e+00  9.865955e+00  1.480000e-02   
+11          56        32  7.277648e+00  9.865955e+00  1.480000e-02   
+12          32        32  7.431641e+00  1.002358e+01  1.500000e-02   
+13          40        32  7.431641e+00  1.002358e+01  1.500000e-02   
+14          48        32  7.287127e+00  9.774224e+00  1.480000e-02   
+15          56        32  7.287127e+00  9.774224e+00  1.480000e-02   
+16          42        32  7.221520e+00  8.963223e+00  1.460000e-02   
+17          50        32  7.221520e+00  8.963223e+00  1.460000e-02   
+18          74        32  8.271912e+00  1.062487e+01  1.670000e-02   
+19          82        32  8.271912e+00  1.062487e+01  1.670000e-02   
+20           0        32  7.595703e+00  1.018726e+01  1.540000e-02   
+21           8        32  7.595703e+00  1.018726e+01  1.540000e-02   
+22          32        32  9.843750e+00  1.277326e+01  2.000000e-02   
+23          40        32  9.843750e+00  1.277326e+01  2.000000e-02   
+24          64        32  2.540625e+01  8.947992e+01  5.100000e-02   
+25          64        32  9.843750e+00  1.277326e+01  2.000000e-02   
+26          64        32  9.843750e+00  1.277326e+01  2.000000e-02   
+27          72        32  2.540625e+01  8.947992e+01  5.100000e-02   
+28          72        32  9.843750e+00  1.277326e+01  2.000000e-02   
+29          72        32  9.843750e+00  1.277326e+01  2.000000e-02   
+..         ...       ...           ...           ...           ...   
+34          58        32  9.520355e+00  1.191413e+01  1.900000e-02   
+35          66        32  9.520355e+00  1.191413e+01  1.900000e-02   
+36          58        32  1.957947e+01  3.236021e+01  3.950000e-02   
+37          66        32  1.957947e+01  3.236021e+01  3.950000e-02   
+38          42        32  4.220062e+01  1.095365e+02  8.490000e-02   
+39          50        32  4.220062e+01  1.095365e+02  8.490000e-02   
+40          74        32  4.208756e+01  1.095299e+02  8.470000e-02   
+41          82        32  4.208756e+01  1.095299e+02  8.470000e-02   
+42          58        32  3.189790e+01  6.811749e+01  6.430000e-02   
+43          66        32  3.189790e+01  6.811749e+01  6.430000e-02   
+44          48        32  1.893393e+02  3.830123e+02  3.799000e-01   
+45          56        32  1.893393e+02  3.830123e+02  3.799000e-01   
+46          48        32  2.267168e+02  4.605070e+02  4.550000e-01   
+47          56        32  2.267168e+02  4.605070e+02  4.550000e-01   
+48          32        32  7.246680e+02  1.455483e+03  1.455200e+00   
+49          40        32  7.246680e+02  1.455483e+03  1.455200e+00   
+50          32        32  3.585619e+09  3.641735e+09  7.203717e+06   
+51          40        32  3.585619e+09  3.641735e+09  7.203717e+06   
+52          48        32  3.585054e+09  3.641731e+09  7.202583e+06   
+53          56        32  3.585054e+09  3.641731e+09  7.202583e+06   
+54          58        32  3.585002e+09  3.641730e+09  7.202478e+06   
+55          58        32  3.584739e+09  3.641729e+09  7.201951e+06   
+56          66        32  3.585002e+09  3.641730e+09  7.202478e+06   
+57          66        32  3.584739e+09  3.641729e+09  7.201951e+06   
+58          42        32  3.585457e+09  3.641734e+09  7.203391e+06   
+59          50        32  3.585457e+09  3.641734e+09  7.203391e+06   
+60          74        32  3.584567e+09  3.641729e+09  7.201603e+06   
+61          82        32  3.584567e+09  3.641729e+09  7.201603e+06   
+62          48        32  3.584836e+09  3.641730e+09  7.202145e+06   
+63          56        32  3.584836e+09  3.641730e+09  7.202145e+06   
 
-    ForecastMAPE  TestCount      TestL2  TestMAPE  
-0         0.0239          2   33.655901    0.0646  
-1         0.0239          2   33.655901    0.0646  
-2         0.0267          2    8.746428    0.0147  
-3         0.0267          2    8.746428    0.0147  
-4         0.0286          2   56.201456    0.1075  
-5         0.0286          2   56.201456    0.1075  
-6         0.0291          2   42.514284    0.0819  
-7         0.0291          2   42.514284    0.0819  
-8         0.0298          2   37.192746    0.0707  
-9         0.0298          2   37.192746    0.0707  
-10        0.0303          2   24.617367    0.0469  
-11        0.0303          2   24.617367    0.0469  
-12        0.0311          2   33.211837    0.0637  
-13        0.0311          2   33.211837    0.0637  
-14        0.0314          2   23.998474    0.0457  
-15        0.0314          2   23.998474    0.0457  
-16        0.0316          2   20.891426    0.0396  
-17        0.0316          2   20.891426    0.0396  
-18        0.0318          2   12.729470    0.0235  
-19        0.0318          2   12.729470    0.0235  
-20        0.0347          2   17.132782    0.0321  
-21        0.0347          2   17.132782    0.0321  
-22        0.0359          2    7.280110    0.0136  
-23        0.0359          2    7.280110    0.0136  
-24        0.0359          2    7.280110    0.0136  
-25        0.0359          2    7.280110    0.0136  
-26        0.0359          2    7.280110    0.0136  
-27        0.0359          2    7.280110    0.0136  
-28        0.0359          2    7.280110    0.0136  
-29        0.0359          2    7.280110    0.0136  
-..           ...        ...         ...       ...  
-34        0.0436          2   13.429337    0.0255  
-35        0.0436          2   13.429337    0.0255  
-36        0.0497          2  111.137743    0.2140  
-37        0.0497          2  111.137743    0.2140  
-38        0.0531          2   35.824705    0.0657  
-39        0.0531          2   35.824705    0.0657  
-40        0.0558          2   66.988432    0.1245  
-41        0.0558          2   66.988432    0.1245  
-42        0.0564          2   90.718452    0.1696  
-43        0.0564          2   90.718452    0.1696  
-44        0.0659          2    8.746428    0.0147  
-45        0.0659          2    8.746428    0.0147  
-46        0.0662          2    8.746428    0.0147  
-47        0.0662          2    8.746428    0.0147  
-48        0.0662          2    8.746428    0.0147  
-49        0.0662          2    8.746428    0.0147  
-50        0.0662          2    8.746428    0.0147  
-51        0.0662          2    8.746428    0.0147  
-52        0.0662          2    8.746428    0.0147  
-53        0.0662          2    8.746428    0.0147  
-54        0.0662          2    8.746428    0.0147  
-55        0.0662          2    8.746428    0.0147  
-56        0.0985          2   23.866758    0.0356  
-57        0.0985          2   23.866758    0.0356  
-58        0.2475          2  146.171074    0.2839  
-59        0.2475          2  146.171074    0.2839  
-60        0.8254          2  552.761878    1.0740  
-61        0.8254          2  552.761878    1.0740  
-62        1.0000          2  514.519679    1.0000  
-63        1.0000          2  514.519679    1.0000  
+         FitMASE  ForecastCount    ForecastL1    ForecastL2  ForecastMAPE  \
+0   6.415000e-01              9  1.340299e+01  1.739786e+01  2.700000e-02   
+1   6.415000e-01              9  1.340299e+01  1.739786e+01  2.700000e-02   
+2   5.843000e-01              9  1.363498e+01  1.758953e+01  2.760000e-02   
+3   5.843000e-01              9  1.363498e+01  1.758953e+01  2.760000e-02   
+4   6.128000e-01              9  1.443151e+01  1.667811e+01  2.950000e-02   
+5   6.128000e-01              9  1.443151e+01  1.667811e+01  2.950000e-02   
+6   7.061000e-01              9  1.488246e+01  1.829779e+01  3.030000e-02   
+7   7.061000e-01              9  1.488246e+01  1.829779e+01  3.030000e-02   
+8   7.085000e-01              9  1.540727e+01  1.967532e+01  3.110000e-02   
+9   7.085000e-01              9  1.540727e+01  1.967532e+01  3.110000e-02   
+10  7.162000e-01              9  1.544498e+01  1.862380e+01  3.150000e-02   
+11  7.162000e-01              9  1.544498e+01  1.862380e+01  3.150000e-02   
+12  7.314000e-01              9  1.543403e+01  1.833808e+01  3.160000e-02   
+13  7.314000e-01              9  1.543403e+01  1.833808e+01  3.160000e-02   
+14  7.171000e-01              9  1.559026e+01  1.786378e+01  3.200000e-02   
+15  7.171000e-01              9  1.559026e+01  1.786378e+01  3.200000e-02   
+16  7.107000e-01              9  1.584859e+01  1.732461e+01  3.230000e-02   
+17  7.107000e-01              9  1.584859e+01  1.732461e+01  3.230000e-02   
+18  8.141000e-01              9  1.610310e+01  1.931742e+01  3.250000e-02   
+19  8.141000e-01              9  1.610310e+01  1.931742e+01  3.250000e-02   
+20  7.475000e-01              9  1.687153e+01  1.926896e+01  3.470000e-02   
+21  7.475000e-01              9  1.687153e+01  1.926896e+01  3.470000e-02   
+22  9.688000e-01              9  1.777778e+01  1.982142e+01  3.590000e-02   
+23  9.688000e-01              9  1.777778e+01  1.982142e+01  3.590000e-02   
+24  2.500300e+00              9  1.777778e+01  1.982142e+01  3.590000e-02   
+25  9.688000e-01              9  1.777778e+01  1.982142e+01  3.590000e-02   
+26  9.687000e-01              9  1.777778e+01  1.982143e+01  3.590000e-02   
+27  2.500300e+00              9  1.777778e+01  1.982142e+01  3.590000e-02   
+28  9.688000e-01              9  1.777778e+01  1.982142e+01  3.590000e-02   
+29  9.687000e-01              9  1.777778e+01  1.982143e+01  3.590000e-02   
+..           ...            ...           ...           ...           ...   
+34  9.369000e-01              9  1.981048e+01  2.328578e+01  4.030000e-02   
+35  9.369000e-01              9  1.981048e+01  2.328578e+01  4.030000e-02   
+36  1.926900e+00              9  2.068318e+01  2.453017e+01  4.170000e-02   
+37  1.926900e+00              9  2.068318e+01  2.453017e+01  4.170000e-02   
+38  4.153100e+00              9  2.116151e+01  2.549414e+01  4.270000e-02   
+39  4.153100e+00              9  2.116151e+01  2.549414e+01  4.270000e-02   
+40  4.142000e+00              9  2.124373e+01  2.552166e+01  4.280000e-02   
+41  4.142000e+00              9  2.124373e+01  2.552166e+01  4.280000e-02   
+42  3.139200e+00              9  2.354850e+01  3.121011e+01  4.840000e-02   
+43  3.139200e+00              9  2.354850e+01  3.121011e+01  4.840000e-02   
+44  1.863340e+01              9  1.218240e+02  1.230950e+02  2.475000e-01   
+45  1.863340e+01              9  1.218240e+02  1.230950e+02  2.475000e-01   
+46  2.231180e+01              9  4.055344e+02  4.107167e+02  8.254000e-01   
+47  2.231180e+01              9  4.055344e+02  4.107167e+02  8.254000e-01   
+48  7.131650e+01              9  4.902222e+02  4.905396e+02  1.000000e+00   
+49  7.131650e+01              9  4.902222e+02  4.905396e+02  1.000000e+00   
+50  3.528704e+08              9  3.700000e+09  3.700000e+09  7.557246e+06   
+51  3.528704e+08              9  3.700000e+09  3.700000e+09  7.557246e+06   
+52  3.528149e+08              9  3.700000e+09  3.700000e+09  7.557246e+06   
+53  3.528149e+08              9  3.700000e+09  3.700000e+09  7.557246e+06   
+54  3.528097e+08              9  3.700000e+09  3.700000e+09  7.557246e+06   
+55  3.527839e+08              9  3.700000e+09  3.700000e+09  7.557246e+06   
+56  3.528097e+08              9  3.700000e+09  3.700000e+09  7.557246e+06   
+57  3.527839e+08              9  3.700000e+09  3.700000e+09  7.557246e+06   
+58  3.528545e+08              9  3.700000e+09  3.700000e+09  7.557246e+06   
+59  3.528545e+08              9  3.700000e+09  3.700000e+09  7.557246e+06   
+60  3.527669e+08              9  3.700000e+09  3.700000e+09  7.557247e+06   
+61  3.527669e+08              9  3.700000e+09  3.700000e+09  7.557247e+06   
+62  3.527934e+08              9  3.700000e+09  3.700000e+09  7.557247e+06   
+63  3.527934e+08              9  3.700000e+09  3.700000e+09  7.557247e+06   
 
-[64 rows x 12 columns]
+    ForecastMASE  TestCount        TestL1        TestL2      TestMAPE  \
+0   7.294000e-01          2  4.113280e+01  4.124040e+01  7.990000e-02   
+1   7.294000e-01          2  4.113280e+01  4.124040e+01  7.990000e-02   
+2   7.420000e-01          2  5.244784e+01  5.370153e+01  1.018000e-01   
+3   7.420000e-01          2  5.244784e+01  5.370153e+01  1.018000e-01   
+4   7.854000e-01          2  3.550915e+01  3.637342e+01  6.890000e-02   
+5   7.854000e-01          2  3.550915e+01  3.637342e+01  6.890000e-02   
+6   8.099000e-01          2  2.417478e+01  2.461737e+01  4.690000e-02   
+7   8.099000e-01          2  2.417478e+01  2.461737e+01  4.690000e-02   
+8   8.385000e-01          2  3.282940e+01  3.321184e+01  6.370000e-02   
+9   8.385000e-01          2  3.282940e+01  3.321184e+01  6.370000e-02   
+10  8.405000e-01          2  2.341949e+01  2.389060e+01  4.540000e-02   
+11  8.405000e-01          2  2.341949e+01  2.389060e+01  4.540000e-02   
+12  8.399000e-01          2  2.048438e+01  2.098294e+01  3.970000e-02   
+13  8.399000e-01          2  2.048438e+01  2.098294e+01  3.970000e-02   
+14  8.484000e-01          2  1.195145e+01  1.254349e+01  2.320000e-02   
+15  8.484000e-01          2  1.195145e+01  1.254349e+01  2.320000e-02   
+16  8.625000e-01          2  1.522896e+01  1.554648e+01  2.950000e-02   
+17  8.625000e-01          2  1.522896e+01  1.554648e+01  2.950000e-02   
+18  8.764000e-01          2  1.585922e+01  1.590702e+01  3.080000e-02   
+19  8.764000e-01          2  1.585922e+01  1.590702e+01  3.080000e-02   
+20  9.182000e-01          2  1.653125e+01  1.713278e+01  3.210000e-02   
+21  9.182000e-01          2  1.653125e+01  1.713278e+01  3.210000e-02   
+22  9.675000e-01          2  7.000000e+00  7.280110e+00  1.360000e-02   
+23  9.675000e-01          2  7.000000e+00  7.280110e+00  1.360000e-02   
+24  9.675000e-01          2  7.000000e+00  7.280110e+00  1.360000e-02   
+25  9.675000e-01          2  7.000000e+00  7.280110e+00  1.360000e-02   
+26  9.675000e-01          2  7.000000e+00  7.280110e+00  1.360000e-02   
+27  9.675000e-01          2  7.000000e+00  7.280110e+00  1.360000e-02   
+28  9.675000e-01          2  7.000000e+00  7.280110e+00  1.360000e-02   
+29  9.675000e-01          2  7.000000e+00  7.280110e+00  1.360000e-02   
+..           ...        ...           ...           ...           ...   
+34  1.078100e+00          2  6.362180e+01  6.435700e+01  1.235000e-01   
+35  1.078100e+00          2  6.362180e+01  6.435700e+01  1.235000e-01   
+36  1.125600e+00          2  1.101115e+01  1.125930e+01  2.140000e-02   
+37  1.125600e+00          2  1.101115e+01  1.125930e+01  2.140000e-02   
+38  1.151600e+00          2  1.313413e+01  1.345212e+01  2.560000e-02   
+39  1.151600e+00          2  1.313413e+01  1.345212e+01  2.560000e-02   
+40  1.156100e+00          2  1.326386e+01  1.360510e+01  2.580000e-02   
+41  1.156100e+00          2  1.326386e+01  1.360510e+01  2.580000e-02   
+42  1.281600e+00          2  3.435713e+01  3.590923e+01  6.700000e-02   
+43  1.281600e+00          2  3.435713e+01  3.590923e+01  6.700000e-02   
+44  6.629900e+00          2  1.461018e+02  1.461711e+02  2.839000e-01   
+45  6.629900e+00          2  1.461018e+02  1.461711e+02  2.839000e-01   
+46  2.206990e+01          2  5.526305e+02  5.527619e+02  1.074000e+00   
+47  2.206990e+01          2  5.526305e+02  5.527619e+02  1.074000e+00   
+48  2.667880e+01          2  5.145000e+02  5.145197e+02  1.000000e+00   
+49  2.667880e+01          2  5.145000e+02  5.145197e+02  1.000000e+00   
+50  2.013605e+08          2  3.700000e+09  3.700000e+09  7.191998e+06   
+51  2.013605e+08          2  3.700000e+09  3.700000e+09  7.191998e+06   
+52  2.013605e+08          2  3.700000e+09  3.700000e+09  7.191998e+06   
+53  2.013605e+08          2  3.700000e+09  3.700000e+09  7.191998e+06   
+54  2.013605e+08          2  3.700000e+09  3.700000e+09  7.191998e+06   
+55  2.013605e+08          2  3.700000e+09  3.700000e+09  7.191998e+06   
+56  2.013605e+08          2  3.700000e+09  3.700000e+09  7.191998e+06   
+57  2.013605e+08          2  3.700000e+09  3.700000e+09  7.191998e+06   
+58  2.013605e+08          2  3.700000e+09  3.700000e+09  7.191998e+06   
+59  2.013605e+08          2  3.700000e+09  3.700000e+09  7.191998e+06   
+60  2.013605e+08          2  3.700000e+09  3.700000e+09  7.191998e+06   
+61  2.013605e+08          2  3.700000e+09  3.700000e+09  7.191998e+06   
+62  2.013605e+08          2  3.700000e+09  3.700000e+09  7.191998e+06   
+63  2.013605e+08          2  3.700000e+09  3.700000e+09  7.191998e+06   
+
+        TestMASE  
+0   4.570300e+00  
+1   4.570300e+00  
+2   5.827500e+00  
+3   5.827500e+00  
+4   3.945500e+00  
+5   3.945500e+00  
+6   2.686100e+00  
+7   2.686100e+00  
+8   3.647700e+00  
+9   3.647700e+00  
+10  2.602200e+00  
+11  2.602200e+00  
+12  2.276000e+00  
+13  2.276000e+00  
+14  1.327900e+00  
+15  1.327900e+00  
+16  1.692100e+00  
+17  1.692100e+00  
+18  1.762100e+00  
+19  1.762100e+00  
+20  1.836800e+00  
+21  1.836800e+00  
+22  7.778000e-01  
+23  7.778000e-01  
+24  7.778000e-01  
+25  7.778000e-01  
+26  7.778000e-01  
+27  7.778000e-01  
+28  7.778000e-01  
+29  7.778000e-01  
+..           ...  
+34  7.069100e+00  
+35  7.069100e+00  
+36  1.223500e+00  
+37  1.223500e+00  
+38  1.459300e+00  
+39  1.459300e+00  
+40  1.473800e+00  
+41  1.473800e+00  
+42  3.817500e+00  
+43  3.817500e+00  
+44  1.623350e+01  
+45  1.623350e+01  
+46  6.140340e+01  
+47  6.140340e+01  
+48  5.716670e+01  
+49  5.716670e+01  
+50  4.111111e+08  
+51  4.111111e+08  
+52  4.111111e+08  
+53  4.111111e+08  
+54  4.111111e+08  
+55  4.111111e+08  
+56  4.111111e+08  
+57  4.111111e+08  
+58  4.111111e+08  
+59  4.111111e+08  
+60  4.111111e+08  
+61  4.111111e+08  
+62  4.111111e+08  
+63  4.111111e+08  
+
+[64 rows x 18 columns]
   Transformation                                              Model  \
-0          _YAD5   _YAD5_Lag1Trend_residue_zeroCycle_residue_AR(10)   
-1          _YAD5  _YAD5_Lag1Trend_residue_bestCycle_byL2_residue...   
-2   RelDiff_YAD5  RelDiff_YAD5_Lag1Trend_residue_zeroCycle_resid...   
-3   RelDiff_YAD5  RelDiff_YAD5_Lag1Trend_residue_bestCycle_byL2_...   
-4          _YAD5   _YAD5_PolyTrend_residue_zeroCycle_residue_AR(10)   
+0          _YAD5  _YAD5_ConstantTrend_residue_zeroCycle_residue_...   
+1          _YAD5  _YAD5_ConstantTrend_residue_bestCycle_byL2_res...   
+2          _YAD5   _YAD5_PolyTrend_residue_zeroCycle_residue_AR(10)   
+3          _YAD5  _YAD5_PolyTrend_residue_bestCycle_byL2_residue...   
+4          _YAD5  _YAD5_LinearTrend_residue_zeroCycle_residue_AR...   
 
-   Complexity  FitCount      FitL2  FitMAPE  ForecastCount  ForecastL2  \
-0          42        32   8.018102   0.0135              9   15.821187   
-1          50        32   8.018102   0.0135              9   15.821187   
-2          74        32  10.655358   0.0172              9   17.225058   
-3          82        32  10.655358   0.0172              9   17.225058   
-4          26        32   6.916816   0.0118              9   18.235944   
+   Complexity  FitCount     FitL1     FitL2  FitMAPE  FitMASE  ForecastCount  \
+0          10        32  6.518514  8.074752   0.0132   0.6415              9   
+1          18        32  6.518514  8.074752   0.0132   0.6415              9   
+2          26        32  5.936934  6.979462   0.0120   0.5843              9   
+3          34        32  5.936934  6.979462   0.0120   0.5843              9   
+4          26        32  6.226835  7.462316   0.0126   0.6128              9   
 
-   ForecastMAPE  TestCount     TestL2  TestMAPE  
-0        0.0239          2  33.655901    0.0646  
-1        0.0239          2  33.655901    0.0646  
-2        0.0267          2   8.746428    0.0147  
-3        0.0267          2   8.746428    0.0147  
-4        0.0286          2  56.201456    0.1075  
+   ForecastL1  ForecastL2  ForecastMAPE  ForecastMASE  TestCount     TestL1  \
+0   13.402989   17.397858        0.0270        0.7294          2  41.132799   
+1   13.402989   17.397858        0.0270        0.7294          2  41.132799   
+2   13.634976   17.589532        0.0276        0.7420          2  52.447836   
+3   13.634976   17.589532        0.0276        0.7420          2  52.447836   
+4   14.431508   16.678115        0.0295        0.7854          2  35.509149   
+
+      TestL2  TestMAPE  TestMASE  
+0  41.240397    0.0799    4.5703  
+1  41.240397    0.0799    4.5703  
+2  53.701534    0.1018    5.8275  
+3  53.701534    0.1018    5.8275  
+4  36.373423    0.0689    3.9455  
 2 0    516.0
 1    515.0
 Name: YAD5, dtype: float64
-2 0    471.735488
-1    459.457271
+2 0    497.96875
+1    497.96875
 Name: YAD5_Forecast, dtype: float64
 FORECAST_DETAIL_ACTUAL M1_COMP YAD5 [ 516.  515.]
-FORECAST_DETAIL_PREDICTED M1_COMP YAD5 [ 471.735488    459.45727051]
-BENCHMARK_PERF_DETAIL M1_COMP YAD5 43 2 4.754781723022461 ConstantTrend + NoCycle + AR(10) 2 0.0968 0.0509
+FORECAST_DETAIL_PREDICTED M1_COMP YAD5 [ 497.96875  497.96875]
+BENCHMARK_PERF_DETAIL M1_COMP YAD5 43 2 6.930079936981201 ConstantTrend + NoCycle + NoAR 2 0.034 0.0346
