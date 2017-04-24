@@ -70,7 +70,7 @@ The following features are available :
    5. PyAF implements **Hierarchical Forecasting**. It follows the excellent approach used in [Rob J
       Hyndman and George Athanasopoulos book](http://www.otexts.org/fpp/9/4). Thanks @robjhyndman
     * **Hierarchies** and **grouped time series** are supported.
-    * **Bottom-Up**, **Top-Down** (using proportions) and **Optimal Combinations** are
+    * **Bottom-Up**, **Top-Down** (using proportions), **Middle-Out** and **Optimal Combinations** are
       implemented.
    6. The modeling process is **customizable** and has a huge set of **options**. The
       default values of these options should however be OK.
