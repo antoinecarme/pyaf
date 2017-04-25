@@ -53,13 +53,8 @@ class cPerf:
             self.mMASE = round( self.mMASE , 4 )
 
     def compute_R2(self, signal , estimator):
-        #return 0.0;
-        SST = np.sum((signal.values - np.mean(signal.values))**2);
+        SST = np.sum((signal.values - np.mean(signal.values))**2) + 1.0e-10;
         SSReg = np.sum((signal.values - estimator.values)**2)
-        R2 = 0;
-        eps = 1.0e-10;
-        if(SST < eps):
-            SST = eps;
         R2 = SSReg/SST
         return R2
 
