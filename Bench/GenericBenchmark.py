@@ -35,10 +35,15 @@ class cBenchmarkError(Exception):
     
 def run_bench_process(a):
     createDirIfNeeded("logs");
-    createDirIfNeeded("logs/" + a.mBenchName);    
-    logfile = open("logs/" + a.mBenchName + "/PyAutoForecast_" + a.getName()+ ".log", 'w');    
+    createDirIfNeeded("logs/" + a.mBenchName);
+    logfilename = "logs/" + a.mBenchName + "/PyAF_" + a.getName()+ ".log";
+    logfile = open(logfilename, 'w');    
     sys.stdout = logfile    
     sys.stderr = logfile    
+    import logging
+    import logging.config
+    logging.basicConfig(filename = logfilename, level=logging.INFO)
+    
     try:
         tester = cGeneric_OneSignal_Tester(a.mTSSpec , a.mBenchName);
         tester.mTestCodeGeneration = False;
@@ -195,7 +200,8 @@ class cGeneric_OneSignal_Tester:
             N  = self.mTrainDataset[k].shape[0]
             lPerf = self.mTestPerfData[k];
             str1 = str(k) + " " + str(N) + " '" + lModelFormula + "' ";
-            str1 = str1 + str(lPerf.mCount) + " " + str(lPerf.mL2) + " " +  str(lPerf.mMAPE) + "\n";            
+            str1 = str1 + str(lPerf.mCount) + " " + str(lPerf.mL2) + " " +  str(lPerf.mMAPE);
+            str1 = str1 + + " " + str(lPerf.mSMAPE) + " " + str(lPerf.mMASE) + " " +  str(lPerf.mL1) + " " + str(lPerf.mL2) + " " +  str(lPerf.mR2) + "\n";            
         return str1;
 
     def generateCode(self, iSignal, iHorizon):
@@ -227,7 +233,7 @@ class cGeneric_OneSignal_Tester:
               str(self.mTrainTime[iSignal  + "_" + str(iHorizon)]),
               lAutoF1.mSignalDecomposition.mBestModel.getFormula(),
               lPerf.mCount,
-              lPerf.mMAPE,  lPerf.mSMAPE);
+              lPerf.mMAPE,  lPerf.mSMAPE, lPerf.mMASE,  lPerf.mL1,  lPerf.mL2,  lPerf.mR2);
         pass
 
     def testSignalIdempotency(self, iSignal, iHorizon, tr, cy, ar):

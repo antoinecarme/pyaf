@@ -44,7 +44,7 @@ class cPerf:
             sum_abs = np.abs(signal.values) + np.abs(estimator.values) + lEps
             abs_rel_error = abs_error / (np.abs(signal) + lEps)
             signal_diff = signal - signal.shift(1)
-            mean_dev_signal = np.mean(abs(signal_diff.values[1:]));
+            mean_dev_signal = np.mean(abs(signal_diff.values[1:])) + lEps;
             self.mMAPE = np.mean(abs_rel_error)
             self.mSMAPE = np.mean(2.0 * abs_error / sum_abs)
             self.mMASE = np.mean(abs_error / mean_dev_signal)
