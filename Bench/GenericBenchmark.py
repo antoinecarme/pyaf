@@ -35,11 +35,9 @@ class cBenchmarkError(Exception):
 def set_pyaf_logger(log_filename):
     import logging
     import logging.config
-    pyaf_logger = logging.getLogger('pyaf')
+    pyaf_logger = logging.getLogger('pyaf.std')
     pyaf_logger.setLevel(logging.DEBUG)
-
-    # handler = logging.FileHandler(log_filename)
-    
+    # handler = logging.FileHandler(log_filename)    
     # pyaf_logger.addHandler(handler)
     pass
 
@@ -47,10 +45,10 @@ def run_bench_process(a):
     createDirIfNeeded("logs");
     createDirIfNeeded("logs/" + a.mBenchName);
     logfilename = "logs/" + a.mBenchName + "/PyAF_" + a.getName()+ ".log";
-    set_pyaf_logger(logfilename)
     logfile = open(logfilename, 'w');    
     sys.stdout = logfile    
     sys.stderr = logfile
+    set_pyaf_logger(logfilename)
     
     try:
         tester = cGeneric_OneSignal_Tester(a.mTSSpec , a.mBenchName);
@@ -58,18 +56,17 @@ def run_bench_process(a):
         tester.mParallelMode = False;
         tester.testSignal(a.mSignal, a.mHorizon)
         print("BENCHMARK_SUCCESS '" + a.getName() + "'");
-        logfile.close();
-        # print("BENCHMARK_SUCCESS '" + a.getName() + "'");
         a.mResult = tester;
-        return a;
     except cBenchmarkError as error:
         print("BENCHMARKING_ERROR '" + a.getName() + "'");
         logger.error(error)
-        return a;
     except:
         print("BENCHMARK_FAILURE '" + a.getName() + "'");
-        logfile.close();
         raise
+    logfile.close();
+    sys.stdout = sys.__stdout__
+    sys.stderr = sys.__stderr__
+    return a;
 
 class cGeneric_Tester_Arg:
     def __init__(self , bench_name, tsspec, sig, horizon):
@@ -208,7 +205,7 @@ class cGeneric_OneSignal_Tester:
             N  = self.mTrainDataset[k].shape[0]
             lPerf = self.mTestPerfData[k];
             str1 = str(k) + " " + str(N) + " '" + lModelFormula + "' ";
-            str1 = str1 + str(lPerf.mCount) + " " + str(lPerf.mL2) + " " +  str(lPerf.mMAPE);
+            str1 = str1 + str(lPerf.mCount) + " " +  str(lPerf.mMAPE);
             str1 = str1 + " " + str(lPerf.mSMAPE) + " " + str(lPerf.mMASE) + " " +  str(lPerf.mL1) + " " + str(lPerf.mL2) + " " +  str(lPerf.mR2) + "\n";            
         return str1;
 
@@ -327,7 +324,10 @@ class cGeneric_Tester:
         pool = mp.Pool(nbprocesses)
         args = []
         for sig in self.mTSSpecPerSignal.keys():
-            a = cGeneric_Tester_Arg(self.mBenchName, self.mTSSpecPerSignal[sig], sig , 2);
+            lSpec = self.mTSSpecPerSignal[sig]
+            # print(lSpec.__dict__)
+            lHorizon = lSpec.mHorizon[sig]
+            a = cGeneric_Tester_Arg(self.mBenchName, lSpec, sig , lHorizon);
             args = args + [a];
 
         lResults = {};

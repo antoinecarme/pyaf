@@ -587,7 +587,8 @@ def load_M4_comp() :
         tsspec.mTimeVar = "Date";
         tsspec.mSignalVar = series_name;
         tsspec.mFullDataset.reindex()
-        tsspec.mHorizon = lHorizons['H'][i];
+        tsspec.mHorizon = {};
+        tsspec.mHorizon[series_name] = lHorizons['H'][i];
         tsspec.mCategory = "M4Comp";
         tsspecs[tsspec.mName] = tsspec;
 
