@@ -54,8 +54,8 @@ class cPerf:
 
     def compute_R2(self, signal , estimator):
         SST = np.sum((signal.values - np.mean(signal.values))**2) + 1.0e-10;
-        SSReg = np.sum((signal.values - estimator.values)**2)
-        R2 = SSReg/SST
+        SSRes = np.sum((signal.values - estimator.values)**2)
+        R2 = 1 - SSRes/SST
         return R2
 
     def dump_perf_data(self, signal , estimator):
