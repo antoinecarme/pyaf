@@ -31,18 +31,26 @@ class cBenchmarkError(Exception):
     def __init__(self, msg):
         super().__init__(msg);
         pass
+
+def set_pyaf_logger(log_filename):
+    import logging
+    import logging.config
+    pyaf_logger = logging.getLogger('pyaf')
+    pyaf_logger.setLevel(logging.DEBUG)
+
+    # handler = logging.FileHandler(log_filename)
     
-    
+    # pyaf_logger.addHandler(handler)
+    pass
+
 def run_bench_process(a):
     createDirIfNeeded("logs");
     createDirIfNeeded("logs/" + a.mBenchName);
     logfilename = "logs/" + a.mBenchName + "/PyAF_" + a.getName()+ ".log";
+    set_pyaf_logger(logfilename)
     logfile = open(logfilename, 'w');    
     sys.stdout = logfile    
-    sys.stderr = logfile    
-    import logging
-    import logging.config
-    logging.basicConfig(filename = logfilename, level=logging.INFO)
+    sys.stderr = logfile
     
     try:
         tester = cGeneric_OneSignal_Tester(a.mTSSpec , a.mBenchName);
@@ -201,7 +209,7 @@ class cGeneric_OneSignal_Tester:
             lPerf = self.mTestPerfData[k];
             str1 = str(k) + " " + str(N) + " '" + lModelFormula + "' ";
             str1 = str1 + str(lPerf.mCount) + " " + str(lPerf.mL2) + " " +  str(lPerf.mMAPE);
-            str1 = str1 + + " " + str(lPerf.mSMAPE) + " " + str(lPerf.mMASE) + " " +  str(lPerf.mL1) + " " + str(lPerf.mL2) + " " +  str(lPerf.mR2) + "\n";            
+            str1 = str1 + " " + str(lPerf.mSMAPE) + " " + str(lPerf.mMASE) + " " +  str(lPerf.mL1) + " " + str(lPerf.mL2) + " " +  str(lPerf.mR2) + "\n";            
         return str1;
 
     def generateCode(self, iSignal, iHorizon):
