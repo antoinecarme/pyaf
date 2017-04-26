@@ -36,41 +36,41 @@ PyAF statistical time series models are built/estimated/trained using [scikit-le
 The following features are available :
    1. **Training a model** to forecast a time series (given in a pandas data-frame
       with time and signal columns).
-    * PyAF uses a **machine learning approach** (The signal is cut into Estimation
+        * PyAF uses a **machine learning approach** (The signal is cut into Estimation
       and validation parts, respectively, 80% and 20% of the signal).
    2. Forecasting a time series model on a given **horizon** (forecast result is
       also pandas data-frame) and providing **prediction/confidence intervals** for
       the forecasts.
    3. Generic training features
-    * [Signal decomposition](http://en.wikipedia.org/wiki/Decomposition_of_time_series) as the sum of a trend, periodic and AR component
-    * PyAF works as a competition between a **comprehensive set of possible signal 
+         * [Signal decomposition](http://en.wikipedia.org/wiki/Decomposition_of_time_series) as the sum of a trend, periodic and AR component
+         * PyAF works as a competition between a **comprehensive set of possible signal 
       transformations and linear decompositions**. For each transformed
       signal , a set of possible trends, periodic components and AR models is
       generated and all the possible combinations are estimated. The best
       decomposition in term of performance is kept to forecast the signal (the
       performance is computed on a part of the signal that was not used for the
       estimation).
-    * **Signal transformation** is supported before **signal decompositions**. Four
+         * **Signal transformation** is supported before **signal decompositions**. Four
       transformations are supported by default. Other transformation are
       available (Box-Cox etc).
-    * All Models are estimated using **standard procedures and state-of-the-art
+         * All Models are estimated using **standard procedures and state-of-the-art
       time series modeling**. For example, trend regressions and AR/ARX models
       are estimated using scikit-learn linear regression models.
     * Standard performance measures are used (L1, RMSE, MAPE, etc)
    4. **Exogenous Data Support**
-    * Exogenous data can be provided to improve the forecasts. These are
+        * Exogenous data can be provided to improve the forecasts. These are
       expected to be **stored in an external data-frame** (this data-frame will be
       merged with the training data-frame).
-    * Exogenous data are integrated in the modeling process through their **past values**
+        * Exogenous data are integrated in the modeling process through their **past values**
       ([ARX models](http://en.wikipedia.org/wiki/Autoregressive%E2%80%93moving-average_model)).
-    * **Exogenous variables can be of any type** (numeric, string , date, or
+        * **Exogenous variables can be of any type** (numeric, string , date, or
       object).
-    * Exogenous variables are **dummified** for the non-numeric types, and
+        * Exogenous variables are **dummified** for the non-numeric types, and
       **standardized** for the numeric types.
    5. PyAF implements **Hierarchical Forecasting**. It follows the excellent approach used in [Rob J
       Hyndman and George Athanasopoulos book](http://www.otexts.org/fpp/9/4). Thanks @robjhyndman
-    * **Hierarchies** and **grouped time series** are supported.
-    * **Bottom-Up**, **Top-Down** (using proportions), **Middle-Out** and **Optimal Combinations** are
+        * **Hierarchies** and **grouped time series** are supported.
+        * **Bottom-Up**, **Top-Down** (using proportions), **Middle-Out** and **Optimal Combinations** are
       implemented.
    6. The modeling process is **customizable** and has a huge set of **options**. The
       default values of these options should however be OK.
@@ -79,16 +79,16 @@ The following features are available :
    8. Basic **plotting** functions using matplotlib with standard time series and
       forecasts plots.
    9. **Software Quality** Highlights
-    * An **object-oriented** approach is used for the system design. Separation of
+      * An **object-oriented** approach is used for the system design. Separation of
       concerns is the key factor here.
-    * **Fully written in python** with numpy, scipy, pandas and scikit-learn
+      * **Fully written in python** with numpy, scipy, pandas and scikit-learn
       objects. Tries to be **column-based** everywhere for performance reasons.
-    * A **test-driven approach** is used. Test scripts are available in the [tests](tests)
+      * A **test-driven approach** is used. Test scripts are available in the [tests](tests)
       directory, one directory for each feature.
       -Some **[jupyter notebooks](docs)** are available for demo purposes with standard time series and forecasts plots.
-    * Very **simple API** for training and forecasting.
+      * Very **simple API** for training and forecasting.
    10. A basic **REST WebService** (Flask) effort is starting.
-    * See http://pyaf.herokuapp.com/ and the [related github issue](https://github.com/antoinecarme/pyaf/issues/20)
+       * See http://pyaf.herokuapp.com/ and the [related github issue](https://github.com/antoinecarme/pyaf/issues/20)
    11. A project for **SQL generation** is started (using core **[SLQAlchemy](http://www.sqlalchemy.org/)** expressions). 
         The goal is to be able to export the forecasts as a SQL
         code to ease the **production mode**. SLQAlchemy provides **agnostic support of
