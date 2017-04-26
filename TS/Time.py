@@ -228,7 +228,7 @@ class cTimeInfo:
         return lDate1;
 
     def isOneRowDataset(self):
-        return (self.mEstimStart ==  (1 + self.mEstimEnd))
+        return ((1 + self.mEstimStart) ==  self.mEstimEnd)
 
     def computeTimeDelta(self):
         #print(self.mSignalFrame.columns);
@@ -288,8 +288,8 @@ class cTimeInfo:
 
     def normalizeTime(self , iTime):
         if(self.isOneRowDataset()):
-            return (iTime - self.mTimeMin) / self.mTimeMinMaxDiff
-        return 0.0;
+            return 0.0;
+        return (iTime - self.mTimeMin) / self.mTimeMinMaxDiff
 
     def addMonths(self, iTime , iMonths):    
         lTime = dt.datetime.utcfromtimestamp(iTime.astype(int) * 1e-9)
