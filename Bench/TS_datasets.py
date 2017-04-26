@@ -565,7 +565,7 @@ def load_M4_comp(iType = None) :
     tsspecs = {};
     
     trainfile = "https://github.com/antoinecarme/pyaf/blob/master/data/M4Comp/M4Comp_" + iType + ".csv.gz?raw=true"
-    trainfile = "data/M4Comp/M4Comp_" + iType + ".csv.gz"
+    # trainfile = "data/M4Comp/M4Comp_" + iType + ".csv.gz"
 
     df_full = pd.read_csv(trainfile, sep=',', header=0, engine='python', compression='gzip');
     lHorizons = df_full[['H' , 'ID']].copy();
