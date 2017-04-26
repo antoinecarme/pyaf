@@ -56,7 +56,7 @@ The following features are available :
          * All Models are estimated using **standard procedures and state-of-the-art
       time series modeling**. For example, trend regressions and AR/ARX models
       are estimated using scikit-learn linear regression models.
-    * Standard performance measures are used (L1, RMSE, MAPE, etc)
+      * Standard performance measures are used (L1, RMSE, MAPE, etc)
    4. **Exogenous Data Support**
         * Exogenous data can be provided to improve the forecasts. These are
       expected to be **stored in an external data-frame** (this data-frame will be
