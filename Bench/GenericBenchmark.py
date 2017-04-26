@@ -62,7 +62,7 @@ def run_bench_process(a):
         logger.error(error)
     except:
         print("BENCHMARK_FAILURE '" + a.getName() + "'");
-        raise
+        # raise
     logfile.close();
     sys.stdout = sys.__stdout__
     sys.stderr = sys.__stderr__
@@ -298,9 +298,12 @@ class cGeneric_Tester:
 
     def testAllSignals(self, iHorizon):
         for sig in self.mTSSpecPerSignal.keys():
-            tester = cGeneric_OneSignal_Tester(self.mTSSpecPerSignal[sig] , self.mBenchName);
+            lSpec = self.mTSSpecPerSignal[sig]
+            # print(lSpec.__dict__)
+            lHorizon = lSpec.mHorizon[sig]
+            tester = cGeneric_OneSignal_Tester(lSpec, self.mBenchName);
             tester.mParallelMode = False;
-            tester.testSignal(sig, iHorizon);
+            tester.testSignal(sig, lHorizon);
             del tester;
         pass
     
@@ -308,8 +311,11 @@ class cGeneric_Tester:
         sigs = iSignals.split(" ");
         for sig in sigs:
             if(sig in self.mTSSpecPerSignal.keys()):
-                tester = cGeneric_OneSignal_Tester(self.mTSSpecPerSignal[sig] , self.mBenchName);
-                tester.testSignal(sig, iHorizon);
+                lSpec = self.mTSSpecPerSignal[sig]
+                # print(lSpec.__dict__)
+                lHorizon = lSpec.mHorizon[sig]
+                tester = cGeneric_OneSignal_Tester(lSpec, self.mBenchName);
+                tester.testSignal(sig, lHorizon);
                 tester.mParallelMode = True;
                 del tester;
             else:
@@ -321,7 +327,7 @@ class cGeneric_Tester:
     def run_multiprocessed(self, nbprocesses = None):
         if(nbprocesses is None):
             nbprocesses = (mp.cpu_count() * 3) // 4;
-        pool = mp.Pool(nbprocesses)
+        pool = mp.Pool(processes=nbprocesses, maxtasksperchild=None)
         args = []
         for sig in self.mTSSpecPerSignal.keys():
             lSpec = self.mTSSpecPerSignal[sig]
@@ -333,7 +339,7 @@ class cGeneric_Tester:
         lResults = {};
         i = 1;
         for res in pool.imap(run_bench_process, args):
-            print("FINISHED_BENCH_FOR_SIGNAL" , res.mSignal , i , "/" , len(args));
+            print("FINISHED_BENCH_FOR_SIGNAL" , self.mBenchName, res.mSignal , i , "/" , len(args));
             lResults[res.mSignal] = res.mResult;
             i = i + 1;
         
@@ -341,4 +347,4 @@ class cGeneric_Tester:
         pool.join()
 
         for (name, tester) in lResults.items():
-            print("BENCH_RESULT_DETAIL" , name, tester.summary());
+            print("BENCH_RESULT_DETAIL" ,  self.mBenchName, name, tester.summary());
