@@ -42,6 +42,8 @@ def set_pyaf_logger(log_filename):
     pass
 
 def run_bench_process(a):
+    print("STARTING_BENCH_FOR_SIGNAL" , a.mBenchName, a.mSignal, a.mHorizon);
+
     createDirIfNeeded("logs");
     createDirIfNeeded("logs/" + a.mBenchName);
     logfilename = "logs/" + a.mBenchName + "/PyAF_" + a.getName()+ ".log";
@@ -60,6 +62,9 @@ def run_bench_process(a):
     except cBenchmarkError as error:
         print("BENCHMARKING_ERROR '" + a.getName() + "'");
         logger.error(error)
+    except MemoryError:
+        # print("BENCHMARK_MEMORY_FAILURE '" + a.getName() + "'");
+        return a;
     except:
         print("BENCHMARK_FAILURE '" + a.getName() + "'");
         # raise
@@ -291,7 +296,7 @@ class cGeneric_Tester:
         if(self.mType == "OneDataFrameForAllSignals"):
             lTSSpec = self.mTSSpec;
             for sig in self.mTSSpec.mFullDataset.columns:
-                if(sig != "Date"):
+                if(sig != lTSSpec.mTimeVar):
                     self.mTSSpecPerSignal[sig] = self.mTSSpec;
         else:
             self.mTSSpecPerSignal = self.mTSSpec;
@@ -340,11 +345,12 @@ class cGeneric_Tester:
         i = 1;
         for res in pool.imap(run_bench_process, args):
             print("FINISHED_BENCH_FOR_SIGNAL" , self.mBenchName, res.mSignal , i , "/" , len(args));
-            lResults[res.mSignal] = res.mResult;
+            lResults[res.mSignal] = res.mResult.summary();
             i = i + 1;
+            del res
         
         pool.close()
         pool.join()
 
-        for (name, tester) in lResults.items():
-            print("BENCH_RESULT_DETAIL" ,  self.mBenchName, name, tester.summary());
+        for (name, summary) in lResults.items():
+            print("BENCH_RESULT_DETAIL" ,  self.mBenchName, name, summary);
