@@ -294,17 +294,18 @@ def load_NN5():
     trainfile = "https://raw.githubusercontent.com/antoinecarme/pyaf/master/data/NN5-Final-Dataset.csv"
     tsspec.mFullDataset = pd.read_csv(trainfile, sep='\t', header=0, engine='python');
     tsspec.mFullDataset['Day'] = tsspec.mFullDataset['Day'].apply(lambda x : datetime.datetime.strptime(x, "%d-%b-%y"))
-    tsspec.mFullDataset = tsspec.mFullDataset
-    tsspec.mFullDataset.fillna(method = "ffill", inplace = True);
-    tsspec.mHorizon = 56
+    # tsspec.mFullDataset = tsspec.mFullDataset
+    # tsspec.mFullDataset.fillna(method = "ffill", inplace = True);
+    tsspec.mHorizon = {};
+    for sig in tsspec.mFullDataset.columns:
+        tsspec.mHorizon[sig] = 56
 #    df_test = tsspec.mFullDataset.tail(tsspec.mHorizon);
     df_train = tsspec.mFullDataset;
 
     tsspec.mTimeVar = "Day";
     tsspec.mSignalVar = "Signal";
-    tsspec.mHorizon = 12;
-    tsspec.mPastData = df_train[:-tsspec.mHorizon];
-    tsspec.mFutureData = df_train.tail(tsspec.mHorizon);
+    # tsspec.mPastData = df_train[:-tsspec.mHorizon];
+    # tsspec.mFutureData = df_train.tail(tsspec.mHorizon);
     
     return tsspec
 
@@ -317,8 +318,10 @@ def load_NN3_part1():
     trainfile = "https://raw.githubusercontent.com/antoinecarme/pyaf/master/data/NN3-Final-Dataset-part1.csv"
     tsspec.mFullDataset = pd.read_csv(trainfile, sep='\t', header=0, engine='python');
     tsspec.mFullDataset['Date'] = np.arange(0, tsspec.mFullDataset.shape[0])
-#    tsspec.mFullDataset.fillna(method = "ffill", inplace = True);
-    tsspec.mHorizon = 18
+    #    tsspec.mFullDataset.fillna(method = "ffill", inplace = True);
+    tsspec.mHorizon = {};
+    for sig in tsspec.mFullDataset.columns:
+        tsspec.mHorizon[sig] = 18
     #df_test = tsspec.mFullDataset.tail(tsspec.mHorizon);
     df_train = tsspec.mFullDataset;
     #.head(tsspec.mFullDataset.shape[0] - tsspec.mHorizon);
@@ -336,9 +339,11 @@ def load_NN3_part2():
     tsspec.mFullDataset = pd.read_csv(trainfile, sep='\t', header=0, engine='python');
     tsspec.mFullDataset['Date'] = np.arange(0, tsspec.mFullDataset.shape[0])
 #    tsspec.mFullDataset.fillna(method = "ffill", inplace = True);
-    tsspec.mHorizon = 18
     #df_test = tsspec.mFullDataset.tail(tsspec.mHorizon);
     df_train = tsspec.mFullDataset
+    tsspec.mHorizon = {};
+    for sig in tsspec.mFullDataset.columns:
+        tsspec.mHorizon[sig] = 18
     #.head(tsspec.mFullDataset.shape[0] - tsspec.mHorizon);
     tsspec.mTimeVar = "Date";
     tsspec.mSignalVar = "Signal";
