@@ -169,10 +169,12 @@ class cTimeSeriesModel:
         for h in range(0 , iHorizon):
             df1.loc[N1 - 1 - h, self.mOriginalSignal] = np.nan;
             pass
-        df1 = self.addPredictionIntervals(df, df1);
+        # print(df.head())
+        # print(df1.head())
+        df1 = self.addPredictionIntervals(df, df1, iHorizon);
         return df1
 
-    def addPredictionIntervals(self, iInputDS, iForecastFrame):
+    def addPredictionIntervals(self, iInputDS, iForecastFrame, iHorizon):
         lSignalColumn = self.mOriginalSignal;
 
         N = iInputDS.shape[0];
@@ -184,7 +186,8 @@ class cTimeSeriesModel:
 
         lConfidence = 1.96 ; # 0.95
         # the prediction intervals are only computed for the training horizon
-        for h in range(0 , self.mTimeInfo.mHorizon):
+        lHorizon = min(iHorizon , self.mTimeInfo.mHorizon);
+        for h in range(0 , lHorizon):
             lHorizonName = lForecastColumn + "_" + str(h + 1);
             lWidth = lConfidence * self.mPredictionIntervalsEstimator.mForecastPerformances[lHorizonName].mL2;
             iForecastFrame.loc[N + h , lLowerBoundName] = iForecastFrame.loc[N + h , lForecastColumn] - lWidth;

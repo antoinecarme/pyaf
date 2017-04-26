@@ -227,13 +227,22 @@ class cTimeInfo:
         # print(iDate.isoformat() , "\t" , lDate0.isoformat(), "\t", lDate1.isoformat())
         return lDate1;
 
+    def isOneRowDataset(self):
+        return (self.mEstimStart ==  (1 + self.mEstimEnd))
+
     def computeTimeDelta(self):
         #print(self.mSignalFrame.columns);
-        #print(self.mSignalFrame[self.mTime].head());
+        # print(self.mSignalFrame[self.mTime].head());
         lEstim = self.mSignalFrame[self.mEstimStart : self.mEstimEnd]
         lTimeBefore = lEstim[self.mTime].shift(1);
         # lTimeBefore.fillna(self.mTimeMin, inplace=True)
         N = lEstim.shape[0];
+        if(N == 1):
+            if(self.isPhysicalTime()):
+                self.mTimeDelta = pd.Timedelta(seconds=1);
+            else:
+                self.mTimeDelta = 1
+            return
         #print(self.mSignal, self.mTime, N);
         #print(lEstim[self.mTime].head());
         #print(lTimeBefore.head());
@@ -278,7 +287,9 @@ class cTimeInfo:
         
 
     def normalizeTime(self , iTime):
-        return (iTime - self.mTimeMin) / self.mTimeMinMaxDiff
+        if(self.isOneRowDataset()):
+            return (iTime - self.mTimeMin) / self.mTimeMinMaxDiff
+        return 0.0;
 
     def addMonths(self, iTime , iMonths):    
         lTime = dt.datetime.utcfromtimestamp(iTime.astype(int) * 1e-9)

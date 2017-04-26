@@ -329,18 +329,20 @@ class cTrendEstimator:
         if(self.mOptions.mActiveTrends['Lag1Trend']):
             self.mTrendList = self.mTrendList + [cLag1Trend()];
 
-        if(self.mOptions.mActiveTrends['LinearTrend']):
+        N = self.mSignalFrame.shape[0];
+        
+        if(N > 1 and self.mOptions.mActiveTrends['LinearTrend']):
             self.mTrendList = self.mTrendList + [cLinearTrend()]
 
-        if(self.mOptions.mActiveTrends['PolyTrend']):
+        if(N > 2 and self.mOptions.mActiveTrends['PolyTrend']):
             self.mTrendList = self.mTrendList + [cPolyTrend()]
                 
-        if(self.mOptions.mActiveTrends['MovingAverage']):
+        if(N > 2 and self.mOptions.mActiveTrends['MovingAverage']):
             for i in self.mOptions.mMovingAverageLengths:
                 if(self.needMovingTrend(self.mSignalFrame , i)):
                     self.mTrendList = self.mTrendList + [cMovingAverageTrend(i)]
 
-        if(self.mOptions.mActiveTrends['MovingMedian']):
+        if(N > 2 and self.mOptions.mActiveTrends['MovingMedian']):
             for i in self.mOptions.mMovingMedianLengths:
                 if(self.needMovingTrend(self.mSignalFrame , i)):
                     self.mTrendList = self.mTrendList + [cMovingMedianTrend(i)]
