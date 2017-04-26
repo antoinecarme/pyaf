@@ -2,10 +2,10 @@ import pandas as pd
 import numpy as np
 
 import ForecastEngine as autof
-import Bench.TS_datasets as tsds
+import pyaf.Bench.TS_datasets as tsds
 
 import CodeGen.TS_CodeGenerator as tscodegen
-import Bench.GenericBenchmark as tBench
+import pyaf.Bench.GenericBenchmark as tBench
 import warnings
 
 #%matplotlib inline

@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
-import Bench.TS_datasets as tsds
-import Bench.YahooStocks as ys
+import pyaf.Bench.TS_datasets as tsds
+import pyaf.Bench.YahooStocks as ys
 
 symbol_lists = tsds.get_yahoo_symbol_lists();
 for k in symbol_lists.keys():

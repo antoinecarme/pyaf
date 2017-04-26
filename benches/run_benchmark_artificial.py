@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
-import Bench.TS_datasets as tsds
-import Bench.Artificial as art
+import pyaf.Bench.TS_datasets as tsds
+import pyaf.Bench.Artificial as art
 import warnings
 
 

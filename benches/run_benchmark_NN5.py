@@ -1,8 +1,8 @@
 import pandas as pd
 import numpy as np
 #import SignalDecomposition as SigDec
-import Bench.TS_datasets as tsds
-import Bench.NN3 as tNN3
+import pyaf.Bench.TS_datasets as tsds
+import pyaf.Bench.NN3 as tNN3
 import warnings
 
 #%matplotlib inline

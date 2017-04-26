@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
-import Bench.TS_datasets as tsds
-import Bench.MComp as mcomp
+import pyaf.Bench.TS_datasets as tsds
+import pyaf.Bench.MComp as mcomp
 import warnings
 
 

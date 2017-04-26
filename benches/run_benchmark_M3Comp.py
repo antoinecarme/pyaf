@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
-import Bench.MComp as mcomp
-import Bench.TS_datasets as tsds
+import pyaf.Bench.MComp as mcomp
+import pyaf.Bench.TS_datasets as tsds
 import warnings
 
 tester3 = mcomp.cMComp_Tester(tsds.load_M3_Y_comp() , "M3_Y_COMP");
