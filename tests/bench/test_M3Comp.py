@@ -8,7 +8,7 @@ tester3 = mcomp.cMComp_Tester(tsds.load_M3_Y_comp() , "M3_Y_COMP");
 
 with warnings.catch_warnings():
     warnings.simplefilter("error")
-    # tester1.testSignal('')
+    tester3.testSignals('N366')
     # tester3.testAllSignals()
     # tester3.run_multiprocessed()
 

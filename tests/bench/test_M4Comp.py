@@ -4,7 +4,17 @@ import pyaf.Bench.TS_datasets as tsds
 
 import pyaf.Bench.MComp as mcomp
 
-tester7 = mcomp.cMComp_Tester(tsds.load_M4_comp() , "M4_COMP");
+# M4Comp_BUSINESS-INDUSTRY.csv.gz
+# M4Comp_DEMOGRAPHICS.csv.gz
+# M4Comp_FINANCE.csv.gz
+# M4Comp_INVENTORY.csv.gz
+# M4Comp_CLIMATE.csv.gz
+# M4Comp_ECONOMICS.csv.gz
+# M4Comp_INTERNET-TELECOM.csv.gz
+
+
+
+tester7 = mcomp.cMComp_Tester(tsds.load_M4_comp("ECONOMICS") , "M4_COMP");
 with warnings.catch_warnings():
     warnings.simplefilter("error")
     tester7.testSignals('ECON0137')
