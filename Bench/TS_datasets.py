@@ -663,6 +663,9 @@ def load_yahoo_stock_price( stock , iLocal = True, YAHOO_LINKS_DATA = None) :
     tsspec.mTimeVar = "Date";
     tsspec.mSignalVar = stock;
     lHorizon = 7 # 7 days
+    if(lHorizon > tsspec.mFullDataset.shape[0]):
+        # nysecomp/yahoo_VRS.csv is too small
+        lHorizon = 1
     tsspec.mHorizon = {};
     tsspec.mHorizon[stock] = lHorizon
     tsspec.mPastData = tsspec.mFullDataset[:-lHorizon];
