@@ -60,11 +60,9 @@ def run_bench_process(a):
         print("BENCHMARK_SUCCESS '" + a.getName() + "'");
         a.mResult = tester;
     except cBenchmarkError as error:
-        print("BENCHMARKING_ERROR '" + a.getName() + "'");
-        logger.error(error)
+        print("BENCHMARKING_ERROR '" + a.getName() + "' : " + str(error));
     except MemoryError:
-        # print("BENCHMARK_MEMORY_FAILURE '" + a.getName() + "'");
-        return a;
+        print("BENCHMARK_MEMORY_FAILURE '" + a.getName() + "'");
     except:
         print("BENCHMARK_FAILURE '" + a.getName() + "'");
         # raise
@@ -114,10 +112,6 @@ class cGeneric_OneSignal_Tester:
         print(df.head());
         print(df.info());
 
-    def checkHorizon(self, N , iHorizon):
-        if(N <= iHorizon):
-            raise cBenchmarkError('Dataset too short for the requested horizon N=' + str(N) + " H=" + str(iHorizon));
-
 
     def getTrainingDataset(self, iSignal, iHorizon):
         df = pd.DataFrame();
@@ -127,7 +121,8 @@ class cGeneric_OneSignal_Tester:
         N = lFullDF.shape[0]
         # iHorizon = iHorizon; #self.mTSSpec.mHorizon[iSignal]
         lSize = N - iHorizon;
-        self.checkHorizon(N , iHorizon);
+        if(N <= iHorizon):
+            lSize = N
         df = lFullDF[0: lSize];
             
         self.mTrainDataset[iSignal  + "_" + str(iHorizon)] = df;
@@ -175,7 +170,8 @@ class cGeneric_OneSignal_Tester:
         #.astype(np.double)
         N = lFullDF.shape[0]
         lSize = N - iHorizon;
-        self.checkHorizon(N , iHorizon);
+        if(N <= iHorizon):
+            lSize = N
         self.mApplyIn = lFullDF[0: lSize];
         #self.mApplyIn.to_csv(iSignal + "_applyIn.csv");
 
