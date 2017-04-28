@@ -99,14 +99,15 @@ class cSeasonalPeriodic(cAbstractCycle):
 
     def hasEnoughData(self, iTimeMin, iTimeMax):
         lTimeDelta = iTimeMax - iTimeMin;
-        lDays = lTimeDelta.days;
+        lDays = lTimeDelta / np.timedelta64(1,'D');
+        lSeconds = lTimeDelta / np.timedelta64(1,'s');
         if(self.mDatePart == "Hour"):
             return (lDays >= 10);
         if(self.mDatePart == "Minute"):
-            lHours = lTimeDelta.total_seconds() // 3600;
+            lHours = lSeconds // 3600;
             return (lHours >= 10);
         if(self.mDatePart == "Second"):
-            lMinutes = lTimeDelta.total_seconds() // 60;
+            lMinutes = lSeconds // 60;
             return (lMinutes >= 10);
         if(self.mDatePart == "DayOfMonth"):
             lMonths = lDays // 30;

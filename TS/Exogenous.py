@@ -44,6 +44,7 @@ class cExogenousInfo:
 
     def addVars(self, df):
         lExogDate = self.mDateVariable;
+        N = df.shape[0]
         # print(np.dtype(df[self.mDateVariable]) ,
         #      np.dtype(self.mEncodedExogenousDataFrame[self.mDateVariable]));
         # print(df.info());
@@ -52,11 +53,13 @@ class cExogenousInfo:
         # print(self.mEncodedExogenousDataFrame.head());
 
         df1 = df[[self.mDateVariable]];
+        # df1.info()
         lCompleteEncoded = df1.merge(self.mEncodedExogenousDataFrame,
                                      how='left',
                                      left_on=self.mDateVariable,
                                      right_on=lExogDate);
         lCompleteEncoded.fillna(0.0, inplace=True);
+        assert(lCompleteEncoded.shape[0] == N)
         
         # print("EXOG_COLUMNS", self.mEncodedExogenousDataFrame.columns);
         df2 = df.merge(lCompleteEncoded,
@@ -64,6 +67,7 @@ class cExogenousInfo:
                        left_on=self.mDateVariable,
                        right_on=lExogDate,
                        suffixes=('_x', ''));
+        assert(df2.shape[0] == N)
         # df1 = df1.drop([lExogDate] , axis = 1);
         # print(df2.columns);
         # print(df2[['Month']].describe());

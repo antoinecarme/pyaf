@@ -11,9 +11,6 @@ import calendar
 
 from . import Utils as tsutil
 
-
-from dateutil.relativedelta import relativedelta
-
 class cTimeInfo:
 
     def __init__(self):
@@ -67,8 +64,8 @@ class cTimeInfo:
         df[self.mOriginalSignal] = self.mSignalFrame[self.mOriginalSignal]
 
     def get_time_dtype(self):
-        series = pd.Series([self.mTimeMax]);
-        lType = np.dtype(series);
+        # print(self.mTimeMax, type(self.mTimeMax))
+        lType = np.dtype(self.mTimeMax);
         return lType;
 
     def cast_to_time_dtype(self, iTimeValue):
@@ -80,8 +77,9 @@ class cTimeInfo:
         if(self.mTimeMax is not None):
             lType1 = self.get_time_dtype();
             lType2 = np.dtype(df[self.mTime]);
-            if(lType1 != lType2):
+            if(lType1.kind != lType2.kind):
                 raise tsutil.ForecastError('Incompatible Time Column Type expected=' + str(lType1) + ' got: ' + str(lType2) + "'");
+                pass
         
 
     def transformDataset(self, df):
@@ -217,16 +215,6 @@ class cTimeInfo:
             raise tsutil.ForecastError('Invalid Signal Column Type ' + self.mSignal);
         
 
-    def round_datetime_to_seconds(self, iDate):
-        lDate = dt.datetime.utcfromtimestamp(iDate.astype(int) * 1e-9)
-        lDate0 = dt.datetime(lDate.year, 1 , 1, 0, 0 , 0) 
-        delta1 = (lDate - lDate0)
-        rounded_sec = round(delta1.total_seconds())
-        delta_sec = dt.timedelta(seconds=rounded_sec)
-        lDate1 = lDate0 + delta_sec
-        # print(iDate.isoformat() , "\t" , lDate0.isoformat(), "\t", lDate1.isoformat())
-        return lDate1;
-
     def isOneRowDataset(self):
         return ((1 + self.mEstimStart) ==  self.mEstimEnd)
 
@@ -239,7 +227,7 @@ class cTimeInfo:
         N = lEstim.shape[0];
         if(N == 1):
             if(self.isPhysicalTime()):
-                self.mTimeDelta = pd.Timedelta(seconds=1);
+                self.mTimeDelta = np.timedelta64(1,'D');
             else:
                 self.mTimeDelta = 1
             return
@@ -252,13 +240,12 @@ class cTimeInfo:
             self.mTimeDelta = self.mOptions.mUserTimeDelta;
         if(self.mOptions.mTimeDeltaComputationMethod == "AVG"):
             self.mTimeDelta = np.mean(lDiffs);
+            type1 = np.dtype(self.mSignalFrame[self.mTime])
+            if(type1.kind == 'i' or type1.kind == 'u'):
+                self.mTimeDelta = int(self.mTimeDelta)
         if(self.mOptions.mTimeDeltaComputationMethod == "MODE"):
             delta_counts = pd.DataFrame(lDiffs.value_counts());
             self.mTimeDelta = delta_counts[self.mTime].argmax();
-        if(self.isPhysicalTime()):
-            rounded_sec = round(self.mTimeDelta.total_seconds());
-            self.mTimeDelta = pd.Timedelta(seconds=rounded_sec);
-            # print(type(self.mTimeDelta), self.mTimeDelta)
 
     def estimate(self):
         #print(self.mSignalFrame.columns);
@@ -276,6 +263,9 @@ class cTimeInfo:
         lEstim = self.mSignalFrame[self.mEstimStart : self.mEstimEnd]
         self.mTimeMin = lEstim[self.mTime].min();
         self.mTimeMax = lEstim[self.mTime].max();
+        if(self.isPhysicalTime()):
+            self.mTimeMin = np.datetime64(self.mTimeMin.to_pydatetime());
+            self.mTimeMax = np.datetime64(self.mTimeMax.to_pydatetime());
         self.mTimeMinMaxDiff = self.mTimeMax - self.mTimeMin;
         
         self.computeTimeDelta();
@@ -291,12 +281,10 @@ class cTimeInfo:
             return 0.0;
         return (iTime - self.mTimeMin) / self.mTimeMinMaxDiff
 
-    def addMonths(self, iTime , iMonths):    
-        lTime = dt.datetime.utcfromtimestamp(iTime.astype(int) * 1e-9)
-        date_after_month = lTime + relativedelta(months=iMonths)
-        #print(lTime, iMonths, date_after_month);
-        lDate = np.datetime64(date_after_month)
-        return lDate;
+    def addMonths(self, iTime , iMonths):
+        date_after_months = iTime + iMonths * (365.0/12) * np.timedelta64(1,'D')
+        # print("addMonths" , iTime, iMonths, date_after_months);
+        return date_after_months;
     
     def nextTime(self, df, iSteps):
         #print(df.tail(1)[self.mTime]);
@@ -305,13 +293,10 @@ class cTimeInfo:
         # print("NEXT_TIME" , lLastTime, iSteps, self.mTimeDelta);
         lNextTime = lLastTime + iSteps * self.mTimeDelta;
         if(self.mResolution == self.RES_MONTH):
-            lMonths = int(iSteps * self.mTimeDelta.days / 30.0);
+            lMonths = iSteps * int(self.mTimeDelta / np.timedelta64(1,'D') / 30);
             lNextTime = self.addMonths(lLastTime, lMonths);
         if(self.mOptions.mBusinessDaysOnly):
             lOffset = [1, 1, 1, 1, 3, 2, 1][lNextTime.weekday()];
-            lNextTime = lNextTime + dt.timedelta(days = lOffset);
+            lNextTime = lNextTime +  np.timedelta64(lOffset,'D') # dt.timedelta(days = lOffset);
 
-        lNextTime = self.cast_to_time_dtype(lNextTime);        
-        if(self.isPhysicalTime()):
-            lNextTime = self.round_datetime_to_seconds(lNextTime);
         return lNextTime;
