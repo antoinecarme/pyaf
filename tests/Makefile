@@ -41,6 +41,46 @@ artificial/process_artificial_dataset.py  :
  artificial :  artificial/process_artificial_dataset.py artificial/__init__.py  
  
 
+basic_checks/issue_46_min_max_issues.py  :  
+	 -$(PYTHON)  tests/basic_checks/issue_46_min_max_issues.py  >  logs/basic_checks_issue_46_min_max_issues.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/basic_checks_issue_46_min_max_issues.log logs/basic_checks_issue_46_min_max_issues.log  >  logs/basic_checks_issue_46_min_max_issues.log.diff
+	 tail -10  logs/basic_checks_issue_46_min_max_issues.log.diff 
+
+basic_checks/issue_46_negative_horizon.py  :  
+	 -$(PYTHON)  tests/basic_checks/issue_46_negative_horizon.py  >  logs/basic_checks_issue_46_negative_horizon.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/basic_checks_issue_46_negative_horizon.log logs/basic_checks_issue_46_negative_horizon.log  >  logs/basic_checks_issue_46_negative_horizon.log.diff
+	 tail -10  logs/basic_checks_issue_46_negative_horizon.log.diff 
+
+basic_checks/issue_46_non_existant_signal_column.py  :  
+	 -$(PYTHON)  tests/basic_checks/issue_46_non_existant_signal_column.py  >  logs/basic_checks_issue_46_non_existant_signal_column.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/basic_checks_issue_46_non_existant_signal_column.log logs/basic_checks_issue_46_non_existant_signal_column.log  >  logs/basic_checks_issue_46_non_existant_signal_column.log.diff
+	 tail -10  logs/basic_checks_issue_46_non_existant_signal_column.log.diff 
+
+basic_checks/issue_46_non_existant_time_column.py  :  
+	 -$(PYTHON)  tests/basic_checks/issue_46_non_existant_time_column.py  >  logs/basic_checks_issue_46_non_existant_time_column.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/basic_checks_issue_46_non_existant_time_column.log logs/basic_checks_issue_46_non_existant_time_column.log  >  logs/basic_checks_issue_46_non_existant_time_column.log.diff
+	 tail -10  logs/basic_checks_issue_46_non_existant_time_column.log.diff 
+
+basic_checks/issue_46_one_or_two_rows.py  :  
+	 -$(PYTHON)  tests/basic_checks/issue_46_one_or_two_rows.py  >  logs/basic_checks_issue_46_one_or_two_rows.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/basic_checks_issue_46_one_or_two_rows.log logs/basic_checks_issue_46_one_or_two_rows.log  >  logs/basic_checks_issue_46_one_or_two_rows.log.diff
+	 tail -10  logs/basic_checks_issue_46_one_or_two_rows.log.diff 
+
+basic_checks/issue_46_wrong_type_date_column.py  :  
+	 -$(PYTHON)  tests/basic_checks/issue_46_wrong_type_date_column.py  >  logs/basic_checks_issue_46_wrong_type_date_column.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/basic_checks_issue_46_wrong_type_date_column.log logs/basic_checks_issue_46_wrong_type_date_column.log  >  logs/basic_checks_issue_46_wrong_type_date_column.log.diff
+	 tail -10  logs/basic_checks_issue_46_wrong_type_date_column.log.diff 
+
+basic_checks/issue_46_wrong_type_signal_column.py  :  
+	 -$(PYTHON)  tests/basic_checks/issue_46_wrong_type_signal_column.py  >  logs/basic_checks_issue_46_wrong_type_signal_column.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/basic_checks_issue_46_wrong_type_signal_column.log logs/basic_checks_issue_46_wrong_type_signal_column.log  >  logs/basic_checks_issue_46_wrong_type_signal_column.log.diff
+	 tail -10  logs/basic_checks_issue_46_wrong_type_signal_column.log.diff 
+
+
+
+ basic_checks :  basic_checks/issue_46_wrong_type_signal_column.py basic_checks/issue_46_wrong_type_date_column.py basic_checks/issue_46_one_or_two_rows.py basic_checks/issue_46_non_existant_time_column.py basic_checks/issue_46_non_existant_signal_column.py basic_checks/issue_46_negative_horizon.py basic_checks/issue_46_min_max_issues.py  
+ 
+
 bench/test_M1Comp.py  :  
 	 -$(PYTHON)  tests/bench/test_M1Comp.py  >  logs/bench_test_M1Comp.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/bench_test_M1Comp.log logs/bench_test_M1Comp.log  >  logs/bench_test_M1Comp.log.diff
@@ -65,6 +105,26 @@ bench/test_M4_C0808_failure.py  :
 	 -$(PYTHON)  tests/bench/test_M4_C0808_failure.py  >  logs/bench_test_M4_C0808_failure.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/bench_test_M4_C0808_failure.log logs/bench_test_M4_C0808_failure.log  >  logs/bench_test_M4_C0808_failure.log.diff
 	 tail -10  logs/bench_test_M4_C0808_failure.log.diff 
+
+bench/test_M4_ECON1830_failure.py  :  
+	 -$(PYTHON)  tests/bench/test_M4_ECON1830_failure.py  >  logs/bench_test_M4_ECON1830_failure.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bench_test_M4_ECON1830_failure.log logs/bench_test_M4_ECON1830_failure.log  >  logs/bench_test_M4_ECON1830_failure.log.diff
+	 tail -10  logs/bench_test_M4_ECON1830_failure.log.diff 
+
+bench/test_M4_FIN27_failure.py  :  
+	 -$(PYTHON)  tests/bench/test_M4_FIN27_failure.py  >  logs/bench_test_M4_FIN27_failure.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bench_test_M4_FIN27_failure.log logs/bench_test_M4_FIN27_failure.log  >  logs/bench_test_M4_FIN27_failure.log.diff
+	 tail -10  logs/bench_test_M4_FIN27_failure.log.diff 
+
+bench/test_M4_FIN28_failure.py  :  
+	 -$(PYTHON)  tests/bench/test_M4_FIN28_failure.py  >  logs/bench_test_M4_FIN28_failure.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bench_test_M4_FIN28_failure.log logs/bench_test_M4_FIN28_failure.log  >  logs/bench_test_M4_FIN28_failure.log.diff
+	 tail -10  logs/bench_test_M4_FIN28_failure.log.diff 
+
+bench/test_M4_FIN29_failure.py  :  
+	 -$(PYTHON)  tests/bench/test_M4_FIN29_failure.py  >  logs/bench_test_M4_FIN29_failure.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bench_test_M4_FIN29_failure.log logs/bench_test_M4_FIN29_failure.log  >  logs/bench_test_M4_FIN29_failure.log.diff
+	 tail -10  logs/bench_test_M4_FIN29_failure.log.diff 
 
 bench/test_MComp.py  :  
 	 -$(PYTHON)  tests/bench/test_MComp.py  >  logs/bench_test_MComp.log  2>&1
@@ -106,9 +166,14 @@ bench/test_yahoo_cac40.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/bench_test_yahoo_cac40.log logs/bench_test_yahoo_cac40.log  >  logs/bench_test_yahoo_cac40.log.diff
 	 tail -10  logs/bench_test_yahoo_cac40.log.diff 
 
+bench/test_yahoo_nyse_VRS.py  :  
+	 -$(PYTHON)  tests/bench/test_yahoo_nyse_VRS.py  >  logs/bench_test_yahoo_nyse_VRS.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bench_test_yahoo_nyse_VRS.log logs/bench_test_yahoo_nyse_VRS.log  >  logs/bench_test_yahoo_nyse_VRS.log.diff
+	 tail -10  logs/bench_test_yahoo_nyse_VRS.log.diff 
 
 
- bench :  bench/test_yahoo_cac40.py bench/test_yahoo.py bench/test_stock_prices.py bench/test_artificial_one_dataset.py bench/test_NN5.py bench/test_NN3.py bench/test_MWH_datasets.py bench/test_MComp.py bench/test_M4_C0808_failure.py bench/test_M4Comp.py bench/test_M3Comp.py bench/test_M2Comp.py bench/test_M1Comp.py  
+
+ bench :  bench/test_yahoo_nyse_VRS.py bench/test_yahoo_cac40.py bench/test_yahoo.py bench/test_stock_prices.py bench/test_artificial_one_dataset.py bench/test_NN5.py bench/test_NN3.py bench/test_MWH_datasets.py bench/test_MComp.py bench/test_M4_FIN29_failure.py bench/test_M4_FIN28_failure.py bench/test_M4_FIN27_failure.py bench/test_M4_ECON1830_failure.py bench/test_M4_C0808_failure.py bench/test_M4Comp.py bench/test_M3Comp.py bench/test_M2Comp.py bench/test_M1Comp.py  
  
 
 bugs/test_artificial_bug_1.py  :  
@@ -186,6 +251,11 @@ bugs/issue_34/test_artificial_1024_sqrt_linear_30_12_20.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_34_test_artificial_1024_sqrt_linear_30_12_20.log logs/bugs_issue_34_test_artificial_1024_sqrt_linear_30_12_20.log  >  logs/bugs_issue_34_test_artificial_1024_sqrt_linear_30_12_20.log.diff
 	 tail -10  logs/bugs_issue_34_test_artificial_1024_sqrt_linear_30_12_20.log.diff 
 
+bugs/issue_46/issue_46_one_or_two_rows.py  :  
+	 -$(PYTHON)  tests/bugs/issue_46/issue_46_one_or_two_rows.py  >  logs/bugs_issue_46_issue_46_one_or_two_rows.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_46_issue_46_one_or_two_rows.log logs/bugs_issue_46_issue_46_one_or_two_rows.log  >  logs/bugs_issue_46_issue_46_one_or_two_rows.log.diff
+	 tail -10  logs/bugs_issue_46_issue_46_one_or_two_rows.log.diff 
+
 bugs/issue_32/bug_test_ozone_heroku_1.py  :  
 	 -$(PYTHON)  tests/bugs/issue_32/bug_test_ozone_heroku_1.py  >  logs/bugs_issue_32_bug_test_ozone_heroku_1.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_32_bug_test_ozone_heroku_1.log logs/bugs_issue_32_bug_test_ozone_heroku_1.log  >  logs/bugs_issue_32_bug_test_ozone_heroku_1.log.diff
@@ -228,7 +298,7 @@ bugs/issue_21/test_ozone_max_autoreg_5.py  :
 
 
 
- bugs :  bugs/test_random_exogenous.py bugs/test_artificial_bug_2.py bugs/test_artificial_bug_1.py bugs/issue_34/test_artificial_1024_sqrt_linear_30_12_20.py bugs/issue_34/test_artificial_1024_sqrt_constant_7_12_100.py bugs/issue_34/test_artificial_1024_sqr_poly_5_12_20.py bugs/issue_34/test_artificial_1024_log_linear_5_12_100.py bugs/issue_34/test_artificial_1024_log_linear_30_12_20.py bugs/issue_34/test_artificial_1024_inv_linear_7_12_100.py bugs/issue_34/test_artificial_1024_inv_constant_30__20.py bugs/issue_34/test_artificial_1024_diff_poly_0__100.py bugs/issue_34/test_artificial_1024_diff_poly_0__0.py bugs/issue_34/test_artificial_1024__poly_7_12_100.py bugs/issue_34/issue_34_1.py bugs/issue_34/issue_34.py bugs/issue_32/bug_test_ozone_heroku_1_ws.py bugs/issue_32/bug_test_ozone_heroku_1.py bugs/issue_22/test_artificial_1024_cumsum_constant_5__20.py bugs/issue_29/test_mem_1.py bugs/issue_36/issue_36_version_info.py bugs/issue_36/display_version_info.py bugs/issue_21/test_ozone_max_autoreg_5.py bugs/issue_21/test_artificial_1024__poly_7__20.py  
+ bugs :  bugs/test_random_exogenous.py bugs/test_artificial_bug_2.py bugs/test_artificial_bug_1.py bugs/issue_34/test_artificial_1024_sqrt_linear_30_12_20.py bugs/issue_34/test_artificial_1024_sqrt_constant_7_12_100.py bugs/issue_34/test_artificial_1024_sqr_poly_5_12_20.py bugs/issue_34/test_artificial_1024_log_linear_5_12_100.py bugs/issue_34/test_artificial_1024_log_linear_30_12_20.py bugs/issue_34/test_artificial_1024_inv_linear_7_12_100.py bugs/issue_34/test_artificial_1024_inv_constant_30__20.py bugs/issue_34/test_artificial_1024_diff_poly_0__100.py bugs/issue_34/test_artificial_1024_diff_poly_0__0.py bugs/issue_34/test_artificial_1024__poly_7_12_100.py bugs/issue_34/issue_34_1.py bugs/issue_34/issue_34.py bugs/issue_46/issue_46_one_or_two_rows.py bugs/issue_32/bug_test_ozone_heroku_1_ws.py bugs/issue_32/bug_test_ozone_heroku_1.py bugs/issue_22/test_artificial_1024_cumsum_constant_5__20.py bugs/issue_29/test_mem_1.py bugs/issue_36/issue_36_version_info.py bugs/issue_36/display_version_info.py bugs/issue_21/test_ozone_max_autoreg_5.py bugs/issue_21/test_artificial_1024__poly_7__20.py  
  
 
 exog/test_ozone_exogenous.py  :  
@@ -771,17 +841,22 @@ transformations/test_ozone_transf_relative_difference.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/transformations_test_ozone_transf_relative_difference.log logs/transformations_test_ozone_transf_relative_difference.log  >  logs/transformations_test_ozone_transf_relative_difference.log.diff
 	 tail -10  logs/transformations_test_ozone_transf_relative_difference.log.diff 
 
+transformations/test_ozone_transf_relative_difference_1.py  :  
+	 -$(PYTHON)  tests/transformations/test_ozone_transf_relative_difference_1.py  >  logs/transformations_test_ozone_transf_relative_difference_1.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/transformations_test_ozone_transf_relative_difference_1.log logs/transformations_test_ozone_transf_relative_difference_1.log  >  logs/transformations_test_ozone_transf_relative_difference_1.log.diff
+	 tail -10  logs/transformations_test_ozone_transf_relative_difference_1.log.diff 
 
 
- transformations :  transformations/test_ozone_transf_relative_difference.py transformations/test_ozone_transf_quantization.py transformations/test_ozone_transf_none.py transformations/test_ozone_transf_logit.py transformations/test_ozone_transf_generic.py transformations/test_ozone_transf_fisher.py transformations/test_ozone_transf_difference.py transformations/test_ozone_transf_cumsum.py transformations/test_ozone_transf_boxcox.py transformations/test_ozone_transf_anscombe.py  
+
+ transformations :  transformations/test_ozone_transf_relative_difference_1.py transformations/test_ozone_transf_relative_difference.py transformations/test_ozone_transf_quantization.py transformations/test_ozone_transf_none.py transformations/test_ozone_transf_logit.py transformations/test_ozone_transf_generic.py transformations/test_ozone_transf_fisher.py transformations/test_ozone_transf_difference.py transformations/test_ozone_transf_cumsum.py transformations/test_ozone_transf_boxcox.py transformations/test_ozone_transf_anscombe.py  
  
 
 
 # ********************************************** 
 
-all:  artificial bugs exog expsmooth HeartRateTimeSeries heroku hierarchical model_control perf svr transformations bench func neuralnet real-life  time_res perfs 
+all:  artificial basic_checks bugs exog expsmooth HeartRateTimeSeries heroku hierarchical model_control perf svr transformations bench func neuralnet real-life  time_res perfs 
 	
 
-build-test :  exog heroku hierarchical model_control svr transformations func real-life  time_res perfs 
+build-test :  basic_checks exog heroku hierarchical model_control svr transformations func real-life  time_res perfs 
 	
 
