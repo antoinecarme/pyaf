@@ -74,9 +74,11 @@ The following features are available :
       implemented.
    6. The modeling process is **customizable** and has a huge set of **options**. The
       default values of these options should however be OK.
-   7. A **benchmarking process** is progressing (using M1, M2, M3 competitions, NN3,
-      NN5 data).
-         * Benchmarks are saved in a separate [github repository](https://github.com/antoinecarme/PyAF_Benchmarks) and a [related  github issue](https://github.com/antoinecarme/pyaf/issues/45) was created.
+   7. A **benchmarking process** is in place (using M1, M2, M3 competitions, NN3,
+      NN5 forecasting competitions).
+         * This process will be used to control the quality of modeling changes introduced in the future versions of PyAF. A  [related  github issue](https://github.com/antoinecarme/pyaf/issues/45) is created. 
+         * Benchmarks data/reports are saved in a separate [github repository](https://github.com/antoinecarme/PyAF_Benchmarks). 
+         * Sample [benchmark report](https://github.com/antoinecarme/PyAF_Benchmarks/blob/master/reporting/data/M1_COMP_debrief.csv) with 1001 datasets from the M1 Forecasting Competition.
    8. Basic **plotting** functions using matplotlib with standard time series and
       forecasts plots.
    9. **Software Quality** Highlights
