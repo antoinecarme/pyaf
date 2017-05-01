@@ -76,6 +76,7 @@ The following features are available :
       default values of these options should however be OK.
    7. A **benchmarking process** is progressing (using M1, M2, M3 competitions, NN3,
       NN5 data).
+         * Benchmarks are saved in a separate [github repository](https://github.com/antoinecarme/PyAF_Benchmarks) and a [related  github issue](https://github.com/antoinecarme/pyaf/issues/45) was created.
    8. Basic **plotting** functions using matplotlib with standard time series and
       forecasts plots.
    9. **Software Quality** Highlights
