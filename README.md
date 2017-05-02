@@ -90,8 +90,9 @@ The following features are available :
       directory, one directory for each feature.
       -Some **[jupyter notebooks](docs)** are available for demo purposes with standard time series and forecasts plots.
       * Very **simple API** for training and forecasting.
-   10. A basic **REST WebService** (Flask) effort is starting.
-       * See http://pyaf.herokuapp.com/ and the [related github issue](https://github.com/antoinecarme/pyaf/issues/20)
+   10. A basic **RESTful Web Service** (Flask) effort is available.
+       * This service allows building a time series model, forecasting future data and some elementary plots by providing a minimal specification of the signal (at least a link to a csv file containing the data).
+       * See http://pyaf.herokuapp.com/ and the [related github issue](https://github.com/antoinecarme/pyaf/issues/20) for more details.
    11. A project for **SQL generation** is started (using core **[SLQAlchemy](http://www.sqlalchemy.org/)** expressions). 
         The goal is to be able to export the forecasts as a SQL
         code to ease the **production mode**. SLQAlchemy provides **agnostic support of
@@ -106,7 +107,7 @@ Installation
 
 Use the source !!!!
 
-No package is available yet. It is however easy to colne the repository in a directory called 'pyaf' using the command :
+No package is available yet. It is however easy to clone the repository in a directory called 'pyaf' using the command :
 
 	git clone http://github.com/antoinecarme/pyaf.git
 
