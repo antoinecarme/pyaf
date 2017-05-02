@@ -90,7 +90,7 @@ The following features are available :
       directory, one directory for each feature.
       -Some **[jupyter notebooks](docs)** are available for demo purposes with standard time series and forecasts plots.
       * Very **simple API** for training and forecasting.
-   10. A basic **RESTful Web Service** (Flask) effort is available.
+   10. A basic **RESTful Web Service** (Flask) is available.
        * This service allows building a time series model, forecasting future data and some standard plots by providing a minimal specification of the signal in the JSON request body (at least a link to a csv file containing the data).
        * See http://pyaf.herokuapp.com/ and the [related github issue](https://github.com/antoinecarme/pyaf/issues/20) for more details.
    11. A project for **SQL generation** is started (using core **[SLQAlchemy](http://www.sqlalchemy.org/)** expressions). 
