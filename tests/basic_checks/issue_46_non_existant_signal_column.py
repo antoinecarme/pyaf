@@ -11,7 +11,7 @@ try:
 except Exception as e:
     # should fail
     print(str(e));
-    assert(str(e) == "SIGNAL_COLUMN_NOT_FOUND signal_non_existant")
+    assert(str(e) == "PYAF_ERROR_SIGNAL_COLUMN_NOT_FOUND signal_non_existant")
     if(str(e) == "NOT_OK"):
         raise
     pass

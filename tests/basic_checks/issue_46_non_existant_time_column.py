@@ -10,7 +10,7 @@ try:
 except Exception as e:
     # should fail
     print(str(e));
-    assert(str(e) == "TIME_COLUMN_NOT_FOUND date_other")
+    assert(str(e) == "PYAF_ERROR_TIME_COLUMN_NOT_FOUND date_other")
     if(str(e) == "NOT_OK"):
         raise
     pass
