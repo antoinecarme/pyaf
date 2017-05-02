@@ -456,34 +456,34 @@ class cSignalDecomposition:
 
     def checkData(self, iInputDS, iTime, iSignal, iHorizon, iExogenousData):        
         if(iHorizon != int(iHorizon)):
-            raise Exception("NON_INTEGER_HORIZON " + str(iHorizon));
+            raise Exception("PYAF_ERROR_NON_INTEGER_HORIZON " + str(iHorizon));
         if(iHorizon < 1):
-            raise Exception("NEGATIVE_OR_NULL_HORIZON " + str(iHorizon));
+            raise Exception("PYAF_ERROR_NEGATIVE_OR_NULL_HORIZON " + str(iHorizon));
         if(iTime not in iInputDS.columns):
-            raise Exception("TIME_COLUMN_NOT_FOUND " + str(iTime));
+            raise Exception("PYAF_ERROR_TIME_COLUMN_NOT_FOUND " + str(iTime));
         if(iSignal not in iInputDS.columns):
-            raise Exception("SIGNAL_COLUMN_NOT_FOUND " + str(iSignal));
+            raise Exception("PYAF_ERROR_SIGNAL_COLUMN_NOT_FOUND " + str(iSignal));
         type1 = np.dtype(iInputDS[iTime])
         # print(type1)
         if(type1.kind != 'M' and type1.kind != 'i' and type1.kind != 'u' and type1.kind != 'f'):
-            raise Exception("TIME_COLUMN_TYPE_NOT_ALLOWED '" + str(iTime) + "' '" + str(type1) + "'");
+            raise Exception("PYAF_ERROR_TIME_COLUMN_TYPE_NOT_ALLOWED '" + str(iTime) + "' '" + str(type1) + "'");
         type2 = np.dtype(iInputDS[iSignal])
         # print(type2)
         if(type2.kind != 'i' and type2.kind != 'u' and type2.kind != 'f'):
-            raise Exception("SIGNAL_COLUMN_TYPE_NOT_ALLOWED '" + str(iSignal) + "' '" + str(type2) + "'");
+            raise Exception("PYAF_ERROR_SIGNAL_COLUMN_TYPE_NOT_ALLOWED '" + str(iSignal) + "' '" + str(type2) + "'");
         # time in exogenous data should be the strictly same type as time in training dataset (join needed)
         if(iExogenousData is not None):
             lExogenousDataFrame = iExogenousData[0];
             lExogenousVariables = iExogenousData[1];
             if(iTime not in lExogenousDataFrame.columns):
-                raise Exception("TIME_COLUMN_NOT_FOUND_IN_EXOGENOUS " + str(iTime));
+                raise Exception("PYAF_ERROR_TIME_COLUMN_NOT_FOUND_IN_EXOGENOUS " + str(iTime));
             for exog in lExogenousVariables:
                 if(exog not in lExogenousDataFrame.columns):
-                    raise Exception("EXOGENOUS_VARIABLE_NOT_FOUND " + str(exog));
+                    raise Exception("PYAF_ERROR_EXOGENOUS_VARIABLE_NOT_FOUND " + str(exog));
                 
             type3 = np.dtype(lExogenousDataFrame[iTime])
             if(type1 != type3):
-                raise Exception("INCOMPATIBLE_TIME_COLUMN_TYPE_IN_EXOGENOUS '" + str(iTime) + "' '" + str(type1)  + "' '" + str(type3) + "'");
+                raise Exception("PYAF_ERROR_INCOMPATIBLE_TIME_COLUMN_TYPE_IN_EXOGENOUS '" + str(iTime) + "' '" + str(type1)  + "' '" + str(type3) + "'");
                 
             
 
