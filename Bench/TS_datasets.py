@@ -160,9 +160,9 @@ def add_some_noise(x , p , min_sig, max_sig, e , f):
 
 def gen_trend(N , trendtype):
     lTrend = pd.Series();
-    a = 100 * (2 * np.random.random() - 1);
-    b = 10 * (2 * np.random.random() - 1);
-    c = (2 * np.random.random());
+    a = (2 * np.random.random() - 1);
+    b = (2 * np.random.random() - 1);
+    c = (2 * np.random.random() - 1);
     print("TREND" , a , b ,c);
     if(trendtype == "constant"):
         lTrend = a
@@ -227,7 +227,7 @@ def generate_random_TS(N , FREQ, seed, trendtype, cycle_length, transform, sigma
     df_train['GeneratedAR'] = gen_ar(N , ar_order);
 
     df_train['Noise'] = np.random.randn(N, 1) * sigma;
-    df_train['Signal'] = df_train['GeneratedTrend'] +  df_train['GeneratedCycle'] + df_train['GeneratedAR'] + df_train['Noise']
+    df_train['Signal'] = 100 * df_train['GeneratedTrend'] +  10 * df_train['GeneratedCycle'] + 1 * df_train['GeneratedAR'] + df_train['Noise']
 
     min_sig = df_train['Signal'].min();
     max_sig = df_train['Signal'].max();

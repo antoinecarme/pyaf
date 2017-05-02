@@ -14,9 +14,7 @@ logging.basicConfig(level=logging.INFO)
 def process_dataset(idataset, debug=False):
     idataset.mFullDataset["orig_" + idataset.mSignalVar] = idataset.mFullDataset[idataset.mSignalVar];
 
-    for i in range(4):
-        sig = (i + 1.0)/4.0;
-        process_dataset_with_noise(idataset, sig , debug);
+    process_dataset_with_noise(idataset, 0.1 , debug);
 
 def process_dataset_with_noise(idataset , sigma, debug=False):
     
@@ -56,8 +54,12 @@ def process_dataset_with_noise(idataset , sigma, debug=False):
         dfapp_out = lEngine.forecast(dfapp_in, H);
         dfapp_out.tail(2 * H)
         print("Forecast Columns " , dfapp_out.columns);
-        Forecast_DF = dfapp_out[[idataset.mTimeVar , lSignalVar, lSignalVar + '_Forecast']]
-        print(Forecast_DF.info())
+        lForecastName = lSignalVar + '_Forecast'
+        Forecast_DF = dfapp_out[[idataset.mTimeVar , lSignalVar,
+                                 lForecastName ,
+                                 lForecastName + "_Lower_Bound",
+                                 lForecastName + "_Upper_Bound"]]
+        Forecast_DF.info()
         print("Forecasts\n" , Forecast_DF.tail(H).values);
         
         print("\n\n<ModelInfo>")
