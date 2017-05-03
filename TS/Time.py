@@ -109,7 +109,7 @@ class cTimeInfo:
             return iTime.day;
         if(iDatePart == "Hour"):
             return iTime.hour;
-        if(iDatePart == "Min"):
+        if(iDatePart == "Minute"):
             return iTime.minute;
         if(iDatePart == "Second"):
             return iTime.second;
@@ -218,6 +218,26 @@ class cTimeInfo:
     def isOneRowDataset(self):
         return ((1 + self.mEstimStart) ==  self.mEstimEnd)
 
+
+    def adaptTimeDeltaToTimeResolution(self):
+        if(not self.isPhysicalTime()):
+            return;
+        if(self.RES_SECOND == self.mResolution):
+            return;
+        if(self.RES_MINUTE == self.mResolution):
+            self.mTimeDelta = round(self.mTimeDelta / np.timedelta64(1,'m')) * np.timedelta64(1,'m')
+            return;
+        if(self.RES_HOUR == self.mResolution):
+            self.mTimeDelta = round(self.mTimeDelta / np.timedelta64(1,'h')) * np.timedelta64(1,'h')
+            return;
+        if(self.RES_DAY == self.mResolution):
+            self.mTimeDelta = round(self.mTimeDelta / np.timedelta64(1,'D')) * np.timedelta64(1,'D')
+            return;
+        if(self.RES_MONTH == self.mResolution):
+            self.mTimeDelta = round(self.mTimeDelta / np.timedelta64(30,'D')) * np.timedelta64(30,'D')
+            return;
+        pass
+    
     def computeTimeDelta(self):
         #print(self.mSignalFrame.columns);
         # print(self.mSignalFrame[self.mTime].head());
@@ -246,6 +266,7 @@ class cTimeInfo:
         if(self.mOptions.mTimeDeltaComputationMethod == "MODE"):
             delta_counts = pd.DataFrame(lDiffs.value_counts());
             self.mTimeDelta = delta_counts[self.mTime].argmax();
+        self.adaptTimeDeltaToTimeResolution();
 
     def estimate(self):
         #print(self.mSignalFrame.columns);
