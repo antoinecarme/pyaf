@@ -34,12 +34,16 @@ def compare_words(word_orig, word_new):
         return 1;
     
 
+
+
 def compare_lines(line_orig, line_new):
     if(line_orig == line_new):
         return 0;
     # if both lines contain 'TIME' , skip.
-    if('TIME' in line_orig.upper() and 'TIME' in line_new.upper()):
-        return 0;
+    lSkippedTags = ['END_TRAINING_TIME_IN_SECONDS']
+    for tag in lSkippedTags:
+        if(tag in line_orig.upper() and tag in line_new.upper()):
+            return 0;
     import re
     lRegex  = '[?,:"{}] \n\t'
     split_orig = re.split(lRegex, line_orig)
