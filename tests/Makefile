@@ -41,6 +41,41 @@ artificial/process_artificial_dataset.py  :
  artificial :  artificial/process_artificial_dataset.py artificial/__init__.py  
  
 
+basic_checks/hierarchy_checks.py  :  
+	 -$(PYTHON)  tests/basic_checks/hierarchy_checks.py  >  logs/basic_checks_hierarchy_checks.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/basic_checks_hierarchy_checks.log logs/basic_checks_hierarchy_checks.log  >  logs/basic_checks_hierarchy_checks.log.diff
+	 tail -10  logs/basic_checks_hierarchy_checks.log.diff 
+
+basic_checks/hierarchy_checks_bad_horizon.py  :  
+	 -$(PYTHON)  tests/basic_checks/hierarchy_checks_bad_horizon.py  >  logs/basic_checks_hierarchy_checks_bad_horizon.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/basic_checks_hierarchy_checks_bad_horizon.log logs/basic_checks_hierarchy_checks_bad_horizon.log  >  logs/basic_checks_hierarchy_checks_bad_horizon.log.diff
+	 tail -10  logs/basic_checks_hierarchy_checks_bad_horizon.log.diff 
+
+basic_checks/hierarchy_checks_base_column_bad_storage.py  :  
+	 -$(PYTHON)  tests/basic_checks/hierarchy_checks_base_column_bad_storage.py  >  logs/basic_checks_hierarchy_checks_base_column_bad_storage.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/basic_checks_hierarchy_checks_base_column_bad_storage.log logs/basic_checks_hierarchy_checks_base_column_bad_storage.log  >  logs/basic_checks_hierarchy_checks_base_column_bad_storage.log.diff
+	 tail -10  logs/basic_checks_hierarchy_checks_base_column_bad_storage.log.diff 
+
+basic_checks/hierarchy_checks_date_column_bad_storage.py  :  
+	 -$(PYTHON)  tests/basic_checks/hierarchy_checks_date_column_bad_storage.py  >  logs/basic_checks_hierarchy_checks_date_column_bad_storage.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/basic_checks_hierarchy_checks_date_column_bad_storage.log logs/basic_checks_hierarchy_checks_date_column_bad_storage.log  >  logs/basic_checks_hierarchy_checks_date_column_bad_storage.log.diff
+	 tail -10  logs/basic_checks_hierarchy_checks_date_column_bad_storage.log.diff 
+
+basic_checks/hierarchy_checks_non_existant_base_column.py  :  
+	 -$(PYTHON)  tests/basic_checks/hierarchy_checks_non_existant_base_column.py  >  logs/basic_checks_hierarchy_checks_non_existant_base_column.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/basic_checks_hierarchy_checks_non_existant_base_column.log logs/basic_checks_hierarchy_checks_non_existant_base_column.log  >  logs/basic_checks_hierarchy_checks_non_existant_base_column.log.diff
+	 tail -10  logs/basic_checks_hierarchy_checks_non_existant_base_column.log.diff 
+
+basic_checks/hierarchy_checks_non_existant_date_column.py  :  
+	 -$(PYTHON)  tests/basic_checks/hierarchy_checks_non_existant_date_column.py  >  logs/basic_checks_hierarchy_checks_non_existant_date_column.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/basic_checks_hierarchy_checks_non_existant_date_column.log logs/basic_checks_hierarchy_checks_non_existant_date_column.log  >  logs/basic_checks_hierarchy_checks_non_existant_date_column.log.diff
+	 tail -10  logs/basic_checks_hierarchy_checks_non_existant_date_column.log.diff 
+
+basic_checks/hierarchy_checks_unkonwn_base_column.py  :  
+	 -$(PYTHON)  tests/basic_checks/hierarchy_checks_unkonwn_base_column.py  >  logs/basic_checks_hierarchy_checks_unkonwn_base_column.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/basic_checks_hierarchy_checks_unkonwn_base_column.log logs/basic_checks_hierarchy_checks_unkonwn_base_column.log  >  logs/basic_checks_hierarchy_checks_unkonwn_base_column.log.diff
+	 tail -10  logs/basic_checks_hierarchy_checks_unkonwn_base_column.log.diff 
+
 basic_checks/issue_46_min_max_issues.py  :  
 	 -$(PYTHON)  tests/basic_checks/issue_46_min_max_issues.py  >  logs/basic_checks_issue_46_min_max_issues.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/basic_checks_issue_46_min_max_issues.log logs/basic_checks_issue_46_min_max_issues.log  >  logs/basic_checks_issue_46_min_max_issues.log.diff
@@ -78,7 +113,7 @@ basic_checks/issue_46_wrong_type_signal_column.py  :
 
 
 
- basic_checks :  basic_checks/issue_46_wrong_type_signal_column.py basic_checks/issue_46_wrong_type_date_column.py basic_checks/issue_46_one_or_two_rows.py basic_checks/issue_46_non_existant_time_column.py basic_checks/issue_46_non_existant_signal_column.py basic_checks/issue_46_negative_horizon.py basic_checks/issue_46_min_max_issues.py  
+ basic_checks :  basic_checks/issue_46_wrong_type_signal_column.py basic_checks/issue_46_wrong_type_date_column.py basic_checks/issue_46_one_or_two_rows.py basic_checks/issue_46_non_existant_time_column.py basic_checks/issue_46_non_existant_signal_column.py basic_checks/issue_46_negative_horizon.py basic_checks/issue_46_min_max_issues.py basic_checks/hierarchy_checks_unkonwn_base_column.py basic_checks/hierarchy_checks_non_existant_date_column.py basic_checks/hierarchy_checks_non_existant_base_column.py basic_checks/hierarchy_checks_date_column_bad_storage.py basic_checks/hierarchy_checks_base_column_bad_storage.py basic_checks/hierarchy_checks_bad_horizon.py basic_checks/hierarchy_checks.py  
  
 
 bench/test_M1Comp.py  :  
@@ -296,9 +331,14 @@ bugs/issue_21/test_ozone_max_autoreg_5.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_21_test_ozone_max_autoreg_5.log logs/bugs_issue_21_test_ozone_max_autoreg_5.log  >  logs/bugs_issue_21_test_ozone_max_autoreg_5.log.diff
 	 tail -10  logs/bugs_issue_21_test_ozone_max_autoreg_5.log.diff 
 
+bugs/issue_4/issue_4.py  :  
+	 -$(PYTHON)  tests/bugs/issue_4/issue_4.py  >  logs/bugs_issue_4_issue_4.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_4_issue_4.log logs/bugs_issue_4_issue_4.log  >  logs/bugs_issue_4_issue_4.log.diff
+	 tail -10  logs/bugs_issue_4_issue_4.log.diff 
 
 
- bugs :  bugs/test_random_exogenous.py bugs/test_artificial_bug_2.py bugs/test_artificial_bug_1.py bugs/issue_34/test_artificial_1024_sqrt_linear_30_12_20.py bugs/issue_34/test_artificial_1024_sqrt_constant_7_12_100.py bugs/issue_34/test_artificial_1024_sqr_poly_5_12_20.py bugs/issue_34/test_artificial_1024_log_linear_5_12_100.py bugs/issue_34/test_artificial_1024_log_linear_30_12_20.py bugs/issue_34/test_artificial_1024_inv_linear_7_12_100.py bugs/issue_34/test_artificial_1024_inv_constant_30__20.py bugs/issue_34/test_artificial_1024_diff_poly_0__100.py bugs/issue_34/test_artificial_1024_diff_poly_0__0.py bugs/issue_34/test_artificial_1024__poly_7_12_100.py bugs/issue_34/issue_34_1.py bugs/issue_34/issue_34.py bugs/issue_46/issue_46_one_or_two_rows.py bugs/issue_32/bug_test_ozone_heroku_1_ws.py bugs/issue_32/bug_test_ozone_heroku_1.py bugs/issue_22/test_artificial_1024_cumsum_constant_5__20.py bugs/issue_29/test_mem_1.py bugs/issue_36/issue_36_version_info.py bugs/issue_36/display_version_info.py bugs/issue_21/test_ozone_max_autoreg_5.py bugs/issue_21/test_artificial_1024__poly_7__20.py  
+
+ bugs :  bugs/test_random_exogenous.py bugs/test_artificial_bug_2.py bugs/test_artificial_bug_1.py bugs/issue_34/test_artificial_1024_sqrt_linear_30_12_20.py bugs/issue_34/test_artificial_1024_sqrt_constant_7_12_100.py bugs/issue_34/test_artificial_1024_sqr_poly_5_12_20.py bugs/issue_34/test_artificial_1024_log_linear_5_12_100.py bugs/issue_34/test_artificial_1024_log_linear_30_12_20.py bugs/issue_34/test_artificial_1024_inv_linear_7_12_100.py bugs/issue_34/test_artificial_1024_inv_constant_30__20.py bugs/issue_34/test_artificial_1024_diff_poly_0__100.py bugs/issue_34/test_artificial_1024_diff_poly_0__0.py bugs/issue_34/test_artificial_1024__poly_7_12_100.py bugs/issue_34/issue_34_1.py bugs/issue_34/issue_34.py bugs/issue_46/issue_46_one_or_two_rows.py bugs/issue_32/bug_test_ozone_heroku_1_ws.py bugs/issue_32/bug_test_ozone_heroku_1.py bugs/issue_22/test_artificial_1024_cumsum_constant_5__20.py bugs/issue_29/test_mem_1.py bugs/issue_36/issue_36_version_info.py bugs/issue_36/display_version_info.py bugs/issue_21/test_ozone_max_autoreg_5.py bugs/issue_21/test_artificial_1024__poly_7__20.py bugs/issue_4/issue_4.py  
  
 
 exog/test_ozone_exogenous.py  :  
