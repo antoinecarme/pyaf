@@ -1,0 +1,210 @@
+INFO:pyaf.std:START_TRAINING 'VRS'
+['aex', 'aord', 'bvsp', 'cac40', 'currency', 'dow_jones', 'eurindex', 'euronext', 'eurostoxx50', 'exch', 'ftse100', 'ftse250', 'ftseall', 'gdaxi', 'ibex35', 'ibexnm', 'ipc', 'kospi', 'mc', 'merval', 'mib30', 'mibtel', 'midex', 'my_test', 'nasdaq', 'nasdaqbio', 'ny100', 'nysecomp', 'nyworldlead', 'othindex', 'smi', 'sp500', 'spmib', 'sse', 'ta100', 'tsx', 'usindex']
+ACQUIRED_YAHOO_LINKS 4818
+load_yahoo_stock_prices nysecomp 1544
+BENCH_TYPE YAHOO_STOCKS_nysecomp OneDataFramePerSignal
+BENCH_DATA YAHOO_STOCKS_nysecomp <pyaf.Bench.TS_datasets.cTimeSeriesDatasetSpec object at 0x7fc1cc2455c0>
+TIME :  Date N= 5 H= 1 HEAD= ['2016-07-20T00:00:00.000000000' '2016-07-21T00:00:00.000000000'
+ '2016-07-22T00:00:00.000000000' '2016-07-25T00:00:00.000000000'
+ '2016-07-26T00:00:00.000000000'] TAIL= ['2016-07-20T00:00:00.000000000' '2016-07-21T00:00:00.000000000'
+ '2016-07-22T00:00:00.000000000' '2016-07-25T00:00:00.000000000'
+ '2016-07-26T00:00:00.000000000']
+SIGNAL :  VRS N= 5 H= 1 HEAD= [ 11.8   11.75  11.6   11.54  11.53] TAIL= [ 11.8   11.75  11.6   11.54  11.53]
+     VRS       Date
+0  11.80 2016-07-20
+1  11.75 2016-07-21
+2  11.60 2016-07-22
+3  11.54 2016-07-25
+4  11.53 2016-07-26
+<class 'pandas.core.frame.DataFrame'>
+Int64Index: 5 entries, 0 to 4
+Data columns (total 2 columns):
+VRS     5 non-null float64
+Date    5 non-null datetime64[ns]
+dtypes: datetime64[ns](1), float64(1)
+memory usage: 120.0 bytes
+None
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'VRS' 2.9120688438415527
+INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2016-07-20T00:00:00.000000 TimeMax=2016-07-26T00:00:00.000000 TimeDelta=2 days Estimation = (0 , 5) Validation = (0 , 5) Test = (0 , 5) Horizon=1
+INFO:pyaf.std:SIGNAL_DETAIL SignalVariable='_VRS' Min=11.53 Max=11.8  Mean=11.644 StdDev=0.110742945599
+INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
+INFO:pyaf.std:BEST_DECOMPOSITION  '_VRS_ConstantTrend_residue_zeroCycle_residue_NoAR' [ConstantTrend + NoCycle + NoAR]
+INFO:pyaf.std:TREND_DETAIL '_VRS_ConstantTrend' [ConstantTrend]
+INFO:pyaf.std:CYCLE_DETAIL '_VRS_ConstantTrend_residue_zeroCycle' [NoCycle]
+INFO:pyaf.std:AUTOREG_DETAIL '_VRS_ConstantTrend_residue_zeroCycle_residue_NoAR' [NoAR]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.009 MAPE_Forecast=0.009 MAPE_Test=0.009
+INFO:pyaf.std:MODEL_MASE MASE_Fit=1.5526 MASE_Forecast=1.5526 MASE_Test=1.5526
+INFO:pyaf.std:MODEL_L1 L1_Fit=0.110742945599 L1_Forecast=0.110742945599 L1_Test=0.1048
+INFO:pyaf.std:MODEL_L2 L2_Fit=0.110742945599 L2_Forecast=0.110742945599 L2_Test=0.110742945599
+INFO:pyaf.std:MODEL_COMPLEXITY 0
+INFO:pyaf.std:AR_MODEL_DETAIL_START
+INFO:pyaf.std:AR_MODEL_DETAIL_END
+   Transformation                                              Model  \
+0     RelDiff_VRS  RelDiff_VRS_PolyTrend_residue_zeroCycle_residu...   
+1     RelDiff_VRS  RelDiff_VRS_PolyTrend_residue_bestCycle_byL2_r...   
+2            _VRS      _VRS_PolyTrend_residue_zeroCycle_residue_NoAR   
+3            _VRS  _VRS_PolyTrend_residue_bestCycle_byL2_residue_...   
+4        Diff_VRS  Diff_VRS_PolyTrend_residue_zeroCycle_residue_NoAR   
+5        Diff_VRS  Diff_VRS_PolyTrend_residue_bestCycle_byL2_resi...   
+6        Diff_VRS  Diff_VRS_ConstantTrend_residue_zeroCycle_resid...   
+7        Diff_VRS  Diff_VRS_ConstantTrend_residue_bestCycle_byL2_...   
+8        Diff_VRS  Diff_VRS_LinearTrend_residue_zeroCycle_residue...   
+9        Diff_VRS  Diff_VRS_LinearTrend_residue_bestCycle_byL2_re...   
+10    RelDiff_VRS  RelDiff_VRS_LinearTrend_residue_zeroCycle_resi...   
+11    RelDiff_VRS  RelDiff_VRS_LinearTrend_residue_bestCycle_byL2...   
+12           _VRS      _VRS_Lag1Trend_residue_zeroCycle_residue_NoAR   
+13           _VRS  _VRS_Lag1Trend_residue_bestCycle_byL2_residue_...   
+14       Diff_VRS  Diff_VRS_Lag1Trend_residue_zeroCycle_residue_NoAR   
+15    RelDiff_VRS  RelDiff_VRS_Lag1Trend_residue_zeroCycle_residu...   
+16       Diff_VRS  Diff_VRS_Lag1Trend_residue_bestCycle_byL2_resi...   
+17    RelDiff_VRS  RelDiff_VRS_Lag1Trend_residue_bestCycle_byL2_r...   
+18           _VRS    _VRS_LinearTrend_residue_zeroCycle_residue_NoAR   
+19           _VRS  _VRS_LinearTrend_residue_bestCycle_byL2_residu...   
+20    RelDiff_VRS  RelDiff_VRS_ConstantTrend_residue_zeroCycle_re...   
+21    RelDiff_VRS  RelDiff_VRS_ConstantTrend_residue_bestCycle_by...   
+22           _VRS  _VRS_ConstantTrend_residue_zeroCycle_residue_NoAR   
+23           _VRS  _VRS_ConstantTrend_residue_bestCycle_byL2_resi...   
+24     CumSum_VRS  CumSum_VRS_Lag1Trend_residue_zeroCycle_residue...   
+25     CumSum_VRS  CumSum_VRS_Lag1Trend_residue_bestCycle_byL2_re...   
+26     CumSum_VRS  CumSum_VRS_PolyTrend_residue_zeroCycle_residue...   
+27     CumSum_VRS  CumSum_VRS_PolyTrend_residue_bestCycle_byL2_re...   
+28     CumSum_VRS  CumSum_VRS_LinearTrend_residue_zeroCycle_resid...   
+29     CumSum_VRS  CumSum_VRS_LinearTrend_residue_bestCycle_byL2_...   
+30     CumSum_VRS  CumSum_VRS_ConstantTrend_residue_zeroCycle_res...   
+31     CumSum_VRS  CumSum_VRS_ConstantTrend_residue_bestCycle_byL...   
+
+    Complexity  FitCount      FitL1      FitL2  FitMAPE   FitMASE  \
+0           48         5   0.020584   0.026545   0.0018    0.3050   
+1           56         5   0.020584   0.026545   0.0018    0.3050   
+2           16         5   0.033462   0.041029   0.0029    0.4957   
+3           24         5   0.033462   0.041029   0.0029    0.4957   
+4           48         5   0.037081   0.043464   0.0032    0.5493   
+5           56         5   0.037081   0.043464   0.0032    0.5493   
+6           32         5   0.038800   0.043955   0.0033    0.5748   
+7           40         5   0.038800   0.043955   0.0033    0.5748   
+8           48         5   0.038624   0.044277   0.0033    0.5722   
+9           56         5   0.038624   0.044277   0.0033    0.5722   
+10          48         5   0.049025   0.069481   0.0042    0.7263   
+11          56         5   0.049025   0.069481   0.0042    0.7263   
+12          32         5   0.054000   0.075763   0.0047    0.8000   
+13          40         5   0.054000   0.075763   0.0047    0.8000   
+14          64         5   0.054000   0.075763   0.0047    0.8000   
+15          64         5   0.054000   0.075763   0.0047    0.8000   
+16          72         5   0.054000   0.075763   0.0047    0.8000   
+17          72         5   0.054000   0.075763   0.0047    0.8000   
+18          16         5   0.070051   0.072225   0.0060    1.0378   
+19          24         5   0.070051   0.072225   0.0060    1.0378   
+20          32         5   0.072514   0.100568   0.0062    1.0743   
+21          40         5   0.072514   0.100568   0.0062    1.0743   
+22           0         5   0.104800   0.110743   0.0090    1.5526   
+23           8         5   0.104800   0.110743   0.0090    1.5526   
+24          64         5   2.394000   5.255258   0.2038   35.4667   
+25          72         5   2.394000   5.255258   0.2038   35.4667   
+26          48         5   5.402756   5.730731   0.4649   80.0408   
+27          56         5   5.402756   5.730731   0.4649   80.0408   
+28          48         5   8.742459   9.573521   0.7485  129.5179   
+29          56         5   8.742459   9.573521   0.7485  129.5179   
+30          32         5  13.940400  14.702289   1.1946  206.5244   
+31          40         5  13.940400  14.702289   1.1946  206.5244   
+
+    ForecastCount  ForecastL1  ForecastL2  ForecastMAPE  ForecastMASE  \
+0               5    0.020584    0.026545        0.0018        0.3050   
+1               5    0.020584    0.026545        0.0018        0.3050   
+2               5    0.033462    0.041029        0.0029        0.4957   
+3               5    0.033462    0.041029        0.0029        0.4957   
+4               5    0.037081    0.043464        0.0032        0.5493   
+5               5    0.037081    0.043464        0.0032        0.5493   
+6               5    0.038800    0.043955        0.0033        0.5748   
+7               5    0.038800    0.043955        0.0033        0.5748   
+8               5    0.038624    0.044277        0.0033        0.5722   
+9               5    0.038624    0.044277        0.0033        0.5722   
+10              5    0.049025    0.069481        0.0042        0.7263   
+11              5    0.049025    0.069481        0.0042        0.7263   
+12              5    0.054000    0.075763        0.0047        0.8000   
+13              5    0.054000    0.075763        0.0047        0.8000   
+14              5    0.054000    0.075763        0.0047        0.8000   
+15              5    0.054000    0.075763        0.0047        0.8000   
+16              5    0.054000    0.075763        0.0047        0.8000   
+17              5    0.054000    0.075763        0.0047        0.8000   
+18              5    0.070051    0.072225        0.0060        1.0378   
+19              5    0.070051    0.072225        0.0060        1.0378   
+20              5    0.072514    0.100568        0.0062        1.0743   
+21              5    0.072514    0.100568        0.0062        1.0743   
+22              5    0.104800    0.110743        0.0090        1.5526   
+23              5    0.104800    0.110743        0.0090        1.5526   
+24              5    2.394000    5.255258        0.2038       35.4667   
+25              5    2.394000    5.255258        0.2038       35.4667   
+26              5    5.402756    5.730731        0.4649       80.0408   
+27              5    5.402756    5.730731        0.4649       80.0408   
+28              5    8.742459    9.573521        0.7485      129.5179   
+29              5    8.742459    9.573521        0.7485      129.5179   
+30              5   13.940400   14.702289        1.1946      206.5244   
+31              5   13.940400   14.702289        1.1946      206.5244   
+
+    TestCount     TestL1     TestL2  TestMAPE  TestMASE  
+0           5   0.020584   0.026545    0.0018    0.3050  
+1           5   0.020584   0.026545    0.0018    0.3050  
+2           5   0.033462   0.041029    0.0029    0.4957  
+3           5   0.033462   0.041029    0.0029    0.4957  
+4           5   0.037081   0.043464    0.0032    0.5493  
+5           5   0.037081   0.043464    0.0032    0.5493  
+6           5   0.038800   0.043955    0.0033    0.5748  
+7           5   0.038800   0.043955    0.0033    0.5748  
+8           5   0.038624   0.044277    0.0033    0.5722  
+9           5   0.038624   0.044277    0.0033    0.5722  
+10          5   0.049025   0.069481    0.0042    0.7263  
+11          5   0.049025   0.069481    0.0042    0.7263  
+12          5   0.054000   0.075763    0.0047    0.8000  
+13          5   0.054000   0.075763    0.0047    0.8000  
+14          5   0.054000   0.075763    0.0047    0.8000  
+15          5   0.054000   0.075763    0.0047    0.8000  
+16          5   0.054000   0.075763    0.0047    0.8000  
+17          5   0.054000   0.075763    0.0047    0.8000  
+18          5   0.070051   0.072225    0.0060    1.0378  
+19          5   0.070051   0.072225    0.0060    1.0378  
+20          5   0.072514   0.100568    0.0062    1.0743  
+21          5   0.072514   0.100568    0.0062    1.0743  
+22          5   0.104800   0.110743    0.0090    1.5526  
+23          5   0.104800   0.110743    0.0090    1.5526  
+24          5   2.394000   5.255258    0.2038   35.4667  
+25          5   2.394000   5.255258    0.2038   35.4667  
+26          5   5.402756   5.730731    0.4649   80.0408  
+27          5   5.402756   5.730731    0.4649   80.0408  
+28          5   8.742459   9.573521    0.7485  129.5179  
+29          5   8.742459   9.573521    0.7485  129.5179  
+30          5  13.940400  14.702289    1.1946  206.5244  
+31          5  13.940400  14.702289    1.1946  206.5244  
+  Transformation                                              Model  \
+0    RelDiff_VRS  RelDiff_VRS_PolyTrend_residue_zeroCycle_residu...   
+1    RelDiff_VRS  RelDiff_VRS_PolyTrend_residue_bestCycle_byL2_r...   
+2           _VRS      _VRS_PolyTrend_residue_zeroCycle_residue_NoAR   
+3           _VRS  _VRS_PolyTrend_residue_bestCycle_byL2_residue_...   
+4       Diff_VRS  Diff_VRS_PolyTrend_residue_zeroCycle_residue_NoAR   
+
+   Complexity  FitCount     FitL1     FitL2  FitMAPE  FitMASE  ForecastCount  \
+0          48         5  0.020584  0.026545   0.0018   0.3050              5   
+1          56         5  0.020584  0.026545   0.0018   0.3050              5   
+2          16         5  0.033462  0.041029   0.0029   0.4957              5   
+3          24         5  0.033462  0.041029   0.0029   0.4957              5   
+4          48         5  0.037081  0.043464   0.0032   0.5493              5   
+
+   ForecastL1  ForecastL2  ForecastMAPE  ForecastMASE  TestCount    TestL1  \
+0    0.020584    0.026545        0.0018        0.3050          5  0.020584   
+1    0.020584    0.026545        0.0018        0.3050          5  0.020584   
+2    0.033462    0.041029        0.0029        0.4957          5  0.033462   
+3    0.033462    0.041029        0.0029        0.4957          5  0.033462   
+4    0.037081    0.043464        0.0032        0.5493          5  0.037081   
+
+     TestL2  TestMAPE  TestMASE  
+0  0.026545    0.0018    0.3050  
+1  0.026545    0.0018    0.3050  
+2  0.041029    0.0029    0.4957  
+3  0.041029    0.0029    0.4957  
+4  0.043464    0.0032    0.5493  
+1 0    11.55
+Name: VRS, dtype: float64
+1 0    11.644
+Name: VRS_Forecast, dtype: float64
+FORECAST_DETAIL_ACTUAL Yahoo_Stock_Price_VRS VRS [ 11.55]
+FORECAST_DETAIL_PREDICTED Yahoo_Stock_Price_VRS VRS [ 11.644]
+BENCHMARK_PERF_DETAIL Yahoo_Stock_Price_VRS VRS 5 1 3.0352065563201904 ConstantTrend + NoCycle + NoAR 1 0.0081 0.0081 None 0.094 0.094 -88359999.0
