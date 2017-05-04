@@ -244,7 +244,7 @@ class cAutoRegressiveEstimator:
         if(np.isnan(sig).any()):
             logger = tsutil.get_pyaf_logger();
             logger.error("CYCLE_RESIDUE_WITH_NAN_IN_SIGNAL" + str(sig));
-            raise tsutil.InternalForecastError("INVALID_COLUMN _FOR_CYCLE_RESIDUE ['"  + name + "'");
+            raise tsutil.Internal_PyAF_Error("INVALID_COLUMN _FOR_CYCLE_RESIDUE ['"  + name + "'");
         pass
 
         

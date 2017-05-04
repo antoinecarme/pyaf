@@ -21,18 +21,22 @@ class cHierarchicalForecastEngine:
     def train(self , iInputDS, iTime, iSignal, iHorizon, iHierarchy = None, iExogenousData = None, ):
         try:
             self.train_HierarchicalModel(iInputDS, iTime, iSignal, iHorizon, iHierarchy, iExogenousData);
-        except tsutil.ForecastError as error:
-            print('caught this training error: ' + repr(error))            
-            raise Exception("HIERARCHICAL_TRAIN_FAILED");
+        except tsutil.PyAF_Error as error:
+            raise error
+        except Exception as error:
+            # print('caught this training error: ' + repr(error))            
+            raise tsutil.PyAF_Error("HIERARCHICAL_TRAIN_FAILED");
         pass
 
     def forecast(self , iInputDS, iHorizon):
         try:
             lForecastFrame = self.forecast_HierarchicalModel(iInputDS, iHorizon);
             return lForecastFrame;
-        except tsutil.ForecastError as error:
-            print('caught this forecast error: ' + repr(error))
-            raise Exception("HIERARCHICAL_FORECAST_FAILED");
+        except tsutil.PyAF_Error as error:
+            raise error
+        except Exception as error:
+            # print('caught this forecast error: ' + repr(error))
+            raise tsutil.PyAF_Error("HIERARCHICAL_FORECAST_FAILED");
         
     def getModelInfo(self):
         self.mSignalHierarchy.getModelInfo();

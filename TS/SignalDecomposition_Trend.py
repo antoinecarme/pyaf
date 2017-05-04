@@ -34,7 +34,7 @@ class cAbstractTrend:
         if(np.isnan(sig).any() or np.isinf(sig).any() ):
             logger = tsutil.get_pyaf_logger();
             logger.error("TREND_RESIDUE_WITH_NAN_IN_SIGNAL" + str(sig));
-            raise tsutil.InternalForecastError("INVALID_COLUMN _FOR_TREND_RESIDUE ['"  + name + "'");
+            raise tsutil.Internal_PyAF_Error("INVALID_COLUMN _FOR_TREND_RESIDUE ['"  + name + "'");
         pass
 
 
@@ -362,7 +362,7 @@ class cTrendEstimator:
 #        print("check_not_nan "  + name);
 #        print(sig);
         if(np.isnan(sig).any()):
-            raise ValueError("Invalid residue '" + name + "'");
+            raise tsutil.Internal_PyAF_Error("Invalid residue '" + name + "'");
         pass
 
     def estimateTrends(self):

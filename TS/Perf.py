@@ -31,7 +31,7 @@ class cPerf:
         if(np.isnan(sig).any()):
             logger = tsutil.get_pyaf_logger();
             logger.error("PERF_WITH_NAN_IN_SIGNAL" + str(sig));
-            raise tsutil.InternalForecastError("INVALID_COLUMN _FOR_PERF ['" + self.mName + "'] '" + name + "'");
+            raise tsutil.Internal_PyAF_Error("INVALID_COLUMN _FOR_PERF ['" + self.mName + "'] '" + name + "'");
         pass
 
     def compute_MAPE_SMAPE(self, signal , estimator):
@@ -75,7 +75,7 @@ class cPerf:
             self.dump_perf_data(signal, estimator);
             logger = tsutil.get_pyaf_logger();
             logger.error("Failure when computing perf ['" + self.mName + "'] '" + name + "'");
-            raise tsutil.InternalForecastError("Failure when computing perf ['" + self.mName + "'] '" + name + "'");
+            raise tsutil.Internal_PyAF_Error("Failure when computing perf ['" + self.mName + "'] '" + name + "'");
         pass
 
     def compute_pearson_r(self, signal , estimator):

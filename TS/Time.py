@@ -78,7 +78,7 @@ class cTimeInfo:
             lType1 = self.get_time_dtype();
             lType2 = np.dtype(df[self.mTime]);
             if(lType1.kind != lType2.kind):
-                raise tsutil.ForecastError('Incompatible Time Column Type expected=' + str(lType1) + ' got: ' + str(lType2) + "'");
+                raise tsutil.PyAF_Error('Incompatible Time Column Type expected=' + str(lType1) + ' got: ' + str(lType2) + "'");
                 pass
         
 
@@ -209,10 +209,10 @@ class cTimeInfo:
         # print(self.mSignalFrame.info());
         type1 = np.dtype(self.mSignalFrame[self.mTime])
         if(type1.kind == 'O'):
-            raise tsutil.ForecastError('Invalid Time Column Type ' + self.mTime + '[' + str(type1) + ']');
+            raise tsutil.PyAF_Error('Invalid Time Column Type ' + self.mTime + '[' + str(type1) + ']');
         type2 = np.dtype(self.mSignalFrame[self.mSignal])
         if(type2.kind == 'O'):
-            raise tsutil.ForecastError('Invalid Signal Column Type ' + self.mSignal);
+            raise tsutil.PyAF_Error('Invalid Signal Column Type ' + self.mSignal);
         
 
     def isOneRowDataset(self):

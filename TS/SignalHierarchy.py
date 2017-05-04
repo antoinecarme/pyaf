@@ -87,7 +87,41 @@ class cSignalHierarchy:
         self.mSummingMatrixInverse = np.linalg.pinv(self.mSummingMatrix);
         # print(self.mSummingMatrixInverse);
 
+    def checkData(self , df):
+        if(self.mHorizon != int(self.mHorizon)):
+            raise tsutil.PyAF_Error("PYAF_ERROR_NON_INTEGER_HORIZON " + str(self.mHorizon));
+        if(self.mHorizon < 1):
+            raise tsutil.PyAF_Error("PYAF_ERROR_NEGATIVE_OR_NULL_HORIZON " + str(self.mHorizon));
+        if(self.mDateColumn not in df.columns):
+            raise tsutil.PyAF_Error("PYAF_ERROR_HIERARCHY_TIME_COLUMN_NOT_FOUND " + str(self.mDateColumn));
+        type1 = np.dtype(df[self.mDateColumn])
+        # print(type1)
+        if(type1.kind != 'M' and type1.kind != 'i' and type1.kind != 'u' and type1.kind != 'f'):
+            raise tsutil.PyAF_Error("PYAF_ERROR_TIME_COLUMN_TYPE_NOT_ALLOWED '" + str(self.mDateColumn) + "' '" + str(type1) + "'");
+        # level 0 is the original/physical columns
+        for k in self.mStructure[0]:
+            if(k not in df.columns) :
+                raise tsutil.PyAF_Error("PYAF_ERROR_HIERARCHY_BASE_COLUMN_NOT_FOUND " + str(k));
+            # print(type2)
+            type2 = np.dtype(df[k])
+            if(type2.kind != 'i' and type2.kind != 'u' and type2.kind != 'f'):
+                raise tsutil.PyAF_Error("PYAF_ERROR_HIERARCHY_BASE_SIGNAL_COLUMN_TYPE_NOT_ALLOWED '" + str(k) + "' '" + str(type2) + "'");
+        if(self.mExogenousData is not None):
+            lExogenousDataFrame = self.mExogenousData[0];
+            lExogenousVariables = self.mExogenousData[1];
+            if(self.mDateColumn not in lExogenousDataFrame.columns):
+                raise tsutil.PyAF_Error("PYAF_ERROR_HIERARCHY_TIME_COLUMN_NOT_FOUND_IN_EXOGENOUS " + str(self.mDateColumn));
+            for exog in lExogenousVariables:
+                if(exog not in lExogenousDataFrame.columns):
+                    raise tsutil.PyAF_Error("PYAF_ERROR_HIERARCHY_EXOGENOUS_VARIABLE_NOT_FOUND " + str(exog));
+                
+            type3 = np.dtype(lExogenousDataFrame[self.mDateColumn])
+            if(type1 != type3):
+                raise tsutil.PyAF_Error("PYAF_ERROR_HIERARCHY_INCOMPATIBLE_TIME_COLUMN_TYPE_IN_EXOGENOUS '" + str(self.mDateColumn) + "' '" + str(type1)  + "' '" + str(type3) + "'");
+
+
     def create_all_levels_dataset(self, df):
+        self.checkData(df);
         lAllLevelsDataset = df.copy();
         lMapped = True;
         # level 0 is the original/physical columns

@@ -14,7 +14,7 @@ def createDirIfNeeded(dirname):
 
 
 
-class ForecastError(Exception):
+class PyAF_Error(Exception):
     """Exception raised for errors in the forecasting process.
 
     Attributes:
@@ -24,7 +24,7 @@ class ForecastError(Exception):
     def __init__(self, reason):
         self.mReason = reason
 
-class InternalForecastError(Exception):
+class Internal_PyAF_Error(PyAF_Error):
     """Exception raised for errors in the forecasting process.
 
     Attributes:

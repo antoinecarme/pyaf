@@ -126,7 +126,7 @@ class cAbstractSignalTransform:
     def check_not_nan(self, sig , name):
         if(np.isnan(sig).any()):
             print("TRANSFORMATION_RESULT_WITH_NAN_IN_SIGNAL" , sig);
-            raise tsutil.InternalForecastError("Invalid transformation for column '" + name + "'");
+            raise tsutil.Internal_PyAF_Error("Invalid transformation for column '" + name + "'");
         pass
 
 

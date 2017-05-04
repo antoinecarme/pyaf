@@ -41,7 +41,7 @@ class cAbstractCycle:
         if(np.isnan(sig).any() or np.isinf(sig).any() ):
             logger = tsutil.get_pyaf_logger();
             logger.error("CYCLE_RESIDUE_WITH_NAN_IN_SIGNAL" + str(sig));
-            raise tsutil.InternalForecastError("CYCLE_COLUMN _FOR_TREND_RESIDUE ['"  + name + "'");
+            raise tsutil.Internal_PyAF_Error("CYCLE_COLUMN _FOR_TREND_RESIDUE ['"  + name + "'");
         pass
 
 
