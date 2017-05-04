@@ -1,3 +1,4 @@
+import numpy as np
 import sys
 
 if(len(sys.argv) != 3):
@@ -18,17 +19,16 @@ def is_numeric(x):
 def compare_words(word_orig, word_new):
     if(word_orig == word_new):
         return 0;
-    # print("DIFFERENT_WORDS" , word_orig, word_new)    
+    print("DIFFERENT_WORDS" , word_orig, word_new)    
     if(is_numeric(word_orig) and is_numeric(word_new)):
         lNumber_orig = float(word_orig);
         lNumber_new = float(word_new);
-        lDiff = abs(lNumber_new - lNumber_orig) / lNumber_orig;
-        lDiff = abs(lDiff)
-        if(lDiff > 1e-10):
-            return 1;
-        else:
-            print("NUM_DIFF_DEBUG_ALLOWED_SMALL_DIFFERENCE", word_orig, word_new, lNumber_orig, lNumber_new, lDiff)
+        if(np.isclose([lNumber_orig] , [lNumber_new])):
+            lRelDiff = abs(lNumber_new - lNumber_orig) / (abs(lNumber_orig) + 1e-10);
+            print("NUM_DIFF_DEBUG_ALLOWED_SMALL_DIFFERENCE", word_orig, word_new, lNumber_orig, lNumber_new, lRelDiff)
             return 0;
+        else:
+            return 1;
     else:
         # print("NUM_DIFF_NOT_NUMERIC_DIFF", word_orig, word_new)        
         return 1;
@@ -40,16 +40,16 @@ def compare_lines(line_orig, line_new):
     if(line_orig == line_new):
         return 0;
     # if both lines contain 'TIME' , skip.
-    lSkippedTags = ['END_TRAINING_TIME_IN_SECONDS']
+    lSkippedTags = ['END_TRAINING_TIME_IN_SECONDS' , 'EXOGENOUS_ENCODING_TIME_IN_SECONDS']
     for tag in lSkippedTags:
         if(tag in line_orig.upper() and tag in line_new.upper()):
             return 0;
     import re
-    lRegex  = '[?,:"{}] \n\t'
+    lRegex  = '[\[?,:"{}\]\= \n\t]'
     split_orig = re.split(lRegex, line_orig)
     split_new = re.split(lRegex, line_new)
-    # print(split_orig)
-    # print(split_new)
+    # print("SPLIT_ORIG", split_orig)
+    # print("SPLIT_NEW", split_new)
 
     N_orig = len(split_orig)
     N_new = len(split_new)
@@ -104,8 +104,10 @@ def compare_files(file_orig, file_new):
 
     if(out > 0):
         print("NUM_DIFF_NUMBER_OF__DIFFERENT_LINES" , out)
-        print(diffs[0])
-        print(diffs[-1])
+        print("FIRST_DIFFERENCE_ORIG" , diffs[0][0])
+        print("FIRST_DIFFERENCE_NEW" , diffs[0][1])
+        print("LAST_DIFFERENCE_ORIG" , diffs[-1][0])
+        print("LAST_DIFFERENCE_NEW" , diffs[-1][1])
         print("#cp ", file_new, file_orig)
         print("NUM_DIFF_FILES_ARE_DIFFERENT")
 
