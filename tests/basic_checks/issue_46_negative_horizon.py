@@ -45,13 +45,37 @@ def test_fake_model_2_rows(iHorizon_train , iHorizon_apply):
 
 
 
-test_fake_model_1_row( 0, -1)
-test_fake_model_1_row( 2, 0)
-test_fake_model_1_row( 2, 0)
-test_fake_model_1_row( -1, -2)
-test_fake_model_1_row( -2, -10)
-test_fake_model_1_row( -20, -10)
-test_fake_model_2_rows( -1, -4)
-test_fake_model_2_rows( -6, -2)
-test_fake_model_2_rows( -6, -1)
-test_fake_model_2_rows( -1 , -7)
+
+def test_fake_model_1_row_fail(iHorizon_train , iHorizon_apply):
+    try:
+        test_fake_model_1_row(iHorizon_train, iHorizon_apply)
+        raise Exception("NOT_OK")
+    except Exception as e:
+        # should fail
+        print(str(e));
+        if(str(e) == "NOT_OK"):
+            raise
+        pass
+
+def test_fake_model_2_rows_fail(iHorizon_train , iHorizon_apply):
+    try:
+        test_fake_model_2_rows(iHorizon_train, iHorizon_apply)
+        raise Exception("NOT_OK")
+    except Exception as e:
+        # should fail
+        print(str(e));
+        if(str(e) == "NOT_OK"):
+            raise
+        pass
+
+
+test_fake_model_1_row_fail( 0, -1)
+test_fake_model_1_row_fail( 2, 0)
+test_fake_model_1_row_fail( 2, 0)
+test_fake_model_1_row_fail( -1, -2)
+test_fake_model_1_row_fail( -2, -10)
+test_fake_model_1_row_fail( -20, -10)
+test_fake_model_2_rows_fail( -1, -4)
+test_fake_model_2_rows_fail( -6, -2)
+test_fake_model_2_rows_fail( -6, -1)
+test_fake_model_2_rows_fail( -1 , -7)
