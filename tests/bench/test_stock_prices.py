@@ -4,7 +4,7 @@ import numpy as np
 import pyaf.ForecastEngine as autof
 import pyaf.Bench.TS_datasets as tsds
 
-import CodeGen.TS_CodeGenerator as tscodegen
+import pyaf.CodeGen.TS_CodeGenerator as tscodegen
 
 stock = "BNP.PA";
 b1 = tsds.load_yahoo_stock_prices("cac40")[stock]
@@ -16,7 +16,9 @@ df.info();
 lEngine = autof.cForecastEngine()
 lEngine
 
-lEngine.train(df , b1.mTimeVar , b1.mSignalVar , b1.mHorizon)
+H = b1.mHorizon[stock]
+
+lEngine.train(df , b1.mTimeVar , b1.mSignalVar , H)
 lEngine.getModelInfo();
 print(lEngine.mSignalDecomposition.mTrPerfDetails.head());
 
@@ -24,7 +26,6 @@ print(lEngine.mSignalDecomposition.mTrPerfDetails.head());
 dfapp_in = df.copy();
 dfapp_in.tail()
 
-H = b1.mHorizon
 dfapp_out = lEngine.forecast(dfapp_in, H);
 #dfapp_out.to_csv("outputs/ozone_apply_out.csv")
 dfapp_out.tail(2 * H)

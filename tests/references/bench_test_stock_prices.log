@@ -1,4 +1,122 @@
-Traceback (most recent call last):
-  File "tests/bench/test_stock_prices.py", line 7, in <module>
-    import CodeGen.TS_CodeGenerator as tscodegen
-ImportError: No module named 'CodeGen'
+INFO:pyaf.std:START_TRAINING 'BNP.PA'
+ACQUIRED_YAHOO_LINKS 4818
+load_yahoo_stock_prices cac40 23
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 1298 entries, 0 to 1297
+Data columns (total 2 columns):
+BNP.PA    1298 non-null float64
+Date      1298 non-null datetime64[ns]
+dtypes: datetime64[ns](1), float64(1)
+memory usage: 20.4 KB
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'BNP.PA' 8.685611248016357
+INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2011-07-28T00:00:00.000000 TimeMax=2015-07-10T00:00:00.000000 TimeDelta=1 days Estimation = (0 , 1032) Validation = (1032 , 1291) Test = (1291 , 1298) Horizon=7
+INFO:pyaf.std:SIGNAL_DETAIL SignalVariable='_BNP.PA' Min=23.06 Max=60.85  Mean=45.5395608629 StdDev=9.14945318824
+INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
+INFO:pyaf.std:BEST_DECOMPOSITION  '_BNP.PA_Lag1Trend_residue_zeroCycle_residue_NoAR' [Lag1Trend + NoCycle + NoAR]
+INFO:pyaf.std:TREND_DETAIL '_BNP.PA_Lag1Trend' [Lag1Trend]
+INFO:pyaf.std:CYCLE_DETAIL '_BNP.PA_Lag1Trend_residue_zeroCycle' [NoCycle]
+INFO:pyaf.std:AUTOREG_DETAIL '_BNP.PA_Lag1Trend_residue_zeroCycle_residue_NoAR' [NoAR]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0175 MAPE_Forecast=0.0167 MAPE_Test=0.0223
+INFO:pyaf.std:MODEL_MASE MASE_Fit=0.999 MASE_Forecast=1.0024 MASE_Test=1.0739
+INFO:pyaf.std:MODEL_L1 L1_Fit=0.948350401237 L1_Forecast=1.11510660536 L1_Test=0.930714285714
+INFO:pyaf.std:MODEL_L2 L2_Fit=0.948350401237 L2_Forecast=1.11510660536 L2_Test=1.1343862406
+INFO:pyaf.std:MODEL_COMPLEXITY 32
+INFO:pyaf.std:AR_MODEL_DETAIL_START
+INFO:pyaf.std:AR_MODEL_DETAIL_END
+  Transformation                                              Model  \
+0        _BNP.PA   _BNP.PA_Lag1Trend_residue_zeroCycle_residue_NoAR   
+1        _BNP.PA  _BNP.PA_Lag1Trend_residue_Seasonal_DayOfWeek_r...   
+2        _BNP.PA  _BNP.PA_Lag1Trend_residue_bestCycle_byL2_resid...   
+3  CumSum_BNP.PA  CumSum_BNP.PA_Lag1Trend_residue_zeroCycle_resi...   
+4    Diff_BNP.PA  Diff_BNP.PA_Lag1Trend_residue_zeroCycle_residu...   
+
+   Complexity  FitCount     FitL1     FitL2  FitMAPE  FitMASE  ForecastCount  \
+0          32      1032  0.704937  0.948350   0.0175   0.9990            259   
+1          36      1032  0.706932  0.945130   0.0175   1.0019            259   
+2          40      1032  0.704328  0.943887   0.0175   0.9982            259   
+3          64      1032  0.748091  1.703379   0.0184   1.0602            259   
+4          64      1032  0.704937  0.948350   0.0175   0.9990            259   
+
+   ForecastL1  ForecastL2  ForecastMAPE  ForecastMASE  TestCount    TestL1  \
+0    0.797104    1.115107        0.0167        1.0024          7  0.930714   
+1    0.793597    1.114100        0.0167        0.9979          7  0.918491   
+2    0.792455    1.108042        0.0167        0.9965          7  0.991215   
+3    0.797104    1.115107        0.0167        1.0024          7  0.930714   
+4    0.797104    1.115107        0.0167        1.0024          7  0.930714   
+
+     TestL2  TestMAPE  TestMASE  
+0  1.134386    0.0223    1.0739  
+1  1.118106    0.0221    1.0598  
+2  1.166325    0.0238    1.1437  
+3  1.134386    0.0223    1.0739  
+4  1.134386    0.0223    1.0739  
+Forecast Columns  Index(['BNP.PA', 'Date', '_BNP.PA', 'row_number', 'Date_Normalized',
+       '_BNP.PA_Lag1Trend', '_BNP.PA_Lag1Trend_residue',
+       '_BNP.PA_Lag1Trend_residue_zeroCycle',
+       '_BNP.PA_Lag1Trend_residue_zeroCycle_residue',
+       '_BNP.PA_Lag1Trend_residue_zeroCycle_residue_NoAR',
+       '_BNP.PA_Lag1Trend_residue_zeroCycle_residue_NoAR_residue',
+       '_BNP.PA_Trend', '_BNP.PA_Trend_residue', '_BNP.PA_Cycle',
+       '_BNP.PA_Cycle_residue', '_BNP.PA_AR', '_BNP.PA_AR_residue',
+       '_BNP.PA_TransformedForecast', '_BNP.PA_TransformedResidue',
+       'BNP.PA_Forecast', 'BNP.PA_Residue', 'BNP.PA_Forecast_Lower_Bound',
+       'BNP.PA_Forecast_Upper_Bound'],
+      dtype='object')
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 1305 entries, 0 to 1304
+Data columns (total 3 columns):
+Date               1305 non-null datetime64[ns]
+BNP.PA             1298 non-null float64
+BNP.PA_Forecast    1305 non-null float64
+dtypes: datetime64[ns](1), float64(2)
+memory usage: 30.7 KB
+None
+Forecasts
+ [[Timestamp('2016-07-19 00:00:00') nan 42.455]
+ [Timestamp('2016-07-20 00:00:00') nan 42.455]
+ [Timestamp('2016-07-21 00:00:00') nan 42.455]
+ [Timestamp('2016-07-22 00:00:00') nan 42.455]
+ [Timestamp('2016-07-23 00:00:00') nan 42.455]
+ [Timestamp('2016-07-24 00:00:00') nan 42.455]
+ [Timestamp('2016-07-25 00:00:00') nan 42.455]]
+
+
+<ModelInfo>
+{
+    "Dataset": {
+        "Signal": "BNP.PA",
+        "Time": {
+            "Horizon": 7,
+            "TimeMinMax": [
+                "2011-07-28 00:00:00",
+                "2016-07-18 00:00:00"
+            ],
+            "TimeVariable": "Date"
+        },
+        "Training_Signal_Length": 1298
+    },
+    "Model": {
+        "AR_Model": "NoAR",
+        "Best_Decomposition": "_BNP.PA_Lag1Trend_residue_zeroCycle_residue_NoAR",
+        "Cycle": "NoCycle",
+        "Signal_Transoformation": "None",
+        "Trend": "Lag1Trend"
+    },
+    "Model_Performance": {
+        "COMPLEXITY": "32",
+        "MAE": "0.797104247104",
+        "MAPE": "0.0167",
+        "MASE": "1.0024",
+        "RMSE": "1.11510660536"
+    }
+}
+</ModelInfo>
+
+
+
+
+<Forecast>
+{"Date":{"1291":"2016-07-08T00:00:00.000Z","1292":"2016-07-11T00:00:00.000Z","1293":"2016-07-12T00:00:00.000Z","1294":"2016-07-13T00:00:00.000Z","1295":"2016-07-14T00:00:00.000Z","1296":"2016-07-15T00:00:00.000Z","1297":"2016-07-18T00:00:00.000Z","1298":"2016-07-19T00:00:00.000Z","1299":"2016-07-20T00:00:00.000Z","1300":"2016-07-21T00:00:00.000Z","1301":"2016-07-22T00:00:00.000Z","1302":"2016-07-23T00:00:00.000Z","1303":"2016-07-24T00:00:00.000Z","1304":"2016-07-25T00:00:00.000Z"},"BNP.PA":{"1291":39.815,"1292":40.265,"1293":42.34,"1294":41.5,"1295":42.895,"1296":42.78,"1297":42.455,"1298":null,"1299":null,"1300":null,"1301":null,"1302":null,"1303":null,"1304":null},"BNP.PA_Forecast":{"1291":38.5,"1292":39.815,"1293":40.265,"1294":42.34,"1295":41.5,"1296":42.895,"1297":42.78,"1298":42.455,"1299":42.455,"1300":42.455,"1301":42.455,"1302":42.455,"1303":42.455,"1304":42.455}}
+</Forecast>
+
+
