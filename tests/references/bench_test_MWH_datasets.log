@@ -1,3 +1,4 @@
+INFO:pyaf.std:START_TRAINING 'plastics'
 LAODING_MWH_DATASET 10-6
 LAODING_MWH_DATASET 11-2
 LAODING_MWH_DATASET 9-10
@@ -89,9 +90,337 @@ LAODING_MWH_DATASET wn
 LAODING_MWH_DATASET wnoise
 LAODING_MWH_DATASET writing
 BENCH_TYPE MWH_BENCH OneDataFramePerSignal
-Traceback (most recent call last):
-  File "tests/bench/test_MWH_datasets.py", line 11, in <module>
-    tester1.testSignals('plastics')
-  File "/home/antoine/dev/python/packages/pyaf/Bench/GenericBenchmark.py", line 317, in testSignals
-    lHorizon = lSpec.mHorizon[sig]
-TypeError: 'int' object is not subscriptable
+BENCH_DATA MWH_BENCH
+TIME :  Time N= 59 H= 1 HEAD= [0 1 2 3 4] TAIL= [54 55 56 57 58]
+SIGNAL :  plastics N= 59 H= 1 HEAD= [ 742  697  776  898 1030] TAIL= [1611 1608 1528 1420 1119]
+   plastics  Time
+0       742     0
+1       697     1
+2       776     2
+3       898     3
+4      1030     4
+<class 'pandas.core.frame.DataFrame'>
+Int64Index: 59 entries, 0 to 58
+Data columns (total 2 columns):
+plastics    59 non-null int64
+Time        59 non-null int64
+dtypes: int64(2)
+memory usage: 1.4 KB
+None
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'plastics' 1.811995029449463
+INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=0 TimeMax=45 TimeDelta=1 Estimation = (0 , 46) Validation = (46 , 58) Test = (58 , 59) Horizon=1
+INFO:pyaf.std:SIGNAL_DETAIL SignalVariable='_plastics' Min=697 Max=1637  Mean=1164.89830508 StdDev=265.708818256
+INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
+INFO:pyaf.std:BEST_DECOMPOSITION  '_plastics_ConstantTrend_residue_zeroCycle_residue_AR(14)' [ConstantTrend + NoCycle + AR(14)]
+INFO:pyaf.std:TREND_DETAIL '_plastics_ConstantTrend' [ConstantTrend]
+INFO:pyaf.std:CYCLE_DETAIL '_plastics_ConstantTrend_residue_zeroCycle' [NoCycle]
+INFO:pyaf.std:AUTOREG_DETAIL '_plastics_ConstantTrend_residue_zeroCycle_residue_AR(14)' [AR(14)]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.036 MAPE_Forecast=0.0465 MAPE_Test=0.0968
+INFO:pyaf.std:MODEL_MASE MASE_Fit=0.3767 MASE_Forecast=0.5511 MASE_Test=None
+INFO:pyaf.std:MODEL_L1 L1_Fit=45.3186809681 L1_Forecast=71.2729778016 L1_Test=108.316374997
+INFO:pyaf.std:MODEL_L2 L2_Fit=45.3186809681 L2_Forecast=71.2729778016 L2_Test=108.316374997
+INFO:pyaf.std:MODEL_COMPLEXITY 14
+INFO:pyaf.std:AR_MODEL_DETAIL_START
+INFO:pyaf.std:AR_MODEL_COEFF 1 _plastics_ConstantTrend_residue_zeroCycle_residue_Lag1 1.22224100126
+INFO:pyaf.std:AR_MODEL_COEFF 2 _plastics_ConstantTrend_residue_zeroCycle_residue_Lag13 -1.11462561642
+INFO:pyaf.std:AR_MODEL_COEFF 3 _plastics_ConstantTrend_residue_zeroCycle_residue_Lag12 0.736662229496
+INFO:pyaf.std:AR_MODEL_COEFF 4 _plastics_ConstantTrend_residue_zeroCycle_residue_Lag14 0.480789006031
+INFO:pyaf.std:AR_MODEL_COEFF 5 _plastics_ConstantTrend_residue_zeroCycle_residue_Lag2 -0.363423518268
+INFO:pyaf.std:AR_MODEL_COEFF 6 _plastics_ConstantTrend_residue_zeroCycle_residue_Lag10 -0.28758763607
+INFO:pyaf.std:AR_MODEL_COEFF 7 _plastics_ConstantTrend_residue_zeroCycle_residue_Lag11 0.26186732967
+INFO:pyaf.std:AR_MODEL_COEFF 8 _plastics_ConstantTrend_residue_zeroCycle_residue_Lag9 0.153664861446
+INFO:pyaf.std:AR_MODEL_COEFF 9 _plastics_ConstantTrend_residue_zeroCycle_residue_Lag3 -0.106772565588
+INFO:pyaf.std:AR_MODEL_COEFF 10 _plastics_ConstantTrend_residue_zeroCycle_residue_Lag6 -0.0803658676335
+INFO:pyaf.std:AR_MODEL_DETAIL_END
+      Transformation                                              Model  \
+0    CumSum_plastics  CumSum_plastics_Lag1Trend_residue_zeroCycle_re...   
+1    CumSum_plastics  CumSum_plastics_Lag1Trend_residue_bestCycle_by...   
+2    CumSum_plastics  CumSum_plastics_LinearTrend_residue_zeroCycle_...   
+3    CumSum_plastics  CumSum_plastics_LinearTrend_residue_bestCycle_...   
+4    CumSum_plastics  CumSum_plastics_ConstantTrend_residue_zeroCycl...   
+5    CumSum_plastics  CumSum_plastics_ConstantTrend_residue_bestCycl...   
+6          _plastics  _plastics_Lag1Trend_residue_zeroCycle_residue_...   
+7          _plastics  _plastics_Lag1Trend_residue_bestCycle_byL2_res...   
+8          _plastics  _plastics_LinearTrend_residue_zeroCycle_residu...   
+9          _plastics  _plastics_LinearTrend_residue_bestCycle_byL2_r...   
+10         _plastics  _plastics_ConstantTrend_residue_zeroCycle_resi...   
+11         _plastics  _plastics_ConstantTrend_residue_bestCycle_byL2...   
+12   CumSum_plastics  CumSum_plastics_PolyTrend_residue_zeroCycle_re...   
+13   CumSum_plastics  CumSum_plastics_PolyTrend_residue_bestCycle_by...   
+14         _plastics  _plastics_PolyTrend_residue_zeroCycle_residue_...   
+15         _plastics  _plastics_PolyTrend_residue_bestCycle_byL2_res...   
+16     Diff_plastics  Diff_plastics_ConstantTrend_residue_zeroCycle_...   
+17     Diff_plastics  Diff_plastics_ConstantTrend_residue_bestCycle_...   
+18     Diff_plastics  Diff_plastics_Lag1Trend_residue_zeroCycle_resi...   
+19     Diff_plastics  Diff_plastics_Lag1Trend_residue_bestCycle_byL2...   
+20     Diff_plastics  Diff_plastics_LinearTrend_residue_zeroCycle_re...   
+21     Diff_plastics  Diff_plastics_LinearTrend_residue_bestCycle_by...   
+22         _plastics  _plastics_Lag1Trend_residue_zeroCycle_residue_...   
+23         _plastics  _plastics_Lag1Trend_residue_bestCycle_byL2_res...   
+24   CumSum_plastics  CumSum_plastics_Lag1Trend_residue_zeroCycle_re...   
+25     Diff_plastics  Diff_plastics_Lag1Trend_residue_zeroCycle_resi...   
+26  RelDiff_plastics  RelDiff_plastics_Lag1Trend_residue_zeroCycle_r...   
+27   CumSum_plastics  CumSum_plastics_Lag1Trend_residue_bestCycle_by...   
+28     Diff_plastics  Diff_plastics_Lag1Trend_residue_bestCycle_byL2...   
+29  RelDiff_plastics  RelDiff_plastics_Lag1Trend_residue_bestCycle_b...   
+..               ...                                                ...   
+34         _plastics  _plastics_ConstantTrend_residue_zeroCycle_resi...   
+35         _plastics  _plastics_ConstantTrend_residue_bestCycle_byL2...   
+36     Diff_plastics  Diff_plastics_PolyTrend_residue_zeroCycle_resi...   
+37     Diff_plastics  Diff_plastics_PolyTrend_residue_bestCycle_byL2...   
+38     Diff_plastics  Diff_plastics_ConstantTrend_residue_zeroCycle_...   
+39     Diff_plastics  Diff_plastics_ConstantTrend_residue_bestCycle_...   
+40     Diff_plastics  Diff_plastics_LinearTrend_residue_zeroCycle_re...   
+41     Diff_plastics  Diff_plastics_LinearTrend_residue_bestCycle_by...   
+42   CumSum_plastics  CumSum_plastics_LinearTrend_residue_zeroCycle_...   
+43   CumSum_plastics  CumSum_plastics_LinearTrend_residue_bestCycle_...   
+44     Diff_plastics  Diff_plastics_PolyTrend_residue_zeroCycle_resi...   
+45     Diff_plastics  Diff_plastics_PolyTrend_residue_bestCycle_byL2...   
+46   CumSum_plastics  CumSum_plastics_PolyTrend_residue_zeroCycle_re...   
+47   CumSum_plastics  CumSum_plastics_PolyTrend_residue_bestCycle_by...   
+48   CumSum_plastics  CumSum_plastics_ConstantTrend_residue_zeroCycl...   
+49   CumSum_plastics  CumSum_plastics_ConstantTrend_residue_bestCycl...   
+50  RelDiff_plastics  RelDiff_plastics_ConstantTrend_residue_zeroCyc...   
+51  RelDiff_plastics  RelDiff_plastics_ConstantTrend_residue_bestCyc...   
+52  RelDiff_plastics  RelDiff_plastics_ConstantTrend_residue_zeroCyc...   
+53  RelDiff_plastics  RelDiff_plastics_ConstantTrend_residue_bestCyc...   
+54  RelDiff_plastics  RelDiff_plastics_Lag1Trend_residue_zeroCycle_r...   
+55  RelDiff_plastics  RelDiff_plastics_Lag1Trend_residue_bestCycle_b...   
+56  RelDiff_plastics  RelDiff_plastics_LinearTrend_residue_zeroCycle...   
+57  RelDiff_plastics  RelDiff_plastics_LinearTrend_residue_bestCycle...   
+58  RelDiff_plastics  RelDiff_plastics_LinearTrend_residue_zeroCycle...   
+59  RelDiff_plastics  RelDiff_plastics_LinearTrend_residue_bestCycle...   
+60  RelDiff_plastics  RelDiff_plastics_PolyTrend_residue_zeroCycle_r...   
+61  RelDiff_plastics  RelDiff_plastics_PolyTrend_residue_bestCycle_b...   
+62  RelDiff_plastics  RelDiff_plastics_PolyTrend_residue_zeroCycle_r...   
+63  RelDiff_plastics  RelDiff_plastics_PolyTrend_residue_bestCycle_b...   
+
+    Complexity  FitCount         FitL1         FitL2       FitMAPE  \
+0           78        46  8.603259e+01  1.525702e+02  9.660000e-02   
+1           86        46  8.603259e+01  1.525702e+02  9.660000e-02   
+2           62        46  5.334649e+01  7.713912e+01  5.610000e-02   
+3           70        46  5.334649e+01  7.713912e+01  5.610000e-02   
+4           46        46  9.471056e+01  1.597963e+02  1.054000e-01   
+5           54        46  9.471056e+01  1.597963e+02  1.054000e-01   
+6           46        46  4.133646e+01  5.112172e+01  3.990000e-02   
+7           54        46  4.133646e+01  5.112172e+01  3.990000e-02   
+8           30        46  3.593337e+01  4.548637e+01  3.520000e-02   
+9           38        46  3.593337e+01  4.548637e+01  3.520000e-02   
+10          14        46  3.658256e+01  4.531868e+01  3.600000e-02   
+11          22        46  3.658256e+01  4.531868e+01  3.600000e-02   
+12          62        46  7.150783e+01  9.673109e+01  7.440000e-02   
+13          70        46  7.150783e+01  9.673109e+01  7.440000e-02   
+14          30        46  3.706336e+01  4.658795e+01  3.640000e-02   
+15          38        46  3.706336e+01  4.658795e+01  3.640000e-02   
+16          46        46  7.371517e+01  9.487799e+01  6.880000e-02   
+17          54        46  7.371517e+01  9.487799e+01  6.880000e-02   
+18          78        46  5.003945e+01  6.742968e+01  4.780000e-02   
+19          86        46  5.003945e+01  6.742968e+01  4.780000e-02   
+20          62        46  1.106387e+02  1.342868e+02  1.040000e-01   
+21          70        46  1.106387e+02  1.342868e+02  1.040000e-01   
+22          32        46  9.500000e+01  1.144328e+02  9.050000e-02   
+23          40        46  9.500000e+01  1.144328e+02  9.050000e-02   
+24          64        46  1.091739e+02  1.536617e+02  1.108000e-01   
+25          64        46  9.500000e+01  1.144328e+02  9.050000e-02   
+26          64        46  9.500000e+01  1.144328e+02  9.050000e-02   
+27          72        46  1.091739e+02  1.536617e+02  1.108000e-01   
+28          72        46  9.500000e+01  1.144328e+02  9.050000e-02   
+29          72        46  9.500000e+01  1.144328e+02  9.050000e-02   
+..         ...       ...           ...           ...           ...   
+34           0        46  2.179433e+02  2.565514e+02  2.112000e-01   
+35           8        46  2.179433e+02  2.565514e+02  2.112000e-01   
+36          62        46  1.322811e+02  1.487590e+02  1.226000e-01   
+37          70        46  1.322811e+02  1.487590e+02  1.226000e-01   
+38          32        46  1.953081e+02  2.441055e+02  1.962000e-01   
+39          40        46  1.953081e+02  2.441055e+02  1.962000e-01   
+40          48        46  1.916567e+02  2.348574e+02  1.855000e-01   
+41          56        46  1.916567e+02  2.348574e+02  1.855000e-01   
+42          48        46  3.501654e+02  6.266155e+02  3.239000e-01   
+43          56        46  3.501654e+02  6.266155e+02  3.239000e-01   
+44          48        46  1.833208e+02  2.185756e+02  1.730000e-01   
+45          56        46  1.833208e+02  2.185756e+02  1.730000e-01   
+46          48        46  4.006790e+02  8.852027e+02  4.192000e-01   
+47          56        46  4.006790e+02  8.852027e+02  4.192000e-01   
+48          32        46  1.609231e+03  3.648921e+03  1.667200e+00   
+49          40        46  1.609231e+03  3.648921e+03  1.667200e+00   
+50          32        46  4.402352e+09  4.450818e+09  4.138238e+06   
+51          40        46  4.402352e+09  4.450818e+09  4.138238e+06   
+52          46        46  4.402408e+09  4.450818e+09  4.138313e+06   
+53          54        46  4.402408e+09  4.450818e+09  4.138313e+06   
+54          78        46  4.110248e+09  4.299911e+09  3.764371e+06   
+55          86        46  4.110248e+09  4.299911e+09  3.764371e+06   
+56          48        46  4.402727e+09  4.450819e+09  4.138742e+06   
+57          56        46  4.402727e+09  4.450819e+09  4.138742e+06   
+58          62        46  4.403349e+09  4.450825e+09  4.139581e+06   
+59          70        46  4.403349e+09  4.450825e+09  4.139581e+06   
+60          48        46  4.402755e+09  4.450820e+09  4.138780e+06   
+61          56        46  4.402755e+09  4.450820e+09  4.138780e+06   
+62          62        46  4.403522e+09  4.450827e+09  4.139815e+06   
+63          70        46  4.403522e+09  4.450827e+09  4.139815e+06   
+
+         FitMASE  ForecastCount    ForecastL1    ForecastL2  ForecastMAPE  \
+0   8.859000e-01             12  4.906414e+01  7.324683e+01  3.670000e-02   
+1   8.859000e-01             12  4.906414e+01  7.324683e+01  3.670000e-02   
+2   5.493000e-01             12  5.067244e+01  6.825575e+01  3.970000e-02   
+3   5.493000e-01             12  5.067244e+01  6.825575e+01  3.970000e-02   
+4   9.753000e-01             12  5.395847e+01  8.076874e+01  4.030000e-02   
+5   9.753000e-01             12  5.395847e+01  8.076874e+01  4.030000e-02   
+6   4.257000e-01             12  5.669774e+01  7.341976e+01  4.420000e-02   
+7   4.257000e-01             12  5.669774e+01  7.341976e+01  4.420000e-02   
+8   3.700000e-01             12  5.926774e+01  6.594593e+01  4.500000e-02   
+9   3.700000e-01             12  5.926774e+01  6.594593e+01  4.500000e-02   
+10  3.767000e-01             12  5.997291e+01  7.127298e+01  4.650000e-02   
+11  3.767000e-01             12  5.997291e+01  7.127298e+01  4.650000e-02   
+12  7.364000e-01             12  6.617102e+01  8.931405e+01  4.860000e-02   
+13  7.364000e-01             12  6.617102e+01  8.931405e+01  4.860000e-02   
+14  3.817000e-01             12  8.375714e+01  9.946030e+01  6.170000e-02   
+15  3.817000e-01             12  8.375714e+01  9.946030e+01  6.170000e-02   
+16  7.591000e-01             12  8.843965e+01  1.154501e+02  6.260000e-02   
+17  7.591000e-01             12  8.843965e+01  1.154501e+02  6.260000e-02   
+18  5.153000e-01             12  1.043051e+02  1.290117e+02  7.540000e-02   
+19  5.153000e-01             12  1.043051e+02  1.290117e+02  7.540000e-02   
+20  1.139300e+00             12  1.198990e+02  1.712417e+02  8.370000e-02   
+21  1.139300e+00             12  1.198990e+02  1.712417e+02  8.370000e-02   
+22  9.783000e-01             12  1.161667e+02  1.364447e+02  8.820000e-02   
+23  9.783000e-01             12  1.161667e+02  1.364447e+02  8.820000e-02   
+24  1.124200e+00             12  1.161667e+02  1.364447e+02  8.820000e-02   
+25  9.783000e-01             12  1.161667e+02  1.364447e+02  8.820000e-02   
+26  9.783000e-01             12  1.161667e+02  1.364447e+02  8.820000e-02   
+27  1.124200e+00             12  1.161667e+02  1.364447e+02  8.820000e-02   
+28  9.783000e-01             12  1.161667e+02  1.364447e+02  8.820000e-02   
+29  9.783000e-01             12  1.161667e+02  1.364447e+02  8.820000e-02   
+..           ...            ...           ...           ...           ...   
+34  2.244300e+00             12  2.766196e+02  3.278038e+02  1.876000e-01   
+35  2.244300e+00             12  2.766196e+02  3.278038e+02  1.876000e-01   
+36  1.362200e+00             12  3.398559e+02  4.254260e+02  2.380000e-01   
+37  1.362200e+00             12  3.398559e+02  4.254260e+02  2.380000e-01   
+38  2.011200e+00             12  3.581558e+02  3.996530e+02  2.913000e-01   
+39  2.011200e+00             12  3.581558e+02  3.996530e+02  2.913000e-01   
+40  1.973600e+00             12  4.111700e+02  4.435029e+02  3.288000e-01   
+41  1.973600e+00             12  4.111700e+02  4.435029e+02  3.288000e-01   
+42  3.605800e+00             12  4.762752e+02  5.218700e+02  3.320000e-01   
+43  3.605800e+00             12  4.762752e+02  5.218700e+02  3.320000e-01   
+44  1.887700e+00             12  6.250086e+02  6.518856e+02  4.783000e-01   
+45  1.887700e+00             12  6.250086e+02  6.518856e+02  4.783000e-01   
+46  4.126000e+00             12  6.971165e+02  7.155150e+02  5.384000e-01   
+47  4.126000e+00             12  6.971165e+02  7.155150e+02  5.384000e-01   
+48  1.657100e+01             12  1.363083e+03  1.379676e+03  1.000000e+00   
+49  1.657100e+01             12  1.363083e+03  1.379676e+03  1.000000e+00   
+50  4.533315e+07             12  4.499999e+09  4.499999e+09  3.389788e+06   
+51  4.533315e+07             12  4.499999e+09  4.499999e+09  3.389788e+06   
+52  4.533373e+07             12  4.499999e+09  4.499999e+09  3.389788e+06   
+53  4.533373e+07             12  4.499999e+09  4.499999e+09  3.389788e+06   
+54  4.232521e+07             12  4.499999e+09  4.499999e+09  3.389788e+06   
+55  4.232521e+07             12  4.499999e+09  4.499999e+09  3.389788e+06   
+56  4.533700e+07             12  4.500000e+09  4.500000e+09  3.389788e+06   
+57  4.533700e+07             12  4.500000e+09  4.500000e+09  3.389788e+06   
+58  4.534341e+07             12  4.500000e+09  4.500000e+09  3.389788e+06   
+59  4.534341e+07             12  4.500000e+09  4.500000e+09  3.389788e+06   
+60  4.533729e+07             12  4.500000e+09  4.500000e+09  3.389788e+06   
+61  4.533729e+07             12  4.500000e+09  4.500000e+09  3.389788e+06   
+62  4.534520e+07             12  4.500000e+09  4.500000e+09  3.389788e+06   
+63  4.534520e+07             12  4.500000e+09  4.500000e+09  3.389788e+06   
+
+    ForecastMASE  TestCount        TestL1        TestL2      TestMAPE TestMASE  
+0   4.509000e-01          1  1.372924e+02  1.372924e+02  1.227000e-01     None  
+1   4.509000e-01          1  1.372924e+02  1.372924e+02  1.227000e-01     None  
+2   4.657000e-01          1  1.043326e+02  1.043326e+02  9.320000e-02     None  
+3   4.657000e-01          1  1.043326e+02  1.043326e+02  9.320000e-02     None  
+4   4.959000e-01          1  1.662790e+02  1.662790e+02  1.486000e-01     None  
+5   4.959000e-01          1  1.662790e+02  1.662790e+02  1.486000e-01     None  
+6   5.210000e-01          1  6.717204e+01  6.717204e+01  6.000000e-02     None  
+7   5.210000e-01          1  6.717204e+01  6.717204e+01  6.000000e-02     None  
+8   5.446000e-01          1  1.163004e+02  1.163004e+02  1.039000e-01     None  
+9   5.446000e-01          1  1.163004e+02  1.163004e+02  1.039000e-01     None  
+10  5.511000e-01          1  1.083164e+02  1.083164e+02  9.680000e-02     None  
+11  5.511000e-01          1  1.083164e+02  1.083164e+02  9.680000e-02     None  
+12  6.081000e-01          1  1.788403e+02  1.788403e+02  1.598000e-01     None  
+13  6.081000e-01          1  1.788403e+02  1.788403e+02  1.598000e-01     None  
+14  7.697000e-01          1  2.050317e+02  2.050317e+02  1.832000e-01     None  
+15  7.697000e-01          1  2.050317e+02  2.050317e+02  1.832000e-01     None  
+16  8.127000e-01          1  3.044350e+02  3.044350e+02  2.721000e-01     None  
+17  8.127000e-01          1  3.044350e+02  3.044350e+02  2.721000e-01     None  
+18  9.585000e-01          1  2.218054e+02  2.218054e+02  1.982000e-01     None  
+19  9.585000e-01          1  2.218054e+02  2.218054e+02  1.982000e-01     None  
+20  1.101800e+00          1  4.296958e+02  4.296958e+02  3.840000e-01     None  
+21  1.101800e+00          1  4.296958e+02  4.296958e+02  3.840000e-01     None  
+22  1.067500e+00          1  3.010000e+02  3.010000e+02  2.690000e-01     None  
+23  1.067500e+00          1  3.010000e+02  3.010000e+02  2.690000e-01     None  
+24  1.067500e+00          1  3.010000e+02  3.010000e+02  2.690000e-01     None  
+25  1.067500e+00          1  3.010000e+02  3.010000e+02  2.690000e-01     None  
+26  1.067500e+00          1  3.010000e+02  3.010000e+02  2.690000e-01     None  
+27  1.067500e+00          1  3.010000e+02  3.010000e+02  2.690000e-01     None  
+28  1.067500e+00          1  3.010000e+02  3.010000e+02  2.690000e-01     None  
+29  1.067500e+00          1  3.010000e+02  3.010000e+02  2.690000e-01     None  
+..           ...        ...           ...           ...           ...      ...  
+34  2.542000e+00          1  4.804348e+00  4.804348e+00  4.300000e-03     None  
+35  2.542000e+00          1  4.804348e+00  4.804348e+00  4.300000e-03     None  
+36  3.123200e+00          1  9.716108e+02  9.716108e+02  8.683000e-01     None  
+37  3.123200e+00          1  9.716108e+02  9.716108e+02  8.683000e-01     None  
+38  3.291300e+00          1  7.234783e+02  7.234783e+02  6.465000e-01     None  
+39  3.291300e+00          1  7.234783e+02  7.234783e+02  6.465000e-01     None  
+40  3.778500e+00          1  8.386134e+02  8.386134e+02  7.494000e-01     None  
+41  3.778500e+00          1  8.386134e+02  8.386134e+02  7.494000e-01     None  
+42  4.376800e+00          1  2.321919e+02  2.321919e+02  2.075000e-01     None  
+43  4.376800e+00          1  2.321919e+02  2.321919e+02  2.075000e-01     None  
+44  5.743600e+00          1  1.371345e+03  1.371345e+03  1.225500e+00     None  
+45  5.743600e+00          1  1.371345e+03  1.371345e+03  1.225500e+00     None  
+46  6.406300e+00          1  1.261488e+03  1.261488e+03  1.127300e+00     None  
+47  6.406300e+00          1  1.261488e+03  1.261488e+03  1.127300e+00     None  
+48  1.252620e+01          1  1.119000e+03  1.119000e+03  1.000000e+00     None  
+49  1.252620e+01          1  1.119000e+03  1.119000e+03  1.000000e+00     None  
+50  4.135338e+07          1  4.500000e+09  4.500000e+09  4.021447e+06     None  
+51  4.135338e+07          1  4.500000e+09  4.500000e+09  4.021447e+06     None  
+52  4.135338e+07          1  4.500000e+09  4.500000e+09  4.021447e+06     None  
+53  4.135338e+07          1  4.500000e+09  4.500000e+09  4.021447e+06     None  
+54  4.135338e+07          1  4.500000e+09  4.500000e+09  4.021447e+06     None  
+55  4.135338e+07          1  4.500000e+09  4.500000e+09  4.021447e+06     None  
+56  4.135338e+07          1  4.500000e+09  4.500000e+09  4.021448e+06     None  
+57  4.135338e+07          1  4.500000e+09  4.500000e+09  4.021448e+06     None  
+58  4.135338e+07          1  4.500000e+09  4.500000e+09  4.021448e+06     None  
+59  4.135338e+07          1  4.500000e+09  4.500000e+09  4.021448e+06     None  
+60  4.135338e+07          1  4.500000e+09  4.500000e+09  4.021447e+06     None  
+61  4.135338e+07          1  4.500000e+09  4.500000e+09  4.021447e+06     None  
+62  4.135338e+07          1  4.500000e+09  4.500000e+09  4.021447e+06     None  
+63  4.135338e+07          1  4.500000e+09  4.500000e+09  4.021447e+06     None  
+
+[64 rows x 18 columns]
+    Transformation                                              Model  \
+0  CumSum_plastics  CumSum_plastics_Lag1Trend_residue_zeroCycle_re...   
+1  CumSum_plastics  CumSum_plastics_Lag1Trend_residue_bestCycle_by...   
+2  CumSum_plastics  CumSum_plastics_LinearTrend_residue_zeroCycle_...   
+3  CumSum_plastics  CumSum_plastics_LinearTrend_residue_bestCycle_...   
+4  CumSum_plastics  CumSum_plastics_ConstantTrend_residue_zeroCycl...   
+
+   Complexity  FitCount      FitL1       FitL2  FitMAPE  FitMASE  \
+0          78        46  86.032592  152.570215   0.0966   0.8859   
+1          86        46  86.032592  152.570215   0.0966   0.8859   
+2          62        46  53.346486   77.139121   0.0561   0.5493   
+3          70        46  53.346486   77.139121   0.0561   0.5493   
+4          46        46  94.710562  159.796290   0.1054   0.9753   
+
+   ForecastCount  ForecastL1  ForecastL2  ForecastMAPE  ForecastMASE  \
+0             12   49.064142   73.246831        0.0367        0.4509   
+1             12   49.064142   73.246831        0.0367        0.4509   
+2             12   50.672436   68.255749        0.0397        0.4657   
+3             12   50.672436   68.255749        0.0397        0.4657   
+4             12   53.958470   80.768743        0.0403        0.4959   
+
+   TestCount      TestL1      TestL2  TestMAPE TestMASE  
+0          1  137.292431  137.292431    0.1227     None  
+1          1  137.292431  137.292431    0.1227     None  
+2          1  104.332615  104.332615    0.0932     None  
+3          1  104.332615  104.332615    0.0932     None  
+4          1  166.279026  166.279026    0.1486     None  
+1 0    1013
+Name: plastics, dtype: int64
+1 0    938.636348
+Name: plastics_Forecast, dtype: float64
+FORECAST_DETAIL_ACTUAL MWH plastics plastics [1013]
+FORECAST_DETAIL_PREDICTED MWH plastics plastics [938.63634819520928]
+BENCHMARK_PERF_DETAIL_SIGNAL_HORIZON MWH plastics plastics 59 1
+BENCHMARK_PERF_DETAIL_BENCH_TIME_IN_SECONDS PYAF_SYSTEM_DEPENDENT_ MWH plastics plastics 1.9077415466308594
+BENCHMARK_PERF_DETAIL_BEST_MODEL MWH plastics plastics ConstantTrend + NoCycle + AR(14)
+BENCHMARK_PERF_DETAIL_PERF_COUNT MWH plastics plastics 1
+BENCHMARK_PERF_DETAIL_PERF_MAPE_SMAPE_MASE MWH plastics plastics 0.0734 0.0762 None
+BENCHMARK_PERF_DETAIL_PERF_L1_L2_R2 MWH plastics plastics 74.3636518048 74.3636518048 -5.52995270974e+13
