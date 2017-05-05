@@ -271,15 +271,14 @@ def generate_random_TS(N , FREQ, seed, trendtype, cycle_length, transform, sigma
 
     tsspec.mTimeVar = "Date";
     tsspec.mSignalVar = "Signal";
-    tsspec.mHorizon = 12;
-    if(tsspec.mHorizon > (N//30)):
-        tsspec.mHorizon = N // 30;
-    if(tsspec.mHorizon < 1):
-        tsspec.mHorizon = 1;
+    lHorizon = min(12, max(1, N // 30));
+    tsspec.mHorizon = {}
+    tsspec.mHorizon[tsspec.mSignalVar] = lHorizon
+    tsspec.mHorizon[tsspec.mName] = lHorizon
     tsspec.mFullDataset = df_train;
     tsspec.mFullDataset[tsspec.mName] = tsspec.mFullDataset['Signal'];
-    tsspec.mPastData = df_train[:-tsspec.mHorizon];
-    tsspec.mFutureData = df_train.tail(tsspec.mHorizon);
+    tsspec.mPastData = df_train[:-lHorizon];
+    tsspec.mFutureData = df_train.tail(lHorizon);
     
     return tsspec
 
@@ -763,8 +762,6 @@ def generate_datasets(ds_type = "S"):
                                                         cycle_length, transf,
                                                         sigma, exog_count = exogc);
                                 ds.mCategory = "ARTIFICIAL_" + ds_type;
-                                ds.mHorizon = {}
-                                ds.mHorizon[ds.mSignalVar] = ds.mHorizon;
                                 datasets[ds.mName] = ds
     return datasets;
 

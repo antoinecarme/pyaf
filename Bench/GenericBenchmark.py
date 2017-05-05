@@ -89,7 +89,7 @@ class cGeneric_OneSignal_Tester:
     '''
         
     def __init__(self , tsspec, bench_name):
-        print("BENCH_DATA" , bench_name, tsspec)
+        print("BENCH_DATA" , bench_name)
         self.mTSSpec = tsspec;
         self.mTrainDataset = {};
         self.mAutoForecastBySignal = {}
@@ -183,8 +183,10 @@ class cGeneric_OneSignal_Tester:
         assert(self.mApplyOut.shape[0] == (iHorizon + self.mApplyIn.shape[0]));
 
     def reportActualAndPredictedData(self, iSignal, iHorizon):
-        print("FORECAST_DETAIL_ACTUAL" , self.mTSSpec.mName , iSignal , self.mActual.values);
-        print("FORECAST_DETAIL_PREDICTED" , self.mTSSpec.mName , iSignal , self.mPredicted.values);
+        print("FORECAST_DETAIL_ACTUAL" , self.mTSSpec.mName , iSignal ,
+              [self.mActual.values[h] for h in range(iHorizon)]);
+        print("FORECAST_DETAIL_PREDICTED" , self.mTSSpec.mName , iSignal ,
+              [self.mPredicted.values[h] for h in range(iHorizon)]);
         assert(self.mActual.shape[0] == iHorizon);
         assert(self.mPredicted.shape[0] == iHorizon);
         # print(self.mActual.describe());
@@ -233,13 +235,19 @@ class cGeneric_OneSignal_Tester:
     def dumpForecastPerfs(self, iSignal, iHorizon):
         lAutoF1 = self.mAutoForecastBySignal[iSignal  + "_" + str(iHorizon)]
         lPerf = self.mTestPerfData[iSignal  + "_" + str(iHorizon)];
-        print("BENCHMARK_PERF_DETAIL", self.mTSSpec.mName , iSignal,
+        print("BENCHMARK_PERF_DETAIL_SIGNAL_HORIZON", self.mTSSpec.mName , iSignal,
               self.mTrainDataset[iSignal  + "_" + str(iHorizon)].shape[0] ,
-              iHorizon,
-              str(self.mTrainTime[iSignal  + "_" + str(iHorizon)]),
-              lAutoF1.mSignalDecomposition.mBestModel.getFormula(),
-              lPerf.mCount,
-              lPerf.mMAPE,  lPerf.mSMAPE, lPerf.mMASE,  lPerf.mL1,  lPerf.mL2,  lPerf.mR2);
+              iHorizon);
+        print("BENCHMARK_PERF_DETAIL_BENCH_TIME_IN_SECONDS", "PYAF_SYSTEM_DEPENDENT_", self.mTSSpec.mName , iSignal,
+              str(self.mTrainTime[iSignal  + "_" + str(iHorizon)]));        
+        print("BENCHMARK_PERF_DETAIL_BEST_MODEL", self.mTSSpec.mName , iSignal,
+              lAutoF1.mSignalDecomposition.mBestModel.getFormula());
+        print("BENCHMARK_PERF_DETAIL_PERF_COUNT", self.mTSSpec.mName , iSignal,
+              lPerf.mCount);
+        print("BENCHMARK_PERF_DETAIL_PERF_MAPE_SMAPE_MASE", self.mTSSpec.mName , iSignal,
+              lPerf.mMAPE,  lPerf.mSMAPE, lPerf.mMASE);
+        print("BENCHMARK_PERF_DETAIL_PERF_L1_L2_R2", self.mTSSpec.mName , iSignal,
+              lPerf.mL1,  lPerf.mL2,  lPerf.mR2);
         pass
 
     def testSignalIdempotency(self, iSignal, iHorizon, tr, cy, ar):
