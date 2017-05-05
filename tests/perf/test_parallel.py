@@ -49,7 +49,7 @@ def run_multiprocessed(nbprocesses = 20):
     for sig in range(100):
         values = pd.Series();
         values = np.arange(1000000);
-        a = cGeneric_Tester_Arg("process_" + str(sig), values);
+        a = cGeneric_Tester_Arg("PYAF_SYSTEM_DEPENDENT_process_" + str(sig), values);
         args = args + [a];
         
     out = {};
