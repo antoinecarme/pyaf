@@ -18,7 +18,7 @@ df = b1.mPastData
 lEngine = autof.cForecastEngine()
 lEngine
 
-H = b1.mHorizon;
+H = b1.mHorizon[b1.mSignalVar];
 lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H);
 lEngine.getModelInfo();
 

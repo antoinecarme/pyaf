@@ -23,7 +23,7 @@ for cyc in lValues:
     lEngine.mOptions.mCycleLengths = [ k for k in range(2,128) ];
     lEngine
 
-    H = b1.mHorizon;
+    H = b1.mHorizon[b1.mSignalVar];
     lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H);
     lEngine.getModelInfo();
 
