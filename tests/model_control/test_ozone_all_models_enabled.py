@@ -19,6 +19,8 @@ lEngine
 
 H = b1.mHorizon;
 lEngine.mOptions.enable_slow_mode();
+lEngine.mOptions.set_active_autoregressions(['NoAR' , 'AR' , 'ARX' , 'SVR']);
+
 # lEngine.mOptions.mDebugPerformance = True;
 lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H);
 lEngine.getModelInfo();
