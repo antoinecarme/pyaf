@@ -27,7 +27,7 @@ with warnings.catch_warnings():
             lEngine.mOptions.mParallelMode = False;
             # lEngine.mOptions.mEnableSeasonals = False;
             # lEngine.mOptions.mDebugCycles = True;
-            lEngine.mOptions.mDebugProfile = True;
+            # lEngine.mOptions.mDebugProfile = True;
             lEngine
             lExogenousData = (b1.mExogenousDataFrame , b1.mExogenousVariables[0:nbex]) 
             lEngine.train(df1 , b1.mTimeVar , b1.mSignalVar, H, lExogenousData);
