@@ -40,9 +40,10 @@ def compare_lines(line_orig, line_new):
     if(line_orig == line_new):
         return 0;
     # if both lines contain 'TIME' , skip.
-    lSkippedTags = ['END_TRAINING_TIME_IN_SECONDS' , 'EXOGENOUS_ENCODING_TIME_IN_SECONDS' , "PYAF_SYSTEM_DEPENDENT_"]
+    lSkippedTags = ['END_TRAINING_TIME_IN_SECONDS' , 'EXOGENOUS_ENCODING_TIME_IN_SECONDS' , "PYAF_SYSTEM_DEPENDENT_",
+                    "CreationDate" , "Training_Time"]
     for tag in lSkippedTags:
-        if(tag in line_orig.upper() and tag in line_new.upper()):
+        if(tag.upper() in line_orig.upper() and tag.upper() in line_new.upper()):
             return 0;
     import re
     lRegex  = '[\[?,:"{}\]\= \n\t]'
