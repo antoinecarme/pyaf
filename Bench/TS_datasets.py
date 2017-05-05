@@ -391,9 +391,11 @@ def load_MWH_dataset(name):
     # print(tsspec.mFullDataset.info())
     tsspec.mTimeVar = lTime;
     tsspec.mSignalVar = lSignal;
-    tsspec.mHorizon = 1;
-    tsspec.mPastData = df_train[:-tsspec.mHorizon];
-    tsspec.mFutureData = df_train.tail(tsspec.mHorizon);
+    tsspec.mHorizon = {};
+    lHorizon = 1
+    tsspec.mHorizon[lSignal] = lHorizon
+    tsspec.mPastData = df_train[:-lHorizon];
+    tsspec.mFutureData = df_train.tail(lHorizon);
     
     return tsspec
 
@@ -760,7 +762,9 @@ def generate_datasets(ds_type = "S"):
                                 ds = generate_random_TS(N , 'D', seed, trend,
                                                         cycle_length, transf,
                                                         sigma, exog_count = exogc);
-                                ds.mCategory = "ARTIFICIAL_" + ds_type; 
+                                ds.mCategory = "ARTIFICIAL_" + ds_type;
+                                ds.mHorizon = {}
+                                ds.mHorizon[ds.mSignalVar] = ds.mHorizon;
                                 datasets[ds.mName] = ds
     return datasets;
 
