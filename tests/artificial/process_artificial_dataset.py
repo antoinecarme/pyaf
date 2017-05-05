@@ -24,14 +24,15 @@ def process_dataset_with_noise(idataset , sigma, debug=False):
         warnings.simplefilter("error")
         N = idataset.mFullDataset.shape[0];
         lSignalVar = idataset.mSignalVar + "_" + str(sigma);
+        lHorizon = idataset.mHorizon[idataset.mSignalVar]
         lNoise = np.random.randn(N) * sigma;
         idataset.mFullDataset[lSignalVar] = idataset.mFullDataset["orig_" + idataset.mSignalVar] + lNoise;
-        idataset.mPastData = idataset.mFullDataset[:-idataset.mHorizon];
-        idataset.mFutureData = idataset.mFullDataset.tail(idataset.mHorizon);
+        idataset.mPastData = idataset.mFullDataset[:-lHorizon];
+        idataset.mFutureData = idataset.mFullDataset.tail(lHorizon);
         training_ds = idataset.mPastData
         # #df.to_csv("outputs/rand_exogenous.csv")
     
-        H = idataset.mHorizon;
+        H = lHorizon;
     
         # N = df.shape[0];
         # df1 = df;
