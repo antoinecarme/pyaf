@@ -27,13 +27,13 @@ def process_dataset_with_noise(idataset , sigma):
         idataset.mFullDataset["orig_" + idataset.mSignalVar] = idataset.mFullDataset[idataset.mSignalVar];
         lSignalVar = idataset.mSignalVar + "_" + str(sigma);
         lNoise = np.random.randn(N) * sigma;
+        H = idataset.mHorizon[idataset.mSignalVar];
         idataset.mFullDataset[lSignalVar] = idataset.mFullDataset["orig_" + idataset.mSignalVar] + lNoise;
-        idataset.mPastData = idataset.mFullDataset[:-idataset.mHorizon];
-        idataset.mFutureData = idataset.mFullDataset.tail(idataset.mHorizon);
+        idataset.mPastData = idataset.mFullDataset[:-H];
+        idataset.mFutureData = idataset.mFullDataset.tail(H);
         training_ds = idataset.mPastData
         # #df.to_csv("outputs/rand_exogenous.csv")
     
-        H = idataset.mHorizon;
     
         # N = df.shape[0];
         # df1 = df;

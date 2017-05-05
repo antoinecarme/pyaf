@@ -16,7 +16,7 @@ with warnings.catch_warnings():
 
     #df.to_csv("outputs/rand_exogenous.csv")
     
-    H = b1.mHorizon;
+    H = b1.mHorizon[b1.mSignalVar];
     
     N = df.shape[0];
     for n in [N]:
