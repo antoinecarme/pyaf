@@ -137,7 +137,7 @@ class cSeasonalPeriodic(cAbstractCycle):
         # we encode only using estimation
         lCycleFrameEstim = self.mTimeInfo.getEstimPart(self.mCycleFrame);
         lTrendMeanEstim = lCycleFrameEstim[self.mTrend_residue_name].mean();
-        lGroupBy = lCycleFrameEstim.groupby([lName])[self.mTrend_residue_name].mean(); 
+        lGroupBy = lCycleFrameEstim.groupby(by=[lName] , sort=False)[self.mTrend_residue_name].mean(); 
         self.mEncodedValueDict = lGroupBy.to_dict()
         self.mDefaultValue = lTrendMeanEstim;
         # print("cSeasonalPeriodic_DefaultValue" , self.getCycleName(), self.mDefaultValue);
@@ -211,14 +211,14 @@ class cBestCycleForTrend(cAbstractCycle):
         lMaxRobustCycle = self.mTrendFrame.shape[0]/12;
         # print("MAX_ROBUST_CYCLE_LENGTH", self.mTrendFrame.shape[0], lMaxRobustCycle);
         
-        lCycleFrame = pd.DataFrame();
-        lCycleFrame[self.mTrend_residue_name ] = self.mTrendFrame[self.mTrend_residue_name]
         for i in self.mOptions.mCycleLengths:
             if ((i > 1) and (i <= lMaxRobustCycle)):
+                lCycleFrame = pd.DataFrame();
+                lCycleFrame[self.mTrend_residue_name ] = self.mTrendFrame[self.mTrend_residue_name]
                 name_i = self.mTrend_residue_name + '_Cycle';
                 lCycleFrame[name_i] = self.mCycleFrame[self.mTimeInfo.mRowNumberColumn] % i
                 lCycleFrameEstim = self.mTimeInfo.getEstimPart(lCycleFrame);
-                lGroupBy = lCycleFrameEstim.groupby([name_i])[self.mTrend_residue_name].mean();
+                lGroupBy = lCycleFrameEstim.groupby(by=[name_i] , sort=False)[self.mTrend_residue_name].mean();
                 lEncodedValueDict = lGroupBy.to_dict()
                 lCycleFrame[name_i + '_enc'] = lCycleFrame[name_i].apply(
                     lambda x : lEncodedValueDict.get(x , self.mDefaultValue))
