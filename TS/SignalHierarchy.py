@@ -13,6 +13,8 @@ from . import Perf as tsperf
 from . import Utils as tsutil
 from . import Plots as tsplot
 
+# for timing
+import time
 
 class cSignalHierarchy:
 
@@ -174,12 +176,17 @@ class cSignalHierarchy:
 
 
     def fit(self):
+        logger = tsutil.get_pyaf_logger();
+        logger.info("START_HIERARCHICAL_TRAINING")
+        start_time = time.time()
         self.create_HierarchicalStructure();
         # self.plot();
         self.create_SummingMatrix();
         lAllLevelsDataset = self.create_all_levels_dataset(self.mTrainingDataset);
         self.create_all_levels_models(lAllLevelsDataset, self.mHorizon, self.mDateColumn);
         self.computeTopDownHistoricalProportions(lAllLevelsDataset);
+        lTrainTime = time.time() - start_time;
+        logger.info("END_HIERARCHICAL_TRAINING_TIME_IN_SECONDS " + str(lTrainTime))
 
 
     def getModelInfo(self):
@@ -189,6 +196,9 @@ class cSignalHierarchy:
                 lEngine.getModelInfo();
 
     def plot(self , name = None):
+        logger = tsutil.get_pyaf_logger();
+        logger.info("START_HIERARCHICAL_PLOTTING")
+        start_time = time.time()
         lAnnotations = None;
         lHasModels = (self.mModels is not None)
         if(lHasModels):
@@ -203,6 +213,9 @@ class cSignalHierarchy:
                         lProp = self.mAvgHistProp[signal][col1] * 100;
                         lAnnotations[signal +"_" + col1] = ('%2.2f %%' % lProp)
         tsplot.plot_hierarchy(self.mStructure, lAnnotations, name)
+        lPlotTime = time.time() - start_time;
+        logger.info("END_HIERARCHICAL_PLOTTING_TIME_IN_SECONDS " + str(lPlotTime))
+
     
     def standrdPlots(self , name = None):
         for level in sorted(self.mModels.keys()):
@@ -385,6 +398,9 @@ class cSignalHierarchy:
         return lForecast_DF_OC;
 
     def forecast(self , iInputDS, iHorizon):
+        logger = tsutil.get_pyaf_logger();
+        logger.info("START_HIERARCHICAL_FORECASTING")
+        start_time = time.time()
         lAllLevelsDataset = self.create_all_levels_dataset(iInputDS);
         lForecast_DF = self.forecastAllModels(lAllLevelsDataset, iHorizon, self.mDateColumn);
         lCombinationMethods = self.mOptions.mHierarchicalCombinationMethod;
@@ -425,4 +441,6 @@ class cSignalHierarchy:
 
         self.reportOnCombinedForecasts(lForecast_DF , lCombinationMethods);
                 
+        lForecastTime = time.time() - start_time;
+        logger.info("END_HIERARCHICAL_FORECAST_TIME_IN_SECONDS " + str(lForecastTime))
         return lForecast_DF;
