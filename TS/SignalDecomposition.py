@@ -266,6 +266,7 @@ class cSignalDecompositionOneTransform:
             logger.info("AUTOREG_TIME_IN_SECONDS " + self.mSignal + " " + str( str(time.time() - ar_start_time)))
         # forecast perfs
 
+        perf_start_time = time.time()
         lModels = {};
         for trend in lAREstimator.mTrendList:
             for cycle in lAREstimator.mCycleList[trend]:
@@ -277,6 +278,9 @@ class cSignalDecompositionOneTransform:
         del lAREstimator;
         self.updatePerfsForAllModels(lModels);
         
+        if(self.mOptions.mDebugProfile):
+            logger.info("PERF_TIME_IN_SECONDS " + self.mSignal + " " + str(len(lModels)) + " " + str( str(time.time() - perf_start_time)))
+
         if(self.mOptions.mDebugProfile):
             logger.info("TRAINING_TIME_IN_SECONDS "  + self.mSignal + " " + str(time.time() - start_time))
         self.run_gc();
@@ -406,6 +410,7 @@ class cSignalDecomposition:
 
 
     def collectPerformanceIndices(self) :
+        modelsel_start_time = time.time()
         logger = tsutil.get_pyaf_logger();
 
         rows_list = []
@@ -452,6 +457,8 @@ class cSignalDecomposition:
         # print(lInterestingModels.head());
         lBestName = lInterestingModels['Model'].iloc[0];
         self.mBestModel = self.mPerfsByModel[lBestName][0];
+        if(self.mOptions.mDebugProfile):
+            logger.info("MODEL_SELECTION_TIME_IN_SECONDS "  + self.mBestModel.mSignal + " " + str(time.time() - modelsel_start_time))
 
 
     def checkData(self, iInputDS, iTime, iSignal, iHorizon, iExogenousData):        
@@ -510,7 +517,10 @@ class cSignalDecomposition:
         self.collectPerformanceIndices();
 
         # Prediction Intervals
+        pred_interval_start_time = time.time()
         self.mBestModel.computePredictionIntervals();
+        if(self.mOptions.mDebugProfile):
+            logger.info("PREDICTION_INTERVAL_TIME_IN_SECONDS "  + iSignal + " " + str(time.time() - pred_interval_start_time))
 
         end_time = time.time()
         self.mTrainingTime = end_time - start_time;
@@ -518,7 +528,12 @@ class cSignalDecomposition:
         pass
 
     def forecast(self , iInputDS, iHorizon):
+        logger = tsutil.get_pyaf_logger();
+        logger.info("START_FORECASTING")
+        start_time = time.time()
         lForecastFrame = self.mBestModel.forecast(iInputDS, iHorizon);
+        lForecastTime = time.time() - start_time;
+        logger.info("END_FORECAST_TIME_IN_SECONDS " + str(lForecastTime))
         return lForecastFrame;
 
 
@@ -536,7 +551,12 @@ class cSignalDecomposition:
         return json.dumps(dict1, indent=4, sort_keys=True);
         
     def standrdPlots(self, name = None):
+        logger = tsutil.get_pyaf_logger();
+        logger.info("START_PLOTTING")
+        start_time = time.time()
         self.mBestModel.standrdPlots(name);
+        lPlotTime = time.time() - start_time;
+        logger.info("END_PLOTTING_TIME_IN_SECONDS " + str(lPlotTime))
         
     def getPlotsAsDict(self):
         lDict = self.mBestModel.getPlotsAsDict();
