@@ -18,9 +18,8 @@ PyAF is distributed under the 3-Clause BSD license.
 
 Features
 --------
-PyAF allows forecasting a time series for future values in a fully automated
-way.
-
+PyAF allows forecasting a time series (or a signal) for future values in a fully automated
+way. To build forecasts, PyAF allows using time information (by identifying **long-term** evoluation and **periodic patterns**), analyzes the **past of the signal**, exploits **exogenous data** (user-provided time series that may be correlated with the signal) as well as the **hierarchical structure** of the signal (by aggregating spatial components forecasts, for example) 
 
 PyAF **uses [Pandas](http://pandas.pydata.org/) as a data access layer**. It consumes data coming from a pandas data-
 frame (with time and signal columns), builds a time series model, and outputs
