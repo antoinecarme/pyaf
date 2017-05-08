@@ -176,7 +176,8 @@ class cGeneric_OneSignal_Tester:
         #self.mApplyIn.to_csv(iSignal + "_applyIn.csv");
 
     def applyModel(self, iSignal, iHorizon):
-        lAutoF1 = self.mAutoForecastBySignal[iSignal  + "_" + str(iHorizon)]
+        lAutoF = self.mAutoForecastBySignal[iSignal  + "_" + str(iHorizon)]
+        lAutoF1 = self.pickleModel(lAutoF)
         self.mApplyOut = lAutoF1.forecast(self.mApplyIn, iHorizon);
         #self.mApplyOut.to_csv(iSignal + "_applyOut.csv");
         # print(self.mApplyOut.tail());
@@ -211,6 +212,15 @@ class cGeneric_OneSignal_Tester:
             str1 = str1 + str(lPerf.mCount) + " " +  str(lPerf.mMAPE);
             str1 = str1 + " " + str(lPerf.mSMAPE) + " " + str(lPerf.mMASE) + " " +  str(lPerf.mL1) + " " + str(lPerf.mL2) + " " +  str(lPerf.mR2) + "\n";            
         return str1;
+
+
+    def pickleModel(self, iModel):
+        import pickle
+        output = pickle.dumps(iModel)
+        lReloadedObject = pickle.loads(output)
+        output2 = pickle.dumps(lReloadedObject)    
+        assert(output2 == output2)
+        return lReloadedObject;
 
     def generateCode(self, iSignal, iHorizon):
         lAutoF = self.mAutoForecastBySignal[iSignal  + "_" + str(iHorizon)]
