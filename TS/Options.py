@@ -136,7 +136,7 @@ class cSignalDecomposition_Options(cModelControl):
         self.set_active_periodics(self.mKnownPeriodics);
         self.set_active_autoregressions(self.mKnownAutoRegressions);
         
-        self.mMaxAROrder = 256;
+        self.mMaxAROrder = 64;
 
     def enable_fast_mode(self):
         self.mQuantiles = [5, 10, 20]; # quintiles, deciles, and vingtiles;)
@@ -145,7 +145,7 @@ class cSignalDecomposition_Options(cModelControl):
         
         self.mCycleLengths = [5, 7, 12, 24 , 30, 60];
 
-        self.mMaxAROrder = 256;
+        self.mMaxAROrder = 64;
 
 
     # Add a low-memory mode for Heroku #25
