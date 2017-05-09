@@ -3,6 +3,13 @@ import numpy as np
 import pyaf.ForecastEngine as autof
 import pyaf.Bench.TS_datasets as tsds
 
+def pickleModel(iModel):
+    import pickle
+    output = pickle.dumps(iModel)
+    lReloadedObject = pickle.loads(output)
+    output2 = pickle.dumps(lReloadedObject)    
+    assert(output2 == output2)
+    return lReloadedObject;
 
 def test_transformation(itransformation):
 
@@ -21,17 +28,18 @@ def test_transformation(itransformation):
     lEngine.mOptions.mBoxCoxOrders = lEngine.mOptions.mExtensiveBoxCoxOrders;
 
     lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H);
-    lEngine.getModelInfo();
-    print(lEngine.mSignalDecomposition.mTrPerfDetails.head());
+    lEngine2 = pickleModel(lEngine)
+    lEngine2.getModelInfo();
+    print(lEngine2.mSignalDecomposition.mTrPerfDetails.head());
 
-    lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
+    lEngine2.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
     
-    lEngine.standrdPlots("outputs/my_ozone_" + itransformation);
+    lEngine2.standrdPlots("outputs/my_ozone_" + itransformation);
     
     dfapp_in = df.copy();
     dfapp_in.tail()
     
-    dfapp_out = lEngine.forecast(dfapp_in, H);
+    dfapp_out = lEngine2.forecast(dfapp_in, H);
     #dfapp_out.to_csv("outputs/ozone_apply_out_" + itransformation + ".csv")
     dfapp_out.tail(H)
     print("Forecast Columns " , dfapp_out.columns);
@@ -40,7 +48,7 @@ def test_transformation(itransformation):
     print("Forecasts\n" , Forecast_DF.tail(H));
 
     print("\n\n<ModelInfo>")
-    print(lEngine.to_json());
+    print(lEngine2.to_json());
     print("</ModelInfo>\n\n")
     print("\n\n<Forecast>")
     print(Forecast_DF.tail(2*H).to_json(date_format='iso'))
