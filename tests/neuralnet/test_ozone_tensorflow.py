@@ -8,6 +8,8 @@ import numpy as np
 import pyaf.ForecastEngine as autof
 import pyaf.Bench.TS_datasets as tsds
 
+import tensorflow as tf
+tf.python.control_flow_ops = tf
 
 import logging
 import logging.config

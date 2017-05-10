@@ -31,7 +31,7 @@ H = b1.mHorizon;
 lEngine.mOptions.mEnableSeasonals = False;
 lEngine.mOptions.mEnableCycles = False;
 lEngine.mOptions.mDebugPerformance = True;
-lEngine.mOptions.mParallelMode = True;
+lEngine.mOptions.mParallelMode = False;
 
 lEngine.mOptions.disable_all_transformations();
 lEngine.mOptions.disable_all_trends();
