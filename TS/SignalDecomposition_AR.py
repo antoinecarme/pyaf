@@ -276,14 +276,20 @@ class cAutoRegressiveEstimator:
                                                              self.mExogenousInfo);
                         self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lARX];
                         lHasARX = True;
-                    if(self.mOptions.mActiveAutoRegressions['LSTM']):
+                    if(self.mOptions.mActiveAutoRegressions['LSTM'] and self.mOptions.canBuildKerasModel('LSTM')):
                         lLSTM = tskeras.cLSTM_Model(cycle_residue, lLags,
                                                     self.mExogenousInfo);
                         self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lLSTM];
-                    if(self.mOptions.mActiveAutoRegressions['MLP']):
+                    else:
+                        logger.warn("SKIPPING_MODEL_WITH_KERAS '" + 'LSTM');
+                        
+                    if(self.mOptions.mActiveAutoRegressions['MLP'] and self.mOptions.canBuildKerasModel('MLP')):
                         lMLP = tskeras.cMLP_Model(cycle_residue, lLags,
                                                       self.mExogenousInfo);
                         self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lMLP];
+                    else:
+                        logger.warn("SKIPPING_MODEL_WITH_KERAS '" + 'MLP');
+                        
                     if(self.mOptions.mActiveAutoRegressions['SVR']):
                         lSVR = tsscikit.cSVR_Model(cycle_residue, lLags,
                                                     self.mExogenousInfo);

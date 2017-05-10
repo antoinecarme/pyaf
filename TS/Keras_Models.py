@@ -13,7 +13,7 @@ class cAbstract_RNN_Model(tsar.cAbstractAR):
         self.mComplexity = P;
         self.mHiddenUnits = P;
         self.mNbEpochs = 50;
-        # sys.setrecursionlimit(1000000);
+        sys.setrecursionlimit(1000000);
 
     def dumpCoefficients(self, iMax=10):
         # print(self.mModel.__dict__);
@@ -22,9 +22,13 @@ class cAbstract_RNN_Model(tsar.cAbstractAR):
     def build_RNN_Architecture(self):
         assert(0);
 
+    # def reshape_inputs(self, iInputs):
+        # return iInputs;
+
     def reshape_inputs(self, iInputs):
-        return iInputs;
-    
+        lInputs = np.reshape(iInputs, (iInputs.shape[0], 1, iInputs.shape[1]))
+        return lInputs;
+
     def fit(self):
         # print("ESTIMATE_RNN_MODEL_START" , self.mCycleResidueName);
         from keras import callbacks
@@ -50,6 +54,8 @@ class cAbstract_RNN_Model(tsar.cAbstractAR):
         # print("ESTIMATE_RNN_MODEL_STEP3" , self.mOutName);
 
         lARInputs = self.reshape_inputs(lARInputs)
+        lARTarget = self.reshape_target(lARTarget)
+
         N = lARInputs.shape[0];
         NEstim = (N * 4) // 5;
         estimX = lARInputs[0:NEstim]
@@ -57,11 +63,13 @@ class cAbstract_RNN_Model(tsar.cAbstractAR):
         valX = lARInputs[ NEstim : ]
         valY = lARTarget[ NEstim : ]
 
+        # print("SHAPES" , self.mFormula, estimX.shape , estimY.shape)
+
         # print("ESTIMATE_RNN_MODEL_STEP4" , self.mOutName);
 
         lStopCallback = callbacks.EarlyStopping(monitor='val_loss', patience=5, verbose=0, mode='auto')
         lHistory = self.mModel.fit(estimX, estimY,
-                                   nb_epoch=self.mNbEpochs,
+                                   epochs=self.mNbEpochs,
                                    batch_size=1,
                                    validation_data=(valX , valY),
                                    verbose=0, 
@@ -80,13 +88,14 @@ class cAbstract_RNN_Model(tsar.cAbstractAR):
 
         # print("ESTIMATE_RNN_MODEL_STEP7" , self.mOutName);
             
-        self.mARFrame[self.mOutName] = lPredicted
+        self.mARFrame[self.mOutName] = np.reshape(lPredicted, (lPredicted.shape[0]))
 
         # print("ESTIMATE_RNN_MODEL_STEP8" , self.mOutName);
 
         self.mARFrame[self.mOutName + '_residue'] =  self.mARFrame[series] - self.mARFrame[self.mOutName]
 
-        # print("ESTIMATE_RNN_MODEL_END" , self.mOutName);
+        # print("ESTIMATE_RNN_MODEL_END" , self.mOutName, self.mModel.__dict__);
+        # self.testPickle_old();
 
     def transformDataset(self, df):
         series = self.mCycleResidueName; 
@@ -98,16 +107,17 @@ class cAbstract_RNN_Model(tsar.cAbstractAR):
         # print(df.tail());
         lag_df = self.generateLagsForForecast(df);
         # print(self.mInputNames);
-        # print(self.mFormula, "\n", lag_df.columns);
         # lag_df.to_csv("LAGGED_ " + str(self.mNbLags) + ".csv");
         inputs = lag_df[self.mInputNames].values
         inputs = self.reshape_inputs(inputs)
-        pred = self.mModel.predict(inputs)
-        df[self.mOutName] = pred;
+        
+        # print("BEFORE_PREDICT", self.mFormula, "\n", self.mModel.__dict__);
+        lPredicted = self.mModel.predict(inputs)
+        lPredicted = np.reshape(lPredicted, (lPredicted.shape[0]))
+        df[self.mOutName] = lPredicted;
         target = df[series].values
         df[self.mOutName + '_residue'] = target - df[self.mOutName].values        
         return df;
-
 
 class cMLP_Model(cAbstract_RNN_Model):
     gTemplateModels = {};
@@ -152,11 +162,14 @@ class cMLP_Model(cAbstract_RNN_Model):
         # print(theano.config)
 
         lModel = Sequential()
-        lModel.add(Dense(self.mHiddenUnits, input_dim=self.mNbLags))
+        lModel.add(Dense(self.mHiddenUnits, input_shape=(1, self.mNbLags)))
         lModel.add(Dropout(0.1))
         lModel.add(Dense(1))
         lModel.compile(loss='mse', optimizer='adam')
         return lModel;
+
+    def reshape_target(self, iTarget):
+        return np.reshape(iTarget, (iTarget.shape[0], 1, 1))
 
 
 class cLSTM_Model(cAbstract_RNN_Model):
@@ -192,12 +205,38 @@ class cLSTM_Model(cAbstract_RNN_Model):
         # theano.config.cxx = ""
 
         lModel = Sequential()
-        lModel.add(LSTM(self.mHiddenUnits, input_dim=self.mNbLags))
+        lModel.add(LSTM(self.mHiddenUnits, input_shape=(1, self.mNbLags)))
         lModel.add(Dropout(0.1))
         lModel.add(Dense(1))
         lModel.compile(loss='mse', optimizer='adam')
         return lModel;
 
+
+    def testPickle_old(self):
+        import pickle
+        out1 = pickle.dumps(self.mModel);
+        lModel2 = pickle.loads(out1);
+        out2 = pickle.dumps(lModel2);
+        print(sorted(self.mModel.__dict__))
+        print(sorted(lModel2.__dict__))
+        for (k , v) in self.mModel.__dict__.items():
+            print(k , self.mModel.__dict__[k])
+            print(k , lModel2.__dict__[k])
+        assert(out1 == out2)
+        print("TEST_PICKLE_OLD_OK")
+
+    def testPickle(self):
+        import dill
+        out1 = dill.dumps(self.mModel);
+        lModel2 = dill.loads(out1);
+        out2 = dill.dumps(lModel2);
+        print(sorted(self.mModel.__dict__))
+        print(sorted(lModel2.__dict__))
+        for (k , v) in self.mModel.__dict__.items():
+            print(k , self.mModel.__dict__[k])
+            print(k , lModel2.__dict__[k])
+        assert(out1 == out2)
+        print("TEST_PICKLE_OK")
 
     def __getstate__(self):
         dict_out = self.__dict__.copy();
@@ -211,7 +250,6 @@ class cLSTM_Model(cAbstract_RNN_Model):
         self.__dict__ = istate.copy();
         self.mModel = model_from_json(istate["mModel"]);
 
-    def reshape_inputs(self, iInputs):
-        lInputs = np.reshape(iInputs, (iInputs.shape[0], 1, iInputs.shape[1]))
-        return lInputs;
 
+    def reshape_target(self, iTarget):
+        return iTarget

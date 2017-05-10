@@ -154,4 +154,19 @@ class cSignalDecomposition_Options(cModelControl):
         self.set_active_transformations(['None']);
         self.mParallelMode = False;
         
-        
+    '''
+    Cannot yet build keras models in parallel/multiprocessing in some cases
+    (tensorflow backend). theano seems OK.
+    Possible solution : increase developer knowledge of keras !!
+    '''
+    def  canBuildKerasModel(self, iModel):
+        try:
+            import keras
+            lBackEnd = keras.backend.backend()
+            if((lBackEnd == "tensorflow") and (self.mParallelMode)):
+                return False;
+            else:
+                return True;
+        except:
+            return True;
+
