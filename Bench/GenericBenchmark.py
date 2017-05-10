@@ -219,7 +219,7 @@ class cGeneric_OneSignal_Tester:
         output = pickle.dumps(iModel)
         lReloadedObject = pickle.loads(output)
         output2 = pickle.dumps(lReloadedObject)    
-        assert(output2 == output2)
+        assert(iModel.to_json() == lReloadedObject.to_json())
         return lReloadedObject;
 
     def generateCode(self, iSignal, iHorizon):
