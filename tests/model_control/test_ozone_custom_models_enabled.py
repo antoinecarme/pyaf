@@ -10,8 +10,8 @@ def pickleModel(iModel):
     import pickle
     output = pickle.dumps(iModel)
     lReloadedObject = pickle.loads(output)
-    output2 = pickle.dumps(lReloadedObject)    
-    assert(output2 == output2)
+    output2 = pickle.dumps(lReloadedObject)
+    assert(iModel.to_json() == lReloadedObject.to_json())
     return lReloadedObject;
 
 

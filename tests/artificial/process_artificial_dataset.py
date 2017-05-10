@@ -16,7 +16,7 @@ def pickleModel(iModel):
     output = pickle.dumps(iModel)
     lReloadedObject = pickle.loads(output)
     output2 = pickle.dumps(lReloadedObject)    
-    assert(output2 == output2)
+    assert(iModel.to_json() == lReloadedObject.to_json())
     return lReloadedObject;
 
 def process_dataset(idataset, debug=False):
