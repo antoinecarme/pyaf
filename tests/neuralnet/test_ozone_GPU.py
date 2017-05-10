@@ -1,4 +1,5 @@
 
+
 def pickleModel(iModel):
     import pickle
     output = pickle.dumps(iModel)
@@ -11,9 +12,9 @@ def buildModel(iParallel = True):
 
     import pandas as pd
     import numpy as np
-
     import pyaf.ForecastEngine as autof
     import pyaf.Bench.TS_datasets as tsds
+
 
     import logging
     import logging.config
@@ -22,10 +23,16 @@ def buildModel(iParallel = True):
 
     logging.basicConfig(level=logging.INFO)
 
-    b1 = tsds.load_airline_passengers()
+    
+    # get_ipython().magic('matplotlib inline')
+
+    b1 = tsds.load_ozone()
     df = b1.mPastData
 
-    df.head()
+    # df.tail(10)
+    # df[:-10].tail()
+    # df[:-10:-1]
+    # df.describe()
 
 
     lEngine = autof.cForecastEngine()
@@ -33,35 +40,31 @@ def buildModel(iParallel = True):
 
     H = b1.mHorizon;
     # lEngine.mOptions.enable_slow_mode();
-    lEngine.mOptions.mEnableSeasonals = True;
-    lEngine.mOptions.mEnableCycles = True;
     lEngine.mOptions.mDebugPerformance = True;
     lEngine.mOptions.mParallelMode = iParallel;
     lEngine.mOptions.set_active_autoregressions(['MLP' , 'LSTM']);
-    # lEngine.mOptions.mMaxAROrder = 2;
     lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H);
 
-    lEngine2 = pickleModel(lModel)
-
+    lEngine2 = pickleModel(lEngine)
     lEngine2.getModelInfo();
     print(lEngine2.mSignalDecomposition.mTrPerfDetails.head());
-
+    
     lEngine2.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
     
-    lEngine2.standrdPlots(name = "outputs/rnn_my_airline_passengers")
-    
+    lEngine2.standrdPlots("outputs/my_rnn_ozone");
+
     dfapp_in = df.copy();
     dfapp_in.tail()
-
+    
     # H = 12
     dfapp_out = lEngine2.forecast(dfapp_in, H);
+    # dfapp_out.to_csv("outputs/rnn_ozone_apply_out.csv")
     dfapp_out.tail(2 * H)
     print("Forecast Columns " , dfapp_out.columns);
-    lForecastColumnName = b1.mSignalVar + '_Forecast'
-    Forecast_DF = dfapp_out[[b1.mTimeVar , b1.mSignalVar, lForecastColumnName , lForecastColumnName + '_Lower_Bound',  lForecastColumnName + '_Upper_Bound' ]]
+    Forecast_DF = dfapp_out[[b1.mTimeVar , b1.mSignalVar, b1.mSignalVar + '_Forecast']]
     print(Forecast_DF.info())
-    print("Forecasts\n" , Forecast_DF.tail(2*H));
-    
+    print("Forecasts\n" , Forecast_DF.tail(H));
+
     print("\n\n<ModelInfo>")
     print(lEngine2.to_json());
     print("</ModelInfo>\n\n")
@@ -69,4 +72,3 @@ def buildModel(iParallel = True):
     print(Forecast_DF.tail(2*H).to_json(date_format='iso'))
     print("</Forecast>\n\n")
 
-    # lEngine2.standrdPlots(name = "outputs/rnn_airline_passengers")
