@@ -651,10 +651,25 @@ model_control/test_ozone_no_models_enabled.py  :
  model_control :  model_control/test_ozone_no_models_enabled.py model_control/test_ozone_custom_models_enabled.py model_control/test_ozone_all_models_enabled.py  
  
 
+neuralnet/test_air_passengers_CPU_theano.py  :  
+	 -$(PYTHON)  tests/neuralnet/test_air_passengers_CPU_theano.py  >  logs/neuralnet_test_air_passengers_CPU_theano.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/neuralnet_test_air_passengers_CPU_theano.log logs/neuralnet_test_air_passengers_CPU_theano.log  >  logs/neuralnet_test_air_passengers_CPU_theano.log.diff
+	 tail -10  logs/neuralnet_test_air_passengers_CPU_theano.log.diff 
+
 neuralnet/test_air_passengers_GPU.py  :  
 	 -$(PYTHON)  tests/neuralnet/test_air_passengers_GPU.py  >  logs/neuralnet_test_air_passengers_GPU.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/neuralnet_test_air_passengers_GPU.log logs/neuralnet_test_air_passengers_GPU.log  >  logs/neuralnet_test_air_passengers_GPU.log.diff
 	 tail -10  logs/neuralnet_test_air_passengers_GPU.log.diff 
+
+neuralnet/test_air_passengers_GPU_tensorflow.py  :  
+	 -$(PYTHON)  tests/neuralnet/test_air_passengers_GPU_tensorflow.py  >  logs/neuralnet_test_air_passengers_GPU_tensorflow.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/neuralnet_test_air_passengers_GPU_tensorflow.log logs/neuralnet_test_air_passengers_GPU_tensorflow.log  >  logs/neuralnet_test_air_passengers_GPU_tensorflow.log.diff
+	 tail -10  logs/neuralnet_test_air_passengers_GPU_tensorflow.log.diff 
+
+neuralnet/test_air_passengers_GPU_theano.py  :  
+	 -$(PYTHON)  tests/neuralnet/test_air_passengers_GPU_theano.py  >  logs/neuralnet_test_air_passengers_GPU_theano.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/neuralnet_test_air_passengers_GPU_theano.log logs/neuralnet_test_air_passengers_GPU_theano.log  >  logs/neuralnet_test_air_passengers_GPU_theano.log.diff
+	 tail -10  logs/neuralnet_test_air_passengers_GPU_theano.log.diff 
 
 neuralnet/test_air_passengers_rnn_only.py  :  
 	 -$(PYTHON)  tests/neuralnet/test_air_passengers_rnn_only.py  >  logs/neuralnet_test_air_passengers_rnn_only.log  2>&1
@@ -666,15 +681,40 @@ neuralnet/test_air_passengers_tensorflow.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/neuralnet_test_air_passengers_tensorflow.log logs/neuralnet_test_air_passengers_tensorflow.log  >  logs/neuralnet_test_air_passengers_tensorflow.log.diff
 	 tail -10  logs/neuralnet_test_air_passengers_tensorflow.log.diff 
 
-neuralnet/test_ozone__GPU.py  :  
-	 -$(PYTHON)  tests/neuralnet/test_ozone__GPU.py  >  logs/neuralnet_test_ozone__GPU.log  2>&1
-	 $(PYTHON) scripts/num_diff.py  tests/references/neuralnet_test_ozone__GPU.log logs/neuralnet_test_ozone__GPU.log  >  logs/neuralnet_test_ozone__GPU.log.diff
-	 tail -10  logs/neuralnet_test_ozone__GPU.log.diff 
+neuralnet/test_ozone_GPU.py  :  
+	 -$(PYTHON)  tests/neuralnet/test_ozone_GPU.py  >  logs/neuralnet_test_ozone_GPU.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/neuralnet_test_ozone_GPU.log logs/neuralnet_test_ozone_GPU.log  >  logs/neuralnet_test_ozone_GPU.log.diff
+	 tail -10  logs/neuralnet_test_ozone_GPU.log.diff 
+
+neuralnet/test_ozone__CPU_theano.py  :  
+	 -$(PYTHON)  tests/neuralnet/test_ozone__CPU_theano.py  >  logs/neuralnet_test_ozone__CPU_theano.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/neuralnet_test_ozone__CPU_theano.log logs/neuralnet_test_ozone__CPU_theano.log  >  logs/neuralnet_test_ozone__CPU_theano.log.diff
+	 tail -10  logs/neuralnet_test_ozone__CPU_theano.log.diff 
+
+neuralnet/test_ozone__GPU_tensorflow.py  :  
+	 -$(PYTHON)  tests/neuralnet/test_ozone__GPU_tensorflow.py  >  logs/neuralnet_test_ozone__GPU_tensorflow.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/neuralnet_test_ozone__GPU_tensorflow.log logs/neuralnet_test_ozone__GPU_tensorflow.log  >  logs/neuralnet_test_ozone__GPU_tensorflow.log.diff
+	 tail -10  logs/neuralnet_test_ozone__GPU_tensorflow.log.diff 
+
+neuralnet/test_ozone__GPU_theano.py  :  
+	 -$(PYTHON)  tests/neuralnet/test_ozone__GPU_theano.py  >  logs/neuralnet_test_ozone__GPU_theano.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/neuralnet_test_ozone__GPU_theano.log logs/neuralnet_test_ozone__GPU_theano.log  >  logs/neuralnet_test_ozone__GPU_theano.log.diff
+	 tail -10  logs/neuralnet_test_ozone__GPU_theano.log.diff 
 
 neuralnet/test_ozone_rnn_only.py  :  
 	 -$(PYTHON)  tests/neuralnet/test_ozone_rnn_only.py  >  logs/neuralnet_test_ozone_rnn_only.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/neuralnet_test_ozone_rnn_only.log logs/neuralnet_test_ozone_rnn_only.log  >  logs/neuralnet_test_ozone_rnn_only.log.diff
 	 tail -10  logs/neuralnet_test_ozone_rnn_only.log.diff 
+
+neuralnet/test_ozone_rnn_only_LSTM.py  :  
+	 -$(PYTHON)  tests/neuralnet/test_ozone_rnn_only_LSTM.py  >  logs/neuralnet_test_ozone_rnn_only_LSTM.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/neuralnet_test_ozone_rnn_only_LSTM.log logs/neuralnet_test_ozone_rnn_only_LSTM.log  >  logs/neuralnet_test_ozone_rnn_only_LSTM.log.diff
+	 tail -10  logs/neuralnet_test_ozone_rnn_only_LSTM.log.diff 
+
+neuralnet/test_ozone_rnn_only_MLP.py  :  
+	 -$(PYTHON)  tests/neuralnet/test_ozone_rnn_only_MLP.py  >  logs/neuralnet_test_ozone_rnn_only_MLP.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/neuralnet_test_ozone_rnn_only_MLP.log logs/neuralnet_test_ozone_rnn_only_MLP.log  >  logs/neuralnet_test_ozone_rnn_only_MLP.log.diff
+	 tail -10  logs/neuralnet_test_ozone_rnn_only_MLP.log.diff 
 
 neuralnet/test_ozone_tensorflow.py  :  
 	 -$(PYTHON)  tests/neuralnet/test_ozone_tensorflow.py  >  logs/neuralnet_test_ozone_tensorflow.log  2>&1
@@ -683,7 +723,7 @@ neuralnet/test_ozone_tensorflow.py  :
 
 
 
- neuralnet :  neuralnet/test_ozone_tensorflow.py neuralnet/test_ozone_rnn_only.py neuralnet/test_ozone__GPU.py neuralnet/test_air_passengers_tensorflow.py neuralnet/test_air_passengers_rnn_only.py neuralnet/test_air_passengers_GPU.py  
+ neuralnet :  neuralnet/test_ozone_tensorflow.py neuralnet/test_ozone_rnn_only_MLP.py neuralnet/test_ozone_rnn_only_LSTM.py neuralnet/test_ozone_rnn_only.py neuralnet/test_ozone__GPU_theano.py neuralnet/test_ozone__GPU_tensorflow.py neuralnet/test_ozone__CPU_theano.py neuralnet/test_ozone_GPU.py neuralnet/test_air_passengers_tensorflow.py neuralnet/test_air_passengers_rnn_only.py neuralnet/test_air_passengers_GPU_theano.py neuralnet/test_air_passengers_GPU_tensorflow.py neuralnet/test_air_passengers_GPU.py neuralnet/test_air_passengers_CPU_theano.py  
  
 
 perf/test_cycles_full_long.py  :  
