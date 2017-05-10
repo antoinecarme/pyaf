@@ -232,6 +232,9 @@ class cBestCycleForTrend(cAbstractCycle):
                                                     lValidFrame[name_i + "_enc"],
                                                     self.mCriterion)
                 self.mCyclePerfDict[i] = lCritValue;
+                if(self.mOptions.mDebugCycles):
+                    logger = tsutil.get_pyaf_logger();
+                    logger.debug("CYCLE_INTERNAL_CRITERION " + name_i + " " + str(i) + " " + self.mCriterion +" " + str(lCritValue))
         pass
 
     def fit(self):
@@ -316,16 +319,17 @@ class cCycleEstimator:
 
     def dumpCyclePerf(self, cycle):
         if(self.mOptions.mDebugCycles):
-            print("CYCLE_PERF_DETAIL_COUNT_FIT_FORECAST" , cycle.mOutName,
-                  "%.3f" % (cycle.mCycleFitPerf.mCount), "%.3f" % (cycle.mCycleForecastPerf.mCount));
-            print("CYCLE_PERF_DETAIL_MAPE_FIT_FORECAST" , cycle.mOutName,
-                  "%.3f" % (cycle.mCycleFitPerf.mMAPE), "%.3f" % (cycle.mCycleForecastPerf.mMAPE));
-            print("CYCLE_PERF_DETAIL_L2_FIT_FORECAST" , cycle.mOutName,
-                  "%.3f" % (cycle.mCycleFitPerf.mL2),  "%.3f" % (cycle.mCycleForecastPerf.mL2));
-            print("CYCLE_PERF_DETAIL_R2_FIT_FORECAST" , cycle.mOutName,
-                  "%.3f" % (cycle.mCycleFitPerf.mR2),  "%.3f" % (cycle.mCycleForecastPerf.mR2));
-            print("CYCLE_PERF_DETAIL_PEARSONR_FIT_FORECAST" , cycle.mOutName,
-                  "%.3f" % (cycle.mCycleFitPerf.mPearsonR),  "%.3f" % (cycle.mCycleForecastPerf.mPearsonR));
+            logger = tsutil.get_pyaf_logger();
+            logger.debug("CYCLE_PERF_DETAIL_COUNT_FIT_FORECAST "  + cycle.mOutName +
+                  " %.3f" % (cycle.mCycleFitPerf.mCount) + " %.3f" % (cycle.mCycleForecastPerf.mCount));
+            logger.debug("CYCLE_PERF_DETAIL_MAPE_FIT_FORECAST " + cycle.mOutName +
+                  " %.3f" % (cycle.mCycleFitPerf.mMAPE)+ " %.3f" % (cycle.mCycleForecastPerf.mMAPE));
+            logger.debug("CYCLE_PERF_DETAIL_L2_FIT_FORECAST " + cycle.mOutName +
+                  " %.3f" % (cycle.mCycleFitPerf.mL2) +  " %.3f" % (cycle.mCycleForecastPerf.mL2));
+            logger.debug("CYCLE_PERF_DETAIL_R2_FIT_FORECAST " + cycle.mOutName +
+                  " %.3f" % (cycle.mCycleFitPerf.mR2) +  " %.3f" % (cycle.mCycleForecastPerf.mR2));
+            logger.debug("CYCLE_PERF_DETAIL_PEARSONR_FIT_FORECAST " + cycle.mOutName +
+                  " %.3f" % (cycle.mCycleFitPerf.mPearsonR) +  " %.3f" % (cycle.mCycleForecastPerf.mPearsonR));
 
 
     def estimateCycles(self):
