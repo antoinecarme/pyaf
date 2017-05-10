@@ -4,6 +4,13 @@ import pandas as pd
 from . import SignalDecomposition_AR as tsar
 import sys
 
+def isKerasSupported():
+    try:
+        import keras;
+        return True;
+    except:
+        return False;
+    
 
 class cAbstract_RNN_Model(tsar.cAbstractAR):
     def __init__(self , cycle_residue_name, P , iExogenousInfo = None):
