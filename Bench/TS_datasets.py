@@ -13,7 +13,7 @@ from datetime import date
 # from memory_profiler import profile
 
 import os.path
-import pyaf.data.stocks_symbol_list as symlist
+from . import stocks_symbol_list as symlist
 
 
 class cTimeSeriesDatasetSpec:
