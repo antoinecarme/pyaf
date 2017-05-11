@@ -104,29 +104,18 @@ requests, comments, help, hints are very welcome.
 Installation
 ------------
 
+PyAF has been developed, tested and used on a python 3.5 version. 
+
+The follwoing two commands install pyaf and all its dependencies:
+
+	pip install scipy pandas sklearn matplotlib pydot dill pathos sqlalchemy
 	pip install --upgrade git+git://github.com/antoinecarme/pyaf.git
-
-Dependencies
-------------
-
-PyAF requires::
-
-	- scikit-learn.
-	- Pandas
-	- Python (tested with 3.5),
-	- NumPy,
-	- SciPy.
-	- matplotlib
-	- SQLAlchemy (for code generation , optional).
 
 Development
 -----------
 
 Code contributions are welcome. Bug reports, request for new features and
 documentation, tests are welcome. Please use Github platform for these tasks.
-
-Source code
------------
 
 You can check the latest sources of PyAF from Github with the command::
 
