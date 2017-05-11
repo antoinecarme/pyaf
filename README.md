@@ -104,15 +104,7 @@ requests, comments, help, hints are very welcome.
 Installation
 ------------
 
-Use the source !!!!
-
-No package is available yet. It is however easy to clone the repository in a directory called 'pyaf' using the command :
-
-	git clone http://github.com/antoinecarme/pyaf.git
-
-and add the parent directory of 'pyaf' to your PYTHONPATH environment variable, in a bash shell, this can be done with:
-        
-	export PYTHONPATH=$PYTHONPATH:full_path_to_parent_dir_of_pyaf
+	pip install --upgrade git+git://github.com/antoinecarme/pyaf.git
 
 Dependencies
 ------------
