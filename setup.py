@@ -35,6 +35,16 @@ setup(name='pyaf',
       author_email='antoine.carme@laposte.net',
       url='https://github.com/antoinecarme/pyaf',
       license='BSD 3-clause',
-      packages=['pyaf' , 'pyaf.TS' ,  'pyaf.CodeGen' ,  'pyaf.Bench'])
+      packages=['pyaf' , 'pyaf.TS' ,  'pyaf.CodeGen' ,  'pyaf.Bench'],
+      install_requires=[
+          'scipy',
+          'pandas',
+          'sklearn',
+          'matplotlib',
+          'pydot',
+          'dill',
+          'pathos',
+          'sqlalchemy'
+      ])
 
 rmtree('pyaf')
