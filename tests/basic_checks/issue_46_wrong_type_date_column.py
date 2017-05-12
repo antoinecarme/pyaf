@@ -24,7 +24,7 @@ for ty in [np.object , np.bool]:
         pass
     
 for ty in [np.datetime64]:
-    df['date'] = df['date'].apply(lambda x : pd.tslib.Timestamp('2016-03-03 00:00:00'))
+    df['date'] = df['date'].apply(lambda x : pd.Timestamp('2016-03-03 00:00:00'))
     df.info()
     # np.datetime64('2005-02-25'))
     lEngine = autof.cForecastEngine()
