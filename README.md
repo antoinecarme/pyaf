@@ -1,11 +1,8 @@
 
-Author: Antoine Carme <antoine.carme@laposte.net>
-License: BSD 3 clause
-
-[![Build Status](https://travis-ci.org/antoinecarme/pyaf.svg?branch=master)](https://travis-ci.org/antoinecarme/pyaf)
-
 PyAF (Python Automatic Forecasting)
 ===================================
+
+[![Build Status](https://travis-ci.org/antoinecarme/pyaf.svg?branch=master)](https://travis-ci.org/antoinecarme/pyaf)
 
 PyAF is an Open Source Python library for Automatic Forecasting built on top of
 popular data science python modules : numpy, scipy, pandas and scikit-learn.
@@ -14,7 +11,7 @@ PyAF works as an automated process for predicting future values of a signal
 using a machine learning approach. It provides a set of features that is
 comparable to some popular commercial automatic forecasting products.
 
-PyAF is distributed under the 3-Clause BSD license.
+PyAF is distributed under the [3-Clause BSD license](https://tldrlegal.com/license/bsd-3-clause-license-%28revised%29).
 
 Features
 --------
@@ -128,8 +125,6 @@ Project history
 This project was started in summer 2016 as a POC to check the feasibility of an
 automatic forecasting tool based only on python available data science software
 (numpy, scipy, pandas, scikit-learn etc).
-
-PyAF is provided as an open source library (BSD-3 License).
 
 See the [AUTHORS.rst](AUTHORS.rst) file for a complete list of contributors.
 
