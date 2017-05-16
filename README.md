@@ -19,7 +19,7 @@ PyAF is distributed under the 3-Clause BSD license.
 Features
 --------
 PyAF allows forecasting a time series (or a signal) for future values in a fully automated
-way. To build forecasts, PyAF allows using time information (by identifying **long-term** evoluation and **periodic patterns**), analyzes the **past of the signal**, exploits **exogenous data** (user-provided time series that may be correlated with the signal) as well as the **hierarchical structure** of the signal (by aggregating spatial components forecasts, for example) 
+way. To build forecasts, PyAF allows using time information (by identifying **long-term** evolution and **periodic patterns**), analyzes the **past of the signal**, exploits **exogenous data** (user-provided time series that may be correlated with the signal) as well as the **hierarchical structure** of the signal (by aggregating spatial components forecasts, for example) 
 
 PyAF **uses [Pandas](http://pandas.pydata.org/) as a data access layer**. It consumes data coming from a pandas data-
 frame (with time and signal columns), builds a time series model, and outputs
@@ -92,9 +92,9 @@ The following features are available :
    10. A basic **RESTful Web Service** (Flask) is available.
        * This service allows building a time series model, forecasting future data and some standard plots by providing a minimal specification of the signal in the JSON request body (at least a link to a csv file containing the data).
        * See http://pyaf.herokuapp.com/ and the [related github issue](https://github.com/antoinecarme/pyaf/issues/20) for more details.
-   11. A project for **SQL generation** is started (using core **[SLQAlchemy](http://www.sqlalchemy.org/)** expressions). 
+   11. A project for **SQL generation** is started (using core **[SQLAlchemy](http://www.sqlalchemy.org/)** expressions). 
         The goal is to be able to export the forecasts as a SQL
-        code to ease the **production mode**. SLQAlchemy provides **agnostic support of
+        code to ease the **production mode**. SQLAlchemy provides **agnostic support of
         a large set of databases**.
 
 PyAF is a work in progress. The set of features is evolving. Your feature
@@ -106,7 +106,7 @@ Installation
 
 PyAF has been developed, tested and used on a python 3.5 version. 
 
-The follwoing two commands install pyaf and all its dependencies:
+The following two commands install PyAF and all its dependencies:
 
 	pip install scipy pandas sklearn matplotlib pydot dill pathos sqlalchemy
 	pip install --upgrade git+git://github.com/antoinecarme/pyaf.git
@@ -115,9 +115,9 @@ Development
 -----------
 
 Code contributions are welcome. Bug reports, request for new features and
-documentation, tests are welcome. Please use Github platform for these tasks.
+documentation, tests are welcome. Please use GitHub platform for these tasks.
 
-You can check the latest sources of PyAF from Github with the command::
+You can check the latest sources of PyAF from GitHub with the command::
 
 	git clone http://github.com/antoinecarme/pyaf.git
 
@@ -140,7 +140,7 @@ PyAF is currently maintained by the original developer. PyAF support will be
 provided when possible.
 
 Bug reports, Improvement requests, Documentation, Hints and Test scripts are
-welcome. Please use the Github platform for these tasks.
+welcome. Please use the GitHub platform for these tasks.
 
 Documentation
 ----------------
