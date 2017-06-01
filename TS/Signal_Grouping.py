@@ -14,6 +14,7 @@ from . import SignalHierarchy as sighier
 class cSignalGrouping (sighier.cSignalHierarchy):
 
     def __init__(self):
+        sighier.cSignalHierarchy.__init__(self)
         self.mLabels2Tuples = {};
         
     def tuple_to_string(self, k):
@@ -59,8 +60,11 @@ class cSignalGrouping (sighier.cSignalHierarchy):
         for k in prod:
             # print("PRODUCT_DETAIL", k);
             lGroupLabel = self.tuple_to_string(k);
-            self.mLabels2Tuples[lGroupLabel] = k;
-            self.mStructure[level][lGroupLabel] = set();
+            # Grouping genrates all possible group combinations.
+            # Not all columns are mandatory. 
+            if(lGroupLabel in self.mTrainingDataset.columns):
+                self.mLabels2Tuples[lGroupLabel] = k;
+                self.mStructure[level][lGroupLabel] = set();
         # print("STRUCTURE_LEVEL" , level, self.mStructure[level]);
         while(len(self.mStructure[level]) > 1):
             self.add_level(level);
