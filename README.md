@@ -177,7 +177,7 @@ An [introductory notebook](https://github.com/antoinecarme/pyaf/blob/master/docs
 
 A specific notebook describing the use of exogenous data is [available here](https://github.com/antoinecarme/pyaf/blob/master/docs/PyAF_Exogenous.ipynb)
 
-A notebook describing an example of hierarchical forecasting models is [available here](https://github.com/antoinecarme/pyaf/blob/master/docs/PyAF_Hierarchical_FrenchWineExportation.ipynb)
+Notebooks describing an example of hierarchical forecasting models are available for [Signal Hierarchies](https://github.com/antoinecarme/pyaf/blob/master/docs/PyAF_Hierarchical_FrenchWineExportation.ipynb) and for [Grouped Signals](https://github.com/antoinecarme/pyaf/blob/master/docs/PyAF_GroupedSignals_FrenchWineExportation.ipynb)
 
 The python code is not yet fully documented. This is a top priority (TODO). 
 
