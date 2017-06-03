@@ -4,7 +4,7 @@ This web service is running on heroku at http://pyaf.herokuapp.com/
 
 # Basic usage :
 
-The job specificastion is transmitted in the JSON body of the request. The format is :
+The job specification is transmitted in the JSON body of the request. The format is :
 
 ```
       {
@@ -22,7 +22,7 @@ The result is a JSON format containing, the model info, the forecast values etc
 
 # Plots
 
-One the model is built., A set of (6 ?) plots is available and the uris are given in the JSON result
+Once the model is built, A set of (6 ?) plots is available and the uris are given in the JSON result
 
         "AR": "https://pyaf.herokuapp.com/model/my_model_name/plot/AR", 
         "Cycle": "https://pyaf.herokuapp.com/model/my_model_name/plot/Cycle", 
