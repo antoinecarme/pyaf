@@ -1,6 +1,6 @@
 # PyAF web service sample usage
 
-Thsi is ervice is running on heroku at  http://pyaf.herokuapp.com/
+This web service is running on heroku at http://pyaf.herokuapp.com/
 
 # Basic usage :
 
