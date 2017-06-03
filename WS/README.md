@@ -45,8 +45,8 @@ curl --header "$CONTENT_TYPE" -X POST --data "$BODY_DATA" "$PYAF_URL"
 
 ```
 
-See 'curl_tests.sh' for more examples.
+See [curl_tests.sh](curl_tests.sh) for more examples.
 
 # Python client
 
-See `test_heroku_web_service.py`.
+See [test_heroku_web_service.py](test_heroku_web_service.py).
