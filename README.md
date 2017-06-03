@@ -121,7 +121,7 @@ The following features are available :
       * Very **simple API** for training and forecasting.
    10. A basic **RESTful Web Service** (Flask) is available.
        * This service allows building a time series model, forecasting future data and some standard plots by providing a minimal specification of the signal in the JSON request body (at least a link to a csv file containing the data).
-       * See [this doc](WS) and the [related github issue](https://github.com/antoinecarme/pyaf/issues/20) for more details.
+       * See [this doc](WS/README.md) and the [related github issue](https://github.com/antoinecarme/pyaf/issues/20) for more details.
    11. A project for **SQL generation** is started (using core **[SQLAlchemy](http://www.sqlalchemy.org/)** expressions). 
         The goal is to be able to export the forecasts as a SQL
         code to ease the **production mode**. SQLAlchemy provides **agnostic support of
