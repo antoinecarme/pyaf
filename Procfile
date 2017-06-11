@@ -1,1 +1,2 @@
-web: python WS/WS_REST_Flask.py
+web: sh WS/run.sh
+
