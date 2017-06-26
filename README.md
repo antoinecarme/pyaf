@@ -14,8 +14,10 @@ comparable to some popular commercial automatic forecasting products.
 PyAF is distributed under the [3-Clause BSD license](https://tldrlegal.com/license/bsd-3-clause-license-%28revised%29).
 
 
-Demo
+Demo 
 ----
+[also availabe as a jupyter notebook](docs/sample_code.ipynb)
+
 ```Python
 import numpy as np
 import pandas as pd
