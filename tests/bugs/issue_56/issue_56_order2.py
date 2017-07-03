@@ -14,7 +14,7 @@ b1.mHierarchy['Groups']['State'] = ["NSW","VIC"];
 
 
 lGroups = {};
-lGroups["1_State"] = ["NSW","VIC","QLD","SA","WA","NT","ACT","TAS"];
+lGroups["1_State"] = ["NSW","VIC"];
 lGroups["2_Gender"] = ["female","male"];
 # lGroups["Gender1"] = ["femme","homme"];
 # lGroups["age"] = ["1", "2","3"];
