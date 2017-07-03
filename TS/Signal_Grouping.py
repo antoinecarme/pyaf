@@ -51,7 +51,7 @@ class cSignalGrouping (sighier.cSignalHierarchy):
         self.mLevels = lGroups.keys();
         self.mLabels2Tuples = {};
         self.mStructure = {};
-        array1 = [ lGroups[k] for k in sorted(self.mHierarchy['GroupOrder'] , reverse=True) ];
+        array1 = [ sorted(lGroups[k]) for k in self.mHierarchy['GroupOrder'] ];
         prod = itertools.product( *array1 );
         # print(prod);
         # prod = itertools.product(['a' , 'b'] , ['1' , '2'] , ['cc' , 'dd']);
