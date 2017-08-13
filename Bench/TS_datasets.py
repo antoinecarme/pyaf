@@ -148,6 +148,44 @@ def load_ozone_exogenous() :
     return tsspec
 
 
+def load_ozone_exogenous_categorical() :
+    tsspec = cTimeSeriesDatasetSpec();
+    tsspec.mName = "Ozone"
+    tsspec.mDescription = "https://datamarket.com/data/set/22u8/ozon-concentration-downtown-l-a-1955-1972"
+    
+    #trainfile = "data/ozone-la.csv"
+    trainfile = "https://raw.githubusercontent.com/antoinecarme/pyaf/master/data/ozone-la-exogenous.csv"
+    # "https://raw.githubusercontent.com/antoinecarme/TimeSeriesData/master/ozone-la.csv"
+
+    cols = ["Date", "Month", "Exog2", "Exog3", "Exog4", "Ozone"];
+    
+    df_train = pd.read_csv(trainfile, names = cols, sep=r',', engine='python', skiprows=1);
+    df_train['Time'] = df_train['Date'].apply(lambda x : datetime.datetime.strptime(x, "%Y-%m"))
+
+    for col in ["Exog2", "Exog3", "Exog4"]:
+        df_train[col] = df_train[col].astype('category', ordered=True)
+
+    ozone_shifted_2 = df_train.shift(2)
+    ozone_shifted_1 = df_train.shift(1)
+    lSig1 =  df_train['Ozone'] * (ozone_shifted_2['Exog3'] == 'AW') +  df_train['Ozone'] * (ozone_shifted_1['Exog3'] == 'AX') 
+    lSig2 =  df_train['Ozone'] * (ozone_shifted_1['Exog2'] >= 4)
+    lSig3 =  df_train['Ozone'] * (ozone_shifted_1['Exog4'] <= 'P_S')
+    df_train['Ozone2'] = lSig1 + lSig2 + lSig3
+    tsspec.mTimeVar = "Time";
+    tsspec.mSignalVar = "Ozone2";
+    tsspec.mExogenousVariables = ["Exog2", "Exog3", "Exog4"];
+    # this is the full dataset . must contain future exogenius data
+    tsspec.mExogenousDataFrame = df_train;
+    # tsspec.mExogenousVariables = ["Exog2"];
+    tsspec.mHorizon = 12;
+    tsspec.mPastData = df_train[:-tsspec.mHorizon];
+    tsspec.mFutureData = df_train.tail(tsspec.mHorizon);
+
+
+    print(df_train.head())
+    return tsspec
+
+
 
 
 def add_some_noise(x , p , min_sig, max_sig, e , f):
