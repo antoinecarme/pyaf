@@ -311,10 +311,25 @@ bugs/issue_22/test_artificial_1024_cumsum_constant_5__20.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_22_test_artificial_1024_cumsum_constant_5__20.log logs/bugs_issue_22_test_artificial_1024_cumsum_constant_5__20.log  >  logs/bugs_issue_22_test_artificial_1024_cumsum_constant_5__20.log.diff
 	 tail -10  logs/bugs_issue_22_test_artificial_1024_cumsum_constant_5__20.log.diff 
 
+bugs/issue_56/issue_56_order1.py  :  
+	 -$(PYTHON)  tests/bugs/issue_56/issue_56_order1.py  >  logs/bugs_issue_56_issue_56_order1.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_56_issue_56_order1.log logs/bugs_issue_56_issue_56_order1.log  >  logs/bugs_issue_56_issue_56_order1.log.diff
+	 tail -10  logs/bugs_issue_56_issue_56_order1.log.diff 
+
+bugs/issue_56/issue_56_order2.py  :  
+	 -$(PYTHON)  tests/bugs/issue_56/issue_56_order2.py  >  logs/bugs_issue_56_issue_56_order2.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_56_issue_56_order2.log logs/bugs_issue_56_issue_56_order2.log  >  logs/bugs_issue_56_issue_56_order2.log.diff
+	 tail -10  logs/bugs_issue_56_issue_56_order2.log.diff 
+
 bugs/issue_29/test_mem_1.py  :  
 	 -$(PYTHON)  tests/bugs/issue_29/test_mem_1.py  >  logs/bugs_issue_29_test_mem_1.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_29_test_mem_1.log logs/bugs_issue_29_test_mem_1.log  >  logs/bugs_issue_29_test_mem_1.log.diff
 	 tail -10  logs/bugs_issue_29_test_mem_1.log.diff 
+
+bugs/issue_58/issue_58_1_categorical_exogenous.py  :  
+	 -$(PYTHON)  tests/bugs/issue_58/issue_58_1_categorical_exogenous.py  >  logs/bugs_issue_58_issue_58_1_categorical_exogenous.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_58_issue_58_1_categorical_exogenous.log logs/bugs_issue_58_issue_58_1_categorical_exogenous.log  >  logs/bugs_issue_58_issue_58_1_categorical_exogenous.log.diff
+	 tail -10  logs/bugs_issue_58_issue_58_1_categorical_exogenous.log.diff 
 
 bugs/issue_36/display_version_info.py  :  
 	 -$(PYTHON)  tests/bugs/issue_36/display_version_info.py  >  logs/bugs_issue_36_display_version_info.log  2>&1
@@ -341,9 +356,14 @@ bugs/issue_4/issue_4.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_4_issue_4.log logs/bugs_issue_4_issue_4.log  >  logs/bugs_issue_4_issue_4.log.diff
 	 tail -10  logs/bugs_issue_4_issue_4.log.diff 
 
+bugs/issue_55/grouping_issue_55_notebook.py  :  
+	 -$(PYTHON)  tests/bugs/issue_55/grouping_issue_55_notebook.py  >  logs/bugs_issue_55_grouping_issue_55_notebook.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_55_grouping_issue_55_notebook.log logs/bugs_issue_55_grouping_issue_55_notebook.log  >  logs/bugs_issue_55_grouping_issue_55_notebook.log.diff
+	 tail -10  logs/bugs_issue_55_grouping_issue_55_notebook.log.diff 
 
 
- bugs :  bugs/test_random_exogenous.py bugs/test_artificial_bug_2.py bugs/test_artificial_bug_1.py bugs/issue_34/test_artificial_1024_sqrt_linear_30_12_20.py bugs/issue_34/test_artificial_1024_sqrt_constant_7_12_100.py bugs/issue_34/test_artificial_1024_sqr_poly_5_12_20.py bugs/issue_34/test_artificial_1024_log_linear_5_12_100.py bugs/issue_34/test_artificial_1024_log_linear_30_12_20.py bugs/issue_34/test_artificial_1024_inv_linear_7_12_100.py bugs/issue_34/test_artificial_1024_inv_constant_30__20.py bugs/issue_34/test_artificial_1024_diff_poly_0__100.py bugs/issue_34/test_artificial_1024_diff_poly_0__0.py bugs/issue_34/test_artificial_1024__poly_7_12_100.py bugs/issue_34/issue_34_1.py bugs/issue_34/issue_34.py bugs/issue_46/issue_46_one_or_two_rows.py bugs/issue_32/bug_test_ozone_heroku_1_ws.py bugs/issue_32/bug_test_ozone_heroku_1.py bugs/issue_22/test_artificial_1024_cumsum_constant_5__20.py bugs/issue_29/test_mem_1.py bugs/issue_36/issue_36_version_info.py bugs/issue_36/display_version_info.py bugs/issue_21/test_ozone_max_autoreg_5.py bugs/issue_21/test_artificial_1024__poly_7__20.py bugs/issue_4/issue_4.py  
+
+ bugs :  bugs/test_random_exogenous.py bugs/test_artificial_bug_2.py bugs/test_artificial_bug_1.py bugs/issue_34/test_artificial_1024_sqrt_linear_30_12_20.py bugs/issue_34/test_artificial_1024_sqrt_constant_7_12_100.py bugs/issue_34/test_artificial_1024_sqr_poly_5_12_20.py bugs/issue_34/test_artificial_1024_log_linear_5_12_100.py bugs/issue_34/test_artificial_1024_log_linear_30_12_20.py bugs/issue_34/test_artificial_1024_inv_linear_7_12_100.py bugs/issue_34/test_artificial_1024_inv_constant_30__20.py bugs/issue_34/test_artificial_1024_diff_poly_0__100.py bugs/issue_34/test_artificial_1024_diff_poly_0__0.py bugs/issue_34/test_artificial_1024__poly_7_12_100.py bugs/issue_34/issue_34_1.py bugs/issue_34/issue_34.py bugs/issue_46/issue_46_one_or_two_rows.py bugs/issue_32/bug_test_ozone_heroku_1_ws.py bugs/issue_32/bug_test_ozone_heroku_1.py bugs/issue_22/test_artificial_1024_cumsum_constant_5__20.py bugs/issue_56/issue_56_order2.py bugs/issue_56/issue_56_order1.py bugs/issue_29/test_mem_1.py bugs/issue_58/issue_58_1_categorical_exogenous.py bugs/issue_36/issue_36_version_info.py bugs/issue_36/display_version_info.py bugs/issue_21/test_ozone_max_autoreg_5.py bugs/issue_21/test_artificial_1024__poly_7__20.py bugs/issue_4/issue_4.py bugs/issue_55/grouping_issue_55_notebook.py  
  
 
 exog/test_ozone_exogenous.py  :  
@@ -356,6 +376,11 @@ exog/test_ozone_exogenous_profile.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/exog_test_ozone_exogenous_profile.log logs/exog_test_ozone_exogenous_profile.log  >  logs/exog_test_ozone_exogenous_profile.log.diff
 	 tail -10  logs/exog_test_ozone_exogenous_profile.log.diff 
 
+exog/test_ozone_exogenous_with_categorical.py  :  
+	 -$(PYTHON)  tests/exog/test_ozone_exogenous_with_categorical.py  >  logs/exog_test_ozone_exogenous_with_categorical.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/exog_test_ozone_exogenous_with_categorical.log logs/exog_test_ozone_exogenous_with_categorical.log  >  logs/exog_test_ozone_exogenous_with_categorical.log.diff
+	 tail -10  logs/exog_test_ozone_exogenous_with_categorical.log.diff 
+
 exog/test_random_exogenous.py  :  
 	 -$(PYTHON)  tests/exog/test_random_exogenous.py  >  logs/exog_test_random_exogenous.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/exog_test_random_exogenous.log logs/exog_test_random_exogenous.log  >  logs/exog_test_random_exogenous.log.diff
@@ -363,7 +388,7 @@ exog/test_random_exogenous.py  :
 
 
 
- exog :  exog/test_random_exogenous.py exog/test_ozone_exogenous_profile.py exog/test_ozone_exogenous.py  
+ exog :  exog/test_random_exogenous.py exog/test_ozone_exogenous_with_categorical.py exog/test_ozone_exogenous_profile.py exog/test_ozone_exogenous.py  
  
 
 expsmooth/expsmooth_dataset_ausgdp.py  :  
