@@ -113,7 +113,9 @@ class cExogenousInfo:
         lEstimFrame = self.mExogenousDataFrame[self.mExogenousDataFrame[self.mDateVariable] >= self.mTimeInfo.mTimeMin]
         lEstimFrame = lEstimFrame[lEstimFrame[self.mDateVariable] <= self.mTimeInfo.mTimeMax]
         for exog in self.mExogenousVariables:
-            if(self.mExogenousDataFrame[exog].dtype == np.object):
+            lType = self.mExogenousDataFrame[exog].dtype
+            # print("EXOG_DTYPE" , exog, lType)
+            if((lType == np.object) or (lType.name == 'category')):
                 # use nan as a category
                 lVC = lEstimFrame[exog].value_counts(dropna = False, sort=False);
                 lVC = lVC.reset_index().sort_values(by=[exog, 'index'], ascending=[False, True]);
