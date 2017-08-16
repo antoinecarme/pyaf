@@ -184,7 +184,7 @@ class cTimeSeriesModel:
         iForecastFrame[lLowerBoundName] = np.nan; 
         iForecastFrame[lUpperBoundName] = np.nan; 
 
-        lConfidence = 1.96 ; # 0.95
+        lConfidence = 1.28 ; # 0.80
         # the prediction intervals are only computed for the training horizon
         lHorizon = min(iHorizon , self.mTimeInfo.mHorizon);
         for h in range(0 , lHorizon):
