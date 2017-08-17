@@ -19,7 +19,7 @@ class cTimeSeriesModel:
         self.mTransformation = transf;
         self.mTrend = trend;
         self.mCycle = cycle;
-        self.mAR = autoreg;
+        self.mAR = 0;
         self.mFitPerformances = {}
         self.mForecastPerformances = {}
         self.mTestPerformances = {}
