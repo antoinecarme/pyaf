@@ -198,7 +198,7 @@ class cTimeSeriesModel:
             #lWidth80 = lConfidence80 * self.mPredictionIntervalsEstimator.mForecastPerformances[lHorizonName].mL2;
             #iForecastFrame.loc[N + h , lMedName] = iForecastFrame.loc[N + h , lForecastColumn] + lWidth80;
             lWidth70 = lConfidence70 * self.mPredictionIntervalsEstimator.mForecastPerformances[lHorizonName].mL2;
-            iForecastFrame.loc[N + h , lMedName] = iForecastFrame.loc[N + h , lForecastColumn] + lWidth70;
+            iForecastFrame.loc[N + h , lLowName] = iForecastFrame.loc[N + h , lForecastColumn] + lWidth70;
             
         return iForecastFrame;
 
