@@ -102,6 +102,7 @@ class cSignalDecomposition_Options(cModelControl):
         self.mParallelMode = True;
         self.mNbCores = 8;
         self.mEstimRatio = 0.8;
+        self.mAddPredictionIntervals = True
         self.enable_fast_mode();
         self.mTimeDeltaComputationMethod = "AVG"; # can be "AVG", "MODE", "USER"
         self.mUserTimeDelta = None;
