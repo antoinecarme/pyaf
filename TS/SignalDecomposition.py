@@ -211,7 +211,7 @@ class cSignalDecompositionOneTransform:
         if(self.mExogenousInfo is not None):
             self.mExogenousInfo.fit();
             if(self.mOptions.mDebugProfile):
-                logger.info("EXOGENOUS_ENCODING_TIME_IN_SECONDS " + self.mSignal + " " + str(time.time() - exog_start_time))
+                logger.info("EXOGENOUS_ENCODING_TIME_IN_SECONDS " + str(self.mSignal) + " " + str(time.time() - exog_start_time))
 
         # estimate the trend
 
@@ -224,7 +224,7 @@ class cSignalDecompositionOneTransform:
         lTrendEstimator.estimateTrend();
         #lTrendEstimator.plotTrend();
         if(self.mOptions.mDebugProfile):
-            logger.info("TREND_TIME_IN_SECONDS "  + self.mSignal + " " + str(time.time() - trend_start_time))
+            logger.info("TREND_TIME_IN_SECONDS "  + str(self.mSignal) + " " + str(time.time() - trend_start_time))
 
 
         # estimate cycles
@@ -244,7 +244,7 @@ class cSignalDecompositionOneTransform:
         # if(self.mOptions.mDebugCycles):
             # lCycleEstimator.plotCycles();
         if(self.mOptions.mDebugProfile):
-            logger.info("CYCLE_TIME_IN_SECONDS "  + self.mSignal + " " + str( str(time.time() - cycle_start_time)))
+            logger.info("CYCLE_TIME_IN_SECONDS "  + str(self.mSignal) + " " + str( str(time.time() - cycle_start_time)))
 
 
         # autoregressive
@@ -263,7 +263,7 @@ class cSignalDecompositionOneTransform:
         lAREstimator.estimate();
         #lAREstimator.plotAR();
         if(self.mOptions.mDebugProfile):
-            logger.info("AUTOREG_TIME_IN_SECONDS " + self.mSignal + " " + str( str(time.time() - ar_start_time)))
+            logger.info("AUTOREG_TIME_IN_SECONDS " + str(self.mSignal) + " " + str( str(time.time() - ar_start_time)))
         # forecast perfs
 
         perf_start_time = time.time()
@@ -279,10 +279,10 @@ class cSignalDecompositionOneTransform:
         self.updatePerfsForAllModels(lModels);
         
         if(self.mOptions.mDebugProfile):
-            logger.info("PERF_TIME_IN_SECONDS " + self.mSignal + " " + str(len(lModels)) + " " + str( str(time.time() - perf_start_time)))
+            logger.info("PERF_TIME_IN_SECONDS " + str(self.mSignal) + " " + str(len(lModels)) + " " + str( str(time.time() - perf_start_time)))
 
         if(self.mOptions.mDebugProfile):
-            logger.info("TRAINING_TIME_IN_SECONDS "  + self.mSignal + " " + str(time.time() - start_time))
+            logger.info("TRAINING_TIME_IN_SECONDS "  + str(self.mSignal) + " " + str(time.time() - start_time))
         self.run_gc();
         
 
@@ -458,7 +458,7 @@ class cSignalDecomposition:
         lBestName = lInterestingModels['Model'].iloc[0];
         self.mBestModel = self.mPerfsByModel[lBestName][0];
         if(self.mOptions.mDebugProfile):
-            logger.info("MODEL_SELECTION_TIME_IN_SECONDS "  + self.mBestModel.mSignal + " " + str(time.time() - modelsel_start_time))
+            logger.info("MODEL_SELECTION_TIME_IN_SECONDS "  + str(self.mBestModel.mSignal) + " " + str(time.time() - modelsel_start_time))
 
 
     def checkData(self, iInputDS, iTime, iSignal, iHorizon, iExogenousData):        
@@ -497,7 +497,7 @@ class cSignalDecomposition:
     # @profile
     def train(self , iInputDS, iTime, iSignal, iHorizon, iExogenousData = None):
         logger = tsutil.get_pyaf_logger();
-        logger.info("START_TRAINING '" + iSignal + "'")
+        logger.info("START_TRAINING '" + str(iSignal) + "'")
         start_time = time.time()
 
         self.checkData(iInputDS, iTime, iSignal, iHorizon, iExogenousData);
@@ -520,11 +520,11 @@ class cSignalDecomposition:
         pred_interval_start_time = time.time()
         self.mBestModel.computePredictionIntervals();
         if(self.mOptions.mDebugProfile):
-            logger.info("PREDICTION_INTERVAL_TIME_IN_SECONDS "  + iSignal + " " + str(time.time() - pred_interval_start_time))
+            logger.info("PREDICTION_INTERVAL_TIME_IN_SECONDS "  + str(iSignal) + " " + str(time.time() - pred_interval_start_time))
 
         end_time = time.time()
         self.mTrainingTime = end_time - start_time;
-        logger.info("END_TRAINING_TIME_IN_SECONDS '" + iSignal + "' " + str(self.mTrainingTime))
+        logger.info("END_TRAINING_TIME_IN_SECONDS '" + str(iSignal) + "' " + str(self.mTrainingTime))
         pass
 
     def forecast(self , iInputDS, iHorizon):

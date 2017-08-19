@@ -347,8 +347,8 @@ class cCycleEstimator:
                 self.mCycleFrame[cycle.getCycleName()] = cycle.mCycleFrame[cycle.getCycleName()]
                 self.mCycleFrame[cycle.getCycleResidueName()] = cycle.mCycleFrame[cycle.getCycleResidueName()]
                 if(self.mOptions.mDebug):
-                    self.check_not_nan(self.mCycleFrame[cycle.getCycleResidueName()].values ,
-                                  cycle.getCycleResidueName())
+                    cycle.check_not_nan(self.mCycleFrame[cycle.getCycleResidueName()].values ,
+                                        cycle.getCycleResidueName())
                 end_time = time.time()
                 lTrainingTime = round(end_time - start_time , 2);
                 if(self.mOptions.mDebugProfile):

@@ -28,7 +28,7 @@ class cPredictionIntervalsEstimator:
         self.mHorizon = self.mModel.mTimeInfo.mHorizon;
         lTimeColumn = self.mTime;
         lSignalColumn = self.mSignal;
-        lForecastColumn = self.mSignal + "_Forecast";
+        lForecastColumn = str(self.mSignal) + "_Forecast";
         df = self.mModel.mTrend.mSignalFrame.reset_index();
         N = df.shape[0];
         (lOriginalFit, lOriginalForecast, lOriginalTest) = self.mModel.mTimeInfo.cutFrame(df);
@@ -51,7 +51,7 @@ class cPredictionIntervalsEstimator:
 
     def dump_detailed(self):
         logger = tsutil.get_pyaf_logger();
-        lForecastColumn = self.mSignal + "_Forecast";
+        lForecastColumn = str(self.mSignal) + "_Forecast";
         for h in range(0 , self.mHorizon):
             lHorizonName = lForecastColumn + "_" + str(h + 1);
             hn = lHorizonName;
@@ -62,7 +62,7 @@ class cPredictionIntervalsEstimator:
 
     def dump(self):
         logger = tsutil.get_pyaf_logger();
-        lForecastColumn = self.mSignal + "_Forecast";
+        lForecastColumn = str(self.mSignal) + "_Forecast";
         for h in range(0 , self.mHorizon):
             lHorizonName = lForecastColumn + "_" + str(h + 1);
             hn = lHorizonName;

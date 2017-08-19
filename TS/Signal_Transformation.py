@@ -139,7 +139,7 @@ class cSignalTransform_None(cAbstractSignalTransform):
         pass
 
     def get_name(self, iSig):
-        return "_" + iSig;
+        return "_" + str(iSig);
     
     def specific_fit(self , sig):
         pass
@@ -161,7 +161,7 @@ class cSignalTransform_Accumulate(cAbstractSignalTransform):
         pass
 
     def get_name(self, iSig):
-        return "CumSum_" + iSig;
+        return "CumSum_" + str(iSig);
     
     def specific_fit(self , sig):
         pass
@@ -185,7 +185,7 @@ class cSignalTransform_Quantize(cAbstractSignalTransform):
         pass
 
     def get_name(self, iSig):
-        return "Quantized_" + str(self.mQuantiles) + "_" + iSig;
+        return "Quantized_" + str(self.mQuantiles) + "_" + str(iSig);
 
     def is_applicable(self, sig):
         N = sig.shape[0];
@@ -234,7 +234,7 @@ class cSignalTransform_BoxCox(cAbstractSignalTransform):
         pass
 
     def get_name(self, iSig):
-        return "Box_Cox_" + str(self.mLambda) + "_" + iSig;
+        return "Box_Cox_" + str(self.mLambda) + "_" + str(iSig);
 
     def specific_fit(self, sig):
         self.mFormula = "BoxCox(Lambda=" + str(self.mLambda) + ")";
@@ -273,7 +273,7 @@ class cSignalTransform_Differencing(cAbstractSignalTransform):
         pass
 
     def get_name(self, iSig):
-        return "Diff_" + iSig;
+        return "Diff_" + str(iSig);
 
     def specific_fit(self, sig):
         # print(sig.head());
@@ -303,7 +303,7 @@ class cSignalTransform_RelativeDifferencing(cAbstractSignalTransform):
         pass
 
     def get_name(self, iSig):
-        return "RelDiff_" + iSig;
+        return "RelDiff_" + str(iSig);
 
     def specific_fit(self, sig):
         self.mFirstValue = sig.iloc[0];
@@ -346,7 +346,7 @@ class cSignalTransform_Logit(cAbstractSignalTransform):
         pass
 
     def get_name(self, iSig):
-        return "Logit_" + iSig;
+        return "Logit_" + str(iSig);
 
 
     def is_applicable(self, sig):
@@ -404,7 +404,7 @@ class cSignalTransform_Anscombe(cAbstractSignalTransform):
         pass
 
     def get_name(self, iSig):
-        return "Anscombe_" + iSig;
+        return "Anscombe_" + str(iSig);
     
     def specific_fit(self , sig):
         pass
@@ -431,7 +431,7 @@ class cSignalTransform_Fisher(cAbstractSignalTransform):
         pass
 
     def get_name(self, iSig):
-        return "Fisher_" + iSig;
+        return "Fisher_" + str(iSig);
     
     def specific_fit(self , sig):
         pass
