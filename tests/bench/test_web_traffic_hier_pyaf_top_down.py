@@ -13,7 +13,7 @@ PROJECTS = ['commons.wikimedia.org', 'de.wikipedia.org',
 
 lForecaster = fo.cProjectForecaster()
 lForecaster.mDataDirectory = data_dir
-lForecaster.mBackendName = "pyaf_default"
+lForecaster.mBackendName = "pyaf_hierarchical_top_down"
 lForecaster.mKeysFileName = "key_1.csv.zip"
 
 lForecaster.forecast(PROJECTS, '2016-12-31' , 60)
