@@ -18,6 +18,8 @@ class cProjectData:
         self.mVisitsDF['Date'] = date_var
     
     def add_article(self, article_id, full_name, name, project, access, agent, article_series):
+        if(np.random.random_sample() > 0.01):
+            return
         self.mAccess.add(access)
         self.mAgents.add(agent)
         self.mArticleNames.add(name)
