@@ -1,5 +1,8 @@
 import numpy as np
 import pandas as pd
+import pyaf.Bench.web_traffic.Bench as be
+
+logger = be.get_bench_logger()
 
 
 def run_bench_process(arg):
@@ -18,7 +21,7 @@ class cAbstractBackend:
             if(col != 'Date'):
                 fcst_dict = self.real_forecast_one_signal(df, col , last_date, H)
                 forecasts[col] = fcst_dict
-                print("FORECAST_SIGNAL" , self.__class__.__name__ , col)
+                # logger.info("FORECAST_SIGNAL " + str([self.__class__.__name__ , col]))
         return forecasts
 
     def forecast_all_signals_multiprocess(self, df , last_date, H):
@@ -36,7 +39,7 @@ class cAbstractBackend:
         forecasts = {}
         for res in pool.imap(run_bench_process, args):
             signal = res[0][2]
-            print("FINISHED_BENCH_FOR_SIGNAL", signal , i , "/" , len(args));
+            logger.info("FINISHED_BENCH_FOR_SIGNAL" + str(signal)  + " " +  str(i) + "/" + str(len(args)));
             forecasts[signal] = res[1]
             i = i + 1
             
@@ -89,14 +92,14 @@ class cPyAF_Backend (cAbstractBackend):
         df_forecast = lEngine.forecast(iInputDS = df1, iHorizon = H)
         dates = df_forecast['Date'].tail(H).values
         predictions = df_forecast[str(signal) + '_Forecast'].tail(H).values
-        # print(dates)
-        # print(predictions)
+        # logger.info(dates)
+        # logger.info(predictions)
         fcst_dict = {}
         for i in range(H):
             ts = pd.to_datetime(str(dates[i])) 
             date_str = ts.strftime('%Y-%m-%d')
             fcst_dict[date_str] = int(predictions[i])
-        print("SIGNAL_FORECAST" , signal, fcst_dict)
+        logger.info("SIGNAL_FORECAST " +  str(signal) + " " +  str(fcst_dict))
         return fcst_dict
         
     
@@ -122,7 +125,7 @@ class cPyAF_Backend_2 (cPyAF_Backend):
         lMinNonZero = 5
         last_100_values = sig[-100:]
         lNbNonZero = last_100_values[last_100_values > 0].count()
-        print("SIGNAL_FILTER_INFO" , sig.name , sig.min() , sig.max() , sig.mean(), sig.std(), lNbNonZero)
+        logger.info("SIGNAL_FILTER_INFO " + str([sig.name , sig.min() , sig.max() , sig.mean(), sig.std(), lNbNonZero]))
         if(sig.max() < lMinVisits):
             return False;
         if(lNbNonZero < lMinNonZero):
@@ -166,7 +169,7 @@ class cPyAF_Hierarchical_Backend (cAbstractBackend):
         lHierarchy['Data'] = pd.DataFrame(rows_list, columns =  lLevels);
         lHierarchy['Type'] = "Hierarchical";
     
-        print(lHierarchy['Data'].head(lHierarchy['Data'].shape[0]));
+        logger.info(str(lHierarchy['Data'].head(lHierarchy['Data'].shape[0])));
 
         return lHierarchy;
     
@@ -191,22 +194,22 @@ class cPyAF_Hierarchical_Backend (cAbstractBackend):
         # lEngine.standrdPlots()
 
         df_forecast = lEngine.forecast(iInputDS = df1, iHorizon = H)
-        print(df_forecast.columns)
+        logger.info(str(df_forecast.columns))
         df_forecast.to_csv("hierarchical_td_Forecast.csv")
         dates = df_forecast['Date'].tail(H).values
         forecasts = {}
         for col in df1.columns:
             if(col != 'Date'):
-                print("FORECAST_SIGNAL" , self.__class__.__name__ , col)
+                logger.info("FORECAST_SIGNAL "  +  str([self.__class__.__name__ , col]))
                 predictions = df_forecast[str(col) + '_AHP_TD_Forecast'].tail(H).values
-                # print(dates)
-                # print(predictions)
+                # logger.info(dates)
+                # logger.info(predictions)
                 fcst_dict = {}
                 for i in range(H):
                     ts = pd.to_datetime(str(dates[i])) 
                     date_str = ts.strftime('%Y-%m-%d')
                     fcst_dict[date_str] = int(predictions[i])
-                print("SIGNAL_FORECAST" , col, fcst_dict)
+                logger.info("SIGNAL_FORECAST "  + str([col, fcst_dict]))
                 forecasts[col] = fcst_dict
         
         return forecasts

@@ -2,7 +2,17 @@ import numpy as np
 import pandas as pd
 import pickle
 import datetime
-    
+
+
+def get_bench_logger():
+    import logging;
+    logger = logging.getLogger('pyaf.bench');
+    if(logger.handlers == []):
+        import logging.config
+        logging.basicConfig(level=logging.INFO)        
+    return logger;
+
+logger = get_bench_logger()
 
 class cProjectData:
     def __init__(self):
@@ -18,7 +28,7 @@ class cProjectData:
         self.mVisitsDF['Date'] = date_var
     
     def add_article(self, article_id, full_name, name, project, access, agent, article_series):
-        if(np.random.random_sample() > 0.01):
+        if(np.random.random_sample() > 10.01):
             return
         self.mAccess.add(access)
         self.mAgents.add(agent)
@@ -27,19 +37,21 @@ class cProjectData:
         self.mVisitsDF[article_id] = article_series
 
     def dump(self):
-        print("PRJECT_DUMP_START" , self.mName)
-        print("PRJECT_DUMP_AGENTS" , self.mAgents)
-        print("PRJECT_DUMP_ACCESS" , self.mAccess)
+        logger.info("PRJECT_DUMP_START " + str(self.mName))
+        logger.info("PRJECT_DUMP_AGENTS " +str(self.mAgents))
+        logger.info("PRJECT_DUMP_ACCESS "  + str(self.mAccess))
+        logger.info("PRJECT_DUMP_NUMBER_OF_ARTICLES " + str(len(self.mArticleInfo)))
+        
         lIds = list(self.mArticleInfo.keys())
         lArticles = lIds[0:5] + lIds[-5:]
-        print("PRJECT_DUMP_ARTICLE_NAMES" ,  [( k , self.mArticleInfo[k][2]) for k in lArticles])
-        print("PRJECT_DUMP_ARTICLE_PROJECTS" ,  [( k , self.mArticleInfo[k][3]) for k in lArticles])
+        logger.info("PRJECT_DUMP_ARTICLE_NAMES " + str([( k , self.mArticleInfo[k][2]) for k in lArticles]))
+        logger.info("PRJECT_DUMP_ARTICLE_PROJECTS" + str([( k , self.mArticleInfo[k][3]) for k in lArticles]))
         df = self.mVisitsDF[['Date'] + lArticles]
         print(df.info())
         print(df.describe())
         print(df.head())
         print(df.tail())
-        print("PRJECT_DUMP_END" , self.mName)
+        logger.info("PRJECT_DUMP_END " + self.mName)
         
 class cDataExtractor:
     def __init__(self):
