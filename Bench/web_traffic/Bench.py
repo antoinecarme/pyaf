@@ -37,21 +37,21 @@ class cProjectData:
         self.mVisitsDF[article_id] = article_series
 
     def dump(self):
-        logger.info("PRJECT_DUMP_START " + str(self.mName))
-        logger.info("PRJECT_DUMP_AGENTS " +str(self.mAgents))
-        logger.info("PRJECT_DUMP_ACCESS "  + str(self.mAccess))
-        logger.info("PRJECT_DUMP_NUMBER_OF_ARTICLES " + str(len(self.mArticleInfo)))
+        logger.info("PROJECT_DUMP_START " + str(self.mName))
+        logger.info("PROJECT_DUMP_AGENTS " +str(self.mAgents))
+        logger.info("PROJECT_DUMP_ACCESS "  + str(self.mAccess))
+        logger.info("PROJECT_DUMP_NUMBER_OF_ARTICLES " + str(len(self.mArticleInfo)))
         
         lIds = list(self.mArticleInfo.keys())
         lArticles = lIds[0:5] + lIds[-5:]
-        logger.info("PRJECT_DUMP_ARTICLE_NAMES " + str([( k , self.mArticleInfo[k][2]) for k in lArticles]))
-        logger.info("PRJECT_DUMP_ARTICLE_PROJECTS" + str([( k , self.mArticleInfo[k][3]) for k in lArticles]))
+        logger.info("PROJECT_DUMP_ARTICLE_NAMES " + str([( k , self.mArticleInfo[k][2]) for k in lArticles]))
+        logger.info("PROJECT_DUMP_ARTICLE_PROJECTS" + str([( k , self.mArticleInfo[k][3]) for k in lArticles]))
         df = self.mVisitsDF[['Date'] + lArticles]
         print(df.info())
         print(df.describe())
         print(df.head())
         print(df.tail())
-        logger.info("PRJECT_DUMP_END " + self.mName)
+        logger.info("PROJECT_DUMP_END " + self.mName)
         
 class cDataExtractor:
     def __init__(self):
