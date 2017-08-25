@@ -76,6 +76,8 @@ class cProjectForecaster:
                     v = int(v) if (v>0) else 0
                     lShortened = self.get_shortened_id(lFullName , k)
                     outputs.append([lShortened , v])
+                    logger.info("FORECASTING_WIKIPEDIA_PROJECT_DETAIL " + " " + str(col) + " " + str(k) + " " +\
+                                lFullName + " " + str(k) + " " + lShortened + " "  + str(v))
             self.save_submission(outputs , project)
             logger.info("FORECASTING_WIKIPEDIA_PROJECT_END_TIME_IN_SECONDS " + project + " " + str(time.time() - start_time))
             
@@ -95,11 +97,13 @@ class cProjectForecaster:
         visited_ids = {}
         for row in lSubmitDF.itertuples():
             visited_ids[row[1]] = True
+        # print(list(visited_ids.keys())[:10])
+        # print(list(self.mShortednedIds.items())[:10])
         # check that all short ids are present in the submission
         for (page, short_id) in self.mShortednedIds.items():
             if(project in page and visited_ids.get(short_id) is None):
                 logger.info("SUBMIT_CHECK_FAILED " + project)
-                logger.info("MISSING_PREDICTION_FOR " + short_id, page)
+                logger.info("MISSING_PREDICTION_FOR " + short_id + " " + page)
                 # assert(0)
     
         logger.info("SUBMIT_CHECK_OK " + project)

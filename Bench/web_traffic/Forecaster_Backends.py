@@ -6,9 +6,12 @@ logger = be.get_bench_logger()
 
 
 def run_bench_process(arg):
-    (lBakcend,  df , col, last_date, H) = arg
-    fcst_dict = lBakcend.real_forecast_one_signal(df, col , last_date, H)
-    return (arg, fcst_dict)
+    (lBakcend,  df , cols, last_date, H) = arg
+    res = {}
+    for col in cols:
+        fcst_dict = lBakcend.real_forecast_one_signal(df, col , last_date, H)
+        res[col] = fcst_dict
+    return (arg, res)
 
 class cAbstractBackend:
     def __init__(self):
@@ -29,19 +32,31 @@ class cAbstractBackend:
         nbprocesses = 18
         pool = mp.Pool(processes=nbprocesses, maxtasksperchild=None)
         args = []
+        cols = []
+        # print(df.columns)
         for col in df.columns:
             if(col != 'Date'):
-                df1 = df[['Date' , col]]
-                args = args + [(self , df1, col, last_date, H)];
+                cols = cols + [col]
+                if(len(cols) > 50):
+                    # print(cols , ['Date'] + cols)
+                    df1 = df[['Date'] + cols]
+                    args = args + [(self , df1, cols, last_date, H)];
+                    cols = []
+        if(len(cols) > 0):
+            # print(cols , ['Date'] + cols)
+            df1 = df[['Date'] + cols]
+            args = args + [(self , df1, cols, last_date, H)];
+            cols = []
+            
 
-        lResults = {};
         i = 1;
         forecasts = {}
         for res in pool.imap(run_bench_process, args):
-            signal = res[0][2]
-            logger.info("FINISHED_BENCH_FOR_SIGNAL" + str(signal)  + " " +  str(i) + "/" + str(len(args)));
-            forecasts[signal] = res[1]
-            i = i + 1
+            signals = res[0][2]
+            for sig in signals:
+                logger.info("FINISHED_BENCH_FOR_SIGNAL " + str(sig)  + " " +  str(i) + "/" + str(len(df.columns)));
+                forecasts[sig] = res[1][sig]
+                i = i + 1
             
         pool.close()
         pool.join()
