@@ -373,7 +373,8 @@ class cTrendEstimator:
         for trend in self.mTrendList:
             trend.mOptions = self.mOptions
             trend.fit();
-            trend.computePerf();
+            if(trend.mOptions.mDebugPerformance):
+                trend.computePerf();
             self.mTrendFrame[trend.mOutName] = trend.mTrendFrame[trend.mOutName]
             self.mTrendFrame[trend.mOutName + "_residue"] = trend.mTrendFrame[trend.mOutName + "_residue"]
             if(self.mOptions.mDebug):

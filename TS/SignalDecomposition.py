@@ -149,9 +149,6 @@ class cSignalDecompositionOneTransform:
 
     def collectPerformanceIndices(self) :
         rows_list = [];
-        self.mFitPerf = {}
-        self.mForecastPerf = {}
-        self.mTestPerf = {}
 
         logger = tsutil.get_pyaf_logger();
         
@@ -177,6 +174,40 @@ class cSignalDecompositionOneTransform:
                                           'FitCount', 'FitL1', 'FitL2', 'FitMAPE', 'FitMASE',
                                           'ForecastCount', 'ForecastL1', 'ForecastL2', 'ForecastMAPE',  'ForecastMASE', 
                                           'TestCount', 'TestL1', 'TestL2', 'TestMAPE', 'TestMASE')) 
+        self.mPerfDetails.sort_values(by=['Forecast' + self.mOptions.mModelSelection_Criterion ,
+                                          'Complexity', 'Model'] ,
+                                      ascending=[True, True, True],
+                                      inplace=True);
+        self.mPerfDetails = self.mPerfDetails.reset_index(drop=True);
+        # print(self.mPerfDetails.head());
+        lBestName = self.mPerfDetails.iloc[0]['Model'];
+        self.mBestModel = self.mPerfsByModel[lBestName][0];
+        return self.mBestModel;
+    
+    def collectPerformanceIndices_ModelSelection_2(self) :
+        rows_list = [];
+
+        logger = tsutil.get_pyaf_logger();
+        
+        for name in sorted(self.mPerfsByModel.keys()):
+            lModel = self.mPerfsByModel[name][0];
+            lComplexity = self.mPerfsByModel[name][1];
+            lFitPerf = self.mPerfsByModel[name][2];
+            lForecastPerf = self.mPerfsByModel[name][3];
+            lTestPerf = self.mPerfsByModel[name][4];
+            row = [lModel.mOutName , lComplexity,
+                   lFitPerf.getCriterionValue(self.mOptions.mModelSelection_Criterion),
+                   lForecastPerf.getCriterionValue(self.mOptions.mModelSelection_Criterion),
+                   lTestPerf.getCriterionValue(self.mOptions.mModelSelection_Criterion)]
+            rows_list.append(row);
+            if(self.mOptions.mDebugPerformance):
+                logger.debug("collectPerformanceIndices_ModelSelection : " + str(row));
+                
+        self.mPerfDetails = pd.DataFrame(rows_list, columns=
+                                         ('Model', 'Complexity',
+                                          'Fit' + self.mOptions.mModelSelection_Criterion,
+                                          'Forecast' + self.mOptions.mModelSelection_Criterion,
+                                          'Test' + self.mOptions.mModelSelection_Criterion))
         self.mPerfDetails.sort_values(by=['Forecast' + self.mOptions.mModelSelection_Criterion ,
                                           'Complexity', 'Model'] ,
                                       ascending=[True, True, True],
@@ -409,6 +440,57 @@ class cSignalDecomposition:
             self.mSigDecByTransform[transform1.get_name("")] = sigdec
 
 
+    def collectPerformanceIndices_ModelSelection(self) :
+        modelsel_start_time = time.time()
+        logger = tsutil.get_pyaf_logger();
+
+        rows_list = []
+        self.mPerfsByModel = {}
+        for transform1 in self.mTransformList:
+            sigdec = self.mSigDecByTransform[transform1.get_name("")]
+            for (model , value) in sorted(sigdec.mPerfsByModel.items()):
+                self.mPerfsByModel[model] = value;
+                lTranformName = sigdec.mSignal;
+                lModelFormula = model
+                #  value format : self.mPerfsByModel[lModel.mOutName] = [lModel, lComplexity, lFitPerf , lForecastPerf, lTestPerf];
+                lComplexity = value[1];
+                lFitPerf = value[2];
+                lForecastPerf = value[3];
+                lTestPerf = value[4];
+                row = [lTranformName, lModelFormula , lComplexity,
+                       lFitPerf.getCriterionValue(self.mOptions.mModelSelection_Criterion),
+                       lForecastPerf.getCriterionValue(self.mOptions.mModelSelection_Criterion),
+                       lTestPerf.getCriterionValue(self.mOptions.mModelSelection_Criterion)]
+                rows_list.append(row);
+                if(self.mOptions.mDebugPerformance):
+                    logger.info("collectPerformanceIndices : " + str(row[0]) + " " + str(row[1]) + " " + str(row[2]) + " " +str(row[8]));
+
+        self.mTrPerfDetails =  pd.DataFrame(rows_list, columns=
+                                            ('Transformation', 'Model', 'Complexity',
+                                             'Fit' + self.mOptions.mModelSelection_Criterion,
+                                             'Forecast' + self.mOptions.mModelSelection_Criterion,
+                                             'Test' + self.mOptions.mModelSelection_Criterion)) 
+        # print(self.mTrPerfDetails.head(self.mTrPerfDetails.shape[0]));
+        lIndicator = 'Forecast' + self.mOptions.mModelSelection_Criterion;
+        lBestPerf = self.mTrPerfDetails[ lIndicator ].min();
+        # allow a loss of one point (0.01 of MAPE) if complexity is reduced.
+        if(not np.isnan(lBestPerf)):
+            self.mTrPerfDetails.sort_values(by=[lIndicator, 'Complexity', 'Model'] ,
+                                            ascending=[True, True, True],
+                                            inplace=True);
+            self.mTrPerfDetails = self.mTrPerfDetails.reset_index(drop=True);
+                
+            lInterestingModels = self.mTrPerfDetails[self.mTrPerfDetails[lIndicator] <= (lBestPerf + 0.01)].reset_index(drop=True);
+        else:
+            lInterestingModels = self.mTrPerfDetails;
+        lInterestingModels.sort_values(by=['Complexity'] , ascending=True, inplace=True)
+        # print(self.mTransformList);
+        # print(lInterestingModels.head());
+        lBestName = lInterestingModels['Model'].iloc[0];
+        self.mBestModel = self.mPerfsByModel[lBestName][0];
+        if(self.mOptions.mDebugProfile):
+            logger.info("MODEL_SELECTION_TIME_IN_SECONDS "  + str(self.mBestModel.mSignal) + " " + str(time.time() - modelsel_start_time))
+
     def collectPerformanceIndices(self) :
         modelsel_start_time = time.time()
         logger = tsutil.get_pyaf_logger();
@@ -514,7 +596,11 @@ class cSignalDecomposition:
         # for (name, sigdec) in self.mSigDecByTransform.items():
         #    sigdec.collectPerformanceIndices();        
 
-        self.collectPerformanceIndices();
+        if(self.mOptions.mDebugPerformance):
+            self.collectPerformanceIndices();
+        else:
+            self.collectPerformanceIndices_ModelSelection();
+            
 
         # Prediction Intervals
         pred_interval_start_time = time.time()

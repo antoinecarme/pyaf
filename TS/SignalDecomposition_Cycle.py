@@ -230,7 +230,8 @@ class cBestCycleForTrend(cAbstractCycle):
                 lValidFrame = self.mTimeInfo.getValidPart(lCycleFrame);
                 lCritValue = lPerf.computeCriterion(lValidFrame[self.mTrend_residue_name],
                                                     lValidFrame[name_i + "_enc"],
-                                                    self.mCriterion)
+                                                    self.mCriterion,
+                                                    "Validation")
                 self.mCyclePerfDict[i] = lCritValue;
                 if(self.mOptions.mDebugCycles):
                     logger = tsutil.get_pyaf_logger();
@@ -342,7 +343,8 @@ class cCycleEstimator:
             for cycle in self.mCycleList[trend]:
                 start_time = time.time()
                 cycle.fit();
-                cycle.computePerf();
+                if(self.mOptions.mDebugPerformance):
+                    cycle.computePerf();
                 self.dumpCyclePerf(cycle)
                 self.mCycleFrame[cycle.getCycleName()] = cycle.mCycleFrame[cycle.getCycleName()]
                 self.mCycleFrame[cycle.getCycleResidueName()] = cycle.mCycleFrame[cycle.getCycleResidueName()]

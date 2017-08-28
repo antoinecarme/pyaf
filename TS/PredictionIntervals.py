@@ -35,7 +35,7 @@ class cPredictionIntervalsEstimator:
         df1 = df;
         for h in range(0 , self.mHorizon):
             df2 = None;
-            df2 = self.mModel.forecastOneStepAhead(df1);
+            df2 = self.mModel.forecastOneStepAhead(df1, perf_mode = True);
             df2 = df2.head(N);
             lHorizonName = lForecastColumn + "_" + str(h + 1);
             (lFrameFit, lFrameForecast, lFrameTest) = self.mModel.mTimeInfo.cutFrame(df2);
