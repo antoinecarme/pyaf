@@ -35,7 +35,7 @@ print("all: " , all_tgt , "\n\t\n");
 
 
 be_targets = {}
-for be in ['pyaf_default']:
+for be in ['pyaf_default', "pyaf_hierarchical_top_down"]:
     be_targets[be] = []
     for tgt in base_targets:
         if((be + ".py") in tgt):
