@@ -189,20 +189,29 @@ class cTimeSeriesModel:
         lSignalColumn = self.mOriginalSignal;
 
         N = iInputDS.shape[0];
-        lForecastColumn = str(lSignalColumn) + "_Forecast";
-        lLowerBoundName = lForecastColumn + '_Lower_Bound'
-        lUpperBoundName = lForecastColumn + '_Upper_Bound';
-        iForecastFrame[lLowerBoundName] = np.nan; 
-        iForecastFrame[lUpperBoundName] = np.nan; 
 
-        lConfidence = 1.96 ; # 0.95
+        lForecastColumn = lSignalColumn + "_Forecast";
+        lHighName = lForecastColumn + '_95';
+        lMedName = lForecastColumn + '_80';
+        lLowName = lForecastColumn + '_70';
+        iForecastFrame[lHighName] = np.nan; 
+        iForecastFrame[lMedName] = np.nan; 
+        iForecastFrame[lLowName] = np.nan; 
+
+        lConfidence95 = 1.96 ; 
+        lConfidence80 = 1.28 ;
+        lConfidence70 = 1.04 ;
+
         # the prediction intervals are only computed for the training horizon
         lHorizon = min(iHorizon , self.mTimeInfo.mHorizon);
         for h in range(0 , lHorizon):
             lHorizonName = lForecastColumn + "_" + str(h + 1);
-            lWidth = lConfidence * self.mPredictionIntervalsEstimator.mForecastPerformances[lHorizonName].mL2;
-            iForecastFrame.loc[N + h , lLowerBoundName] = iForecastFrame.loc[N + h , lForecastColumn] - lWidth;
-            iForecastFrame.loc[N + h , lUpperBoundName] = iForecastFrame.loc[N + h , lForecastColumn] + lWidth;
+            lWidth95 = lConfidence95 * self.mPredictionIntervalsEstimator.mForecastPerformances[lHorizonName].mL2;
+            iForecastFrame.loc[N + h , lHighName] = iForecastFrame.loc[N + h , lForecastColumn] + lWidth95;
+            lWidth80 = lConfidence80 * self.mPredictionIntervalsEstimator.mForecastPerformances[lHorizonName].mL2;
+            iForecastFrame.loc[N + h , lMedName] = iForecastFrame.loc[N + h , lForecastColumn] + lWidth80;
+            lWidth70 = lConfidence70 * self.mPredictionIntervalsEstimator.mForecastPerformances[lHorizonName].mL2;
+            iForecastFrame.loc[N + h , lLowName] = iForecastFrame.loc[N + h , lForecastColumn] + lWidth70;
             
         return iForecastFrame;
 
@@ -272,8 +281,9 @@ class cTimeSeriesModel:
         tsplot.prediction_interval_plot(lOutput,
                                         lTime, self.mOriginalSignal,
                                         lForecastColumn  ,
-                                        lForecastColumn + '_Lower_Bound',
-                                        lForecastColumn + '_Upper_Bound',
+                                        lForecastColumn + '_95',
+                                        lForecastColumn + '_80',
+                                        lForecastColumn + '_70',
                                         name = name);
         #lOutput.plot()
         
@@ -299,8 +309,9 @@ class cTimeSeriesModel:
         lDict["Prediction_Intervals"] = tsplot.prediction_interval_plot_as_png_base64(lOutput,
                                                                                       lTime, self.mOriginalSignal,
                                                                                       lForecastColumn  ,
-                                                                                      lForecastColumn + '_Lower_Bound',
-                                                                                      lForecastColumn + '_Upper_Bound',
+                                                                                      lForecastColumn + '_95',
+                                                                                      lForecastColumn + '_80',
+                                                                                      lForecastColumn + '_70',
                                                                                       name = "prediction_intervals");
         return lDict;
 
