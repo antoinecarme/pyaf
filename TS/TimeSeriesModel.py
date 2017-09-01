@@ -47,19 +47,25 @@ class cTimeSeriesModel:
         lSignal = self.mTrend.mSignalFrame[self.mSignal]
         N = lSignal.shape[0];
         self.mTrend.mTimeInfo.addVars(self.mModelFrame);
-        df = self.forecastOneStepAhead(self.mModelFrame);
+        df = self.forecastOneStepAhead(self.mModelFrame , perf_mode = True);
         self.mModelFrame = df.head(N);
         # print(self.mModelFrame.columns);
         lPrefix = self.mSignal + "_";
-        lForecastColumnName = self.mOriginalSignal + "_Forecast";
+        lForecastColumnName = str(self.mOriginalSignal) + "_Forecast";
         lFitPerf = tsperf.cPerf();
         lForecastPerf = tsperf.cPerf();
         lTestPerf = tsperf.cPerf();
         # self.mModelFrame.to_csv(self.mOutName + "_model_perf.csv");
         (lFrameFit, lFrameForecast, lFrameTest) = self.mTrend.mTimeInfo.cutFrame(self.mModelFrame);
-        lFitPerf.compute(lFrameFit[self.mOriginalSignal] , lFrameFit[lForecastColumnName] , self.mOutName + '_Fit')
-        lForecastPerf.compute(lFrameForecast[self.mOriginalSignal] , lFrameForecast[lForecastColumnName], self.mOutName + '_Forecast')
-        lTestPerf.compute(lFrameTest[self.mOriginalSignal] , lFrameTest[lForecastColumnName], self.mOutName + '_Test')
+        lFitPerf.computeCriterion(lFrameFit[self.mOriginalSignal] , lFrameFit[lForecastColumnName] ,
+                                  self.mTimeInfo.mOptions.mModelSelection_Criterion,
+                                  self.mOutName + '_Fit')
+        lForecastPerf.computeCriterion(lFrameForecast[self.mOriginalSignal] , lFrameForecast[lForecastColumnName],
+                                       self.mTimeInfo.mOptions.mModelSelection_Criterion,
+                                       self.mOutName + '_Forecast')
+        lTestPerf.computeCriterion(lFrameTest[self.mOriginalSignal] , lFrameTest[lForecastColumnName],
+                                   self.mTimeInfo.mOptions.mModelSelection_Criterion,
+                                   self.mOutName + '_Test')
         self.mFitPerf = lFitPerf
         self.mForecastPerf = lForecastPerf;
         self.mTestPerf = lTestPerf;
@@ -68,10 +74,11 @@ class cTimeSeriesModel:
         
     def computePredictionIntervals(self):
         # prediction intervals
-        self.mPredictionIntervalsEstimator = predint.cPredictionIntervalsEstimator();
-        self.mPredictionIntervalsEstimator.mModel = self;
-        
-        self.mPredictionIntervalsEstimator.computePerformances();
+        if(self.mTimeInfo.mOptions.mAddPredictionIntervals):
+            self.mPredictionIntervalsEstimator = predint.cPredictionIntervalsEstimator();
+            self.mPredictionIntervalsEstimator.mModel = self;        
+            self.mPredictionIntervalsEstimator.computePerformances();
+        pass
 
     def getFormula(self):
         lFormula = self.mTrend.mFormula + " + ";
@@ -100,7 +107,7 @@ class cTimeSeriesModel:
 
 
 
-    def forecastOneStepAhead(self , df):
+    def forecastOneStepAhead(self , df , perf_mode = False):
         assert(self.mTime in df.columns)
         assert(self.mOriginalSignal in df.columns)
         lPrefix = self.mSignal + "_";
@@ -132,20 +139,23 @@ class cTimeSeriesModel:
         lCycleColumn = df2[self.mCycle.mOutName]
         lARColumn = df2[self.mAR.mOutName]
         lSignal = df2[self.mSignal]
-        df2[lPrefix + 'Trend'] =  lTrendColumn;
-        df2[lPrefix + 'Trend_residue'] =  lSignal - lTrendColumn;
-        df2[lPrefix + 'Cycle'] =  lCycleColumn;
-        df2[lPrefix + 'Cycle_residue'] = df2[lPrefix + 'Trend_residue'] - lCycleColumn;
-        df2[lPrefix + 'AR'] =  lARColumn ;
-        df2[lPrefix + 'AR_residue'] = df2[lPrefix + 'Cycle_residue'] - lARColumn;
-        df2[lPrefix + 'TransformedForecast'] =  lTrendColumn + lCycleColumn + lARColumn ;
-        df2[lPrefix + 'TransformedResidue'] =  lSignal - df2[lPrefix + 'TransformedForecast']
+        if(not perf_mode):
+            df2[lPrefix + 'Trend'] =  lTrendColumn;
+            df2[lPrefix + 'Trend_residue'] =  lSignal - lTrendColumn;
+            df2[lPrefix + 'Cycle'] =  lCycleColumn;
+            df2[lPrefix + 'Cycle_residue'] = df2[lPrefix + 'Trend_residue'] - lCycleColumn;
+            df2[lPrefix + 'AR'] =  lARColumn ;
+            df2[lPrefix + 'AR_residue'] = df2[lPrefix + 'Cycle_residue'] - lARColumn;
 
-        lPrefix2 = self.mOriginalSignal + "_";
+        lPrefix2 = str(self.mOriginalSignal) + "_";
         # print("TimeSeriesModel_forecast_invert");
+        df2[lPrefix + 'TransformedForecast'] =  lTrendColumn + lCycleColumn + lARColumn ;
         df2[lPrefix2 + 'Forecast'] = self.mTransformation.invert(df2[lPrefix + 'TransformedForecast']);
-        lOriginalSignal = df2[self.mOriginalSignal]
-        df2[lPrefix2 + 'Residue'] =  lOriginalSignal - df2[lPrefix2 + 'Forecast']
+
+        if(not perf_mode):
+            df2[lPrefix + 'TransformedResidue'] =  lSignal - df2[lPrefix + 'TransformedForecast']
+            lOriginalSignal = df2[self.mOriginalSignal]
+            df2[lPrefix2 + 'Residue'] =  lOriginalSignal - df2[lPrefix2 + 'Forecast']
         df2.reset_index(drop=True, inplace=True);
         return df2;
 
@@ -153,7 +163,7 @@ class cTimeSeriesModel:
     def forecast(self , df , iHorizon):
         N0 = df.shape[0];
         df1 = self.forecastOneStepAhead(df)
-        lForecastColumnName = self.mOriginalSignal + "_Forecast";
+        lForecastColumnName = str(self.mOriginalSignal) + "_Forecast";
         for h in range(0 , iHorizon - 1):
             # print(df1.info());
             N = df1.shape[0];
@@ -171,13 +181,15 @@ class cTimeSeriesModel:
             pass
         # print(df.head())
         # print(df1.head())
-        df1 = self.addPredictionIntervals(df, df1, iHorizon);
+        if(self.mTimeInfo.mOptions.mAddPredictionIntervals):
+            df1 = self.addPredictionIntervals(df, df1, iHorizon);
         return df1
 
     def addPredictionIntervals(self, iInputDS, iForecastFrame, iHorizon):
         lSignalColumn = self.mOriginalSignal;
 
         N = iInputDS.shape[0];
+
         lForecastColumn = lSignalColumn + "_Forecast";
         lHighName = lForecastColumn + '_95';
         lMedName = lForecastColumn + '_80';
@@ -189,6 +201,7 @@ class cTimeSeriesModel:
         lConfidence95 = 1.96 ; 
         lConfidence80 = 1.28 ;
         lConfidence70 = 1.04 ;
+
         # the prediction intervals are only computed for the training horizon
         lHorizon = min(iHorizon , self.mTimeInfo.mHorizon);
         for h in range(0 , lHorizon):
@@ -232,11 +245,17 @@ class cTimeSeriesModel:
         dict1["Model_Performance"] = d3;
         return dict1;
 
+
+    def getForecastDatasetForPlots(self):
+        lInput = self.mTrend.mSignalFrame;
+        lOutput = self.forecast(lInput ,  self.mTimeInfo.mHorizon);
+        return lOutput
+
     def plotResidues(self, name = None):
-        df = self.mModelFrame;
+        df = self.getForecastDatasetForPlots();
         lTime = self.mTimeInfo.mTime; # NormalizedTimeColumn;
         lPrefix = self.mSignal + "_";
-        lPrefix2 = self.mOriginalSignal + "_";
+        lPrefix2 = str(self.mOriginalSignal) + "_";
         if(name is not None):
             tsplot.decomp_plot(df, lTime, self.mSignal, lPrefix + 'Trend' , lPrefix + 'Trend_residue', name = name + "_trend");
             tsplot.decomp_plot(df, lTime, lPrefix + 'Trend_residue' , lPrefix + 'Cycle', lPrefix + 'Cycle_residue', name = name + "_cycle");
@@ -254,7 +273,7 @@ class cTimeSeriesModel:
         lInput = self.mTrend.mSignalFrame;
         lOutput = self.forecast(lInput ,  self.mTimeInfo.mHorizon);
         # print(lOutput.columns)
-        lPrefix = self.mOriginalSignal + "_";
+        lPrefix = str(self.mOriginalSignal) + "_";
         lForecastColumn = lPrefix + 'Forecast';
         lTime = self.mTimeInfo.mTime;            
         lOutput.set_index(lTime, inplace=True, drop=False);
@@ -270,11 +289,11 @@ class cTimeSeriesModel:
         
     def getPlotsAsDict(self):
         lDict = {};
-        df = self.mModelFrame;
+        df = self.getForecastDatasetForPlots();
         lTime = self.mTime;
         lSignalColumn = self.mOriginalSignal;
         lPrefix = self.mSignal + "_";
-        lPrefix2 = self.mOriginalSignal + "_";
+        lPrefix2 = str(self.mOriginalSignal) + "_";
         lDict["Trend"] = tsplot.decomp_plot_as_png_base64(df, lTime, self.mSignal, lPrefix + 'Trend' , lPrefix + 'Trend_residue', name = "trend");
         lDict["Cycle"] = tsplot.decomp_plot_as_png_base64(df, lTime, lPrefix + 'Trend_residue' , lPrefix + 'Cycle', lPrefix + 'Cycle_residue', name = "cycle");
         lDict["AR"] = tsplot.decomp_plot_as_png_base64(df, lTime, lPrefix + 'Cycle_residue' , lPrefix + 'AR' , lPrefix + 'AR_residue', name = "AR");
@@ -283,7 +302,7 @@ class cTimeSeriesModel:
         lInput = self.mModelFrame[[self.mTime, self.mOriginalSignal]];
         lOutput = self.forecast(lInput ,  self.mTimeInfo.mHorizon);
         # print(lOutput.columns)
-        lPrefix = self.mOriginalSignal + "_";
+        lPrefix = str(self.mOriginalSignal) + "_";
         lForecastColumn = lPrefix + 'Forecast';
         lTime = self.mTimeInfo.mTime;
         lOutput.set_index(lTime, inplace=True, drop=False);

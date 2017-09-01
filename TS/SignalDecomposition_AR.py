@@ -231,7 +231,8 @@ class cAutoRegressiveEstimator:
             autoreg.mLagOrigins = self.mLagOrigins;
             autoreg.mDefaultValues = self.mDefaultValues;
             autoreg.fit();
-            autoreg.computePerf();
+            if(self.mOptions.mDebugPerformance):
+                autoreg.computePerf();
             end_time = time.time()
             lTrainingTime = round(end_time - start_time , 2);
             if(self.mOptions.mDebugProfile):

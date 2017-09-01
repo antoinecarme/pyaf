@@ -117,14 +117,17 @@ class cPerf:
         self.mPearsonR = self.compute_pearson_r(signal , estimator);
         
 
-    def computeCriterion(self, signal , estimator, criterion):
+    def computeCriterion(self, signal , estimator, criterion, name):
+        self.mName = name;
+        
         self.mCount = signal.shape[0];
-        myerror = (estimator.values - signal.values);
         if(criterion == "L1"):
+            myerror = (estimator.values - signal.values);
             abs_error = abs(myerror)
             self.mL1 = np.mean(abs_error)
             return self.mL1;
         if(criterion == "L2"):
+            myerror = (estimator.values - signal.values);
             self.mL2 = np.sqrt(np.mean(myerror ** 2))
             return self.mL2;
         if(criterion == "R2"):
@@ -134,22 +137,23 @@ class cPerf:
             self.mPearsonR = self.compute_pearson_r(signal , estimator)
             return self.mPearsonR;
         if(criterion == "MAE"):
+            myerror = (estimator.values - signal.values);
             abs_error = abs(myerror)
             self.mMAE = np.mean(abs_error)
             return self.mAE;
         
-        if(criterion == "SMAPE"):
-            self.compute_MAPE_SMAPE();
+        if(criterion == "MAPE"):
+            self.compute_MAPE_SMAPE(signal , estimator);
             return self.mSMAPE;
 
         if(criterion == "MASE"):
-            self.compute_MAPE_SMAPE();
+            self.compute_MAPE_SMAPE(signal , estimator);
             return self.mMASE;
 
         if(criterion == "COUNT"):
             return self.mCount;
         
-        self.compute_MAPE_SMAPE();
+        self.compute_MAPE_SMAPE(signal , estimator);
         return self.mMAPE;
 
     def getCriterionValue(self, criterion):
