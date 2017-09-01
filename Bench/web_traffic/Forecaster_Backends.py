@@ -164,18 +164,74 @@ class cPyAF_Backend_2 (cPyAF_Backend):
 class cPyAF_Hierarchical_Backend (cAbstractBackend):
     def __init__(self):
         cAbstractBackend.__init__(self);
+        self.mOtherArticleId = -1
+        self.mMaxNbKept = 100
         pass
 
     
     def forecast_all_signals(self, project_data , last_date, H):
         return self.forecast_all_signals_hierarchical(project_data, last_date, H)
 
+    def reduce_articles(self, project_data, articles):
+        sums = {}
+        total_sum = 0;
+        for article_id in articles:
+            sums[article_id] = project_data.mVisitsDF[article_id].fillna(0.0).sum()
+            total_sum = total_sum + sums[article_id]
+        logger.info("SUMS_BEFORE_SORTING " + str((list(sums)[0:self.mMaxNbKept] , total_sum)))
+        # order by total count
+        sorted_sums = sorted(sums.items(), key=lambda x: x[1], reverse=True)
+        logger.info("SUMS_AFTER_SORTING " + str(sorted_sums[:self.mMaxNbKept]))
+        result = []
+        cum_sum = 0;
+        threshold = 0.95 * total_sum
+        for (article_id , count) in sorted_sums[:self.mMaxNbKept]:
+            if(cum_sum <= threshold):
+                result.append(article_id)
+            cum_sum = cum_sum + sums[article_id]
+        logger.info("SUMS_AFTER_SORTING_2 " + str((threshold, cum_sum , cum_sum / total_sum, len(articles), len(result))))
+        return result
+        
+
+    def analyze_signals(self, project_data):
+        self.base_level = {}
+        for(article_id, article_info) in project_data.mArticleInfo.items():
+            (article_id_2, full_name, name, project, access, agent) = (article_info)
+            acc_ag_key = access+ '+' + agent
+            if(self.base_level.get(acc_ag_key) is None):
+                self.base_level[acc_ag_key] = set()
+            self.base_level[acc_ag_key].add(article_id)
+        self.clean_base_level = {}
+        self.nb_discarded = {}
+        for (acc_ag_key, articles) in self.base_level.items():
+            important_articles = self.reduce_articles(project_data , articles)
+            self.clean_base_level[acc_ag_key] = important_articles
+            self.nb_discarded[acc_ag_key] = len(articles) - len(important_articles)
+        pass
+    
     def define_hierarchy(self, project_data):
+        self.analyze_signals(project_data)
         rows_list = [];
+        self.mHierarchyVisits = pd.DataFrame()
+        self.mHierarchyClass = {}
+        self.mHierarchyVisits['Date'] =  project_data.mVisitsDF['Date']
         for(article_id, article_info) in project_data.mArticleInfo.items():
             (article_id_2, full_name, name, project, access, agent) = (article_info)
             assert(article_id_2 == article_id)
-            hier_row = [article_id, access+ '+' + agent , agent, project_data.mName]
+            acc_ag_key = access+ '+' + agent
+            series = project_data.mVisitsDF[article_id]
+            if(article_id_2 not in self.clean_base_level[acc_ag_key]):
+                article_id_2 = self.mOtherArticleId
+                self.mHierarchyClass[article_id] = acc_ag_key
+                if(article_id_2 not in self.mHierarchyVisits.columns):
+                    self.mHierarchyVisits[article_id_2] = series
+                    hier_row = [article_id_2, access+ '+' + agent , agent, project_data.mName]
+                else:
+                    self.mHierarchyVisits[article_id_2] = self.mHierarchyVisits[article_id_2] + series
+            else:
+                self.mHierarchyVisits[article_id_2] = series
+                hier_row = [article_id_2, access+ '+' + agent , agent, project_data.mName]
+                
             rows_list.append(hier_row)
 
         lLevels = ['article', 'agent_access' , 'agent' , 'project'];
@@ -185,6 +241,8 @@ class cPyAF_Hierarchical_Backend (cAbstractBackend):
         lHierarchy['Type'] = "Hierarchical";
     
         logger.info(str(lHierarchy['Data'].head(lHierarchy['Data'].shape[0])));
+        logger.info(str(lHierarchy['Data'].info()));
+        logger.info(str(self.mHierarchyVisits.info()));
 
         return lHierarchy;
     
@@ -203,7 +261,7 @@ class cPyAF_Hierarchical_Backend (cAbstractBackend):
         lHierarchy = self.define_hierarchy(project_data)
         
         # lEngine
-        df1 = project_data.mVisitsDF.fillna(0.0)
+        df1 = self.mHierarchyVisits.fillna(0.0)
         lEngine.train(df1, 'Date' , None, 1 , lHierarchy, None);
         lEngine.getModelInfo();
         # lEngine.standrdPlots()
@@ -213,10 +271,17 @@ class cPyAF_Hierarchical_Backend (cAbstractBackend):
         df_forecast.to_csv("hierarchical_td_Forecast.csv")
         dates = df_forecast['Date'].tail(H).values
         forecasts = {}
-        for col in df1.columns:
+        for col in project_data.mVisitsDF.columns:
             if(col != 'Date'):
                 logger.info("FORECAST_SIGNAL "  +  str([self.__class__.__name__ , col]))
-                predictions = df_forecast[str(col) + '_AHP_TD_Forecast'].tail(H).values
+                predictions = None
+                if(col in self.mHierarchyVisits.columns):
+                    predictions = df_forecast[str(col) + '_AHP_TD_Forecast'].tail(H).values
+                else:
+                    nb_other = self.nb_discarded[self.mHierarchyClass[col]]
+                    predictions = df_forecast[str(self.mOtherArticleId) + '_AHP_TD_Forecast'] / nb_other
+                    predictions = predictions.tail(H).values
+                    
                 # logger.info(dates)
                 # logger.info(predictions)
                 fcst_dict = {}
