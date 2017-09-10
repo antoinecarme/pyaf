@@ -11,6 +11,8 @@ PyAF works as an automated process for predicting future values of a signal
 using a machine learning approach. It provides a set of features that is
 comparable to some popular commercial automatic forecasting products.
 
+PyAF has been developed, tested and benchmarked using a **python 3.x** version.
+
 PyAF is distributed under the [3-Clause BSD license](https://tldrlegal.com/license/bsd-3-clause-license-%28revised%29).
 
 
