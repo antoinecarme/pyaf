@@ -31,7 +31,7 @@ INFO:pyaf.std:collectPerformanceIndices : CumSum_AirPassengers CumSum_AirPasseng
 INFO:pyaf.std:collectPerformanceIndices : CumSum_AirPassengers CumSum_AirPassengers_LinearTrend_residue_zeroCycle_residue_SVR(33) 114 24
 INFO:pyaf.std:collectPerformanceIndices : CumSum_AirPassengers CumSum_AirPassengers_PolyTrend_residue_bestCycle_byL2_residue_SVR(33) 122 24
 INFO:pyaf.std:collectPerformanceIndices : CumSum_AirPassengers CumSum_AirPassengers_PolyTrend_residue_zeroCycle_residue_SVR(33) 114 24
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'AirPassengers' 3.1726832389831543
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'AirPassengers' 4.308272123336792
 INFO:pyaf.std:TIME_DETAIL TimeVariable='time' TimeMin=1949.0 TimeMax=1956.91666667 TimeDelta=0.0833333333334 Estimation = (0 , 96) Validation = (96 , 120) Test = (120 , 132) Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL SignalVariable='_AirPassengers' Min=104 Max=559  Mean=262.492424242 StdDev=106.221145545
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
@@ -47,9 +47,9 @@ INFO:pyaf.std:MODEL_COMPLEXITY 98
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_PLOTTING
-INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 11.091957807540894
+INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 17.396541357040405
 INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.39870548248291016
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.6361362934112549
          Transformation                                              Model  \
 0        _AirPassengers  _AirPassengers_Lag1Trend_residue_bestCycle_byL...   
 1        _AirPassengers  _AirPassengers_Lag1Trend_residue_zeroCycle_res...   
@@ -57,26 +57,26 @@ INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.39870548248291016
 3  CumSum_AirPassengers  CumSum_AirPassengers_Lag1Trend_residue_bestCyc...   
 4        _AirPassengers  _AirPassengers_LinearTrend_residue_bestCycle_b...   
 
-   Complexity  FitCount      FitL1      FitL2  FitMAPE  FitMASE  \
-0         106        96  17.463477  22.273707   0.0814   0.9341   
-1          98        96  17.494050  22.337997   0.0815   0.9358   
-2         130        96  21.571880  32.913351   0.1138   1.1539   
-3         138        96  21.764624  32.843855   0.1140   1.1642   
-4          90        96  22.017711  30.670715   0.1013   1.1777   
+   Complexity  FitCount FitL1 FitL2  FitMAPE  FitMASE  ForecastCount  \
+0         106        96  None  None   0.0814   0.9341             24   
+1          98        96  None  None   0.0815   0.9358             24   
+2         130        96  None  None   0.1138   1.1539             24   
+3         138        96  None  None   0.1140   1.1642             24   
+4          90        96  None  None   0.1013   1.1777             24   
 
-   ForecastCount  ForecastL1  ForecastL2  ForecastMAPE  ForecastMASE  \
-0             24   35.471161   44.086608        0.0942        0.9576   
-1             24   35.591667   43.966351        0.0946        0.9608   
-2             24   35.916667   43.992424        0.0953        0.9696   
-3             24   36.316996   44.262901        0.0963        0.9804   
-4             24   49.458857   70.005225        0.1181        1.3352   
+  ForecastL1 ForecastL2  ForecastMAPE  ForecastMASE  TestCount TestL1 TestL2  \
+0       None       None        0.0942        0.9576         12   None   None   
+1       None       None        0.0946        0.9608         12   None   None   
+2       None       None        0.0953        0.9696         12   None   None   
+3       None       None        0.0963        0.9804         12   None   None   
+4       None       None        0.1181        1.3352         12   None   None   
 
-   TestCount     TestL1     TestL2  TestMAPE  TestMASE  
-0         12  42.925108  50.111945    0.0997    0.9539  
-1         12  42.883333  50.212449    0.0996    0.9530  
-2         12  43.166667  50.375258    0.1000    0.9593  
-3         12  43.631579  50.492004    0.1013    0.9696  
-4         12  62.625108  85.018527    0.1313    1.3917  
+   TestMAPE  TestMASE  
+0    0.0997    0.9539  
+1    0.0996    0.9530  
+2    0.1000    0.9593  
+3    0.1013    0.9696  
+4    0.1313    1.3917  
 Forecast Columns  Index(['AirPassengers', '_AirPassengers', 'time', 'row_number',
        'time_Normalized', '_AirPassengers_Lag1Trend',
        '_AirPassengers_Lag1Trend_residue',
@@ -87,9 +87,9 @@ Forecast Columns  Index(['AirPassengers', '_AirPassengers', 'time', 'row_number'
        '_AirPassengers_Trend', '_AirPassengers_Trend_residue',
        '_AirPassengers_Cycle', '_AirPassengers_Cycle_residue',
        '_AirPassengers_AR', '_AirPassengers_AR_residue',
-       '_AirPassengers_TransformedForecast',
-       '_AirPassengers_TransformedResidue', 'AirPassengers_Forecast',
-       'AirPassengers_Residue', 'AirPassengers_Forecast_Lower_Bound',
+       '_AirPassengers_TransformedForecast', 'AirPassengers_Forecast',
+       '_AirPassengers_TransformedResidue', 'AirPassengers_Residue',
+       'AirPassengers_Forecast_Lower_Bound',
        'AirPassengers_Forecast_Upper_Bound'],
       dtype='object')
 <class 'pandas.core.frame.DataFrame'>
