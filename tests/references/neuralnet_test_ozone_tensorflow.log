@@ -1,59 +1,44 @@
-INFO:pyaf.std:START_TRAINING 'Ozone'
-     Month  Ozone       Time
-0  1955-01    2.7 1955-01-01
-1  1955-02    2.0 1955-02-01
-2  1955-03    3.6 1955-03-01
-3  1955-04    5.0 1955-04-01
-4  1955-05    6.5 1955-05-01
-multiprocess.pool.RemoteTraceback: 
-"""
 Traceback (most recent call last):
-  File "/usr/local/lib/python3.5/dist-packages/multiprocess/pool.py", line 119, in worker
-    result = (True, func(*args, **kwds))
-  File "/usr/local/lib/python3.5/dist-packages/pathos/helpers/mp_helper.py", line 14, in <lambda>
-    func = lambda args: f(*args)
-  File "/home/antoine/dev/python/packages/pyaf/TS/SignalDecomposition.py", line 300, in run_transform_thread
-    arg.mSigDec.train(arg.mInputDS, arg.mTime, arg.mSignal, arg.mHorizon, arg.mTransformation);
-  File "/home/antoine/dev/python/packages/pyaf/TS/SignalDecomposition.py", line 263, in train
-    lAREstimator.estimate();
-  File "/home/antoine/dev/python/packages/pyaf/TS/SignalDecomposition_AR.py", line 302, in estimate
-    self.estimate_ar_models_for_cycle(cycle_residue);
-  File "/home/antoine/dev/python/packages/pyaf/TS/SignalDecomposition_AR.py", line 233, in estimate_ar_models_for_cycle
-    autoreg.fit();
-  File "/home/antoine/dev/python/packages/pyaf/TS/Keras_Models.py", line 32, in fit
-    self.build_RNN_Architecture();
-  File "/home/antoine/dev/python/packages/pyaf/TS/Keras_Models.py", line 172, in build_RNN_Architecture
-    lModel = self.build_RNN_Architecture_template();
-  File "/home/antoine/dev/python/packages/pyaf/TS/Keras_Models.py", line 195, in build_RNN_Architecture_template
-    lModel.add(LSTM(self.mHiddenUnits, input_dim=self.mNbLags))
-  File "/usr/lib/python3/dist-packages/keras/models.py", line 275, in add
-    layer.create_input_layer(batch_input_shape, input_dtype)
-  File "/usr/lib/python3/dist-packages/keras/engine/topology.py", line 367, in create_input_layer
-    self(x)
-  File "/usr/lib/python3/dist-packages/keras/engine/topology.py", line 511, in __call__
-    self.add_inbound_node(inbound_layers, node_indices, tensor_indices)
-  File "/usr/lib/python3/dist-packages/keras/engine/topology.py", line 569, in add_inbound_node
-    Node.create_node(self, inbound_layers, node_indices, tensor_indices)
-  File "/usr/lib/python3/dist-packages/keras/engine/topology.py", line 150, in create_node
-    output_tensors = to_list(outbound_layer.call(input_tensors[0], mask=input_masks[0]))
-  File "/usr/lib/python3/dist-packages/keras/layers/recurrent.py", line 222, in call
-    ': ' + str(input_shape))
-Exception: When using TensorFlow, you should define explicitly the number of timesteps of your sequences.
-If your first layer is an Embedding, make sure to pass it an "input_length" argument. Otherwise, make sure the first layer has an "input_shape" or "batch_input_shape" argument, including the time axis. Found input shape at layer lstm_1: (None, None, 51)
-"""
+  File "/usr/local/lib/python3.5/dist-packages/tensorflow/python/pywrap_tensorflow.py", line 41, in <module>
+    from tensorflow.python.pywrap_tensorflow_internal import *
+  File "/usr/local/lib/python3.5/dist-packages/tensorflow/python/pywrap_tensorflow_internal.py", line 28, in <module>
+    _pywrap_tensorflow_internal = swig_import_helper()
+  File "/usr/local/lib/python3.5/dist-packages/tensorflow/python/pywrap_tensorflow_internal.py", line 24, in swig_import_helper
+    _mod = imp.load_module('_pywrap_tensorflow_internal', fp, pathname, description)
+  File "/usr/lib/python3.5/imp.py", line 243, in load_module
+    return load_dynamic(name, filename, file)
+  File "/usr/lib/python3.5/imp.py", line 343, in load_dynamic
+    return _load(spec)
+ImportError: libcudnn.so.5: cannot open shared object file: No such file or directory
 
-The above exception was the direct cause of the following exception:
+During handling of the above exception, another exception occurred:
 
 Traceback (most recent call last):
-  File "tests/neuralnet/test_ozone_tensorflow.py", line 45, in <module>
-    lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H);
-  File "/home/antoine/dev/python/packages/pyaf/ForecastEngine.py", line 25, in train
-    self.mSignalDecomposition.train(iInputDS, iTime, iSignal, iHorizon, iExogenousData);
-  File "/home/antoine/dev/python/packages/pyaf/TS/SignalDecomposition.py", line 466, in train
-    self.train_multiprocessed(iInputDS, iTime, iSignal, iHorizon);
-  File "/home/antoine/dev/python/packages/pyaf/TS/SignalDecomposition.py", line 390, in train_multiprocessed
-    for res in pool.imap(run_transform_thread, args):
-  File "/usr/local/lib/python3.5/dist-packages/multiprocess/pool.py", line 695, in next
-    raise value
-Exception: When using TensorFlow, you should define explicitly the number of timesteps of your sequences.
-If your first layer is an Embedding, make sure to pass it an "input_length" argument. Otherwise, make sure the first layer has an "input_shape" or "batch_input_shape" argument, including the time axis. Found input shape at layer lstm_1: (None, None, 51)
+  File "tests/neuralnet/test_ozone_tensorflow.py", line 11, in <module>
+    import tensorflow as tf
+  File "/usr/local/lib/python3.5/dist-packages/tensorflow/__init__.py", line 24, in <module>
+    from tensorflow.python import *
+  File "/usr/local/lib/python3.5/dist-packages/tensorflow/python/__init__.py", line 51, in <module>
+    from tensorflow.python import pywrap_tensorflow
+  File "/usr/local/lib/python3.5/dist-packages/tensorflow/python/pywrap_tensorflow.py", line 52, in <module>
+    raise ImportError(msg)
+ImportError: Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tensorflow/python/pywrap_tensorflow.py", line 41, in <module>
+    from tensorflow.python.pywrap_tensorflow_internal import *
+  File "/usr/local/lib/python3.5/dist-packages/tensorflow/python/pywrap_tensorflow_internal.py", line 28, in <module>
+    _pywrap_tensorflow_internal = swig_import_helper()
+  File "/usr/local/lib/python3.5/dist-packages/tensorflow/python/pywrap_tensorflow_internal.py", line 24, in swig_import_helper
+    _mod = imp.load_module('_pywrap_tensorflow_internal', fp, pathname, description)
+  File "/usr/lib/python3.5/imp.py", line 243, in load_module
+    return load_dynamic(name, filename, file)
+  File "/usr/lib/python3.5/imp.py", line 343, in load_dynamic
+    return _load(spec)
+ImportError: libcudnn.so.5: cannot open shared object file: No such file or directory
+
+
+Failed to load the native TensorFlow runtime.
+
+See https://www.tensorflow.org/install/install_sources#common_installation_problems
+
+for some common reasons and solutions.  Include the entire stack trace
+above this error message when asking for help.

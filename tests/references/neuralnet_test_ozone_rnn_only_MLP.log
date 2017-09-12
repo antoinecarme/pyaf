@@ -1,6 +1,38 @@
-INFO:pyaf.std:START_TRAINING 'AirPassengers'
+INFO:pyaf.std:START_TRAINING 'Ozone'
+     Month  Ozone       Time
+0  1955-01    2.7 1955-01-01
+1  1955-02    2.0 1955-02-01
+2  1955-03    3.6 1955-03-01
+3  1955-04    5.0 1955-04-01
+4  1955-05    6.5 1955-05-01
 Using TensorFlow backend.
 Using TensorFlow backend.
+Using TensorFlow backend.
+Using TensorFlow backend.
+Using TensorFlow backend.
+Using TensorFlow backend.
+Using TensorFlow backend.
+Using TensorFlow backend.
+Using TensorFlow backend.
+Using TensorFlow backend.
+Using TensorFlow backend.
+Using TensorFlow backend.
+Using TensorFlow backend.
+Using TensorFlow backend.
+Using TensorFlow backend.
+Using TensorFlow backend.
+Using TensorFlow backend.
+Using TensorFlow backend.
+Using TensorFlow backend.
+Using TensorFlow backend.
+Using TensorFlow backend.
+Using TensorFlow backend.
+Using TensorFlow backend.
+Using TensorFlow backend.
+Using TensorFlow backend.
+Using TensorFlow backend.
+multiprocess.pool.RemoteTraceback: 
+"""
 Traceback (most recent call last):
   File "/usr/local/lib/python3.5/dist-packages/tensorflow/python/pywrap_tensorflow.py", line 41, in <module>
     from tensorflow.python.pywrap_tensorflow_internal import *
@@ -17,12 +49,12 @@ ImportError: libcudnn.so.5: cannot open shared object file: No such file or dire
 During handling of the above exception, another exception occurred:
 
 Traceback (most recent call last):
-  File "/home/antoine/dev/python/packages/pyaf/ForecastEngine.py", line 25, in train
-    self.mSignalDecomposition.train(iInputDS, iTime, iSignal, iHorizon, iExogenousData);
-  File "/home/antoine/dev/python/packages/pyaf/TS/SignalDecomposition.py", line 593, in train
-    self.train_not_threaded(iInputDS, iTime, iSignal, iHorizon);
-  File "/home/antoine/dev/python/packages/pyaf/TS/SignalDecomposition.py", line 439, in train_not_threaded
-    sigdec.train(iInputDS, iTime, iSignal, iHorizon, transform1);
+  File "/usr/local/lib/python3.5/dist-packages/multiprocess/pool.py", line 119, in worker
+    result = (True, func(*args, **kwds))
+  File "/usr/local/lib/python3.5/dist-packages/pathos/helpers/mp_helper.py", line 14, in <lambda>
+    func = lambda args: f(*args)
+  File "/home/antoine/dev/python/packages/pyaf/TS/SignalDecomposition.py", line 335, in run_transform_thread
+    arg.mSigDec.train(arg.mInputDS, arg.mTime, arg.mSignal, arg.mHorizon, arg.mTransformation);
   File "/home/antoine/dev/python/packages/pyaf/TS/SignalDecomposition.py", line 294, in train
     lAREstimator.estimate();
   File "/home/antoine/dev/python/packages/pyaf/TS/SignalDecomposition_AR.py", line 311, in estimate
@@ -65,11 +97,44 @@ See https://www.tensorflow.org/install/install_sources#common_installation_probl
 
 for some common reasons and solutions.  Include the entire stack trace
 above this error message when asking for help.
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/antoine/dev/python/packages/pyaf/ForecastEngine.py", line 25, in train
+    self.mSignalDecomposition.train(iInputDS, iTime, iSignal, iHorizon, iExogenousData);
+  File "/home/antoine/dev/python/packages/pyaf/TS/SignalDecomposition.py", line 591, in train
+    self.train_multiprocessed(iInputDS, iTime, iSignal, iHorizon);
+  File "/home/antoine/dev/python/packages/pyaf/TS/SignalDecomposition.py", line 425, in train_multiprocessed
+    for res in pool.imap(run_transform_thread, args):
+  File "/usr/local/lib/python3.5/dist-packages/multiprocess/pool.py", line 695, in next
+    raise value
+ImportError: Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tensorflow/python/pywrap_tensorflow.py", line 41, in <module>
+    from tensorflow.python.pywrap_tensorflow_internal import *
+  File "/usr/local/lib/python3.5/dist-packages/tensorflow/python/pywrap_tensorflow_internal.py", line 28, in <module>
+    _pywrap_tensorflow_internal = swig_import_helper()
+  File "/usr/local/lib/python3.5/dist-packages/tensorflow/python/pywrap_tensorflow_internal.py", line 24, in swig_import_helper
+    _mod = imp.load_module('_pywrap_tensorflow_internal', fp, pathname, description)
+  File "/usr/lib/python3.5/imp.py", line 243, in load_module
+    return load_dynamic(name, filename, file)
+  File "/usr/lib/python3.5/imp.py", line 343, in load_dynamic
+    return _load(spec)
+ImportError: libcudnn.so.5: cannot open shared object file: No such file or directory
+
+
+Failed to load the native TensorFlow runtime.
+
+See https://www.tensorflow.org/install/install_sources#common_installation_problems
+
+for some common reasons and solutions.  Include the entire stack trace
+above this error message when asking for help.
 
 During handling of the above exception, another exception occurred:
 
 Traceback (most recent call last):
-  File "tests/neuralnet/test_air_passengers_tensorflow.py", line 43, in <module>
+  File "tests/neuralnet/test_ozone_rnn_only_MLP.py", line 34, in <module>
     lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H);
   File "/home/antoine/dev/python/packages/pyaf/ForecastEngine.py", line 30, in train
     raise tsutil.PyAF_Error("TRAIN_FAILED");
