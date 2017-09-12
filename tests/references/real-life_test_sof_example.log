@@ -69,7 +69,7 @@ INFO:pyaf.std:collectPerformanceIndices : CumSum_Used CumSum_Used_PolyTrend_resi
 INFO:pyaf.std:collectPerformanceIndices : CumSum_Used CumSum_Used_PolyTrend_residue_bestCycle_byL2_residue_NoAR 56 11
 INFO:pyaf.std:collectPerformanceIndices : CumSum_Used CumSum_Used_PolyTrend_residue_zeroCycle_residue_AR(15) 63 11
 INFO:pyaf.std:collectPerformanceIndices : CumSum_Used CumSum_Used_PolyTrend_residue_zeroCycle_residue_NoAR 48 11
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Used' 3.0875468254089355
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Used' 2.9775447845458984
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2011-11-01T00:00:00.000000 TimeMax=2011-12-10T00:00:00.000000 TimeDelta=1 days Estimation = (0 , 40) Validation = (40 , 51) Test = (51 , 61) Horizon=10
 INFO:pyaf.std:SIGNAL_DETAIL SignalVariable='_Used' Min=550 Max=800  Mean=627.885245902 StdDev=51.3244575836
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
@@ -95,9 +95,9 @@ INFO:pyaf.std:AR_MODEL_COEFF 9 _Used_ConstantTrend_residue_zeroCycle_residue_Lag
 INFO:pyaf.std:AR_MODEL_COEFF 10 _Used_ConstantTrend_residue_zeroCycle_residue_Lag12 -0.0151961221599
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_PLOTTING
-INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 13.902685403823853
+INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 16.71902084350586
 INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.28890085220336914
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.24611401557922363
   Transformation                                              Model  \
 0    CumSum_Used  CumSum_Used_PolyTrend_residue_zeroCycle_residu...   
 1          _Used   _Used_PolyTrend_residue_zeroCycle_residue_AR(15)   
@@ -105,26 +105,26 @@ INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.28890085220336914
 3          _Used  _Used_LinearTrend_residue_zeroCycle_residue_AR...   
 4          _Used   _Used_Lag1Trend_residue_zeroCycle_residue_AR(15)   
 
-   Complexity  FitCount      FitL1      FitL2  FitMAPE  FitMASE  \
-0          63        40  27.260349  36.199501   0.0445   0.7654   
-1          31        40  21.595294  28.542054   0.0350   0.6063   
-2          15        40  22.187872  29.116208   0.0360   0.6230   
-3          31        40  21.964887  28.983499   0.0356   0.6167   
-4          47        40  25.083864  34.431435   0.0409   0.7043   
+   Complexity  FitCount FitL1 FitL2  FitMAPE  FitMASE  ForecastCount  \
+0          63        40  None  None   0.0445   0.7654             11   
+1          31        40  None  None   0.0350   0.6063             11   
+2          15        40  None  None   0.0360   0.6230             11   
+3          31        40  None  None   0.0356   0.6167             11   
+4          47        40  None  None   0.0409   0.7043             11   
 
-   ForecastCount  ForecastL1  ForecastL2  ForecastMAPE  ForecastMASE  \
-0             11   12.757274   15.668297        0.0201        0.4725   
-1             11   13.167207   16.222745        0.0211        0.4877   
-2             11   13.612426   15.415690        0.0219        0.5042   
-3             11   13.962008   15.659560        0.0225        0.5171   
-4             11   16.374285   21.252883        0.0254        0.6065   
+  ForecastL1 ForecastL2  ForecastMAPE  ForecastMASE  TestCount TestL1 TestL2  \
+0       None       None        0.0201        0.4725         10   None   None   
+1       None       None        0.0211        0.4877         10   None   None   
+2       None       None        0.0219        0.5042         10   None   None   
+3       None       None        0.0225        0.5171         10   None   None   
+4       None       None        0.0254        0.6065         10   None   None   
 
-   TestCount     TestL1      TestL2  TestMAPE  TestMASE  
-0         10  58.716874   80.214596    0.0830    1.0403  
-1         10  73.267789  102.636742    0.0990    1.2981  
-2         10  64.818892   89.821087    0.0880    1.1484  
-3         10  63.196862   87.814051    0.0859    1.1196  
-4         10  51.170659   71.118418    0.0732    0.9066  
+   TestMAPE  TestMASE  
+0    0.0830    1.0403  
+1    0.0990    1.2981  
+2    0.0880    1.1484  
+3    0.0859    1.1196  
+4    0.0732    0.9066  
 Forecast Columns  Index(['Date', 'Used', '_Used', 'row_number', 'Date_Normalized',
        '_Used_ConstantTrend', '_Used_ConstantTrend_residue',
        '_Used_ConstantTrend_residue_zeroCycle',
@@ -133,8 +133,8 @@ Forecast Columns  Index(['Date', 'Used', '_Used', 'row_number', 'Date_Normalized
        '_Used_ConstantTrend_residue_zeroCycle_residue_AR(15)_residue',
        '_Used_Trend', '_Used_Trend_residue', '_Used_Cycle',
        '_Used_Cycle_residue', '_Used_AR', '_Used_AR_residue',
-       '_Used_TransformedForecast', '_Used_TransformedResidue',
-       'Used_Forecast', 'Used_Residue', 'Used_Forecast_Lower_Bound',
+       '_Used_TransformedForecast', 'Used_Forecast',
+       '_Used_TransformedResidue', 'Used_Residue', 'Used_Forecast_Lower_Bound',
        'Used_Forecast_Upper_Bound'],
       dtype='object')
 <class 'pandas.core.frame.DataFrame'>

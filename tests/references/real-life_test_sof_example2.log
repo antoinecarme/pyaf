@@ -133,7 +133,7 @@ INFO:pyaf.std:collectPerformanceIndices : CumSum_dengue_index CumSum_dengue_inde
 INFO:pyaf.std:collectPerformanceIndices : CumSum_dengue_index CumSum_dengue_index_PolyTrend_residue_bestCycle_byL2_residue_NoAR 56 406
 INFO:pyaf.std:collectPerformanceIndices : CumSum_dengue_index CumSum_dengue_index_PolyTrend_residue_zeroCycle_residue_AR(64) 112 406
 INFO:pyaf.std:collectPerformanceIndices : CumSum_dengue_index CumSum_dengue_index_PolyTrend_residue_zeroCycle_residue_NoAR 48 406
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'dengue_index' 7.822070598602295
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'dengue_index' 6.962271213531494
 INFO:pyaf.std:TIME_DETAIL TimeVariable='date' TimeMin=2010-01-01T00:00:00.000000 TimeMax=2014-06-11T00:00:00.000000 TimeDelta=1 days Estimation = (0 , 1623) Validation = (1623 , 2029) Test = (2029 , 2034) Horizon=5
 INFO:pyaf.std:SIGNAL_DETAIL SignalVariable='_dengue_index' Min=0.109196345 Max=0.377576611  Mean=0.202948125425 StdDev=0.0880025847689
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
@@ -149,9 +149,9 @@ INFO:pyaf.std:MODEL_COMPLEXITY 32
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_PLOTTING
-INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 12.968551635742188
+INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 15.409553050994873
 INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.09570670127868652
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.0928192138671875
         Transformation                                              Model  \
 0        _dengue_index  _dengue_index_Lag1Trend_residue_Seasonal_DayOf...   
 1        _dengue_index  _dengue_index_Lag1Trend_residue_Seasonal_DayOf...   
@@ -159,26 +159,26 @@ INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.09570670127868652
 3        _dengue_index  _dengue_index_Lag1Trend_residue_zeroCycle_resi...   
 4        _dengue_index  _dengue_index_Lag1Trend_residue_Seasonal_DayOf...   
 
-   Complexity  FitCount     FitL1     FitL2  FitMAPE  FitMASE  ForecastCount  \
-0         100      1623  0.002217  0.007169   0.0115   0.9305            406   
-1          36      1623  0.002271  0.007229   0.0118   0.9531            406   
-2          68      1623  0.002569  0.009818   0.0136   1.0784            406   
-3          96      1623  0.002320  0.007189   0.0124   0.9737            406   
-4         100      1623  0.002310  0.007173   0.0125   0.9695            406   
+   Complexity  FitCount FitL1 FitL2  FitMAPE  FitMASE  ForecastCount  \
+0         100      1623  None  None   0.0115   0.9305            406   
+1          36      1623  None  None   0.0118   0.9531            406   
+2          68      1623  None  None   0.0136   1.0784            406   
+3          96      1623  None  None   0.0124   0.9737            406   
+4         100      1623  None  None   0.0125   0.9695            406   
 
-   ForecastL1  ForecastL2  ForecastMAPE  ForecastMASE  TestCount    TestL1  \
-0    0.002254    0.008143        0.0130        0.9634          5  0.000652   
-1    0.002300    0.008216        0.0132        0.9833          5  0.000616   
-2    0.002315    0.008221        0.0134        0.9896          5  0.000960   
-3    0.002286    0.008127        0.0135        0.9773          5  0.000779   
-4    0.002291    0.008127        0.0137        0.9794          5  0.000760   
+  ForecastL1 ForecastL2  ForecastMAPE  ForecastMASE  TestCount TestL1 TestL2  \
+0       None       None        0.0130        0.9634          5   None   None   
+1       None       None        0.0132        0.9833          5   None   None   
+2       None       None        0.0134        0.9896          5   None   None   
+3       None       None        0.0135        0.9773          5   None   None   
+4       None       None        0.0137        0.9794          5   None   None   
 
-     TestL2  TestMAPE  TestMASE  
-0  0.000835    0.0057    0.7454  
-1  0.000738    0.0054    0.7048  
-2  0.001207    0.0084    1.0977  
-3  0.001113    0.0068    0.8904  
-4  0.001034    0.0067    0.8687  
+   TestMAPE  TestMASE  
+0    0.0057    0.7454  
+1    0.0054    0.7048  
+2    0.0084    1.0977  
+3    0.0068    0.8904  
+4    0.0067    0.8687  
 Forecast Columns  Index(['_dengue_index', 'date', 'dengue_index', 'row_number',
        'date_Normalized', '_dengue_index_Lag1Trend',
        '_dengue_index_Lag1Trend_residue',
@@ -189,8 +189,8 @@ Forecast Columns  Index(['_dengue_index', 'date', 'dengue_index', 'row_number',
        '_dengue_index_Trend', '_dengue_index_Trend_residue',
        '_dengue_index_Cycle', '_dengue_index_Cycle_residue',
        '_dengue_index_AR', '_dengue_index_AR_residue',
-       '_dengue_index_TransformedForecast', '_dengue_index_TransformedResidue',
-       'dengue_index_Forecast', 'dengue_index_Residue',
+       '_dengue_index_TransformedForecast', 'dengue_index_Forecast',
+       '_dengue_index_TransformedResidue', 'dengue_index_Residue',
        'dengue_index_Forecast_Lower_Bound',
        'dengue_index_Forecast_Upper_Bound'],
       dtype='object')
