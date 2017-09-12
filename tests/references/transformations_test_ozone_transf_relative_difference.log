@@ -29,7 +29,7 @@ INFO:pyaf.std:collectPerformanceIndices : RelDiff_Ozone RelDiff_Ozone_PolyTrend_
 INFO:pyaf.std:collectPerformanceIndices : RelDiff_Ozone RelDiff_Ozone_PolyTrend_residue_bestCycle_byL2_residue_NoAR 56 39
 INFO:pyaf.std:collectPerformanceIndices : RelDiff_Ozone RelDiff_Ozone_PolyTrend_residue_zeroCycle_residue_AR(51) 99 39
 INFO:pyaf.std:collectPerformanceIndices : RelDiff_Ozone RelDiff_Ozone_PolyTrend_residue_zeroCycle_residue_NoAR 48 39
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 3.894775152206421
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 4.845693349838257
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01T00:00:00.000000 TimeMax=1967-09-01T00:00:00.000000 TimeDelta=30 days Estimation = (0 , 153) Validation = (153 , 192) Test = (192 , 204) Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL SignalVariable='RelDiff_Ozone' Min=-0.9999998125 Max=10.0  Mean=0.201269462545 StdDev=1.02611383151
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'RelDiff_'
@@ -45,9 +45,9 @@ INFO:pyaf.std:MODEL_COMPLEXITY 64
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_PLOTTING
-INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 10.904228448867798
+INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 16.044036626815796
 INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.3985893726348877
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.6218020915985107
   Transformation                                              Model  \
 0  RelDiff_Ozone  RelDiff_Ozone_Lag1Trend_residue_zeroCycle_resi...   
 1  RelDiff_Ozone  RelDiff_Ozone_Lag1Trend_residue_Seasonal_Month...   
@@ -55,26 +55,26 @@ INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.3985893726348877
 3  RelDiff_Ozone  RelDiff_Ozone_Lag1Trend_residue_zeroCycle_resi...   
 4  RelDiff_Ozone  RelDiff_Ozone_ConstantTrend_residue_Seasonal_M...   
 
-   Complexity  FitCount       FitL1       FitL2  FitMAPE   FitMASE  \
-0          64       153    0.873203    1.165742   0.2381    0.9935   
-1          68       153    2.927714    4.028572   0.7771    3.3309   
-2          72       153    2.927714    4.028572   0.7771    3.3309   
-3         115       153   75.990941  168.832726  20.2999   86.4568   
-4          87       153  215.819090  655.278024  61.6712  245.5427   
+   Complexity  FitCount FitL1 FitL2  FitMAPE   FitMASE  ForecastCount  \
+0          64       153  None  None   0.2381    0.9935             39   
+1          68       153  None  None   0.7771    3.3309             39   
+2          72       153  None  None   0.7771    3.3309             39   
+3         115       153  None  None  20.2999   86.4568             39   
+4          87       153  None  None  61.6712  245.5427             39   
 
-   ForecastCount    ForecastL1    ForecastL2  ForecastMAPE  ForecastMASE  \
-0             39      0.800000      0.965826        0.2778        1.0305   
-1             39      6.097579      8.022308        1.8931        7.8545   
-2             39      6.097579      8.022308        1.8931        7.8545   
-3             39   4307.447873  11358.334413     1338.1310     5548.5769   
-4             39  18729.928875  30166.177084     5433.1627    24126.6880   
+  ForecastL1 ForecastL2  ForecastMAPE  ForecastMASE  TestCount TestL1 TestL2  \
+0       None       None        0.2778        1.0305         12   None   None   
+1       None       None        1.8931        7.8545         12   None   None   
+2       None       None        1.8931        7.8545         12   None   None   
+3       None       None     1338.1310     5548.5769         12   None   None   
+4       None       None     5433.1627    24126.6880         12   None   None   
 
-   TestCount       TestL1       TestL2   TestMAPE    TestMASE  
-0         12     0.475000     0.573730     0.2132      1.0048  
-1         12     6.830004     7.936996     2.5846     14.4481  
-2         12     6.830004     7.936996     2.5846     14.4481  
-3         12   823.847223  1268.464174   301.0833   1742.7537  
-4         12  8148.337604  8876.850295  3356.5723  17236.8680  
+    TestMAPE    TestMASE  
+0     0.2132      1.0048  
+1     2.5846     14.4481  
+2     2.5846     14.4481  
+3   301.0833   1742.7537  
+4  3356.5723  17236.8680  
 Forecast Columns  Index(['Ozone', 'RelDiff_Ozone', 'Time', 'row_number', 'Time_Normalized',
        'RelDiff_Ozone_Lag1Trend', 'RelDiff_Ozone_Lag1Trend_residue',
        'RelDiff_Ozone_Lag1Trend_residue_zeroCycle',
@@ -84,9 +84,9 @@ Forecast Columns  Index(['Ozone', 'RelDiff_Ozone', 'Time', 'row_number', 'Time_N
        'RelDiff_Ozone_Trend', 'RelDiff_Ozone_Trend_residue',
        'RelDiff_Ozone_Cycle', 'RelDiff_Ozone_Cycle_residue',
        'RelDiff_Ozone_AR', 'RelDiff_Ozone_AR_residue',
-       'RelDiff_Ozone_TransformedForecast', 'RelDiff_Ozone_TransformedResidue',
-       'Ozone_Forecast', 'Ozone_Residue', 'Ozone_Forecast_Lower_Bound',
-       'Ozone_Forecast_Upper_Bound'],
+       'RelDiff_Ozone_TransformedForecast', 'Ozone_Forecast',
+       'RelDiff_Ozone_TransformedResidue', 'Ozone_Residue',
+       'Ozone_Forecast_Lower_Bound', 'Ozone_Forecast_Upper_Bound'],
       dtype='object')
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 216 entries, 0 to 215
