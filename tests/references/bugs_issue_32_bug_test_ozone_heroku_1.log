@@ -1,5 +1,9 @@
 INFO:pyaf.std:START_TRAINING 'Ozone'
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 3.0191802978515625
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 1.7729573249816895
+INFO:pyaf.std:START_FORECASTING
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.35552144050598145
+INFO:pyaf.std:START_FORECASTING
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.443997859954834
 REQUEST_DETAILS [('CSVFile', 'https://raw.githubusercontent.com/antoinecarme/TimeSeriesData/master/ozone-la.csv'), ('DateFormat', '%Y-%m'), ('Horizon', 12), ('Name', 'model1'), ('Present', '1968-08'), ('SignalVar', 'Ozone'), ('TimeVar', 'Month')]
 None
 DATASET_DETECTED_COLUMNS Index(['Month', 'Ozone'], dtype='object')
@@ -12,26 +16,12 @@ TRAIN_PARAMS (164, 2) Index(['Month', 'Ozone'], dtype='object') Month Ozone 12
 3         _Ozone  _Ozone_PolyTrend_residue_bestCycle_byL2_residu...   
 4         _Ozone  _Ozone_Lag1Trend_residue_Seasonal_MonthOfYear_...   
 
-   Complexity  FitCount     FitL1     FitL2  FitMAPE  FitMASE  ForecastCount  \
-0          11       121  0.618593  0.812212   0.1645   0.7097             31   
-1          15       121  0.618593  0.812212   0.1645   0.7097             31   
-2          27       121  0.606695  0.773386   0.1594   0.6960             31   
-3          31       121  0.606695  0.773386   0.1594   0.6960             31   
-4          43       121  0.641320  0.836489   0.1701   0.7357             31   
-
-   ForecastL1  ForecastL2  ForecastMAPE  ForecastMASE  TestCount    TestL1  \
-0    0.653483    0.822407        0.2113        0.7315         12  0.786901   
-1    0.653483    0.822407        0.2113        0.7315         12  0.786901   
-2    0.748843    0.889046        0.2225        0.8383         12  0.777760   
-3    0.748843    0.889046        0.2225        0.8383         12  0.777760   
-4    0.709715    0.864423        0.2235        0.7945         12  0.800706   
-
-     TestL2  TestMAPE  TestMASE  
-0  1.015234    0.2264    0.9512  
-1  1.015234    0.2264    0.9512  
-2  0.996898    0.2245    0.9401  
-3  0.996898    0.2245    0.9401  
-4  1.045400    0.2255    0.9679  
+   Complexity  FitMAPE  ForecastMAPE  TestMAPE  
+0          11   0.1645        0.2113    0.2264  
+1          15   0.1645        0.2113    0.2264  
+2          27   0.1594        0.2225    0.2245  
+3          31   0.1594        0.2225    0.2245  
+4          43   0.1701        0.2235    0.2255  
 Forecast Columns  Index(['Month', 'Ozone', '_Ozone', 'row_number', 'Month_Normalized',
        '_Ozone_ConstantTrend', '_Ozone_ConstantTrend_residue',
        '_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear',
@@ -40,9 +30,9 @@ Forecast Columns  Index(['Month', 'Ozone', '_Ozone', 'row_number', 'Month_Normal
        '_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_AR(7)_residue',
        '_Ozone_Trend', '_Ozone_Trend_residue', '_Ozone_Cycle',
        '_Ozone_Cycle_residue', '_Ozone_AR', '_Ozone_AR_residue',
-       '_Ozone_TransformedForecast', '_Ozone_TransformedResidue',
-       'Ozone_Forecast', 'Ozone_Residue', 'Ozone_Forecast_Lower_Bound',
-       'Ozone_Forecast_Upper_Bound'],
+       '_Ozone_TransformedForecast', 'Ozone_Forecast',
+       '_Ozone_TransformedResidue', 'Ozone_Residue',
+       'Ozone_Forecast_Lower_Bound', 'Ozone_Forecast_Upper_Bound'],
       dtype='object')
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 176 entries, 0 to 175
