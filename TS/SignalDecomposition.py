@@ -604,6 +604,7 @@ class cSignalDecomposition:
 
         # Prediction Intervals
         pred_interval_start_time = time.time()
+        self.mBestModel.updatePerfs(compute_all_indicators = True);
         self.mBestModel.computePredictionIntervals();
         if(self.mOptions.mDebugProfile):
             logger.info("PREDICTION_INTERVAL_TIME_IN_SECONDS "  + str(iSignal) + " " + str(time.time() - pred_interval_start_time))

@@ -42,7 +42,7 @@ class cTimeSeriesModel:
         lComplexity = 32 * self.mTransformation.mComplexity +  16 * self.mTrend.mComplexity + 4 * self.mCycle.mComplexity + 1 * self.mAR.mComplexity;
         return lComplexity;     
 
-    def updatePerfs(self):
+    def updatePerfs(self, compute_all_indicators = False):
         self.mModelFrame = pd.DataFrame();
         lSignal = self.mTrend.mSignalFrame[self.mSignal]
         N = lSignal.shape[0];
@@ -57,20 +57,32 @@ class cTimeSeriesModel:
         lTestPerf = tsperf.cPerf();
         # self.mModelFrame.to_csv(self.mOutName + "_model_perf.csv");
         (lFrameFit, lFrameForecast, lFrameTest) = self.mTrend.mTimeInfo.cutFrame(self.mModelFrame);
-        lFitPerf.computeCriterion(lFrameFit[self.mOriginalSignal] , lFrameFit[lForecastColumnName] ,
-                                  self.mTimeInfo.mOptions.mModelSelection_Criterion,
-                                  self.mOutName + '_Fit')
-        lForecastPerf.computeCriterion(lFrameForecast[self.mOriginalSignal] , lFrameForecast[lForecastColumnName],
+
+
+        if(compute_all_indicators):
+            lFitPerf.compute(lFrameFit[self.mOriginalSignal] , lFrameFit[lForecastColumnName] ,
+                             self.mOutName + '_Fit')
+            lForecastPerf.compute(lFrameForecast[self.mOriginalSignal] ,
+                                  lFrameForecast[lForecastColumnName],
+                                  self.mOutName + '_Forecast')
+            lTestPerf.compute(lFrameTest[self.mOriginalSignal] , lFrameTest[lForecastColumnName],
+                              self.mOutName + '_Test')            
+            pass
+        else:
+            lFitPerf.computeCriterion(lFrameFit[self.mOriginalSignal] , lFrameFit[lForecastColumnName] ,
+                                      self.mTimeInfo.mOptions.mModelSelection_Criterion,
+                                      self.mOutName + '_Fit')
+            lForecastPerf.computeCriterion(lFrameForecast[self.mOriginalSignal] , lFrameForecast[lForecastColumnName],
+                                           self.mTimeInfo.mOptions.mModelSelection_Criterion,
+                                           self.mOutName + '_Forecast')
+            lTestPerf.computeCriterion(lFrameTest[self.mOriginalSignal] , lFrameTest[lForecastColumnName],
                                        self.mTimeInfo.mOptions.mModelSelection_Criterion,
-                                       self.mOutName + '_Forecast')
-        lTestPerf.computeCriterion(lFrameTest[self.mOriginalSignal] , lFrameTest[lForecastColumnName],
-                                   self.mTimeInfo.mOptions.mModelSelection_Criterion,
-                                   self.mOutName + '_Test')
+                                       self.mOutName + '_Test')
+            
         self.mFitPerf = lFitPerf
         self.mForecastPerf = lForecastPerf;
         self.mTestPerf = lTestPerf;
         # print("PERF_COMPUTATION" , self.mOutName, self.mFitPerf.mMAPE);
-        # self.computePredictionIntervals();
         
     def computePredictionIntervals(self):
         # prediction intervals
