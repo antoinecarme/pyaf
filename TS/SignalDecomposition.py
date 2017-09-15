@@ -184,40 +184,6 @@ class cSignalDecompositionOneTransform:
         self.mBestModel = self.mPerfsByModel[lBestName][0];
         return self.mBestModel;
     
-    def collectPerformanceIndices_ModelSelection_2(self) :
-        rows_list = [];
-
-        logger = tsutil.get_pyaf_logger();
-        
-        for name in sorted(self.mPerfsByModel.keys()):
-            lModel = self.mPerfsByModel[name][0];
-            lComplexity = self.mPerfsByModel[name][1];
-            lFitPerf = self.mPerfsByModel[name][2];
-            lForecastPerf = self.mPerfsByModel[name][3];
-            lTestPerf = self.mPerfsByModel[name][4];
-            row = [lModel.mOutName , lComplexity,
-                   lFitPerf.getCriterionValue(self.mOptions.mModelSelection_Criterion),
-                   lForecastPerf.getCriterionValue(self.mOptions.mModelSelection_Criterion),
-                   lTestPerf.getCriterionValue(self.mOptions.mModelSelection_Criterion)]
-            rows_list.append(row);
-            if(self.mOptions.mDebugPerformance):
-                logger.debug("collectPerformanceIndices_ModelSelection : " + str(row));
-                
-        self.mPerfDetails = pd.DataFrame(rows_list, columns=
-                                         ('Model', 'Complexity',
-                                          'Fit' + self.mOptions.mModelSelection_Criterion,
-                                          'Forecast' + self.mOptions.mModelSelection_Criterion,
-                                          'Test' + self.mOptions.mModelSelection_Criterion))
-        self.mPerfDetails.sort_values(by=['Forecast' + self.mOptions.mModelSelection_Criterion ,
-                                          'Complexity', 'Model'] ,
-                                      ascending=[True, True, True],
-                                      inplace=True);
-        self.mPerfDetails = self.mPerfDetails.reset_index(drop=True);
-        # print(self.mPerfDetails.head());
-        lBestName = self.mPerfDetails.iloc[0]['Model'];
-        self.mBestModel = self.mPerfsByModel[lBestName][0];
-        return self.mBestModel;
-    
 
     def run_gc(self):
         import gc
@@ -574,7 +540,20 @@ class cSignalDecomposition:
             if(type1 != type3):
                 raise tsutil.PyAF_Error("PYAF_ERROR_INCOMPATIBLE_TIME_COLUMN_TYPE_IN_EXOGENOUS '" + str(iTime) + "' '" + str(type1)  + "' '" + str(type3) + "'");
                 
-            
+
+    def cleanup_after_model_selection(self):
+        lBestTransformationName = self.mBestModel.mTransformation.get_name("")
+        lSigDecByTransform = {}
+        for (name, sigdec) in self.mSigDecByTransform.items():
+            if(name == lBestTransformationName):
+                for modelname in sigdec.mPerfsByModel.keys():
+                    # store only model names here.
+                    sigdec.mPerfsByModel[modelname][0] = modelname
+                    lSigDecByTransform[name]  = sigdec                
+        # delete failing transformations
+        del self.mSigDecByTransform
+        self.mSigDecByTransform = lSigDecByTransform
+        
 
     # @profile
     def train(self , iInputDS, iTime, iSignal, iHorizon, iExogenousData = None):
@@ -600,7 +579,8 @@ class cSignalDecomposition:
             self.collectPerformanceIndices();
         else:
             self.collectPerformanceIndices_ModelSelection();
-            
+
+        self.cleanup_after_model_selection();
 
         # Prediction Intervals
         pred_interval_start_time = time.time()
