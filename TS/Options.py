@@ -138,6 +138,7 @@ class cSignalDecomposition_Options(cModelControl):
         self.set_active_autoregressions(self.mKnownAutoRegressions);
         
         self.mMaxAROrder = 64;
+        self.mFilterSeasonals = False
 
     def enable_fast_mode(self):
         self.mQuantiles = [5, 10, 20]; # quintiles, deciles, and vingtiles;)
@@ -147,6 +148,7 @@ class cSignalDecomposition_Options(cModelControl):
         self.mCycleLengths = [5, 7, 12, 24 , 30, 60];
 
         self.mMaxAROrder = 64;
+        self.mFilterSeasonals = True
 
 
     # Add a low-memory mode for Heroku #25
@@ -154,6 +156,7 @@ class cSignalDecomposition_Options(cModelControl):
         self.mMaxAROrder = 7;
         self.set_active_transformations(['None']);
         self.mParallelMode = False;
+        self.mFilterSeasonals = True
         
     '''
     Cannot yet build keras models in parallel/multiprocessing in some cases
