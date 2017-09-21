@@ -294,14 +294,15 @@ class cCycleEstimator:
                 self.mCycleList[trend] = self.mCycleList[trend] + [
                     cBestCycleForTrend(trend, self.mOptions.mCycle_Criterion)];
             if(self.mTimeInfo.isPhysicalTime()):
+                # The order used here is mandatory. see filterSeasonals before changing this order.
                 self.addSeasonal(trend, "MonthOfYear", self.mTimeInfo.RES_MONTH);
+                self.addSeasonal(trend, "WeekOfYear", self.mTimeInfo.RES_DAY);
                 self.addSeasonal(trend, "DayOfMonth", self.mTimeInfo.RES_DAY);
+                self.addSeasonal(trend, "DayOfWeek", self.mTimeInfo.RES_DAY);
                 self.addSeasonal(trend, "Hour", self.mTimeInfo.RES_HOUR);
                 self.addSeasonal(trend, "Minute", self.mTimeInfo.RES_MINUTE);
                 self.addSeasonal(trend, "Second", self.mTimeInfo.RES_SECOND);
 
-                self.addSeasonal(trend, "WeekOfYear", self.mTimeInfo.RES_DAY);
-                self.addSeasonal(trend, "DayOfWeek", self.mTimeInfo.RES_DAY);
                 
         for trend in self.mTrendList:
             if(len(self.mCycleList[trend]) == 0):
@@ -358,7 +359,41 @@ class cCycleEstimator:
                     logger.info("CYCLE_TRAINING_TIME_IN_SECONDS '" + cycle.mOutName + "' " + str(lTrainingTime))
         pass
 
+
+    def filterSeasonals(self):
+        logger = tsutil.get_pyaf_logger();
+        logger.debug("CYCLE_TRAINING_FILTER_SEASONALS_START")
+        for trend in self.mTrendList:
+            lPerfs = {}
+            lTrend_residue_name = trend.mOutName + '_residue'
+            lCycleList = []
+            lSeasonals = []
+            for cycle in self.mCycleList[trend]:
+                if(isinstance(cycle , cSeasonalPeriodic)):
+                    cycle.computePerf();
+                    lPerfs[cycle.mOutName] = cycle.mCycleForecastPerf.getCriterionValue(self.mOptions.mCycle_Criterion)
+                    lSeasonals = lSeasonals + [cycle]
+                else:
+                    lCycleList = lCycleList + [cycle]
+            
+            if(len(lSeasonals) == 0):
+                return
+            lBestCriterion = None
+            lBestSeasonal = None
+            for (k,cycle) in enumerate(lSeasonals):
+                lCriterionValue = lPerfs[cycle.mOutName]
+                if((lBestCriterion is None) or (lCriterionValue < (1.05 * lBestCriterion))):
+                    lBestSeasonal = cycle
+                    lBestCriterion = lCriterionValue;
+            lCycleList = lCycleList + [lBestSeasonal]
+            self.mCycleList[trend] = lCycleList
+            logger.info("CYCLE_TRAINING_FILTER_SEASONALS " + trend.mOutName + " " + lBestSeasonal.mOutName)
+        logger.debug("CYCLE_TRAINING_FILTER_SEASONALS_END")
+        pass
+
     def estimateAllCycles(self):
         self.defineCycles();
         self.estimateCycles()
+        if(self.mOptions.mFilterSeasonals):
+            self.filterSeasonals()
         
