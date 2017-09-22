@@ -387,7 +387,7 @@ class cCycleEstimator:
                     lBestCriterion = lCriterionValue;
             lCycleList = lCycleList + [lBestSeasonal]
             self.mCycleList[trend] = lCycleList
-            logger.info("CYCLE_TRAINING_FILTER_SEASONALS " + trend.mOutName + " " + lBestSeasonal.mOutName)
+            logger.debug("CYCLE_TRAINING_FILTER_SEASONALS " + trend.mOutName + " " + lBestSeasonal.mOutName)
         logger.debug("CYCLE_TRAINING_FILTER_SEASONALS_END")
         pass
 
