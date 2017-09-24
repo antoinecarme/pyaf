@@ -12,6 +12,7 @@ import datetime
 from . import Time as tsti
 from . import Perf as tsperf
 from . import Plots as tsplot
+from . import Utils as tsutil
 
 import sklearn as skl
 import sklearn.preprocessing as preprocessing
