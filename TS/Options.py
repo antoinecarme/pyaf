@@ -166,11 +166,16 @@ class cSignalDecomposition_Options(cModelControl):
     def  canBuildKerasModel(self, iModel):
         try:
             import keras
+            import keras
+            from keras import callbacks
+            from keras.models import Sequential
+            from keras.layers import Dense, Dropout
+            from keras.layers import LSTM
             lBackEnd = keras.backend.backend()
             if((lBackEnd == "tensorflow") and (self.mParallelMode)):
                 return False;
             else:
                 return True;
         except:
-            return True;
+            return False;
 
