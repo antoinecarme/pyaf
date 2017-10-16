@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import pickle
 import datetime
+import sys
 
 
 def get_bench_logger():
@@ -52,6 +53,7 @@ class cProjectData:
         print(df.head())
         print(df.tail())
         logger.info("PROJECT_DUMP_END " + self.mName)
+        sys.stdout.flush()
         
 class cDataExtractor:
     def __init__(self):
