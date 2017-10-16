@@ -37,28 +37,29 @@ def set_pyaf_logger(log_filename):
     import logging.config
     pyaf_logger = logging.getLogger('pyaf.std')
     pyaf_logger.setLevel(logging.DEBUG)
-    # handler = logging.FileHandler(log_filename)    
-    # pyaf_logger.addHandler(handler)
+    pyaf_logger.handlers = []
+    handler = logging.FileHandler(log_filename)    
+    pyaf_logger.addHandler(handler)
     pass
 
 def run_bench_process(a):
-    print("STARTING_BENCH_FOR_SIGNAL" , a.mBenchName, a.mSignal, a.mHorizon);
-
-    createDirIfNeeded("logs");
-    createDirIfNeeded("logs/" + a.mBenchName);
-    logfilename = "logs/" + a.mBenchName + "/PyAF_" + a.getName()+ ".log";
-    logfile = open(logfilename, 'w');    
-    sys.stdout = logfile    
-    sys.stderr = logfile
-    set_pyaf_logger(logfilename)
-    
     try:
+        print("STARTING_BENCH_FOR_SIGNAL" , a.mBenchName, a.mSignal, a.mHorizon);
+
+        createDirIfNeeded("logs");
+        createDirIfNeeded("logs/" + a.mBenchName);
+        logfilename = "logs/" + a.mBenchName + "/PyAF_" + a.getName()+ ".log";
+        logfile = open(logfilename, 'w');    
+    
+        sys.stdout = logfile    
+        sys.stderr = logfile
+        set_pyaf_logger(logfilename)
         tester = cGeneric_OneSignal_Tester(a.mTSSpec , a.mBenchName);
+        a.mResult = tester;
         tester.mTestCodeGeneration = False;
         tester.mParallelMode = False;
         tester.testSignal(a.mSignal, a.mHorizon)
         print("BENCHMARK_SUCCESS '" + a.getName() + "'");
-        a.mResult = tester;
     except cBenchmarkError as error:
         print("BENCHMARKING_ERROR '" + a.getName() + "' : " + str(error));
     except MemoryError:
@@ -66,9 +67,9 @@ def run_bench_process(a):
     except:
         print("BENCHMARK_FAILURE '" + a.getName() + "'");
         # raise
-    logfile.close();
     sys.stdout = sys.__stdout__
     sys.stderr = sys.__stderr__
+    logfile.close();
     return a;
 
 class cGeneric_Tester_Arg:
