@@ -58,11 +58,18 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
                 df1.columns = self.mInputNames
                 df1['TGT'] = lARTarget;
                 # df1.to_csv("SCIKIT_MODEL_FEATURE_SELECTION_FAILURE.csv.gz" , compression='gzip');
+            # issue  #72 : ignore feature selection in case of failure.
+            self.mFeatureSelector = None
+
+        if(self.mFeatureSelector):
+            lARInputsAfterSelection =  self.mFeatureSelector.transform(lARInputs);
+            # print(self.mInputNames , self.mFeatureSelector.get_support(indices=True));
+            lSupport = self.mFeatureSelector.get_support(indices=True);
+            self.mInputNamesAfterSelection = [self.mInputNames[k] for k in lSupport];
+        else:
+            lARInputsAfterSelection = lARInputs;
+            self.mInputNamesAfterSelection = self.mInputNames;
             
-        lARInputsAfterSelection =  self.mFeatureSelector.transform(lARInputs);
-        # print(self.mInputNames , self.mFeatureSelector.get_support(indices=True));
-        lSupport = self.mFeatureSelector.get_support(indices=True);
-        self.mInputNamesAfterSelection = [self.mInputNames[k] for k in lSupport];
         assert(len(self.mInputNamesAfterSelection) == lARInputsAfterSelection.shape[1]);
         # print("FEATURE_SELECTION" , self.mOutName, lARInputs.shape[1] , lARInputsAfterSelection.shape[1]);
         del lARInputs;
@@ -85,7 +92,7 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
 
         if(self.mScikitModel is not None):
             lFullARInputs = self.mARFrame[self.mInputNames].values;
-            lFullARInputsAfterSelection =  self.mFeatureSelector.transform(lFullARInputs);
+            lFullARInputsAfterSelection =  self.mFeatureSelector.transform(lFullARInputs) if self.mFeatureSelector else lFullARInputs;
             lPredicted = self.mScikitModel.predict(lFullARInputsAfterSelection);
             self.mARFrame[self.mOutName] = lPredicted
         else:
@@ -110,7 +117,7 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
         # print(self.mFormula, "\n", lag_df.columns);
         # lag_df.to_csv("LAGGED_ " + str(self.mNbLags) + ".csv");
         inputs = lag_df[self.mInputNames].values
-        inputs_after_feat_selection = self.mFeatureSelector.transform(inputs);
+        inputs_after_feat_selection = self.mFeatureSelector.transform(inputs) if self.mFeatureSelector else inputs;
         if(self.mScikitModel is not None):
             pred = self.mScikitModel.predict(inputs_after_feat_selection)
             df[self.mOutName] = pred;
