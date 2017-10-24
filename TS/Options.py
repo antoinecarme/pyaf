@@ -129,8 +129,9 @@ class cSignalDecomposition_Options(cModelControl):
         self.mQuantiles = [5, 10, 20]; # quintiles, deciles, and vingtiles;)
         self.mMovingAverageLengths = [5, 7, 12, 24 , 30, 60];
         self.mMovingMedianLengths = [5, 7, 12, 24 , 30, 60];
-        
-        self.mCycleLengths = [5, 7, 12, 24 , 30, 60];
+        # PyAF does not detect complex seasonal patterns #73.
+        # use unlimited cycle lengths in slow mode
+        self.mCycleLengths = None;
 
         self.set_active_transformations(self.mKnownTransformations);
         self.set_active_trends(self.mKnownTrends);
