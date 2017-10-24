@@ -34,7 +34,7 @@ class cPerf:
             raise tsutil.Internal_PyAF_Error("INVALID_COLUMN _FOR_PERF ['" + self.mName + "'] '" + name + "'");
         pass
 
-    def compute_MAPE_SMAPE(self, signal , estimator):
+    def compute_MAPE_SMAPE_MASE(self, signal , estimator):
         self.mMAPE = None;
         self.mSMAPE = None;
         self.mMASE = None;
@@ -101,7 +101,7 @@ class cPerf:
         signal_std = np.std(signal);
         estimator_std = np.std(estimator);
 
-        self.compute_MAPE_SMAPE(signal, estimator);
+        self.compute_MAPE_SMAPE_MASE(signal, estimator);
 
         myerror = (estimator.values - signal.values);
         abs_error = abs(myerror)
@@ -143,18 +143,22 @@ class cPerf:
             return self.mAE;
         
         if(criterion == "MAPE"):
-            self.compute_MAPE_SMAPE(signal , estimator);
+            self.compute_MAPE_SMAPE_MASE(signal , estimator);
+            return self.mMAPE;
+
+        if(criterion == "SMAPE"):
+            self.compute_MAPE_SMAPE_MASE(signal , estimator);
             return self.mSMAPE;
 
         if(criterion == "MASE"):
-            self.compute_MAPE_SMAPE(signal , estimator);
+            self.compute_MAPE_SMAPE_MASE(signal , estimator);
             return self.mMASE;
 
         if(criterion == "COUNT"):
             return self.mCount;
         
-        self.compute_MAPE_SMAPE(signal , estimator);
-        return self.mMAPE;
+        assert(0)
+        return 0.0;
 
     def getCriterionValue(self, criterion):
         if(criterion == "L1"):
@@ -169,9 +173,14 @@ class cPerf:
             return self.mAE;
         if(criterion == "SMAPE"):
             return self.mSMAPE;
+        if(criterion == "MAPE"):
+            return self.mMAPE;
+        if(criterion == "MASE"):
+            return self.mMASE;
         if(criterion == "COUNT"):
             return self.mCount;
-        return self.mMAPE;
+        assert(0)
+        return 0.0;
 
         
 #def date_to_number(x):
