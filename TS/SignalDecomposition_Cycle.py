@@ -208,10 +208,10 @@ class cBestCycleForTrend(cAbstractCycle):
         self.mDefaultValue = lCycleFrameEstim[self.mTrend_residue_name].mean();
         del lCycleFrameEstim;
         self.mCyclePerfDict = {}
-        lMaxRobustCycle = self.mTrendFrame.shape[0]/12;
+        lMaxRobustCycle = self.mTrendFrame.shape[0]//12;
         # print("MAX_ROBUST_CYCLE_LENGTH", self.mTrendFrame.shape[0], lMaxRobustCycle);
-        
-        for i in self.mOptions.mCycleLengths:
+        lCycleLengths = self.mOptions.mCycleLengths or range(2,lMaxRobustCycle + 1)
+        for i in lCycleLengths:
             if ((i > 1) and (i <= lMaxRobustCycle)):
                 lCycleFrame = pd.DataFrame();
                 lCycleFrame[self.mTrend_residue_name ] = self.mTrendFrame[self.mTrend_residue_name]
