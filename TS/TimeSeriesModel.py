@@ -196,6 +196,15 @@ class cTimeSeriesModel:
         # print(df1.head())
         if(self.mTimeInfo.mOptions.mAddPredictionIntervals):
             df1 = self.addPredictionIntervals(df, df1, iHorizon);
+        if(self.mTimeInfo.mOptions.mForecastRectifier is not None):
+            df1 = self.applyForecastRectifier(df1)
+        return df1
+
+    def applyForecastRectifier(self, df):
+        df1 = df;
+        if(self.mTimeInfo.mOptions.mForecastRectifier == "relu"):
+            lForecastColumnName = str(self.mOriginalSignal) + "_Forecast";
+            df1[lForecastColumnName] = df1[lForecastColumnName].apply(lambda x : max(x, 0))
         return df1
 
     def addPredictionIntervals(self, iInputDS, iForecastFrame, iHorizon):
