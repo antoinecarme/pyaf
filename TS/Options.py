@@ -116,6 +116,7 @@ class cSignalDecomposition_Options(cModelControl):
         self.mCycle_Criterion = "L2";
         self.mCycle_Criterion_Threshold = None;
         self.mHierarchicalCombinationMethod = "BU";
+        self.mForecastRectifier = None # can be "relu" to force positive forecast values
         self.disableDebuggingOptions();
 
     def disableDebuggingOptions(self):
