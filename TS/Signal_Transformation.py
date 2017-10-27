@@ -9,8 +9,10 @@ import numpy as np
 import datetime
 from . import Utils as tsutil
 
-def testTranform(tr1):
+
+def testTransform_one_seed(tr1 , seed_value):
     df = pd.DataFrame();
+    np.random.seed(seed_value)
     df['A'] = np.random.normal(0, 1.0, 10);
     # df['A'] = range(1, 6000);
     sig = df['A'];
@@ -31,6 +33,11 @@ def testTranform(tr1):
         print(sig2.values)    
 
     assert(n <= lEps)    
+
+
+def testTransform(tr1):
+    for seed_value in range(0,10,100):
+        testTransform_one_seed(tr1, seed_value)
 
 class cAbstractSignalTransform:
     def __init__(self):
@@ -113,7 +120,7 @@ class cAbstractSignalTransform:
     def test(self):
         # import copy;
         # tr1 = copy.deepcopy(self);
-        # testTranform(tr1);
+        # testTransform(tr1);
         pass
 
     def dump_apply_invert(self, df_before_apply, df_after_apply):
@@ -171,7 +178,7 @@ class cSignalTransform_Accumulate(cAbstractSignalTransform):
     
     def specific_invert(self, df):
         df_orig = df - df.shift(1);
-        df_orig.iloc[0] = df.iloc[0];
+        df_orig.iloc[0] = 0.0;
         return df_orig;
 
 
@@ -311,7 +318,7 @@ class cSignalTransform_RelativeDifferencing(cAbstractSignalTransform):
 
     def specific_apply(self, df):
         lEps = 1e-8
-        # print("RelDiff_apply_DEBUG" , self.mFirstValue, df.values);
+        # print("RelDiff_apply_DEBUG_START" , self.mFirstValue, df.values[0:10]);
         df1 = df.apply(lambda x : x if (abs(x) > lEps) else lEps)
         df_shifted = df1.shift(1)
         # df_shifted[df_shifted <= lEps] = lEps
@@ -319,12 +326,12 @@ class cSignalTransform_RelativeDifferencing(cAbstractSignalTransform):
         rate.iloc[0] = 0.0;
         # print(df1)
         # print(df_shifted)
-        # print(rate)
         rate = rate.clip(-1.0e+8 , +1.0e+8)
+        # print("RelDiff_apply_DEBUG_END" , rate[0:10]);
         return rate;
     
     def specific_invert(self, df):
-        # print("RelDiff_invert_DEBUG" , self.mFirstValue, df.values);
+        # print("RelDiff_invert_DEBUG_START" , self.mFirstValue, df.values[0:10]);
         rate = df + 1;
         rate = rate.clip(-1.0e+8 , +1.0e+8)
         rate_cum = rate.cumprod();
@@ -332,7 +339,7 @@ class cSignalTransform_RelativeDifferencing(cAbstractSignalTransform):
         df_orig = self.mFirstValue * df_orig;
         # print("rate" , rate)
         # print("rate_cum", rate_cum)
-        # print(df_orig)
+        # print("RelDiff_invert_DEBUG_START" , df_orig[0:10])
         return df_orig;
 
 
