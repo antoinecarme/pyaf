@@ -219,11 +219,11 @@ class cSignalHierarchy:
         logger.info("END_HIERARCHICAL_PLOTTING_TIME_IN_SECONDS " + str(lPlotTime))
 
     
-    def standrdPlots(self , name = None):
+    def standardPlots(self , name = None):
         for level in sorted(self.mModels.keys()):
             for signal in sorted(self.mModels[level].keys()):
                 lEngine = self.mModels[level][signal];
-                lEngine.standrdPlots(name + "_Hierarchy_Level_Signal_" + str(level) + "_" + str(signal));
+                lEngine.standardPlots(name + "_Hierarchy_Level_Signal_" + str(level) + "_" + str(signal));
 
 
     def forecastAllModels(self, iAllLevelsDataset, H, iDateColumn):
