@@ -189,8 +189,15 @@ class cTimeSeriesModel:
 
         assert((N0 + iHorizon) == df1.shape[0])
         N1 = df1.shape[0];
+        lPrefix = self.mSignal + "_";
         for h in range(0 , iHorizon):
+            df1.loc[N1 - 1 - h, self.mSignal] = np.nan;
             df1.loc[N1 - 1 - h, self.mOriginalSignal] = np.nan;
+            df1.loc[N1 - 1 - h, lPrefix + 'Trend_residue'] =  np.nan;
+            df1.loc[N1 - 1 - h, lPrefix + 'Cycle_residue'] = np.nan;
+            df1.loc[N1 - 1 - h, lPrefix + 'AR_residue'] = np.nan;
+            df1.loc[N1 - 1 - h, self.mOriginalSignal + '_Residue'] = np.nan;
+            df1.loc[N1 - 1 - h, lPrefix + 'TransformedResidue'] = np.nan;
             pass
         # print(df.head())
         # print(df1.head())
@@ -264,25 +271,26 @@ class cTimeSeriesModel:
         lOutput = self.forecast(lInput ,  self.mTimeInfo.mHorizon);
         return lOutput
 
-    def plotResidues(self, name = None):
+    def plotResidues(self, name = None, format = 'png'):
         df = self.getForecastDatasetForPlots();
         lTime = self.mTimeInfo.mTime; # NormalizedTimeColumn;
         lPrefix = self.mSignal + "_";
         lPrefix2 = str(self.mOriginalSignal) + "_";
         if(name is not None):
-            tsplot.decomp_plot(df, lTime, self.mSignal, lPrefix + 'Trend' , lPrefix + 'Trend_residue', name = name + "_trend");
-            tsplot.decomp_plot(df, lTime, lPrefix + 'Trend_residue' , lPrefix + 'Cycle', lPrefix + 'Cycle_residue', name = name + "_cycle");
-            tsplot.decomp_plot(df, lTime, lPrefix + 'Cycle_residue' , lPrefix + 'AR' , lPrefix + 'AR_residue', name = name + "_AR");
-            tsplot.decomp_plot(df, lTime, self.mSignal, lPrefix + 'TransformedForecast' , lPrefix + 'TransformedResidue', name = name + "_transformed_forecast");
-            tsplot.decomp_plot(df, lTime, self.mOriginalSignal, lPrefix2 + 'Forecast' , lPrefix2 + 'Residue', name = name + "_forecast");
+            tsplot.decomp_plot(df, lTime, self.mSignal, lPrefix + 'Trend' , lPrefix + 'Trend_residue', name = name + "_trend" , format=format);
+            tsplot.decomp_plot(df, lTime, lPrefix + 'Trend_residue' , lPrefix + 'Cycle', lPrefix + 'Cycle_residue', name = name + "_cycle" , format=format);
+            tsplot.decomp_plot(df, lTime, lPrefix + 'Cycle_residue' , lPrefix + 'AR' , lPrefix + 'AR_residue', name = name + "_AR" , format=format);
+            tsplot.decomp_plot(df, lTime, self.mSignal, lPrefix + 'TransformedForecast' , lPrefix + 'TransformedResidue', name = name + "_transformed_forecast" , format=format);
+            tsplot.decomp_plot(df, lTime, self.mOriginalSignal, lPrefix2 + 'Forecast' , lPrefix2 + 'Residue', name = name + "_forecast" , format=format);
         else:
             tsplot.decomp_plot(df, lTime, self.mSignal, lPrefix + 'Trend' , lPrefix + 'Trend_residue');
             tsplot.decomp_plot(df, lTime, lPrefix + 'Trend_residue' , lPrefix + 'Cycle', lPrefix + 'Cycle_residue');
             tsplot.decomp_plot(df, lTime, lPrefix + 'Cycle_residue' , lPrefix + 'AR' , lPrefix + 'AR_residue');
-            tsplot.decomp_plot(df, lTime, self.mSignal, lPrefix2 + 'Forecast' , lPrefix2 + 'Residue');
+            tsplot.decomp_plot(df, lTime, self.mSignal, lPrefix + 'TransformedForecast' , lPrefix + 'TransformedResidue');
+            tsplot.decomp_plot(df, lTime, self.mOriginalSignal, lPrefix2 + 'Forecast' , lPrefix2 + 'Residue');
         
-    def standrdPlots(self, name = None):
-        self.plotResidues(name = name);
+    def standardPlots(self, name = None, format = 'png'):
+        self.plotResidues(name = name, format=format);
         lInput = self.mTrend.mSignalFrame;
         lOutput = self.forecast(lInput ,  self.mTimeInfo.mHorizon);
         # print(lOutput.columns)
@@ -296,7 +304,8 @@ class cTimeSeriesModel:
                                         lForecastColumn  ,
                                         lForecastColumn + '_Lower_Bound',
                                         lForecastColumn + '_Upper_Bound',
-                                        name = name);
+                                        name = name,
+                                        format= format);
         #lOutput.plot()
         
     def getPlotsAsDict(self):
