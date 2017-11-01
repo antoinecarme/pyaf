@@ -202,12 +202,13 @@ def gen_trend(N , trendtype):
     b = (2 * np.random.random() - 1);
     c = (2 * np.random.random() - 1);
     print("TREND" , a , b ,c);
-    if(trendtype == "constant"):
+    lTrend = 0
+    if(trendtype == "ConstantTrend"):
         lTrend = a
-    if(trendtype == "linear"):
+    if(trendtype == "LinearTrend"):
         x = np.arange(0,N) / N ;
         lTrend =  a * x + b;
-    if(trendtype == "poly"):
+    if(trendtype == "PolyTrend"):
         x = np.arange(0,N) / N;
         lTrend =  a * x * x + b * x + c;
     # lTrend.plot();
@@ -235,7 +236,18 @@ def gen_ar(N , ar_order):
     if(ar_order == 0):
         lAR = 0;
     return lAR;
-    
+
+def apply_transform(signal , transform):
+    import pyaf.TS.Signal_Transformation as tstransf
+    arg = None
+    if(transform == "Quantization"):
+        arg = 10
+    if(transform == "BoxCox"):
+        arg = 0
+    tr = tstransf.create_tranformation(transform , arg)
+    tr.fit(signal)
+    transformed = tr.invert(signal)
+    return transformed
 
 def generate_random_TS(N , FREQ, seed, trendtype, cycle_length, transform, sigma = 1.0, exog_count = 20, ar_order = 0) :
     tsspec = cTimeSeriesDatasetSpec();
@@ -288,22 +300,7 @@ def generate_random_TS(N , FREQ, seed, trendtype, cycle_length, transform, sigma
     # this is the full dataset . must contain future exogenius data
     pos_signal = df_train['Signal'] - min_sig + 1.0;
 
-    if(transform == "exp"):
-        df_train['Signal'] = np.exp(-pos_signal)
-    if(transform == "log"):
-        df_train['Signal'] = np.log(pos_signal)
-    if(transform == "sqrt"):
-        df_train['Signal'] = np.sqrt(pos_signal)
-    if(transform == "sqr"):
-        df_train['Signal'] = np.power(pos_signal , 2)
-    if(transform == "pow3"):
-        df_train['Signal'] = np.power(pos_signal , 3)
-    if(transform == "inv"):
-        df_train['Signal'] = 1.0 / (pos_signal)
-    if(transform == "diff"):
-        df_train['Signal'] = pos_signal - pos_signal.shift(1).fillna(0.0);
-    if(transform == "cumsum"):
-        df_train['Signal'] = pos_signal.cumsum();
+    df_train['Signal'] = apply_transform(df_train['Signal'] , transform)
 
     # df_train.to_csv(tsspec.mName + ".csv");
 
@@ -666,7 +663,7 @@ def load_yahoo_stock_price( stock , iLocal = True, YAHOO_LINKS_DATA = None) :
     else:
         base_uri = "https://raw.githubusercontent.com/antoinecarme/TimeSeriesData/master/YahooFinance/";
         filename =  base_uri + filename;
-    # print("YAHOO_DATA_LINK_URI" , stock, filename);
+    print("YAHOO_DATA_LINK_URI" , stock, filename);
     if(os.path.isfile(filename)):
         # print("already downloaded " + stock , "reloading " , filename);
         df_train = pd.read_csv(filename);
