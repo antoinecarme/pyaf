@@ -28,7 +28,7 @@ def decomp_plot(df, time, signal, estimator, residue, name = None, format='png',
     assert(residue in df.columns)
 
     import matplotlib
-    # matplotlib.use('Agg')
+    matplotlib.use('Agg')
     import matplotlib.pyplot as plt
     df1 = df.tail(max_length);
     fig, axs = plt.subplots(ncols=2, figsize=(32, 16))
@@ -57,7 +57,7 @@ def decomp_plot_as_png_base64(df, time, signal, estimator, residue, name = None,
     assert(residue in df.columns)
 
     import matplotlib
-    # matplotlib.use('Agg')
+    matplotlib.use('Agg')
     import matplotlib.pyplot as plt
     df1 = df.tail(max_length);
     fig, axs = plt.subplots(ncols=2, figsize=(16, 8))
@@ -104,7 +104,7 @@ def prediction_interval_plot(df, time, signal, estimator, lower, upper, name = N
     df1.loc[lLastSignalPos , upper] = lEstimtorValue;
 
     import matplotlib
-    # matplotlib.use('Agg')
+    matplotlib.use('Agg')
     import matplotlib.pyplot as plt
     fig, axs = plt.subplots(ncols=1, figsize=(16, 8))
     df1.plot.line(time, [signal, estimator, lower, upper],
@@ -145,7 +145,7 @@ def prediction_interval_plot_as_png_base64(df, time, signal, estimator, lower, u
     df1.loc[lLastSignalPos , upper] = lEstimtorValue;
 
     import matplotlib
-    # matplotlib.use('Agg')
+    matplotlib.use('Agg')
     import matplotlib.pyplot as plt
     fig, axs = plt.subplots(ncols=1, figsize=(16, 8))
     df1.plot.line(time, [signal, estimator, lower, upper],
