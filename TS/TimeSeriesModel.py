@@ -193,6 +193,9 @@ class cTimeSeriesModel:
         for h in range(0 , iHorizon):
             df1.loc[N1 - 1 - h, self.mSignal] = np.nan;
             df1.loc[N1 - 1 - h, self.mOriginalSignal] = np.nan;
+            df1.loc[N1 - 1 - h, self.mTrend.mOutName + '_residue'] =  np.nan;
+            df1.loc[N1 - 1 - h, self.mCycle.mOutName + '_residue'] =  np.nan;
+            df1.loc[N1 - 1 - h, self.mAR.mOutName + '_residue'] =  np.nan;
             df1.loc[N1 - 1 - h, lPrefix + 'Trend_residue'] =  np.nan;
             df1.loc[N1 - 1 - h, lPrefix + 'Cycle_residue'] = np.nan;
             df1.loc[N1 - 1 - h, lPrefix + 'AR_residue'] = np.nan;
