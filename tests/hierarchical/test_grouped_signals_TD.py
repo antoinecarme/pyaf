@@ -26,7 +26,7 @@ H = b1.mHorizon;
 lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H, b1.mHierarchy, None);
 
 lEngine.getModelInfo();
-#lEngine.standrdPlots("outputs/AU_infant_");
+#lEngine.standardPlots("outputs/AU_infant_");
 
 dfapp_in = df.copy();
 dfapp_in.tail()

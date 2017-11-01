@@ -29,7 +29,7 @@ print(lEngine.mSignalDecomposition.mTrPerfDetails.head());
 
 lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
 
-lEngine.standrdPlots("outputs/my_random_ar");
+lEngine.standardPlots("outputs/my_random_ar");
 
 dfapp_in = df.copy();
 dfapp_in.tail()

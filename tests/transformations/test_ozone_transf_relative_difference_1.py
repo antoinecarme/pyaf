@@ -42,7 +42,7 @@ def test_transformation(itransformation):
 
     lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
     
-    lEngine.standrdPlots("outputs/my_airline_" + str(itransformation));
+    lEngine.standardPlots("outputs/my_airline_" + str(itransformation));
     
     dfapp_in = df.copy();
     dfapp_in.tail()

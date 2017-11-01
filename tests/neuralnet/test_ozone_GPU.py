@@ -51,7 +51,7 @@ def buildModel(iParallel = True):
     
     lEngine2.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
     
-    lEngine2.standrdPlots("outputs/my_rnn_ozone");
+    lEngine2.standardPlots("outputs/my_rnn_ozone");
 
     dfapp_in = df.copy();
     dfapp_in.tail()

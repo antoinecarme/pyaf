@@ -48,7 +48,7 @@ def buildModel(iParallel = True):
 
     lEngine2.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
     
-    lEngine2.standrdPlots(name = "outputs/rnn_my_airline_passengers")
+    lEngine2.standardPlots(name = "outputs/rnn_my_airline_passengers")
     
     dfapp_in = df.copy();
     dfapp_in.tail()
@@ -69,4 +69,4 @@ def buildModel(iParallel = True):
     print(Forecast_DF.tail(2*H).to_json(date_format='iso'))
     print("</Forecast>\n\n")
 
-    # lEngine2.standrdPlots(name = "outputs/rnn_airline_passengers")
+    # lEngine2.standardPlots(name = "outputs/rnn_airline_passengers")

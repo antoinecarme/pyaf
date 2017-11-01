@@ -19,7 +19,7 @@ lEngine.getModelInfo();
 
 lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
 
-lEngine.standrdPlots("outputs/M4_C0808_failure");
+lEngine.standardPlots("outputs/M4_C0808_failure");
 
 dfapp_in = df.copy();
 dfapp_in.tail()

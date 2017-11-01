@@ -27,7 +27,7 @@ print(lEngine.mSignalDecomposition.mTrPerfDetails.head());
 
 lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
 
-lEngine.standrdPlots("outputs/HeartRateTimeSeries_series3");
+lEngine.standardPlots("outputs/HeartRateTimeSeries_series3");
 
 dfapp_in = df.copy();
 dfapp_in.tail()

@@ -51,7 +51,7 @@ print(lEngine.mSignalDecomposition.mTrPerfDetails.head());
 
 lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
 
-lEngine.standrdPlots("outputs/my_long_ozone_series_");
+lEngine.standardPlots("outputs/my_long_ozone_series_");
 
 dfapp_in = df1.copy();
 dfapp_in.tail()

@@ -34,7 +34,7 @@ def process_dataset(idataset):
         lExogenousData = (idataset.mExogenousDataFrame , idataset.mExogenousVariables) 
         lEngine.train(training_ds , idataset.mTimeVar , lSignalVar, H, lExogenousData);
         lEngine.getModelInfo();
-        # lEngine.standrdPlots(name = "outputs/my_exog_" + str(nbex) + "_" + str(n));
+        # lEngine.standardPlots(name = "outputs/my_exog_" + str(nbex) + "_" + str(n));
         # lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
         
         dfapp_in = training_ds.copy();

@@ -39,7 +39,7 @@ for signal in lBottomColumns:
 
     lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
 
-    #lEngine.standrdPlots("outputs/hierarchical_" + signal);
+    #lEngine.standardPlots("outputs/hierarchical_" + signal);
 
     dfapp_in = df.copy();
     dfapp_in.tail()

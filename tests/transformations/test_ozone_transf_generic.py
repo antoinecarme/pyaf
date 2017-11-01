@@ -34,7 +34,7 @@ def test_transformation(itransformation):
 
     lEngine2.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
     
-    lEngine2.standrdPlots("outputs/my_ozone_" + itransformation);
+    lEngine2.standardPlots("outputs/my_ozone_" + itransformation);
     
     dfapp_in = df.copy();
     dfapp_in.tail()

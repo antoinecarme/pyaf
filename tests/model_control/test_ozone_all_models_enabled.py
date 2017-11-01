@@ -29,7 +29,7 @@ print(lPerf_DF.head(lPerf_DF.shape[0]));
 
 lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
 
-lEngine.standrdPlots("outputs/my_ozone");
+lEngine.standardPlots("outputs/my_ozone");
 
 dfapp_in = df.copy();
 dfapp_in.tail()

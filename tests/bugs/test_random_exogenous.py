@@ -32,7 +32,7 @@ with warnings.catch_warnings():
             lExogenousData = (b1.mExogenousDataFrame , b1.mExogenousVariables[0:nbex]) 
             lEngine.train(df1 , b1.mTimeVar , b1.mSignalVar, H, lExogenousData);
             lEngine.getModelInfo();
-            lEngine.standrdPlots(name = "outputs/my_exog_" + str(nbex) + "_" + str(n));
+            lEngine.standardPlots(name = "outputs/my_exog_" + str(nbex) + "_" + str(n));
             lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
 
             dfapp_in = df1.copy();

@@ -28,7 +28,7 @@ print(lEngine.mSignalDecomposition.mTrPerfDetails.head());
 
 lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
 
-lEngine.standrdPlots("outputs/sof_example2");
+lEngine.standardPlots("outputs/sof_example2");
 
 dfapp_in = df.copy();
 dfapp_in.tail()

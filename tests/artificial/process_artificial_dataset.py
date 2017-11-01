@@ -97,6 +97,6 @@ def process_dataset_with_noise(idataset , model_type, sigma, debug=False):
         print(Forecast_DF.tail(2*H).to_json(date_format='iso'))
         print("</Forecast>\n\n")
 
-        # lEngine2.standrdPlots(name = "outputs/artificial_" + idataset.mName + "_" + str(sigma))
+        # lEngine2.standardPlots(name = "outputs/artificial_" + idataset.mName + "_" + str(sigma))
 
         return (lEngine, dfapp_in, dfapp_out)

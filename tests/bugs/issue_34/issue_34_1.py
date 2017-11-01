@@ -50,7 +50,7 @@ def process_dataset_with_noise(idataset , sigma):
         lExogenousData = (idataset.mExogenousDataFrame , idataset.mExogenousVariables) 
         lEngine.train(training_ds , idataset.mTimeVar , lSignalVar, H, lExogenousData);
         lEngine.getModelInfo();
-        # lEngine.standrdPlots(name = "outputs/my_exog_" + str(nbex) + "_" + str(n));
+        # lEngine.standardPlots(name = "outputs/my_exog_" + str(nbex) + "_" + str(n));
         # lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
         print(lEngine.mSignalDecomposition.mTrPerfDetails.head());
         dfapp_in = training_ds.copy();
@@ -71,7 +71,7 @@ def process_dataset_with_noise(idataset , sigma):
         print(Forecast_DF.tail(2*H).to_json(date_format='iso'))
         print("</Forecast>\n\n")
 
-        # lEngine.standrdPlots(name = "outputs/artificial_" + idataset.mName + "_" + str(sigma))
+        # lEngine.standardPlots(name = "outputs/artificial_" + idataset.mName + "_" + str(sigma))
 
 dataset = tsds.generate_random_TS(N = 1024 , FREQ = 'D', seed = 0, trendtype = "constant", cycle_length = 12, transform = "log", sigma = 0.0, exog_count = 100, ar_order = 12);
 

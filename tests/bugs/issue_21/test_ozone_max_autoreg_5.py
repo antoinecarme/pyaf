@@ -32,7 +32,7 @@ print(lEngine.mSignalDecomposition.mTrPerfDetails.head());
 
 lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
 
-lEngine.standrdPlots("outputs/my_ozone_max_ar_5_");
+lEngine.standardPlots("outputs/my_ozone_max_ar_5_");
 
 dfapp_in = df.copy();
 dfapp_in.tail()

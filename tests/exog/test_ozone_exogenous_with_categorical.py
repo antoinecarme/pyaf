@@ -42,7 +42,7 @@ for n in [N//4 , N//4, N//2 , N]:
     lEngine.train(df1 , b1.mTimeVar , b1.mSignalVar, H, lExogenousData);
     lEngine.getModelInfo();
     lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
-    lEngine.standrdPlots(name = "outputs/my_arx_ozone_categorical_" + str(n))
+    lEngine.standardPlots(name = "outputs/my_arx_ozone_categorical_" + str(n))
 
     dfapp_in = df1.copy();
     dfapp_in.tail()

@@ -50,7 +50,7 @@ print(lEngine.mSignalDecomposition.mTrPerfDetails.head());
 
 lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
 
-lEngine.standrdPlots("outputs/my_rnn_ozone");
+lEngine.standardPlots("outputs/my_rnn_ozone");
 
 dfapp_in = df.copy();
 dfapp_in.tail()

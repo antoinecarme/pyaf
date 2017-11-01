@@ -31,4 +31,4 @@ for n in [N]:
     lEngine.train(df1 , b1.mTimeVar , b1.mSignalVar, H, lExogenousData);
     lEngine.getModelInfo();
     # lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
-    # lEngine.standrdPlots(name = "my_arx_ozone_" + str(n))
+    # lEngine.standardPlots(name = "my_arx_ozone_" + str(n))

@@ -23,7 +23,7 @@ def build_model(iPerf):
 
     lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
 
-    lEngine.standrdPlots("outputs/my_ozone_perfs_" + iPerf);
+    lEngine.standardPlots("outputs/my_ozone_perfs_" + iPerf);
 
     dfapp_in = df.copy();
     dfapp_in.tail()

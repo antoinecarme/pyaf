@@ -38,7 +38,7 @@ print(lEngine.mSignalDecomposition.mTrPerfDetails.head());
 
 lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
 
-lEngine.standrdPlots("outputs/my_ozone");
+lEngine.standardPlots("outputs/my_ozone");
 
 lEngine2 = pickleModel(lEngine)
 

@@ -34,7 +34,7 @@ def test_ozone_debug_perf():
     
     lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
     
-    lEngine.standrdPlots("outputs/my_ozone");
+    lEngine.standardPlots("outputs/my_ozone");
     
     dfapp_in = df.copy();
     dfapp_in.tail()

@@ -55,4 +55,4 @@ for k in [1 , 5]:
         print(Forecast_DF.tail(2*H).to_json(date_format='iso'))
         print("</Forecast>\n\n")
         
-        # lEngine.standrdPlots(name = "outputs/ozone_" + timevar)
+        # lEngine.standardPlots(name = "outputs/ozone_" + timevar)

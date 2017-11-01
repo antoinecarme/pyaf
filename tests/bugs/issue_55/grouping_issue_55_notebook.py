@@ -137,7 +137,7 @@ CN_Engine = lEngine.mSignalHierarchy.mModels[2]['__CN'] # __CN is at hierarchica
 
 CN_Engine.getModelInfo()
 
-CN_Engine.standrdPlots()
+CN_Engine.standardPlots()
 
 lEngine.mOptions.mHierarchicalCombinationMethod = ["BU" , 'TD' , 'MO' , 'OC'];
 dfapp_out = lEngine.forecast(train_df, H);

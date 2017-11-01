@@ -38,7 +38,7 @@ def build_model(transformations, trends, periodics, autoregs):
     
     lEngine2.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
     
-    lEngine2.standrdPlots("outputs/my_ozone");
+    lEngine2.standardPlots("outputs/my_ozone");
     
     dfapp_in = df.copy();
     dfapp_in.tail()

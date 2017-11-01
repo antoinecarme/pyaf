@@ -26,7 +26,7 @@ lEngine
 
 lEngine.getModelInfo();
 lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
-lEngine.standrdPlots(name = "outputs/my_categorical_arx_ozone")
+lEngine.standardPlots(name = "outputs/my_categorical_arx_ozone")
 
 dfapp_in = df.copy();
 dfapp_in.tail()
