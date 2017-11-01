@@ -101,6 +101,7 @@ class cGeneric_OneSignal_Tester:
         self.mTestCodeGeneration = False;
         self.mTestIdempotency = False;
         self.mParallelMode = True;
+        self.mPlot = None
 
     def reportTrainingDataInfo(self, iSignal, iHorizon):
         df = self.mTrainDataset[iSignal  + "_" + str(iHorizon)];
@@ -137,6 +138,7 @@ class cGeneric_OneSignal_Tester:
         df = self.mTrainDataset[iSignal  + "_" + str(iHorizon)];
         lAutoF1 = autof.cForecastEngine();
         lAutoF1.mOptions.mParallelMode = self.mParallelMode;
+        # lAutoF1.mOptions.mCycleLengths = range(2, df.shape[0]//10);
         self.mAutoForecastBySignal[iSignal  + "_" + str(iHorizon)] = lAutoF1
         lAutoF1.train(df , self.mTSSpec.mTimeVar , iSignal, iHorizon)
         self.reportModelInfo(lAutoF1);
@@ -161,6 +163,8 @@ class cGeneric_OneSignal_Tester:
         end_time = time.time()
         self.mTrainTime[iSignal  + "_" + str(iHorizon)] = end_time - start_time;
         self.dumpForecastPerfs(iSignal, iHorizon);
+        # self.mPlot = self.plot(iSignal, iHorizon);
+        
         if(self.mTestIdempotency):
             self.testIdempotency(iSignal, iHorizon);
 
@@ -216,6 +220,7 @@ class cGeneric_OneSignal_Tester:
 
 
     def pickleModel(self, iModel):
+        return iModel
         import pickle
         output = pickle.dumps(iModel)
         lReloadedObject = pickle.loads(output)
@@ -289,6 +294,56 @@ class cGeneric_OneSignal_Tester:
                     if((tr is not None) or (cy is not None) or (ar is not None)):
                         self.testSignalIdempotency(iSignal, iHorizon, tr, cy, ar);
 
+
+    def plot(self, iSignal, iHorizon):
+        lAutoF = self.mAutoForecastBySignal[iSignal  + "_" + str(iHorizon)]
+        lPlots = lAutoF.getPlotsAsDict();
+        
+        lOutput = ["## Benchmark : " + self.mBenchName + " Signal : " + iSignal];
+        for k in ['Forecast' , 'Prediction_Intervals'] : # lPlots.keys():
+            lPlot_PNG_Base64 = lPlots[k];
+            # lOutput = lOutput + ["IMG"];            
+            lOutput = lOutput + ["<img src=\\\"data:image/png;base64," + str(lPlot_PNG_Base64) + "\\\" />"];            
+        return lOutput;
+
+
+def md_header():
+    header = """{
+       "metadata" : {
+          "signature": "hex-digest",
+          "kernel_info": {
+              "name" : "the name of the kernel"
+           },
+           "language_info": {
+              "name" : "the programming language of the kernel",
+              "version": "the version of the language",
+              "codemirror_mode": "The name of the codemirror mode to use [optional]"
+              }
+       },
+       "nbformat": 4,
+       "nbformat_minor": 0,
+    """
+    return header
+
+
+def build_markdown_cell(cell_data):
+    md_data = """{
+         "cell_type" : "markdown",
+         "metadata" : {},
+    """
+    md_data = md_data + '"source" : ["' + cell_data + '"]\n}'
+    return md_data
+
+
+def render_markdown(iPlots):
+    lMarkDown = md_header()
+    lMarkDown = lMarkDown + '"cells" : [\n'
+    for plot in iPlots[:-2]:
+        lMarkDown = lMarkDown + build_markdown_cell(plot) + ",\n"
+    lMarkDown = lMarkDown + build_markdown_cell(iPlots[-1])
+    lMarkDown = lMarkDown + '\n]\n}'
+    return lMarkDown
+
 class cGeneric_Tester:
     '''
     test a collection of signals
@@ -316,6 +371,15 @@ class cGeneric_Tester:
         else:
             self.mTSSpecPerSignal = self.mTSSpec;
 
+    def generate_notebook(self, iPlots):
+        lMarkDown = render_markdown(iPlots)
+        filename = "Bench_plot_" + self.mBenchName + ".ipynb"
+        file = open(filename, "w");
+        print("WRTITING_PLOTS_FILE" , filename);
+        file.write(lMarkDown);
+        file.close();
+        
+
     def testAllSignals(self, iHorizon):
         for sig in self.mTSSpecPerSignal.keys():
             lSpec = self.mTSSpecPerSignal[sig]
@@ -329,18 +393,21 @@ class cGeneric_Tester:
     
     def testSignals(self, iSignals, iHorizon = 2):
         sigs = iSignals.split(" ");
+        lPlots = []
         for sig in sigs:
             if(sig in self.mTSSpecPerSignal.keys()):
                 lSpec = self.mTSSpecPerSignal[sig]
                 # print(lSpec.__dict__)
                 lHorizon = lSpec.mHorizon[sig]
                 tester = cGeneric_OneSignal_Tester(lSpec, self.mBenchName);
-                tester.testSignal(sig, lHorizon);
                 tester.mParallelMode = True;
+                tester.testSignal(sig, lHorizon);
+                lPlots = lPlots + [tester.mPlot];
                 del tester;
             else:
                 raise cBenchmarkError("UNKNOWN_SIGNAL '" + sig + "'");
                 pass;
+        # self.generate_notebook(lPlots)
         pass
 
 
@@ -349,7 +416,7 @@ class cGeneric_Tester:
             nbprocesses = (mp.cpu_count() * 3) // 4;
         pool = mp.Pool(processes=nbprocesses, maxtasksperchild=None)
         args = []
-        for sig in self.mTSSpecPerSignal.keys():
+        for sig in list(self.mTSSpecPerSignal.keys()):
             lSpec = self.mTSSpecPerSignal[sig]
             # print(lSpec.__dict__)
             lHorizon = lSpec.mHorizon[sig]
@@ -357,10 +424,13 @@ class cGeneric_Tester:
             args = args + [a];
 
         lResults = {};
+        lPlots = []
         i = 1;
         for res in pool.imap(run_bench_process, args):
             print("FINISHED_BENCH_FOR_SIGNAL" , self.mBenchName, res.mSignal , i , "/" , len(args));
             lResults[res.mSignal] = res.mResult.summary();
+            if(res.mResult.mPlot is not None):
+                lPlots = lPlots + res.mResult.mPlot;
             i = i + 1;
             del res
         
@@ -369,3 +439,5 @@ class cGeneric_Tester:
 
         for (name, summary) in lResults.items():
             print("BENCH_RESULT_DETAIL" ,  self.mBenchName, name, summary);
+
+        # self.generate_notebook(lPlots)
