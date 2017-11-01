@@ -174,7 +174,7 @@ class cSignalTransform_Accumulate(cAbstractSignalTransform):
         pass
     
     def specific_apply(self, sig):
-        return sig.cumsum(axis = 0);
+        return sig.cumsum(axis = 0)
     
     def specific_invert(self, df):
         df_orig = df - df.shift(1);
@@ -451,3 +451,36 @@ class cSignalTransform_Fisher(cAbstractSignalTransform):
     def specific_invert(self, sig):
         x = sig.apply(np.tanh);
         return x;
+
+
+
+def create_tranformation(iName , arg):
+    if(iName == 'None'):
+        return cSignalTransform_None();
+
+    if(iName == 'Difference'):
+        return cSignalTransform_Differencing()
+    
+    if(iName == 'RelativeDifference'):
+        return cSignalTransform_RelativeDifferencing()
+            
+    if(iName == 'Integration'):
+        return cSignalTransform_Accumulate()
+        
+    if(iName == 'BoxCox'):
+        return cSignalTransform_BoxCox(arg)
+    
+    if(iName == 'Quantization'):
+        return cSignalTransform_Quantize(arg)
+        
+    if(iName == 'Logit'):
+        return cSignalTransform_Logit()
+        
+    if(iName == 'Fisher'):
+        return cSignalTransform_Fisher()
+        
+    if(iName == 'Anscombe'):
+        return cSignalTransform_Anscombe()
+
+    assert(0)
+    return None
