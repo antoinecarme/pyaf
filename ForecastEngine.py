@@ -44,8 +44,8 @@ class cForecastEngine:
         return  self.mSignalDecomposition.getModelInfo();
 
     
-    def standrdPlots(self , name = None):
-        self.mSignalDecomposition.standrdPlots(name);
+    def standardPlots(self , name = None, format = 'png'):
+        self.mSignalDecomposition.standardPlots(name, format);
 
     def getPlotsAsDict(self):
         return self.mSignalDecomposition.getPlotsAsDict();
