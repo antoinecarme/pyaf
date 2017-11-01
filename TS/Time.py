@@ -288,7 +288,7 @@ class cTimeInfo:
             self.mTimeMin = np.datetime64(self.mTimeMin.to_pydatetime());
             self.mTimeMax = np.datetime64(self.mTimeMax.to_pydatetime());
         self.mTimeMinMaxDiff = self.mTimeMax - self.mTimeMin;
-        
+        # print(self.mTimeMin, self.mTimeMax , self.mTimeMinMaxDiff , (self.mTimeMax - self.mTimeMin)/self.mTimeMinMaxDiff)
         self.computeTimeDelta();
         self.mSignalFrame[self.mNormalizedTimeColumn] = self.normalizeTime(self.mSignalFrame[self.mTime])
         self.dump();
@@ -300,7 +300,7 @@ class cTimeInfo:
     def normalizeTime(self , iTime):
         if(self.isOneRowDataset()):
             return 0.0;
-        return (iTime - self.mTimeMin) / self.mTimeMinMaxDiff
+        return iTime.apply(lambda x : (x- self.mTimeMin) / self.mTimeMinMaxDiff)
 
     def addMonths(self, iTime , iMonths):
         date_after_months = iTime + iMonths * (365.0/12) * np.timedelta64(1,'D')
