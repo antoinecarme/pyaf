@@ -7,6 +7,7 @@
 import pandas as pd
 import numpy as np
 
+
 from io import BytesIO
 import base64
 
@@ -18,7 +19,7 @@ SHADED_COLOR='turquoise'
 UPPER_COLOR='grey'
 LOWER_COLOR='black'
 
-def decomp_plot(df, time, signal, estimator, residue, name = None, max_length = 1000) :
+def decomp_plot(df, time, signal, estimator, residue, name = None, format='png', max_length = 1000) :
     assert(df.shape[0] > 0)
     assert(df.shape[1] > 0)
     assert(time in df.columns)
@@ -27,7 +28,7 @@ def decomp_plot(df, time, signal, estimator, residue, name = None, max_length = 
     assert(residue in df.columns)
 
     import matplotlib
-    matplotlib.use('Agg')
+    # matplotlib.use('Agg')
     import matplotlib.pyplot as plt
     df1 = df.tail(max_length);
     fig, axs = plt.subplots(ncols=2, figsize=(32, 16))
@@ -38,14 +39,13 @@ def decomp_plot(df, time, signal, estimator, residue, name = None, max_length = 
                   color=[SIGNAL_COLOR, lColor, RESIDUE_COLOR],
                   ax=axs[0] , grid = True)
     residues =  df1[residue].values
-    lErrorStdDev = np.std(residues)
-    #    axs[0].fill_between(time, df1[estimator].values - 2*lErrorStdDev,  df1[estimator].values + 2*lErrorStdDev, color='b', alpha=0.2)
 
     import scipy.stats as scistats
-    scistats.probplot(residues, dist="norm", plot=axs[1])
+    resid = residues[~np.isnan(residues)]
+    scistats.probplot(resid, dist="norm", plot=axs[1])
 
     if(name is not None):
-        fig.savefig(name + '_decomp_output.png')
+        fig.savefig(name + '_decomp_output.' + format)
         plt.close(fig)
 
 def decomp_plot_as_png_base64(df, time, signal, estimator, residue, name = None, max_length = 1000) :
@@ -57,7 +57,7 @@ def decomp_plot_as_png_base64(df, time, signal, estimator, residue, name = None,
     assert(residue in df.columns)
 
     import matplotlib
-    matplotlib.use('Agg')
+    # matplotlib.use('Agg')
     import matplotlib.pyplot as plt
     df1 = df.tail(max_length);
     fig, axs = plt.subplots(ncols=2, figsize=(16, 8))
@@ -68,10 +68,10 @@ def decomp_plot_as_png_base64(df, time, signal, estimator, residue, name = None,
                   color=[SIGNAL_COLOR, lColor, RESIDUE_COLOR],
                   ax=axs[0] , grid = True)
     residues =  df1[residue].values
-    lErrorStdDev = np.std(residues)
 
     import scipy.stats as scistats
-    scistats.probplot(residues, dist="norm", plot=axs[1])
+    resid = residues[~np.isnan(residues)]
+    scistats.probplot(resid, dist="norm", plot=axs[1])
 
     figfile = BytesIO()
     fig.savefig(figfile, format='png')
@@ -81,7 +81,7 @@ def decomp_plot_as_png_base64(df, time, signal, estimator, residue, name = None,
     return figdata_png.decode('utf8')
     
 
-def prediction_interval_plot(df, time, signal, estimator, lower, upper, name = None, max_length = 1000) :
+def prediction_interval_plot(df, time, signal, estimator, lower, upper, name = None, format='png', max_length = 1000) :
     assert(df.shape[0] > 0)
     assert(df.shape[1] > 0)
     assert(time in df.columns)
@@ -104,7 +104,7 @@ def prediction_interval_plot(df, time, signal, estimator, lower, upper, name = N
     df1.loc[lLastSignalPos , upper] = lEstimtorValue;
 
     import matplotlib
-    matplotlib.use('Agg')
+    # matplotlib.use('Agg')
     import matplotlib.pyplot as plt
     fig, axs = plt.subplots(ncols=1, figsize=(16, 8))
     df1.plot.line(time, [signal, estimator, lower, upper],
@@ -118,7 +118,7 @@ def prediction_interval_plot(df, time, signal, estimator, lower, upper, name = N
     axs.fill_between(x.values, df1[lower], df1[upper], color=SHADED_COLOR, alpha=.2)
 
     if(name is not None):
-        fig.savefig(name + '_prediction_intervals_output.png')
+        fig.savefig(name + '_prediction_intervals_output.' + format)
         plt.close(fig)
     
 
@@ -145,7 +145,7 @@ def prediction_interval_plot_as_png_base64(df, time, signal, estimator, lower, u
     df1.loc[lLastSignalPos , upper] = lEstimtorValue;
 
     import matplotlib
-    matplotlib.use('Agg')
+    # matplotlib.use('Agg')
     import matplotlib.pyplot as plt
     fig, axs = plt.subplots(ncols=1, figsize=(16, 8))
     df1.plot.line(time, [signal, estimator, lower, upper],
