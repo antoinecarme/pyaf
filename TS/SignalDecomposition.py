@@ -617,11 +617,11 @@ class cSignalDecomposition:
         import json
         return json.dumps(dict1, indent=4, sort_keys=True);
         
-    def standrdPlots(self, name = None):
+    def standardPlots(self, name = None, format = 'png'):
         logger = tsutil.get_pyaf_logger();
         logger.info("START_PLOTTING")
         start_time = time.time()
-        self.mBestModel.standrdPlots(name);
+        self.mBestModel.standardPlots(name, format);
         lPlotTime = time.time() - start_time;
         logger.info("END_PLOTTING_TIME_IN_SECONDS " + str(lPlotTime))
         
