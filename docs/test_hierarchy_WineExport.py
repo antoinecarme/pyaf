@@ -58,7 +58,7 @@ lSignalVar = "Sales";
 lEngine.train(train_df , lDateColumn , lSignalVar, H, lHierarchy, None);
 
 lEngine.getModelInfo();
-lEngine.standrdPlots("outputs/WineExport");
+lEngine.standardPlots("outputs/WineExport");
 
 dfapp_in = train_df.copy();
 dfapp_in.tail()
