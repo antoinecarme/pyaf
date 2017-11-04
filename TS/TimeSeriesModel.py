@@ -199,7 +199,7 @@ class cTimeSeriesModel:
             df1.loc[N1 - 1 - h, lPrefix + 'Trend_residue'] =  np.nan;
             df1.loc[N1 - 1 - h, lPrefix + 'Cycle_residue'] = np.nan;
             df1.loc[N1 - 1 - h, lPrefix + 'AR_residue'] = np.nan;
-            df1.loc[N1 - 1 - h, self.mOriginalSignal + '_Residue'] = np.nan;
+            df1.loc[N1 - 1 - h, str(self.mOriginalSignal) + '_Residue'] = np.nan;
             df1.loc[N1 - 1 - h, lPrefix + 'TransformedResidue'] = np.nan;
             pass
         # print(df.head())
