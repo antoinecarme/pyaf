@@ -196,10 +196,20 @@ bugs/issue_34/test_artificial_1024_sqrt_linear_30_12_20.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_34_test_artificial_1024_sqrt_linear_30_12_20.log logs/bugs_issue_34_test_artificial_1024_sqrt_linear_30_12_20.log  >  logs/bugs_issue_34_test_artificial_1024_sqrt_linear_30_12_20.log.diff
 	 tail -10  logs/bugs_issue_34_test_artificial_1024_sqrt_linear_30_12_20.log.diff 
 
+bugs/issue_76/test_ozone_unicode.py  :  
+	 -$(PYTHON)  tests/bugs/issue_76/test_ozone_unicode.py  >  logs/bugs_issue_76_test_ozone_unicode.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_76_test_ozone_unicode.log logs/bugs_issue_76_test_ozone_unicode.log  >  logs/bugs_issue_76_test_ozone_unicode.log.diff
+	 tail -10  logs/bugs_issue_76_test_ozone_unicode.log.diff 
+
 bugs/issue_73/issue_73_1_fast_mode.py  :  
 	 -$(PYTHON)  tests/bugs/issue_73/issue_73_1_fast_mode.py  >  logs/bugs_issue_73_issue_73_1_fast_mode.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_73_issue_73_1_fast_mode.log logs/bugs_issue_73_issue_73_1_fast_mode.log  >  logs/bugs_issue_73_issue_73_1_fast_mode.log.diff
 	 tail -10  logs/bugs_issue_73_issue_73_1_fast_mode.log.diff 
+
+bugs/issue_73/issue_73_1_fast_mode_2.py  :  
+	 -$(PYTHON)  tests/bugs/issue_73/issue_73_1_fast_mode_2.py  >  logs/bugs_issue_73_issue_73_1_fast_mode_2.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_73_issue_73_1_fast_mode_2.log logs/bugs_issue_73_issue_73_1_fast_mode_2.log  >  logs/bugs_issue_73_issue_73_1_fast_mode_2.log.diff
+	 tail -10  logs/bugs_issue_73_issue_73_1_fast_mode_2.log.diff 
 
 bugs/issue_73/issue_73_1_slow_mode.py  :  
 	 -$(PYTHON)  tests/bugs/issue_73/issue_73_1_slow_mode.py  >  logs/bugs_issue_73_issue_73_1_slow_mode.log  2>&1
@@ -241,6 +251,31 @@ bugs/issue_22/test_artificial_1024_cumsum_constant_5__20.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_22_test_artificial_1024_cumsum_constant_5__20.log logs/bugs_issue_22_test_artificial_1024_cumsum_constant_5__20.log  >  logs/bugs_issue_22_test_artificial_1024_cumsum_constant_5__20.log.diff
 	 tail -10  logs/bugs_issue_22_test_artificial_1024_cumsum_constant_5__20.log.diff 
 
+bugs/issue_69/issue_69_example_1_no_rectifier.py  :  
+	 -$(PYTHON)  tests/bugs/issue_69/issue_69_example_1_no_rectifier.py  >  logs/bugs_issue_69_issue_69_example_1_no_rectifier.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_69_issue_69_example_1_no_rectifier.log logs/bugs_issue_69_issue_69_example_1_no_rectifier.log  >  logs/bugs_issue_69_issue_69_example_1_no_rectifier.log.diff
+	 tail -10  logs/bugs_issue_69_issue_69_example_1_no_rectifier.log.diff 
+
+bugs/issue_69/issue_69_example_1_with_rectifier.py  :  
+	 -$(PYTHON)  tests/bugs/issue_69/issue_69_example_1_with_rectifier.py  >  logs/bugs_issue_69_issue_69_example_1_with_rectifier.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_69_issue_69_example_1_with_rectifier.log logs/bugs_issue_69_issue_69_example_1_with_rectifier.log  >  logs/bugs_issue_69_issue_69_example_1_with_rectifier.log.diff
+	 tail -10  logs/bugs_issue_69_issue_69_example_1_with_rectifier.log.diff 
+
+bugs/issue_69/issue_69_neg_trend.py  :  
+	 -$(PYTHON)  tests/bugs/issue_69/issue_69_neg_trend.py  >  logs/bugs_issue_69_issue_69_neg_trend.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_69_issue_69_neg_trend.log logs/bugs_issue_69_issue_69_neg_trend.log  >  logs/bugs_issue_69_issue_69_neg_trend.log.diff
+	 tail -10  logs/bugs_issue_69_issue_69_neg_trend.log.diff 
+
+bugs/issue_75/issue_75_plot.py  :  
+	 -$(PYTHON)  tests/bugs/issue_75/issue_75_plot.py  >  logs/bugs_issue_75_issue_75_plot.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_75_issue_75_plot.log logs/bugs_issue_75_issue_75_plot.log  >  logs/bugs_issue_75_issue_75_plot.log.diff
+	 tail -10  logs/bugs_issue_75_issue_75_plot.log.diff 
+
+bugs/issue_75/issue_75_residues_Are_empty.py  :  
+	 -$(PYTHON)  tests/bugs/issue_75/issue_75_residues_Are_empty.py  >  logs/bugs_issue_75_issue_75_residues_Are_empty.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_75_issue_75_residues_Are_empty.log logs/bugs_issue_75_issue_75_residues_Are_empty.log  >  logs/bugs_issue_75_issue_75_residues_Are_empty.log.diff
+	 tail -10  logs/bugs_issue_75_issue_75_residues_Are_empty.log.diff 
+
 bugs/issue_56/issue_56_order1.py  :  
 	 -$(PYTHON)  tests/bugs/issue_56/issue_56_order1.py  >  logs/bugs_issue_56_issue_56_order1.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_56_issue_56_order1.log logs/bugs_issue_56_issue_56_order1.log  >  logs/bugs_issue_56_issue_56_order1.log.diff
@@ -250,6 +285,16 @@ bugs/issue_56/issue_56_order2.py  :
 	 -$(PYTHON)  tests/bugs/issue_56/issue_56_order2.py  >  logs/bugs_issue_56_issue_56_order2.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_56_issue_56_order2.log logs/bugs_issue_56_issue_56_order2.log  >  logs/bugs_issue_56_issue_56_order2.log.diff
 	 tail -10  logs/bugs_issue_56_issue_56_order2.log.diff 
+
+bugs/issue_XXXX/issue_XXXX_cumsum_bug.py  :  
+	 -$(PYTHON)  tests/bugs/issue_XXXX/issue_XXXX_cumsum_bug.py  >  logs/bugs_issue_XXXX_issue_XXXX_cumsum_bug.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_XXXX_issue_XXXX_cumsum_bug.log logs/bugs_issue_XXXX_issue_XXXX_cumsum_bug.log  >  logs/bugs_issue_XXXX_issue_XXXX_cumsum_bug.log.diff
+	 tail -10  logs/bugs_issue_XXXX_issue_XXXX_cumsum_bug.log.diff 
+
+bugs/issue_XXXX/issue_XXXX_diff.py  :  
+	 -$(PYTHON)  tests/bugs/issue_XXXX/issue_XXXX_diff.py  >  logs/bugs_issue_XXXX_issue_XXXX_diff.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_XXXX_issue_XXXX_diff.log logs/bugs_issue_XXXX_issue_XXXX_diff.log  >  logs/bugs_issue_XXXX_issue_XXXX_diff.log.diff
+	 tail -10  logs/bugs_issue_XXXX_issue_XXXX_diff.log.diff 
 
 bugs/issue_29/test_mem_1.py  :  
 	 -$(PYTHON)  tests/bugs/issue_29/test_mem_1.py  >  logs/bugs_issue_29_test_mem_1.log  2>&1
@@ -343,7 +388,17 @@ bugs/issue_55/grouping_issue_55_notebook.py  :
 
 
 
- bugs :  bugs/test_random_exogenous.py bugs/test_artificial_bug_2.py bugs/test_artificial_bug_1.py bugs/issue_34/test_artificial_1024_sqrt_linear_30_12_20.py bugs/issue_34/test_artificial_1024_sqrt_constant_7_12_100.py bugs/issue_34/test_artificial_1024_sqr_poly_5_12_20.py bugs/issue_34/test_artificial_1024_log_linear_5_12_100.py bugs/issue_34/test_artificial_1024_log_linear_30_12_20.py bugs/issue_34/test_artificial_1024_inv_linear_7_12_100.py bugs/issue_34/test_artificial_1024_inv_constant_30__20.py bugs/issue_34/test_artificial_1024_diff_poly_0__100.py bugs/issue_34/test_artificial_1024_diff_poly_0__0.py bugs/issue_34/test_artificial_1024__poly_7_12_100.py bugs/issue_34/issue_34_1.py bugs/issue_34/issue_34.py bugs/issue_73/issue_73_1_slow_mode_more_cycles.py bugs/issue_73/issue_73_1_slow_mode.py bugs/issue_73/issue_73_1_fast_mode.py bugs/issue_72/test_artificial_32_sqrt_poly_7__20.py bugs/issue_72/test_artificial_32_exp_linear_0__100.py bugs/issue_46/issue_46_one_or_two_rows.py bugs/issue_32/bug_test_ozone_heroku_1_ws.py bugs/issue_32/bug_test_ozone_heroku_1.py bugs/issue_22/test_artificial_1024_cumsum_constant_5__20.py bugs/issue_56/issue_56_order2.py bugs/issue_56/issue_56_order1.py bugs/issue_29/test_mem_1.py bugs/issue_58/issue_58_1_categorical_exogenous.py bugs/issue_36/issue_36_version_info.py bugs/issue_36/display_version_info.py bugs/issue_70/test_ozone_keep_all_seasonals.py bugs/issue_70/test_ozone_filter_seasonals.py bugs/issue_70/test_artificial_keep_all_seasonals_second.py bugs/issue_70/test_artificial_keep_all_seasonals_minute.py bugs/issue_70/test_artificial_keep_all_seasonals_hour.py bugs/issue_70/test_artificial_keep_all_seasonals_day.py bugs/issue_70/test_artificial_filter_seasonals_second.py bugs/issue_70/test_artificial_filter_seasonals_min.py bugs/issue_70/test_artificial_filter_seasonals_hour.py bugs/issue_70/test_artificial_filter_seasonals_day.py bugs/issue_21/test_ozone_max_autoreg_5.py bugs/issue_21/test_artificial_1024__poly_7__20.py bugs/issue_4/issue_4.py bugs/issue_55/grouping_issue_55_notebook.py  
+ bugs :  bugs/test_random_exogenous.py bugs/test_artificial_bug_2.py bugs/test_artificial_bug_1.py bugs/issue_34/test_artificial_1024_sqrt_linear_30_12_20.py bugs/issue_34/test_artificial_1024_sqrt_constant_7_12_100.py bugs/issue_34/test_artificial_1024_sqr_poly_5_12_20.py bugs/issue_34/test_artificial_1024_log_linear_5_12_100.py bugs/issue_34/test_artificial_1024_log_linear_30_12_20.py bugs/issue_34/test_artificial_1024_inv_linear_7_12_100.py bugs/issue_34/test_artificial_1024_inv_constant_30__20.py bugs/issue_34/test_artificial_1024_diff_poly_0__100.py bugs/issue_34/test_artificial_1024_diff_poly_0__0.py bugs/issue_34/test_artificial_1024__poly_7_12_100.py bugs/issue_34/issue_34_1.py bugs/issue_34/issue_34.py bugs/issue_76/test_ozone_unicode.py bugs/issue_73/issue_73_1_slow_mode_more_cycles.py bugs/issue_73/issue_73_1_slow_mode.py bugs/issue_73/issue_73_1_fast_mode_2.py bugs/issue_73/issue_73_1_fast_mode.py bugs/issue_72/test_artificial_32_sqrt_poly_7__20.py bugs/issue_72/test_artificial_32_exp_linear_0__100.py bugs/issue_46/issue_46_one_or_two_rows.py bugs/issue_32/bug_test_ozone_heroku_1_ws.py bugs/issue_32/bug_test_ozone_heroku_1.py bugs/issue_22/test_artificial_1024_cumsum_constant_5__20.py bugs/issue_69/issue_69_neg_trend.py bugs/issue_69/issue_69_example_1_with_rectifier.py bugs/issue_69/issue_69_example_1_no_rectifier.py bugs/issue_75/issue_75_residues_Are_empty.py bugs/issue_75/issue_75_plot.py bugs/issue_56/issue_56_order2.py bugs/issue_56/issue_56_order1.py bugs/issue_XXXX/issue_XXXX_diff.py bugs/issue_XXXX/issue_XXXX_cumsum_bug.py bugs/issue_29/test_mem_1.py bugs/issue_58/issue_58_1_categorical_exogenous.py bugs/issue_36/issue_36_version_info.py bugs/issue_36/display_version_info.py bugs/issue_70/test_ozone_keep_all_seasonals.py bugs/issue_70/test_ozone_filter_seasonals.py bugs/issue_70/test_artificial_keep_all_seasonals_second.py bugs/issue_70/test_artificial_keep_all_seasonals_minute.py bugs/issue_70/test_artificial_keep_all_seasonals_hour.py bugs/issue_70/test_artificial_keep_all_seasonals_day.py bugs/issue_70/test_artificial_filter_seasonals_second.py bugs/issue_70/test_artificial_filter_seasonals_min.py bugs/issue_70/test_artificial_filter_seasonals_hour.py bugs/issue_70/test_artificial_filter_seasonals_day.py bugs/issue_21/test_ozone_max_autoreg_5.py bugs/issue_21/test_artificial_1024__poly_7__20.py bugs/issue_4/issue_4.py bugs/issue_55/grouping_issue_55_notebook.py  
+ 
+
+demos/demo1.py  :  
+	 -$(PYTHON)  tests/demos/demo1.py  >  logs/demos_demo1.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/demos_demo1.log logs/demos_demo1.log  >  logs/demos_demo1.log.diff
+	 tail -10  logs/demos_demo1.log.diff 
+
+
+
+ demos :  demos/demo1.py  
  
 
 exog/test_ozone_exogenous.py  :  
@@ -969,9 +1024,9 @@ transformations/test_ozone_transf_relative_difference_1.py  :
 
 # ********************************************** 
 
-all:  artificial basic_checks bugs exog expsmooth HeartRateTimeSeries heroku hierarchical model_control perf svr transformations func neuralnet real-life  time_res perfs 
+all:  artificial basic_checks bugs exog expsmooth HeartRateTimeSeries heroku hierarchical model_control perf svr transformations func neuralnet real-life  time_res perfs demos 
 	
 
-build-test :  basic_checks exog heroku hierarchical model_control svr transformations func real-life  time_res perfs 
+build-test :  demos basic_checks exog heroku hierarchical model_control svr transformations func real-life  time_res perfs 
 	
 

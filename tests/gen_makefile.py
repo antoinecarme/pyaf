@@ -26,7 +26,7 @@ def add_makefile_entry(subdir1):
     return test_target;
 
 
-str1 = "artificial basic_checks bugs exog expsmooth HeartRateTimeSeries heroku hierarchical model_control perf svr transformations func neuralnet real-life  time_res perfs";
+str1 = "artificial basic_checks bugs exog expsmooth HeartRateTimeSeries heroku hierarchical model_control perf svr transformations func neuralnet real-life  time_res perfs demos";
 subdirs = str1.split();
 
 print("PYTHON=python3\n\n");
@@ -44,6 +44,6 @@ print("\n# ********************************************** \n");
 
 print("all: " , str1 , "\n\t\n");
 
-str2 = "basic_checks exog heroku hierarchical model_control svr transformations func real-life  time_res perfs";
+str2 = "demos basic_checks exog heroku hierarchical model_control svr transformations func real-life  time_res perfs";
 
 print("build-test : " , str2 , "\n\t\n");
