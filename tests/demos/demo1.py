@@ -3,10 +3,10 @@ import pandas as pd
 
 # generate a daily signal covering one year 2016 in a pandas dataframe
 N = 365
+np.random.seed(seed=1960)
 df_train = pd.DataFrame({"Date" : pd.date_range(start="2016-01-25", periods=N, freq='D'),
                          "Signal" : (np.arange(N)//40 + np.arange(N) % 21 + np.random.randn(N))})
 # print(df_train.head(N))
-
 
 import pyaf.ForecastEngine as autof
 # create a forecast engine. This is the main object handling all the operations
