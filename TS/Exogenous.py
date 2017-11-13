@@ -110,8 +110,8 @@ class cExogenousInfo:
         self.mExogenousVariableCategories = {};
         self.mContExogenousStats = {};
         # Compute these stats only on the estimation part.
-        lEstimFrame = self.mExogenousDataFrame[self.mExogenousDataFrame[self.mDateVariable] >= self.mTimeInfo.mTimeMin]
-        lEstimFrame = lEstimFrame[lEstimFrame[self.mDateVariable] <= self.mTimeInfo.mTimeMax]
+        lEstimFrame = self.mExogenousDataFrame[self.mExogenousDataFrame[self.mDateVariable] >= pd.Timestamp(self.mTimeInfo.mTimeMin)]
+        lEstimFrame = lEstimFrame[lEstimFrame[self.mDateVariable] <= pd.Timestamp(self.mTimeInfo.mTimeMax)]
         for exog in self.mExogenousVariables:
             lType = self.mExogenousDataFrame[exog].dtype
             # print("EXOG_DTYPE" , exog, lType)
