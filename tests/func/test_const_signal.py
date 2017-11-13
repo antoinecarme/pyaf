@@ -6,7 +6,7 @@ import pyaf.Bench.TS_datasets as tsds
 
 #get_ipython().magic('matplotlib inline')
 
-b1 = tsds.generate_random_TS(N = 320 , FREQ = 'D', seed = 0, trendtype = "constant", cycle_length = 0, transform = "", sigma = 0.0);
+b1 = tsds.generate_random_TS(N = 320 , FREQ = 'D', seed = 0, trendtype = "constant", cycle_length = 0, transform = "None", sigma = 0.0);
 df = b1.mPastData
 
 #df.tail(10)

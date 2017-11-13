@@ -11,7 +11,7 @@ lValues = [ k for k in range(2,24, 4)];
 # lValues = lValues + [ k for k in range(24, 128, 8)];
 for cyc in lValues:
     print("TEST_CYCLES_START", cyc)
-    b1 = tsds.generate_random_TS(N = 320 , FREQ = 'D', seed = 0, trendtype = "constant", cycle_length = cyc, transform = "", sigma = 0.1, exog_count = 0);
+    b1 = tsds.generate_random_TS(N = 320 , FREQ = 'D', seed = 0, trendtype = "constant", cycle_length = cyc, transform = "None", sigma = 0.1, exog_count = 0);
     df = b1.mPastData
 
     # df.tail(10)
