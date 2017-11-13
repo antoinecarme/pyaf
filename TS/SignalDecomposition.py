@@ -429,7 +429,7 @@ class cSignalDecomposition:
                        lTestPerf.getCriterionValue(self.mOptions.mModelSelection_Criterion)]
                 rows_list.append(row);
                 if(self.mOptions.mDebugPerformance):
-                    logger.info("collectPerformanceIndices : " + str(row[0]) + " " + str(row[1]) + " " + str(row[2]) + " " +str(row[8]));
+                    logger.info("collectPerformanceIndices : " + self.mOptions.mModelSelection_Criterion + " " +  str(row[0]) + " " + str(row[1]) + " " + str(row[2]) + " " +str(row[5]));
 
         self.mTrPerfDetails =  pd.DataFrame(rows_list, columns=
                                             ('Transformation', 'Model', 'Complexity',
@@ -480,7 +480,8 @@ class cSignalDecomposition:
                        lTestPerf.mCount, lTestPerf.mL1, lTestPerf.mL2, lTestPerf.mMAPE, lTestPerf.mMASE]
                 rows_list.append(row);
                 if(self.mOptions.mDebugPerformance):
-                    logger.info("collectPerformanceIndices : " + str(row[0]) + " " + str(row[1]) + " " + str(row[2]) + " " +str(row[8]));
+                    lIndicatorValue = lForecastPerf.getCriterionValue(self.mOptions.mModelSelection_Criterion)
+                    logger.info("collectPerformanceIndices : " + self.mOptions.mModelSelection_Criterion + " " + str(row[0]) + " " + str(row[1]) + " " + str(row[2]) + " " + str(lIndicatorValue));
 
         self.mTrPerfDetails =  pd.DataFrame(rows_list, columns=
                                             ('Transformation', 'Model', 'Complexity',
