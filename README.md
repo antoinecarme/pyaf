@@ -138,7 +138,7 @@ requests, comments, help, hints are very welcome.
 Installation
 ------------
 
-PyAF has been developed, tested and used on a python 3.5 version. 
+PyAF has been developed, tested and used on a python 3.x version. 
 
 The following two commands install PyAF and all its dependencies:
 
