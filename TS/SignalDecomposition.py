@@ -23,6 +23,7 @@ import threading
 
 from . import Time as tsti
 from . import Exogenous as tsexog
+from . import MissingData as tsmiss
 from . import Signal_Transformation as tstransf
 from . import Perf as tsperf
 from . import SignalDecomposition_Trend as tstr
@@ -88,14 +89,19 @@ class cSignalDecompositionOneTransform:
         self.mTransformation = iTransformation;
         self.mTransformation.mOriginalSignal = iSignal; 
 
-        self.mTransformation.fit(iInputDS[iSignal]);
+        lMissingImputer = tsmiss.cMissingDataImputer()
+        lMissingImputer.mOptions = self.mOptions
+        lSignal = lMissingImputer.interpolate_signal_if_needed(iInputDS, iSignal)
+        lTime = lMissingImputer.interpolate_time_if_needed(iInputDS, iTime)
+
+        self.mTransformation.fit(lSignal);
 
         self.mSignal = iTransformation.get_name(iSignal)
         self.mHorizon = iHorizon;
         self.mSignalFrame = pd.DataFrame()
-        self.mSignalFrame[self.mOriginalSignal] = iInputDS[iSignal].copy();
-        self.mSignalFrame[self.mSignal] = self.mTransformation.apply(iInputDS[iSignal]);
-        self.mSignalFrame[self.mTime] = iInputDS[self.mTime].copy();
+        self.mSignalFrame[self.mOriginalSignal] = lSignal;
+        self.mSignalFrame[self.mSignal] = self.mTransformation.apply(lSignal);
+        self.mSignalFrame[self.mTime] = lTime;
         self.mSignalFrame['row_number'] = np.arange(0, iInputDS.shape[0]);
         # self.mSignalFrame.dropna(inplace = True);
         assert(self.mSignalFrame.shape[0] > 0);
@@ -599,7 +605,12 @@ class cSignalDecomposition:
         logger = tsutil.get_pyaf_logger();
         logger.info("START_FORECASTING")
         start_time = time.time()
-        lForecastFrame = self.mBestModel.forecast(iInputDS, iHorizon);
+        lMissingImputer = tsmiss.cMissingDataImputer()
+        lMissingImputer.mOptions = self.mOptions
+        lInputDS = iInputDS.copy()
+        lInputDS[self.mBestModel.mOriginalSignal] = lMissingImputer.interpolate_signal_if_needed(iInputDS, self.mBestModel.mOriginalSignal)
+        lInputDS[self.mBestModel.mTime] = lMissingImputer.interpolate_time_if_needed(iInputDS, self.mBestModel.mTime)
+        lForecastFrame = self.mBestModel.forecast(lInputDS, iHorizon);
         lForecastTime = time.time() - start_time;
         logger.info("END_FORECAST_TIME_IN_SECONDS " + str(lForecastTime))
         return lForecastFrame;
