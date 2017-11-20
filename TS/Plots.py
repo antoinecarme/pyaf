@@ -98,7 +98,7 @@ def prediction_interval_plot(df, time, signal, estimator, lower, upper, name = N
     df1[upper] = df1[upper].apply(lambda x : x if (np.isnan(x) or x <= lMax) else np.nan);
 
     # last value of the signal
-    lLastSignalPos = df1[signal].dropna().tail(1).index;
+    lLastSignalPos = df1[signal].dropna().tail(1).index[0];
     lEstimtorValue = df1[estimator][lLastSignalPos];
     df1.loc[lLastSignalPos , lower] = lEstimtorValue;
     df1.loc[lLastSignalPos , upper] = lEstimtorValue;
