@@ -119,6 +119,7 @@ The following features are available :
       concerns is the key factor here.
       * **Fully written in python** with numpy, scipy, pandas and scikit-learn
       objects. Tries to be **column-based** everywhere for performance reasons.
+      * Internally using a fit/predict pattern , inspired by scikit-learn, to estimate/forecast the different signal components (trends, cycles and AR models).
       * A **test-driven approach** is used. Test scripts are available in the [tests](tests)
       directory, one directory for each feature.
       -Some **[jupyter notebooks](docs)** are available for demo purposes with standard time series and forecasts plots.
