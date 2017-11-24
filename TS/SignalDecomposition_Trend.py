@@ -347,6 +347,13 @@ class cTrendEstimator:
             for i in self.mOptions.mMovingMedianLengths:
                 if(self.needMovingTrend(self.mSignalFrame , i)):
                     self.mTrendList = self.mTrendList + [cMovingMedianTrend(i)]
+        if(len(self.mTrendList) == 0):
+            self.mTrendList = [cConstantTrend()];
+            
+        # logger = tsutil.get_pyaf_logger();
+        # logger.info("ACTIVE_TRENDS" + str(self.mOptions.mActiveTrends));
+        # logger.info("TRENDS" + str([tr.mOutName for tr in self.mTrendList]));
+
 
         
     def plotTrend(self):
