@@ -44,7 +44,7 @@ class cModelControl:
                 self.mActiveTransformations[transformation] = True;
             else:
                 self.mActiveTransformations[transformation] = False;
-        if(len(transformations) == 0):
+        if(True not in self.mActiveTransformations.values()):
             # default
             self.mActiveTransformations['None'] = True;
     
@@ -55,7 +55,7 @@ class cModelControl:
                 self.mActiveTrends[trend] = True;
             else:
                 self.mActiveTrends[trend] = False;
-        if(len(trends) == 0):
+        if(True not in self.mActiveTrends.values()):
             # default
             self.mActiveTrends['ConstantTrend'] = True;                
     
@@ -66,7 +66,7 @@ class cModelControl:
                 self.mActivePeriodics[period] = True;
             else:
                 self.mActivePeriodics[period] = False;
-        if(len(periodics) == 0):
+        if(True not in self.mActivePeriodics.values()):
             # default
             self.mActivePeriodics['NoCycle'] = True;
                     
@@ -77,7 +77,7 @@ class cModelControl:
                 self.mActiveAutoRegressions[autoreg] = True;
             else:
                 self.mActiveAutoRegressions[autoreg] = False;                
-        if(len(autoregs) == 0):
+        if(True not in self.mActiveAutoRegressions.values()):
             # default
             self.mActiveAutoRegressions['NoAR'] = True;
 
