@@ -99,14 +99,15 @@ class cSignalDecompositionOneTransform:
         self.mSignal = iTransformation.get_name(iSignal)
         self.mHorizon = iHorizon;
         self.mSignalFrame = pd.DataFrame()
+        self.mSignalFrame[self.mTime] = lTime;
         self.mSignalFrame[self.mOriginalSignal] = lSignal;
         self.mSignalFrame[self.mSignal] = self.mTransformation.apply(lSignal);
-        self.mSignalFrame[self.mTime] = lTime;
         self.mSignalFrame['row_number'] = np.arange(0, iInputDS.shape[0]);
         # self.mSignalFrame.dropna(inplace = True);
         assert(self.mSignalFrame.shape[0] > 0);
 
         # print("SIGNAL_INFO " , self.mSignalFrame.info());
+        # print(self.mSignalFrame.head())
         
         self.mTimeInfo = tsti.cTimeInfo();
         self.mTimeInfo.mTime = self.mTime;
