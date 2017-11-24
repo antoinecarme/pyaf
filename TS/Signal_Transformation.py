@@ -178,7 +178,7 @@ class cSignalTransform_Accumulate(cAbstractSignalTransform):
     
     def specific_invert(self, df):
         df_orig = df - df.shift(1);
-        df_orig.iloc[0] = 0.0;
+        df_orig.iloc[0] = df.iloc[0];
         return df_orig;
 
 
@@ -249,21 +249,21 @@ class cSignalTransform_BoxCox(cAbstractSignalTransform):
     
 
     def specific_apply(self, df):
-        log_df = np.log(df + 1);
+        lEps = 1e-20
+        log_df = df.apply(lambda x : np.log(max(x , lEps)));
         if(abs(self.mLambda) <= 0.01):
             return log_df;
         return (np.exp(log_df * self.mLambda) - 1) / self.mLambda;
 
     def invert_value(self, y):
         x = y;
-        if(x <= (-1.0/self.mLambda)):
-            x = 1.0e-8;
-        x1 = np.log(self.mLambda * x + 1) / self.mLambda;
-        return np.exp(x1) - 1;        
+        lEps = 1e-20
+        x1 = np.log(max(self.mLambda * x + 1, lEps)) / self.mLambda;
+        return np.exp(x1.clip(-20, 20)) ;        
     
     def specific_invert(self, df):
-        if(abs(self.mLambda) <= 0.01):
-            df_orig = np.exp(df) - 1;
+        if(abs(self.mLambda) <= 0.001):
+            df_orig = np.exp(df.clip(-20, 20));
             return df_orig;
         df_pos = df.apply(self.invert_value);
         return df_pos;
@@ -408,6 +408,7 @@ class cSignalTransform_Anscombe(cAbstractSignalTransform):
         self.mComplexity = 1;
         self.mFormula = "Anscombe";
         self.mConstant = 3.0/ 8.0;
+        self.mScaling = True;
         pass
 
     def get_name(self, iSig):
@@ -417,11 +418,11 @@ class cSignalTransform_Anscombe(cAbstractSignalTransform):
         pass
     
     def specific_apply(self, sig):
-        y = 2 * np.sqrt(sig.values + self.mConstant);
+        y = sig.apply(lambda x : 2 * np.sqrt(x + self.mConstant));
         return y;
     
     def specific_invert(self, sig):
-        x = (sig / 2) *  (sig / 2) - self.mConstant ;
+        x = sig.apply(lambda x : ((x/2 * x/2) - self.mConstant))
         return x;
 
 
@@ -445,7 +446,7 @@ class cSignalTransform_Fisher(cAbstractSignalTransform):
     
     def specific_apply(self, sig):
         eps = 1.0e-8;
-        y = np.arctanh(np.clip(sig.values , -1 + eps , 1.0 - eps));
+        y = sig.apply(lambda x : np.arctanh(np.clip(x , -1 + eps , 1.0 - eps)));
         return y;
     
     def specific_invert(self, sig):
@@ -482,5 +483,5 @@ def create_tranformation(iName , arg):
     if(iName == 'Anscombe'):
         return cSignalTransform_Anscombe()
 
-    assert(0)
+    # assert(0)
     return None
