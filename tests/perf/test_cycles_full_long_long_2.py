@@ -13,7 +13,7 @@ lValues = [ 2 ];
 for nbrows in range(1000,32000, 1000):
     cyc = lValues[0]
     print("TEST_CYCLES_START", nbrows, cyc)
-    b1 = tsds.generate_random_TS(N = nbrows , FREQ = 'H', seed = 0, trendtype = "constant", cycle_length = cyc, transform = "", sigma = 0.1, exog_count = 0);
+    b1 = tsds.generate_random_TS(N = nbrows , FREQ = 'H', seed = 0, trendtype = "constant", cycle_length = cyc, transform = "None", sigma = 0.1, exog_count = 0, ar_order=0);
     df = b1.mPastData
 
     # df.tail(10)

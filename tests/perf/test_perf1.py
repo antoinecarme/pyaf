@@ -11,7 +11,7 @@ import pyaf.Bench.TS_datasets as tsds
 lValues = [ 64 ];
 for cyc in lValues:
     print("TEST_CYCLES_START", cyc)
-    b1 = tsds.generate_random_TS(N = 4800 , FREQ = 'D', seed = 0, trendtype = "linear", cycle_length = cyc, transform = "", sigma = 0.0, exog_count = 100);
+    b1 = tsds.generate_random_TS(N = 4800 , FREQ = 'D', seed = 0, trendtype = "linear", cycle_length = cyc, transform = "None", sigma = 0.0, exog_count = 100, ar_order=0);
     df = b1.mPastData
 
     # df.tail(10)
