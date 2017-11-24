@@ -41,7 +41,7 @@ def process_dataset_with_noise(idataset , model_type, sigma, debug=False):
     import warnings
 
     with warnings.catch_warnings():
-        warnings.simplefilter("error")
+        # warnings.simplefilter("error")
         N = idataset.mFullDataset.shape[0];
         lSignalVar = idataset.mSignalVar + "_" + str(sigma);
         lHorizon = idataset.mHorizon[idataset.mSignalVar]
@@ -50,16 +50,18 @@ def process_dataset_with_noise(idataset , model_type, sigma, debug=False):
         idataset.mPastData = idataset.mFullDataset[:-lHorizon];
         idataset.mFutureData = idataset.mFullDataset.tail(lHorizon);
         training_ds = idataset.mPastData
-        # #df.to_csv("outputs/rand_exogenous.csv")
+        # training_ds.to_csv("/tmp/to_del_train.csv")
     
         H = lHorizon;
     
         # N = df.shape[0];
         # df1 = df;
         lEngine = autof.cForecastEngine()
-        # lEngine.mOptions.mEnableSeasonals = False;
+        # lEngine.mOptions.mDebugProfile = True;
         lEngine.mOptions.mDebug = debug;
-        if(model_type is not None):
+        is_old = (model_type[0] not in lEngine.mOptions.mKnownTransformations)
+        is_old = is_old or (model_type[1] not in lEngine.mOptions.mKnownTrends)
+        if(not is_old and model_type is not None):
             lEngine.mOptions.set_active_transformations([model_type[0]])
             lEngine.mOptions.set_active_trends([model_type[1]])
             lEngine.mOptions.set_active_periodics([model_type[2]])
@@ -70,7 +72,7 @@ def process_dataset_with_noise(idataset , model_type, sigma, debug=False):
         lExogenousData = (idataset.mExogenousDataFrame , idataset.mExogenousVariables) 
         lEngine.train(training_ds , idataset.mTimeVar , lSignalVar, H, lExogenousData);
         lEngine.getModelInfo();
-        lEngine.standardPlots(name = "outputs/my_artificial_" + idataset.mName + "_" + str(sigma));
+        # lEngine.standardPlots(name = "outputs/my_artificial_" + idataset.mName + "_" + str(sigma));
         # lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
 
         lEngine2 = pickleModel(lEngine)
@@ -80,6 +82,7 @@ def process_dataset_with_noise(idataset , model_type, sigma, debug=False):
 
     
         dfapp_out = lEngine2.forecast(dfapp_in, H);
+        # dfapp_out.to_csv("/tmp/to_del.csv")
         dfapp_out.tail(2 * H)
         print("Forecast Columns " , dfapp_out.columns);
         lForecastName = lSignalVar + '_Forecast'
