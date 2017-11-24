@@ -205,10 +205,10 @@ def gen_trend(N , trendtype):
     lTrend = 0
     if(trendtype == "ConstantTrend"):
         lTrend = a
-    if(trendtype == "LinearTrend"):
+    elif(trendtype == "LinearTrend"):
         x = np.arange(0,N) / N ;
         lTrend =  a * x + b;
-    if(trendtype == "PolyTrend"):
+    elif(trendtype == "PolyTrend"):
         x = np.arange(0,N) / N;
         lTrend =  a * x * x + b * x + c;
     # lTrend.plot();
@@ -237,6 +237,26 @@ def gen_ar(N , ar_order):
         lAR = 0;
     return lAR;
 
+def apply_old_transform(signal , transform):
+    transformed = None
+    if(transform == "exp"):
+        transformed = np.exp(-signal)
+    if(transform == "log"):
+        transformed = np.log(signal)
+    if(transform == "sqrt"):
+        transformed = np.sqrt(signal)
+    if(transform == "sqr"):
+        transformed = np.power(signal , 2)
+    if(transform == "pow3"):
+        transformed = np.power(signal , 3)
+    if(transform == "inv"):
+        transformed = 1.0 / (signal)
+    if(transform == "diff"):
+        transformed = signal - signal.shift(1).fillna(0.0);
+    if(transform == "cumsum"):
+        transformed = signal.cumsum();
+    return transformed
+    
 def apply_transform(signal , transform):
     import pyaf.TS.Signal_Transformation as tstransf
     arg = None
@@ -245,8 +265,14 @@ def apply_transform(signal , transform):
     if(transform == "BoxCox"):
         arg = 0
     tr = tstransf.create_tranformation(transform , arg)
-    tr.fit(signal)
-    transformed = tr.invert(signal)
+    transformed = None
+    if(tr is None):
+        transformed = apply_old_transform(signal, transform)
+    else :
+        tr.fit(signal)
+        transformed = tr.invert(signal)
+        # print(signal.head())
+        # print(transformed.head())
     return transformed
 
 def generate_random_TS(N , FREQ, seed, trendtype, cycle_length, transform, sigma = 1.0, exog_count = 20, ar_order = 0) :
@@ -300,7 +326,7 @@ def generate_random_TS(N , FREQ, seed, trendtype, cycle_length, transform, sigma
     # this is the full dataset . must contain future exogenius data
     pos_signal = df_train['Signal'] - min_sig + 1.0;
 
-    df_train['Signal'] = apply_transform(df_train['Signal'] , transform)
+    df_train['Signal'] = apply_transform(pos_signal , transform)
 
     # df_train.to_csv(tsspec.mName + ".csv");
 
