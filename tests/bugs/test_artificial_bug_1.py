@@ -4,8 +4,6 @@ import warnings
 
 
 with warnings.catch_warnings():
-    warnings.simplefilter("error")
+    # warnings.simplefilter("error")
 
-    dataset = tsds.generate_random_TS(N = 200 , FREQ = 'D', seed = 0, trendtype = "linear", cycle_length = 48, transform = "exp", sigma = 4.0, exog_count = 0);
-
-    art.process_dataset(dataset);
+    art.process_dataset(N = 200 , FREQ = 'D', seed = 0, trendtype = "linear", cycle_length = 48, transform = "exp", sigma = 4.0, exog_count = 0, ar_order = 0);

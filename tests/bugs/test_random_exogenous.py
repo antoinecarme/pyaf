@@ -6,15 +6,13 @@ import pyaf.Bench.TS_datasets as tsds
 import warnings
 
 with warnings.catch_warnings():
-    warnings.simplefilter("error")
+    # warnings.simplefilter("error")
 
-    b1 = tsds.generate_random_TS(N = 160 , FREQ = 'D', seed = 0, trendtype = "constant", cycle_length = 12, transform = "", sigma = 0.10, exog_count = 1280);
+    b1 = tsds.generate_random_TS(N = 160 , FREQ = 'D', seed = 0, trendtype = "constant", cycle_length = 12, transform = "None", sigma = 0.10, exog_count = 1280);
     df = b1.mPastData
 
-    # this script works on mysql with N = 600, exog_count = 20 when thread_stack = 1920K in
-    # /etc/mysql/mysql.conf.d/mysqld.cnf
-
-    #df.to_csv("outputs/rand_exogenous.csv")
+    df.info()
+    # df.to_csv("outputs/rand_exogenous.csv")
     
     H = b1.mHorizon[b1.mSignalVar];
     
