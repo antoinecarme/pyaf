@@ -1,0 +1,97 @@
+INFO:pyaf.std:START_TRAINING 'Signal_0.01'
+GENERATING_RANDOM_DATASET Signal_32_D_0_MovingAverage_5_Integration_0.0_20
+TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal_0.01' 0.8826990127563477
+INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2000-01-24T00:00:00.000000 TimeDelta=1 days Estimation = (0 , 24) Validation = (24 , 30) Test = (30 , 31) Horizon=1
+INFO:pyaf.std:SIGNAL_DETAIL SignalVariable='CumSum_Signal_0.01' Min=0.934364128843 Max=7.01723522611  Mean=4.19209623816 StdDev=2.00963501868
+INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'CumSum_'
+INFO:pyaf.std:BEST_DECOMPOSITION  'CumSum_Signal_0.01_ConstantTrend_residue_bestCycle_byL2_residue_AR(7)' [ConstantTrend + Cycle_None + AR(7)]
+INFO:pyaf.std:TREND_DETAIL 'CumSum_Signal_0.01_ConstantTrend' [ConstantTrend]
+INFO:pyaf.std:CYCLE_DETAIL 'CumSum_Signal_0.01_ConstantTrend_residue_bestCycle_byL2' [Cycle_None]
+INFO:pyaf.std:AUTOREG_DETAIL 'CumSum_Signal_0.01_ConstantTrend_residue_bestCycle_byL2_residue_AR(7)' [AR(7)]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.2154 MAPE_Forecast=0.0869 MAPE_Test=0.0815
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.3016 SMAPE_Forecast=0.0849 SMAPE_Test=0.0783
+INFO:pyaf.std:MODEL_MASE MASE_Fit=0.1244 MASE_Forecast=0.0505 MASE_Test=None
+INFO:pyaf.std:MODEL_L1 L1_Fit=0.729745131002 L1_Forecast=0.2827387064 L1_Test=0.163591440125
+INFO:pyaf.std:MODEL_L2 L2_Fit=1.19676639524 L2_Forecast=0.293491069962 L2_Test=0.163591440125
+INFO:pyaf.std:MODEL_COMPLEXITY 47
+INFO:pyaf.std:AR_MODEL_DETAIL_START
+INFO:pyaf.std:AR_MODEL_COEFF 1 CumSum_Signal_0.01_ConstantTrend_residue_bestCycle_byL2_residue_Lag1 -0.538985362757
+INFO:pyaf.std:AR_MODEL_COEFF 2 CumSum_Signal_0.01_ConstantTrend_residue_bestCycle_byL2_residue_Lag3 -0.521207032798
+INFO:pyaf.std:AR_MODEL_COEFF 3 CumSum_Signal_0.01_ConstantTrend_residue_bestCycle_byL2_residue_Lag4 -0.502141051564
+INFO:pyaf.std:AR_MODEL_COEFF 4 CumSum_Signal_0.01_ConstantTrend_residue_bestCycle_byL2_residue_Lag5 0.498788582133
+INFO:pyaf.std:AR_MODEL_COEFF 5 CumSum_Signal_0.01_ConstantTrend_residue_bestCycle_byL2_residue_Lag2 -0.427127033693
+INFO:pyaf.std:AR_MODEL_COEFF 6 CumSum_Signal_0.01_ConstantTrend_residue_bestCycle_byL2_residue_Lag6 0.0467879193495
+INFO:pyaf.std:AR_MODEL_DETAIL_END
+INFO:pyaf.std:START_FORECASTING
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.05365777015686035
+Forecast Columns  Index(['CumSum_Signal_0.01', 'Date', 'GeneratedAR', 'GeneratedCycle',
+       'GeneratedTrend', 'Noise', 'Signal', 'Signal_0.01',
+       'Signal_32_D_0_MovingAverage_5_Integration_0.0_20', 'orig_Signal',
+       'row_number', 'Date_Normalized', 'CumSum_Signal_0.01_ConstantTrend',
+       'CumSum_Signal_0.01_ConstantTrend_residue',
+       'CumSum_Signal_0.01_ConstantTrend_residue_bestCycle_byL2',
+       'CumSum_Signal_0.01_ConstantTrend_residue_bestCycle_byL2_residue',
+       'CumSum_Signal_0.01_ConstantTrend_residue_bestCycle_byL2_residue_AR(7)',
+       'CumSum_Signal_0.01_ConstantTrend_residue_bestCycle_byL2_residue_AR(7)_residue',
+       'CumSum_Signal_0.01_Trend', 'CumSum_Signal_0.01_Trend_residue',
+       'CumSum_Signal_0.01_Cycle', 'CumSum_Signal_0.01_Cycle_residue',
+       'CumSum_Signal_0.01_AR', 'CumSum_Signal_0.01_AR_residue',
+       'CumSum_Signal_0.01_TransformedForecast', 'Signal_0.01_Forecast',
+       'CumSum_Signal_0.01_TransformedResidue', 'Signal_0.01_Residue',
+       'Signal_0.01_Forecast_Lower_Bound', 'Signal_0.01_Forecast_Upper_Bound'],
+      dtype='object')
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 32 entries, 0 to 31
+Data columns (total 5 columns):
+Date                                32 non-null datetime64[ns]
+Signal_0.01                         31 non-null float64
+Signal_0.01_Forecast                32 non-null float64
+Signal_0.01_Forecast_Lower_Bound    1 non-null float64
+Signal_0.01_Forecast_Upper_Bound    1 non-null float64
+dtypes: datetime64[ns](1), float64(4)
+memory usage: 1.3 KB
+Forecasts
+ [[Timestamp('2000-02-01 00:00:00') nan -3.6750330876528325
+  -4.250275584779145 -3.0997905905265197]]
+
+
+<ModelInfo>
+{
+    "Dataset": {
+        "Signal": "Signal_0.01",
+        "Time": {
+            "Horizon": 1,
+            "TimeMinMax": [
+                "2000-01-01 00:00:00",
+                "2000-01-31 00:00:00"
+            ],
+            "TimeVariable": "Date"
+        },
+        "Training_Signal_Length": 31
+    },
+    "Model": {
+        "AR_Model": "AR(7)",
+        "Best_Decomposition": "CumSum_Signal_0.01_ConstantTrend_residue_bestCycle_byL2_residue_AR(7)",
+        "Cycle": "Cycle_None",
+        "Signal_Transoformation": "Integration",
+        "Trend": "ConstantTrend"
+    },
+    "Model_Performance": {
+        "COMPLEXITY": "47",
+        "MAE": "0.2827387064",
+        "MAPE": "0.0869",
+        "MASE": "0.0505",
+        "RMSE": "0.293491069962"
+    }
+}
+</ModelInfo>
+
+
+
+
+<Forecast>
+{"Date":{"30":"2000-01-31T00:00:00.000Z","31":"2000-02-01T00:00:00.000Z"},"Signal_0.01":{"30":-2.0077979698,"31":null},"Signal_0.01_Forecast":{"30":-2.1713894099,"31":-3.6750330877},"Signal_0.01_Forecast_Lower_Bound":{"30":null,"31":-4.2502755848},"Signal_0.01_Forecast_Upper_Bound":{"30":null,"31":-3.0997905905}}
+</Forecast>
+
+
