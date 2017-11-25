@@ -1,0 +1,105 @@
+INFO:pyaf.std:START_TRAINING 'Signal_0.01'
+GENERATING_RANDOM_DATASET Signal_32_D_0_MovingMedian_7_BoxCox_0.0_20
+TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal_0.01' 1.7225427627563477
+INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2000-01-24T00:00:00.000000 TimeDelta=1 days Estimation = (0 , 24) Validation = (24 , 30) Test = (30 , 31) Horizon=1
+INFO:pyaf.std:SIGNAL_DETAIL SignalVariable='Box_Cox_-2.0_Signal_0.01' Min=-5e+39 Max=-0.0  Mean=-1.61290322581e+38 StdDev=8.83423479847e+38
+INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'Box_Cox_-2.0_'
+INFO:pyaf.std:BEST_DECOMPOSITION  'Box_Cox_-2.0_Signal_0.01_ConstantTrend_residue_bestCycle_byL2_residue_AR(7)' [ConstantTrend + Cycle_None + AR(7)]
+INFO:pyaf.std:TREND_DETAIL 'Box_Cox_-2.0_Signal_0.01_ConstantTrend' [ConstantTrend]
+INFO:pyaf.std:CYCLE_DETAIL 'Box_Cox_-2.0_Signal_0.01_ConstantTrend_residue_bestCycle_byL2' [Cycle_None]
+INFO:pyaf.std:AUTOREG_DETAIL 'Box_Cox_-2.0_Signal_0.01_ConstantTrend_residue_bestCycle_byL2_residue_AR(7)' [AR(7)]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=3.7176 MAPE_Forecast=0.7789 MAPE_Test=0.9398
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=1.4893 SMAPE_Forecast=1.4838 SMAPE_Test=1.7729
+INFO:pyaf.std:MODEL_MASE MASE_Fit=0.6401 MASE_Forecast=0.4891 MASE_Test=None
+INFO:pyaf.std:MODEL_L1 L1_Fit=5085.13934247 L1_Forecast=5363.58716703 L1_Test=318.665921972
+INFO:pyaf.std:MODEL_L2 L2_Fit=10213.7131615 L2_Forecast=10318.4250566 L2_Test=318.665921972
+INFO:pyaf.std:MODEL_COMPLEXITY 79
+INFO:pyaf.std:AR_MODEL_DETAIL_START
+INFO:pyaf.std:AR_MODEL_COEFF 1 Box_Cox_-2.0_Signal_0.01_ConstantTrend_residue_bestCycle_byL2_residue_Lag1 -0.0434782608696
+INFO:pyaf.std:AR_MODEL_DETAIL_END
+INFO:pyaf.std:START_FORECASTING
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.06466412544250488
+Forecast Columns  Index(['Box_Cox_-2.0_Signal_0.01', 'Date', 'GeneratedAR', 'GeneratedCycle',
+       'GeneratedTrend', 'Noise', 'Signal', 'Signal_0.01',
+       'Signal_32_D_0_MovingMedian_7_BoxCox_0.0_20', 'orig_Signal',
+       'row_number', 'Date_Normalized',
+       'Box_Cox_-2.0_Signal_0.01_ConstantTrend',
+       'Box_Cox_-2.0_Signal_0.01_ConstantTrend_residue',
+       'Box_Cox_-2.0_Signal_0.01_ConstantTrend_residue_bestCycle_byL2',
+       'Box_Cox_-2.0_Signal_0.01_ConstantTrend_residue_bestCycle_byL2_residue',
+       'Box_Cox_-2.0_Signal_0.01_ConstantTrend_residue_bestCycle_byL2_residue_AR(7)',
+       'Box_Cox_-2.0_Signal_0.01_ConstantTrend_residue_bestCycle_byL2_residue_AR(7)_residue',
+       'Box_Cox_-2.0_Signal_0.01_Trend',
+       'Box_Cox_-2.0_Signal_0.01_Trend_residue',
+       'Box_Cox_-2.0_Signal_0.01_Cycle',
+       'Box_Cox_-2.0_Signal_0.01_Cycle_residue', 'Box_Cox_-2.0_Signal_0.01_AR',
+       'Box_Cox_-2.0_Signal_0.01_AR_residue',
+       'Box_Cox_-2.0_Signal_0.01_TransformedForecast', 'Signal_0.01_Forecast',
+       'Box_Cox_-2.0_Signal_0.01_TransformedResidue', 'Signal_0.01_Residue',
+       'Signal_0.01_Forecast_Lower_Bound', 'Signal_0.01_Forecast_Upper_Bound'],
+      dtype='object')
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 32 entries, 0 to 31
+Data columns (total 5 columns):
+Date                                32 non-null datetime64[ns]
+Signal_0.01                         31 non-null float64
+Signal_0.01_Forecast                32 non-null float64
+Signal_0.01_Forecast_Lower_Bound    1 non-null float64
+Signal_0.01_Forecast_Upper_Bound    1 non-null float64
+dtypes: datetime64[ns](1), float64(4)
+memory usage: 1.3 KB
+Forecasts
+ [[Timestamp('2000-02-01 00:00:00') nan 20.406049173186013
+  -20203.707061686437 20244.51916003281]]
+
+
+<ModelInfo>
+{
+    "Dataset": {
+        "Signal": "Signal_0.01",
+        "Time": {
+            "Horizon": 1,
+            "TimeMinMax": [
+                "2000-01-01 00:00:00",
+                "2000-01-31 00:00:00"
+            ],
+            "TimeVariable": "Date"
+        },
+        "Training_Signal_Length": 31
+    },
+    "Model": {
+        "AR_Model": "AR(7)",
+        "Best_Decomposition": "Box_Cox_-2.0_Signal_0.01_ConstantTrend_residue_bestCycle_byL2_residue_AR(7)",
+        "Cycle": "Cycle_None",
+        "Signal_Transoformation": "BoxCox(Lambda=-2.0)",
+        "Trend": "ConstantTrend"
+    },
+    "Model_Performance": {
+        "COMPLEXITY": "79",
+        "MAE": "5363.58716703",
+        "MAPE": "0.7789",
+        "MASE": "0.4891",
+        "RMSE": "10318.4250566"
+    }
+}
+</ModelInfo>
+
+
+
+
+<Forecast>
+{"Date":{"30":"2000-01-31T00:00:00.000Z","31":"2000-02-01T00:00:00.000Z"},"Signal_0.01":{"30":339.0719711448,"31":null},"Signal_0.01_Forecast":{"30":20.4060491732,"31":20.4060491732},"Signal_0.01_Forecast_Lower_Bound":{"30":null,"31":-20203.7070616864},"Signal_0.01_Forecast_Upper_Bound":{"30":null,"31":20244.5191600328}}
+</Forecast>
+
+
+/home/antoine/.local/lib/python3.6/site-packages/sklearn/feature_selection/univariate_selection.py:298: RuntimeWarning: divide by zero encountered in true_divide
+  corr /= X_norms
+/home/antoine/.local/lib/python3.6/site-packages/sklearn/feature_selection/univariate_selection.py:303: RuntimeWarning: invalid value encountered in true_divide
+  F = corr ** 2 / (1 - corr ** 2) * degrees_of_freedom
+/home/antoine/.local/lib/python3.6/site-packages/scipy/stats/_distn_infrastructure.py:879: RuntimeWarning: invalid value encountered in greater
+  return (self.a < x) & (x < self.b)
+/home/antoine/.local/lib/python3.6/site-packages/scipy/stats/_distn_infrastructure.py:879: RuntimeWarning: invalid value encountered in less
+  return (self.a < x) & (x < self.b)
+/home/antoine/.local/lib/python3.6/site-packages/scipy/stats/_distn_infrastructure.py:1821: RuntimeWarning: invalid value encountered in less_equal
+  cond2 = cond0 & (x <= self.a)

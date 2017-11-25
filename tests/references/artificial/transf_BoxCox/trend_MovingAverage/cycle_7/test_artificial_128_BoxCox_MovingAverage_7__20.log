@@ -1,0 +1,96 @@
+INFO:pyaf.std:START_TRAINING 'Signal_0.01'
+GENERATING_RANDOM_DATASET Signal_128_D_0_MovingAverage_7_BoxCox_0.0_20
+TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal_0.01' 2.35479736328125
+INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2000-04-05T00:00:00.000000 TimeDelta=1 days Estimation = (0 , 96) Validation = (96 , 120) Test = (120 , 124) Horizon=4
+INFO:pyaf.std:SIGNAL_DETAIL SignalVariable='Box_Cox_2.0_Signal_0.01' Min=-0.5 Max=0.0  Mean=-0.427058935126 StdDev=0.170506659672
+INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'Box_Cox_2.0_'
+INFO:pyaf.std:BEST_DECOMPOSITION  'MovingAverage(7)_residue_bestCycle_byL2_residue_NoAR' [MovingAverage(7) + Cycle_Length_7 + NoAR]
+INFO:pyaf.std:TREND_DETAIL 'MovingAverage(7)' [MovingAverage(7)]
+INFO:pyaf.std:CYCLE_DETAIL 'MovingAverage(7)_residue_bestCycle_byL2' [Cycle_Length_7]
+INFO:pyaf.std:AUTOREG_DETAIL 'MovingAverage(7)_residue_bestCycle_byL2_residue_NoAR' [NoAR]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.022 MAPE_Forecast=0.0397 MAPE_Test=0.0037
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.018 SMAPE_Forecast=0.0323 SMAPE_Test=0.0038
+INFO:pyaf.std:MODEL_MASE MASE_Fit=0.0001 MASE_Forecast=0.0001 MASE_Test=0.0001
+INFO:pyaf.std:MODEL_L1 L1_Fit=0.536803693649 L1_Forecast=0.885515410828 L1_Test=0.337757254659
+INFO:pyaf.std:MODEL_L2 L2_Fit=2.08566639639 L2_Forecast=2.77202286495 L2_Test=0.56951779367
+INFO:pyaf.std:MODEL_COMPLEXITY 120
+INFO:pyaf.std:AR_MODEL_DETAIL_START
+INFO:pyaf.std:AR_MODEL_DETAIL_END
+INFO:pyaf.std:START_FORECASTING
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.3262367248535156
+Forecast Columns  Index(['Box_Cox_2.0_Signal_0.01', 'Date', 'Signal_0.01', 'row_number',
+       'Date_Normalized', 'MovingAverage(7)', 'MovingAverage(7)_residue',
+       'cycle_internal', 'MovingAverage(7)_residue_bestCycle_byL2',
+       'MovingAverage(7)_residue_bestCycle_byL2_residue',
+       'MovingAverage(7)_residue_bestCycle_byL2_residue_NoAR',
+       'MovingAverage(7)_residue_bestCycle_byL2_residue_NoAR_residue',
+       'Box_Cox_2.0_Signal_0.01_Trend',
+       'Box_Cox_2.0_Signal_0.01_Trend_residue',
+       'Box_Cox_2.0_Signal_0.01_Cycle',
+       'Box_Cox_2.0_Signal_0.01_Cycle_residue', 'Box_Cox_2.0_Signal_0.01_AR',
+       'Box_Cox_2.0_Signal_0.01_AR_residue',
+       'Box_Cox_2.0_Signal_0.01_TransformedForecast', 'Signal_0.01_Forecast',
+       'Box_Cox_2.0_Signal_0.01_TransformedResidue', 'Signal_0.01_Residue',
+       'Signal_0.01_Forecast_Lower_Bound', 'Signal_0.01_Forecast_Upper_Bound'],
+      dtype='object')
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 128 entries, 0 to 127
+Data columns (total 5 columns):
+Date                                128 non-null datetime64[ns]
+Signal_0.01                         124 non-null float64
+Signal_0.01_Forecast                128 non-null float64
+Signal_0.01_Forecast_Lower_Bound    4 non-null float64
+Signal_0.01_Forecast_Upper_Bound    4 non-null float64
+dtypes: datetime64[ns](1), float64(4)
+memory usage: 5.1 KB
+Forecasts
+ [[Timestamp('2000-05-04 00:00:00') nan 1411.6271712496127 1406.194006434311
+  1417.0603360649145]
+ [Timestamp('2000-05-05 00:00:00') nan 24563.341123214028 24558.88665764341
+  24567.795588784647]
+ [Timestamp('2000-05-06 00:00:00') nan 338.9356646609661 335.6553800959363
+  342.21594922599587]
+ [Timestamp('2000-05-07 00:00:00') nan 20.401646367431166
+  18.251588164045607 22.551704570816725]]
+
+
+<ModelInfo>
+{
+    "Dataset": {
+        "Signal": "Signal_0.01",
+        "Time": {
+            "Horizon": 4,
+            "TimeMinMax": [
+                "2000-01-01 00:00:00",
+                "2000-05-03 00:00:00"
+            ],
+            "TimeVariable": "Date"
+        },
+        "Training_Signal_Length": 124
+    },
+    "Model": {
+        "AR_Model": "NoAR",
+        "Best_Decomposition": "MovingAverage(7)_residue_bestCycle_byL2_residue_NoAR",
+        "Cycle": "Cycle_Length_7",
+        "Signal_Transoformation": "BoxCox(Lambda=2.0)",
+        "Trend": "MovingAverage(7)"
+    },
+    "Model_Performance": {
+        "COMPLEXITY": "120",
+        "MAE": "0.885515410828",
+        "MAPE": "0.0397",
+        "MASE": "0.0001",
+        "RMSE": "2.77202286495"
+    }
+}
+</ModelInfo>
+
+
+
+
+<Forecast>
+{"Date":{"120":"2000-04-30T00:00:00.000Z","121":"2000-05-01T00:00:00.000Z","122":"2000-05-02T00:00:00.000Z","123":"2000-05-03T00:00:00.000Z","124":"2000-05-04T00:00:00.000Z","125":"2000-05-05T00:00:00.000Z","126":"2000-05-06T00:00:00.000Z","127":"2000-05-07T00:00:00.000Z"},"Signal_0.01":{"120":20.4149810321,"121":339.0636828357,"122":5887.3812627603,"123":82.0154289916,"124":null,"125":null,"126":null,"127":null},"Signal_0.01_Forecast":{"120":20.4016463674,"121":338.8488996694,"122":5887.3856601527,"123":80.8969151963,"124":1411.6271712496,"125":24563.341123214,"126":338.935664661,"127":20.4016463674},"Signal_0.01_Forecast_Lower_Bound":{"120":null,"121":null,"122":null,"123":null,"124":1406.1940064343,"125":24558.8866576434,"126":335.6553800959,"127":18.251588164},"Signal_0.01_Forecast_Upper_Bound":{"120":null,"121":null,"122":null,"123":null,"124":1417.0603360649,"125":24567.7955887846,"126":342.215949226,"127":22.5517045708}}
+</Forecast>
+
+
