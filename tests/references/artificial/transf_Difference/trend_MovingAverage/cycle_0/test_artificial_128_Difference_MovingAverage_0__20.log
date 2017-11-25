@@ -1,0 +1,104 @@
+INFO:pyaf.std:START_TRAINING 'Signal_0.01'
+GENERATING_RANDOM_DATASET Signal_128_D_0_MovingAverage_0_Difference_0.0_20
+TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal_0.01' 1.4133949279785156
+INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2000-04-05T00:00:00.000000 TimeDelta=1 days Estimation = (0 , 96) Validation = (96 , 120) Test = (120 , 124) Horizon=4
+INFO:pyaf.std:SIGNAL_DETAIL SignalVariable='Diff_Signal_0.01' Min=0.0 Max=1.03385551386  Mean=0.991973850801 StdDev=0.0905920736514
+INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'Diff_'
+INFO:pyaf.std:BEST_DECOMPOSITION  'MovingAverage(5)_residue_bestCycle_byL2_residue_AR(31)' [MovingAverage(5) + Cycle_Length_5 + AR(31)]
+INFO:pyaf.std:TREND_DETAIL 'MovingAverage(5)' [MovingAverage(5)]
+INFO:pyaf.std:CYCLE_DETAIL 'MovingAverage(5)_residue_bestCycle_byL2' [Cycle_Length_5]
+INFO:pyaf.std:AUTOREG_DETAIL 'MovingAverage(5)_residue_bestCycle_byL2_residue_AR(31)' [AR(31)]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.005 MAPE_Forecast=0.0003 MAPE_Test=0.0003
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0045 SMAPE_Forecast=0.0003 SMAPE_Test=0.0003
+INFO:pyaf.std:MODEL_MASE MASE_Fit=0.0296 MASE_Forecast=0.0337 MASE_Test=0.0329
+INFO:pyaf.std:MODEL_L1 L1_Fit=0.029624560267 L1_Forecast=0.0337691551935 L1_Test=0.0329841602519
+INFO:pyaf.std:MODEL_L2 L2_Fit=0.0725796661667 L2_Forecast=0.0378713749938 L2_Test=0.0369447246441
+INFO:pyaf.std:MODEL_COMPLEXITY 119
+INFO:pyaf.std:AR_MODEL_DETAIL_START
+INFO:pyaf.std:AR_MODEL_COEFF 1 MovingAverage(5)_residue_bestCycle_byL2_residue_Lag1 0.209850747635
+INFO:pyaf.std:AR_MODEL_COEFF 2 MovingAverage(5)_residue_bestCycle_byL2_residue_Lag2 0.0850536772648
+INFO:pyaf.std:AR_MODEL_COEFF 3 MovingAverage(5)_residue_bestCycle_byL2_residue_Lag5 -0.083031556207
+INFO:pyaf.std:AR_MODEL_COEFF 4 MovingAverage(5)_residue_bestCycle_byL2_residue_Lag3 0.0240741329761
+INFO:pyaf.std:AR_MODEL_COEFF 5 MovingAverage(5)_residue_bestCycle_byL2_residue_Lag10 -0.0180385101425
+INFO:pyaf.std:AR_MODEL_COEFF 6 MovingAverage(5)_residue_bestCycle_byL2_residue_Lag9 0.0169936410878
+INFO:pyaf.std:AR_MODEL_COEFF 7 MovingAverage(5)_residue_bestCycle_byL2_residue_Lag6 -0.0157640276109
+INFO:pyaf.std:AR_MODEL_COEFF 8 MovingAverage(5)_residue_bestCycle_byL2_residue_Lag16 -0.0129774092075
+INFO:pyaf.std:AR_MODEL_COEFF 9 MovingAverage(5)_residue_bestCycle_byL2_residue_Lag8 -0.0122340501484
+INFO:pyaf.std:AR_MODEL_COEFF 10 MovingAverage(5)_residue_bestCycle_byL2_residue_Lag12 -0.00923687272019
+INFO:pyaf.std:AR_MODEL_DETAIL_END
+INFO:pyaf.std:START_FORECASTING
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.2249619960784912
+Forecast Columns  Index(['Date', 'Diff_Signal_0.01', 'Signal_0.01', 'row_number',
+       'Date_Normalized', 'MovingAverage(5)', 'MovingAverage(5)_residue',
+       'cycle_internal', 'MovingAverage(5)_residue_bestCycle_byL2',
+       'MovingAverage(5)_residue_bestCycle_byL2_residue',
+       'MovingAverage(5)_residue_bestCycle_byL2_residue_AR(31)',
+       'MovingAverage(5)_residue_bestCycle_byL2_residue_AR(31)_residue',
+       'Diff_Signal_0.01_Trend', 'Diff_Signal_0.01_Trend_residue',
+       'Diff_Signal_0.01_Cycle', 'Diff_Signal_0.01_Cycle_residue',
+       'Diff_Signal_0.01_AR', 'Diff_Signal_0.01_AR_residue',
+       'Diff_Signal_0.01_TransformedForecast', 'Signal_0.01_Forecast',
+       'Diff_Signal_0.01_TransformedResidue', 'Signal_0.01_Residue',
+       'Signal_0.01_Forecast_Lower_Bound', 'Signal_0.01_Forecast_Upper_Bound'],
+      dtype='object')
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 128 entries, 0 to 127
+Data columns (total 5 columns):
+Date                                128 non-null datetime64[ns]
+Signal_0.01                         124 non-null float64
+Signal_0.01_Forecast                128 non-null float64
+Signal_0.01_Forecast_Lower_Bound    4 non-null float64
+Signal_0.01_Forecast_Upper_Bound    4 non-null float64
+dtypes: datetime64[ns](1), float64(4)
+memory usage: 5.1 KB
+Forecasts
+ [[Timestamp('2000-05-04 00:00:00') nan 126.05330934383335 125.9790814488454
+  126.12753723882129]
+ [Timestamp('2000-05-05 00:00:00') nan 127.03680923282587
+  126.86746208858695 127.2061563770648]
+ [Timestamp('2000-05-06 00:00:00') nan 128.06475509422572
+  127.60902245073977 128.52048773771165]
+ [Timestamp('2000-05-07 00:00:00') nan 129.0825144664563 128.37257949258384
+  129.79244944032877]]
+
+
+<ModelInfo>
+{
+    "Dataset": {
+        "Signal": "Signal_0.01",
+        "Time": {
+            "Horizon": 4,
+            "TimeMinMax": [
+                "2000-01-01 00:00:00",
+                "2000-05-03 00:00:00"
+            ],
+            "TimeVariable": "Date"
+        },
+        "Training_Signal_Length": 124
+    },
+    "Model": {
+        "AR_Model": "AR(31)",
+        "Best_Decomposition": "MovingAverage(5)_residue_bestCycle_byL2_residue_AR(31)",
+        "Cycle": "Cycle_Length_5",
+        "Signal_Transoformation": "Difference",
+        "Trend": "MovingAverage(5)"
+    },
+    "Model_Performance": {
+        "COMPLEXITY": "119",
+        "MAE": "0.0337691551935",
+        "MAPE": "0.0003",
+        "MASE": "0.0337",
+        "RMSE": "0.0378713749938"
+    }
+}
+</ModelInfo>
+
+
+
+
+<Forecast>
+{"Date":{"120":"2000-04-30T00:00:00.000Z","121":"2000-05-01T00:00:00.000Z","122":"2000-05-02T00:00:00.000Z","123":"2000-05-03T00:00:00.000Z","124":"2000-05-04T00:00:00.000Z","125":"2000-05-05T00:00:00.000Z","126":"2000-05-06T00:00:00.000Z","127":"2000-05-07T00:00:00.000Z"},"Signal_0.01":{"120":121.9893720508,"121":122.9911359373,"122":124.0192134696,"123":124.9954021948,"124":null,"125":null,"126":null,"127":null},"Signal_0.01_Forecast":{"120":122.0156907944,"121":123.0314916091,"122":124.0293855624,"123":125.0504923276,"124":126.0533093438,"125":127.0368092328,"126":128.0647550942,"127":129.0825144665},"Signal_0.01_Forecast_Lower_Bound":{"120":null,"121":null,"122":null,"123":null,"124":125.9790814488,"125":126.8674620886,"126":127.6090224507,"127":128.3725794926},"Signal_0.01_Forecast_Upper_Bound":{"120":null,"121":null,"122":null,"123":null,"124":126.1275372388,"125":127.2061563771,"126":128.5204877377,"127":129.7924494403}}
+</Forecast>
+
+
