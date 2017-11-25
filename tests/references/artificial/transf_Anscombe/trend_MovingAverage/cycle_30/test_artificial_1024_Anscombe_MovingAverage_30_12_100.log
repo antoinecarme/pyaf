@@ -1,0 +1,120 @@
+INFO:pyaf.std:START_TRAINING 'Signal_0.01'
+GENERATING_RANDOM_DATASET Signal_1024_D_0_MovingAverage_30_Anscombe_0.0_100
+TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal_0.01' 6.018284559249878
+INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2002-03-10T00:00:00.000000 TimeDelta=1 days Estimation = (0 , 800) Validation = (800 , 1000) Test = (1000 , 1012) Horizon=12
+INFO:pyaf.std:SIGNAL_DETAIL SignalVariable='Anscombe_Signal_0.01' Min=1.22474487139 Max=2.34520787991  Mean=1.68766954825 StdDev=0.290284077967
+INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'Anscombe_'
+INFO:pyaf.std:BEST_DECOMPOSITION  'MovingAverage(60)_residue_bestCycle_byL2_residue_AR(64)' [MovingAverage(60) + Cycle_Length_30 + AR(64)]
+INFO:pyaf.std:TREND_DETAIL 'MovingAverage(60)' [MovingAverage(60)]
+INFO:pyaf.std:CYCLE_DETAIL 'MovingAverage(60)_residue_bestCycle_byL2' [Cycle_Length_30]
+INFO:pyaf.std:AUTOREG_DETAIL 'MovingAverage(60)_residue_bestCycle_byL2_residue_AR(64)' [AR(64)]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.2355 MAPE_Forecast=0.0562 MAPE_Test=0.0665
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0778 SMAPE_Forecast=0.053 SMAPE_Test=0.0613
+INFO:pyaf.std:MODEL_MASE MASE_Fit=0.0264 MASE_Forecast=0.0508 MASE_Test=0.0467
+INFO:pyaf.std:MODEL_L1 L1_Fit=3.04973250593 L1_Forecast=7.12171521229 L1_Test=9.29030657833
+INFO:pyaf.std:MODEL_L2 L2_Fit=4.30770657834 L2_Forecast=8.38780079656 L2_Test=10.9507839083
+INFO:pyaf.std:MODEL_COMPLEXITY 152
+INFO:pyaf.std:AR_MODEL_DETAIL_START
+INFO:pyaf.std:AR_MODEL_COEFF 1 MovingAverage(60)_residue_bestCycle_byL2_residue_Lag30 0.123982103552
+INFO:pyaf.std:AR_MODEL_COEFF 2 MovingAverage(60)_residue_bestCycle_byL2_residue_Lag60 0.0988723540158
+INFO:pyaf.std:AR_MODEL_COEFF 3 MovingAverage(60)_residue_bestCycle_byL2_residue_Lag26 -0.0491099943401
+INFO:pyaf.std:AR_MODEL_COEFF 4 MovingAverage(60)_residue_bestCycle_byL2_residue_Lag4 -0.0425801894834
+INFO:pyaf.std:AR_MODEL_COEFF 5 MovingAverage(60)_residue_bestCycle_byL2_residue_Lag56 -0.0425182151435
+INFO:pyaf.std:AR_MODEL_COEFF 6 MovingAverage(60)_residue_bestCycle_byL2_residue_Lag34 -0.0385163821877
+INFO:pyaf.std:AR_MODEL_COEFF 7 MovingAverage(60)_residue_bestCycle_byL2_residue_Lag7 0.0347120758098
+INFO:pyaf.std:AR_MODEL_COEFF 8 MovingAverage(60)_residue_bestCycle_byL2_residue_Lag64 -0.0340122783414
+INFO:pyaf.std:AR_MODEL_COEFF 9 MovingAverage(60)_residue_bestCycle_byL2_residue_Lag27 -0.0296578106978
+INFO:pyaf.std:AR_MODEL_COEFF 10 MovingAverage(60)_residue_bestCycle_byL2_residue_Lag38 -0.0284047908702
+INFO:pyaf.std:AR_MODEL_DETAIL_END
+INFO:pyaf.std:START_FORECASTING
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 2.18122935295105
+Forecast Columns  Index(['Anscombe_Signal_0.01', 'Date', 'Signal_0.01', 'row_number',
+       'Date_Normalized', 'MovingAverage(60)', 'MovingAverage(60)_residue',
+       'cycle_internal', 'MovingAverage(60)_residue_bestCycle_byL2',
+       'MovingAverage(60)_residue_bestCycle_byL2_residue',
+       'MovingAverage(60)_residue_bestCycle_byL2_residue_AR(64)',
+       'MovingAverage(60)_residue_bestCycle_byL2_residue_AR(64)_residue',
+       'Anscombe_Signal_0.01_Trend', 'Anscombe_Signal_0.01_Trend_residue',
+       'Anscombe_Signal_0.01_Cycle', 'Anscombe_Signal_0.01_Cycle_residue',
+       'Anscombe_Signal_0.01_AR', 'Anscombe_Signal_0.01_AR_residue',
+       'Anscombe_Signal_0.01_TransformedForecast', 'Signal_0.01_Forecast',
+       'Anscombe_Signal_0.01_TransformedResidue', 'Signal_0.01_Residue',
+       'Signal_0.01_Forecast_Lower_Bound', 'Signal_0.01_Forecast_Upper_Bound'],
+      dtype='object')
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 1024 entries, 0 to 1023
+Data columns (total 5 columns):
+Date                                1024 non-null datetime64[ns]
+Signal_0.01                         1012 non-null float64
+Signal_0.01_Forecast                1024 non-null float64
+Signal_0.01_Forecast_Lower_Bound    12 non-null float64
+Signal_0.01_Forecast_Upper_Bound    12 non-null float64
+dtypes: datetime64[ns](1), float64(4)
+memory usage: 40.1 KB
+Forecasts
+ [[Timestamp('2002-10-09 00:00:00') nan 172.34344557986685
+  155.90335601861076 188.78353514112294]
+ [Timestamp('2002-10-10 00:00:00') nan 119.60707759579812 97.69462175044906
+  141.5195334411472]
+ [Timestamp('2002-10-11 00:00:00') nan 129.60921017477602
+  104.81806432089996 154.40035602865208]
+ [Timestamp('2002-10-12 00:00:00') nan 293.4662783599265 266.8761862300589
+  320.05637048979406]
+ [Timestamp('2002-10-13 00:00:00') nan 277.5598667094225 249.72777283176725
+  305.3919605870778]
+ [Timestamp('2002-10-14 00:00:00') nan 224.0096843202789 195.25573725184796
+  252.76363138870983]
+ [Timestamp('2002-10-15 00:00:00') nan 279.3193296932566 249.84189301984736
+  308.7967663666658]
+ [Timestamp('2002-10-16 00:00:00') nan 83.66362223587628 53.59576539896179
+  113.73147907279076]
+ [Timestamp('2002-10-17 00:00:00') nan 76.91427875377602 46.3540121275465
+  107.47454538000554]
+ [Timestamp('2002-10-18 00:00:00') nan 106.70160512262852 75.72861119765531
+  137.67459904760173]
+ [Timestamp('2002-10-19 00:00:00') nan 132.84639063524452 101.5313693306171
+  164.16141193987193]
+ [Timestamp('2002-10-20 00:00:00') nan 282.2374269311169 250.64733356198658
+  313.82752030024716]]
+
+
+<ModelInfo>
+{
+    "Dataset": {
+        "Signal": "Signal_0.01",
+        "Time": {
+            "Horizon": 12,
+            "TimeMinMax": [
+                "2000-01-01 00:00:00",
+                "2002-10-08 00:00:00"
+            ],
+            "TimeVariable": "Date"
+        },
+        "Training_Signal_Length": 1012
+    },
+    "Model": {
+        "AR_Model": "AR(64)",
+        "Best_Decomposition": "MovingAverage(60)_residue_bestCycle_byL2_residue_AR(64)",
+        "Cycle": "Cycle_Length_30",
+        "Signal_Transoformation": "Anscombe",
+        "Trend": "MovingAverage(60)"
+    },
+    "Model_Performance": {
+        "COMPLEXITY": "152",
+        "MAE": "7.12171521229",
+        "MAPE": "0.0562",
+        "MASE": "0.0508",
+        "RMSE": "8.38780079656"
+    }
+}
+</ModelInfo>
+
+
+
+
+<Forecast>
+{"Date":{"1000":"2002-09-27T00:00:00.000Z","1001":"2002-09-28T00:00:00.000Z","1002":"2002-09-29T00:00:00.000Z","1003":"2002-09-30T00:00:00.000Z","1004":"2002-10-01T00:00:00.000Z","1005":"2002-10-02T00:00:00.000Z","1006":"2002-10-03T00:00:00.000Z","1007":"2002-10-04T00:00:00.000Z","1008":"2002-10-05T00:00:00.000Z","1009":"2002-10-06T00:00:00.000Z","1010":"2002-10-07T00:00:00.000Z","1011":"2002-10-08T00:00:00.000Z","1012":"2002-10-09T00:00:00.000Z","1013":"2002-10-10T00:00:00.000Z","1014":"2002-10-11T00:00:00.000Z","1015":"2002-10-12T00:00:00.000Z","1016":"2002-10-13T00:00:00.000Z","1017":"2002-10-14T00:00:00.000Z","1018":"2002-10-15T00:00:00.000Z","1019":"2002-10-16T00:00:00.000Z","1020":"2002-10-17T00:00:00.000Z","1021":"2002-10-18T00:00:00.000Z","1022":"2002-10-19T00:00:00.000Z","1023":"2002-10-20T00:00:00.000Z"},"Signal_0.01":{"1000":383.7780917525,"1001":164.1965627044,"1002":429.6252877635,"1003":42.6376100122,"1004":88.6348121317,"1005":99.8248269941,"1006":363.1800206326,"1007":195.3669437685,"1008":385.39201246,"1009":246.0552056546,"1010":78.7594789867,"1011":408.4745372039,"1012":null,"1013":null,"1014":null,"1015":null,"1016":null,"1017":null,"1018":null,"1019":null,"1020":null,"1021":null,"1022":null,"1023":null},"Signal_0.01_Forecast":{"1000":374.8967520405,"1001":165.6692995897,"1002":413.622257479,"1003":58.1061842542,"1004":97.0008046804,"1005":102.2412505814,"1006":350.2230352667,"1007":192.9213450196,"1008":370.9223351179,"1009":243.5298715741,"1010":87.1698596744,"1011":390.4069317488,"1012":172.3434455799,"1013":119.6070775958,"1014":129.6092101748,"1015":293.4662783599,"1016":277.5598667094,"1017":224.0096843203,"1018":279.3193296933,"1019":83.6636222359,"1020":76.9142787538,"1021":106.7016051226,"1022":132.8463906352,"1023":282.2374269311},"Signal_0.01_Forecast_Lower_Bound":{"1000":null,"1001":null,"1002":null,"1003":null,"1004":null,"1005":null,"1006":null,"1007":null,"1008":null,"1009":null,"1010":null,"1011":null,"1012":155.9033560186,"1013":97.6946217504,"1014":104.8180643209,"1015":266.8761862301,"1016":249.7277728318,"1017":195.2557372518,"1018":249.8418930198,"1019":53.595765399,"1020":46.3540121275,"1021":75.7286111977,"1022":101.5313693306,"1023":250.647333562},"Signal_0.01_Forecast_Upper_Bound":{"1000":null,"1001":null,"1002":null,"1003":null,"1004":null,"1005":null,"1006":null,"1007":null,"1008":null,"1009":null,"1010":null,"1011":null,"1012":188.7835351411,"1013":141.5195334411,"1014":154.4003560287,"1015":320.0563704898,"1016":305.3919605871,"1017":252.7636313887,"1018":308.7967663667,"1019":113.7314790728,"1020":107.47454538,"1021":137.6745990476,"1022":164.1614119399,"1023":313.8275203002}}
+</Forecast>
+
+
