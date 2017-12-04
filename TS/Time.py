@@ -34,7 +34,16 @@ class cTimeInfo:
         self.mSecondsInResolution[self.RES_HOUR] = 1 * 60 * 60;
         self.mSecondsInResolution[self.RES_DAY] = 1 * 60 * 60 * 24;
         self.mSecondsInResolution[self.RES_MONTH] = 1 * 60 * 60 * 24 * 30;
-        
+        self.mDatePartComputer = {}
+        self.mDatePartComputer["Second"] = lambda iTimeValue : iTimeValue.second
+        self.mDatePartComputer["Minute"] = lambda iTimeValue : iTimeValue.minute
+        self.mDatePartComputer["Hour"] = lambda iTimeValue : iTimeValue.hour
+        self.mDatePartComputer["DayOfMonth"] = lambda iTimeValue : iTimeValue.day
+        self.mDatePartComputer["DayOfWeek"] = lambda iTimeValue : iTimeValue.dayofweek
+        self.mDatePartComputer["DayOfYear"] = lambda iTimeValue : iTimeValue.dayofyear
+        self.mDatePartComputer["WeekOfYear"] = lambda iTimeValue : iTimeValue.weekofyear
+        self.mDatePartComputer["MonthOfYear"] = lambda iTimeValue : iTimeValue.month        
+        # self.mNormalizedTimeCache = {}
 
     def info(self):
         lStr2 = "TimeVariable='" + self.mTime +"'";
@@ -90,7 +99,7 @@ class cTimeInfo:
         lLastRow[self.mSignal] = np.nan;
         df = df.append(lLastRow, ignore_index=True, verify_integrity = True);        
         df[self.mRowNumberColumn] = np.arange(0, df.shape[0]);
-        df[self.mNormalizedTimeColumn] = self.normalizeTime(df[self.mTime]);
+        df[self.mNormalizedTimeColumn] = self.compute_normalize_date_column(df[self.mTime])
         # print(df.tail());
         return df;
 
@@ -100,55 +109,30 @@ class cTimeInfo:
         return (type1.kind == 'M');
 
 
-    def get_date_part_value(self , iTime, iDatePart):
-        if(iDatePart == "Year"):
-            return iTime.year;
-        if(iDatePart == "MonthOfYear"):
-            return iTime.month;
-        if(iDatePart == "DayOfMonth"):
-            return iTime.day;
-        if(iDatePart == "Hour"):
-            return iTime.hour;
-        if(iDatePart == "Minute"):
-            return iTime.minute;
-        if(iDatePart == "Second"):
-            return iTime.second;
-        # TODO : this one is not very easy ... too many values.
-        # need long time series to have reliable signal means 
-        #        if(self.mDatePart == "DayOfYear"):
-        #            return iTime.dayofyear;
-        if(iDatePart == "WeekOfYear"):
-            return iTime.weekofyear;
-        if(iDatePart == "DayOfWeek"):
-            return iTime.dayofweek;
-        return 0.0;
+    def get_date_part_value_computer(self , iDatePart):
+        return self.mDatePartComputer[iDatePart];
     
     def analyzeSeasonals(self):
         if(not self.isPhysicalTime()):
             return;
         lEstim = self.getEstimPart(self.mSignalFrame);
-        lEstimSecond = lEstim[self.mTime].apply(
-            lambda x : self.get_date_part_value(x , "Second"));
+        lEstimSecond = lEstim[self.mTime].apply(self.get_date_part_value_computer("Second"));
         if(lEstimSecond.nunique() > 1.0):
             self.mResolution = self.RES_SECOND;
             return;
-        lEstimMinute = lEstim[self.mTime].apply(        
-            lambda x : self.get_date_part_value(x , "Minute"));
+        lEstimMinute = lEstim[self.mTime].apply(self.get_date_part_value_computer("Minute"));
         if(lEstimMinute.nunique() > 1.0):
             self.mResolution =  self.RES_MINUTE;
             return;
-        lEstimHour = lEstim[self.mTime].apply(        
-            lambda x : self.get_date_part_value(x , "Hour"));
+        lEstimHour = lEstim[self.mTime].apply(self.get_date_part_value_computer("Hour"));
         if(lEstimHour.nunique() > 1.0):
             self.mResolution =  self.RES_HOUR;
             return;
-        lEstimDayOfMonth = lEstim[self.mTime].apply(        
-            lambda x : self.get_date_part_value(x , "DayOfMonth"));
+        lEstimDayOfMonth = lEstim[self.mTime].apply(self.get_date_part_value_computer("DayOfMonth"));
         if(lEstimDayOfMonth.nunique() > 1.0):
             self.mResolution =  self.RES_DAY;
             return;
-        lEstimMonth = lEstim[self.mTime].apply(       
-            lambda x : self.get_date_part_value(x , "MonthOfYear"));
+        lEstimMonth = lEstim[self.mTime].apply(self.get_date_part_value_computer("MonthOfYear"));
         if(lEstimMonth.nunique() > 1.0):
             self.mResolution =  self.RES_MONTH;
             return;
@@ -290,17 +274,22 @@ class cTimeInfo:
         self.mTimeMinMaxDiff = self.mTimeMax - self.mTimeMin;
         # print(self.mTimeMin, self.mTimeMax , self.mTimeMinMaxDiff , (self.mTimeMax - self.mTimeMin)/self.mTimeMinMaxDiff)
         self.computeTimeDelta();
-        self.mSignalFrame[self.mNormalizedTimeColumn] = self.normalizeTime(self.mSignalFrame[self.mTime])
+        self.mSignalFrame[self.mNormalizedTimeColumn] = self.compute_normalize_date_column(self.mSignalFrame[self.mTime])
         self.dump();
 
     def dump(self):
         time_info = self.info(); 
         
 
-    def normalizeTime(self , iTime):
+    def compute_normalize_date_column(self, idate_column):
         if(self.isOneRowDataset()):
             return 0.0;
-        return iTime.apply(lambda x : (x- self.mTimeMin) / self.mTimeMinMaxDiff)
+        return idate_column.apply(self.normalizeTime)
+
+    @tsutil.cMemoize
+    def normalizeTime(self , iTime):
+        output =  ( iTime- self.mTimeMin) / self.mTimeMinMaxDiff
+        return output
 
     def addMonths(self, iTime , iMonths):
         date_after_months = iTime + iMonths * (365.0/12) * np.timedelta64(1,'D')
