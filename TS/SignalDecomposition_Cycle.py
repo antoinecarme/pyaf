@@ -93,7 +93,6 @@ class cSeasonalPeriodic(cAbstractCycle):
         self.mEncodedValueDict = {}
         self.mFormula = "Seasonal_" + self.mDatePart;
         self.mComplexity = 1;
-        self.mDatepartComputer = None
         
         
     def getCycleName(self):
@@ -128,7 +127,6 @@ class cSeasonalPeriodic(cAbstractCycle):
 
     def fit(self):
         assert(self.mTimeInfo.isPhysicalTime());
-        self.mDatepartComputer = self.mTimeInfo.get_date_part_value_computer(self.mDatePart)
         lHor = self.mTimeInfo.mHorizon;
         self.mTime = self.mTimeInfo.mTime;
         self.mSignal = self.mTimeInfo.mSignal;
@@ -156,13 +154,14 @@ class cSeasonalPeriodic(cAbstractCycle):
 
     @tsutil.cMemoize
     def get_date_part(self, x):
-        dp = self.mDatepartComputer(x)
-        return dp
+        lDatepartComputer = self.mTimeInfo.get_date_part_value_computer(self.mDatePart)
+        return lDatepartComputer(x)
     
 
     @tsutil.cMemoize
     def get_date_part_encoding(self, x):
-        dp = self.mDatepartComputer(x)
+        lDatepartComputer = self.mTimeInfo.get_date_part_value_computer(self.mDatePart)
+        dp = lDatepartComputer(x)
         return self.mEncodedValueDict.get(dp , self.mDefaultValue)
 
     def transformDataset(self, df):

@@ -34,16 +34,6 @@ class cTimeInfo:
         self.mSecondsInResolution[self.RES_HOUR] = 1 * 60 * 60;
         self.mSecondsInResolution[self.RES_DAY] = 1 * 60 * 60 * 24;
         self.mSecondsInResolution[self.RES_MONTH] = 1 * 60 * 60 * 24 * 30;
-        self.mDatePartComputer = {}
-        self.mDatePartComputer["Second"] = lambda iTimeValue : iTimeValue.second
-        self.mDatePartComputer["Minute"] = lambda iTimeValue : iTimeValue.minute
-        self.mDatePartComputer["Hour"] = lambda iTimeValue : iTimeValue.hour
-        self.mDatePartComputer["DayOfMonth"] = lambda iTimeValue : iTimeValue.day
-        self.mDatePartComputer["DayOfWeek"] = lambda iTimeValue : iTimeValue.dayofweek
-        self.mDatePartComputer["DayOfYear"] = lambda iTimeValue : iTimeValue.dayofyear
-        self.mDatePartComputer["WeekOfYear"] = lambda iTimeValue : iTimeValue.weekofyear
-        self.mDatePartComputer["MonthOfYear"] = lambda iTimeValue : iTimeValue.month        
-        # self.mNormalizedTimeCache = {}
 
     def info(self):
         lStr2 = "TimeVariable='" + self.mTime +"'";
@@ -110,7 +100,16 @@ class cTimeInfo:
 
 
     def get_date_part_value_computer(self , iDatePart):
-        return self.mDatePartComputer[iDatePart];
+        lDatePartComputer = {}
+        lDatePartComputer["Second"] = lambda iTimeValue : iTimeValue.second
+        lDatePartComputer["Minute"] = lambda iTimeValue : iTimeValue.minute
+        lDatePartComputer["Hour"] = lambda iTimeValue : iTimeValue.hour
+        lDatePartComputer["DayOfMonth"] = lambda iTimeValue : iTimeValue.day
+        lDatePartComputer["DayOfWeek"] = lambda iTimeValue : iTimeValue.dayofweek
+        lDatePartComputer["DayOfYear"] = lambda iTimeValue : iTimeValue.dayofyear
+        lDatePartComputer["WeekOfYear"] = lambda iTimeValue : iTimeValue.weekofyear
+        lDatePartComputer["MonthOfYear"] = lambda iTimeValue : iTimeValue.month        
+        return lDatePartComputer[iDatePart];
     
     def analyzeSeasonals(self):
         if(not self.isPhysicalTime()):
