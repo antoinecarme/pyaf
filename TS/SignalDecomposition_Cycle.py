@@ -93,6 +93,8 @@ class cSeasonalPeriodic(cAbstractCycle):
         self.mEncodedValueDict = {}
         self.mFormula = "Seasonal_" + self.mDatePart;
         self.mComplexity = 1;
+        self.mDatepartComputer = None
+        
         
     def getCycleName(self):
         return self.mTrend_residue_name + "_Seasonal_" + self.mDatePart;
@@ -126,14 +128,14 @@ class cSeasonalPeriodic(cAbstractCycle):
 
     def fit(self):
         assert(self.mTimeInfo.isPhysicalTime());
+        self.mDatepartComputer = self.mTimeInfo.get_date_part_value_computer(self.mDatePart)
         lHor = self.mTimeInfo.mHorizon;
         self.mTime = self.mTimeInfo.mTime;
         self.mSignal = self.mTimeInfo.mSignal;
         self.mTimeInfo.addVars(self.mCycleFrame);
         lName = self.getCycleName();
         self.mCycleFrame[self.mTrend_residue_name] = self.mTrendFrame[self.mTrend_residue_name]
-        self.mCycleFrame[lName] = self.mTrendFrame[self.mTime].apply(
-            lambda x : self.mTimeInfo.get_date_part_value(x , self.mDatePart));
+        self.mCycleFrame[lName] = self.mTrendFrame[self.mTime].apply(self.get_date_part);
         # we encode only using estimation
         lCycleFrameEstim = self.mTimeInfo.getEstimPart(self.mCycleFrame);
         lTrendMeanEstim = lCycleFrameEstim[self.mTrend_residue_name].mean();
@@ -150,13 +152,22 @@ class cSeasonalPeriodic(cAbstractCycle):
         
         self.mOutName = self.getCycleName()
         #print("encoding '" + lName + "' " + str(self.mEncodedValueDict));
-        
+
+
+    @tsutil.cMemoize
+    def get_date_part(self, x):
+        dp = self.mDatepartComputer(x)
+        return dp
+    
+
+    @tsutil.cMemoize
+    def get_date_part_encoding(self, x):
+        dp = self.mDatepartComputer(x)
+        return self.mEncodedValueDict.get(dp , self.mDefaultValue)
 
     def transformDataset(self, df):
         target = df[self.mTrend_residue_name]
-        lDatePartValues = df[self.mTime].apply(
-            lambda x : self.mTimeInfo.get_date_part_value(x , self.mDatePart));
-        df[self.getCycleName()] = lDatePartValues.apply(lambda x : self.mEncodedValueDict.get(x , self.mDefaultValue));
+        df[self.getCycleName()] = df[self.mTime].apply(self.get_date_part_encoding);
         df[self.getCycleResidueName()] = target - df[self.getCycleName()].values        
         return df;
 
@@ -211,10 +222,10 @@ class cBestCycleForTrend(cAbstractCycle):
         lMaxRobustCycle = self.mTrendFrame.shape[0]//12;
         # print("MAX_ROBUST_CYCLE_LENGTH", self.mTrendFrame.shape[0], lMaxRobustCycle);
         lCycleLengths = self.mOptions.mCycleLengths or range(2,lMaxRobustCycle + 1)
+        lCycleFrame = pd.DataFrame();
+        lCycleFrame[self.mTrend_residue_name ] = self.mTrendFrame[self.mTrend_residue_name]
         for i in lCycleLengths:
             if ((i > 1) and (i <= lMaxRobustCycle)):
-                lCycleFrame = pd.DataFrame();
-                lCycleFrame[self.mTrend_residue_name ] = self.mTrendFrame[self.mTrend_residue_name]
                 name_i = self.mTrend_residue_name + '_Cycle';
                 lCycleFrame[name_i] = self.mCycleFrame[self.mTimeInfo.mRowNumberColumn] % i
                 lCycleFrameEstim = self.mTimeInfo.getEstimPart(lCycleFrame);
@@ -235,7 +246,8 @@ class cBestCycleForTrend(cAbstractCycle):
                 self.mCyclePerfDict[i] = lCritValue;
                 if(self.mOptions.mDebugCycles):
                     logger = tsutil.get_pyaf_logger();
-                    logger.debug("CYCLE_INTERNAL_CRITERION " + name_i + " " + str(i) + " " + self.mCriterion +" " + str(lCritValue))
+                    logger.debug("CYCLE_INTERNAL_CRITERION " + name_i + " " + str(i) + \
+                                 " " + self.mCriterion +" " + str(lCritValue))
         pass
 
     def fit(self):
