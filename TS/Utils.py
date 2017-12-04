@@ -6,6 +6,8 @@
 
 import sys, os
 
+from functools import partial
+
 def createDirIfNeeded(dirname):
     try:
         os.mkdir(dirname);
@@ -13,7 +15,20 @@ def createDirIfNeeded(dirname):
         pass
 
 
-
+class cMemoize:
+    def __init__(self, f):
+        self.mFunction = f
+        self.mCache = {}
+    def __call__(self, *args):
+        # print("MEMOIZING" , self.mFunction , args)
+        if not args in self.mCache:
+            self.mCache[args] = self.mFunction(*args)
+        return self.mCache[args]
+    
+    def __get__(self, obj, objtype):
+        # Support instance methods.
+        return partial(self.__call__, obj)
+  
 class PyAF_Error(Exception):
     """Exception raised for errors in the forecasting process.
 
