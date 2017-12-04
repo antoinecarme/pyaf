@@ -306,13 +306,13 @@ class cCycleEstimator:
                     cBestCycleForTrend(trend, self.mOptions.mCycle_Criterion)];
             if(self.mTimeInfo.isPhysicalTime()):
                 # The order used here is mandatory. see filterSeasonals before changing this order.
-                self.addSeasonal(trend, "MonthOfYear", self.mTimeInfo.RES_MONTH);
-                self.addSeasonal(trend, "WeekOfYear", self.mTimeInfo.RES_DAY);
-                self.addSeasonal(trend, "DayOfMonth", self.mTimeInfo.RES_DAY);
-                self.addSeasonal(trend, "DayOfWeek", self.mTimeInfo.RES_DAY);
-                self.addSeasonal(trend, "Hour", self.mTimeInfo.RES_HOUR);
-                self.addSeasonal(trend, "Minute", self.mTimeInfo.RES_MINUTE);
-                self.addSeasonal(trend, "Second", self.mTimeInfo.RES_SECOND);
+                self.addSeasonal(trend, "MonthOfYear", tsti.cTimeInfo.sRES_MONTH);
+                self.addSeasonal(trend, "WeekOfYear", tsti.cTimeInfo.sRES_DAY);
+                self.addSeasonal(trend, "DayOfMonth", tsti.cTimeInfo.sRES_DAY);
+                self.addSeasonal(trend, "DayOfWeek", tsti.cTimeInfo.sRES_DAY);
+                self.addSeasonal(trend, "Hour", tsti.cTimeInfo.sRES_HOUR);
+                self.addSeasonal(trend, "Minute", tsti.cTimeInfo.sRES_MINUTE);
+                self.addSeasonal(trend, "Second", tsti.cTimeInfo.sRES_SECOND);
 
                 
         for trend in self.mTrendList:

@@ -12,6 +12,29 @@ import calendar
 from . import Utils as tsutil
 
 class cTimeInfo:
+    # class data
+    sRES_NONE = 0
+    sRES_SECOND = 1
+    sRES_MINUTE = 2
+    sRES_HOUR = 3
+    sRES_DAY = 4
+    sRES_MONTH = 5
+    sSecondsInResolution = {};
+    sSecondsInResolution[sRES_NONE] = 0;
+    sSecondsInResolution[sRES_SECOND] = 1;
+    sSecondsInResolution[sRES_MINUTE] = 1 * 60;
+    sSecondsInResolution[sRES_HOUR] = 1 * 60 * 60;
+    sSecondsInResolution[sRES_DAY] = 1 * 60 * 60 * 24;
+    sSecondsInResolution[sRES_MONTH] = 1 * 60 * 60 * 24 * 30;
+    sDatePartComputer = {}
+    sDatePartComputer["Second"] = lambda iTimeValue : iTimeValue.second
+    sDatePartComputer["Minute"] = lambda iTimeValue : iTimeValue.minute
+    sDatePartComputer["Hour"] = lambda iTimeValue : iTimeValue.hour
+    sDatePartComputer["DayOfMonth"] = lambda iTimeValue : iTimeValue.day
+    sDatePartComputer["DayOfWeek"] = lambda iTimeValue : iTimeValue.dayofweek
+    sDatePartComputer["DayOfYear"] = lambda iTimeValue : iTimeValue.dayofyear
+    sDatePartComputer["WeekOfYear"] = lambda iTimeValue : iTimeValue.weekofyear
+    sDatePartComputer["MonthOfYear"] = lambda iTimeValue : iTimeValue.month        
 
     def __init__(self):
         self.mSignalFrame = pd.DataFrame()
@@ -20,20 +43,7 @@ class cTimeInfo:
         self.mTimeMinMaxDiff = None;
         self.mTimeDelta = None;
         self.mHorizon = None;        
-        self.RES_NONE = 0
-        self.RES_SECOND = 1
-        self.RES_MINUTE = 2
-        self.RES_HOUR = 3
-        self.RES_DAY = 4
-        self.RES_MONTH = 5
-        self.mResolution = self.RES_NONE
-        self.mSecondsInResolution = {};
-        self.mSecondsInResolution[self.RES_NONE] = 0;
-        self.mSecondsInResolution[self.RES_SECOND] = 1;
-        self.mSecondsInResolution[self.RES_MINUTE] = 1 * 60;
-        self.mSecondsInResolution[self.RES_HOUR] = 1 * 60 * 60;
-        self.mSecondsInResolution[self.RES_DAY] = 1 * 60 * 60 * 24;
-        self.mSecondsInResolution[self.RES_MONTH] = 1 * 60 * 60 * 24 * 30;
+        self.mResolution = cTimeInfo.sRES_NONE
 
     def info(self):
         lStr2 = "TimeVariable='" + self.mTime +"'";
@@ -100,16 +110,7 @@ class cTimeInfo:
 
 
     def get_date_part_value_computer(self , iDatePart):
-        lDatePartComputer = {}
-        lDatePartComputer["Second"] = lambda iTimeValue : iTimeValue.second
-        lDatePartComputer["Minute"] = lambda iTimeValue : iTimeValue.minute
-        lDatePartComputer["Hour"] = lambda iTimeValue : iTimeValue.hour
-        lDatePartComputer["DayOfMonth"] = lambda iTimeValue : iTimeValue.day
-        lDatePartComputer["DayOfWeek"] = lambda iTimeValue : iTimeValue.dayofweek
-        lDatePartComputer["DayOfYear"] = lambda iTimeValue : iTimeValue.dayofyear
-        lDatePartComputer["WeekOfYear"] = lambda iTimeValue : iTimeValue.weekofyear
-        lDatePartComputer["MonthOfYear"] = lambda iTimeValue : iTimeValue.month        
-        return lDatePartComputer[iDatePart];
+        return cTimeInfo.sDatePartComputer[iDatePart];
     
     def analyzeSeasonals(self):
         if(not self.isPhysicalTime()):
@@ -117,27 +118,27 @@ class cTimeInfo:
         lEstim = self.getEstimPart(self.mSignalFrame);
         lEstimSecond = lEstim[self.mTime].apply(self.get_date_part_value_computer("Second"));
         if(lEstimSecond.nunique() > 1.0):
-            self.mResolution = self.RES_SECOND;
+            self.mResolution = cTimeInfo.sRES_SECOND;
             return;
         lEstimMinute = lEstim[self.mTime].apply(self.get_date_part_value_computer("Minute"));
         if(lEstimMinute.nunique() > 1.0):
-            self.mResolution =  self.RES_MINUTE;
+            self.mResolution =  cTimeInfo.sRES_MINUTE;
             return;
         lEstimHour = lEstim[self.mTime].apply(self.get_date_part_value_computer("Hour"));
         if(lEstimHour.nunique() > 1.0):
-            self.mResolution =  self.RES_HOUR;
+            self.mResolution =  cTimeInfo.sRES_HOUR;
             return;
         lEstimDayOfMonth = lEstim[self.mTime].apply(self.get_date_part_value_computer("DayOfMonth"));
         if(lEstimDayOfMonth.nunique() > 1.0):
-            self.mResolution =  self.RES_DAY;
+            self.mResolution =  cTimeInfo.sRES_DAY;
             return;
         lEstimMonth = lEstim[self.mTime].apply(self.get_date_part_value_computer("MonthOfYear"));
         if(lEstimMonth.nunique() > 1.0):
-            self.mResolution =  self.RES_MONTH;
+            self.mResolution =  cTimeInfo.sRES_MONTH;
             return;
 
     def getSecondsInResolution(self):
-        return self.mSecondsInResolution.get(self.mResolution , 0.0);
+        return cTimeInfo.sSecondsInResolution.get(self.mResolution , 0.0);
 
     def cutFrame(self, df):
         lFrameFit = df[self.mEstimStart : self.mEstimEnd];
@@ -205,18 +206,18 @@ class cTimeInfo:
     def adaptTimeDeltaToTimeResolution(self):
         if(not self.isPhysicalTime()):
             return;
-        if(self.RES_SECOND == self.mResolution):
+        if(cTimeInfo.sRES_SECOND == self.mResolution):
             return;
-        if(self.RES_MINUTE == self.mResolution):
+        if(cTimeInfo.sRES_MINUTE == self.mResolution):
             self.mTimeDelta = round(self.mTimeDelta / np.timedelta64(1,'m')) * np.timedelta64(1,'m')
             return;
-        if(self.RES_HOUR == self.mResolution):
+        if(cTimeInfo.sRES_HOUR == self.mResolution):
             self.mTimeDelta = round(self.mTimeDelta / np.timedelta64(1,'h')) * np.timedelta64(1,'h')
             return;
-        if(self.RES_DAY == self.mResolution):
+        if(cTimeInfo.sRES_DAY == self.mResolution):
             self.mTimeDelta = round(self.mTimeDelta / np.timedelta64(1,'D')) * np.timedelta64(1,'D')
             return;
-        if(self.RES_MONTH == self.mResolution):
+        if(cTimeInfo.sRES_MONTH == self.mResolution):
             self.mTimeDelta = round(self.mTimeDelta / np.timedelta64(30,'D')) * np.timedelta64(30,'D')
             return;
         pass
@@ -263,7 +264,6 @@ class cTimeInfo:
 
         self.analyzeSeasonals();
 
-        self.mSecondsInResolution = self.getSecondsInResolution();
         lEstim = self.mSignalFrame[self.mEstimStart : self.mEstimEnd]
         self.mTimeMin = lEstim[self.mTime].min();
         self.mTimeMax = lEstim[self.mTime].max();
@@ -301,7 +301,7 @@ class cTimeInfo:
         # Better handle time delta in months
         # print("NEXT_TIME" , lLastTime, iSteps, self.mTimeDelta);
         lNextTime = lLastTime + iSteps * self.mTimeDelta;
-        if(self.mResolution == self.RES_MONTH):
+        if(self.mResolution == cTimeInfo.sRES_MONTH):
             lMonths = iSteps * int(self.mTimeDelta / np.timedelta64(1,'D') / 30);
             lNextTime = self.addMonths(lLastTime, lMonths);
         if(self.mOptions.mBusinessDaysOnly):
