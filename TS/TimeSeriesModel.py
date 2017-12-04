@@ -30,12 +30,16 @@ class cTimeSeriesModel:
         self.mSignal = self.mTimeInfo.mSignal;
         self.mTrainingVersionInfo = self.getVersions();
 
-    def info(self):
-        lSignal = self.mTrend.mSignalFrame[self.mSignal];
-        lStr1 = "SignalVariable='" + self.mSignal +"'";
+    def signal_info(self):
+        lSignal = self.mTrend.mSignalFrame[self.mOriginalSignal];
+        lStr1 = "SignalVariable='" + self.mOriginalSignal +"'";
         lStr1 += " Min=" + str(np.min(lSignal)) + " Max="  + str(np.max(lSignal)) + " ";
         lStr1 += " Mean=" + str(np.mean(lSignal)) + " StdDev="  + str(np.std(lSignal));
-        return lStr1;
+        lSignal = self.mTrend.mSignalFrame[self.mSignal];
+        lStr2 = "TransformedSignalVariable='" + self.mSignal +"'";
+        lStr2 += " Min=" + str(np.min(lSignal)) + " Max="  + str(np.max(lSignal)) + " ";
+        lStr2 += " Mean=" + str(np.mean(lSignal)) + " StdDev="  + str(np.std(lSignal));
+        return (lStr1 , lStr2);
 
         
     def getComplexity(self):
@@ -102,7 +106,9 @@ class cTimeSeriesModel:
     def getInfo(self):
         logger = tsutil.get_pyaf_logger();
         logger.info("TIME_DETAIL " + self.mTrend.mTimeInfo.info());
-        logger.info("SIGNAL_DETAIL " + self.info());
+        sig_info = self.signal_info()
+        logger.info("SIGNAL_DETAIL_ORIG " + sig_info[0]);
+        logger.info("SIGNAL_DETAIL_TRANSFORMED " + sig_info[1]);
         logger.info("BEST_TRANSOFORMATION_TYPE '" + self.mTransformation.get_name("") + "'");
         logger.info("BEST_DECOMPOSITION  '" + self.mOutName + "' [" + self.getFormula() + "]");
         logger.info("TREND_DETAIL '" + self.mTrend.mOutName + "' [" + self.mTrend.mFormula + "]");
