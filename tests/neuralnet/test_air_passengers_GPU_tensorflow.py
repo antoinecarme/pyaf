@@ -1,5 +1,5 @@
 
-import tests.neuralnet.test_air_passengers_GPU as air
+import pyaf.tests.neuralnet.test_air_passengers_GPU as air
 # CUDA_VISIBLE_DEVICES
 
 import os

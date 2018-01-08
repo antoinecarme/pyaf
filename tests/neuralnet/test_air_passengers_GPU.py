@@ -41,7 +41,7 @@ def buildModel(iParallel = True):
     # lEngine.mOptions.mMaxAROrder = 2;
     lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H);
 
-    lEngine2 = pickleModel(lModel)
+    lEngine2 = pickleModel(lEngine)
 
     lEngine2.getModelInfo();
     print(lEngine2.mSignalDecomposition.mTrPerfDetails.head());
