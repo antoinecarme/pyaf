@@ -117,6 +117,7 @@ class cSignalDecomposition_Options(cModelControl):
         self.mCycle_Criterion_Threshold = None;
         self.mHierarchicalCombinationMethod = "BU";
         self.mForecastRectifier = None # can be "relu" to force positive forecast values
+        self.mUseTimeReslutionForAROrder = True
         self.disableDebuggingOptions();
 
     def disableDebuggingOptions(self):
@@ -141,6 +142,7 @@ class cSignalDecomposition_Options(cModelControl):
         
         self.mMaxAROrder = 64;
         self.mFilterSeasonals = False
+        self.mUseTimeReslutionForAROrder = False
 
     def enable_fast_mode(self):
         self.mQuantiles = [5, 10, 20]; # quintiles, deciles, and vingtiles;)

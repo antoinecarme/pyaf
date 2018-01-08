@@ -222,6 +222,17 @@ class cTimeInfo:
             return;
         pass
     
+    def get_lags_for_time_resolution(self):
+        if(not self.isPhysicalTime()):
+            return None;
+        lARORder = {}
+        lARORder[cTimeInfo.sRES_SECOND] = 60
+        lARORder[cTimeInfo.sRES_MINUTE] = 60
+        lARORder[cTimeInfo.sRES_HOUR] = 24
+        lARORder[cTimeInfo.sRES_DAY] = 31
+        lARORder[cTimeInfo.sRES_MONTH] = 12
+        return lARORder.get(self.mResolution , None)
+    
     def computeTimeDelta(self):
         #print(self.mSignalFrame.columns);
         # print(self.mSignalFrame[self.mTime].head());

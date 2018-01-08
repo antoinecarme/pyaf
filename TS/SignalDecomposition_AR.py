@@ -248,6 +248,16 @@ class cAutoRegressiveEstimator:
             raise tsutil.Internal_PyAF_Error("INVALID_COLUMN _FOR_CYCLE_RESIDUE ['"  + name + "'");
         pass
 
+
+    def get_max_lags(self, df):
+        lLags = df.shape[0] // 4;
+        if(lLags >= self.mOptions.mMaxAROrder):
+            lLags = self.mOptions.mMaxAROrder;
+        if(self.mOptions.mUseTimeReslutionForAROrder):
+            lLagsForTimeResolution = self.mTimeInfo.get_lags_for_time_resolution()
+            if(lLagsForTimeResolution is not None and lLags > lLagsForTimeResolution):
+                lLags = lLagsForTimeResolution
+        return lLags
         
     # @profile
     def estimate(self):
@@ -265,9 +275,7 @@ class cAutoRegressiveEstimator:
                 self.mARList[cycle_residue] = [];
                 if(self.mOptions.mActiveAutoRegressions['NoAR']):
                     self.mARList[cycle_residue] = [ cZeroAR(cycle_residue)];
-                lLags = self.mCycleFrame[cycle_residue].shape[0] // 4;
-                if(lLags >= self.mOptions.mMaxAROrder):
-                    lLags = self.mOptions.mMaxAROrder;
+                lLags = self.get_max_lags(self.mCycleFrame[cycle_residue]);
                 if((self.mCycleFrame[cycle_residue].shape[0] > 12) and (self.mCycleFrame[cycle_residue].std() > 0.00001)):
                     if(self.mOptions.mActiveAutoRegressions['AR']):
                         lAR = tsscikit.cAutoRegressiveModel(cycle_residue, lLags);
