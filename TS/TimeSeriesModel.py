@@ -347,8 +347,9 @@ class cTimeSeriesModel:
 
     def getVersions(self):
         
-        import os, platform
+        import os, platform, pyaf
         lVersionDict = {};
+        lVersionDict["PyAF_version"] = pyaf.__version__;
         lVersionDict["system_platform"] = platform.platform();
         lVersionDict["system_uname"] = platform.uname();
         lVersionDict["system_processor"] = platform.processor();
