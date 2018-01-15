@@ -5,10 +5,6 @@ INFO:pyaf.std:START_TRAINING 'Ozone'
 2  1955-03    3.6 1955-03-01
 3  1955-04    5.0 1955-04-01
 4  1955-05    6.5 1955-05-01
-2017-11-24 11:03:44.783710: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2
-2017-11-24 11:03:44.974060: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2
-2017-11-24 11:03:45.035270: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2
-2017-11-24 11:03:45.427741: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2
 INFO:pyaf.std:collectPerformanceIndices : MAPE _Ozone _Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_NoAR 4 0.3646
 INFO:pyaf.std:collectPerformanceIndices : MAPE _Ozone _Ozone_ConstantTrend_residue_bestCycle_byL2_residue_NoAR 8 0.3646
 INFO:pyaf.std:collectPerformanceIndices : MAPE _Ozone _Ozone_ConstantTrend_residue_zeroCycle_residue_NoAR 0 0.5344
@@ -57,9 +53,10 @@ INFO:pyaf.std:collectPerformanceIndices : MAPE CumSum_Ozone CumSum_Ozone_LinearT
 INFO:pyaf.std:collectPerformanceIndices : MAPE CumSum_Ozone CumSum_Ozone_PolyTrend_residue_Seasonal_MonthOfYear_residue_NoAR 52 0.9277
 INFO:pyaf.std:collectPerformanceIndices : MAPE CumSum_Ozone CumSum_Ozone_PolyTrend_residue_bestCycle_byL2_residue_NoAR 56 0.9177
 INFO:pyaf.std:collectPerformanceIndices : MAPE CumSum_Ozone CumSum_Ozone_PolyTrend_residue_zeroCycle_residue_NoAR 48 0.7655
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 5.956845998764038
-INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01T00:00:00.000000 TimeMax=1967-09-01T00:00:00.000000 TimeDelta=30 days Estimation = (0 , 153) Validation = (153 , 192) Test = (192 , 204) Horizon=12
-INFO:pyaf.std:SIGNAL_DETAIL SignalVariable='_Ozone' Min=1.2 Max=8.7  Mean=3.83578431373 StdDev=1.49155921594
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 6.495107650756836
+INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01T00:00:00.000000 TimeMax=1967-09-01T00:00:00.000000 TimeDelta=<DateOffset: kwds={'months': 1}> Estimation = (0 , 153) Validation = (153 , 192) Test = (192 , 204) Horizon=12
+INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Min=1.2 Max=8.7  Mean=3.8357843137254903 StdDev=1.4915592159401185
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Ozone' Min=1.2 Max=8.7  Mean=3.8357843137254903 StdDev=1.4915592159401185
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
 INFO:pyaf.std:BEST_DECOMPOSITION  '_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_residue_NoAR' [LinearTrend + Seasonal_MonthOfYear + NoAR]
 INFO:pyaf.std:TREND_DETAIL '_Ozone_LinearTrend' [LinearTrend]
@@ -68,19 +65,43 @@ INFO:pyaf.std:AUTOREG_DETAIL '_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_re
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.1865 MAPE_Forecast=0.1796 MAPE_Test=0.2567
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.1767 SMAPE_Forecast=0.1922 SMAPE_Test=0.2534
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7907 MASE_Forecast=0.7009 MASE_Test=1.2245
-INFO:pyaf.std:MODEL_L1 L1_Fit=0.694990856678 L1_Forecast=0.544145730174 L1_Test=0.578856591961
-INFO:pyaf.std:MODEL_L2 L2_Fit=0.896389399147 L2_Forecast=0.641888231179 L2_Test=0.678665313811
+INFO:pyaf.std:MODEL_L1 L1_Fit=0.6949908566782953 L1_Forecast=0.5441457301742297 L1_Test=0.5788565919613983
+INFO:pyaf.std:MODEL_L2 L2_Fit=0.8963893991467234 L2_Forecast=0.6418882311790933 L2_Test=0.6786653138108626
 INFO:pyaf.std:MODEL_COMPLEXITY 20
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_PLOTTING
-/home/antoine/.local/lib/python3.6/site-packages/pandas/plotting/_core.py:1714: UserWarning: Pandas doesn't allow columns to be created via a new attribute name - see https://pandas.pydata.org/pandas-docs/stable/indexing.html#attribute-access
+/home/antoine/.local/lib/python3.6/site-packages/pandas/plotting/_core.py:1716: UserWarning: Pandas doesn't allow columns to be created via a new attribute name - see https://pandas.pydata.org/pandas-docs/stable/indexing.html#attribute-access
   series.name = label
-/home/antoine/.local/lib/python3.6/site-packages/pandas/plotting/_core.py:1714: UserWarning: Pandas doesn't allow columns to be created via a new attribute name - see https://pandas.pydata.org/pandas-docs/stable/indexing.html#attribute-access
+/home/antoine/.local/lib/python3.6/site-packages/matplotlib/legend.py:588: UserWarning: The handle <matplotlib.lines.Line2D object at 0x7f25b3d1da20> has a label of '_Ozone' which cannot be automatically added to the legend.
+  'legend.'.format(handle, label))
+/home/antoine/.local/lib/python3.6/site-packages/matplotlib/legend.py:588: UserWarning: The handle <matplotlib.lines.Line2D object at 0x7f25b38bacc0> has a label of '_Ozone_Trend' which cannot be automatically added to the legend.
+  'legend.'.format(handle, label))
+/home/antoine/.local/lib/python3.6/site-packages/matplotlib/legend.py:588: UserWarning: The handle <matplotlib.lines.Line2D object at 0x7f25b3a5b4a8> has a label of '_Ozone_Trend_residue' which cannot be automatically added to the legend.
+  'legend.'.format(handle, label))
+/home/antoine/.local/lib/python3.6/site-packages/pandas/plotting/_core.py:1716: UserWarning: Pandas doesn't allow columns to be created via a new attribute name - see https://pandas.pydata.org/pandas-docs/stable/indexing.html#attribute-access
   series.name = label
-INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 16.475362062454224
+/home/antoine/.local/lib/python3.6/site-packages/matplotlib/legend.py:588: UserWarning: The handle <matplotlib.lines.Line2D object at 0x7f25b0aee2e8> has a label of '_Ozone_Trend_residue' which cannot be automatically added to the legend.
+  'legend.'.format(handle, label))
+/home/antoine/.local/lib/python3.6/site-packages/matplotlib/legend.py:588: UserWarning: The handle <matplotlib.lines.Line2D object at 0x7f25b0abe6a0> has a label of '_Ozone_Cycle' which cannot be automatically added to the legend.
+  'legend.'.format(handle, label))
+/home/antoine/.local/lib/python3.6/site-packages/matplotlib/legend.py:588: UserWarning: The handle <matplotlib.lines.Line2D object at 0x7f25b0abecc0> has a label of '_Ozone_Cycle_residue' which cannot be automatically added to the legend.
+  'legend.'.format(handle, label))
+/home/antoine/.local/lib/python3.6/site-packages/matplotlib/legend.py:588: UserWarning: The handle <matplotlib.lines.Line2D object at 0x7f25b09fa908> has a label of '_Ozone_Cycle_residue' which cannot be automatically added to the legend.
+  'legend.'.format(handle, label))
+/home/antoine/.local/lib/python3.6/site-packages/matplotlib/legend.py:588: UserWarning: The handle <matplotlib.lines.Line2D object at 0x7f25b09c8c18> has a label of '_Ozone_AR' which cannot be automatically added to the legend.
+  'legend.'.format(handle, label))
+/home/antoine/.local/lib/python3.6/site-packages/matplotlib/legend.py:588: UserWarning: The handle <matplotlib.lines.Line2D object at 0x7f25b095b278> has a label of '_Ozone_AR_residue' which cannot be automatically added to the legend.
+  'legend.'.format(handle, label))
+/home/antoine/.local/lib/python3.6/site-packages/matplotlib/legend.py:588: UserWarning: The handle <matplotlib.lines.Line2D object at 0x7f25b08f7a90> has a label of '_Ozone' which cannot be automatically added to the legend.
+  'legend.'.format(handle, label))
+/home/antoine/.local/lib/python3.6/site-packages/matplotlib/legend.py:588: UserWarning: The handle <matplotlib.lines.Line2D object at 0x7f25b08c5e80> has a label of '_Ozone_TransformedForecast' which cannot be automatically added to the legend.
+  'legend.'.format(handle, label))
+/home/antoine/.local/lib/python3.6/site-packages/matplotlib/legend.py:588: UserWarning: The handle <matplotlib.lines.Line2D object at 0x7f25b08571d0> has a label of '_Ozone_TransformedResidue' which cannot be automatically added to the legend.
+  'legend.'.format(handle, label))
+INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 11.478624820709229
 INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.7662591934204102
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.3738579750061035
   Transformation                                              Model  \
 0         _Ozone  _Ozone_LinearTrend_residue_Seasonal_MonthOfYea...   
 1         _Ozone  _Ozone_LinearTrend_residue_bestCycle_byL2_resi...   
@@ -131,18 +152,18 @@ memory usage: 5.1 KB
 None
 Forecasts
            Time  Ozone  Ozone_Forecast
-204 1971-12-31    NaN        1.415208
-205 1972-01-30    NaN        0.840263
-206 1972-02-29    NaN        1.063735
-207 1972-03-30    NaN        1.747651
-208 1972-04-29    NaN        2.301892
-209 1972-05-29    NaN        2.417277
-210 1972-06-28    NaN        3.317672
-211 1972-07-28    NaN        3.809980
-212 1972-08-27    NaN        3.725759
-213 1972-09-26    NaN        3.849231
-214 1972-10-26    NaN        3.339291
-215 1972-11-25    NaN        2.198019
+204 1972-01-01    NaN        0.851717
+205 1972-02-01    NaN        1.074794
+206 1972-03-01    NaN        1.759105
+207 1972-04-01    NaN        2.312951
+208 1972-05-01    NaN        2.428336
+209 1972-06-01    NaN        3.328336
+210 1972-07-01    NaN        3.820644
+211 1972-08-01    NaN        3.736028
+212 1972-09-01    NaN        3.859105
+213 1972-10-01    NaN        3.349165
+214 1972-11-01    NaN        2.207498
+215 1972-12-01    NaN        1.282498
 
 
 <ModelInfo>
@@ -168,10 +189,10 @@ Forecasts
     },
     "Model_Performance": {
         "COMPLEXITY": "20",
-        "MAE": "0.544145730174",
+        "MAE": "0.5441457301742297",
         "MAPE": "0.1796",
         "MASE": "0.7009",
-        "RMSE": "0.641888231179"
+        "RMSE": "0.6418882311790933"
     }
 }
 </ModelInfo>
@@ -180,7 +201,7 @@ Forecasts
 
 
 <Forecast>
-{"Time":{"192":"1971-01-01T00:00:00.000Z","193":"1971-02-01T00:00:00.000Z","194":"1971-03-01T00:00:00.000Z","195":"1971-04-01T00:00:00.000Z","196":"1971-05-01T00:00:00.000Z","197":"1971-06-01T00:00:00.000Z","198":"1971-07-01T00:00:00.000Z","199":"1971-08-01T00:00:00.000Z","200":"1971-09-01T00:00:00.000Z","201":"1971-10-01T00:00:00.000Z","202":"1971-11-01T00:00:00.000Z","203":"1971-12-01T00:00:00.000Z","204":"1971-12-31T00:00:00.000Z","205":"1972-01-30T00:00:00.000Z","206":"1972-02-29T00:00:00.000Z","207":"1972-03-30T00:00:00.000Z","208":"1972-04-29T00:00:00.000Z","209":"1972-05-29T00:00:00.000Z","210":"1972-06-28T00:00:00.000Z","211":"1972-07-28T00:00:00.000Z","212":"1972-08-27T00:00:00.000Z","213":"1972-09-26T00:00:00.000Z","214":"1972-10-26T00:00:00.000Z","215":"1972-11-25T00:00:00.000Z"},"Ozone":{"192":1.8,"193":2.0,"194":2.2,"195":3.0,"196":2.4,"197":3.5,"198":3.5,"199":3.3,"200":2.7,"201":2.5,"202":1.6,"203":1.2,"204":null,"205":null,"206":null,"207":null,"208":null,"209":null,"210":null,"211":null,"212":null,"213":null,"214":null,"215":null},"Ozone_Forecast":{"192":0.995880736,"193":1.2189576591,"194":1.9036641905,"195":2.4575103444,"196":2.5728949598,"197":3.4728949598,"198":3.9652026521,"199":3.8805872675,"200":4.0036641905,"201":3.4937237523,"202":2.3520570856,"203":1.4270570856,"204":1.4152079983,"205":0.8402627231,"206":1.0637346158,"207":1.7476512081,"208":2.3018923315,"209":2.4172769469,"210":3.3176719165,"211":3.8099796088,"212":3.7257591937,"213":3.8492310864,"214":3.3392906481,"215":2.198018951}}
+{"Time":{"192":"1971-01-01T00:00:00.000Z","193":"1971-02-01T00:00:00.000Z","194":"1971-03-01T00:00:00.000Z","195":"1971-04-01T00:00:00.000Z","196":"1971-05-01T00:00:00.000Z","197":"1971-06-01T00:00:00.000Z","198":"1971-07-01T00:00:00.000Z","199":"1971-08-01T00:00:00.000Z","200":"1971-09-01T00:00:00.000Z","201":"1971-10-01T00:00:00.000Z","202":"1971-11-01T00:00:00.000Z","203":"1971-12-01T00:00:00.000Z","204":"1972-01-01T00:00:00.000Z","205":"1972-02-01T00:00:00.000Z","206":"1972-03-01T00:00:00.000Z","207":"1972-04-01T00:00:00.000Z","208":"1972-05-01T00:00:00.000Z","209":"1972-06-01T00:00:00.000Z","210":"1972-07-01T00:00:00.000Z","211":"1972-08-01T00:00:00.000Z","212":"1972-09-01T00:00:00.000Z","213":"1972-10-01T00:00:00.000Z","214":"1972-11-01T00:00:00.000Z","215":"1972-12-01T00:00:00.000Z"},"Ozone":{"192":1.8,"193":2.0,"194":2.2,"195":3.0,"196":2.4,"197":3.5,"198":3.5,"199":3.3,"200":2.7,"201":2.5,"202":1.6,"203":1.2,"204":null,"205":null,"206":null,"207":null,"208":null,"209":null,"210":null,"211":null,"212":null,"213":null,"214":null,"215":null},"Ozone_Forecast":{"192":0.995880736,"193":1.2189576591,"194":1.9036641905,"195":2.4575103444,"196":2.5728949598,"197":3.4728949598,"198":3.9652026521,"199":3.8805872675,"200":4.0036641905,"201":3.4937237523,"202":2.3520570856,"203":1.4270570856,"204":0.8517168408,"205":1.0747937639,"206":1.7591053258,"207":2.3129514796,"208":2.428336095,"209":3.328336095,"210":3.8206437873,"211":3.7360284027,"212":3.8591053258,"213":3.3491648875,"214":2.2074982208,"215":1.2824982208}}
 </Forecast>
 
 
