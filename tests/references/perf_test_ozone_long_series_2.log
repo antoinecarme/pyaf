@@ -29,9 +29,10 @@ min          1.200000
 75%          4.825000
 max          8.700000
 Name: Ozone, dtype: float64
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 65.65116834640503
-INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01T00:00:00.000000 TimeMax=2111-03-07T00:00:00.000000 TimeDelta=7 days Estimation = (0 , 8150) Validation = (8150 , 10188) Test = (10188 , 10200) Horizon=12
-INFO:pyaf.std:SIGNAL_DETAIL SignalVariable='_Ozone' Min=1.2 Max=8.7  Mean=3.83578431373 StdDev=1.49155921594
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 21.716477394104004
+INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01T00:00:00.000000 TimeMax=2111-03-07T00:00:00.000000 TimeDelta=<DateOffset: kwds={'days': 7.0}> Estimation = (0 , 8150) Validation = (8150 , 10188) Test = (10188 , 10200) Horizon=12
+INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Min=1.2 Max=8.7  Mean=3.8357843137254903 StdDev=1.4915592159401188
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Ozone' Min=1.2 Max=8.7  Mean=3.8357843137254903 StdDev=1.4915592159401188
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
 INFO:pyaf.std:BEST_DECOMPOSITION  '_Ozone_ConstantTrend_residue_zeroCycle_residue_AR(64)' [ConstantTrend + NoCycle + AR(64)]
 INFO:pyaf.std:TREND_DETAIL '_Ozone_ConstantTrend' [ConstantTrend]
@@ -40,29 +41,53 @@ INFO:pyaf.std:AUTOREG_DETAIL '_Ozone_ConstantTrend_residue_zeroCycle_residue_AR(
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.1614 MAPE_Forecast=0.1615 MAPE_Test=0.1947
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.1563 SMAPE_Forecast=0.1564 SMAPE_Test=0.1745
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.6673 MASE_Forecast=0.667 MASE_Test=1.0075
-INFO:pyaf.std:MODEL_L1 L1_Fit=0.56281245013 L1_Forecast=0.562945423151 L1_Test=0.476278822944
-INFO:pyaf.std:MODEL_L2 L2_Fit=0.752520564435 L2_Forecast=0.752007453581 L2_Test=0.61146806427
+INFO:pyaf.std:MODEL_L1 L1_Fit=0.5628124501301154 L1_Forecast=0.5629454231507406 L1_Test=0.4762788229437584
+INFO:pyaf.std:MODEL_L2 L2_Fit=0.752520564434519 L2_Forecast=0.7520074535814638 L2_Test=0.611468064269884
 INFO:pyaf.std:MODEL_COMPLEXITY 64
 INFO:pyaf.std:AR_MODEL_DETAIL_START
-INFO:pyaf.std:AR_MODEL_COEFF 1 _Ozone_ConstantTrend_residue_zeroCycle_residue_Lag1 0.420568791571
-INFO:pyaf.std:AR_MODEL_COEFF 2 _Ozone_ConstantTrend_residue_zeroCycle_residue_Lag28 -0.164501127655
-INFO:pyaf.std:AR_MODEL_COEFF 3 _Ozone_ConstantTrend_residue_zeroCycle_residue_Lag15 -0.149402395054
-INFO:pyaf.std:AR_MODEL_COEFF 4 _Ozone_ConstantTrend_residue_zeroCycle_residue_Lag7 -0.148267424319
-INFO:pyaf.std:AR_MODEL_COEFF 5 _Ozone_ConstantTrend_residue_zeroCycle_residue_Lag4 0.142893116569
-INFO:pyaf.std:AR_MODEL_COEFF 6 _Ozone_ConstantTrend_residue_zeroCycle_residue_Lag39 -0.138244422555
-INFO:pyaf.std:AR_MODEL_COEFF 7 _Ozone_ConstantTrend_residue_zeroCycle_residue_Lag42 0.13542987964
-INFO:pyaf.std:AR_MODEL_COEFF 8 _Ozone_ConstantTrend_residue_zeroCycle_residue_Lag9 0.125129196124
-INFO:pyaf.std:AR_MODEL_COEFF 9 _Ozone_ConstantTrend_residue_zeroCycle_residue_Lag2 0.121807127584
-INFO:pyaf.std:AR_MODEL_COEFF 10 _Ozone_ConstantTrend_residue_zeroCycle_residue_Lag3 0.120972712696
+INFO:pyaf.std:AR_MODEL_COEFF 1 _Ozone_ConstantTrend_residue_zeroCycle_residue_Lag1 0.4205687915711118
+INFO:pyaf.std:AR_MODEL_COEFF 2 _Ozone_ConstantTrend_residue_zeroCycle_residue_Lag28 -0.16450112765536717
+INFO:pyaf.std:AR_MODEL_COEFF 3 _Ozone_ConstantTrend_residue_zeroCycle_residue_Lag15 -0.14940239505371664
+INFO:pyaf.std:AR_MODEL_COEFF 4 _Ozone_ConstantTrend_residue_zeroCycle_residue_Lag7 -0.14826742431929046
+INFO:pyaf.std:AR_MODEL_COEFF 5 _Ozone_ConstantTrend_residue_zeroCycle_residue_Lag4 0.14289311656945625
+INFO:pyaf.std:AR_MODEL_COEFF 6 _Ozone_ConstantTrend_residue_zeroCycle_residue_Lag39 -0.1382444225547673
+INFO:pyaf.std:AR_MODEL_COEFF 7 _Ozone_ConstantTrend_residue_zeroCycle_residue_Lag42 0.13542987964007633
+INFO:pyaf.std:AR_MODEL_COEFF 8 _Ozone_ConstantTrend_residue_zeroCycle_residue_Lag9 0.1251291961238208
+INFO:pyaf.std:AR_MODEL_COEFF 9 _Ozone_ConstantTrend_residue_zeroCycle_residue_Lag2 0.12180712758422754
+INFO:pyaf.std:AR_MODEL_COEFF 10 _Ozone_ConstantTrend_residue_zeroCycle_residue_Lag3 0.12097271269644752
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_PLOTTING
-/home/antoine/.local/lib/python3.6/site-packages/pandas/plotting/_core.py:1714: UserWarning: Pandas doesn't allow columns to be created via a new attribute name - see https://pandas.pydata.org/pandas-docs/stable/indexing.html#attribute-access
+/home/antoine/.local/lib/python3.6/site-packages/pandas/plotting/_core.py:1716: UserWarning: Pandas doesn't allow columns to be created via a new attribute name - see https://pandas.pydata.org/pandas-docs/stable/indexing.html#attribute-access
   series.name = label
-/home/antoine/.local/lib/python3.6/site-packages/pandas/plotting/_core.py:1714: UserWarning: Pandas doesn't allow columns to be created via a new attribute name - see https://pandas.pydata.org/pandas-docs/stable/indexing.html#attribute-access
+/home/antoine/.local/lib/python3.6/site-packages/matplotlib/legend.py:588: UserWarning: The handle <matplotlib.lines.Line2D object at 0x7f0a43aa0438> has a label of '_Ozone' which cannot be automatically added to the legend.
+  'legend.'.format(handle, label))
+/home/antoine/.local/lib/python3.6/site-packages/matplotlib/legend.py:588: UserWarning: The handle <matplotlib.lines.Line2D object at 0x7f0a580f0c50> has a label of '_Ozone_Trend' which cannot be automatically added to the legend.
+  'legend.'.format(handle, label))
+/home/antoine/.local/lib/python3.6/site-packages/matplotlib/legend.py:588: UserWarning: The handle <matplotlib.lines.Line2D object at 0x7f0a439a9160> has a label of '_Ozone_Trend_residue' which cannot be automatically added to the legend.
+  'legend.'.format(handle, label))
+/home/antoine/.local/lib/python3.6/site-packages/pandas/plotting/_core.py:1716: UserWarning: Pandas doesn't allow columns to be created via a new attribute name - see https://pandas.pydata.org/pandas-docs/stable/indexing.html#attribute-access
   series.name = label
-INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 48.79357123374939
+/home/antoine/.local/lib/python3.6/site-packages/matplotlib/legend.py:588: UserWarning: The handle <matplotlib.lines.Line2D object at 0x7f0a436ee5f8> has a label of '_Ozone_Trend_residue' which cannot be automatically added to the legend.
+  'legend.'.format(handle, label))
+/home/antoine/.local/lib/python3.6/site-packages/matplotlib/legend.py:588: UserWarning: The handle <matplotlib.lines.Line2D object at 0x7f0a436bc160> has a label of '_Ozone_Cycle' which cannot be automatically added to the legend.
+  'legend.'.format(handle, label))
+/home/antoine/.local/lib/python3.6/site-packages/matplotlib/legend.py:588: UserWarning: The handle <matplotlib.lines.Line2D object at 0x7f0a4367e080> has a label of '_Ozone_Cycle_residue' which cannot be automatically added to the legend.
+  'legend.'.format(handle, label))
+/home/antoine/.local/lib/python3.6/site-packages/matplotlib/legend.py:588: UserWarning: The handle <matplotlib.lines.Line2D object at 0x7f0a3c825f98> has a label of '_Ozone_Cycle_residue' which cannot be automatically added to the legend.
+  'legend.'.format(handle, label))
+/home/antoine/.local/lib/python3.6/site-packages/matplotlib/legend.py:588: UserWarning: The handle <matplotlib.lines.Line2D object at 0x7f0a3c7f24e0> has a label of '_Ozone_AR' which cannot be automatically added to the legend.
+  'legend.'.format(handle, label))
+/home/antoine/.local/lib/python3.6/site-packages/matplotlib/legend.py:588: UserWarning: The handle <matplotlib.lines.Line2D object at 0x7f0a3c78f048> has a label of '_Ozone_AR_residue' which cannot be automatically added to the legend.
+  'legend.'.format(handle, label))
+/home/antoine/.local/lib/python3.6/site-packages/matplotlib/legend.py:588: UserWarning: The handle <matplotlib.lines.Line2D object at 0x7f0a3c6d7320> has a label of '_Ozone' which cannot be automatically added to the legend.
+  'legend.'.format(handle, label))
+/home/antoine/.local/lib/python3.6/site-packages/matplotlib/legend.py:588: UserWarning: The handle <matplotlib.lines.Line2D object at 0x7f0a3c6acf98> has a label of '_Ozone_TransformedForecast' which cannot be automatically added to the legend.
+  'legend.'.format(handle, label))
+/home/antoine/.local/lib/python3.6/site-packages/matplotlib/legend.py:588: UserWarning: The handle <matplotlib.lines.Line2D object at 0x7f0a3c6b67b8> has a label of '_Ozone_TransformedResidue' which cannot be automatically added to the legend.
+  'legend.'.format(handle, label))
+INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 22.61342453956604
 INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 13.72792387008667
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 2.8300914764404297
   Transformation                                              Model  \
 0         _Ozone  _Ozone_PolyTrend_residue_bestCycle_byL2_residu...   
 1         _Ozone  _Ozone_LinearTrend_residue_bestCycle_byL2_resi...   
@@ -136,10 +161,10 @@ Forecasts
     },
     "Model_Performance": {
         "COMPLEXITY": "64",
-        "MAE": "0.562945423151",
+        "MAE": "0.5629454231507406",
         "MAPE": "0.1615",
         "MASE": "0.667",
-        "RMSE": "0.752007453581"
+        "RMSE": "0.7520074535814638"
     }
 }
 </ModelInfo>
