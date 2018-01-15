@@ -6,8 +6,6 @@
 
 import pandas as pd
 import numpy as np
-import datetime as dt
-import calendar
 
 from . import Utils as tsutil
 
@@ -19,13 +17,7 @@ class cTimeInfo:
     sRES_HOUR = 3
     sRES_DAY = 4
     sRES_MONTH = 5
-    sSecondsInResolution = {};
-    sSecondsInResolution[sRES_NONE] = 0;
-    sSecondsInResolution[sRES_SECOND] = 1;
-    sSecondsInResolution[sRES_MINUTE] = 1 * 60;
-    sSecondsInResolution[sRES_HOUR] = 1 * 60 * 60;
-    sSecondsInResolution[sRES_DAY] = 1 * 60 * 60 * 24;
-    sSecondsInResolution[sRES_MONTH] = 1 * 60 * 60 * 24 * 30;
+    sRES_YEAR = 6
     sDatePartComputer = {}
     sDatePartComputer["Second"] = lambda iTimeValue : iTimeValue.second
     sDatePartComputer["Minute"] = lambda iTimeValue : iTimeValue.minute
@@ -136,9 +128,7 @@ class cTimeInfo:
         if(lEstimMonth.nunique() > 1.0):
             self.mResolution =  cTimeInfo.sRES_MONTH;
             return;
-
-    def getSecondsInResolution(self):
-        return cTimeInfo.sSecondsInResolution.get(self.mResolution , 0.0);
+        self.mResolution =  cTimeInfo.sRES_YEAR;
 
     def cutFrame(self, df):
         lFrameFit = df[self.mEstimStart : self.mEstimEnd];
@@ -207,18 +197,22 @@ class cTimeInfo:
         if(not self.isPhysicalTime()):
             return;
         if(cTimeInfo.sRES_SECOND == self.mResolution):
+            self.mTimeDelta = pd.DateOffset(seconds=round(self.mTimeDelta / np.timedelta64(1,'s')))
             return;
         if(cTimeInfo.sRES_MINUTE == self.mResolution):
-            self.mTimeDelta = round(self.mTimeDelta / np.timedelta64(1,'m')) * np.timedelta64(1,'m')
+            self.mTimeDelta = pd.DateOffset(minutes=round(self.mTimeDelta / np.timedelta64(1,'m')))
             return;
         if(cTimeInfo.sRES_HOUR == self.mResolution):
-            self.mTimeDelta = round(self.mTimeDelta / np.timedelta64(1,'h')) * np.timedelta64(1,'h')
+            self.mTimeDelta = pd.DateOffset(hours=round(self.mTimeDelta / np.timedelta64(1,'h')))
             return;
         if(cTimeInfo.sRES_DAY == self.mResolution):
-            self.mTimeDelta = round(self.mTimeDelta / np.timedelta64(1,'D')) * np.timedelta64(1,'D')
+            self.mTimeDelta = pd.DateOffset(days=round(self.mTimeDelta / np.timedelta64(1,'D')))
             return;
         if(cTimeInfo.sRES_MONTH == self.mResolution):
-            self.mTimeDelta = round(self.mTimeDelta / np.timedelta64(30,'D')) * np.timedelta64(30,'D')
+            self.mTimeDelta = pd.DateOffset(months=round(self.mTimeDelta // np.timedelta64(30,'D')))
+            return;
+        if(cTimeInfo.sRES_YEAR == self.mResolution):
+            self.mTimeDelta = pd.DateOffset(months=round(self.mTimeDelta // np.timedelta64(365,'D')))
             return;
         pass
     
@@ -290,22 +284,17 @@ class cTimeInfo:
         output =  ( iTime- self.mTimeMin) / self.mTimeMinMaxDiff
         return output
 
-    def addMonths(self, iTime , iMonths):
-        date_after_months = iTime + iMonths * (365.0/12) * np.timedelta64(1,'D')
-        # print("addMonths" , iTime, iMonths, date_after_months);
-        return date_after_months;
-    
     def nextTime(self, df, iSteps):
         #print(df.tail(1)[self.mTime]);
         lLastTime = df[self.mTime].values[-1]
-        # Better handle time delta in months
-        # print("NEXT_TIME" , lLastTime, iSteps, self.mTimeDelta);
-        lNextTime = lLastTime + iSteps * self.mTimeDelta;
-        if(self.mResolution == cTimeInfo.sRES_MONTH):
-            lMonths = iSteps * int(self.mTimeDelta / np.timedelta64(1,'D') / 30);
-            lNextTime = self.addMonths(lLastTime, lMonths);
-        if(self.mOptions.mBusinessDaysOnly):
-            lOffset = [1, 1, 1, 1, 3, 2, 1][lNextTime.weekday()];
-            lNextTime = lNextTime +  np.timedelta64(lOffset,'D') # dt.timedelta(days = lOffset);
-
+        if(self.isPhysicalTime()):
+            lLastTime = pd.Timestamp(lLastTime)
+            # print("NEXT_TIME" , lLastTime, iSteps, self.mTimeDelta);
+            lNextTime = lLastTime + iSteps * self.mTimeDelta;
+            lNextTime = self.cast_to_time_dtype(lNextTime.to_datetime64())
+        else:
+            lNextTime = lLastTime + iSteps * self.mTimeDelta;
+            lNextTime = self.cast_to_time_dtype(lNextTime)
+            
+            
         return lNextTime;
