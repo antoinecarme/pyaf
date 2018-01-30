@@ -18,6 +18,8 @@ def build_package():
              'pyaf/ForecastEngine.py')
     copyfile('HierarchicalForecastEngine.py',
              'pyaf/HierarchicalForecastEngine.py')
+    copyfile('__init__.py',
+             'pyaf/__init__.py')
     os.mkdir('pyaf/CodeGen')
     for file in glob.glob('CodeGen/*.py'):        
         copyfile(file, 'pyaf/' + file)
