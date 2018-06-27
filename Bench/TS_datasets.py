@@ -163,7 +163,9 @@ def load_ozone_exogenous_categorical() :
     df_train['Time'] = df_train['Date'].apply(lambda x : datetime.datetime.strptime(x, "%Y-%m"))
 
     for col in ["Exog2", "Exog3", "Exog4"]:
-        df_train[col] = df_train[col].astype('category', ordered=True)
+        categs = sorted(df_train[col].unique())
+        cat_type = pd.api.types.CategoricalDtype(categories=categs, ordered=True)
+        df_train[col] = df_train[col].astype(cat_type)
 
     ozone_shifted_2 = df_train.shift(2)
     ozone_shifted_1 = df_train.shift(1)
