@@ -77,8 +77,8 @@ INFO:pyaf.std:collectPerformanceIndices : MAPE Quantized_20_Ozone Quantized_20_O
 INFO:pyaf.std:collectPerformanceIndices : MAPE Quantized_20_Ozone Quantized_20_Ozone_PolyTrend_residue_bestCycle_byL2_residue_NoAR 88 0.2147
 INFO:pyaf.std:collectPerformanceIndices : MAPE Quantized_20_Ozone Quantized_20_Ozone_PolyTrend_residue_zeroCycle_residue_AR(51) 131 0.1753
 INFO:pyaf.std:collectPerformanceIndices : MAPE Quantized_20_Ozone Quantized_20_Ozone_PolyTrend_residue_zeroCycle_residue_NoAR 80 0.3985
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 2.9058585166931152
-INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01T00:00:00.000000 TimeMax=1967-09-01T00:00:00.000000 TimeDelta=<DateOffset: kwds={'months': 1}> Estimation = (0 , 153) Validation = (153 , 192) Test = (192 , 204) Horizon=12
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 5.080726146697998
+INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01T00:00:00.000000 TimeMax=1967-09-01T00:00:00.000000 TimeDelta=<DateOffset: months=1> Estimation = (0 , 153) Validation = (153 , 192) Test = (192 , 204) Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Min=1.2 Max=8.7  Mean=3.8357843137254903 StdDev=1.4915592159401185
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='Quantized_10_Ozone' Min=0 Max=9  Mean=4.96078431372549 StdDev=2.838535830205739
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'Quantized_10_'
@@ -95,41 +95,26 @@ INFO:pyaf.std:MODEL_COMPLEXITY 84
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_PLOTTING
-/home/antoine/.local/lib/python3.6/site-packages/pandas/plotting/_core.py:1716: UserWarning: Pandas doesn't allow columns to be created via a new attribute name - see https://pandas.pydata.org/pandas-docs/stable/indexing.html#attribute-access
-  series.name = label
-/home/antoine/.local/lib/python3.6/site-packages/pandas/plotting/_core.py:1716: UserWarning: Pandas doesn't allow columns to be created via a new attribute name - see https://pandas.pydata.org/pandas-docs/stable/indexing.html#attribute-access
-  series.name = label
-INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 8.7592134475708
+INFO:matplotlib.font_manager:font search path ['/home/antoine/.local/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf', '/home/antoine/.local/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/afm', '/home/antoine/.local/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/pdfcorefonts']
+Fontconfig error: failed reading config file
+Fontconfig error: failed reading config file
+Fontconfig error: failed reading config file
+Fontconfig error: failed reading config file
+INFO:matplotlib.font_manager:Could not open font file /usr/share/fonts/truetype/unifont/unifont_sample.ttf
+INFO:matplotlib.font_manager:Could not open font file /usr/share/fonts/truetype/noto/NotoColorEmoji.ttf
+INFO:matplotlib.font_manager:generated new fontManager
+INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 13.566400289535522
 INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.31557536125183105
-       Transformation                                              Model  \
-0  Quantized_20_Ozone  Quantized_20_Ozone_PolyTrend_residue_zeroCycle...   
-1  Quantized_10_Ozone  Quantized_10_Ozone_LinearTrend_residue_Seasona...   
-2  Quantized_10_Ozone  Quantized_10_Ozone_LinearTrend_residue_bestCyc...   
-3  Quantized_20_Ozone  Quantized_20_Ozone_LinearTrend_residue_Seasona...   
-4  Quantized_20_Ozone  Quantized_20_Ozone_LinearTrend_residue_bestCyc...   
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 1.0983304977416992
+       Transformation   ...    TestMASE
+0  Quantized_20_Ozone   ...      1.1723
+1  Quantized_10_Ozone   ...      0.9484
+2  Quantized_10_Ozone   ...      0.9484
+3  Quantized_20_Ozone   ...      1.2190
+4  Quantized_20_Ozone   ...      1.2190
 
-   Complexity  FitCount FitL1 FitL2  FitMAPE  FitMASE  ForecastCount  \
-0         131       153  None  None   0.1653   0.7422             39   
-1          84       153  None  None   0.1851   0.8578             39   
-2          88       153  None  None   0.1851   0.8578             39   
-3          84       153  None  None   0.1806   0.8134             39   
-4          88       153  None  None   0.1806   0.8134             39   
-
-  ForecastL1 ForecastL2  ForecastMAPE  ForecastMASE  TestCount TestL1 TestL2  \
-0       None       None        0.1753        0.7332         12   None   None   
-1       None       None        0.1794        0.7065         12   None   None   
-2       None       None        0.1794        0.7065         12   None   None   
-3       None       None        0.1841        0.7002         12   None   None   
-4       None       None        0.1841        0.7002         12   None   None   
-
-   TestMAPE  TestMASE  
-0    0.2120    1.1723  
-1    0.2000    0.9484  
-2    0.2000    0.9484  
-3    0.2678    1.2190  
-4    0.2678    1.2190  
-Forecast Columns  Index(['Ozone', 'Quantized_10_Ozone', 'Time', 'row_number', 'Time_Normalized',
+[5 rows x 18 columns]
+Forecast Columns  Index(['Time', 'Ozone', 'Quantized_10_Ozone', 'row_number', 'Time_Normalized',
        'Quantized_10_Ozone_LinearTrend',
        'Quantized_10_Ozone_LinearTrend_residue',
        'Quantized_10_Ozone_LinearTrend_residue_Seasonal_MonthOfYear',

@@ -1,9 +1,9 @@
 INFO:pyaf.std:START_TRAINING 'Close'
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Close' 3.202631950378418
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Close' 4.593092918395996
 INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.7847096920013428
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 2.2112481594085693
 INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.8742456436157227
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 2.6979258060455322
 REQUEST_DETAILS [('CSVFile', 'https://raw.githubusercontent.com/antoinecarme/TimeSeriesData/a5fa96af431caabc817180d52bc1d01b8c61da41/YahooFinance/nasdaq/yahoo_GOOG.csv'), ('DateFormat', '%Y-%m-%d'), ('Horizon', 21), ('Name', 'PYAF_MODEL_DJOQFD_GOOG'), ('Present', '2016-01-01'), ('SignalVar', 'Close'), ('TimeVar', 'Date')]
 None
 DATASET_DETECTED_COLUMNS Index(['Unnamed: 0', 'Symbol', 'Date', 'Close', 'Low', 'Volume', 'Open',
@@ -15,20 +15,15 @@ DATASET_FINAL_COLUMNS Index(['Unnamed: 0', 'Symbol', 'Date', 'Close', 'Low', 'Vo
 TRAIN_PARAMS (857, 9) Index(['Unnamed: 0', 'Symbol', 'Date', 'Close', 'Low', 'Volume', 'Open',
        'Adj_Close', 'High'],
       dtype='object') Date Close 21
-  Transformation                                              Model  \
-0         _Close    _Close_Lag1Trend_residue_zeroCycle_residue_NoAR   
-1         _Close   _Close_Lag1Trend_residue_zeroCycle_residue_AR(7)   
-2         _Close  _Close_ConstantTrend_residue_zeroCycle_residue...   
-3         _Close  _Close_LinearTrend_residue_zeroCycle_residue_A...   
-4         _Close  _Close_Lag1Trend_residue_bestCycle_byL2_residu...   
+  Transformation   ...    TestMAPE
+0         _Close   ...      0.0102
+1         _Close   ...      0.0104
+2         _Close   ...      0.0104
+3         _Close   ...      0.0101
+4         _Close   ...      0.0105
 
-   Complexity  FitMAPE  ForecastMAPE  TestMAPE  
-0          32   0.0109        0.0121    0.0102  
-1          39   0.0110        0.0122    0.0104  
-2           7   0.0111        0.0123    0.0104  
-3          23   0.0112        0.0123    0.0101  
-4          40   0.0112        0.0126    0.0105  
-Forecast Columns  Index(['Close', 'Date', '_Close', 'row_number', 'Date_Normalized',
+[5 rows x 6 columns]
+Forecast Columns  Index(['Date', 'Close', '_Close', 'row_number', 'Date_Normalized',
        '_Close_ConstantTrend', '_Close_ConstantTrend_residue',
        '_Close_ConstantTrend_residue_zeroCycle',
        '_Close_ConstantTrend_residue_zeroCycle_residue',
@@ -97,10 +92,10 @@ Forecasts
     },
     "Model_Performance": {
         "COMPLEXITY": "7",
-        "MAE": "7.60333017328",
+        "MAE": "7.603330173277895",
         "MAPE": "0.0123",
         "MASE": "1.0086",
-        "RMSE": "12.4126863245"
+        "RMSE": "12.412686324523376"
     }
 }
 </ModelInfo>

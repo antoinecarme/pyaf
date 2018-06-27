@@ -29,8 +29,8 @@ INFO:pyaf.std:collectPerformanceIndices : MAPE Fisher_Ozone Fisher_Ozone_PolyTre
 INFO:pyaf.std:collectPerformanceIndices : MAPE Fisher_Ozone Fisher_Ozone_PolyTrend_residue_bestCycle_byL2_residue_NoAR 56 0.4405
 INFO:pyaf.std:collectPerformanceIndices : MAPE Fisher_Ozone Fisher_Ozone_PolyTrend_residue_zeroCycle_residue_AR(51) 99 0.2388
 INFO:pyaf.std:collectPerformanceIndices : MAPE Fisher_Ozone Fisher_Ozone_PolyTrend_residue_zeroCycle_residue_NoAR 48 0.4408
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 3.2097809314727783
-INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01T00:00:00.000000 TimeMax=1967-09-01T00:00:00.000000 TimeDelta=<DateOffset: kwds={'months': 1}> Estimation = (0 , 153) Validation = (153 , 192) Test = (192 , 204) Horizon=12
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 3.9309134483337402
+INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01T00:00:00.000000 TimeMax=1967-09-01T00:00:00.000000 TimeDelta=<DateOffset: months=1> Estimation = (0 , 153) Validation = (153 , 192) Test = (192 , 204) Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Min=1.2 Max=8.7  Mean=3.8357843137254903 StdDev=1.4915592159401185
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='Fisher_Ozone' Min=0.0 Max=9.556913957243776  Mean=0.43398413362015165 StdDev=0.6923238716460366
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'Fisher_'
@@ -57,41 +57,26 @@ INFO:pyaf.std:AR_MODEL_COEFF 9 Fisher_Ozone_PolyTrend_residue_zeroCycle_residue_
 INFO:pyaf.std:AR_MODEL_COEFF 10 Fisher_Ozone_PolyTrend_residue_zeroCycle_residue_Lag8 -0.049025562609708216
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_PLOTTING
-/home/antoine/.local/lib/python3.6/site-packages/pandas/plotting/_core.py:1716: UserWarning: Pandas doesn't allow columns to be created via a new attribute name - see https://pandas.pydata.org/pandas-docs/stable/indexing.html#attribute-access
-  series.name = label
-/home/antoine/.local/lib/python3.6/site-packages/pandas/plotting/_core.py:1716: UserWarning: Pandas doesn't allow columns to be created via a new attribute name - see https://pandas.pydata.org/pandas-docs/stable/indexing.html#attribute-access
-  series.name = label
-INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 9.588985204696655
+INFO:matplotlib.font_manager:font search path ['/home/antoine/.local/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf', '/home/antoine/.local/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/afm', '/home/antoine/.local/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/pdfcorefonts']
+Fontconfig error: failed reading config file
+Fontconfig error: failed reading config file
+Fontconfig error: failed reading config file
+Fontconfig error: failed reading config file
+INFO:matplotlib.font_manager:Could not open font file /usr/share/fonts/truetype/unifont/unifont_sample.ttf
+INFO:matplotlib.font_manager:Could not open font file /usr/share/fonts/truetype/noto/NotoColorEmoji.ttf
+INFO:matplotlib.font_manager:generated new fontManager
+INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 14.171043634414673
 INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.673480749130249
-  Transformation                                              Model  \
-0   Fisher_Ozone  Fisher_Ozone_Lag1Trend_residue_zeroCycle_resid...   
-1   Fisher_Ozone  Fisher_Ozone_PolyTrend_residue_zeroCycle_resid...   
-2   Fisher_Ozone  Fisher_Ozone_ConstantTrend_residue_Seasonal_Mo...   
-3   Fisher_Ozone  Fisher_Ozone_Lag1Trend_residue_zeroCycle_resid...   
-4   Fisher_Ozone  Fisher_Ozone_PolyTrend_residue_Seasonal_MonthO...   
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 1.2283527851104736
+  Transformation   ...    TestMASE
+0   Fisher_Ozone   ...      0.7979
+1   Fisher_Ozone   ...      3.2965
+2   Fisher_Ozone   ...      2.1425
+3   Fisher_Ozone   ...      1.0048
+4   Fisher_Ozone   ...      3.4060
 
-   Complexity  FitCount FitL1 FitL2  FitMAPE  FitMASE  ForecastCount  \
-0         115       153  None  None   0.2694   1.0829             39   
-1          99       153  None  None   0.2394   0.9823             39   
-2          87       153  None  None   0.2057   0.8987             39   
-3          64       153  None  None   0.2381   0.9935             39   
-4          52       153  None  None   0.2390   1.0081             39   
-
-  ForecastL1 ForecastL2  ForecastMAPE  ForecastMASE  TestCount TestL1 TestL2  \
-0       None       None        0.2323        0.7627         12   None   None   
-1       None       None        0.2388        0.8069         12   None   None   
-2       None       None        0.2748        1.0783         12   None   None   
-3       None       None        0.2778        1.0305         12   None   None   
-4       None       None        0.2926        1.1323         12   None   None   
-
-   TestMAPE  TestMASE  
-0    0.1939    0.7979  
-1    0.7282    3.2965  
-2    0.4283    2.1425  
-3    0.2132    1.0048  
-4    0.7003    3.4060  
-Forecast Columns  Index(['Fisher_Ozone', 'Ozone', 'Time', 'row_number', 'Time_Normalized',
+[5 rows x 18 columns]
+Forecast Columns  Index(['Time', 'Ozone', 'Fisher_Ozone', 'row_number', 'Time_Normalized',
        'Time_Normalized_^2', 'Time_Normalized_^3', 'Fisher_Ozone_PolyTrend',
        'Fisher_Ozone_PolyTrend_residue',
        'Fisher_Ozone_PolyTrend_residue_zeroCycle',
