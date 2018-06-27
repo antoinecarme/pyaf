@@ -133,13 +133,14 @@ class cTimeSeriesModel:
         df1 = df;
         # df1.to_csv("before.csv");
         # add new line with new time value, row_number and nromalized time
-        df1 = self.mTimeInfo.transformDataset(df1);
-        # df1.to_csv("after_time.csv");
-        # print("TimeInfo update : " , df1.columns);
         # add signal tranformed column
         df1 = self.mTransformation.transformDataset(df1, self.mOriginalSignal);
         # df1.to_csv("after_transformation.csv");
         #print("Transformation update : " , df1.columns);
+
+        df1 = self.mTimeInfo.transformDataset(df1);
+        # df1.to_csv("after_time.csv");
+        # print("TimeInfo update : " , df1.columns);
         # compute the trend based on the transformed column and compute trend residue
         df1 = self.mTrend.transformDataset(df1);
         #print("Trend update : " , df1.columns);
