@@ -245,8 +245,8 @@ INFO:pyaf.std:collectPerformanceIndices : MAPE Box_Cox_0.25_Ozone Box_Cox_0.25_O
 INFO:pyaf.std:collectPerformanceIndices : MAPE Box_Cox_0.25_Ozone Box_Cox_0.25_Ozone_PolyTrend_residue_bestCycle_byL2_residue_NoAR 88 0.1731
 INFO:pyaf.std:collectPerformanceIndices : MAPE Box_Cox_0.25_Ozone Box_Cox_0.25_Ozone_PolyTrend_residue_zeroCycle_residue_AR(51) 131 0.1676
 INFO:pyaf.std:collectPerformanceIndices : MAPE Box_Cox_0.25_Ozone Box_Cox_0.25_Ozone_PolyTrend_residue_zeroCycle_residue_NoAR 80 0.3361
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 5.505423069000244
-INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01T00:00:00.000000 TimeMax=1967-09-01T00:00:00.000000 TimeDelta=<DateOffset: kwds={'months': 1}> Estimation = (0 , 153) Validation = (153 , 192) Test = (192 , 204) Horizon=12
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 7.671647548675537
+INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01T00:00:00.000000 TimeMax=1967-09-01T00:00:00.000000 TimeDelta=<DateOffset: months=1> Estimation = (0 , 153) Validation = (153 , 192) Test = (192 , 204) Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Min=1.2 Max=8.7  Mean=3.8357843137254903 StdDev=1.4915592159401185
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='Box_Cox_0.5_Ozone' Min=-1.9999999998 Max=0.0  Mean=-0.870301741487325 StdDev=0.35990759744739725
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'Box_Cox_0.5_'
@@ -273,41 +273,26 @@ INFO:pyaf.std:AR_MODEL_COEFF 9 Box_Cox_0.5_Ozone_LinearTrend_residue_zeroCycle_r
 INFO:pyaf.std:AR_MODEL_COEFF 10 Box_Cox_0.5_Ozone_LinearTrend_residue_zeroCycle_residue_Lag35 -0.08353023150972816
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_PLOTTING
-/home/antoine/.local/lib/python3.6/site-packages/pandas/plotting/_core.py:1716: UserWarning: Pandas doesn't allow columns to be created via a new attribute name - see https://pandas.pydata.org/pandas-docs/stable/indexing.html#attribute-access
-  series.name = label
-/home/antoine/.local/lib/python3.6/site-packages/pandas/plotting/_core.py:1716: UserWarning: Pandas doesn't allow columns to be created via a new attribute name - see https://pandas.pydata.org/pandas-docs/stable/indexing.html#attribute-access
-  series.name = label
-INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 10.005911588668823
+INFO:matplotlib.font_manager:font search path ['/home/antoine/.local/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf', '/home/antoine/.local/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/afm', '/home/antoine/.local/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/pdfcorefonts']
+Fontconfig error: failed reading config file
+Fontconfig error: failed reading config file
+Fontconfig error: failed reading config file
+Fontconfig error: failed reading config file
+INFO:matplotlib.font_manager:Could not open font file /usr/share/fonts/truetype/unifont/unifont_sample.ttf
+INFO:matplotlib.font_manager:Could not open font file /usr/share/fonts/truetype/noto/NotoColorEmoji.ttf
+INFO:matplotlib.font_manager:generated new fontManager
+INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 16.030314922332764
 INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.5936601161956787
-       Transformation                                              Model  \
-0   Box_Cox_0.5_Ozone  Box_Cox_0.5_Ozone_LinearTrend_residue_zeroCycl...   
-1  Box_Cox_0.33_Ozone  Box_Cox_0.33_Ozone_LinearTrend_residue_zeroCyc...   
-2   Box_Cox_0.5_Ozone  Box_Cox_0.5_Ozone_PolyTrend_residue_zeroCycle_...   
-3  Box_Cox_0.25_Ozone  Box_Cox_0.25_Ozone_LinearTrend_residue_zeroCyc...   
-4  Box_Cox_0.33_Ozone  Box_Cox_0.33_Ozone_LinearTrend_residue_Seasona...   
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 1.7343013286590576
+       Transformation   ...    TestMASE
+0   Box_Cox_0.5_Ozone   ...      0.8999
+1  Box_Cox_0.33_Ozone   ...      1.0446
+2   Box_Cox_0.5_Ozone   ...      1.4518
+3  Box_Cox_0.25_Ozone   ...      1.1500
+4  Box_Cox_0.33_Ozone   ...      0.8584
 
-   Complexity  FitCount FitL1 FitL2  FitMAPE  FitMASE  ForecastCount  \
-0         131       153  None  None   0.1613   0.7181             39   
-1         131       153  None  None   0.1582   0.7113             39   
-2         131       153  None  None   0.1585   0.7045             39   
-3         131       153  None  None   0.1579   0.7141             39   
-4          84       153  None  None   0.1785   0.7947             39   
-
-  ForecastL1 ForecastL2  ForecastMAPE  ForecastMASE  TestCount TestL1 TestL2  \
-0       None       None        0.1414        0.6203         12   None   None   
-1       None       None        0.1515        0.6688         12   None   None   
-2       None       None        0.1548        0.6408         12   None   None   
-3       None       None        0.1579        0.6976         12   None   None   
-4       None       None        0.1589        0.6286         12   None   None   
-
-   TestMAPE  TestMASE  
-0    0.1662    0.8999  
-1    0.1866    1.0446  
-2    0.2790    1.4518  
-3    0.2046    1.1500  
-4    0.1925    0.8584  
-Forecast Columns  Index(['Box_Cox_0.5_Ozone', 'Ozone', 'Time', 'row_number', 'Time_Normalized',
+[5 rows x 18 columns]
+Forecast Columns  Index(['Time', 'Ozone', 'Box_Cox_0.5_Ozone', 'row_number', 'Time_Normalized',
        'Box_Cox_0.5_Ozone_LinearTrend',
        'Box_Cox_0.5_Ozone_LinearTrend_residue',
        'Box_Cox_0.5_Ozone_LinearTrend_residue_zeroCycle',

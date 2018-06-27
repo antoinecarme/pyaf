@@ -1,28 +1,23 @@
 INFO:pyaf.std:START_TRAINING 'AirPassengers'
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'AirPassengers' 1.7722113132476807
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'AirPassengers' 2.102328300476074
 INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.23298311233520508
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.4968287944793701
 INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.24815773963928223
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.5728559494018555
 REQUEST_DETAILS [('CSVFile', 'https://vincentarelbundock.github.io/Rdatasets/csv/datasets/AirPassengers.csv'), ('DateFormat', None), ('Horizon', 7), ('Name', 'model_air_by_tests'), ('Present', ''), ('SignalVar', 'AirPassengers'), ('TimeVar', 'time')]
 None
-DATASET_DETECTED_COLUMNS Index(['Unnamed: 0', 'time', 'AirPassengers'], dtype='object')
-DATASET_FINAL_COLUMNS Index(['Unnamed: 0', 'time', 'AirPassengers'], dtype='object')
-TRAIN_PARAMS (144, 3) Index(['Unnamed: 0', 'time', 'AirPassengers'], dtype='object') time AirPassengers 7
-   Transformation                                              Model  \
-0  _AirPassengers  _AirPassengers_ConstantTrend_residue_bestCycle...   
-1  _AirPassengers  _AirPassengers_LinearTrend_residue_bestCycle_b...   
-2  _AirPassengers  _AirPassengers_Lag1Trend_residue_bestCycle_byL...   
-3  _AirPassengers  _AirPassengers_Lag1Trend_residue_bestCycle_byL...   
-4  _AirPassengers  _AirPassengers_PolyTrend_residue_bestCycle_byL...   
+DATASET_DETECTED_COLUMNS Index(['Unnamed: 0', 'time', 'value'], dtype='object')
+DATASET_FINAL_COLUMNS Index(['Unnamed: 0', 'time', 'value', 'AirPassengers'], dtype='object')
+TRAIN_PARAMS (144, 4) Index(['Unnamed: 0', 'time', 'value', 'AirPassengers'], dtype='object') time AirPassengers 7
+   Transformation   ...    TestMAPE
+0  _AirPassengers   ...      0.0592
+1  _AirPassengers   ...      0.0561
+2  _AirPassengers   ...      0.0508
+3  _AirPassengers   ...      0.0699
+4  _AirPassengers   ...      0.0737
 
-   Complexity  FitMAPE  ForecastMAPE  TestMAPE  
-0          15   0.0452        0.0463    0.0592  
-1          31   0.0385        0.0483    0.0561  
-2          47   0.0384        0.0493    0.0508  
-3          40   0.0431        0.0543    0.0699  
-4          31   0.0365        0.0616    0.0737  
-Forecast Columns  Index(['AirPassengers', '_AirPassengers', 'time', 'row_number',
+[5 rows x 6 columns]
+Forecast Columns  Index(['time', 'AirPassengers', '_AirPassengers', 'row_number',
        'time_Normalized', '_AirPassengers_ConstantTrend',
        '_AirPassengers_ConstantTrend_residue', 'cycle_internal',
        '_AirPassengers_ConstantTrend_residue_bestCycle_byL2',
@@ -65,7 +60,7 @@ Forecasts
             "Horizon": 7,
             "TimeMinMax": [
                 "1949.0",
-                "1960.91666667"
+                "1960.91666666667"
             ],
             "TimeVariable": "time"
         },
@@ -80,10 +75,10 @@ Forecasts
     },
     "Model_Performance": {
         "COMPLEXITY": "15",
-        "MAE": "19.3733193355",
+        "MAE": "19.37331933554182",
         "MAPE": "0.0463",
         "MASE": "0.487",
-        "RMSE": "25.6065187797"
+        "RMSE": "25.606518779676406"
     }
 }
 </ModelInfo>
