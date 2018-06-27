@@ -89,7 +89,9 @@ class cTimeInfo:
         lLastRow = df.tail(1).copy();
         lLastRow[self.mTime] = self.nextTime(df, 1);
         lLastRow[self.mSignal] = np.nan;
-        df = df.append(lLastRow, ignore_index=True, verify_integrity = True);        
+        # print(lLastRow.columns ,  df.columns)
+        assert(str(lLastRow.columns) == str(df.columns))
+        df = df.append(lLastRow, ignore_index=True, verify_integrity = True, sort=False);        
         df[self.mRowNumberColumn] = np.arange(0, df.shape[0]);
         df[self.mNormalizedTimeColumn] = self.compute_normalize_date_column(df[self.mTime])
         # print(df.tail());
