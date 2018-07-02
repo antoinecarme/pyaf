@@ -17,7 +17,7 @@ def add_makefile_entry(subdir1):
             difffile = logfile + ".diff"
             # print("#PROCESSING FILE : " , filename, bn , logfile);
         
-            print(bn , " : " , "\n\t", "-$(PYTHON) " , filename , " > " , logfile, " 2>&1");
+            print(bn , " : " , "\n\t", "$(PYTHON) " , filename , " > " , logfile, " 2>&1");
             print("\t", "$(PYTHON) scripts/num_diff.py " , reflogfile , logfile, " > " , difffile);
             print("\t", "tail -10 " ,  difffile, "\n");
                 
@@ -44,6 +44,6 @@ print("\n# ********************************************** \n");
 
 print("all: " , str1 , "\n\t\n");
 
-str2 = "demos basic_checks exog heroku hierarchical model_control svr transformations func real-life  time_res perfs";
+str2 = "demos basic_checks exog heroku hierarchical model_control svr transformations func real-life  time_res perfs bugs";
 
 print("build-test : " , str2 , "\n\t\n");
