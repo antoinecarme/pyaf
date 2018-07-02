@@ -7,9 +7,9 @@
 import pandas as pd
 import numpy as np
 
-
 from io import BytesIO
 import base64
+
 
 SIGNAL_COLOR='green'
 FORECAST_COLOR='blue'
@@ -19,6 +19,16 @@ SHADED_COLOR='turquoise'
 UPPER_COLOR='grey'
 LOWER_COLOR='black'
 
+
+def add_patched_legend(ax , names):
+    # matplotliub does not like labels starting with '_'
+    patched_names = []
+    for name in names:
+        # remove leading '_' => here, this is almost OK: no signal transformation
+        patched_name = name[1:] if(name.startswith('_')) else name
+        patched_names = patched_names + [ patched_name ]
+    ax.legend(patched_names)
+
 def decomp_plot(df, time, signal, estimator, residue, name = None, format='png', max_length = 1000) :
     assert(df.shape[0] > 0)
     assert(df.shape[1] > 0)
@@ -26,6 +36,7 @@ def decomp_plot(df, time, signal, estimator, residue, name = None, format='png',
     assert(signal in df.columns)
     assert(estimator in df.columns)
     assert(residue in df.columns)
+
 
     import matplotlib
     matplotlib.use('Agg')
@@ -37,7 +48,8 @@ def decomp_plot(df, time, signal, estimator, residue, name = None, format='png',
         lColor = FORECAST_COLOR;
     df1.plot.line(time, [signal, estimator, residue],
                   color=[SIGNAL_COLOR, lColor, RESIDUE_COLOR],
-                  ax=axs[0] , grid = True)
+                  ax=axs[0] , grid = True, legend=False)
+    add_patched_legend(axs[0] , [signal, estimator, residue])
     residues =  df1[residue].values
 
     import scipy.stats as scistats
@@ -66,7 +78,8 @@ def decomp_plot_as_png_base64(df, time, signal, estimator, residue, name = None,
         lColor = FORECAST_COLOR;
     df1.plot.line(time, [signal, estimator, residue],
                   color=[SIGNAL_COLOR, lColor, RESIDUE_COLOR],
-                  ax=axs[0] , grid = True)
+                  ax=axs[0] , grid = True, legend = False)
+    add_patched_legend(axs[0] , [signal, estimator, residue])
     residues =  df1[residue].values
 
     import scipy.stats as scistats
@@ -109,7 +122,8 @@ def prediction_interval_plot(df, time, signal, estimator, lower, upper, name = N
     fig, axs = plt.subplots(ncols=1, figsize=(16, 8))
     df1.plot.line(time, [signal, estimator, lower, upper],
                   color=[SIGNAL_COLOR, FORECAST_COLOR, LOWER_COLOR, UPPER_COLOR],
-                  ax=axs, grid = True)
+                  ax=axs, grid = True, legend=False)
+    add_patched_legend(axs , [signal, estimator, lower, upper])
 
     x = df1[time];
     type1 = np.dtype(x)
@@ -150,7 +164,8 @@ def prediction_interval_plot_as_png_base64(df, time, signal, estimator, lower, u
     fig, axs = plt.subplots(ncols=1, figsize=(16, 8))
     df1.plot.line(time, [signal, estimator, lower, upper],
                   color=[SIGNAL_COLOR, FORECAST_COLOR, FORECAST_COLOR, FORECAST_COLOR],
-                  ax=axs, grid = True)
+                  ax=axs, grid = True, legend=False)
+    add_patched_legend(axs , [signal, estimator, lower, upper])
 
     x = df1[time];
     type1 = np.dtype(x)
