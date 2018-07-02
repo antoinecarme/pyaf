@@ -1047,6 +1047,6 @@ transformations/test_ozone_transf_relative_difference_1.py  :
 all:  artificial basic_checks bugs exog expsmooth HeartRateTimeSeries heroku hierarchical model_control perf svr transformations func neuralnet real-life  time_res perfs demos 
 	
 
-build-test :  demos basic_checks exog heroku hierarchical model_control svr transformations func real-life  time_res perfs bugs 
+build-test :  demos basic_checks exog heroku hierarchical model_control svr transformations func real-life  time_res perfs 
 	
 
