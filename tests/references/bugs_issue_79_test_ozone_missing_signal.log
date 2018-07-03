@@ -1,0 +1,114 @@
+INFO:pyaf.std:START_TRAINING 'Ozone'
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 6.5529396533966064
+INFO:pyaf.std:TIME_DETAIL TimeVariable='Month' TimeMin=1955-01-01T00:00:00.000000 TimeMax=1968-07-01T00:00:00.000000 TimeDelta=<DateOffset: months=1> Estimation = (0 , 163) Validation = (163 , 204) Test = (204 , 216) Horizon=12
+INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Min=1.2 Max=7.7  Mean=3.746296296296296 StdDev=1.3542978727193387
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='Diff_Ozone' Min=-2.7 Max=3.5  Mean=0.008333333333333321 StdDev=0.9641390165374891
+INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'Diff_'
+INFO:pyaf.std:BEST_DECOMPOSITION  'Diff_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_residue_NoAR' [LinearTrend + Seasonal_MonthOfYear + NoAR]
+INFO:pyaf.std:TREND_DETAIL 'Diff_Ozone_LinearTrend' [LinearTrend]
+INFO:pyaf.std:CYCLE_DETAIL 'Diff_Ozone_LinearTrend_residue_Seasonal_MonthOfYear' [Seasonal_MonthOfYear]
+INFO:pyaf.std:AUTOREG_DETAIL 'Diff_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_residue_NoAR' [NoAR]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.221 MAPE_Forecast=0.1862 MAPE_Test=0.25
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.2194 SMAPE_Forecast=0.174 SMAPE_Test=0.3197
+INFO:pyaf.std:MODEL_MASE MASE_Fit=1.0337 MASE_Forecast=0.7306 MASE_Test=2.8479
+INFO:pyaf.std:MODEL_L1 L1_Fit=0.813588391737611 L1_Forecast=0.5077962850329415 L1_Test=0.8025913439451932
+INFO:pyaf.std:MODEL_L2 L2_Fit=1.0541828632882473 L2_Forecast=0.5791630897663923 L2_Test=1.1031214313356847
+INFO:pyaf.std:MODEL_COMPLEXITY 52
+INFO:pyaf.std:AR_MODEL_DETAIL_START
+INFO:pyaf.std:AR_MODEL_DETAIL_END
+INFO:pyaf.std:START_PLOTTING
+INFO:matplotlib.font_manager:font search path ['/home/antoine/.local/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf', '/home/antoine/.local/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/afm', '/home/antoine/.local/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/pdfcorefonts']
+Fontconfig error: failed reading config file
+Fontconfig error: failed reading config file
+Fontconfig error: failed reading config file
+Fontconfig error: failed reading config file
+INFO:matplotlib.font_manager:Could not open font file /usr/share/fonts/truetype/unifont/unifont_sample.ttf
+INFO:matplotlib.font_manager:Could not open font file /usr/share/fonts/truetype/noto/NotoColorEmoji.ttf
+INFO:matplotlib.font_manager:generated new fontManager
+INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 19.020396947860718
+INFO:pyaf.std:START_FORECASTING
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.934788703918457
+  Transformation   ...    TestMAPE
+0     Diff_Ozone   ...      0.2500
+1     Diff_Ozone   ...      0.2500
+2         _Ozone   ...      0.1890
+3         _Ozone   ...      0.1890
+4         _Ozone   ...      0.1731
+
+[5 rows x 6 columns]
+Forecast Columns  Index(['Month', 'Ozone', 'Diff_Ozone', 'row_number', 'Month_Normalized',
+       'Diff_Ozone_LinearTrend', 'Diff_Ozone_LinearTrend_residue',
+       'Diff_Ozone_LinearTrend_residue_Seasonal_MonthOfYear',
+       'Diff_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_residue',
+       'Diff_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_residue_NoAR',
+       'Diff_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_residue_NoAR_residue',
+       'Diff_Ozone_Trend', 'Diff_Ozone_Trend_residue', 'Diff_Ozone_Cycle',
+       'Diff_Ozone_Cycle_residue', 'Diff_Ozone_AR', 'Diff_Ozone_AR_residue',
+       'Diff_Ozone_TransformedForecast', 'Ozone_Forecast',
+       'Diff_Ozone_TransformedResidue', 'Ozone_Residue',
+       'Ozone_Forecast_Lower_Bound', 'Ozone_Forecast_Upper_Bound'],
+      dtype='object')
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 228 entries, 0 to 227
+Data columns (total 3 columns):
+Month             228 non-null datetime64[ns]
+Ozone             216 non-null float64
+Ozone_Forecast    228 non-null float64
+dtypes: datetime64[ns](1), float64(2)
+memory usage: 5.4 KB
+None
+Forecasts
+          Month  Ozone  Ozone_Forecast
+216 1973-01-01    NaN        0.738698
+217 1973-02-01    NaN        1.010435
+218 1973-03-01    NaN        1.596460
+219 1973-04-01    NaN        2.108675
+220 1973-05-01    NaN        2.206605
+221 1973-06-01    NaN        3.061678
+222 1973-07-01    NaN        3.538179
+223 1973-08-01    NaN        3.421589
+224 1973-09-01    NaN        3.003076
+225 1973-10-01    NaN        2.846102
+226 1973-11-01    NaN        1.492974
+227 1973-12-01    NaN        0.824462
+
+
+<ModelInfo>
+{
+    "Dataset": {
+        "Signal": "Ozone",
+        "Time": {
+            "Horizon": 12,
+            "TimeMinMax": [
+                "1955-01-01 00:00:00",
+                "1972-12-01 00:00:00"
+            ],
+            "TimeVariable": "Month"
+        },
+        "Training_Signal_Length": 216
+    },
+    "Model": {
+        "AR_Model": "NoAR",
+        "Best_Decomposition": "Diff_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_residue_NoAR",
+        "Cycle": "Seasonal_MonthOfYear",
+        "Signal_Transoformation": "Difference",
+        "Trend": "LinearTrend"
+    },
+    "Model_Performance": {
+        "COMPLEXITY": "52",
+        "MAE": "0.5077962850329415",
+        "MAPE": "0.1862",
+        "MASE": "0.7306",
+        "RMSE": "0.5791630897663923"
+    }
+}
+</ModelInfo>
+
+
+
+
+<Forecast>
+{"Month":{"204":"1972-01-01T00:00:00.000Z","205":"1972-02-01T00:00:00.000Z","206":"1972-03-01T00:00:00.000Z","207":"1972-04-01T00:00:00.000Z","208":"1972-05-01T00:00:00.000Z","209":"1972-06-01T00:00:00.000Z","210":"1972-07-01T00:00:00.000Z","211":"1972-08-01T00:00:00.000Z","212":"1972-09-01T00:00:00.000Z","213":"1972-10-01T00:00:00.000Z","214":"1972-11-01T00:00:00.000Z","215":"1972-12-01T00:00:00.000Z","216":"1973-01-01T00:00:00.000Z","217":"1973-02-01T00:00:00.000Z","218":"1973-03-01T00:00:00.000Z","219":"1973-04-01T00:00:00.000Z","220":"1973-05-01T00:00:00.000Z","221":"1973-06-01T00:00:00.000Z","222":"1973-07-01T00:00:00.000Z","223":"1973-08-01T00:00:00.000Z","224":"1973-09-01T00:00:00.000Z","225":"1973-10-01T00:00:00.000Z","226":"1973-11-01T00:00:00.000Z","227":"1973-12-01T00:00:00.000Z"},"Ozone":{"204":1.5,"205":2.0,"206":3.1,"207":3.0,"208":3.5,"209":3.4,"210":4.0,"211":3.8,"212":3.8,"213":3.8,"214":3.8,"215":3.8,"216":null,"217":null,"218":null,"219":null,"220":null,"221":null,"222":null,"223":null,"224":null,"225":null,"226":null,"227":null},"Ozone_Forecast":{"204":1.0590446516,"205":1.3334516326,"206":1.9221391174,"207":2.4370170783,"208":2.5376093249,"209":3.3953444287,"210":3.8745081039,"211":3.7605811152,"212":3.3447310496,"213":3.1904194455,"214":1.8399539953,"215":1.1741039296,"216":0.7386981589,"217":1.0104352454,"218":1.5964601304,"219":2.1086754915,"220":2.2066051384,"221":3.0616776424,"222":3.5381787179,"223":3.4215891294,"224":3.003076464,"225":2.8461022602,"226":1.4929742101,"227":0.8244615448}}
+</Forecast>
+
+
