@@ -106,7 +106,7 @@ The following features are available :
         * **Bottom-Up**, **Top-Down** (using proportions), **Middle-Out** and **Optimal Combinations** are
       implemented.
    6. The modeling process is **customizable** and has a huge set of **options**. The
-      default values of these options should however be OK.
+      default values of these options should however be OK to produce a reasonable quality model in a limited amount of time (a few minutes).
    7. A **benchmarking process** is in place (using M1, M2, M3 competitions, NN3,
       NN5 forecasting competitions).
          * This process will be used to control the quality of modeling changes introduced in the future versions of PyAF. A  [related  github issue](https://github.com/antoinecarme/pyaf/issues/45) is created. 
@@ -118,7 +118,7 @@ The following features are available :
       * An **object-oriented** approach is used for the system design. Separation of
       concerns is the key factor here.
       * **Fully written in python** with numpy, scipy, pandas and scikit-learn
-      objects. Tries to be **column-based** everywhere for performance reasons.
+      objects. Tries to be **column-based** everywhere for performance reasons (respecting some modeling time and memory constraints).
       * Internally using a fit/predict pattern , inspired by scikit-learn, to estimate/forecast the different signal components (trends, cycles and AR models).
       * A **test-driven approach** is used. Test scripts are available in the [tests](tests)
       directory, one directory for each feature.
