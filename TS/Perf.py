@@ -87,7 +87,12 @@ class cPerf:
 
         r = 0.0;
         if((signal_std > 0.0) and (estimator_std > 0.0) and (signal.shape[0] > 30)):
-            (r , pval) = pearsonr(signal.values , estimator.values)
+            # this is a temporary work-around for the issue
+            # scipy.stats.pearsonr overflows with high values of x and y #8980
+            # https://github.com/scipy/scipy/issues/8980
+            sig_z = (signal.values - np.mean(signal.values))/signal_std
+            est_z = (estimator.values - np.mean(estimator.values))/estimator_std
+            (r , pval) = pearsonr(sig_z , est_z)
         return r;
         
             
