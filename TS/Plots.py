@@ -21,11 +21,12 @@ LOWER_COLOR='black'
 
 
 def add_patched_legend(ax , names):
-    # matplotliub does not like labels starting with '_'
+    # matplotlib does not like labels starting with '_'
     patched_names = []
     for name in names:
         # remove leading '_' => here, this is almost OK: no signal transformation
-        patched_name = name[1:] if(name.startswith('_')) else name
+        patched_name = name[2:] if(name.startswith('__')) else name
+        patched_name = patched_name[1:] if(patched_name.startswith('_')) else patched_name
         patched_names = patched_names + [ patched_name ]
     ax.legend(patched_names)
 
@@ -39,7 +40,8 @@ def decomp_plot(df, time, signal, estimator, residue, name = None, format='png',
 
 
     import matplotlib
-    matplotlib.use('Agg')
+    # print("MATPLOTLIB_BACKEND",  matplotlib.get_backend())
+    # matplotlib.use('Agg')
     import matplotlib.pyplot as plt
     df1 = df.tail(max_length);
     fig, axs = plt.subplots(ncols=2, figsize=(32, 16))
@@ -57,6 +59,7 @@ def decomp_plot(df, time, signal, estimator, residue, name = None, format='png',
     scistats.probplot(resid, dist="norm", plot=axs[1])
 
     if(name is not None):
+        plt.switch_backend('Agg')
         fig.savefig(name + '_decomp_output.' + format)
         plt.close(fig)
 
@@ -69,8 +72,9 @@ def decomp_plot_as_png_base64(df, time, signal, estimator, residue, name = None,
     assert(residue in df.columns)
 
     import matplotlib
-    matplotlib.use('Agg')
+    # matplotlib.use('Agg')
     import matplotlib.pyplot as plt
+    plt.switch_backend('Agg')
     df1 = df.tail(max_length);
     fig, axs = plt.subplots(ncols=2, figsize=(16, 8))
     lColor = COMPONENT_COLOR;
@@ -117,7 +121,7 @@ def prediction_interval_plot(df, time, signal, estimator, lower, upper, name = N
     df1.loc[lLastSignalPos , upper] = lEstimtorValue;
 
     import matplotlib
-    matplotlib.use('Agg')
+    # matplotlib.use('Agg')
     import matplotlib.pyplot as plt
     fig, axs = plt.subplots(ncols=1, figsize=(16, 8))
     df1.plot.line(time, [signal, estimator, lower, upper],
@@ -132,6 +136,7 @@ def prediction_interval_plot(df, time, signal, estimator, lower, upper, name = N
     axs.fill_between(x.values, df1[lower], df1[upper], color=SHADED_COLOR, alpha=.2)
 
     if(name is not None):
+        plt.switch_backend('Agg')
         fig.savefig(name + '_prediction_intervals_output.' + format)
         plt.close(fig)
     
@@ -159,8 +164,9 @@ def prediction_interval_plot_as_png_base64(df, time, signal, estimator, lower, u
     df1.loc[lLastSignalPos , upper] = lEstimtorValue;
 
     import matplotlib
-    matplotlib.use('Agg')
+    # matplotlib.use('Agg')
     import matplotlib.pyplot as plt
+    plt.switch_backend('Agg')
     fig, axs = plt.subplots(ncols=1, figsize=(16, 8))
     df1.plot.line(time, [signal, estimator, lower, upper],
                   color=[SIGNAL_COLOR, FORECAST_COLOR, FORECAST_COLOR, FORECAST_COLOR],
