@@ -44,6 +44,8 @@ def decomp_plot(df, time, signal, estimator, residue, name = None, format='png',
     # matplotlib.use('Agg')
     import matplotlib.pyplot as plt
     df1 = df.tail(max_length);
+    if(name is not None):
+        plt.switch_backend('Agg')
     fig, axs = plt.subplots(ncols=2, figsize=(32, 16))
     lColor = COMPONENT_COLOR;
     if(name is not None and name.endswith("Forecast")):
@@ -123,6 +125,8 @@ def prediction_interval_plot(df, time, signal, estimator, lower, upper, name = N
     import matplotlib
     # matplotlib.use('Agg')
     import matplotlib.pyplot as plt
+    if(name is not None):
+        plt.switch_backend('Agg')
     fig, axs = plt.subplots(ncols=1, figsize=(16, 8))
     df1.plot.line(time, [signal, estimator, lower, upper],
                   color=[SIGNAL_COLOR, FORECAST_COLOR, LOWER_COLOR, UPPER_COLOR],
