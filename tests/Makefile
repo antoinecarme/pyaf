@@ -121,9 +121,14 @@ basic_checks/test_pearson.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/basic_checks_test_pearson.log logs/basic_checks_test_pearson.log  >  logs/basic_checks_test_pearson.log.diff
 	 tail -10  logs/basic_checks_test_pearson.log.diff 
 
+basic_checks/test_pearson2.py  :  
+	 $(PYTHON)  tests/basic_checks/test_pearson2.py  >  logs/basic_checks_test_pearson2.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/basic_checks_test_pearson2.log logs/basic_checks_test_pearson2.log  >  logs/basic_checks_test_pearson2.log.diff
+	 tail -10  logs/basic_checks_test_pearson2.log.diff 
 
 
- basic_checks :  basic_checks/test_pearson.py basic_checks/platform_info.py basic_checks/issue_46_wrong_type_signal_column.py basic_checks/issue_46_wrong_type_date_column.py basic_checks/issue_46_one_or_two_rows.py basic_checks/issue_46_non_existant_time_column.py basic_checks/issue_46_non_existant_signal_column.py basic_checks/issue_46_negative_horizon.py basic_checks/issue_46_min_max_issues.py basic_checks/hierarchy_checks_unkonwn_base_column.py basic_checks/hierarchy_checks_non_existant_date_column.py basic_checks/hierarchy_checks_non_existant_base_column.py basic_checks/hierarchy_checks_date_column_bad_storage.py basic_checks/hierarchy_checks_base_column_bad_storage.py basic_checks/hierarchy_checks_bad_horizon.py basic_checks/hierarchy_checks.py  
+
+ basic_checks :  basic_checks/test_pearson2.py basic_checks/test_pearson.py basic_checks/platform_info.py basic_checks/issue_46_wrong_type_signal_column.py basic_checks/issue_46_wrong_type_date_column.py basic_checks/issue_46_one_or_two_rows.py basic_checks/issue_46_non_existant_time_column.py basic_checks/issue_46_non_existant_signal_column.py basic_checks/issue_46_negative_horizon.py basic_checks/issue_46_min_max_issues.py basic_checks/hierarchy_checks_unkonwn_base_column.py basic_checks/hierarchy_checks_non_existant_date_column.py basic_checks/hierarchy_checks_non_existant_base_column.py basic_checks/hierarchy_checks_date_column_bad_storage.py basic_checks/hierarchy_checks_base_column_bad_storage.py basic_checks/hierarchy_checks_bad_horizon.py basic_checks/hierarchy_checks.py  
  
 
 bugs/test_artificial_bug_1.py  :  
@@ -1041,12 +1046,37 @@ transformations/test_ozone_transf_relative_difference_1.py  :
  transformations :  transformations/test_ozone_transf_relative_difference_1.py transformations/test_ozone_transf_relative_difference.py transformations/test_ozone_transf_quantization.py transformations/test_ozone_transf_none.py transformations/test_ozone_transf_logit.py transformations/test_ozone_transf_generic.py transformations/test_ozone_transf_fisher.py transformations/test_ozone_transf_difference.py transformations/test_ozone_transf_cumsum.py transformations/test_ozone_transf_boxcox.py transformations/test_ozone_transf_anscombe.py  
  
 
+xgb/test_air_passengers_xgb.py  :  
+	 $(PYTHON)  tests/xgb/test_air_passengers_xgb.py  >  logs/xgb_test_air_passengers_xgb.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/xgb_test_air_passengers_xgb.log logs/xgb_test_air_passengers_xgb.log  >  logs/xgb_test_air_passengers_xgb.log.diff
+	 tail -10  logs/xgb_test_air_passengers_xgb.log.diff 
+
+xgb/test_air_passengers_xgb_only.py  :  
+	 $(PYTHON)  tests/xgb/test_air_passengers_xgb_only.py  >  logs/xgb_test_air_passengers_xgb_only.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/xgb_test_air_passengers_xgb_only.log logs/xgb_test_air_passengers_xgb_only.log  >  logs/xgb_test_air_passengers_xgb_only.log.diff
+	 tail -10  logs/xgb_test_air_passengers_xgb_only.log.diff 
+
+xgb/test_ozone_xgb.py  :  
+	 $(PYTHON)  tests/xgb/test_ozone_xgb.py  >  logs/xgb_test_ozone_xgb.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/xgb_test_ozone_xgb.log logs/xgb_test_ozone_xgb.log  >  logs/xgb_test_ozone_xgb.log.diff
+	 tail -10  logs/xgb_test_ozone_xgb.log.diff 
+
+xgb/test_ozone_xgb_only.py  :  
+	 $(PYTHON)  tests/xgb/test_ozone_xgb_only.py  >  logs/xgb_test_ozone_xgb_only.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/xgb_test_ozone_xgb_only.log logs/xgb_test_ozone_xgb_only.log  >  logs/xgb_test_ozone_xgb_only.log.diff
+	 tail -10  logs/xgb_test_ozone_xgb_only.log.diff 
+
+
+
+ xgb :  xgb/test_ozone_xgb_only.py xgb/test_ozone_xgb.py xgb/test_air_passengers_xgb_only.py xgb/test_air_passengers_xgb.py  
+ 
+
 
 # ********************************************** 
 
-all:  artificial basic_checks bugs exog expsmooth HeartRateTimeSeries heroku hierarchical model_control perf svr transformations func neuralnet real-life  time_res perfs demos 
+all:  artificial basic_checks bugs exog expsmooth HeartRateTimeSeries heroku hierarchical model_control perf svr transformations func neuralnet real-life  time_res perfs demos xgb 
 	
 
-build-test :  demos basic_checks exog heroku hierarchical model_control svr transformations func real-life  time_res perfs 
+build-test :  demos basic_checks exog heroku hierarchical model_control svr transformations func real-life  time_res perfs xgb 
 	
 
