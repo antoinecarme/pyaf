@@ -1041,12 +1041,37 @@ transformations/test_ozone_transf_relative_difference_1.py  :
  transformations :  transformations/test_ozone_transf_relative_difference_1.py transformations/test_ozone_transf_relative_difference.py transformations/test_ozone_transf_quantization.py transformations/test_ozone_transf_none.py transformations/test_ozone_transf_logit.py transformations/test_ozone_transf_generic.py transformations/test_ozone_transf_fisher.py transformations/test_ozone_transf_difference.py transformations/test_ozone_transf_cumsum.py transformations/test_ozone_transf_boxcox.py transformations/test_ozone_transf_anscombe.py  
  
 
+xgb/test_air_passengers_xgb.py  :  
+	 $(PYTHON)  tests/xgb/test_air_passengers_xgb.py  >  logs/xgb_test_air_passengers_xgb.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/xgb_test_air_passengers_xgb.log logs/xgb_test_air_passengers_xgb.log  >  logs/xgb_test_air_passengers_xgb.log.diff
+	 tail -10  logs/xgb_test_air_passengers_xgb.log.diff 
+
+xgb/test_air_passengers_xgb_only.py  :  
+	 $(PYTHON)  tests/xgb/test_air_passengers_xgb_only.py  >  logs/xgb_test_air_passengers_xgb_only.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/xgb_test_air_passengers_xgb_only.log logs/xgb_test_air_passengers_xgb_only.log  >  logs/xgb_test_air_passengers_xgb_only.log.diff
+	 tail -10  logs/xgb_test_air_passengers_xgb_only.log.diff 
+
+xgb/test_ozone_xgb.py  :  
+	 $(PYTHON)  tests/xgb/test_ozone_xgb.py  >  logs/xgb_test_ozone_xgb.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/xgb_test_ozone_xgb.log logs/xgb_test_ozone_xgb.log  >  logs/xgb_test_ozone_xgb.log.diff
+	 tail -10  logs/xgb_test_ozone_xgb.log.diff 
+
+xgb/test_ozone_xgb_only.py  :  
+	 $(PYTHON)  tests/xgb/test_ozone_xgb_only.py  >  logs/xgb_test_ozone_xgb_only.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/xgb_test_ozone_xgb_only.log logs/xgb_test_ozone_xgb_only.log  >  logs/xgb_test_ozone_xgb_only.log.diff
+	 tail -10  logs/xgb_test_ozone_xgb_only.log.diff 
+
+
+
+ xgb :  xgb/test_ozone_xgb_only.py xgb/test_ozone_xgb.py xgb/test_air_passengers_xgb_only.py xgb/test_air_passengers_xgb.py  
+ 
+
 
 # ********************************************** 
 
-all:  artificial basic_checks bugs exog expsmooth HeartRateTimeSeries heroku hierarchical model_control perf svr transformations func neuralnet real-life  time_res perfs demos 
+all:  artificial basic_checks bugs exog expsmooth HeartRateTimeSeries heroku hierarchical model_control perf svr transformations func neuralnet real-life  time_res perfs demos xgb 
 	
 
-build-test :  demos basic_checks exog heroku hierarchical model_control svr transformations func real-life  time_res perfs 
+build-test :  demos basic_checks exog heroku hierarchical model_control svr transformations func real-life  time_res perfs xgb 
 	
 

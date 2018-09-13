@@ -179,3 +179,31 @@ class cSVR_Model(cAbstract_Scikit_Model):
         if(self.mExogenousInfo is not None):
             self.mOutName = self.mCycleResidueName +  '_SVRX(' + str(self.mNbLags) + ")";
             self.mFormula = "SVRX(" + str(self.mNbExogenousLags) + ")";
+
+
+class cXGBoost_Model(cAbstract_Scikit_Model):
+    def __init__(self , cycle_residue_name, P , iExogenousInfo = None):
+        super().__init__(cycle_residue_name, P, iExogenousInfo)
+        self.mComplexity = 2*P;
+
+    def dumpCoefficients(self, iMax=10):
+        pass
+
+
+    def build_Scikit_Model(self):
+        import xgboost as xgb
+
+        import sklearn.svm as svm
+        # need to find a way to set these options from pyaf
+        self.mScikitModel = xgb.XGBRegressor(n_estimators=10,
+                                             nthread=1,
+                                             min_child_weight=10,
+                                             max_depth=3,
+                                             seed=1960)
+
+    def set_name(self):
+        self.mOutName = self.mCycleResidueName +  '_XGB(' + str(self.mNbLags) + ")";
+        self.mFormula = "XGB(" + str(self.mNbLags) + ")";
+        if(self.mExogenousInfo is not None):
+            self.mOutName = self.mCycleResidueName +  '_XGBX(' + str(self.mNbLags) + ")";
+            self.mFormula = "XGBX(" + str(self.mNbExogenousLags) + ")";

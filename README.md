@@ -143,7 +143,7 @@ PyAF has been developed, tested and used on a python 3.x version.
 
 The following two commands install PyAF and all its dependencies:
 
-	pip install scipy pandas sklearn matplotlib pydot dill pathos sqlalchemy
+	pip install scipy pandas sklearn matplotlib pydot dill pathos sqlalchemy xgboost
 	pip install --upgrade git+git://github.com/antoinecarme/pyaf.git
 
 Development

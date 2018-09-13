@@ -296,6 +296,10 @@ class cAutoRegressiveEstimator:
                         lSVR = tsscikit.cSVR_Model(cycle_residue, lLags,
                                                     self.mExogenousInfo);
                         self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lSVR];
+                    if(self.mOptions.mActiveAutoRegressions['XGB']):
+                        lXGB = tsscikit.cXGBoost_Model(cycle_residue, lLags,
+                                                    self.mExogenousInfo);
+                        self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lXGB];
                 if(len(self.mARList[cycle_residue]) == 0):
                     self.mARList[cycle_residue] = [ cZeroAR(cycle_residue)];
                         
