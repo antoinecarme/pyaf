@@ -202,7 +202,6 @@ class cXGBoost_Model(cAbstract_Scikit_Model):
         import xgboost as xgb
 
         import sklearn.svm as svm
-        # need to find a way to set these options from pyaf
         lXGBOptions = self.mOptions.mXGBOptions;
         if(lXGBOptions is None):
             lXGBOptions = self.get_default_xgb_options()
