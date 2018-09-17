@@ -69,7 +69,8 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
         else:
             lARInputsAfterSelection = lARInputs;
             self.mInputNamesAfterSelection = self.mInputNames;
-            
+
+        self.mComplexity = len(self.mInputNamesAfterSelection)
         assert(len(self.mInputNamesAfterSelection) == lARInputsAfterSelection.shape[1]);
         # print("FEATURE_SELECTION" , self.mOutName, lARInputs.shape[1] , lARInputsAfterSelection.shape[1]);
         del lARInputs;
