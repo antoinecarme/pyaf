@@ -1051,6 +1051,11 @@ xgb/test_air_passengers_xgb_only.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/xgb_test_air_passengers_xgb_only.log logs/xgb_test_air_passengers_xgb_only.log  >  logs/xgb_test_air_passengers_xgb_only.log.diff
 	 tail -10  logs/xgb_test_air_passengers_xgb_only.log.diff 
 
+xgb/test_air_passengers_xgb_only_with_custom_options.py  :  
+	 $(PYTHON)  tests/xgb/test_air_passengers_xgb_only_with_custom_options.py  >  logs/xgb_test_air_passengers_xgb_only_with_custom_options.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/xgb_test_air_passengers_xgb_only_with_custom_options.log logs/xgb_test_air_passengers_xgb_only_with_custom_options.log  >  logs/xgb_test_air_passengers_xgb_only_with_custom_options.log.diff
+	 tail -10  logs/xgb_test_air_passengers_xgb_only_with_custom_options.log.diff 
+
 xgb/test_ozone_xgb.py  :  
 	 $(PYTHON)  tests/xgb/test_ozone_xgb.py  >  logs/xgb_test_ozone_xgb.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/xgb_test_ozone_xgb.log logs/xgb_test_ozone_xgb.log  >  logs/xgb_test_ozone_xgb.log.diff
@@ -1063,7 +1068,7 @@ xgb/test_ozone_xgb_only.py  :
 
 
 
- xgb :  xgb/test_ozone_xgb_only.py xgb/test_ozone_xgb.py xgb/test_air_passengers_xgb_only.py xgb/test_air_passengers_xgb.py  
+ xgb :  xgb/test_ozone_xgb_only.py xgb/test_ozone_xgb.py xgb/test_air_passengers_xgb_only_with_custom_options.py xgb/test_air_passengers_xgb_only.py xgb/test_air_passengers_xgb.py  
  
 
 

@@ -189,17 +189,24 @@ class cXGBoost_Model(cAbstract_Scikit_Model):
     def dumpCoefficients(self, iMax=10):
         pass
 
+    def get_default_xgb_options(self):
+        lXGBOptions = dict(n_estimators=10,
+                           nthread=1,
+                           min_child_weight=10,
+                           max_depth=3,
+                           seed=1960)
+        return lXGBOptions
 
+        
     def build_Scikit_Model(self):
         import xgboost as xgb
 
         import sklearn.svm as svm
-        # need to find a way to set these options from pyaf
-        self.mScikitModel = xgb.XGBRegressor(n_estimators=10,
-                                             nthread=1,
-                                             min_child_weight=10,
-                                             max_depth=3,
-                                             seed=1960)
+        lXGBOptions = self.mOptions.mXGBOptions;
+        if(lXGBOptions is None):
+            lXGBOptions = self.get_default_xgb_options()
+            
+        self.mScikitModel = xgb.XGBRegressor(**lXGBOptions)
 
     def set_name(self):
         self.mOutName = self.mCycleResidueName +  '_XGB(' + str(self.mNbLags) + ")";
