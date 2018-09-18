@@ -154,7 +154,7 @@ class cAutoRegressiveEstimator:
             self.mLagOrigins[name] = series;
         return lag_df;
 
-    def addLagsForTraining(self, df, cycle_residue, iHasARX = False):
+    def addLagsForTraining(self, df, cycle_residue, iNeedExogenous = False):
         logger = tsutil.get_pyaf_logger();
         add_lag_start_time = time.time()
         for autoreg in self.mARList[cycle_residue]:
@@ -166,19 +166,19 @@ class cAutoRegressiveEstimator:
             # Exogenous variables lags
             if(autoreg.mExogenousInfo is not None):
                 P1 = P;
-                lExogCount = len(self.mExogenousInfo.mEncodedExogenous);
+                lExogCount = len(autoreg.mExogenousInfo.mEncodedExogenous);
                 lNbVars = P * lExogCount;
                 if(lNbVars >= self.mOptions.mMaxFeatureForAutoreg):
                    P1 = self.mOptions.mMaxFeatureForAutoreg // lExogCount;
                 autoreg.mNbExogenousLags = P1;
                 for p in range(1,P1+1):
-                    # print(self.mExogenousInfo.mEncodedExogenous);
+                    # print(autoreg.mExogenousInfo.mEncodedExogenous);
                     # print(df.columns);
-                    for ex in self.mExogenousInfo.mEncodedExogenous:
+                    for ex in autoreg.mExogenousInfo.mEncodedExogenous:
                         self.addLagForTraining(df, self.mARFrame, ex, autoreg, p);
             # print("AUTOREG_DETAIL" , P , len(autoreg.mInputNames));
             if(autoreg.mExogenousInfo is not None):
-                assert((P + P*len(self.mExogenousInfo.mEncodedExogenous)) >= len(autoreg.mInputNames));
+                assert((P + P*len(autoreg.mExogenousInfo.mEncodedExogenous)) >= len(autoreg.mInputNames));
             else:
                 assert(P >= len(autoreg.mInputNames));
         if(self.mOptions.mDebugProfile):
@@ -247,6 +247,8 @@ class cAutoRegressiveEstimator:
             raise tsutil.Internal_PyAF_Error("INVALID_COLUMN _FOR_CYCLE_RESIDUE ['"  + name + "'");
         pass
 
+
+    
         
     # @profile
     def estimate(self):
@@ -255,7 +257,7 @@ class cAutoRegressiveEstimator:
 
         logger = tsutil.get_pyaf_logger();
         mARList = {}
-        lHasARX = False;
+        lNeedExogenous = False;
         for trend in self.mTrendList:
             for cycle in self.mCycleList[trend]:
                 cycle_residue = cycle.getCycleResidueName();
@@ -275,7 +277,7 @@ class cAutoRegressiveEstimator:
                         lARX = tsscikit.cAutoRegressiveModel(cycle_residue, lLags,
                                                              self.mExogenousInfo);
                         self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lARX];
-                        lHasARX = True;
+                        lNeedExogenous = True;
                     if(self.mOptions.mActiveAutoRegressions['LSTM']):
                         if(self.mOptions.canBuildKerasModel('LSTM')):
                             lLSTM = tskeras.cLSTM_Model(cycle_residue, lLags,
@@ -297,14 +299,18 @@ class cAutoRegressiveEstimator:
                                                     self.mExogenousInfo);
                         self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lSVR];
                     if(self.mOptions.mActiveAutoRegressions['XGB']):
-                        lXGB = tsscikit.cXGBoost_Model(cycle_residue, lLags,
-                                                    self.mExogenousInfo);
+                        lXGB = tsscikit.cXGBoost_Model(cycle_residue, lLags)
                         self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lXGB];
+                    if(self.mOptions.mActiveAutoRegressions['XGBX'] and (self.mExogenousInfo is not None)):
+                        lXGBX = tsscikit.cXGBoost_Model(cycle_residue, lLags,
+                                                       self.mExogenousInfo);
+                        self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lXGBX];
+                        lNeedExogenous = True;
                 if(len(self.mARList[cycle_residue]) == 0):
                     self.mARList[cycle_residue] = [ cZeroAR(cycle_residue)];
                         
 
-        if(lHasARX):
+        if(lNeedExogenous):
             if(self.mOptions.mDebugProfile):
                 logger.info("AR_MODEL_ADD_EXOGENOUS '" + str(self.mCycleFrame.shape[0]) +
                       " " + str(len(self.mExogenousInfo.mEncodedExogenous)));

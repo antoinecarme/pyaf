@@ -1061,14 +1061,24 @@ xgb/test_ozone_xgb.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/xgb_test_ozone_xgb.log logs/xgb_test_ozone_xgb.log  >  logs/xgb_test_ozone_xgb.log.diff
 	 tail -10  logs/xgb_test_ozone_xgb.log.diff 
 
+xgb/test_ozone_xgb_exogenous.py  :  
+	 $(PYTHON)  tests/xgb/test_ozone_xgb_exogenous.py  >  logs/xgb_test_ozone_xgb_exogenous.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/xgb_test_ozone_xgb_exogenous.log logs/xgb_test_ozone_xgb_exogenous.log  >  logs/xgb_test_ozone_xgb_exogenous.log.diff
+	 tail -10  logs/xgb_test_ozone_xgb_exogenous.log.diff 
+
 xgb/test_ozone_xgb_only.py  :  
 	 $(PYTHON)  tests/xgb/test_ozone_xgb_only.py  >  logs/xgb_test_ozone_xgb_only.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/xgb_test_ozone_xgb_only.log logs/xgb_test_ozone_xgb_only.log  >  logs/xgb_test_ozone_xgb_only.log.diff
 	 tail -10  logs/xgb_test_ozone_xgb_only.log.diff 
 
+xgb/test_ozone_xgbx_exogenous.py  :  
+	 $(PYTHON)  tests/xgb/test_ozone_xgbx_exogenous.py  >  logs/xgb_test_ozone_xgbx_exogenous.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/xgb_test_ozone_xgbx_exogenous.log logs/xgb_test_ozone_xgbx_exogenous.log  >  logs/xgb_test_ozone_xgbx_exogenous.log.diff
+	 tail -10  logs/xgb_test_ozone_xgbx_exogenous.log.diff 
 
 
- xgb :  xgb/test_ozone_xgb_only.py xgb/test_ozone_xgb.py xgb/test_air_passengers_xgb_only_with_custom_options.py xgb/test_air_passengers_xgb_only.py xgb/test_air_passengers_xgb.py  
+
+ xgb :  xgb/test_ozone_xgbx_exogenous.py xgb/test_ozone_xgb_only.py xgb/test_ozone_xgb_exogenous.py xgb/test_ozone_xgb.py xgb/test_air_passengers_xgb_only_with_custom_options.py xgb/test_air_passengers_xgb_only.py xgb/test_air_passengers_xgb.py  
  
 
 
