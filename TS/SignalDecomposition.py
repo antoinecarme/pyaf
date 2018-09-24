@@ -30,6 +30,7 @@ from . import SignalDecomposition_Cycle as tscy
 from . import SignalDecomposition_AR as tsar
 from . import Options as tsopts
 from . import TimeSeriesModel as tsmodel
+from . import TimeSeries_Cutting as tscut
 from . import Utils as tsutil
 
 
@@ -107,6 +108,16 @@ class cSignalDecompositionOneTransform:
 
         # print("SIGNAL_INFO " , self.mSignalFrame.info());
         # print(self.mSignalFrame.head())
+
+
+        self.mSplit = tscut.cCuttingInfo()
+        self.mSplit.mTime = self.mTime;
+        self.mSplit.mSignal = self.mSignal;
+        self.mSplit.mOriginalSignal = self.mOriginalSignal;
+        self.mSplit.mHorizon = self.mHorizon;
+        self.mSplit.mSignalFrame = self.mSignalFrame;
+        self.mSplit.mOptions = self.mOptions;
+        
         
         self.mTimeInfo = tsti.cTimeInfo();
         self.mTimeInfo.mTime = self.mTime;
@@ -115,6 +126,7 @@ class cSignalDecompositionOneTransform:
         self.mTimeInfo.mHorizon = self.mHorizon;
         self.mTimeInfo.mSignalFrame = self.mSignalFrame;
         self.mTimeInfo.mOptions = self.mOptions;
+        self.mTimeInfo.mSplit = self.mSplit;
 
         self.mExogenousInfo = None;
         if(iExogenousData is not None):
@@ -207,6 +219,7 @@ class cSignalDecompositionOneTransform:
 
         # estimate time info
         # assert(self.mTimeInfo.mSignalFrame.shape[0] == iInputDS.shape[0])
+        self.mSplit.estimate();
         self.mTimeInfo.estimate();
 
 
@@ -221,6 +234,7 @@ class cSignalDecompositionOneTransform:
         lTrendEstimator = tstr.cTrendEstimator()
         lTrendEstimator.mSignalFrame = self.mSignalFrame
         lTrendEstimator.mTimeInfo = self.mTimeInfo
+        lTrendEstimator.mSplit = self.mSplit
         lTrendEstimator.mOptions = self.mOptions;
         
         trend_start_time = time.time()
@@ -241,6 +255,7 @@ class cSignalDecompositionOneTransform:
         self.run_gc();
 
         lCycleEstimator.mTimeInfo = self.mTimeInfo
+        lCycleEstimator.mSplit = self.mSplit
         lCycleEstimator.mOptions = self.mOptions;
 
         lCycleEstimator.estimateAllCycles();
@@ -261,6 +276,7 @@ class cSignalDecompositionOneTransform:
         self.run_gc();
 
         lAREstimator.mTimeInfo = self.mTimeInfo
+        lAREstimator.mSplit = self.mSplit
         lAREstimator.mExogenousInfo = self.mExogenousInfo;
         lAREstimator.mOptions = self.mOptions;
         lAREstimator.estimate();

@@ -45,7 +45,7 @@ class cAbstractTrend:
 
         self.mTrendFitPerf = tsperf.cPerf();
         self.mTrendForecastPerf = tsperf.cPerf();
-        (lFrameFit, lFrameForecast, lFrameTest) = self.mTimeInfo.cutFrame(self.mTrendFrame);
+        (lFrameFit, lFrameForecast, lFrameTest) = self.mSplit.cutFrame(self.mTrendFrame);
         self.mTrendFitPerf.compute(lFrameFit[self.mSignal] ,
                                    lFrameFit[self.mOutName], self.mOutName)
         self.mTrendForecastPerf.compute(lFrameForecast[self.mSignal] ,
@@ -75,7 +75,7 @@ class cConstantTrend(cAbstractTrend):
     
     def fit(self):
         # real lag1
-        lTrendEstimFrame = self.mTimeInfo.getEstimPart(self.mTrendFrame);
+        lTrendEstimFrame = self.mSplit.getEstimPart(self.mTrendFrame);
         self.mMean = lTrendEstimFrame[self.mSignal].mean()
         target = self.mTrendFrame[self.mSignal]
         self.mTrendFrame[self.mOutName] = self.mMean * np.ones_like(target);
@@ -112,7 +112,7 @@ class cLag1Trend(cAbstractTrend):
     def fit(self):
         # real lag1
         target = self.mTrendFrame[self.mSignal].values
-        lEstim = self.mTimeInfo.getEstimPart(self.mTrendFrame);
+        lEstim = self.mSplit.getEstimPart(self.mTrendFrame);
         self.mDefaultValue = lEstim[self.mSignal ].iloc[0]        
         self.mTrendFrame[self.mOutName] = self.mTrendFrame[self.mSignal].shift(1);
         # print(self.mTrendFrame[self.mSignal].shape , self.mTrendFrame[self.mOutName].shape)
@@ -154,7 +154,7 @@ class cMovingAverageTrend(cAbstractTrend):
         # real lag1
         target = self.mTrendFrame[self.mSignal].values
         self.mTrendFrame[self.mOutName] = self.mTrendFrame[self.mSignal].shift(1).rolling(self.mWindow).mean().fillna(method='bfill')
-        mean = self.mTimeInfo.getEstimPart(self.mTrendFrame)[self.mSignal].mean()
+        mean = self.mSplit.getEstimPart(self.mTrendFrame)[self.mSignal].mean()
         self.mTrendFrame[self.mOutName].fillna(mean , inplace=True)
         self.mTrendFrame[self.mOutName + '_residue'] =  target - self.mTrendFrame[self.mOutName].values
 
@@ -190,7 +190,7 @@ class cMovingMedianTrend(cAbstractTrend):
         # real lag1
         target = self.mTrendFrame[self.mSignal].values
         self.mTrendFrame[self.mOutName] = self.mTrendFrame[self.mSignal].shift(1).rolling(self.mWindow).median().fillna(method='bfill')
-        mean = self.mTimeInfo.getEstimPart(self.mTrendFrame)[self.mSignal].mean()
+        mean = self.mSplit.getEstimPart(self.mTrendFrame)[self.mSignal].mean()
         self.mTrendFrame[self.mOutName].fillna(mean , inplace=True)
         self.mTrendFrame[self.mOutName + '_residue'] =  target - self.mTrendFrame[self.mOutName].values
 
@@ -221,7 +221,7 @@ class cLinearTrend(cAbstractTrend):
         self.mTimeInfo.addVars(self.mTrendFrame);
 
     def fit(self):
-        lTrendEstimFrame = self.mTimeInfo.getEstimPart(self.mTrendFrame);
+        lTrendEstimFrame = self.mSplit.getEstimPart(self.mTrendFrame);
         est_target = lTrendEstimFrame[self.mSignal].values
         est_inputs = lTrendEstimFrame[[self.mTimeInfo.mNormalizedTimeColumn]].values
         self.mTrendRidge.fit(est_inputs, est_target)
@@ -265,7 +265,7 @@ class cPolyTrend(cAbstractTrend):
         self.mTrendFrame[self.mTimeInfo.mNormalizedTimeColumn + "_^3"] = self.mTrendFrame[self.mTimeInfo.mNormalizedTimeColumn] ** 3;    
 
     def fit(self):
-        lTrendEstimFrame = self.mTimeInfo.getEstimPart(self.mTrendFrame);
+        lTrendEstimFrame = self.mSplit.getEstimPart(self.mTrendFrame);
         est_target = lTrendEstimFrame[self.mSignal].values
         est_inputs = lTrendEstimFrame[
             [self.mTimeInfo.mNormalizedTimeColumn,
@@ -394,6 +394,7 @@ class cTrendEstimator:
         for trend in self.mTrendList:
             trend.mSignalFrame = self.mSignalFrame;
             trend.mTimeInfo = self.mTimeInfo;            
+            trend.mSplit = self.mSplit
         self.addTrendInputVariables();
         self.estimateTrends()
         

@@ -8,6 +8,8 @@ import pandas as pd
 import numpy as np
 
 from . import Utils as tsutil
+from . import TimeSeries_Cutting as tscut
+
 
 class cTimeInfo:
     # class data
@@ -36,15 +38,13 @@ class cTimeInfo:
         self.mTimeDelta = None;
         self.mHorizon = None;        
         self.mResolution = cTimeInfo.sRES_NONE
+        self.mSplit = None
 
     def info(self):
         lStr2 = "TimeVariable='" + self.mTime +"'";
         lStr2 += " TimeMin=" + str(self.mTimeMin) +"";
         lStr2 += " TimeMax=" + str(self.mTimeMax) +"";
         lStr2 += " TimeDelta=" + str(self.mTimeDelta) +"";
-        lStr2 += " Estimation = (" + str(self.mEstimStart) + " , " + str(self.mEstimEnd) + ")";
-        lStr2 += " Validation = (" + str(self.mValidStart) + " , " + str(self.mValidEnd) + ")";
-        lStr2 += " Test = (" + str(self.mTestStart) + " , " + str(self.mTestEnd) + ")";
         lStr2 += " Horizon=" + str(self.mHorizon) +"";
         return lStr2;
 
@@ -109,7 +109,7 @@ class cTimeInfo:
     def analyzeSeasonals(self):
         if(not self.isPhysicalTime()):
             return;
-        lEstim = self.getEstimPart(self.mSignalFrame);
+        lEstim = self.mSplit.getEstimPart(self.mSignalFrame);
         lEstimSecond = lEstim[self.mTime].apply(self.get_date_part_value_computer("Second"));
         if(lEstimSecond.nunique() > 1.0):
             self.mResolution = cTimeInfo.sRES_SECOND;
@@ -132,54 +132,6 @@ class cTimeInfo:
             return;
         self.mResolution =  cTimeInfo.sRES_YEAR;
 
-    def cutFrame(self, df):
-        lFrameFit = df[self.mEstimStart : self.mEstimEnd];
-        lFrameForecast = df[self.mValidStart : self.mValidEnd];
-        lFrameTest = df[self.mTestStart : self.mTestEnd];
-        return (lFrameFit, lFrameForecast, lFrameTest)
-
-    def getEstimPart(self, df):
-        lFrameFit = df[self.mEstimStart : self.mEstimEnd];
-        return lFrameFit;
-
-    def getValidPart(self, df):
-        lFrameValid = df[self.mValidStart : self.mValidEnd];
-        return lFrameValid;
-
-    def defineCuttingParameters(self):
-        lStr = "CUTTING_START SignalVariable='" + self.mSignal +"'";
-        # print(lStr);
-        #print(self.mSignalFrame.head())
-        self.mTrainSize = self.mSignalFrame.shape[0];
-        assert(self.mTrainSize > 0);
-        lEstEnd = int((self.mTrainSize - self.mHorizon) * self.mOptions.mEstimRatio);
-        lValSize = self.mTrainSize - self.mHorizon - lEstEnd;
-        lTooSmall = False;
-        # training too small
-        if((self.mTrainSize < 30) or (lValSize < self.mHorizon)):
-            lTooSmall = True;
-        
-        if(lTooSmall):
-            self.mEstimStart = 0;
-            self.mEstimEnd = self.mTrainSize;
-            self.mValidStart = 0;
-            self.mValidEnd = self.mTrainSize;
-            self.mTestStart = 0;
-            self.mTestEnd = self.mTrainSize;
-        else:
-            self.mEstimStart = 0;
-            self.mEstimEnd = lEstEnd;
-            self.mValidStart = self.mEstimEnd;
-            self.mValidEnd = self.mTrainSize - self.mHorizon;
-            self.mTestStart = self.mValidEnd;
-            self.mTestEnd = self.mTrainSize;
-
-        lStr = "CUTTING_PARAMETERS " + str(self.mTrainSize) + " Estimation = (" + str(self.mEstimStart) + " , " + str(self.mEstimEnd) + ")";
-        lStr += " Validation = (" + str(self.mValidStart) + " , " + str(self.mValidEnd) + ")";
-        lStr += " Test = (" + str(self.mTestStart) + " , " + str(self.mTestEnd) + ")";
-        #print(lStr);
-        
-        pass
 
     def checkDateAndSignalTypes(self):
         # print(self.mSignalFrame.info());
@@ -190,9 +142,6 @@ class cTimeInfo:
         if(type2.kind == 'O'):
             raise tsutil.PyAF_Error('Invalid Signal Column Type ' + self.mSignal);
         
-
-    def isOneRowDataset(self):
-        return ((1 + self.mEstimStart) ==  self.mEstimEnd)
 
 
     def adaptTimeDeltaToTimeResolution(self):
@@ -218,10 +167,21 @@ class cTimeInfo:
             return;
         pass
     
+    def get_lags_for_time_resolution(self):
+        if(not self.isPhysicalTime()):
+            return None;
+        lARORder = {}
+        lARORder[cTimeInfo.sRES_SECOND] = 60
+        lARORder[cTimeInfo.sRES_MINUTE] = 60
+        lARORder[cTimeInfo.sRES_HOUR] = 24
+        lARORder[cTimeInfo.sRES_DAY] = 31
+        lARORder[cTimeInfo.sRES_MONTH] = 12
+        return lARORder.get(self.mResolution , None)
+    
     def computeTimeDelta(self):
         #print(self.mSignalFrame.columns);
         # print(self.mSignalFrame[self.mTime].head());
-        lEstim = self.mSignalFrame[self.mEstimStart : self.mEstimEnd]
+        lEstim = self.mSplit.getEstimPart(self.mSignalFrame)
         lTimeBefore = lEstim[self.mTime].shift(1);
         # lTimeBefore.fillna(self.mTimeMin, inplace=True)
         N = lEstim.shape[0];
@@ -256,17 +216,16 @@ class cTimeInfo:
         self.mRowNumberColumn = "row_number"
         self.mNormalizedTimeColumn = self.mTime + "_Normalized";
 
-        self.defineCuttingParameters();
-
         self.analyzeSeasonals();
 
-        lEstim = self.mSignalFrame[self.mEstimStart : self.mEstimEnd]
+        lEstim = self.mSplit.getEstimPart(self.mSignalFrame)
         self.mTimeMin = lEstim[self.mTime].min();
         self.mTimeMax = lEstim[self.mTime].max();
         if(self.isPhysicalTime()):
             self.mTimeMin = np.datetime64(self.mTimeMin.to_pydatetime());
             self.mTimeMax = np.datetime64(self.mTimeMax.to_pydatetime());
         self.mTimeMinMaxDiff = self.mTimeMax - self.mTimeMin;
+        self.mEstimCount = lEstim.shape[0]
         # print(self.mTimeMin, self.mTimeMax , self.mTimeMinMaxDiff , (self.mTimeMax - self.mTimeMin)/self.mTimeMinMaxDiff)
         self.computeTimeDelta();
         self.mSignalFrame[self.mNormalizedTimeColumn] = self.compute_normalize_date_column(self.mSignalFrame[self.mTime])
@@ -277,12 +236,14 @@ class cTimeInfo:
         
 
     def compute_normalize_date_column(self, idate_column):
-        if(self.isOneRowDataset()):
+        if(self.mEstimCount == 1):
             return 0.0;
         return idate_column.apply(self.normalizeTime)
 
     @tsutil.cMemoize
     def normalizeTime(self , iTime):
+        if(self.mEstimCount == 1):
+            return 0.0;
         output =  ( iTime- self.mTimeMin) / self.mTimeMinMaxDiff
         return output
 
