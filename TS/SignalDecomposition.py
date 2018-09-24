@@ -176,7 +176,8 @@ class cSignalDecompositionOneTransform:
             lFitPerf = self.mPerfsByModel[name][2];
             lForecastPerf = self.mPerfsByModel[name][3];
             lTestPerf = self.mPerfsByModel[name][4];
-            row = [lModel.mOutName , lComplexity,
+            lModelCategory = lModel.get_model_category()
+            row = [lModelCategory , lComplexity,
                    lFitPerf.mCount, lFitPerf.mL1,  lFitPerf.mL2, 
                    lFitPerf.mMAPE, lFitPerf.mMASE, 
                    lForecastPerf.mCount, lForecastPerf.mL1, lForecastPerf.mL2,
@@ -437,9 +438,9 @@ class cSignalDecomposition:
         for transform1 in self.mTransformList:
             sigdec = self.mSigDecByTransform[transform1.get_name("")]
             for (model , value) in sorted(sigdec.mPerfsByModel.items()):
-                self.mPerfsByModel[model] = value;
+                self.mPerfsByModel[model] = value[0].get_model_category();
                 lTranformName = sigdec.mSignal;
-                lModelFormula = model
+                lModelFormula = model.get_model_category()
                 #  value format : self.mPerfsByModel[lModel.mOutName] = [lModel, lComplexity, lFitPerf , lForecastPerf, lTestPerf];
                 lComplexity = value[1];
                 lFitPerf = value[2];
@@ -491,22 +492,24 @@ class cSignalDecomposition:
                 self.mPerfsByModel[model] = value;
                 lTranformName = sigdec.mSignal;
                 lModelFormula = model
+                lModelCategory = value[0].get_model_category()
+                lSplit = value[0].mTimeInfo.mOptions.mCustomSplit
                 #  value format : self.mPerfsByModel[lModel.mOutName] = [lModel, lComplexity, lFitPerf , lForecastPerf, lTestPerf];
                 lComplexity = value[1];
                 lFitPerf = value[2];
                 lForecastPerf = value[3];
                 lTestPerf = value[4];
-                row = [lTranformName, lModelFormula , lComplexity,
+                row = [lSplit, lTranformName, lModelFormula , lModelCategory, lComplexity,
                        lFitPerf.mCount, lFitPerf.mL1, lFitPerf.mL2, lFitPerf.mMAPE,  lFitPerf.mMASE, 
                        lForecastPerf.mCount, lForecastPerf.mL1, lForecastPerf.mL2, lForecastPerf.mMAPE, lForecastPerf.mMASE,
                        lTestPerf.mCount, lTestPerf.mL1, lTestPerf.mL2, lTestPerf.mMAPE, lTestPerf.mMASE]
                 rows_list.append(row);
                 if(self.mOptions.mDebugPerformance):
                     lIndicatorValue = lForecastPerf.getCriterionValue(self.mOptions.mModelSelection_Criterion)
-                    logger.info("collectPerformanceIndices : " + self.mOptions.mModelSelection_Criterion + " " + str(row[0]) + " " + str(row[1]) + " " + str(row[2]) + " " + str(lIndicatorValue));
+                    logger.info("collectPerformanceIndices : " + self.mOptions.mModelSelection_Criterion + " " + str(row[0])+ " " + str(row[1]) + " " + str(row[3]) + " " + str(row[4]) + " " + str(lIndicatorValue));
 
         self.mTrPerfDetails =  pd.DataFrame(rows_list, columns=
-                                            ('Transformation', 'Model', 'Complexity',
+                                            ('Split', 'Transformation', 'Model', 'Category', 'Complexity',
                                              'FitCount', 'FitL1', 'FitL2', 'FitMAPE', 'FitMASE',
                                              'ForecastCount', 'ForecastL1', 'ForecastL2', 'ForecastMAPE', 'ForecastMASE',
                                              'TestCount', 'TestL1', 'TestL2', 'TestMAPE', 'TestMASE')) 
@@ -525,7 +528,7 @@ class cSignalDecomposition:
             lInterestingModels = self.mTrPerfDetails;
         lInterestingModels.sort_values(by=['Complexity'] , ascending=True, inplace=True)
         # print(self.mTransformList);
-        # print(lInterestingModels.head());
+        print(lInterestingModels.head());
         lBestName = lInterestingModels['Model'].iloc[0];
         self.mBestModel = self.mPerfsByModel[lBestName][0];
         if(self.mOptions.mDebugProfile):
