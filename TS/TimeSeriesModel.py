@@ -41,6 +41,13 @@ class cTimeSeriesModel:
         lStr2 += " Mean=" + str(np.mean(lSignal)) + " StdDev="  + str(np.std(lSignal));
         return (lStr1 , lStr2);
 
+    def get_model_category(self):
+        lModelCategory = (self.mTransformation.__class__.__name__,
+                          self.mTrend.__class__.__name__,
+                          self.mCycle.__class__.__name__,
+                          self.mAR.__class__.__name__)
+        lModelCategory = self.mTransformation.mFormula + "_" + self.mTrend.mFormula + "_" + self.mCycle.mFormula + "_" + self.mAR.mFormula
+        return str(lModelCategory)
         
     def getComplexity(self):
         lComplexity = 32 * self.mTransformation.mComplexity +  16 * self.mTrend.mComplexity + 4 * self.mCycle.mComplexity + 1 * self.mAR.mComplexity;
