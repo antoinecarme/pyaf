@@ -31,14 +31,14 @@ class cPredictionIntervalsEstimator:
         lForecastColumn = str(self.mSignal) + "_Forecast";
         df = self.mModel.mTrend.mSignalFrame.reset_index();
         N = df.shape[0];
-        (lOriginalFit, lOriginalForecast, lOriginalTest) = self.mModel.mTimeInfo.cutFrame(df);
+        (lOriginalFit, lOriginalForecast, lOriginalTest) = self.mModel.mTimeInfo.mSplit.cutFrame(df);
         df1 = df;
         for h in range(0 , self.mHorizon):
             df2 = None;
             df2 = self.mModel.forecastOneStepAhead(df1, perf_mode = True);
             df2 = df2.head(N);
             lHorizonName = lForecastColumn + "_" + str(h + 1);
-            (lFrameFit, lFrameForecast, lFrameTest) = self.mModel.mTimeInfo.cutFrame(df2);
+            (lFrameFit, lFrameForecast, lFrameTest) = self.mModel.mTimeInfo.mSplit.cutFrame(df2);
             self.mFitPerformances[lHorizonName] = tsperf.cPerf();
             self.mFitPerformances[lHorizonName].compute(lOriginalFit[lSignalColumn], lFrameFit[lForecastColumn], lHorizonName);
             self.mForecastPerformances[lHorizonName] = tsperf.cPerf();

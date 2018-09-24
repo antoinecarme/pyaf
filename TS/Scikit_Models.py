@@ -32,7 +32,7 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
         series = self.mCycleResidueName; 
         self.mTime = self.mTimeInfo.mTime;
         self.mSignal = self.mTimeInfo.mSignal;
-        lAREstimFrame = self.mTimeInfo.getEstimPart(self.mARFrame)
+        lAREstimFrame = self.mSplit.getEstimPart(self.mARFrame)
 
         # print("mAREstimFrame columns :" , self.mAREstimFrame.columns);
         lARInputs = lAREstimFrame[self.mInputNames].values

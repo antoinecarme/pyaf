@@ -52,7 +52,7 @@ class cAbstractCycle:
         self.mCycleFitPerf = tsperf.cPerf();
         self.mCycleForecastPerf = tsperf.cPerf();
         # self.mCycleFrame[[self.mTrend_residue_name, self.getCycleName()]].to_csv(self.getCycleName() + ".csv");
-        (lFrameFit, lFrameForecast, lFrameTest) = self.mTimeInfo.cutFrame(self.mCycleFrame);
+        (lFrameFit, lFrameForecast, lFrameTest) = self.mSplit.cutFrame(self.mCycleFrame);
         
         self.mCycleFitPerf.compute(
             lFrameFit[self.mTrend_residue_name], lFrameFit[self.getCycleName()], self.getCycleName())
@@ -135,7 +135,7 @@ class cSeasonalPeriodic(cAbstractCycle):
         self.mCycleFrame[self.mTrend_residue_name] = self.mTrendFrame[self.mTrend_residue_name]
         self.mCycleFrame[lName] = self.mTrendFrame[self.mTime].apply(self.get_date_part);
         # we encode only using estimation
-        lCycleFrameEstim = self.mTimeInfo.getEstimPart(self.mCycleFrame);
+        lCycleFrameEstim = self.mSplit.getEstimPart(self.mCycleFrame);
         lTrendMeanEstim = lCycleFrameEstim[self.mTrend_residue_name].mean();
         lGroupBy = lCycleFrameEstim.groupby(by=[lName] , sort=False)[self.mTrend_residue_name].mean(); 
         self.mEncodedValueDict = lGroupBy.to_dict()
@@ -189,7 +189,7 @@ class cBestCycleForTrend(cAbstractCycle):
 
     def computeBestCycle(self):
         # self.dumpCyclePerfs();
-        lCycleFrameEstim = self.mTimeInfo.getEstimPart(self.mCycleFrame);
+        lCycleFrameEstim = self.mSplit.getEstimPart(self.mCycleFrame);
         self.mDefaultValue = lCycleFrameEstim[self.mTrend_residue_name].mean();
         self.mBestCycleLength = None;
         lBestCycleIdx = None;
@@ -214,7 +214,7 @@ class cBestCycleForTrend(cAbstractCycle):
     def generate_cycles(self):
         self.mTimeInfo.addVars(self.mCycleFrame);
         self.mCycleFrame[self.mTrend_residue_name ] = self.mTrendFrame[self.mTrend_residue_name]
-        lCycleFrameEstim = self.mTimeInfo.getEstimPart(self.mCycleFrame);
+        lCycleFrameEstim = self.mSplit.getEstimPart(self.mCycleFrame);
         self.mDefaultValue = lCycleFrameEstim[self.mTrend_residue_name].mean();
         del lCycleFrameEstim;
         self.mCyclePerfDict = {}
@@ -227,7 +227,7 @@ class cBestCycleForTrend(cAbstractCycle):
             if ((i > 1) and (i <= lMaxRobustCycle)):
                 name_i = self.mTrend_residue_name + '_Cycle';
                 lCycleFrame[name_i] = self.mCycleFrame[self.mTimeInfo.mRowNumberColumn] % i
-                lCycleFrameEstim = self.mTimeInfo.getEstimPart(lCycleFrame);
+                lCycleFrameEstim = self.mSplit.getEstimPart(lCycleFrame);
                 lGroupBy = lCycleFrameEstim.groupby(by=[name_i] , sort=False)[self.mTrend_residue_name].mean();
                 lEncodedValueDict = lGroupBy.to_dict()
                 lCycleFrame[name_i + '_enc'] = lCycleFrame[name_i].apply(
@@ -237,7 +237,7 @@ class cBestCycleForTrend(cAbstractCycle):
                 
                 lPerf = tsperf.cPerf();
                 # validate the cycles on the validation part
-                lValidFrame = self.mTimeInfo.getValidPart(lCycleFrame);
+                lValidFrame = self.mSplit.getValidPart(lCycleFrame);
                 lCritValue = lPerf.computeCriterion(lValidFrame[self.mTrend_residue_name],
                                                     lValidFrame[name_i + "_enc"],
                                                     self.mCriterion,
@@ -321,6 +321,7 @@ class cCycleEstimator:
             for cycle in self.mCycleList[trend]:
                 cycle.mTrendFrame = self.mTrendFrame;
                 cycle.mTimeInfo = self.mTimeInfo;
+                cycle.mSplit = self.mSplit;
                 cycle.mOptions = self.mOptions;
             
     def plotCycles(self):

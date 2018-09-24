@@ -60,7 +60,7 @@ class cTimeSeriesModel:
         lForecastPerf = tsperf.cPerf();
         lTestPerf = tsperf.cPerf();
         # self.mModelFrame.to_csv(self.mOutName + "_model_perf.csv");
-        (lFrameFit, lFrameForecast, lFrameTest) = self.mTrend.mTimeInfo.cutFrame(self.mModelFrame);
+        (lFrameFit, lFrameForecast, lFrameTest) = self.mTrend.mSplit.cutFrame(self.mModelFrame);
 
 
         if(compute_all_indicators):
