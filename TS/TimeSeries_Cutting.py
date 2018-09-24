@@ -16,11 +16,8 @@ class cCuttingInfo:
 
     def estimate(self):
         self.defineCuttingParameters();
-    
-    def defineCuttingParameters(self):
-        lStr = "CUTTING_START SignalVariable='" + self.mSignal +"'";
-        # print(lStr);
-        #print(self.mSignalFrame.head())
+
+    def set_default_split(self):
         self.mTrainSize = self.mSignalFrame.shape[0];
         assert(self.mTrainSize > 0);
         lEstEnd = int((self.mTrainSize - self.mHorizon) * self.mOptions.mEstimRatio);
@@ -44,6 +41,44 @@ class cCuttingInfo:
             self.mValidEnd = self.mTrainSize - self.mHorizon;
             self.mTestStart = self.mValidEnd;
             self.mTestEnd = self.mTrainSize;
+
+    def check_split(self, iSplit):
+        if(len(iSplit) != 3):
+            raise tsutil.PyAF_Error('Invalid Split ' + str(iSplit));
+        if(iSplit[0] < 0.0 or iSplit[0] > 1.0):
+            raise tsutil.PyAF_Error('Invalid Estimation Ratio ' + str(iSplit[0]));
+        if(iSplit[1] < 0.0 or iSplit[1] > 1.0):
+            raise tsutil.PyAF_Error('Invalid Validation Ratio ' + str(iSplit[1]));
+        if(iSplit[2] < 0.0 or iSplit[2] > 1.0):
+            raise tsutil.PyAF_Error('Invalid Test Ratio ' + str(iSplit[2]));
+        lTotal =  iSplit[0] + iSplit[1] + iSplit[2]
+        if(lTotal < 0 or lTotal > 1):
+            raise tsutil.PyAF_Error('Invalid Split Ratio Sum' + str(iSplit));
+
+            
+    def set_split(self, iSplit):
+        self.mTrainSize = self.mSignalFrame.shape[0];
+        assert(self.mTrainSize > 0);
+        self.check_split(iSplit)
+        lEstEnd = int(self.mTrainSize * iSplit[0]);
+        lValSize = int(self.mTrainSize * iSplit[1]);
+        lTestSize = int(self.mTrainSize * iSplit[2]);
+        
+        self.mEstimStart = 0;
+        self.mEstimEnd = lEstEnd;
+        self.mValidStart = self.mEstimEnd;
+        self.mValidEnd = self.mValidStart + lValSize;
+        self.mTestStart = self.mValidEnd;
+        self.mTestEnd = self.mTestStart + lTestSize;
+        
+    def defineCuttingParameters(self):
+        lStr = "CUTTING_START SignalVariable='" + self.mSignal +"'";
+        # print(lStr);
+        #print(self.mSignalFrame.head())
+        if(self.mOptions.mCustomSplit is not None):
+            self.set_split(self.mOptions.mCustomSplit)
+        else:
+            self.set_default_split()
 
         lStr = "CUTTING_PARAMETERS " + str(self.mTrainSize) + " Estimation = (" + str(self.mEstimStart) + " , " + str(self.mEstimEnd) + ")";
         lStr += " Validation = (" + str(self.mValidStart) + " , " + str(self.mValidEnd) + ")";
