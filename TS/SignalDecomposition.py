@@ -438,24 +438,26 @@ class cSignalDecomposition:
         for transform1 in self.mTransformList:
             sigdec = self.mSigDecByTransform[transform1.get_name("")]
             for (model , value) in sorted(sigdec.mPerfsByModel.items()):
-                self.mPerfsByModel[model] = value[0].get_model_category();
+                self.mPerfsByModel[model] = value
                 lTranformName = sigdec.mSignal;
-                lModelFormula = model.get_model_category()
+                lModelFormula = model
+                lModelCategory = value[0].get_model_category()
+                lSplit = value[0].mTimeInfo.mOptions.mCustomSplit
                 #  value format : self.mPerfsByModel[lModel.mOutName] = [lModel, lComplexity, lFitPerf , lForecastPerf, lTestPerf];
                 lComplexity = value[1];
                 lFitPerf = value[2];
                 lForecastPerf = value[3];
                 lTestPerf = value[4];
-                row = [lTranformName, lModelFormula , lComplexity,
+                row = [lSplit, lTranformName, lModelFormula , lModelCategory, lComplexity,
                        lFitPerf.getCriterionValue(self.mOptions.mModelSelection_Criterion),
                        lForecastPerf.getCriterionValue(self.mOptions.mModelSelection_Criterion),
                        lTestPerf.getCriterionValue(self.mOptions.mModelSelection_Criterion)]
                 rows_list.append(row);
                 if(self.mOptions.mDebugPerformance):
-                    logger.info("collectPerformanceIndices : " + self.mOptions.mModelSelection_Criterion + " " +  str(row[0]) + " " + str(row[1]) + " " + str(row[2]) + " " +str(row[5]));
+                    logger.info("collectPerformanceIndices : " + self.mOptions.mModelSelection_Criterion + " " +  str(row[0]) + " " + str(row[2]) + " " + str(row[4]) + " " +str(row[7]));
 
         self.mTrPerfDetails =  pd.DataFrame(rows_list, columns=
-                                            ('Transformation', 'Model', 'Complexity',
+                                            ('Split', 'Transformation', 'Model', 'Category', 'Complexity',
                                              'Fit' + self.mOptions.mModelSelection_Criterion,
                                              'Forecast' + self.mOptions.mModelSelection_Criterion,
                                              'Test' + self.mOptions.mModelSelection_Criterion)) 
@@ -475,8 +477,10 @@ class cSignalDecomposition:
         lInterestingModels.sort_values(by=['Complexity'] , ascending=True, inplace=True)
         # print(self.mTransformList);
         # print(lInterestingModels.head());
+        # print(self.mPerfsByModel);
         lBestName = lInterestingModels['Model'].iloc[0];
         self.mBestModel = self.mPerfsByModel[lBestName][0];
+        # print(lBestName, self.mBestModel)
         if(self.mOptions.mDebugProfile):
             logger.info("MODEL_SELECTION_TIME_IN_SECONDS "  + str(self.mBestModel.mSignal) + " " + str(time.time() - modelsel_start_time))
 
