@@ -141,7 +141,7 @@ class cSignalTransform_None(cAbstractSignalTransform):
 
     def __init__(self):
         cAbstractSignalTransform.__init__(self);
-        self.mFormula = "None";
+        self.mFormula = "NoTansf";
         self.mComplexity = 0;
         pass
 
