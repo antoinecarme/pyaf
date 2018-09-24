@@ -258,7 +258,7 @@ class cBestCycleForTrend(cAbstractCycle):
         self.mOutName = self.getCycleName()
         self.mFormula = "Cycle_None"
         if(self.mBestCycleLength is not None):
-            self.mFormula = "Cycle_Length_" + str(self.mBestCycleLength);
+            self.mFormula = "Cycle" #  + str(self.mBestCycleLength);
         self.transformDataset(self.mCycleFrame);
 
     def transformDataset(self, df):
