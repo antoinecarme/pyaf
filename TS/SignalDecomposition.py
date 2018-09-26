@@ -33,7 +33,7 @@ from . import TimeSeriesModel as tsmodel
 from . import TimeSeries_Cutting as tscut
 from . import Utils as tsutil
 
-
+import copy
 
 class cPerf_Arg:
     def __init__(self , name):
@@ -324,7 +324,7 @@ def run_transform_thread(arg):
     arg.mSigDec.train(arg.mInputDS, arg.mTime, arg.mSignal, arg.mHorizon, arg.mTransformation);
     return arg;
 
-class cSignalDecomposition:
+class cSignalDecompositionTrainer:
         
     def __init__(self):
         self.mSigDecByTransform = {};
@@ -332,6 +332,22 @@ class cSignalDecomposition:
         self.mExogenousData = None;
         pass
 
+    def train(self, iInputDS, iTime, iSignal, iHorizon):
+        if(self.mOptions.mParallelMode):
+            self.train_multiprocessed(iInputDS, iTime, iSignal, iHorizon);
+        else:
+            self.train_not_threaded(iInputDS, iTime, iSignal, iHorizon);
+    
+
+    def perform_model_selection(self):
+        if(self.mOptions.mDebugPerformance):
+            self.collectPerformanceIndices();
+        else:
+            self.collectPerformanceIndices_ModelSelection();
+
+        self.cleanup_after_model_selection();
+
+    
     def validateTransformation(self , transf , df, iTime, iSignal):
         lName = transf.get_name("");
         lIsApplicable = transf.is_applicable(df[iSignal]);
@@ -538,6 +554,98 @@ class cSignalDecomposition:
         if(self.mOptions.mDebugProfile):
             logger.info("MODEL_SELECTION_TIME_IN_SECONDS "  + str(self.mBestModel.mSignal) + " " + str(time.time() - modelsel_start_time))
 
+            
+    def cleanup_after_model_selection(self):
+        lBestTransformationName = self.mBestModel.mTransformation.get_name("")
+        lSigDecByTransform = {}
+        for (name, sigdec) in self.mSigDecByTransform.items():
+            if(name == lBestTransformationName):
+                for modelname in sigdec.mPerfsByModel.keys():
+                    # store only model names here.
+                    sigdec.mPerfsByModel[modelname][0] = modelname
+                    lSigDecByTransform[name]  = sigdec                
+        # delete failing transformations
+        del self.mSigDecByTransform
+        self.mSigDecByTransform = lSigDecByTransform
+        
+
+class cSignalDecompositionTrainer_CrossValidation:
+    def __init__(self):
+        self.mSigDecByTransform = {};
+        self.mOptions = tsopts.cSignalDecomposition_Options();
+        self.mExogenousData = None;
+        pass
+
+    def define_splits(self):
+        lFolds = self.mOptions.mCrossValidationOptions.mNbFolds
+        lRatio = 1.0 / lFolds
+        lSplits = [(k * lRatio , lRatio , 0.0) for k in range(lFolds // 2, lFolds)]
+        return lSplits
+    
+    def train(self, iInputDS, iTime, iSignal, iHorizon):
+        cross_val_start_time = time.time()
+        logger = tsutil.get_pyaf_logger();
+        self.mSplits = self.define_splits()
+        self.mTrainers = {}
+        for lSplit in self.mSplits:
+            split_start_time = time.time()
+            logger.info("CROSS_VALIDATION_TRAINING_SIGNAL_SPLIT '" + iSignal + "' " + str(lSplit));
+            lTrainer = cSignalDecompositionTrainer()        
+            lTrainer.mOptions = copy.copy(self.mOptions);
+            lTrainer.mOptions.mCustomSplit = lSplit
+            lTrainer.mExogenousData = self.mExogenousData;
+            lTrainer.train(iInputDS, iTime, iSignal, iHorizon)
+            lTrainer.collectPerformanceIndices_ModelSelection()
+            self.mTrainers[lSplit] = lTrainer
+            logger.info("CROSS_VALIDATION_TRAINING_SPLIT_TIME_IN_SECONDS '" + iSignal + "' " + str(lSplit) + " " + str(time.time() - split_start_time))
+        self.perform_model_selection()
+        logger.info("CROSS_VALIDATION_TRAINING_TIME_IN_SECONDS "  + str(self.mBestModel.mSignal) + " " + str(time.time() - cross_val_start_time))
+
+    def perform_model_selection(self):
+        self.mTrPerfDetails = pd.DataFrame()
+        for (lSplit , lTrainer) in self.mTrainers.items():
+            self.mTrPerfDetails = self.mTrPerfDetails.append(lTrainer.mTrPerfDetails)
+        # self.mTrPerfDetails.to_csv("perf_time_series_cross_val.csv")
+        lIndicator = 'Forecast' + self.mOptions.mModelSelection_Criterion;
+        lColumns = ['Category', 'Complexity', lIndicator]
+        lPerfByCategory = self.mTrPerfDetails[lColumns].groupby(by=['Category'] , sort=False)[lIndicator].mean()
+        lPerfByCategory_df = pd.DataFrame(lPerfByCategory).reset_index()
+        lPerfByCategory_df.columns = ['Category' , lIndicator]
+        # lPerfByCategory_df.to_csv("perf_time_series_cross_val_by_category.csv")
+        lBestPerf = lPerfByCategory_df[ lIndicator ].min();
+        lPerfByCategory_df.sort_values(by=[lIndicator, 'Category'] ,
+                                ascending=[True, True],
+                                inplace=True);
+        lPerfByCategory_df = lPerfByCategory_df.reset_index(drop=True);
+                
+        lInterestingCategories_df = lPerfByCategory_df[lPerfByCategory_df[lIndicator] <= (lBestPerf + 0.01)].reset_index(drop=True);
+        # print(lPerfByCategory_df.head());
+        # print(lInterestingCategories_df.head());
+        # print(self.mPerfsByModel);
+        lInterestingCategories = list(lInterestingCategories_df['Category'].unique())
+        self.mTrPerfDetails['IC'] = self.mTrPerfDetails['Category'].apply(lambda x :1 if x in lInterestingCategories else 0) 
+        lInterestingModels = self.mTrPerfDetails[self.mTrPerfDetails['IC'] == 1].copy()
+        lInterestingModels.sort_values(by=['Complexity'] , ascending=True, inplace=True)
+        # print(self.mTransformList);
+        # print(lInterestingModels.head());
+        lBestName = lInterestingModels['Model'].iloc[0];
+        lBestSplit = lInterestingModels['Split'].iloc[0];
+        # print(self.mTrainers.keys())
+        lBestTrainer = self.mTrainers[lBestSplit]
+        self.mBestModel = lBestTrainer.mPerfsByModel[lBestName][0];
+        # print(lBestName, self.mBestModel)
+        if(self.mOptions.mDebugProfile):
+            logger.info("MODEL_SELECTION_TIME_IN_SECONDS "  + str(self.mBestModel.mSignal) + " " + str(time.time() - modelsel_start_time))
+        pass
+    
+
+class cSignalDecomposition:
+        
+    def __init__(self):
+        self.mSigDecByTransform = {};
+        self.mOptions = tsopts.cSignalDecomposition_Options();
+        self.mExogenousData = None;
+        pass
 
     def checkData(self, iInputDS, iTime, iSignal, iHorizon, iExogenousData):        
         if(iHorizon != int(iHorizon)):
@@ -570,21 +678,6 @@ class cSignalDecomposition:
             if(type1 != type3):
                 raise tsutil.PyAF_Error("PYAF_ERROR_INCOMPATIBLE_TIME_COLUMN_TYPE_IN_EXOGENOUS '" + str(iTime) + "' '" + str(type1)  + "' '" + str(type3) + "'");
                 
-
-    def cleanup_after_model_selection(self):
-        lBestTransformationName = self.mBestModel.mTransformation.get_name("")
-        lSigDecByTransform = {}
-        for (name, sigdec) in self.mSigDecByTransform.items():
-            if(name == lBestTransformationName):
-                for modelname in sigdec.mPerfsByModel.keys():
-                    # store only model names here.
-                    sigdec.mPerfsByModel[modelname][0] = modelname
-                    lSigDecByTransform[name]  = sigdec                
-        # delete failing transformations
-        del self.mSigDecByTransform
-        self.mSigDecByTransform = lSigDecByTransform
-        
-
     # @profile
     def train(self , iInputDS, iTime, iSignal, iHorizon, iExogenousData = None):
         logger = tsutil.get_pyaf_logger();
@@ -595,23 +688,17 @@ class cSignalDecomposition:
 
         self.mTrainingDataset = iInputDS; 
         self.mExogenousData = iExogenousData;
+
+        lTrainer = cSignalDecompositionTrainer()
+        if(self.mOptions.mCrossValidationOptions.mMethod is not None):
+            lTrainer = cSignalDecompositionTrainer_CrossValidation()        
+        lTrainer.mOptions = self.mOptions;
+        lTrainer.mExogenousData = iExogenousData;
+        lTrainer.train(iInputDS, iTime, iSignal, iHorizon)
+        lTrainer.perform_model_selection()
+        self.mBestModel = lTrainer.mBestModel
+        self.mTrPerfDetails = lTrainer.mTrPerfDetails
         
-        if(self.mOptions.mParallelMode):
-            self.train_multiprocessed(iInputDS, iTime, iSignal, iHorizon);
-        else:
-            self.train_not_threaded(iInputDS, iTime, iSignal, iHorizon);
-    
-
-        # for (name, sigdec) in self.mSigDecByTransform.items():
-        #    sigdec.collectPerformanceIndices();        
-
-        if(self.mOptions.mDebugPerformance):
-            self.collectPerformanceIndices();
-        else:
-            self.collectPerformanceIndices_ModelSelection();
-
-        self.cleanup_after_model_selection();
-
         # Prediction Intervals
         pred_interval_start_time = time.time()
         self.mBestModel.updatePerfs(compute_all_indicators = True);
