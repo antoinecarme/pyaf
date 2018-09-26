@@ -44,7 +44,8 @@ class cPredictionIntervalsEstimator:
             self.mForecastPerformances[lHorizonName] = tsperf.cPerf();
             self.mForecastPerformances[lHorizonName].compute(lOriginalForecast[lSignalColumn], lFrameForecast[lForecastColumn], lHorizonName);
             self.mTestPerformances[lHorizonName] = tsperf.cPerf();
-            self.mTestPerformances[lHorizonName].compute(lOriginalTest[lSignalColumn], lFrameTest[lForecastColumn], lHorizonName);
+            if(lOriginalTest.shape[0] > 0):
+                self.mTestPerformances[lHorizonName].compute(lOriginalTest[lSignalColumn], lFrameTest[lForecastColumn], lHorizonName);
             df1 = df2[[lTimeColumn , lForecastColumn]];
             df1.columns = [lTimeColumn , lSignalColumn]
         # self.dump_detailed();
