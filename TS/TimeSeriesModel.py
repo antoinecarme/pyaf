@@ -76,8 +76,9 @@ class cTimeSeriesModel:
             lForecastPerf.compute(lFrameForecast[self.mOriginalSignal] ,
                                   lFrameForecast[lForecastColumnName],
                                   self.mOutName + '_Forecast')
-            lTestPerf.compute(lFrameTest[self.mOriginalSignal] , lFrameTest[lForecastColumnName],
-                              self.mOutName + '_Test')            
+            if(lFrameTest.shape[0] > 0):
+                lTestPerf.compute(lFrameTest[self.mOriginalSignal] , lFrameTest[lForecastColumnName],
+                                  self.mOutName + '_Test')            
             pass
         else:
             lFitPerf.computeCriterion(lFrameFit[self.mOriginalSignal] , lFrameFit[lForecastColumnName] ,
@@ -86,9 +87,10 @@ class cTimeSeriesModel:
             lForecastPerf.computeCriterion(lFrameForecast[self.mOriginalSignal] , lFrameForecast[lForecastColumnName],
                                            self.mTimeInfo.mOptions.mModelSelection_Criterion,
                                            self.mOutName + '_Forecast')
-            lTestPerf.computeCriterion(lFrameTest[self.mOriginalSignal] , lFrameTest[lForecastColumnName],
-                                       self.mTimeInfo.mOptions.mModelSelection_Criterion,
-                                       self.mOutName + '_Test')
+            if(lFrameTest.shape[0] > 0):
+                lTestPerf.computeCriterion(lFrameTest[self.mOriginalSignal] , lFrameTest[lForecastColumnName],
+                                           self.mTimeInfo.mOptions.mModelSelection_Criterion,
+                                           self.mOutName + '_Test')
             
         self.mFitPerf = lFitPerf
         self.mForecastPerf = lForecastPerf;
