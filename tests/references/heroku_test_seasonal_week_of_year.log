@@ -1,9 +1,9 @@
 INFO:pyaf.std:START_TRAINING 'Close'
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Close' 3.0158393383026123
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Close' 2.547804832458496
 INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 1.3236393928527832
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 1.3215105533599854
 INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 1.3347406387329102
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 1.3201513290405273
 REQUEST_DETAILS [('CSVFile', 'https://raw.githubusercontent.com/antoinecarme/TimeSeriesData/a5fa96af431caabc817180d52bc1d01b8c61da41/YahooFinance/nasdaq/yahoo_GOOG.csv'), ('DateFormat', '%Y-%m-%d'), ('Horizon', 21), ('Name', 'PYAF_MODEL_DJOQFD_GOOG'), ('Present', '2016-01-01'), ('SignalVar', 'Close'), ('TimeVar', 'Date')]
 None
 DATASET_DETECTED_COLUMNS Index(['Unnamed: 0', 'Symbol', 'Date', 'Close', 'Low', 'Volume', 'Open',
@@ -15,14 +15,14 @@ DATASET_FINAL_COLUMNS Index(['Unnamed: 0', 'Symbol', 'Date', 'Close', 'Low', 'Vo
 TRAIN_PARAMS (857, 9) Index(['Unnamed: 0', 'Symbol', 'Date', 'Close', 'Low', 'Volume', 'Open',
        'Adj_Close', 'High'],
       dtype='object') Date Close 21
-  Transformation   ...    TestMAPE
-0         _Close   ...      0.0102
-1         _Close   ...      0.0104
-2         _Close   ...      0.0104
-3         _Close   ...      0.0101
-4         _Close   ...      0.0105
+  Split Transformation   ...    ForecastMAPE TestMAPE
+0  None         _Close   ...          0.0121   0.0102
+1  None         _Close   ...          0.0122   0.0104
+2  None         _Close   ...          0.0123   0.0104
+3  None         _Close   ...          0.0123   0.0101
+4  None         _Close   ...          0.0126   0.0105
 
-[5 rows x 6 columns]
+[5 rows x 8 columns]
 Forecast Columns  Index(['Date', 'Close', '_Close', 'row_number', 'Date_Normalized',
        '_Close_ConstantTrend', '_Close_ConstantTrend_residue',
        '_Close_ConstantTrend_residue_zeroCycle',
@@ -84,10 +84,10 @@ Forecasts
         "Training_Signal_Length": 857
     },
     "Model": {
-        "AR_Model": "AR(7)",
+        "AR_Model": "AR",
         "Best_Decomposition": "_Close_ConstantTrend_residue_zeroCycle_residue_AR(7)",
         "Cycle": "NoCycle",
-        "Signal_Transoformation": "None",
+        "Signal_Transoformation": "NoTransf",
         "Trend": "ConstantTrend"
     },
     "Model_Performance": {

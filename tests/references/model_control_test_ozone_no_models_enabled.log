@@ -7,7 +7,7 @@ INFO:pyaf.std:START_TRAINING 'Ozone'
 4  1955-05    6.5 1955-05-01
 /home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/scipy/stats/stats.py:3010: RuntimeWarning: invalid value encountered in double_scalars
   r = r_num / r_den
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 0.9816775321960449
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 0.871241569519043
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01T00:00:00.000000 TimeMax=1967-09-01T00:00:00.000000 TimeDelta=<DateOffset: months=1> Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Min=1.2 Max=8.7  Mean=3.83578431373 StdDev=1.49155921594
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Ozone' Min=1.2 Max=8.7  Mean=3.83578431373 StdDev=1.49155921594
@@ -25,13 +25,13 @@ INFO:pyaf.std:MODEL_COMPLEXITY 0
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_PLOTTING
-INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 6.71914005279541
+INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 6.423257827758789
 INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.6732637882232666
-  Transformation   ...    TestMAPE
-0         _Ozone   ...      0.8365
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.6025309562683105
+  Split Transformation   ...    ForecastMAPE TestMAPE
+0  None         _Ozone   ...          0.5344   0.8365
 
-[1 rows x 6 columns]
+[1 rows x 8 columns]
 Forecast Columns  Index(['Time', 'Ozone', '_Ozone', 'row_number', 'Time_Normalized',
        '_Ozone_ConstantTrend', '_Ozone_ConstantTrend_residue',
        '_Ozone_ConstantTrend_residue_zeroCycle',
@@ -87,7 +87,7 @@ Forecasts
         "AR_Model": "NoAR",
         "Best_Decomposition": "_Ozone_ConstantTrend_residue_zeroCycle_residue_NoAR",
         "Cycle": "NoCycle",
-        "Signal_Transoformation": "None",
+        "Signal_Transoformation": "NoTransf",
         "Trend": "ConstantTrend"
     },
     "Model_Performance": {
