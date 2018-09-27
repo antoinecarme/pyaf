@@ -8,7 +8,8 @@ def add_makefile_entry(subdir1):
         lShortName = os.path.basename(filename);
         if(not lShortName.lower().startswith("gen_all") and
            not lShortName.lower().startswith("gen_makefile") and
-           not "prototyp" in lShortName.lower()):
+           not "prototyp" in lShortName.lower() and
+           not "_slow_mode" in lShortName.lower()):
             bn = subdir1 + "/" + lShortName;
             logfile = bn.replace("/" , "_");
             logname = logfile.replace(".py" , ".log");
