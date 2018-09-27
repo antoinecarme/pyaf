@@ -1,22 +1,22 @@
 INFO:pyaf.std:START_TRAINING 'AirPassengers'
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'AirPassengers' 1.3531794548034668
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'AirPassengers' 1.0903863906860352
 INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.38888072967529297
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.36214375495910645
 INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.40074610710144043
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.3657717704772949
 REQUEST_DETAILS [('CSVFile', 'https://vincentarelbundock.github.io/Rdatasets/csv/datasets/AirPassengers.csv'), ('DateFormat', None), ('Horizon', 7), ('Name', 'model_air_by_tests'), ('Present', ''), ('SignalVar', 'AirPassengers'), ('TimeVar', 'time')]
 None
 DATASET_DETECTED_COLUMNS Index(['Unnamed: 0', 'time', 'value'], dtype='object')
 DATASET_FINAL_COLUMNS Index(['Unnamed: 0', 'time', 'value', 'AirPassengers'], dtype='object')
 TRAIN_PARAMS (144, 4) Index(['Unnamed: 0', 'time', 'value', 'AirPassengers'], dtype='object') time AirPassengers 7
-   Transformation   ...    TestMAPE
-0  _AirPassengers   ...      0.0592
-1  _AirPassengers   ...      0.0561
-2  _AirPassengers   ...      0.0508
-3  _AirPassengers   ...      0.0699
-4  _AirPassengers   ...      0.0737
+  Split  Transformation   ...    ForecastMAPE TestMAPE
+0  None  _AirPassengers   ...          0.0463   0.0592
+1  None  _AirPassengers   ...          0.0483   0.0561
+2  None  _AirPassengers   ...          0.0493   0.0508
+3  None  _AirPassengers   ...          0.0543   0.0699
+4  None  _AirPassengers   ...          0.0616   0.0737
 
-[5 rows x 6 columns]
+[5 rows x 8 columns]
 Forecast Columns  Index(['time', 'AirPassengers', '_AirPassengers', 'row_number',
        'time_Normalized', '_AirPassengers_ConstantTrend',
        '_AirPassengers_ConstantTrend_residue', 'cycle_internal',
@@ -67,10 +67,10 @@ Forecasts
         "Training_Signal_Length": 144
     },
     "Model": {
-        "AR_Model": "AR(7)",
+        "AR_Model": "AR",
         "Best_Decomposition": "_AirPassengers_ConstantTrend_residue_bestCycle_byL2_residue_AR(7)",
-        "Cycle": "Cycle_Length_12",
-        "Signal_Transoformation": "None",
+        "Cycle": "Cycle",
+        "Signal_Transoformation": "NoTransf",
         "Trend": "ConstantTrend"
     },
     "Model_Performance": {

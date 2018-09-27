@@ -216,16 +216,6 @@ bugs/issue_73/issue_73_1_fast_mode_2.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_73_issue_73_1_fast_mode_2.log logs/bugs_issue_73_issue_73_1_fast_mode_2.log  >  logs/bugs_issue_73_issue_73_1_fast_mode_2.log.diff
 	 tail -10  logs/bugs_issue_73_issue_73_1_fast_mode_2.log.diff 
 
-bugs/issue_73/issue_73_1_slow_mode.py  :  
-	 $(PYTHON)  tests/bugs/issue_73/issue_73_1_slow_mode.py  >  logs/bugs_issue_73_issue_73_1_slow_mode.log  2>&1
-	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_73_issue_73_1_slow_mode.log logs/bugs_issue_73_issue_73_1_slow_mode.log  >  logs/bugs_issue_73_issue_73_1_slow_mode.log.diff
-	 tail -10  logs/bugs_issue_73_issue_73_1_slow_mode.log.diff 
-
-bugs/issue_73/issue_73_1_slow_mode_more_cycles.py  :  
-	 $(PYTHON)  tests/bugs/issue_73/issue_73_1_slow_mode_more_cycles.py  >  logs/bugs_issue_73_issue_73_1_slow_mode_more_cycles.log  2>&1
-	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_73_issue_73_1_slow_mode_more_cycles.log logs/bugs_issue_73_issue_73_1_slow_mode_more_cycles.log  >  logs/bugs_issue_73_issue_73_1_slow_mode_more_cycles.log.diff
-	 tail -10  logs/bugs_issue_73_issue_73_1_slow_mode_more_cycles.log.diff 
-
 bugs/issue_72/test_artificial_32_exp_linear_0__100.py  :  
 	 $(PYTHON)  tests/bugs/issue_72/test_artificial_32_exp_linear_0__100.py  >  logs/bugs_issue_72_test_artificial_32_exp_linear_0__100.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_72_test_artificial_32_exp_linear_0__100.log logs/bugs_issue_72_test_artificial_32_exp_linear_0__100.log  >  logs/bugs_issue_72_test_artificial_32_exp_linear_0__100.log.diff
@@ -403,7 +393,27 @@ bugs/issue_55/grouping_issue_55_notebook.py  :
 
 
 
- bugs :  bugs/test_random_exogenous.py bugs/test_artificial_bug_2.py bugs/test_artificial_bug_1.py bugs/issue_34/test_artificial_1024_sqrt_linear_30_12_20.py bugs/issue_34/test_artificial_1024_sqrt_constant_7_12_100.py bugs/issue_34/test_artificial_1024_sqr_poly_5_12_20.py bugs/issue_34/test_artificial_1024_log_linear_5_12_100.py bugs/issue_34/test_artificial_1024_log_linear_30_12_20.py bugs/issue_34/test_artificial_1024_inv_linear_7_12_100.py bugs/issue_34/test_artificial_1024_inv_constant_30__20.py bugs/issue_34/test_artificial_1024_diff_poly_0__100.py bugs/issue_34/test_artificial_1024_diff_poly_0__0.py bugs/issue_34/test_artificial_1024__poly_7_12_100.py bugs/issue_34/issue_34_1.py bugs/issue_34/issue_34.py bugs/issue_76/test_ozone_unicode.py bugs/issue_73/issue_73_1_slow_mode_more_cycles.py bugs/issue_73/issue_73_1_slow_mode.py bugs/issue_73/issue_73_1_fast_mode_2.py bugs/issue_73/issue_73_1_fast_mode.py bugs/issue_72/test_artificial_32_sqrt_poly_7__20.py bugs/issue_72/test_artificial_32_exp_linear_0__100.py bugs/issue_46/issue_46_one_or_two_rows.py bugs/issue_32/bug_test_ozone_heroku_1_ws.py bugs/issue_32/bug_test_ozone_heroku_1.py bugs/issue_22/test_artificial_1024_cumsum_constant_5__20.py bugs/issue_69/issue_69_example_1_with_rectifier.py bugs/issue_69/issue_69_example_1_no_rectifier.py bugs/issue_75/issue_75_residues_Are_empty.py bugs/issue_75/issue_75_plot.py bugs/issue_56/issue_56_order2.py bugs/issue_56/issue_56_order1.py bugs/issue_80/test_ozone_missing_time.py bugs/issue_19/issue_19_no_interpolation.py bugs/issue_79/test_ozone_missing_signal.py bugs/issue_29/test_mem_1.py bugs/issue_58/issue_58_1_categorical_exogenous.py bugs/issue_94/issue_94.py bugs/issue_36/issue_36_version_info.py bugs/issue_36/display_version_info.py bugs/issue_70/test_ozone_keep_all_seasonals.py bugs/issue_70/test_ozone_filter_seasonals.py bugs/issue_70/test_artificial_keep_all_seasonals_second.py bugs/issue_70/test_artificial_keep_all_seasonals_minute.py bugs/issue_70/test_artificial_keep_all_seasonals_hour.py bugs/issue_70/test_artificial_keep_all_seasonals_day.py bugs/issue_70/test_artificial_filter_seasonals_second.py bugs/issue_70/test_artificial_filter_seasonals_min.py bugs/issue_70/test_artificial_filter_seasonals_hour.py bugs/issue_70/test_artificial_filter_seasonals_day.py bugs/issue_21/test_ozone_max_autoreg_5.py bugs/issue_21/test_artificial_1024__poly_7__20.py bugs/issue_82/issue_82_long_cycles.py bugs/issue_4/issue_4.py bugs/issue_55/grouping_issue_55_notebook.py  
+ bugs :  bugs/test_random_exogenous.py bugs/test_artificial_bug_2.py bugs/test_artificial_bug_1.py bugs/issue_34/test_artificial_1024_sqrt_linear_30_12_20.py bugs/issue_34/test_artificial_1024_sqrt_constant_7_12_100.py bugs/issue_34/test_artificial_1024_sqr_poly_5_12_20.py bugs/issue_34/test_artificial_1024_log_linear_5_12_100.py bugs/issue_34/test_artificial_1024_log_linear_30_12_20.py bugs/issue_34/test_artificial_1024_inv_linear_7_12_100.py bugs/issue_34/test_artificial_1024_inv_constant_30__20.py bugs/issue_34/test_artificial_1024_diff_poly_0__100.py bugs/issue_34/test_artificial_1024_diff_poly_0__0.py bugs/issue_34/test_artificial_1024__poly_7_12_100.py bugs/issue_34/issue_34_1.py bugs/issue_34/issue_34.py bugs/issue_76/test_ozone_unicode.py bugs/issue_73/issue_73_1_fast_mode_2.py bugs/issue_73/issue_73_1_fast_mode.py bugs/issue_72/test_artificial_32_sqrt_poly_7__20.py bugs/issue_72/test_artificial_32_exp_linear_0__100.py bugs/issue_46/issue_46_one_or_two_rows.py bugs/issue_32/bug_test_ozone_heroku_1_ws.py bugs/issue_32/bug_test_ozone_heroku_1.py bugs/issue_22/test_artificial_1024_cumsum_constant_5__20.py bugs/issue_69/issue_69_example_1_with_rectifier.py bugs/issue_69/issue_69_example_1_no_rectifier.py bugs/issue_75/issue_75_residues_Are_empty.py bugs/issue_75/issue_75_plot.py bugs/issue_56/issue_56_order2.py bugs/issue_56/issue_56_order1.py bugs/issue_80/test_ozone_missing_time.py bugs/issue_19/issue_19_no_interpolation.py bugs/issue_79/test_ozone_missing_signal.py bugs/issue_29/test_mem_1.py bugs/issue_58/issue_58_1_categorical_exogenous.py bugs/issue_94/issue_94.py bugs/issue_36/issue_36_version_info.py bugs/issue_36/display_version_info.py bugs/issue_70/test_ozone_keep_all_seasonals.py bugs/issue_70/test_ozone_filter_seasonals.py bugs/issue_70/test_artificial_keep_all_seasonals_second.py bugs/issue_70/test_artificial_keep_all_seasonals_minute.py bugs/issue_70/test_artificial_keep_all_seasonals_hour.py bugs/issue_70/test_artificial_keep_all_seasonals_day.py bugs/issue_70/test_artificial_filter_seasonals_second.py bugs/issue_70/test_artificial_filter_seasonals_min.py bugs/issue_70/test_artificial_filter_seasonals_hour.py bugs/issue_70/test_artificial_filter_seasonals_day.py bugs/issue_21/test_ozone_max_autoreg_5.py bugs/issue_21/test_artificial_1024__poly_7__20.py bugs/issue_82/issue_82_long_cycles.py bugs/issue_4/issue_4.py bugs/issue_55/grouping_issue_55_notebook.py  
+ 
+
+cross_validation/test_air_passengers_cross_valid.py  :  
+	 $(PYTHON)  tests/cross_validation/test_air_passengers_cross_valid.py  >  logs/cross_validation_test_air_passengers_cross_valid.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/cross_validation_test_air_passengers_cross_valid.log logs/cross_validation_test_air_passengers_cross_valid.log  >  logs/cross_validation_test_air_passengers_cross_valid.log.diff
+	 tail -10  logs/cross_validation_test_air_passengers_cross_valid.log.diff 
+
+cross_validation/test_ozone_cross_valid.py  :  
+	 $(PYTHON)  tests/cross_validation/test_ozone_cross_valid.py  >  logs/cross_validation_test_ozone_cross_valid.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/cross_validation_test_ozone_cross_valid.log logs/cross_validation_test_ozone_cross_valid.log  >  logs/cross_validation_test_ozone_cross_valid.log.diff
+	 tail -10  logs/cross_validation_test_ozone_cross_valid.log.diff 
+
+cross_validation/test_ozone_custom_split.py  :  
+	 $(PYTHON)  tests/cross_validation/test_ozone_custom_split.py  >  logs/cross_validation_test_ozone_custom_split.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/cross_validation_test_ozone_custom_split.log logs/cross_validation_test_ozone_custom_split.log  >  logs/cross_validation_test_ozone_custom_split.log.diff
+	 tail -10  logs/cross_validation_test_ozone_custom_split.log.diff 
+
+
+
+ cross_validation :  cross_validation/test_ozone_custom_split.py cross_validation/test_ozone_cross_valid.py cross_validation/test_air_passengers_cross_valid.py  
  
 
 demos/demo1.py  :  
@@ -1084,9 +1094,9 @@ xgb/test_ozone_xgbx_exogenous.py  :
 
 # ********************************************** 
 
-all:  artificial basic_checks bugs exog expsmooth HeartRateTimeSeries heroku hierarchical model_control perf svr transformations func neuralnet real-life  time_res perfs demos xgb 
+all:  artificial basic_checks bugs cross_validation exog expsmooth func HeartRateTimeSeries heroku hierarchical model_control perf svr transformations  neuralnet real-life  time_res perfs demos xgb 
 	
 
-build-test :  demos basic_checks exog heroku hierarchical model_control svr transformations func real-life  time_res perfs xgb 
+build-test :  demos basic_checks cross_validation exog heroku hierarchical model_control perfs svr transformations func real-life  time_res xgb  
 	
 

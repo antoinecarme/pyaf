@@ -31,20 +31,21 @@ class cPredictionIntervalsEstimator:
         lForecastColumn = str(self.mSignal) + "_Forecast";
         df = self.mModel.mTrend.mSignalFrame.reset_index();
         N = df.shape[0];
-        (lOriginalFit, lOriginalForecast, lOriginalTest) = self.mModel.mTimeInfo.cutFrame(df);
+        (lOriginalFit, lOriginalForecast, lOriginalTest) = self.mModel.mTimeInfo.mSplit.cutFrame(df);
         df1 = df;
         for h in range(0 , self.mHorizon):
             df2 = None;
             df2 = self.mModel.forecastOneStepAhead(df1, perf_mode = True);
             df2 = df2.head(N);
             lHorizonName = lForecastColumn + "_" + str(h + 1);
-            (lFrameFit, lFrameForecast, lFrameTest) = self.mModel.mTimeInfo.cutFrame(df2);
+            (lFrameFit, lFrameForecast, lFrameTest) = self.mModel.mTimeInfo.mSplit.cutFrame(df2);
             self.mFitPerformances[lHorizonName] = tsperf.cPerf();
             self.mFitPerformances[lHorizonName].compute(lOriginalFit[lSignalColumn], lFrameFit[lForecastColumn], lHorizonName);
             self.mForecastPerformances[lHorizonName] = tsperf.cPerf();
             self.mForecastPerformances[lHorizonName].compute(lOriginalForecast[lSignalColumn], lFrameForecast[lForecastColumn], lHorizonName);
             self.mTestPerformances[lHorizonName] = tsperf.cPerf();
-            self.mTestPerformances[lHorizonName].compute(lOriginalTest[lSignalColumn], lFrameTest[lForecastColumn], lHorizonName);
+            if(lOriginalTest.shape[0] > 0):
+                self.mTestPerformances[lHorizonName].compute(lOriginalTest[lSignalColumn], lFrameTest[lForecastColumn], lHorizonName);
             df1 = df2[[lTimeColumn , lForecastColumn]];
             df1.columns = [lTimeColumn , lSignalColumn]
         # self.dump_detailed();

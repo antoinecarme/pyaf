@@ -1,15 +1,15 @@
 INFO:pyaf.std:START_TRAINING 'Signal'
 GENERATING_RANDOM_DATASET Signal_320_D_0_constant_0_None_0.1_20
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal' 1.591982364654541
-INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2000-08-27T00:00:00.000000 TimeDelta=<DateOffset: days=1> Estimation = (0 , 240) Validation = (240 , 300) Test = (300 , 310) Horizon=10
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal' 1.5247106552124023
+INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2000-08-27T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=10
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Min=1.0 Max=2.39610784268  Mean=1.67864274484 StdDev=0.333168957193
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=2.39610784268  Mean=1.67864274484 StdDev=0.333168957193
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_Signal_ConstantTrend_residue_zeroCycle_residue_AR(64)' [ConstantTrend + NoCycle + AR(64)]
+INFO:pyaf.std:BEST_DECOMPOSITION  '_Signal_ConstantTrend_residue_zeroCycle_residue_AR(64)' [ConstantTrend + NoCycle + AR]
 INFO:pyaf.std:TREND_DETAIL '_Signal_ConstantTrend' [ConstantTrend]
 INFO:pyaf.std:CYCLE_DETAIL '_Signal_ConstantTrend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_Signal_ConstantTrend_residue_zeroCycle_residue_AR(64)' [AR(64)]
+INFO:pyaf.std:AUTOREG_DETAIL '_Signal_ConstantTrend_residue_zeroCycle_residue_AR(64)' [AR]
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0483 MAPE_Forecast=0.0412 MAPE_Test=0.0491
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0479 SMAPE_Forecast=0.0413 SMAPE_Test=0.0472
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.6579 MASE_Forecast=0.7438 MASE_Test=1.0549
@@ -29,13 +29,13 @@ INFO:pyaf.std:AR_MODEL_COEFF 9 _Signal_ConstantTrend_residue_zeroCycle_residue_L
 INFO:pyaf.std:AR_MODEL_COEFF 10 _Signal_ConstantTrend_residue_zeroCycle_residue_Lag1 0.0693356346805
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_PLOTTING
-INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 8.020377159118652
+INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 7.951984167098999
 INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 1.120882272720337
-  Transformation   ...    TestMAPE
-0        _Signal   ...      0.0491
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 1.0366554260253906
+  Split Transformation   ...    ForecastMAPE TestMAPE
+0  None        _Signal   ...          0.0412   0.0491
 
-[1 rows x 6 columns]
+[1 rows x 8 columns]
 Forecast Columns  Index(['Date', 'Signal', '_Signal', 'row_number', 'Date_Normalized',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
        '_Signal_ConstantTrend_residue_zeroCycle',
@@ -58,7 +58,7 @@ dtypes: datetime64[ns](1), float64(2)
 memory usage: 7.6 KB
 None
 Forecasts
- [[Timestamp('2000-11-06 00:00:00') nan 2.2230232710347306]
+ [[Timestamp('2000-11-06 00:00:00') nan 2.223023271034731]
  [Timestamp('2000-11-07 00:00:00') nan 2.231936966163537]
  [Timestamp('2000-11-08 00:00:00') nan 2.2425169965093126]
  [Timestamp('2000-11-09 00:00:00') nan 2.274729010239008]
@@ -85,10 +85,10 @@ Forecasts
         "Training_Signal_Length": 310
     },
     "Model": {
-        "AR_Model": "AR(64)",
+        "AR_Model": "AR",
         "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_AR(64)",
         "Cycle": "NoCycle",
-        "Signal_Transoformation": "None",
+        "Signal_Transoformation": "NoTransf",
         "Trend": "ConstantTrend"
     },
     "Model_Performance": {

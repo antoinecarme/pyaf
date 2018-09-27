@@ -93,6 +93,10 @@ class cModelControl:
     def disable_all_autoregressions(self):
         self.set_active_autoregressions([]);
     
+class cCrossValidationOptions:
+    def __init__(self):
+        self.mMethod = None;
+        self.mNbFolds = 10
 
 
 class cSignalDecomposition_Options(cModelControl):
@@ -101,7 +105,8 @@ class cSignalDecomposition_Options(cModelControl):
         super().__init__();
         self.mParallelMode = True;
         self.mNbCores = 8;
-        self.mEstimRatio = 0.8;
+        self.mEstimRatio = 0.8; # to be deprecated when cross validation is OK.
+        self.mCustomSplit = None
         self.mAddPredictionIntervals = True
         self.enable_fast_mode();
         self.mTimeDeltaComputationMethod = "AVG"; # can be "AVG", "MODE", "USER"
@@ -118,6 +123,7 @@ class cSignalDecomposition_Options(cModelControl):
         self.mHierarchicalCombinationMethod = "BU";
         self.mForecastRectifier = None # can be "relu" to force positive forecast values
         self.mXGBOptions = None
+        self.mCrossValidationOptions = cCrossValidationOptions()
         self.disableDebuggingOptions();
 
     def disableDebuggingOptions(self):
@@ -142,6 +148,8 @@ class cSignalDecomposition_Options(cModelControl):
         
         self.mMaxAROrder = 64;
         self.mFilterSeasonals = False
+        # enable cross validation
+        self.mCrossValidationOptions.mMethod = "TSCV";        
 
     def enable_fast_mode(self):
         self.mQuantiles = [5, 10, 20]; # quintiles, deciles, and vingtiles;)

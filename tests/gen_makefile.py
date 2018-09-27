@@ -8,7 +8,8 @@ def add_makefile_entry(subdir1):
         lShortName = os.path.basename(filename);
         if(not lShortName.lower().startswith("gen_all") and
            not lShortName.lower().startswith("gen_makefile") and
-           not "prototyp" in lShortName.lower()):
+           not "prototyp" in lShortName.lower() and
+           not "_slow_mode" in lShortName.lower()):
             bn = subdir1 + "/" + lShortName;
             logfile = bn.replace("/" , "_");
             logname = logfile.replace(".py" , ".log");
@@ -26,7 +27,7 @@ def add_makefile_entry(subdir1):
     return test_target;
 
 
-str1 = "artificial basic_checks bugs exog expsmooth HeartRateTimeSeries heroku hierarchical model_control perf svr transformations func neuralnet real-life  time_res perfs demos xgb";
+str1 = "artificial basic_checks bugs cross_validation exog expsmooth func HeartRateTimeSeries heroku hierarchical model_control perf svr transformations  neuralnet real-life  time_res perfs demos xgb";
 subdirs = str1.split();
 
 print("PYTHON=python3\n\n");
@@ -44,6 +45,6 @@ print("\n# ********************************************** \n");
 
 print("all: " , str1 , "\n\t\n");
 
-str2 = "demos basic_checks exog heroku hierarchical model_control svr transformations func real-life  time_res perfs xgb";
+str2 = "demos basic_checks cross_validation exog heroku hierarchical model_control perfs svr transformations func real-life  time_res xgb ";
 
 print("build-test : " , str2 , "\n\t\n");

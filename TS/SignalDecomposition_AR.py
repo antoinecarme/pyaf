@@ -40,7 +40,7 @@ class cAbstractAR:
     def computePerf(self):
         self.mARFitPerf= tsperf.cPerf();
         self.mARForecastPerf= tsperf.cPerf();
-        (lFrameFit, lFrameForecast, lFrameTest) = self.mTimeInfo.cutFrame(self.mARFrame);
+        (lFrameFit, lFrameForecast, lFrameTest) = self.mSplit.cutFrame(self.mARFrame);
         self.mARFitPerf.compute(
             lFrameFit[self.mCycleResidueName], lFrameFit[self.mOutName], self.mOutName)
         self.mARForecastPerf.compute(
@@ -146,7 +146,7 @@ class cAutoRegressiveEstimator:
         lShiftedSeries = self.shift_series(lSeries, p);
         self.mDefaultValues[series] = lSeries.values[0];
         
-        lShiftedEstim = self.mTimeInfo.getEstimPart(lShiftedSeries);
+        lShiftedEstim = self.mSplit.getEstimPart(lShiftedSeries);
         lAcceptable = self.is_not_constant(lShiftedEstim);
         if(lAcceptable):
             autoreg.mInputNames.append(name);
@@ -227,6 +227,7 @@ class cAutoRegressiveEstimator:
             autoreg.mCycleFrame = self.mCycleFrame;
             autoreg.mARFrame = self.mARFrame;
             autoreg.mTimeInfo = self.mTimeInfo;
+            autoreg.mSplit = self.mSplit;
             autoreg.mLagOrigins = self.mLagOrigins;
             autoreg.mDefaultValues = self.mDefaultValues;
             autoreg.fit();

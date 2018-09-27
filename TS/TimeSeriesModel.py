@@ -41,6 +41,13 @@ class cTimeSeriesModel:
         lStr2 += " Mean=" + str(np.mean(lSignal)) + " StdDev="  + str(np.std(lSignal));
         return (lStr1 , lStr2);
 
+    def get_model_category(self):
+        lModelCategory = (self.mTransformation.__class__.__name__,
+                          self.mTrend.__class__.__name__,
+                          self.mCycle.__class__.__name__,
+                          self.mAR.__class__.__name__)
+        lModelCategory = self.mTransformation.mFormula + "_" + self.mTrend.mFormula + "_" + self.mCycle.mFormula + "_" + self.mAR.mFormula
+        return str(lModelCategory)
         
     def getComplexity(self):
         lComplexity = 32 * self.mTransformation.mComplexity +  16 * self.mTrend.mComplexity + 4 * self.mCycle.mComplexity + 1 * self.mAR.mComplexity;
@@ -60,7 +67,7 @@ class cTimeSeriesModel:
         lForecastPerf = tsperf.cPerf();
         lTestPerf = tsperf.cPerf();
         # self.mModelFrame.to_csv(self.mOutName + "_model_perf.csv");
-        (lFrameFit, lFrameForecast, lFrameTest) = self.mTrend.mTimeInfo.cutFrame(self.mModelFrame);
+        (lFrameFit, lFrameForecast, lFrameTest) = self.mTrend.mSplit.cutFrame(self.mModelFrame);
 
 
         if(compute_all_indicators):
@@ -69,8 +76,9 @@ class cTimeSeriesModel:
             lForecastPerf.compute(lFrameForecast[self.mOriginalSignal] ,
                                   lFrameForecast[lForecastColumnName],
                                   self.mOutName + '_Forecast')
-            lTestPerf.compute(lFrameTest[self.mOriginalSignal] , lFrameTest[lForecastColumnName],
-                              self.mOutName + '_Test')            
+            if(lFrameTest.shape[0] > 0):
+                lTestPerf.compute(lFrameTest[self.mOriginalSignal] , lFrameTest[lForecastColumnName],
+                                  self.mOutName + '_Test')            
             pass
         else:
             lFitPerf.computeCriterion(lFrameFit[self.mOriginalSignal] , lFrameFit[lForecastColumnName] ,
@@ -79,9 +87,10 @@ class cTimeSeriesModel:
             lForecastPerf.computeCriterion(lFrameForecast[self.mOriginalSignal] , lFrameForecast[lForecastColumnName],
                                            self.mTimeInfo.mOptions.mModelSelection_Criterion,
                                            self.mOutName + '_Forecast')
-            lTestPerf.computeCriterion(lFrameTest[self.mOriginalSignal] , lFrameTest[lForecastColumnName],
-                                       self.mTimeInfo.mOptions.mModelSelection_Criterion,
-                                       self.mOutName + '_Test')
+            if(lFrameTest.shape[0] > 0):
+                lTestPerf.computeCriterion(lFrameTest[self.mOriginalSignal] , lFrameTest[lForecastColumnName],
+                                           self.mTimeInfo.mOptions.mModelSelection_Criterion,
+                                           self.mOutName + '_Test')
             
         self.mFitPerf = lFitPerf
         self.mForecastPerf = lForecastPerf;

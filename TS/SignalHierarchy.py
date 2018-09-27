@@ -248,14 +248,14 @@ class cSignalHierarchy:
         level = 0;
         signal = list(self.mModels[level].keys())[0];
         lEngine = self.mModels[level][signal];
-        lFrameFit = lEngine.mSignalDecomposition.mBestModel.mTimeInfo.getEstimPart(df);
+        lFrameFit = lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mSplit.getEstimPart(df);
         return lFrameFit;
 
     def getValidPart(self, df):
         level = 0;
         signal = list(self.mModels[level].keys())[0];
         lEngine = self.mModels[level][signal];
-        lFrameFit = lEngine.mSignalDecomposition.mBestModel.mTimeInfo.getValidPart(df);
+        lFrameFit = lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mSplit.getValidPart(df);
         return lFrameFit;
 
 

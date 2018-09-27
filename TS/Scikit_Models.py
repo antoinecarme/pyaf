@@ -32,7 +32,7 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
         series = self.mCycleResidueName; 
         self.mTime = self.mTimeInfo.mTime;
         self.mSignal = self.mTimeInfo.mSignal;
-        lAREstimFrame = self.mTimeInfo.getEstimPart(self.mARFrame)
+        lAREstimFrame = self.mSplit.getEstimPart(self.mARFrame)
 
         # print("mAREstimFrame columns :" , self.mAREstimFrame.columns);
         lARInputs = lAREstimFrame[self.mInputNames].values
@@ -154,10 +154,10 @@ class cAutoRegressiveModel(cAbstract_Scikit_Model):
 
     def set_name(self):
         self.mOutName = self.mCycleResidueName +  '_AR(' + str(self.mNbLags) + ")";
-        self.mFormula = "AR(" + str(self.mNbLags) + ")";
+        self.mFormula = "AR" # (" + str(self.mNbLags) + ")";
         if(self.mExogenousInfo is not None):
             self.mOutName = self.mCycleResidueName +  '_ARX(' + str(self.mNbLags) + ")";
-            self.mFormula = "ARX(" + str(self.mNbExogenousLags) + ")";
+            self.mFormula = "ARX" # (" + str(self.mNbExogenousLags) + ")";
         
         
 
@@ -176,10 +176,10 @@ class cSVR_Model(cAbstract_Scikit_Model):
 
     def set_name(self):
         self.mOutName = self.mCycleResidueName +  '_SVR(' + str(self.mNbLags) + ")";
-        self.mFormula = "SVR(" + str(self.mNbLags) + ")";
+        self.mFormula = "SVR" # (" + str(self.mNbLags) + ")";
         if(self.mExogenousInfo is not None):
             self.mOutName = self.mCycleResidueName +  '_SVRX(' + str(self.mNbLags) + ")";
-            self.mFormula = "SVRX(" + str(self.mNbExogenousLags) + ")";
+            self.mFormula = "SVRX" # (" + str(self.mNbExogenousLags) + ")";
 
 
 class cXGBoost_Model(cAbstract_Scikit_Model):
@@ -211,7 +211,7 @@ class cXGBoost_Model(cAbstract_Scikit_Model):
 
     def set_name(self):
         self.mOutName = self.mCycleResidueName +  '_XGB(' + str(self.mNbLags) + ")";
-        self.mFormula = "XGB(" + str(self.mNbLags) + ")";
+        self.mFormula = "XGB" #  + str(self.mNbLags) + ")";
         if(self.mExogenousInfo is not None):
             self.mOutName = self.mCycleResidueName +  '_XGBX(' + str(self.mNbLags) + ")";
-            self.mFormula = "XGBX(" + str(self.mNbExogenousLags) + ")";
+            self.mFormula = "XGBX" # (" + str(self.mNbExogenousLags) + ")";

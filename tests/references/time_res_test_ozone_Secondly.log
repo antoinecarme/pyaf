@@ -5,14 +5,14 @@ INFO:pyaf.std:START_TRAINING 'Ozone'
 2  1955-03    3.6 1955-03-01
 3  1955-04    5.0 1955-04-01
 4  1955-05    6.5 1955-05-01
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 2.918457508087158
-INFO:pyaf.std:TIME_DETAIL TimeVariable='Time_1_PerSecond' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2000-01-01T00:02:32.000000 TimeDelta=<DateOffset: seconds=1> Estimation = (0 , 153) Validation = (153 , 192) Test = (192 , 204) Horizon=12
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 2.6081244945526123
+INFO:pyaf.std:TIME_DETAIL TimeVariable='Time_1_PerSecond' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2000-01-01T00:02:32.000000 TimeDelta=<DateOffset: seconds=1> Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Min=1.2 Max=8.7  Mean=3.83578431373 StdDev=1.49155921594
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Ozone' Min=1.2 Max=8.7  Mean=3.83578431373 StdDev=1.49155921594
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_Ozone_LinearTrend_residue_bestCycle_byL2_residue_NoAR' [LinearTrend + Cycle_Length_12 + NoAR]
+INFO:pyaf.std:BEST_DECOMPOSITION  '_Ozone_LinearTrend_residue_bestCycle_byL2_residue_NoAR' [LinearTrend + Cycle + NoAR]
 INFO:pyaf.std:TREND_DETAIL '_Ozone_LinearTrend' [LinearTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_Ozone_LinearTrend_residue_bestCycle_byL2' [Cycle_Length_12]
+INFO:pyaf.std:CYCLE_DETAIL '_Ozone_LinearTrend_residue_bestCycle_byL2' [Cycle]
 INFO:pyaf.std:AUTOREG_DETAIL '_Ozone_LinearTrend_residue_bestCycle_byL2_residue_NoAR' [NoAR]
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.1865 MAPE_Forecast=0.1796 MAPE_Test=0.2568
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.1767 SMAPE_Forecast=0.1921 SMAPE_Test=0.2534
@@ -23,10 +23,10 @@ INFO:pyaf.std:MODEL_COMPLEXITY 24
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.6524538993835449
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.5271167755126953
 INFO:pyaf.std:START_TRAINING 'Ozone'
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 3.6296093463897705
-INFO:pyaf.std:TIME_DETAIL TimeVariable='Time_5_PerSecond' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2000-01-01T00:12:40.000000 TimeDelta=<DateOffset: seconds=5> Estimation = (0 , 153) Validation = (153 , 192) Test = (192 , 204) Horizon=12
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 3.19618558883667
+INFO:pyaf.std:TIME_DETAIL TimeVariable='Time_5_PerSecond' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2000-01-01T00:12:40.000000 TimeDelta=<DateOffset: seconds=5> Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Min=1.2 Max=8.7  Mean=3.83578431373 StdDev=1.49155921594
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Ozone' Min=1.2 Max=8.7  Mean=3.83578431373 StdDev=1.49155921594
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
@@ -43,15 +43,15 @@ INFO:pyaf.std:MODEL_COMPLEXITY 20
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.8678724765777588
-  Transformation   ...    TestMAPE
-0         _Ozone   ...      0.2568
-1         _Ozone   ...      0.2001
-2   CumSum_Ozone   ...      0.2144
-3         _Ozone   ...      0.6185
-4         _Ozone   ...      0.2132
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.631432294845581
+  Split Transformation   ...    ForecastMAPE TestMAPE
+0  None         _Ozone   ...          0.1796   0.2568
+1  None         _Ozone   ...          0.2172   0.2001
+2  None   CumSum_Ozone   ...          0.2199   0.2144
+3  None         _Ozone   ...          0.2314   0.6185
+4  None         _Ozone   ...          0.2778   0.2132
 
-[5 rows x 6 columns]
+[5 rows x 8 columns]
 Forecast Columns  Index(['Time_1_PerSecond', 'Ozone', '_Ozone', 'row_number',
        'Time_1_PerSecond_Normalized', '_Ozone_LinearTrend',
        '_Ozone_LinearTrend_residue', 'cycle_internal',
@@ -107,8 +107,8 @@ Forecasts
     "Model": {
         "AR_Model": "NoAR",
         "Best_Decomposition": "_Ozone_LinearTrend_residue_bestCycle_byL2_residue_NoAR",
-        "Cycle": "Cycle_Length_12",
-        "Signal_Transoformation": "None",
+        "Cycle": "Cycle",
+        "Signal_Transoformation": "NoTransf",
         "Trend": "LinearTrend"
     },
     "Model_Performance": {
@@ -129,14 +129,14 @@ Forecasts
 </Forecast>
 
 
-  Transformation   ...    TestMAPE
-0         _Ozone   ...      0.2568
-1         _Ozone   ...      0.2568
-2         _Ozone   ...      0.2001
-3         _Ozone   ...      0.2001
-4   CumSum_Ozone   ...      0.2144
+  Split Transformation   ...    ForecastMAPE TestMAPE
+0  None         _Ozone   ...          0.1796   0.2568
+1  None         _Ozone   ...          0.1796   0.2568
+2  None         _Ozone   ...          0.2172   0.2001
+3  None         _Ozone   ...          0.2172   0.2001
+4  None   CumSum_Ozone   ...          0.2199   0.2144
 
-[5 rows x 6 columns]
+[5 rows x 8 columns]
 Forecast Columns  Index(['Time_5_PerSecond', 'Ozone', '_Ozone', 'row_number',
        'Time_5_PerSecond_Normalized', '_Ozone_LinearTrend',
        '_Ozone_LinearTrend_residue',
@@ -193,7 +193,7 @@ Forecasts
         "AR_Model": "NoAR",
         "Best_Decomposition": "_Ozone_LinearTrend_residue_Seasonal_Second_residue_NoAR",
         "Cycle": "Seasonal_Second",
-        "Signal_Transoformation": "None",
+        "Signal_Transoformation": "NoTransf",
         "Trend": "LinearTrend"
     },
     "Model_Performance": {
