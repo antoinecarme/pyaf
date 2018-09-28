@@ -170,7 +170,7 @@ Help and Support
 ----------------
 
 PyAF is currently maintained by the original developer. PyAF support will be
-provided when possible and even if you are not creating an issue, you are encouraged to follow [these guideline](ISSUE_TEMPLATE.md).
+provided when possible and even if you are not creating an issue, you are encouraged to follow [these guidelines](ISSUE_TEMPLATE.md).
 
 Bug reports, Improvement requests, Documentation, Hints and Test scripts are
 welcome. Please use the GitHub platform for these tasks.
