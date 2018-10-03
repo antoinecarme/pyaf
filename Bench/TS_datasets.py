@@ -927,3 +927,57 @@ def load_AU_infant_grouped_dataset():
     tsspec.mHierarchy = lHierarchy;
     
     return tsspec
+
+
+def load_fpp2_dataset(name):
+    tsspec = cTimeSeriesDatasetSpec();
+    tsspec.mName = "FPP2 " + name;
+    tsspec.mDescription = "https://github.com/robjhyndman/fpp2-package ... " + name;
+
+    lSignal = name;
+    lTime = 'Time';
+    # trainfile = "/home/antoine/dev/python/packages/TimeSeriesData/fpp2/" + name +".csv";
+    trainfile = "https://raw.githubusercontent.com/antoinecarme/TimeSeriesData/master/fpp2/" + name +".csv";
+    df_train = pd.read_csv(trainfile, sep=r',',  engine='python', skipinitialspace=True);
+    print("LAODING_FPP2_DATASET", name , list(df_train.columns))
+
+    if(df_train.shape[1] == 1):
+        # add dome fake date column
+        df_train2 = pd.DataFrame();
+        df_train2[lTime] = range(0, df_train.shape[0]);
+        df_train2[lSignal] = df_train[df_train.columns[0]];
+        df_train = df_train2.copy();
+    # keep only the first two columns (as date and signal)
+    df_train = df_train[[df_train.columns[0] , df_train.columns[1]]].dropna();
+    # rename the first two columns (as date and signal)
+    df_train.columns = [lTime , lSignal];
+    if(df_train[lSignal].dtype == np.object):
+        df_train[lSignal] = df_train[lSignal].astype(np.float64); 
+
+    print(df_train.head(5));
+    # df_train.info()
+
+    tsspec.mFullDataset = df_train;
+    # print(tsspec.mFullDataset.info())
+    tsspec.mTimeVar = lTime;
+    tsspec.mSignalVar = lSignal;
+    tsspec.mHorizon = {};
+    lHorizon = 4
+    tsspec.mHorizon[lSignal] = lHorizon
+    tsspec.mPastData = df_train[:-lHorizon];
+    tsspec.mFutureData = df_train.tail(lHorizon);
+    
+    return tsspec
+
+
+
+def load_FPP2_datsets() :
+    fpp2_datasets = ["goog200", "auscafe", "sunspotarea", "elecdemand", "h02", "ausair", "usmelec", "uschange", "qgas", "ausbeer", "livestock", "mens400", "elecsales", "arrivals", "prison", "wmurders", "departures", "qauselec", "goog", "visnights", "hyndsight", "prisonLF", "a10", "debitcards", "melsyd", "marathon", "elecdaily", "insurance", "oil", "maxtemp", "calls", "guinearice", "qcement", "elecequip", "austourists", "gasoline", "austa", "euretail"]
+
+    tsspecs = {};
+    for ds in fpp2_datasets:
+        if(ds != "prisonLF"):
+            tsspecs[ds] = load_fpp2_dataset(ds);
+            tsspecs[ds].mCategory = "FPP2"; 
+
+    return tsspecs;
