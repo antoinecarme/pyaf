@@ -931,7 +931,7 @@ def load_AU_infant_grouped_dataset():
 
 def load_fpp2_dataset(name):
     tsspec = cTimeSeriesDatasetSpec();
-    tsspec.mName = "FPP2 " + name;
+    tsspec.mName = "FPP2";
     tsspec.mDescription = "https://github.com/robjhyndman/fpp2-package ... " + name;
 
     lSignal = name;

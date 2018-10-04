@@ -414,28 +414,37 @@ class cGeneric_Tester:
     def run_multiprocessed(self, nbprocesses = None):
         if(nbprocesses is None):
             nbprocesses = (mp.cpu_count() * 2) // 4;
-        pool = mp.Pool(processes=nbprocesses, maxtasksperchild=10)
-        args = []
-        for sig in list(self.mTSSpecPerSignal.keys()):
-            lSpec = self.mTSSpecPerSignal[sig]
-            # print(lSpec.__dict__)
-            lHorizon = lSpec.mHorizon[sig]
-            a = cGeneric_Tester_Arg(self.mBenchName, lSpec, sig , lHorizon);
-            args = args + [a];
+        series = list(self.mTSSpecPerSignal.keys())
+        nb_series = len(series)
+        lNbRuns = nb_series // 100 + 1
 
         lResults = {};
         lPlots = []
-        i = 1;
-        for res in pool.imap(run_bench_process, args):
-            print("FINISHED_BENCH_FOR_SIGNAL" , self.mBenchName, res.mSignal , i , "/" , len(args));
-            lResults[res.mSignal] = res.mResult.summary();
-            if(res.mResult.mPlot is not None):
-                lPlots = lPlots + res.mResult.mPlot;
-            i = i + 1;
-            del res
+        for run in range(lNbRuns):
+            print("BENCH_RUN" , nbprocesses, run , lNbRuns)
+            series_run = series[(run * 100) : ((1 + run) * 100)]
+            print(series_run)
+            pool = mp.Pool(processes=nbprocesses, maxtasksperchild=10)
+            args = []
+            for sig in series_run:
+                lSpec = self.mTSSpecPerSignal[sig]
+                # print(lSpec.__dict__)
+                lHorizon = lSpec.mHorizon[sig]
+                a = cGeneric_Tester_Arg(self.mBenchName, lSpec, sig , lHorizon);
+                args = args + [a];
+
+            i = 1;
+            for res in pool.imap(run_bench_process, args):
+                print("FINISHED_BENCH_FOR_SIGNAL" , self.mBenchName, res.mSignal , i , "/" , len(args));
+                lResults[res.mSignal] = res.mResult.summary();
+                if(res.mResult.mPlot is not None):
+                    lPlots = lPlots + res.mResult.mPlot;
+                i = i + 1;
+                del res
         
-        pool.close()
-        pool.join()
+            pool.close()
+            pool.join()
+            del pool
 
         for (name, summary) in lResults.items():
             print("BENCH_RESULT_DETAIL" ,  self.mBenchName, name, summary);
