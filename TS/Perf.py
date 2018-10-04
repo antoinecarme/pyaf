@@ -79,14 +79,14 @@ class cPerf:
 
     def compute_pearson_r(self, signal , estimator):
         from scipy.stats import pearsonr
+        signal_std = np.std(signal);
+        estimator_std = np.std(estimator);
         # print("PEARSONR_DETAIL1" , signal_std, estimator_std)
         # print("PEARSONR_DETAIL2" , signal)
         # print("PEARSONR_DETAIL3" , estimator)
-        signal_std = np.std(signal);
-        estimator_std = np.std(estimator);
-
+        lEps = 1e-8
         r = 0.0;
-        if((signal_std > 0.0) and (estimator_std > 0.0) and (signal.shape[0] > 30)):
+        if((signal_std > lEps) and (estimator_std > lEps) and (signal.shape[0] > 30)):
             # this is a temporary work-around for the issue
             # scipy.stats.pearsonr overflows with high values of x and y #8980
             # https://github.com/scipy/scipy/issues/8980
