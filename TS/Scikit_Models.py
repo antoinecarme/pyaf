@@ -172,7 +172,7 @@ class cSVR_Model(cAbstract_Scikit_Model):
 
     def build_Scikit_Model(self):
         import sklearn.svm as svm
-        self.mScikitModel = svm.SVR(kernel='rbf')
+        self.mScikitModel = svm.SVR(kernel='rbf', gamma='scale')
 
     def set_name(self):
         self.mOutName = self.mCycleResidueName +  '_SVR(' + str(self.mNbLags) + ")";
