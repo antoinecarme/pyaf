@@ -43,11 +43,11 @@ class cPerf_Arg:
 
 def compute_perf_func(arg):
     # print("RUNNING " , arg.mName)
+    logger = tsutil.get_pyaf_logger();
     try:
         arg.mModel.updatePerfs();
         return arg;
     except Exception as e:
-        logger = tsutil.get_pyaf_logger();
         # print("FAILURE_WITH_EXCEPTION : " + str(e)[:200]);
         logger.error("FAILURE_WITH_EXCEPTION : " + str(e)[:200]);
         logger.error("BENCHMARKING_FAILURE '" + arg.mName + "'");
@@ -602,6 +602,8 @@ class cSignalDecompositionTrainer_CrossValidation:
         logger.info("CROSS_VALIDATION_TRAINING_TIME_IN_SECONDS "  + str(self.mBestModel.mSignal) + " " + str(time.time() - cross_val_start_time))
 
     def perform_model_selection(self):
+        logger = tsutil.get_pyaf_logger();
+        modelsel_start_time = time.time()
         self.mTrPerfDetails = pd.DataFrame()
         for (lSplit , lTrainer) in self.mTrainers.items():
             self.mTrPerfDetails = self.mTrPerfDetails.append(lTrainer.mTrPerfDetails)
