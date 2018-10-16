@@ -30,7 +30,7 @@ class cModelControl:
                                 'Seasonal_DayOfWeek' ,
                                 'Seasonal_DayOfMonth',
                                 'Seasonal_WeekOfYear'];
-        self.mKnownAutoRegressions = ['NoAR' , 'AR' , 'ARX' , 'SVR', 'MLP' , 'LSTM' , 'XGB' , 'XGBX'];
+        self.mKnownAutoRegressions = ['NoAR' , 'AR' , 'ARX' , 'SVR', 'MLP' , 'LSTM' , 'XGB' , 'XGBX', 'SVRX'];
         # now , set he default models
         self.set_active_transformations(self.mKnownTransformations[0:4]);
         self.set_active_trends(self.mKnownTrends[0:4]);
