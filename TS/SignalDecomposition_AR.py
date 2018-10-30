@@ -98,7 +98,7 @@ class cZeroAR(cAbstractAR):
         self.mARFrame[self.mOutName + '_residue'] = self.mARFrame[series];
                 
 
-    def transformDataset(self, df):
+    def transformDataset(self, df, horizon_index = 1):
         series = self.mCycleResidueName; 
         df[self.mOutName] = 0.0;
         target = df[series].values
