@@ -34,7 +34,7 @@ def create_model(N = 365 , croston_type=None, iTrend = False):
     import pyaf.ForecastEngine as autof
     lEngine = autof.cForecastEngine()
 
-    lEngine.mOptions.set_active_trends(['None', 'LinearTrend'])
+    lEngine.mOptions.set_active_trends(['ConstantTrend', 'LinearTrend'])
     lEngine.mOptions.set_active_periodics(['None'])
     lEngine.mOptions.set_active_transformations(['None'])
     lEngine.mOptions.set_active_autoregressions(['CROSTON'])
