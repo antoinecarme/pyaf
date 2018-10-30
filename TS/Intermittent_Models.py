@@ -36,23 +36,24 @@ class cCroston_Model(tsar.cAbstractAR):
         # default : any other value is the legacy croston method
         return 1.0
 
-    def croston(self, df):
+    def croston(self, df, horizon_index = 1):
         # print(df.shape)
         # print(df.columns)
         # print(df[['Date', 'Signal', '_Signal', 'row_number', '_Signal_ConstantTrend_residue_zeroCycle_residue']].tail(12))
         alpha =  self.mOptions.mCrostonOptions.mAlpha
         method = self.mOptions.mCrostonOptions.mMethod
-        lCounts_df = df[[self.mTime, self.mCycleResidueName]]
+        lCounts_df = df[[self.mTime, self.mCycleResidueName]].copy()
         counts = lCounts_df[self.mCycleResidueName] - self.mOffset
-        counts = counts[:365]
-        # print(counts)
+        counts = counts[:-(horizon_index)]
+        # print(list(counts.unique()))
+        # print(counts.describe())
         # assert(not np.isnan(counts[:-1]).any())
         #  q is often called the “demand” and a the “inter-arrival time”.
         q = counts[abs(counts) > 1e-8]
         demand_times = pd.Series(list(q.index)) + 1
         a = demand_times - demand_times.shift(1).fillna(0.0)
         df2 = pd.DataFrame({'demand_time' : list(demand_times), 'q' : list(q) , 'a' : list(a) })
-
+        
         df2['q_est'] = None
         df2['a_est'] = None
         
@@ -68,6 +69,8 @@ class cCroston_Model(tsar.cAbstractAR):
         df2['forecast'] = self.get_coeff(alpha , method) * df2['q_est'] / df2['a_est']
         df2['index'] = df2['demand_time'] - 1
 
+        for h in range(horizon_index):
+            lCounts_df.loc[-(h+1), self.mCycleResidueName] = None
         df1 = lCounts_df.reset_index()
         df3 = df1.merge(df2 , how='left', on=('index' , 'index'))
         df4 = df3.fillna(method='ffill')
@@ -94,9 +97,9 @@ class cCroston_Model(tsar.cAbstractAR):
         # print("ESTIMATE_CROSTON_MODEL_END" , self.mOutName);
 
 
-    def transformDataset(self, df):
+    def transformDataset(self, df, horizon_index = 1):
         series = self.mCycleResidueName;
-        pred = self.croston(df)
+        pred = self.croston(df, horizon_index)
         df[self.mOutName] = pred['forecast'];
         target = df[series].values
         df[self.mOutName + '_residue'] = target - df[self.mOutName].values        
