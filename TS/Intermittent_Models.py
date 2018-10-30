@@ -74,6 +74,11 @@ class cCroston_Model(tsar.cAbstractAR):
         df1 = lCounts_df.reset_index()
         df3 = df1.merge(df2 , how='left', on=('index' , 'index'))
         df4 = df3.fillna(method='ffill')
+        # fill first empty fit data with zero counts (when signal starts with zeros)
+        i = 0
+        while(np.isnan(df4.loc[i , 'forecast'])):
+            df4.loc[i , 'forecast'] = 0.0
+            i = i + 1
         df4['forecast'] = df4['forecast'] + self.mOffset
         return df4
         
