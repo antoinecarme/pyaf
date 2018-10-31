@@ -105,10 +105,13 @@ class cCrostonOptions:
     def __init__(self):
         # can be : "CROSTON" , "SBJ" , "SBA"
         self.mMethod = None;
+        # alpha value or None to use optimal alpha based on RMSE
         self.mAlpha = 0.1
-        # minimum amount of zeros for a series to be intermittent
+        # use "L2" by default, MAPE is not suitable (a lot of zeros in the signal) ?
+        self.mAlphaCriterion = "L2"
+        # minimum amount/percentage of zeros for a series to be intermittent
         self.mZeroRate = 0.1
-    
+        
 class cSignalDecomposition_Options(cModelControl):
     
     def __init__(self):
