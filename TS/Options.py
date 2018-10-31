@@ -30,10 +30,11 @@ class cModelControl:
                                 'Seasonal_DayOfWeek' ,
                                 'Seasonal_DayOfMonth',
                                 'Seasonal_WeekOfYear'];
+
         # "AutoRegression" becomes a little bit confusing as croston does not use lags (???)
         # rather use wikipedia terminology :  https://en.wikipedia.org/wiki/Decomposition_of_time_series
         # AutoRegression => "irregular component"
-        self.mKnownAutoRegressions = ['NoAR' , 'AR' , 'ARX' , 'SVR', 'MLP' , 'LSTM' , 'XGB' , 'XGBX' , 'CROSTON'];
+        self.mKnownAutoRegressions = ['NoAR' , 'AR' , 'ARX' , 'SVR', 'SVRX', 'MLP' , 'LSTM' , 'XGB' , 'XGBX' , 'CROSTON'];
         # now , set he default models
         self.set_active_transformations(self.mKnownTransformations[0:4]);
         self.set_active_trends(self.mKnownTrends[0:4]);
