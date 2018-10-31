@@ -126,6 +126,21 @@ basic_checks/test_pearson.py  :
  basic_checks :  basic_checks/test_pearson.py basic_checks/platform_info.py basic_checks/issue_46_wrong_type_signal_column.py basic_checks/issue_46_wrong_type_date_column.py basic_checks/issue_46_one_or_two_rows.py basic_checks/issue_46_non_existant_time_column.py basic_checks/issue_46_non_existant_signal_column.py basic_checks/issue_46_negative_horizon.py basic_checks/issue_46_min_max_issues.py basic_checks/hierarchy_checks_unkonwn_base_column.py basic_checks/hierarchy_checks_non_existant_date_column.py basic_checks/hierarchy_checks_non_existant_base_column.py basic_checks/hierarchy_checks_date_column_bad_storage.py basic_checks/hierarchy_checks_base_column_bad_storage.py basic_checks/hierarchy_checks_bad_horizon.py basic_checks/hierarchy_checks.py  
  
 
+bugs/run_benchmark_M1Comp_MNB71_18.py  :  
+	 $(PYTHON)  tests/bugs/run_benchmark_M1Comp_MNB71_18.py  >  logs/bugs_run_benchmark_M1Comp_MNB71_18.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_run_benchmark_M1Comp_MNB71_18.log logs/bugs_run_benchmark_M1Comp_MNB71_18.log  >  logs/bugs_run_benchmark_M1Comp_MNB71_18.log.diff
+	 tail -10  logs/bugs_run_benchmark_M1Comp_MNB71_18.log.diff 
+
+bugs/run_benchmark_M4Comp_ECONOMICS_ECON1151_18.py  :  
+	 $(PYTHON)  tests/bugs/run_benchmark_M4Comp_ECONOMICS_ECON1151_18.py  >  logs/bugs_run_benchmark_M4Comp_ECONOMICS_ECON1151_18.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_run_benchmark_M4Comp_ECONOMICS_ECON1151_18.log logs/bugs_run_benchmark_M4Comp_ECONOMICS_ECON1151_18.log  >  logs/bugs_run_benchmark_M4Comp_ECONOMICS_ECON1151_18.log.diff
+	 tail -10  logs/bugs_run_benchmark_M4Comp_ECONOMICS_ECON1151_18.log.diff 
+
+bugs/run_benchmark_Yahoo_nysecomp_VRS.py  :  
+	 $(PYTHON)  tests/bugs/run_benchmark_Yahoo_nysecomp_VRS.py  >  logs/bugs_run_benchmark_Yahoo_nysecomp_VRS.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_run_benchmark_Yahoo_nysecomp_VRS.log logs/bugs_run_benchmark_Yahoo_nysecomp_VRS.log  >  logs/bugs_run_benchmark_Yahoo_nysecomp_VRS.log.diff
+	 tail -10  logs/bugs_run_benchmark_Yahoo_nysecomp_VRS.log.diff 
+
 bugs/test_artificial_bug_1.py  :  
 	 $(PYTHON)  tests/bugs/test_artificial_bug_1.py  >  logs/bugs_test_artificial_bug_1.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_test_artificial_bug_1.log logs/bugs_test_artificial_bug_1.log  >  logs/bugs_test_artificial_bug_1.log.diff
@@ -393,7 +408,7 @@ bugs/issue_55/grouping_issue_55_notebook.py  :
 
 
 
- bugs :  bugs/test_random_exogenous.py bugs/test_artificial_bug_2.py bugs/test_artificial_bug_1.py bugs/issue_34/test_artificial_1024_sqrt_linear_30_12_20.py bugs/issue_34/test_artificial_1024_sqrt_constant_7_12_100.py bugs/issue_34/test_artificial_1024_sqr_poly_5_12_20.py bugs/issue_34/test_artificial_1024_log_linear_5_12_100.py bugs/issue_34/test_artificial_1024_log_linear_30_12_20.py bugs/issue_34/test_artificial_1024_inv_linear_7_12_100.py bugs/issue_34/test_artificial_1024_inv_constant_30__20.py bugs/issue_34/test_artificial_1024_diff_poly_0__100.py bugs/issue_34/test_artificial_1024_diff_poly_0__0.py bugs/issue_34/test_artificial_1024__poly_7_12_100.py bugs/issue_34/issue_34_1.py bugs/issue_34/issue_34.py bugs/issue_76/test_ozone_unicode.py bugs/issue_73/issue_73_1_fast_mode_2.py bugs/issue_73/issue_73_1_fast_mode.py bugs/issue_72/test_artificial_32_sqrt_poly_7__20.py bugs/issue_72/test_artificial_32_exp_linear_0__100.py bugs/issue_46/issue_46_one_or_two_rows.py bugs/issue_32/bug_test_ozone_heroku_1_ws.py bugs/issue_32/bug_test_ozone_heroku_1.py bugs/issue_22/test_artificial_1024_cumsum_constant_5__20.py bugs/issue_69/issue_69_example_1_with_rectifier.py bugs/issue_69/issue_69_example_1_no_rectifier.py bugs/issue_75/issue_75_residues_Are_empty.py bugs/issue_75/issue_75_plot.py bugs/issue_56/issue_56_order2.py bugs/issue_56/issue_56_order1.py bugs/issue_80/test_ozone_missing_time.py bugs/issue_19/issue_19_no_interpolation.py bugs/issue_79/test_ozone_missing_signal.py bugs/issue_29/test_mem_1.py bugs/issue_58/issue_58_1_categorical_exogenous.py bugs/issue_94/issue_94.py bugs/issue_36/issue_36_version_info.py bugs/issue_36/display_version_info.py bugs/issue_70/test_ozone_keep_all_seasonals.py bugs/issue_70/test_ozone_filter_seasonals.py bugs/issue_70/test_artificial_keep_all_seasonals_second.py bugs/issue_70/test_artificial_keep_all_seasonals_minute.py bugs/issue_70/test_artificial_keep_all_seasonals_hour.py bugs/issue_70/test_artificial_keep_all_seasonals_day.py bugs/issue_70/test_artificial_filter_seasonals_second.py bugs/issue_70/test_artificial_filter_seasonals_min.py bugs/issue_70/test_artificial_filter_seasonals_hour.py bugs/issue_70/test_artificial_filter_seasonals_day.py bugs/issue_21/test_ozone_max_autoreg_5.py bugs/issue_21/test_artificial_1024__poly_7__20.py bugs/issue_82/issue_82_long_cycles.py bugs/issue_4/issue_4.py bugs/issue_55/grouping_issue_55_notebook.py  
+ bugs :  bugs/test_random_exogenous.py bugs/test_artificial_bug_2.py bugs/test_artificial_bug_1.py bugs/run_benchmark_Yahoo_nysecomp_VRS.py bugs/run_benchmark_M4Comp_ECONOMICS_ECON1151_18.py bugs/run_benchmark_M1Comp_MNB71_18.py bugs/issue_34/test_artificial_1024_sqrt_linear_30_12_20.py bugs/issue_34/test_artificial_1024_sqrt_constant_7_12_100.py bugs/issue_34/test_artificial_1024_sqr_poly_5_12_20.py bugs/issue_34/test_artificial_1024_log_linear_5_12_100.py bugs/issue_34/test_artificial_1024_log_linear_30_12_20.py bugs/issue_34/test_artificial_1024_inv_linear_7_12_100.py bugs/issue_34/test_artificial_1024_inv_constant_30__20.py bugs/issue_34/test_artificial_1024_diff_poly_0__100.py bugs/issue_34/test_artificial_1024_diff_poly_0__0.py bugs/issue_34/test_artificial_1024__poly_7_12_100.py bugs/issue_34/issue_34_1.py bugs/issue_34/issue_34.py bugs/issue_76/test_ozone_unicode.py bugs/issue_73/issue_73_1_fast_mode_2.py bugs/issue_73/issue_73_1_fast_mode.py bugs/issue_72/test_artificial_32_sqrt_poly_7__20.py bugs/issue_72/test_artificial_32_exp_linear_0__100.py bugs/issue_46/issue_46_one_or_two_rows.py bugs/issue_32/bug_test_ozone_heroku_1_ws.py bugs/issue_32/bug_test_ozone_heroku_1.py bugs/issue_22/test_artificial_1024_cumsum_constant_5__20.py bugs/issue_69/issue_69_example_1_with_rectifier.py bugs/issue_69/issue_69_example_1_no_rectifier.py bugs/issue_75/issue_75_residues_Are_empty.py bugs/issue_75/issue_75_plot.py bugs/issue_56/issue_56_order2.py bugs/issue_56/issue_56_order1.py bugs/issue_80/test_ozone_missing_time.py bugs/issue_19/issue_19_no_interpolation.py bugs/issue_79/test_ozone_missing_signal.py bugs/issue_29/test_mem_1.py bugs/issue_58/issue_58_1_categorical_exogenous.py bugs/issue_94/issue_94.py bugs/issue_36/issue_36_version_info.py bugs/issue_36/display_version_info.py bugs/issue_70/test_ozone_keep_all_seasonals.py bugs/issue_70/test_ozone_filter_seasonals.py bugs/issue_70/test_artificial_keep_all_seasonals_second.py bugs/issue_70/test_artificial_keep_all_seasonals_minute.py bugs/issue_70/test_artificial_keep_all_seasonals_hour.py bugs/issue_70/test_artificial_keep_all_seasonals_day.py bugs/issue_70/test_artificial_filter_seasonals_second.py bugs/issue_70/test_artificial_filter_seasonals_min.py bugs/issue_70/test_artificial_filter_seasonals_hour.py bugs/issue_70/test_artificial_filter_seasonals_day.py bugs/issue_21/test_ozone_max_autoreg_5.py bugs/issue_21/test_artificial_1024__poly_7__20.py bugs/issue_82/issue_82_long_cycles.py bugs/issue_4/issue_4.py bugs/issue_55/grouping_issue_55_notebook.py  
  
 
 cross_validation/test_air_passengers_cross_valid.py  :  
@@ -414,6 +429,61 @@ cross_validation/test_ozone_custom_split.py  :
 
 
  cross_validation :  cross_validation/test_ozone_custom_split.py cross_validation/test_ozone_cross_valid.py cross_validation/test_air_passengers_cross_valid.py  
+ 
+
+croston/__init__.py  :  
+	 $(PYTHON)  tests/croston/__init__.py  >  logs/croston___init__.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/croston___init__.log logs/croston___init__.log  >  logs/croston___init__.log.diff
+	 tail -10  logs/croston___init__.log.diff 
+
+croston/croston_test_1_None.py  :  
+	 $(PYTHON)  tests/croston/croston_test_1_None.py  >  logs/croston_croston_test_1_None.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/croston_croston_test_1_None.log logs/croston_croston_test_1_None.log  >  logs/croston_croston_test_1_None.log.diff
+	 tail -10  logs/croston_croston_test_1_None.log.diff 
+
+croston/croston_test_1_SBA.py  :  
+	 $(PYTHON)  tests/croston/croston_test_1_SBA.py  >  logs/croston_croston_test_1_SBA.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/croston_croston_test_1_SBA.log logs/croston_croston_test_1_SBA.log  >  logs/croston_croston_test_1_SBA.log.diff
+	 tail -10  logs/croston_croston_test_1_SBA.log.diff 
+
+croston/croston_test_1_SBA_linear_trend.py  :  
+	 $(PYTHON)  tests/croston/croston_test_1_SBA_linear_trend.py  >  logs/croston_croston_test_1_SBA_linear_trend.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/croston_croston_test_1_SBA_linear_trend.log logs/croston_croston_test_1_SBA_linear_trend.log  >  logs/croston_croston_test_1_SBA_linear_trend.log.diff
+	 tail -10  logs/croston_croston_test_1_SBA_linear_trend.log.diff 
+
+croston/croston_test_1_SBJ.py  :  
+	 $(PYTHON)  tests/croston/croston_test_1_SBJ.py  >  logs/croston_croston_test_1_SBJ.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/croston_croston_test_1_SBJ.log logs/croston_croston_test_1_SBJ.log  >  logs/croston_croston_test_1_SBJ.log.diff
+	 tail -10  logs/croston_croston_test_1_SBJ.log.diff 
+
+croston/croston_test_1_SBJ_linear_trend.py  :  
+	 $(PYTHON)  tests/croston/croston_test_1_SBJ_linear_trend.py  >  logs/croston_croston_test_1_SBJ_linear_trend.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/croston_croston_test_1_SBJ_linear_trend.log logs/croston_croston_test_1_SBJ_linear_trend.log  >  logs/croston_croston_test_1_SBJ_linear_trend.log.diff
+	 tail -10  logs/croston_croston_test_1_SBJ_linear_trend.log.diff 
+
+croston/croston_test_1_legacy_linear_trend.py  :  
+	 $(PYTHON)  tests/croston/croston_test_1_legacy_linear_trend.py  >  logs/croston_croston_test_1_legacy_linear_trend.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/croston_croston_test_1_legacy_linear_trend.log logs/croston_croston_test_1_legacy_linear_trend.log  >  logs/croston_croston_test_1_legacy_linear_trend.log.diff
+	 tail -10  logs/croston_croston_test_1_legacy_linear_trend.log.diff 
+
+croston/croston_tests.py  :  
+	 $(PYTHON)  tests/croston/croston_tests.py  >  logs/croston_croston_tests.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/croston_croston_tests.log logs/croston_croston_tests.log  >  logs/croston_croston_tests.log.diff
+	 tail -10  logs/croston_croston_tests.log.diff 
+
+croston/test_croston_fpp2_counts_example.py  :  
+	 $(PYTHON)  tests/croston/test_croston_fpp2_counts_example.py  >  logs/croston_test_croston_fpp2_counts_example.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/croston_test_croston_fpp2_counts_example.log logs/croston_test_croston_fpp2_counts_example.log  >  logs/croston_test_croston_fpp2_counts_example.log.diff
+	 tail -10  logs/croston_test_croston_fpp2_counts_example.log.diff 
+
+croston/test_croston_fpp2_counts_example_optimize.py  :  
+	 $(PYTHON)  tests/croston/test_croston_fpp2_counts_example_optimize.py  >  logs/croston_test_croston_fpp2_counts_example_optimize.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/croston_test_croston_fpp2_counts_example_optimize.log logs/croston_test_croston_fpp2_counts_example_optimize.log  >  logs/croston_test_croston_fpp2_counts_example_optimize.log.diff
+	 tail -10  logs/croston_test_croston_fpp2_counts_example_optimize.log.diff 
+
+
+
+ croston :  croston/test_croston_fpp2_counts_example_optimize.py croston/test_croston_fpp2_counts_example.py croston/croston_tests.py croston/croston_test_1_legacy_linear_trend.py croston/croston_test_1_SBJ_linear_trend.py croston/croston_test_1_SBJ.py croston/croston_test_1_SBA_linear_trend.py croston/croston_test_1_SBA.py croston/croston_test_1_None.py croston/__init__.py  
  
 
 demos/demo1.py  :  
@@ -1094,9 +1164,9 @@ xgb/test_ozone_xgbx_exogenous.py  :
 
 # ********************************************** 
 
-all:  artificial basic_checks bugs cross_validation exog expsmooth func HeartRateTimeSeries heroku hierarchical model_control perf svr transformations  neuralnet real-life  time_res perfs demos xgb 
+all:  artificial basic_checks bugs cross_validation croston exog expsmooth func HeartRateTimeSeries heroku hierarchical model_control perf svr transformations  neuralnet real-life  time_res perfs demos xgb 
 	
 
-build-test :  demos basic_checks cross_validation exog heroku hierarchical model_control perfs svr transformations func real-life  time_res xgb  
+build-test :  demos basic_checks cross_validation croston exog heroku hierarchical model_control perfs svr transformations func real-life  time_res xgb  
 	
 
