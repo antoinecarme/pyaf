@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 from . import SignalDecomposition_AR as tsar
 from . import Utils as tsutil
+from . import Perf as tsperf
 
 import sys
 
@@ -19,9 +20,13 @@ class cCroston_Model(tsar.cAbstractAR):
     def __init__(self , cycle_residue_name, P , iExogenousInfo = None):
         super().__init__(cycle_residue_name, iExogenousInfo)
         self.mNbLags = 1
+        self.mAlpha = None
+        
 
     def dumpCoefficients(self, iMax=10):
-        # print(self.mScikitModel.__dict__);
+        logger = tsutil.get_pyaf_logger();
+        logger.info("CROSTON_ALPHA " + str(self.mAlpha));
+        logger.info("CROSTON_METHOD " + str(self.mOptions.mCrostonOptions.mMethod));
         pass
 
     def set_name(self):
@@ -36,12 +41,39 @@ class cCroston_Model(tsar.cAbstractAR):
         # default : any other value is the legacy croston method
         return 1.0
 
+
+    def estimate_alpha(self, df):
+        # print("CROSTON_OPTIONS" , self.mOptions.mCrostonOptions.__dict__)
+        method = self.mOptions.mCrostonOptions.mMethod
+        if(self.mOptions.mCrostonOptions.mAlpha is not None):
+            self.mAlpha = self.mOptions.mCrostonOptions.mAlpha
+            return 
+        else:
+            # choose the best alpha based on L2
+            lPerfs = {}
+            lForecastColumnName = 'forecast'
+            for alpha in np.arange(0.05 , 1.0, 0.05):
+                forecast_df = self.compute_forecast(df, alpha, method, 1)
+                lPerf = tsperf.cPerf();
+                lPerf.computeCriterion(forecast_df[self.mCycleResidueName] ,  forecast_df[lForecastColumnName] ,
+                                       self.mOptions.mCrostonOptions.mAlphaCriterion,
+                                       "CROSTON_SEL_" + '_Fit_' + str(alpha))
+                lPerfs[alpha] = lPerf.mL2
+            self.mAlpha = min(lPerfs, key=lPerfs.get)
+            # print(lPerfs)
+            # print("CROSTON_OPTIMIZED_ALPHA" , self.mAlpha)
+            return
+    
     def croston(self, df, horizon_index = 1):
+        alpha =  self.mAlpha
+        method = self.mOptions.mCrostonOptions.mMethod
+        df = self.compute_forecast(df, alpha , method , horizon_index)
+        return df
+
+    def compute_forecast(self, df, alpha, method, horizon_index = 1):
         # print(df.shape)
         # print(df.columns)
         # print(df[['Date', 'Signal', '_Signal', 'row_number', '_Signal_ConstantTrend_residue_zeroCycle_residue']].tail(12))
-        alpha =  self.mOptions.mCrostonOptions.mAlpha
-        method = self.mOptions.mCrostonOptions.mMethod
         lCounts_df = df[[self.mTime, self.mCycleResidueName]].copy()
         counts = lCounts_df[self.mCycleResidueName] - self.mOffset
         counts = counts[:-(horizon_index)]
@@ -90,7 +122,9 @@ class cCroston_Model(tsar.cAbstractAR):
         series = self.mCycleResidueName; 
         self.mTime = self.mTimeInfo.mTime;
         self.mSignal = self.mTimeInfo.mSignal;
-        self.mOffset = self.mARFrame[self.mCycleResidueName].min()
+        lAREstimFrame = self.mSplit.getEstimPart(self.mARFrame)
+        self.mOffset = lAREstimFrame[self.mCycleResidueName].min()
+        self.estimate_alpha(lAREstimFrame)
         self.mFeatureSelector =  None;
         self.mInputNamesAfterSelection = self.mInputNames;
         self.mComplexity = 2
