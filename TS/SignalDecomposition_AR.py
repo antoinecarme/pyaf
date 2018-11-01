@@ -98,7 +98,7 @@ class cZeroAR(cAbstractAR):
         self.mARFrame[self.mOutName + '_residue'] = self.mARFrame[series];
                 
 
-    def transformDataset(self, df):
+    def transformDataset(self, df, horizon_index = 1):
         series = self.mCycleResidueName; 
         df[self.mOutName] = 0.0;
         target = df[series].values
@@ -255,6 +255,7 @@ class cAutoRegressiveEstimator:
     def estimate(self):
         from . import Keras_Models as tskeras
         from . import Scikit_Models as tsscikit
+        from . import Intermittent_Models as interm
 
         logger = tsutil.get_pyaf_logger();
         mARList = {}
@@ -311,6 +312,11 @@ class cAutoRegressiveEstimator:
                                                        self.mExogenousInfo);
                         self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lXGBX];
                         lNeedExogenous = True;
+                    if(self.mOptions.mActiveAutoRegressions['CROSTON']):
+                        lIsSignalIntermittent = interm.is_signal_intermittent(self.mCycleFrame[cycle_residue] , self.mOptions)
+                        if(lIsSignalIntermittent):
+                            lCroston = interm.cCroston_Model(cycle_residue, lLags)
+                            self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lCroston];
                 if(len(self.mARList[cycle_residue]) == 0):
                     self.mARList[cycle_residue] = [ cZeroAR(cycle_residue)];
                         

@@ -13,7 +13,6 @@ class cPerf:
     def __init__(self):
         self.mErrorStdDev = None;
         self.mErrorMean = None;
-        self.mMAE = None;
         self.mMAPE = None;
         self.mSMAPE = None;
         self.mMASE = None;
@@ -111,7 +110,6 @@ class cPerf:
         abs_error = abs(myerror)
         self.mErrorMean = np.mean(myerror)
         self.mErrorStdDev = np.std(myerror)        
-        self.mMAE = np.mean(abs_error)
         
         self.mL1 = np.mean(abs_error)
         self.mL2 = np.sqrt(np.mean(abs_error ** 2))
@@ -125,12 +123,12 @@ class cPerf:
         self.mName = name;
         
         self.mCount = signal.shape[0];
-        if(criterion == "L1"):
+        if(criterion == "L1" or criterion == "MAE"):
             myerror = (estimator.values - signal.values);
             abs_error = abs(myerror)
             self.mL1 = np.mean(abs_error)
             return self.mL1;
-        if(criterion == "L2"):
+        if(criterion == "L2" or criterion == "RMSE"):
             myerror = (estimator.values - signal.values);
             self.mL2 = np.sqrt(np.mean(myerror ** 2))
             return self.mL2;
@@ -140,11 +138,6 @@ class cPerf:
         if(criterion == "PEARSONR"):
             self.mPearsonR = self.compute_pearson_r(signal , estimator)
             return self.mPearsonR;
-        if(criterion == "MAE"):
-            myerror = (estimator.values - signal.values);
-            abs_error = abs(myerror)
-            self.mMAE = np.mean(abs_error)
-            return self.mAE;
         
         if(criterion == "MAPE"):
             self.compute_MAPE_SMAPE_MASE(signal , estimator);

@@ -135,7 +135,7 @@ class cTimeSeriesModel:
 
 
 
-    def forecastOneStepAhead(self , df , perf_mode = False):
+    def forecastOneStepAhead(self , df , horizon_index = 1, perf_mode = False):
         assert(self.mTime in df.columns)
         assert(self.mOriginalSignal in df.columns)
         lPrefix = self.mSignal + "_";
@@ -159,7 +159,7 @@ class cTimeSeriesModel:
         # df1.to_csv("after_cycle.csv");
         #print("Cycle update : " , df1.columns);
         # compute the AR componnet and its residue based on the cycle residue
-        df1 = self.mAR.transformDataset(df1);
+        df1 = self.mAR.transformDataset(df1, horizon_index);
         # df1.to_csv("after_ar.csv");
         #print("AR update : " , df1.columns);
         # compute the forecast and its residue (forecast = trend  + cycle + AR)
@@ -191,7 +191,7 @@ class cTimeSeriesModel:
 
     def forecast(self , df , iHorizon):
         N0 = df.shape[0];
-        df1 = self.forecastOneStepAhead(df)
+        df1 = self.forecastOneStepAhead(df, 1)
         lForecastColumnName = str(self.mOriginalSignal) + "_Forecast";
         for h in range(0 , iHorizon - 1):
             # print(df1.info());
@@ -201,7 +201,7 @@ class cTimeSeriesModel:
             lSignal = df1.loc[lPos , lForecastColumnName];
             df1.loc[lPos , self.mOriginalSignal] = lSignal;
             df1 = df1[[self.mTime , self.mOriginalSignal]];
-            df1 = self.forecastOneStepAhead(df1)
+            df1 = self.forecastOneStepAhead(df1 , h+2)
 
         assert((N0 + iHorizon) == df1.shape[0])
         N1 = df1.shape[0];

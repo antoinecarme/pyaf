@@ -105,7 +105,7 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
         # print("ESTIMATE_SCIKIT_MODEL_END" , self.mOutName);
 
 
-    def transformDataset(self, df):
+    def transformDataset(self, df, horizon_index = 1):
         series = self.mCycleResidueName; 
         if(self.mExogenousInfo is not None):
             df = self.mExogenousInfo.transformDataset(df);
