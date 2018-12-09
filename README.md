@@ -71,6 +71,7 @@ The following features are available :
       with time and signal columns).
         * PyAF uses a **machine learning approach** (The signal is cut into Estimation
       and validation parts, respectively, 80% and 20% of the signal).
+        * A [time-series cross-validation](https://github.com/antoinecarme/pyaf/issues/105) can also be used.
    2. Forecasting a time series model on a given **horizon** (forecast result is
       also pandas data-frame) and providing **prediction/confidence intervals** for
       the forecasts.
@@ -107,6 +108,10 @@ The following features are available :
       implemented.
    6. The modeling process is **customizable** and has a huge set of **options**. The
       default values of these options should however be OK to produce a reasonable quality model in a limited amount of time (a few minutes).
+      * These options give access to a full set of [signal transformations](https://github.com/antoinecarme/pyaf/blob/ba09233db42d43b9aa16b6151f00794193401841/TS/Options.py#L18) and [AR-like models](https://github.com/antoinecarme/pyaf/blob/ba09233db42d43b9aa16b6151f00794193401841/TS/Options.py#L37) that are not enabled by default.
+      * Gives rise to Logit , Fisher transformations as well as XGBoost and Support Vectort Regressions and Croston intermittent models, among others.
+      * By default , PyAF uses a **fast mode** that activates many popular models. It is also possible to activate a **slow mode**, in which pyaf explores all possible models.
+      * Specific models and features can be customized.
    7. A **benchmarking process** is in place (using M1, M2, M3 competitions, NN3,
       NN5 forecasting competitions).
          * This process will be used to control the quality of modeling changes introduced in the future versions of PyAF. A  [related  github issue](https://github.com/antoinecarme/pyaf/issues/45) is created. 
@@ -127,10 +132,6 @@ The following features are available :
    10. A basic **RESTful Web Service** (Flask) is available.
        * This service allows building a time series model, forecasting future data and some standard plots by providing a minimal specification of the signal in the JSON request body (at least a link to a csv file containing the data).
        * See [this doc](WS/README.md) and the [related github issue](https://github.com/antoinecarme/pyaf/issues/20) for more details.
-   11. A project for **SQL generation** is started (using core **[SQLAlchemy](http://www.sqlalchemy.org/)** expressions). 
-        The goal is to be able to export the forecasts as a SQL
-        code to ease the **production mode**. SQLAlchemy provides **agnostic support of
-        a large set of databases**.
 
 PyAF is a work in progress. The set of features is evolving. Your feature
 requests, comments, help, hints are very welcome.
