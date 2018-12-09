@@ -125,9 +125,10 @@ The following features are available :
       * **Fully written in python** with numpy, scipy, pandas and scikit-learn
       objects. Tries to be **column-based** everywhere for performance reasons (respecting some modeling time and memory constraints).
       * Internally using a fit/predict pattern , inspired by scikit-learn, to estimate/forecast the different signal components (trends, cycles and AR models).
-      * A **test-driven approach** is used. Test scripts are available in the [tests](tests)
+      * A **test-driven approach (TDD)** is used. Test scripts are available in the [tests](tests)
       directory, one directory for each feature.
-      -Some **[jupyter notebooks](docs)** are available for demo purposes with standard time series and forecasts plots.
+      * **TDD** implies that even the most recent features have some sample scripts in this [directory](tests). Want to know how to use cross-validation with PyAF? here are [some scripts](tests/cross_validation).  
+      * Some **[jupyter notebooks](docs)** are available for demo purposes with standard time series and forecasts plots.
       * Very **simple API** for training and forecasting.
    10. A basic **RESTful Web Service** (Flask) is available.
        * This service allows building a time series model, forecasting future data and some standard plots by providing a minimal specification of the signal in the JSON request body (at least a link to a csv file containing the data).
