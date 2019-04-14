@@ -1,4 +1,13 @@
 
+def get_module_version_when_available(module_name):
+    try:
+        import importlib
+        mod = importlib.import_module(module_name)
+        return mod.__version__
+    except:
+        return "NOT_INSTALLED"
+    
+
 def getVersions():
         
     import os, platform
@@ -8,27 +17,12 @@ def getVersions():
     lVersionDict["system_processor"] = platform.processor();
     lVersionDict["python_implementation"] = platform.python_implementation();
     lVersionDict["python_version"] = platform.python_version();
-    
-    import sklearn
-    lVersionDict["sklearn_version"] = sklearn.__version__;
-    
-    import pandas as pd
-    lVersionDict["pandas_version"] = pd.__version__;
-    
-    import numpy as np
-    lVersionDict["numpy_version"] = np.__version__;
-    
-    import scipy as sc
-    lVersionDict["scipy_version"] = sc.__version__;
-    
-    import matplotlib
-    lVersionDict["matplotlib_version"] = matplotlib.__version__
 
-    import pydot
-    lVersionDict["pydot_version"] = pydot.__version__
+    lModules = ["sklearn", "pandas", "numpy" , "scipy" , "matplotlib", "pydot", "sqlalchemy" ,
+                "xgboost" , "keras", "pip" , "setuptools", "Cython"]
 
-    import sqlalchemy
-    lVersionDict["sqlalchemy_version"] = sqlalchemy.__version__
+    for module_name in lModules:
+        lVersionDict[module_name + "_version"] = get_module_version_when_available(module_name)
     
     # print([(k, lVersionDict[k]) for k in sorted(lVersionDict)]);
     return lVersionDict;
