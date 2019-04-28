@@ -39,7 +39,7 @@ class cAbstract_RNN_Model(tsar.cAbstractAR):
         series = self.mCycleResidueName; 
         self.mTime = self.mTimeInfo.mTime;
         self.mSignal = self.mTimeInfo.mSignal;
-        lAREstimFrame = self.mTimeInfo.getEstimPart(self.mARFrame)
+        lAREstimFrame = self.mSplit.getEstimPart(self.mARFrame)
 
         # print("ESTIMATE_RNN_MODEL_STEP2" , self.mOutName);
 
@@ -96,7 +96,7 @@ class cAbstract_RNN_Model(tsar.cAbstractAR):
         # print("ESTIMATE_RNN_MODEL_END" , self.mOutName, self.mModel.__dict__);
         # self.testPickle_old();
 
-    def transformDataset(self, df):
+    def transformDataset(self, df, horizon_index = 1):
         series = self.mCycleResidueName; 
         if(self.mExogenousInfo is not None):
             df = self.mExogenousInfo.transformDataset(df);
