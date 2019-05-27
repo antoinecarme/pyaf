@@ -92,7 +92,7 @@ The following features are available :
       are estimated using scikit-learn linear regression models.
       * Standard performance measures are used (L1, RMSE, MAPE, etc)
    4. PyAF analyzes the **time variable** and infers the frequency from the data.
-      * Strange frequencies like every 3.2 days or every 17 minutes are supported if data are recorded accordingly (every other monday => two weeks frequency).
+      * Strange frequencies like every 3.2 days or every 17 minutes are supported if data are recorded accordingly (every other Monday => two weeks frequency).
       * The frequency is computed as the mean duration between consecutive observations by default (as a [pandas DateOffset](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.tseries.offsets.DateOffset.html)).
       * The frequency is used to generate values for future dates automatically.
       * PyAF does its best when dates are not regularly observed. Time frequency is approximate is this case.
