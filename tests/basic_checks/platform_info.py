@@ -38,3 +38,6 @@ import os
 lDict = os.environ
 for k in sorted(lDict.keys()):
     print("PYAF_SYSTEM_DEPENDENT_ENVIRONMENT_VARIABLE" , (k , lDict[k]))
+
+import sys
+assert sys.version_info >= (3, 5)
