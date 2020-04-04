@@ -4,7 +4,7 @@ from setuptools import find_packages
 import os
 import glob
 setup(name='pyaf',
-      version='1.1',
+      version='1.2',
       description='Python Automatic Forecasting',
       author='Antoine CARME',
       author_email='antoine.carme@laposte.net',
