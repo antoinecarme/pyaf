@@ -12,7 +12,7 @@ def generate_all():
         filename = "tests/expsmooth/expsmooth_dataset_" + name + ".py";
         file = open(filename, "w");
         print("WRTITING_FILE" , filename);
-        file.write("import pyaf.tests.expsmooth.expsmooth_dataset_test as exps\n\n");
+        file.write("import tests.expsmooth.expsmooth_dataset_test as exps\n\n");
         file.write("exps.analyze_dataset(\"" + csv  + "\" , " +  str(2) + ");\n\n");
         file.write("exps.analyze_dataset(\"" + csv  + "\" , " +  str(4) + ");\n\n");
         file.write("exps.analyze_dataset(\"" + csv  + "\" , " +  str(8) + ");\n\n");

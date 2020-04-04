@@ -199,7 +199,7 @@ def add_some_noise(x , p , min_sig, max_sig, e , f):
 
 
 def gen_trend(N , trendtype):
-    lTrend = pd.Series();
+    lTrend = pd.Series(dtype='float64');
     a = (2 * np.random.random() - 1);
     b = (2 * np.random.random() - 1);
     c = (2 * np.random.random() - 1);
@@ -217,7 +217,7 @@ def gen_trend(N , trendtype):
     return lTrend;
 
 def gen_cycle(N , cycle_length):
-    lCycle = pd.Series();
+    lCycle = pd.Series(dtype='float64');
     if(cycle_length > 0):
         lCycle = np.arange(0,N) % cycle_length;
         lValues = np.random.randint(0, cycle_length, size=(cycle_length, 1)) /cycle_length;
@@ -227,7 +227,7 @@ def gen_cycle(N , cycle_length):
     return lCycle;
     
 def gen_ar(N , ar_order):
-    lAR = pd.Series();
+    lAR = pd.Series(dtype='float64');
     if(ar_order > 0):
         lSig = pd.Series(np.arange(0, N) / N);
         lAR = 0;

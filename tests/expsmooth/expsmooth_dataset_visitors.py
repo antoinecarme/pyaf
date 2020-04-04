@@ -1,4 +1,4 @@
-import pyaf.tests.expsmooth.expsmooth_dataset_test as exps
+import tests.expsmooth.expsmooth_dataset_test as exps
 
 exps.analyze_dataset("visitors.csv" , 2);
 
