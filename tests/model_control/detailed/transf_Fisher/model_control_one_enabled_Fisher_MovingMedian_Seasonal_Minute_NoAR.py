@@ -1,4 +1,4 @@
-import pyaf.tests.model_control.test_ozone_custom_models_enabled as testmod
+import tests.model_control.test_ozone_custom_models_enabled as testmod
 
 
 testmod.build_model( ['Fisher'] , ['MovingMedian'] , ['Seasonal_Minute'] , ['NoAR'] );

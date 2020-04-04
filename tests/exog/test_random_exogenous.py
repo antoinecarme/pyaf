@@ -19,8 +19,9 @@ def test_random_exogenous(n , nbex):
         # /etc/mysql/mysql.conf.d/mysqld.cnf
 
         # #df.to_csv("outputs/rand_exogenous.csv")
-    
-        H = b1.mHorizon;
+
+        print(b1)
+        H = b1.mHorizon[b1.mSignalVar];
     
         N = df.shape[0];
         df1 = df.head(n).copy();

@@ -1,4 +1,4 @@
-import pyaf.tests.heroku.build_generic_heroku_model as builder
+import tests.heroku.build_generic_heroku_model as builder
 
 # this is a copy-paste from the API post data
 lDict = {

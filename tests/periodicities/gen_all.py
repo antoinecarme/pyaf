@@ -16,7 +16,7 @@ def gen_file(cyc , freq, nbrows):
     filename = lDir + "/Cycle_" + str(freq[1]) + "_" +str(nbrows) + "_" + str(freq[0]) + "_" + str(cyc) + ".py";
     file = open(filename, "w");
     print("WRTITING_FILE" , filename);
-    file.write("import pyaf.tests.periodicities.period_test as per\n\n");
+    file.write("import tests.periodicities.period_test as per\n\n");
     file.write("per.buildModel((" + str(cyc) + " , '" + str(freq[0]) + "' , " + str(nbrows) + "));\n\n");
     file.close();
     

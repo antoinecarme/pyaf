@@ -1,4 +1,4 @@
-import pyaf.tests.periodicities.period_test as per
+import tests.periodicities.period_test as per
 
 per.buildModel((15 , 'H' , 1600));
 
