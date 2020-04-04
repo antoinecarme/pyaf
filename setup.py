@@ -1,11 +1,10 @@
 from setuptools import setup
 from setuptools import find_packages
 
-from shutil import copyfile, rmtree
 import os
 import glob
 setup(name='pyaf',
-      version='1.0',
+      version='1.1',
       description='Python Automatic Forecasting',
       author='Antoine CARME',
       author_email='antoine.carme@laposte.net',
