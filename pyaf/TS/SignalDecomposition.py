@@ -146,8 +146,8 @@ class cSignalDecompositionOneTransform:
             # print("FINISHED_PERF_FOR_MODEL" , res.mName);
             lModels[res.mName] = res.mModel;
         
-        # pool.close()
-        # pool.join()
+        pool.close()
+        pool.join()
         return lModels;
             
 
@@ -430,8 +430,8 @@ class cSignalDecompositionTrainer:
         for res in pool.imap(run_transform_thread, args):
             # print("FINISHED_TRAINING" , res.mName);
             self.mSigDecByTransform[res.mTransformation.get_name("")] = res.mSigDec;
-        # pool.close()
-        # pool.join()
+        pool.close()
+        pool.join()
         
 	
         
