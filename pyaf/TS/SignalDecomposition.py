@@ -148,6 +148,7 @@ class cSignalDecompositionOneTransform:
         
         pool.close()
         pool.join()
+        pool.clear()
         return lModels;
             
 
@@ -432,8 +433,7 @@ class cSignalDecompositionTrainer:
             self.mSigDecByTransform[res.mTransformation.get_name("")] = res.mSigDec;
         pool.close()
         pool.join()
-        
-	
+        pool.clear()        
         
     def train_not_threaded(self , iInputDS, iTime, iSignal, iHorizon):
         self.defineTransformations(iInputDS, iTime, iSignal);
