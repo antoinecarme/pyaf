@@ -2,7 +2,7 @@ from setuptools import setup
 from setuptools import find_packages
 
 setup(name='pyaf',
-      version='1.2.2',
+      version='1.2.3',
       description='Python Automatic Forecasting',
       author='Antoine CARME',
       author_email='antoine.carme@laposte.net',
