@@ -29,10 +29,10 @@ INFO:pyaf.std:collectPerformanceIndices : MAPE None RelDiff_Ozone RelativeDiffer
 INFO:pyaf.std:collectPerformanceIndices : MAPE None RelDiff_Ozone RelativeDifference_PolyTrend_Cycle_NoAR 56 47541752.6548
 INFO:pyaf.std:collectPerformanceIndices : MAPE None RelDiff_Ozone RelativeDifference_PolyTrend_NoCycle_AR 86 24525015.6551
 INFO:pyaf.std:collectPerformanceIndices : MAPE None RelDiff_Ozone RelativeDifference_PolyTrend_NoCycle_NoAR 48 53955112.5074
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 2.7998552322387695
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 2.2382991313934326
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01T00:00:00.000000 TimeMax=1967-09-01T00:00:00.000000 TimeDelta=<DateOffset: months=1> Horizon=12
-INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Min=1.2 Max=8.7  Mean=3.83578431373 StdDev=1.49155921594
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='RelDiff_Ozone' Min=-0.9999998125 Max=10.0  Mean=0.201269462545 StdDev=1.02611383151
+INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Min=1.2 Max=8.7  Mean=3.8357843137254903 StdDev=1.4915592159401185
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='RelDiff_Ozone' Min=-0.9999998124999999 Max=9.99999999999999  Mean=0.20126946254526706 StdDev=1.0261138315148053
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'RelDiff_'
 INFO:pyaf.std:BEST_DECOMPOSITION  'RelDiff_Ozone_Lag1Trend_residue_zeroCycle_residue_NoAR' [Lag1Trend + NoCycle + NoAR]
 INFO:pyaf.std:TREND_DETAIL 'RelDiff_Ozone_Lag1Trend' [Lag1Trend]
@@ -41,25 +41,25 @@ INFO:pyaf.std:AUTOREG_DETAIL 'RelDiff_Ozone_Lag1Trend_residue_zeroCycle_residue_
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.2381 MAPE_Forecast=0.2778 MAPE_Test=0.2132
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.2248 SMAPE_Forecast=0.2555 SMAPE_Test=0.2072
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.9935 MASE_Forecast=1.0305 MASE_Test=1.0048
-INFO:pyaf.std:MODEL_L1 L1_Fit=0.873202614379 L1_Forecast=0.8 L1_Test=0.475
-INFO:pyaf.std:MODEL_L2 L2_Fit=1.16574193043 L2_Forecast=0.965826336781 L2_Test=0.573730482602
+INFO:pyaf.std:MODEL_L1 L1_Fit=0.8732026143790851 L1_Forecast=0.7999999999999998 L1_Test=0.4749999999999999
+INFO:pyaf.std:MODEL_L2 L2_Fit=1.1657419304314367 L2_Forecast=0.9658263367813654 L2_Test=0.5737304826019501
 INFO:pyaf.std:MODEL_COMPLEXITY 64
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_PLOTTING
-INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 6.722745895385742
+INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 4.454216003417969
 INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.732515811920166
-  Split Transformation   ...    TestMAPE TestMASE
-0  None  RelDiff_Ozone   ...      0.2132   1.0048
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.2335948944091797
+  Split Transformation  ... TestMAPE TestMASE
+0  None  RelDiff_Ozone  ...   0.2132   1.0048
 
 [1 rows x 20 columns]
-  Split Transformation     ...       TestMAPE    TestMASE
-0  None  RelDiff_Ozone     ...         0.2132      1.0048
-1  None  RelDiff_Ozone     ...         2.5846     14.4481
-2  None  RelDiff_Ozone     ...         2.5846     14.4481
-3  None  RelDiff_Ozone     ...       301.0833   1742.7537
-4  None  RelDiff_Ozone     ...      3356.5723  17236.8680
+  Split Transformation  ...   TestMAPE    TestMASE
+0  None  RelDiff_Ozone  ...     0.2132      1.0048
+1  None  RelDiff_Ozone  ...     2.5846     14.4481
+2  None  RelDiff_Ozone  ...     2.5846     14.4481
+3  None  RelDiff_Ozone  ...   301.0833   1742.7537
+4  None  RelDiff_Ozone  ...  3356.5723  17236.8680
 
 [5 rows x 20 columns]
 Forecast Columns  Index(['Time', 'Ozone', 'RelDiff_Ozone', 'row_number', 'Time_Normalized',
@@ -78,11 +78,13 @@ Forecast Columns  Index(['Time', 'Ozone', 'RelDiff_Ozone', 'row_number', 'Time_N
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 216 entries, 0 to 215
 Data columns (total 3 columns):
-Time              216 non-null datetime64[ns]
-Ozone             204 non-null float64
-Ozone_Forecast    216 non-null float64
+ #   Column          Non-Null Count  Dtype         
+---  ------          --------------  -----         
+ 0   Time            216 non-null    datetime64[ns]
+ 1   Ozone           204 non-null    float64       
+ 2   Ozone_Forecast  216 non-null    float64       
 dtypes: datetime64[ns](1), float64(2)
-memory usage: 5.1 KB
+memory usage: 5.2 KB
 None
 Forecasts
            Time  Ozone  Ozone_Forecast
@@ -123,10 +125,10 @@ Forecasts
     },
     "Model_Performance": {
         "COMPLEXITY": "64",
-        "MAE": "0.8",
+        "MAE": "0.7999999999999998",
         "MAPE": "0.2778",
         "MASE": "1.0305",
-        "RMSE": "0.965826336781"
+        "RMSE": "0.9658263367813654"
     }
 }
 </ModelInfo>
@@ -139,5 +141,3 @@ Forecasts
 </Forecast>
 
 
-/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/scipy/stats/stats.py:3010: RuntimeWarning: invalid value encountered in double_scalars
-  r = r_num / r_den

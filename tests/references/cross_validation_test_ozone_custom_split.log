@@ -69,10 +69,10 @@ INFO:pyaf.std:collectPerformanceIndices : MAPE (0.2, 0.2, 0.0) CumSum_Ozone Inte
 INFO:pyaf.std:collectPerformanceIndices : MAPE (0.2, 0.2, 0.0) CumSum_Ozone Integration_PolyTrend_Cycle_NoAR 56 2.7853
 INFO:pyaf.std:collectPerformanceIndices : MAPE (0.2, 0.2, 0.0) CumSum_Ozone Integration_PolyTrend_NoCycle_AR 58 0.3303
 INFO:pyaf.std:collectPerformanceIndices : MAPE (0.2, 0.2, 0.0) CumSum_Ozone Integration_PolyTrend_NoCycle_NoAR 48 2.7889
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 4.692502021789551
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 4.2650465965271
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01T00:00:00.000000 TimeMax=1958-04-01T00:00:00.000000 TimeDelta=<DateOffset: months=1> Horizon=12
-INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Min=1.2 Max=8.7  Mean=3.83578431373 StdDev=1.49155921594
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Ozone' Min=1.2 Max=8.7  Mean=3.83578431373 StdDev=1.49155921594
+INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Min=1.2 Max=8.7  Mean=3.8357843137254903 StdDev=1.4915592159401185
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Ozone' Min=1.2 Max=8.7  Mean=3.8357843137254903 StdDev=1.4915592159401185
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
 INFO:pyaf.std:BEST_DECOMPOSITION  '_Ozone_Lag1Trend_residue_zeroCycle_residue_NoAR' [Lag1Trend + NoCycle + NoAR]
 INFO:pyaf.std:TREND_DETAIL '_Ozone_Lag1Trend' [Lag1Trend]
@@ -81,16 +81,117 @@ INFO:pyaf.std:AUTOREG_DETAIL '_Ozone_Lag1Trend_residue_zeroCycle_residue_NoAR' [
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.2337 MAPE_Forecast=0.1989 MAPE_Test=None
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.2189 SMAPE_Forecast=0.1942 SMAPE_Test=None
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.975 MASE_Forecast=0.9782 MASE_Test=None
-INFO:pyaf.std:MODEL_L1 L1_Fit=1.0875 L1_Forecast=0.755 L1_Test=None
-INFO:pyaf.std:MODEL_L2 L2_Fit=1.4409198451 L2_Forecast=1.03004854255 L2_Test=None
+INFO:pyaf.std:MODEL_L1 L1_Fit=1.0875 L1_Forecast=0.7549999999999999 L1_Test=None
+INFO:pyaf.std:MODEL_L2 L2_Fit=1.440919845098956 L2_Forecast=1.030048542545447 L2_Test=None
 INFO:pyaf.std:MODEL_COMPLEXITY 32
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_PLOTTING
-INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 6.730942964553833
+INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 4.41087532043457
 INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.727924108505249
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.19264745712280273
 INFO:pyaf.std:START_TRAINING 'Ozone'
+             Split Transformation  ... TestMAPE TestMASE
+0  (0.2, 0.2, 0.0)         _Ozone  ...     None     None
+4  (0.2, 0.2, 0.0)         _Ozone  ...     None     None
+1  (0.2, 0.2, 0.0)   CumSum_Ozone  ...     None     None
+2  (0.2, 0.2, 0.0)     Diff_Ozone  ...     None     None
+3  (0.2, 0.2, 0.0)  RelDiff_Ozone  ...     None     None
+
+[5 rows x 20 columns]
+             Split Transformation  ... TestMAPE TestMASE
+0  (0.2, 0.2, 0.0)         _Ozone  ...     None     None
+1  (0.2, 0.2, 0.0)   CumSum_Ozone  ...     None     None
+2  (0.2, 0.2, 0.0)     Diff_Ozone  ...     None     None
+3  (0.2, 0.2, 0.0)  RelDiff_Ozone  ...     None     None
+4  (0.2, 0.2, 0.0)         _Ozone  ...     None     None
+
+[5 rows x 20 columns]
+5
+Forecast Columns  Index(['Time', 'Ozone', '_Ozone', 'row_number', 'Time_Normalized',
+       '_Ozone_Lag1Trend', '_Ozone_Lag1Trend_residue',
+       '_Ozone_Lag1Trend_residue_zeroCycle',
+       '_Ozone_Lag1Trend_residue_zeroCycle_residue',
+       '_Ozone_Lag1Trend_residue_zeroCycle_residue_NoAR',
+       '_Ozone_Lag1Trend_residue_zeroCycle_residue_NoAR_residue',
+       '_Ozone_Trend', '_Ozone_Trend_residue', '_Ozone_Cycle',
+       '_Ozone_Cycle_residue', '_Ozone_AR', '_Ozone_AR_residue',
+       '_Ozone_TransformedForecast', 'Ozone_Forecast',
+       '_Ozone_TransformedResidue', 'Ozone_Residue',
+       'Ozone_Forecast_Lower_Bound', 'Ozone_Forecast_Upper_Bound'],
+      dtype='object')
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 216 entries, 0 to 215
+Data columns (total 3 columns):
+ #   Column          Non-Null Count  Dtype         
+---  ------          --------------  -----         
+ 0   Time            216 non-null    datetime64[ns]
+ 1   Ozone           204 non-null    float64       
+ 2   Ozone_Forecast  216 non-null    float64       
+dtypes: datetime64[ns](1), float64(2)
+memory usage: 5.2 KB
+None
+Forecasts
+           Time  Ozone  Ozone_Forecast
+204 1972-01-01    NaN             1.2
+205 1972-02-01    NaN             1.2
+206 1972-03-01    NaN             1.2
+207 1972-04-01    NaN             1.2
+208 1972-05-01    NaN             1.2
+209 1972-06-01    NaN             1.2
+210 1972-07-01    NaN             1.2
+211 1972-08-01    NaN             1.2
+212 1972-09-01    NaN             1.2
+213 1972-10-01    NaN             1.2
+214 1972-11-01    NaN             1.2
+215 1972-12-01    NaN             1.2
+
+
+<ModelInfo>
+{
+    "Dataset": {
+        "Signal": "Ozone",
+        "Time": {
+            "Horizon": 12,
+            "TimeMinMax": [
+                "1955-01-01 00:00:00",
+                "1971-12-01 00:00:00"
+            ],
+            "TimeVariable": "Time"
+        },
+        "Training_Signal_Length": 204
+    },
+    "Model": {
+        "AR_Model": "NoAR",
+        "Best_Decomposition": "_Ozone_Lag1Trend_residue_zeroCycle_residue_NoAR",
+        "Cycle": "NoCycle",
+        "Signal_Transoformation": "NoTransf",
+        "Trend": "Lag1Trend"
+    },
+    "Model_Performance": {
+        "COMPLEXITY": "32",
+        "MAE": "0.7549999999999999",
+        "MAPE": "0.1989",
+        "MASE": "0.9782",
+        "RMSE": "1.030048542545447"
+    }
+}
+</ModelInfo>
+
+
+
+
+<Forecast>
+{"Time":{"192":"1971-01-01T00:00:00.000Z","193":"1971-02-01T00:00:00.000Z","194":"1971-03-01T00:00:00.000Z","195":"1971-04-01T00:00:00.000Z","196":"1971-05-01T00:00:00.000Z","197":"1971-06-01T00:00:00.000Z","198":"1971-07-01T00:00:00.000Z","199":"1971-08-01T00:00:00.000Z","200":"1971-09-01T00:00:00.000Z","201":"1971-10-01T00:00:00.000Z","202":"1971-11-01T00:00:00.000Z","203":"1971-12-01T00:00:00.000Z","204":"1972-01-01T00:00:00.000Z","205":"1972-02-01T00:00:00.000Z","206":"1972-03-01T00:00:00.000Z","207":"1972-04-01T00:00:00.000Z","208":"1972-05-01T00:00:00.000Z","209":"1972-06-01T00:00:00.000Z","210":"1972-07-01T00:00:00.000Z","211":"1972-08-01T00:00:00.000Z","212":"1972-09-01T00:00:00.000Z","213":"1972-10-01T00:00:00.000Z","214":"1972-11-01T00:00:00.000Z","215":"1972-12-01T00:00:00.000Z"},"Ozone":{"192":1.8,"193":2.0,"194":2.2,"195":3.0,"196":2.4,"197":3.5,"198":3.5,"199":3.3,"200":2.7,"201":2.5,"202":1.6,"203":1.2,"204":null,"205":null,"206":null,"207":null,"208":null,"209":null,"210":null,"211":null,"212":null,"213":null,"214":null,"215":null},"Ozone_Forecast":{"192":1.3,"193":1.8,"194":2.0,"195":2.2,"196":3.0,"197":2.4,"198":3.5,"199":3.5,"200":3.3,"201":2.7,"202":2.5,"203":1.6,"204":1.2,"205":1.2,"206":1.2,"207":1.2,"208":1.2,"209":1.2,"210":1.2,"211":1.2,"212":1.2,"213":1.2,"214":1.2,"215":1.2}}
+</Forecast>
+
+
+     Month  Ozone       Time
+0  1955-01    2.7 1955-01-01
+1  1955-02    2.0 1955-02-01
+2  1955-03    3.6 1955-03-01
+3  1955-04    5.0 1955-04-01
+4  1955-05    6.5 1955-05-01
 INFO:pyaf.std:collectPerformanceIndices : MAPE (0.4, 0.2, 0.0) _Ozone NoTransf_ConstantTrend_Cycle_AR 28 0.2568
 INFO:pyaf.std:collectPerformanceIndices : MAPE (0.4, 0.2, 0.0) _Ozone NoTransf_ConstantTrend_Cycle_NoAR 8 0.4564
 INFO:pyaf.std:collectPerformanceIndices : MAPE (0.4, 0.2, 0.0) _Ozone NoTransf_ConstantTrend_NoCycle_AR 20 0.2906
@@ -155,10 +256,10 @@ INFO:pyaf.std:collectPerformanceIndices : MAPE (0.4, 0.2, 0.0) CumSum_Ozone Inte
 INFO:pyaf.std:collectPerformanceIndices : MAPE (0.4, 0.2, 0.0) CumSum_Ozone Integration_PolyTrend_Cycle_NoAR 56 1.5366
 INFO:pyaf.std:collectPerformanceIndices : MAPE (0.4, 0.2, 0.0) CumSum_Ozone Integration_PolyTrend_NoCycle_AR 68 0.3759
 INFO:pyaf.std:collectPerformanceIndices : MAPE (0.4, 0.2, 0.0) CumSum_Ozone Integration_PolyTrend_NoCycle_NoAR 48 1.5403
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 5.224452018737793
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 4.84723162651062
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01T00:00:00.000000 TimeMax=1961-09-01T00:00:00.000000 TimeDelta=<DateOffset: months=1> Horizon=12
-INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Min=1.2 Max=8.7  Mean=3.83578431373 StdDev=1.49155921594
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Ozone' Min=1.2 Max=8.7  Mean=3.83578431373 StdDev=1.49155921594
+INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Min=1.2 Max=8.7  Mean=3.8357843137254903 StdDev=1.4915592159401185
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Ozone' Min=1.2 Max=8.7  Mean=3.8357843137254903 StdDev=1.4915592159401185
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
 INFO:pyaf.std:BEST_DECOMPOSITION  '_Ozone_LinearTrend_residue_zeroCycle_residue_AR(51)' [LinearTrend + NoCycle + AR]
 INFO:pyaf.std:TREND_DETAIL '_Ozone_LinearTrend' [LinearTrend]
@@ -167,134 +268,36 @@ INFO:pyaf.std:AUTOREG_DETAIL '_Ozone_LinearTrend_residue_zeroCycle_residue_AR(51
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.1621 MAPE_Forecast=0.1965 MAPE_Test=None
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.1516 SMAPE_Forecast=0.193 SMAPE_Test=None
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7508 MASE_Forecast=0.7861 MASE_Test=None
-INFO:pyaf.std:MODEL_L1 L1_Fit=0.694449795566 L1_Forecast=0.61680386133 L1_Test=None
-INFO:pyaf.std:MODEL_L2 L2_Fit=0.926642220359 L2_Forecast=0.758724874583 L2_Test=None
+INFO:pyaf.std:MODEL_L1 L1_Fit=0.6944497955657216 L1_Forecast=0.6168038613298956 L1_Test=None
+INFO:pyaf.std:MODEL_L2 L2_Fit=0.926642220358621 L2_Forecast=0.7587248745833638 L2_Test=None
 INFO:pyaf.std:MODEL_COMPLEXITY 36
 INFO:pyaf.std:AR_MODEL_DETAIL_START
-INFO:pyaf.std:AR_MODEL_COEFF 1 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag1 0.521270531957
-INFO:pyaf.std:AR_MODEL_COEFF 2 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag29 -0.298312804794
-INFO:pyaf.std:AR_MODEL_COEFF 3 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag10 0.228297567668
-INFO:pyaf.std:AR_MODEL_COEFF 4 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag12 0.215992939771
-INFO:pyaf.std:AR_MODEL_COEFF 5 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag30 0.206168056486
-INFO:pyaf.std:AR_MODEL_COEFF 6 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag41 0.169287060124
-INFO:pyaf.std:AR_MODEL_COEFF 7 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag13 -0.150822198667
-INFO:pyaf.std:AR_MODEL_COEFF 8 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag7 -0.120032346688
-INFO:pyaf.std:AR_MODEL_COEFF 9 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag23 0.106696151903
-INFO:pyaf.std:AR_MODEL_COEFF 10 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag5 -0.0951602356934
+INFO:pyaf.std:AR_MODEL_COEFF 1 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag1 0.521270531956657
+INFO:pyaf.std:AR_MODEL_COEFF 2 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag29 -0.2983128047937673
+INFO:pyaf.std:AR_MODEL_COEFF 3 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag10 0.22829756766807321
+INFO:pyaf.std:AR_MODEL_COEFF 4 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag12 0.21599293977050021
+INFO:pyaf.std:AR_MODEL_COEFF 5 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag30 0.20616805648555356
+INFO:pyaf.std:AR_MODEL_COEFF 6 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag41 0.16928706012438155
+INFO:pyaf.std:AR_MODEL_COEFF 7 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag13 -0.15082219866656765
+INFO:pyaf.std:AR_MODEL_COEFF 8 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag7 -0.12003234668768703
+INFO:pyaf.std:AR_MODEL_COEFF 9 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag23 0.1066961519031369
+INFO:pyaf.std:AR_MODEL_COEFF 10 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag5 -0.09516023569337206
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_PLOTTING
-INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 7.123750925064087
+INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 4.705373764038086
 INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.9832134246826172
-             Split Transformation   ...    TestMAPE TestMASE
-0  (0.2, 0.2, 0.0)         _Ozone   ...        None     None
-4  (0.2, 0.2, 0.0)         _Ozone   ...        None     None
-1  (0.2, 0.2, 0.0)   CumSum_Ozone   ...        None     None
-2  (0.2, 0.2, 0.0)     Diff_Ozone   ...        None     None
-3  (0.2, 0.2, 0.0)  RelDiff_Ozone   ...        None     None
-
-[5 rows x 20 columns]
-             Split Transformation   ...    TestMAPE TestMASE
-0  (0.2, 0.2, 0.0)         _Ozone   ...        None     None
-1  (0.2, 0.2, 0.0)   CumSum_Ozone   ...        None     None
-2  (0.2, 0.2, 0.0)     Diff_Ozone   ...        None     None
-3  (0.2, 0.2, 0.0)  RelDiff_Ozone   ...        None     None
-4  (0.2, 0.2, 0.0)         _Ozone   ...        None     None
-
-[5 rows x 20 columns]
-5
-Forecast Columns  Index(['Time', 'Ozone', '_Ozone', 'row_number', 'Time_Normalized',
-       '_Ozone_Lag1Trend', '_Ozone_Lag1Trend_residue',
-       '_Ozone_Lag1Trend_residue_zeroCycle',
-       '_Ozone_Lag1Trend_residue_zeroCycle_residue',
-       '_Ozone_Lag1Trend_residue_zeroCycle_residue_NoAR',
-       '_Ozone_Lag1Trend_residue_zeroCycle_residue_NoAR_residue',
-       '_Ozone_Trend', '_Ozone_Trend_residue', '_Ozone_Cycle',
-       '_Ozone_Cycle_residue', '_Ozone_AR', '_Ozone_AR_residue',
-       '_Ozone_TransformedForecast', 'Ozone_Forecast',
-       '_Ozone_TransformedResidue', 'Ozone_Residue',
-       'Ozone_Forecast_Lower_Bound', 'Ozone_Forecast_Upper_Bound'],
-      dtype='object')
-<class 'pandas.core.frame.DataFrame'>
-RangeIndex: 216 entries, 0 to 215
-Data columns (total 3 columns):
-Time              216 non-null datetime64[ns]
-Ozone             204 non-null float64
-Ozone_Forecast    216 non-null float64
-dtypes: datetime64[ns](1), float64(2)
-memory usage: 5.1 KB
-None
-Forecasts
-           Time  Ozone  Ozone_Forecast
-204 1972-01-01    NaN             1.2
-205 1972-02-01    NaN             1.2
-206 1972-03-01    NaN             1.2
-207 1972-04-01    NaN             1.2
-208 1972-05-01    NaN             1.2
-209 1972-06-01    NaN             1.2
-210 1972-07-01    NaN             1.2
-211 1972-08-01    NaN             1.2
-212 1972-09-01    NaN             1.2
-213 1972-10-01    NaN             1.2
-214 1972-11-01    NaN             1.2
-215 1972-12-01    NaN             1.2
-
-
-<ModelInfo>
-{
-    "Dataset": {
-        "Signal": "Ozone",
-        "Time": {
-            "Horizon": 12,
-            "TimeMinMax": [
-                "1955-01-01 00:00:00",
-                "1971-12-01 00:00:00"
-            ],
-            "TimeVariable": "Time"
-        },
-        "Training_Signal_Length": 204
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "_Ozone_Lag1Trend_residue_zeroCycle_residue_NoAR",
-        "Cycle": "NoCycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "Lag1Trend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "32",
-        "MAE": "0.755",
-        "MAPE": "0.1989",
-        "MASE": "0.9782",
-        "RMSE": "1.03004854255"
-    }
-}
-</ModelInfo>
-
-
-
-
-<Forecast>
-{"Time":{"192":"1971-01-01T00:00:00.000Z","193":"1971-02-01T00:00:00.000Z","194":"1971-03-01T00:00:00.000Z","195":"1971-04-01T00:00:00.000Z","196":"1971-05-01T00:00:00.000Z","197":"1971-06-01T00:00:00.000Z","198":"1971-07-01T00:00:00.000Z","199":"1971-08-01T00:00:00.000Z","200":"1971-09-01T00:00:00.000Z","201":"1971-10-01T00:00:00.000Z","202":"1971-11-01T00:00:00.000Z","203":"1971-12-01T00:00:00.000Z","204":"1972-01-01T00:00:00.000Z","205":"1972-02-01T00:00:00.000Z","206":"1972-03-01T00:00:00.000Z","207":"1972-04-01T00:00:00.000Z","208":"1972-05-01T00:00:00.000Z","209":"1972-06-01T00:00:00.000Z","210":"1972-07-01T00:00:00.000Z","211":"1972-08-01T00:00:00.000Z","212":"1972-09-01T00:00:00.000Z","213":"1972-10-01T00:00:00.000Z","214":"1972-11-01T00:00:00.000Z","215":"1972-12-01T00:00:00.000Z"},"Ozone":{"192":1.8,"193":2.0,"194":2.2,"195":3.0,"196":2.4,"197":3.5,"198":3.5,"199":3.3,"200":2.7,"201":2.5,"202":1.6,"203":1.2,"204":null,"205":null,"206":null,"207":null,"208":null,"209":null,"210":null,"211":null,"212":null,"213":null,"214":null,"215":null},"Ozone_Forecast":{"192":1.3,"193":1.8,"194":2.0,"195":2.2,"196":3.0,"197":2.4,"198":3.5,"199":3.5,"200":3.3,"201":2.7,"202":2.5,"203":1.6,"204":1.2,"205":1.2,"206":1.2,"207":1.2,"208":1.2,"209":1.2,"210":1.2,"211":1.2,"212":1.2,"213":1.2,"214":1.2,"215":1.2}}
-</Forecast>
-
-
-     Month  Ozone       Time
-0  1955-01    2.7 1955-01-01
-1  1955-02    2.0 1955-02-01
-2  1955-03    3.6 1955-03-01
-3  1955-04    5.0 1955-04-01
-4  1955-05    6.5 1955-05-01
-             Split Transformation   ...    TestMAPE TestMASE
-0  (0.4, 0.2, 0.0)         _Ozone   ...        None     None
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.4376380443572998
+INFO:pyaf.std:START_TRAINING 'Ozone'
+             Split Transformation  ... TestMAPE TestMASE
+0  (0.4, 0.2, 0.0)         _Ozone  ...     None     None
 
 [1 rows x 20 columns]
-             Split Transformation   ...    TestMAPE TestMASE
-0  (0.4, 0.2, 0.0)         _Ozone   ...        None     None
-1  (0.4, 0.2, 0.0)         _Ozone   ...        None     None
-2  (0.4, 0.2, 0.0)         _Ozone   ...        None     None
-3  (0.4, 0.2, 0.0)         _Ozone   ...        None     None
-4  (0.4, 0.2, 0.0)     Diff_Ozone   ...        None     None
+             Split Transformation  ... TestMAPE TestMASE
+0  (0.4, 0.2, 0.0)         _Ozone  ...     None     None
+1  (0.4, 0.2, 0.0)         _Ozone  ...     None     None
+2  (0.4, 0.2, 0.0)         _Ozone  ...     None     None
+3  (0.4, 0.2, 0.0)         _Ozone  ...     None     None
+4  (0.4, 0.2, 0.0)     Diff_Ozone  ...     None     None
 
 [5 rows x 20 columns]
 5
@@ -313,11 +316,13 @@ Forecast Columns  Index(['Time', 'Ozone', '_Ozone', 'row_number', 'Time_Normaliz
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 216 entries, 0 to 215
 Data columns (total 3 columns):
-Time              216 non-null datetime64[ns]
-Ozone             204 non-null float64
-Ozone_Forecast    216 non-null float64
+ #   Column          Non-Null Count  Dtype         
+---  ------          --------------  -----         
+ 0   Time            216 non-null    datetime64[ns]
+ 1   Ozone           204 non-null    float64       
+ 2   Ozone_Forecast  216 non-null    float64       
 dtypes: datetime64[ns](1), float64(2)
-memory usage: 5.1 KB
+memory usage: 5.2 KB
 None
 Forecasts
            Time  Ozone  Ozone_Forecast
@@ -358,10 +363,10 @@ Forecasts
     },
     "Model_Performance": {
         "COMPLEXITY": "36",
-        "MAE": "0.61680386133",
+        "MAE": "0.6168038613298956",
         "MAPE": "0.1965",
         "MASE": "0.7861",
-        "RMSE": "0.758724874583"
+        "RMSE": "0.7587248745833638"
     }
 }
 </ModelInfo>
@@ -370,7 +375,16 @@ Forecasts
 
 
 <Forecast>
-{"Time":{"192":"1971-01-01T00:00:00.000Z","193":"1971-02-01T00:00:00.000Z","194":"1971-03-01T00:00:00.000Z","195":"1971-04-01T00:00:00.000Z","196":"1971-05-01T00:00:00.000Z","197":"1971-06-01T00:00:00.000Z","198":"1971-07-01T00:00:00.000Z","199":"1971-08-01T00:00:00.000Z","200":"1971-09-01T00:00:00.000Z","201":"1971-10-01T00:00:00.000Z","202":"1971-11-01T00:00:00.000Z","203":"1971-12-01T00:00:00.000Z","204":"1972-01-01T00:00:00.000Z","205":"1972-02-01T00:00:00.000Z","206":"1972-03-01T00:00:00.000Z","207":"1972-04-01T00:00:00.000Z","208":"1972-05-01T00:00:00.000Z","209":"1972-06-01T00:00:00.000Z","210":"1972-07-01T00:00:00.000Z","211":"1972-08-01T00:00:00.000Z","212":"1972-09-01T00:00:00.000Z","213":"1972-10-01T00:00:00.000Z","214":"1972-11-01T00:00:00.000Z","215":"1972-12-01T00:00:00.000Z"},"Ozone":{"192":1.8,"193":2.0,"194":2.2,"195":3.0,"196":2.4,"197":3.5,"198":3.5,"199":3.3,"200":2.7,"201":2.5,"202":1.6,"203":1.2,"204":null,"205":null,"206":null,"207":null,"208":null,"209":null,"210":null,"211":null,"212":null,"213":null,"214":null,"215":null},"Ozone_Forecast":{"192":0.8177870311,"193":0.9335066333,"194":1.9656940238,"195":1.5870601531,"196":2.6161552563,"197":2.37585982,"198":3.5305417191,"199":2.5511717876,"200":2.148475864,"201":1.1758001519,"202":1.3746940765,"203":0.8704251887,"204":0.2323413404,"205":0.8196924543,"206":0.5597287829,"207":1.3360533972,"208":1.0502371969,"209":2.0115577582,"210":1.6461542711,"211":1.8429193325,"212":1.1313987102,"213":1.0365575253,"214":0.377936536,"215":0.1052178431}}INFO:pyaf.std:START_TRAINING 'Ozone'
+{"Time":{"192":"1971-01-01T00:00:00.000Z","193":"1971-02-01T00:00:00.000Z","194":"1971-03-01T00:00:00.000Z","195":"1971-04-01T00:00:00.000Z","196":"1971-05-01T00:00:00.000Z","197":"1971-06-01T00:00:00.000Z","198":"1971-07-01T00:00:00.000Z","199":"1971-08-01T00:00:00.000Z","200":"1971-09-01T00:00:00.000Z","201":"1971-10-01T00:00:00.000Z","202":"1971-11-01T00:00:00.000Z","203":"1971-12-01T00:00:00.000Z","204":"1972-01-01T00:00:00.000Z","205":"1972-02-01T00:00:00.000Z","206":"1972-03-01T00:00:00.000Z","207":"1972-04-01T00:00:00.000Z","208":"1972-05-01T00:00:00.000Z","209":"1972-06-01T00:00:00.000Z","210":"1972-07-01T00:00:00.000Z","211":"1972-08-01T00:00:00.000Z","212":"1972-09-01T00:00:00.000Z","213":"1972-10-01T00:00:00.000Z","214":"1972-11-01T00:00:00.000Z","215":"1972-12-01T00:00:00.000Z"},"Ozone":{"192":1.8,"193":2.0,"194":2.2,"195":3.0,"196":2.4,"197":3.5,"198":3.5,"199":3.3,"200":2.7,"201":2.5,"202":1.6,"203":1.2,"204":null,"205":null,"206":null,"207":null,"208":null,"209":null,"210":null,"211":null,"212":null,"213":null,"214":null,"215":null},"Ozone_Forecast":{"192":0.8177870311,"193":0.9335066333,"194":1.9656940238,"195":1.5870601531,"196":2.6161552563,"197":2.37585982,"198":3.5305417191,"199":2.5511717876,"200":2.148475864,"201":1.1758001519,"202":1.3746940765,"203":0.8704251887,"204":0.2323413404,"205":0.8196924543,"206":0.5597287829,"207":1.3360533972,"208":1.0502371969,"209":2.0115577582,"210":1.6461542711,"211":1.8429193325,"212":1.1313987102,"213":1.0365575253,"214":0.377936536,"215":0.1052178431}}
+</Forecast>
+
+
+     Month  Ozone       Time
+0  1955-01    2.7 1955-01-01
+1  1955-02    2.0 1955-02-01
+2  1955-03    3.6 1955-03-01
+3  1955-04    5.0 1955-04-01
+4  1955-05    6.5 1955-05-01
 INFO:pyaf.std:collectPerformanceIndices : MAPE (0.6000000000000001, 0.2, 0.0) _Ozone NoTransf_ConstantTrend_Seasonal_MonthOfYear_AR 34 0.2206
 INFO:pyaf.std:collectPerformanceIndices : MAPE (0.6000000000000001, 0.2, 0.0) _Ozone NoTransf_ConstantTrend_Seasonal_MonthOfYear_NoAR 4 0.2774
 INFO:pyaf.std:collectPerformanceIndices : MAPE (0.6000000000000001, 0.2, 0.0) _Ozone NoTransf_ConstantTrend_Cycle_AR 38 0.2206
@@ -467,10 +481,10 @@ INFO:pyaf.std:collectPerformanceIndices : MAPE (0.6000000000000001, 0.2, 0.0) Cu
 INFO:pyaf.std:collectPerformanceIndices : MAPE (0.6000000000000001, 0.2, 0.0) CumSum_Ozone Integration_PolyTrend_Cycle_NoAR 56 0.8404
 INFO:pyaf.std:collectPerformanceIndices : MAPE (0.6000000000000001, 0.2, 0.0) CumSum_Ozone Integration_PolyTrend_NoCycle_AR 78 0.3163
 INFO:pyaf.std:collectPerformanceIndices : MAPE (0.6000000000000001, 0.2, 0.0) CumSum_Ozone Integration_PolyTrend_NoCycle_NoAR 48 0.7022
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 6.6897666454315186
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 6.58503794670105
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01T00:00:00.000000 TimeMax=1965-02-01T00:00:00.000000 TimeDelta=<DateOffset: months=1> Horizon=12
-INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Min=1.2 Max=8.7  Mean=3.83578431373 StdDev=1.49155921594
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='Diff_Ozone' Min=-4.3 Max=3.5  Mean=-0.00735294117647 StdDev=1.10311273176
+INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Min=1.2 Max=8.7  Mean=3.8357843137254903 StdDev=1.4915592159401185
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='Diff_Ozone' Min=-4.299999999999999 Max=3.5  Mean=-0.007352941176470595 StdDev=1.103112731755888
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'Diff_'
 INFO:pyaf.std:BEST_DECOMPOSITION  'Diff_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_AR(51)' [ConstantTrend + Seasonal_MonthOfYear + AR]
 INFO:pyaf.std:TREND_DETAIL 'Diff_Ozone_ConstantTrend' [ConstantTrend]
@@ -479,26 +493,124 @@ INFO:pyaf.std:AUTOREG_DETAIL 'Diff_Ozone_ConstantTrend_residue_Seasonal_MonthOfY
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.2671 MAPE_Forecast=0.1849 MAPE_Test=None
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.2682 SMAPE_Forecast=0.1787 SMAPE_Test=None
 INFO:pyaf.std:MODEL_MASE MASE_Fit=1.1813 MASE_Forecast=0.6973 MASE_Test=None
-INFO:pyaf.std:MODEL_L1 L1_Fit=1.02898808911 L1_Forecast=0.625749419533 L1_Test=None
-INFO:pyaf.std:MODEL_L2 L2_Fit=1.33287574447 L2_Forecast=0.852364386328 L2_Test=None
+INFO:pyaf.std:MODEL_L1 L1_Fit=1.0289880891051233 L1_Forecast=0.625749419532576 L1_Test=None
+INFO:pyaf.std:MODEL_L2 L2_Fit=1.3328757444668373 L2_Forecast=0.8523643863284108 L2_Test=None
 INFO:pyaf.std:MODEL_COMPLEXITY 66
 INFO:pyaf.std:AR_MODEL_DETAIL_START
-INFO:pyaf.std:AR_MODEL_COEFF 1 Diff_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_Lag1 -0.347231179152
-INFO:pyaf.std:AR_MODEL_COEFF 2 Diff_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_Lag2 -0.235586405917
-INFO:pyaf.std:AR_MODEL_COEFF 3 Diff_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_Lag39 -0.17547574156
-INFO:pyaf.std:AR_MODEL_COEFF 4 Diff_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_Lag10 0.163119317414
-INFO:pyaf.std:AR_MODEL_COEFF 5 Diff_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_Lag6 0.137192243
-INFO:pyaf.std:AR_MODEL_COEFF 6 Diff_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_Lag27 0.136084975698
-INFO:pyaf.std:AR_MODEL_COEFF 7 Diff_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_Lag22 0.115538298797
-INFO:pyaf.std:AR_MODEL_COEFF 8 Diff_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_Lag15 -0.114072365272
-INFO:pyaf.std:AR_MODEL_COEFF 9 Diff_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_Lag4 0.106158116827
-INFO:pyaf.std:AR_MODEL_COEFF 10 Diff_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_Lag17 -0.103797984774
+INFO:pyaf.std:AR_MODEL_COEFF 1 Diff_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_Lag1 -0.3472311791517802
+INFO:pyaf.std:AR_MODEL_COEFF 2 Diff_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_Lag2 -0.23558640591675653
+INFO:pyaf.std:AR_MODEL_COEFF 3 Diff_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_Lag39 -0.1754757415604275
+INFO:pyaf.std:AR_MODEL_COEFF 4 Diff_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_Lag10 0.16311931741397756
+INFO:pyaf.std:AR_MODEL_COEFF 5 Diff_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_Lag6 0.13719224300047989
+INFO:pyaf.std:AR_MODEL_COEFF 6 Diff_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_Lag27 0.1360849756980127
+INFO:pyaf.std:AR_MODEL_COEFF 7 Diff_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_Lag22 0.11553829879662353
+INFO:pyaf.std:AR_MODEL_COEFF 8 Diff_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_Lag15 -0.11407236527160314
+INFO:pyaf.std:AR_MODEL_COEFF 9 Diff_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_Lag4 0.10615811682709422
+INFO:pyaf.std:AR_MODEL_COEFF 10 Diff_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_Lag17 -0.10379798477400162
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_PLOTTING
-INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 7.232232093811035
+INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 4.800672769546509
 INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 1.016465425491333
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.45615506172180176
 INFO:pyaf.std:START_TRAINING 'Ozone'
+                            Split Transformation  ... TestMAPE TestMASE
+0  (0.6000000000000001, 0.2, 0.0)     Diff_Ozone  ...     None     None
+1  (0.6000000000000001, 0.2, 0.0)     Diff_Ozone  ...     None     None
+
+[2 rows x 20 columns]
+                            Split Transformation  ... TestMAPE TestMASE
+0  (0.6000000000000001, 0.2, 0.0)     Diff_Ozone  ...     None     None
+1  (0.6000000000000001, 0.2, 0.0)     Diff_Ozone  ...     None     None
+2  (0.6000000000000001, 0.2, 0.0)         _Ozone  ...     None     None
+3  (0.6000000000000001, 0.2, 0.0)         _Ozone  ...     None     None
+4  (0.6000000000000001, 0.2, 0.0)         _Ozone  ...     None     None
+
+[5 rows x 20 columns]
+5
+Forecast Columns  Index(['Time', 'Ozone', 'Diff_Ozone', 'row_number', 'Time_Normalized',
+       'Diff_Ozone_ConstantTrend', 'Diff_Ozone_ConstantTrend_residue',
+       'Diff_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear',
+       'Diff_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue',
+       'Diff_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_AR(51)',
+       'Diff_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_AR(51)_residue',
+       'Diff_Ozone_Trend', 'Diff_Ozone_Trend_residue', 'Diff_Ozone_Cycle',
+       'Diff_Ozone_Cycle_residue', 'Diff_Ozone_AR', 'Diff_Ozone_AR_residue',
+       'Diff_Ozone_TransformedForecast', 'Ozone_Forecast',
+       'Diff_Ozone_TransformedResidue', 'Ozone_Residue',
+       'Ozone_Forecast_Lower_Bound', 'Ozone_Forecast_Upper_Bound'],
+      dtype='object')
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 216 entries, 0 to 215
+Data columns (total 3 columns):
+ #   Column          Non-Null Count  Dtype         
+---  ------          --------------  -----         
+ 0   Time            216 non-null    datetime64[ns]
+ 1   Ozone           204 non-null    float64       
+ 2   Ozone_Forecast  216 non-null    float64       
+dtypes: datetime64[ns](1), float64(2)
+memory usage: 5.2 KB
+None
+Forecasts
+           Time  Ozone  Ozone_Forecast
+204 1972-01-01    NaN        1.385589
+205 1972-02-01    NaN        1.936730
+206 1972-03-01    NaN        2.247489
+207 1972-04-01    NaN        2.300576
+208 1972-05-01    NaN        2.928478
+209 1972-06-01    NaN        3.783351
+210 1972-07-01    NaN        3.939321
+211 1972-08-01    NaN        3.730076
+212 1972-09-01    NaN        4.277110
+213 1972-10-01    NaN        3.478230
+214 1972-11-01    NaN        3.051165
+215 1972-12-01    NaN        2.228496
+
+
+<ModelInfo>
+{
+    "Dataset": {
+        "Signal": "Ozone",
+        "Time": {
+            "Horizon": 12,
+            "TimeMinMax": [
+                "1955-01-01 00:00:00",
+                "1971-12-01 00:00:00"
+            ],
+            "TimeVariable": "Time"
+        },
+        "Training_Signal_Length": 204
+    },
+    "Model": {
+        "AR_Model": "AR",
+        "Best_Decomposition": "Diff_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_AR(51)",
+        "Cycle": "Seasonal_MonthOfYear",
+        "Signal_Transoformation": "Difference",
+        "Trend": "ConstantTrend"
+    },
+    "Model_Performance": {
+        "COMPLEXITY": "66",
+        "MAE": "0.625749419532576",
+        "MAPE": "0.1849",
+        "MASE": "0.6973",
+        "RMSE": "0.8523643863284108"
+    }
+}
+</ModelInfo>
+
+
+
+
+<Forecast>
+{"Time":{"192":"1971-01-01T00:00:00.000Z","193":"1971-02-01T00:00:00.000Z","194":"1971-03-01T00:00:00.000Z","195":"1971-04-01T00:00:00.000Z","196":"1971-05-01T00:00:00.000Z","197":"1971-06-01T00:00:00.000Z","198":"1971-07-01T00:00:00.000Z","199":"1971-08-01T00:00:00.000Z","200":"1971-09-01T00:00:00.000Z","201":"1971-10-01T00:00:00.000Z","202":"1971-11-01T00:00:00.000Z","203":"1971-12-01T00:00:00.000Z","204":"1972-01-01T00:00:00.000Z","205":"1972-02-01T00:00:00.000Z","206":"1972-03-01T00:00:00.000Z","207":"1972-04-01T00:00:00.000Z","208":"1972-05-01T00:00:00.000Z","209":"1972-06-01T00:00:00.000Z","210":"1972-07-01T00:00:00.000Z","211":"1972-08-01T00:00:00.000Z","212":"1972-09-01T00:00:00.000Z","213":"1972-10-01T00:00:00.000Z","214":"1972-11-01T00:00:00.000Z","215":"1972-12-01T00:00:00.000Z"},"Ozone":{"192":1.8,"193":2.0,"194":2.2,"195":3.0,"196":2.4,"197":3.5,"198":3.5,"199":3.3,"200":2.7,"201":2.5,"202":1.6,"203":1.2,"204":null,"205":null,"206":null,"207":null,"208":null,"209":null,"210":null,"211":null,"212":null,"213":null,"214":null,"215":null},"Ozone_Forecast":{"192":1.660420297,"193":2.3340752493,"194":2.2690711924,"195":2.7031866266,"196":2.2189539284,"197":4.1689382655,"198":4.5583808066,"199":4.3746529187,"200":4.6382485386,"201":4.2786934801,"202":4.061952721,"203":2.4743298252,"204":1.3855893349,"205":1.9367302009,"206":2.247489359,"207":2.3005762319,"208":2.9284778454,"209":3.7833507354,"210":3.9393207579,"211":3.7300761019,"212":4.2771097315,"213":3.4782303048,"214":3.0511646704,"215":2.2284964721}}
+</Forecast>
+
+
+     Month  Ozone       Time
+0  1955-01    2.7 1955-01-01
+1  1955-02    2.0 1955-02-01
+2  1955-03    3.6 1955-03-01
+3  1955-04    5.0 1955-04-01
+4  1955-05    6.5 1955-05-01
 INFO:pyaf.std:collectPerformanceIndices : MAPE (0.8, 0.2, 0.0) _Ozone NoTransf_ConstantTrend_Seasonal_MonthOfYear_AR 44 0.2143
 INFO:pyaf.std:collectPerformanceIndices : MAPE (0.8, 0.2, 0.0) _Ozone NoTransf_ConstantTrend_Seasonal_MonthOfYear_NoAR 4 0.4655
 INFO:pyaf.std:collectPerformanceIndices : MAPE (0.8, 0.2, 0.0) _Ozone NoTransf_ConstantTrend_Cycle_AR 48 0.2143
@@ -595,10 +707,10 @@ INFO:pyaf.std:collectPerformanceIndices : MAPE (0.8, 0.2, 0.0) CumSum_Ozone Inte
 INFO:pyaf.std:collectPerformanceIndices : MAPE (0.8, 0.2, 0.0) CumSum_Ozone Integration_PolyTrend_Cycle_NoAR 56 0.8492
 INFO:pyaf.std:collectPerformanceIndices : MAPE (0.8, 0.2, 0.0) CumSum_Ozone Integration_PolyTrend_NoCycle_AR 88 0.352
 INFO:pyaf.std:collectPerformanceIndices : MAPE (0.8, 0.2, 0.0) CumSum_Ozone Integration_PolyTrend_NoCycle_NoAR 48 0.816
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 7.575283765792847
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 7.489307165145874
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01T00:00:00.000000 TimeMax=1968-07-01T00:00:00.000000 TimeDelta=<DateOffset: months=1> Horizon=12
-INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Min=1.2 Max=8.7  Mean=3.83578431373 StdDev=1.49155921594
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Ozone' Min=1.2 Max=8.7  Mean=3.83578431373 StdDev=1.49155921594
+INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Min=1.2 Max=8.7  Mean=3.8357843137254903 StdDev=1.4915592159401185
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Ozone' Min=1.2 Max=8.7  Mean=3.8357843137254903 StdDev=1.4915592159401185
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
 INFO:pyaf.std:BEST_DECOMPOSITION  '_Ozone_LinearTrend_residue_zeroCycle_residue_AR(51)' [LinearTrend + NoCycle + AR]
 INFO:pyaf.std:TREND_DETAIL '_Ozone_LinearTrend' [LinearTrend]
@@ -607,141 +719,35 @@ INFO:pyaf.std:AUTOREG_DETAIL '_Ozone_LinearTrend_residue_zeroCycle_residue_AR(51
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.1595 MAPE_Forecast=0.1536 MAPE_Test=None
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.1506 SMAPE_Forecast=0.1601 SMAPE_Test=None
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.6824 MASE_Forecast=0.6692 MASE_Test=None
-INFO:pyaf.std:MODEL_L1 L1_Fit=0.598133079361 L1_Forecast=0.470138680761 L1_Test=None
-INFO:pyaf.std:MODEL_L2 L2_Fit=0.803765511961 L2_Forecast=0.595528281173 L2_Test=None
+INFO:pyaf.std:MODEL_L1 L1_Fit=0.598133079360903 L1_Forecast=0.4701386807613671 L1_Test=None
+INFO:pyaf.std:MODEL_L2 L2_Fit=0.803765511961128 L2_Forecast=0.5955282811729463 L2_Test=None
 INFO:pyaf.std:MODEL_COMPLEXITY 56
 INFO:pyaf.std:AR_MODEL_DETAIL_START
-INFO:pyaf.std:AR_MODEL_COEFF 1 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag1 0.40986002307
-INFO:pyaf.std:AR_MODEL_COEFF 2 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag10 0.18675857679
-INFO:pyaf.std:AR_MODEL_COEFF 3 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag12 0.174477254535
-INFO:pyaf.std:AR_MODEL_COEFF 4 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag36 0.17161175652
-INFO:pyaf.std:AR_MODEL_COEFF 5 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag7 -0.163314865904
-INFO:pyaf.std:AR_MODEL_COEFF 6 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag30 0.149199088367
-INFO:pyaf.std:AR_MODEL_COEFF 7 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag20 -0.118478573045
-INFO:pyaf.std:AR_MODEL_COEFF 8 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag4 0.110570118636
-INFO:pyaf.std:AR_MODEL_COEFF 9 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag29 -0.104890066639
-INFO:pyaf.std:AR_MODEL_COEFF 10 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag35 -0.104362897821
+INFO:pyaf.std:AR_MODEL_COEFF 1 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag1 0.4098600230696514
+INFO:pyaf.std:AR_MODEL_COEFF 2 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag10 0.18675857678963093
+INFO:pyaf.std:AR_MODEL_COEFF 3 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag12 0.17447725453500862
+INFO:pyaf.std:AR_MODEL_COEFF 4 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag36 0.1716117565197735
+INFO:pyaf.std:AR_MODEL_COEFF 5 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag7 -0.16331486590362887
+INFO:pyaf.std:AR_MODEL_COEFF 6 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag30 0.14919908836674062
+INFO:pyaf.std:AR_MODEL_COEFF 7 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag20 -0.11847857304533725
+INFO:pyaf.std:AR_MODEL_COEFF 8 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag4 0.11057011863645645
+INFO:pyaf.std:AR_MODEL_COEFF 9 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag29 -0.1048900666387087
+INFO:pyaf.std:AR_MODEL_COEFF 10 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag35 -0.10436289782089132
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_PLOTTING
-INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 7.153332233428955
+INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 4.716173887252808
 INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 1.000828504562378
-
-</Forecast>
-
-
-     Month  Ozone       Time
-0  1955-01    2.7 1955-01-01
-1  1955-02    2.0 1955-02-01
-2  1955-03    3.6 1955-03-01
-3  1955-04    5.0 1955-04-01
-4  1955-05    6.5 1955-05-01
-                            Split Transformation   ...    TestMAPE TestMASE
-0  (0.6000000000000001, 0.2, 0.0)     Diff_Ozone   ...        None     None
-1  (0.6000000000000001, 0.2, 0.0)     Diff_Ozone   ...        None     None
-
-[2 rows x 20 columns]
-                            Split Transformation   ...    TestMAPE TestMASE
-0  (0.6000000000000001, 0.2, 0.0)     Diff_Ozone   ...        None     None
-1  (0.6000000000000001, 0.2, 0.0)     Diff_Ozone   ...        None     None
-2  (0.6000000000000001, 0.2, 0.0)         _Ozone   ...        None     None
-3  (0.6000000000000001, 0.2, 0.0)         _Ozone   ...        None     None
-4  (0.6000000000000001, 0.2, 0.0)         _Ozone   ...        None     None
-
-[5 rows x 20 columns]
-5
-Forecast Columns  Index(['Time', 'Ozone', 'Diff_Ozone', 'row_number', 'Time_Normalized',
-       'Diff_Ozone_ConstantTrend', 'Diff_Ozone_ConstantTrend_residue',
-       'Diff_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear',
-       'Diff_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue',
-       'Diff_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_AR(51)',
-       'Diff_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_AR(51)_residue',
-       'Diff_Ozone_Trend', 'Diff_Ozone_Trend_residue', 'Diff_Ozone_Cycle',
-       'Diff_Ozone_Cycle_residue', 'Diff_Ozone_AR', 'Diff_Ozone_AR_residue',
-       'Diff_Ozone_TransformedForecast', 'Ozone_Forecast',
-       'Diff_Ozone_TransformedResidue', 'Ozone_Residue',
-       'Ozone_Forecast_Lower_Bound', 'Ozone_Forecast_Upper_Bound'],
-      dtype='object')
-<class 'pandas.core.frame.DataFrame'>
-RangeIndex: 216 entries, 0 to 215
-Data columns (total 3 columns):
-Time              216 non-null datetime64[ns]
-Ozone             204 non-null float64
-Ozone_Forecast    216 non-null float64
-dtypes: datetime64[ns](1), float64(2)
-memory usage: 5.1 KB
-None
-Forecasts
-           Time  Ozone  Ozone_Forecast
-204 1972-01-01    NaN        1.385589
-205 1972-02-01    NaN        1.936730
-206 1972-03-01    NaN        2.247489
-207 1972-04-01    NaN        2.300576
-208 1972-05-01    NaN        2.928478
-209 1972-06-01    NaN        3.783351
-210 1972-07-01    NaN        3.939321
-211 1972-08-01    NaN        3.730076
-212 1972-09-01    NaN        4.277110
-213 1972-10-01    NaN        3.478230
-214 1972-11-01    NaN        3.051165
-215 1972-12-01    NaN        2.228496
-
-
-<ModelInfo>
-{
-    "Dataset": {
-        "Signal": "Ozone",
-        "Time": {
-            "Horizon": 12,
-            "TimeMinMax": [
-                "1955-01-01 00:00:00",
-                "1971-12-01 00:00:00"
-            ],
-            "TimeVariable": "Time"
-        },
-        "Training_Signal_Length": 204
-    },
-    "Model": {
-        "AR_Model": "AR",
-        "Best_Decomposition": "Diff_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_AR(51)",
-        "Cycle": "Seasonal_MonthOfYear",
-        "Signal_Transoformation": "Difference",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "66",
-        "MAE": "0.625749419533",
-        "MAPE": "0.1849",
-        "MASE": "0.6973",
-        "RMSE": "0.852364386328"
-    }
-}
-</ModelInfo>
-
-
-
-
-<Forecast>
-{"Time":{"192":"1971-01-01T00:00:00.000Z","193":"1971-02-01T00:00:00.000Z","194":"1971-03-01T00:00:00.000Z","195":"1971-04-01T00:00:00.000Z","196":"1971-05-01T00:00:00.000Z","197":"1971-06-01T00:00:00.000Z","198":"1971-07-01T00:00:00.000Z","199":"1971-08-01T00:00:00.000Z","200":"1971-09-01T00:00:00.000Z","201":"1971-10-01T00:00:00.000Z","202":"1971-11-01T00:00:00.000Z","203":"1971-12-01T00:00:00.000Z","204":"1972-01-01T00:00:00.000Z","205":"1972-02-01T00:00:00.000Z","206":"1972-03-01T00:00:00.000Z","207":"1972-04-01T00:00:00.000Z","208":"1972-05-01T00:00:00.000Z","209":"1972-06-01T00:00:00.000Z","210":"1972-07-01T00:00:00.000Z","211":"1972-08-01T00:00:00.000Z","212":"1972-09-01T00:00:00.000Z","213":"1972-10-01T00:00:00.000Z","214":"1972-11-01T00:00:00.000Z","215":"1972-12-01T00:00:00.000Z"},"Ozone":{"192":1.8,"193":2.0,"194":2.2,"195":3.0,"196":2.4,"197":3.5,"198":3.5,"199":3.3,"200":2.7,"201":2.5,"202":1.6,"203":1.2,"204":null,"205":null,"206":null,"207":null,"208":null,"209":null,"210":null,"211":null,"212":null,"213":null,"214":null,"215":null},"Ozone_Forecast":{"192":1.660420297,"193":2.3340752493,"194":2.2690711924,"195":2.7031866266,"196":2.2189539284,"197":4.1689382655,"198":4.5583808066,"199":4.3746529187,"200":4.6382485386,"201":4.2786934801,"202":4.061952721,"203":2.4743298252,"204":1.3855893349,"205":1.9367302009,"206":2.247489359,"207":2.3005762319,"208":2.9284778454,"209":3.7833507354,"210":3.9393207579,"211":3.7300761019,"212":4.2771097315,"213":3.4782303048,"214":3.0511646704,"215":2.2284964721}}
-</Forecast>
-
-
-     Month  Ozone       Time
-0  1955-01    2.7 1955-01-01
-1  1955-02    2.0 1955-02-01
-2  1955-03    3.6 1955-03-01
-3  1955-04    5.0 1955-04-01
-4  1955-05    6.5 1955-05-01
-             Split Transformation   ...    TestMAPE TestMASE
-0  (0.8, 0.2, 0.0)         _Ozone   ...        None     None
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.446002721786499
+             Split Transformation  ... TestMAPE TestMASE
+0  (0.8, 0.2, 0.0)         _Ozone  ...     None     None
 
 [1 rows x 20 columns]
-             Split Transformation   ...    TestMAPE TestMASE
-0  (0.8, 0.2, 0.0)         _Ozone   ...        None     None
-1  (0.8, 0.2, 0.0)         _Ozone   ...        None     None
-2  (0.8, 0.2, 0.0)     Diff_Ozone   ...        None     None
-3  (0.8, 0.2, 0.0)         _Ozone   ...        None     None
-4  (0.8, 0.2, 0.0)     Diff_Ozone   ...        None     None
+             Split Transformation  ... TestMAPE TestMASE
+0  (0.8, 0.2, 0.0)         _Ozone  ...     None     None
+1  (0.8, 0.2, 0.0)         _Ozone  ...     None     None
+2  (0.8, 0.2, 0.0)     Diff_Ozone  ...     None     None
+3  (0.8, 0.2, 0.0)         _Ozone  ...     None     None
+4  (0.8, 0.2, 0.0)     Diff_Ozone  ...     None     None
 
 [5 rows x 20 columns]
 5
@@ -760,11 +766,13 @@ Forecast Columns  Index(['Time', 'Ozone', '_Ozone', 'row_number', 'Time_Normaliz
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 216 entries, 0 to 215
 Data columns (total 3 columns):
-Time              216 non-null datetime64[ns]
-Ozone             204 non-null float64
-Ozone_Forecast    216 non-null float64
+ #   Column          Non-Null Count  Dtype         
+---  ------          --------------  -----         
+ 0   Time            216 non-null    datetime64[ns]
+ 1   Ozone           204 non-null    float64       
+ 2   Ozone_Forecast  216 non-null    float64       
 dtypes: datetime64[ns](1), float64(2)
-memory usage: 5.1 KB
+memory usage: 5.2 KB
 None
 Forecasts
            Time  Ozone  Ozone_Forecast
@@ -805,10 +813,10 @@ Forecasts
     },
     "Model_Performance": {
         "COMPLEXITY": "56",
-        "MAE": "0.470138680761",
+        "MAE": "0.4701386807613671",
         "MAPE": "0.1536",
         "MASE": "0.6692",
-        "RMSE": "0.595528281173"
+        "RMSE": "0.5955282811729463"
     }
 }
 </ModelInfo>
@@ -821,19 +829,3 @@ Forecasts
 </Forecast>
 
 
-/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/scipy/stats/stats.py:3010: RuntimeWarning: invalid value encountered in double_scalars
-  r = r_num / r_den
-/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/scipy/stats/stats.py:3010: RuntimeWarning: invalid value encountered in double_scalars
-  r = r_num / r_den
-/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/scipy/stats/stats.py:3010: RuntimeWarning: invalid value encountered in double_scalars
-  r = r_num / r_den
-/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/scipy/stats/stats.py:3010: RuntimeWarning: invalid value encountered in double_scalars
-  r = r_num / r_den
-/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/scipy/stats/stats.py:3010: RuntimeWarning: invalid value encountered in double_scalars
-  r = r_num / r_den
-/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/scipy/stats/stats.py:3010: RuntimeWarning: invalid value encountered in double_scalars
-  r = r_num / r_den
-/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/scipy/stats/stats.py:3010: RuntimeWarning: invalid value encountered in double_scalars
-  r = r_num / r_den
-/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/scipy/stats/stats.py:3010: RuntimeWarning: invalid value encountered in double_scalars
-  r = r_num / r_den
