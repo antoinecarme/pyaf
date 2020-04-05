@@ -1,9 +1,14 @@
 from setuptools import setup
 from setuptools import find_packages
 
+with open("README.md", "r") as fh:
+    pyaf_long_description = fh.read()
+    
 setup(name='pyaf',
-      version='1.2.3',
+      version='1.2.4',
       description='Python Automatic Forecasting',
+      long_description=pyaf_long_description,
+      long_description_content_type="text/markdown",
       author='Antoine CARME',
       author_email='antoine.carme@laposte.net',
       url='https://github.com/antoinecarme/pyaf',
