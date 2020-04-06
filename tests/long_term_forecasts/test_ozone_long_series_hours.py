@@ -10,8 +10,8 @@ from dateutil.relativedelta import relativedelta
 
 def addHours(iTime , iHours):
     lTime = iTime
-    date_after_week = lTime + relativedelta(hours=iHours)
-    return np.datetime64(date_after_week) 
+    date_after_hours = lTime + relativedelta(hours=iHours)
+    return np.datetime64(date_after_hours) 
 
 def replicate(df , K):
     N = df.shape[0];
