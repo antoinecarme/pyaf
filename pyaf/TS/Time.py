@@ -87,13 +87,19 @@ class cTimeInfo:
         self.checkDateAndSignalTypesForNewDataset(df);
         # new row
         lLastRow = df.tail(1).copy();
-        lLastRow[self.mTime] = self.nextTime(df, 1);
-        lLastRow[self.mSignal] = np.nan;
+        lNextTime = self.nextTime(df, 1)
+        lLastRow[self.mTime] = lNextTime
+        lLastRow[self.mSignal] = np.nan
+        if(self.mNormalizedTimeColumn in df.columns):
+            lLastRow[self.mNormalizedTimeColumn] = self.normalizeTime(lNextTime)
+            lLastRow[self.mRowNumberColumn] = lLastRow[self.mRowNumberColumn].max() + 1
         # print(lLastRow.columns ,  df.columns)
         assert(str(lLastRow.columns) == str(df.columns))
         df = df.append(lLastRow, ignore_index=True, verify_integrity = True, sort=False);        
-        df[self.mRowNumberColumn] = np.arange(0, df.shape[0]);
-        df[self.mNormalizedTimeColumn] = self.compute_normalize_date_column(df[self.mTime])
+        if(self.mNormalizedTimeColumn not in df.columns):
+            df[self.mRowNumberColumn] = np.arange(0, df.shape[0]);
+            df[self.mNormalizedTimeColumn] = self.compute_normalized_date_column(df[self.mTime])
+            
         # print(df.tail());
         return df;
 
@@ -228,14 +234,14 @@ class cTimeInfo:
         self.mEstimCount = lEstim.shape[0]
         # print(self.mTimeMin, self.mTimeMax , self.mTimeMinMaxDiff , (self.mTimeMax - self.mTimeMin)/self.mTimeMinMaxDiff)
         self.computeTimeDelta();
-        self.mSignalFrame[self.mNormalizedTimeColumn] = self.compute_normalize_date_column(self.mSignalFrame[self.mTime])
+        self.mSignalFrame[self.mNormalizedTimeColumn] = self.compute_normalized_date_column(self.mSignalFrame[self.mTime])
         self.dump();
 
     def dump(self):
         time_info = self.info(); 
         
 
-    def compute_normalize_date_column(self, idate_column):
+    def compute_normalized_date_column(self, idate_column):
         if(self.mEstimCount == 1):
             return 0.0;
         return idate_column.apply(self.normalizeTime)
