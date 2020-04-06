@@ -91,40 +91,50 @@ class cSeasonalPeriodic(cAbstractCycle):
         super().__init__(trend);
         self.mDatePart = date_part;
         self.mEncodedValueDict = {}
-        self.mFormula = "Seasonal_" + self.mDatePart;
+        self.mFormula = "Seasonal_" + self.mDatePart.name;
         self.mComplexity = 1;
         
         
     def getCycleName(self):
-        return self.mTrend_residue_name + "_Seasonal_" + self.mDatePart;
+        return self.mTrend_residue_name + "_Seasonal_" + self.mDatePart.name;
 
     def hasEnoughData(self, iTimeMin, iTimeMax):
         lTimeDelta = iTimeMax - iTimeMin;
         lDays = lTimeDelta / np.timedelta64(1,'D');
         lSeconds = lTimeDelta / np.timedelta64(1,'s');
-        if(self.mDatePart == "Hour"):
+        if(self.mDatePart == tsti.eDatePart.Hour):
             return (lDays >= 10);
-        if(self.mDatePart == "Minute"):
+        if(self.mDatePart == tsti.eDatePart.Minute):
             lHours = lSeconds // 3600;
             return (lHours >= 10);
-        if(self.mDatePart == "Second"):
+        if(self.mDatePart == tsti.eDatePart.Second):
             lMinutes = lSeconds // 60;
             return (lMinutes >= 10);
-        if(self.mDatePart == "DayOfMonth"):
+        if(self.mDatePart == tsti.eDatePart.DayOfMonth):
             lMonths = lDays // 30;
             return (lMonths >= 10);
-        if(self.mDatePart == "DayOfWeek"):
+        if(self.mDatePart == tsti.eDatePart.DayOfWeek):
             lWeeks = lDays // 7;
             return (lWeeks >= 10);
-        if(self.mDatePart == "MonthOfYear"):
+        if(self.mDatePart == tsti.eDatePart.MonthOfYear):
             lYears = lDays // 360;
             return (lYears >= 10);
-        if(self.mDatePart == "WeekOfYear"):
+        if(self.mDatePart == tsti.eDatePart.WeekOfYear):
             lYears = lDays // 360;
             return (lYears >= 10);
         
         return False;
 
+
+    def compute_target_means_by_cyle_value(self):
+        # we encode only using estimation
+        lCycleFrameEstim = self.mSplit.getEstimPart(self.mCycleFrame);
+        lTrendMeanEstim = lCycleFrameEstim[self.mTrend_residue_name].mean();
+        lGroupBy = lCycleFrameEstim.groupby(by=[self.getCycleName()] , sort=False)[self.mTrend_residue_name].mean(); 
+        self.mEncodedValueDict = lGroupBy.to_dict()
+        self.mDefaultValue = lTrendMeanEstim;
+        # print("cSeasonalPeriodic_DefaultValue" , self.getCycleName(), self.mDefaultValue);        
+    
     def fit(self):
         assert(self.mTimeInfo.isPhysicalTime());
         lHor = self.mTimeInfo.mHorizon;
@@ -133,17 +143,11 @@ class cSeasonalPeriodic(cAbstractCycle):
         self.mTimeInfo.addVars(self.mCycleFrame);
         lName = self.getCycleName();
         self.mCycleFrame[self.mTrend_residue_name] = self.mTrendFrame[self.mTrend_residue_name]
-        self.mCycleFrame[lName] = self.mTrendFrame[self.mTime].apply(self.get_date_part);
-        # we encode only using estimation
-        lCycleFrameEstim = self.mSplit.getEstimPart(self.mCycleFrame);
-        lTrendMeanEstim = lCycleFrameEstim[self.mTrend_residue_name].mean();
-        lGroupBy = lCycleFrameEstim.groupby(by=[lName] , sort=False)[self.mTrend_residue_name].mean(); 
-        self.mEncodedValueDict = lGroupBy.to_dict()
-        self.mDefaultValue = lTrendMeanEstim;
-        # print("cSeasonalPeriodic_DefaultValue" , self.getCycleName(), self.mDefaultValue);
+        self.mCycleFrame[lName] = self.mTimeInfo.apply_date_time_computer(self.mDatePart, self.mTrendFrame[self.mTime])
+        self.compute_target_means_by_cyle_value()
 
         self.mCycleFrame[lName + '_enc'] = self.mCycleFrame[lName].apply(lambda x : self.mEncodedValueDict.get(x , self.mDefaultValue))
-        self.mCycleFrame[lName + '_enc'].fillna(lTrendMeanEstim, inplace=True);
+        self.mCycleFrame[lName + '_enc'].fillna(self.mDefaultValue, inplace=True);
         self.mCycleFrame[self.getCycleResidueName()] = self.mCycleFrame[self.mTrend_residue_name] - self.mCycleFrame[lName + '_enc'];
         self.mCycleFrame[lName + '_NotEncoded'] = self.mCycleFrame[lName];
         self.mCycleFrame[lName] = self.mCycleFrame[lName + '_enc'];
@@ -151,22 +155,9 @@ class cSeasonalPeriodic(cAbstractCycle):
         self.mOutName = self.getCycleName()
         #print("encoding '" + lName + "' " + str(self.mEncodedValueDict));
 
-
-    @tsutil.cMemoize
-    def get_date_part(self, x):
-        lDatepartComputer = self.mTimeInfo.get_date_part_value_computer(self.mDatePart)
-        return lDatepartComputer(x)
-    
-
-    @tsutil.cMemoize
-    def get_date_part_encoding(self, x):
-        lDatepartComputer = self.mTimeInfo.get_date_part_value_computer(self.mDatePart)
-        dp = lDatepartComputer(x)
-        return self.mEncodedValueDict.get(dp , self.mDefaultValue)
-
     def transformDataset(self, df):
         target = df[self.mTrend_residue_name]
-        df[self.getCycleName()] = df[self.mTime].apply(self.get_date_part_encoding);
+        df[self.getCycleName()] = self.mTimeInfo.apply_date_time_computer(self.mDatePart, df[self.mTime])
         df[self.getCycleResidueName()] = target - df[self.getCycleName()].values        
         return df;
 
@@ -306,13 +297,13 @@ class cCycleEstimator:
                     cBestCycleForTrend(trend, self.mOptions.mCycle_Criterion)];
             if(self.mTimeInfo.isPhysicalTime()):
                 # The order used here is mandatory. see filterSeasonals before changing this order.
-                self.addSeasonal(trend, "MonthOfYear", tsti.cTimeInfo.sRES_MONTH);
-                self.addSeasonal(trend, "WeekOfYear", tsti.cTimeInfo.sRES_DAY);
-                self.addSeasonal(trend, "DayOfMonth", tsti.cTimeInfo.sRES_DAY);
-                self.addSeasonal(trend, "DayOfWeek", tsti.cTimeInfo.sRES_DAY);
-                self.addSeasonal(trend, "Hour", tsti.cTimeInfo.sRES_HOUR);
-                self.addSeasonal(trend, "Minute", tsti.cTimeInfo.sRES_MINUTE);
-                self.addSeasonal(trend, "Second", tsti.cTimeInfo.sRES_SECOND);
+                self.addSeasonal(trend, tsti.eDatePart.MonthOfYear, tsti.eTimeResolution.MONTH);
+                self.addSeasonal(trend, tsti.eDatePart.WeekOfYear, tsti.eTimeResolution.DAY);
+                self.addSeasonal(trend, tsti.eDatePart.DayOfMonth, tsti.eTimeResolution.DAY);
+                self.addSeasonal(trend, tsti.eDatePart.DayOfWeek, tsti.eTimeResolution.DAY);
+                self.addSeasonal(trend, tsti.eDatePart.Hour, tsti.eTimeResolution.HOUR);
+                self.addSeasonal(trend, tsti.eDatePart.Minute, tsti.eTimeResolution.MINUTE);
+                self.addSeasonal(trend, tsti.eDatePart.Second, tsti.eTimeResolution.SECOND);
 
                 
         for trend in self.mTrendList:
