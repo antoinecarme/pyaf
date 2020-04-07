@@ -133,8 +133,9 @@ class cSeasonalPeriodic(cAbstractCycle):
         lGroupBy = lCycleFrameEstim.groupby(by=[self.getCycleName()] , sort=False)[self.mTrend_residue_name].mean(); 
         self.mEncodedValueDict = lGroupBy.to_dict()
         self.mDefaultValue = lTrendMeanEstim;
-        # print("cSeasonalPeriodic_DefaultValue" , self.getCycleName(), self.mDefaultValue);        
-    
+        # print("cSeasonalPeriodic_DefaultValue" , self.getCycleName(), self.mDefaultValue, self.mEncodedValueDict);
+
+
     def fit(self):
         assert(self.mTimeInfo.isPhysicalTime());
         lHor = self.mTimeInfo.mHorizon;
@@ -157,7 +158,8 @@ class cSeasonalPeriodic(cAbstractCycle):
 
     def transformDataset(self, df):
         target = df[self.mTrend_residue_name]
-        df[self.getCycleName()] = self.mTimeInfo.apply_date_time_computer(self.mDatePart, df[self.mTime])
+        lDateParts = self.mTimeInfo.apply_date_time_computer(self.mDatePart, df[self.mTime])
+        df[self.getCycleName()] = lDateParts.apply(lambda x : self.mEncodedValueDict.get(x , self.mDefaultValue))
         df[self.getCycleResidueName()] = target - df[self.getCycleName()].values        
         return df;
 
@@ -301,6 +303,7 @@ class cCycleEstimator:
                 self.addSeasonal(trend, tsti.eDatePart.WeekOfYear, tsti.eTimeResolution.DAY);
                 self.addSeasonal(trend, tsti.eDatePart.DayOfMonth, tsti.eTimeResolution.DAY);
                 self.addSeasonal(trend, tsti.eDatePart.DayOfWeek, tsti.eTimeResolution.DAY);
+                self.addSeasonal(trend, tsti.eDatePart.DayOfYear, tsti.eTimeResolution.DAY);
                 self.addSeasonal(trend, tsti.eDatePart.Hour, tsti.eTimeResolution.HOUR);
                 self.addSeasonal(trend, tsti.eDatePart.Minute, tsti.eTimeResolution.MINUTE);
                 self.addSeasonal(trend, tsti.eDatePart.Second, tsti.eTimeResolution.SECOND);
