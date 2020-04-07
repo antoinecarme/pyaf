@@ -191,8 +191,8 @@ class cAutoRegressiveEstimator:
         logger = tsutil.get_pyaf_logger();
         self.mARFrame = pd.DataFrame();
         self.mTimeInfo.addVars(self.mARFrame);
-        self.mCycleFrame[cycle_residue] = self.mCycleFrame[cycle_residue].astype(np.float64)            
-        self.mARFrame[cycle_residue] = self.mCycleFrame[cycle_residue].astype(np.float64)            
+        # self.mCycleFrame[cycle_residue] = self.mCycleFrame[cycle_residue].astype(np.float64)            
+        self.mARFrame[cycle_residue] = self.mCycleFrame[cycle_residue] # .astype(np.float64)            
 
         self.mDefaultValues = {};
         self.mLagOrigins = {};

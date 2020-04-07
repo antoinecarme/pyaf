@@ -46,8 +46,11 @@ class cPredictionIntervalsEstimator:
             self.mTestPerformances[lHorizonName] = tsperf.cPerf();
             if(lOriginalTest.shape[0] > 0):
                 self.mTestPerformances[lHorizonName].compute(lOriginalTest[lSignalColumn], lFrameTest[lForecastColumn], lHorizonName);
-            df1 = df2[[lTimeColumn , lForecastColumn]];
-            df1.columns = [lTimeColumn , lSignalColumn]
+            df1 = df2[[lTimeColumn , lForecastColumn,
+                       self.mModel.mTimeInfo.mRowNumberColumn,
+                       self.mModel.mTimeInfo.mNormalizedTimeColumn]];
+            df1.columns = [lTimeColumn , lSignalColumn, self.mModel.mTimeInfo.mRowNumberColumn,
+                           self.mModel.mTimeInfo.mNormalizedTimeColumn]
         # self.dump_detailed();
 
     def dump_detailed(self):
