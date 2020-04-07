@@ -19,7 +19,7 @@ class eDatePart(IntEnum):
     DayOfMonth = 5
     MonthOfYear = 6
     WeekOfYear = 7
-    Year = 8
+    DayOfYear = 8
 
 class eTimeResolution(IntEnum):
     NONE = 0
@@ -125,6 +125,8 @@ class cTimeInfo:
             lOut = series.dt.dayofweek
         elif(iDatePart == eDatePart.DayOfMonth):
             lOut = series.dt.day
+        elif(iDatePart == eDatePart.DayOfYear):
+            lOut = series.dt.dayofyear
         elif(iDatePart == eDatePart.MonthOfYear):
             lOut = series.dt.month
         elif(iDatePart == eDatePart.WeekOfYear):
