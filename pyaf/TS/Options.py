@@ -29,6 +29,7 @@ class cModelControl:
                                 'Seasonal_Hour' ,
                                 'Seasonal_DayOfWeek' ,
                                 'Seasonal_DayOfMonth',
+                                'Seasonal_DayOfYear',
                                 'Seasonal_WeekOfYear'];
 
         # "AutoRegression" becomes a little bit confusing as croston does not use lags (???)
