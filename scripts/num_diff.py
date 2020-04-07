@@ -1,6 +1,10 @@
 import numpy as np
 import sys
 
+gSkippedTags = ['_TIME_IN_SECONDS' , "PYAF_SYSTEM_DEPENDENT_",
+                "CreationDate" , "Training_Time" , "matplotlib.font_manager"]
+
+
 if(len(sys.argv) != 3):
     print("NUM_DIFF_ERROR_INVALID_ARGS" , sys.argv);
     sys.exit(-1)
@@ -39,12 +43,7 @@ def compare_words(word_orig, word_new):
 def compare_lines(line_orig, line_new):
     if(line_orig == line_new):
         return 0;
-    # if both lines contain 'TIME' , skip.
-    lSkippedTags = ['_TIME_IN_SECONDS' , "PYAF_SYSTEM_DEPENDENT_",
-                    "CreationDate" , "Training_Time"]
-    for tag in lSkippedTags:
-        if(tag in line_orig and tag in line_new):
-            return 0;
+
     import re
     lRegex  = '[\[?,:"{}\]\= \n\t]'
     split_orig = re.split(lRegex, line_orig)
@@ -76,9 +75,13 @@ def compare_files(file_orig, file_new):
     
     with open(file_orig) as f:
         content_orig = f.readlines()
+        for tag in gSkippedTags:
+            content_orig = [x for x in content_orig if tag not in x]
 
     with open(file_new) as f:
         content_new = f.readlines()
+        for tag in gSkippedTags:
+            content_new = [x for x in content_new if tag not in x]
 
     N_orig = len(content_orig)
     N_new = len(content_new)
