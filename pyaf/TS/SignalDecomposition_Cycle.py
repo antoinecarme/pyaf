@@ -79,6 +79,8 @@ class cZeroCycle(cAbstractCycle):
         self.mCycleFrame[self.getCycleName()] = np.zeros_like(self.mTrendFrame[self.mTrend_residue_name])
         self.mCycleFrame[self.getCycleResidueName()] = self.mCycleFrame[self.mTrend_residue_name];
         self.mOutName = self.getCycleName()
+        if(self.mOptions.mDebugPerformance or self.mOptions.mDebugCycles):
+            self.computePerf();
         
     def transformDataset(self, df):
         target = df[self.mTrend_residue_name]
@@ -126,7 +128,7 @@ class cSeasonalPeriodic(cAbstractCycle):
         return False;
 
 
-    def compute_target_means_by_cyle_value(self):
+    def compute_target_means_by_cycle_value(self):
         # we encode only using estimation
         lCycleFrameEstim = self.mSplit.getEstimPart(self.mCycleFrame);
         lTrendMeanEstim = lCycleFrameEstim[self.mTrend_residue_name].mean();
@@ -145,7 +147,7 @@ class cSeasonalPeriodic(cAbstractCycle):
         lName = self.getCycleName();
         self.mCycleFrame[self.mTrend_residue_name] = self.mTrendFrame[self.mTrend_residue_name]
         self.mCycleFrame[lName] = self.mTimeInfo.apply_date_time_computer(self.mDatePart, self.mTrendFrame[self.mTime])
-        self.compute_target_means_by_cyle_value()
+        self.compute_target_means_by_cycle_value()
 
         self.mCycleFrame[lName + '_enc'] = self.mCycleFrame[lName].apply(lambda x : self.mEncodedValueDict.get(x , self.mDefaultValue))
         self.mCycleFrame[lName + '_enc'].fillna(self.mDefaultValue, inplace=True);
@@ -175,7 +177,7 @@ class cBestCycleForTrend(cAbstractCycle):
         self.mFormula = "BestCycle"
         
     def getCycleName(self):
-        return self.mTrend_residue_name + "_bestCycle_by" + self.mCriterion;
+        return self.mTrend_residue_name + "_" + self.mFormula 
 
     def dumpCyclePerfs(self):
         print(self.mCyclePerfDict);
@@ -248,10 +250,10 @@ class cBestCycleForTrend(cAbstractCycle):
         self.mSignal = self.mTimeInfo.mSignal;
         self.generate_cycles();
         self.computeBestCycle();
-        self.mOutName = self.getCycleName()
         self.mFormula = "Cycle_None"
         if(self.mBestCycleLength is not None):
-            self.mFormula = "Cycle" #  + str(self.mBestCycleLength);
+            self.mFormula = "Cycle_" + str(self.mBestCycleLength);
+        self.mOutName = self.getCycleName()
         self.transformDataset(self.mCycleFrame);
 
     def transformDataset(self, df):
@@ -350,7 +352,7 @@ class cCycleEstimator:
             for cycle in self.mCycleList[trend]:
                 start_time = time.time()
                 cycle.fit();
-                if(self.mOptions.mDebugPerformance):
+                if(self.mOptions.mDebugPerformance  or self.mOptions.mDebugCycles):
                     cycle.computePerf();
                 self.dumpCyclePerf(cycle)
                 self.mCycleFrame[cycle.getCycleName()] = cycle.mCycleFrame[cycle.getCycleName()]
