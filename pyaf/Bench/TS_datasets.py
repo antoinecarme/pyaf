@@ -217,11 +217,13 @@ def gen_trend(N , trendtype):
     return lTrend;
 
 def gen_cycle(N , cycle_length):
+    print("gen_cycle" , (N , cycle_length))
     lCycle = pd.Series(dtype='float64');
     if(cycle_length > 0):
-        lCycle = np.arange(0,N) % cycle_length;
+        lCycle = pd.Series(np.arange(0,N) % cycle_length)
         lValues = np.random.randint(0, cycle_length, size=(cycle_length, 1)) /cycle_length;
-        lCycle = pd.Series(lCycle).apply(lambda x : lValues[int(x)][0]);
+        lValues = list(lValues.ravel())
+        lCycle = lCycle.apply(lambda x : lValues[x]);
     if(cycle_length == 0):
         lCycle = 0;
     return lCycle;
@@ -309,7 +311,8 @@ def generate_random_TS(N , FREQ, seed, trendtype, cycle_length, transform, sigma
 
     min_sig = df_train['Signal'].min();
     max_sig = df_train['Signal'].max();
-    # print(df_train.info())
+    print(df_train.info())
+    print(df_train.head())
     tsspec.mExogenousVariables = [];
     tsspec.mExogenousDataFrame = pd.DataFrame();
     tsspec.mExogenousDataFrame['Date'] = df_train['Date']
