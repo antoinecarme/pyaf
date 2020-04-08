@@ -76,7 +76,9 @@ def process_dataset_with_noise(idataset , model_type, sigma, debug=False):
         # lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
 
         lEngine2 = pickleModel(lEngine)
-        
+
+
+        print("ARTIFICIAL_DATASET_MODEL_TYPE" , model_type, lEngine.mSignalDecomposition.mBestModel.mOutName)
         dfapp_in = training_ds.copy();
         dfapp_in.tail()
 

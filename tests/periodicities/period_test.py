@@ -18,7 +18,7 @@ def buildModel(arg):
     (cyc , freq, nbrows) = arg
         
     print("TEST_CYCLES_START", nbrows, freq, cyc)
-    b1 = tsds.generate_random_TS(N = nbrows , FREQ = freq, seed = 0, trendtype = "constant", cycle_length = cyc, transform = "", sigma = 0.1, exog_count = 0);
+    b1 = tsds.generate_random_TS(N = nbrows , FREQ = freq, seed = 0, trendtype = "constant", cycle_length = cyc, transform = "None", sigma = 0.1, exog_count = 0);
     df = b1.mPastData[[b1.mTimeVar , b1.mSignalVar]].copy()
     lSignal = 'Signal_Cycle_' + str(nbrows) + "_" + str(freq) + "_" + str(cyc)
     df.columns = [b1.mTimeVar, lSignal]
