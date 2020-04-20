@@ -211,7 +211,7 @@ class cTimeSeriesModel:
                            self.mCycle.mOutName + '_residue', lPrefix + 'Cycle_residue',
                            self.mAR.mOutName + '_residue',  lPrefix + 'AR_residue',
                            lPrefix + 'TransformedResidue', str(self.mOriginalSignal) + '_Residue']
-        df1.loc[N1 - 1 - iHorizon : N1 - 1, lFieldsToErase] = np.nan
+        df1.loc[N1 -iHorizon : N1, lFieldsToErase] = np.nan
         # print(df.head())
         # print(df1.head())
         if(self.mTimeInfo.mOptions.mAddPredictionIntervals):
