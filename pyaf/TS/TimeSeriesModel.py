@@ -241,9 +241,14 @@ class cTimeSeriesModel:
         # the prediction intervals are only computed for the training horizon
         lHorizon = min(iHorizon , self.mTimeInfo.mHorizon);
         lWidths = [lConfidence * self.mPredictionIntervalsEstimator.mForecastPerformances[lForecastColumn + "_" + str(h + 1)].mL2
-                   for h in range(0 , lHorizon)]
-        iForecastFrame.loc[N:N+iHorizon, lLowerBoundName] = iForecastFrame.loc[N:N+iHorizon, lForecastColumn] - lWidths
-        iForecastFrame.loc[N:N+iHorizon, lUpperBoundName] = iForecastFrame.loc[N:N+iHorizon, lForecastColumn] + lWidths
+                   for h in range(0 , self.mTimeInfo.mHorizon)]
+        lWidths = (lWidths + [np.nan]*iHorizon)[:iHorizon]
+        lForcastValues = iForecastFrame.loc[N:N+iHorizon, lForecastColumn]
+        # print(lForcastValues.head(lHorizon))
+        # print(iHorizon, self.mTimeInfo.mHorizon, lHorizon, lForcastValues.shape)
+        # print(lWidths)
+        iForecastFrame.loc[N:N+iHorizon, lLowerBoundName] = lForcastValues - lWidths
+        iForecastFrame.loc[N:N+iHorizon, lUpperBoundName] = lForcastValues + lWidths
         return iForecastFrame;
 
 
