@@ -206,18 +206,12 @@ class cTimeSeriesModel:
         assert((N0 + iHorizon) == df1.shape[0])
         N1 = df1.shape[0];
         lPrefix = self.mSignal + "_";
-        for h in range(0 , iHorizon):
-            df1.loc[N1 - 1 - h, self.mSignal] = np.nan;
-            df1.loc[N1 - 1 - h, self.mOriginalSignal] = np.nan;
-            df1.loc[N1 - 1 - h, self.mTrend.mOutName + '_residue'] =  np.nan;
-            df1.loc[N1 - 1 - h, self.mCycle.mOutName + '_residue'] =  np.nan;
-            df1.loc[N1 - 1 - h, self.mAR.mOutName + '_residue'] =  np.nan;
-            df1.loc[N1 - 1 - h, lPrefix + 'Trend_residue'] =  np.nan;
-            df1.loc[N1 - 1 - h, lPrefix + 'Cycle_residue'] = np.nan;
-            df1.loc[N1 - 1 - h, lPrefix + 'AR_residue'] = np.nan;
-            df1.loc[N1 - 1 - h, str(self.mOriginalSignal) + '_Residue'] = np.nan;
-            df1.loc[N1 - 1 - h, lPrefix + 'TransformedResidue'] = np.nan;
-            pass
+        lFieldsToErase = [ self.mOriginalSignal, self.mSignal,
+                           self.mTrend.mOutName + '_residue', lPrefix + 'Trend_residue',
+                           self.mCycle.mOutName + '_residue', lPrefix + 'Cycle_residue',
+                           self.mAR.mOutName + '_residue',  lPrefix + 'AR_residue',
+                           lPrefix + 'TransformedResidue', str(self.mOriginalSignal) + '_Residue']
+        df1.loc[N1 - 1 - iHorizon : N1 - 1, lFieldsToErase] = np.nan
         # print(df.head())
         # print(df1.head())
         if(self.mTimeInfo.mOptions.mAddPredictionIntervals):
@@ -246,12 +240,10 @@ class cTimeSeriesModel:
         lConfidence = 1.96 ; # 0.95
         # the prediction intervals are only computed for the training horizon
         lHorizon = min(iHorizon , self.mTimeInfo.mHorizon);
-        for h in range(0 , lHorizon):
-            lHorizonName = lForecastColumn + "_" + str(h + 1);
-            lWidth = lConfidence * self.mPredictionIntervalsEstimator.mForecastPerformances[lHorizonName].mL2;
-            iForecastFrame.loc[N + h , lLowerBoundName] = iForecastFrame.loc[N + h , lForecastColumn] - lWidth;
-            iForecastFrame.loc[N + h , lUpperBoundName] = iForecastFrame.loc[N + h , lForecastColumn] + lWidth;
-            
+        lWidths = [lConfidence * self.mPredictionIntervalsEstimator.mForecastPerformances[lForecastColumn + "_" + str(h + 1)].mL2
+                   for h in range(0 , lHorizon)]
+        iForecastFrame.loc[N:N+iHorizon, lLowerBoundName] = iForecastFrame.loc[N:N+iHorizon, lForecastColumn] - lWidths
+        iForecastFrame.loc[N:N+iHorizon, lUpperBoundName] = iForecastFrame.loc[N:N+iHorizon, lForecastColumn] + lWidths
         return iForecastFrame;
 
 
