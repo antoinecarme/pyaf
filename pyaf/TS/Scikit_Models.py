@@ -117,8 +117,8 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
         # print(self.mInputNames);
         # print(self.mFormula, "\n", lag_df.columns);
         # lag_df.to_csv("LAGGED_ " + str(self.mNbLags) + ".csv");
-        inputs = lag_df[self.mInputNames].values
-        inputs_after_feat_selection = self.mFeatureSelector.transform(inputs) if self.mFeatureSelector else inputs;
+        inputs_after_feat_selection = lag_df[self.mInputNamesAfterSelection].values
+        # inputs_after_feat_selection = self.mFeatureSelector.transform(inputs) if self.mFeatureSelector else inputs;
         if(self.mScikitModel is not None):
             pred = self.mScikitModel.predict(inputs_after_feat_selection)
             df[self.mOutName] = pred;
