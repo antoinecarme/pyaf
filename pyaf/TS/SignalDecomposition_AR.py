@@ -73,7 +73,7 @@ class cAbstractAR:
         
     def generateLagsForForecast(self, df):
         lag_df = pd.DataFrame()
-        lag_df[self.mCycleResidueName] = df[self.mCycleResidueName]
+        lag_df[self.mCycleResidueName] = df[self.mCycleResidueName].reset_index(drop=True)
         for p in self.mLagsForSeries[self.mCycleResidueName]:
             # signal lags ... plain old AR model
             self.addLagForForecast(df, lag_df, self.mCycleResidueName, p);
