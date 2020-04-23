@@ -88,26 +88,11 @@ class cSignalDecompositionOneTransform:
         
         self.mTransformation = iTransformation;
         self.mTransformation.mOriginalSignal = iSignal; 
-
-        lMissingImputer = tsmiss.cMissingDataImputer()
-        lMissingImputer.mOptions = self.mOptions
-        lSignal = lMissingImputer.interpolate_signal_if_needed(iInputDS, iSignal)
-        lTime = lMissingImputer.interpolate_time_if_needed(iInputDS, iTime)
-
-        self.mTransformation.fit(lSignal);
+        self.mTransformation.mOptions = self.mOptions;
 
         self.mSignal = iTransformation.get_name(iSignal)
         self.mHorizon = iHorizon;
-        self.mSignalFrame = pd.DataFrame()
-        self.mSignalFrame[self.mTime] = lTime;
-        self.mSignalFrame[self.mOriginalSignal] = lSignal;
-        self.mSignalFrame[self.mSignal] = self.mTransformation.apply(lSignal);
-        self.mSignalFrame['row_number'] = np.arange(0, iInputDS.shape[0]);
-        # self.mSignalFrame.dropna(inplace = True);
-        assert(self.mSignalFrame.shape[0] > 0);
 
-        # print("SIGNAL_INFO " , self.mSignalFrame.info());
-        # print(self.mSignalFrame.head())
 
 
         self.mSplit = tscut.cCuttingInfo()
@@ -115,7 +100,6 @@ class cSignalDecompositionOneTransform:
         self.mSplit.mSignal = self.mSignal;
         self.mSplit.mOriginalSignal = self.mOriginalSignal;
         self.mSplit.mHorizon = self.mHorizon;
-        self.mSplit.mSignalFrame = self.mSignalFrame;
         self.mSplit.mOptions = self.mOptions;
         
         
@@ -124,7 +108,6 @@ class cSignalDecompositionOneTransform:
         self.mTimeInfo.mSignal = self.mSignal;
         self.mTimeInfo.mOriginalSignal = self.mOriginalSignal;
         self.mTimeInfo.mHorizon = self.mHorizon;
-        self.mTimeInfo.mSignalFrame = self.mSignalFrame;
         self.mTimeInfo.mOptions = self.mOptions;
         self.mTimeInfo.mSplit = self.mSplit;
 
@@ -219,12 +202,28 @@ class cSignalDecompositionOneTransform:
 
         self.run_gc();
 
+        lMissingImputer = tsmiss.cMissingDataImputer()
+        lMissingImputer.mOptions = self.mOptions
+        lSignal = lMissingImputer.interpolate_signal_if_needed(iInputDS, iSignal)
+        lTime = lMissingImputer.interpolate_time_if_needed(iInputDS, iTime)
+        
+        self.mSignalFrame = pd.DataFrame()
+        self.mSignalFrame[self.mTime] = lTime;
+        self.mSignalFrame[self.mOriginalSignal] = lSignal;
+        
         # estimate time info
         # assert(self.mTimeInfo.mSignalFrame.shape[0] == iInputDS.shape[0])
+        self.mSplit.mSignalFrame = self.mSignalFrame;
         self.mSplit.estimate();
+        self.mTimeInfo.mSignalFrame = self.mSignalFrame;
         self.mTimeInfo.estimate();
+        self.mSignalFrame['row_number'] = np.arange(0, iInputDS.shape[0]);
 
 
+        self.mTransformation.fit(lSignal);
+
+        self.mSignalFrame[self.mSignal] = self.mTransformation.apply(lSignal);
+        
         exog_start_time = time.time()
         if(self.mExogenousInfo is not None):
             self.mExogenousInfo.fit();
@@ -348,51 +347,11 @@ class cSignalDecompositionTrainer:
 
         self.cleanup_after_model_selection();
 
-    
-    def validateTransformation(self , transf , df, iTime, iSignal):
-        lName = transf.get_name("");
-        lIsApplicable = transf.is_applicable(df[iSignal]);
-        if(lIsApplicable):
-            # print("Adding Transformation " , lName);
-            self.mTransformList = self.mTransformList + [transf];
-    
-    def defineTransformations(self , df, iTime, iSignal):
-        self.mTransformList = [];
-        if(self.mOptions.mActiveTransformations['None']):
-            self.validateTransformation(tstransf.cSignalTransform_None() , df, iTime, iSignal);
-
-        if(self.mOptions.mActiveTransformations['Difference']):
-            self.validateTransformation(tstransf.cSignalTransform_Differencing() , df, iTime, iSignal);
-
-        if(self.mOptions.mActiveTransformations['RelativeDifference']):
-            self.validateTransformation(tstransf.cSignalTransform_RelativeDifferencing() , df, iTime, iSignal);
-            
-        if(self.mOptions.mActiveTransformations['Integration']):
-            self.validateTransformation(tstransf.cSignalTransform_Accumulate() , df, iTime, iSignal);
-
-        if(self.mOptions.mActiveTransformations['BoxCox']):
-            for i in self.mOptions.mBoxCoxOrders:
-                self.validateTransformation(tstransf.cSignalTransform_BoxCox(i) , df, iTime, iSignal);
-
-        if(self.mOptions.mActiveTransformations['Quantization']):
-            for q in self.mOptions.mQuantiles:
-                self.validateTransformation(tstransf.cSignalTransform_Quantize(q) , df, iTime, iSignal);
-        
-        if(self.mOptions.mActiveTransformations['Logit']):
-            self.validateTransformation(tstransf.cSignalTransform_Logit() , df, iTime, iSignal);
-        
-        if(self.mOptions.mActiveTransformations['Fisher']):
-            self.validateTransformation(tstransf.cSignalTransform_Fisher() , df, iTime, iSignal);
-        
-        if(self.mOptions.mActiveTransformations['Anscombe']):
-            self.validateTransformation(tstransf.cSignalTransform_Anscombe() , df, iTime, iSignal);
-        
-
-        for transform1 in self.mTransformList:
-            transform1.mOptions = self.mOptions;
-            transform1.mOriginalSignal = iSignal;
-            transform1.test();
-
+    def defineTransformations(self, iInputDS, iTime, iSignal):
+        lTransformationEstimator = tstransf.cTransformationEstimator()
+        lTransformationEstimator.mOptions = self.mOptions
+        lTransformationEstimator.defineTransformations(iInputDS, iTime, iSignal)
+        self.mTransformList = lTransformationEstimator.mTransformList
             
     def train_threaded(self , iInputDS, iTime, iSignal, iHorizon):
         threads = [] 

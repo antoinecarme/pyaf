@@ -78,7 +78,7 @@ class cTimeInfo:
         lTimeValue = np.array([iTimeValue]).astype(lType1)[0];
         return lTimeValue;
 
-    def checkDateAndSignalTypesForNewDataset(self, df):
+    def checkDateTypesForNewDataset(self, df):
         if(self.mTimeMax is not None):
             lType1 = self.get_time_dtype();
             lType2 = np.dtype(df[self.mTime]);
@@ -88,7 +88,7 @@ class cTimeInfo:
         
 
     def transformDataset(self, df):
-        self.checkDateAndSignalTypesForNewDataset(df);
+        self.checkDateTypesForNewDataset(df);
         # new row
         lLastRow = df.tail(1).copy();
         lNextTime = self.nextTime(df, 1)
@@ -164,14 +164,11 @@ class cTimeInfo:
         self.mResolution =  eTimeResolution.YEAR;
 
 
-    def checkDateAndSignalTypes(self):
+    def checkDateTypes(self):
         # print(self.mSignalFrame.info());
         type1 = np.dtype(self.mSignalFrame[self.mTime])
         if(type1.kind == 'O'):
             raise tsutil.PyAF_Error('Invalid Time Column Type ' + self.mTime + '[' + str(type1) + ']');
-        type2 = np.dtype(self.mSignalFrame[self.mSignal])
-        if(type2.kind == 'O'):
-            raise tsutil.PyAF_Error('Invalid Signal Column Type ' + self.mSignal);
         
 
 
@@ -242,7 +239,7 @@ class cTimeInfo:
     def estimate(self):
         #print(self.mSignalFrame.columns);
         #print(self.mSignalFrame[self.mTime].head());
-        self.checkDateAndSignalTypes();
+        self.checkDateTypes();
         
         self.mRowNumberColumn = "row_number"
         self.mNormalizedTimeColumn = self.mTime + "_Normalized";

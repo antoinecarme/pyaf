@@ -50,6 +50,13 @@ class cAbstractSignalTransform:
     def is_applicable(self, sig):
         return True;
 
+
+    def checkSignalType(self, sig):
+        # print(df.info());
+        type2 = sig.dtype
+        if(type2.kind == 'O'):
+            raise tsutil.PyAF_Error('Invalid Signal Column Type ' + sig.dtype);
+
     def fit_scaling_params(self, sig):
         if(self.mScaling is not None):
             # self.mMeanValue = np.mean(sig);
@@ -90,6 +97,7 @@ class cAbstractSignalTransform:
 
     def fit(self , sig):
         # print("FIT_START", self.mOriginalSignal, sig.values[1:5]);
+        self.checkSignalType(sig)
         self.fit_scaling_params(sig);
         sig1 = self.scale_signal(sig);
         self.specific_fit(sig1);
@@ -98,6 +106,7 @@ class cAbstractSignalTransform:
 
     def apply(self, sig):
         # print("APPLY_START", self.mOriginalSignal, sig.values[1:5]);
+        self.checkSignalType(sig)
         sig1 = self.scale_signal(sig);
         sig2 = self.specific_apply(sig1);
         # print("APPLY_END", self.mOriginalSignal, sig2.values[1:5]);
@@ -114,6 +123,7 @@ class cAbstractSignalTransform:
 
 
     def transformDataset(self, df, isig):
+        
         df[self.get_name(isig)] = self.apply(df[isig])
         return df;
 
@@ -485,3 +495,51 @@ def create_tranformation(iName , arg):
 
     # assert(0)
     return None
+
+
+class cTransformationEstimator:
+    
+    def __init__(self):
+        self.mSignalFrame = pd.DataFrame()
+        self.mTransformList = {}
+
+    def validateTransformation(self , transf , df, iTime, iSignal):
+        lName = transf.get_name("");
+        lIsApplicable = transf.is_applicable(df[iSignal]);
+        if(lIsApplicable):
+            # print("Adding Transformation " , lName);
+            self.mTransformList = self.mTransformList + [transf];
+
+
+    
+    def defineTransformations(self , df, iTime, iSignal):
+        self.mTransformList = [];
+        if(self.mOptions.mActiveTransformations['None']):
+            self.validateTransformation(cSignalTransform_None() , df, iTime, iSignal);
+
+        if(self.mOptions.mActiveTransformations['Difference']):
+            self.validateTransformation(cSignalTransform_Differencing() , df, iTime, iSignal);
+
+        if(self.mOptions.mActiveTransformations['RelativeDifference']):
+            self.validateTransformation(cSignalTransform_RelativeDifferencing() , df, iTime, iSignal);
+            
+        if(self.mOptions.mActiveTransformations['Integration']):
+            self.validateTransformation(cSignalTransform_Accumulate() , df, iTime, iSignal);
+
+        if(self.mOptions.mActiveTransformations['BoxCox']):
+            for i in self.mOptions.mBoxCoxOrders:
+                self.validateTransformation(cSignalTransform_BoxCox(i) , df, iTime, iSignal);
+
+        if(self.mOptions.mActiveTransformations['Quantization']):
+            for q in self.mOptions.mQuantiles:
+                self.validateTransformation(cSignalTransform_Quantize(q) , df, iTime, iSignal);
+        
+        if(self.mOptions.mActiveTransformations['Logit']):
+            self.validateTransformation(cSignalTransform_Logit() , df, iTime, iSignal);
+        
+        if(self.mOptions.mActiveTransformations['Fisher']):
+            self.validateTransformation(cSignalTransform_Fisher() , df, iTime, iSignal);
+        
+        if(self.mOptions.mActiveTransformations['Anscombe']):
+            self.validateTransformation(cSignalTransform_Anscombe() , df, iTime, iSignal);
+        
