@@ -1,24 +1,24 @@
 INFO:pyaf.std:START_TRAINING 'AirPassengers'
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'AirPassengers' 1.0903863906860352
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'AirPassengers' 0.9315304756164551
 INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.36214375495910645
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.15891623497009277
 INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.3657717704772949
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.16151809692382812
 REQUEST_DETAILS [('CSVFile', 'https://vincentarelbundock.github.io/Rdatasets/csv/datasets/AirPassengers.csv'), ('DateFormat', None), ('Horizon', 7), ('Name', 'model_air_by_tests'), ('Present', ''), ('SignalVar', 'AirPassengers'), ('TimeVar', 'time')]
 None
 DATASET_DETECTED_COLUMNS Index(['Unnamed: 0', 'time', 'value'], dtype='object')
 DATASET_FINAL_COLUMNS Index(['Unnamed: 0', 'time', 'value', 'AirPassengers'], dtype='object')
 TRAIN_PARAMS (144, 4) Index(['Unnamed: 0', 'time', 'value', 'AirPassengers'], dtype='object') time AirPassengers 7
-  Split  Transformation   ...    ForecastMAPE TestMAPE
-0  None  _AirPassengers   ...          0.0463   0.0592
-1  None  _AirPassengers   ...          0.0483   0.0561
-2  None  _AirPassengers   ...          0.0493   0.0508
-3  None  _AirPassengers   ...          0.0543   0.0699
-4  None  _AirPassengers   ...          0.0616   0.0737
+  Split  Transformation  ... ForecastMAPE TestMAPE
+0  None  _AirPassengers  ...       0.0463   0.0592
+1  None  _AirPassengers  ...       0.0483   0.0561
+2  None  _AirPassengers  ...       0.0493   0.0508
+3  None  _AirPassengers  ...       0.0543   0.0699
+4  None  _AirPassengers  ...       0.0616   0.0737
 
 [5 rows x 8 columns]
-Forecast Columns  Index(['time', 'AirPassengers', '_AirPassengers', 'row_number',
-       'time_Normalized', '_AirPassengers_ConstantTrend',
+Forecast Columns  Index(['time', 'AirPassengers', 'row_number', 'time_Normalized',
+       '_AirPassengers', '_AirPassengers_ConstantTrend',
        '_AirPassengers_ConstantTrend_residue', 'cycle_internal',
        '_AirPassengers_ConstantTrend_residue_bestCycle_byL2',
        '_AirPassengers_ConstantTrend_residue_bestCycle_byL2_residue',
@@ -35,11 +35,13 @@ Forecast Columns  Index(['time', 'AirPassengers', '_AirPassengers', 'row_number'
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 151 entries, 0 to 150
 Data columns (total 3 columns):
-time                      151 non-null float64
-AirPassengers             144 non-null float64
-AirPassengers_Forecast    151 non-null float64
+ #   Column                  Non-Null Count  Dtype  
+---  ------                  --------------  -----  
+ 0   time                    151 non-null    float64
+ 1   AirPassengers           144 non-null    float64
+ 2   AirPassengers_Forecast  151 non-null    float64
 dtypes: float64(3)
-memory usage: 3.6 KB
+memory usage: 3.7 KB
 None
 Forecasts
              time  AirPassengers  AirPassengers_Forecast
@@ -60,7 +62,7 @@ Forecasts
             "Horizon": 7,
             "TimeMinMax": [
                 "1949.0",
-                "1960.91666667"
+                "1960.91666666667"
             ],
             "TimeVariable": "time"
         },
@@ -75,10 +77,10 @@ Forecasts
     },
     "Model_Performance": {
         "COMPLEXITY": "15",
-        "MAE": "19.3733193355",
+        "MAE": "19.37331933554182",
         "MAPE": "0.0463",
         "MASE": "0.487",
-        "RMSE": "25.6065187797"
+        "RMSE": "25.606518779676417"
     }
 }
 </ModelInfo>

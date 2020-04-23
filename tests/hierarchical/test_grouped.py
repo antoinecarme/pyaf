@@ -11,7 +11,6 @@ b1 = tsds.load_AU_infant_grouped_dataset();
 
 # reduce the number of possible values of State.
 b1.mHierarchy['Groups']['State'] = ["NSW","VIC"];
-
 df = b1.mPastData;
 
 lEngine = hautof.cHierarchicalForecastEngine()

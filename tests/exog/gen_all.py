@@ -14,6 +14,6 @@ for n in [600, 300, 150, 75, 32, 16, 8]:
         filename= "tests/exog/random/random_exog_" + str(n) + "_" + str(nbex) + ".py";
         file = open(filename, "w");
         print("WRTITING_FILE" , filename);
-        file.write("import pyaf.tests.exog.test_random_exogenous as testrandexog\n");
+        file.write("import tests.exog.test_random_exogenous as testrandexog\n");
         file.write("\n\ntestrandexog.test_random_exogenous( " + str(n) + "," + str(nbex) + ");");
         file.close();

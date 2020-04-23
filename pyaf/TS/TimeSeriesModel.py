@@ -200,7 +200,7 @@ class cTimeSeriesModel:
             lPos = df1.index[N - 1];
             lSignal = df1.loc[lPos , lForecastColumnName];
             df1.loc[lPos , self.mOriginalSignal] = lSignal;
-            df1 = df1[[self.mTime , self.mOriginalSignal]];
+            df1 = df1[[self.mTime , self.mOriginalSignal, self.mTimeInfo.mRowNumberColumn, self.mTimeInfo.mNormalizedTimeColumn]];
             df1 = self.forecastOneStepAhead(df1 , h+2)
 
         assert((N0 + iHorizon) == df1.shape[0])

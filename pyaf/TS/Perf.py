@@ -150,33 +150,26 @@ class cPerf:
         if(criterion == "MASE"):
             self.compute_MAPE_SMAPE_MASE(signal , estimator);
             return self.mMASE;
-
-        if(criterion == "COUNT"):
-            return self.mCount;
         
-        assert(0)
+        raise tsutil.Internal_PyAF_Error("Unknown Performance Measure ['" + self.mName + "'] '" + criterion + "'");
         return 0.0;
 
     def getCriterionValue(self, criterion):
-        if(criterion == "L1"):
+        if(criterion == "L1" or criterion == "MAE"):
             return self.mL1;
-        if(criterion == "L2"):
+        if(criterion == "L2" or criterion == "RMSE"):
             return self.mL2;
         if(criterion == "R2"):
             return self.mR2;
         if(criterion == "PEARSONR"):
             return self.mPearsonR;
-        if(criterion == "MAE"):
-            return self.mAE;
         if(criterion == "SMAPE"):
             return self.mSMAPE;
         if(criterion == "MAPE"):
             return self.mMAPE;
         if(criterion == "MASE"):
             return self.mMASE;
-        if(criterion == "COUNT"):
-            return self.mCount;
-        assert(0)
+        raise tsutil.Internal_PyAF_Error("Unknown Performance Measure ['" + self.mName + "'] '" + criterion + "'");
         return 0.0;
 
         

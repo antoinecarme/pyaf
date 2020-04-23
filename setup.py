@@ -1,43 +1,23 @@
 from setuptools import setup
 from setuptools import find_packages
 
-from shutil import copyfile, rmtree
-import os
-import glob
-
-def build_package():
-    try:
-        rmtree('pyaf')
-    except:
-        pass
-    os.mkdir('pyaf')
-    os.mkdir('pyaf/TS')
-    for file in glob.glob('TS/*.py'):        
-        copyfile(file, 'pyaf/' + file)
-    copyfile('ForecastEngine.py' ,
-             'pyaf/ForecastEngine.py')
-    copyfile('HierarchicalForecastEngine.py',
-             'pyaf/HierarchicalForecastEngine.py')
-    copyfile('__init__.py',
-             'pyaf/__init__.py')
-    os.mkdir('pyaf/CodeGen')
-    for file in glob.glob('CodeGen/*.py'):        
-        copyfile(file, 'pyaf/' + file)
-    os.mkdir('pyaf/Bench')
-    for file in glob.glob('Bench/*.py'):        
-        copyfile(file, 'pyaf/' + file)
+with open("README.md", "r") as fh:
+    pyaf_long_description = fh.read()
     
-
-build_package();
-
 setup(name='pyaf',
-      version='1.0',
+      version='1.2.4',
       description='Python Automatic Forecasting',
+      long_description=pyaf_long_description,
+      long_description_content_type="text/markdown",
       author='Antoine CARME',
       author_email='antoine.carme@laposte.net',
       url='https://github.com/antoinecarme/pyaf',
       license='BSD 3-clause',
-      packages=['pyaf' , 'pyaf.TS' ,  'pyaf.CodeGen' ,  'pyaf.Bench'],
+      packages=find_packages(include=['pyaf', 'pyaf.*']),
+      python_requires='>=3',
+      classifiers=['Development Status :: 5 - Production/Stable',
+                   'Programming Language :: Python :: 3'],
+      keywords='arx automatic-forecasting autoregressive benchmark cycle decomposition exogenous forecasting heroku hierarchical-forecasting horizon jupyter pandas python scikit-learn seasonal time-series transformation trend web-service',
       install_requires=[
           'scipy',
           'pandas',
@@ -48,5 +28,3 @@ setup(name='pyaf',
           'pathos',
           'sqlalchemy'
       ])
-
-rmtree('pyaf')
