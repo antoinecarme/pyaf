@@ -13,8 +13,11 @@ from . import Perf as tsperf
 from . import Utils as tsutil
 from . import Plots as tsplot
 
+from multiprocessing import Pool
+# from pathos.pools import ProcessPool as Pool
+
 # for timing
-import time
+import time, copy
 
 class cSignalHierarchy:
 
@@ -159,18 +162,35 @@ class cSignalHierarchy:
         return df;
 
 
+    def train_one_model(self, arg):
+        (level, signal, iAllLevelsDataset , iDateColumn , signal, H, iOptions) = arg
+        logger = tsutil.get_pyaf_hierarchical_logger();
+        logger.info("TRAINING_MODEL_LEVEL_SIGNAL " + str(level) + " " + str(signal));
+        lEngine = autof.cForecastEngine()
+        lEngine.mOptions = copy.copy(iOptions);
+        lEngine.mOptions.mParallelMode = False
+        lEngine.train(iAllLevelsDataset , iDateColumn , signal, H);
+        return (level, signal, lEngine)
+
     def create_all_levels_models(self, iAllLevelsDataset, H, iDateColumn):
         logger = tsutil.get_pyaf_hierarchical_logger();
+        args = []
         self.mModels = {};
         for level in sorted(self.mStructure.keys()):
             self.mModels[level] = {};
             for signal in sorted(self.mStructure[level].keys()):
-                logger.info("TRAINING_MODEL_LEVEL_SIGNAL " + str(level) + " " + str(signal));
-                lEngine = autof.cForecastEngine()
-                lEngine.mOptions = self.mOptions;
-                lEngine.train(iAllLevelsDataset , iDateColumn , signal, H);
-                lEngine.getModelInfo();
-                self.mModels[level][signal] = lEngine;
+                arg = (level, signal, iAllLevelsDataset , iDateColumn , signal, H, self.mOptions)
+                args.append(arg)
+
+        pool = Pool(self.mOptions.mNbCores)
+        for res in pool.imap(self.train_one_model, args):
+            (level, signal, lEngine) = res
+            lEngine.getModelInfo();
+            self.mModels[level][signal] = lEngine;
+        
+        pool.close()
+        pool.join()
+        del pool
         # print("CREATED_MODELS", self.mLevels, self.mModels)
         pass
 
@@ -225,20 +245,42 @@ class cSignalHierarchy:
                 lEngine = self.mModels[level][signal];
                 lEngine.standardPlots(name + "_Hierarchy_Level_Signal_" + str(level) + "_" + str(signal));
 
+    def forecast_one_model(self, arg):
+        logger = tsutil.get_pyaf_hierarchical_logger();
+        (level, signal, lEngine, dfapp_in, H) = arg
+        logger.info("FORECASTING_MODEL_LEVEL_SIGNAL " + str(level) + " " + str(signal));
+        try:
+            dfapp_out = lEngine.forecast(dfapp_in, H);
+            return (level, signal, dfapp_out)
+        except Exception as e:
+            logger.error("FAILURE_WITH_EXCEPTION : " + str(e)[:200]);
+            import traceback
+            traceback.print_exc()
+            raise
+
 
     def forecastAllModels(self, iAllLevelsDataset, H, iDateColumn):
-        lForecast_DF = pd.DataFrame();
+        args = []
         for level in sorted(self.mModels.keys()):
             for signal in sorted(self.mModels[level].keys()):
                 lEngine = self.mModels[level][signal];
                 dfapp_in = iAllLevelsDataset[[iDateColumn , signal]].copy();
                 # dfapp_in.tail()
-                dfapp_out = lEngine.forecast(dfapp_in, H);
-                if(iDateColumn not in lForecast_DF.columns):
-                    lForecast_DF[iDateColumn] = dfapp_out[iDateColumn]
-                # print("Forecast Columns " , dfapp_out.columns);
-                lForecast_DF[signal] = dfapp_out[signal]
-                lForecast_DF[str(signal) + '_Forecast'] = dfapp_out[str(signal) + '_Forecast']
+                arg = (level, signal, lEngine, dfapp_in, H)
+                args.append(arg)
+
+        pool = Pool(self.mOptions.mNbCores)
+        lForecast_DF = pd.DataFrame();
+        for res in pool.imap(self.forecast_one_model, args):
+            (level, signal, dfapp_out) = res
+            if(iDateColumn not in lForecast_DF.columns):
+                lForecast_DF[iDateColumn] = dfapp_out[iDateColumn]
+            # print("Forecast Columns " , dfapp_out.columns);
+            lForecast_DF[signal] = dfapp_out[signal]
+            lForecast_DF[str(signal) + '_Forecast'] = dfapp_out[str(signal) + '_Forecast']
+        pool.close()
+        pool.join()
+        del pool
         # print(lForecast_DF.columns);
         # print(lForecast_DF.head());
         # print(lForecast_DF.tail());
