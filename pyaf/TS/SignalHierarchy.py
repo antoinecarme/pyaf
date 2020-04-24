@@ -183,7 +183,7 @@ class cSignalHierarchy:
                 args.append(arg)
 
         pool = Pool(self.mOptions.mNbCores)
-        for res in pool.imap(self.train_one_model, args):
+        for res in pool.map(self.train_one_model, args):
             (level, signal, lEngine) = res
             lEngine.getModelInfo();
             self.mModels[level][signal] = lEngine;

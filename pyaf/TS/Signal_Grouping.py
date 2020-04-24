@@ -48,7 +48,7 @@ class cSignalGrouping (sighier.cSignalHierarchy):
         # lHierarchy['GroupOrder']= ["State" , "Gender"];
         
         lGroups = self.mHierarchy['Groups']
-        self.mLevels = lGroups.keys();
+        self.mLevels = list(lGroups.keys());
         self.mLabels2Tuples = {};
         self.mStructure = {};
         array1 = [ sorted(lGroups[k]) for k in self.mHierarchy['GroupOrder'] ];
