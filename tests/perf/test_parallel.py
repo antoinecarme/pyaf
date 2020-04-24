@@ -6,8 +6,6 @@ import sys,os
 import time
 
 import multiprocessing as mp
-import threading
-from multiprocessing.dummy import Pool as ThreadPool
 
 import warnings
 
@@ -47,7 +45,6 @@ def run_multiprocessed(nbprocesses = 20):
     pool = mp.Pool(nbprocesses)
     args = []
     for sig in range(100):
-        values = pd.Series();
         values = np.arange(1000000);
         a = cGeneric_Tester_Arg("PYAF_SYSTEM_DEPENDENT_process_" + str(sig), values);
         args = args + [a];
@@ -55,6 +52,8 @@ def run_multiprocessed(nbprocesses = 20):
     out = {};
     for res in pool.imap(run_bench_process, args):
         out[res.mName] = res;
+    pool.close()
+    pool.join()
     return out;
 
 def run():
