@@ -1,27 +1,29 @@
 INFO:pyaf.std:START_TRAINING 'Signal_0.01'
 GENERATING_RANDOM_DATASET Signal_1024_D_0_MovingMedian_7_BoxCox_0.0_100
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal_0.01' 12.152077198028564
-INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2002-03-10T00:00:00.000000 TimeDelta=1 days Estimation = (0 , 800) Validation = (800 , 1000) Test = (1000 , 1012) Horizon=12
-INFO:pyaf.std:SIGNAL_DETAIL SignalVariable='Box_Cox_2.0_Signal_0.01' Min=-0.5 Max=0.0  Mean=-0.424506819552 StdDev=0.173179291372
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal_0.01' 10.153855800628662
+INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2002-03-10T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=12
+INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal_0.01' Min=20.391161293620495 Max=24563.380082417963  Mean=4651.361433014736 StdDev=8336.786119192495
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='Box_Cox_2.0_Signal_0.01' Min=-0.5 Max=0.0  Mean=-0.42450681955220937 StdDev=0.17317929137234608
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'Box_Cox_2.0_'
-INFO:pyaf.std:BEST_DECOMPOSITION  'MovingMedian(60)_residue_bestCycle_byL2_residue_NoAR' [MovingMedian(60) + Cycle_Length_7 + NoAR]
+INFO:pyaf.std:BEST_DECOMPOSITION  'MovingMedian(60)_residue_bestCycle_byL2_residue_NoAR' [MovingMedian(60) + Cycle + NoAR]
 INFO:pyaf.std:TREND_DETAIL 'MovingMedian(60)' [MovingMedian(60)]
-INFO:pyaf.std:CYCLE_DETAIL 'MovingMedian(60)_residue_bestCycle_byL2' [Cycle_Length_7]
+INFO:pyaf.std:CYCLE_DETAIL 'MovingMedian(60)_residue_bestCycle_byL2' [Cycle]
 INFO:pyaf.std:AUTOREG_DETAIL 'MovingMedian(60)_residue_bestCycle_byL2_residue_NoAR' [NoAR]
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0038 MAPE_Forecast=0.0008 MAPE_Test=0.0145
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0037 SMAPE_Forecast=0.0008 SMAPE_Test=0.0139
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.0 MASE_Forecast=0.0 MASE_Test=0.0
-INFO:pyaf.std:MODEL_L1 L1_Fit=0.0837849689187 L1_Forecast=0.0228923570516 L1_Test=0.303510226886
-INFO:pyaf.std:MODEL_L2 L2_Fit=0.316780953905 L2_Forecast=0.124419016064 L2_Test=0.721291571153
+INFO:pyaf.std:MODEL_L1 L1_Fit=0.08378496891872214 L1_Forecast=0.02289235705162808 L1_Test=0.30351022688629126
+INFO:pyaf.std:MODEL_L2 L2_Fit=0.31678095390527033 L2_Forecast=0.12441901606436648 L2_Test=0.7212915711527237
 INFO:pyaf.std:MODEL_COMPLEXITY 120
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 3.456885576248169
-Forecast Columns  Index(['Box_Cox_2.0_Signal_0.01', 'Date', 'Signal_0.01', 'row_number',
-       'Date_Normalized', 'MovingMedian(60)', 'MovingMedian(60)_residue',
-       'cycle_internal', 'MovingMedian(60)_residue_bestCycle_byL2',
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 2.317795991897583
+Forecast Columns  Index(['Date', 'Signal_0.01', 'row_number', 'Date_Normalized',
+       'Box_Cox_2.0_Signal_0.01', 'MovingMedian(60)',
+       'MovingMedian(60)_residue', 'cycle_internal',
+       'MovingMedian(60)_residue_bestCycle_byL2',
        'MovingMedian(60)_residue_bestCycle_byL2_residue',
        'MovingMedian(60)_residue_bestCycle_byL2_residue_NoAR',
        'MovingMedian(60)_residue_bestCycle_byL2_residue_NoAR_residue',
@@ -37,38 +39,40 @@ Forecast Columns  Index(['Box_Cox_2.0_Signal_0.01', 'Date', 'Signal_0.01', 'row_
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 1024 entries, 0 to 1023
 Data columns (total 5 columns):
-Date                                1024 non-null datetime64[ns]
-Signal_0.01                         1012 non-null float64
-Signal_0.01_Forecast                1024 non-null float64
-Signal_0.01_Forecast_Lower_Bound    12 non-null float64
-Signal_0.01_Forecast_Upper_Bound    12 non-null float64
+ #   Column                            Non-Null Count  Dtype         
+---  ------                            --------------  -----         
+ 0   Date                              1024 non-null   datetime64[ns]
+ 1   Signal_0.01                       1012 non-null   float64       
+ 2   Signal_0.01_Forecast              1024 non-null   float64       
+ 3   Signal_0.01_Forecast_Lower_Bound  12 non-null     float64       
+ 4   Signal_0.01_Forecast_Upper_Bound  12 non-null     float64       
 dtypes: datetime64[ns](1), float64(4)
 memory usage: 40.1 KB
 Forecasts
  [[Timestamp('2002-10-09 00:00:00') nan 82.045752075573 81.80189080408685
   82.28961334705916]
- [Timestamp('2002-10-10 00:00:00') nan 1411.681472958836 1411.6405089224154
-  1411.7224369952564]
- [Timestamp('2002-10-11 00:00:00') nan 24563.3498774558 24563.288104741303
-  24563.411650170296]
+ [Timestamp('2002-10-10 00:00:00') nan 1411.681472958836
+  1411.6405089224154 1411.7224369952564]
+ [Timestamp('2002-10-11 00:00:00') nan 24563.3498774558
+  24563.288104741303 24563.411650170296]
  [Timestamp('2002-10-12 00:00:00') nan 339.07652296281947
   338.99069063715785 339.1623552884811]
  [Timestamp('2002-10-13 00:00:00') nan 22.188019895973973
   22.079000591462087 22.29703920048586]
  [Timestamp('2002-10-14 00:00:00') nan 339.07582253757903
   338.94300966064316 339.2086354145149]
- [Timestamp('2002-10-15 00:00:00') nan 5887.392556209396 5887.232490452319
-  5887.552621966473]
+ [Timestamp('2002-10-15 00:00:00') nan 5887.392556209396
+  5887.232490452319 5887.552621966473]
  [Timestamp('2002-10-16 00:00:00') nan 82.045752075573 81.85752939114023
   82.23397476000578]
- [Timestamp('2002-10-17 00:00:00') nan 1411.681204412227 1411.4621883680618
-  1411.9002204563924]
- [Timestamp('2002-10-18 00:00:00') nan 24563.349859841946 24563.0997068164
-  24563.600012867493]
- [Timestamp('2002-10-19 00:00:00') nan 339.07621656016784 338.794700210849
-  339.3577329094867]
- [Timestamp('2002-10-20 00:00:00') nan 21.92872714562663 21.615717695995485
-  22.241736595257777]]
+ [Timestamp('2002-10-17 00:00:00') nan 1411.681204412227
+  1411.4621883680618 1411.9002204563924]
+ [Timestamp('2002-10-18 00:00:00') nan 24563.349859841946
+  24563.0997068164 24563.600012867493]
+ [Timestamp('2002-10-19 00:00:00') nan 339.07621656016784
+  338.794700210849 339.3577329094867]
+ [Timestamp('2002-10-20 00:00:00') nan 21.92872714562663
+  21.615717695995485 22.241736595257777]]
 
 
 <ModelInfo>
@@ -88,16 +92,16 @@ Forecasts
     "Model": {
         "AR_Model": "NoAR",
         "Best_Decomposition": "MovingMedian(60)_residue_bestCycle_byL2_residue_NoAR",
-        "Cycle": "Cycle_Length_7",
+        "Cycle": "Cycle",
         "Signal_Transoformation": "BoxCox(Lambda=2.0)",
         "Trend": "MovingMedian(60)"
     },
     "Model_Performance": {
         "COMPLEXITY": "120",
-        "MAE": "0.0228923570516",
+        "MAE": "0.02289235705162808",
         "MAPE": "0.0008",
         "MASE": "0.0",
-        "RMSE": "0.124419016064"
+        "RMSE": "0.12441901606436648"
     }
 }
 </ModelInfo>

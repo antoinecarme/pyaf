@@ -1,27 +1,29 @@
 INFO:pyaf.std:START_TRAINING 'Signal_0.01'
 GENERATING_RANDOM_DATASET Signal_128_D_0_MovingAverage_5_BoxCox_0.0_20
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal_0.01' 2.2038636207580566
-INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2000-04-05T00:00:00.000000 TimeDelta=1 days Estimation = (0 , 96) Validation = (96 , 120) Test = (120 , 124) Horizon=4
-INFO:pyaf.std:SIGNAL_DETAIL SignalVariable='Box_Cox_2.0_Signal_0.01' Min=-0.5 Max=0.0  Mean=-0.39962418223 StdDev=0.19581415598
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal_0.01' 2.305957555770874
+INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2000-04-05T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=4
+INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal_0.01' Min=17.283464537468372 Max=6580.810042100361  Mean=1661.158890270833 StdDev=2438.44831424863
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='Box_Cox_2.0_Signal_0.01' Min=-0.5 Max=0.0  Mean=-0.39962418223002816 StdDev=0.19581415598019705
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'Box_Cox_2.0_'
-INFO:pyaf.std:BEST_DECOMPOSITION  'MovingAverage(5)_residue_bestCycle_byL2_residue_NoAR' [MovingAverage(5) + Cycle_Length_5 + NoAR]
+INFO:pyaf.std:BEST_DECOMPOSITION  'MovingAverage(5)_residue_bestCycle_byL2_residue_NoAR' [MovingAverage(5) + Cycle + NoAR]
 INFO:pyaf.std:TREND_DETAIL 'MovingAverage(5)' [MovingAverage(5)]
-INFO:pyaf.std:CYCLE_DETAIL 'MovingAverage(5)_residue_bestCycle_byL2' [Cycle_Length_5]
+INFO:pyaf.std:CYCLE_DETAIL 'MovingAverage(5)_residue_bestCycle_byL2' [Cycle]
 INFO:pyaf.std:AUTOREG_DETAIL 'MovingAverage(5)_residue_bestCycle_byL2_residue_NoAR' [NoAR]
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0256 MAPE_Forecast=0.0335 MAPE_Test=0.049
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0228 SMAPE_Forecast=0.0303 SMAPE_Test=0.0446
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.0002 MASE_Forecast=0.0002 MASE_Test=0.001
-INFO:pyaf.std:MODEL_L1 L1_Fit=0.467022382694 L1_Forecast=0.602907434259 L1_Test=0.863201109344
-INFO:pyaf.std:MODEL_L2 L2_Fit=1.38009028839 L2_Forecast=1.4550041954 L2_Test=1.69030620106
+INFO:pyaf.std:MODEL_L1 L1_Fit=0.46702238269368007 L1_Forecast=0.6029074342591398 L1_Test=0.8632011093437306
+INFO:pyaf.std:MODEL_L2 L2_Fit=1.3800902883870974 L2_Forecast=1.4550041954010142 L2_Test=1.6903062010591245
 INFO:pyaf.std:MODEL_COMPLEXITY 120
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.43010663986206055
-Forecast Columns  Index(['Box_Cox_2.0_Signal_0.01', 'Date', 'Signal_0.01', 'row_number',
-       'Date_Normalized', 'MovingAverage(5)', 'MovingAverage(5)_residue',
-       'cycle_internal', 'MovingAverage(5)_residue_bestCycle_byL2',
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.3794221878051758
+Forecast Columns  Index(['Date', 'Signal_0.01', 'row_number', 'Date_Normalized',
+       'Box_Cox_2.0_Signal_0.01', 'MovingAverage(5)',
+       'MovingAverage(5)_residue', 'cycle_internal',
+       'MovingAverage(5)_residue_bestCycle_byL2',
        'MovingAverage(5)_residue_bestCycle_byL2_residue',
        'MovingAverage(5)_residue_bestCycle_byL2_residue_NoAR',
        'MovingAverage(5)_residue_bestCycle_byL2_residue_NoAR_residue',
@@ -37,22 +39,24 @@ Forecast Columns  Index(['Box_Cox_2.0_Signal_0.01', 'Date', 'Signal_0.01', 'row_
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 128 entries, 0 to 127
 Data columns (total 5 columns):
-Date                                128 non-null datetime64[ns]
-Signal_0.01                         124 non-null float64
-Signal_0.01_Forecast                128 non-null float64
-Signal_0.01_Forecast_Lower_Bound    4 non-null float64
-Signal_0.01_Forecast_Upper_Bound    4 non-null float64
+ #   Column                            Non-Null Count  Dtype         
+---  ------                            --------------  -----         
+ 0   Date                              128 non-null    datetime64[ns]
+ 1   Signal_0.01                       124 non-null    float64       
+ 2   Signal_0.01_Forecast              128 non-null    float64       
+ 3   Signal_0.01_Forecast_Lower_Bound  4 non-null      float64       
+ 4   Signal_0.01_Forecast_Upper_Bound  4 non-null      float64       
 dtypes: datetime64[ns](1), float64(4)
 memory usage: 5.1 KB
 Forecasts
- [[Timestamp('2000-05-04 00:00:00') nan 6580.799203966989 6577.947395744003
-  6583.651012189975]
- [Timestamp('2000-05-05 00:00:00') nan 891.4789881182104 888.4980706254594
-  894.4599056109614]
- [Timestamp('2000-05-06 00:00:00') nan 18.79233648011741 15.217623481192103
-  22.367049479042716]
- [Timestamp('2000-05-07 00:00:00') nan 891.4828940811847 887.5945070675223
-  895.3712810948471]]
+ [[Timestamp('2000-05-04 00:00:00') nan 6580.799203966989
+  6577.947395744003 6583.651012189975]
+ [Timestamp('2000-05-05 00:00:00') nan 891.4789881182104
+  888.4980706254594 894.4599056109614]
+ [Timestamp('2000-05-06 00:00:00') nan 18.79233648011741
+  15.217623481192103 22.367049479042716]
+ [Timestamp('2000-05-07 00:00:00') nan 891.4828940811847
+  887.5945070675223 895.3712810948471]]
 
 
 <ModelInfo>
@@ -72,16 +76,16 @@ Forecasts
     "Model": {
         "AR_Model": "NoAR",
         "Best_Decomposition": "MovingAverage(5)_residue_bestCycle_byL2_residue_NoAR",
-        "Cycle": "Cycle_Length_5",
+        "Cycle": "Cycle",
         "Signal_Transoformation": "BoxCox(Lambda=2.0)",
         "Trend": "MovingAverage(5)"
     },
     "Model_Performance": {
         "COMPLEXITY": "120",
-        "MAE": "0.602907434259",
+        "MAE": "0.6029074342591398",
         "MAPE": "0.0335",
         "MASE": "0.0002",
-        "RMSE": "1.4550041954"
+        "RMSE": "1.4550041954010142"
     }
 }
 </ModelInfo>
