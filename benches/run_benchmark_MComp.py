@@ -1,8 +1,8 @@
 import pandas as pd
 import numpy as np
 # import SignalDecomposition as SigDec
-from Bench import TS_datasets as tsds
-from Bench import MComp as mcomp
+from pyaf.Bench import TS_datasets as tsds
+from pyaf.Bench import MComp as mcomp
 
 
 #tester1 = mcomp.cMComp_Tester(tsds.load_M1_comp());
