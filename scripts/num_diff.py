@@ -70,7 +70,7 @@ def compare_files(file_orig, file_new):
     import os.path
     if(not os.path.exists(file_orig)):
         print("ORIGINAL_FILE_DOES_NOT_EXIST" , file_orig)
-        print("#cp ", file_new, file_orig)
+        print("EXEC_THIS=1 cp ", file_new, file_orig)
         return
     
     with open(file_orig) as f:
@@ -92,7 +92,7 @@ def compare_files(file_orig, file_new):
     if(lDiff > 20):
        print("NUM_DIFF_FILES_WITH_TOO_MUCH_DIFF" , N_orig, N_new);
        print("NUM_DIFF_NUMBER_OF_DIFFERENT_LINES_AT_LEAST" , lDiff)
-       print("#cp ", file_new, file_orig)
+       print("EXEC_THIS=1 cp ", file_new, file_orig)
        print("NUM_DIFF_FILES_ARE_DIFFERENT")
        return;
         
@@ -112,7 +112,7 @@ def compare_files(file_orig, file_new):
         print("FIRST_DIFFERENCE_NEW" , diffs[0][1])
         print("LAST_DIFFERENCE_ORIG" , diffs[-1][0])
         print("LAST_DIFFERENCE_NEW" , diffs[-1][1])
-        print("#cp ", file_new, file_orig)
+        print("EXEC_THIS=1 cp ", file_new, file_orig)
         print("NUM_DIFF_FILES_ARE_DIFFERENT")
 
 
