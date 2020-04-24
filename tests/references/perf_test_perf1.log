@@ -2,14 +2,14 @@ INFO:pyaf.std:START_TRAINING 'Signal'
 TEST_CYCLES_START 64
 GENERATING_RANDOM_DATASET Signal_4800_D_0_linear_64_None_0.0_100
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal' 18.2917902469635
-INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2010-06-16T00:00:00.000000 TimeDelta=<DateOffset: kwds={'days': 1.0}> Estimation = (0 , 3820) Validation = (3820 , 4776) Test = (4776 , 4788) Horizon=12
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal' 32.10659146308899
+INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2010-06-16T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Min=1.0 Max=10.84375  Mean=5.366025741436926 StdDev=2.7865646548175143
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=10.84375  Mean=5.366025741436926 StdDev=2.7865646548175143
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_Signal_ConstantTrend_residue_bestCycle_byL2_residue_NoAR' [ConstantTrend + Cycle_Length_64 + NoAR]
+INFO:pyaf.std:BEST_DECOMPOSITION  '_Signal_ConstantTrend_residue_bestCycle_byL2_residue_NoAR' [ConstantTrend + Cycle + NoAR]
 INFO:pyaf.std:TREND_DETAIL '_Signal_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_Signal_ConstantTrend_residue_bestCycle_byL2' [Cycle_Length_64]
+INFO:pyaf.std:CYCLE_DETAIL '_Signal_ConstantTrend_residue_bestCycle_byL2' [Cycle]
 INFO:pyaf.std:AUTOREG_DETAIL '_Signal_ConstantTrend_residue_bestCycle_byL2_residue_NoAR' [NoAR]
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0 MAPE_Forecast=0.0 MAPE_Test=0.0
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0 SMAPE_Forecast=0.0 SMAPE_Test=0.0
@@ -20,8 +20,8 @@ INFO:pyaf.std:MODEL_COMPLEXITY 8
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.9622492790222168
-Forecast Columns  Index(['Date', 'Signal', '_Signal', 'row_number', 'Date_Normalized',
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 2.124016046524048
+Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
        'cycle_internal', '_Signal_ConstantTrend_residue_bestCycle_byL2',
        '_Signal_ConstantTrend_residue_bestCycle_byL2_residue',
@@ -36,9 +36,11 @@ Forecast Columns  Index(['Date', 'Signal', '_Signal', 'row_number', 'Date_Normal
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 4800 entries, 0 to 4799
 Data columns (total 3 columns):
-Date               4800 non-null datetime64[ns]
-Signal             4788 non-null float64
-Signal_Forecast    4800 non-null float64
+ #   Column           Non-Null Count  Dtype         
+---  ------           --------------  -----         
+ 0   Date             4800 non-null   datetime64[ns]
+ 1   Signal           4788 non-null   float64       
+ 2   Signal_Forecast  4800 non-null   float64       
 dtypes: datetime64[ns](1), float64(2)
 memory usage: 112.6 KB
 None
@@ -74,8 +76,8 @@ Forecasts
     "Model": {
         "AR_Model": "NoAR",
         "Best_Decomposition": "_Signal_ConstantTrend_residue_bestCycle_byL2_residue_NoAR",
-        "Cycle": "Cycle_Length_64",
-        "Signal_Transoformation": "None",
+        "Cycle": "Cycle",
+        "Signal_Transoformation": "NoTransf",
         "Trend": "ConstantTrend"
     },
     "Model_Performance": {

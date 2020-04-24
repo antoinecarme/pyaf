@@ -1,28 +1,23 @@
 INFO:pyaf.std:START_TRAINING 'Ozone'
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 3.525843620300293
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 4.608172178268433
 INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.5873312950134277
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 1.0106346607208252
 INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.8430278301239014
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.9605710506439209
 REQUEST_DETAILS [('CSVFile', 'https://raw.githubusercontent.com/antoinecarme/TimeSeriesData/master/ozone-la.csv'), ('DateFormat', '%Y-%m'), ('Horizon', 12), ('Name', 'model1'), ('Present', '1968-08'), ('SignalVar', 'Ozone'), ('TimeVar', 'Month')]
 None
 DATASET_DETECTED_COLUMNS Index(['Month', 'Ozone'], dtype='object')
 DATASET_FINAL_COLUMNS Index(['Month', 'Ozone'], dtype='object')
 TRAIN_PARAMS (164, 2) Index(['Month', 'Ozone'], dtype='object') Month Ozone 12
-  Transformation                                              Model  \
-0         _Ozone  _Ozone_ConstantTrend_residue_Seasonal_MonthOfY...   
-1         _Ozone  _Ozone_ConstantTrend_residue_bestCycle_byL2_re...   
-2         _Ozone  _Ozone_Lag1Trend_residue_Seasonal_MonthOfYear_...   
-3         _Ozone  _Ozone_Lag1Trend_residue_bestCycle_byL2_residu...   
-4         _Ozone  _Ozone_LinearTrend_residue_Seasonal_MonthOfYea...   
+  Split Transformation  ... ForecastMAPE TestMAPE
+0  None         _Ozone  ...       0.2113   0.2264
+1  None         _Ozone  ...       0.2113   0.2264
+2  None         _Ozone  ...       0.2235   0.2255
+3  None         _Ozone  ...       0.2235   0.2255
+4  None         _Ozone  ...       0.2289   0.2524
 
-   Complexity  FitMAPE  ForecastMAPE  TestMAPE  
-0          11   0.1645        0.2113    0.2264  
-1          15   0.1645        0.2113    0.2264  
-2          43   0.1701        0.2235    0.2255  
-3          47   0.1701        0.2235    0.2255  
-4          27   0.1596        0.2289    0.2524  
-Forecast Columns  Index(['Month', 'Ozone', '_Ozone', 'row_number', 'Month_Normalized',
+[5 rows x 8 columns]
+Forecast Columns  Index(['Month', 'Ozone', 'row_number', 'Month_Normalized', '_Ozone',
        '_Ozone_ConstantTrend', '_Ozone_ConstantTrend_residue',
        '_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear',
        '_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue',
@@ -37,9 +32,11 @@ Forecast Columns  Index(['Month', 'Ozone', '_Ozone', 'row_number', 'Month_Normal
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 176 entries, 0 to 175
 Data columns (total 3 columns):
-Month             176 non-null datetime64[ns]
-Ozone             164 non-null float64
-Ozone_Forecast    176 non-null float64
+ #   Column          Non-Null Count  Dtype         
+---  ------          --------------  -----         
+ 0   Month           176 non-null    datetime64[ns]
+ 1   Ozone           164 non-null    float64       
+ 2   Ozone_Forecast  176 non-null    float64       
 dtypes: datetime64[ns](1), float64(2)
 memory usage: 4.2 KB
 None
@@ -74,10 +71,10 @@ Forecasts
         "Training_Signal_Length": 164
     },
     "Model": {
-        "AR_Model": "AR(7)",
+        "AR_Model": "AR",
         "Best_Decomposition": "_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_AR(7)",
         "Cycle": "Seasonal_MonthOfYear",
-        "Signal_Transoformation": "None",
+        "Signal_Transoformation": "NoTransf",
         "Trend": "ConstantTrend"
     },
     "Model_Performance": {

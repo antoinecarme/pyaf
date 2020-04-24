@@ -1,8 +1,8 @@
 INFO:pyaf.std:START_TRAINING 'Signal_0.01'
 GENERATING_RANDOM_DATASET Signal_1024_D_0_poly_7_None_0.0_100
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal_0.01' 17.27177143096924
-INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2002-03-10T00:00:00.000000 TimeDelta=<DateOffset: kwds={'days': 1.0}> Estimation = (0 , 800) Validation = (800 , 1000) Test = (1000 , 1012) Horizon=12
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal_0.01' 46.44432616233826
+INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2002-03-10T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal_0.01' Min=0.978510719611242 Max=8.242199134283469  Mean=4.511808556982061 StdDev=2.2724474826072507
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal_0.01' Min=0.978510719611242 Max=8.242199134283469  Mean=4.511808556982061 StdDev=2.2724474826072507
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
@@ -19,8 +19,8 @@ INFO:pyaf.std:MODEL_COMPLEXITY 20
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.9158165454864502
-Forecast Columns  Index(['Date', 'Signal_0.01', '_Signal_0.01', 'row_number', 'Date_Normalized',
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 1.394294261932373
+Forecast Columns  Index(['Date', 'Signal_0.01', 'row_number', 'Date_Normalized', '_Signal_0.01',
        '_Signal_0.01_LinearTrend', '_Signal_0.01_LinearTrend_residue',
        '_Signal_0.01_LinearTrend_residue_Seasonal_DayOfWeek',
        '_Signal_0.01_LinearTrend_residue_Seasonal_DayOfWeek_residue',
@@ -36,11 +36,13 @@ Forecast Columns  Index(['Date', 'Signal_0.01', '_Signal_0.01', 'row_number', 'D
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 1024 entries, 0 to 1023
 Data columns (total 5 columns):
-Date                                1024 non-null datetime64[ns]
-Signal_0.01                         1012 non-null float64
-Signal_0.01_Forecast                1024 non-null float64
-Signal_0.01_Forecast_Lower_Bound    12 non-null float64
-Signal_0.01_Forecast_Upper_Bound    12 non-null float64
+ #   Column                            Non-Null Count  Dtype         
+---  ------                            --------------  -----         
+ 0   Date                              1024 non-null   datetime64[ns]
+ 1   Signal_0.01                       1012 non-null   float64       
+ 2   Signal_0.01_Forecast              1024 non-null   float64       
+ 3   Signal_0.01_Forecast_Lower_Bound  12 non-null     float64       
+ 4   Signal_0.01_Forecast_Upper_Bound  12 non-null     float64       
 dtypes: datetime64[ns](1), float64(4)
 memory usage: 40.1 KB
 Forecasts
@@ -88,7 +90,7 @@ Forecasts
         "AR_Model": "NoAR",
         "Best_Decomposition": "_Signal_0.01_LinearTrend_residue_Seasonal_DayOfWeek_residue_NoAR",
         "Cycle": "Seasonal_DayOfWeek",
-        "Signal_Transoformation": "None",
+        "Signal_Transoformation": "NoTransf",
         "Trend": "LinearTrend"
     },
     "Model_Performance": {

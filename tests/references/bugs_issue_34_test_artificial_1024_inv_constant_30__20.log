@@ -1,14 +1,14 @@
 INFO:pyaf.std:START_TRAINING 'Signal_0.01'
 GENERATING_RANDOM_DATASET Signal_1024_D_0_constant_30_inv_0.0_20
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal_0.01' 33.1070020198822
-INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2002-03-10T00:00:00.000000 TimeDelta=<DateOffset: kwds={'days': 1.0}> Estimation = (0 , 800) Validation = (800 , 1000) Test = (1000 , 1012) Horizon=12
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal_0.01' 73.15795874595642
+INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2002-03-10T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal_0.01' Min=0.08870370393155147 Max=1.0188957625478472  Mean=0.26027323341860925 StdDev=0.1905621630558238
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal_0.01' Min=0.08870370393155147 Max=1.0188957625478472  Mean=0.26027323341860925 StdDev=0.1905621630558238
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_Signal_0.01_ConstantTrend_residue_bestCycle_byL2_residue_NoAR' [ConstantTrend + Cycle_Length_30 + NoAR]
+INFO:pyaf.std:BEST_DECOMPOSITION  '_Signal_0.01_ConstantTrend_residue_bestCycle_byL2_residue_NoAR' [ConstantTrend + Cycle + NoAR]
 INFO:pyaf.std:TREND_DETAIL '_Signal_0.01_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_Signal_0.01_ConstantTrend_residue_bestCycle_byL2' [Cycle_Length_30]
+INFO:pyaf.std:CYCLE_DETAIL '_Signal_0.01_ConstantTrend_residue_bestCycle_byL2' [Cycle]
 INFO:pyaf.std:AUTOREG_DETAIL '_Signal_0.01_ConstantTrend_residue_bestCycle_byL2_residue_NoAR' [NoAR]
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0417 MAPE_Forecast=0.0417 MAPE_Test=0.0458
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0414 SMAPE_Forecast=0.0413 SMAPE_Test=0.0465
@@ -19,8 +19,8 @@ INFO:pyaf.std:MODEL_COMPLEXITY 8
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.48540377616882324
-Forecast Columns  Index(['Date', 'Signal_0.01', '_Signal_0.01', 'row_number', 'Date_Normalized',
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.911123514175415
+Forecast Columns  Index(['Date', 'Signal_0.01', 'row_number', 'Date_Normalized', '_Signal_0.01',
        '_Signal_0.01_ConstantTrend', '_Signal_0.01_ConstantTrend_residue',
        'cycle_internal', '_Signal_0.01_ConstantTrend_residue_bestCycle_byL2',
        '_Signal_0.01_ConstantTrend_residue_bestCycle_byL2_residue',
@@ -36,11 +36,13 @@ Forecast Columns  Index(['Date', 'Signal_0.01', '_Signal_0.01', 'row_number', 'D
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 1024 entries, 0 to 1023
 Data columns (total 5 columns):
-Date                                1024 non-null datetime64[ns]
-Signal_0.01                         1012 non-null float64
-Signal_0.01_Forecast                1024 non-null float64
-Signal_0.01_Forecast_Lower_Bound    12 non-null float64
-Signal_0.01_Forecast_Upper_Bound    12 non-null float64
+ #   Column                            Non-Null Count  Dtype         
+---  ------                            --------------  -----         
+ 0   Date                              1024 non-null   datetime64[ns]
+ 1   Signal_0.01                       1012 non-null   float64       
+ 2   Signal_0.01_Forecast              1024 non-null   float64       
+ 3   Signal_0.01_Forecast_Lower_Bound  12 non-null     float64       
+ 4   Signal_0.01_Forecast_Upper_Bound  12 non-null     float64       
 dtypes: datetime64[ns](1), float64(4)
 memory usage: 40.1 KB
 Forecasts
@@ -87,8 +89,8 @@ Forecasts
     "Model": {
         "AR_Model": "NoAR",
         "Best_Decomposition": "_Signal_0.01_ConstantTrend_residue_bestCycle_byL2_residue_NoAR",
-        "Cycle": "Cycle_Length_30",
-        "Signal_Transoformation": "None",
+        "Cycle": "Cycle",
+        "Signal_Transoformation": "NoTransf",
         "Trend": "ConstantTrend"
     },
     "Model_Performance": {

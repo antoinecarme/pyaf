@@ -2,32 +2,29 @@ INFO:pyaf.std:START_TRAINING 'Close'
 <class 'pandas.core.frame.DataFrame'>
 Int64Index: 1258 entries, 1257 to 0
 Data columns (total 9 columns):
-Unnamed: 0    1258 non-null int64
-Symbol        1258 non-null object
-Adj_Close     1258 non-null float64
-High          1258 non-null float64
-Low           1258 non-null float64
-Volume        1258 non-null int64
-Open          1258 non-null float64
-Date          1258 non-null datetime64[ns]
-Close         1258 non-null float64
+ #   Column      Non-Null Count  Dtype         
+---  ------      --------------  -----         
+ 0   Unnamed: 0  1258 non-null   int64         
+ 1   Symbol      1258 non-null   object        
+ 2   Adj_Close   1258 non-null   float64       
+ 3   High        1258 non-null   float64       
+ 4   Low         1258 non-null   float64       
+ 5   Volume      1258 non-null   int64         
+ 6   Open        1258 non-null   float64       
+ 7   Date        1258 non-null   datetime64[ns]
+ 8   Close       1258 non-null   float64       
 dtypes: datetime64[ns](1), float64(5), int64(2), object(1)
 memory usage: 98.3+ KB
-      Unnamed: 0 Symbol  Adj_Close        High         Low     Volume  \
-1257        1257   AAPL  51.523488  396.989994  388.130005  148508500   
-1256        1256   AAPL  51.347280  395.150005  384.000004  158146100   
-1255        1255   AAPL  52.171771  399.500011  392.369995  153209000   
-1254        1254   AAPL  51.140829  397.900002  388.350010  159884900   
-1253        1253   AAPL  51.622111  393.549995  382.239990  183127000   
+      Unnamed: 0 Symbol  Adj_Close  ...        Open       Date       Close
+1257        1257   AAPL  51.523488  ...  391.619991 2011-07-28  391.819996
+1256        1256   AAPL  51.347280  ...  387.640007 2011-07-29  390.479992
+1255        1255   AAPL  52.171771  ...  397.779999 2011-08-01  396.749989
+1254        1254   AAPL  51.140829  ...  397.650009 2011-08-02  388.909996
+1253        1253   AAPL  51.622111  ...  390.980003 2011-08-03  392.570000
 
-            Open       Date       Close  
-1257  391.619991 2011-07-28  391.819996  
-1256  387.640007 2011-07-29  390.479992  
-1255  397.779999 2011-08-01  396.749989  
-1254  397.650009 2011-08-02  388.909996  
-1253  390.980003 2011-08-03  392.570000  
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Close' 9.712204933166504
-INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2011-07-28T00:00:00.000000 TimeMax=2015-07-20T00:00:00.000000 TimeDelta=<DateOffset: kwds={'days': 1.0}> Estimation = (0 , 1000) Validation = (1000 , 1251) Test = (1251 , 1258) Horizon=7
+[5 rows x 9 columns]
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Close' 10.167707920074463
+INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2011-07-28T00:00:00.000000 TimeMax=2015-07-20T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=7
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Close' Min=90.279999 Max=702.100021  Mean=337.3416532639109 StdDev=207.08814386340208
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Close' Min=90.279999 Max=702.100021  Mean=337.3416532639109 StdDev=207.08814386340208
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
@@ -44,8 +41,8 @@ INFO:pyaf.std:MODEL_COMPLEXITY 32
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.5790116786956787
-Forecast Columns  Index(['Close', 'Date', '_Close', 'row_number', 'Date_Normalized',
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.7083749771118164
+Forecast Columns  Index(['Date', 'Close', 'row_number', 'Date_Normalized', '_Close',
        '_Close_Lag1Trend', '_Close_Lag1Trend_residue',
        '_Close_Lag1Trend_residue_zeroCycle',
        '_Close_Lag1Trend_residue_zeroCycle_residue',
@@ -60,11 +57,13 @@ Forecast Columns  Index(['Close', 'Date', '_Close', 'row_number', 'Date_Normaliz
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 1265 entries, 0 to 1264
 Data columns (total 3 columns):
-Date              1265 non-null datetime64[ns]
-Close             1258 non-null float64
-Close_Forecast    1265 non-null float64
+ #   Column          Non-Null Count  Dtype         
+---  ------          --------------  -----         
+ 0   Date            1265 non-null   datetime64[ns]
+ 1   Close           1258 non-null   float64       
+ 2   Close_Forecast  1265 non-null   float64       
 dtypes: datetime64[ns](1), float64(2)
-memory usage: 29.7 KB
+memory usage: 29.8 KB
 Forecasts
             Date       Close  Close_Forecast
 1251 2016-07-19   99.870003       99.830002

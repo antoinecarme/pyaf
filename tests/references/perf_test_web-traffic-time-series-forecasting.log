@@ -1,13 +1,13 @@
 INFO:pyaf.std:START_TRAINING '4360'
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '4360' 7.494542598724365
-INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2015-07-01T00:00:00.000000 TimeMax=2016-07-26T00:00:00.000000 TimeDelta=<DateOffset: kwds={'days': 1.0}> Estimation = (0 , 392) Validation = (392 , 490) Test = (490 , 550) Horizon=60
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '4360' 23.149987936019897
+INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2015-07-01T00:00:00.000000 TimeMax=2016-07-26T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=60
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='4360' Min=106.0 Max=27635.0  Mean=569.3618181818182 StdDev=1752.9610383048669
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_4360' Min=106.0 Max=27635.0  Mean=569.3618181818182 StdDev=1752.9610383048669
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_4360_Lag1Trend_residue_zeroCycle_residue_AR(16)' [Lag1Trend + NoCycle + AR(16)]
+INFO:pyaf.std:BEST_DECOMPOSITION  '_4360_Lag1Trend_residue_zeroCycle_residue_AR(16)' [Lag1Trend + NoCycle + AR]
 INFO:pyaf.std:TREND_DETAIL '_4360_Lag1Trend' [Lag1Trend]
 INFO:pyaf.std:CYCLE_DETAIL '_4360_Lag1Trend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_4360_Lag1Trend_residue_zeroCycle_residue_AR(16)' [AR(16)]
+INFO:pyaf.std:AUTOREG_DETAIL '_4360_Lag1Trend_residue_zeroCycle_residue_AR(16)' [AR]
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.3077 MAPE_Forecast=0.1855 MAPE_Test=0.1502
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.2623 SMAPE_Forecast=0.1843 SMAPE_Test=0.1476
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.9794 MASE_Forecast=0.9396 MASE_Test=0.9715
@@ -27,21 +27,16 @@ INFO:pyaf.std:AR_MODEL_COEFF 9 _4360_Lag1Trend_residue_zeroCycle_residue_Lag10 -
 INFO:pyaf.std:AR_MODEL_COEFF 10 _4360_Lag1Trend_residue_zeroCycle_residue_Lag11 -0.1289656899559146
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 3.7685887813568115
-  Transformation                                              Model  \
-0          _4360   _4360_Lag1Trend_residue_zeroCycle_residue_AR(16)   
-1  Anscombe_4360  Anscombe_4360_Lag1Trend_residue_zeroCycle_resi...   
-2          _4360     _4360_Lag1Trend_residue_zeroCycle_residue_NoAR   
-3  Anscombe_4360  Anscombe_4360_Lag1Trend_residue_zeroCycle_resi...   
-4      Diff_4360  Diff_4360_Lag1Trend_residue_zeroCycle_residue_...   
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 8.153978824615479
+  Split Transformation  ... ForecastMAPE TestMAPE
+0  None          _4360  ...       0.1855   0.1502
+1  None  Anscombe_4360  ...       0.1869   0.1473
+2  None          _4360  ...       0.1959   0.1523
+3  None  Anscombe_4360  ...       0.1959   0.1523
+4  None      Diff_4360  ...       0.1959   0.1523
 
-   Complexity  FitMAPE  ForecastMAPE  TestMAPE  
-0          48   0.3077        0.1855    0.1502  
-1          80   0.2298        0.1869    0.1473  
-2          32   0.2207        0.1959    0.1523  
-3          64   0.2207        0.1959    0.1523  
-4          64   0.2207        0.1959    0.1523  
-Forecast Columns  Index(['4360', 'Date', '_4360', 'row_number', 'Date_Normalized',
+[5 rows x 8 columns]
+Forecast Columns  Index(['Date', '4360', 'row_number', 'Date_Normalized', '_4360',
        '_4360_Lag1Trend', '_4360_Lag1Trend_residue',
        '_4360_Lag1Trend_residue_zeroCycle',
        '_4360_Lag1Trend_residue_zeroCycle_residue',
@@ -55,9 +50,11 @@ Forecast Columns  Index(['4360', 'Date', '_4360', 'row_number', 'Date_Normalized
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 610 entries, 0 to 609
 Data columns (total 3 columns):
-Date             610 non-null datetime64[ns]
-4360             550 non-null float64
-4360_Forecast    610 non-null float64
+ #   Column         Non-Null Count  Dtype         
+---  ------         --------------  -----         
+ 0   Date           610 non-null    datetime64[ns]
+ 1   4360           550 non-null    float64       
+ 2   4360_Forecast  610 non-null    float64       
 dtypes: datetime64[ns](1), float64(2)
 memory usage: 14.4 KB
 None
@@ -140,10 +137,10 @@ Forecasts
         "Training_Signal_Length": 550
     },
     "Model": {
-        "AR_Model": "AR(16)",
+        "AR_Model": "AR",
         "Best_Decomposition": "_4360_Lag1Trend_residue_zeroCycle_residue_AR(16)",
         "Cycle": "NoCycle",
-        "Signal_Transoformation": "None",
+        "Signal_Transoformation": "NoTransf",
         "Trend": "Lag1Trend"
     },
     "Model_Performance": {
