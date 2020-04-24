@@ -27,13 +27,21 @@ class cAbstractAR:
         self.mComplexity = None;
         self.mFormula = None;
         self.mTargetName = self.mCycleResidueName;
-        self.mInputNames = None;
+        self.mInputNames = [];
         self.mExogenousInfo = iExogenousInfo;
+        self.mLagsForSeries = {}
 
     def plot(self):
         tsplot.decomp_plot(self.mARFrame, self.mTimeInfo.mNormalizedTimeColumn,
                            self.mCycleResidueName, self.mOutName , self.mOutName + '_residue');
 
+
+    def register_lag(self, series, p):
+        name = series+'_Lag' + str(p);
+        self.mInputNames.append(name);
+        self.mLagsForSeries[series] = self.mLagsForSeries.get(series , [])
+        self.mLagsForSeries[series].append(p)
+        
     def dumpCoefficients(self):
         pass
 
@@ -58,24 +66,23 @@ class cAbstractAR:
 
     def addLagForForecast(self, df, lag_df, series, p):
         name = series+'_Lag' + str(p);
-        if(name not in self.mInputNames):
-            return;
+        assert(p in self.mLagsForSeries[series])
         lSeries = df[series];
         lShiftedSeries = self.shift_series(lSeries, p , self.mDefaultValues[series]); 
         lag_df[name] = lShiftedSeries;
         
     def generateLagsForForecast(self, df):
         lag_df = pd.DataFrame()
-        lag_df[self.mCycleResidueName] = df[self.mCycleResidueName]
-        for p in range(1, self.mNbLags + 1):
+        lag_df[self.mCycleResidueName] = df[self.mCycleResidueName].reset_index(drop=True)
+        for p in self.mLagsForSeries[self.mCycleResidueName]:
             # signal lags ... plain old AR model
             self.addLagForForecast(df, lag_df, self.mCycleResidueName, p);
         # Exogenous variables lags
         if(self.mExogenousInfo is not None):
             # print(self.mExogenousInfo.mEncodedExogenous);
             # print(df.columns);
-            for p in range(1, self.mNbExogenousLags + 1):
-                for ex in self.mExogenousInfo.mEncodedExogenous:
+            for ex in self.mExogenousInfo.mEncodedExogenous:
+                for p in self.mLagsForSeries[ex]:
                     self.addLagForForecast(df, lag_df, ex, p);
         return lag_df;
 
@@ -139,7 +146,7 @@ class cAutoRegressiveEstimator:
     def addLagForTraining(self, df, lag_df, series, autoreg, p):
         name = series+'_Lag' + str(p);
         if(name in lag_df.columns):
-            autoreg.mInputNames.append(name);
+            autoreg.register_lag(series, p);
             return lag_df;
 
         lSeries = df[series];
@@ -149,7 +156,7 @@ class cAutoRegressiveEstimator:
         lShiftedEstim = self.mSplit.getEstimPart(lShiftedSeries);
         lAcceptable = self.is_not_constant(lShiftedEstim);
         if(lAcceptable):
-            autoreg.mInputNames.append(name);
+            autoreg.register_lag(series, p);
             lag_df[name] = lShiftedSeries;
             self.mLagOrigins[name] = series;
         return lag_df;
@@ -158,7 +165,6 @@ class cAutoRegressiveEstimator:
         logger = tsutil.get_pyaf_logger();
         add_lag_start_time = time.time()
         for autoreg in self.mARList[cycle_residue]:
-            autoreg.mInputNames = [];
             P = autoreg.mNbLags;
             for p in range(1,P+1):
                 # signal lags ... plain old AR model
