@@ -761,6 +761,21 @@ hierarchical/test_grouped_signals_AllMethods.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/hierarchical_test_grouped_signals_AllMethods.log logs/hierarchical_test_grouped_signals_AllMethods.log  >  logs/hierarchical_test_grouped_signals_AllMethods.log.diff
 	 tail -10  logs/hierarchical_test_grouped_signals_AllMethods.log.diff 
 
+hierarchical/test_grouped_signals_AllMethods_2.py  :  
+	 $(PYTHON)  tests/hierarchical/test_grouped_signals_AllMethods_2.py  >  logs/hierarchical_test_grouped_signals_AllMethods_2.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/hierarchical_test_grouped_signals_AllMethods_2.log logs/hierarchical_test_grouped_signals_AllMethods_2.log  >  logs/hierarchical_test_grouped_signals_AllMethods_2.log.diff
+	 tail -10  logs/hierarchical_test_grouped_signals_AllMethods_2.log.diff 
+
+hierarchical/test_grouped_signals_AllMethods_Exogenous_all_nodes.py  :  
+	 $(PYTHON)  tests/hierarchical/test_grouped_signals_AllMethods_Exogenous_all_nodes.py  >  logs/hierarchical_test_grouped_signals_AllMethods_Exogenous_all_nodes.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/hierarchical_test_grouped_signals_AllMethods_Exogenous_all_nodes.log logs/hierarchical_test_grouped_signals_AllMethods_Exogenous_all_nodes.log  >  logs/hierarchical_test_grouped_signals_AllMethods_Exogenous_all_nodes.log.diff
+	 tail -10  logs/hierarchical_test_grouped_signals_AllMethods_Exogenous_all_nodes.log.diff 
+
+hierarchical/test_grouped_signals_AllMethods_Exogenous_per_node.py  :  
+	 $(PYTHON)  tests/hierarchical/test_grouped_signals_AllMethods_Exogenous_per_node.py  >  logs/hierarchical_test_grouped_signals_AllMethods_Exogenous_per_node.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/hierarchical_test_grouped_signals_AllMethods_Exogenous_per_node.log logs/hierarchical_test_grouped_signals_AllMethods_Exogenous_per_node.log  >  logs/hierarchical_test_grouped_signals_AllMethods_Exogenous_per_node.log.diff
+	 tail -10  logs/hierarchical_test_grouped_signals_AllMethods_Exogenous_per_node.log.diff 
+
 hierarchical/test_grouped_signals_BU.py  :  
 	 $(PYTHON)  tests/hierarchical/test_grouped_signals_BU.py  >  logs/hierarchical_test_grouped_signals_BU.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/hierarchical_test_grouped_signals_BU.log logs/hierarchical_test_grouped_signals_BU.log  >  logs/hierarchical_test_grouped_signals_BU.log.diff
@@ -791,6 +806,16 @@ hierarchical/test_hierarchy_AU_AllMethods.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/hierarchical_test_hierarchy_AU_AllMethods.log logs/hierarchical_test_hierarchy_AU_AllMethods.log  >  logs/hierarchical_test_hierarchy_AU_AllMethods.log.diff
 	 tail -10  logs/hierarchical_test_hierarchy_AU_AllMethods.log.diff 
 
+hierarchical/test_hierarchy_AU_AllMethods_Exogenous_all_nodes.py  :  
+	 $(PYTHON)  tests/hierarchical/test_hierarchy_AU_AllMethods_Exogenous_all_nodes.py  >  logs/hierarchical_test_hierarchy_AU_AllMethods_Exogenous_all_nodes.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/hierarchical_test_hierarchy_AU_AllMethods_Exogenous_all_nodes.log logs/hierarchical_test_hierarchy_AU_AllMethods_Exogenous_all_nodes.log  >  logs/hierarchical_test_hierarchy_AU_AllMethods_Exogenous_all_nodes.log.diff
+	 tail -10  logs/hierarchical_test_hierarchy_AU_AllMethods_Exogenous_all_nodes.log.diff 
+
+hierarchical/test_hierarchy_AU_AllMethods_Exogenous_per_node.py  :  
+	 $(PYTHON)  tests/hierarchical/test_hierarchy_AU_AllMethods_Exogenous_per_node.py  >  logs/hierarchical_test_hierarchy_AU_AllMethods_Exogenous_per_node.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/hierarchical_test_hierarchy_AU_AllMethods_Exogenous_per_node.log logs/hierarchical_test_hierarchy_AU_AllMethods_Exogenous_per_node.log  >  logs/hierarchical_test_hierarchy_AU_AllMethods_Exogenous_per_node.log.diff
+	 tail -10  logs/hierarchical_test_hierarchy_AU_AllMethods_Exogenous_per_node.log.diff 
+
 hierarchical/test_hierarchy_AU_BU.py  :  
 	 $(PYTHON)  tests/hierarchical/test_hierarchy_AU_BU.py  >  logs/hierarchical_test_hierarchy_AU_BU.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/hierarchical_test_hierarchy_AU_BU.log logs/hierarchical_test_hierarchy_AU_BU.log  >  logs/hierarchical_test_hierarchy_AU_BU.log.diff
@@ -813,7 +838,7 @@ hierarchical/test_hierarchy_AU_TD.py  :
 
 
 
- hierarchical :  hierarchical/test_hierarchy_AU_TD.py hierarchical/test_hierarchy_AU_OC.py hierarchical/test_hierarchy_AU_MO.py hierarchical/test_hierarchy_AU_BU.py hierarchical/test_hierarchy_AU_AllMethods.py hierarchical/test_hierarchy_AU.py hierarchical/test_grouped_signals_TD.py hierarchical/test_grouped_signals_OC.py hierarchical/test_grouped_signals_MO.py hierarchical/test_grouped_signals_BU.py hierarchical/test_grouped_signals_AllMethods.py hierarchical/test_grouped.py  
+ hierarchical :  hierarchical/test_hierarchy_AU_TD.py hierarchical/test_hierarchy_AU_OC.py hierarchical/test_hierarchy_AU_MO.py hierarchical/test_hierarchy_AU_BU.py hierarchical/test_hierarchy_AU_AllMethods_Exogenous_per_node.py hierarchical/test_hierarchy_AU_AllMethods_Exogenous_all_nodes.py hierarchical/test_hierarchy_AU_AllMethods.py hierarchical/test_hierarchy_AU.py hierarchical/test_grouped_signals_TD.py hierarchical/test_grouped_signals_OC.py hierarchical/test_grouped_signals_MO.py hierarchical/test_grouped_signals_BU.py hierarchical/test_grouped_signals_AllMethods_Exogenous_per_node.py hierarchical/test_grouped_signals_AllMethods_Exogenous_all_nodes.py hierarchical/test_grouped_signals_AllMethods_2.py hierarchical/test_grouped_signals_AllMethods.py hierarchical/test_grouped.py  
  
 
 model_control/test_ozone_all_models_enabled.py  :  
