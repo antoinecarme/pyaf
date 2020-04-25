@@ -9,11 +9,6 @@ import numpy as np
 
 import traceback
 
-import dill
-dill.settings['recurse'] = False
-# import dill
-# import multiprocessing as mp
-# from pathos.multiprocessing import ProcessingPool as Pool
 from multiprocessing import Pool
 
 # for timing
@@ -188,19 +183,12 @@ class cSignalDecompositionOneTransform:
         return self.mBestModel;
     
 
-    def run_gc(self):
-        import gc
-        gc.collect()
-    
-    # @profile
     def train(self , iInputDS, iTime, iSignal,
               iHorizon, iTransformation):
         logger = tsutil.get_pyaf_logger();
 
         start_time = time.time()
         self.setParams(iInputDS, iTime, iSignal, iHorizon, iTransformation, self.mExogenousData);
-
-        self.run_gc();
 
         lMissingImputer = tsmiss.cMissingDataImputer()
         lMissingImputer.mOptions = self.mOptions
@@ -253,7 +241,6 @@ class cSignalDecompositionOneTransform:
         lCycleEstimator.mTrendList = lTrendEstimator.mTrendList;
 
         del lTrendEstimator;
-        self.run_gc();
 
         lCycleEstimator.mTimeInfo = self.mTimeInfo
         lCycleEstimator.mSplit = self.mSplit
@@ -274,7 +261,6 @@ class cSignalDecompositionOneTransform:
         lAREstimator.mCycleList = lCycleEstimator.mCycleList;
 
         del lCycleEstimator;
-        self.run_gc();
 
         lAREstimator.mTimeInfo = self.mTimeInfo
         lAREstimator.mSplit = self.mSplit
@@ -303,8 +289,6 @@ class cSignalDecompositionOneTransform:
 
         if(self.mOptions.mDebugProfile):
             logger.info("TRAINING_TIME_IN_SECONDS "  + str(self.mSignal) + " " + str(time.time() - start_time))
-        self.run_gc();
-        
 
 
 class cTraining_Arg:
@@ -638,7 +622,6 @@ class cSignalDecomposition:
             if(type1 != type3):
                 raise tsutil.PyAF_Error("PYAF_ERROR_INCOMPATIBLE_TIME_COLUMN_TYPE_IN_EXOGENOUS '" + str(iTime) + "' '" + str(type1)  + "' '" + str(type3) + "'");
                 
-    # @profile
     def train(self , iInputDS, iTime, iSignal, iHorizon, iExogenousData = None):
         logger = tsutil.get_pyaf_logger();
         logger.info("START_TRAINING '" + str(iSignal) + "'")
