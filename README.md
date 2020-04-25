@@ -156,7 +156,7 @@ It can be installed from PyPI for the latest official release:
    
 The development version is also available by executing :
 
-	pip install scipy pandas sklearn matplotlib pydot dill pathos sqlalchemy xgboost
+	pip install scipy pandas sklearn matplotlib pydot dill sqlalchemy xgboost
 	pip install --upgrade git+git://github.com/antoinecarme/pyaf.git
 
 
