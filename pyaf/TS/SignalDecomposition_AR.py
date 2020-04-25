@@ -38,6 +38,7 @@ class cAbstractAR:
 
     def register_lag(self, series, p):
         name = series+'_Lag' + str(p);
+        # print("register_lag", (series , p , name))
         self.mInputNames.append(name);
         self.mLagsForSeries[series] = self.mLagsForSeries.get(series , [])
         self.mLagsForSeries[series].append(p)
@@ -82,8 +83,9 @@ class cAbstractAR:
             # print(self.mExogenousInfo.mEncodedExogenous);
             # print(df.columns);
             for ex in self.mExogenousInfo.mEncodedExogenous:
-                for p in self.mLagsForSeries[ex]:
-                    self.addLagForForecast(df, lag_df, ex, p);
+                if(self.mLagsForSeries.get(ex)):
+                    for p in self.mLagsForSeries[ex]:
+                        self.addLagForForecast(df, lag_df, ex, p);
         return lag_df;
 
 
