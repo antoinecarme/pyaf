@@ -25,6 +25,5 @@ setup(name='pyaf',
           'matplotlib',
           'pydot',
           'dill',
-          'pathos',
           'sqlalchemy'
       ])
