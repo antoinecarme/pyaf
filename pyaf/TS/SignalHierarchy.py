@@ -23,7 +23,6 @@ class cSignalHierarchy:
 
     def __init__(self):
         self.mHierarchy = None;
-        self.mHierarchy = None;
         self.mDateColumn = None;
         self.mHorizon = None;
         self.mExogenousData = None;        
@@ -40,7 +39,18 @@ class cSignalHierarchy:
         lStr2 = ""
         return lStr2;
 
-
+    def get_exogenous_data(self, signal):
+        if(self.mExogenousData is None):
+            return None
+        # A signal is a hierarchy node
+        if(type(self.mExogenousData) == tuple):
+            # same data for all signals
+            return self.mExogenousData
+        if(type(self.mExogenousData) == dict):
+            # one exogenous data by signal
+            return self.mExogenousData.get(signal)
+        raise tsutil.PyAF_Error("BAD_EXOGENOUS_DATA_SPECIFICATION");
+            
     def to_json(self):
         lDict = {};
         lDict['Structure'] = self.mStructure;
@@ -111,18 +121,6 @@ class cSignalHierarchy:
             type2 = np.dtype(df[k])
             if(type2.kind != 'i' and type2.kind != 'u' and type2.kind != 'f'):
                 raise tsutil.PyAF_Error("PYAF_ERROR_HIERARCHY_BASE_SIGNAL_COLUMN_TYPE_NOT_ALLOWED '" + str(k) + "' '" + str(type2) + "'");
-        if(self.mExogenousData is not None):
-            lExogenousDataFrame = self.mExogenousData[0];
-            lExogenousVariables = self.mExogenousData[1];
-            if(self.mDateColumn not in lExogenousDataFrame.columns):
-                raise tsutil.PyAF_Error("PYAF_ERROR_HIERARCHY_TIME_COLUMN_NOT_FOUND_IN_EXOGENOUS " + str(self.mDateColumn));
-            for exog in lExogenousVariables:
-                if(exog not in lExogenousDataFrame.columns):
-                    raise tsutil.PyAF_Error("PYAF_ERROR_HIERARCHY_EXOGENOUS_VARIABLE_NOT_FOUND " + str(exog));
-                
-            type3 = np.dtype(lExogenousDataFrame[self.mDateColumn])
-            if(type1 != type3):
-                raise tsutil.PyAF_Error("PYAF_ERROR_HIERARCHY_INCOMPATIBLE_TIME_COLUMN_TYPE_IN_EXOGENOUS '" + str(self.mDateColumn) + "' '" + str(type1)  + "' '" + str(type3) + "'");
 
 
     def create_all_levels_dataset(self, df):
@@ -163,13 +161,13 @@ class cSignalHierarchy:
 
 
     def train_one_model(self, arg):
-        (level, signal, iAllLevelsDataset , iDateColumn , signal, H, iOptions) = arg
+        (level, signal, iAllLevelsDataset , iDateColumn , signal, H, iExogenousData, iOptions) = arg
         logger = tsutil.get_pyaf_hierarchical_logger();
         logger.info("TRAINING_MODEL_LEVEL_SIGNAL " + str(level) + " " + str(signal));
         lEngine = autof.cForecastEngine()
         lEngine.mOptions = copy.copy(iOptions);
         lEngine.mOptions.mParallelMode = False
-        lEngine.train(iAllLevelsDataset , iDateColumn , signal, H);
+        lEngine.train(iAllLevelsDataset , iDateColumn , signal, H, iExogenousData = iExogenousData);
         return (level, signal, lEngine)
 
     def create_all_levels_models(self, iAllLevelsDataset, H, iDateColumn):
@@ -179,13 +177,14 @@ class cSignalHierarchy:
         for level in sorted(self.mStructure.keys()):
             self.mModels[level] = {};
             for signal in sorted(self.mStructure[level].keys()):
-                arg = (level, signal, iAllLevelsDataset , iDateColumn , signal, H, self.mOptions)
+                lExogenousData = self.get_exogenous_data(signal)
+                arg = (level, signal, iAllLevelsDataset , iDateColumn , signal, H, lExogenousData, self.mOptions)
                 args.append(arg)
 
         pool = Pool(self.mOptions.mNbCores)
         for res in pool.map(self.train_one_model, args):
             (level, signal, lEngine) = res
-            lEngine.getModelInfo();
+            # lEngine.getModelInfo();
             self.mModels[level][signal] = lEngine;
         
         pool.close()

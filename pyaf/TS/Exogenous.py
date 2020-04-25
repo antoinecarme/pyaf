@@ -33,10 +33,21 @@ class cExogenousInfo:
         dict1 = {};
         return dict1;
 
+    def check(self):
+        if(self.mExogenousData is not None):
+            lExogenousDataFrame = self.mExogenousData[0];
+            lExogenousVariables = self.mExogenousData[1];
+            if(self.mDateVariable not in lExogenousDataFrame.columns):
+                raise tsutil.PyAF_Error("PYAF_ERROR_TIME_COLUMN_NOT_FOUND_IN_EXOGENOUS " + str(self.mDateVariable));
+            for exog in lExogenousVariables:
+                if(exog not in lExogenousDataFrame.columns):
+                    raise tsutil.PyAF_Error("PYAF_ERROR_EXOGENOUS_VARIABLE_NOT_FOUND " + str(exog));
+                    
     def fit(self):
         self.mExogenousDataFrame = self.mExogenousData[0];
         self.mExogenousVariables = self.mExogenousData[1];
         self.mDateVariable = self.mTimeInfo.mTime;
+        self.check()
         # print("preProcessExogenousVariables , columns", self.mExogenousVariables);
         self.updateExogenousVariableInfo();
         self.createEncodedExogenous();

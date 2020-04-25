@@ -118,6 +118,8 @@ class cTimeSeriesModel:
         sig_info = self.signal_info()
         logger.info("SIGNAL_DETAIL_ORIG " + sig_info[0]);
         logger.info("SIGNAL_DETAIL_TRANSFORMED " + sig_info[1]);
+        if(self.mAR.mExogenousInfo):
+            logger.info("EXOGENOUS_DATA " + str(self.mAR.mExogenousInfo.mExogenousVariables));        
         logger.info("BEST_TRANSOFORMATION_TYPE '" + self.mTransformation.get_name("") + "'");
         logger.info("BEST_DECOMPOSITION  '" + self.mOutName + "' [" + self.getFormula() + "]");
         logger.info("TREND_DETAIL '" + self.mTrend.mOutName + "' [" + self.mTrend.mFormula + "]");
