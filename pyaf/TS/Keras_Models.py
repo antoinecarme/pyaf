@@ -226,6 +226,7 @@ class cLSTM_Model(cAbstract_RNN_Model):
 
     def testPickle(self):
         import dill
+        dill.settings['recurse'] = False
         out1 = dill.dumps(self.mModel);
         lModel2 = dill.loads(out1);
         out2 = dill.dumps(lModel2);
