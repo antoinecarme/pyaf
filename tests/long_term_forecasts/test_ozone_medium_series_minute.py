@@ -45,7 +45,7 @@ H = NH // 4;
 # lEngine.mOptions.enable_slow_mode();
 lEngine.mOptions.mDebug = True;
 lEngine.mOptions.mDebugPerformance = True;
-lEngine.mOptions.mParallelMode = True
+lEngine.mOptions.mParallelMode = False 
 
 lEngine.train(df1 , b1.mTimeVar , b1.mSignalVar, H);
 lEngine.getModelInfo();
