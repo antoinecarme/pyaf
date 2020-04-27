@@ -211,6 +211,7 @@ class cSignalDecompositionOneTransform:
         self.mTransformation.fit(lSignal);
 
         self.mSignalFrame[self.mSignal] = self.mTransformation.apply(lSignal);
+        self.mSignalFrame[self.mSignal] = self.mSignalFrame[self.mSignal].astype(np.float32);
         
         exog_start_time = time.time()
         if(self.mExogenousInfo is not None):
