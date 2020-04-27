@@ -357,7 +357,7 @@ class cTrendEstimator:
         
     def plotTrend(self):
         for trend in self.mTrendList:
-            tsplot.decomp_plot(self.mTrendFrame, self.mTimeInfo.mNormalizedTimeColumn, self.mSignal, trend.mOutName , trend.mOutName + '_residue');
+            tsplot.decomp_plot(self.mTrendFrame, self.mTimeInfo.mNormalizedTimeColumn, self.mSignal, trend.mOutName , trend.mOutName + '_residue', horizon = self.mTimeInfo.mHorizon);
             
 
     def addTrendInputVariables(self):
