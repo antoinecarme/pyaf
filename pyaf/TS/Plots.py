@@ -30,7 +30,7 @@ def add_patched_legend(ax , names):
         patched_names = patched_names + [ patched_name ]
     ax.legend(patched_names)
 
-def decomp_plot(df, time, signal, estimator, residue, name = None, format='png', max_length = 1000) :
+def decomp_plot(df, time, signal, estimator, residue, name = None, format='png', max_length = 1000, horizon = 1) :
     assert(df.shape[0] > 0)
     assert(df.shape[1] > 0)
     assert(time in df.columns)
@@ -43,7 +43,7 @@ def decomp_plot(df, time, signal, estimator, residue, name = None, format='png',
     # print("MATPLOTLIB_BACKEND",  matplotlib.get_backend())
     # matplotlib.use('Agg')
     import matplotlib.pyplot as plt
-    df1 = df.tail(max_length);
+    df1 = df.tail(max(max_length , 4 * horizon));
     if(name is not None):
         plt.switch_backend('Agg')
     fig, axs = plt.subplots(ncols=2, figsize=(32, 16))
@@ -65,7 +65,7 @@ def decomp_plot(df, time, signal, estimator, residue, name = None, format='png',
         fig.savefig(name + '_decomp_output.' + format)
         plt.close(fig)
 
-def decomp_plot_as_png_base64(df, time, signal, estimator, residue, name = None, max_length = 1000) :
+def decomp_plot_as_png_base64(df, time, signal, estimator, residue, name = None, max_length = 1000, horizon = 1) :
     assert(df.shape[0] > 0)
     assert(df.shape[1] > 0)
     assert(time in df.columns)
@@ -77,7 +77,7 @@ def decomp_plot_as_png_base64(df, time, signal, estimator, residue, name = None,
     # matplotlib.use('Agg')
     import matplotlib.pyplot as plt
     plt.switch_backend('Agg')
-    df1 = df.tail(max_length);
+    df1 = df.tail(max(max_length, 4 * horizon));
     fig, axs = plt.subplots(ncols=2, figsize=(16, 8))
     lColor = COMPONENT_COLOR;
     if(name is not None and name.endswith("Forecast")):
@@ -100,7 +100,7 @@ def decomp_plot_as_png_base64(df, time, signal, estimator, residue, name = None,
     return figdata_png.decode('utf8')
     
 
-def prediction_interval_plot(df, time, signal, estimator, lower, upper, name = None, format='png', max_length = 1000) :
+def prediction_interval_plot(df, time, signal, estimator, lower, upper, name = None, format='png', max_length = 1000, horizon = 1) :
     assert(df.shape[0] > 0)
     assert(df.shape[1] > 0)
     assert(time in df.columns)
@@ -110,7 +110,7 @@ def prediction_interval_plot(df, time, signal, estimator, lower, upper, name = N
     assert(upper in df.columns)
 
 
-    df1 = df.tail(max_length).copy();
+    df1 = df.tail(max(max_length, 4 * horizon)).copy();
     lMin = np.mean(df1[signal]) -  np.std(df1[signal]) * 3;
     lMax = np.mean(df1[signal]) +  np.std(df1[signal]) * 3;
     df1[lower] = df1[lower].apply(lambda x : x if (np.isnan(x) or x >= lMin) else np.nan);
@@ -145,7 +145,7 @@ def prediction_interval_plot(df, time, signal, estimator, lower, upper, name = N
         plt.close(fig)
     
 
-def prediction_interval_plot_as_png_base64(df, time, signal, estimator, lower, upper, name = None, max_length = 1000) :
+def prediction_interval_plot_as_png_base64(df, time, signal, estimator, lower, upper, name = None, max_length = 1000, horizon = 1) :
     assert(df.shape[0] > 0)
     assert(df.shape[1] > 0)
     assert(time in df.columns)
@@ -155,7 +155,7 @@ def prediction_interval_plot_as_png_base64(df, time, signal, estimator, lower, u
     assert(upper in df.columns)
 
 
-    df1 = df.tail(max_length).copy();
+    df1 = df.tail(max(max_length, 4 * horizon)).copy();
     lMin = np.mean(df1[signal]) -  np.std(df1[signal]) * 3;
     lMax = np.mean(df1[signal]) +  np.std(df1[signal]) * 3;
     df1[lower] = df1[lower].apply(lambda x : x if (np.isnan(x) or x >= lMin) else np.nan);
