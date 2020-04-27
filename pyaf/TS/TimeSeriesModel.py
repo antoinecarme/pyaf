@@ -310,8 +310,7 @@ class cTimeSeriesModel:
             tsplot.decomp_plot(df, lTime, self.mOriginalSignal, lPrefix2 + 'Forecast' , lPrefix2 + 'Residue', horizon = self.mTimeInfo.mHorizon);
         
     def standardPlots(self, name = None, format = 'png'):
-        lInput = self.mTrend.mSignalFrame[[self.mTime, self.mOriginalSignal]];
-        lOutput = self.forecast(lInput ,  self.mTimeInfo.mHorizon);
+        lOutput =  self.getForecastDatasetForPlots();
         self.plotResidues(name = name, format=format, iOutputDF = lOutput);
         # print(lOutput.columns)
         lPrefix = str(self.mOriginalSignal) + "_";
