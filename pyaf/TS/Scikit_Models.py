@@ -23,6 +23,12 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
     def set_name(self):
         assert(0);
 
+
+    def is_used(self, name):
+        if(self.mFeatureSelector):
+            return (name in self.mInputNamesAfterSelection)
+        return True
+        
     def fit(self):
         #  print("ESTIMATE_SCIKIT_MODEL_START" , self.mCycleResidueName);
 
@@ -117,7 +123,8 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
         # print(self.mInputNames);
         # print(self.mFormula, "\n", lag_df.columns);
         # lag_df.to_csv("LAGGED_ " + str(self.mNbLags) + ".csv");
-        inputs_after_feat_selection = lag_df[self.mInputNamesAfterSelection].values
+        # print(len(list(lag_df.columns)) , len(self.mInputNamesAfterSelection))
+        inputs_after_feat_selection = lag_df.values[:,1:] # the first column is the signal
         # inputs_after_feat_selection = self.mFeatureSelector.transform(inputs) if self.mFeatureSelector else inputs;
         if(self.mScikitModel is not None):
             pred = self.mScikitModel.predict(inputs_after_feat_selection)
