@@ -162,8 +162,6 @@ class cSignalHierarchy:
 
     def train_one_model(self, arg):
         (level, signal, iAllLevelsDataset , iDateColumn , signal, H, iExogenousData, iOptions) = arg
-        logger = tsutil.get_pyaf_hierarchical_logger();
-        logger.info("TRAINING_MODEL_LEVEL_SIGNAL " + str(level) + " " + str(signal));
         lEngine = autof.cForecastEngine()
         lEngine.mOptions = copy.copy(iOptions);
         lEngine.mOptions.mParallelMode = False
@@ -181,6 +179,7 @@ class cSignalHierarchy:
                 arg = (level, signal, iAllLevelsDataset , iDateColumn , signal, H, lExogenousData, self.mOptions)
                 args.append(arg)
 
+        logger.info("TRAINING_HIERARCHICAL_MODELS_LEVEL_SIGNAL " + str([(arg[0] , arg[1]) for arg in args]));
         pool = Pool(self.mOptions.mNbCores)
         for res in pool.map(self.train_one_model, args):
             (level, signal, lEngine) = res
@@ -245,20 +244,12 @@ class cSignalHierarchy:
                 lEngine.standardPlots(name + "_Hierarchy_Level_Signal_" + str(level) + "_" + str(signal));
 
     def forecast_one_model(self, arg):
-        logger = tsutil.get_pyaf_hierarchical_logger();
         (level, signal, lEngine, dfapp_in, H) = arg
-        logger.info("FORECASTING_MODEL_LEVEL_SIGNAL " + str(level) + " " + str(signal));
-        try:
-            dfapp_out = lEngine.forecast(dfapp_in, H);
-            return (level, signal, dfapp_out)
-        except Exception as e:
-            logger.error("FAILURE_WITH_EXCEPTION : " + str(e)[:200]);
-            import traceback
-            traceback.print_exc()
-            raise
-
+        dfapp_out = lEngine.forecast(dfapp_in, H);
+        return (level, signal, dfapp_out)
 
     def forecastAllModels(self, iAllLevelsDataset, H, iDateColumn):
+        logger = tsutil.get_pyaf_hierarchical_logger();
         args = []
         for level in sorted(self.mModels.keys()):
             for signal in sorted(self.mModels[level].keys()):
@@ -268,6 +259,7 @@ class cSignalHierarchy:
                 arg = (level, signal, lEngine, dfapp_in, H)
                 args.append(arg)
 
+        logger.info("FORECASTING_HIERARCHICAL_MODELS_LEVEL_SIGNAL " + str([(arg[0] , arg[1]) for arg in args]));
         pool = Pool(self.mOptions.mNbCores)
         lForecast_DF = pd.DataFrame();
         for res in pool.imap(self.forecast_one_model, args):
