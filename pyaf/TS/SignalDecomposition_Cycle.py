@@ -33,7 +33,7 @@ class cAbstractCycle:
 
     def plot(self):
         tsplot.decomp_plot(self.mCycleFrame, self.mTimeInfo.mNormalizedTimeColumn,
-                           self.mTrend_residue_name, self.getCycleName() , self.getCycleResidueName());
+                           self.mTrend_residue_name, self.getCycleName() , self.getCycleResidueName(), horizon = self.mTimeInfo.mHorizon);
 
 
     def check_not_nan(self, sig , name):
