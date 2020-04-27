@@ -123,7 +123,6 @@ class cAbstractSignalTransform:
 
 
     def transformDataset(self, df, isig):
-        
         df[self.get_name(isig)] = self.apply(df[isig])
         return df;
 
