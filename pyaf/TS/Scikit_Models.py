@@ -202,7 +202,7 @@ class cXGBoost_Model(cAbstract_Scikit_Model):
                            nthread=1,
                            min_child_weight=10,
                            max_depth=3,
-                           seed=1960)
+                           seed=self.mOptions.mSeed)
         return lXGBOptions
 
         
