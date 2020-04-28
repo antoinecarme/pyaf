@@ -238,7 +238,11 @@ class cAutoRegressiveEstimator:
                       " " +  str(len(autoreg.mInputNames)) + " " + str(start_time));
             autoreg.mOptions = self.mOptions;
             autoreg.mCycleFrame = self.mCycleFrame;
-            autoreg.mARFrame = self.mARFrame;
+            autoreg.mARFrame = self.mARFrame
+            if(self.mOptions.mActivateSampling):
+                if(self.mARFrame.shape[0] > self.mOptions.mSamplingThreshold):                    
+                    lFraction = self.mOptions.mSamplingThreshold / self.mARFrame.shape[0] 
+                    autoreg.mARFrame = self.mARFrame.sample(frac = lFraction, replace=False, random_state=self.mOptions.mSeed);
             autoreg.mTimeInfo = self.mTimeInfo;
             autoreg.mSplit = self.mSplit;
             autoreg.mLagOrigins = self.mLagOrigins;
