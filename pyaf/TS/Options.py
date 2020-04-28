@@ -120,9 +120,12 @@ class cSignalDecomposition_Options(cModelControl):
         super().__init__();
         self.mParallelMode = True;
         self.mNbCores = 8;
+        self.mSeed = 1960
         self.mEstimRatio = 0.8; # to be deprecated when cross validation is OK.
         self.mCustomSplit = None
         self.mAddPredictionIntervals = True
+        self.mActivateSampling = True # sampling can be used for very large time series
+        self.mSamplingThreshold = 8192 # Time series larger than this threshold will be sampled.
         self.enable_fast_mode();
         self.mTimeDeltaComputationMethod = "AVG"; # can be "AVG", "MODE", "USER"
         self.mUserTimeDelta = None;
