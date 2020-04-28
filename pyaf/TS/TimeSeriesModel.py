@@ -33,6 +33,7 @@ class cTimeSeriesModel:
     def signal_info(self):
         lSignal = self.mTrend.mSignalFrame[self.mOriginalSignal];
         lStr1 = "SignalVariable='" + self.mOriginalSignal +"'";
+        lStr1 += " Length=" + str(lSignal.shape[0]) + " ";
         lStr1 += " Min=" + str(np.min(lSignal)) + " Max="  + str(np.max(lSignal)) + " ";
         lStr1 += " Mean=" + str(np.mean(lSignal)) + " StdDev="  + str(np.std(lSignal));
         lSignal = self.mTrend.mSignalFrame[self.mSignal];
