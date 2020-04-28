@@ -27,7 +27,7 @@ def add_makefile_entry(subdir1):
     return test_target;
 
 
-str1 = "artificial basic_checks bugs cross_validation croston exog expsmooth func HeartRateTimeSeries heroku hierarchical model_control perf svr transformations  neuralnet real-life  time_res perfs demos xgb xeon-phi-parallel";
+str1 = "artificial basic_checks bugs cross_validation croston exog expsmooth func HeartRateTimeSeries heroku hierarchical model_control perf svr transformations  neuralnet real-life  time_res perfs demos xgb xeon-phi-parallel sampling";
 subdirs = str1.split();
 
 print("PYTHON=python3\n\n");
