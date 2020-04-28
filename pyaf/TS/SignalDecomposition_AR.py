@@ -33,7 +33,7 @@ class cAbstractAR:
 
     def plot(self):
         tsplot.decomp_plot(self.mARFrame, self.mTimeInfo.mNormalizedTimeColumn,
-                           self.mCycleResidueName, self.mOutName , self.mOutName + '_residue');
+                           self.mCycleResidueName, self.mOutName , self.mOutName + '_residue', horizon = self.mTimeInfo.mHorizon);
 
 
     def register_lag(self, series, p):
@@ -45,7 +45,7 @@ class cAbstractAR:
         
     def dumpCoefficients(self):
         pass
-
+    
     def computePerf(self):
         self.mARFitPerf= tsperf.cPerf();
         self.mARForecastPerf= tsperf.cPerf();
@@ -65,8 +65,13 @@ class cAbstractAR:
     def getDefaultValue(self, series):
         return self.mDefaultValues[series];
 
+    def is_used(self, name):
+        return True
+    
     def addLagForForecast(self, df, lag_df, series, p):
         name = series+'_Lag' + str(p);
+        if(not self.is_used(name)):
+            return
         assert(p in self.mLagsForSeries[series])
         lSeries = df[series];
         lShiftedSeries = self.shift_series(lSeries, p , self.mDefaultValues[series]); 
@@ -199,8 +204,8 @@ class cAutoRegressiveEstimator:
         logger = tsutil.get_pyaf_logger();
         self.mARFrame = pd.DataFrame();
         self.mTimeInfo.addVars(self.mARFrame);
-        # self.mCycleFrame[cycle_residue] = self.mCycleFrame[cycle_residue].astype(np.float64)            
-        self.mARFrame[cycle_residue] = self.mCycleFrame[cycle_residue] # .astype(np.float64)            
+        self.mCycleFrame[cycle_residue] = self.mCycleFrame[cycle_residue]            
+        self.mARFrame[cycle_residue] = self.mCycleFrame[cycle_residue]            
 
         self.mDefaultValues = {};
         self.mLagOrigins = {};
