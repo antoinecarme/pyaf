@@ -168,7 +168,8 @@ class cSignalDecomposition_Options(cModelControl):
         self.mMaxAROrder = 64;
         self.mFilterSeasonals = False
         # enable cross validation
-        self.mCrossValidationOptions.mMethod = "TSCV";        
+        self.mCrossValidationOptions.mMethod = "TSCV";
+        self.mActivateSampling = False
 
     def enable_fast_mode(self):
         self.mQuantiles = [5, 10, 20]; # quintiles, deciles, and vingtiles;)
