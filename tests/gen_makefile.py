@@ -45,6 +45,6 @@ print("\n# ********************************************** \n");
 
 print("all: " , str1 , "\n\t\n");
 
-str2 = "demos basic_checks cross_validation croston exog heroku hierarchical model_control perfs svr transformations func real-life  time_res xgb ";
+str2 = "demos basic_checks cross_validation croston exog heroku hierarchical model_control perfs svr transformations func real-life  time_res xgb sampling";
 
 print("build-test : " , str2 , "\n\t\n");
