@@ -1051,6 +1051,31 @@ real-life/test_sof_example2.py  :
  real-life :  real-life/test_sof_example2.py real-life/test_sof_example.py  
  
 
+sampling/test_ozone_with_no_sampling.py  :  
+	 $(PYTHON)  tests/sampling/test_ozone_with_no_sampling.py  >  logs/sampling_test_ozone_with_no_sampling.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/sampling_test_ozone_with_no_sampling.log logs/sampling_test_ozone_with_no_sampling.log  >  logs/sampling_test_ozone_with_no_sampling.log.diff
+	 tail -10  logs/sampling_test_ozone_with_no_sampling.log.diff 
+
+sampling/test_ozone_with_sampling.py  :  
+	 $(PYTHON)  tests/sampling/test_ozone_with_sampling.py  >  logs/sampling_test_ozone_with_sampling.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/sampling_test_ozone_with_sampling.log logs/sampling_test_ozone_with_sampling.log  >  logs/sampling_test_ozone_with_sampling.log.diff
+	 tail -10  logs/sampling_test_ozone_with_sampling.log.diff 
+
+sampling/test_ozone_with_sampling_2.py  :  
+	 $(PYTHON)  tests/sampling/test_ozone_with_sampling_2.py  >  logs/sampling_test_ozone_with_sampling_2.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/sampling_test_ozone_with_sampling_2.log logs/sampling_test_ozone_with_sampling_2.log  >  logs/sampling_test_ozone_with_sampling_2.log.diff
+	 tail -10  logs/sampling_test_ozone_with_sampling_2.log.diff 
+
+sampling/test_ozone_with_sampling_3.py  :  
+	 $(PYTHON)  tests/sampling/test_ozone_with_sampling_3.py  >  logs/sampling_test_ozone_with_sampling_3.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/sampling_test_ozone_with_sampling_3.log logs/sampling_test_ozone_with_sampling_3.log  >  logs/sampling_test_ozone_with_sampling_3.log.diff
+	 tail -10  logs/sampling_test_ozone_with_sampling_3.log.diff 
+
+
+
+ sampling :  sampling/test_ozone_with_sampling_3.py sampling/test_ozone_with_sampling_2.py sampling/test_ozone_with_sampling.py sampling/test_ozone_with_no_sampling.py  
+ 
+
 svr/test_air_passengers_svr.py  :  
 	 $(PYTHON)  tests/svr/test_air_passengers_svr.py  >  logs/svr_test_air_passengers_svr.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/svr_test_air_passengers_svr.log logs/svr_test_air_passengers_svr.log  >  logs/svr_test_air_passengers_svr.log.diff
@@ -1219,9 +1244,9 @@ xgb/test_ozone_xgbx_exogenous.py  :
 
 # ********************************************** 
 
-all:  artificial basic_checks bugs cross_validation croston exog expsmooth func HeartRateTimeSeries heroku hierarchical model_control perf svr transformations  neuralnet real-life  time_res perfs demos xgb xeon-phi-parallel 
+all:  artificial basic_checks bugs cross_validation croston exog expsmooth func HeartRateTimeSeries heroku hierarchical model_control perf svr transformations  neuralnet real-life  time_res perfs demos xgb xeon-phi-parallel sampling 
 	
 
-build-test :  demos basic_checks cross_validation croston exog heroku hierarchical model_control perfs svr transformations func real-life  time_res xgb  
+build-test :  demos basic_checks cross_validation croston exog heroku hierarchical model_control perfs svr transformations func real-life  time_res xgb sampling 
 	
 

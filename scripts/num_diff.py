@@ -23,15 +23,16 @@ def is_numeric(x):
 def compare_words(word_orig, word_new):
     if(word_orig == word_new):
         return 0;
-    print("DIFFERENT_WORDS" , word_orig, word_new)    
     if(is_numeric(word_orig) and is_numeric(word_new)):
         lNumber_orig = float(word_orig);
         lNumber_new = float(word_new);
         if(np.isclose([lNumber_orig] , [lNumber_new])):
             lRelDiff = abs(lNumber_new - lNumber_orig) / (abs(lNumber_orig) + 1e-10);
-            print("NUM_DIFF_DEBUG_ALLOWED_SMALL_DIFFERENCE", word_orig, word_new, lNumber_orig, lNumber_new, lRelDiff)
+            if(lRelDiff > 1e-12):
+                print("NUM_DIFF_DEBUG_ALLOWED_SMALL_DIFFERENCE", word_orig, word_new, lNumber_orig, lNumber_new, lRelDiff)
             return 0;
         else:
+            print("DIFFERENT_WORDS" , word_orig, word_new)    
             return 1;
     else:
         # print("NUM_DIFF_NOT_NUMERIC_DIFF", word_orig, word_new)        
