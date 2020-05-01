@@ -18,29 +18,6 @@ class cTemporalHierarchy (sighier.cSignalHierarchy):
         sighier.cSignalHierarchy.__init__(self)
         self.mLabels2Tuples = {};
         
-    def tuple_to_string(self, k):
-        str1 = "_".join(list(k));
-        # print(k , "=>" , str1);
-        return str1;
-    
-    def add_level(self, previous_level):
-        level = previous_level + 1;
-        self.mStructure[level] = {};
-        for group in self.mStructure[previous_level]:
-            lGroupLabel = group; # self.tuple_to_string(group);
-            lTuple = self.mLabels2Tuples[lGroupLabel]
-            for k in [previous_level]:
-                if(lTuple[k] != ""):
-                    new_group = list(lTuple);
-                    new_group[k] = "";
-                    new_group = tuple(new_group);
-                    lNewGroupLabel = self.tuple_to_string(new_group);
-                    self.mLabels2Tuples[lNewGroupLabel] = new_group;
-                    if(lNewGroupLabel not in self.mStructure[level]):
-                        self.mStructure[level][lNewGroupLabel] = set();
-                    self.mStructure[level][lNewGroupLabel].add(lGroupLabel)
-        # print("STRUCTURE_LEVEL" , level, self.mStructure[level]);
-
 
     def discard_nans_in_aggregate_signals(self):
         return True
@@ -101,33 +78,6 @@ class cTemporalHierarchy (sighier.cSignalHierarchy):
             self.mGroups[lPeriod] = [self.mSignal + '_' + lPeriod]
         self.mGroupOrder= [lPeriod for lPeriod in self.mPeriods]
         
-    def create_HierarchicalStructure__(self):
-        
-        self.define_groups()
-        lGroups = self.mGroups
-        self.mLevels = list(lGroups.keys());
-        self.mLabels2Tuples = {};
-        self.mStructure = {};
-        array1 = [ sorted(lGroups[k]) for k in self.mGroupOrder ];
-        prod = itertools.product( *array1 );
-        # print(prod);
-        level = 0;
-        self.mStructure[level] = {}
-        lSignal = self.mSignal
-        for k in prod:
-            # print("PRODUCT_DETAIL", k);
-            lGroupLabel = self.tuple_to_string(k);
-            self.mLabels2Tuples[lGroupLabel] = k;
-            self.mStructure[level][lGroupLabel] = set();
-        # print("STRUCTURE_LEVEL" , level, self.mStructure[level]);
-        while(len(self.mStructure[level]) > 1):
-            self.add_level(level);
-            level = level + 1;
-        
-        # print("STRUCTURE", self.mStructure);
-        pass
-
-
     def create_HierarchicalStructure(self):
         self.mPeriods = self.mHierarchy['Periods']
         # self.add_temporal_data(self.mTrainingDataset)
