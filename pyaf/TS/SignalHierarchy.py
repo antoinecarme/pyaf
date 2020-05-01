@@ -24,6 +24,7 @@ class cSignalHierarchy:
     def __init__(self):
         self.mHierarchy = None;
         self.mDateColumn = None;
+        self.mSignal = None;
         self.mHorizon = None;
         self.mExogenousData = None;        
         self.mTrainingDataset = None;        
@@ -61,6 +62,9 @@ class cSignalHierarchy:
                 lDict['Models'][signal] = lEngine.mSignalDecomposition.mBestModel.to_json();
         return lDict;
 
+    def discard_nans_in_aggregate_signals(self):
+        return False
+    
     def create_HierarchicalStructure(self):
         self.mLevels = self.mHierarchy['Levels'];
         self.mStructure = {};
@@ -159,13 +163,22 @@ class cSignalHierarchy:
         df = self.addVars(df);
         return df;
 
+    def get_specific_date_column_for_signal(self, level, signal):
+        # only for temporal hierarchies
+        return None
 
     def train_one_model(self, arg):
         (level, signal, iAllLevelsDataset , iDateColumn , signal, H, iExogenousData, iOptions) = arg
         lEngine = autof.cForecastEngine()
         lEngine.mOptions = copy.copy(iOptions);
         lEngine.mOptions.mParallelMode = False
-        lEngine.train(iAllLevelsDataset , iDateColumn , signal, H, iExogenousData = iExogenousData);
+        lDateColumn = self.get_specific_date_column_for_signal(level, signal)
+        lDateColumn = lDateColumn or iDateColumn
+        lTrainDataset = iAllLevelsDataset[[lDateColumn, signal]]
+        if(self.discard_nans_in_aggregate_signals()):
+            lTrainDataset = lTrainDataset.dropna()
+        print(level, signal, lTrainDataset.head())
+        lEngine.train(lTrainDataset, lDateColumn , signal, H, iExogenousData = iExogenousData);
         return (level, signal, lEngine)
 
     def create_all_levels_models(self, iAllLevelsDataset, H, iDateColumn):
@@ -181,13 +194,19 @@ class cSignalHierarchy:
 
         logger.info("TRAINING_HIERARCHICAL_MODELS_LEVEL_SIGNAL " + str([(arg[0] , arg[1]) for arg in args]));
         pool = Pool(self.mOptions.mNbCores)
-        for res in pool.map(self.train_one_model, args):
-            (level, signal, lEngine) = res
-            # lEngine.getModelInfo();
-            self.mModels[level][signal] = lEngine;
+        try:
+            for res in pool.map(self.train_one_model, args):
+                (level, signal, lEngine) = res
+                # lEngine.getModelInfo();
+                self.mModels[level][signal] = lEngine;
         
-        pool.close()
-        pool.join()
+            pool.close()
+            pool.join()
+        except:
+            pool.close()
+            pool.join()
+            raise
+            
         del pool
         # print("CREATED_MODELS", self.mLevels, self.mModels)
         pass
@@ -254,27 +273,42 @@ class cSignalHierarchy:
         for level in sorted(self.mModels.keys()):
             for signal in sorted(self.mModels[level].keys()):
                 lEngine = self.mModels[level][signal];
-                dfapp_in = iAllLevelsDataset[[iDateColumn , signal]].copy();
+                lDateColumn = self.get_specific_date_column_for_signal(level, signal)
+                lDateColumn = lDateColumn or iDateColumn
+                lApplyInDataset = iAllLevelsDataset[[lDateColumn, signal]]
+                if(self.discard_nans_in_aggregate_signals()):
+                    lApplyInDataset = lApplyInDataset.dropna()
+                print(level, signal, lApplyInDataset.head())
+                dfapp_in = lApplyInDataset.copy();
                 # dfapp_in.tail()
                 arg = (level, signal, lEngine, dfapp_in, H)
                 args.append(arg)
 
         logger.info("FORECASTING_HIERARCHICAL_MODELS_LEVEL_SIGNAL " + str([(arg[0] , arg[1]) for arg in args]));
         pool = Pool(self.mOptions.mNbCores)
-        lForecast_DF = pd.DataFrame();
-        for res in pool.imap(self.forecast_one_model, args):
-            (level, signal, dfapp_out) = res
-            if(iDateColumn not in lForecast_DF.columns):
-                lForecast_DF[iDateColumn] = dfapp_out[iDateColumn]
-            # print("Forecast Columns " , dfapp_out.columns);
-            lForecast_DF[signal] = dfapp_out[signal]
-            lForecast_DF[str(signal) + '_Forecast'] = dfapp_out[str(signal) + '_Forecast']
-        pool.close()
-        pool.join()
-        del pool
-        # print(lForecast_DF.columns);
-        # print(lForecast_DF.head());
-        # print(lForecast_DF.tail());
+        lForecast_DF = iAllLevelsDataset[[iDateColumn]];
+        try:
+            for res in pool.imap(self.forecast_one_model, args):
+                (level, signal, dfapp_out) = res
+                lDateColumn = self.get_specific_date_column_for_signal(level, signal)
+                lDateColumn = lDateColumn or iDateColumn
+                # print("Forecast Columns " , dfapp_out.columns);
+                lForecast_DF_i = dfapp_out[[lDateColumn , signal, str(signal) + '_Forecast']]
+                lForecast_DF = lForecast_DF.merge(lForecast_DF_i, left_on=self.mDateColumn,right_on=lDateColumn, how='left')
+                if(self.discard_nans_in_aggregate_signals()):
+                    lForecast_DF[signal] = lForecast_DF[signal].fillna(0.0)
+                    lForecast_DF[str(signal) + '_Forecast'] = lForecast_DF[str(signal) + '_Forecast'].fillna(0.0)
+            pool.close()
+            pool.join()
+            del pool
+        except:
+            pool.close()
+            pool.join()
+            raise
+
+        print(lForecast_DF.columns);
+        print(lForecast_DF.head(10));
+        print(lForecast_DF.tail(10));
         return lForecast_DF;
 
     def getEstimPart(self, df):
