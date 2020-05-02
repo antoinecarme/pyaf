@@ -119,3 +119,8 @@ class cDateTime_Helper:
         return x.to_period(iPeriod).start_time
 
     
+    def computeTimeFrequency_in_seconds(self, iTime):
+        lTimeBefore = iTime.shift(1);
+        lDiffs = iTime[1:] - lTimeBefore[1:]
+        lDelta = np.min(lDiffs);
+        return lDelta.total_seconds()
