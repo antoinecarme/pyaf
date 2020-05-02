@@ -16,7 +16,7 @@ class cTemporalHierarchy (sighier.cSignalHierarchy):
 
     def __init__(self):
         sighier.cSignalHierarchy.__init__(self)
-        self.mLabels2Tuples = {};
+        self.mHorizons = {}
         
 
     def discard_nans_in_aggregate_signals(self):
@@ -46,29 +46,54 @@ class cTemporalHierarchy (sighier.cSignalHierarchy):
     def create_all_levels_dataset(self, df):
         df = self.add_temporal_data(df)
         return df
+
+    def get_horizon(self, level, signal):
+        # only for temporal hierarchies
+        lPeriod = self.mPeriods[level]
+        return self.mHorizons[lPeriod]
+
     
     def add_temporal_data(self, df):
-        print(df.head())
+        # print(df.head())
+        # df.info()
         N = len(df.columns)
-        lDate = self.mTrainingDataset[self.mDateColumn]
+        df1 = df[[self.mDateColumn, self.mSignal]].copy()
+        df1.set_index(self.mDateColumn, inplace=True, drop=False)
+        # df1.info()
         lPrefix = "TH"
-        df[lPrefix + '_dayOfMonth'] = lDate.dt.day
-        df[lPrefix + '_dayname'] = lDate.dt.day_name()
-        df[lPrefix + '_D'] = lDate.dt.weekday
-        df[lPrefix + '_M'] = lDate.dt.month
-        df[lPrefix + '_W'] = lDate.dt.week
-        df[lPrefix + '_weekOfQuarter'] = lDate.dt.week % 13
-        df[lPrefix + '_Q'] = lDate.dt.quarter
-        df[lPrefix + '_HalfYear'] = lDate.dt.quarter // 2
-        df[lPrefix + '_Y'] = lDate.dt.year
-        
-        print(df.head())
+        lHelper = dtfunc.cDateTime_Helper()
+        lBaseFreq = lHelper.computeTimeFrequency_in_seconds(df1[self.mDateColumn])
+        df_resampled = {}
         for lPeriod in self.mPeriods:
             lName = lPrefix + "_" + lPeriod + "_start"
-            df[lName] = lDate.apply(self.get_beginning_of_period , args=(lPeriod))
-            WData = df.groupby([lName])[self.mSignal].sum().reset_index()
+            df_resampled[lPeriod] = df1[self.mSignal].resample(lPeriod).sum().reset_index()
+            df_resampled[lPeriod].columns = [lName , self.mSignal]
+            # synchronize
+            lShift = df_resampled[lPeriod][lName].iloc[0] - df[self.mDateColumn].iloc[0] 
+            df_resampled[lPeriod][lName] = df_resampled[lPeriod][lName] - lShift
+            lDate_Period = df_resampled[lPeriod][lName]
+            # print("AS_FREQ" , lPeriod , lDate_Period.head())
+            lNewFreq = lHelper.computeTimeFrequency_in_seconds(lDate_Period)
+            lHorizon = int(self.mHorizon * lBaseFreq / lNewFreq)
+            lHorizon = max(1, lHorizon)
+            # print("AS_FREQ_2" , lPeriod , lBaseFreq , lNewFreq , lHorizon)
+            self.mHorizons[lPeriod] = lHorizon
+        
+        # print(df.head())
+        lDate = df[self.mDateColumn]
+        for lPeriod in self.mPeriods:
+            lName = lPrefix + "_" + lPeriod + "_start"
+            WData = df_resampled[lPeriod]
+            # print(df[[self.mDateColumn , self.mSignal]].head())
+            # print(WData.head())
+            # df[[self.mDateColumn , self.mSignal]].info()
+            # WData.info()
+            # print("DATE", list(lDate)[:30])
+            # print("DATE_PERIOD", list(WData[lName])[:30])
             df_merge = df[[self.mDateColumn , self.mSignal]].merge(WData, left_on=self.mDateColumn,right_on=lName, how='left', suffixes=('_x', '_Period'))
             df[self.mSignal + '_' + lPeriod] = df_merge[self.mSignal + '_Period']
+            df[lName] = df_merge[lName]
+            # print(df.head())
         return df
 
     def define_groups__(self):
