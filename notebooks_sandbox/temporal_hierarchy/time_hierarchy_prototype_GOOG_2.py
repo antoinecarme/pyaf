@@ -15,7 +15,7 @@ lHierarchy['Levels'] = None;
 lHierarchy['Data'] = None;
 lHierarchy['Groups']= {};
 
-lHierarchy['Periods']= ["D" , "W" , "Q"]
+lHierarchy['Periods']= ["D" , "2D" , "2W"]
 
 lHierarchy['Type'] = "Temporal";
 
@@ -25,7 +25,7 @@ import pyaf.HierarchicalForecastEngine as hautof
 lEngine = hautof.cHierarchicalForecastEngine()
 
 
-lSignalHierarchy = lEngine.plot_Hierarchy(goog_dataframe , "Date", "Close", 100, 
+lSignalHierarchy = lEngine.plot_Hierarchy(goog_dataframe , "Date", "Close", 28, 
                                           lHierarchy, None);
 
 print(lSignalHierarchy.__dict__)
@@ -47,5 +47,5 @@ H = 4;
 train_df = goog_dataframe
 
 
-lSignalHierarchy = lEngine.train(train_df , lDateColumn, lSignalVar, 100, lHierarchy, None);
+lSignalHierarchy = lEngine.train(train_df , lDateColumn, lSignalVar, 28, lHierarchy, None);
 lEngine.getModelInfo();
