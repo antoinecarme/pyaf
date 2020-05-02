@@ -167,6 +167,10 @@ class cSignalHierarchy:
         # only for temporal hierarchies
         return None
 
+    def get_horizon(self, level, signal):
+        # only for temporal hierarchies
+        return self.mHorizon
+
     def train_one_model(self, arg):
         (level, signal, iAllLevelsDataset , iDateColumn , signal, H, iExogenousData, iOptions) = arg
         lEngine = autof.cForecastEngine()
@@ -177,6 +181,7 @@ class cSignalHierarchy:
         lTrainDataset = iAllLevelsDataset[[lDateColumn, signal]]
         if(self.discard_nans_in_aggregate_signals()):
             lTrainDataset = lTrainDataset.dropna()
+            H = self.get_horizon(level, signal)
         print(level, signal, lTrainDataset.head())
         lEngine.train(lTrainDataset, lDateColumn , signal, H, iExogenousData = iExogenousData);
         return (level, signal, lEngine)
