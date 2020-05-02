@@ -182,7 +182,7 @@ class cSignalHierarchy:
         if(self.discard_nans_in_aggregate_signals()):
             lTrainDataset = lTrainDataset.dropna()
             H = self.get_horizon(level, signal)
-        print(level, signal, lTrainDataset.head())
+        # print(level, signal, lTrainDataset.head())
         lEngine.train(lTrainDataset, lDateColumn , signal, H, iExogenousData = iExogenousData);
         return (level, signal, lEngine)
 
@@ -228,7 +228,7 @@ class cSignalHierarchy:
         self.create_all_levels_models(lAllLevelsDataset, self.mHorizon, self.mDateColumn);
         self.computeTopDownHistoricalProportions(lAllLevelsDataset);
         lForecast_DF = self.internal_forecast(self.mTrainingDataset , self.mHorizon)
-        self.computePerfOnCombinedForecasts(lForecast_DF);
+        self.computePerfOnCombinedForecasts(lForecast_DF.head(lForecast_DF.shape[0] - self.mHorizon));
         lTrainTime = time.time() - start_time;
         logger.info("END_HIERARCHICAL_TRAINING_TIME_IN_SECONDS " + str(lTrainTime))
 
@@ -283,7 +283,7 @@ class cSignalHierarchy:
                 lApplyInDataset = iAllLevelsDataset[[lDateColumn, signal]]
                 if(self.discard_nans_in_aggregate_signals()):
                     lApplyInDataset = lApplyInDataset.dropna()
-                print(level, signal, lApplyInDataset.head())
+                # print(level, signal, lApplyInDataset.head())
                 dfapp_in = lApplyInDataset.copy();
                 # dfapp_in.tail()
                 arg = (level, signal, lEngine, dfapp_in, H)
@@ -291,7 +291,7 @@ class cSignalHierarchy:
 
         logger.info("FORECASTING_HIERARCHICAL_MODELS_LEVEL_SIGNAL " + str([(arg[0] , arg[1]) for arg in args]));
         pool = Pool(self.mOptions.mNbCores)
-        lForecast_DF = iAllLevelsDataset[[iDateColumn]];
+        lForecastsByNode = {}
         try:
             for res in pool.imap(self.forecast_one_model, args):
                 (level, signal, dfapp_out) = res
@@ -299,10 +299,7 @@ class cSignalHierarchy:
                 lDateColumn = lDateColumn or iDateColumn
                 # print("Forecast Columns " , dfapp_out.columns);
                 lForecast_DF_i = dfapp_out[[lDateColumn , signal, str(signal) + '_Forecast']]
-                lForecast_DF = lForecast_DF.merge(lForecast_DF_i, left_on=self.mDateColumn,right_on=lDateColumn, how='left')
-                if(self.discard_nans_in_aggregate_signals()):
-                    lForecast_DF[signal] = lForecast_DF[signal].fillna(0.0)
-                    lForecast_DF[str(signal) + '_Forecast'] = lForecast_DF[str(signal) + '_Forecast'].fillna(0.0)
+                lForecastsByNode[(level , signal)] = lForecast_DF_i
             pool.close()
             pool.join()
             del pool
@@ -311,9 +308,25 @@ class cSignalHierarchy:
             pool.join()
             raise
 
-        print(lForecast_DF.columns);
-        print(lForecast_DF.head(10));
-        print(lForecast_DF.tail(10));
+        lForecast_DF = None
+        for level in sorted(self.mModels.keys()):
+            for signal in sorted(self.mModels[level].keys()):
+                H_i = self.mHorizon # self.get_horizon(level, signal)
+                lForecast_DF_i = lForecastsByNode[(level , signal)]
+                lDateColumn = lForecast_DF_i.columns[0]
+                if(lForecast_DF is None):
+                    lForecast_DF = lForecast_DF_i
+                    lForecast_DF[self.mDateColumn] = lForecast_DF_i[lDateColumn]
+                else:
+                    lForecast_DF = lForecast_DF.merge(lForecast_DF_i, left_on=self.mDateColumn,right_on=lDateColumn, how='left')
+                    if(self.discard_nans_in_aggregate_signals()):
+                        N = lForecast_DF.shape[0]
+                        lForecast_DF.loc[0:N-H_i, signal] = lForecast_DF.loc[0:N-H_i, signal].fillna(0.0)
+                        lForecast_DF[str(signal) + '_Forecast'] = lForecast_DF[str(signal) + '_Forecast'].fillna(0.0)                    
+        
+        # print(lForecast_DF.columns);
+        # print(lForecast_DF.head(10));
+        # print(lForecast_DF.tail(10));
         return lForecast_DF;
 
     def getEstimPart(self, df):
