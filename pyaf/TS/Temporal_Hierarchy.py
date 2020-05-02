@@ -10,6 +10,7 @@ import itertools
 
 from . import DateTime_Functions as dtfunc
 from . import SignalHierarchy as sighier
+from . import Utils as tsutil
 
 
 class cTemporalHierarchy (sighier.cSignalHierarchy):
@@ -44,6 +45,7 @@ class cTemporalHierarchy (sighier.cSignalHierarchy):
             iAllLevelsDataset[signal] = new_col
     
     def create_all_levels_dataset(self, df):
+        df = df.reset_index(drop = True)
         df = self.add_temporal_data(df)
         return df
 
@@ -54,11 +56,11 @@ class cTemporalHierarchy (sighier.cSignalHierarchy):
 
     
     def add_temporal_data(self, df):
-        # print(df.head())
-        # df.info()
+        logger = tsutil.get_pyaf_hierarchical_logger();
         N = len(df.columns)
         df1 = df[[self.mDateColumn, self.mSignal]].copy()
         df1.set_index(self.mDateColumn, inplace=True, drop=False)
+        
         # df1.info()
         lPrefix = "TH"
         lHelper = dtfunc.cDateTime_Helper()
@@ -78,22 +80,20 @@ class cTemporalHierarchy (sighier.cSignalHierarchy):
             lHorizon = max(1, lHorizon)
             # print("AS_FREQ_2" , lPeriod , lBaseFreq , lNewFreq , lHorizon)
             self.mHorizons[lPeriod] = lHorizon
-        
-        # print(df.head())
-        lDate = df[self.mDateColumn]
+            logger.info("FORECASTING_HIERARCHICAL_TEMPORAL_HORIZONS_FIRST_RESAMPLED_DATA " + str(lPeriod) + " " + str(df_resampled[lPeriod].head(5).to_dict()) )
+
+        logger.info("FORECASTING_HIERARCHICAL_TEMPORAL_HORIZONS " + str(self.mHorizons));
+            
         for lPeriod in self.mPeriods:
             lName = lPrefix + "_" + lPeriod + "_start"
             WData = df_resampled[lPeriod]
-            # print(df[[self.mDateColumn , self.mSignal]].head())
-            # print(WData.head())
             # df[[self.mDateColumn , self.mSignal]].info()
             # WData.info()
-            # print("DATE", list(lDate)[:30])
             # print("DATE_PERIOD", list(WData[lName])[:30])
-            df_merge = df[[self.mDateColumn , self.mSignal]].merge(WData, left_on=self.mDateColumn,right_on=lName, how='left', suffixes=('_x', '_Period'))
+            df_merge = df[[self.mDateColumn , self.mSignal]].merge(WData, left_on=self.mDateColumn,right_on=lName, how='left', suffixes=('_x', '_Period'), sort=True)
             df[self.mSignal + '_' + lPeriod] = df_merge[self.mSignal + '_Period']
             df[lName] = df_merge[lName]
-            # print(df.head())
+
         return df
 
     def define_groups__(self):
