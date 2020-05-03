@@ -63,6 +63,36 @@ class cTemporalHierarchy (sighier.cSignalHierarchy):
         
         # df1.info()
         lPrefix = "TH"
+        df_resampled = {}
+        for lPeriod in self.mPeriods:
+            lName = lPrefix + "_" + lPeriod + "_start"
+            df_resampled[lPeriod] = df1[self.mSignal].resample(lPeriod).sum().reset_index()
+            df_resampled[lPeriod].columns = [lName , self.mSignal]
+            # synchronize
+            lShift = df_resampled[lPeriod][lName].iloc[0] - df[self.mDateColumn].iloc[0] 
+            df_resampled[lPeriod][lName] = df_resampled[lPeriod][lName] - lShift
+            
+        for lPeriod in self.mPeriods:
+            lName = lPrefix + "_" + lPeriod + "_start"
+            WData = df_resampled[lPeriod]
+            # df[[self.mDateColumn , self.mSignal]].info()
+            # WData.info()
+            # print("DATE_PERIOD", list(WData[lName])[:30])
+            df_merge = df[[self.mDateColumn , self.mSignal]].merge(WData, left_on=self.mDateColumn,right_on=lName, how='left', suffixes=('_x', '_Period'), sort=True)
+            df[self.mSignal + '_' + lPeriod] = df_merge[self.mSignal + '_Period']
+            df[lName] = df_merge[lName]
+
+        return df
+
+    def compute_horizons(self, df):
+        df = df.reset_index(drop = True)
+        logger = tsutil.get_pyaf_hierarchical_logger();
+        N = len(df.columns)
+        df1 = df[[self.mDateColumn, self.mSignal]].copy()
+        df1.set_index(self.mDateColumn, inplace=True, drop=False)
+        
+        # df1.info()
+        lPrefix = "TH"
         lHelper = dtfunc.cDateTime_Helper()
         lBaseFreq = lHelper.computeTimeFrequency_in_seconds(df1[self.mDateColumn])
         df_resampled = {}
@@ -83,28 +113,11 @@ class cTemporalHierarchy (sighier.cSignalHierarchy):
             logger.info("FORECASTING_HIERARCHICAL_TEMPORAL_HORIZONS_FIRST_RESAMPLED_DATA " + str(lPeriod) + " " + str(df_resampled[lPeriod].head(5).to_dict()) )
 
         logger.info("FORECASTING_HIERARCHICAL_TEMPORAL_HORIZONS " + str(self.mHorizons));
-            
-        for lPeriod in self.mPeriods:
-            lName = lPrefix + "_" + lPeriod + "_start"
-            WData = df_resampled[lPeriod]
-            # df[[self.mDateColumn , self.mSignal]].info()
-            # WData.info()
-            # print("DATE_PERIOD", list(WData[lName])[:30])
-            df_merge = df[[self.mDateColumn , self.mSignal]].merge(WData, left_on=self.mDateColumn,right_on=lName, how='left', suffixes=('_x', '_Period'), sort=True)
-            df[self.mSignal + '_' + lPeriod] = df_merge[self.mSignal + '_Period']
-            df[lName] = df_merge[lName]
-
-        return df
-
-    def define_groups__(self):
-        lPrefix = "TH_"
-        self.mGroups = {}
-        for lPeriod in self.mPeriods:
-            self.mGroups[lPeriod] = [self.mSignal + '_' + lPeriod]
-        self.mGroupOrder= [lPeriod for lPeriod in self.mPeriods]
+        
         
     def create_HierarchicalStructure(self):
         self.mPeriods = self.mHierarchy['Periods']
+        self.compute_horizons(self.mTrainingDataset)
         # self.add_temporal_data(self.mTrainingDataset)
         self.mLevels = list(range(len(self.mPeriods)));
         self.mStructure = {};
