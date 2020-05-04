@@ -1,2 +1,2 @@
 pip install .
-python WS/WS_REST_Flask.py
+python pyaf/WS/WS_REST_Flask.py
