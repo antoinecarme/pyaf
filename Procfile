@@ -1,2 +1,2 @@
-web: sh WS/run.sh
+web: sh pyaf/WS/run.sh
 
