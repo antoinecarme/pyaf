@@ -82,7 +82,7 @@ class cWSModel:
             self.mTrainDataFrame = self.mFullDataFrame[self.mFullDataFrame[self.mTimeVar] <= self.mPresent];
         self.mForecastEngine = autof.cForecastEngine()
         # heroku does not have a lot of memory!!! issue #25
-        self.mForecastEngine.mOptions.enable_low_memory_mode();
+        # self.mForecastEngine.mOptions.enable_low_memory_mode();
         print("TRAIN_PARAMS" , self.mTrainDataFrame.shape ,  self.mTrainDataFrame.columns , self.mTimeVar , self.mSignalVar, self.mHorizon)
         lExogenousData = None;
         if(self.mExogenousDataFrame is not None):
