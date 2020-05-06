@@ -37,7 +37,7 @@ lEngine = hautof.cHierarchicalForecastEngine()
 lSignalHierarchy = lEngine.plot_Hierarchy(df_train , lDateColumn, lSignalVar, H, 
                                           lHierarchy, None);
 
-print(lSignalHierarchy.__dict__)
+# print(lSignalHierarchy.__dict__)
 
 
 # create a hierarchical model and train it
