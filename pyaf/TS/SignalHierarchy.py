@@ -298,7 +298,11 @@ class cSignalHierarchy:
                 lDateColumn = self.get_specific_date_column_for_signal(level, signal)
                 lDateColumn = lDateColumn or iDateColumn
                 # print("Forecast Columns " , dfapp_out.columns);
-                lForecast_DF_i = dfapp_out[[lDateColumn , signal, str(signal) + '_Forecast']]
+                lColumns = [lDateColumn , signal,
+                            str(signal) + '_Forecast',
+                            str(signal) + '_Forecast_Lower_Bound',
+                            str(signal) + '_Forecast_Upper_Bound', ]
+                lForecast_DF_i = dfapp_out[lColumns]
                 lForecastsByNode[(level , signal)] = lForecast_DF_i
             pool.close()
             pool.join()
@@ -345,6 +349,8 @@ class cSignalHierarchy:
 
 
     def computeTopDownHistoricalProportions(self, iAllLevelsDataset):
+        logger = tsutil.get_pyaf_hierarchical_logger();
+        logger.info("TRAINING_HIERARCHICAL_MODEL_COMPUTE_TOP_DOWN_HISTORICAL_PROPORTIONS");
         self.mAvgHistProp = {};
         self.mPropHistAvg = {};
         # Compute these proportions only on Estimation.
@@ -384,6 +390,8 @@ class cSignalHierarchy:
         return new_BU_forecast;
 
     def computeBottomUpForecasts(self, iForecast_DF):
+        logger = tsutil.get_pyaf_hierarchical_logger();
+        logger.info("FORECASTING_HIERARCHICAL_MODEL_BOTTOM_UP_METHOD " + "BU");
         lForecast_DF_BU = iForecast_DF;
         # print("STRUCTURE " , self.mStructure.keys());
         for level in sorted(self.mStructure.keys()):
@@ -398,7 +406,8 @@ class cSignalHierarchy:
 
 
     def computePerfOnCombinedForecasts(self, iForecast_DF):
-        logger = tsutil.get_pyaf_logger();
+        logger = tsutil.get_pyaf_hierarchical_logger();
+        logger.info("FORECASTING_HIERARCHICAL_MODEL_OPTIMAL_COMBINATION_METHOD");
 
         self.mEstimPerfs = {}
         self.mValidPerfs = {}
@@ -423,19 +432,23 @@ class cSignalHierarchy:
                 self.mEstimPerfs[str(signal) + "_Forecast"] = lPerfFit
                 self.mValidPerfs[str(signal) + "_Forecast"] = lPerfValid
                 for iPrefix in lPrefixes:
-                    lPerfFit_Combined = lEngine.computePerf(lFrameFit[signal], lFrameFit[str(signal) + "_" + iPrefix + "_Forecast"],  signal)
-                    lPerfValid_Combined = lEngine.computePerf(lFrameValid[signal], lFrameValid[str(signal) + "_" + iPrefix + "_Forecast"],  signal)
+                    lPerfFit_Combined = lEngine.computePerf(lFrameFit[signal], lFrameFit[str(signal) + "_" + iPrefix + "_Forecast"],
+                                                            str(signal) + "_" + iPrefix + "_Forecast")
+                    lPerfValid_Combined = lEngine.computePerf(lFrameValid[signal], lFrameValid[str(signal) + "_" + iPrefix + "_Forecast"],
+                                                              str(signal) + "_" + iPrefix + "_Forecast")
                     lPerfs[str(signal) + "_" + iPrefix] = (lPerfFit , lPerfValid, lPerfFit_Combined, lPerfValid_Combined);
                     self.mEstimPerfs[str(signal) + "_" + iPrefix + "_Forecast"] = lPerfFit_Combined
                     self.mValidPerfs[str(signal) + "_" + iPrefix + "_Forecast"] = lPerfValid_Combined
                                 
         for (sig , perf) in sorted(lPerfs.items()):
-            logger.info("REPORT_COMBINED_FORECASTS_FIT_PERF "  + str((sig , perf[0].mL2,  perf[0].mMAPE, perf[2].mL2,  perf[2].mMAPE)))
-            logger.info("REPORT_COMBINED_FORECASTS_VALID_PERF " + str((sig , perf[1].mL2,  perf[1].mMAPE, perf[3].mL2,  perf[3].mMAPE)))
+            logger.info("REPORT_COMBINED_FORECASTS_FIT_PERF "  + str(perf[2].to_dict()))
+            logger.info("REPORT_COMBINED_FORECASTS_VALID_PERF " + str(perf[3].to_dict()))
         return lPerfs;
 
 
     def computeTopDownForecasts(self, iForecast_DF , iProp , iPrefix):
+        logger = tsutil.get_pyaf_hierarchical_logger();
+        logger.info("FORECASTING_HIERARCHICAL_MODEL_TOP_DOWN_METHOD " + iPrefix);
         lForecast_DF_TD = iForecast_DF;
         lLevelsReversed = sorted(self.mStructure.keys(), reverse=True);
         # print("TOPDOWN_STRUCTURE", self.mStructure)
@@ -456,6 +469,8 @@ class cSignalHierarchy:
         return lForecast_DF_TD;
 
     def computeMiddleOutForecasts(self, iForecast_DF , iProp, iPrefix):
+        logger = tsutil.get_pyaf_hierarchical_logger();
+        logger.info("FORECASTING_HIERARCHICAL_MODEL_MIDDLE_OUT_METHOD " + iPrefix);
         lLevels = self.mStructure.keys();
         lMidLevel = len(lLevels) // 2;
         lForecast_DF_MO = iForecast_DF;
@@ -486,6 +501,8 @@ class cSignalHierarchy:
 
 
     def computeOptimalCombination(self, iForecast_DF):
+        logger = tsutil.get_pyaf_hierarchical_logger();
+        logger.info("FORECASTING_HIERARCHICAL_MODEL_OPTIMAL_COMBINATION_METHOD " + "OC");
         lBaseNames = [];
         for level in  sorted(self.mStructure.keys()):
             for col in sorted(self.mStructure[level].keys()):
@@ -515,6 +532,8 @@ class cSignalHierarchy:
         lCombinationMethods = self.mOptions.mHierarchicalCombinationMethod;
         if type(lCombinationMethods) is not list:
             lCombinationMethods = [lCombinationMethods];
+        logger = tsutil.get_pyaf_hierarchical_logger();
+        logger.info("FORECASTING_HIERARCHICAL_MODEL_COMBINATION_METHODS " + str(lCombinationMethods));
 
         for lMethod in lCombinationMethods:
             if(lMethod == "BU"):            
