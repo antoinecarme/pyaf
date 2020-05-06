@@ -24,6 +24,13 @@ class cPerf:
         self.mName = "No_Name";
         self.mDebug = False;
 
+    def to_dict(self):
+        lDict = {"Signal" : self.mName , "Length" : self.mCount, "MAPE" : self.mMAPE,
+                 "RMSE" : self.mL2,  "MAE" : self.mL1,  "SMAPE" : self.mSMAPE,
+                 "ErrorMean" : self.mErrorMean, "ErrorStdDev" : self.mErrorStdDev, 
+                 "R2" : self.mR2, "Pearson" : self.mPearsonR}
+        return lDict
+    
     def check_not_nan(self, sig , name):
         #print("check_not_nan");
         if(np.isnan(sig).any()):
