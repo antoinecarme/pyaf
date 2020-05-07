@@ -1,29 +1,29 @@
 INFO:pyaf.std:START_TRAINING 'AirPassengers'
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'AirPassengers' 0.9315304756164551
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.15891623497009277
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.16151809692382812
 REQUEST_DETAILS [('CSVFile', 'https://vincentarelbundock.github.io/Rdatasets/csv/datasets/AirPassengers.csv'), ('DateFormat', None), ('Horizon', 7), ('Name', 'model_air_by_tests'), ('Present', ''), ('SignalVar', 'AirPassengers'), ('TimeVar', 'time')]
 None
 DATASET_DETECTED_COLUMNS Index(['Unnamed: 0', 'time', 'value'], dtype='object')
 DATASET_FINAL_COLUMNS Index(['Unnamed: 0', 'time', 'value', 'AirPassengers'], dtype='object')
 TRAIN_PARAMS (144, 4) Index(['Unnamed: 0', 'time', 'value', 'AirPassengers'], dtype='object') time AirPassengers 7
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'AirPassengers' 3.1534152030944824
+INFO:pyaf.std:START_FORECASTING 'AirPassengers'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  'AirPassengers' 0.1728055477142334
+INFO:pyaf.std:START_FORECASTING 'AirPassengers'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  'AirPassengers' 0.15320801734924316
   Split  Transformation  ... ForecastMAPE TestMAPE
-0  None  _AirPassengers  ...       0.0463   0.0592
-1  None  _AirPassengers  ...       0.0483   0.0561
-2  None  _AirPassengers  ...       0.0493   0.0508
-3  None  _AirPassengers  ...       0.0543   0.0699
-4  None  _AirPassengers  ...       0.0616   0.0737
+0  None  _AirPassengers  ...       0.0287   0.0341
+1  None  _AirPassengers  ...       0.0305   0.0267
+2  None  _AirPassengers  ...       0.0313   0.0292
+3  None  _AirPassengers  ...       0.0322   0.0386
+4  None  _AirPassengers  ...       0.0328   0.0297
 
 [5 rows x 8 columns]
 Forecast Columns  Index(['time', 'AirPassengers', 'row_number', 'time_Normalized',
        '_AirPassengers', '_AirPassengers_ConstantTrend',
-       '_AirPassengers_ConstantTrend_residue', 'cycle_internal',
-       '_AirPassengers_ConstantTrend_residue_bestCycle_byL2',
-       '_AirPassengers_ConstantTrend_residue_bestCycle_byL2_residue',
-       '_AirPassengers_ConstantTrend_residue_bestCycle_byL2_residue_AR(7)',
-       '_AirPassengers_ConstantTrend_residue_bestCycle_byL2_residue_AR(7)_residue',
+       '_AirPassengers_ConstantTrend_residue',
+       '_AirPassengers_ConstantTrend_residue_zeroCycle',
+       '_AirPassengers_ConstantTrend_residue_zeroCycle_residue',
+       '_AirPassengers_ConstantTrend_residue_zeroCycle_residue_AR(36)',
+       '_AirPassengers_ConstantTrend_residue_zeroCycle_residue_AR(36)_residue',
        '_AirPassengers_Trend', '_AirPassengers_Trend_residue',
        '_AirPassengers_Cycle', '_AirPassengers_Cycle_residue',
        '_AirPassengers_AR', '_AirPassengers_AR_residue',
@@ -45,13 +45,13 @@ memory usage: 3.7 KB
 None
 Forecasts
              time  AirPassengers  AirPassengers_Forecast
-144  1961.000000            NaN              447.121553
-145  1961.083333            NaN              451.204824
-146  1961.166667            NaN              503.077826
-147  1961.250000            NaN              500.788295
-148  1961.333333            NaN              500.554853
-149  1961.416667            NaN              527.111317
-150  1961.500000            NaN              550.930385
+144  1961.000000            NaN              459.814158
+145  1961.083333            NaN              430.483793
+146  1961.166667            NaN              470.059118
+147  1961.250000            NaN              511.707049
+148  1961.333333            NaN              525.169561
+149  1961.416667            NaN              615.370687
+150  1961.500000            NaN              720.589068
 
 
 <ModelInfo>
@@ -70,17 +70,17 @@ Forecasts
     },
     "Model": {
         "AR_Model": "AR",
-        "Best_Decomposition": "_AirPassengers_ConstantTrend_residue_bestCycle_byL2_residue_AR(7)",
-        "Cycle": "Cycle",
+        "Best_Decomposition": "_AirPassengers_ConstantTrend_residue_zeroCycle_residue_AR(36)",
+        "Cycle": "NoCycle",
         "Signal_Transoformation": "NoTransf",
         "Trend": "ConstantTrend"
     },
     "Model_Performance": {
-        "COMPLEXITY": "15",
-        "MAE": "19.37331933554182",
-        "MAPE": "0.0463",
-        "MASE": "0.487",
-        "RMSE": "25.606518779676417"
+        "COMPLEXITY": "27",
+        "MAE": "12.711938744752953",
+        "MAPE": "0.0313",
+        "MASE": "0.3196",
+        "RMSE": "15.640940381333348"
     }
 }
 </ModelInfo>
@@ -89,7 +89,7 @@ Forecasts
 
 
 <Forecast>
-{"time":{"137":1960.4166666667,"138":1960.5,"139":1960.5833333333,"140":1960.6666666667,"141":1960.75,"142":1960.8333333333,"143":1960.9166666667,"144":1961.0,"145":1961.0833333333,"146":1961.1666666667,"147":1961.25,"148":1961.3333333333,"149":1961.4166666667,"150":1961.5},"AirPassengers":{"137":535.0,"138":622.0,"139":606.0,"140":508.0,"141":461.0,"142":390.0,"143":432.0,"144":null,"145":null,"146":null,"147":null,"148":null,"149":null,"150":null},"AirPassengers_Forecast":{"137":506.8384744652,"138":565.8179474441,"139":620.5163931493,"140":563.7928896778,"141":453.9398149601,"142":425.9431384612,"143":419.114003997,"144":447.1215525986,"145":451.2048243868,"146":503.0778256255,"147":500.7882954105,"148":500.554853036,"149":527.1113165734,"150":550.9303853681}}
+{"time":{"137":1960.4166666667,"138":1960.5,"139":1960.5833333333,"140":1960.6666666667,"141":1960.75,"142":1960.8333333333,"143":1960.9166666667,"144":1961.0,"145":1961.0833333333,"146":1961.1666666667,"147":1961.25,"148":1961.3333333333,"149":1961.4166666667,"150":1961.5},"AirPassengers":{"137":535.0,"138":622.0,"139":606.0,"140":508.0,"141":461.0,"142":390.0,"143":432.0,"144":null,"145":null,"146":null,"147":null,"148":null,"149":null,"150":null},"AirPassengers_Forecast":{"137":558.2268411214,"138":624.2069076095,"139":635.9286432542,"140":512.8186034617,"141":446.2132050304,"142":414.4099705993,"143":433.7566365047,"144":459.8141577175,"145":430.4837926028,"146":470.0591175919,"147":511.7070494743,"148":525.169561141,"149":615.3706874792,"150":720.5890684535}}
 </Forecast>
 
 

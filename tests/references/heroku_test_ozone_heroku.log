@@ -1,28 +1,28 @@
 INFO:pyaf.std:START_TRAINING 'Ozone'
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 1.3165605068206787
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.2795829772949219
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.2643909454345703
 REQUEST_DETAILS [('CSVFile', 'https://raw.githubusercontent.com/antoinecarme/TimeSeriesData/master/ozone-la.csv'), ('DateFormat', '%Y-%m'), ('Horizon', 12), ('Name', 'model1'), ('Present', ''), ('SignalVar', 'Ozone'), ('TimeVar', 'Month')]
 None
 DATASET_DETECTED_COLUMNS Index(['Month', 'Ozone'], dtype='object')
 DATASET_FINAL_COLUMNS Index(['Month', 'Ozone'], dtype='object')
 TRAIN_PARAMS (216, 2) Index(['Month', 'Ozone'], dtype='object') Month Ozone 12
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 5.774714469909668
+INFO:pyaf.std:START_FORECASTING 'Ozone'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  'Ozone' 0.33374881744384766
+INFO:pyaf.std:START_FORECASTING 'Ozone'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  'Ozone' 0.3328981399536133
   Split Transformation  ... ForecastMAPE TestMAPE
-0  None         _Ozone  ...       0.1842   0.2785
-1  None         _Ozone  ...       0.1842   0.2785
-2  None         _Ozone  ...       0.1907   0.3139
-3  None         _Ozone  ...       0.1907   0.3139
-4  None         _Ozone  ...       0.1976   0.2984
+0  None         _Ozone  ...       0.1911   0.1412
+1  None     Diff_Ozone  ...       0.1995   0.0891
+2  None         _Ozone  ...       0.2026   0.2553
+3  None         _Ozone  ...       0.2026   0.2553
+4  None     Diff_Ozone  ...       0.2063   0.1848
 
 [5 rows x 8 columns]
 Forecast Columns  Index(['Month', 'Ozone', 'row_number', 'Month_Normalized', '_Ozone',
        '_Ozone_LinearTrend', '_Ozone_LinearTrend_residue',
-       '_Ozone_LinearTrend_residue_Seasonal_MonthOfYear',
-       '_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_residue',
-       '_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_residue_AR(7)',
-       '_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_residue_AR(7)_residue',
+       '_Ozone_LinearTrend_residue_zeroCycle',
+       '_Ozone_LinearTrend_residue_zeroCycle_residue',
+       '_Ozone_LinearTrend_residue_zeroCycle_residue_AR(54)',
+       '_Ozone_LinearTrend_residue_zeroCycle_residue_AR(54)_residue',
        '_Ozone_Trend', '_Ozone_Trend_residue', '_Ozone_Cycle',
        '_Ozone_Cycle_residue', '_Ozone_AR', '_Ozone_AR_residue',
        '_Ozone_TransformedForecast', 'Ozone_Forecast',
@@ -42,18 +42,18 @@ memory usage: 5.5 KB
 None
 Forecasts
           Month  Ozone  Ozone_Forecast
-216 1973-01-01    NaN        0.544923
-217 1973-02-01    NaN        0.755053
-218 1973-03-01    NaN        1.461971
-219 1973-04-01    NaN        2.035739
-220 1973-05-01    NaN        2.279999
-221 1973-06-01    NaN        3.188029
-222 1973-07-01    NaN        3.686847
-223 1973-08-01    NaN        3.585452
-224 1973-09-01    NaN        3.744425
-225 1973-10-01    NaN        3.345284
-226 1973-11-01    NaN        2.116444
-227 1973-12-01    NaN        1.181306
+216 1973-01-01    NaN        1.177917
+217 1973-02-01    NaN        1.525902
+218 1973-03-01    NaN        2.079137
+219 1973-04-01    NaN        2.502866
+220 1973-05-01    NaN        3.062326
+221 1973-06-01    NaN        3.149532
+222 1973-07-01    NaN        3.164760
+223 1973-08-01    NaN        3.404437
+224 1973-09-01    NaN        2.818144
+225 1973-10-01    NaN        2.288991
+226 1973-11-01    NaN        1.030783
+227 1973-12-01    NaN        0.610921
 
 
 <ModelInfo>
@@ -72,17 +72,17 @@ Forecasts
     },
     "Model": {
         "AR_Model": "AR",
-        "Best_Decomposition": "_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_residue_AR(7)",
-        "Cycle": "Seasonal_MonthOfYear",
+        "Best_Decomposition": "_Ozone_LinearTrend_residue_zeroCycle_residue_AR(54)",
+        "Cycle": "NoCycle",
         "Signal_Transoformation": "NoTransf",
         "Trend": "LinearTrend"
     },
     "Model_Performance": {
-        "COMPLEXITY": "27",
-        "MAE": "0.5234179199928715",
-        "MAPE": "0.1842",
-        "MASE": "0.7531",
-        "RMSE": "0.6187011354532884"
+        "COMPLEXITY": "56",
+        "MAE": "0.5259990223234977",
+        "MAPE": "0.1911",
+        "MASE": "0.7568",
+        "RMSE": "0.6332578057427529"
     }
 }
 </ModelInfo>
@@ -91,7 +91,7 @@ Forecasts
 
 
 <Forecast>
-{"Month":{"204":"1972-01-01T00:00:00.000Z","205":"1972-02-01T00:00:00.000Z","206":"1972-03-01T00:00:00.000Z","207":"1972-04-01T00:00:00.000Z","208":"1972-05-01T00:00:00.000Z","209":"1972-06-01T00:00:00.000Z","210":"1972-07-01T00:00:00.000Z","211":"1972-08-01T00:00:00.000Z","212":"1972-09-01T00:00:00.000Z","213":"1972-10-01T00:00:00.000Z","214":"1972-11-01T00:00:00.000Z","215":"1972-12-01T00:00:00.000Z","216":"1973-01-01T00:00:00.000Z","217":"1973-02-01T00:00:00.000Z","218":"1973-03-01T00:00:00.000Z","219":"1973-04-01T00:00:00.000Z","220":"1973-05-01T00:00:00.000Z","221":"1973-06-01T00:00:00.000Z","222":"1973-07-01T00:00:00.000Z","223":"1973-08-01T00:00:00.000Z","224":"1973-09-01T00:00:00.000Z","225":"1973-10-01T00:00:00.000Z","226":"1973-11-01T00:00:00.000Z","227":"1973-12-01T00:00:00.000Z"},"Ozone":{"204":1.5,"205":2.0,"206":3.1,"207":3.0,"208":3.5,"209":3.4,"210":4.0,"211":3.8,"212":3.1,"213":2.1,"214":1.6,"215":1.3,"216":null,"217":null,"218":null,"219":null,"220":null,"221":null,"222":null,"223":null,"224":null,"225":null,"226":null,"227":null},"Ozone_Forecast":{"204":0.5066744659,"205":1.1471663199,"206":1.8974641758,"207":2.8308931135,"208":2.9041446877,"209":3.9400325093,"210":4.2482530578,"211":4.0314376514,"212":4.1304579921,"213":3.2083876474,"214":1.9059611281,"215":0.9024238094,"216":0.5449232645,"217":0.7550528967,"218":1.4619706478,"219":2.0357393295,"220":2.2799989745,"221":3.1880293858,"222":3.6868473417,"223":3.5854522682,"224":3.7444248335,"225":3.3452844479,"226":2.1164436185,"227":1.1813063736}}
+{"Month":{"204":"1972-01-01T00:00:00.000Z","205":"1972-02-01T00:00:00.000Z","206":"1972-03-01T00:00:00.000Z","207":"1972-04-01T00:00:00.000Z","208":"1972-05-01T00:00:00.000Z","209":"1972-06-01T00:00:00.000Z","210":"1972-07-01T00:00:00.000Z","211":"1972-08-01T00:00:00.000Z","212":"1972-09-01T00:00:00.000Z","213":"1972-10-01T00:00:00.000Z","214":"1972-11-01T00:00:00.000Z","215":"1972-12-01T00:00:00.000Z","216":"1973-01-01T00:00:00.000Z","217":"1973-02-01T00:00:00.000Z","218":"1973-03-01T00:00:00.000Z","219":"1973-04-01T00:00:00.000Z","220":"1973-05-01T00:00:00.000Z","221":"1973-06-01T00:00:00.000Z","222":"1973-07-01T00:00:00.000Z","223":"1973-08-01T00:00:00.000Z","224":"1973-09-01T00:00:00.000Z","225":"1973-10-01T00:00:00.000Z","226":"1973-11-01T00:00:00.000Z","227":"1973-12-01T00:00:00.000Z"},"Ozone":{"204":1.5,"205":2.0,"206":3.1,"207":3.0,"208":3.5,"209":3.4,"210":4.0,"211":3.8,"212":3.1,"213":2.1,"214":1.6,"215":1.3,"216":null,"217":null,"218":null,"219":null,"220":null,"221":null,"222":null,"223":null,"224":null,"225":null,"226":null,"227":null},"Ozone_Forecast":{"204":0.8802135365,"205":1.7141464317,"206":2.204364645,"207":2.7279764926,"208":3.1528911317,"209":3.4967144412,"210":3.4492571761,"211":3.6077344914,"212":3.1319423205,"213":2.3180985563,"214":1.3996247898,"215":1.0351594583,"216":1.1779173775,"217":1.525902207,"218":2.0791374928,"219":2.5028662655,"220":3.0623262469,"221":3.1495320896,"222":3.1647602934,"223":3.4044369669,"224":2.8181444487,"225":2.2889912088,"226":1.030783377,"227":0.6109210017}}
 </Forecast>
 
 
