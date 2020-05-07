@@ -10,26 +10,7 @@ from enum import IntEnum
 
 from . import Utils as tsutil
 from . import TimeSeries_Cutting as tscut
-
-class eDatePart(IntEnum):
-    Second = 1
-    Minute = 2
-    Hour = 3
-    DayOfWeek = 4
-    DayOfMonth = 5
-    MonthOfYear = 6
-    WeekOfYear = 7
-    DayOfYear = 8
-
-class eTimeResolution(IntEnum):
-    NONE = 0
-    SECOND = 1
-    MINUTE = 2
-    HOUR = 3
-    DAY = 4
-    MONTH = 5
-    YEAR = 6
-    
+from . import DateTime_Functions as dtfunc
     
 class cTimeInfo:
     # class data
@@ -41,7 +22,7 @@ class cTimeInfo:
         self.mTimeMinMaxDiff = None;
         self.mTimeDelta = None;
         self.mHorizon = None;        
-        self.mResolution = eTimeResolution.NONE
+        self.mResolution = dtfunc.eTimeResolution.NONE
         self.mSplit = None
 
     def info(self):
@@ -72,11 +53,6 @@ class cTimeInfo:
         # print(self.mTimeMax, type(self.mTimeMax))
         lType = np.dtype(self.mTimeMax);
         return lType;
-
-    def cast_to_time_dtype(self, iTimeValue):
-        lType1 = self.get_time_dtype();
-        lTimeValue = np.array([iTimeValue]).astype(lType1)[0];
-        return lTimeValue;
 
     def checkDateTypesForNewDataset(self, df):
         if(self.mTimeMax is not None):
@@ -113,55 +89,14 @@ class cTimeInfo:
         return (type1.kind == 'M');
 
 
-    def apply_date_time_computer(self, iDatePart, series):
-        lOut = None
-        if(iDatePart == eDatePart.Second):
-            lOut = series.dt.second
-        elif(iDatePart == eDatePart.Minute):
-            lOut = series.dt.minute
-        elif(iDatePart == eDatePart.Hour):
-            lOut = series.dt.hour
-        elif(iDatePart == eDatePart.DayOfWeek):
-            lOut = series.dt.dayofweek
-        elif(iDatePart == eDatePart.DayOfMonth):
-            lOut = series.dt.day
-        elif(iDatePart == eDatePart.DayOfYear):
-            lOut = series.dt.dayofyear
-        elif(iDatePart == eDatePart.MonthOfYear):
-            lOut = series.dt.month
-        elif(iDatePart == eDatePart.WeekOfYear):
-            lOut = series.dt.week
-        if(lOut is None):
-            print("apply_date_time_computer_failures" , iDatePart)
-        assert(lOut is not None)
-        return lOut
     
     def analyzeSeasonals(self):
         if(not self.isPhysicalTime()):
             return;
         lEstim = self.mSplit.getEstimPart(self.mSignalFrame);
         lEstimTime = lEstim[self.mTime]
-        lEstimSecond = self.apply_date_time_computer(eDatePart.Second, lEstimTime)
-        if(lEstimSecond.nunique() > 1.0):
-            self.mResolution = eTimeResolution.SECOND;
-            return;
-        lEstimMinute = self.apply_date_time_computer(eDatePart.Minute, lEstimTime)
-        if(lEstimMinute.nunique() > 1.0):
-            self.mResolution =  eTimeResolution.MINUTE;
-            return;
-        lEstimHour = self.apply_date_time_computer(eDatePart.Hour, lEstimTime)
-        if(lEstimHour.nunique() > 1.0):
-            self.mResolution =  eTimeResolution.HOUR;
-            return;
-        lEstimDayOfMonth = self.apply_date_time_computer(eDatePart.DayOfMonth, lEstimTime)
-        if(lEstimDayOfMonth.nunique() > 1.0):
-            self.mResolution =  eTimeResolution.DAY;
-            return;
-        lEstimMonth = self.apply_date_time_computer(eDatePart.MonthOfYear, lEstimTime)
-        if(lEstimMonth.nunique() > 1.0):
-            self.mResolution =  eTimeResolution.MONTH;
-            return;
-        self.mResolution =  eTimeResolution.YEAR;
+        lHelper = dtfunc.cDateTime_Helper()
+        self.mResolution = lHelper.guess_time_resolution(lEstimTime);
 
 
     def checkDateTypes(self):
@@ -175,36 +110,8 @@ class cTimeInfo:
     def adaptTimeDeltaToTimeResolution(self):
         if(not self.isPhysicalTime()):
             return;
-        if(eTimeResolution.SECOND == self.mResolution):
-            self.mTimeDelta = pd.DateOffset(seconds=round(self.mTimeDelta / np.timedelta64(1,'s')))
-            return;
-        if(eTimeResolution.MINUTE == self.mResolution):
-            self.mTimeDelta = pd.DateOffset(minutes=round(self.mTimeDelta / np.timedelta64(1,'m')))
-            return;
-        if(eTimeResolution.HOUR == self.mResolution):
-            self.mTimeDelta = pd.DateOffset(hours=round(self.mTimeDelta / np.timedelta64(1,'h')))
-            return;
-        if(eTimeResolution.DAY == self.mResolution):
-            self.mTimeDelta = pd.DateOffset(days=round(self.mTimeDelta / np.timedelta64(1,'D')))
-            return;
-        if(eTimeResolution.MONTH == self.mResolution):
-            self.mTimeDelta = pd.DateOffset(months=round(self.mTimeDelta // np.timedelta64(30,'D')))
-            return;
-        if(eTimeResolution.YEAR == self.mResolution):
-            self.mTimeDelta = pd.DateOffset(months=round(self.mTimeDelta // np.timedelta64(365,'D')))
-            return;
-        pass
-    
-    def get_lags_for_time_resolution(self):
-        if(not self.isPhysicalTime()):
-            return None;
-        lARORder = {}
-        lARORder[eTimeResolution.SECOND] = 60
-        lARORder[eTimeResolution.MINUTE] = 60
-        lARORder[eTimeResolution.HOUR] = 24
-        lARORder[eTimeResolution.DAY] = 31
-        lARORder[eTimeResolution.MONTH] = 12
-        return lARORder.get(self.mResolution , None)
+        lHelper = dtfunc.cDateTime_Helper()
+        self.mTimeDelta = lHelper.adaptTimeDeltaToTimeResolution(self.mResolution , self.mTimeDelta);    
     
     def computeTimeDelta(self):
         #print(self.mSignalFrame.columns);
@@ -276,6 +183,12 @@ class cTimeInfo:
         output =  ( iTime- self.mTimeMin) / self.mTimeMinMaxDiff
         return output
 
+
+    def cast_to_time_dtype(self, iTimeValue):
+        lType1 = self.get_time_dtype();
+        lTimeValue = np.array([iTimeValue]).astype(lType1)[0];
+        return lTimeValue;
+    
     def nextTime(self, df, iSteps):
         #print(df.tail(1)[self.mTime]);
         lLastTime = df[self.mTime].values[-1]

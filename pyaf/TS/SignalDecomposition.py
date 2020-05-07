@@ -657,7 +657,7 @@ class cSignalDecomposition:
 
     def forecast(self , iInputDS, iHorizon):
         logger = tsutil.get_pyaf_logger();
-        logger.info("START_FORECASTING")
+        logger.info("START_FORECASTING '" + str(self.mBestModel.mOriginalSignal) + "'")
         start_time = time.time()
         lMissingImputer = tsmiss.cMissingDataImputer()
         lMissingImputer.mOptions = self.mOptions
@@ -666,7 +666,7 @@ class cSignalDecomposition:
         lInputDS[self.mBestModel.mTime] = lMissingImputer.interpolate_time_if_needed(iInputDS, self.mBestModel.mTime)
         lForecastFrame = self.mBestModel.forecast(lInputDS, iHorizon);
         lForecastTime = time.time() - start_time;
-        logger.info("END_FORECAST_TIME_IN_SECONDS " + str(lForecastTime))
+        logger.info("END_FORECAST_TIME_IN_SECONDS  '" + str(self.mBestModel.mOriginalSignal) + "' " + str(lForecastTime))
         return lForecastFrame;
 
 

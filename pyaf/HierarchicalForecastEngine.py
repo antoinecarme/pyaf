@@ -69,12 +69,16 @@ class cHierarchicalForecastEngine:
         if(iHierarchy['Type'] == "Grouped"):
             from .TS import Signal_Grouping as siggroup
             lSignalHierarchy = siggroup.cSignalGrouping();
+        elif(iHierarchy['Type'] == "Temporal"):
+            from .TS import Temporal_Hierarchy as temphier
+            lSignalHierarchy = temphier.cTemporalHierarchy();
         else:
             from .TS import SignalHierarchy as sighier
             lSignalHierarchy = sighier.cSignalHierarchy();
             
         lSignalHierarchy.mHierarchy = iHierarchy;
         lSignalHierarchy.mDateColumn = iTime;
+        lSignalHierarchy.mSignal = iSignal;
         lSignalHierarchy.mHorizon = iHorizon;
         lSignalHierarchy.mExogenousData = iExogenousData;        
         lSignalHierarchy.mTrainingDataset = iInputDS;        

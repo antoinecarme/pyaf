@@ -1101,6 +1101,96 @@ svr/test_ozone_svr_only.py  :
  svr :  svr/test_ozone_svr_only.py svr/test_ozone_svr.py svr/test_air_passengers_svr_only.py svr/test_air_passengers_svr.py  
  
 
+temporal_hierarchy/test_temporal_demo_1.py  :  
+	 $(PYTHON)  tests/temporal_hierarchy/test_temporal_demo_1.py  >  logs/temporal_hierarchy_test_temporal_demo_1.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/temporal_hierarchy_test_temporal_demo_1.log logs/temporal_hierarchy_test_temporal_demo_1.log  >  logs/temporal_hierarchy_test_temporal_demo_1.log.diff
+	 tail -10  logs/temporal_hierarchy_test_temporal_demo_1.log.diff 
+
+temporal_hierarchy/test_temporal_demo_daily_D_W_2W.py  :  
+	 $(PYTHON)  tests/temporal_hierarchy/test_temporal_demo_daily_D_W_2W.py  >  logs/temporal_hierarchy_test_temporal_demo_daily_D_W_2W.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/temporal_hierarchy_test_temporal_demo_daily_D_W_2W.log logs/temporal_hierarchy_test_temporal_demo_daily_D_W_2W.log  >  logs/temporal_hierarchy_test_temporal_demo_daily_D_W_2W.log.diff
+	 tail -10  logs/temporal_hierarchy_test_temporal_demo_daily_D_W_2W.log.diff 
+
+temporal_hierarchy/test_temporal_demo_daily_D_W_2W_Q.py  :  
+	 $(PYTHON)  tests/temporal_hierarchy/test_temporal_demo_daily_D_W_2W_Q.py  >  logs/temporal_hierarchy_test_temporal_demo_daily_D_W_2W_Q.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/temporal_hierarchy_test_temporal_demo_daily_D_W_2W_Q.log logs/temporal_hierarchy_test_temporal_demo_daily_D_W_2W_Q.log  >  logs/temporal_hierarchy_test_temporal_demo_daily_D_W_2W_Q.log.diff
+	 tail -10  logs/temporal_hierarchy_test_temporal_demo_daily_D_W_2W_Q.log.diff 
+
+temporal_hierarchy/test_temporal_demo_daily_D_W_M.py  :  
+	 $(PYTHON)  tests/temporal_hierarchy/test_temporal_demo_daily_D_W_M.py  >  logs/temporal_hierarchy_test_temporal_demo_daily_D_W_M.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/temporal_hierarchy_test_temporal_demo_daily_D_W_M.log logs/temporal_hierarchy_test_temporal_demo_daily_D_W_M.log  >  logs/temporal_hierarchy_test_temporal_demo_daily_D_W_M.log.diff
+	 tail -10  logs/temporal_hierarchy_test_temporal_demo_daily_D_W_M.log.diff 
+
+temporal_hierarchy/test_temporal_demo_daily_D_W_M_Q.py  :  
+	 $(PYTHON)  tests/temporal_hierarchy/test_temporal_demo_daily_D_W_M_Q.py  >  logs/temporal_hierarchy_test_temporal_demo_daily_D_W_M_Q.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/temporal_hierarchy_test_temporal_demo_daily_D_W_M_Q.log logs/temporal_hierarchy_test_temporal_demo_daily_D_W_M_Q.log  >  logs/temporal_hierarchy_test_temporal_demo_daily_D_W_M_Q.log.diff
+	 tail -10  logs/temporal_hierarchy_test_temporal_demo_daily_D_W_M_Q.log.diff 
+
+temporal_hierarchy/test_temporal_demo_daily_D_W_Q.py  :  
+	 $(PYTHON)  tests/temporal_hierarchy/test_temporal_demo_daily_D_W_Q.py  >  logs/temporal_hierarchy_test_temporal_demo_daily_D_W_Q.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/temporal_hierarchy_test_temporal_demo_daily_D_W_Q.log logs/temporal_hierarchy_test_temporal_demo_daily_D_W_Q.log  >  logs/temporal_hierarchy_test_temporal_demo_daily_D_W_Q.log.diff
+	 tail -10  logs/temporal_hierarchy_test_temporal_demo_daily_D_W_Q.log.diff 
+
+temporal_hierarchy/test_temporal_demo_hourly_H_6H_12H_D.py  :  
+	 $(PYTHON)  tests/temporal_hierarchy/test_temporal_demo_hourly_H_6H_12H_D.py  >  logs/temporal_hierarchy_test_temporal_demo_hourly_H_6H_12H_D.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/temporal_hierarchy_test_temporal_demo_hourly_H_6H_12H_D.log logs/temporal_hierarchy_test_temporal_demo_hourly_H_6H_12H_D.log  >  logs/temporal_hierarchy_test_temporal_demo_hourly_H_6H_12H_D.log.diff
+	 tail -10  logs/temporal_hierarchy_test_temporal_demo_hourly_H_6H_12H_D.log.diff 
+
+temporal_hierarchy/test_temporal_demo_hourly_H_6H_12H_D_W.py  :  
+	 $(PYTHON)  tests/temporal_hierarchy/test_temporal_demo_hourly_H_6H_12H_D_W.py  >  logs/temporal_hierarchy_test_temporal_demo_hourly_H_6H_12H_D_W.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/temporal_hierarchy_test_temporal_demo_hourly_H_6H_12H_D_W.log logs/temporal_hierarchy_test_temporal_demo_hourly_H_6H_12H_D_W.log  >  logs/temporal_hierarchy_test_temporal_demo_hourly_H_6H_12H_D_W.log.diff
+	 tail -10  logs/temporal_hierarchy_test_temporal_demo_hourly_H_6H_12H_D_W.log.diff 
+
+temporal_hierarchy/test_temporal_demo_hourly_H_D.py  :  
+	 $(PYTHON)  tests/temporal_hierarchy/test_temporal_demo_hourly_H_D.py  >  logs/temporal_hierarchy_test_temporal_demo_hourly_H_D.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/temporal_hierarchy_test_temporal_demo_hourly_H_D.log logs/temporal_hierarchy_test_temporal_demo_hourly_H_D.log  >  logs/temporal_hierarchy_test_temporal_demo_hourly_H_D.log.diff
+	 tail -10  logs/temporal_hierarchy_test_temporal_demo_hourly_H_D.log.diff 
+
+temporal_hierarchy/test_temporal_demo_minutely_T_10T_30T_H.py  :  
+	 $(PYTHON)  tests/temporal_hierarchy/test_temporal_demo_minutely_T_10T_30T_H.py  >  logs/temporal_hierarchy_test_temporal_demo_minutely_T_10T_30T_H.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/temporal_hierarchy_test_temporal_demo_minutely_T_10T_30T_H.log logs/temporal_hierarchy_test_temporal_demo_minutely_T_10T_30T_H.log  >  logs/temporal_hierarchy_test_temporal_demo_minutely_T_10T_30T_H.log.diff
+	 tail -10  logs/temporal_hierarchy_test_temporal_demo_minutely_T_10T_30T_H.log.diff 
+
+temporal_hierarchy/test_temporal_demo_minutely_T_H.py  :  
+	 $(PYTHON)  tests/temporal_hierarchy/test_temporal_demo_minutely_T_H.py  >  logs/temporal_hierarchy_test_temporal_demo_minutely_T_H.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/temporal_hierarchy_test_temporal_demo_minutely_T_H.log logs/temporal_hierarchy_test_temporal_demo_minutely_T_H.log  >  logs/temporal_hierarchy_test_temporal_demo_minutely_T_H.log.diff
+	 tail -10  logs/temporal_hierarchy_test_temporal_demo_minutely_T_H.log.diff 
+
+temporal_hierarchy/test_temporal_demo_minutely_T_H_12H_D.py  :  
+	 $(PYTHON)  tests/temporal_hierarchy/test_temporal_demo_minutely_T_H_12H_D.py  >  logs/temporal_hierarchy_test_temporal_demo_minutely_T_H_12H_D.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/temporal_hierarchy_test_temporal_demo_minutely_T_H_12H_D.log logs/temporal_hierarchy_test_temporal_demo_minutely_T_H_12H_D.log  >  logs/temporal_hierarchy_test_temporal_demo_minutely_T_H_12H_D.log.diff
+	 tail -10  logs/temporal_hierarchy_test_temporal_demo_minutely_T_H_12H_D.log.diff 
+
+temporal_hierarchy/test_temporal_demo_monthly_M_2M_6M.py  :  
+	 $(PYTHON)  tests/temporal_hierarchy/test_temporal_demo_monthly_M_2M_6M.py  >  logs/temporal_hierarchy_test_temporal_demo_monthly_M_2M_6M.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/temporal_hierarchy_test_temporal_demo_monthly_M_2M_6M.log logs/temporal_hierarchy_test_temporal_demo_monthly_M_2M_6M.log  >  logs/temporal_hierarchy_test_temporal_demo_monthly_M_2M_6M.log.diff
+	 tail -10  logs/temporal_hierarchy_test_temporal_demo_monthly_M_2M_6M.log.diff 
+
+temporal_hierarchy/test_temporal_demo_monthly_M_2M_6M_12M.py  :  
+	 $(PYTHON)  tests/temporal_hierarchy/test_temporal_demo_monthly_M_2M_6M_12M.py  >  logs/temporal_hierarchy_test_temporal_demo_monthly_M_2M_6M_12M.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/temporal_hierarchy_test_temporal_demo_monthly_M_2M_6M_12M.log logs/temporal_hierarchy_test_temporal_demo_monthly_M_2M_6M_12M.log  >  logs/temporal_hierarchy_test_temporal_demo_monthly_M_2M_6M_12M.log.diff
+	 tail -10  logs/temporal_hierarchy_test_temporal_demo_monthly_M_2M_6M_12M.log.diff 
+
+temporal_hierarchy/test_temporal_demo_monthly_M_Q_A.py  :  
+	 $(PYTHON)  tests/temporal_hierarchy/test_temporal_demo_monthly_M_Q_A.py  >  logs/temporal_hierarchy_test_temporal_demo_monthly_M_Q_A.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/temporal_hierarchy_test_temporal_demo_monthly_M_Q_A.log logs/temporal_hierarchy_test_temporal_demo_monthly_M_Q_A.log  >  logs/temporal_hierarchy_test_temporal_demo_monthly_M_Q_A.log.diff
+	 tail -10  logs/temporal_hierarchy_test_temporal_demo_monthly_M_Q_A.log.diff 
+
+temporal_hierarchy/test_temporal_demo_weekly_W_2W_M_Q.py  :  
+	 $(PYTHON)  tests/temporal_hierarchy/test_temporal_demo_weekly_W_2W_M_Q.py  >  logs/temporal_hierarchy_test_temporal_demo_weekly_W_2W_M_Q.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/temporal_hierarchy_test_temporal_demo_weekly_W_2W_M_Q.log logs/temporal_hierarchy_test_temporal_demo_weekly_W_2W_M_Q.log  >  logs/temporal_hierarchy_test_temporal_demo_weekly_W_2W_M_Q.log.diff
+	 tail -10  logs/temporal_hierarchy_test_temporal_demo_weekly_W_2W_M_Q.log.diff 
+
+temporal_hierarchy/test_temporal_demo_weekly_W_Q_A.py  :  
+	 $(PYTHON)  tests/temporal_hierarchy/test_temporal_demo_weekly_W_Q_A.py  >  logs/temporal_hierarchy_test_temporal_demo_weekly_W_Q_A.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/temporal_hierarchy_test_temporal_demo_weekly_W_Q_A.log logs/temporal_hierarchy_test_temporal_demo_weekly_W_Q_A.log  >  logs/temporal_hierarchy_test_temporal_demo_weekly_W_Q_A.log.diff
+	 tail -10  logs/temporal_hierarchy_test_temporal_demo_weekly_W_Q_A.log.diff 
+
+
+
+ temporal_hierarchy :  temporal_hierarchy/test_temporal_demo_weekly_W_Q_A.py temporal_hierarchy/test_temporal_demo_weekly_W_2W_M_Q.py temporal_hierarchy/test_temporal_demo_monthly_M_Q_A.py temporal_hierarchy/test_temporal_demo_monthly_M_2M_6M_12M.py temporal_hierarchy/test_temporal_demo_monthly_M_2M_6M.py temporal_hierarchy/test_temporal_demo_minutely_T_H_12H_D.py temporal_hierarchy/test_temporal_demo_minutely_T_H.py temporal_hierarchy/test_temporal_demo_minutely_T_10T_30T_H.py temporal_hierarchy/test_temporal_demo_hourly_H_D.py temporal_hierarchy/test_temporal_demo_hourly_H_6H_12H_D_W.py temporal_hierarchy/test_temporal_demo_hourly_H_6H_12H_D.py temporal_hierarchy/test_temporal_demo_daily_D_W_Q.py temporal_hierarchy/test_temporal_demo_daily_D_W_M_Q.py temporal_hierarchy/test_temporal_demo_daily_D_W_M.py temporal_hierarchy/test_temporal_demo_daily_D_W_2W_Q.py temporal_hierarchy/test_temporal_demo_daily_D_W_2W.py temporal_hierarchy/test_temporal_demo_1.py  
+ 
+
 time_res/test_ozone_Daily.py  :  
 	 $(PYTHON)  tests/time_res/test_ozone_Daily.py  >  logs/time_res_test_ozone_Daily.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/time_res_test_ozone_Daily.log logs/time_res_test_ozone_Daily.log  >  logs/time_res_test_ozone_Daily.log.diff
@@ -1244,7 +1334,7 @@ xgb/test_ozone_xgbx_exogenous.py  :
 
 # ********************************************** 
 
-all:  artificial basic_checks bugs cross_validation croston exog expsmooth func HeartRateTimeSeries heroku hierarchical model_control perf svr transformations  neuralnet real-life  time_res perfs demos xgb xeon-phi-parallel sampling 
+all:  artificial basic_checks bugs cross_validation croston exog expsmooth func HeartRateTimeSeries heroku hierarchical model_control perf svr transformations  neuralnet real-life  time_res perfs demos xgb xeon-phi-parallel sampling temporal_hierarchy 
 	
 
 build-test :  demos basic_checks cross_validation croston exog heroku hierarchical model_control perfs svr transformations func real-life  time_res xgb sampling 
