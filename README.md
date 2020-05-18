@@ -189,6 +189,8 @@ provided when possible and even if you are not creating an issue, you are encour
 Bug reports, Improvement requests, Documentation, Hints and Test scripts are
 welcome. Please use the GitHub platform for these tasks.
 
+For your commercial forecasting projects, please consider using the services of a forecasting expert near you (Be it an R or a Python expert). 
+
 Documentation
 ----------------
 
