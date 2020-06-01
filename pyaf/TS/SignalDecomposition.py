@@ -678,10 +678,10 @@ class cSignalDecomposition:
     def getModelInfo(self):
         return self.mBestModel.getInfo();
 
-    def to_json(self):
-        dict1 = self.mBestModel.to_json();
+    def to_json(self, iWithOptions = False):
+        dict1 = self.mBestModel.to_json(iWithOptions);
         import json
-        return json.dumps(dict1, indent=4, sort_keys=True);
+        return json.dumps(dict1, default = lambda o: o.__dict__, indent=4, sort_keys=True);
         
     def standardPlots(self, name = None, format = 'png'):
         logger = tsutil.get_pyaf_logger();
