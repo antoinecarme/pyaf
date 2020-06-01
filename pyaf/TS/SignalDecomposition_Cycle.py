@@ -150,7 +150,9 @@ class cSeasonalPeriodic(cAbstractCycle):
             dtfunc.eDatePart.FourHourOfWeek : (7 * 10 , None), # 10 weeks
             dtfunc.eDatePart.SixHourOfWeek : (7 * 10 , None), # 10 weeks
             dtfunc.eDatePart.EightHourOfWeek : (7 * 10 , None), # 10 weeks
-            dtfunc.eDatePart.TwelveHourOfWeek : (7 * 10 , None) # 10 weeks
+            dtfunc.eDatePart.TwelveHourOfWeek : (7 * 10 , None), # 10 weeks
+            dtfunc.eDatePart.WeekOfMonth : (30 * 10 , None), # 10 months
+            dtfunc.eDatePart.DayOfNthWeekOfMonth : (30 * 10 , None) # 10 months
             }
 
         lThreshold = lThresholds.get(self.mDatePart)
@@ -354,6 +356,8 @@ class cCycleEstimator:
                 self.addSeasonal(trend, dtfunc.eDatePart.SixHourOfWeek, dtfunc.eTimeResolution.HOUR);
                 self.addSeasonal(trend, dtfunc.eDatePart.EightHourOfWeek, dtfunc.eTimeResolution.HOUR);
                 self.addSeasonal(trend, dtfunc.eDatePart.TwelveHourOfWeek, dtfunc.eTimeResolution.HOUR);
+                self.addSeasonal(trend, dtfunc.eDatePart.WeekOfMonth, dtfunc.eTimeResolution.DAY);
+                self.addSeasonal(trend, dtfunc.eDatePart.DayOfNthWeekOfMonth, dtfunc.eTimeResolution.DAY);
                 
 
                 

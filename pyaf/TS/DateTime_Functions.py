@@ -26,6 +26,8 @@ class eDatePart(IntEnum):
     SixHourOfWeek = 13
     EightHourOfWeek = 14
     TwelveHourOfWeek = 15
+    WeekOfMonth = 16
+    DayOfNthWeekOfMonth = 17
 
 class eTimeResolution(IntEnum):
     NONE = 0
@@ -75,6 +77,10 @@ class cDateTime_Helper:
             lOut = series.dt.month
         elif(iDatePart == eDatePart.WeekOfYear):
             lOut = series.dt.week
+        elif(iDatePart == eDatePart.WeekOfMonth):
+            lOut = series.dt.day // 7
+        elif(iDatePart == eDatePart.DayOfNthWeekOfMonth):
+            lOut = (series.dt.day // 7) * 7 + series.dt.dayofweek
         if(lOut is None):
             print("apply_date_time_computer_failures" , iDatePart)
         assert(lOut is not None)
