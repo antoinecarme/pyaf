@@ -179,6 +179,22 @@ class cPerf:
         raise tsutil.Internal_PyAF_Error("Unknown Performance Measure ['" + self.mName + "'] '" + criterion + "'");
         return 0.0;
 
-        
-#def date_to_number(x):
-#    return  date(int(x) , int(12 * (x - int(x) + 0.01)) + 1 , 1)
+
+    def is_acceptable_criterion_value(self, criterion):
+        # percentages are bad when the mean error is above 1.0
+        if(criterion in ['MAPE' , 'SMAPE' , 'MASE']):
+            lValue = self.getCriterionValue(criterion)
+            return (lValue <= 1.0)
+        # otherwise, acceptable by default
+        return True
+
+    
+    def is_close_criterion_value(self, criterion, value, iTolerance = 0.05):
+        # percentages are close in an additive way
+        if(criterion in ['MAPE' , 'SMAPE' , 'MASE']):
+            lCritValue = self.getCriterionValue(criterion)
+            return (value <= (lCritValue + iTolerance))
+        # otherwise, multiplicative
+        return (value <= (lCritValue * (1.0 + iTolerance)))
+
+    
