@@ -52,14 +52,16 @@ class cSignalHierarchy:
             return self.mExogenousData.get(signal)
         raise tsutil.PyAF_Error("BAD_EXOGENOUS_DATA_SPECIFICATION");
             
-    def to_json(self):
+    def to_json(self, iWithOptions = False):
         lDict = {};
         lDict['Structure'] = self.mStructure;
         lDict['Models'] = {};
         for level in sorted(self.mModels.keys()):
             for signal in sorted(self.mModels[level].keys()):
                 lEngine = self.mModels[level][signal];
-                lDict['Models'][signal] = lEngine.mSignalDecomposition.mBestModel.to_json();
+                lDict['Models'][signal] = lEngine.mSignalDecomposition.mBestModel.to_json(iWithOptions = False);
+        if(iWithOptions):
+            lDict["Options"] = self.mTimeInfo.mOptions.__dict__
         return lDict;
 
     def discard_nans_in_aggregate_signals(self):
