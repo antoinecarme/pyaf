@@ -90,6 +90,11 @@ class cZeroCycle(cAbstractCycle):
         return self.mTrend_residue_name + "_zeroCycle";
 
 
+    def dump_values(self):
+        logger = tsutil.get_pyaf_logger();
+        lDict = {}
+        logger.info("ZERO_CYCLE_MODEL_VALUES " + self.getCycleName() + " 0.0 " + "{}");        
+    
     def fit(self):
         self.mTime = self.mTimeInfo.mTime;
         self.mSignal = self.mTimeInfo.mSignal;
@@ -116,6 +121,12 @@ class cSeasonalPeriodic(cAbstractCycle):
         
     def getCycleName(self):
         return self.mTrend_residue_name + "_Seasonal_" + self.mDatePart.name;
+
+    def dump_values(self):
+        logger = tsutil.get_pyaf_logger();
+        lDict = {}
+        logger.info("SEASONAL_MODEL_VALUES " + self.getCycleName() + " " + str(self.mDefaultValue) + " " + str(self.mEncodedValueDict));
+
 
     def hasEnoughData(self, iTimeMin, iTimeMax):
         lTimeDelta = iTimeMax - iTimeMin;
@@ -199,6 +210,12 @@ class cBestCycleForTrend(cAbstractCycle):
     def getCycleName(self):
         return self.mTrend_residue_name + "_bestCycle_by" + self.mCriterion;
 
+    def dump_values(self):
+        logger = tsutil.get_pyaf_logger();
+        lDict = {} if(self.mBestCycleLength is not None) else self.mBestCycleValueDict[self.mBestCycleLength]
+        logger.info("BEST_CYCLE_MODEL_VALUES " + self.getCycleName() + " " + str(self.mDefaultValue) + " " + str(lDict));
+
+    
     def dumpCyclePerfs(self):
         print(self.mCyclePerfDict);
 

@@ -132,6 +132,9 @@ class cTimeSeriesModel:
         logger.info("MODEL_L1 L1_Fit=" + str(self.mFitPerf.mL1) + " L1_Forecast=" + str(self.mForecastPerf.mL1)  + " L1_Test=" + str(self.mTestPerf.mL1) );
         logger.info("MODEL_L2 L2_Fit=" + str(self.mFitPerf.mL2) + " L2_Forecast=" + str(self.mForecastPerf.mL2)  + " L2_Test=" + str(self.mTestPerf.mL2) );
         logger.info("MODEL_COMPLEXITY " + str(self.getComplexity()) );
+        logger.info("CYCLE_MODEL_DETAIL_START");
+        self.mCycle.dump_values();
+        logger.info("CYCLE_MODEL_DETAIL_END");
         logger.info("AR_MODEL_DETAIL_START");
         self.mAR.dumpCoefficients();
         logger.info("AR_MODEL_DETAIL_END");
