@@ -180,19 +180,23 @@ class cPerf:
         return 0.0;
 
 
-    def is_acceptable_criterion_value(self, criterion):
+    def is_acceptable_criterion_value(self, criterion, iRefValue = None):
         # percentages are bad when the mean error is above 1.0
         if(criterion in ['MAPE' , 'SMAPE' , 'MASE']):
-            lValue = self.getCriterionValue(criterion)
-            return (lValue <= 1.0)
+            lCritValue = iRefValue
+            if(iRefValue is None):
+                lCritValue = self.getCriterionValue(criterion)
+            return (lCritValue <= 1.0)
         # otherwise, acceptable by default
         return True
 
     
-    def is_close_criterion_value(self, criterion, value, iTolerance = 0.05):
+    def is_close_criterion_value(self, criterion, value, iTolerance = 0.05, iRefValue = None):
         # percentages are close in an additive way
-        if(criterion in ['MAPE' , 'SMAPE' , 'MASE']):
+        lCritValue = iRefValue
+        if(iRefValue is None):
             lCritValue = self.getCriterionValue(criterion)
+        if(criterion in ['MAPE' , 'SMAPE' , 'MASE']):
             return (value <= (lCritValue + iTolerance))
         # otherwise, multiplicative
         return (value <= (lCritValue * (1.0 + iTolerance)))

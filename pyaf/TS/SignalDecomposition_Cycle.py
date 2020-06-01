@@ -202,7 +202,7 @@ class cBestCycleForTrend(cAbstractCycle):
     def __init__(self , trend, criterion):
         super().__init__(trend);
         self.mCycleFrame = pd.DataFrame()
-        self.mCyclePerfDict = {}
+        self.mCyclePerfByLength = {}
         self.mBestCycleValueDict = {}
         self.mBestCycleLength = None
         self.mCriterion = criterion
@@ -214,30 +214,33 @@ class cBestCycleForTrend(cAbstractCycle):
 
     def dump_values(self):
         logger = tsutil.get_pyaf_logger();
-        lDict = {} if(self.mBestCycleLength is not None) else self.mBestCycleValueDict[self.mBestCycleLength]
-        logger.info("BEST_CYCLE_MODEL_VALUES " + self.getCycleName() + " " + str(self.mDefaultValue) + " " + str(lDict));
+        lDict = {} if(self.mBestCycleLength is None) else self.mBestCycleValueDict[self.mBestCycleLength]
+        logger.info("BEST_CYCLE_LENGTH_VALUES " + self.getCycleName() + " " + str(self.mBestCycleLength) + " " + str(self.mDefaultValue) + " " + str(lDict));
 
     
     def dumpCyclePerfs(self):
-        print(self.mCyclePerfDict);
+        print(self.mCyclePerfByLength);
 
     def computeBestCycle(self):
         # self.dumpCyclePerfs();
         self.mBestCycleLength = None;
-        lBestCycleIdx = None;
-        lBestCriterion = None;
-        if(self.mCyclePerfDict):
-            for k in sorted(self.mCyclePerfDict.keys()):
-                # smallest cycles are better
-                if((lBestCriterion is None) or (self.mCyclePerfDict[k] < lBestCriterion)):
-                    lBestCycleIdx = k;
-                    lBestCriterion = self.mCyclePerfDict[k];
-                    
-            if(self.mOptions.mCycle_Criterion_Threshold is None or                 
-                (self.mCyclePerfDict[lBestCycleIdx] < self.mOptions.mCycle_Criterion_Threshold)) :
-                self.mBestCycleLength = lBestCycleIdx
-        # print("BEST_CYCLE_PERF" , self.mTrend_residue_name, self.mBestCycleLength)
-
+        lData = self.mCyclePerfByLength.items()
+        if(len(lData) == 0):
+            return
+        
+        lPerf = tsperf.cPerf();
+        # less MAPE is better, less categories is better, the last is the length to have a total order.
+        lSortingMethod_By_MAPE = lambda x : (x[1][0], x[0])
+        lData = sorted(lData, key = lSortingMethod_By_MAPE)
+        assert(len(lData) > 0)
+        lBestCriterion = lData[0][1]
+        lData_smallest = [x for x in lData if lPerf.is_close_criterion_value(self.mOptions.mCycle_Criterion,
+                                                                             x[1][0],
+                                                                             iTolerance = 0.05, iRefValue = lBestCriterion[0])]
+        lSortingMethod_By_Complexity = lambda x : (x[1][1], x[0])
+        lData_smallest = sorted(lData_smallest, key = lSortingMethod_By_Complexity)
+        assert(len(lData_smallest) > 0)
+        self.mBestCycleLength = lData_smallest[0][0]
 
         self.transformDataset(self.mCycleFrame);
         pass
@@ -247,34 +250,35 @@ class cBestCycleForTrend(cAbstractCycle):
         self.mTimeInfo.addVars(self.mCycleFrame);
         self.mCycleFrame[self.mTrend_residue_name ] = self.mTrendFrame[self.mTrend_residue_name]
         self.mDefaultValue = self.compute_target_means_default_value();
-        self.mCyclePerfDict = {}
-        lMaxRobustCycle = self.mTrendFrame.shape[0]//12;
-        # print("MAX_ROBUST_CYCLE_LENGTH", self.mTrendFrame.shape[0], lMaxRobustCycle);
-        lCycleLengths = self.mOptions.mCycleLengths or range(2,lMaxRobustCycle + 1)
+        self.mCyclePerfByLength = {}
+        lMaxRobustCycleLength = self.mTrendFrame.shape[0]//12;
+        # print("MAX_ROBUST_CYCLE_LENGTH", self.mTrendFrame.shape[0], lMaxRobustCycleLength);
+        lCycleLengths = self.mOptions.mCycleLengths or range(2,lMaxRobustCycleLength + 1)
         lCycleFrame = pd.DataFrame();
         lCycleFrame[self.mTrend_residue_name ] = self.mTrendFrame[self.mTrend_residue_name]
-        for i in lCycleLengths:
-            if ((i > 1) and (i <= lMaxRobustCycle)):
-                name_i = self.mTrend_residue_name + '_Cycle';
-                lCycleFrame[name_i] = self.mCycleFrame[self.mTimeInfo.mRowNumberColumn] % i
-                lEncodedValueDict = self.compute_target_means_by_cycle_value(lCycleFrame, name_i)
-                lCycleFrame[name_i + '_enc'] = lCycleFrame[name_i].apply(
+        for lLength in lCycleLengths:
+            if ((lLength > 1) and (lLength <= lMaxRobustCycleLength)):
+                name_length = self.mTrend_residue_name + '_Cycle';
+                lCycleFrame[name_length] = self.mCycleFrame[self.mTimeInfo.mRowNumberColumn] % lLength
+                lEncodedValueDict = self.compute_target_means_by_cycle_value(lCycleFrame, name_length)
+                lCycleFrame[name_length + '_enc'] = lCycleFrame[name_length].apply(
                     lambda x : lEncodedValueDict.get(x , self.mDefaultValue))
 
-                self.mBestCycleValueDict[i] = lEncodedValueDict;
+                self.mBestCycleValueDict[lLength] = lEncodedValueDict;
                 
                 lPerf = tsperf.cPerf();
                 # validate the cycles on the validation part
                 lValidFrame = self.mSplit.getValidPart(lCycleFrame);
                 lCritValue = lPerf.computeCriterion(lValidFrame[self.mTrend_residue_name],
-                                                    lValidFrame[name_i + "_enc"],
+                                                    lValidFrame[name_length + "_enc"],
                                                     self.mCriterion,
                                                     "Validation")
-                self.mCyclePerfDict[i] = lCritValue;
-                if(self.mOptions.mDebugCycles):
-                    logger = tsutil.get_pyaf_logger();
-                    logger.debug("CYCLE_INTERNAL_CRITERION " + name_i + " " + str(i) + \
-                                 " " + self.mCriterion +" " + str(lCritValue))
+                if(lPerf.is_acceptable_criterion_value(self.mOptions.mCycle_Criterion, iRefValue = lCritValue)):
+                    self.mCyclePerfByLength[lLength] = (round(lCritValue, 3) , len(lEncodedValueDict))
+                    if(self.mOptions.mDebugCycles):
+                        logger = tsutil.get_pyaf_logger();
+                        logger.debug("CYCLE_INTERNAL_CRITERION " + name_length + " " + str(lLength) + \
+                                     " " + self.mCriterion +" " + str(lCritValue))
         pass
 
     def fit(self):
