@@ -26,6 +26,41 @@ HeartRateTimeSeries/HeartRateTimeSeries_series4.py  :
  HeartRateTimeSeries :  HeartRateTimeSeries/HeartRateTimeSeries_series4.py HeartRateTimeSeries/HeartRateTimeSeries_series3.py HeartRateTimeSeries/HeartRateTimeSeries_series2.py HeartRateTimeSeries/HeartRateTimeSeries_series1.py  
  
 
+HourOfWeek/test_Business_Hourly_LunchTime.py  :  
+	 $(PYTHON)  tests/HourOfWeek/test_Business_Hourly_LunchTime.py  >  logs/HourOfWeek_test_Business_Hourly_LunchTime.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/HourOfWeek_test_Business_Hourly_LunchTime.log logs/HourOfWeek_test_Business_Hourly_LunchTime.log  >  logs/HourOfWeek_test_Business_Hourly_LunchTime.log.diff
+	 tail -10  logs/HourOfWeek_test_Business_Hourly_LunchTime.log.diff 
+
+HourOfWeek/test_Business_Hourly_MondayMorning.py  :  
+	 $(PYTHON)  tests/HourOfWeek/test_Business_Hourly_MondayMorning.py  >  logs/HourOfWeek_test_Business_Hourly_MondayMorning.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/HourOfWeek_test_Business_Hourly_MondayMorning.log logs/HourOfWeek_test_Business_Hourly_MondayMorning.log  >  logs/HourOfWeek_test_Business_Hourly_MondayMorning.log.diff
+	 tail -10  logs/HourOfWeek_test_Business_Hourly_MondayMorning.log.diff 
+
+HourOfWeek/test_Business_Hourly_WeekEnd.py  :  
+	 $(PYTHON)  tests/HourOfWeek/test_Business_Hourly_WeekEnd.py  >  logs/HourOfWeek_test_Business_Hourly_WeekEnd.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/HourOfWeek_test_Business_Hourly_WeekEnd.log logs/HourOfWeek_test_Business_Hourly_WeekEnd.log  >  logs/HourOfWeek_test_Business_Hourly_WeekEnd.log.diff
+	 tail -10  logs/HourOfWeek_test_Business_Hourly_WeekEnd.log.diff 
+
+
+
+ HourOfWeek :  HourOfWeek/test_Business_Hourly_WeekEnd.py HourOfWeek/test_Business_Hourly_MondayMorning.py HourOfWeek/test_Business_Hourly_LunchTime.py  
+ 
+
+WeekOfMonth/test_Business_DayOfNthWeek.py  :  
+	 $(PYTHON)  tests/WeekOfMonth/test_Business_DayOfNthWeek.py  >  logs/WeekOfMonth_test_Business_DayOfNthWeek.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/WeekOfMonth_test_Business_DayOfNthWeek.log logs/WeekOfMonth_test_Business_DayOfNthWeek.log  >  logs/WeekOfMonth_test_Business_DayOfNthWeek.log.diff
+	 tail -10  logs/WeekOfMonth_test_Business_DayOfNthWeek.log.diff 
+
+WeekOfMonth/test_Business_WeekOfMonth.py  :  
+	 $(PYTHON)  tests/WeekOfMonth/test_Business_WeekOfMonth.py  >  logs/WeekOfMonth_test_Business_WeekOfMonth.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/WeekOfMonth_test_Business_WeekOfMonth.log logs/WeekOfMonth_test_Business_WeekOfMonth.log  >  logs/WeekOfMonth_test_Business_WeekOfMonth.log.diff
+	 tail -10  logs/WeekOfMonth_test_Business_WeekOfMonth.log.diff 
+
+
+
+ WeekOfMonth :  WeekOfMonth/test_Business_WeekOfMonth.py WeekOfMonth/test_Business_DayOfNthWeek.py  
+ 
+
 artificial/__init__.py  :  
 	 $(PYTHON)  tests/artificial/__init__.py  >  logs/artificial___init__.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/artificial___init__.log logs/artificial___init__.log  >  logs/artificial___init__.log.diff
@@ -511,9 +546,14 @@ demos/demo1.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/demos_demo1.log logs/demos_demo1.log  >  logs/demos_demo1.log.diff
 	 tail -10  logs/demos_demo1.log.diff 
 
+demos/demo1_large_values.py  :  
+	 $(PYTHON)  tests/demos/demo1_large_values.py  >  logs/demos_demo1_large_values.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/demos_demo1_large_values.log logs/demos_demo1_large_values.log  >  logs/demos_demo1_large_values.log.diff
+	 tail -10  logs/demos_demo1_large_values.log.diff 
 
 
- demos :  demos/demo1.py  
+
+ demos :  demos/demo1_large_values.py demos/demo1.py  
  
 
 exog/test_ozone_exogenous.py  :  
@@ -1334,9 +1374,9 @@ xgb/test_ozone_xgbx_exogenous.py  :
 
 # ********************************************** 
 
-all:  artificial basic_checks bugs cross_validation croston exog expsmooth func HeartRateTimeSeries heroku hierarchical model_control perf svr transformations  neuralnet real-life  time_res perfs demos xgb xeon-phi-parallel sampling temporal_hierarchy 
+all:  artificial basic_checks bugs cross_validation croston exog expsmooth func HeartRateTimeSeries heroku hierarchical  HourOfWeek model_control perf svr transformations  neuralnet real-life  time_res perfs demos xgb xeon-phi-parallel sampling temporal_hierarchy WeekOfMonth 
 	
 
-build-test :  demos basic_checks cross_validation croston exog heroku hierarchical model_control perfs svr transformations func real-life  time_res xgb sampling 
+build-test :  demos basic_checks cross_validation croston exog heroku hierarchical model_control perfs svr transformations func real-life  time_res xgb sampling HourOfWeek WeekOfMonth 
 	
 
