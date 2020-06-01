@@ -103,27 +103,32 @@ class cSeasonalPeriodic(cAbstractCycle):
         lTimeDelta = iTimeMax - iTimeMin;
         lDays = lTimeDelta / np.timedelta64(1,'D');
         lSeconds = lTimeDelta / np.timedelta64(1,'s');
-        if(self.mDatePart == dtfunc.eDatePart.Hour):
-            return (lDays >= 10);
-        if(self.mDatePart == dtfunc.eDatePart.Minute):
-            lHours = lSeconds // 3600;
-            return (lHours >= 10);
-        if(self.mDatePart == dtfunc.eDatePart.Second):
-            lMinutes = lSeconds // 60;
-            return (lMinutes >= 10);
-        if(self.mDatePart == dtfunc.eDatePart.DayOfMonth):
-            lMonths = lDays // 30;
-            return (lMonths >= 10);
-        if(self.mDatePart == dtfunc.eDatePart.DayOfWeek):
-            lWeeks = lDays // 7;
-            return (lWeeks >= 10);
-        if(self.mDatePart == dtfunc.eDatePart.MonthOfYear):
-            lYears = lDays // 360;
-            return (lYears >= 10);
-        if(self.mDatePart == dtfunc.eDatePart.WeekOfYear):
-            lYears = lDays // 360;
-            return (lYears >= 10);
-        
+        # these are just guessses of how much dataa is needed to get valid signal stats/means of each seasonal unit.
+        # TODO : add these in the options. (None, None) => no limit
+        lThresholds = {
+            dtfunc.eDatePart.Hour : (1 * 10 , None), # 10 days
+            dtfunc.eDatePart.Minute : (None , 3600 * 10), # 10 hours
+            dtfunc.eDatePart.Second : (None , 360 * 10), # 10 minutes
+            dtfunc.eDatePart.DayOfMonth : (30 * 10 , None), # 10 months
+            dtfunc.eDatePart.DayOfWeek : (7 * 10 , None), # 10 weeks
+            dtfunc.eDatePart.MonthOfYear : (360 * 10 , None), # 10 years
+            dtfunc.eDatePart.WeekOfYear : (360 * 10 , None), # 10 years
+            dtfunc.eDatePart.WeekOfYear : (7 * 10 , None), # 10 weeks
+            dtfunc.eDatePart.DayOfYear : (360 * 10 , None), # 10 years
+            dtfunc.eDatePart.HourOfWeek : (7 * 10 , None), # 10 weeks
+            dtfunc.eDatePart.TwoHourOfWeek : (7 * 10 , None), # 10 weeks
+            dtfunc.eDatePart.ThreeHourOfWeek : (7 * 10 , None), # 10 weeks
+            dtfunc.eDatePart.FourHourOfWeek : (7 * 10 , None), # 10 weeks
+            dtfunc.eDatePart.SixHourOfWeek : (7 * 10 , None), # 10 weeks
+            dtfunc.eDatePart.EightHourOfWeek : (7 * 10 , None), # 10 weeks
+            dtfunc.eDatePart.TwelveHourOfWeek : (7 * 10 , None) # 10 weeks
+            }
+
+        lThreshold = lThresholds.get(self.mDatePart)
+        if(lThreshold[0] is not None):
+            return (lDays >= lThreshold[0]);
+        elif(lThreshold[1] is not None):
+            return (lSeconds >= lThreshold[1]);        
         return False;
 
 
@@ -286,12 +291,27 @@ class cCycleEstimator:
         self.mCycleFrame = pd.DataFrame()
         self.mCycleList = {}
 
+    def add_business_seasonal():
+        # try to capture : 
+        # business day, weekend
+        # morning/ afternoon / night / day
+        # smart grouping / target mean
+        # base : hour of week
+        pass
+        
     def addSeasonal(self, trend, seas_type, resolution):
         if(resolution >= self.mTimeInfo.mResolution):
             lSeasonal = cSeasonalPeriodic(trend, seas_type);
             if(self.mOptions.mActivePeriodics[lSeasonal.mFormula]):
                 if(lSeasonal.hasEnoughData(self.mTimeInfo.mTimeMin, self.mTimeInfo.mTimeMax)):
                     self.mCycleList[trend] = self.mCycleList[trend] + [lSeasonal];
+                else:
+                    if(self.mOptions.mDebugCycles):
+                        lTimeDelta = self.mTimeInfo.mTimeMax - self.mTimeInfo.mTimeMin
+                        lDays = lTimeDelta / np.timedelta64(1,'D');
+                        logger = tsutil.get_pyaf_logger();
+                        logger.info("NOT_ENOUGH_TO_ANAYLSE_SEASONAL_PATTERN " + str((trend.__class__.__name__, seas_type, resolution, lDays)))
+
         pass
     
     def defineCycles(self):
@@ -313,6 +333,14 @@ class cCycleEstimator:
                 self.addSeasonal(trend, dtfunc.eDatePart.Hour, dtfunc.eTimeResolution.HOUR);
                 self.addSeasonal(trend, dtfunc.eDatePart.Minute, dtfunc.eTimeResolution.MINUTE);
                 self.addSeasonal(trend, dtfunc.eDatePart.Second, dtfunc.eTimeResolution.SECOND);
+                self.addSeasonal(trend, dtfunc.eDatePart.HourOfWeek, dtfunc.eTimeResolution.HOUR);
+                self.addSeasonal(trend, dtfunc.eDatePart.TwoHourOfWeek, dtfunc.eTimeResolution.HOUR);
+                self.addSeasonal(trend, dtfunc.eDatePart.ThreeHourOfWeek, dtfunc.eTimeResolution.HOUR);
+                self.addSeasonal(trend, dtfunc.eDatePart.FourHourOfWeek, dtfunc.eTimeResolution.HOUR);
+                self.addSeasonal(trend, dtfunc.eDatePart.SixHourOfWeek, dtfunc.eTimeResolution.HOUR);
+                self.addSeasonal(trend, dtfunc.eDatePart.EightHourOfWeek, dtfunc.eTimeResolution.HOUR);
+                self.addSeasonal(trend, dtfunc.eDatePart.TwelveHourOfWeek, dtfunc.eTimeResolution.HOUR);
+                
 
                 
         for trend in self.mTrendList:
@@ -379,28 +407,42 @@ class cCycleEstimator:
             lPerfs = {}
             lTrend_residue_name = trend.mOutName + '_residue'
             lCycleList = []
-            lSeasonals = []
+            lSeasonals = {}
             for cycle in self.mCycleList[trend]:
                 if(isinstance(cycle , cSeasonalPeriodic)):
                     cycle.computePerf();
-                    lPerfs[cycle.mOutName] = cycle.mCycleForecastPerf.getCriterionValue(self.mOptions.mCycle_Criterion)
-                    lSeasonals = lSeasonals + [cycle]
+                    # check that the MAPE is not above 1.0
+                    if(cycle.mCycleForecastPerf.is_acceptable_criterion_value(self.mOptions.mCycle_Criterion)):
+                        lCritValue = cycle.mCycleForecastPerf.getCriterionValue(self.mOptions.mCycle_Criterion)
+                        lCategories = len(cycle.mEncodedValueDict.keys())
+                        lPerfs[cycle.mOutName] = (round(lCritValue, 3), lCategories)
+                        lSeasonals[cycle.mOutName] = cycle
                 else:
                     lCycleList = lCycleList + [cycle]
             
             if(len(lSeasonals) == 0):
                 return
-            lBestCriterion = None
-            lBestSeasonal = None
-            for (k,cycle) in enumerate(lSeasonals):
-                lCriterionValue = lPerfs[cycle.mOutName]
-                if((lBestCriterion is None) or (lCriterionValue < (1.05 * lBestCriterion))):
-                    lBestSeasonal = cycle
-                    lBestCriterion = lCriterionValue;
+            lData = lPerfs.items()
+            # less MAPE is better, less categories is better, the last is the name of the seasonal to have a total order.
+            lSortingMethod_By_MAPE = lambda x : (x[1][0], x[0])
+            lData = sorted(lData, key = lSortingMethod_By_MAPE)
+            assert(len(lData) > 0)
+            lBestPerf = lSeasonals[ lData[0][0] ].mCycleForecastPerf
+            lBestCriterion = lData[0][1]
+            lData_smallest = [x for x in lData if lBestPerf.is_close_criterion_value(self.mOptions.mCycle_Criterion,
+                                                                                     x[1][0],
+                                                                                     iTolerance = 0.05)]
+            lSortingMethod_By_Complexity = lambda x : (x[1][1], x[0])
+            lData_smallest = sorted(lData_smallest, key = lSortingMethod_By_Complexity)
+            assert(len(lData_smallest) > 0)
+            lBestSeasonal = lSeasonals[ lData_smallest[0][0] ]
+            lBestCriterion = lData_smallest[0][1]
             lCycleList = lCycleList + [lBestSeasonal]
             self.mCycleList[trend] = lCycleList
-            logger.debug("CYCLE_TRAINING_FILTER_SEASONALS " + trend.mOutName + " " + lBestSeasonal.mOutName)
-        logger.debug("CYCLE_TRAINING_FILTER_SEASONALS_END")
+            if(self.mOptions.mDebugCycles):
+                logger.info("CYCLE_TRAINING_FILTER_SEASONALS_DATA " + trend.mOutName + " " + str(lData_smallest))
+                logger.info("CYCLE_TRAINING_FILTER_SEASONALS_BEST " + trend.mOutName + " " + lBestSeasonal.mOutName + " " + str(lBestCriterion))
+            logger.debug("CYCLE_TRAINING_FILTER_SEASONALS_END")
         pass
 
     def estimateAllCycles(self):
