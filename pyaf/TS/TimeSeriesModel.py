@@ -132,6 +132,12 @@ class cTimeSeriesModel:
         logger.info("MODEL_L1 L1_Fit=" + str(self.mFitPerf.mL1) + " L1_Forecast=" + str(self.mForecastPerf.mL1)  + " L1_Test=" + str(self.mTestPerf.mL1) );
         logger.info("MODEL_L2 L2_Fit=" + str(self.mFitPerf.mL2) + " L2_Forecast=" + str(self.mForecastPerf.mL2)  + " L2_Test=" + str(self.mTestPerf.mL2) );
         logger.info("MODEL_COMPLEXITY " + str(self.getComplexity()) );
+        logger.info("SIGNAL_TRANSFORMATION_DETAIL_START");
+        self.mTransformation.dump_values();
+        logger.info("SIGNAL_TRANSFORMATION_DETAIL_END");
+        logger.info("TREND_DETAIL_START");
+        self.mTrend.dump_values();
+        logger.info("TREND_DETAIL_END");
         logger.info("CYCLE_MODEL_DETAIL_START");
         self.mCycle.dump_values();
         logger.info("CYCLE_MODEL_DETAIL_END");
@@ -265,7 +271,7 @@ class cTimeSeriesModel:
                            lTime, lPrefix + 'Signal',
                            lPrefix + 'Forecast' , lPrefix + 'Residue', horizon = self.mTimeInfo.mHorizon);
 
-    def to_json(self):
+    def to_json(self, iWithOptions = False):
         dict1 = {};
         d1 = { "Time" : self.mTimeInfo.to_json(),
                "Signal" : self.mOriginalSignal,
@@ -285,6 +291,8 @@ class cTimeSeriesModel:
               "RMSE" : str(self.mForecastPerf.mL2),
               "COMPLEXITY" : str(self.getComplexity())};
         dict1["Model_Performance"] = d3;
+        if(iWithOptions):
+            dict1["Options"] = self.mTimeInfo.mOptions.__dict__
         return dict1;
 
 
