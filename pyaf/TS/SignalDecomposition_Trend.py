@@ -88,6 +88,10 @@ class cConstantTrend(cAbstractTrend):
         Y_pred = self.mMean
         return Y_pred
 
+    def dump_values(self):
+        logger = tsutil.get_pyaf_logger();
+        logger.info("CONSTANT_TREND " + self.mFormula + " " + str(self.mMean));
+
 class cLag1Trend(cAbstractTrend):
     def __init__(self):
         cAbstractTrend.__init__(self);
@@ -132,6 +136,9 @@ class cLag1Trend(cAbstractTrend):
         Y_pred = self.mTrendFrame[self.mSignal].shift(1)
         return Y_pred
 
+    def dump_values(self):
+        logger = tsutil.get_pyaf_logger();
+        logger.info("LAG1_TREND " + self.mFormula + " " + str(self.mDefaultValue));
 
 class cMovingAverageTrend(cAbstractTrend):
     def __init__(self, iWindow):
@@ -168,6 +175,9 @@ class cMovingAverageTrend(cAbstractTrend):
         Y_pred = self.mTrendFrame[self.mSignal].shift(1)
         return Y_pred
 
+    def dump_values(self):
+        logger = tsutil.get_pyaf_logger();
+        logger.info("MOVING_AVERAGE_TREND " + self.mFormula + " " + str(self.mWindow));
 
 class cMovingMedianTrend(cAbstractTrend):
     def __init__(self, iWindow):
@@ -204,6 +214,9 @@ class cMovingMedianTrend(cAbstractTrend):
         Y_pred = self.mTrendFrame[self.mSignal].shift(1)
         return Y_pred
 
+    def dump_values(self):
+        logger = tsutil.get_pyaf_logger();
+        logger.info("MOVING_MEDIAN_TREND " + self.mFormula + " " + str(self.mWindow));
 
 class cLinearTrend(cAbstractTrend):
     def __init__(self):
@@ -246,6 +259,9 @@ class cLinearTrend(cAbstractTrend):
         Y_pred = self.mTrendRidge.predict(df.values)
         return Y_pred
 
+    def dump_values(self):
+        logger = tsutil.get_pyaf_logger();
+        logger.info("LINEAR_RIDGE_TREND " + self.mFormula + " " + str((self.mTrendRidge.intercept_ , self.mTrendRidge.coef_)));
 
 class cPolyTrend(cAbstractTrend):
     def __init__(self):
@@ -304,6 +320,9 @@ class cPolyTrend(cAbstractTrend):
         Y_pred = self.mTrendRidge.predict(df.values)
         return Y_pred
 
+    def dump_values(self):
+        logger = tsutil.get_pyaf_logger();
+        logger.info("POLYNOMIAL_RIDGE_TREND " + self.mFormula + " " + str((self.mTrendRidge.intercept_ , self.mTrendRidge.coef_)));
 
 class cTrendEstimator:
     
