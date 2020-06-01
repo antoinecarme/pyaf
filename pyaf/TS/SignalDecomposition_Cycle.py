@@ -46,6 +46,24 @@ class cAbstractCycle:
         pass
 
 
+    def compute_target_means_by_cycle_value(self , iCycleFrame, iCycleName):
+        # we encode only using estimation
+        lCycleFrameEstim = self.mSplit.getEstimPart(iCycleFrame);
+        lGroupBy = lCycleFrameEstim.groupby(by=[iCycleName] , sort=False)[self.mTrend_residue_name]
+        lEncodedValueDict = None
+        if(self.mOptions.mCycle_Encoding_Scheme == "Target_Mean"):
+            lEncodedValueDict = lGroupBy.mean().to_dict();
+        else:
+            lEncodedValueDict = lGroupBy.median().to_dict();
+        return lEncodedValueDict
+
+    def compute_target_means_default_value(self):
+        # we encode only using estimation
+        lCycleFrameEstim = self.mSplit.getEstimPart(self.mCycleFrame);
+        if(self.mOptions.mCycle_Encoding_Scheme == "Target_Mean"):
+            return lCycleFrameEstim[self.mTrend_residue_name].mean();
+        return lCycleFrameEstim[self.mTrend_residue_name].median();
+
     def computePerf(self):
         if(self.mOptions.mDebug):
             self.check_not_nan(self.mCycleFrame[self.getCycleResidueName()], self.getCycleResidueName())
@@ -132,14 +150,6 @@ class cSeasonalPeriodic(cAbstractCycle):
         return False;
 
 
-    def compute_target_means_by_cyle_value(self):
-        # we encode only using estimation
-        lCycleFrameEstim = self.mSplit.getEstimPart(self.mCycleFrame);
-        lTrendMeanEstim = lCycleFrameEstim[self.mTrend_residue_name].mean();
-        lGroupBy = lCycleFrameEstim.groupby(by=[self.getCycleName()] , sort=False)[self.mTrend_residue_name].mean(); 
-        self.mEncodedValueDict = lGroupBy.to_dict()
-        self.mDefaultValue = lTrendMeanEstim;
-        # print("cSeasonalPeriodic_DefaultValue" , self.getCycleName(), self.mDefaultValue, self.mEncodedValueDict);
 
 
     def compute_date_parts(self, iTimeValues):
@@ -156,7 +166,8 @@ class cSeasonalPeriodic(cAbstractCycle):
         lName = self.getCycleName();
         self.mCycleFrame[self.mTrend_residue_name] = self.mTrendFrame[self.mTrend_residue_name]
         self.mCycleFrame[lName] = self.compute_date_parts(self.mTrendFrame[self.mTime])
-        self.compute_target_means_by_cyle_value()
+        self.mDefaultValue = self.compute_target_means_default_value()
+        self.mEncodedValueDict = self.compute_target_means_by_cycle_value(self.mCycleFrame, self.getCycleName())
 
         self.mCycleFrame[lName + '_enc'] = self.mCycleFrame[lName].apply(lambda x : self.mEncodedValueDict.get(x , self.mDefaultValue))
         self.mCycleFrame[lName + '_enc'].fillna(self.mDefaultValue, inplace=True);
@@ -193,8 +204,6 @@ class cBestCycleForTrend(cAbstractCycle):
 
     def computeBestCycle(self):
         # self.dumpCyclePerfs();
-        lCycleFrameEstim = self.mSplit.getEstimPart(self.mCycleFrame);
-        self.mDefaultValue = lCycleFrameEstim[self.mTrend_residue_name].mean();
         self.mBestCycleLength = None;
         lBestCycleIdx = None;
         lBestCriterion = None;
@@ -218,9 +227,7 @@ class cBestCycleForTrend(cAbstractCycle):
     def generate_cycles(self):
         self.mTimeInfo.addVars(self.mCycleFrame);
         self.mCycleFrame[self.mTrend_residue_name ] = self.mTrendFrame[self.mTrend_residue_name]
-        lCycleFrameEstim = self.mSplit.getEstimPart(self.mCycleFrame);
-        self.mDefaultValue = lCycleFrameEstim[self.mTrend_residue_name].mean();
-        del lCycleFrameEstim;
+        self.mDefaultValue = self.compute_target_means_default_value();
         self.mCyclePerfDict = {}
         lMaxRobustCycle = self.mTrendFrame.shape[0]//12;
         # print("MAX_ROBUST_CYCLE_LENGTH", self.mTrendFrame.shape[0], lMaxRobustCycle);
@@ -231,9 +238,7 @@ class cBestCycleForTrend(cAbstractCycle):
             if ((i > 1) and (i <= lMaxRobustCycle)):
                 name_i = self.mTrend_residue_name + '_Cycle';
                 lCycleFrame[name_i] = self.mCycleFrame[self.mTimeInfo.mRowNumberColumn] % i
-                lCycleFrameEstim = self.mSplit.getEstimPart(lCycleFrame);
-                lGroupBy = lCycleFrameEstim.groupby(by=[name_i] , sort=False)[self.mTrend_residue_name].mean();
-                lEncodedValueDict = lGroupBy.to_dict()
+                lEncodedValueDict = self.compute_target_means_by_cycle_value(lCycleFrame, name_i)
                 lCycleFrame[name_i + '_enc'] = lCycleFrame[name_i].apply(
                     lambda x : lEncodedValueDict.get(x , self.mDefaultValue))
 
@@ -290,14 +295,6 @@ class cCycleEstimator:
         self.mTrendFrame = pd.DataFrame()
         self.mCycleFrame = pd.DataFrame()
         self.mCycleList = {}
-
-    def add_business_seasonal():
-        # try to capture : 
-        # business day, weekend
-        # morning/ afternoon / night / day
-        # smart grouping / target mean
-        # base : hour of week
-        pass
         
     def addSeasonal(self, trend, seas_type, resolution):
         if(resolution >= self.mTimeInfo.mResolution):
