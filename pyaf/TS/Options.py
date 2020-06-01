@@ -145,6 +145,7 @@ class cSignalDecomposition_Options(cModelControl):
         self.mModelSelection_Criterion = "MAPE";
         self.mCycle_Criterion = "MAPE";
         self.mCycle_Criterion_Threshold = None;
+        self.mCycle_Encoding_Scheme = "Target_Median"; # "Target_Mean" or "Target_Median"
         self.mHierarchicalCombinationMethod = "BU";
         self.mForecastRectifier = None # can be "relu" to force positive forecast values
         self.mXGBOptions = None
