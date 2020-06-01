@@ -166,6 +166,9 @@ class cSignalTransform_None(cAbstractSignalTransform):
     def specific_invert(self, df):
         return df;
 
+    def dump_values(self):
+        logger = tsutil.get_pyaf_logger();
+        logger.info("SIGNAL_TRANSFORMATION_MODEL_VALUES " + self.mFormula + " " + str(None));
         
 
 class cSignalTransform_Accumulate(cAbstractSignalTransform):
@@ -190,6 +193,9 @@ class cSignalTransform_Accumulate(cAbstractSignalTransform):
         df_orig.iloc[0] = df.iloc[0];
         return df_orig;
 
+    def dump_values(self):
+        logger = tsutil.get_pyaf_logger();
+        logger.info("SIGNAL_TRANSFORMATION_MODEL_VALUES " + self.mFormula + " " + str(None));
 
 class cSignalTransform_Quantize(cAbstractSignalTransform):
 
@@ -238,6 +244,11 @@ class cSignalTransform_Quantize(cAbstractSignalTransform):
         lSignal = df.apply(self.quant2signal);
         return lSignal;
 
+    def dump_values(self):
+        logger = tsutil.get_pyaf_logger();
+        logger.info("QUANTIZE_TRANSFORMATION_MIN_MAX_CURVE " + self.mFormula + " " + str((self.mMin , self.mMax)) + " " + str(self.mCurve));
+
+
 
 class cSignalTransform_BoxCox(cAbstractSignalTransform):
 
@@ -277,6 +288,9 @@ class cSignalTransform_BoxCox(cAbstractSignalTransform):
         df_pos = df.apply(self.invert_value);
         return df_pos;
 
+    def dump_values(self):
+        logger = tsutil.get_pyaf_logger();
+        logger.info("BOX_COX_TRANSFORMATION_LAMBDA " + self.mFormula + " " + str(self.mLambda));
 
 
 class cSignalTransform_Differencing(cAbstractSignalTransform):
@@ -306,6 +320,10 @@ class cSignalTransform_Differencing(cAbstractSignalTransform):
         df_orig = df.cumsum();
         df_orig = df_orig + self.mFirstValue;
         return df_orig;
+
+    def dump_values(self):
+        logger = tsutil.get_pyaf_logger();
+        logger.info("DIFFERENCING_TRANSFORMATION " + self.mFormula + " " + str(self.mFirstValue));
 
 
 class cSignalTransform_RelativeDifferencing(cAbstractSignalTransform):
@@ -351,6 +369,9 @@ class cSignalTransform_RelativeDifferencing(cAbstractSignalTransform):
         # print("RelDiff_invert_DEBUG_START" , df_orig[0:10])
         return df_orig;
 
+    def dump_values(self):
+        logger = tsutil.get_pyaf_logger();
+        logger.info("REALTIVE_DIFFERENCING_TRANSFORMATION " + self.mFormula + " " + str(self.mFirstValue));
 
 class cSignalTransform_Logit(cAbstractSignalTransform):
 
@@ -403,6 +424,9 @@ class cSignalTransform_Logit(cAbstractSignalTransform):
         df1 = df.apply(self.inv_logit);
         return df1;
 
+    def dump_values(self):
+        logger = tsutil.get_pyaf_logger();
+        logger.info("LOGIT_TRANSFORMATION " + self.mFormula );
 
         
 
@@ -434,6 +458,10 @@ class cSignalTransform_Anscombe(cAbstractSignalTransform):
         x = sig.apply(lambda x : ((x/2 * x/2) - self.mConstant))
         return x;
 
+    def dump_values(self):
+        logger = tsutil.get_pyaf_logger();
+        logger.info("ANSCOMBE_TRANSFORMATION " + self.mFormula + " " + str(self.mConstant));
+
 
 class cSignalTransform_Fisher(cAbstractSignalTransform):
     '''
@@ -462,6 +490,9 @@ class cSignalTransform_Fisher(cAbstractSignalTransform):
         x = sig.apply(np.tanh);
         return x;
 
+    def dump_values(self):
+        logger = tsutil.get_pyaf_logger();
+        logger.info("FISCHER_TRANSFORMATION " + self.mFormula);
 
 
 def create_tranformation(iName , arg):
