@@ -16,7 +16,7 @@ df['Hour'] =  df[lTimeVar + '_Hourly'].dt.hour
 df['Day'] =  df[lTimeVar + '_Hourly'].dt.dayofweek
 
 
-df[lSignalVar] = np.random.randn(N) +  10 * df['Day'].apply(lambda x : x if (x < 5) else 23)  
+df[lSignalVar] = 7 + np.random.randn(N) +  10 * df['Day'].apply(lambda x : x if (x < 5) else 23)  
 
 print(df.head())
 print(df.info())
@@ -67,4 +67,4 @@ for k in [1]:
         print(Forecast_DF.tail(2*H).to_json(date_format='iso'))
         print("</Forecast>\n\n")
         
-        # lEngine.standardPlots(name = "outputs/ozone_" + timevar)
+        lEngine.standardPlots(name = "outputs/ozone_WeekEnd_" + timevar)
