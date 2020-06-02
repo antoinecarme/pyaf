@@ -546,14 +546,9 @@ demos/demo1.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/demos_demo1.log logs/demos_demo1.log  >  logs/demos_demo1.log.diff
 	 tail -10  logs/demos_demo1.log.diff 
 
-demos/demo1_large_values.py  :  
-	 $(PYTHON)  tests/demos/demo1_large_values.py  >  logs/demos_demo1_large_values.log  2>&1
-	 $(PYTHON) scripts/num_diff.py  tests/references/demos_demo1_large_values.log logs/demos_demo1_large_values.log  >  logs/demos_demo1_large_values.log.diff
-	 tail -10  logs/demos_demo1_large_values.log.diff 
 
 
-
- demos :  demos/demo1_large_values.py demos/demo1.py  
+ demos :  demos/demo1.py  
  
 
 exog/test_ozone_exogenous.py  :  
