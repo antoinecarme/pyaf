@@ -2,6 +2,8 @@ import pandas as pd
 import numpy as np
 import pyaf.ForecastEngine as autof
 
+np.random.seed(seed=1960)
+
 #get_ipython().magic('matplotlib inline')
 
 df = pd.DataFrame()
@@ -39,7 +41,7 @@ for k in [1]:
         H = 24;
         # lEngine.mOptions.enable_slow_mode();
         lEngine.mOptions.mDebugPerformance = True;
-        lEngine.mOptions.mDebugCycles = True;
+        lEngine.mOptions.mDebugCycles = False;
         lEngine.mOptions.set_active_autoregressions([]);
 
         lEngine.train(df , timevar , lSignalVar, H);
