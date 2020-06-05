@@ -34,7 +34,7 @@ for n in [N//4 , N//4, N//2 , N]:
     #    lEngine.mOptions.mEnableSeasonals = False;
     #    lEngine.mOptions.mEnableCycles = False;
     #    lEngine.mOptions.mEnableARModels = False;
-    #    lEngine.mOptions.mDebugCycles = True;
+    #    lEngine.mOptions.mDebugCycles = False;
     lEngine.mOptions.disable_all_periodics()
     lEngine.mOptions.set_active_autoregressions(['ARX'])
 

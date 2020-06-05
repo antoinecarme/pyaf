@@ -24,7 +24,7 @@ with warnings.catch_warnings():
             lEngine.mOptions.mMaxFeatureForAutoreg = 10000;
             lEngine.mOptions.mParallelMode = False;
             # lEngine.mOptions.mEnableSeasonals = False;
-            # lEngine.mOptions.mDebugCycles = True;
+            # lEngine.mOptions.mDebugCycles = False;
             # lEngine.mOptions.mDebugProfile = True;
             lEngine
             lExogenousData = (b1.mExogenousDataFrame , b1.mExogenousVariables[0:nbex]) 

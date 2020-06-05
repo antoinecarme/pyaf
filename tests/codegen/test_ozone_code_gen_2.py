@@ -28,7 +28,7 @@ with warnings.catch_warnings():
         lEngine.mOptions.mEnableSeasonals = False;
         lEngine.mOptions.mEnableCycles = False;
         lEngine.mOptions.mEnableARModels = False;
-        #    lEngine.mOptions.mDebugCycles = True;
+        #    lEngine.mOptions.mDebugCycles = False;
         lEngine.train(df1 , b1.mTimeVar , b1.mSignalVar, H);
         lEngine.getModelInfo();
         lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution

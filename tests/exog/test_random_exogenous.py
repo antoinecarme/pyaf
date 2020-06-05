@@ -27,7 +27,7 @@ def test_random_exogenous(n , nbex):
         df1 = df.head(n).copy();
         lEngine = autof.cForecastEngine()
         # lEngine.mOptions.mEnableSeasonals = False;
-        # lEngine.mOptions.mDebugCycles = True;
+        # lEngine.mOptions.mDebugCycles = False;
         lEngine.mOptions.mDebugProfile = True;
         lEngine
         lExogenousData = (b1.mExogenousDataFrame , b1.mExogenousVariables[0:nbex]) 

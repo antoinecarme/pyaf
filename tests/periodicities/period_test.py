@@ -31,7 +31,7 @@ def buildModel(arg):
     lEngine.mOptions.set_active_transformations(['None']);
 
     lEngine.mOptions.mCycleLengths = [ k for k in range(2,128) ];
-    lEngine.mOptions.mDebugCycles = True;
+    lEngine.mOptions.mDebugCycles = False;
     lEngine
 
     H = 12;
