@@ -26,7 +26,7 @@ for n in range(N,  N+1 , 10):
     lEngine = autof.cForecastEngine()
     lEngine
     lEngine.mOptions.mEnableSeasonals = False;
-    lEngine.mOptions.mDebugCycles = True;
+    lEngine.mOptions.mDebugCycles = False;
     lEngine.mOptions.mCycle_Criterion_Threshold = 20000;
     lEngine.train(df1 , b1.mTimeVar , b1.mSignalVar, H);
     lEngine.getModelInfo();

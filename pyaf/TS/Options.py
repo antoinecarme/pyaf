@@ -27,9 +27,18 @@ class cModelControl:
                                 'Seasonal_Second' ,
                                 'Seasonal_Minute' ,
                                 'Seasonal_Hour' ,
+                                'Seasonal_HourOfWeek' ,
+                                'Seasonal_TwoHourOfWeek' ,
+                                'Seasonal_ThreeHourOfWeek' ,
+                                'Seasonal_FourHourOfWeek' ,
+                                'Seasonal_SixHourOfWeek' ,
+                                'Seasonal_EightHourOfWeek' ,
+                                'Seasonal_TwelveHourOfWeek' ,
                                 'Seasonal_DayOfWeek' ,
                                 'Seasonal_DayOfMonth',
                                 'Seasonal_DayOfYear',
+                                'Seasonal_WeekOfMonth',
+                                'Seasonal_DayOfNthWeekOfMonth',
                                 'Seasonal_WeekOfYear'];
 
         # "AutoRegression" becomes a little bit confusing as croston does not use lags (???)
@@ -136,8 +145,9 @@ class cSignalDecomposition_Options(cModelControl):
         self.mExtensiveBoxCoxOrders = [-2, -1, -0.5, -0.33 , -0.25 , 0.0, 2, 0.5, 0.33 , 0.25];
         self.mMaxFeatureForAutoreg = 1000;
         self.mModelSelection_Criterion = "MAPE";
-        self.mCycle_Criterion = "L2";
+        self.mCycle_Criterion = "MAPE";
         self.mCycle_Criterion_Threshold = None;
+        self.mCycle_Encoding_Scheme = "Target_Median"; # "Target_Mean" or "Target_Median"
         self.mHierarchicalCombinationMethod = "BU";
         self.mForecastRectifier = None # can be "relu" to force positive forecast values
         self.mXGBOptions = None

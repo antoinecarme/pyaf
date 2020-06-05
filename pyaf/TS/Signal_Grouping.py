@@ -70,5 +70,10 @@ class cSignalGrouping (sighier.cSignalHierarchy):
             self.add_level(level);
             level = level + 1;
         
+        # Stabilize the order of nodes
+        for level in  sorted(self.mStructure.keys()):
+            for col in sorted(self.mStructure[level].keys()):
+                self.mStructure[level][col] = sorted(self.mStructure[level][col])
+                
         # print("STRUCTURE", self.mStructure);
         pass

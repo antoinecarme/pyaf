@@ -5,56 +5,52 @@ INFO:pyaf.std:START_TRAINING 'Ozone'
 2  1955-03   1955      3    AS   P_S    3.6 1955-03-01
 3  1955-04   1955      4    AT   P_U    5.0 1955-04-01
 4  1955-05   1955      5    AU   P_V    6.5 1955-05-01
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 17.709980010986328
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 18.12391185760498
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01T00:00:00.000000 TimeMax=1967-09-01T00:00:00.000000 TimeDelta=<DateOffset: months=1> Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Length=204  Min=1.2 Max=8.7  Mean=3.8357843137254903 StdDev=1.4915592159401185
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Ozone' Min=1.2 Max=8.7  Mean=3.8357843137254903 StdDev=1.4915592159401185
-INFO:pyaf.std:EXOGENOUS_DATA ['Month', 'Exog2', 'Exog3', 'Exog4']
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_ARX(51)' [ConstantTrend + Seasonal_MonthOfYear + ARX]
-INFO:pyaf.std:TREND_DETAIL '_Ozone_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear' [Seasonal_MonthOfYear]
-INFO:pyaf.std:AUTOREG_DETAIL '_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_ARX(51)' [ARX]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.1601 MAPE_Forecast=0.1636 MAPE_Test=0.2016
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.154 SMAPE_Forecast=0.1621 SMAPE_Test=0.183
-INFO:pyaf.std:MODEL_MASE MASE_Fit=0.6903 MASE_Forecast=0.6517 MASE_Test=1.043
-INFO:pyaf.std:MODEL_L1 L1_Fit=0.6067089868907981 L1_Forecast=0.5059317496036007 L1_Test=0.4930514076992976
-INFO:pyaf.std:MODEL_L2 L2_Fit=0.7798928579822929 L2_Forecast=0.6202474590201532 L2_Test=0.6113482469701429
-INFO:pyaf.std:MODEL_COMPLEXITY 42
+INFO:pyaf.std:BEST_DECOMPOSITION  '_Ozone_LinearTrend_residue_zeroCycle_residue_AR(51)' [LinearTrend + NoCycle + AR]
+INFO:pyaf.std:TREND_DETAIL '_Ozone_LinearTrend' [LinearTrend]
+INFO:pyaf.std:CYCLE_DETAIL '_Ozone_LinearTrend_residue_zeroCycle' [NoCycle]
+INFO:pyaf.std:AUTOREG_DETAIL '_Ozone_LinearTrend_residue_zeroCycle_residue_AR(51)' [AR]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.1641 MAPE_Forecast=0.1595 MAPE_Test=0.174
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.1547 SMAPE_Forecast=0.178 SMAPE_Test=0.182
+INFO:pyaf.std:MODEL_MASE MASE_Fit=0.6981 MASE_Forecast=0.6782 MASE_Test=0.9094
+INFO:pyaf.std:MODEL_L1 L1_Fit=0.6135978624272591 L1_Forecast=0.5265316758013037 L1_Test=0.42992050508902385
+INFO:pyaf.std:MODEL_L2 L2_Fit=0.8095700031756019 L2_Forecast=0.7315688649507152 L2_Test=0.551943269559555
+INFO:pyaf.std:MODEL_COMPLEXITY 54
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:LINEAR_RIDGE_TREND LinearTrend (5.022578136250887, array([-1.82712926]))
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Ozone_LinearTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
-INFO:pyaf.std:AR_MODEL_COEFF 1 Month_Lag12 -0.42593963123303713
-INFO:pyaf.std:AR_MODEL_COEFF 2 Month_Lag32 -0.3726186501440728
-INFO:pyaf.std:AR_MODEL_COEFF 3 Exog3=AQ_Lag37 0.36208089112078234
-INFO:pyaf.std:AR_MODEL_COEFF 4 Month_Lag20 -0.3340268203950677
-INFO:pyaf.std:AR_MODEL_COEFF 5 Exog3=AQ_Lag36 0.32243252671358363
-INFO:pyaf.std:AR_MODEL_COEFF 6 Month_Lag3 -0.3097030720094214
-INFO:pyaf.std:AR_MODEL_COEFF 7 Month_Lag27 0.30355894727037913
-INFO:pyaf.std:AR_MODEL_COEFF 8 _Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_Lag1 0.2963241593426428
-INFO:pyaf.std:AR_MODEL_COEFF 9 Month_Lag9 -0.2695404737458796
-INFO:pyaf.std:AR_MODEL_COEFF 10 Month_Lag34 -0.2620237496703261
+INFO:pyaf.std:AR_MODEL_COEFF 1 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag1 0.43496344136033754
+INFO:pyaf.std:AR_MODEL_COEFF 2 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag10 0.19036685617533328
+INFO:pyaf.std:AR_MODEL_COEFF 3 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag7 -0.16906339635225498
+INFO:pyaf.std:AR_MODEL_COEFF 4 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag30 0.1612820579538937
+INFO:pyaf.std:AR_MODEL_COEFF 5 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag12 0.14093045574208746
+INFO:pyaf.std:AR_MODEL_COEFF 6 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag32 -0.13104711303046368
+INFO:pyaf.std:AR_MODEL_COEFF 7 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag48 0.12661310040481863
+INFO:pyaf.std:AR_MODEL_COEFF 8 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag36 0.12091470037102252
+INFO:pyaf.std:AR_MODEL_COEFF 9 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag22 0.11845464489045825
+INFO:pyaf.std:AR_MODEL_COEFF 10 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag39 -0.11612291477947768
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_PLOTTING
-INFO:matplotlib.font_manager:Could not open font file /home/antoine/.fonts/UnicodeFonts/Apple/fonts/Apple Color Emoji.ttf: In FT2Font: Could not set the fontsize
-INFO:matplotlib.font_manager:Could not open font file /usr/share/fonts/truetype/unifont/unifont_sample.ttf: In FT2Font: Could not set the fontsize
-INFO:matplotlib.font_manager:Could not open font file /home/antoine/.fonts/UnicodeFonts/truetype/noto/NotoColorEmoji.ttf: In FT2Font: Can not load face.  Unknown file format.
-INFO:matplotlib.font_manager:Could not open font file /home/antoine/.fonts/UnicodeFonts/Apple/fonts/Inconsolata-g-Powerline.ttf: In FT2Font: Can not load face.  Unknown file format.
-INFO:matplotlib.font_manager:Could not open font file /home/antoine/.fonts/UnicodeFonts/Apple/fonts/NISC18030.ttf: In FT2Font: Could not set the fontsize
-INFO:matplotlib.font_manager:Could not open font file /home/antoine/.fonts/UnicodeFonts/truetype/unifont/unifont_sample.ttf: In FT2Font: Could not set the fontsize
-INFO:matplotlib.font_manager:Could not open font file /usr/share/fonts/truetype/noto/NotoColorEmoji.ttf: In FT2Font: Can not load face.  Unknown file format.
-INFO:matplotlib.font_manager:Could not open font file /home/antoine/.fonts/UnicodeFonts/Unicode.org/fonts/TestHVAROne.otf: In FT2Font: Can not load face.
-INFO:matplotlib.font_manager:Could not open font file /home/antoine/.fonts/UnicodeFonts/Unicode.org/fonts/AdobeVFPrototype-Subset.otf: In FT2Font: Can not load face.
-INFO:matplotlib.font_manager:generated new fontManager
-INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 33.97791290283203
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 1.8434984683990479
+INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 4.301309108734131
+INFO:pyaf.std:START_FORECASTING 'Ozone'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  'Ozone' 0.32889485359191895
 Forecast Columns  Index(['Time', 'Ozone', 'row_number', 'Time_Normalized', '_Ozone',
-       '_Ozone_ConstantTrend', '_Ozone_ConstantTrend_residue',
-       '_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear',
-       '_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue', 'Month',
-       'Exog2', 'Exog3=AQ', 'Exog3=AR', 'Exog3=AS', 'Exog3=AT', 'Exog3=AU',
-       'Exog4=P_Q', 'Exog4=P_R', 'Exog4=P_S', 'Exog4=P_T', 'Exog4=P_U',
-       '_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_ARX(51)',
-       '_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_ARX(51)_residue',
+       '_Ozone_LinearTrend', '_Ozone_LinearTrend_residue',
+       '_Ozone_LinearTrend_residue_zeroCycle',
+       '_Ozone_LinearTrend_residue_zeroCycle_residue',
+       '_Ozone_LinearTrend_residue_zeroCycle_residue_AR(51)',
+       '_Ozone_LinearTrend_residue_zeroCycle_residue_AR(51)_residue',
        '_Ozone_Trend', '_Ozone_Trend_residue', '_Ozone_Cycle',
        '_Ozone_Cycle_residue', '_Ozone_AR', '_Ozone_AR_residue',
        '_Ozone_TransformedForecast', 'Ozone_Forecast',
@@ -73,18 +69,18 @@ dtypes: datetime64[ns](1), float64(2)
 memory usage: 5.2 KB
 None
 Forecasts
- [[Timestamp('1972-01-01 00:00:00') nan 1.228923382880714]
- [Timestamp('1972-02-01 00:00:00') nan 1.668338360434592]
- [Timestamp('1972-03-01 00:00:00') nan 2.165189048078341]
- [Timestamp('1972-04-01 00:00:00') nan 2.885401366369948]
- [Timestamp('1972-05-01 00:00:00') nan 2.865392284861171]
- [Timestamp('1972-06-01 00:00:00') nan 3.8193568332484005]
- [Timestamp('1972-07-01 00:00:00') nan 4.354828042562474]
- [Timestamp('1972-08-01 00:00:00') nan 4.272582646774585]
- [Timestamp('1972-09-01 00:00:00') nan 4.208792885617814]
- [Timestamp('1972-10-01 00:00:00') nan 3.7037453798999205]
- [Timestamp('1972-11-01 00:00:00') nan 2.4123903127532516]
- [Timestamp('1972-12-01 00:00:00') nan 1.5499529583433926]]
+ [[Timestamp('1972-01-01 00:00:00') nan 0.611146564169524]
+ [Timestamp('1972-02-01 00:00:00') nan 1.626529460286908]
+ [Timestamp('1972-03-01 00:00:00') nan 1.9422085585983484]
+ [Timestamp('1972-04-01 00:00:00') nan 2.369673312889974]
+ [Timestamp('1972-05-01 00:00:00') nan 2.6630222017572533]
+ [Timestamp('1972-06-01 00:00:00') nan 3.2487020878736232]
+ [Timestamp('1972-07-01 00:00:00') nan 3.2202695030432946]
+ [Timestamp('1972-08-01 00:00:00') nan 3.3293872899828663]
+ [Timestamp('1972-09-01 00:00:00') nan 2.9968462730263554]
+ [Timestamp('1972-10-01 00:00:00') nan 2.1187344328436213]
+ [Timestamp('1972-11-01 00:00:00') nan 1.3326002972043864]
+ [Timestamp('1972-12-01 00:00:00') nan 0.8415747446287962]]
 
 
 <ModelInfo>
@@ -102,18 +98,18 @@ Forecasts
         "Training_Signal_Length": 204
     },
     "Model": {
-        "AR_Model": "ARX",
-        "Best_Decomposition": "_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_ARX(51)",
-        "Cycle": "Seasonal_MonthOfYear",
+        "AR_Model": "AR",
+        "Best_Decomposition": "_Ozone_LinearTrend_residue_zeroCycle_residue_AR(51)",
+        "Cycle": "NoCycle",
         "Signal_Transoformation": "NoTransf",
-        "Trend": "ConstantTrend"
+        "Trend": "LinearTrend"
     },
     "Model_Performance": {
-        "COMPLEXITY": "42",
-        "MAE": "0.5059317496036007",
-        "MAPE": "0.1636",
-        "MASE": "0.6517",
-        "RMSE": "0.6202474590201532"
+        "COMPLEXITY": "54",
+        "MAE": "0.5265316758013037",
+        "MAPE": "0.1595",
+        "MASE": "0.6782",
+        "RMSE": "0.7315688649507152"
     }
 }
 </ModelInfo>
@@ -122,7 +118,7 @@ Forecasts
 
 
 <Forecast>
-{"Time":{"192":"1971-01-01T00:00:00.000Z","193":"1971-02-01T00:00:00.000Z","194":"1971-03-01T00:00:00.000Z","195":"1971-04-01T00:00:00.000Z","196":"1971-05-01T00:00:00.000Z","197":"1971-06-01T00:00:00.000Z","198":"1971-07-01T00:00:00.000Z","199":"1971-08-01T00:00:00.000Z","200":"1971-09-01T00:00:00.000Z","201":"1971-10-01T00:00:00.000Z","202":"1971-11-01T00:00:00.000Z","203":"1971-12-01T00:00:00.000Z","204":"1972-01-01T00:00:00.000Z","205":"1972-02-01T00:00:00.000Z","206":"1972-03-01T00:00:00.000Z","207":"1972-04-01T00:00:00.000Z","208":"1972-05-01T00:00:00.000Z","209":"1972-06-01T00:00:00.000Z","210":"1972-07-01T00:00:00.000Z","211":"1972-08-01T00:00:00.000Z","212":"1972-09-01T00:00:00.000Z","213":"1972-10-01T00:00:00.000Z","214":"1972-11-01T00:00:00.000Z","215":"1972-12-01T00:00:00.000Z"},"Ozone":{"192":1.8,"193":2.0,"194":2.2,"195":3.0,"196":2.4,"197":3.5,"198":3.5,"199":3.3,"200":2.7,"201":2.5,"202":1.6,"203":1.2,"204":null,"205":null,"206":null,"207":null,"208":null,"209":null,"210":null,"211":null,"212":null,"213":null,"214":null,"215":null},"Ozone_Forecast":{"192":1.3156477421,"193":1.8946540717,"194":2.3205602895,"195":2.9528085885,"196":2.9564424909,"197":3.7385417061,"198":4.3172867409,"199":4.0763682947,"200":3.9776850053,"201":3.3137454473,"202":2.1127833475,"203":1.3663139724,"204":1.2289233829,"205":1.6683383604,"206":2.1651890481,"207":2.8854013664,"208":2.8653922849,"209":3.8193568332,"210":4.3548280426,"211":4.2725826468,"212":4.2087928856,"213":3.7037453799,"214":2.4123903128,"215":1.5499529583}}
+{"Time":{"192":"1971-01-01T00:00:00.000Z","193":"1971-02-01T00:00:00.000Z","194":"1971-03-01T00:00:00.000Z","195":"1971-04-01T00:00:00.000Z","196":"1971-05-01T00:00:00.000Z","197":"1971-06-01T00:00:00.000Z","198":"1971-07-01T00:00:00.000Z","199":"1971-08-01T00:00:00.000Z","200":"1971-09-01T00:00:00.000Z","201":"1971-10-01T00:00:00.000Z","202":"1971-11-01T00:00:00.000Z","203":"1971-12-01T00:00:00.000Z","204":"1972-01-01T00:00:00.000Z","205":"1972-02-01T00:00:00.000Z","206":"1972-03-01T00:00:00.000Z","207":"1972-04-01T00:00:00.000Z","208":"1972-05-01T00:00:00.000Z","209":"1972-06-01T00:00:00.000Z","210":"1972-07-01T00:00:00.000Z","211":"1972-08-01T00:00:00.000Z","212":"1972-09-01T00:00:00.000Z","213":"1972-10-01T00:00:00.000Z","214":"1972-11-01T00:00:00.000Z","215":"1972-12-01T00:00:00.000Z"},"Ozone":{"192":1.8,"193":2.0,"194":2.2,"195":3.0,"196":2.4,"197":3.5,"198":3.5,"199":3.3,"200":2.7,"201":2.5,"202":1.6,"203":1.2,"204":null,"205":null,"206":null,"207":null,"208":null,"209":null,"210":null,"211":null,"212":null,"213":null,"214":null,"215":null},"Ozone_Forecast":{"192":1.0201234776,"193":1.9477080322,"194":2.8071877532,"195":1.9810299731,"196":3.2711119481,"197":3.0180455521,"198":4.2391631176,"199":3.363140279,"200":2.9406052694,"201":2.3736934134,"202":1.5680019494,"203":1.0535599086,"204":0.6111465642,"205":1.6265294603,"206":1.9422085586,"207":2.3696733129,"208":2.6630222018,"209":3.2487020879,"210":3.220269503,"211":3.32938729,"212":2.996846273,"213":2.1187344328,"214":1.3326002972,"215":0.8415747446}}
 </Forecast>
 
 

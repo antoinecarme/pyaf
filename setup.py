@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
     pyaf_long_description = fh.read()
     
 setup(name='pyaf',
-      version='1.2.4',
+      version='2.0',
       description='Python Automatic Forecasting',
       long_description=pyaf_long_description,
       long_description_content_type="text/markdown",

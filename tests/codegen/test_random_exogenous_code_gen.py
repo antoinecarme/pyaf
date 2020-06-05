@@ -26,7 +26,7 @@ with warnings.catch_warnings():
         df1 = df.head(n).copy();
         lEngine = autof.cForecastEngine()
         # lEngine.mOptions.mEnableSeasonals = False;
-        # lEngine.mOptions.mDebugCycles = True;
+        # lEngine.mOptions.mDebugCycles = False;
         lEngine
         lExogenousData = (b1.mExogenousDataFrame , b1.mExogenousVariables) 
         lEngine.train(df1 , b1.mTimeVar , b1.mSignalVar, H, lExogenousData);

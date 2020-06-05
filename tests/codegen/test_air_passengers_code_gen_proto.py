@@ -22,7 +22,7 @@ for n in [N]:
     lEngine = autof.cForecastEngine()
     lEngine
     lEngine.mOptions.mEnableARModels = False;
-    # lEngine.mOptions.mDebugCycles = True;
+    # lEngine.mOptions.mDebugCycles = False;
 
     lEngine.train(df1 , b1.mTimeVar , b1.mSignalVar, H);
     lEngine.getModelInfo();

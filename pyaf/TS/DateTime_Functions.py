@@ -19,6 +19,15 @@ class eDatePart(IntEnum):
     MonthOfYear = 6
     WeekOfYear = 7
     DayOfYear = 8
+    HourOfWeek = 9
+    TwoHourOfWeek = 10
+    ThreeHourOfWeek = 11
+    FourHourOfWeek = 12
+    SixHourOfWeek = 13
+    EightHourOfWeek = 14
+    TwelveHourOfWeek = 15
+    WeekOfMonth = 16
+    DayOfNthWeekOfMonth = 17
 
 class eTimeResolution(IntEnum):
     NONE = 0
@@ -35,6 +44,10 @@ class cDateTime_Helper:
     def __init__(self):
         pass
 
+
+    def get_week_of_month(self, series):
+        lFirstDayOfMonth = series - pd.to_timedelta(series.dt.day - 1, unit='D')
+        return series.dt.weekofyear - lFirstDayOfMonth.dt.weekofyear + 1
     
     def apply_date_time_computer(self, iDatePart, series):
         lOut = None
@@ -46,6 +59,20 @@ class cDateTime_Helper:
             lOut = series.dt.hour
         elif(iDatePart == eDatePart.DayOfWeek):
             lOut = series.dt.dayofweek
+        elif(iDatePart == eDatePart.HourOfWeek):
+            lOut = series.dt.dayofweek * 24 + series.dt.hour
+        elif(iDatePart == eDatePart.TwoHourOfWeek):
+            lOut = series.dt.dayofweek * 12 + series.dt.hour // 2
+        elif(iDatePart == eDatePart.ThreeHourOfWeek):
+            lOut = series.dt.dayofweek * 8 + series.dt.hour // 3
+        elif(iDatePart == eDatePart.FourHourOfWeek):
+            lOut = series.dt.dayofweek * 6 + series.dt.hour // 4
+        elif(iDatePart == eDatePart.SixHourOfWeek):
+            lOut = series.dt.dayofweek * 4 + series.dt.hour // 6
+        elif(iDatePart == eDatePart.EightHourOfWeek):
+            lOut = series.dt.dayofweek * 3 + series.dt.hour // 8
+        elif(iDatePart == eDatePart.TwelveHourOfWeek):
+            lOut = series.dt.dayofweek * 2 + series.dt.hour // 12
         elif(iDatePart == eDatePart.DayOfMonth):
             lOut = series.dt.day
         elif(iDatePart == eDatePart.DayOfYear):
@@ -54,6 +81,10 @@ class cDateTime_Helper:
             lOut = series.dt.month
         elif(iDatePart == eDatePart.WeekOfYear):
             lOut = series.dt.week
+        elif(iDatePart == eDatePart.WeekOfMonth):
+            lOut = self.get_week_of_month(series)
+        elif(iDatePart == eDatePart.DayOfNthWeekOfMonth):
+            lOut = self.get_week_of_month(series) * 7 + series.dt.dayofweek
         if(lOut is None):
             print("apply_date_time_computer_failures" , iDatePart)
         assert(lOut is not None)

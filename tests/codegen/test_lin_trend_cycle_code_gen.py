@@ -23,7 +23,7 @@ for n in [N//8 , N//4 , N//2 , N]:
     df1 = df.head(n).copy();
     lEngine = autof.cForecastEngine()
     # lEngine.mOptions.mEnableSeasonals = False;
-    # lEngine.mOptions.mDebugCycles = True;
+    # lEngine.mOptions.mDebugCycles = False;
     lEngine
     lEngine.train(df1 , b1.mTimeVar , b1.mSignalVar, H);
     lEngine.getModelInfo();

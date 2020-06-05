@@ -199,7 +199,7 @@ class cAutoRegressiveEstimator:
                   str(len(self.mARFrame.columns)) + " " +
                   str(time.time() - add_lag_start_time))
 
-    def sample_lags_if_needed(self):
+    def sample_lags_if_needed(self, cycle_residue):
         logger = tsutil.get_pyaf_logger();
         if(self.mOptions.mActivateSampling):
             if(self.mARFrame.shape[0] > self.mOptions.mSamplingThreshold):                    
@@ -207,7 +207,7 @@ class cAutoRegressiveEstimator:
                 if(self.mOptions.mDebugProfile):
                     logger.info("AR_MODEL_LAG_SAMPLING_ACTIVATED '" +
                                 cycle_residue + "' "
-                                + str((self.mARFrame.shape[0],  self.mOptions.mSamplingThreshold, self.mOptions.seed, lFraction)));
+                                + str((self.mARFrame.shape[0],  self.mOptions.mSamplingThreshold, self.mOptions.mSeed, lFraction)));
                 self.mARFrame = self.mARFrame.sample(frac = lFraction, replace=False, random_state=self.mOptions.mSeed);
         
 
@@ -228,7 +228,7 @@ class cAutoRegressiveEstimator:
                   + str(self.mARFrame.shape[1]));
 
         self.addLagsForTraining(self.mCycleFrame, cycle_residue);
-        self.sample_lags_if_needed()
+        self.sample_lags_if_needed(cycle_residue)
 
         if(self.mOptions.mDebugProfile):
             logger.info("AR_MODEL_ADD_LAGS_END '" +

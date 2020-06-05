@@ -27,7 +27,7 @@ def process_dataset(idataset):
         # df1 = df;
         lEngine = autof.cForecastEngine()
         # lEngine.mOptions.mEnableSeasonals = False;
-        # lEngine.mOptions.mDebugCycles = True;
+        # lEngine.mOptions.mDebugCycles = False;
         # lEngine.mOptions.enable_slow_mode();
         # mDebugProfile = True;
         # lEngine
