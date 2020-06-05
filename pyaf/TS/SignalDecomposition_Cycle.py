@@ -330,7 +330,7 @@ class cCycleEstimator:
                         lTimeDelta = self.mTimeInfo.mTimeMax - self.mTimeInfo.mTimeMin
                         lDays = lTimeDelta / np.timedelta64(1,'D');
                         logger = tsutil.get_pyaf_logger();
-                        logger.info("NOT_ENOUGH_TO_ANAYLSE_SEASONAL_PATTERN " + str((trend.__class__.__name__, seas_type, resolution, lDays)))
+                        logger.debug("NOT_ENOUGH_DATA_TO_ANAYLSE_SEASONAL_PATTERN " + str((trend.__class__.__name__, seas_type, resolution, lDays)))
 
         pass
     
