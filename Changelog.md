@@ -7,7 +7,7 @@ RELEASE 2.0 (expected 2020-07-14)
 4. Properly handle very large signals. Add Sampling. Issue #126
 5. Add temporal hierarchical forecasting. Issue #127
 6. Analyze Business Seasonals (HourOfWeek and derivatives) . Issue #131
-7. Improved logs (More model details). Issue #133, #134, $135
+7. Improved logs (More model details). Issue #133, #134, #135
 8. More robust scycles (use target median instead of target mean encoding). Issue #132
 9. Analyze Business Seasonals (WeekOfMonth and derivatives). Issue #137
-10. Improved JSON output (added Model Options). Issue 136
+10. Improved JSON output (added Model Options). Issue #136
