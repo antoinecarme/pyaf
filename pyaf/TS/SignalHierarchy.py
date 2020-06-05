@@ -81,7 +81,12 @@ class cSignalHierarchy:
                     self.mStructure[level][col] = set();
                 if(level > 0):
                     col1 = df[df.columns[level - 1]][row];
-                    self.mStructure[level][col].add(col1);    
+                    self.mStructure[level][col].add(col1);
+        # Stabilize the order of nodes
+        for level in  sorted(self.mStructure.keys()):
+            for col in sorted(self.mStructure[level].keys()):
+                self.mStructure[level][col] = sorted(self.mStructure[level][col])
+                    
         # print(self.mStructure);
         pass
     
