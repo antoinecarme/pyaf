@@ -11,3 +11,5 @@ RELEASE 2.0 (expected 2020-07-14)
 8. More robust scycles (use target median instead of target mean encoding). Issue #132
 9. Analyze Business Seasonals (WeekOfMonth and derivatives). Issue #137
 10. Improved JSON output (added Model Options). Issue #136
+11. Improved cpu usage (parallelization) for hierarchical models. Issue #115
+12. Speedups in multiple places : forecasts generation, plotting,  AR Modelling (feature selection).
