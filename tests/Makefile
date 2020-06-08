@@ -156,9 +156,24 @@ basic_checks/test_pearson.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/basic_checks_test_pearson.log logs/basic_checks_test_pearson.log  >  logs/basic_checks_test_pearson.log.diff
 	 tail -10  logs/basic_checks_test_pearson.log.diff 
 
+basic_checks/test_temporal_demo_hourly_D_H_ErrorMessage.py  :  
+	 $(PYTHON)  tests/basic_checks/test_temporal_demo_hourly_D_H_ErrorMessage.py  >  logs/basic_checks_test_temporal_demo_hourly_D_H_ErrorMessage.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/basic_checks_test_temporal_demo_hourly_D_H_ErrorMessage.log logs/basic_checks_test_temporal_demo_hourly_D_H_ErrorMessage.log  >  logs/basic_checks_test_temporal_demo_hourly_D_H_ErrorMessage.log.diff
+	 tail -10  logs/basic_checks_test_temporal_demo_hourly_D_H_ErrorMessage.log.diff 
+
+basic_checks/test_temporal_demo_hourly_D_H_ErrorMessage_2.py  :  
+	 $(PYTHON)  tests/basic_checks/test_temporal_demo_hourly_D_H_ErrorMessage_2.py  >  logs/basic_checks_test_temporal_demo_hourly_D_H_ErrorMessage_2.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/basic_checks_test_temporal_demo_hourly_D_H_ErrorMessage_2.log logs/basic_checks_test_temporal_demo_hourly_D_H_ErrorMessage_2.log  >  logs/basic_checks_test_temporal_demo_hourly_D_H_ErrorMessage_2.log.diff
+	 tail -10  logs/basic_checks_test_temporal_demo_hourly_D_H_ErrorMessage_2.log.diff 
+
+basic_checks/test_temporal_demo_hourly_D_H_ErrorMessage_3.py  :  
+	 $(PYTHON)  tests/basic_checks/test_temporal_demo_hourly_D_H_ErrorMessage_3.py  >  logs/basic_checks_test_temporal_demo_hourly_D_H_ErrorMessage_3.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/basic_checks_test_temporal_demo_hourly_D_H_ErrorMessage_3.log logs/basic_checks_test_temporal_demo_hourly_D_H_ErrorMessage_3.log  >  logs/basic_checks_test_temporal_demo_hourly_D_H_ErrorMessage_3.log.diff
+	 tail -10  logs/basic_checks_test_temporal_demo_hourly_D_H_ErrorMessage_3.log.diff 
 
 
- basic_checks :  basic_checks/test_pearson.py basic_checks/platform_info.py basic_checks/issue_46_wrong_type_signal_column.py basic_checks/issue_46_wrong_type_date_column.py basic_checks/issue_46_one_or_two_rows.py basic_checks/issue_46_non_existant_time_column.py basic_checks/issue_46_non_existant_signal_column.py basic_checks/issue_46_negative_horizon.py basic_checks/issue_46_min_max_issues.py basic_checks/hierarchy_checks_unkonwn_base_column.py basic_checks/hierarchy_checks_non_existant_date_column.py basic_checks/hierarchy_checks_non_existant_base_column.py basic_checks/hierarchy_checks_date_column_bad_storage.py basic_checks/hierarchy_checks_base_column_bad_storage.py basic_checks/hierarchy_checks_bad_horizon.py basic_checks/hierarchy_checks.py  
+
+ basic_checks :  basic_checks/test_temporal_demo_hourly_D_H_ErrorMessage_3.py basic_checks/test_temporal_demo_hourly_D_H_ErrorMessage_2.py basic_checks/test_temporal_demo_hourly_D_H_ErrorMessage.py basic_checks/test_pearson.py basic_checks/platform_info.py basic_checks/issue_46_wrong_type_signal_column.py basic_checks/issue_46_wrong_type_date_column.py basic_checks/issue_46_one_or_two_rows.py basic_checks/issue_46_non_existant_time_column.py basic_checks/issue_46_non_existant_signal_column.py basic_checks/issue_46_negative_horizon.py basic_checks/issue_46_min_max_issues.py basic_checks/hierarchy_checks_unkonwn_base_column.py basic_checks/hierarchy_checks_non_existant_date_column.py basic_checks/hierarchy_checks_non_existant_base_column.py basic_checks/hierarchy_checks_date_column_bad_storage.py basic_checks/hierarchy_checks_base_column_bad_storage.py basic_checks/hierarchy_checks_bad_horizon.py basic_checks/hierarchy_checks.py  
  
 
 bugs/run_benchmark_M1Comp_MNB71_18.py  :  
