@@ -85,9 +85,8 @@ class cTimeInfo:
 
 
     def isPhysicalTime(self):
-        type1 = np.dtype(self.mSignalFrame[self.mTime])
-        return (type1.kind == 'M');
-
+        lHelper = dtfunc.cDateTime_Helper()
+        return lHelper.isPhysicalTime(self.mSignalFrame[self.mTime])
 
     
     def analyzeSeasonals(self):

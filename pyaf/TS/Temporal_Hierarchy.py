@@ -113,10 +113,37 @@ class cTemporalHierarchy (sighier.cSignalHierarchy):
             logger.info("FORECASTING_HIERARCHICAL_TEMPORAL_HORIZONS_FIRST_RESAMPLED_DATA " + str(lPeriod) + " " + str(df_resampled[lPeriod].head(5).to_dict()) )
 
         logger.info("FORECASTING_HIERARCHICAL_TEMPORAL_HORIZONS " + str(self.mHorizons));
+
+    def checkPhysicalTime(self):
+        logger = tsutil.get_pyaf_hierarchical_logger();
+        lHelper = dtfunc.cDateTime_Helper()
+        lIsPhysical = lHelper.isPhysicalTime(self.mTrainingDataset[self.mDateColumn])
+        if(not lIsPhysical):
+            raise tsutil.PyAF_Error('TIME_HIERARCHY_PHYSICAL_TIME_NEEDED ' + str(self.mDateColumn)  + " " + str(self.mTrainingDataset[self.mDateColumn].dtype))
         
+    def check_increasing_periods(self):
+        logger = tsutil.get_pyaf_hierarchical_logger();
+        lHelper = dtfunc.cDateTime_Helper()
+        lSeconds = {}
+        for lPeriod in self.mPeriods:
+            lSeconds[lPeriod] = lHelper.get_period_length_in_seconds(lPeriod)
+        logger.info("FORECASTING_HIERARCHICAL_TEMPORAL_FREQUENCIES " + str(lSeconds) )
+        lPreviousPeriod = lSeconds[ self.mPeriods[0] ]
+        
+        lTimeFreqInSeconds = lHelper.computeTimeFrequency_in_seconds(self.mTrainingDataset[self.mDateColumn])
+        if(lTimeFreqInSeconds > lPreviousPeriod):
+            raise tsutil.PyAF_Error('TIME_HIERARCHY_PHYSICAL_TIME_RESOLUTION_TOO_LOW_FOR_THIS_PERIOD ' + str(self.mDateColumn)  + " " + str(lTimeFreqInSeconds) +
+                                    " " + self.mPeriods[0] + " " +  str(lPreviousPeriod))
+        
+        for lPeriod in self.mPeriods[1:]:
+            if(lSeconds[lPeriod] < lPreviousPeriod):
+                raise tsutil.PyAF_Error('TIME_HIERARCHY_NOT_MONOTONOUS ' + str(self.mPeriods));
+            lPreviousPeriod = lSeconds[lPeriod]
         
     def create_HierarchicalStructure(self):
         self.mPeriods = self.mHierarchy['Periods']
+        self.checkPhysicalTime()
+        self.check_increasing_periods()
         self.compute_horizons(self.mTrainingDataset)
         # self.add_temporal_data(self.mTrainingDataset)
         self.mLevels = list(range(len(self.mPeriods)));

@@ -155,3 +155,18 @@ class cDateTime_Helper:
         lDiffs = iTime[1:] - lTimeBefore[1:]
         lDelta = np.min(lDiffs);
         return lDelta.total_seconds()
+
+    def get_period_length_in_seconds(self, iFreq):
+        # keep this test as  simple as possible. Use higher level pandas API.
+        # Avoid digging into pandas low-level time sampling details (total seconds in small time range of two periods).
+        # sampel output : '1W' => 604800
+        lRange = pd.date_range('1970-01-01', periods=2, freq=iFreq)
+        delta_t = lRange[1] - lRange[0]
+        return delta_t.total_seconds()
+
+
+    def isPhysicalTime(self, iTimeColumn):
+        type1 = np.dtype(iTimeColumn)
+        return (type1.kind == 'M');
+        
+        
