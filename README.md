@@ -116,7 +116,7 @@ The following features are available :
    6. The modeling process is **customizable** and has a huge set of **options**. The
       default values of these options should however be OK to produce a reasonable quality model in a limited amount of time (a few minutes).
       * These options give access to a full set of [signal transformations](https://github.com/antoinecarme/pyaf/blob/ba09233db42d43b9aa16b6151f00794193401841/TS/Options.py#L18) and [AR-like models](https://github.com/antoinecarme/pyaf/blob/ba09233db42d43b9aa16b6151f00794193401841/TS/Options.py#L37) that are not enabled by default.
-      * Gives rise to Logit , Fisher transformations as well as XGBoost and Support Vectort Regressions and Croston intermittent models, among others.
+      * Gives rise to Logit , Fisher transformations as well as XGBoost, Support Vectort Regressions and Croston intermittent models, among others.
       * By default , PyAF uses a **fast mode** that activates many popular models. It is also possible to activate a **slow mode**, in which pyaf explores all possible models.
       * Specific models and features can be customized.
    7. A **benchmarking process** is in place (using M1, M2, M3 competitions, NN3,
