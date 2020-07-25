@@ -31,28 +31,6 @@ from . import Utils as tsutil
 
 import copy
 
-class cPerf_Arg:
-    def __init__(self , name):
-        self.mName = name;
-        self.mModel = None;
-        self.mResult = None;
-
-def compute_perf_func(arg):
-    # print("RUNNING " , arg.mName)
-    logger = tsutil.get_pyaf_logger();
-    try:
-        arg.mModel.updatePerfs();
-        return arg;
-    except Exception as e:
-        # print("FAILURE_WITH_EXCEPTION : " + str(e)[:200]);
-        logger.error("FAILURE_WITH_EXCEPTION : " + str(e)[:200]);
-        logger.error("BENCHMARKING_FAILURE '" + arg.mName + "'");
-        traceback.print_exc()
-        raise;
-    except:
-        # print("BENCHMARK_FAILURE '" + arg.mName + "'");
-        logger.error("BENCHMARK_FAILURE '" + arg.mName + "'");
-        raise
 
 class cSignalDecompositionOneTransform:
         
@@ -115,20 +93,6 @@ class cSignalDecompositionOneTransform:
             self.mExogenousInfo.mOptions = self.mOptions;
         
 
-    def computePerfsInParallel(self, args):
-        lModels = {};
-        # print([arg.mName for arg in args]);
-        # print([arg.mModel.mOutName for arg in args]);
-        pool = Pool(self.mOptions.mNbCores)
-        # results = [compute_perf_func(arg) for arg in args];
-        for res in pool.imap(compute_perf_func, args):
-            # print("FINISHED_PERF_FOR_MODEL" , res.mName);
-            lModels[res.mName] = res.mModel;
-        
-        pool.close()
-        pool.join()
-        return lModels;
-            
 
     def updatePerfsForAllModels(self , iModels):
         self.mPerfsByModel = {}
