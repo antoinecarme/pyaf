@@ -588,7 +588,8 @@ class cSignalDecompositionForecaster:
     def merge_frames(self, iFullFrame, iOneSignalFrame, iTime):
         if(iFullFrame is None):
             return iOneSignalFrame
-        lForecastFrame = iFullFrame.merge(iOneSignalFrame, how='left', left_on=iTime, right_on=iTime);
+        lTime = iFullFrame.columns[0]
+        lForecastFrame = iFullFrame.merge(iOneSignalFrame, how='left', left_on=lTime, right_on=iTime);
         return lForecastFrame
     
     def forecast(self, iDecomsposition, iInputDS, iHorizons):
@@ -610,6 +611,7 @@ class cSignalDecompositionForecaster:
         
             for res in pool.imap(forecast_one_signal, args):
                 (lSignal, lTime, lForecastFrame_i) = res
+                print((lSignal, lTime, lForecastFrame_i.columns))
                 lForecastFrame = self.merge_frames(lForecastFrame, lForecastFrame_i, lTime)
                 del lForecastFrame_i
             pool.close()
