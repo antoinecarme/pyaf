@@ -23,7 +23,9 @@ df[b1.mSignalVar + "_version_3"] = df[b1.mSignalVar] / 3
 df[b1.mSignalVar + "_version_4"] = df[b1.mSignalVar] / 4
 lSignals = [x for x in df.columns if x.startswith(b1.mSignalVar + "_")]
 
-lHorizons = H
+lHorizons = {}
+for (i, sig) in enumerate(lSignals):
+    lHorizons[sig] = i * 3 + 3
 
 lEngine.mOptions.mParallelMode = True;
 lEngine.train(df , b1.mTimeVar , lSignals, lHorizons);
