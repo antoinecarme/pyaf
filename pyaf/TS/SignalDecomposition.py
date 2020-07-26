@@ -591,11 +591,18 @@ class cSignalDecompositionForecaster:
         lForecastFrame = iFullFrame.merge(iOneSignalFrame, how='left', left_on=iTime, right_on=iTime);
         return lForecastFrame
     
-    def forecast(self, iDecomsposition, iInputDS, iHorizon):
+    def forecast(self, iDecomsposition, iInputDS, iHorizons):
+        lHorizons = {}
+        for sig in iDecomsposition.mSignals:
+            if(dict == type(iHorizons)):
+                lHorizons[sig] = iHorizons[sig]
+            else:
+                lHorizons[sig] = int(iHorizons)
+        
         lForecastFrame = None
         args = [];
         for lSignal in iDecomsposition.mSignals:
-            args = args + [(lSignal, iDecomsposition, iInputDS, iHorizon)]
+            args = args + [(lSignal, iDecomsposition, iInputDS, lHorizons[lSignal])]
 
         NCores = min(len(args) , iDecomsposition.mOptions.mNbCores) 
         if(iDecomsposition.mOptions.mParallelMode and  NCores > 1):

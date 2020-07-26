@@ -14,7 +14,6 @@ from . import Utils as tsutil
 from . import Plots as tsplot
 
 from multiprocessing import Pool
-# from pathos.pools import ProcessPool as Pool
 
 # for timing
 import time, copy
