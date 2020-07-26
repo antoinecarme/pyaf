@@ -34,5 +34,6 @@ print("\n\n<ModelInfo>")
 print(lEngine.to_json());
 print("</ModelInfo>\n\n")
 print("\n\n<Forecast>")
+print(dfapp_out.columns)
 print(dfapp_out.tail(2*H).to_json(date_format='iso'))
 print("</Forecast>\n\n")
