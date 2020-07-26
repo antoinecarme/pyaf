@@ -108,17 +108,19 @@ class cSignalDecompositionOneTransform:
             self.mPerfsByModel[model.mOutName] = [model, lComplexity, lFitPerf , lForecastPerf, lTestPerf];
         return iModels;
 
+
+    
     def collectPerformanceIndices(self) :
         rows_list = [];
 
         logger = tsutil.get_pyaf_logger();
         
-        for name in sorted(self.mPerfsByModel.keys()):
-            lModel = self.mPerfsByModel[name][0];
-            lComplexity = self.mPerfsByModel[name][1];
-            lFitPerf = self.mPerfsByModel[name][2];
-            lForecastPerf = self.mPerfsByModel[name][3];
-            lTestPerf = self.mPerfsByModel[name][4];
+        for (name, value) in sorted(self.mPerfsByModel.items()):
+            lModel = value[0];
+            lComplexity = value[1];
+            lFitPerf = value[2];
+            lForecastPerf = value[3];
+            lTestPerf = value[4];
             lModelCategory = lModel.get_model_category()
             row = [lModelCategory , lComplexity,
                    lFitPerf.mCount, lFitPerf.mL1,  lFitPerf.mL2, 
@@ -131,20 +133,20 @@ class cSignalDecompositionOneTransform:
             if(self.mOptions.mDebugPerformance):
                 logger.debug("collectPerformanceIndices : " + str(row));
                 
-        self.mPerfDetails = pd.DataFrame(rows_list, columns=
-                                         ('Model', 'Complexity',
-                                          'FitCount', 'FitL1', 'FitL2', 'FitMAPE', 'FitMASE',
-                                          'ForecastCount', 'ForecastL1', 'ForecastL2', 'ForecastMAPE',  'ForecastMASE', 
-                                          'TestCount', 'TestL1', 'TestL2', 'TestMAPE', 'TestMASE')) 
-        self.mPerfDetails.sort_values(by=['Forecast' + self.mOptions.mModelSelection_Criterion ,
-                                          'Complexity', 'Model'] ,
-                                      ascending=[True, True, True],
-                                      inplace=True);
-        self.mPerfDetails = self.mPerfDetails.reset_index(drop=True);
+        self.mPerfDetails[iSignal] = pd.DataFrame(rows_list, columns=
+                                                  ('Model', 'Complexity',
+                                                   'FitCount', 'FitL1', 'FitL2', 'FitMAPE', 'FitMASE',
+                                                   'ForecastCount', 'ForecastL1', 'ForecastL2', 'ForecastMAPE',  'ForecastMASE', 
+                                                   'TestCount', 'TestL1', 'TestL2', 'TestMAPE', 'TestMASE')) 
+        self.mPerfDetails[iSignal].sort_values(by=['Forecast' + self.mOptions.mModelSelection_Criterion ,
+                                                   'Complexity', 'Model'] ,
+                                               ascending=[True, True, True],
+                                               inplace=True);
+        self.mPerfDetails[iSignal] = self.mPerfDetails[iSignal].reset_index(drop=True);
         # print(self.mPerfDetails.head());
-        lBestName = self.mPerfDetails.iloc[0]['Model'];
-        self.mBestModel = self.mPerfsByModel[lBestName][0];
-        return self.mBestModel;
+        lBestName = self.mPerfDetails[iSignal].iloc[0]['Model'];
+        self.mBestModels[iSignal] = self.mPerfsByModel[iSignal][lBestName][0];
+        return self.mBestModels[iSignal];
     
 
     def train(self , iInputDS, iSplit, iTime, iSignal,
@@ -269,94 +271,20 @@ class cTraining_Arg:
         self.mResult = None;
 
 
-def run_transform_thread(arg):
-    # print("RUNNING_TRANSFORM", arg.mName);
-    arg.mSigDec.train(arg.mInputDS, arg.mSplit, arg.mTime, arg.mSignal, arg.mHorizon, arg.mTransformation);
-    return arg;
-
-class cSignalDecompositionTrainer:
-        
+class cModelSelector_OneSignal:
     def __init__(self):
-        self.mSigDecBySplitAndTransform = {};
-        self.mOptions = tsopts.cSignalDecomposition_Options();
-        self.mExogenousData = None;
-        self.mTransformList = {}
+        self.mOptions = None
         pass
 
-    def train(self, iInputDS, iSplits, iTime, iSignal, iHorizon):
-        if(self.mOptions.mParallelMode):
-            self.train_multiprocessed(iInputDS, iSplits, iTime, iSignal, iHorizon);
-        else:
-            self.train_not_threaded(iInputDS, iSplits, iTime, iSignal, iHorizon);
-    
-
-    def perform_model_selection(self):
-        if(self.mOptions.mDebugPerformance):
-            self.collectPerformanceIndices();
-        else:
-            self.collectPerformanceIndices_ModelSelection();
-
-        self.cleanup_after_model_selection();
-
-    def defineTransformations(self, iInputDS, iSplit, iTime, iSignal):
-        lTransformationEstimator = tstransf.cTransformationEstimator()
-        lTransformationEstimator.mOptions = self.mOptions
-        lTransformationEstimator.defineTransformations(iInputDS, iTime, iSignal)
-        self.mTransformList[iSplit] = lTransformationEstimator.mTransformList
-            
-        
-    def train_multiprocessed(self , iInputDS, iSplits, iTime, iSignal, iHorizon):
-        pool = Pool(self.mOptions.mNbCores)
-        # print([transform1.mFormula for transform1 in self.mTransformList]);
-        args = [];
-        for lSplit in iSplits:
-            self.defineTransformations(iInputDS, lSplit, iTime, iSignal);
-            for transform1 in self.mTransformList[lSplit]:
-                arg = cTraining_Arg(transform1.get_name(""));
-                arg.mName = (str(lSplit) , transform1.get_name(""))
-                arg.mSigDec = cSignalDecompositionOneTransform();
-                arg.mSigDec.mOptions = copy.copy(self.mOptions);
-                arg.mSigDec.mOptions.mCustomSplit = lSplit
-                arg.mSplit = lSplit
-                arg.mSigDec.mExogenousData = self.mExogenousData;
-                arg.mInputDS = iInputDS;
-                arg.mTime = iTime;
-                arg.mSignal = iSignal;
-                arg.mHorizon = iHorizon;
-                arg.mTransformation = transform1;
-                arg.mOptions = self.mOptions;
-                arg.mExogenousData = self.mExogenousData;
-                arg.mResult = None;
-                args.append(arg);
-
-        for res in pool.imap(run_transform_thread, args):
-            # print("FINISHED_TRAINING" , res.mName);
-            self.mSigDecBySplitAndTransform[res.mName] = res.mSigDec;
-        pool.close()
-        pool.join()
-        
-    def train_not_threaded(self , iInputDS, iSplits, iTime, iSignal, iHorizon):
-        for lSplit in iSplits:
-            self.defineTransformations(iInputDS, lSplit, iTime, iSignal);
-            for transform1 in self.mTransformList[lSplit]:
-                sigdec = cSignalDecompositionOneTransform();
-                lName = (str(lSplit) , transform1.get_name(""))
-                sigdec.mOptions = copy.copy(self.mOptions);
-                sigdec.mOptions.mCustomSplit = lSplit
-                sigdec.mExogenousData = self.mExogenousData;
-                sigdec.train(iInputDS, iSplits, iTime, iSignal, iHorizon, transform1);
-                self.mSigDecBySplitAndTransform[lName] = sigdec
-
-
-    def collectPerformanceIndices_ModelSelection(self) :
+    def collectPerformanceIndices_ModelSelection(self, iSignal, iSigDecs) :
         modelsel_start_time = time.time()
         logger = tsutil.get_pyaf_logger();
 
         rows_list = []
-        self.mPerfsByModel = {}
-        for (lName, sigdec) in self.mSigDecBySplitAndTransform.items():
+        lPerfsByModel = {}
+        for (lName, sigdec) in iSigDecs.items():
             for (model , value) in sorted(sigdec.mPerfsByModel.items()):
-                self.mPerfsByModel[model] = value
+                lPerfsByModel[model] = value
                 lTranformName = sigdec.mSignal;
                 lModelFormula = model
                 lModelCategory = value[0].get_model_category()
@@ -397,20 +325,23 @@ class cSignalDecompositionTrainer:
         # print(lInterestingModels.head());
         # print(self.mPerfsByModel);
         lBestName = lInterestingModels['Model'].iloc[0];
-        self.mBestModel = self.mPerfsByModel[lBestName][0];
+        lBestModel = lPerfsByModel[lBestName][0];
         # print(lBestName, self.mBestModel)
         if(self.mOptions.mDebugProfile):
-            logger.info("MODEL_SELECTION_TIME_IN_SECONDS "  + str(self.mBestModel.mSignal) + " " + str(time.time() - modelsel_start_time))
+            logger.info("MODEL_SELECTION_TIME_IN_SECONDS "  + str(iSignal) + " " + str(time.time() - modelsel_start_time))
+        self.mBestModel = lBestModel
+        self.mPerfsByModel = lPerfsByModel
+        return (iSignal, lPerfsByModel, lBestModel)
 
-    def collectPerformanceIndices(self) :
+    def collectPerformanceIndices(self, iSignal, iSigDecs) :
         modelsel_start_time = time.time()
         logger = tsutil.get_pyaf_logger();
 
         rows_list = []
-        self.mPerfsByModel = {}
-        for (lName, sigdec) in self.mSigDecBySplitAndTransform.items():
+        lPerfsByModel = {}
+        for (lName, sigdec) in iSigDecs.items():
             for (model , value) in sorted(sigdec.mPerfsByModel.items()):
-                self.mPerfsByModel[model] = value;
+                lPerfsByModel[model] = value;
                 lTranformName = sigdec.mSignal;
                 lModelFormula = model
                 lModelCategory = value[0].get_model_category()
@@ -449,60 +380,25 @@ class cSignalDecompositionTrainer:
             lInterestingModels = self.mTrPerfDetails;
         lInterestingModels.sort_values(by=['Complexity'] , ascending=True, inplace=True)
         # print(self.mTransformList);
-        print(lInterestingModels.head());
+        # print(lInterestingModels.head());
         lBestName = lInterestingModels['Model'].iloc[0];
-        self.mBestModel = self.mPerfsByModel[lBestName][0];
+        lBestModel = lPerfsByModel[lBestName][0];
         if(self.mOptions.mDebugProfile):
             logger.info("MODEL_SELECTION_TIME_IN_SECONDS "  + str(self.mBestModel.mSignal) + " " + str(time.time() - modelsel_start_time))
+        self.mBestModel = lBestModel
+        self.mPerfsByModel = lPerfsByModel
+        return (iSignal, lPerfsByModel, lBestModel)
 
-            
-    def cleanup_after_model_selection(self):
-        lBestTransformationName = self.mBestModel.mTransformation.get_name("")
-        lSigDecByTransform = {}
-        for (name, sigdec) in self.mSigDecBySplitAndTransform.items():
-            if(name == lBestTransformationName):
-                for modelname in sigdec.mPerfsByModel.keys():
-                    # store only model names here.
-                    sigdec.mPerfsByModel[modelname][0] = modelname
-                    lSigDecByTransform[name]  = sigdec                
-        # delete failing transformations
-        del self.mSigDecBySplitAndTransform
-        self.mSigDecBySplitAndTransform = lSigDecByTransform
-        
-
-class cSignalDecompositionTrainer_CrossValidation:
-    def __init__(self):
-        self.mSigDecBySplitAndTransform = {};
-        self.mOptions = tsopts.cSignalDecomposition_Options();
-        self.mExogenousData = None;
-        pass
-
-    def define_splits(self):
-        lFolds = self.mOptions.mCrossValidationOptions.mNbFolds
-        lRatio = 1.0 / lFolds
-        lSplits = [(k * lRatio , lRatio , 0.0) for k in range(lFolds // 2, lFolds)]
-        return lSplits
     
-    def train(self, iInputDS, iSplits, iTime, iSignal, iHorizon):
-        cross_val_start_time = time.time()
-        logger = tsutil.get_pyaf_logger();
-        self.mSplits = iSplits
-        self.mTrainers = {}
-        lTrainer = cSignalDecompositionTrainer()        
-        lTrainer.mOptions = copy.copy(self.mOptions);
-        lTrainer.mExogenousData = self.mExogenousData;
-        lTrainer.train(iInputDS, self.mSplits, iTime, iSignal, iHorizon)
-        lTrainer.collectPerformanceIndices_ModelSelection()
-        self.mTrainers = [lTrainer]
-        self.perform_model_selection()
-        logger.info("CROSS_VALIDATION_TRAINING_TIME_IN_SECONDS "  + str(self.mBestModel.mSignal) + " " + str(time.time() - cross_val_start_time))
+    def perform_model_selection(self, lSignal, sigdecs):
+        if(self.mOptions.mDebugPerformance):
+            self.collectPerformanceIndices(lSignal, sigdecs);
+        else:
+            self.collectPerformanceIndices_ModelSelection(lSignal, sigdecs);
 
-    def perform_model_selection(self):
+    def perform_model_selection_cross_validation(self):
         logger = tsutil.get_pyaf_logger();
         modelsel_start_time = time.time()
-        self.mTrPerfDetails = pd.DataFrame()
-        for lTrainer in self.mTrainers:
-            self.mTrPerfDetails = self.mTrPerfDetails.append(lTrainer.mTrPerfDetails)
         # self.mTrPerfDetails.to_csv("perf_time_series_cross_val.csv")
         lIndicator = 'Forecast' + self.mOptions.mModelSelection_Criterion;
         lColumns = ['Category', 'Complexity', lIndicator]
@@ -528,15 +424,198 @@ class cSignalDecompositionTrainer_CrossValidation:
         # print(lInterestingModels.head());
         lBestName = lInterestingModels['Model'].iloc[0];
         lBestSplit = lInterestingModels['Split'].iloc[0];
-        # print(self.mTrainers.keys())
-        lBestTrainer = self.mTrainers[0]
-        self.mBestModel = lBestTrainer.mPerfsByModel[lBestName][0];
+        self.mBestModel = self.mPerfsByModel[lBestName][0];
         # print(lBestName, self.mBestModel)
         if(self.mOptions.mDebugProfile):
             logger.info("MODEL_SELECTION_TIME_IN_SECONDS "  + str(self.mBestModel.mSignal) + " " + str(time.time() - modelsel_start_time))
         pass
+
+def run_transform_thread(arg):
+    arg.mSigDec.train(arg.mInputDS, arg.mSplit, arg.mTime, arg.mSignal, arg.mHorizon, arg.mTransformation);
+    return arg;
+
+def run_finalize_training(arg):
+    (lSignal , sigdecs, lOptions) = arg
+    pred_interval_start_time = time.time()
+    
+    lModelSelector = cModelSelector_OneSignal()
+    lModelSelector.mOptions = lOptions
+    lModelSelector.collectPerformanceIndices_ModelSelection(lSignal, sigdecs)
+    lModelSelector.perform_model_selection(lSignal, sigdecs)
+    if(lOptions.mCrossValidationOptions.mMethod is not None):
+        lModelSelector.perform_model_selection_cross_validation()
+        
+    # Prediction Intervals
+    lModelSelector.mBestModel.updatePerfs(compute_all_indicators = True);
+    lModelSelector.mBestModel.computePredictionIntervals();
+    if(lOptions.mDebugProfile):
+        logger.info("PREDICTION_INTERVAL_TIME_IN_SECONDS "  + str(lSignal) + " " + str(time.time() - pred_interval_start_time))
+    return (lSignal, lModelSelector.mPerfsByModel, lModelSelector.mBestModel, lModelSelector.mTrPerfDetails)
+
+class cSignalDecompositionTrainer:
+        
+    def __init__(self):
+        self.mSigDecBySplitAndTransform = {};
+        self.mOptions = tsopts.cSignalDecomposition_Options();
+        self.mExogenousData = None;
+        self.mTransformList = {}
+        pass
+
+    def define_splits(self):
+        lSplits = [None]
+        if(self.mOptions.mCrossValidationOptions.mMethod is not None):
+            lFolds = self.mOptions.mCrossValidationOptions.mNbFolds
+            lRatio = 1.0 / lFolds
+            lSplits = [(k * lRatio , lRatio , 0.0) for k in range(lFolds // 2, lFolds)]
+        return lSplits
+
+
+    def train(self, iInputDS, iSplits, iTime, iSignals, iHorizon):
+        self.train_all_transofrmations(iInputDS, iSplits, iTime, iSignals, iHorizon);
+        self.finalize_training()
+        self.cleanup_after_model_selection()
     
 
+    def finalize_training(self):
+        # print([transform1.mFormula for transform1 in self.mTransformList]);
+        args = [];
+        for (lSignal , sigdecs) in self.mSigDecBySplitAndTransform.items():
+            args = args + [(lSignal, sigdecs, self.mOptions)]
+
+        self.mPerfsByModel = {}
+        self.mBestModels = {}
+        NCores = min(len(args) , self.mOptions.mNbCores) 
+        if(self.mOptions.mParallelMode and NCores > 1):
+            pool = Pool(NCores)
+        
+            for res in pool.imap(run_finalize_training, args):
+                # print("FINISHED_TRAINING" , res.mName);
+                (lSignal, lPerfsByModel, lBestModel, lPerfDetails) = res
+                self.mPerfsByModel[lSignal] = lPerfsByModel;
+                self.mBestModels[lSignal] = lBestModel
+                self.mTrPerfDetails = lPerfDetails
+            pool.close()
+            pool.join()
+        else:
+            for arg in args:
+                res = run_finalize_training(arg)
+                (lSignal, lPerfsByModel, lBestModel, lPerfDetails) = res
+                self.mPerfsByModel[lSignal] = lPerfsByModel;
+                self.mBestModels[lSignal] = lBestModel
+                self.mTrPerfDetails = lPerfDetails
+                
+        
+            
+
+    def defineTransformations(self, iInputDS, iSplit, iTime, iSignal):
+        lTransformationEstimator = tstransf.cTransformationEstimator()
+        lTransformationEstimator.mOptions = self.mOptions
+        lTransformationEstimator.defineTransformations(iInputDS, iTime, iSignal)
+        self.mTransformList[(iSignal, iSplit)] = lTransformationEstimator.mTransformList
+            
+        
+    def train_all_transofrmations(self , iInputDS, iSplits, iTime, iSignals, iHorizon):
+        # print([transform1.mFormula for transform1 in self.mTransformList]);
+        args = [];
+        for lSignal in iSignals:
+            self.mSigDecBySplitAndTransform[lSignal] = {}
+        for lSplit in iSplits:
+            for lSignal in iSignals:
+                self.defineTransformations(iInputDS, lSplit, iTime, lSignal);
+                for transform1 in self.mTransformList[(lSignal, lSplit)]:
+                    arg = cTraining_Arg(transform1.get_name(""));
+                    arg.mName = (lSignal, str(lSplit) , transform1.get_name(""))
+                    arg.mSigDec = cSignalDecompositionOneTransform();
+                    arg.mSigDec.mOptions = copy.copy(self.mOptions);
+                    arg.mSigDec.mOptions.mCustomSplit = lSplit
+                    arg.mSplit = lSplit
+                    arg.mSigDec.mExogenousData = self.mExogenousData;
+                    arg.mInputDS = iInputDS;
+                    arg.mTime = iTime;
+                    arg.mSignal = lSignal;
+                    arg.mHorizon = iHorizon;
+                    arg.mTransformation = transform1;
+                    arg.mOptions = self.mOptions;
+                    arg.mExogenousData = self.mExogenousData;
+                    arg.mResult = None;
+                    args.append(arg);
+
+        NCores = min(len(args) , self.mOptions.mNbCores) 
+        if(self.mOptions.mParallelMode and NCores > 1):
+            pool = Pool(NCores)
+            for res in pool.imap(run_transform_thread, args):
+                lSignal = res.mName[0]
+                self.mSigDecBySplitAndTransform[lSignal][res.mName] = res.mSigDec;
+            pool.close()
+            pool.join()
+        else:
+            for arg in args:
+                res = run_transform_thread(arg)
+                lSignal = res.mName[0]
+                self.mSigDecBySplitAndTransform[lSignal][res.mName] = res.mSigDec;
+            
+    def cleanup_after_model_selection(self):
+        lSigDecByTransform = {}
+        for (lSignal , sigdecs) in self.mSigDecBySplitAndTransform.items():
+            lBestTransformationName = self.mBestModels[lSignal].mTransformation.get_name("")
+            for (name, sigdec) in self.mSigDecBySplitAndTransform[lSignal].items():
+                if(name == lBestTransformationName):
+                    for modelname in sigdec.mPerfsByModel.keys():
+                        # store only model names here.
+                        sigdec.mPerfsByModel[modelname][0] = modelname
+                        lSigDecByTransform[lSignal][name]  = sigdec                
+            # delete failing transformations
+        del self.mSigDecBySplitAndTransform
+        self.mSigDecBySplitAndTransform = lSigDecByTransform    
+
+def forecast_one_signal(arg):
+    (lSignal, iDecomsposition, iInputDS, iHorizon) = arg
+    lBestModel = iDecomsposition.mBestModels[lSignal]
+    lMissingImputer = tsmiss.cMissingDataImputer()
+    lMissingImputer.mOptions = iDecomsposition.mOptions
+    lInputDS = iInputDS.copy()
+    lInputDS[lBestModel.mOriginalSignal] = lMissingImputer.interpolate_signal_if_needed(iInputDS, lBestModel.mOriginalSignal)
+    lInputDS[lBestModel.mTime] = lMissingImputer.interpolate_time_if_needed(iInputDS, lBestModel.mTime)
+    lForecastFrame_i = lBestModel.forecast(lInputDS, iHorizon);
+    return (lSignal, lBestModel.mTime, lForecastFrame_i)
+
+
+class cSignalDecompositionForecaster:
+
+    def __init__(self):
+        pass
+
+    def merge_frames(self, iFullFrame, iOneSignalFrame, iTime):
+        if(iFullFrame is None):
+            return iOneSignalFrame
+        lForecastFrame = iFullFrame.merge(iOneSignalFrame, how='left', left_on=iTime, right_on=iTime);
+        return lForecastFrame
+    
+    def forecast(self, iDecomsposition, iInputDS, iHorizon):
+        lForecastFrame = None
+        args = [];
+        for lSignal in iDecomsposition.mSignals:
+            args = args + [(lSignal, iDecomsposition, iInputDS, iHorizon)]
+
+        NCores = min(len(args) , iDecomsposition.mOptions.mNbCores) 
+        if(iDecomsposition.mOptions.mParallelMode and  NCores > 1):
+            pool = Pool(NCores)
+        
+            for res in pool.imap(forecast_one_signal, args):
+                (lSignal, lTime, lForecastFrame_i) = res
+                lForecastFrame = self.merge_frames(lForecastFrame, lForecastFrame_i, lTime)
+                del lForecastFrame_i
+            pool.close()
+            pool.join()
+        else:
+            for arg in args:
+                res = forecast_one_signal(arg)
+                (lSignal, lTime, lForecastFrame_i) = res
+                lForecastFrame = self.merge_frames(lForecastFrame, lForecastFrame_i, lTime)
+                del lForecastFrame_i
+                
+        return lForecastFrame;
+        
 class cSignalDecomposition:
         
     def __init__(self):
@@ -552,16 +631,17 @@ class cSignalDecomposition:
             raise tsutil.PyAF_Error("PYAF_ERROR_NEGATIVE_OR_NULL_HORIZON " + str(iHorizon));
         if(iTime not in iInputDS.columns):
             raise tsutil.PyAF_Error("PYAF_ERROR_TIME_COLUMN_NOT_FOUND " + str(iTime));
-        if(iSignal not in iInputDS.columns):
-            raise tsutil.PyAF_Error("PYAF_ERROR_SIGNAL_COLUMN_NOT_FOUND " + str(iSignal));
+        for lSignal in self.mSignals:
+            if(lSignal not in iInputDS.columns):
+                raise tsutil.PyAF_Error("PYAF_ERROR_SIGNAL_COLUMN_NOT_FOUND " + str(lSignal));
+            type2 = np.dtype(iInputDS[lSignal])
+            # print(type2)
+            if(type2.kind != 'i' and type2.kind != 'u' and type2.kind != 'f'):
+                raise tsutil.PyAF_Error("PYAF_ERROR_SIGNAL_COLUMN_TYPE_NOT_ALLOWED '" + str(lSignal) + "' '" + str(type2) + "'");
         type1 = np.dtype(iInputDS[iTime])
         # print(type1)
         if(type1.kind != 'M' and type1.kind != 'i' and type1.kind != 'u' and type1.kind != 'f'):
             raise tsutil.PyAF_Error("PYAF_ERROR_TIME_COLUMN_TYPE_NOT_ALLOWED '" + str(iTime) + "' '" + str(type1) + "'");
-        type2 = np.dtype(iInputDS[iSignal])
-        # print(type2)
-        if(type2.kind != 'i' and type2.kind != 'u' and type2.kind != 'f'):
-            raise tsutil.PyAF_Error("PYAF_ERROR_SIGNAL_COLUMN_TYPE_NOT_ALLOWED '" + str(iSignal) + "' '" + str(type2) + "'");
         # time in exogenous data should be the strictly same type as time in training dataset (join needed)
         if(iExogenousData is not None):
             lExogenousDataFrame = iExogenousData[0];
@@ -580,73 +660,72 @@ class cSignalDecomposition:
         logger = tsutil.get_pyaf_logger();
         logger.info("START_TRAINING '" + str(iSignal) + "'")
         start_time = time.time()
+        self.mSignals = iSignal
+        if(str == type(iSignal)):
+            self.mSignals = [iSignal]
 
-        self.checkData(iInputDS, iTime, iSignal, iHorizon, iExogenousData);
+        self.checkData(iInputDS, iTime, self.mSignals, iHorizon, iExogenousData);
 
         self.mTrainingDataset = iInputDS; 
         self.mExogenousData = iExogenousData;
 
         lTrainer = cSignalDecompositionTrainer()
-        lSplits = [self.mOptions.mCustomSplit]
-        if(self.mOptions.mCrossValidationOptions.mMethod is not None):
-            lTrainer = cSignalDecompositionTrainer_CrossValidation()
-            lSplits = lTrainer.define_splits()
+        lSplits = lTrainer.define_splits()
         lTrainer.mOptions = self.mOptions;
         lTrainer.mExogenousData = iExogenousData;
         
-        lTrainer.train(iInputDS, lSplits , iTime, iSignal, iHorizon)
-        lTrainer.perform_model_selection()
-        self.mBestModel = lTrainer.mBestModel
+        lTrainer.train(iInputDS, lSplits , iTime, self.mSignals, iHorizon)
+        self.mBestModels = lTrainer.mBestModels
         self.mTrPerfDetails = lTrainer.mTrPerfDetails
-        
-        # Prediction Intervals
-        pred_interval_start_time = time.time()
-        self.mBestModel.updatePerfs(compute_all_indicators = True);
-        self.mBestModel.computePredictionIntervals();
-        if(self.mOptions.mDebugProfile):
-            logger.info("PREDICTION_INTERVAL_TIME_IN_SECONDS "  + str(iSignal) + " " + str(time.time() - pred_interval_start_time))
+        # some backward compatibility
+        lFirstSignal = self.mSignals[0] 
+        self.mBestModel = self.mBestModels[lFirstSignal]
 
         end_time = time.time()
         self.mTrainingTime = end_time - start_time;
-        logger.info("END_TRAINING_TIME_IN_SECONDS '" + str(iSignal) + "' " + str(self.mTrainingTime))
+        logger.info("END_TRAINING_TIME_IN_SECONDS '" + str(self.mSignals) + "' " + str(self.mTrainingTime))
         pass
 
     def forecast(self , iInputDS, iHorizon):
-        logger = tsutil.get_pyaf_logger();
-        logger.info("START_FORECASTING '" + str(self.mBestModel.mOriginalSignal) + "'")
         start_time = time.time()
-        lMissingImputer = tsmiss.cMissingDataImputer()
-        lMissingImputer.mOptions = self.mOptions
-        lInputDS = iInputDS.copy()
-        lInputDS[self.mBestModel.mOriginalSignal] = lMissingImputer.interpolate_signal_if_needed(iInputDS, self.mBestModel.mOriginalSignal)
-        lInputDS[self.mBestModel.mTime] = lMissingImputer.interpolate_time_if_needed(iInputDS, self.mBestModel.mTime)
-        lForecastFrame = self.mBestModel.forecast(lInputDS, iHorizon);
+        logger = tsutil.get_pyaf_logger();
+        logger.info("START_FORECASTING '" + str(self.mSignals) + "'")
+        lForecaster = cSignalDecompositionForecaster()
+        lForecastFrame = lForecaster.forecast(self, iInputDS, iHorizon)
         lForecastTime = time.time() - start_time;
-        logger.info("END_FORECAST_TIME_IN_SECONDS  '" + str(self.mBestModel.mOriginalSignal) + "' " + str(lForecastTime))
+        logger.info("END_FORECAST_TIME_IN_SECONDS  '" + str(self.mSignals) + "' " + str(lForecastTime))
         return lForecastFrame;
 
 
     def getModelFormula(self):
-        lFormula = self.mBestModel.getFormula();
+        lFormula = {}
+        for lSignal in self.mSignals:
+            lFormula[lSignal] = self.mBestModel.getFormula();
         return lFormula;
 
 
     def getModelInfo(self):
-        return self.mBestModel.getInfo();
+        for lSignal in self.mSignals:
+            self.mBestModels[lSignal].getInfo()
 
     def to_json(self, iWithOptions = False):
-        dict1 = self.mBestModel.to_json(iWithOptions);
+        dict1 = {}
+        for lSignal in self.mSignals:
+            dict1[lSignal] = self.mBestModels[lSignal].to_json(iWithOptions);
         import json
         return json.dumps(dict1, default = lambda o: o.__dict__, indent=4, sort_keys=True);
         
     def standardPlots(self, name = None, format = 'png'):
         logger = tsutil.get_pyaf_logger();
-        logger.info("START_PLOTTING")
         start_time = time.time()
-        self.mBestModel.standardPlots(name, format);
+        logger.info("START_PLOTTING")
+        for lSignal in self.mSignals:
+            self.mBestModels[lSignal].standardPlots(name + "_" + lSignal, format);
         lPlotTime = time.time() - start_time;
         logger.info("END_PLOTTING_TIME_IN_SECONDS " + str(lPlotTime))
         
     def getPlotsAsDict(self):
-        lDict = self.mBestModel.getPlotsAsDict();
+        lDict = {}
+        for lSignal in self.mSignals:
+            lDict[lSignal] = self.mBestModels[lSignal].getPlotsAsDict();
         return lDict;
