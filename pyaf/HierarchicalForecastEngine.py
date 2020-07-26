@@ -48,8 +48,13 @@ class cHierarchicalForecastEngine:
     def getPlotsAsDict(self):
         return self.mSignalHierarchy.getPlotsAsDict();
 
+    def to_dict(self):
+        return self.mSignalHierarchy.to_dict();
+
     def to_json(self):
-        return self.mSignalHierarchy.to_json();
+        lDict = self.to_dict()
+        import json
+        return json.dumps(lDict, default = lambda o: o.__dict__, indent=4, sort_keys=True);
 
     def computePerf(self, actual, predicted , name):
         from .TS import Perf as tsperf

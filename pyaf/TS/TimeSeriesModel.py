@@ -271,9 +271,9 @@ class cTimeSeriesModel:
                            lTime, lPrefix + 'Signal',
                            lPrefix + 'Forecast' , lPrefix + 'Residue', horizon = self.mTimeInfo.mHorizon);
 
-    def to_json(self, iWithOptions = False):
+    def to_dict(self, iWithOptions = False):
         dict1 = {};
-        d1 = { "Time" : self.mTimeInfo.to_json(),
+        d1 = { "Time" : self.mTimeInfo.to_dict(),
                "Signal" : self.mOriginalSignal,
                "Training_Signal_Length" : self.mModelFrame.shape[0]};
         dict1["Dataset"] = d1;

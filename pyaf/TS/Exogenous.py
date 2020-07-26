@@ -29,7 +29,7 @@ class cExogenousInfo:
         return lStr2;
 
 
-    def to_json(self):
+    def to_dict(self):
         dict1 = {};
         return dict1;
 

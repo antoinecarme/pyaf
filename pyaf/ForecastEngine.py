@@ -50,8 +50,13 @@ class cForecastEngine:
     def getPlotsAsDict(self):
         return self.mSignalDecomposition.getPlotsAsDict();
 
+    def to_dict(self, iWithOptions = False):
+        return self.mSignalDecomposition.to_dict(iWithOptions);
+
     def to_json(self, iWithOptions = False):
-        return self.mSignalDecomposition.to_json(iWithOptions);
+        lDict = self.to_dict(iWithOptions)
+        import json
+        return json.dumps(lDict, default = lambda o: o.__dict__, indent=4, sort_keys=True);
 
     def computePerf(self, actual, predicted , name):
         lForecastPerf =  tsperf.cPerf();
