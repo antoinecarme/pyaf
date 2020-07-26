@@ -514,14 +514,14 @@ class cSignalDecompositionTrainer:
         self.mTransformList[(iSignal, iSplit)] = lTransformationEstimator.mTransformList
             
         
-    def train_all_transofrmations(self , iInputDS, iSplits, iTime, iSignals, iHorizon):
+    def train_all_transofrmations(self , iInputDS, iSplits, iTimes, iSignals, iHorizons):
         # print([transform1.mFormula for transform1 in self.mTransformList]);
         args = [];
         for lSignal in iSignals:
             self.mSigDecBySplitAndTransform[lSignal] = {}
         for lSplit in iSplits:
             for lSignal in iSignals:
-                self.defineTransformations(iInputDS, lSplit, iTime, lSignal);
+                self.defineTransformations(iInputDS, lSplit, iTimes[lSignal], lSignal);
                 for transform1 in self.mTransformList[(lSignal, lSplit)]:
                     arg = cTraining_Arg(transform1.get_name(""));
                     arg.mName = (lSignal, str(lSplit) , transform1.get_name(""))
@@ -529,14 +529,14 @@ class cSignalDecompositionTrainer:
                     arg.mSigDec.mOptions = copy.copy(self.mOptions);
                     arg.mSigDec.mOptions.mCustomSplit = lSplit
                     arg.mSplit = lSplit
-                    arg.mSigDec.mExogenousData = self.mExogenousData;
+                    arg.mSigDec.mExogenousData = self.mExogenousData[lSignal];
                     arg.mInputDS = iInputDS;
-                    arg.mTime = iTime;
+                    arg.mTime = iTimes[lSignal];
                     arg.mSignal = lSignal;
-                    arg.mHorizon = iHorizon;
+                    arg.mHorizon = iHorizons[lSignal];
                     arg.mTransformation = transform1;
                     arg.mOptions = self.mOptions;
-                    arg.mExogenousData = self.mExogenousData;
+                    arg.mExogenousData = self.mExogenousData[lSignal];
                     arg.mResult = None;
                     args.append(arg);
 
@@ -631,7 +631,7 @@ class cSignalDecomposition:
             raise tsutil.PyAF_Error("PYAF_ERROR_NEGATIVE_OR_NULL_HORIZON " + str(iHorizon));
         if(iTime not in iInputDS.columns):
             raise tsutil.PyAF_Error("PYAF_ERROR_TIME_COLUMN_NOT_FOUND " + str(iTime));
-        for lSignal in self.mSignals:
+        for lSignal in [iSignal]:
             if(lSignal not in iInputDS.columns):
                 raise tsutil.PyAF_Error("PYAF_ERROR_SIGNAL_COLUMN_NOT_FOUND " + str(lSignal));
             type2 = np.dtype(iInputDS[lSignal])
@@ -655,26 +655,49 @@ class cSignalDecomposition:
             type3 = np.dtype(lExogenousDataFrame[iTime])
             if(type1 != type3):
                 raise tsutil.PyAF_Error("PYAF_ERROR_INCOMPATIBLE_TIME_COLUMN_TYPE_IN_EXOGENOUS '" + str(iTime) + "' '" + str(type1)  + "' '" + str(type3) + "'");
-                
-    def train(self , iInputDS, iTime, iSignal, iHorizon, iExogenousData = None):
-        logger = tsutil.get_pyaf_logger();
-        logger.info("START_TRAINING '" + str(iSignal) + "'")
-        start_time = time.time()
-        self.mSignals = iSignal
-        if(str == type(iSignal)):
-            self.mSignals = [iSignal]
 
-        self.checkData(iInputDS, iTime, self.mSignals, iHorizon, iExogenousData);
+    def reinterpret_by_signal_args(self, iTimes, iSignals, iHorizons, iExogenousData):
+        # backward compatibility
+        self.mSignals = iSignals
+        if(str == type(iSignals)):
+            self.mSignals = [iSignals]
+        self.mDateColumns = {}
+        for sig in self.mSignals:
+            if(dict == type(iTimes)):
+                self.mDateColumns[sig] = iTimes[sig]
+            else:
+                self.mDateColumns[sig] = iTimes
+        self.mHorizons = {}
+        for sig in self.mSignals:
+            if(dict == type(iHorizons)):
+                self.mHorizons[sig] = iHorizons[sig]
+            else:
+                self.mHorizons[sig] = int(iHorizons)
+        self.mExogenousData = {}
+        for sig in self.mSignals:
+            if(dict == type(iExogenousData)):
+                self.mExogenousData[sig] = iExogenousData[sig]
+            else:
+                self.mExogenousData[sig] = iExogenousData
+        
+            
+    def train(self , iInputDS, iTimes, iSignals, iHorizons, iExogenousData = None):
+        logger = tsutil.get_pyaf_logger();
+        logger.info("START_TRAINING '" + str(iSignals) + "'")
+        start_time = time.time()
+        self.reinterpret_by_signal_args(iTimes, iSignals, iHorizons, iExogenousData)
+
+        for sig in self.mSignals:
+            self.checkData(iInputDS, self.mDateColumns[sig], sig, self.mHorizons[sig], self.mExogenousData[sig]);
 
         self.mTrainingDataset = iInputDS; 
-        self.mExogenousData = iExogenousData;
 
         lTrainer = cSignalDecompositionTrainer()
         lSplits = lTrainer.define_splits()
         lTrainer.mOptions = self.mOptions;
-        lTrainer.mExogenousData = iExogenousData;
+        lTrainer.mExogenousData = self.mExogenousData;
         
-        lTrainer.train(iInputDS, lSplits , iTime, self.mSignals, iHorizon)
+        lTrainer.train(iInputDS, lSplits , self.mDateColumns, self.mSignals, self.mHorizons)
         self.mBestModels = lTrainer.mBestModels
         self.mTrPerfDetails = lTrainer.mTrPerfDetails
         # some backward compatibility
@@ -708,12 +731,11 @@ class cSignalDecomposition:
         for lSignal in self.mSignals:
             self.mBestModels[lSignal].getInfo()
 
-    def to_json(self, iWithOptions = False):
+    def to_dict(self, iWithOptions = False):
         dict1 = {}
         for lSignal in self.mSignals:
-            dict1[lSignal] = self.mBestModels[lSignal].to_json(iWithOptions);
-        import json
-        return json.dumps(dict1, default = lambda o: o.__dict__, indent=4, sort_keys=True);
+            dict1[lSignal] = self.mBestModels[lSignal].to_dict(iWithOptions);
+        return dict1
         
     def standardPlots(self, name = None, format = 'png'):
         logger = tsutil.get_pyaf_logger();
