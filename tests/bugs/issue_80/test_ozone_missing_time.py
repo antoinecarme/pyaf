@@ -17,7 +17,8 @@ def convery_date(x):
 
 csvfile_link = "https://raw.githubusercontent.com/antoinecarme/pyaf/master/data/ozone-la_missing_dates.csv"
 csvfile_link = "data/ozone-la_missing_dates.csv"
-df = pd.read_csv(csvfile_link);
+
+df = pd.read_csv(csvfile_link)
 import datetime
 df['Month'] = df['Month'].apply(convery_date)
 
@@ -27,6 +28,7 @@ lEngine
 H = 12;
 lTimeVar = 'Month'
 lSignalVar = 'Ozone'
+lEngine.mOptions.mMissingDataOptions.mTimeMissingDataImputation = "Interpolate"
 # lEngine.mOptions.enable_slow_mode();
 # lEngine.mOptions.mDebugPerformance = True;
 lEngine.train(df , lTimeVar , lSignalVar, H);

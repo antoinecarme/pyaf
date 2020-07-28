@@ -20,6 +20,8 @@ H = 12;
 lTimeVar = 'Month'
 lSignalVar = 'Ozone'
 # lEngine.mOptions.enable_slow_mode();
+lEngine.mOptions.mMissingDataOptions.mSignalMissingDataImputation = "Interpolate"
+
 # lEngine.mOptions.mDebugPerformance = True;
 lEngine.train(df , lTimeVar , lSignalVar, H);
 lEngine.getModelInfo();
