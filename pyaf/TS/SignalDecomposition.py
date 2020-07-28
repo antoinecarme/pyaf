@@ -154,26 +154,23 @@ class cSignalDecompositionOneTransform:
         logger = tsutil.get_pyaf_logger();
 
         start_time = time.time()
-        self.setParams(iInputDS, iTime, iSignal, iHorizon, iTransformation, self.mExogenousData);
+        lInputDS = iInputDS[[iTime, iSignal]].copy()
+        self.setParams(lInputDS, iTime, iSignal, iHorizon, iTransformation, self.mExogenousData);
 
         lMissingImputer = tsmiss.cMissingDataImputer()
         lMissingImputer.mOptions = self.mOptions
-        lSignal = lMissingImputer.interpolate_signal_if_needed(iInputDS, iSignal)
-        lTime = lMissingImputer.interpolate_time_if_needed(iInputDS, iTime)
-        
-        self.mSignalFrame = pd.DataFrame()
-        self.mSignalFrame[self.mTime] = lTime;
-        self.mSignalFrame[self.mOriginalSignal] = lSignal;
-        
+        self.mSignalFrame = lMissingImputer.apply(lInputDS, iTime, iSignal).copy()
+        assert(self.mSignalFrame.shape[0] > 0)
+            
         # estimate time info
         # assert(self.mTimeInfo.mSignalFrame.shape[0] == iInputDS.shape[0])
         self.mSplit.mSignalFrame = self.mSignalFrame;
         self.mSplit.estimate();
         self.mTimeInfo.mSignalFrame = self.mSignalFrame;
         self.mTimeInfo.estimate();
-        self.mSignalFrame['row_number'] = np.arange(0, iInputDS.shape[0]);
+        self.mSignalFrame['row_number'] = np.arange(0, self.mSignalFrame.shape[0]);
 
-
+        lSignal = self.mSignalFrame[self.mOriginalSignal]
         self.mTransformation.fit(lSignal);
 
         self.mSignalFrame[self.mSignal] = self.mTransformation.apply(lSignal);
@@ -436,7 +433,6 @@ def run_transform_thread(arg):
 
 def run_finalize_training(arg):
     (lSignal , sigdecs, lOptions) = arg
-    pred_interval_start_time = time.time()
     
     lModelSelector = cModelSelector_OneSignal()
     lModelSelector.mOptions = lOptions
@@ -448,8 +444,6 @@ def run_finalize_training(arg):
     # Prediction Intervals
     lModelSelector.mBestModel.updatePerfs(compute_all_indicators = True);
     lModelSelector.mBestModel.computePredictionIntervals();
-    if(lOptions.mDebugProfile):
-        logger.info("PREDICTION_INTERVAL_TIME_IN_SECONDS "  + str(lSignal) + " " + str(time.time() - pred_interval_start_time))
     return (lSignal, lModelSelector.mPerfsByModel, lModelSelector.mBestModel, lModelSelector.mTrPerfDetails)
 
 class cSignalDecompositionTrainer:
@@ -573,9 +567,8 @@ def forecast_one_signal(arg):
     lBestModel = iDecomsposition.mBestModels[lSignal]
     lMissingImputer = tsmiss.cMissingDataImputer()
     lMissingImputer.mOptions = iDecomsposition.mOptions
-    lInputDS = iInputDS.copy()
-    lInputDS[lBestModel.mOriginalSignal] = lMissingImputer.interpolate_signal_if_needed(iInputDS, lBestModel.mOriginalSignal)
-    lInputDS[lBestModel.mTime] = lMissingImputer.interpolate_time_if_needed(iInputDS, lBestModel.mTime)
+    lInputDS = iInputDS[[lBestModel.mTime, lSignal]].copy()
+    lInputDS = lMissingImputer.apply(lInputDS, lBestModel.mTime, lBestModel.mOriginalSignal)
     lForecastFrame_i = lBestModel.forecast(lInputDS, iHorizon);
     return (lSignal, lBestModel.mTime, lForecastFrame_i)
 
@@ -611,7 +604,7 @@ class cSignalDecompositionForecaster:
         
             for res in pool.imap(forecast_one_signal, args):
                 (lSignal, lTime, lForecastFrame_i) = res
-                print((lSignal, lTime, lForecastFrame_i.columns))
+                # print((lSignal, lTime, lForecastFrame_i.columns))
                 lForecastFrame = self.merge_frames(lForecastFrame, lForecastFrame_i, lTime)
                 del lForecastFrame_i
             pool.close()
@@ -695,6 +688,7 @@ class cSignalDecomposition:
         logger.info("START_TRAINING '" + str(iSignals) + "'")
         start_time = time.time()
         self.reinterpret_by_signal_args(iTimes, iSignals, iHorizons, iExogenousData)
+        # print(iInputDS.shape, iInputDS.columns, self.mSignals, self.mDateColumns, self.mHorizons)
 
         for sig in self.mSignals:
             self.checkData(iInputDS, self.mDateColumns[sig], sig, self.mHorizons[sig], self.mExogenousData[sig]);
