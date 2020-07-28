@@ -122,6 +122,12 @@ class cCrostonOptions:
         self.mAlphaCriterion = "L2"
         # minimum amount/percentage of zeros for a series to be intermittent
         self.mZeroRate = 0.1
+
+class cMissingDataOptions:
+
+    def __init__(self):
+        self.mSignalMissingDataImputation = None  # [None , "DiscardRow", "Interpolate"]
+        self.mTimeMissingDataImputation = None  # [None , "DiscardRow", "Interpolate"]
         
 class cSignalDecomposition_Options(cModelControl):
     
@@ -153,6 +159,7 @@ class cSignalDecomposition_Options(cModelControl):
         self.mXGBOptions = None
         self.mCrossValidationOptions = cCrossValidationOptions()
         self.mCrostonOptions = cCrostonOptions()
+        self.mMissingDataOptions = cMissingDataOptions()
         self.disableDebuggingOptions();
 
     def disableDebuggingOptions(self):
