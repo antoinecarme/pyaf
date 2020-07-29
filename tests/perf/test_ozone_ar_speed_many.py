@@ -39,7 +39,7 @@ def buildModel(df, ar_order, H):
     lEngine.getModelInfo();
 
 
-def run_test():
+def run_test___disabled___():
     df = b1.mPastData    
     df1 = replicate(df, 50);
     df1.head()
@@ -47,5 +47,12 @@ def run_test():
     for order in np.arange(0, 1000, 50):
         buildModel(df1 , int(order) , H)
 
+def run_test(order):
+    df = b1.mPastData    
+    df1 = replicate(df, 50);
+    df1.head()
+    H = b1.mHorizon;
+    buildModel(df1 , int(order) , H)
 
-run_test()
+# disabled        
+# run_test()
