@@ -5,7 +5,7 @@ INFO:pyaf.std:START_TRAINING 'Ozone'
 2  1955-03   1955      3    AS   P_S    3.6 1955-03-01
 3  1955-04   1955      4    AT   P_U    5.0 1955-04-01
 4  1955-05   1955      5    AU   P_V    6.5 1955-05-01
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 15.926408767700195
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Ozone']' 19.922430276870728
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01T00:00:00.000000 TimeMax=1967-09-01T00:00:00.000000 TimeDelta=<DateOffset: months=1> Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Length=204  Min=1.2 Max=8.7  Mean=3.8357843137254903 StdDev=1.4915592159401185
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Ozone' Min=1.2 Max=8.7  Mean=3.8357843137254903 StdDev=1.4915592159401185
@@ -33,9 +33,19 @@ INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_PLOTTING
-INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 4.330235004425049
-INFO:pyaf.std:START_FORECASTING 'Ozone'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  'Ozone' 0.4010927677154541
+INFO:matplotlib.font_manager:Could not open font file /home/antoine/.fonts/UnicodeFonts/truetype/noto/NotoColorEmoji.ttf: In FT2Font: Can not load face.  Unknown file format.
+INFO:matplotlib.font_manager:Could not open font file /home/antoine/.fonts/UnicodeFonts/Apple/fonts/NISC18030.ttf: In FT2Font: Could not set the fontsize
+INFO:matplotlib.font_manager:Could not open font file /home/antoine/.fonts/UnicodeFonts/Apple/fonts/Inconsolata-g-Powerline.ttf: In FT2Font: Can not load face.  Unknown file format.
+INFO:matplotlib.font_manager:Could not open font file /home/antoine/.fonts/UnicodeFonts/truetype/unifont/unifont_sample.ttf: In FT2Font: Could not set the fontsize
+INFO:matplotlib.font_manager:Could not open font file /home/antoine/.fonts/UnicodeFonts/Apple/fonts/Apple Color Emoji.ttf: In FT2Font: Could not set the fontsize
+INFO:matplotlib.font_manager:Could not open font file /usr/share/fonts/truetype/noto/NotoColorEmoji.ttf: In FT2Font: Can not load face.  Unknown file format.
+INFO:matplotlib.font_manager:Could not open font file /home/antoine/.fonts/UnicodeFonts/Unicode.org/fonts/TestHVAROne.otf: In FT2Font: Can not load face.
+INFO:matplotlib.font_manager:Could not open font file /usr/share/fonts/truetype/unifont/unifont_sample.ttf: In FT2Font: Could not set the fontsize
+INFO:matplotlib.font_manager:Could not open font file /home/antoine/.fonts/UnicodeFonts/Unicode.org/fonts/AdobeVFPrototype-Subset.otf: In FT2Font: Can not load face.
+INFO:matplotlib.font_manager:generated new fontManager
+INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 25.14505624771118
+INFO:pyaf.std:START_FORECASTING '['Ozone']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Ozone']' 1.6064083576202393
 Forecast Columns  Index(['Time', 'Ozone', 'row_number', 'Time_Normalized', '_Ozone',
        '_Ozone_ConstantTrend', '_Ozone_ConstantTrend_residue',
        '_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear',
@@ -78,31 +88,33 @@ Forecasts
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Ozone",
-        "Time": {
-            "Horizon": 12,
-            "TimeMinMax": [
-                "1955-01-01 00:00:00",
-                "1971-12-01 00:00:00"
-            ],
-            "TimeVariable": "Time"
+    "Ozone": {
+        "Dataset": {
+            "Signal": "Ozone",
+            "Time": {
+                "Horizon": 12,
+                "TimeMinMax": [
+                    "1955-01-01 00:00:00",
+                    "1971-12-01 00:00:00"
+                ],
+                "TimeVariable": "Time"
+            },
+            "Training_Signal_Length": 204
         },
-        "Training_Signal_Length": 204
-    },
-    "Model": {
-        "AR_Model": "XGBX",
-        "Best_Decomposition": "_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_XGBX(51)",
-        "Cycle": "Seasonal_MonthOfYear",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "42",
-        "MAE": "0.5022033128982936",
-        "MAPE": "0.1732",
-        "MASE": "0.6469",
-        "RMSE": "0.6254168323818"
+        "Model": {
+            "AR_Model": "XGBX",
+            "Best_Decomposition": "_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_XGBX(51)",
+            "Cycle": "Seasonal_MonthOfYear",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "42",
+            "MAE": "0.5022033128982936",
+            "MAPE": "0.1732",
+            "MASE": "0.6469",
+            "RMSE": "0.6254168323818"
+        }
     }
 }
 </ModelInfo>

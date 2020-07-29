@@ -6,11 +6,11 @@ DATASET_DETECTED_COLUMNS Index(['Month', 'Ozone'], dtype='object')
 DATASET_FINAL_COLUMNS Index(['Month', 'Ozone'], dtype='object')
 https://raw.githubusercontent.com/antoinecarme/pyaf/master/data/ozone-la-exogenous-3.csv
 TRAIN_PARAMS (216, 2) Index(['Month', 'Ozone'], dtype='object') Month Ozone 12
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 18.866985082626343
-INFO:pyaf.std:START_FORECASTING 'Ozone'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  'Ozone' 0.42421627044677734
-INFO:pyaf.std:START_FORECASTING 'Ozone'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  'Ozone' 0.4129221439361572
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Ozone']' 28.27467179298401
+INFO:pyaf.std:START_FORECASTING '['Ozone']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Ozone']' 2.9740407466888428
+INFO:pyaf.std:START_FORECASTING '['Ozone']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Ozone']' 2.887812614440918
   Split Transformation  ... ForecastMAPE TestMAPE
 0  None         _Ozone  ...       0.1230   0.0995
 1  None         _Ozone  ...       0.1402   0.1598
@@ -62,31 +62,33 @@ Forecasts
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Ozone",
-        "Time": {
-            "Horizon": 12,
-            "TimeMinMax": [
-                "1955-01-01 00:00:00",
-                "1972-12-01 00:00:00"
-            ],
-            "TimeVariable": "Month"
+    "Ozone": {
+        "Dataset": {
+            "Signal": "Ozone",
+            "Time": {
+                "Horizon": 12,
+                "TimeMinMax": [
+                    "1955-01-01 00:00:00",
+                    "1972-12-01 00:00:00"
+                ],
+                "TimeVariable": "Month"
+            },
+            "Training_Signal_Length": 216
         },
-        "Training_Signal_Length": 216
-    },
-    "Model": {
-        "AR_Model": "ARX",
-        "Best_Decomposition": "_Ozone_ConstantTrend_residue_zeroCycle_residue_ARX(54)",
-        "Cycle": "NoCycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "40",
-        "MAE": "0.3228910894470966",
-        "MAPE": "0.123",
-        "MASE": "0.4646",
-        "RMSE": "0.40299738451311923"
+        "Model": {
+            "AR_Model": "ARX",
+            "Best_Decomposition": "_Ozone_ConstantTrend_residue_zeroCycle_residue_ARX(54)",
+            "Cycle": "NoCycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "40",
+            "MAE": "0.32289108944709716",
+            "MAPE": "0.123",
+            "MASE": "0.4646",
+            "RMSE": "0.40299738451312"
+        }
     }
 }
 </ModelInfo>

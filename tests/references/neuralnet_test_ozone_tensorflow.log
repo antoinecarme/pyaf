@@ -1,15 +1,11 @@
 WARNING:root:Limited tf.compat.v2.summary API due to missing TensorBoard installation.
+Using TensorFlow backend.
      Month  Ozone       Time
 0  1955-01    2.7 1955-01-01
 1  1955-02    2.0 1955-02-01
 2  1955-03    3.6 1955-03-01
 3  1955-04    5.0 1955-04-01
 4  1955-05    6.5 1955-05-01
-Using TensorFlow backend.
-  Split Transformation  ... TestMAPE TestMASE
-0  None         _Ozone  ...   0.8365   3.4569
-
-[1 rows x 20 columns]
   Split Transformation  ... TestMAPE TestMASE
 0  None         _Ozone  ...   0.8365   3.4569
 
@@ -55,31 +51,33 @@ Forecasts
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Ozone",
-        "Time": {
-            "Horizon": 12,
-            "TimeMinMax": [
-                "1955-01-01 00:00:00",
-                "1971-12-01 00:00:00"
-            ],
-            "TimeVariable": "Time"
+    "Ozone": {
+        "Dataset": {
+            "Signal": "Ozone",
+            "Time": {
+                "Horizon": 12,
+                "TimeMinMax": [
+                    "1955-01-01 00:00:00",
+                    "1971-12-01 00:00:00"
+                ],
+                "TimeVariable": "Time"
+            },
+            "Training_Signal_Length": 204
         },
-        "Training_Signal_Length": 204
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "_Ozone_ConstantTrend_residue_zeroCycle_residue_NoAR",
-        "Cycle": "NoCycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "0",
-        "MAE": "1.2105245517010224",
-        "MAPE": "0.5344",
-        "MASE": "1.5593",
-        "RMSE": "1.426654943722196"
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Ozone_ConstantTrend_residue_zeroCycle_residue_NoAR",
+            "Cycle": "NoCycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "0",
+            "MAE": "1.2105245517010224",
+            "MAPE": "0.5344",
+            "MASE": "1.5593",
+            "RMSE": "1.426654943722196"
+        }
     }
 }
 </ModelInfo>

@@ -5,7 +5,7 @@ INFO:pyaf.std:START_TRAINING 'Ozone'
 2  1955-03    3.6 1955-03-01
 3  1955-04    5.0 1955-04-01
 4  1955-05    6.5 1955-05-01
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 4.1603875160217285
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Ozone']' 6.3367297649383545
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time_1_Weekly' TimeMin=2000-01-02T00:00:00.000000 TimeMax=2002-12-01T00:00:00.000000 TimeDelta=<DateOffset: days=7> Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Length=204  Min=1.2 Max=8.7  Mean=3.8357843137254903 StdDev=1.4915592159401185
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Ozone' Min=1.2 Max=8.7  Mean=3.8357843137254903 StdDev=1.4915592159401185
@@ -31,8 +31,8 @@ INFO:pyaf.std:SEASONAL_MODEL_VALUES _Ozone_Lag1Trend_residue_Seasonal_DayOfNthWe
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING 'Ozone'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  'Ozone' 0.18581795692443848
+INFO:pyaf.std:START_FORECASTING '['Ozone']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Ozone']' 0.8567783832550049
 INFO:pyaf.std:START_TRAINING 'Ozone'
   Split Transformation  ... ForecastMAPE TestMAPE
 0  None         _Ozone  ...       0.2482   0.2319
@@ -83,31 +83,33 @@ Forecasts
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Ozone",
-        "Time": {
-            "Horizon": 12,
-            "TimeMinMax": [
-                "2000-01-02 00:00:00",
-                "2003-11-23 00:00:00"
-            ],
-            "TimeVariable": "Time_1_Weekly"
+    "Ozone": {
+        "Dataset": {
+            "Signal": "Ozone",
+            "Time": {
+                "Horizon": 12,
+                "TimeMinMax": [
+                    "2000-01-02 00:00:00",
+                    "2003-11-23 00:00:00"
+                ],
+                "TimeVariable": "Time_1_Weekly"
+            },
+            "Training_Signal_Length": 204
         },
-        "Training_Signal_Length": 204
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "_Ozone_Lag1Trend_residue_Seasonal_DayOfNthWeekOfMonth_residue_NoAR",
-        "Cycle": "Seasonal_DayOfNthWeekOfMonth",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "Lag1Trend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "36",
-        "MAE": "0.7205128205128207",
-        "MAPE": "0.2482",
-        "MASE": "0.9281",
-        "RMSE": "0.8979320972557177"
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Ozone_Lag1Trend_residue_Seasonal_DayOfNthWeekOfMonth_residue_NoAR",
+            "Cycle": "Seasonal_DayOfNthWeekOfMonth",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "Lag1Trend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "36",
+            "MAE": "0.7205128205128207",
+            "MAPE": "0.2482",
+            "MASE": "0.9281",
+            "RMSE": "0.8979320972557177"
+        }
     }
 }
 </ModelInfo>
@@ -120,7 +122,7 @@ Forecasts
 </Forecast>
 
 
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 4.806647539138794
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Ozone']' 7.3391783237457275
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time_5_Weekly' TimeMin=2000-01-02T00:00:00.000000 TimeMax=2014-07-27T00:00:00.000000 TimeDelta=<DateOffset: days=35> Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Length=204  Min=1.2 Max=8.7  Mean=3.8357843137254903 StdDev=1.4915592159401185
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='CumSum_Ozone' Min=2.7 Max=782.4999999999999  Mean=434.11372549019586 StdDev=222.55463397945354
@@ -146,8 +148,8 @@ INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES CumSum_Ozone_Lag1Trend_residue_bestCycle_
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING 'Ozone'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  'Ozone' 0.17473578453063965
+INFO:pyaf.std:START_FORECASTING '['Ozone']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Ozone']' 0.6257996559143066
   Split Transformation  ... ForecastMAPE TestMAPE
 0  None   CumSum_Ozone  ...       0.2515   0.1962
 1  None         _Ozone  ...       0.2764   0.2582
@@ -198,31 +200,33 @@ Forecasts
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Ozone",
-        "Time": {
-            "Horizon": 12,
-            "TimeMinMax": [
-                "2000-01-02 00:00:00",
-                "2019-06-16 00:00:00"
-            ],
-            "TimeVariable": "Time_5_Weekly"
+    "Ozone": {
+        "Dataset": {
+            "Signal": "Ozone",
+            "Time": {
+                "Horizon": 12,
+                "TimeMinMax": [
+                    "2000-01-02 00:00:00",
+                    "2019-06-16 00:00:00"
+                ],
+                "TimeVariable": "Time_5_Weekly"
+            },
+            "Training_Signal_Length": 204
         },
-        "Training_Signal_Length": 204
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "CumSum_Ozone_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR",
-        "Cycle": "Cycle",
-        "Signal_Transoformation": "Integration",
-        "Trend": "Lag1Trend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "72",
-        "MAE": "0.7628205128205187",
-        "MAPE": "0.2515",
-        "MASE": "0.9826",
-        "RMSE": "0.9164801675082231"
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "CumSum_Ozone_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR",
+            "Cycle": "Cycle",
+            "Signal_Transoformation": "Integration",
+            "Trend": "Lag1Trend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "72",
+            "MAE": "0.7628205128205187",
+            "MAPE": "0.2515",
+            "MASE": "0.9826",
+            "RMSE": "0.9164801675082231"
+        }
     }
 }
 </ModelInfo>

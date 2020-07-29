@@ -4,11 +4,11 @@ None
 DATASET_DETECTED_COLUMNS Index(['Unnamed: 0', 'time', 'value'], dtype='object')
 DATASET_FINAL_COLUMNS Index(['Unnamed: 0', 'time', 'value', 'AirPassengers'], dtype='object')
 TRAIN_PARAMS (144, 4) Index(['Unnamed: 0', 'time', 'value', 'AirPassengers'], dtype='object') time AirPassengers 7
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'AirPassengers' 3.1623833179473877
-INFO:pyaf.std:START_FORECASTING 'AirPassengers'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  'AirPassengers' 0.1602632999420166
-INFO:pyaf.std:START_FORECASTING 'AirPassengers'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  'AirPassengers' 0.1598508358001709
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['AirPassengers']' 2.8843560218811035
+INFO:pyaf.std:START_FORECASTING '['AirPassengers']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['AirPassengers']' 0.42217373847961426
+INFO:pyaf.std:START_FORECASTING '['AirPassengers']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['AirPassengers']' 0.4493381977081299
   Split  Transformation  ... ForecastMAPE TestMAPE
 0  None  _AirPassengers  ...       0.0305   0.0267
 1  None  _AirPassengers  ...       0.0313   0.0292
@@ -56,31 +56,33 @@ Forecasts
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "AirPassengers",
-        "Time": {
-            "Horizon": 7,
-            "TimeMinMax": [
-                "1949.0",
-                "1960.91666666667"
-            ],
-            "TimeVariable": "time"
+    "AirPassengers": {
+        "Dataset": {
+            "Signal": "AirPassengers",
+            "Time": {
+                "Horizon": 7,
+                "TimeMinMax": [
+                    "1949.0",
+                    "1960.91666666667"
+                ],
+                "TimeVariable": "time"
+            },
+            "Training_Signal_Length": 144
         },
-        "Training_Signal_Length": 144
-    },
-    "Model": {
-        "AR_Model": "AR",
-        "Best_Decomposition": "_AirPassengers_ConstantTrend_residue_zeroCycle_residue_AR(36)",
-        "Cycle": "NoCycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "27",
-        "MAE": "12.711938744752953",
-        "MAPE": "0.0313",
-        "MASE": "0.3196",
-        "RMSE": "15.640940381333348"
+        "Model": {
+            "AR_Model": "AR",
+            "Best_Decomposition": "_AirPassengers_ConstantTrend_residue_zeroCycle_residue_AR(36)",
+            "Cycle": "NoCycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "27",
+            "MAE": "12.711938744752958",
+            "MAPE": "0.0313",
+            "MASE": "0.3196",
+            "RMSE": "15.640940381333357"
+        }
     }
 }
 </ModelInfo>

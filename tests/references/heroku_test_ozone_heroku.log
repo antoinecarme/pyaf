@@ -4,11 +4,11 @@ None
 DATASET_DETECTED_COLUMNS Index(['Month', 'Ozone'], dtype='object')
 DATASET_FINAL_COLUMNS Index(['Month', 'Ozone'], dtype='object')
 TRAIN_PARAMS (216, 2) Index(['Month', 'Ozone'], dtype='object') Month Ozone 12
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Ozone' 5.568573713302612
-INFO:pyaf.std:START_FORECASTING 'Ozone'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  'Ozone' 0.33522629737854004
-INFO:pyaf.std:START_FORECASTING 'Ozone'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  'Ozone' 0.34258317947387695
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Ozone']' 4.514277696609497
+INFO:pyaf.std:START_FORECASTING '['Ozone']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Ozone']' 0.6615269184112549
+INFO:pyaf.std:START_FORECASTING '['Ozone']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Ozone']' 0.6114733219146729
   Split Transformation  ... ForecastMAPE TestMAPE
 0  None         _Ozone  ...       0.1911   0.1412
 1  None         _Ozone  ...       0.1928   0.1521
@@ -58,31 +58,33 @@ Forecasts
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Ozone",
-        "Time": {
-            "Horizon": 12,
-            "TimeMinMax": [
-                "1955-01-01 00:00:00",
-                "1972-12-01 00:00:00"
-            ],
-            "TimeVariable": "Month"
+    "Ozone": {
+        "Dataset": {
+            "Signal": "Ozone",
+            "Time": {
+                "Horizon": 12,
+                "TimeMinMax": [
+                    "1955-01-01 00:00:00",
+                    "1972-12-01 00:00:00"
+                ],
+                "TimeVariable": "Month"
+            },
+            "Training_Signal_Length": 216
         },
-        "Training_Signal_Length": 216
-    },
-    "Model": {
-        "AR_Model": "AR",
-        "Best_Decomposition": "_Ozone_LinearTrend_residue_zeroCycle_residue_AR(54)",
-        "Cycle": "NoCycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "LinearTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "56",
-        "MAE": "0.5259990223234977",
-        "MAPE": "0.1911",
-        "MASE": "0.7568",
-        "RMSE": "0.6332578057427529"
+        "Model": {
+            "AR_Model": "AR",
+            "Best_Decomposition": "_Ozone_LinearTrend_residue_zeroCycle_residue_AR(54)",
+            "Cycle": "NoCycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "LinearTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "56",
+            "MAE": "0.5259990223234978",
+            "MAPE": "0.1911",
+            "MASE": "0.7568",
+            "RMSE": "0.6332578057427527"
+        }
     }
 }
 </ModelInfo>
