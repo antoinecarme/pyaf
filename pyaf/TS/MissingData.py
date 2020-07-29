@@ -55,6 +55,27 @@ class cMissingDataImputer:
         elif(self.mOptions.mMissingDataOptions.mSignalMissingDataImputation == "Interpolate"):
             lSignal = self.interpolate_signal_if_needed(iInputDS , iSignal)
             iInputDS[iSignal] = lSignal
+            
+        elif(self.mOptions.mMissingDataOptions.mSignalMissingDataImputation == "Constant"):
+            lSignal = iInputDS[iSignal].fillna(self.mOptions.mMissingDataOptions.mConstant, method=None)
+            iInputDS[iSignal] = lSignal
+            
+        elif(self.mOptions.mMissingDataOptions.mSignalMissingDataImputation == "Mean"):
+            lMean = iInputDS[iSignal].median()
+            lSignal = iInputDS[iSignal].fillna(lMean, method=None)
+            iInputDS[iSignal] = lSignal
+            
+        elif(self.mOptions.mMissingDataOptions.mSignalMissingDataImputation == "Median"):
+            lMedian = iInputDS[iSignal].median()
+            lSignal = iInputDS[iSignal].fillna(lMedian, method=None)
+            iInputDS[iSignal] = lSignal
+            
+        elif(self.mOptions.mMissingDataOptions.mSignalMissingDataImputation == "PreviousValue"):
+            lSignal = iInputDS[iSignal].fillna(method='ffill')
+            # replace the first empty values with the first known value
+            lSignal = lSignal.fillna(method='bfill')
+            iInputDS[iSignal] = lSignal
+            
         return iInputDS
 
     def interpolate_time_if_needed(self, iInputDS , iTime):
