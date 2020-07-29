@@ -22,9 +22,42 @@ class cMissingDataImputer:
     def has_missing_data(self, iSeries):
         return iSeries.isnull().values.any()
 
-    def interpolate_time_if_needed(self, iInputDS , iTime):
+    def apply(self, iInputDS, iTime, iSignal):
+        iInputDS = self.apply_time_imputation_method(iInputDS, iTime)
+        iInputDS = self.apply_signal_imputation_method(iInputDS, iSignal)
+        return iInputDS
+
+    def apply_time_imputation_method(self, iInputDS, iTime):
+        if(self.mOptions.mMissingDataOptions.mTimeMissingDataImputation is None):
+            return iInputDS
+        
         if(not self.has_missing_data(iInputDS[iTime])):
-            return iInputDS[iTime]
+            return iInputDS
+        
+        elif(self.mOptions.mMissingDataOptions.mTimeMissingDataImputation == "DiscardRow"):
+            iInputDS = iInputDS[iInputDS[iTime].notnull()]
+
+        elif(self.mOptions.mMissingDataOptions.mTimeMissingDataImputation == "Interpolate"):
+            lTime = self.interpolate_time_if_needed(iInputDS , iTime)
+            iInputDS[iTime] = lTime
+
+        return iInputDS
+        
+    def apply_signal_imputation_method(self, iInputDS, iSignal):
+        if(self.mOptions.mMissingDataOptions.mSignalMissingDataImputation is None):
+            return iInputDS
+            
+        if(not self.has_missing_data(iInputDS[iSignal])):
+            return iInputDS
+        elif(self.mOptions.mMissingDataOptions.mSignalMissingDataImputation == "DiscardRow"):
+            iInputDS = iInputDS[iInputDS[iSignal].notnull()]
+
+        elif(self.mOptions.mMissingDataOptions.mSignalMissingDataImputation == "Interpolate"):
+            lSignal = self.interpolate_signal_if_needed(iInputDS , iSignal)
+            iInputDS[iSignal] = lSignal
+        return iInputDS
+
+    def interpolate_time_if_needed(self, iInputDS , iTime):
         
         type1 = np.dtype(iInputDS[iTime])
         if(type1.kind == 'M'):
@@ -45,8 +78,6 @@ class cMissingDataImputer:
             return lTime
             
     def interpolate_signal_if_needed(self, iInputDS , iSignal):
-        if(not self.has_missing_data(iInputDS[iSignal])):
-            return iInputDS[iSignal]
         lSignal = iInputDS[iSignal].interpolate(method='linear', limit_direction='both', axis=0)
         lSignal = lSignal.astype(np.dtype(iInputDS[iSignal]))
         return lSignal

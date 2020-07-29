@@ -14,7 +14,6 @@ from . import Utils as tsutil
 from . import Plots as tsplot
 
 from multiprocessing import Pool
-# from pathos.pools import ProcessPool as Pool
 
 # for timing
 import time, copy
@@ -52,14 +51,10 @@ class cSignalHierarchy:
             return self.mExogenousData.get(signal)
         raise tsutil.PyAF_Error("BAD_EXOGENOUS_DATA_SPECIFICATION");
             
-    def to_json(self, iWithOptions = False):
+    def to_dict(self, iWithOptions = False):
         lDict = {};
         lDict['Structure'] = self.mStructure;
-        lDict['Models'] = {};
-        for level in sorted(self.mModels.keys()):
-            for signal in sorted(self.mModels[level].keys()):
-                lEngine = self.mModels[level][signal];
-                lDict['Models'][signal] = lEngine.mSignalDecomposition.mBestModel.to_json(iWithOptions = False);
+        lDict['Models'] = self.mModels.to_dict(iWithOptions = False)
         if(iWithOptions):
             lDict["Options"] = self.mTimeInfo.mOptions.__dict__
         return lDict;
@@ -178,50 +173,30 @@ class cSignalHierarchy:
         # only for temporal hierarchies
         return self.mHorizon
 
-    def train_one_model(self, arg):
-        (level, signal, iAllLevelsDataset , iDateColumn , signal, H, iExogenousData, iOptions) = arg
-        lEngine = autof.cForecastEngine()
-        lEngine.mOptions = copy.copy(iOptions);
-        lEngine.mOptions.mParallelMode = False
-        lDateColumn = self.get_specific_date_column_for_signal(level, signal)
-        lDateColumn = lDateColumn or iDateColumn
-        lTrainDataset = iAllLevelsDataset[[lDateColumn, signal]]
-        if(self.discard_nans_in_aggregate_signals()):
-            lTrainDataset = lTrainDataset.dropna()
-            H = self.get_horizon(level, signal)
-        # print(level, signal, lTrainDataset.head())
-        lEngine.train(lTrainDataset, lDateColumn , signal, H, iExogenousData = iExogenousData);
-        return (level, signal, lEngine)
-
-    def create_all_levels_models(self, iAllLevelsDataset, H, iDateColumn):
+    def create_all_levels_models_with_one_engine(self, iAllLevelsDataset, H, iDateColumn):
         logger = tsutil.get_pyaf_hierarchical_logger();
-        args = []
-        self.mModels = {};
+        lSignals = []
+        lDateColumns = {}
+        lExogenousData = {}
+        lHorizons = {}
+        lDiscardNulls = {}
         for level in sorted(self.mStructure.keys()):
-            self.mModels[level] = {};
             for signal in sorted(self.mStructure[level].keys()):
-                lExogenousData = self.get_exogenous_data(signal)
-                arg = (level, signal, iAllLevelsDataset , iDateColumn , signal, H, lExogenousData, self.mOptions)
-                args.append(arg)
+                lSignals = lSignals + [signal]
+                lExogenousData[signal] = self.get_exogenous_data(signal)
+                lDateColumn = self.get_specific_date_column_for_signal(level, signal)
+                lDateColumns[signal] = lDateColumn or iDateColumn
+                lHorizons[signal] = self.get_horizon(level, signal)
 
-        logger.info("TRAINING_HIERARCHICAL_MODELS_LEVEL_SIGNAL " + str([(arg[0] , arg[1]) for arg in args]));
-        pool = Pool(self.mOptions.mNbCores)
-        try:
-            for res in pool.map(self.train_one_model, args):
-                (level, signal, lEngine) = res
-                # lEngine.getModelInfo();
-                self.mModels[level][signal] = lEngine;
-        
-            pool.close()
-            pool.join()
-        except:
-            pool.close()
-            pool.join()
-            raise
-            
-        del pool
+        lEngine = autof.cForecastEngine()
+        lEngine.mOptions = copy.copy(self.mOptions);
+        if(self.discard_nans_in_aggregate_signals()):
+            lEngine.mOptions.mMissingDataOptions.mTimeMissingDataImputation = "DiscardRow"
+            lEngine.mOptions.mMissingDataOptions.mSignalMissingDataImputation = "DiscardRow"
+        assert(iAllLevelsDataset.shape[0] > 0)
+        lEngine.train(iAllLevelsDataset, lDateColumns , lSignals, lHorizons, iExogenousData = lExogenousData);
+        self.mModels = lEngine
         # print("CREATED_MODELS", self.mLevels, self.mModels)
-        pass
 
 
     def fit(self):
@@ -232,7 +207,7 @@ class cSignalHierarchy:
         # self.plot();
         self.create_SummingMatrix();
         lAllLevelsDataset = self.create_all_levels_dataset(self.mTrainingDataset);
-        self.create_all_levels_models(lAllLevelsDataset, self.mHorizon, self.mDateColumn);
+        self.create_all_levels_models_with_one_engine(lAllLevelsDataset, self.mHorizon, self.mDateColumn);
         self.computeTopDownHistoricalProportions(lAllLevelsDataset);
         lForecast_DF = self.internal_forecast(self.mTrainingDataset , self.mHorizon)
         self.computePerfOnCombinedForecasts(lForecast_DF.head(lForecast_DF.shape[0] - self.mHorizon));
@@ -241,10 +216,8 @@ class cSignalHierarchy:
 
 
     def getModelInfo(self):
-        for level in sorted(self.mModels.keys()):
-            for signal in sorted(self.mModels[level].keys()):
-                lEngine = self.mModels[level][signal];
-                lEngine.getModelInfo();
+        lEngine = self.mModels
+        lEngine.getModelInfo();
 
     def plot(self , name = None):
         logger = tsutil.get_pyaf_logger();
@@ -256,8 +229,8 @@ class cSignalHierarchy:
             lAnnotations = {};
             for level in sorted(self.mStructure.keys()):
                 for signal in sorted(self.mStructure[level].keys()):
-                    lEngine = self.mModels[level][signal];
-                    lMAPE = lEngine.mSignalDecomposition.mBestModel.mForecastPerf.mMAPE;
+                    lEngine = self.mModels
+                    lMAPE = lEngine.mSignalDecomposition.mBestModels[signal].mForecastPerf.mMAPE;
                     lMAPE = ('MAPE = %.4f' % lMAPE);
                     lAnnotations[signal] = [signal , lMAPE];
                     for col1 in sorted(self.mStructure[level][signal]):
@@ -269,88 +242,37 @@ class cSignalHierarchy:
 
     
     def standardPlots(self , name = None):
-        for level in sorted(self.mModels.keys()):
-            for signal in sorted(self.mModels[level].keys()):
-                lEngine = self.mModels[level][signal];
-                lEngine.standardPlots(name + "_Hierarchy_Level_Signal_" + str(level) + "_" + str(signal));
+        lEngine = self.mModels
+        lEngine.standardPlots(name + "_Hierarchy_Level_Signal_");
 
-    def forecast_one_model(self, arg):
-        (level, signal, lEngine, dfapp_in, H) = arg
-        dfapp_out = lEngine.forecast(dfapp_in, H);
-        return (level, signal, dfapp_out)
-
-    def forecastAllModels(self, iAllLevelsDataset, H, iDateColumn):
+    def forecastAllModels_with_one_engine(self, iAllLevelsDataset, H, iDateColumn):
         logger = tsutil.get_pyaf_hierarchical_logger();
-        args = []
-        for level in sorted(self.mModels.keys()):
-            for signal in sorted(self.mModels[level].keys()):
-                lEngine = self.mModels[level][signal];
-                lDateColumn = self.get_specific_date_column_for_signal(level, signal)
-                lDateColumn = lDateColumn or iDateColumn
-                lApplyInDataset = iAllLevelsDataset[[lDateColumn, signal]]
-                if(self.discard_nans_in_aggregate_signals()):
-                    lApplyInDataset = lApplyInDataset.dropna()
-                # print(level, signal, lApplyInDataset.head())
-                dfapp_in = lApplyInDataset.copy();
-                # dfapp_in.tail()
-                arg = (level, signal, lEngine, dfapp_in, H)
-                args.append(arg)
-
-        logger.info("FORECASTING_HIERARCHICAL_MODELS_LEVEL_SIGNAL " + str([(arg[0] , arg[1]) for arg in args]));
-        pool = Pool(self.mOptions.mNbCores)
-        lForecastsByNode = {}
-        try:
-            for res in pool.imap(self.forecast_one_model, args):
-                (level, signal, dfapp_out) = res
-                lDateColumn = self.get_specific_date_column_for_signal(level, signal)
-                lDateColumn = lDateColumn or iDateColumn
-                # print("Forecast Columns " , dfapp_out.columns);
-                lColumns = [lDateColumn , signal,
-                            str(signal) + '_Forecast',
-                            str(signal) + '_Forecast_Lower_Bound',
-                            str(signal) + '_Forecast_Upper_Bound', ]
-                lForecast_DF_i = dfapp_out[lColumns]
-                lForecastsByNode[(level , signal)] = lForecast_DF_i
-            pool.close()
-            pool.join()
-            del pool
-        except:
-            pool.close()
-            pool.join()
-            raise
-
-        lForecast_DF = None
-        for level in sorted(self.mModels.keys()):
-            for signal in sorted(self.mModels[level].keys()):
-                H_i = self.mHorizon # self.get_horizon(level, signal)
-                lForecast_DF_i = lForecastsByNode[(level , signal)]
-                lDateColumn = lForecast_DF_i.columns[0]
-                if(lForecast_DF is None):
-                    lForecast_DF = lForecast_DF_i
-                    lForecast_DF[self.mDateColumn] = lForecast_DF_i[lDateColumn]
-                else:
-                    lForecast_DF = lForecast_DF.merge(lForecast_DF_i, left_on=self.mDateColumn,right_on=lDateColumn, how='left')
-                    if(self.discard_nans_in_aggregate_signals()):
-                        N = lForecast_DF.shape[0]
-                        lForecast_DF.loc[0:N-H_i, signal] = lForecast_DF.loc[0:N-H_i, signal].fillna(0.0)
-                        lForecast_DF[str(signal) + '_Forecast'] = lForecast_DF[str(signal) + '_Forecast'].fillna(0.0)                    
-        
-        # print(lForecast_DF.columns);
-        # print(lForecast_DF.head(10));
-        # print(lForecast_DF.tail(10));
-        return lForecast_DF;
-
+        lEngine = self.mModels
+        lForecast_DF = lEngine.forecast(iAllLevelsDataset, H);
+        lDateColumns = []
+        lSigColumns = []
+        for signal in lEngine.mSignalDecomposition.mSignals:
+            lDateColumn = lEngine.mSignalDecomposition.mDateColumns[signal]
+            lDateColumns = lDateColumns + [lDateColumn]
+            lSigColumns = lSigColumns + [signal ,
+                                         str(signal) + '_Forecast',
+                                         str(signal) + '_Forecast_Lower_Bound',
+                                         str(signal) + '_Forecast_Upper_Bound']
+        lColumns = list(set(lDateColumns)) + lSigColumns
+        if(self.discard_nans_in_aggregate_signals()):
+            H = self.mHorizon
+            N = lForecast_DF.shape[0]
+            lForecast_DF.loc[0:N-H, signal] = lForecast_DF.loc[0:N-H, signal].fillna(0.0)
+            lForecast_DF[str(signal) + '_Forecast'] = lForecast_DF[str(signal) + '_Forecast'].fillna(0.0)     
+        return lForecast_DF[lColumns]
+    
     def getEstimPart(self, df):
-        level = 0;
-        signal = list(self.mModels[level].keys())[0];
-        lEngine = self.mModels[level][signal];
+        lEngine = self.mModels
         lFrameFit = lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mSplit.getEstimPart(df);
         return lFrameFit;
 
     def getValidPart(self, df):
-        level = 0;
-        signal = list(self.mModels[level].keys())[0];
-        lEngine = self.mModels[level][signal];
+        lEngine = self.mModels
         lFrameFit = lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mSplit.getValidPart(df);
         return lFrameFit;
 
@@ -411,10 +333,18 @@ class cSignalHierarchy:
 
         return lForecast_DF_BU;
 
+    def get_clean_signal_and_forecasts(self, iForecast_DF, signal, iPrefixes):
+        lEngine = self.mModels
+        lForecasts = [str(signal) + "_Forecast"]
+        lForecasts = lForecasts + [str(signal) + "_" + lPrefix + "_Forecast" for lPrefix in iPrefixes]
+        lColumns = [lEngine.mSignalDecomposition.mDateColumns[signal] , signal ] + lForecasts
+        lForecast_DF = iForecast_DF[lColumns]
+        return lForecast_DF
 
     def computePerfOnCombinedForecasts(self, iForecast_DF):
         logger = tsutil.get_pyaf_hierarchical_logger();
         logger.info("FORECASTING_HIERARCHICAL_MODEL_OPTIMAL_COMBINATION_METHOD");
+        lEngine = self.mModels
 
         self.mEstimPerfs = {}
         self.mValidPerfs = {}
@@ -425,27 +355,28 @@ class cSignalHierarchy:
         if('TD' in lCombinationMethods):
             lPrefixes = lPrefixes + ['AHP_TD', 'PHA_TD'];
         lPerfs = {};
-        lFrameFit = self.getEstimPart(iForecast_DF);
-        lFrameValid = self.getValidPart(iForecast_DF);
         logger.info("STRUCTURE " + str(sorted(list(self.mStructure.keys()))));
         logger.info("DATASET_COLUMNS "  + str(iForecast_DF.columns));
         for level in sorted(self.mStructure.keys()):
             logger.info("STRUCTURE_LEVEL " + str((level, sorted(list(self.mStructure[level].keys())))));
-            logger.info("MODEL_LEVEL " + str((level, sorted(list(self.mModels[level].keys())))));
             for signal in sorted(self.mStructure[level].keys()):
-                lEngine = self.mModels[level][signal];
+                lForecast_DF = self.get_clean_signal_and_forecasts(iForecast_DF, signal, lPrefixes)                
+                lFrameFit = self.getEstimPart(lForecast_DF);
+                lFrameValid = self.getValidPart(lForecast_DF);
+                if(self.discard_nans_in_aggregate_signals()):
+                    lFrameFit = lFrameFit.dropna()
+                    lFrameValid = lFrameValid.dropna()
                 lPerfFit = lEngine.computePerf(lFrameFit[signal], lFrameFit[str(signal) + "_Forecast"], signal)
                 lPerfValid = lEngine.computePerf(lFrameValid[signal], lFrameValid[str(signal) + "_Forecast"], signal)
                 self.mEstimPerfs[str(signal) + "_Forecast"] = lPerfFit
                 self.mValidPerfs[str(signal) + "_Forecast"] = lPerfValid
                 for iPrefix in lPrefixes:
-                    lPerfFit_Combined = lEngine.computePerf(lFrameFit[signal], lFrameFit[str(signal) + "_" + iPrefix + "_Forecast"],
-                                                            str(signal) + "_" + iPrefix + "_Forecast")
-                    lPerfValid_Combined = lEngine.computePerf(lFrameValid[signal], lFrameValid[str(signal) + "_" + iPrefix + "_Forecast"],
-                                                              str(signal) + "_" + iPrefix + "_Forecast")
+                    lName = str(signal) + "_" + iPrefix + "_Forecast"
+                    lPerfFit_Combined = lEngine.computePerf(lFrameFit[signal], lFrameFit[lName], lName)
+                    lPerfValid_Combined = lEngine.computePerf(lFrameValid[signal], lFrameValid[lName], lName)
                     lPerfs[str(signal) + "_" + iPrefix] = (lPerfFit , lPerfValid, lPerfFit_Combined, lPerfValid_Combined);
-                    self.mEstimPerfs[str(signal) + "_" + iPrefix + "_Forecast"] = lPerfFit_Combined
-                    self.mValidPerfs[str(signal) + "_" + iPrefix + "_Forecast"] = lPerfValid_Combined
+                    self.mEstimPerfs[lName] = lPerfFit_Combined
+                    self.mValidPerfs[lName] = lPerfValid_Combined
                                 
         for (sig , perf) in sorted(lPerfs.items()):
             logger.info("REPORT_COMBINED_FORECASTS_FIT_PERF "  + str(perf[2].to_dict()))
@@ -535,7 +466,7 @@ class cSignalHierarchy:
     def internal_forecast(self , iInputDS, iHorizon):
 
         lAllLevelsDataset = self.create_all_levels_dataset(iInputDS);
-        lForecast_DF = self.forecastAllModels(lAllLevelsDataset, iHorizon, self.mDateColumn);
+        lForecast_DF = self.forecastAllModels_with_one_engine(lAllLevelsDataset, iHorizon, self.mDateColumn);
         lCombinationMethods = self.mOptions.mHierarchicalCombinationMethod;
         if type(lCombinationMethods) is not list:
             lCombinationMethods = [lCombinationMethods];

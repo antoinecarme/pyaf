@@ -23,7 +23,7 @@ import warnings
 
 with warnings.catch_warnings():
     warnings.simplefilter("error")
-    lEngine.standardPlots()
+    lEngine.standardPlots("outputs/issue_94")
 
 
 # In[7]:

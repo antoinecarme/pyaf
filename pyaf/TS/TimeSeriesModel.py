@@ -12,6 +12,7 @@ from . import PredictionIntervals as predint
 from . import Plots as tsplot
 from . import Perf as tsperf
 from . import Utils as tsutil
+import time
 
 class cTimeSeriesModel:
     
@@ -101,9 +102,13 @@ class cTimeSeriesModel:
     def computePredictionIntervals(self):
         # prediction intervals
         if(self.mTimeInfo.mOptions.mAddPredictionIntervals):
+            logger = tsutil.get_pyaf_logger();
+            pred_interval_start_time = time.time()
             self.mPredictionIntervalsEstimator = predint.cPredictionIntervalsEstimator();
             self.mPredictionIntervalsEstimator.mModel = self;        
             self.mPredictionIntervalsEstimator.computePerformances();
+            if(self.mTimeInfo.mOptions.mDebugProfile):
+                logger.info("PREDICTION_INTERVAL_TIME_IN_SECONDS "  + str(self.mOriginalSignal) + " " + str(time.time() - pred_interval_start_time))
         pass
 
     def getFormula(self):
@@ -271,9 +276,9 @@ class cTimeSeriesModel:
                            lTime, lPrefix + 'Signal',
                            lPrefix + 'Forecast' , lPrefix + 'Residue', horizon = self.mTimeInfo.mHorizon);
 
-    def to_json(self, iWithOptions = False):
+    def to_dict(self, iWithOptions = False):
         dict1 = {};
-        d1 = { "Time" : self.mTimeInfo.to_json(),
+        d1 = { "Time" : self.mTimeInfo.to_dict(),
                "Signal" : self.mOriginalSignal,
                "Training_Signal_Length" : self.mModelFrame.shape[0]};
         dict1["Dataset"] = d1;

@@ -5,31 +5,36 @@ import numpy as np
 
 
 import pyaf.ForecastEngine as autof
+import pyaf.Bench.TS_datasets as tsds
 
 
-csvfile_link = "https://raw.githubusercontent.com/antoinecarme/pyaf/master/data/ozone-la_missing_signal.csv"
-csvfile_link = "data/ozone-la_missing_signal.csv"
-df = pd.read_csv(csvfile_link);
-import datetime
-df['Month'] = df['Month'].apply(lambda x : datetime.datetime.strptime(x, "%Y-%m"))
+b1 = tsds.load_ozone()
+df = b1.mPastData
+
+#df.tail(10)
+#df[:-10].tail()
+#df[:-10:-1]
+#df.describe()
+
 
 lEngine = autof.cForecastEngine()
 lEngine
 
-H = 12;
-lTimeVar = 'Month'
-lSignalVar = 'Ozone'
+H = b1.mHorizon;
+df[b1.mSignalVar + "_version_1"] = df[b1.mSignalVar]
+df[b1.mSignalVar + "_version_2"] = df[b1.mSignalVar] / 2
+df[b1.mSignalVar + "_version_3"] = df[b1.mSignalVar] / 3
+df[b1.mSignalVar + "_version_4"] = df[b1.mSignalVar] / 4
+lSignals = [x for x in df.columns if x.startswith(b1.mSignalVar + "_")]
 # lEngine.mOptions.enable_slow_mode();
-lEngine.mOptions.mMissingDataOptions.mSignalMissingDataImputation = "Interpolate"
-
 # lEngine.mOptions.mDebugPerformance = True;
-lEngine.train(df , lTimeVar , lSignalVar, H);
+lEngine.train(df , b1.mTimeVar , lSignals, H);
 lEngine.getModelInfo();
 print(lEngine.mSignalDecomposition.mTrPerfDetails.head());
 
 lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
 
-lEngine.standardPlots("outputs/my_ozone_missing_signal");
+lEngine.standardPlots("outputs/my_ozone");
 
 dfapp_in = df.copy();
 dfapp_in.tail()
@@ -39,7 +44,8 @@ dfapp_out = lEngine.forecast(dfapp_in, H);
 #dfapp_out.to_csv("outputs/ozone_apply_out.csv")
 dfapp_out.tail(2 * H)
 print("Forecast Columns " , dfapp_out.columns);
-Forecast_DF = dfapp_out[[lTimeVar , lSignalVar, lSignalVar + '_Forecast']]
+lForcasts = [lSignal + "_Forecast" for lSignal in lSignals]
+Forecast_DF = dfapp_out[[b1.mTimeVar] + lSignals + lForcasts]
 print(Forecast_DF.info())
 print("Forecasts\n" , Forecast_DF.tail(H));
 

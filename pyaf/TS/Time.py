@@ -34,7 +34,7 @@ class cTimeInfo:
         return lStr2;
 
 
-    def to_json(self):
+    def to_dict(self):
         dict1 = {};
         dict1["TimeVariable"] =  self.mTime;
         dict1["TimeMinMax"] =  [str(self.mSignalFrame[self.mTime].min()) ,
