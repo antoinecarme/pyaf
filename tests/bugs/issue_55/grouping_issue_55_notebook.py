@@ -114,7 +114,7 @@ lSignalHierarchy = lEngine.train(train_df , lDateColumn, lSignalVar, 1, lHierarc
 French_Wine_Export_in_Euros_DF.info()
 
 
-lInfo = lEngine.to_json()
+lInfo = lEngine.to_dict()
 print(lInfo.keys())
 
 print(lInfo['Structure'])
@@ -133,7 +133,7 @@ print(df_perf)
 
 lEngine.mSignalHierarchy.plot()
 
-CN_Engine = lEngine.mSignalHierarchy.mModels[2]['__CN'] # __CN is at hierarchical level 2
+CN_Engine = lEngine.mSignalHierarchy.mModels # __CN is at hierarchical level 2
 
 CN_Engine.getModelInfo()
 
