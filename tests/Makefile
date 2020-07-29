@@ -891,6 +891,121 @@ hierarchical/test_hierarchy_AU_TD.py  :
  hierarchical :  hierarchical/test_hierarchy_AU_TD.py hierarchical/test_hierarchy_AU_OC.py hierarchical/test_hierarchy_AU_MO.py hierarchical/test_hierarchy_AU_BU.py hierarchical/test_hierarchy_AU_AllMethods_Exogenous_per_node.py hierarchical/test_hierarchy_AU_AllMethods_Exogenous_all_nodes.py hierarchical/test_hierarchy_AU_AllMethods.py hierarchical/test_hierarchy_AU.py hierarchical/test_grouped_signals_TD.py hierarchical/test_grouped_signals_OC.py hierarchical/test_grouped_signals_MO.py hierarchical/test_grouped_signals_BU.py hierarchical/test_grouped_signals_AllMethods_Exogenous_per_node.py hierarchical/test_grouped_signals_AllMethods_Exogenous_all_nodes.py hierarchical/test_grouped_signals_AllMethods_2.py hierarchical/test_grouped_signals_AllMethods.py hierarchical/test_grouped.py  
  
 
+missing_data/gen_air_passengers_tests.py  :  
+	 $(PYTHON)  tests/missing_data/gen_air_passengers_tests.py  >  logs/missing_data_gen_air_passengers_tests.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_gen_air_passengers_tests.log logs/missing_data_gen_air_passengers_tests.log  >  logs/missing_data_gen_air_passengers_tests.log.diff
+	 tail -10  logs/missing_data_gen_air_passengers_tests.log.diff 
+
+missing_data/gen_ozone_tests.py  :  
+	 $(PYTHON)  tests/missing_data/gen_ozone_tests.py  >  logs/missing_data_gen_ozone_tests.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_gen_ozone_tests.log logs/missing_data_gen_ozone_tests.log  >  logs/missing_data_gen_ozone_tests.log.diff
+	 tail -10  logs/missing_data_gen_ozone_tests.log.diff 
+
+missing_data/test_missing_data_air_passengers_DiscardRow_DiscardRow.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_air_passengers_DiscardRow_DiscardRow.py  >  logs/missing_data_test_missing_data_air_passengers_DiscardRow_DiscardRow.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_air_passengers_DiscardRow_DiscardRow.log logs/missing_data_test_missing_data_air_passengers_DiscardRow_DiscardRow.log  >  logs/missing_data_test_missing_data_air_passengers_DiscardRow_DiscardRow.log.diff
+	 tail -10  logs/missing_data_test_missing_data_air_passengers_DiscardRow_DiscardRow.log.diff 
+
+missing_data/test_missing_data_air_passengers_DiscardRow_Interpolate.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_air_passengers_DiscardRow_Interpolate.py  >  logs/missing_data_test_missing_data_air_passengers_DiscardRow_Interpolate.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_air_passengers_DiscardRow_Interpolate.log logs/missing_data_test_missing_data_air_passengers_DiscardRow_Interpolate.log  >  logs/missing_data_test_missing_data_air_passengers_DiscardRow_Interpolate.log.diff
+	 tail -10  logs/missing_data_test_missing_data_air_passengers_DiscardRow_Interpolate.log.diff 
+
+missing_data/test_missing_data_air_passengers_DiscardRow_None.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_air_passengers_DiscardRow_None.py  >  logs/missing_data_test_missing_data_air_passengers_DiscardRow_None.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_air_passengers_DiscardRow_None.log logs/missing_data_test_missing_data_air_passengers_DiscardRow_None.log  >  logs/missing_data_test_missing_data_air_passengers_DiscardRow_None.log.diff
+	 tail -10  logs/missing_data_test_missing_data_air_passengers_DiscardRow_None.log.diff 
+
+missing_data/test_missing_data_air_passengers_Interpolate_DiscardRow.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_air_passengers_Interpolate_DiscardRow.py  >  logs/missing_data_test_missing_data_air_passengers_Interpolate_DiscardRow.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_air_passengers_Interpolate_DiscardRow.log logs/missing_data_test_missing_data_air_passengers_Interpolate_DiscardRow.log  >  logs/missing_data_test_missing_data_air_passengers_Interpolate_DiscardRow.log.diff
+	 tail -10  logs/missing_data_test_missing_data_air_passengers_Interpolate_DiscardRow.log.diff 
+
+missing_data/test_missing_data_air_passengers_Interpolate_Interpolate.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_air_passengers_Interpolate_Interpolate.py  >  logs/missing_data_test_missing_data_air_passengers_Interpolate_Interpolate.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_air_passengers_Interpolate_Interpolate.log logs/missing_data_test_missing_data_air_passengers_Interpolate_Interpolate.log  >  logs/missing_data_test_missing_data_air_passengers_Interpolate_Interpolate.log.diff
+	 tail -10  logs/missing_data_test_missing_data_air_passengers_Interpolate_Interpolate.log.diff 
+
+missing_data/test_missing_data_air_passengers_Interpolate_None.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_air_passengers_Interpolate_None.py  >  logs/missing_data_test_missing_data_air_passengers_Interpolate_None.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_air_passengers_Interpolate_None.log logs/missing_data_test_missing_data_air_passengers_Interpolate_None.log  >  logs/missing_data_test_missing_data_air_passengers_Interpolate_None.log.diff
+	 tail -10  logs/missing_data_test_missing_data_air_passengers_Interpolate_None.log.diff 
+
+missing_data/test_missing_data_air_passengers_None_DiscardRow.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_air_passengers_None_DiscardRow.py  >  logs/missing_data_test_missing_data_air_passengers_None_DiscardRow.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_air_passengers_None_DiscardRow.log logs/missing_data_test_missing_data_air_passengers_None_DiscardRow.log  >  logs/missing_data_test_missing_data_air_passengers_None_DiscardRow.log.diff
+	 tail -10  logs/missing_data_test_missing_data_air_passengers_None_DiscardRow.log.diff 
+
+missing_data/test_missing_data_air_passengers_None_Interpolate.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_air_passengers_None_Interpolate.py  >  logs/missing_data_test_missing_data_air_passengers_None_Interpolate.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_air_passengers_None_Interpolate.log logs/missing_data_test_missing_data_air_passengers_None_Interpolate.log  >  logs/missing_data_test_missing_data_air_passengers_None_Interpolate.log.diff
+	 tail -10  logs/missing_data_test_missing_data_air_passengers_None_Interpolate.log.diff 
+
+missing_data/test_missing_data_air_passengers_None_None.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_air_passengers_None_None.py  >  logs/missing_data_test_missing_data_air_passengers_None_None.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_air_passengers_None_None.log logs/missing_data_test_missing_data_air_passengers_None_None.log  >  logs/missing_data_test_missing_data_air_passengers_None_None.log.diff
+	 tail -10  logs/missing_data_test_missing_data_air_passengers_None_None.log.diff 
+
+missing_data/test_missing_data_air_passengers_generic.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_air_passengers_generic.py  >  logs/missing_data_test_missing_data_air_passengers_generic.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_air_passengers_generic.log logs/missing_data_test_missing_data_air_passengers_generic.log  >  logs/missing_data_test_missing_data_air_passengers_generic.log.diff
+	 tail -10  logs/missing_data_test_missing_data_air_passengers_generic.log.diff 
+
+missing_data/test_missing_data_ozone_DiscardRow_DiscardRow.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_ozone_DiscardRow_DiscardRow.py  >  logs/missing_data_test_missing_data_ozone_DiscardRow_DiscardRow.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_ozone_DiscardRow_DiscardRow.log logs/missing_data_test_missing_data_ozone_DiscardRow_DiscardRow.log  >  logs/missing_data_test_missing_data_ozone_DiscardRow_DiscardRow.log.diff
+	 tail -10  logs/missing_data_test_missing_data_ozone_DiscardRow_DiscardRow.log.diff 
+
+missing_data/test_missing_data_ozone_DiscardRow_Interpolate.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_ozone_DiscardRow_Interpolate.py  >  logs/missing_data_test_missing_data_ozone_DiscardRow_Interpolate.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_ozone_DiscardRow_Interpolate.log logs/missing_data_test_missing_data_ozone_DiscardRow_Interpolate.log  >  logs/missing_data_test_missing_data_ozone_DiscardRow_Interpolate.log.diff
+	 tail -10  logs/missing_data_test_missing_data_ozone_DiscardRow_Interpolate.log.diff 
+
+missing_data/test_missing_data_ozone_DiscardRow_None.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_ozone_DiscardRow_None.py  >  logs/missing_data_test_missing_data_ozone_DiscardRow_None.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_ozone_DiscardRow_None.log logs/missing_data_test_missing_data_ozone_DiscardRow_None.log  >  logs/missing_data_test_missing_data_ozone_DiscardRow_None.log.diff
+	 tail -10  logs/missing_data_test_missing_data_ozone_DiscardRow_None.log.diff 
+
+missing_data/test_missing_data_ozone_Interpolate_DiscardRow.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_ozone_Interpolate_DiscardRow.py  >  logs/missing_data_test_missing_data_ozone_Interpolate_DiscardRow.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_ozone_Interpolate_DiscardRow.log logs/missing_data_test_missing_data_ozone_Interpolate_DiscardRow.log  >  logs/missing_data_test_missing_data_ozone_Interpolate_DiscardRow.log.diff
+	 tail -10  logs/missing_data_test_missing_data_ozone_Interpolate_DiscardRow.log.diff 
+
+missing_data/test_missing_data_ozone_Interpolate_Interpolate.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_ozone_Interpolate_Interpolate.py  >  logs/missing_data_test_missing_data_ozone_Interpolate_Interpolate.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_ozone_Interpolate_Interpolate.log logs/missing_data_test_missing_data_ozone_Interpolate_Interpolate.log  >  logs/missing_data_test_missing_data_ozone_Interpolate_Interpolate.log.diff
+	 tail -10  logs/missing_data_test_missing_data_ozone_Interpolate_Interpolate.log.diff 
+
+missing_data/test_missing_data_ozone_Interpolate_None.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_ozone_Interpolate_None.py  >  logs/missing_data_test_missing_data_ozone_Interpolate_None.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_ozone_Interpolate_None.log logs/missing_data_test_missing_data_ozone_Interpolate_None.log  >  logs/missing_data_test_missing_data_ozone_Interpolate_None.log.diff
+	 tail -10  logs/missing_data_test_missing_data_ozone_Interpolate_None.log.diff 
+
+missing_data/test_missing_data_ozone_None_DiscardRow.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_ozone_None_DiscardRow.py  >  logs/missing_data_test_missing_data_ozone_None_DiscardRow.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_ozone_None_DiscardRow.log logs/missing_data_test_missing_data_ozone_None_DiscardRow.log  >  logs/missing_data_test_missing_data_ozone_None_DiscardRow.log.diff
+	 tail -10  logs/missing_data_test_missing_data_ozone_None_DiscardRow.log.diff 
+
+missing_data/test_missing_data_ozone_None_Interpolate.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_ozone_None_Interpolate.py  >  logs/missing_data_test_missing_data_ozone_None_Interpolate.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_ozone_None_Interpolate.log logs/missing_data_test_missing_data_ozone_None_Interpolate.log  >  logs/missing_data_test_missing_data_ozone_None_Interpolate.log.diff
+	 tail -10  logs/missing_data_test_missing_data_ozone_None_Interpolate.log.diff 
+
+missing_data/test_missing_data_ozone_None_None.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_ozone_None_None.py  >  logs/missing_data_test_missing_data_ozone_None_None.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_ozone_None_None.log logs/missing_data_test_missing_data_ozone_None_None.log  >  logs/missing_data_test_missing_data_ozone_None_None.log.diff
+	 tail -10  logs/missing_data_test_missing_data_ozone_None_None.log.diff 
+
+missing_data/test_missing_data_ozone_generic.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_ozone_generic.py  >  logs/missing_data_test_missing_data_ozone_generic.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_ozone_generic.log logs/missing_data_test_missing_data_ozone_generic.log  >  logs/missing_data_test_missing_data_ozone_generic.log.diff
+	 tail -10  logs/missing_data_test_missing_data_ozone_generic.log.diff 
+
+
+
+ missing_data :  missing_data/test_missing_data_ozone_generic.py missing_data/test_missing_data_ozone_None_None.py missing_data/test_missing_data_ozone_None_Interpolate.py missing_data/test_missing_data_ozone_None_DiscardRow.py missing_data/test_missing_data_ozone_Interpolate_None.py missing_data/test_missing_data_ozone_Interpolate_Interpolate.py missing_data/test_missing_data_ozone_Interpolate_DiscardRow.py missing_data/test_missing_data_ozone_DiscardRow_None.py missing_data/test_missing_data_ozone_DiscardRow_Interpolate.py missing_data/test_missing_data_ozone_DiscardRow_DiscardRow.py missing_data/test_missing_data_air_passengers_generic.py missing_data/test_missing_data_air_passengers_None_None.py missing_data/test_missing_data_air_passengers_None_Interpolate.py missing_data/test_missing_data_air_passengers_None_DiscardRow.py missing_data/test_missing_data_air_passengers_Interpolate_None.py missing_data/test_missing_data_air_passengers_Interpolate_Interpolate.py missing_data/test_missing_data_air_passengers_Interpolate_DiscardRow.py missing_data/test_missing_data_air_passengers_DiscardRow_None.py missing_data/test_missing_data_air_passengers_DiscardRow_Interpolate.py missing_data/test_missing_data_air_passengers_DiscardRow_DiscardRow.py missing_data/gen_ozone_tests.py missing_data/gen_air_passengers_tests.py  
+ 
+
 model_control/test_ozone_all_models_enabled.py  :  
 	 $(PYTHON)  tests/model_control/test_ozone_all_models_enabled.py  >  logs/model_control_test_ozone_all_models_enabled.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/model_control_test_ozone_all_models_enabled.log logs/model_control_test_ozone_all_models_enabled.log  >  logs/model_control_test_ozone_all_models_enabled.log.diff
@@ -1384,9 +1499,9 @@ xgb/test_ozone_xgbx_exogenous.py  :
 
 # ********************************************** 
 
-all:  artificial basic_checks bugs cross_validation croston exog expsmooth func HeartRateTimeSeries heroku hierarchical  HourOfWeek model_control perf svr transformations  neuralnet real-life  time_res perfs demos xgb xeon-phi-parallel sampling temporal_hierarchy WeekOfMonth 
+all:  artificial basic_checks bugs cross_validation croston exog expsmooth func HeartRateTimeSeries heroku hierarchical  HourOfWeek model_control perf svr transformations  neuralnet real-life  time_res perfs demos xgb xeon-phi-parallel sampling temporal_hierarchy WeekOfMonth missing_data 
 	
 
-build-test :  demos basic_checks cross_validation croston exog heroku hierarchical model_control perfs svr transformations func real-life  time_res xgb sampling HourOfWeek WeekOfMonth 
+build-test :  demos basic_checks cross_validation croston exog heroku hierarchical model_control perfs svr transformations func real-life  time_res xgb sampling HourOfWeek WeekOfMonth missing_data 
 	
 
