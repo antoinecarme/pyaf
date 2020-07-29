@@ -1221,6 +1221,16 @@ neuralnet/test_ozone_tensorflow.py  :
  neuralnet :  neuralnet/test_ozone_tensorflow.py neuralnet/test_ozone_rnn_only_MLP.py neuralnet/test_ozone_rnn_only_LSTM.py neuralnet/test_ozone_rnn_only.py neuralnet/test_ozone__GPU_theano.py neuralnet/test_ozone__GPU_tensorflow.py neuralnet/test_ozone__CPU_theano.py neuralnet/test_ozone_GPU.py neuralnet/test_air_passengers_tensorflow.py neuralnet/test_air_passengers_rnn_only.py neuralnet/test_air_passengers_GPU_theano.py neuralnet/test_air_passengers_GPU_tensorflow.py neuralnet/test_air_passengers_GPU.py neuralnet/test_air_passengers_CPU_theano.py  
  
 
+perf/gen_ar_speed_tests.py  :  
+	 $(PYTHON)  tests/perf/gen_ar_speed_tests.py  >  logs/perf_gen_ar_speed_tests.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_gen_ar_speed_tests.log logs/perf_gen_ar_speed_tests.log  >  logs/perf_gen_ar_speed_tests.log.diff
+	 tail -10  logs/perf_gen_ar_speed_tests.log.diff 
+
+perf/gen_long_cycles_tests.py  :  
+	 $(PYTHON)  tests/perf/gen_long_cycles_tests.py  >  logs/perf_gen_long_cycles_tests.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_gen_long_cycles_tests.log logs/perf_gen_long_cycles_tests.log  >  logs/perf_gen_long_cycles_tests.log.diff
+	 tail -10  logs/perf_gen_long_cycles_tests.log.diff 
+
 perf/test_cycles_full_long.py  :  
 	 $(PYTHON)  tests/perf/test_cycles_full_long.py  >  logs/perf_test_cycles_full_long.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_cycles_full_long.log logs/perf_test_cycles_full_long.log  >  logs/perf_test_cycles_full_long.log.diff
@@ -1231,10 +1241,205 @@ perf/test_cycles_full_long_long.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_cycles_full_long_long.log logs/perf_test_cycles_full_long_long.log  >  logs/perf_test_cycles_full_long_long.log.diff
 	 tail -10  logs/perf_test_cycles_full_long_long.log.diff 
 
-perf/test_cycles_full_long_long_2.py  :  
-	 $(PYTHON)  tests/perf/test_cycles_full_long_long_2.py  >  logs/perf_test_cycles_full_long_long_2.log  2>&1
-	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_cycles_full_long_long_2.log logs/perf_test_cycles_full_long_long_2.log  >  logs/perf_test_cycles_full_long_long_2.log.diff
-	 tail -10  logs/perf_test_cycles_full_long_long_2.log.diff 
+perf/test_long_cycles_nbrows_cycle_length_1000_140.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_1000_140.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_1000_140.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_1000_140.log logs/perf_test_long_cycles_nbrows_cycle_length_1000_140.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_1000_140.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_1000_140.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_1000_20.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_1000_20.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_1000_20.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_1000_20.log logs/perf_test_long_cycles_nbrows_cycle_length_1000_20.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_1000_20.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_1000_20.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_1000_200.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_1000_200.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_1000_200.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_1000_200.log logs/perf_test_long_cycles_nbrows_cycle_length_1000_200.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_1000_200.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_1000_200.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_1000_260.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_1000_260.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_1000_260.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_1000_260.log logs/perf_test_long_cycles_nbrows_cycle_length_1000_260.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_1000_260.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_1000_260.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_1000_320.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_1000_320.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_1000_320.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_1000_320.log logs/perf_test_long_cycles_nbrows_cycle_length_1000_320.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_1000_320.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_1000_320.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_1000_380.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_1000_380.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_1000_380.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_1000_380.log logs/perf_test_long_cycles_nbrows_cycle_length_1000_380.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_1000_380.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_1000_380.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_1000_440.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_1000_440.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_1000_440.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_1000_440.log logs/perf_test_long_cycles_nbrows_cycle_length_1000_440.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_1000_440.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_1000_440.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_1000_80.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_1000_80.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_1000_80.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_1000_80.log logs/perf_test_long_cycles_nbrows_cycle_length_1000_80.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_1000_80.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_1000_80.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_11000_140.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_11000_140.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_11000_140.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_11000_140.log logs/perf_test_long_cycles_nbrows_cycle_length_11000_140.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_11000_140.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_11000_140.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_11000_20.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_11000_20.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_11000_20.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_11000_20.log logs/perf_test_long_cycles_nbrows_cycle_length_11000_20.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_11000_20.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_11000_20.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_11000_200.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_11000_200.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_11000_200.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_11000_200.log logs/perf_test_long_cycles_nbrows_cycle_length_11000_200.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_11000_200.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_11000_200.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_11000_260.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_11000_260.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_11000_260.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_11000_260.log logs/perf_test_long_cycles_nbrows_cycle_length_11000_260.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_11000_260.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_11000_260.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_11000_320.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_11000_320.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_11000_320.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_11000_320.log logs/perf_test_long_cycles_nbrows_cycle_length_11000_320.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_11000_320.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_11000_320.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_11000_380.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_11000_380.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_11000_380.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_11000_380.log logs/perf_test_long_cycles_nbrows_cycle_length_11000_380.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_11000_380.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_11000_380.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_11000_440.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_11000_440.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_11000_440.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_11000_440.log logs/perf_test_long_cycles_nbrows_cycle_length_11000_440.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_11000_440.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_11000_440.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_11000_80.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_11000_80.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_11000_80.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_11000_80.log logs/perf_test_long_cycles_nbrows_cycle_length_11000_80.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_11000_80.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_11000_80.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_21000_140.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_21000_140.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_21000_140.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_21000_140.log logs/perf_test_long_cycles_nbrows_cycle_length_21000_140.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_21000_140.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_21000_140.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_21000_20.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_21000_20.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_21000_20.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_21000_20.log logs/perf_test_long_cycles_nbrows_cycle_length_21000_20.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_21000_20.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_21000_20.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_21000_200.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_21000_200.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_21000_200.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_21000_200.log logs/perf_test_long_cycles_nbrows_cycle_length_21000_200.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_21000_200.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_21000_200.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_21000_260.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_21000_260.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_21000_260.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_21000_260.log logs/perf_test_long_cycles_nbrows_cycle_length_21000_260.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_21000_260.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_21000_260.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_21000_320.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_21000_320.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_21000_320.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_21000_320.log logs/perf_test_long_cycles_nbrows_cycle_length_21000_320.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_21000_320.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_21000_320.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_21000_380.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_21000_380.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_21000_380.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_21000_380.log logs/perf_test_long_cycles_nbrows_cycle_length_21000_380.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_21000_380.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_21000_380.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_21000_440.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_21000_440.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_21000_440.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_21000_440.log logs/perf_test_long_cycles_nbrows_cycle_length_21000_440.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_21000_440.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_21000_440.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_21000_80.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_21000_80.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_21000_80.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_21000_80.log logs/perf_test_long_cycles_nbrows_cycle_length_21000_80.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_21000_80.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_21000_80.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_31000_140.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_31000_140.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_31000_140.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_31000_140.log logs/perf_test_long_cycles_nbrows_cycle_length_31000_140.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_31000_140.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_31000_140.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_31000_20.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_31000_20.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_31000_20.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_31000_20.log logs/perf_test_long_cycles_nbrows_cycle_length_31000_20.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_31000_20.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_31000_20.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_31000_200.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_31000_200.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_31000_200.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_31000_200.log logs/perf_test_long_cycles_nbrows_cycle_length_31000_200.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_31000_200.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_31000_200.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_31000_260.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_31000_260.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_31000_260.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_31000_260.log logs/perf_test_long_cycles_nbrows_cycle_length_31000_260.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_31000_260.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_31000_260.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_31000_320.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_31000_320.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_31000_320.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_31000_320.log logs/perf_test_long_cycles_nbrows_cycle_length_31000_320.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_31000_320.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_31000_320.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_31000_380.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_31000_380.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_31000_380.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_31000_380.log logs/perf_test_long_cycles_nbrows_cycle_length_31000_380.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_31000_380.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_31000_380.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_31000_440.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_31000_440.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_31000_440.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_31000_440.log logs/perf_test_long_cycles_nbrows_cycle_length_31000_440.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_31000_440.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_31000_440.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_31000_80.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_31000_80.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_31000_80.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_31000_80.log logs/perf_test_long_cycles_nbrows_cycle_length_31000_80.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_31000_80.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_31000_80.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_41000_140.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_41000_140.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_41000_140.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_41000_140.log logs/perf_test_long_cycles_nbrows_cycle_length_41000_140.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_41000_140.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_41000_140.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_41000_20.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_41000_20.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_41000_20.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_41000_20.log logs/perf_test_long_cycles_nbrows_cycle_length_41000_20.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_41000_20.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_41000_20.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_41000_200.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_41000_200.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_41000_200.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_41000_200.log logs/perf_test_long_cycles_nbrows_cycle_length_41000_200.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_41000_200.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_41000_200.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_41000_260.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_41000_260.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_41000_260.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_41000_260.log logs/perf_test_long_cycles_nbrows_cycle_length_41000_260.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_41000_260.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_41000_260.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_41000_320.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_41000_320.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_41000_320.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_41000_320.log logs/perf_test_long_cycles_nbrows_cycle_length_41000_320.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_41000_320.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_41000_320.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_41000_380.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_41000_380.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_41000_380.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_41000_380.log logs/perf_test_long_cycles_nbrows_cycle_length_41000_380.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_41000_380.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_41000_380.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_41000_440.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_41000_440.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_41000_440.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_41000_440.log logs/perf_test_long_cycles_nbrows_cycle_length_41000_440.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_41000_440.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_41000_440.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_41000_80.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_41000_80.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_41000_80.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_41000_80.log logs/perf_test_long_cycles_nbrows_cycle_length_41000_80.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_41000_80.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_41000_80.log.diff 
 
 perf/test_ozone_ar_speed.py  :  
 	 $(PYTHON)  tests/perf/test_ozone_ar_speed.py  >  logs/perf_test_ozone_ar_speed.log  2>&1
@@ -1245,6 +1450,106 @@ perf/test_ozone_ar_speed_many.py  :
 	 $(PYTHON)  tests/perf/test_ozone_ar_speed_many.py  >  logs/perf_test_ozone_ar_speed_many.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_ozone_ar_speed_many.log logs/perf_test_ozone_ar_speed_many.log  >  logs/perf_test_ozone_ar_speed_many.log.diff
 	 tail -10  logs/perf_test_ozone_ar_speed_many.log.diff 
+
+perf/test_ozone_ar_speed_order_0.py  :  
+	 $(PYTHON)  tests/perf/test_ozone_ar_speed_order_0.py  >  logs/perf_test_ozone_ar_speed_order_0.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_ozone_ar_speed_order_0.log logs/perf_test_ozone_ar_speed_order_0.log  >  logs/perf_test_ozone_ar_speed_order_0.log.diff
+	 tail -10  logs/perf_test_ozone_ar_speed_order_0.log.diff 
+
+perf/test_ozone_ar_speed_order_100.py  :  
+	 $(PYTHON)  tests/perf/test_ozone_ar_speed_order_100.py  >  logs/perf_test_ozone_ar_speed_order_100.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_ozone_ar_speed_order_100.log logs/perf_test_ozone_ar_speed_order_100.log  >  logs/perf_test_ozone_ar_speed_order_100.log.diff
+	 tail -10  logs/perf_test_ozone_ar_speed_order_100.log.diff 
+
+perf/test_ozone_ar_speed_order_150.py  :  
+	 $(PYTHON)  tests/perf/test_ozone_ar_speed_order_150.py  >  logs/perf_test_ozone_ar_speed_order_150.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_ozone_ar_speed_order_150.log logs/perf_test_ozone_ar_speed_order_150.log  >  logs/perf_test_ozone_ar_speed_order_150.log.diff
+	 tail -10  logs/perf_test_ozone_ar_speed_order_150.log.diff 
+
+perf/test_ozone_ar_speed_order_200.py  :  
+	 $(PYTHON)  tests/perf/test_ozone_ar_speed_order_200.py  >  logs/perf_test_ozone_ar_speed_order_200.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_ozone_ar_speed_order_200.log logs/perf_test_ozone_ar_speed_order_200.log  >  logs/perf_test_ozone_ar_speed_order_200.log.diff
+	 tail -10  logs/perf_test_ozone_ar_speed_order_200.log.diff 
+
+perf/test_ozone_ar_speed_order_250.py  :  
+	 $(PYTHON)  tests/perf/test_ozone_ar_speed_order_250.py  >  logs/perf_test_ozone_ar_speed_order_250.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_ozone_ar_speed_order_250.log logs/perf_test_ozone_ar_speed_order_250.log  >  logs/perf_test_ozone_ar_speed_order_250.log.diff
+	 tail -10  logs/perf_test_ozone_ar_speed_order_250.log.diff 
+
+perf/test_ozone_ar_speed_order_300.py  :  
+	 $(PYTHON)  tests/perf/test_ozone_ar_speed_order_300.py  >  logs/perf_test_ozone_ar_speed_order_300.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_ozone_ar_speed_order_300.log logs/perf_test_ozone_ar_speed_order_300.log  >  logs/perf_test_ozone_ar_speed_order_300.log.diff
+	 tail -10  logs/perf_test_ozone_ar_speed_order_300.log.diff 
+
+perf/test_ozone_ar_speed_order_350.py  :  
+	 $(PYTHON)  tests/perf/test_ozone_ar_speed_order_350.py  >  logs/perf_test_ozone_ar_speed_order_350.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_ozone_ar_speed_order_350.log logs/perf_test_ozone_ar_speed_order_350.log  >  logs/perf_test_ozone_ar_speed_order_350.log.diff
+	 tail -10  logs/perf_test_ozone_ar_speed_order_350.log.diff 
+
+perf/test_ozone_ar_speed_order_400.py  :  
+	 $(PYTHON)  tests/perf/test_ozone_ar_speed_order_400.py  >  logs/perf_test_ozone_ar_speed_order_400.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_ozone_ar_speed_order_400.log logs/perf_test_ozone_ar_speed_order_400.log  >  logs/perf_test_ozone_ar_speed_order_400.log.diff
+	 tail -10  logs/perf_test_ozone_ar_speed_order_400.log.diff 
+
+perf/test_ozone_ar_speed_order_450.py  :  
+	 $(PYTHON)  tests/perf/test_ozone_ar_speed_order_450.py  >  logs/perf_test_ozone_ar_speed_order_450.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_ozone_ar_speed_order_450.log logs/perf_test_ozone_ar_speed_order_450.log  >  logs/perf_test_ozone_ar_speed_order_450.log.diff
+	 tail -10  logs/perf_test_ozone_ar_speed_order_450.log.diff 
+
+perf/test_ozone_ar_speed_order_50.py  :  
+	 $(PYTHON)  tests/perf/test_ozone_ar_speed_order_50.py  >  logs/perf_test_ozone_ar_speed_order_50.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_ozone_ar_speed_order_50.log logs/perf_test_ozone_ar_speed_order_50.log  >  logs/perf_test_ozone_ar_speed_order_50.log.diff
+	 tail -10  logs/perf_test_ozone_ar_speed_order_50.log.diff 
+
+perf/test_ozone_ar_speed_order_500.py  :  
+	 $(PYTHON)  tests/perf/test_ozone_ar_speed_order_500.py  >  logs/perf_test_ozone_ar_speed_order_500.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_ozone_ar_speed_order_500.log logs/perf_test_ozone_ar_speed_order_500.log  >  logs/perf_test_ozone_ar_speed_order_500.log.diff
+	 tail -10  logs/perf_test_ozone_ar_speed_order_500.log.diff 
+
+perf/test_ozone_ar_speed_order_550.py  :  
+	 $(PYTHON)  tests/perf/test_ozone_ar_speed_order_550.py  >  logs/perf_test_ozone_ar_speed_order_550.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_ozone_ar_speed_order_550.log logs/perf_test_ozone_ar_speed_order_550.log  >  logs/perf_test_ozone_ar_speed_order_550.log.diff
+	 tail -10  logs/perf_test_ozone_ar_speed_order_550.log.diff 
+
+perf/test_ozone_ar_speed_order_600.py  :  
+	 $(PYTHON)  tests/perf/test_ozone_ar_speed_order_600.py  >  logs/perf_test_ozone_ar_speed_order_600.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_ozone_ar_speed_order_600.log logs/perf_test_ozone_ar_speed_order_600.log  >  logs/perf_test_ozone_ar_speed_order_600.log.diff
+	 tail -10  logs/perf_test_ozone_ar_speed_order_600.log.diff 
+
+perf/test_ozone_ar_speed_order_650.py  :  
+	 $(PYTHON)  tests/perf/test_ozone_ar_speed_order_650.py  >  logs/perf_test_ozone_ar_speed_order_650.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_ozone_ar_speed_order_650.log logs/perf_test_ozone_ar_speed_order_650.log  >  logs/perf_test_ozone_ar_speed_order_650.log.diff
+	 tail -10  logs/perf_test_ozone_ar_speed_order_650.log.diff 
+
+perf/test_ozone_ar_speed_order_700.py  :  
+	 $(PYTHON)  tests/perf/test_ozone_ar_speed_order_700.py  >  logs/perf_test_ozone_ar_speed_order_700.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_ozone_ar_speed_order_700.log logs/perf_test_ozone_ar_speed_order_700.log  >  logs/perf_test_ozone_ar_speed_order_700.log.diff
+	 tail -10  logs/perf_test_ozone_ar_speed_order_700.log.diff 
+
+perf/test_ozone_ar_speed_order_750.py  :  
+	 $(PYTHON)  tests/perf/test_ozone_ar_speed_order_750.py  >  logs/perf_test_ozone_ar_speed_order_750.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_ozone_ar_speed_order_750.log logs/perf_test_ozone_ar_speed_order_750.log  >  logs/perf_test_ozone_ar_speed_order_750.log.diff
+	 tail -10  logs/perf_test_ozone_ar_speed_order_750.log.diff 
+
+perf/test_ozone_ar_speed_order_800.py  :  
+	 $(PYTHON)  tests/perf/test_ozone_ar_speed_order_800.py  >  logs/perf_test_ozone_ar_speed_order_800.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_ozone_ar_speed_order_800.log logs/perf_test_ozone_ar_speed_order_800.log  >  logs/perf_test_ozone_ar_speed_order_800.log.diff
+	 tail -10  logs/perf_test_ozone_ar_speed_order_800.log.diff 
+
+perf/test_ozone_ar_speed_order_850.py  :  
+	 $(PYTHON)  tests/perf/test_ozone_ar_speed_order_850.py  >  logs/perf_test_ozone_ar_speed_order_850.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_ozone_ar_speed_order_850.log logs/perf_test_ozone_ar_speed_order_850.log  >  logs/perf_test_ozone_ar_speed_order_850.log.diff
+	 tail -10  logs/perf_test_ozone_ar_speed_order_850.log.diff 
+
+perf/test_ozone_ar_speed_order_900.py  :  
+	 $(PYTHON)  tests/perf/test_ozone_ar_speed_order_900.py  >  logs/perf_test_ozone_ar_speed_order_900.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_ozone_ar_speed_order_900.log logs/perf_test_ozone_ar_speed_order_900.log  >  logs/perf_test_ozone_ar_speed_order_900.log.diff
+	 tail -10  logs/perf_test_ozone_ar_speed_order_900.log.diff 
+
+perf/test_ozone_ar_speed_order_950.py  :  
+	 $(PYTHON)  tests/perf/test_ozone_ar_speed_order_950.py  >  logs/perf_test_ozone_ar_speed_order_950.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_ozone_ar_speed_order_950.log logs/perf_test_ozone_ar_speed_order_950.log  >  logs/perf_test_ozone_ar_speed_order_950.log.diff
+	 tail -10  logs/perf_test_ozone_ar_speed_order_950.log.diff 
 
 perf/test_ozone_debug_perf.py  :  
 	 $(PYTHON)  tests/perf/test_ozone_debug_perf.py  >  logs/perf_test_ozone_debug_perf.log  2>&1
@@ -1288,7 +1593,7 @@ perf/test_web-traffic-time-series-forecasting_all.py  :
 
 
 
- perf :  perf/test_web-traffic-time-series-forecasting_all.py perf/test_web-traffic-time-series-forecasting.py perf/test_perf2.py perf/test_perf1.py perf/test_parallel.py perf/test_ozone_long_series_2.py perf/test_ozone_long_series.py perf/test_ozone_debug_perf.py perf/test_ozone_ar_speed_many.py perf/test_ozone_ar_speed.py perf/test_cycles_full_long_long_2.py perf/test_cycles_full_long_long.py perf/test_cycles_full_long.py  
+ perf :  perf/test_web-traffic-time-series-forecasting_all.py perf/test_web-traffic-time-series-forecasting.py perf/test_perf2.py perf/test_perf1.py perf/test_parallel.py perf/test_ozone_long_series_2.py perf/test_ozone_long_series.py perf/test_ozone_debug_perf.py perf/test_ozone_ar_speed_order_950.py perf/test_ozone_ar_speed_order_900.py perf/test_ozone_ar_speed_order_850.py perf/test_ozone_ar_speed_order_800.py perf/test_ozone_ar_speed_order_750.py perf/test_ozone_ar_speed_order_700.py perf/test_ozone_ar_speed_order_650.py perf/test_ozone_ar_speed_order_600.py perf/test_ozone_ar_speed_order_550.py perf/test_ozone_ar_speed_order_500.py perf/test_ozone_ar_speed_order_50.py perf/test_ozone_ar_speed_order_450.py perf/test_ozone_ar_speed_order_400.py perf/test_ozone_ar_speed_order_350.py perf/test_ozone_ar_speed_order_300.py perf/test_ozone_ar_speed_order_250.py perf/test_ozone_ar_speed_order_200.py perf/test_ozone_ar_speed_order_150.py perf/test_ozone_ar_speed_order_100.py perf/test_ozone_ar_speed_order_0.py perf/test_ozone_ar_speed_many.py perf/test_ozone_ar_speed.py perf/test_long_cycles_nbrows_cycle_length_41000_80.py perf/test_long_cycles_nbrows_cycle_length_41000_440.py perf/test_long_cycles_nbrows_cycle_length_41000_380.py perf/test_long_cycles_nbrows_cycle_length_41000_320.py perf/test_long_cycles_nbrows_cycle_length_41000_260.py perf/test_long_cycles_nbrows_cycle_length_41000_200.py perf/test_long_cycles_nbrows_cycle_length_41000_20.py perf/test_long_cycles_nbrows_cycle_length_41000_140.py perf/test_long_cycles_nbrows_cycle_length_31000_80.py perf/test_long_cycles_nbrows_cycle_length_31000_440.py perf/test_long_cycles_nbrows_cycle_length_31000_380.py perf/test_long_cycles_nbrows_cycle_length_31000_320.py perf/test_long_cycles_nbrows_cycle_length_31000_260.py perf/test_long_cycles_nbrows_cycle_length_31000_200.py perf/test_long_cycles_nbrows_cycle_length_31000_20.py perf/test_long_cycles_nbrows_cycle_length_31000_140.py perf/test_long_cycles_nbrows_cycle_length_21000_80.py perf/test_long_cycles_nbrows_cycle_length_21000_440.py perf/test_long_cycles_nbrows_cycle_length_21000_380.py perf/test_long_cycles_nbrows_cycle_length_21000_320.py perf/test_long_cycles_nbrows_cycle_length_21000_260.py perf/test_long_cycles_nbrows_cycle_length_21000_200.py perf/test_long_cycles_nbrows_cycle_length_21000_20.py perf/test_long_cycles_nbrows_cycle_length_21000_140.py perf/test_long_cycles_nbrows_cycle_length_11000_80.py perf/test_long_cycles_nbrows_cycle_length_11000_440.py perf/test_long_cycles_nbrows_cycle_length_11000_380.py perf/test_long_cycles_nbrows_cycle_length_11000_320.py perf/test_long_cycles_nbrows_cycle_length_11000_260.py perf/test_long_cycles_nbrows_cycle_length_11000_200.py perf/test_long_cycles_nbrows_cycle_length_11000_20.py perf/test_long_cycles_nbrows_cycle_length_11000_140.py perf/test_long_cycles_nbrows_cycle_length_1000_80.py perf/test_long_cycles_nbrows_cycle_length_1000_440.py perf/test_long_cycles_nbrows_cycle_length_1000_380.py perf/test_long_cycles_nbrows_cycle_length_1000_320.py perf/test_long_cycles_nbrows_cycle_length_1000_260.py perf/test_long_cycles_nbrows_cycle_length_1000_200.py perf/test_long_cycles_nbrows_cycle_length_1000_20.py perf/test_long_cycles_nbrows_cycle_length_1000_140.py perf/test_cycles_full_long_long.py perf/test_cycles_full_long.py perf/gen_long_cycles_tests.py perf/gen_ar_speed_tests.py  
  
 
 perfs/test_ozone_perf_measure.py  :  
