@@ -745,7 +745,10 @@ class cSignalDecomposition:
         start_time = time.time()
         logger.info("START_PLOTTING")
         for lSignal in self.mSignals:
-            self.mBestModels[lSignal].standardPlots(name + "_" + lSignal, format);
+            lName = name
+            if(name is not None):
+                lName = str(name) + "_" + str(lSignal)
+            self.mBestModels[lSignal].standardPlots(lName, format);
         lPlotTime = time.time() - start_time;
         logger.info("END_PLOTTING_TIME_IN_SECONDS " + str(lPlotTime))
         
