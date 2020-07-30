@@ -1,5 +1,5 @@
 INFO:pyaf.std:START_HIERARCHICAL_PLOTTING
-INFO:pyaf.std:END_HIERARCHICAL_PLOTTING_TIME_IN_SECONDS 0.6983253955841064
+INFO:pyaf.std:END_HIERARCHICAL_PLOTTING_TIME_IN_SECONDS 0.3832685947418213
 INFO:pyaf.std:START_HIERARCHICAL_TRAINING
 INFO:pyaf.hierarchical:FORECASTING_HIERARCHICAL_TEMPORAL_FREQUENCIES {'M': 2419200.0, '2M': 5097600.0, '6M': 15638400.0}
 INFO:pyaf.hierarchical:FORECASTING_HIERARCHICAL_TEMPORAL_HORIZONS_FIRST_RESAMPLED_DATA M {'TH_M_start': {0: Timestamp('2001-01-31 00:00:00'), 1: Timestamp('2001-02-28 00:00:00'), 2: Timestamp('2001-03-31 00:00:00'), 3: Timestamp('2001-04-30 00:00:00'), 4: Timestamp('2001-05-31 00:00:00')}, 'Signal': {0: 1.9048968112034605, 1: -0.42967395611318193, 2: 0.6856129262199164, 3: 3.0251231243596757, 4: 4.401208611312959}}
@@ -8,10 +8,10 @@ INFO:pyaf.hierarchical:FORECASTING_HIERARCHICAL_TEMPORAL_HORIZONS_FIRST_RESAMPLE
 INFO:pyaf.hierarchical:FORECASTING_HIERARCHICAL_TEMPORAL_HORIZONS {'M': 36, '2M': 17, '6M': 5}
 INFO:pyaf.std:START_TRAINING '['Signal_M', 'Signal_2M', 'Signal_6M']'
 <IPython.core.display.Image object>
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal_M', 'Signal_2M', 'Signal_6M']' 31.488470554351807
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal_M', 'Signal_2M', 'Signal_6M']' 13.57753872871399
 INFO:pyaf.hierarchical:TRAINING_HIERARCHICAL_MODEL_COMPUTE_TOP_DOWN_HISTORICAL_PROPORTIONS
 INFO:pyaf.std:START_FORECASTING '['Signal_M', 'Signal_2M', 'Signal_6M']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal_M', 'Signal_2M', 'Signal_6M']' 8.709264278411865
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal_M', 'Signal_2M', 'Signal_6M']' 2.219606876373291
 INFO:pyaf.hierarchical:FORECASTING_HIERARCHICAL_MODEL_COMBINATION_METHODS ['BU', 'TD', 'MO', 'OC']
 INFO:pyaf.hierarchical:FORECASTING_HIERARCHICAL_MODEL_BOTTOM_UP_METHOD BU
 INFO:pyaf.hierarchical:FORECASTING_HIERARCHICAL_MODEL_TOP_DOWN_METHOD AHP_TD
@@ -20,7 +20,7 @@ INFO:pyaf.hierarchical:FORECASTING_HIERARCHICAL_MODEL_MIDDLE_OUT_METHOD MO
 INFO:pyaf.hierarchical:FORECASTING_HIERARCHICAL_MODEL_OPTIMAL_COMBINATION_METHOD OC
 INFO:pyaf.hierarchical:FORECASTING_HIERARCHICAL_MODEL_OPTIMAL_COMBINATION_METHOD
 INFO:pyaf.hierarchical:STRUCTURE [0, 1, 2]
-INFO:pyaf.hierarchical:DATASET_COLUMNS Index(['TH_M_start', 'TH_6M_start', 'TH_2M_start', 'Signal_M',
+INFO:pyaf.hierarchical:DATASET_COLUMNS Index(['TH_6M_start', 'TH_M_start', 'TH_2M_start', 'Signal_M',
        'Signal_M_Forecast', 'Signal_M_Forecast_Lower_Bound',
        'Signal_M_Forecast_Upper_Bound', 'Signal_2M', 'Signal_2M_Forecast',
        'Signal_2M_Forecast_Lower_Bound', 'Signal_2M_Forecast_Upper_Bound',
@@ -67,7 +67,7 @@ INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_FIT_PERF {'Signal': 'Signal_M_O
 INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_VALID_PERF {'Signal': 'Signal_M_OC_Forecast', 'Length': 32, 'MAPE': 0.8068, 'RMSE': 19.711528061074375, 'MAE': 11.42575782328684, 'SMAPE': 0.3712, 'ErrorMean': 10.166874332625964, 'ErrorStdDev': 16.88724384874909, 'R2': -11.58848414685206, 'Pearson': 0.2775985303863618}
 INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_FIT_PERF {'Signal': 'Signal_M_PHA_TD_Forecast', 'Length': 130, 'MAPE': 1.0067, 'RMSE': 12.631486410964593, 'MAE': 10.343080307790597, 'SMAPE': 1.548, 'ErrorMean': -8.36307890719707, 'ErrorStdDev': 9.466433337977861, 'R2': -2.696275236380923, 'Pearson': 0.03909983703188895}
 INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_VALID_PERF {'Signal': 'Signal_M_PHA_TD_Forecast', 'Length': 32, 'MAPE': 0.7965, 'RMSE': 15.447921944904252, 'MAE': 13.068545896490715, 'SMAPE': 1.4482, 'ErrorMean': -11.712612505612515, 'ErrorStdDev': 10.072388034087234, 'R2': -6.731664222638842, 'Pearson': -0.013815763862450939}
-INFO:pyaf.std:END_HIERARCHICAL_TRAINING_TIME_IN_SECONDS 41.66358995437622
+INFO:pyaf.std:END_HIERARCHICAL_TRAINING_TIME_IN_SECONDS 16.222784519195557
 INFO:pyaf.std:TIME_DETAIL TimeVariable='TH_M_start' TimeMin=2001-01-31T00:00:00.000000 TimeMax=2022-07-31T00:00:00.000000 TimeDelta=<DateOffset: days=30> Horizon=36
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal_M' Length=360  Min=-0.6219775856788415 Max=28.87537250288579  Mean=13.929719090432725 StdDev=6.723008300790963
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal_M' Min=-0.6219775856788415 Max=28.87537250288579  Mean=13.929719090432725 StdDev=6.723008300790963
@@ -184,21 +184,21 @@ Data columns (total 2 columns):
  1   Signal  360 non-null    float64       
 dtypes: datetime64[ns](1), float64(1)
 memory usage: 5.8 KB
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal_M', 'Signal_2M', 'Signal_6M']' 7.24275803565979
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal_M', 'Signal_2M', 'Signal_6M']' 2.15343976020813
 INFO:pyaf.hierarchical:FORECASTING_HIERARCHICAL_MODEL_COMBINATION_METHODS ['BU', 'TD', 'MO', 'OC']
 INFO:pyaf.hierarchical:FORECASTING_HIERARCHICAL_MODEL_BOTTOM_UP_METHOD BU
 INFO:pyaf.hierarchical:FORECASTING_HIERARCHICAL_MODEL_TOP_DOWN_METHOD AHP_TD
 INFO:pyaf.hierarchical:FORECASTING_HIERARCHICAL_MODEL_TOP_DOWN_METHOD PHA_TD
 INFO:pyaf.hierarchical:FORECASTING_HIERARCHICAL_MODEL_MIDDLE_OUT_METHOD MO
 INFO:pyaf.hierarchical:FORECASTING_HIERARCHICAL_MODEL_OPTIMAL_COMBINATION_METHOD OC
-INFO:pyaf.std:END_HIERARCHICAL_FORECAST_TIME_IN_SECONDS 7.477752208709717
+INFO:pyaf.std:END_HIERARCHICAL_FORECAST_TIME_IN_SECONDS 2.228959321975708
 <class 'pandas.core.frame.DataFrame'>
 Int64Index: 396 entries, 0 to 395
 Data columns (total 30 columns):
  #   Column                          Non-Null Count  Dtype         
 ---  ------                          --------------  -----         
- 0   TH_M_start                      396 non-null    datetime64[ns]
- 1   TH_6M_start                     60 non-null     datetime64[ns]
+ 0   TH_6M_start                     60 non-null     datetime64[ns]
+ 1   TH_M_start                      396 non-null    datetime64[ns]
  2   TH_2M_start                     181 non-null    datetime64[ns]
  3   Signal_M                        360 non-null    float64       
  4   Signal_M_Forecast               396 non-null    float64       
@@ -229,11 +229,11 @@ Data columns (total 30 columns):
  29  Signal_6M_OC_Forecast           181 non-null    float64       
 dtypes: datetime64[ns](3), float64(27)
 memory usage: 115.9 KB
-    TH_M_start TH_6M_start  ... Signal_2M_OC_Forecast  Signal_6M_OC_Forecast
-391 2033-08-17         NaT  ...                   NaN                    NaN
-392 2033-09-16         NaT  ...                   NaN                    NaN
-393 2033-10-16         NaT  ...                   NaN                    NaN
-394 2033-11-15         NaT  ...                   NaN                    NaN
-395 2033-12-15         NaT  ...                   NaN                    NaN
+    TH_6M_start TH_M_start  ... Signal_2M_OC_Forecast  Signal_6M_OC_Forecast
+391         NaT 2033-08-17  ...                   NaN                    NaN
+392         NaT 2033-09-16  ...                   NaN                    NaN
+393         NaT 2033-10-16  ...                   NaN                    NaN
+394         NaT 2033-11-15  ...                   NaN                    NaN
+395         NaT 2033-12-15  ...                   NaN                    NaN
 
 [5 rows x 30 columns]
