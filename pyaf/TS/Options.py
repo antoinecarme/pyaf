@@ -126,8 +126,9 @@ class cCrostonOptions:
 class cMissingDataOptions:
 
     def __init__(self):
-        self.mSignalMissingDataImputation = None  # [None , "DiscardRow", "Interpolate"]
+        self.mSignalMissingDataImputation = None  # [None , "DiscardRow", "Interpolate", "Mean", "Median" , "Constant" , "PreviousValue"]
         self.mTimeMissingDataImputation = None  # [None , "DiscardRow", "Interpolate"]
+        self.mConstant = 0.0
         
 class cSignalDecomposition_Options(cModelControl):
     

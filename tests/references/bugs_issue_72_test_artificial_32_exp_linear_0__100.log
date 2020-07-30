@@ -1,7 +1,7 @@
 INFO:pyaf.std:START_TRAINING 'Signal_0.01'
 GENERATING_RANDOM_DATASET Signal_32_D_0_linear_0_exp_0.0_100
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal_0.01' 5.631014823913574
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal_0.01']' 4.994814395904541
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2000-01-24T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=1
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal_0.01' Length=31  Min=0.3485473933773712 Max=0.38263933949626505  Mean=0.36599495856843456 StdDev=0.007368735349292028
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal_0.01' Min=0.3485473933773712 Max=0.38263933949626505  Mean=0.36599495856843456 StdDev=0.007368735349292028
@@ -16,13 +16,20 @@ INFO:pyaf.std:MODEL_MASE MASE_Fit=0.5539 MASE_Forecast=0.8397 MASE_Test=None
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.005453511692656512 L1_Forecast=0.006906249278916023 L1_Test=0.0006340499581108383
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.007192214897913679 L2_Forecast=0.008883347268888694 L2_Test=0.0006340499581108383
 INFO:pyaf.std:MODEL_COMPLEXITY 0
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:CONSTANT_TREND ConstantTrend 0.36497721256474436
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_0.01_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.0810694694519043
-Forecast Columns  Index(['Date', 'GeneratedTrend', 'GeneratedCycle', 'GeneratedAR', 'Noise',
-       'Signal', 'Signal_32_D_0_linear_0_exp_0.0_100', 'orig_Signal',
-       'Signal_0.01', '_Signal_0.01', 'row_number', 'Date_Normalized',
+INFO:pyaf.std:START_FORECASTING '['Signal_0.01']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal_0.01']' 0.025418519973754883
+Forecast Columns  Index(['Date', 'Signal_0.01', '_Signal_0.01', 'row_number', 'Date_Normalized',
        '_Signal_0.01_ConstantTrend', '_Signal_0.01_ConstantTrend_residue',
        '_Signal_0.01_ConstantTrend_residue_zeroCycle',
        '_Signal_0.01_ConstantTrend_residue_zeroCycle_residue',
@@ -54,31 +61,33 @@ Forecasts
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Signal_0.01",
-        "Time": {
-            "Horizon": 1,
-            "TimeMinMax": [
-                "2000-01-01 00:00:00",
-                "2000-01-31 00:00:00"
-            ],
-            "TimeVariable": "Date"
+    "Signal_0.01": {
+        "Dataset": {
+            "Signal": "Signal_0.01",
+            "Time": {
+                "Horizon": 1,
+                "TimeMinMax": [
+                    "2000-01-01 00:00:00",
+                    "2000-01-31 00:00:00"
+                ],
+                "TimeVariable": "Date"
+            },
+            "Training_Signal_Length": 31
         },
-        "Training_Signal_Length": 31
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "_Signal_0.01_ConstantTrend_residue_zeroCycle_residue_NoAR",
-        "Cycle": "NoCycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "0",
-        "MAE": "0.006906249278916023",
-        "MAPE": "0.0184",
-        "MASE": "0.8397",
-        "RMSE": "0.008883347268888694"
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Signal_0.01_ConstantTrend_residue_zeroCycle_residue_NoAR",
+            "Cycle": "NoCycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "0",
+            "MAE": "0.006906249278916023",
+            "MAPE": "0.0184",
+            "MASE": "0.8397",
+            "RMSE": "0.008883347268888694"
+        }
     }
 }
 </ModelInfo>

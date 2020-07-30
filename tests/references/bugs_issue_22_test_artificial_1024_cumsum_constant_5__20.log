@@ -1,7 +1,7 @@
 INFO:pyaf.std:START_TRAINING 'Signal_0.01'
 GENERATING_RANDOM_DATASET Signal_1024_D_0_constant_5_cumsum_0.0_20
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal_0.01' 23.375853061676025
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal_0.01']' 40.24472188949585
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2002-03-10T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal_0.01' Length=1012  Min=4.992654846402984 Max=4248.006283907735  Mean=2126.100763761686 StdDev=1226.9854133615368
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal_0.01' Min=4.992654846402984 Max=4248.006283907735  Mean=2126.100763761686 StdDev=1226.9854133615368
@@ -13,13 +13,22 @@ INFO:pyaf.std:AUTOREG_DETAIL '_Signal_0.01_LinearTrend_residue_zeroCycle_residue
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0446 MAPE_Forecast=0.0082 MAPE_Test=0.0089
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.031 SMAPE_Forecast=0.0082 SMAPE_Test=0.0089
 INFO:pyaf.std:MODEL_MASE MASE_Fit=2.9584 MASE_Forecast=7.3792 MASE_Test=9.6155
-INFO:pyaf.std:MODEL_L1 L1_Fit=12.422340276749978 L1_Forecast=30.96309806305713 L1_Test=37.59245563126092
-INFO:pyaf.std:MODEL_L2 L2_Fit=14.365878855067926 L2_Forecast=31.198732156205125 L2_Test=37.619925078758605
+INFO:pyaf.std:MODEL_L1 L1_Fit=12.42234027674986 L1_Forecast=30.963098063056886 L1_Test=37.59245563126107
+INFO:pyaf.std:MODEL_L2 L2_Fit=14.365878855067795 L2_Forecast=31.198732156204887 L2_Test=37.61992507875875
 INFO:pyaf.std:MODEL_COMPLEXITY 16
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:LINEAR_RIDGE_TREND LinearTrend (27.737986966420294, array([3306.32337065]))
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_0.01_LinearTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.3774449825286865
+INFO:pyaf.std:START_FORECASTING '['Signal_0.01']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal_0.01']' 0.46735239028930664
 Forecast Columns  Index(['Date', 'Signal_0.01', 'row_number', 'Date_Normalized', '_Signal_0.01',
        '_Signal_0.01_LinearTrend', '_Signal_0.01_LinearTrend_residue',
        '_Signal_0.01_LinearTrend_residue_zeroCycle',
@@ -46,8 +55,8 @@ Data columns (total 5 columns):
 dtypes: datetime64[ns](1), float64(4)
 memory usage: 40.1 KB
 Forecasts
- [[Timestamp('2002-10-09 00:00:00') nan 4215.471717998313
-  4154.322202972151 4276.621233024474]
+ [[Timestamp('2002-10-09 00:00:00') nan 4215.471717998314
+  4154.322202972152 4276.621233024475]
  [Timestamp('2002-10-10 00:00:00') nan 4219.609794807633
   4158.460279781471 4280.759309833795]
  [Timestamp('2002-10-11 00:00:00') nan 4223.7478716169535
@@ -56,49 +65,51 @@ Forecasts
   4166.736433400112 4289.035463452436]
  [Timestamp('2002-10-13 00:00:00') nan 4232.024025235594
   4170.874510209433 4293.173540261756]
- [Timestamp('2002-10-14 00:00:00') nan 4236.162102044913
-  4175.012587018751 4297.311617071075]
+ [Timestamp('2002-10-14 00:00:00') nan 4236.162102044914
+  4175.012587018752 4297.3116170710755]
  [Timestamp('2002-10-15 00:00:00') nan 4240.300178854233
   4179.150663828072 4301.449693880395]
  [Timestamp('2002-10-16 00:00:00') nan 4244.438255663554
   4183.288740637392 4305.587770689715]
  [Timestamp('2002-10-17 00:00:00') nan 4248.576332472874
   4187.426817446712 4309.725847499036]
- [Timestamp('2002-10-18 00:00:00') nan 4252.714409282193
-  4191.564894256031 4313.863924308354]
- [Timestamp('2002-10-19 00:00:00') nan 4256.852486091513
-  4195.702971065351 4318.002001117675]
- [Timestamp('2002-10-20 00:00:00') nan 4260.9905629008335
-  4199.841047874672 4322.140077926995]]
+ [Timestamp('2002-10-18 00:00:00') nan 4252.714409282194
+  4191.564894256032 4313.863924308355]
+ [Timestamp('2002-10-19 00:00:00') nan 4256.852486091514
+  4195.702971065352 4318.002001117676]
+ [Timestamp('2002-10-20 00:00:00') nan 4260.990562900834
+  4199.841047874673 4322.140077926996]]
 
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Signal_0.01",
-        "Time": {
-            "Horizon": 12,
-            "TimeMinMax": [
-                "2000-01-01 00:00:00",
-                "2002-10-08 00:00:00"
-            ],
-            "TimeVariable": "Date"
+    "Signal_0.01": {
+        "Dataset": {
+            "Signal": "Signal_0.01",
+            "Time": {
+                "Horizon": 12,
+                "TimeMinMax": [
+                    "2000-01-01 00:00:00",
+                    "2002-10-08 00:00:00"
+                ],
+                "TimeVariable": "Date"
+            },
+            "Training_Signal_Length": 1012
         },
-        "Training_Signal_Length": 1012
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "_Signal_0.01_LinearTrend_residue_zeroCycle_residue_NoAR",
-        "Cycle": "NoCycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "LinearTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "16",
-        "MAE": "30.96309806305713",
-        "MAPE": "0.0082",
-        "MASE": "7.3792",
-        "RMSE": "31.198732156205125"
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Signal_0.01_LinearTrend_residue_zeroCycle_residue_NoAR",
+            "Cycle": "NoCycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "LinearTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "16",
+            "MAE": "30.963098063056886",
+            "MAPE": "0.0082",
+            "MASE": "7.3792",
+            "RMSE": "31.198732156204887"
+        }
     }
 }
 </ModelInfo>

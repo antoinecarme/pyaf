@@ -10,11 +10,11 @@ DATASET_FINAL_COLUMNS Index(['Unnamed: 0', 'Symbol', 'Date', 'Close', 'Low', 'Vo
 TRAIN_PARAMS (857, 9) Index(['Unnamed: 0', 'Symbol', 'Date', 'Close', 'Low', 'Volume', 'Open',
        'Adj_Close', 'High'],
       dtype='object') Date Close 21
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Close' 14.905033826828003
-INFO:pyaf.std:START_FORECASTING 'Close'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  'Close' 0.26789116859436035
-INFO:pyaf.std:START_FORECASTING 'Close'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  'Close' 0.25316715240478516
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Close']' 8.145004749298096
+INFO:pyaf.std:START_FORECASTING '['Close']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Close']' 0.7274196147918701
+INFO:pyaf.std:START_FORECASTING '['Close']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Close']' 0.5461690425872803
   Split Transformation  ... ForecastMAPE TestMAPE
 0  None         _Close  ...       0.0121   0.0102
 1  None         _Close  ...       0.0121   0.0106
@@ -73,31 +73,33 @@ Forecasts
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Close",
-        "Time": {
-            "Horizon": 21,
-            "TimeMinMax": [
-                "2012-08-06 00:00:00",
-                "2015-12-31 00:00:00"
-            ],
-            "TimeVariable": "Date"
+    "Close": {
+        "Dataset": {
+            "Signal": "Close",
+            "Time": {
+                "Horizon": 21,
+                "TimeMinMax": [
+                    "2012-08-06 00:00:00",
+                    "2015-12-31 00:00:00"
+                ],
+                "TimeVariable": "Date"
+            },
+            "Training_Signal_Length": 857
         },
-        "Training_Signal_Length": 857
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "_Close_Lag1Trend_residue_zeroCycle_residue_NoAR",
-        "Cycle": "NoCycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "Lag1Trend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "32",
-        "MAE": "7.500913732142857",
-        "MAPE": "0.0121",
-        "MASE": "0.995",
-        "RMSE": "12.512385900527176"
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Close_Lag1Trend_residue_zeroCycle_residue_NoAR",
+            "Cycle": "NoCycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "Lag1Trend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "32",
+            "MAE": "7.500913732142857",
+            "MAPE": "0.0121",
+            "MASE": "0.995",
+            "RMSE": "12.512385900527176"
+        }
     }
 }
 </ModelInfo>

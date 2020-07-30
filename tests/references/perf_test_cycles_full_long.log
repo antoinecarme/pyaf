@@ -2,7 +2,7 @@ INFO:pyaf.std:START_TRAINING 'Signal'
 TEST_CYCLES_START 2
 GENERATING_RANDOM_DATASET Signal_3200_D_0_constant_2_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal' 20.00537109375
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 25.410181283950806
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2006-12-21T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=3188  Min=1.0 Max=1.6918516806566242  Mean=1.3084905627071874 StdDev=0.09724607963907347
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=1.6918516806566242  Mean=1.3084905627071874 StdDev=0.09724607963907347
@@ -17,10 +17,19 @@ INFO:pyaf.std:MODEL_MASE MASE_Fit=0.705 MASE_Forecast=0.7245 MASE_Test=0.5487
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.07787643938515318 L1_Forecast=0.07689438584701809 L1_Test=0.0890380041746075
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.09747168892989223 L2_Forecast=0.09621695564368646 L2_Test=0.11867029187119144
 INFO:pyaf.std:MODEL_COMPLEXITY 0
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:CONSTANT_TREND ConstantTrend 1.3095485336643529
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.6572098731994629
+INFO:pyaf.std:START_FORECASTING '['Signal']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 0.6596658229827881
 INFO:pyaf.std:START_TRAINING 'Signal'
 Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
@@ -54,31 +63,33 @@ Forecasts
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Signal",
-        "Time": {
-            "Horizon": 4,
-            "TimeMinMax": [
-                "2000-01-01 00:00:00",
-                "2008-09-22 00:00:00"
-            ],
-            "TimeVariable": "Date"
+    "Signal": {
+        "Dataset": {
+            "Signal": "Signal",
+            "Time": {
+                "Horizon": 4,
+                "TimeMinMax": [
+                    "2000-01-01 00:00:00",
+                    "2008-09-22 00:00:00"
+                ],
+                "TimeVariable": "Date"
+            },
+            "Training_Signal_Length": 3188
         },
-        "Training_Signal_Length": 3188
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
-        "Cycle": "NoCycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "0",
-        "MAE": "0.07689438584701809",
-        "MAPE": "0.0597",
-        "MASE": "0.7245",
-        "RMSE": "0.09621695564368646"
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
+            "Cycle": "NoCycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "0",
+            "MAE": "0.07689438584701809",
+            "MAPE": "0.0597",
+            "MASE": "0.7245",
+            "RMSE": "0.09621695564368646"
+        }
     }
 }
 </ModelInfo>
@@ -95,32 +106,41 @@ TEST_CYCLES_END 2
 TEST_CYCLES_START 6
 GENERATING_RANDOM_DATASET Signal_3200_D_0_constant_6_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal' 24.127174854278564
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 26.4510657787323
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2006-12-14T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=3188  Min=1.0 Max=8.327669954926717  Mean=4.6510242046773405 StdDev=2.1545192781934377
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=8.327669954926717  Mean=4.6510242046773405 StdDev=2.1545192781934377
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_Signal_ConstantTrend_residue_bestCycle_byL2_residue_NoAR' [ConstantTrend + Cycle + NoAR]
+INFO:pyaf.std:BEST_DECOMPOSITION  '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [ConstantTrend + Cycle + NoAR]
 INFO:pyaf.std:TREND_DETAIL '_Signal_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_Signal_ConstantTrend_residue_bestCycle_byL2' [Cycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_Signal_ConstantTrend_residue_bestCycle_byL2_residue_NoAR' [NoAR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0244 MAPE_Forecast=0.023 MAPE_Test=0.0216
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0243 SMAPE_Forecast=0.0229 SMAPE_Test=0.0214
-INFO:pyaf.std:MODEL_MASE MASE_Fit=0.024 MASE_Forecast=0.0231 MASE_Test=0.022
-INFO:pyaf.std:MODEL_L1 L1_Fit=0.07995556112124821 L1_Forecast=0.07695781156837461 L1_Test=0.07511872579772423
-INFO:pyaf.std:MODEL_L2 L2_Fit=0.10115467385011985 L2_Forecast=0.09597500888001685 L2_Test=0.09202584806122338
+INFO:pyaf.std:CYCLE_DETAIL '_Signal_ConstantTrend_residue_bestCycle_byMAPE' [Cycle]
+INFO:pyaf.std:AUTOREG_DETAIL '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [NoAR]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0245 MAPE_Forecast=0.023 MAPE_Test=0.0225
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0244 SMAPE_Forecast=0.0229 SMAPE_Test=0.0223
+INFO:pyaf.std:MODEL_MASE MASE_Fit=0.0241 MASE_Forecast=0.0231 MASE_Test=0.0227
+INFO:pyaf.std:MODEL_L1 L1_Fit=0.08024722422502871 L1_Forecast=0.0767896196639691 L1_Test=0.07772593424271941
+INFO:pyaf.std:MODEL_L2 L2_Fit=0.10164905277197747 L2_Forecast=0.09611489577982618 L2_Test=0.09378606334201746
 INFO:pyaf.std:MODEL_COMPLEXITY 8
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:CONSTANT_TREND ConstantTrend 4.650905275759967
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _Signal_ConstantTrend_residue_bestCycle_byMAPE 6 0.003484160563571592 {0: 0.010020599631053173, 1: -3.3317234003141785, 2: -0.004461678565777838, 3: 3.333732373170897, 4: -1.6640151703030175, 5: 1.6571302344308636}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 1.1663281917572021
+INFO:pyaf.std:START_FORECASTING '['Signal']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 1.232421875
 INFO:pyaf.std:START_TRAINING 'Signal'
 Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
-       'cycle_internal', '_Signal_ConstantTrend_residue_bestCycle_byL2',
-       '_Signal_ConstantTrend_residue_bestCycle_byL2_residue',
-       '_Signal_ConstantTrend_residue_bestCycle_byL2_residue_NoAR',
-       '_Signal_ConstantTrend_residue_bestCycle_byL2_residue_NoAR_residue',
+       'cycle_internal', '_Signal_ConstantTrend_residue_bestCycle_byMAPE',
+       '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue',
+       '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR',
+       '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR_residue',
        '_Signal_Trend', '_Signal_Trend_residue', '_Signal_Cycle',
        '_Signal_Cycle_residue', '_Signal_AR', '_Signal_AR_residue',
        '_Signal_TransformedForecast', 'Signal_Forecast',
@@ -139,47 +159,49 @@ dtypes: datetime64[ns](1), float64(2)
 memory usage: 75.1 KB
 None
 Forecasts
- [[Timestamp('2008-09-23 00:00:00') nan 4.627980539992525]
- [Timestamp('2008-09-24 00:00:00') nan 7.987742767022709]
- [Timestamp('2008-09-25 00:00:00') nan 2.975312191069686]
- [Timestamp('2008-09-26 00:00:00') nan 6.307477309780987]
- [Timestamp('2008-09-27 00:00:00') nan 4.645230791804538]
- [Timestamp('2008-09-28 00:00:00') nan 1.3121037797992523]
- [Timestamp('2008-09-29 00:00:00') nan 4.659212309250135]
- [Timestamp('2008-09-30 00:00:00') nan 8.000959921442321]
- [Timestamp('2008-10-01 00:00:00') nan 2.995858679441651]
- [Timestamp('2008-10-02 00:00:00') nan 6.312619854445119]
- [Timestamp('2008-10-03 00:00:00') nan 4.660593994407987]
- [Timestamp('2008-10-04 00:00:00') nan 1.317221944486544]]
+ [[Timestamp('2008-09-23 00:00:00') nan 4.646443597194189]
+ [Timestamp('2008-09-24 00:00:00') nan 7.984637648930864]
+ [Timestamp('2008-09-25 00:00:00') nan 2.986890105456949]
+ [Timestamp('2008-09-26 00:00:00') nan 6.30803551019083]
+ [Timestamp('2008-09-27 00:00:00') nan 4.66092587539102]
+ [Timestamp('2008-09-28 00:00:00') nan 1.3191818754457882]
+ [Timestamp('2008-09-29 00:00:00') nan 4.646443597194189]
+ [Timestamp('2008-09-30 00:00:00') nan 7.984637648930864]
+ [Timestamp('2008-10-01 00:00:00') nan 2.986890105456949]
+ [Timestamp('2008-10-02 00:00:00') nan 6.30803551019083]
+ [Timestamp('2008-10-03 00:00:00') nan 4.66092587539102]
+ [Timestamp('2008-10-04 00:00:00') nan 1.3191818754457882]]
 
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Signal",
-        "Time": {
-            "Horizon": 12,
-            "TimeMinMax": [
-                "2000-01-01 00:00:00",
-                "2008-09-22 00:00:00"
-            ],
-            "TimeVariable": "Date"
+    "Signal": {
+        "Dataset": {
+            "Signal": "Signal",
+            "Time": {
+                "Horizon": 12,
+                "TimeMinMax": [
+                    "2000-01-01 00:00:00",
+                    "2008-09-22 00:00:00"
+                ],
+                "TimeVariable": "Date"
+            },
+            "Training_Signal_Length": 3188
         },
-        "Training_Signal_Length": 3188
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "_Signal_ConstantTrend_residue_bestCycle_byL2_residue_NoAR",
-        "Cycle": "Cycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "8",
-        "MAE": "0.07695781156837461",
-        "MAPE": "0.023",
-        "MASE": "0.0231",
-        "RMSE": "0.09597500888001685"
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR",
+            "Cycle": "Cycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "8",
+            "MAE": "0.0767896196639691",
+            "MAPE": "0.023",
+            "MASE": "0.0231",
+            "RMSE": "0.09611489577982618"
+        }
     }
 }
 </ModelInfo>
@@ -188,7 +210,7 @@ Forecasts
 
 
 <Forecast>
-{"Date":{"3188":"2008-09-23T00:00:00.000Z","3189":"2008-09-24T00:00:00.000Z","3190":"2008-09-25T00:00:00.000Z","3191":"2008-09-26T00:00:00.000Z","3192":"2008-09-27T00:00:00.000Z","3193":"2008-09-28T00:00:00.000Z","3194":"2008-09-29T00:00:00.000Z","3195":"2008-09-30T00:00:00.000Z","3196":"2008-10-01T00:00:00.000Z","3197":"2008-10-02T00:00:00.000Z","3198":"2008-10-03T00:00:00.000Z","3199":"2008-10-04T00:00:00.000Z"},"Signal":{"3188":null,"3189":null,"3190":null,"3191":null,"3192":null,"3193":null,"3194":null,"3195":null,"3196":null,"3197":null,"3198":null,"3199":null},"Signal_Forecast":{"3188":4.62798054,"3189":7.987742767,"3190":2.9753121911,"3191":6.3074773098,"3192":4.6452307918,"3193":1.3121037798,"3194":4.6592123093,"3195":8.0009599214,"3196":2.9958586794,"3197":6.3126198544,"3198":4.6605939944,"3199":1.3172219445}}
+{"Date":{"3188":"2008-09-23T00:00:00.000Z","3189":"2008-09-24T00:00:00.000Z","3190":"2008-09-25T00:00:00.000Z","3191":"2008-09-26T00:00:00.000Z","3192":"2008-09-27T00:00:00.000Z","3193":"2008-09-28T00:00:00.000Z","3194":"2008-09-29T00:00:00.000Z","3195":"2008-09-30T00:00:00.000Z","3196":"2008-10-01T00:00:00.000Z","3197":"2008-10-02T00:00:00.000Z","3198":"2008-10-03T00:00:00.000Z","3199":"2008-10-04T00:00:00.000Z"},"Signal":{"3188":null,"3189":null,"3190":null,"3191":null,"3192":null,"3193":null,"3194":null,"3195":null,"3196":null,"3197":null,"3198":null,"3199":null},"Signal_Forecast":{"3188":4.6464435972,"3189":7.9846376489,"3190":2.9868901055,"3191":6.3080355102,"3192":4.6609258754,"3193":1.3191818754,"3194":4.6464435972,"3195":7.9846376489,"3196":2.9868901055,"3197":6.3080355102,"3198":4.6609258754,"3199":1.3191818754}}
 </Forecast>
 
 
@@ -196,32 +218,41 @@ TEST_CYCLES_END 6
 TEST_CYCLES_START 10
 GENERATING_RANDOM_DATASET Signal_3200_D_0_constant_10_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal' 16.48681402206421
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 22.111087560653687
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2006-12-08T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=20
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=3188  Min=1.0033963819081042 Max=8.550429886853314  Mean=4.653333789489017 StdDev=2.2480813664442665
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0033963819081042 Max=8.550429886853314  Mean=4.653333789489017 StdDev=2.2480813664442665
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_Signal_ConstantTrend_residue_bestCycle_byL2_residue_NoAR' [ConstantTrend + Cycle + NoAR]
+INFO:pyaf.std:BEST_DECOMPOSITION  '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [ConstantTrend + Cycle + NoAR]
 INFO:pyaf.std:TREND_DETAIL '_Signal_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_Signal_ConstantTrend_residue_bestCycle_byL2' [Cycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_Signal_ConstantTrend_residue_bestCycle_byL2_residue_NoAR' [NoAR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0236 MAPE_Forecast=0.0231 MAPE_Test=0.0285
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0235 SMAPE_Forecast=0.023 SMAPE_Test=0.0286
-INFO:pyaf.std:MODEL_MASE MASE_Fit=0.0257 MASE_Forecast=0.0256 MASE_Test=0.0304
-INFO:pyaf.std:MODEL_L1 L1_Fit=0.07720277331480584 L1_Forecast=0.07688436808872283 L1_Test=0.09656876494152662
-INFO:pyaf.std:MODEL_L2 L2_Fit=0.09677158283200568 L2_Forecast=0.09572654854089305 L2_Test=0.11470262435583392
+INFO:pyaf.std:CYCLE_DETAIL '_Signal_ConstantTrend_residue_bestCycle_byMAPE' [Cycle]
+INFO:pyaf.std:AUTOREG_DETAIL '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [NoAR]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0236 MAPE_Forecast=0.0232 MAPE_Test=0.0278
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0236 SMAPE_Forecast=0.0231 SMAPE_Test=0.028
+INFO:pyaf.std:MODEL_MASE MASE_Fit=0.0259 MASE_Forecast=0.0257 MASE_Test=0.03
+INFO:pyaf.std:MODEL_L1 L1_Fit=0.07760648080040061 L1_Forecast=0.07715233015040658 L1_Test=0.09509647850796588
+INFO:pyaf.std:MODEL_L2 L2_Fit=0.0973444082102933 L2_Forecast=0.09618141209854945 L2_Test=0.11401593492803022
 INFO:pyaf.std:MODEL_COMPLEXITY 8
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:CONSTANT_TREND ConstantTrend 4.655327106168687
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _Signal_ConstantTrend_residue_bestCycle_byMAPE 10 0.07688459421341554 {0: -2.3991625852232903, 1: 1.607598693409534, 2: 3.5956784199520913, 3: -2.4025408195287943, 4: -0.39379969783698243, 5: -3.4112890886011957, 6: -1.4076520959343037, 7: 1.610788353851678, 8: 0.6006152347961402, 9: 2.5996133006827913}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 2.172985315322876
+INFO:pyaf.std:START_FORECASTING '['Signal']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 1.383918046951294
 INFO:pyaf.std:START_TRAINING 'Signal'
 Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
-       'cycle_internal', '_Signal_ConstantTrend_residue_bestCycle_byL2',
-       '_Signal_ConstantTrend_residue_bestCycle_byL2_residue',
-       '_Signal_ConstantTrend_residue_bestCycle_byL2_residue_NoAR',
-       '_Signal_ConstantTrend_residue_bestCycle_byL2_residue_NoAR_residue',
+       'cycle_internal', '_Signal_ConstantTrend_residue_bestCycle_byMAPE',
+       '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue',
+       '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR',
+       '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR_residue',
        '_Signal_Trend', '_Signal_Trend_residue', '_Signal_Cycle',
        '_Signal_Cycle_residue', '_Signal_AR', '_Signal_AR_residue',
        '_Signal_TransformedForecast', 'Signal_Forecast',
@@ -240,55 +271,57 @@ dtypes: datetime64[ns](1), float64(2)
 memory usage: 75.3 KB
 None
 Forecasts
- [[Timestamp('2008-09-23 00:00:00') nan 5.263884886848744]
- [Timestamp('2008-09-24 00:00:00') nan 7.251650163412713]
- [Timestamp('2008-09-25 00:00:00') nan 2.2606036003178285]
- [Timestamp('2008-09-26 00:00:00') nan 6.237163819209922]
- [Timestamp('2008-09-27 00:00:00') nan 8.241128550168376]
- [Timestamp('2008-09-28 00:00:00') nan 2.26474562522178]
- [Timestamp('2008-09-29 00:00:00') nan 4.274452731675141]
- [Timestamp('2008-09-30 00:00:00') nan 1.2483309986592936]
- [Timestamp('2008-10-01 00:00:00') nan 3.2453518654305142]
- [Timestamp('2008-10-02 00:00:00') nan 6.264183802392768]
- [Timestamp('2008-10-03 00:00:00') nan 5.2570191893682345]
- [Timestamp('2008-10-04 00:00:00') nan 7.256481043451538]
- [Timestamp('2008-10-05 00:00:00') nan 2.258751462902122]
- [Timestamp('2008-10-06 00:00:00') nan 6.282477435342348]
- [Timestamp('2008-10-07 00:00:00') nan 8.259945198540183]
- [Timestamp('2008-10-08 00:00:00') nan 2.2403624239089472]
- [Timestamp('2008-10-09 00:00:00') nan 4.254355930224932]
- [Timestamp('2008-10-10 00:00:00') nan 1.2545358554314667]
- [Timestamp('2008-10-11 00:00:00') nan 3.2580318504800134]
- [Timestamp('2008-10-12 00:00:00') nan 6.24190837305313]]
+ [[Timestamp('2008-09-23 00:00:00') nan 5.255942340964827]
+ [Timestamp('2008-09-24 00:00:00') nan 7.254940406851478]
+ [Timestamp('2008-09-25 00:00:00') nan 2.2561645209453967]
+ [Timestamp('2008-09-26 00:00:00') nan 6.2629257995782215]
+ [Timestamp('2008-09-27 00:00:00') nan 8.251005526120778]
+ [Timestamp('2008-09-28 00:00:00') nan 2.2527862866398927]
+ [Timestamp('2008-09-29 00:00:00') nan 4.2615274083317045]
+ [Timestamp('2008-09-30 00:00:00') nan 1.2440380175674912]
+ [Timestamp('2008-10-01 00:00:00') nan 3.247675010234383]
+ [Timestamp('2008-10-02 00:00:00') nan 6.266115460020365]
+ [Timestamp('2008-10-03 00:00:00') nan 5.255942340964827]
+ [Timestamp('2008-10-04 00:00:00') nan 7.254940406851478]
+ [Timestamp('2008-10-05 00:00:00') nan 2.2561645209453967]
+ [Timestamp('2008-10-06 00:00:00') nan 6.2629257995782215]
+ [Timestamp('2008-10-07 00:00:00') nan 8.251005526120778]
+ [Timestamp('2008-10-08 00:00:00') nan 2.2527862866398927]
+ [Timestamp('2008-10-09 00:00:00') nan 4.2615274083317045]
+ [Timestamp('2008-10-10 00:00:00') nan 1.2440380175674912]
+ [Timestamp('2008-10-11 00:00:00') nan 3.247675010234383]
+ [Timestamp('2008-10-12 00:00:00') nan 6.266115460020365]]
 
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Signal",
-        "Time": {
-            "Horizon": 20,
-            "TimeMinMax": [
-                "2000-01-01 00:00:00",
-                "2008-09-22 00:00:00"
-            ],
-            "TimeVariable": "Date"
+    "Signal": {
+        "Dataset": {
+            "Signal": "Signal",
+            "Time": {
+                "Horizon": 20,
+                "TimeMinMax": [
+                    "2000-01-01 00:00:00",
+                    "2008-09-22 00:00:00"
+                ],
+                "TimeVariable": "Date"
+            },
+            "Training_Signal_Length": 3188
         },
-        "Training_Signal_Length": 3188
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "_Signal_ConstantTrend_residue_bestCycle_byL2_residue_NoAR",
-        "Cycle": "Cycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "8",
-        "MAE": "0.07688436808872283",
-        "MAPE": "0.0231",
-        "MASE": "0.0256",
-        "RMSE": "0.09572654854089305"
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR",
+            "Cycle": "Cycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "8",
+            "MAE": "0.07715233015040658",
+            "MAPE": "0.0232",
+            "MASE": "0.0257",
+            "RMSE": "0.09618141209854945"
+        }
     }
 }
 </ModelInfo>
@@ -297,7 +330,7 @@ Forecasts
 
 
 <Forecast>
-{"Date":{"3188":"2008-09-23T00:00:00.000Z","3189":"2008-09-24T00:00:00.000Z","3190":"2008-09-25T00:00:00.000Z","3191":"2008-09-26T00:00:00.000Z","3192":"2008-09-27T00:00:00.000Z","3193":"2008-09-28T00:00:00.000Z","3194":"2008-09-29T00:00:00.000Z","3195":"2008-09-30T00:00:00.000Z","3196":"2008-10-01T00:00:00.000Z","3197":"2008-10-02T00:00:00.000Z","3198":"2008-10-03T00:00:00.000Z","3199":"2008-10-04T00:00:00.000Z","3200":"2008-10-05T00:00:00.000Z","3201":"2008-10-06T00:00:00.000Z","3202":"2008-10-07T00:00:00.000Z","3203":"2008-10-08T00:00:00.000Z","3204":"2008-10-09T00:00:00.000Z","3205":"2008-10-10T00:00:00.000Z","3206":"2008-10-11T00:00:00.000Z","3207":"2008-10-12T00:00:00.000Z"},"Signal":{"3188":null,"3189":null,"3190":null,"3191":null,"3192":null,"3193":null,"3194":null,"3195":null,"3196":null,"3197":null,"3198":null,"3199":null,"3200":null,"3201":null,"3202":null,"3203":null,"3204":null,"3205":null,"3206":null,"3207":null},"Signal_Forecast":{"3188":5.2638848868,"3189":7.2516501634,"3190":2.2606036003,"3191":6.2371638192,"3192":8.2411285502,"3193":2.2647456252,"3194":4.2744527317,"3195":1.2483309987,"3196":3.2453518654,"3197":6.2641838024,"3198":5.2570191894,"3199":7.2564810435,"3200":2.2587514629,"3201":6.2824774353,"3202":8.2599451985,"3203":2.2403624239,"3204":4.2543559302,"3205":1.2545358554,"3206":3.2580318505,"3207":6.2419083731}}
+{"Date":{"3188":"2008-09-23T00:00:00.000Z","3189":"2008-09-24T00:00:00.000Z","3190":"2008-09-25T00:00:00.000Z","3191":"2008-09-26T00:00:00.000Z","3192":"2008-09-27T00:00:00.000Z","3193":"2008-09-28T00:00:00.000Z","3194":"2008-09-29T00:00:00.000Z","3195":"2008-09-30T00:00:00.000Z","3196":"2008-10-01T00:00:00.000Z","3197":"2008-10-02T00:00:00.000Z","3198":"2008-10-03T00:00:00.000Z","3199":"2008-10-04T00:00:00.000Z","3200":"2008-10-05T00:00:00.000Z","3201":"2008-10-06T00:00:00.000Z","3202":"2008-10-07T00:00:00.000Z","3203":"2008-10-08T00:00:00.000Z","3204":"2008-10-09T00:00:00.000Z","3205":"2008-10-10T00:00:00.000Z","3206":"2008-10-11T00:00:00.000Z","3207":"2008-10-12T00:00:00.000Z"},"Signal":{"3188":null,"3189":null,"3190":null,"3191":null,"3192":null,"3193":null,"3194":null,"3195":null,"3196":null,"3197":null,"3198":null,"3199":null,"3200":null,"3201":null,"3202":null,"3203":null,"3204":null,"3205":null,"3206":null,"3207":null},"Signal_Forecast":{"3188":5.255942341,"3189":7.2549404069,"3190":2.2561645209,"3191":6.2629257996,"3192":8.2510055261,"3193":2.2527862866,"3194":4.2615274083,"3195":1.2440380176,"3196":3.2476750102,"3197":6.26611546,"3198":5.255942341,"3199":7.2549404069,"3200":2.2561645209,"3201":6.2629257996,"3202":8.2510055261,"3203":2.2527862866,"3204":4.2615274083,"3205":1.2440380176,"3206":3.2476750102,"3207":6.26611546}}
 </Forecast>
 
 
@@ -305,32 +338,41 @@ TEST_CYCLES_END 10
 TEST_CYCLES_START 14
 GENERATING_RANDOM_DATASET Signal_3200_D_0_constant_14_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal' 21.479366540908813
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 26.326515197753906
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2006-12-02T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=28
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=3188  Min=1.0 Max=9.386998338541824  Mean=4.88329535745014 StdDev=2.2186411120039975
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=9.386998338541824  Mean=4.88329535745014 StdDev=2.2186411120039975
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_Signal_ConstantTrend_residue_bestCycle_byL2_residue_NoAR' [ConstantTrend + Cycle + NoAR]
+INFO:pyaf.std:BEST_DECOMPOSITION  '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [ConstantTrend + Cycle + NoAR]
 INFO:pyaf.std:TREND_DETAIL '_Signal_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_Signal_ConstantTrend_residue_bestCycle_byL2' [Cycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_Signal_ConstantTrend_residue_bestCycle_byL2_residue_NoAR' [NoAR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0215 MAPE_Forecast=0.021 MAPE_Test=0.0224
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0215 SMAPE_Forecast=0.021 SMAPE_Test=0.0224
-INFO:pyaf.std:MODEL_MASE MASE_Fit=0.036 MASE_Forecast=0.0357 MASE_Test=0.0386
-INFO:pyaf.std:MODEL_L1 L1_Fit=0.07750244038248051 L1_Forecast=0.07656763535805101 L1_Test=0.08616539356505705
-INFO:pyaf.std:MODEL_L2 L2_Fit=0.0967668022921602 L2_Forecast=0.09600460249012474 L2_Test=0.10620419465359497
+INFO:pyaf.std:CYCLE_DETAIL '_Signal_ConstantTrend_residue_bestCycle_byMAPE' [Cycle]
+INFO:pyaf.std:AUTOREG_DETAIL '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [NoAR]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0216 MAPE_Forecast=0.0212 MAPE_Test=0.0226
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0215 SMAPE_Forecast=0.0211 SMAPE_Test=0.0226
+INFO:pyaf.std:MODEL_MASE MASE_Fit=0.0361 MASE_Forecast=0.0359 MASE_Test=0.0385
+INFO:pyaf.std:MODEL_L1 L1_Fit=0.07774202198179155 L1_Forecast=0.07696621408769182 L1_Test=0.08588318646118744
+INFO:pyaf.std:MODEL_L2 L2_Fit=0.09743699899646677 L2_Forecast=0.09620513405170983 L2_Test=0.1059257415588015
 INFO:pyaf.std:MODEL_COMPLEXITY 8
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:CONSTANT_TREND ConstantTrend 4.883228376645396
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _Signal_ConstantTrend_residue_bestCycle_byMAPE 14 0.2471220453733567 {0: -2.1920806509401105, 1: 0.6658608274874753, 2: 2.0951334766023413, 3: -2.19891007774077, 4: -0.7567108717955513, 5: -2.90051870264341, 6: -1.4708326510321101, 7: 0.6596254887136439, 8: -0.05929594420608719, 9: 1.3793823091655582, 10: 1.3766365776942844, 11: 4.237784053740896, 12: 2.8098448570379837, 13: -3.6132177628557294}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 1.5846459865570068
+INFO:pyaf.std:START_FORECASTING '['Signal']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 1.8960411548614502
 INFO:pyaf.std:START_TRAINING 'Signal'
 Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
-       'cycle_internal', '_Signal_ConstantTrend_residue_bestCycle_byL2',
-       '_Signal_ConstantTrend_residue_bestCycle_byL2_residue',
-       '_Signal_ConstantTrend_residue_bestCycle_byL2_residue_NoAR',
-       '_Signal_ConstantTrend_residue_bestCycle_byL2_residue_NoAR_residue',
+       'cycle_internal', '_Signal_ConstantTrend_residue_bestCycle_byMAPE',
+       '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue',
+       '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR',
+       '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR_residue',
        '_Signal_Trend', '_Signal_Trend_residue', '_Signal_Cycle',
        '_Signal_Cycle_residue', '_Signal_AR', '_Signal_AR_residue',
        '_Signal_TransformedForecast', 'Signal_Forecast',
@@ -349,63 +391,65 @@ dtypes: datetime64[ns](1), float64(2)
 memory usage: 75.5 KB
 None
 Forecasts
- [[Timestamp('2008-09-23 00:00:00') nan 6.257525021857456]
- [Timestamp('2008-09-24 00:00:00') nan 9.127708400848697]
- [Timestamp('2008-09-25 00:00:00') nan 7.673744395159904]
- [Timestamp('2008-09-26 00:00:00') nan 1.2620671231259046]
- [Timestamp('2008-09-27 00:00:00') nan 2.6929226282505794]
- [Timestamp('2008-09-28 00:00:00') nan 5.558541789420289]
- [Timestamp('2008-09-29 00:00:00') nan 6.974168231049931]
- [Timestamp('2008-09-30 00:00:00') nan 2.6946321334089656]
- [Timestamp('2008-10-01 00:00:00') nan 4.110149138693718]
- [Timestamp('2008-10-02 00:00:00') nan 1.9893286491127262]
- [Timestamp('2008-10-03 00:00:00') nan 3.417778333791437]
- [Timestamp('2008-10-04 00:00:00') nan 5.546939968751736]
- [Timestamp('2008-10-05 00:00:00') nan 4.814700250013071]
- [Timestamp('2008-10-06 00:00:00') nan 6.263121922310072]
- [Timestamp('2008-10-07 00:00:00') nan 6.261880908489239]
- [Timestamp('2008-10-08 00:00:00') nan 9.111499294295045]
- [Timestamp('2008-10-09 00:00:00') nan 7.703355368384564]
- [Timestamp('2008-10-10 00:00:00') nan 1.2644230092210669]
- [Timestamp('2008-10-11 00:00:00') nan 2.6871641613029165]
- [Timestamp('2008-10-12 00:00:00') nan 5.525407722553604]
- [Timestamp('2008-10-13 00:00:00') nan 6.990141191064593]
- [Timestamp('2008-10-14 00:00:00') nan 2.6929087936086304]
- [Timestamp('2008-10-15 00:00:00') nan 4.12289326116896]
- [Timestamp('2008-10-16 00:00:00') nan 1.9818030179600745]
- [Timestamp('2008-10-17 00:00:00') nan 3.4121994721382]
- [Timestamp('2008-10-18 00:00:00') nan 5.523901577311456]
- [Timestamp('2008-10-19 00:00:00') nan 4.835976321360585]
- [Timestamp('2008-10-20 00:00:00') nan 6.273445086559055]]
+ [[Timestamp('2008-09-23 00:00:00') nan 6.25986495433968]
+ [Timestamp('2008-09-24 00:00:00') nan 9.12101243038629]
+ [Timestamp('2008-09-25 00:00:00') nan 7.693073233683379]
+ [Timestamp('2008-09-26 00:00:00') nan 1.2700106137896663]
+ [Timestamp('2008-09-27 00:00:00') nan 2.691147725705285]
+ [Timestamp('2008-09-28 00:00:00') nan 5.549089204132871]
+ [Timestamp('2008-09-29 00:00:00') nan 6.978361853247737]
+ [Timestamp('2008-09-30 00:00:00') nan 2.6843182989046257]
+ [Timestamp('2008-10-01 00:00:00') nan 4.126517504849844]
+ [Timestamp('2008-10-02 00:00:00') nan 1.9827096740019856]
+ [Timestamp('2008-10-03 00:00:00') nan 3.4123957256132855]
+ [Timestamp('2008-10-04 00:00:00') nan 5.54285386535904]
+ [Timestamp('2008-10-05 00:00:00') nan 4.8239324324393085]
+ [Timestamp('2008-10-06 00:00:00') nan 6.262610685810953]
+ [Timestamp('2008-10-07 00:00:00') nan 6.25986495433968]
+ [Timestamp('2008-10-08 00:00:00') nan 9.12101243038629]
+ [Timestamp('2008-10-09 00:00:00') nan 7.693073233683379]
+ [Timestamp('2008-10-10 00:00:00') nan 1.2700106137896663]
+ [Timestamp('2008-10-11 00:00:00') nan 2.691147725705285]
+ [Timestamp('2008-10-12 00:00:00') nan 5.549089204132871]
+ [Timestamp('2008-10-13 00:00:00') nan 6.978361853247737]
+ [Timestamp('2008-10-14 00:00:00') nan 2.6843182989046257]
+ [Timestamp('2008-10-15 00:00:00') nan 4.126517504849844]
+ [Timestamp('2008-10-16 00:00:00') nan 1.9827096740019856]
+ [Timestamp('2008-10-17 00:00:00') nan 3.4123957256132855]
+ [Timestamp('2008-10-18 00:00:00') nan 5.54285386535904]
+ [Timestamp('2008-10-19 00:00:00') nan 4.8239324324393085]
+ [Timestamp('2008-10-20 00:00:00') nan 6.262610685810953]]
 
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Signal",
-        "Time": {
-            "Horizon": 28,
-            "TimeMinMax": [
-                "2000-01-01 00:00:00",
-                "2008-09-22 00:00:00"
-            ],
-            "TimeVariable": "Date"
+    "Signal": {
+        "Dataset": {
+            "Signal": "Signal",
+            "Time": {
+                "Horizon": 28,
+                "TimeMinMax": [
+                    "2000-01-01 00:00:00",
+                    "2008-09-22 00:00:00"
+                ],
+                "TimeVariable": "Date"
+            },
+            "Training_Signal_Length": 3188
         },
-        "Training_Signal_Length": 3188
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "_Signal_ConstantTrend_residue_bestCycle_byL2_residue_NoAR",
-        "Cycle": "Cycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "8",
-        "MAE": "0.07656763535805101",
-        "MAPE": "0.021",
-        "MASE": "0.0357",
-        "RMSE": "0.09600460249012474"
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR",
+            "Cycle": "Cycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "8",
+            "MAE": "0.07696621408769182",
+            "MAPE": "0.0212",
+            "MASE": "0.0359",
+            "RMSE": "0.09620513405170983"
+        }
     }
 }
 </ModelInfo>
@@ -414,7 +458,7 @@ Forecasts
 
 
 <Forecast>
-{"Date":{"3188":"2008-09-23T00:00:00.000Z","3189":"2008-09-24T00:00:00.000Z","3190":"2008-09-25T00:00:00.000Z","3191":"2008-09-26T00:00:00.000Z","3192":"2008-09-27T00:00:00.000Z","3193":"2008-09-28T00:00:00.000Z","3194":"2008-09-29T00:00:00.000Z","3195":"2008-09-30T00:00:00.000Z","3196":"2008-10-01T00:00:00.000Z","3197":"2008-10-02T00:00:00.000Z","3198":"2008-10-03T00:00:00.000Z","3199":"2008-10-04T00:00:00.000Z","3200":"2008-10-05T00:00:00.000Z","3201":"2008-10-06T00:00:00.000Z","3202":"2008-10-07T00:00:00.000Z","3203":"2008-10-08T00:00:00.000Z","3204":"2008-10-09T00:00:00.000Z","3205":"2008-10-10T00:00:00.000Z","3206":"2008-10-11T00:00:00.000Z","3207":"2008-10-12T00:00:00.000Z","3208":"2008-10-13T00:00:00.000Z","3209":"2008-10-14T00:00:00.000Z","3210":"2008-10-15T00:00:00.000Z","3211":"2008-10-16T00:00:00.000Z","3212":"2008-10-17T00:00:00.000Z","3213":"2008-10-18T00:00:00.000Z","3214":"2008-10-19T00:00:00.000Z","3215":"2008-10-20T00:00:00.000Z"},"Signal":{"3188":null,"3189":null,"3190":null,"3191":null,"3192":null,"3193":null,"3194":null,"3195":null,"3196":null,"3197":null,"3198":null,"3199":null,"3200":null,"3201":null,"3202":null,"3203":null,"3204":null,"3205":null,"3206":null,"3207":null,"3208":null,"3209":null,"3210":null,"3211":null,"3212":null,"3213":null,"3214":null,"3215":null},"Signal_Forecast":{"3188":6.2575250219,"3189":9.1277084008,"3190":7.6737443952,"3191":1.2620671231,"3192":2.6929226283,"3193":5.5585417894,"3194":6.974168231,"3195":2.6946321334,"3196":4.1101491387,"3197":1.9893286491,"3198":3.4177783338,"3199":5.5469399688,"3200":4.81470025,"3201":6.2631219223,"3202":6.2618809085,"3203":9.1114992943,"3204":7.7033553684,"3205":1.2644230092,"3206":2.6871641613,"3207":5.5254077226,"3208":6.9901411911,"3209":2.6929087936,"3210":4.1228932612,"3211":1.981803018,"3212":3.4121994721,"3213":5.5239015773,"3214":4.8359763214,"3215":6.2734450866}}
+{"Date":{"3188":"2008-09-23T00:00:00.000Z","3189":"2008-09-24T00:00:00.000Z","3190":"2008-09-25T00:00:00.000Z","3191":"2008-09-26T00:00:00.000Z","3192":"2008-09-27T00:00:00.000Z","3193":"2008-09-28T00:00:00.000Z","3194":"2008-09-29T00:00:00.000Z","3195":"2008-09-30T00:00:00.000Z","3196":"2008-10-01T00:00:00.000Z","3197":"2008-10-02T00:00:00.000Z","3198":"2008-10-03T00:00:00.000Z","3199":"2008-10-04T00:00:00.000Z","3200":"2008-10-05T00:00:00.000Z","3201":"2008-10-06T00:00:00.000Z","3202":"2008-10-07T00:00:00.000Z","3203":"2008-10-08T00:00:00.000Z","3204":"2008-10-09T00:00:00.000Z","3205":"2008-10-10T00:00:00.000Z","3206":"2008-10-11T00:00:00.000Z","3207":"2008-10-12T00:00:00.000Z","3208":"2008-10-13T00:00:00.000Z","3209":"2008-10-14T00:00:00.000Z","3210":"2008-10-15T00:00:00.000Z","3211":"2008-10-16T00:00:00.000Z","3212":"2008-10-17T00:00:00.000Z","3213":"2008-10-18T00:00:00.000Z","3214":"2008-10-19T00:00:00.000Z","3215":"2008-10-20T00:00:00.000Z"},"Signal":{"3188":null,"3189":null,"3190":null,"3191":null,"3192":null,"3193":null,"3194":null,"3195":null,"3196":null,"3197":null,"3198":null,"3199":null,"3200":null,"3201":null,"3202":null,"3203":null,"3204":null,"3205":null,"3206":null,"3207":null,"3208":null,"3209":null,"3210":null,"3211":null,"3212":null,"3213":null,"3214":null,"3215":null},"Signal_Forecast":{"3188":6.2598649543,"3189":9.1210124304,"3190":7.6930732337,"3191":1.2700106138,"3192":2.6911477257,"3193":5.5490892041,"3194":6.9783618532,"3195":2.6843182989,"3196":4.1265175048,"3197":1.982709674,"3198":3.4123957256,"3199":5.5428538654,"3200":4.8239324324,"3201":6.2626106858,"3202":6.2598649543,"3203":9.1210124304,"3204":7.6930732337,"3205":1.2700106138,"3206":2.6911477257,"3207":5.5490892041,"3208":6.9783618532,"3209":2.6843182989,"3210":4.1265175048,"3211":1.982709674,"3212":3.4123957256,"3213":5.5428538654,"3214":4.8239324324,"3215":6.2626106858}}
 </Forecast>
 
 
@@ -422,32 +466,41 @@ TEST_CYCLES_END 14
 TEST_CYCLES_START 18
 GENERATING_RANDOM_DATASET Signal_3200_D_0_constant_18_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal' 20.188627004623413
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 24.647088766098022
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2006-11-25T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=36
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=3188  Min=1.0 Max=10.576427076945718  Mean=5.6305033936318045 StdDev=2.5582966999257186
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=10.576427076945718  Mean=5.6305033936318045 StdDev=2.5582966999257186
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_Signal_ConstantTrend_residue_bestCycle_byL2_residue_NoAR' [ConstantTrend + Cycle + NoAR]
+INFO:pyaf.std:BEST_DECOMPOSITION  '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [ConstantTrend + Cycle + NoAR]
 INFO:pyaf.std:TREND_DETAIL '_Signal_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_Signal_ConstantTrend_residue_bestCycle_byL2' [Cycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_Signal_ConstantTrend_residue_bestCycle_byL2_residue_NoAR' [NoAR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0184 MAPE_Forecast=0.0184 MAPE_Test=0.0185
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0184 SMAPE_Forecast=0.0183 SMAPE_Test=0.0184
-INFO:pyaf.std:MODEL_MASE MASE_Fit=0.0226 MASE_Forecast=0.0228 MASE_Test=0.0221
-INFO:pyaf.std:MODEL_L1 L1_Fit=0.07822780988820052 L1_Forecast=0.07873870398852265 L1_Test=0.07895604672641972
-INFO:pyaf.std:MODEL_L2 L2_Fit=0.09781074568885911 L2_Forecast=0.09778874891626249 L2_Test=0.10152747691756217
+INFO:pyaf.std:CYCLE_DETAIL '_Signal_ConstantTrend_residue_bestCycle_byMAPE' [Cycle]
+INFO:pyaf.std:AUTOREG_DETAIL '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [NoAR]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0184 MAPE_Forecast=0.0184 MAPE_Test=0.0193
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0184 SMAPE_Forecast=0.0183 SMAPE_Test=0.0191
+INFO:pyaf.std:MODEL_MASE MASE_Fit=0.0226 MASE_Forecast=0.0229 MASE_Test=0.0231
+INFO:pyaf.std:MODEL_L1 L1_Fit=0.07823341660279452 L1_Forecast=0.07894995519032036 L1_Test=0.08273170542775829
+INFO:pyaf.std:MODEL_L2 L2_Fit=0.09832272885859455 L2_Forecast=0.0979083457914809 L2_Test=0.10567795277909689
 INFO:pyaf.std:MODEL_COMPLEXITY 8
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:CONSTANT_TREND ConstantTrend 5.631224949660151
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _Signal_ConstantTrend_residue_bestCycle_byMAPE 18 -0.708151278087958 {0: -3.171365959620535, 1: -0.9533336308126721, 2: 0.1566504446930228, 3: -2.6127328477701637, 4: -1.5260316657352182, 5: 1.8127599823977838, 6: -4.2895007429863, 7: -1.5212244806229016, 8: -0.9474896099607113, 9: 2.925379111487535, 10: 4.602851518608914, 11: -2.0607154624765522, 12: 2.386250992754503, 13: -0.3997420413092492, 14: 0.16854212666953394, 15: 4.045328672062976, 16: -2.049660590939836, 17: 3.4749457418070495}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 2.2839503288269043
+INFO:pyaf.std:START_FORECASTING '['Signal']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 2.3653249740600586
 INFO:pyaf.std:START_TRAINING 'Signal'
 Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
-       'cycle_internal', '_Signal_ConstantTrend_residue_bestCycle_byL2',
-       '_Signal_ConstantTrend_residue_bestCycle_byL2_residue',
-       '_Signal_ConstantTrend_residue_bestCycle_byL2_residue_NoAR',
-       '_Signal_ConstantTrend_residue_bestCycle_byL2_residue_NoAR_residue',
+       'cycle_internal', '_Signal_ConstantTrend_residue_bestCycle_byMAPE',
+       '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue',
+       '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR',
+       '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR_residue',
        '_Signal_Trend', '_Signal_Trend_residue', '_Signal_Cycle',
        '_Signal_Cycle_residue', '_Signal_AR', '_Signal_AR_residue',
        '_Signal_TransformedForecast', 'Signal_Forecast',
@@ -466,71 +519,73 @@ dtypes: datetime64[ns](1), float64(2)
 memory usage: 75.7 KB
 None
 Forecasts
- [[Timestamp('2008-09-23 00:00:00') nan 5.806179359785496]
- [Timestamp('2008-09-24 00:00:00') nan 3.0044086227114994]
- [Timestamp('2008-09-25 00:00:00') nan 4.108702650100903]
- [Timestamp('2008-09-26 00:00:00') nan 7.4311436381459535]
- [Timestamp('2008-09-27 00:00:00') nan 1.3581343816176075]
- [Timestamp('2008-09-28 00:00:00') nan 4.115882497372725]
- [Timestamp('2008-09-29 00:00:00') nan 4.6848636904841054]
- [Timestamp('2008-09-30 00:00:00') nan 8.566945121079879]
- [Timestamp('2008-10-01 00:00:00') nan 10.232742154001121]
- [Timestamp('2008-10-02 00:00:00') nan 3.563888081807685]
- [Timestamp('2008-10-03 00:00:00') nan 8.034817283174776]
- [Timestamp('2008-10-04 00:00:00') nan 5.232421409504472]
- [Timestamp('2008-10-05 00:00:00') nan 5.788982462686933]
- [Timestamp('2008-10-06 00:00:00') nan 9.686159080288487]
- [Timestamp('2008-10-07 00:00:00') nan 3.5717997249058526]
- [Timestamp('2008-10-08 00:00:00') nan 9.115367356372925]
- [Timestamp('2008-10-09 00:00:00') nan 2.482426732336247]
- [Timestamp('2008-10-10 00:00:00') nan 4.675151319046721]
- [Timestamp('2008-10-11 00:00:00') nan 5.780385009996802]
- [Timestamp('2008-10-12 00:00:00') nan 3.015769496971012]
- [Timestamp('2008-10-13 00:00:00') nan 4.109033849552386]
- [Timestamp('2008-10-14 00:00:00') nan 7.4494831700383255]
- [Timestamp('2008-10-15 00:00:00') nan 1.3444156717269067]
- [Timestamp('2008-10-16 00:00:00') nan 4.100107631929082]
- [Timestamp('2008-10-17 00:00:00') nan 4.6827141269500245]
- [Timestamp('2008-10-18 00:00:00') nan 8.552843886522854]
- [Timestamp('2008-10-19 00:00:00') nan 10.228679723959686]
- [Timestamp('2008-10-20 00:00:00') nan 3.5577100582069385]
- [Timestamp('2008-10-21 00:00:00') nan 8.008860257888403]
- [Timestamp('2008-10-22 00:00:00') nan 5.223351753271663]
- [Timestamp('2008-10-23 00:00:00') nan 5.786460006771854]
- [Timestamp('2008-10-24 00:00:00') nan 9.668567302641854]
- [Timestamp('2008-10-25 00:00:00') nan 3.569449280599662]
- [Timestamp('2008-10-26 00:00:00') nan 9.106072259978383]
- [Timestamp('2008-10-27 00:00:00') nan 2.443441264975164]
- [Timestamp('2008-10-28 00:00:00') nan 4.681720702037099]]
+ [[Timestamp('2008-09-23 00:00:00') nan 5.787875394353174]
+ [Timestamp('2008-09-24 00:00:00') nan 3.0184921018899873]
+ [Timestamp('2008-09-25 00:00:00') nan 4.105193283924933]
+ [Timestamp('2008-09-26 00:00:00') nan 7.443984932057935]
+ [Timestamp('2008-09-27 00:00:00') nan 1.3417242066738506]
+ [Timestamp('2008-09-28 00:00:00') nan 4.110000469037249]
+ [Timestamp('2008-09-29 00:00:00') nan 4.68373533969944]
+ [Timestamp('2008-09-30 00:00:00') nan 8.556604061147686]
+ [Timestamp('2008-10-01 00:00:00') nan 10.234076468269066]
+ [Timestamp('2008-10-02 00:00:00') nan 3.5705094871835987]
+ [Timestamp('2008-10-03 00:00:00') nan 8.017475942414654]
+ [Timestamp('2008-10-04 00:00:00') nan 5.231482908350902]
+ [Timestamp('2008-10-05 00:00:00') nan 5.799767076329685]
+ [Timestamp('2008-10-06 00:00:00') nan 9.676553621723126]
+ [Timestamp('2008-10-07 00:00:00') nan 3.581564358720315]
+ [Timestamp('2008-10-08 00:00:00') nan 9.1061706914672]
+ [Timestamp('2008-10-09 00:00:00') nan 2.459858990039616]
+ [Timestamp('2008-10-10 00:00:00') nan 4.677891318847479]
+ [Timestamp('2008-10-11 00:00:00') nan 5.787875394353174]
+ [Timestamp('2008-10-12 00:00:00') nan 3.0184921018899873]
+ [Timestamp('2008-10-13 00:00:00') nan 4.105193283924933]
+ [Timestamp('2008-10-14 00:00:00') nan 7.443984932057935]
+ [Timestamp('2008-10-15 00:00:00') nan 1.3417242066738506]
+ [Timestamp('2008-10-16 00:00:00') nan 4.110000469037249]
+ [Timestamp('2008-10-17 00:00:00') nan 4.68373533969944]
+ [Timestamp('2008-10-18 00:00:00') nan 8.556604061147686]
+ [Timestamp('2008-10-19 00:00:00') nan 10.234076468269066]
+ [Timestamp('2008-10-20 00:00:00') nan 3.5705094871835987]
+ [Timestamp('2008-10-21 00:00:00') nan 8.017475942414654]
+ [Timestamp('2008-10-22 00:00:00') nan 5.231482908350902]
+ [Timestamp('2008-10-23 00:00:00') nan 5.799767076329685]
+ [Timestamp('2008-10-24 00:00:00') nan 9.676553621723126]
+ [Timestamp('2008-10-25 00:00:00') nan 3.581564358720315]
+ [Timestamp('2008-10-26 00:00:00') nan 9.1061706914672]
+ [Timestamp('2008-10-27 00:00:00') nan 2.459858990039616]
+ [Timestamp('2008-10-28 00:00:00') nan 4.677891318847479]]
 
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Signal",
-        "Time": {
-            "Horizon": 36,
-            "TimeMinMax": [
-                "2000-01-01 00:00:00",
-                "2008-09-22 00:00:00"
-            ],
-            "TimeVariable": "Date"
+    "Signal": {
+        "Dataset": {
+            "Signal": "Signal",
+            "Time": {
+                "Horizon": 36,
+                "TimeMinMax": [
+                    "2000-01-01 00:00:00",
+                    "2008-09-22 00:00:00"
+                ],
+                "TimeVariable": "Date"
+            },
+            "Training_Signal_Length": 3188
         },
-        "Training_Signal_Length": 3188
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "_Signal_ConstantTrend_residue_bestCycle_byL2_residue_NoAR",
-        "Cycle": "Cycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "8",
-        "MAE": "0.07873870398852265",
-        "MAPE": "0.0184",
-        "MASE": "0.0228",
-        "RMSE": "0.09778874891626249"
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR",
+            "Cycle": "Cycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "8",
+            "MAE": "0.07894995519032036",
+            "MAPE": "0.0184",
+            "MASE": "0.0229",
+            "RMSE": "0.0979083457914809"
+        }
     }
 }
 </ModelInfo>
@@ -539,7 +594,7 @@ Forecasts
 
 
 <Forecast>
-{"Date":{"3188":"2008-09-23T00:00:00.000Z","3189":"2008-09-24T00:00:00.000Z","3190":"2008-09-25T00:00:00.000Z","3191":"2008-09-26T00:00:00.000Z","3192":"2008-09-27T00:00:00.000Z","3193":"2008-09-28T00:00:00.000Z","3194":"2008-09-29T00:00:00.000Z","3195":"2008-09-30T00:00:00.000Z","3196":"2008-10-01T00:00:00.000Z","3197":"2008-10-02T00:00:00.000Z","3198":"2008-10-03T00:00:00.000Z","3199":"2008-10-04T00:00:00.000Z","3200":"2008-10-05T00:00:00.000Z","3201":"2008-10-06T00:00:00.000Z","3202":"2008-10-07T00:00:00.000Z","3203":"2008-10-08T00:00:00.000Z","3204":"2008-10-09T00:00:00.000Z","3205":"2008-10-10T00:00:00.000Z","3206":"2008-10-11T00:00:00.000Z","3207":"2008-10-12T00:00:00.000Z","3208":"2008-10-13T00:00:00.000Z","3209":"2008-10-14T00:00:00.000Z","3210":"2008-10-15T00:00:00.000Z","3211":"2008-10-16T00:00:00.000Z","3212":"2008-10-17T00:00:00.000Z","3213":"2008-10-18T00:00:00.000Z","3214":"2008-10-19T00:00:00.000Z","3215":"2008-10-20T00:00:00.000Z","3216":"2008-10-21T00:00:00.000Z","3217":"2008-10-22T00:00:00.000Z","3218":"2008-10-23T00:00:00.000Z","3219":"2008-10-24T00:00:00.000Z","3220":"2008-10-25T00:00:00.000Z","3221":"2008-10-26T00:00:00.000Z","3222":"2008-10-27T00:00:00.000Z","3223":"2008-10-28T00:00:00.000Z"},"Signal":{"3188":null,"3189":null,"3190":null,"3191":null,"3192":null,"3193":null,"3194":null,"3195":null,"3196":null,"3197":null,"3198":null,"3199":null,"3200":null,"3201":null,"3202":null,"3203":null,"3204":null,"3205":null,"3206":null,"3207":null,"3208":null,"3209":null,"3210":null,"3211":null,"3212":null,"3213":null,"3214":null,"3215":null,"3216":null,"3217":null,"3218":null,"3219":null,"3220":null,"3221":null,"3222":null,"3223":null},"Signal_Forecast":{"3188":5.8061793598,"3189":3.0044086227,"3190":4.1087026501,"3191":7.4311436381,"3192":1.3581343816,"3193":4.1158824974,"3194":4.6848636905,"3195":8.5669451211,"3196":10.232742154,"3197":3.5638880818,"3198":8.0348172832,"3199":5.2324214095,"3200":5.7889824627,"3201":9.6861590803,"3202":3.5717997249,"3203":9.1153673564,"3204":2.4824267323,"3205":4.675151319,"3206":5.78038501,"3207":3.015769497,"3208":4.1090338496,"3209":7.44948317,"3210":1.3444156717,"3211":4.1001076319,"3212":4.682714127,"3213":8.5528438865,"3214":10.228679724,"3215":3.5577100582,"3216":8.0088602579,"3217":5.2233517533,"3218":5.7864600068,"3219":9.6685673026,"3220":3.5694492806,"3221":9.10607226,"3222":2.443441265,"3223":4.681720702}}
+{"Date":{"3188":"2008-09-23T00:00:00.000Z","3189":"2008-09-24T00:00:00.000Z","3190":"2008-09-25T00:00:00.000Z","3191":"2008-09-26T00:00:00.000Z","3192":"2008-09-27T00:00:00.000Z","3193":"2008-09-28T00:00:00.000Z","3194":"2008-09-29T00:00:00.000Z","3195":"2008-09-30T00:00:00.000Z","3196":"2008-10-01T00:00:00.000Z","3197":"2008-10-02T00:00:00.000Z","3198":"2008-10-03T00:00:00.000Z","3199":"2008-10-04T00:00:00.000Z","3200":"2008-10-05T00:00:00.000Z","3201":"2008-10-06T00:00:00.000Z","3202":"2008-10-07T00:00:00.000Z","3203":"2008-10-08T00:00:00.000Z","3204":"2008-10-09T00:00:00.000Z","3205":"2008-10-10T00:00:00.000Z","3206":"2008-10-11T00:00:00.000Z","3207":"2008-10-12T00:00:00.000Z","3208":"2008-10-13T00:00:00.000Z","3209":"2008-10-14T00:00:00.000Z","3210":"2008-10-15T00:00:00.000Z","3211":"2008-10-16T00:00:00.000Z","3212":"2008-10-17T00:00:00.000Z","3213":"2008-10-18T00:00:00.000Z","3214":"2008-10-19T00:00:00.000Z","3215":"2008-10-20T00:00:00.000Z","3216":"2008-10-21T00:00:00.000Z","3217":"2008-10-22T00:00:00.000Z","3218":"2008-10-23T00:00:00.000Z","3219":"2008-10-24T00:00:00.000Z","3220":"2008-10-25T00:00:00.000Z","3221":"2008-10-26T00:00:00.000Z","3222":"2008-10-27T00:00:00.000Z","3223":"2008-10-28T00:00:00.000Z"},"Signal":{"3188":null,"3189":null,"3190":null,"3191":null,"3192":null,"3193":null,"3194":null,"3195":null,"3196":null,"3197":null,"3198":null,"3199":null,"3200":null,"3201":null,"3202":null,"3203":null,"3204":null,"3205":null,"3206":null,"3207":null,"3208":null,"3209":null,"3210":null,"3211":null,"3212":null,"3213":null,"3214":null,"3215":null,"3216":null,"3217":null,"3218":null,"3219":null,"3220":null,"3221":null,"3222":null,"3223":null},"Signal_Forecast":{"3188":5.7878753944,"3189":3.0184921019,"3190":4.1051932839,"3191":7.4439849321,"3192":1.3417242067,"3193":4.110000469,"3194":4.6837353397,"3195":8.5566040611,"3196":10.2340764683,"3197":3.5705094872,"3198":8.0174759424,"3199":5.2314829084,"3200":5.7997670763,"3201":9.6765536217,"3202":3.5815643587,"3203":9.1061706915,"3204":2.45985899,"3205":4.6778913188,"3206":5.7878753944,"3207":3.0184921019,"3208":4.1051932839,"3209":7.4439849321,"3210":1.3417242067,"3211":4.110000469,"3212":4.6837353397,"3213":8.5566040611,"3214":10.2340764683,"3215":3.5705094872,"3216":8.0174759424,"3217":5.2314829084,"3218":5.7997670763,"3219":9.6765536217,"3220":3.5815643587,"3221":9.1061706915,"3222":2.45985899,"3223":4.6778913188}}
 </Forecast>
 
 
@@ -547,31 +602,40 @@ TEST_CYCLES_END 18
 TEST_CYCLES_START 22
 GENERATING_RANDOM_DATASET Signal_3200_D_0_constant_22_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal' 21.467981815338135
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 21.961642026901245
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2006-11-19T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=44
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=3188  Min=1.0 Max=10.6072690620626  Mean=6.035365559265394 StdDev=2.81170089800912
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=10.6072690620626  Mean=6.035365559265394 StdDev=2.81170089800912
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_Signal_ConstantTrend_residue_bestCycle_byL2_residue_NoAR' [ConstantTrend + Cycle + NoAR]
+INFO:pyaf.std:BEST_DECOMPOSITION  '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [ConstantTrend + Cycle + NoAR]
 INFO:pyaf.std:TREND_DETAIL '_Signal_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_Signal_ConstantTrend_residue_bestCycle_byL2' [Cycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_Signal_ConstantTrend_residue_bestCycle_byL2_residue_NoAR' [NoAR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0182 MAPE_Forecast=0.0185 MAPE_Test=0.0172
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0182 SMAPE_Forecast=0.0186 SMAPE_Test=0.0172
-INFO:pyaf.std:MODEL_MASE MASE_Fit=0.0299 MASE_Forecast=0.0299 MASE_Test=0.0285
-INFO:pyaf.std:MODEL_L1 L1_Fit=0.08035927682998005 L1_Forecast=0.08046165079884296 L1_Test=0.07660140958635667
-INFO:pyaf.std:MODEL_L2 L2_Fit=0.10058395866436214 L2_Forecast=0.09928341327668598 L2_Test=0.09488606854781868
+INFO:pyaf.std:CYCLE_DETAIL '_Signal_ConstantTrend_residue_bestCycle_byMAPE' [Cycle]
+INFO:pyaf.std:AUTOREG_DETAIL '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [NoAR]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0182 MAPE_Forecast=0.0185 MAPE_Test=0.0174
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0181 SMAPE_Forecast=0.0186 SMAPE_Test=0.0174
+INFO:pyaf.std:MODEL_MASE MASE_Fit=0.0298 MASE_Forecast=0.0299 MASE_Test=0.0287
+INFO:pyaf.std:MODEL_L1 L1_Fit=0.08018373505592669 L1_Forecast=0.08043030142365945 L1_Test=0.07710201467289633
+INFO:pyaf.std:MODEL_L2 L2_Fit=0.10076172073005005 L2_Forecast=0.09918163458241755 L2_Test=0.0954729371789142
 INFO:pyaf.std:MODEL_COMPLEXITY 8
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:CONSTANT_TREND ConstantTrend 6.035892395324179
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _Signal_ConstantTrend_residue_bestCycle_byMAPE 22 -0.8337871334798601 {0: -3.8565185103365085, 1: -2.043512848972768, 2: -1.1397564494944792, 3: 3.411901993395066, 4: 4.321764758929506, 5: 2.950249028400041, 6: -3.4026671446316312, 7: -2.496571497297764, 8: 0.23367614562734307, 9: -4.784501443187646, 10: -2.508881690842992, 11: -2.057749544419419, 12: 1.1322759579499762, 13: 2.490877245482375, 14: -2.9696880971880457, 15: 0.6986052974631343, 16: -1.5905526176874183, 17: -1.1429310301728437, 18: 3.8791019904668875, 19: 3.4153886861421334, 20: 2.041186309838279, 21: 3.4201797296292034}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 2.7269577980041504
+INFO:pyaf.std:START_FORECASTING '['Signal']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 3.4532644748687744
 Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
-       'cycle_internal', '_Signal_ConstantTrend_residue_bestCycle_byL2',
-       '_Signal_ConstantTrend_residue_bestCycle_byL2_residue',
-       '_Signal_ConstantTrend_residue_bestCycle_byL2_residue_NoAR',
-       '_Signal_ConstantTrend_residue_bestCycle_byL2_residue_NoAR_residue',
+       'cycle_internal', '_Signal_ConstantTrend_residue_bestCycle_byMAPE',
+       '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue',
+       '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR',
+       '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR_residue',
        '_Signal_Trend', '_Signal_Trend_residue', '_Signal_Cycle',
        '_Signal_Cycle_residue', '_Signal_AR', '_Signal_AR_residue',
        '_Signal_TransformedForecast', 'Signal_Forecast',
@@ -590,79 +654,81 @@ dtypes: datetime64[ns](1), float64(2)
 memory usage: 75.9 KB
 None
 Forecasts
- [[Timestamp('2008-09-23 00:00:00') nan 8.075768360167942]
- [Timestamp('2008-09-24 00:00:00') nan 9.442198516219904]
- [Timestamp('2008-09-25 00:00:00') nan 2.1752258510207163]
- [Timestamp('2008-09-26 00:00:00') nan 3.9903343961125572]
- [Timestamp('2008-09-27 00:00:00') nan 4.899928284109783]
- [Timestamp('2008-09-28 00:00:00') nan 9.457032054002124]
- [Timestamp('2008-09-29 00:00:00') nan 10.352585214394006]
- [Timestamp('2008-09-30 00:00:00') nan 8.982779101070935]
- [Timestamp('2008-10-01 00:00:00') nan 2.6303587625585583]
- [Timestamp('2008-10-02 00:00:00') nan 3.5348089927856456]
- [Timestamp('2008-10-03 00:00:00') nan 6.265519864697333]
- [Timestamp('2008-10-04 00:00:00') nan 1.245930323933739]
- [Timestamp('2008-10-05 00:00:00') nan 3.532538332016488]
- [Timestamp('2008-10-06 00:00:00') nan 3.9836872352346098]
- [Timestamp('2008-10-07 00:00:00') nan 7.1728256994822654]
- [Timestamp('2008-10-08 00:00:00') nan 8.5325182776875]
- [Timestamp('2008-10-09 00:00:00') nan 3.078426408014989]
- [Timestamp('2008-10-10 00:00:00') nan 6.732928136499495]
- [Timestamp('2008-10-11 00:00:00') nan 4.443009740763331]
- [Timestamp('2008-10-12 00:00:00') nan 4.897850370064029]
- [Timestamp('2008-10-13 00:00:00') nan 9.90743434261275]
- [Timestamp('2008-10-14 00:00:00') nan 9.453865513542883]
- [Timestamp('2008-10-15 00:00:00') nan 8.075768360167942]
- [Timestamp('2008-10-16 00:00:00') nan 9.442198516219904]
- [Timestamp('2008-10-17 00:00:00') nan 2.1752258510207163]
- [Timestamp('2008-10-18 00:00:00') nan 3.9903343961125572]
- [Timestamp('2008-10-19 00:00:00') nan 4.899928284109783]
- [Timestamp('2008-10-20 00:00:00') nan 9.457032054002124]
- [Timestamp('2008-10-21 00:00:00') nan 10.352585214394006]
- [Timestamp('2008-10-22 00:00:00') nan 8.982779101070935]
- [Timestamp('2008-10-23 00:00:00') nan 2.6303587625585583]
- [Timestamp('2008-10-24 00:00:00') nan 3.5348089927856456]
- [Timestamp('2008-10-25 00:00:00') nan 6.265519864697333]
- [Timestamp('2008-10-26 00:00:00') nan 1.245930323933739]
- [Timestamp('2008-10-27 00:00:00') nan 3.532538332016488]
- [Timestamp('2008-10-28 00:00:00') nan 3.9836872352346098]
- [Timestamp('2008-10-29 00:00:00') nan 7.1728256994822654]
- [Timestamp('2008-10-30 00:00:00') nan 8.5325182776875]
- [Timestamp('2008-10-31 00:00:00') nan 3.078426408014989]
- [Timestamp('2008-11-01 00:00:00') nan 6.732928136499495]
- [Timestamp('2008-11-02 00:00:00') nan 4.443009740763331]
- [Timestamp('2008-11-03 00:00:00') nan 4.897850370064029]
- [Timestamp('2008-11-04 00:00:00') nan 9.90743434261275]
- [Timestamp('2008-11-05 00:00:00') nan 9.453865513542883]]
+ [[Timestamp('2008-09-23 00:00:00') nan 8.077078705162458]
+ [Timestamp('2008-09-24 00:00:00') nan 9.456072124953383]
+ [Timestamp('2008-09-25 00:00:00') nan 2.1793738849876707]
+ [Timestamp('2008-09-26 00:00:00') nan 3.9923795463514113]
+ [Timestamp('2008-09-27 00:00:00') nan 4.8961359458297]
+ [Timestamp('2008-09-28 00:00:00') nan 9.447794388719245]
+ [Timestamp('2008-09-29 00:00:00') nan 10.357657154253685]
+ [Timestamp('2008-09-30 00:00:00') nan 8.98614142372422]
+ [Timestamp('2008-10-01 00:00:00') nan 2.633225250692548]
+ [Timestamp('2008-10-02 00:00:00') nan 3.539320898026415]
+ [Timestamp('2008-10-03 00:00:00') nan 6.269568540951522]
+ [Timestamp('2008-10-04 00:00:00') nan 1.251390952136533]
+ [Timestamp('2008-10-05 00:00:00') nan 3.5270107044811874]
+ [Timestamp('2008-10-06 00:00:00') nan 3.97814285090476]
+ [Timestamp('2008-10-07 00:00:00') nan 7.168168353274155]
+ [Timestamp('2008-10-08 00:00:00') nan 8.526769640806554]
+ [Timestamp('2008-10-09 00:00:00') nan 3.0662042981361335]
+ [Timestamp('2008-10-10 00:00:00') nan 6.734497692787313]
+ [Timestamp('2008-10-11 00:00:00') nan 4.445339777636761]
+ [Timestamp('2008-10-12 00:00:00') nan 4.8929613651513355]
+ [Timestamp('2008-10-13 00:00:00') nan 9.914994385791067]
+ [Timestamp('2008-10-14 00:00:00') nan 9.451281081466313]
+ [Timestamp('2008-10-15 00:00:00') nan 8.077078705162458]
+ [Timestamp('2008-10-16 00:00:00') nan 9.456072124953383]
+ [Timestamp('2008-10-17 00:00:00') nan 2.1793738849876707]
+ [Timestamp('2008-10-18 00:00:00') nan 3.9923795463514113]
+ [Timestamp('2008-10-19 00:00:00') nan 4.8961359458297]
+ [Timestamp('2008-10-20 00:00:00') nan 9.447794388719245]
+ [Timestamp('2008-10-21 00:00:00') nan 10.357657154253685]
+ [Timestamp('2008-10-22 00:00:00') nan 8.98614142372422]
+ [Timestamp('2008-10-23 00:00:00') nan 2.633225250692548]
+ [Timestamp('2008-10-24 00:00:00') nan 3.539320898026415]
+ [Timestamp('2008-10-25 00:00:00') nan 6.269568540951522]
+ [Timestamp('2008-10-26 00:00:00') nan 1.251390952136533]
+ [Timestamp('2008-10-27 00:00:00') nan 3.5270107044811874]
+ [Timestamp('2008-10-28 00:00:00') nan 3.97814285090476]
+ [Timestamp('2008-10-29 00:00:00') nan 7.168168353274155]
+ [Timestamp('2008-10-30 00:00:00') nan 8.526769640806554]
+ [Timestamp('2008-10-31 00:00:00') nan 3.0662042981361335]
+ [Timestamp('2008-11-01 00:00:00') nan 6.734497692787313]
+ [Timestamp('2008-11-02 00:00:00') nan 4.445339777636761]
+ [Timestamp('2008-11-03 00:00:00') nan 4.8929613651513355]
+ [Timestamp('2008-11-04 00:00:00') nan 9.914994385791067]
+ [Timestamp('2008-11-05 00:00:00') nan 9.451281081466313]]
 
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Signal",
-        "Time": {
-            "Horizon": 44,
-            "TimeMinMax": [
-                "2000-01-01 00:00:00",
-                "2008-09-22 00:00:00"
-            ],
-            "TimeVariable": "Date"
+    "Signal": {
+        "Dataset": {
+            "Signal": "Signal",
+            "Time": {
+                "Horizon": 44,
+                "TimeMinMax": [
+                    "2000-01-01 00:00:00",
+                    "2008-09-22 00:00:00"
+                ],
+                "TimeVariable": "Date"
+            },
+            "Training_Signal_Length": 3188
         },
-        "Training_Signal_Length": 3188
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "_Signal_ConstantTrend_residue_bestCycle_byL2_residue_NoAR",
-        "Cycle": "Cycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "8",
-        "MAE": "0.08046165079884296",
-        "MAPE": "0.0185",
-        "MASE": "0.0299",
-        "RMSE": "0.09928341327668598"
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR",
+            "Cycle": "Cycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "8",
+            "MAE": "0.08043030142365945",
+            "MAPE": "0.0185",
+            "MASE": "0.0299",
+            "RMSE": "0.09918163458241755"
+        }
     }
 }
 </ModelInfo>
@@ -671,7 +737,7 @@ Forecasts
 
 
 <Forecast>
-{"Date":{"3188":"2008-09-23T00:00:00.000Z","3189":"2008-09-24T00:00:00.000Z","3190":"2008-09-25T00:00:00.000Z","3191":"2008-09-26T00:00:00.000Z","3192":"2008-09-27T00:00:00.000Z","3193":"2008-09-28T00:00:00.000Z","3194":"2008-09-29T00:00:00.000Z","3195":"2008-09-30T00:00:00.000Z","3196":"2008-10-01T00:00:00.000Z","3197":"2008-10-02T00:00:00.000Z","3198":"2008-10-03T00:00:00.000Z","3199":"2008-10-04T00:00:00.000Z","3200":"2008-10-05T00:00:00.000Z","3201":"2008-10-06T00:00:00.000Z","3202":"2008-10-07T00:00:00.000Z","3203":"2008-10-08T00:00:00.000Z","3204":"2008-10-09T00:00:00.000Z","3205":"2008-10-10T00:00:00.000Z","3206":"2008-10-11T00:00:00.000Z","3207":"2008-10-12T00:00:00.000Z","3208":"2008-10-13T00:00:00.000Z","3209":"2008-10-14T00:00:00.000Z","3210":"2008-10-15T00:00:00.000Z","3211":"2008-10-16T00:00:00.000Z","3212":"2008-10-17T00:00:00.000Z","3213":"2008-10-18T00:00:00.000Z","3214":"2008-10-19T00:00:00.000Z","3215":"2008-10-20T00:00:00.000Z","3216":"2008-10-21T00:00:00.000Z","3217":"2008-10-22T00:00:00.000Z","3218":"2008-10-23T00:00:00.000Z","3219":"2008-10-24T00:00:00.000Z","3220":"2008-10-25T00:00:00.000Z","3221":"2008-10-26T00:00:00.000Z","3222":"2008-10-27T00:00:00.000Z","3223":"2008-10-28T00:00:00.000Z","3224":"2008-10-29T00:00:00.000Z","3225":"2008-10-30T00:00:00.000Z","3226":"2008-10-31T00:00:00.000Z","3227":"2008-11-01T00:00:00.000Z","3228":"2008-11-02T00:00:00.000Z","3229":"2008-11-03T00:00:00.000Z","3230":"2008-11-04T00:00:00.000Z","3231":"2008-11-05T00:00:00.000Z"},"Signal":{"3188":null,"3189":null,"3190":null,"3191":null,"3192":null,"3193":null,"3194":null,"3195":null,"3196":null,"3197":null,"3198":null,"3199":null,"3200":null,"3201":null,"3202":null,"3203":null,"3204":null,"3205":null,"3206":null,"3207":null,"3208":null,"3209":null,"3210":null,"3211":null,"3212":null,"3213":null,"3214":null,"3215":null,"3216":null,"3217":null,"3218":null,"3219":null,"3220":null,"3221":null,"3222":null,"3223":null,"3224":null,"3225":null,"3226":null,"3227":null,"3228":null,"3229":null,"3230":null,"3231":null},"Signal_Forecast":{"3188":8.0757683602,"3189":9.4421985162,"3190":2.175225851,"3191":3.9903343961,"3192":4.8999282841,"3193":9.457032054,"3194":10.3525852144,"3195":8.9827791011,"3196":2.6303587626,"3197":3.5348089928,"3198":6.2655198647,"3199":1.2459303239,"3200":3.532538332,"3201":3.9836872352,"3202":7.1728256995,"3203":8.5325182777,"3204":3.078426408,"3205":6.7329281365,"3206":4.4430097408,"3207":4.8978503701,"3208":9.9074343426,"3209":9.4538655135,"3210":8.0757683602,"3211":9.4421985162,"3212":2.175225851,"3213":3.9903343961,"3214":4.8999282841,"3215":9.457032054,"3216":10.3525852144,"3217":8.9827791011,"3218":2.6303587626,"3219":3.5348089928,"3220":6.2655198647,"3221":1.2459303239,"3222":3.532538332,"3223":3.9836872352,"3224":7.1728256995,"3225":8.5325182777,"3226":3.078426408,"3227":6.7329281365,"3228":4.4430097408,"3229":4.8978503701,"3230":9.9074343426,"3231":9.4538655135}}
+{"Date":{"3188":"2008-09-23T00:00:00.000Z","3189":"2008-09-24T00:00:00.000Z","3190":"2008-09-25T00:00:00.000Z","3191":"2008-09-26T00:00:00.000Z","3192":"2008-09-27T00:00:00.000Z","3193":"2008-09-28T00:00:00.000Z","3194":"2008-09-29T00:00:00.000Z","3195":"2008-09-30T00:00:00.000Z","3196":"2008-10-01T00:00:00.000Z","3197":"2008-10-02T00:00:00.000Z","3198":"2008-10-03T00:00:00.000Z","3199":"2008-10-04T00:00:00.000Z","3200":"2008-10-05T00:00:00.000Z","3201":"2008-10-06T00:00:00.000Z","3202":"2008-10-07T00:00:00.000Z","3203":"2008-10-08T00:00:00.000Z","3204":"2008-10-09T00:00:00.000Z","3205":"2008-10-10T00:00:00.000Z","3206":"2008-10-11T00:00:00.000Z","3207":"2008-10-12T00:00:00.000Z","3208":"2008-10-13T00:00:00.000Z","3209":"2008-10-14T00:00:00.000Z","3210":"2008-10-15T00:00:00.000Z","3211":"2008-10-16T00:00:00.000Z","3212":"2008-10-17T00:00:00.000Z","3213":"2008-10-18T00:00:00.000Z","3214":"2008-10-19T00:00:00.000Z","3215":"2008-10-20T00:00:00.000Z","3216":"2008-10-21T00:00:00.000Z","3217":"2008-10-22T00:00:00.000Z","3218":"2008-10-23T00:00:00.000Z","3219":"2008-10-24T00:00:00.000Z","3220":"2008-10-25T00:00:00.000Z","3221":"2008-10-26T00:00:00.000Z","3222":"2008-10-27T00:00:00.000Z","3223":"2008-10-28T00:00:00.000Z","3224":"2008-10-29T00:00:00.000Z","3225":"2008-10-30T00:00:00.000Z","3226":"2008-10-31T00:00:00.000Z","3227":"2008-11-01T00:00:00.000Z","3228":"2008-11-02T00:00:00.000Z","3229":"2008-11-03T00:00:00.000Z","3230":"2008-11-04T00:00:00.000Z","3231":"2008-11-05T00:00:00.000Z"},"Signal":{"3188":null,"3189":null,"3190":null,"3191":null,"3192":null,"3193":null,"3194":null,"3195":null,"3196":null,"3197":null,"3198":null,"3199":null,"3200":null,"3201":null,"3202":null,"3203":null,"3204":null,"3205":null,"3206":null,"3207":null,"3208":null,"3209":null,"3210":null,"3211":null,"3212":null,"3213":null,"3214":null,"3215":null,"3216":null,"3217":null,"3218":null,"3219":null,"3220":null,"3221":null,"3222":null,"3223":null,"3224":null,"3225":null,"3226":null,"3227":null,"3228":null,"3229":null,"3230":null,"3231":null},"Signal_Forecast":{"3188":8.0770787052,"3189":9.456072125,"3190":2.179373885,"3191":3.9923795464,"3192":4.8961359458,"3193":9.4477943887,"3194":10.3576571543,"3195":8.9861414237,"3196":2.6332252507,"3197":3.539320898,"3198":6.269568541,"3199":1.2513909521,"3200":3.5270107045,"3201":3.9781428509,"3202":7.1681683533,"3203":8.5267696408,"3204":3.0662042981,"3205":6.7344976928,"3206":4.4453397776,"3207":4.8929613652,"3208":9.9149943858,"3209":9.4512810815,"3210":8.0770787052,"3211":9.456072125,"3212":2.179373885,"3213":3.9923795464,"3214":4.8961359458,"3215":9.4477943887,"3216":10.3576571543,"3217":8.9861414237,"3218":2.6332252507,"3219":3.539320898,"3220":6.269568541,"3221":1.2513909521,"3222":3.5270107045,"3223":3.9781428509,"3224":7.1681683533,"3225":8.5267696408,"3226":3.0662042981,"3227":6.7344976928,"3228":4.4453397776,"3229":4.8929613652,"3230":9.9149943858,"3231":9.4512810815}}
 </Forecast>
 
 

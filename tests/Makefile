@@ -891,6 +891,241 @@ hierarchical/test_hierarchy_AU_TD.py  :
  hierarchical :  hierarchical/test_hierarchy_AU_TD.py hierarchical/test_hierarchy_AU_OC.py hierarchical/test_hierarchy_AU_MO.py hierarchical/test_hierarchy_AU_BU.py hierarchical/test_hierarchy_AU_AllMethods_Exogenous_per_node.py hierarchical/test_hierarchy_AU_AllMethods_Exogenous_all_nodes.py hierarchical/test_hierarchy_AU_AllMethods.py hierarchical/test_hierarchy_AU.py hierarchical/test_grouped_signals_TD.py hierarchical/test_grouped_signals_OC.py hierarchical/test_grouped_signals_MO.py hierarchical/test_grouped_signals_BU.py hierarchical/test_grouped_signals_AllMethods_Exogenous_per_node.py hierarchical/test_grouped_signals_AllMethods_Exogenous_all_nodes.py hierarchical/test_grouped_signals_AllMethods_2.py hierarchical/test_grouped_signals_AllMethods.py hierarchical/test_grouped.py  
  
 
+missing_data/gen_air_passengers_tests.py  :  
+	 $(PYTHON)  tests/missing_data/gen_air_passengers_tests.py  >  logs/missing_data_gen_air_passengers_tests.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_gen_air_passengers_tests.log logs/missing_data_gen_air_passengers_tests.log  >  logs/missing_data_gen_air_passengers_tests.log.diff
+	 tail -10  logs/missing_data_gen_air_passengers_tests.log.diff 
+
+missing_data/gen_ozone_tests.py  :  
+	 $(PYTHON)  tests/missing_data/gen_ozone_tests.py  >  logs/missing_data_gen_ozone_tests.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_gen_ozone_tests.log logs/missing_data_gen_ozone_tests.log  >  logs/missing_data_gen_ozone_tests.log.diff
+	 tail -10  logs/missing_data_gen_ozone_tests.log.diff 
+
+missing_data/test_missing_data_air_passengers_DiscardRow_Constant.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_air_passengers_DiscardRow_Constant.py  >  logs/missing_data_test_missing_data_air_passengers_DiscardRow_Constant.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_air_passengers_DiscardRow_Constant.log logs/missing_data_test_missing_data_air_passengers_DiscardRow_Constant.log  >  logs/missing_data_test_missing_data_air_passengers_DiscardRow_Constant.log.diff
+	 tail -10  logs/missing_data_test_missing_data_air_passengers_DiscardRow_Constant.log.diff 
+
+missing_data/test_missing_data_air_passengers_DiscardRow_DiscardRow.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_air_passengers_DiscardRow_DiscardRow.py  >  logs/missing_data_test_missing_data_air_passengers_DiscardRow_DiscardRow.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_air_passengers_DiscardRow_DiscardRow.log logs/missing_data_test_missing_data_air_passengers_DiscardRow_DiscardRow.log  >  logs/missing_data_test_missing_data_air_passengers_DiscardRow_DiscardRow.log.diff
+	 tail -10  logs/missing_data_test_missing_data_air_passengers_DiscardRow_DiscardRow.log.diff 
+
+missing_data/test_missing_data_air_passengers_DiscardRow_Interpolate.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_air_passengers_DiscardRow_Interpolate.py  >  logs/missing_data_test_missing_data_air_passengers_DiscardRow_Interpolate.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_air_passengers_DiscardRow_Interpolate.log logs/missing_data_test_missing_data_air_passengers_DiscardRow_Interpolate.log  >  logs/missing_data_test_missing_data_air_passengers_DiscardRow_Interpolate.log.diff
+	 tail -10  logs/missing_data_test_missing_data_air_passengers_DiscardRow_Interpolate.log.diff 
+
+missing_data/test_missing_data_air_passengers_DiscardRow_Mean.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_air_passengers_DiscardRow_Mean.py  >  logs/missing_data_test_missing_data_air_passengers_DiscardRow_Mean.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_air_passengers_DiscardRow_Mean.log logs/missing_data_test_missing_data_air_passengers_DiscardRow_Mean.log  >  logs/missing_data_test_missing_data_air_passengers_DiscardRow_Mean.log.diff
+	 tail -10  logs/missing_data_test_missing_data_air_passengers_DiscardRow_Mean.log.diff 
+
+missing_data/test_missing_data_air_passengers_DiscardRow_Median.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_air_passengers_DiscardRow_Median.py  >  logs/missing_data_test_missing_data_air_passengers_DiscardRow_Median.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_air_passengers_DiscardRow_Median.log logs/missing_data_test_missing_data_air_passengers_DiscardRow_Median.log  >  logs/missing_data_test_missing_data_air_passengers_DiscardRow_Median.log.diff
+	 tail -10  logs/missing_data_test_missing_data_air_passengers_DiscardRow_Median.log.diff 
+
+missing_data/test_missing_data_air_passengers_DiscardRow_None.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_air_passengers_DiscardRow_None.py  >  logs/missing_data_test_missing_data_air_passengers_DiscardRow_None.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_air_passengers_DiscardRow_None.log logs/missing_data_test_missing_data_air_passengers_DiscardRow_None.log  >  logs/missing_data_test_missing_data_air_passengers_DiscardRow_None.log.diff
+	 tail -10  logs/missing_data_test_missing_data_air_passengers_DiscardRow_None.log.diff 
+
+missing_data/test_missing_data_air_passengers_DiscardRow_PreviousValue.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_air_passengers_DiscardRow_PreviousValue.py  >  logs/missing_data_test_missing_data_air_passengers_DiscardRow_PreviousValue.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_air_passengers_DiscardRow_PreviousValue.log logs/missing_data_test_missing_data_air_passengers_DiscardRow_PreviousValue.log  >  logs/missing_data_test_missing_data_air_passengers_DiscardRow_PreviousValue.log.diff
+	 tail -10  logs/missing_data_test_missing_data_air_passengers_DiscardRow_PreviousValue.log.diff 
+
+missing_data/test_missing_data_air_passengers_Interpolate_Constant.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_air_passengers_Interpolate_Constant.py  >  logs/missing_data_test_missing_data_air_passengers_Interpolate_Constant.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_air_passengers_Interpolate_Constant.log logs/missing_data_test_missing_data_air_passengers_Interpolate_Constant.log  >  logs/missing_data_test_missing_data_air_passengers_Interpolate_Constant.log.diff
+	 tail -10  logs/missing_data_test_missing_data_air_passengers_Interpolate_Constant.log.diff 
+
+missing_data/test_missing_data_air_passengers_Interpolate_DiscardRow.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_air_passengers_Interpolate_DiscardRow.py  >  logs/missing_data_test_missing_data_air_passengers_Interpolate_DiscardRow.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_air_passengers_Interpolate_DiscardRow.log logs/missing_data_test_missing_data_air_passengers_Interpolate_DiscardRow.log  >  logs/missing_data_test_missing_data_air_passengers_Interpolate_DiscardRow.log.diff
+	 tail -10  logs/missing_data_test_missing_data_air_passengers_Interpolate_DiscardRow.log.diff 
+
+missing_data/test_missing_data_air_passengers_Interpolate_Interpolate.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_air_passengers_Interpolate_Interpolate.py  >  logs/missing_data_test_missing_data_air_passengers_Interpolate_Interpolate.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_air_passengers_Interpolate_Interpolate.log logs/missing_data_test_missing_data_air_passengers_Interpolate_Interpolate.log  >  logs/missing_data_test_missing_data_air_passengers_Interpolate_Interpolate.log.diff
+	 tail -10  logs/missing_data_test_missing_data_air_passengers_Interpolate_Interpolate.log.diff 
+
+missing_data/test_missing_data_air_passengers_Interpolate_Mean.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_air_passengers_Interpolate_Mean.py  >  logs/missing_data_test_missing_data_air_passengers_Interpolate_Mean.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_air_passengers_Interpolate_Mean.log logs/missing_data_test_missing_data_air_passengers_Interpolate_Mean.log  >  logs/missing_data_test_missing_data_air_passengers_Interpolate_Mean.log.diff
+	 tail -10  logs/missing_data_test_missing_data_air_passengers_Interpolate_Mean.log.diff 
+
+missing_data/test_missing_data_air_passengers_Interpolate_Median.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_air_passengers_Interpolate_Median.py  >  logs/missing_data_test_missing_data_air_passengers_Interpolate_Median.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_air_passengers_Interpolate_Median.log logs/missing_data_test_missing_data_air_passengers_Interpolate_Median.log  >  logs/missing_data_test_missing_data_air_passengers_Interpolate_Median.log.diff
+	 tail -10  logs/missing_data_test_missing_data_air_passengers_Interpolate_Median.log.diff 
+
+missing_data/test_missing_data_air_passengers_Interpolate_None.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_air_passengers_Interpolate_None.py  >  logs/missing_data_test_missing_data_air_passengers_Interpolate_None.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_air_passengers_Interpolate_None.log logs/missing_data_test_missing_data_air_passengers_Interpolate_None.log  >  logs/missing_data_test_missing_data_air_passengers_Interpolate_None.log.diff
+	 tail -10  logs/missing_data_test_missing_data_air_passengers_Interpolate_None.log.diff 
+
+missing_data/test_missing_data_air_passengers_Interpolate_PreviousValue.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_air_passengers_Interpolate_PreviousValue.py  >  logs/missing_data_test_missing_data_air_passengers_Interpolate_PreviousValue.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_air_passengers_Interpolate_PreviousValue.log logs/missing_data_test_missing_data_air_passengers_Interpolate_PreviousValue.log  >  logs/missing_data_test_missing_data_air_passengers_Interpolate_PreviousValue.log.diff
+	 tail -10  logs/missing_data_test_missing_data_air_passengers_Interpolate_PreviousValue.log.diff 
+
+missing_data/test_missing_data_air_passengers_None_Constant.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_air_passengers_None_Constant.py  >  logs/missing_data_test_missing_data_air_passengers_None_Constant.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_air_passengers_None_Constant.log logs/missing_data_test_missing_data_air_passengers_None_Constant.log  >  logs/missing_data_test_missing_data_air_passengers_None_Constant.log.diff
+	 tail -10  logs/missing_data_test_missing_data_air_passengers_None_Constant.log.diff 
+
+missing_data/test_missing_data_air_passengers_None_DiscardRow.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_air_passengers_None_DiscardRow.py  >  logs/missing_data_test_missing_data_air_passengers_None_DiscardRow.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_air_passengers_None_DiscardRow.log logs/missing_data_test_missing_data_air_passengers_None_DiscardRow.log  >  logs/missing_data_test_missing_data_air_passengers_None_DiscardRow.log.diff
+	 tail -10  logs/missing_data_test_missing_data_air_passengers_None_DiscardRow.log.diff 
+
+missing_data/test_missing_data_air_passengers_None_Interpolate.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_air_passengers_None_Interpolate.py  >  logs/missing_data_test_missing_data_air_passengers_None_Interpolate.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_air_passengers_None_Interpolate.log logs/missing_data_test_missing_data_air_passengers_None_Interpolate.log  >  logs/missing_data_test_missing_data_air_passengers_None_Interpolate.log.diff
+	 tail -10  logs/missing_data_test_missing_data_air_passengers_None_Interpolate.log.diff 
+
+missing_data/test_missing_data_air_passengers_None_Mean.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_air_passengers_None_Mean.py  >  logs/missing_data_test_missing_data_air_passengers_None_Mean.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_air_passengers_None_Mean.log logs/missing_data_test_missing_data_air_passengers_None_Mean.log  >  logs/missing_data_test_missing_data_air_passengers_None_Mean.log.diff
+	 tail -10  logs/missing_data_test_missing_data_air_passengers_None_Mean.log.diff 
+
+missing_data/test_missing_data_air_passengers_None_Median.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_air_passengers_None_Median.py  >  logs/missing_data_test_missing_data_air_passengers_None_Median.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_air_passengers_None_Median.log logs/missing_data_test_missing_data_air_passengers_None_Median.log  >  logs/missing_data_test_missing_data_air_passengers_None_Median.log.diff
+	 tail -10  logs/missing_data_test_missing_data_air_passengers_None_Median.log.diff 
+
+missing_data/test_missing_data_air_passengers_None_None.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_air_passengers_None_None.py  >  logs/missing_data_test_missing_data_air_passengers_None_None.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_air_passengers_None_None.log logs/missing_data_test_missing_data_air_passengers_None_None.log  >  logs/missing_data_test_missing_data_air_passengers_None_None.log.diff
+	 tail -10  logs/missing_data_test_missing_data_air_passengers_None_None.log.diff 
+
+missing_data/test_missing_data_air_passengers_None_PreviousValue.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_air_passengers_None_PreviousValue.py  >  logs/missing_data_test_missing_data_air_passengers_None_PreviousValue.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_air_passengers_None_PreviousValue.log logs/missing_data_test_missing_data_air_passengers_None_PreviousValue.log  >  logs/missing_data_test_missing_data_air_passengers_None_PreviousValue.log.diff
+	 tail -10  logs/missing_data_test_missing_data_air_passengers_None_PreviousValue.log.diff 
+
+missing_data/test_missing_data_air_passengers_generic.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_air_passengers_generic.py  >  logs/missing_data_test_missing_data_air_passengers_generic.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_air_passengers_generic.log logs/missing_data_test_missing_data_air_passengers_generic.log  >  logs/missing_data_test_missing_data_air_passengers_generic.log.diff
+	 tail -10  logs/missing_data_test_missing_data_air_passengers_generic.log.diff 
+
+missing_data/test_missing_data_ozone_DiscardRow_Constant.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_ozone_DiscardRow_Constant.py  >  logs/missing_data_test_missing_data_ozone_DiscardRow_Constant.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_ozone_DiscardRow_Constant.log logs/missing_data_test_missing_data_ozone_DiscardRow_Constant.log  >  logs/missing_data_test_missing_data_ozone_DiscardRow_Constant.log.diff
+	 tail -10  logs/missing_data_test_missing_data_ozone_DiscardRow_Constant.log.diff 
+
+missing_data/test_missing_data_ozone_DiscardRow_DiscardRow.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_ozone_DiscardRow_DiscardRow.py  >  logs/missing_data_test_missing_data_ozone_DiscardRow_DiscardRow.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_ozone_DiscardRow_DiscardRow.log logs/missing_data_test_missing_data_ozone_DiscardRow_DiscardRow.log  >  logs/missing_data_test_missing_data_ozone_DiscardRow_DiscardRow.log.diff
+	 tail -10  logs/missing_data_test_missing_data_ozone_DiscardRow_DiscardRow.log.diff 
+
+missing_data/test_missing_data_ozone_DiscardRow_Interpolate.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_ozone_DiscardRow_Interpolate.py  >  logs/missing_data_test_missing_data_ozone_DiscardRow_Interpolate.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_ozone_DiscardRow_Interpolate.log logs/missing_data_test_missing_data_ozone_DiscardRow_Interpolate.log  >  logs/missing_data_test_missing_data_ozone_DiscardRow_Interpolate.log.diff
+	 tail -10  logs/missing_data_test_missing_data_ozone_DiscardRow_Interpolate.log.diff 
+
+missing_data/test_missing_data_ozone_DiscardRow_Mean.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_ozone_DiscardRow_Mean.py  >  logs/missing_data_test_missing_data_ozone_DiscardRow_Mean.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_ozone_DiscardRow_Mean.log logs/missing_data_test_missing_data_ozone_DiscardRow_Mean.log  >  logs/missing_data_test_missing_data_ozone_DiscardRow_Mean.log.diff
+	 tail -10  logs/missing_data_test_missing_data_ozone_DiscardRow_Mean.log.diff 
+
+missing_data/test_missing_data_ozone_DiscardRow_Median.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_ozone_DiscardRow_Median.py  >  logs/missing_data_test_missing_data_ozone_DiscardRow_Median.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_ozone_DiscardRow_Median.log logs/missing_data_test_missing_data_ozone_DiscardRow_Median.log  >  logs/missing_data_test_missing_data_ozone_DiscardRow_Median.log.diff
+	 tail -10  logs/missing_data_test_missing_data_ozone_DiscardRow_Median.log.diff 
+
+missing_data/test_missing_data_ozone_DiscardRow_None.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_ozone_DiscardRow_None.py  >  logs/missing_data_test_missing_data_ozone_DiscardRow_None.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_ozone_DiscardRow_None.log logs/missing_data_test_missing_data_ozone_DiscardRow_None.log  >  logs/missing_data_test_missing_data_ozone_DiscardRow_None.log.diff
+	 tail -10  logs/missing_data_test_missing_data_ozone_DiscardRow_None.log.diff 
+
+missing_data/test_missing_data_ozone_DiscardRow_PreviousValue.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_ozone_DiscardRow_PreviousValue.py  >  logs/missing_data_test_missing_data_ozone_DiscardRow_PreviousValue.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_ozone_DiscardRow_PreviousValue.log logs/missing_data_test_missing_data_ozone_DiscardRow_PreviousValue.log  >  logs/missing_data_test_missing_data_ozone_DiscardRow_PreviousValue.log.diff
+	 tail -10  logs/missing_data_test_missing_data_ozone_DiscardRow_PreviousValue.log.diff 
+
+missing_data/test_missing_data_ozone_Interpolate_Constant.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_ozone_Interpolate_Constant.py  >  logs/missing_data_test_missing_data_ozone_Interpolate_Constant.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_ozone_Interpolate_Constant.log logs/missing_data_test_missing_data_ozone_Interpolate_Constant.log  >  logs/missing_data_test_missing_data_ozone_Interpolate_Constant.log.diff
+	 tail -10  logs/missing_data_test_missing_data_ozone_Interpolate_Constant.log.diff 
+
+missing_data/test_missing_data_ozone_Interpolate_DiscardRow.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_ozone_Interpolate_DiscardRow.py  >  logs/missing_data_test_missing_data_ozone_Interpolate_DiscardRow.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_ozone_Interpolate_DiscardRow.log logs/missing_data_test_missing_data_ozone_Interpolate_DiscardRow.log  >  logs/missing_data_test_missing_data_ozone_Interpolate_DiscardRow.log.diff
+	 tail -10  logs/missing_data_test_missing_data_ozone_Interpolate_DiscardRow.log.diff 
+
+missing_data/test_missing_data_ozone_Interpolate_Interpolate.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_ozone_Interpolate_Interpolate.py  >  logs/missing_data_test_missing_data_ozone_Interpolate_Interpolate.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_ozone_Interpolate_Interpolate.log logs/missing_data_test_missing_data_ozone_Interpolate_Interpolate.log  >  logs/missing_data_test_missing_data_ozone_Interpolate_Interpolate.log.diff
+	 tail -10  logs/missing_data_test_missing_data_ozone_Interpolate_Interpolate.log.diff 
+
+missing_data/test_missing_data_ozone_Interpolate_Mean.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_ozone_Interpolate_Mean.py  >  logs/missing_data_test_missing_data_ozone_Interpolate_Mean.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_ozone_Interpolate_Mean.log logs/missing_data_test_missing_data_ozone_Interpolate_Mean.log  >  logs/missing_data_test_missing_data_ozone_Interpolate_Mean.log.diff
+	 tail -10  logs/missing_data_test_missing_data_ozone_Interpolate_Mean.log.diff 
+
+missing_data/test_missing_data_ozone_Interpolate_Median.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_ozone_Interpolate_Median.py  >  logs/missing_data_test_missing_data_ozone_Interpolate_Median.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_ozone_Interpolate_Median.log logs/missing_data_test_missing_data_ozone_Interpolate_Median.log  >  logs/missing_data_test_missing_data_ozone_Interpolate_Median.log.diff
+	 tail -10  logs/missing_data_test_missing_data_ozone_Interpolate_Median.log.diff 
+
+missing_data/test_missing_data_ozone_Interpolate_None.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_ozone_Interpolate_None.py  >  logs/missing_data_test_missing_data_ozone_Interpolate_None.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_ozone_Interpolate_None.log logs/missing_data_test_missing_data_ozone_Interpolate_None.log  >  logs/missing_data_test_missing_data_ozone_Interpolate_None.log.diff
+	 tail -10  logs/missing_data_test_missing_data_ozone_Interpolate_None.log.diff 
+
+missing_data/test_missing_data_ozone_Interpolate_PreviousValue.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_ozone_Interpolate_PreviousValue.py  >  logs/missing_data_test_missing_data_ozone_Interpolate_PreviousValue.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_ozone_Interpolate_PreviousValue.log logs/missing_data_test_missing_data_ozone_Interpolate_PreviousValue.log  >  logs/missing_data_test_missing_data_ozone_Interpolate_PreviousValue.log.diff
+	 tail -10  logs/missing_data_test_missing_data_ozone_Interpolate_PreviousValue.log.diff 
+
+missing_data/test_missing_data_ozone_None_Constant.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_ozone_None_Constant.py  >  logs/missing_data_test_missing_data_ozone_None_Constant.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_ozone_None_Constant.log logs/missing_data_test_missing_data_ozone_None_Constant.log  >  logs/missing_data_test_missing_data_ozone_None_Constant.log.diff
+	 tail -10  logs/missing_data_test_missing_data_ozone_None_Constant.log.diff 
+
+missing_data/test_missing_data_ozone_None_DiscardRow.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_ozone_None_DiscardRow.py  >  logs/missing_data_test_missing_data_ozone_None_DiscardRow.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_ozone_None_DiscardRow.log logs/missing_data_test_missing_data_ozone_None_DiscardRow.log  >  logs/missing_data_test_missing_data_ozone_None_DiscardRow.log.diff
+	 tail -10  logs/missing_data_test_missing_data_ozone_None_DiscardRow.log.diff 
+
+missing_data/test_missing_data_ozone_None_Interpolate.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_ozone_None_Interpolate.py  >  logs/missing_data_test_missing_data_ozone_None_Interpolate.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_ozone_None_Interpolate.log logs/missing_data_test_missing_data_ozone_None_Interpolate.log  >  logs/missing_data_test_missing_data_ozone_None_Interpolate.log.diff
+	 tail -10  logs/missing_data_test_missing_data_ozone_None_Interpolate.log.diff 
+
+missing_data/test_missing_data_ozone_None_Mean.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_ozone_None_Mean.py  >  logs/missing_data_test_missing_data_ozone_None_Mean.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_ozone_None_Mean.log logs/missing_data_test_missing_data_ozone_None_Mean.log  >  logs/missing_data_test_missing_data_ozone_None_Mean.log.diff
+	 tail -10  logs/missing_data_test_missing_data_ozone_None_Mean.log.diff 
+
+missing_data/test_missing_data_ozone_None_Median.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_ozone_None_Median.py  >  logs/missing_data_test_missing_data_ozone_None_Median.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_ozone_None_Median.log logs/missing_data_test_missing_data_ozone_None_Median.log  >  logs/missing_data_test_missing_data_ozone_None_Median.log.diff
+	 tail -10  logs/missing_data_test_missing_data_ozone_None_Median.log.diff 
+
+missing_data/test_missing_data_ozone_None_None.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_ozone_None_None.py  >  logs/missing_data_test_missing_data_ozone_None_None.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_ozone_None_None.log logs/missing_data_test_missing_data_ozone_None_None.log  >  logs/missing_data_test_missing_data_ozone_None_None.log.diff
+	 tail -10  logs/missing_data_test_missing_data_ozone_None_None.log.diff 
+
+missing_data/test_missing_data_ozone_None_PreviousValue.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_ozone_None_PreviousValue.py  >  logs/missing_data_test_missing_data_ozone_None_PreviousValue.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_ozone_None_PreviousValue.log logs/missing_data_test_missing_data_ozone_None_PreviousValue.log  >  logs/missing_data_test_missing_data_ozone_None_PreviousValue.log.diff
+	 tail -10  logs/missing_data_test_missing_data_ozone_None_PreviousValue.log.diff 
+
+missing_data/test_missing_data_ozone_generic.py  :  
+	 $(PYTHON)  tests/missing_data/test_missing_data_ozone_generic.py  >  logs/missing_data_test_missing_data_ozone_generic.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_test_missing_data_ozone_generic.log logs/missing_data_test_missing_data_ozone_generic.log  >  logs/missing_data_test_missing_data_ozone_generic.log.diff
+	 tail -10  logs/missing_data_test_missing_data_ozone_generic.log.diff 
+
+
+
+ missing_data :  missing_data/test_missing_data_ozone_generic.py missing_data/test_missing_data_ozone_None_PreviousValue.py missing_data/test_missing_data_ozone_None_None.py missing_data/test_missing_data_ozone_None_Median.py missing_data/test_missing_data_ozone_None_Mean.py missing_data/test_missing_data_ozone_None_Interpolate.py missing_data/test_missing_data_ozone_None_DiscardRow.py missing_data/test_missing_data_ozone_None_Constant.py missing_data/test_missing_data_ozone_Interpolate_PreviousValue.py missing_data/test_missing_data_ozone_Interpolate_None.py missing_data/test_missing_data_ozone_Interpolate_Median.py missing_data/test_missing_data_ozone_Interpolate_Mean.py missing_data/test_missing_data_ozone_Interpolate_Interpolate.py missing_data/test_missing_data_ozone_Interpolate_DiscardRow.py missing_data/test_missing_data_ozone_Interpolate_Constant.py missing_data/test_missing_data_ozone_DiscardRow_PreviousValue.py missing_data/test_missing_data_ozone_DiscardRow_None.py missing_data/test_missing_data_ozone_DiscardRow_Median.py missing_data/test_missing_data_ozone_DiscardRow_Mean.py missing_data/test_missing_data_ozone_DiscardRow_Interpolate.py missing_data/test_missing_data_ozone_DiscardRow_DiscardRow.py missing_data/test_missing_data_ozone_DiscardRow_Constant.py missing_data/test_missing_data_air_passengers_generic.py missing_data/test_missing_data_air_passengers_None_PreviousValue.py missing_data/test_missing_data_air_passengers_None_None.py missing_data/test_missing_data_air_passengers_None_Median.py missing_data/test_missing_data_air_passengers_None_Mean.py missing_data/test_missing_data_air_passengers_None_Interpolate.py missing_data/test_missing_data_air_passengers_None_DiscardRow.py missing_data/test_missing_data_air_passengers_None_Constant.py missing_data/test_missing_data_air_passengers_Interpolate_PreviousValue.py missing_data/test_missing_data_air_passengers_Interpolate_None.py missing_data/test_missing_data_air_passengers_Interpolate_Median.py missing_data/test_missing_data_air_passengers_Interpolate_Mean.py missing_data/test_missing_data_air_passengers_Interpolate_Interpolate.py missing_data/test_missing_data_air_passengers_Interpolate_DiscardRow.py missing_data/test_missing_data_air_passengers_Interpolate_Constant.py missing_data/test_missing_data_air_passengers_DiscardRow_PreviousValue.py missing_data/test_missing_data_air_passengers_DiscardRow_None.py missing_data/test_missing_data_air_passengers_DiscardRow_Median.py missing_data/test_missing_data_air_passengers_DiscardRow_Mean.py missing_data/test_missing_data_air_passengers_DiscardRow_Interpolate.py missing_data/test_missing_data_air_passengers_DiscardRow_DiscardRow.py missing_data/test_missing_data_air_passengers_DiscardRow_Constant.py missing_data/gen_ozone_tests.py missing_data/gen_air_passengers_tests.py  
+ 
+
 model_control/test_ozone_all_models_enabled.py  :  
 	 $(PYTHON)  tests/model_control/test_ozone_all_models_enabled.py  >  logs/model_control_test_ozone_all_models_enabled.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/model_control_test_ozone_all_models_enabled.log logs/model_control_test_ozone_all_models_enabled.log  >  logs/model_control_test_ozone_all_models_enabled.log.diff
@@ -986,6 +1221,16 @@ neuralnet/test_ozone_tensorflow.py  :
  neuralnet :  neuralnet/test_ozone_tensorflow.py neuralnet/test_ozone_rnn_only_MLP.py neuralnet/test_ozone_rnn_only_LSTM.py neuralnet/test_ozone_rnn_only.py neuralnet/test_ozone__GPU_theano.py neuralnet/test_ozone__GPU_tensorflow.py neuralnet/test_ozone__CPU_theano.py neuralnet/test_ozone_GPU.py neuralnet/test_air_passengers_tensorflow.py neuralnet/test_air_passengers_rnn_only.py neuralnet/test_air_passengers_GPU_theano.py neuralnet/test_air_passengers_GPU_tensorflow.py neuralnet/test_air_passengers_GPU.py neuralnet/test_air_passengers_CPU_theano.py  
  
 
+perf/gen_ar_speed_tests.py  :  
+	 $(PYTHON)  tests/perf/gen_ar_speed_tests.py  >  logs/perf_gen_ar_speed_tests.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_gen_ar_speed_tests.log logs/perf_gen_ar_speed_tests.log  >  logs/perf_gen_ar_speed_tests.log.diff
+	 tail -10  logs/perf_gen_ar_speed_tests.log.diff 
+
+perf/gen_long_cycles_tests.py  :  
+	 $(PYTHON)  tests/perf/gen_long_cycles_tests.py  >  logs/perf_gen_long_cycles_tests.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_gen_long_cycles_tests.log logs/perf_gen_long_cycles_tests.log  >  logs/perf_gen_long_cycles_tests.log.diff
+	 tail -10  logs/perf_gen_long_cycles_tests.log.diff 
+
 perf/test_cycles_full_long.py  :  
 	 $(PYTHON)  tests/perf/test_cycles_full_long.py  >  logs/perf_test_cycles_full_long.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_cycles_full_long.log logs/perf_test_cycles_full_long.log  >  logs/perf_test_cycles_full_long.log.diff
@@ -996,10 +1241,205 @@ perf/test_cycles_full_long_long.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_cycles_full_long_long.log logs/perf_test_cycles_full_long_long.log  >  logs/perf_test_cycles_full_long_long.log.diff
 	 tail -10  logs/perf_test_cycles_full_long_long.log.diff 
 
-perf/test_cycles_full_long_long_2.py  :  
-	 $(PYTHON)  tests/perf/test_cycles_full_long_long_2.py  >  logs/perf_test_cycles_full_long_long_2.log  2>&1
-	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_cycles_full_long_long_2.log logs/perf_test_cycles_full_long_long_2.log  >  logs/perf_test_cycles_full_long_long_2.log.diff
-	 tail -10  logs/perf_test_cycles_full_long_long_2.log.diff 
+perf/test_long_cycles_nbrows_cycle_length_1000_140.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_1000_140.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_1000_140.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_1000_140.log logs/perf_test_long_cycles_nbrows_cycle_length_1000_140.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_1000_140.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_1000_140.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_1000_20.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_1000_20.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_1000_20.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_1000_20.log logs/perf_test_long_cycles_nbrows_cycle_length_1000_20.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_1000_20.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_1000_20.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_1000_200.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_1000_200.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_1000_200.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_1000_200.log logs/perf_test_long_cycles_nbrows_cycle_length_1000_200.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_1000_200.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_1000_200.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_1000_260.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_1000_260.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_1000_260.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_1000_260.log logs/perf_test_long_cycles_nbrows_cycle_length_1000_260.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_1000_260.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_1000_260.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_1000_320.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_1000_320.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_1000_320.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_1000_320.log logs/perf_test_long_cycles_nbrows_cycle_length_1000_320.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_1000_320.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_1000_320.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_1000_380.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_1000_380.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_1000_380.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_1000_380.log logs/perf_test_long_cycles_nbrows_cycle_length_1000_380.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_1000_380.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_1000_380.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_1000_440.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_1000_440.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_1000_440.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_1000_440.log logs/perf_test_long_cycles_nbrows_cycle_length_1000_440.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_1000_440.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_1000_440.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_1000_80.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_1000_80.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_1000_80.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_1000_80.log logs/perf_test_long_cycles_nbrows_cycle_length_1000_80.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_1000_80.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_1000_80.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_11000_140.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_11000_140.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_11000_140.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_11000_140.log logs/perf_test_long_cycles_nbrows_cycle_length_11000_140.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_11000_140.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_11000_140.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_11000_20.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_11000_20.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_11000_20.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_11000_20.log logs/perf_test_long_cycles_nbrows_cycle_length_11000_20.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_11000_20.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_11000_20.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_11000_200.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_11000_200.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_11000_200.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_11000_200.log logs/perf_test_long_cycles_nbrows_cycle_length_11000_200.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_11000_200.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_11000_200.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_11000_260.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_11000_260.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_11000_260.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_11000_260.log logs/perf_test_long_cycles_nbrows_cycle_length_11000_260.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_11000_260.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_11000_260.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_11000_320.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_11000_320.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_11000_320.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_11000_320.log logs/perf_test_long_cycles_nbrows_cycle_length_11000_320.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_11000_320.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_11000_320.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_11000_380.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_11000_380.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_11000_380.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_11000_380.log logs/perf_test_long_cycles_nbrows_cycle_length_11000_380.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_11000_380.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_11000_380.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_11000_440.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_11000_440.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_11000_440.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_11000_440.log logs/perf_test_long_cycles_nbrows_cycle_length_11000_440.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_11000_440.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_11000_440.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_11000_80.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_11000_80.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_11000_80.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_11000_80.log logs/perf_test_long_cycles_nbrows_cycle_length_11000_80.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_11000_80.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_11000_80.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_21000_140.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_21000_140.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_21000_140.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_21000_140.log logs/perf_test_long_cycles_nbrows_cycle_length_21000_140.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_21000_140.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_21000_140.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_21000_20.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_21000_20.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_21000_20.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_21000_20.log logs/perf_test_long_cycles_nbrows_cycle_length_21000_20.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_21000_20.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_21000_20.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_21000_200.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_21000_200.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_21000_200.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_21000_200.log logs/perf_test_long_cycles_nbrows_cycle_length_21000_200.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_21000_200.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_21000_200.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_21000_260.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_21000_260.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_21000_260.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_21000_260.log logs/perf_test_long_cycles_nbrows_cycle_length_21000_260.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_21000_260.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_21000_260.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_21000_320.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_21000_320.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_21000_320.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_21000_320.log logs/perf_test_long_cycles_nbrows_cycle_length_21000_320.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_21000_320.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_21000_320.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_21000_380.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_21000_380.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_21000_380.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_21000_380.log logs/perf_test_long_cycles_nbrows_cycle_length_21000_380.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_21000_380.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_21000_380.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_21000_440.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_21000_440.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_21000_440.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_21000_440.log logs/perf_test_long_cycles_nbrows_cycle_length_21000_440.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_21000_440.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_21000_440.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_21000_80.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_21000_80.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_21000_80.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_21000_80.log logs/perf_test_long_cycles_nbrows_cycle_length_21000_80.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_21000_80.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_21000_80.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_31000_140.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_31000_140.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_31000_140.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_31000_140.log logs/perf_test_long_cycles_nbrows_cycle_length_31000_140.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_31000_140.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_31000_140.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_31000_20.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_31000_20.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_31000_20.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_31000_20.log logs/perf_test_long_cycles_nbrows_cycle_length_31000_20.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_31000_20.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_31000_20.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_31000_200.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_31000_200.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_31000_200.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_31000_200.log logs/perf_test_long_cycles_nbrows_cycle_length_31000_200.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_31000_200.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_31000_200.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_31000_260.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_31000_260.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_31000_260.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_31000_260.log logs/perf_test_long_cycles_nbrows_cycle_length_31000_260.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_31000_260.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_31000_260.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_31000_320.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_31000_320.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_31000_320.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_31000_320.log logs/perf_test_long_cycles_nbrows_cycle_length_31000_320.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_31000_320.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_31000_320.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_31000_380.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_31000_380.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_31000_380.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_31000_380.log logs/perf_test_long_cycles_nbrows_cycle_length_31000_380.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_31000_380.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_31000_380.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_31000_440.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_31000_440.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_31000_440.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_31000_440.log logs/perf_test_long_cycles_nbrows_cycle_length_31000_440.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_31000_440.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_31000_440.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_31000_80.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_31000_80.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_31000_80.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_31000_80.log logs/perf_test_long_cycles_nbrows_cycle_length_31000_80.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_31000_80.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_31000_80.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_41000_140.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_41000_140.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_41000_140.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_41000_140.log logs/perf_test_long_cycles_nbrows_cycle_length_41000_140.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_41000_140.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_41000_140.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_41000_20.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_41000_20.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_41000_20.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_41000_20.log logs/perf_test_long_cycles_nbrows_cycle_length_41000_20.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_41000_20.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_41000_20.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_41000_200.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_41000_200.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_41000_200.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_41000_200.log logs/perf_test_long_cycles_nbrows_cycle_length_41000_200.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_41000_200.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_41000_200.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_41000_260.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_41000_260.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_41000_260.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_41000_260.log logs/perf_test_long_cycles_nbrows_cycle_length_41000_260.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_41000_260.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_41000_260.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_41000_320.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_41000_320.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_41000_320.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_41000_320.log logs/perf_test_long_cycles_nbrows_cycle_length_41000_320.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_41000_320.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_41000_320.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_41000_380.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_41000_380.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_41000_380.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_41000_380.log logs/perf_test_long_cycles_nbrows_cycle_length_41000_380.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_41000_380.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_41000_380.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_41000_440.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_41000_440.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_41000_440.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_41000_440.log logs/perf_test_long_cycles_nbrows_cycle_length_41000_440.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_41000_440.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_41000_440.log.diff 
+
+perf/test_long_cycles_nbrows_cycle_length_41000_80.py  :  
+	 $(PYTHON)  tests/perf/test_long_cycles_nbrows_cycle_length_41000_80.py  >  logs/perf_test_long_cycles_nbrows_cycle_length_41000_80.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_long_cycles_nbrows_cycle_length_41000_80.log logs/perf_test_long_cycles_nbrows_cycle_length_41000_80.log  >  logs/perf_test_long_cycles_nbrows_cycle_length_41000_80.log.diff
+	 tail -10  logs/perf_test_long_cycles_nbrows_cycle_length_41000_80.log.diff 
 
 perf/test_ozone_ar_speed.py  :  
 	 $(PYTHON)  tests/perf/test_ozone_ar_speed.py  >  logs/perf_test_ozone_ar_speed.log  2>&1
@@ -1010,6 +1450,106 @@ perf/test_ozone_ar_speed_many.py  :
 	 $(PYTHON)  tests/perf/test_ozone_ar_speed_many.py  >  logs/perf_test_ozone_ar_speed_many.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_ozone_ar_speed_many.log logs/perf_test_ozone_ar_speed_many.log  >  logs/perf_test_ozone_ar_speed_many.log.diff
 	 tail -10  logs/perf_test_ozone_ar_speed_many.log.diff 
+
+perf/test_ozone_ar_speed_order_0.py  :  
+	 $(PYTHON)  tests/perf/test_ozone_ar_speed_order_0.py  >  logs/perf_test_ozone_ar_speed_order_0.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_ozone_ar_speed_order_0.log logs/perf_test_ozone_ar_speed_order_0.log  >  logs/perf_test_ozone_ar_speed_order_0.log.diff
+	 tail -10  logs/perf_test_ozone_ar_speed_order_0.log.diff 
+
+perf/test_ozone_ar_speed_order_100.py  :  
+	 $(PYTHON)  tests/perf/test_ozone_ar_speed_order_100.py  >  logs/perf_test_ozone_ar_speed_order_100.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_ozone_ar_speed_order_100.log logs/perf_test_ozone_ar_speed_order_100.log  >  logs/perf_test_ozone_ar_speed_order_100.log.diff
+	 tail -10  logs/perf_test_ozone_ar_speed_order_100.log.diff 
+
+perf/test_ozone_ar_speed_order_150.py  :  
+	 $(PYTHON)  tests/perf/test_ozone_ar_speed_order_150.py  >  logs/perf_test_ozone_ar_speed_order_150.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_ozone_ar_speed_order_150.log logs/perf_test_ozone_ar_speed_order_150.log  >  logs/perf_test_ozone_ar_speed_order_150.log.diff
+	 tail -10  logs/perf_test_ozone_ar_speed_order_150.log.diff 
+
+perf/test_ozone_ar_speed_order_200.py  :  
+	 $(PYTHON)  tests/perf/test_ozone_ar_speed_order_200.py  >  logs/perf_test_ozone_ar_speed_order_200.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_ozone_ar_speed_order_200.log logs/perf_test_ozone_ar_speed_order_200.log  >  logs/perf_test_ozone_ar_speed_order_200.log.diff
+	 tail -10  logs/perf_test_ozone_ar_speed_order_200.log.diff 
+
+perf/test_ozone_ar_speed_order_250.py  :  
+	 $(PYTHON)  tests/perf/test_ozone_ar_speed_order_250.py  >  logs/perf_test_ozone_ar_speed_order_250.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_ozone_ar_speed_order_250.log logs/perf_test_ozone_ar_speed_order_250.log  >  logs/perf_test_ozone_ar_speed_order_250.log.diff
+	 tail -10  logs/perf_test_ozone_ar_speed_order_250.log.diff 
+
+perf/test_ozone_ar_speed_order_300.py  :  
+	 $(PYTHON)  tests/perf/test_ozone_ar_speed_order_300.py  >  logs/perf_test_ozone_ar_speed_order_300.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_ozone_ar_speed_order_300.log logs/perf_test_ozone_ar_speed_order_300.log  >  logs/perf_test_ozone_ar_speed_order_300.log.diff
+	 tail -10  logs/perf_test_ozone_ar_speed_order_300.log.diff 
+
+perf/test_ozone_ar_speed_order_350.py  :  
+	 $(PYTHON)  tests/perf/test_ozone_ar_speed_order_350.py  >  logs/perf_test_ozone_ar_speed_order_350.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_ozone_ar_speed_order_350.log logs/perf_test_ozone_ar_speed_order_350.log  >  logs/perf_test_ozone_ar_speed_order_350.log.diff
+	 tail -10  logs/perf_test_ozone_ar_speed_order_350.log.diff 
+
+perf/test_ozone_ar_speed_order_400.py  :  
+	 $(PYTHON)  tests/perf/test_ozone_ar_speed_order_400.py  >  logs/perf_test_ozone_ar_speed_order_400.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_ozone_ar_speed_order_400.log logs/perf_test_ozone_ar_speed_order_400.log  >  logs/perf_test_ozone_ar_speed_order_400.log.diff
+	 tail -10  logs/perf_test_ozone_ar_speed_order_400.log.diff 
+
+perf/test_ozone_ar_speed_order_450.py  :  
+	 $(PYTHON)  tests/perf/test_ozone_ar_speed_order_450.py  >  logs/perf_test_ozone_ar_speed_order_450.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_ozone_ar_speed_order_450.log logs/perf_test_ozone_ar_speed_order_450.log  >  logs/perf_test_ozone_ar_speed_order_450.log.diff
+	 tail -10  logs/perf_test_ozone_ar_speed_order_450.log.diff 
+
+perf/test_ozone_ar_speed_order_50.py  :  
+	 $(PYTHON)  tests/perf/test_ozone_ar_speed_order_50.py  >  logs/perf_test_ozone_ar_speed_order_50.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_ozone_ar_speed_order_50.log logs/perf_test_ozone_ar_speed_order_50.log  >  logs/perf_test_ozone_ar_speed_order_50.log.diff
+	 tail -10  logs/perf_test_ozone_ar_speed_order_50.log.diff 
+
+perf/test_ozone_ar_speed_order_500.py  :  
+	 $(PYTHON)  tests/perf/test_ozone_ar_speed_order_500.py  >  logs/perf_test_ozone_ar_speed_order_500.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_ozone_ar_speed_order_500.log logs/perf_test_ozone_ar_speed_order_500.log  >  logs/perf_test_ozone_ar_speed_order_500.log.diff
+	 tail -10  logs/perf_test_ozone_ar_speed_order_500.log.diff 
+
+perf/test_ozone_ar_speed_order_550.py  :  
+	 $(PYTHON)  tests/perf/test_ozone_ar_speed_order_550.py  >  logs/perf_test_ozone_ar_speed_order_550.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_ozone_ar_speed_order_550.log logs/perf_test_ozone_ar_speed_order_550.log  >  logs/perf_test_ozone_ar_speed_order_550.log.diff
+	 tail -10  logs/perf_test_ozone_ar_speed_order_550.log.diff 
+
+perf/test_ozone_ar_speed_order_600.py  :  
+	 $(PYTHON)  tests/perf/test_ozone_ar_speed_order_600.py  >  logs/perf_test_ozone_ar_speed_order_600.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_ozone_ar_speed_order_600.log logs/perf_test_ozone_ar_speed_order_600.log  >  logs/perf_test_ozone_ar_speed_order_600.log.diff
+	 tail -10  logs/perf_test_ozone_ar_speed_order_600.log.diff 
+
+perf/test_ozone_ar_speed_order_650.py  :  
+	 $(PYTHON)  tests/perf/test_ozone_ar_speed_order_650.py  >  logs/perf_test_ozone_ar_speed_order_650.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_ozone_ar_speed_order_650.log logs/perf_test_ozone_ar_speed_order_650.log  >  logs/perf_test_ozone_ar_speed_order_650.log.diff
+	 tail -10  logs/perf_test_ozone_ar_speed_order_650.log.diff 
+
+perf/test_ozone_ar_speed_order_700.py  :  
+	 $(PYTHON)  tests/perf/test_ozone_ar_speed_order_700.py  >  logs/perf_test_ozone_ar_speed_order_700.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_ozone_ar_speed_order_700.log logs/perf_test_ozone_ar_speed_order_700.log  >  logs/perf_test_ozone_ar_speed_order_700.log.diff
+	 tail -10  logs/perf_test_ozone_ar_speed_order_700.log.diff 
+
+perf/test_ozone_ar_speed_order_750.py  :  
+	 $(PYTHON)  tests/perf/test_ozone_ar_speed_order_750.py  >  logs/perf_test_ozone_ar_speed_order_750.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_ozone_ar_speed_order_750.log logs/perf_test_ozone_ar_speed_order_750.log  >  logs/perf_test_ozone_ar_speed_order_750.log.diff
+	 tail -10  logs/perf_test_ozone_ar_speed_order_750.log.diff 
+
+perf/test_ozone_ar_speed_order_800.py  :  
+	 $(PYTHON)  tests/perf/test_ozone_ar_speed_order_800.py  >  logs/perf_test_ozone_ar_speed_order_800.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_ozone_ar_speed_order_800.log logs/perf_test_ozone_ar_speed_order_800.log  >  logs/perf_test_ozone_ar_speed_order_800.log.diff
+	 tail -10  logs/perf_test_ozone_ar_speed_order_800.log.diff 
+
+perf/test_ozone_ar_speed_order_850.py  :  
+	 $(PYTHON)  tests/perf/test_ozone_ar_speed_order_850.py  >  logs/perf_test_ozone_ar_speed_order_850.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_ozone_ar_speed_order_850.log logs/perf_test_ozone_ar_speed_order_850.log  >  logs/perf_test_ozone_ar_speed_order_850.log.diff
+	 tail -10  logs/perf_test_ozone_ar_speed_order_850.log.diff 
+
+perf/test_ozone_ar_speed_order_900.py  :  
+	 $(PYTHON)  tests/perf/test_ozone_ar_speed_order_900.py  >  logs/perf_test_ozone_ar_speed_order_900.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_ozone_ar_speed_order_900.log logs/perf_test_ozone_ar_speed_order_900.log  >  logs/perf_test_ozone_ar_speed_order_900.log.diff
+	 tail -10  logs/perf_test_ozone_ar_speed_order_900.log.diff 
+
+perf/test_ozone_ar_speed_order_950.py  :  
+	 $(PYTHON)  tests/perf/test_ozone_ar_speed_order_950.py  >  logs/perf_test_ozone_ar_speed_order_950.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_test_ozone_ar_speed_order_950.log logs/perf_test_ozone_ar_speed_order_950.log  >  logs/perf_test_ozone_ar_speed_order_950.log.diff
+	 tail -10  logs/perf_test_ozone_ar_speed_order_950.log.diff 
 
 perf/test_ozone_debug_perf.py  :  
 	 $(PYTHON)  tests/perf/test_ozone_debug_perf.py  >  logs/perf_test_ozone_debug_perf.log  2>&1
@@ -1053,7 +1593,7 @@ perf/test_web-traffic-time-series-forecasting_all.py  :
 
 
 
- perf :  perf/test_web-traffic-time-series-forecasting_all.py perf/test_web-traffic-time-series-forecasting.py perf/test_perf2.py perf/test_perf1.py perf/test_parallel.py perf/test_ozone_long_series_2.py perf/test_ozone_long_series.py perf/test_ozone_debug_perf.py perf/test_ozone_ar_speed_many.py perf/test_ozone_ar_speed.py perf/test_cycles_full_long_long_2.py perf/test_cycles_full_long_long.py perf/test_cycles_full_long.py  
+ perf :  perf/test_web-traffic-time-series-forecasting_all.py perf/test_web-traffic-time-series-forecasting.py perf/test_perf2.py perf/test_perf1.py perf/test_parallel.py perf/test_ozone_long_series_2.py perf/test_ozone_long_series.py perf/test_ozone_debug_perf.py perf/test_ozone_ar_speed_order_950.py perf/test_ozone_ar_speed_order_900.py perf/test_ozone_ar_speed_order_850.py perf/test_ozone_ar_speed_order_800.py perf/test_ozone_ar_speed_order_750.py perf/test_ozone_ar_speed_order_700.py perf/test_ozone_ar_speed_order_650.py perf/test_ozone_ar_speed_order_600.py perf/test_ozone_ar_speed_order_550.py perf/test_ozone_ar_speed_order_500.py perf/test_ozone_ar_speed_order_50.py perf/test_ozone_ar_speed_order_450.py perf/test_ozone_ar_speed_order_400.py perf/test_ozone_ar_speed_order_350.py perf/test_ozone_ar_speed_order_300.py perf/test_ozone_ar_speed_order_250.py perf/test_ozone_ar_speed_order_200.py perf/test_ozone_ar_speed_order_150.py perf/test_ozone_ar_speed_order_100.py perf/test_ozone_ar_speed_order_0.py perf/test_ozone_ar_speed_many.py perf/test_ozone_ar_speed.py perf/test_long_cycles_nbrows_cycle_length_41000_80.py perf/test_long_cycles_nbrows_cycle_length_41000_440.py perf/test_long_cycles_nbrows_cycle_length_41000_380.py perf/test_long_cycles_nbrows_cycle_length_41000_320.py perf/test_long_cycles_nbrows_cycle_length_41000_260.py perf/test_long_cycles_nbrows_cycle_length_41000_200.py perf/test_long_cycles_nbrows_cycle_length_41000_20.py perf/test_long_cycles_nbrows_cycle_length_41000_140.py perf/test_long_cycles_nbrows_cycle_length_31000_80.py perf/test_long_cycles_nbrows_cycle_length_31000_440.py perf/test_long_cycles_nbrows_cycle_length_31000_380.py perf/test_long_cycles_nbrows_cycle_length_31000_320.py perf/test_long_cycles_nbrows_cycle_length_31000_260.py perf/test_long_cycles_nbrows_cycle_length_31000_200.py perf/test_long_cycles_nbrows_cycle_length_31000_20.py perf/test_long_cycles_nbrows_cycle_length_31000_140.py perf/test_long_cycles_nbrows_cycle_length_21000_80.py perf/test_long_cycles_nbrows_cycle_length_21000_440.py perf/test_long_cycles_nbrows_cycle_length_21000_380.py perf/test_long_cycles_nbrows_cycle_length_21000_320.py perf/test_long_cycles_nbrows_cycle_length_21000_260.py perf/test_long_cycles_nbrows_cycle_length_21000_200.py perf/test_long_cycles_nbrows_cycle_length_21000_20.py perf/test_long_cycles_nbrows_cycle_length_21000_140.py perf/test_long_cycles_nbrows_cycle_length_11000_80.py perf/test_long_cycles_nbrows_cycle_length_11000_440.py perf/test_long_cycles_nbrows_cycle_length_11000_380.py perf/test_long_cycles_nbrows_cycle_length_11000_320.py perf/test_long_cycles_nbrows_cycle_length_11000_260.py perf/test_long_cycles_nbrows_cycle_length_11000_200.py perf/test_long_cycles_nbrows_cycle_length_11000_20.py perf/test_long_cycles_nbrows_cycle_length_11000_140.py perf/test_long_cycles_nbrows_cycle_length_1000_80.py perf/test_long_cycles_nbrows_cycle_length_1000_440.py perf/test_long_cycles_nbrows_cycle_length_1000_380.py perf/test_long_cycles_nbrows_cycle_length_1000_320.py perf/test_long_cycles_nbrows_cycle_length_1000_260.py perf/test_long_cycles_nbrows_cycle_length_1000_200.py perf/test_long_cycles_nbrows_cycle_length_1000_20.py perf/test_long_cycles_nbrows_cycle_length_1000_140.py perf/test_cycles_full_long_long.py perf/test_cycles_full_long.py perf/gen_long_cycles_tests.py perf/gen_ar_speed_tests.py  
  
 
 perfs/test_ozone_perf_measure.py  :  
@@ -1384,9 +1924,9 @@ xgb/test_ozone_xgbx_exogenous.py  :
 
 # ********************************************** 
 
-all:  artificial basic_checks bugs cross_validation croston exog expsmooth func HeartRateTimeSeries heroku hierarchical  HourOfWeek model_control perf svr transformations  neuralnet real-life  time_res perfs demos xgb xeon-phi-parallel sampling temporal_hierarchy WeekOfMonth 
+all:  artificial basic_checks bugs cross_validation croston exog expsmooth func HeartRateTimeSeries heroku hierarchical  HourOfWeek model_control perf svr transformations  neuralnet real-life  time_res perfs demos xgb xeon-phi-parallel sampling temporal_hierarchy WeekOfMonth missing_data 
 	
 
-build-test :  demos basic_checks cross_validation croston exog heroku hierarchical model_control perfs svr transformations func real-life  time_res xgb sampling HourOfWeek WeekOfMonth 
+build-test :  demos basic_checks cross_validation croston exog heroku hierarchical model_control perfs svr transformations func real-life  time_res xgb sampling HourOfWeek WeekOfMonth missing_data 
 	
 

@@ -27,7 +27,7 @@ Data columns (total 2 columns):
  1   TV.advert  40 non-null     float64
 dtypes: float64(2)
 memory usage: 768.0 bytes
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Quotes' 4.178548336029053
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Quotes']' 2.7035975456237793
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Index' TimeMin=2002.0 TimeMax=2004.25 TimeDelta=0.08333333333333333 Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Quotes' Length=40  Min=8.394680000000001 Max=18.438979999999997  Mean=13.604347 StdDev=2.369165266733412
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='RelDiff_Quotes' Min=-0.9999998617059067 Max=38888522.8393915  Mean=972213.1063974078 StdDev=6071468.676646217
@@ -43,22 +43,31 @@ INFO:pyaf.std:MODEL_MASE MASE_Fit=2.4446 MASE_Forecast=0.7626 MASE_Test=2.1211
 INFO:pyaf.std:MODEL_L1 L1_Fit=3.368315168993535 L1_Forecast=1.0451022900788 L1_Test=4.889243758295139
 INFO:pyaf.std:MODEL_L2 L2_Fit=4.77675507548661 L2_Forecast=1.282249697252878 L2_Test=5.03116626898096
 INFO:pyaf.std:MODEL_COMPLEXITY 39
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:REALTIVE_DIFFERENCING_TRANSFORMATION RelativeDifference 0.4555787859781169
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:CONSTANT_TREND ConstantTrend 0.006617895414000985
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES RelDiff_Quotes_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_PLOTTING
-INFO:matplotlib.font_manager:Could not open font file /usr/share/fonts/truetype/unifont/unifont_sample.ttf: In FT2Font: Could not set the fontsize
-INFO:matplotlib.font_manager:Could not open font file /usr/share/fonts/truetype/noto/NotoColorEmoji.ttf: In FT2Font: Can not load face.  Unknown file format.
-INFO:matplotlib.font_manager:Could not open font file /home/antoine/.fonts/UnicodeFonts/Unicode.org/fonts/TestHVAROne.otf: In FT2Font: Can not load face.
-INFO:matplotlib.font_manager:Could not open font file /home/antoine/.fonts/UnicodeFonts/Apple/fonts/NISC18030.ttf: In FT2Font: Could not set the fontsize
-INFO:matplotlib.font_manager:Could not open font file /home/antoine/.fonts/UnicodeFonts/Apple/fonts/Inconsolata-g-Powerline.ttf: In FT2Font: Can not load face.  Unknown file format.
 INFO:matplotlib.font_manager:Could not open font file /home/antoine/.fonts/UnicodeFonts/truetype/unifont/unifont_sample.ttf: In FT2Font: Could not set the fontsize
-INFO:matplotlib.font_manager:Could not open font file /home/antoine/.fonts/UnicodeFonts/Apple/fonts/Apple Color Emoji.ttf: In FT2Font: Could not set the fontsize
+INFO:matplotlib.font_manager:Could not open font file /home/antoine/.fonts/UnicodeFonts/Apple/fonts/NISC18030.ttf: In FT2Font: Could not set the fontsize
+INFO:matplotlib.font_manager:Could not open font file /usr/share/fonts/truetype/unifont/unifont_sample.ttf: In FT2Font: Could not set the fontsize
 INFO:matplotlib.font_manager:Could not open font file /home/antoine/.fonts/UnicodeFonts/truetype/noto/NotoColorEmoji.ttf: In FT2Font: Can not load face.  Unknown file format.
+INFO:matplotlib.font_manager:Could not open font file /home/antoine/.fonts/UnicodeFonts/Unicode.org/fonts/TestHVAROne.otf: In FT2Font: Can not load face.
+INFO:matplotlib.font_manager:Could not open font file /home/antoine/.fonts/UnicodeFonts/Apple/fonts/Inconsolata-g-Powerline.ttf: In FT2Font: Can not load face.  Unknown file format.
+INFO:matplotlib.font_manager:Could not open font file /home/antoine/.fonts/UnicodeFonts/Apple/fonts/Apple Color Emoji.ttf: In FT2Font: Could not set the fontsize
+INFO:matplotlib.font_manager:Could not open font file /usr/share/fonts/truetype/noto/NotoColorEmoji.ttf: In FT2Font: Can not load face.  Unknown file format.
 INFO:matplotlib.font_manager:Could not open font file /home/antoine/.fonts/UnicodeFonts/Unicode.org/fonts/AdobeVFPrototype-Subset.otf: In FT2Font: Can not load face.
 INFO:matplotlib.font_manager:generated new fontManager
-INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 26.588268518447876
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.16761350631713867
+INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 15.72731614112854
+INFO:pyaf.std:START_FORECASTING '['Quotes']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Quotes']' 0.23804903030395508
 Forecast Columns  Index(['Index', 'Quotes', 'row_number', 'Index_Normalized', 'RelDiff_Quotes',
        'RelDiff_Quotes_ConstantTrend', 'RelDiff_Quotes_ConstantTrend_residue',
        'RelDiff_Quotes_ConstantTrend_residue_zeroCycle',
@@ -92,31 +101,33 @@ Forecasts
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Quotes",
-        "Time": {
-            "Horizon": 4,
-            "TimeMinMax": [
-                "2002.0",
-                "2005.25"
-            ],
-            "TimeVariable": "Index"
+    "Quotes": {
+        "Dataset": {
+            "Signal": "Quotes",
+            "Time": {
+                "Horizon": 4,
+                "TimeMinMax": [
+                    "2002.0",
+                    "2005.25"
+                ],
+                "TimeVariable": "Index"
+            },
+            "Training_Signal_Length": 40
         },
-        "Training_Signal_Length": 40
-    },
-    "Model": {
-        "AR_Model": "XGBX",
-        "Best_Decomposition": "RelDiff_Quotes_ConstantTrend_residue_zeroCycle_residue_XGBX(10)",
-        "Cycle": "NoCycle",
-        "Signal_Transoformation": "RelativeDifference",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "39",
-        "MAE": "1.0451022900788",
-        "MAPE": "0.0773",
-        "MASE": "0.7626",
-        "RMSE": "1.282249697252878"
+        "Model": {
+            "AR_Model": "XGBX",
+            "Best_Decomposition": "RelDiff_Quotes_ConstantTrend_residue_zeroCycle_residue_XGBX(10)",
+            "Cycle": "NoCycle",
+            "Signal_Transoformation": "RelativeDifference",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "39",
+            "MAE": "1.0451022900788",
+            "MAPE": "0.0773",
+            "MASE": "0.7626",
+            "RMSE": "1.282249697252878"
+        }
     }
 }
 </ModelInfo>

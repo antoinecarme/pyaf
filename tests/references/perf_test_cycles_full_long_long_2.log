@@ -2,7 +2,7 @@ INFO:pyaf.std:START_TRAINING 'Signal'
 TEST_CYCLES_START 1000 2
 GENERATING_RANDOM_DATASET Signal_1000_H_0_constant_2_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal' 12.918746948242188
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 9.403700351715088
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2000-02-02T18:00:00.000000 TimeDelta=<DateOffset: hours=1> Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=988  Min=1.0 Max=1.5805498168821508  Mean=1.299637182701963 StdDev=0.09868256890934886
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=1.5805498168821508  Mean=1.299637182701963 StdDev=0.09868256890934886
@@ -17,10 +17,19 @@ INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7036 MASE_Forecast=0.6868 MASE_Test=0.6852
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.07933069003280466 L1_Forecast=0.0754756044876106 L1_Test=0.061552096762087394
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.09946618816511571 L2_Forecast=0.09604506040385123 L2_Test=0.07941840031586232
 INFO:pyaf.std:MODEL_COMPLEXITY 0
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:CONSTANT_TREND ConstantTrend 1.2969193906134493
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.5580096244812012
+INFO:pyaf.std:START_FORECASTING '['Signal']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 0.2497539520263672
 INFO:pyaf.std:START_TRAINING 'Signal'
 Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
@@ -54,31 +63,33 @@ Forecasts
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Signal",
-        "Time": {
-            "Horizon": 4,
-            "TimeMinMax": [
-                "2000-01-01 00:00:00",
-                "2000-02-11 03:00:00"
-            ],
-            "TimeVariable": "Date"
+    "Signal": {
+        "Dataset": {
+            "Signal": "Signal",
+            "Time": {
+                "Horizon": 4,
+                "TimeMinMax": [
+                    "2000-01-01 00:00:00",
+                    "2000-02-11 03:00:00"
+                ],
+                "TimeVariable": "Date"
+            },
+            "Training_Signal_Length": 988
         },
-        "Training_Signal_Length": 988
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
-        "Cycle": "NoCycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "0",
-        "MAE": "0.0754756044876106",
-        "MAPE": "0.0571",
-        "MASE": "0.6868",
-        "RMSE": "0.09604506040385123"
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
+            "Cycle": "NoCycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "0",
+            "MAE": "0.0754756044876106",
+            "MAPE": "0.0571",
+            "MASE": "0.6868",
+            "RMSE": "0.09604506040385123"
+        }
     }
 }
 </ModelInfo>
@@ -95,7 +106,7 @@ TEST_CYCLES_END 2
 TEST_CYCLES_START 2000 2
 GENERATING_RANDOM_DATASET Signal_2000_H_0_constant_2_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal' 16.235893726348877
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 15.901494264602661
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2000-03-07T02:00:00.000000 TimeDelta=<DateOffset: hours=1> Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=1988  Min=1.0 Max=1.62171178280901  Mean=1.3027321147079434 StdDev=0.09768320075731325
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=1.62171178280901  Mean=1.3027321147079434 StdDev=0.09768320075731325
@@ -110,10 +121,19 @@ INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7032 MASE_Forecast=0.6834 MASE_Test=0.5396
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.07776359355366923 L1_Forecast=0.0774335242915975 L1_Test=0.08427414277671641
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.09782779950765252 L2_Forecast=0.09709086902935903 L2_Test=0.09892246327802084
 INFO:pyaf.std:MODEL_COMPLEXITY 0
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:CONSTANT_TREND ConstantTrend 1.3025940993785818
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 1.0447039604187012
+INFO:pyaf.std:START_FORECASTING '['Signal']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 0.3984379768371582
 INFO:pyaf.std:START_TRAINING 'Signal'
 Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
@@ -147,31 +167,33 @@ Forecasts
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Signal",
-        "Time": {
-            "Horizon": 4,
-            "TimeMinMax": [
-                "2000-01-01 00:00:00",
-                "2000-03-23 19:00:00"
-            ],
-            "TimeVariable": "Date"
+    "Signal": {
+        "Dataset": {
+            "Signal": "Signal",
+            "Time": {
+                "Horizon": 4,
+                "TimeMinMax": [
+                    "2000-01-01 00:00:00",
+                    "2000-03-23 19:00:00"
+                ],
+                "TimeVariable": "Date"
+            },
+            "Training_Signal_Length": 1988
         },
-        "Training_Signal_Length": 1988
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
-        "Cycle": "NoCycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "0",
-        "MAE": "0.0774335242915975",
-        "MAPE": "0.0598",
-        "MASE": "0.6834",
-        "RMSE": "0.09709086902935903"
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
+            "Cycle": "NoCycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "0",
+            "MAE": "0.0774335242915975",
+            "MAPE": "0.0598",
+            "MASE": "0.6834",
+            "RMSE": "0.09709086902935903"
+        }
     }
 }
 </ModelInfo>
@@ -188,7 +210,7 @@ TEST_CYCLES_END 2
 TEST_CYCLES_START 3000 2
 GENERATING_RANDOM_DATASET Signal_3000_H_0_constant_2_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal' 22.979641914367676
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 31.356566905975342
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2000-04-09T10:00:00.000000 TimeDelta=<DateOffset: hours=1> Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=2988  Min=1.0 Max=1.6287831364889307  Mean=1.3087108849732652 StdDev=0.09693880508050107
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=1.6287831364889307  Mean=1.3087108849732652 StdDev=0.09693880508050107
@@ -203,10 +225,19 @@ INFO:pyaf.std:MODEL_MASE MASE_Fit=0.701 MASE_Forecast=0.752 MASE_Test=0.9125
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.07797215204476025 L1_Forecast=0.07628457300575657 L1_Test=0.094749992686054
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.09777073138200282 L2_Forecast=0.09347743713691056 L2_Test=0.10679634818484866
 INFO:pyaf.std:MODEL_COMPLEXITY 0
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:CONSTANT_TREND ConstantTrend 1.3093461861038145
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.7014601230621338
+INFO:pyaf.std:START_FORECASTING '['Signal']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 0.5481476783752441
 INFO:pyaf.std:START_TRAINING 'Signal'
 Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
@@ -240,31 +271,33 @@ Forecasts
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Signal",
-        "Time": {
-            "Horizon": 4,
-            "TimeMinMax": [
-                "2000-01-01 00:00:00",
-                "2000-05-04 11:00:00"
-            ],
-            "TimeVariable": "Date"
+    "Signal": {
+        "Dataset": {
+            "Signal": "Signal",
+            "Time": {
+                "Horizon": 4,
+                "TimeMinMax": [
+                    "2000-01-01 00:00:00",
+                    "2000-05-04 11:00:00"
+                ],
+                "TimeVariable": "Date"
+            },
+            "Training_Signal_Length": 2988
         },
-        "Training_Signal_Length": 2988
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
-        "Cycle": "NoCycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "0",
-        "MAE": "0.07628457300575657",
-        "MAPE": "0.0592",
-        "MASE": "0.752",
-        "RMSE": "0.09347743713691056"
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
+            "Cycle": "NoCycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "0",
+            "MAE": "0.07628457300575657",
+            "MAPE": "0.0592",
+            "MASE": "0.752",
+            "RMSE": "0.09347743713691056"
+        }
     }
 }
 </ModelInfo>
@@ -281,7 +314,7 @@ TEST_CYCLES_END 2
 TEST_CYCLES_START 4000 2
 GENERATING_RANDOM_DATASET Signal_4000_H_0_constant_2_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal' 16.581966638565063
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 32.06446123123169
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2000-05-12T18:00:00.000000 TimeDelta=<DateOffset: hours=1> Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=3988  Min=1.0 Max=1.7541760852918893  Mean=1.371279600103362 StdDev=0.09811982911428974
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=1.7541760852918893  Mean=1.371279600103362 StdDev=0.09811982911428974
@@ -296,10 +329,19 @@ INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7088 MASE_Forecast=0.7072 MASE_Test=0.6347
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.07770031772580234 L1_Forecast=0.0813508989818061 L1_Test=0.07658618627547353
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.09726088636179017 L2_Forecast=0.10152564813529025 L2_Test=0.08982133612851816
 INFO:pyaf.std:MODEL_COMPLEXITY 0
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:CONSTANT_TREND ConstantTrend 1.3708202001282
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 1.0192418098449707
+INFO:pyaf.std:START_FORECASTING '['Signal']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 0.5187101364135742
 INFO:pyaf.std:START_TRAINING 'Signal'
 Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
@@ -333,31 +375,33 @@ Forecasts
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Signal",
-        "Time": {
-            "Horizon": 4,
-            "TimeMinMax": [
-                "2000-01-01 00:00:00",
-                "2000-06-15 03:00:00"
-            ],
-            "TimeVariable": "Date"
+    "Signal": {
+        "Dataset": {
+            "Signal": "Signal",
+            "Time": {
+                "Horizon": 4,
+                "TimeMinMax": [
+                    "2000-01-01 00:00:00",
+                    "2000-06-15 03:00:00"
+                ],
+                "TimeVariable": "Date"
+            },
+            "Training_Signal_Length": 3988
         },
-        "Training_Signal_Length": 3988
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
-        "Cycle": "NoCycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "0",
-        "MAE": "0.0813508989818061",
-        "MAPE": "0.0598",
-        "MASE": "0.7072",
-        "RMSE": "0.10152564813529025"
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
+            "Cycle": "NoCycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "0",
+            "MAE": "0.0813508989818061",
+            "MAPE": "0.0598",
+            "MASE": "0.7072",
+            "RMSE": "0.10152564813529025"
+        }
     }
 }
 </ModelInfo>
@@ -374,7 +418,7 @@ TEST_CYCLES_END 2
 TEST_CYCLES_START 5000 2
 GENERATING_RANDOM_DATASET Signal_5000_H_0_constant_2_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal' 20.884238719940186
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 40.41600799560547
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2000-06-15T02:00:00.000000 TimeDelta=<DateOffset: hours=1> Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=4988  Min=1.0 Max=1.7541760852918893  Mean=1.372431473023716 StdDev=0.09851008065681871
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=1.7541760852918893  Mean=1.372431473023716 StdDev=0.09851008065681871
@@ -389,10 +433,19 @@ INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7086 MASE_Forecast=0.7096 MASE_Test=0.7659
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.07843399590315066 L1_Forecast=0.07992970516867312 L1_Test=0.08012773905583337
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.09812747322581573 L2_Forecast=0.1001041694108186 L2_Test=0.0864772039811401
 INFO:pyaf.std:MODEL_COMPLEXITY 0
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:CONSTANT_TREND ConstantTrend 1.3712644563025098
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.6055614948272705
+INFO:pyaf.std:START_FORECASTING '['Signal']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 0.8013243675231934
 INFO:pyaf.std:START_TRAINING 'Signal'
 Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
@@ -426,31 +479,33 @@ Forecasts
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Signal",
-        "Time": {
-            "Horizon": 4,
-            "TimeMinMax": [
-                "2000-01-01 00:00:00",
-                "2000-07-26 19:00:00"
-            ],
-            "TimeVariable": "Date"
+    "Signal": {
+        "Dataset": {
+            "Signal": "Signal",
+            "Time": {
+                "Horizon": 4,
+                "TimeMinMax": [
+                    "2000-01-01 00:00:00",
+                    "2000-07-26 19:00:00"
+                ],
+                "TimeVariable": "Date"
+            },
+            "Training_Signal_Length": 4988
         },
-        "Training_Signal_Length": 4988
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
-        "Cycle": "NoCycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "0",
-        "MAE": "0.07992970516867312",
-        "MAPE": "0.0584",
-        "MASE": "0.7096",
-        "RMSE": "0.1001041694108186"
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
+            "Cycle": "NoCycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "0",
+            "MAE": "0.07992970516867312",
+            "MAPE": "0.0584",
+            "MASE": "0.7096",
+            "RMSE": "0.1001041694108186"
+        }
     }
 }
 </ModelInfo>
@@ -467,7 +522,7 @@ TEST_CYCLES_END 2
 TEST_CYCLES_START 6000 2
 GENERATING_RANDOM_DATASET Signal_6000_H_0_constant_2_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal' 21.228365659713745
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 37.62989258766174
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2000-07-18T10:00:00.000000 TimeDelta=<DateOffset: hours=1> Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=5988  Min=1.0 Max=1.7541760852918893  Mean=1.3723845375005017 StdDev=0.09848046967483225
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=1.7541760852918893  Mean=1.3723845375005017 StdDev=0.09848046967483225
@@ -482,10 +537,19 @@ INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7089 MASE_Forecast=0.6845 MASE_Test=1.5373
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.078690461019712 L1_Forecast=0.07827153186670778 L1_Test=0.07023595487993717
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.09852996328996433 L2_Forecast=0.09832847112639855 L2_Test=0.08533576778300482
 INFO:pyaf.std:MODEL_COMPLEXITY 0
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:CONSTANT_TREND ConstantTrend 1.3719360972773678
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 1.3731276988983154
+INFO:pyaf.std:START_FORECASTING '['Signal']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 0.8248982429504395
 INFO:pyaf.std:START_TRAINING 'Signal'
 Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
@@ -519,31 +583,33 @@ Forecasts
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Signal",
-        "Time": {
-            "Horizon": 4,
-            "TimeMinMax": [
-                "2000-01-01 00:00:00",
-                "2000-09-06 11:00:00"
-            ],
-            "TimeVariable": "Date"
+    "Signal": {
+        "Dataset": {
+            "Signal": "Signal",
+            "Time": {
+                "Horizon": 4,
+                "TimeMinMax": [
+                    "2000-01-01 00:00:00",
+                    "2000-09-06 11:00:00"
+                ],
+                "TimeVariable": "Date"
+            },
+            "Training_Signal_Length": 5988
         },
-        "Training_Signal_Length": 5988
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
-        "Cycle": "NoCycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "0",
-        "MAE": "0.07827153186670778",
-        "MAPE": "0.0574",
-        "MASE": "0.6845",
-        "RMSE": "0.09832847112639855"
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
+            "Cycle": "NoCycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "0",
+            "MAE": "0.07827153186670778",
+            "MAPE": "0.0574",
+            "MASE": "0.6845",
+            "RMSE": "0.09832847112639855"
+        }
     }
 }
 </ModelInfo>
@@ -560,7 +626,7 @@ TEST_CYCLES_END 2
 TEST_CYCLES_START 7000 2
 GENERATING_RANDOM_DATASET Signal_7000_H_0_constant_2_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal' 24.00507616996765
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 40.25805449485779
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2000-08-20T18:00:00.000000 TimeDelta=<DateOffset: hours=1> Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=6988  Min=1.0 Max=1.7541760852918893  Mean=1.3728551878247004 StdDev=0.09882828054278137
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=1.7541760852918893  Mean=1.3728551878247004 StdDev=0.09882828054278137
@@ -575,10 +641,19 @@ INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7064 MASE_Forecast=0.6955 MASE_Test=0.6416
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.07883967047199439 L1_Forecast=0.07886487265521876 L1_Test=0.05661375221403642
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.09858685749855149 L2_Forecast=0.09988553152159205 L2_Test=0.06131663450443044
 INFO:pyaf.std:MODEL_COMPLEXITY 0
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:CONSTANT_TREND ConstantTrend 1.3721798088375898
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 0.9541306495666504
+INFO:pyaf.std:START_FORECASTING '['Signal']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 0.8363556861877441
 INFO:pyaf.std:START_TRAINING 'Signal'
 Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
@@ -612,31 +687,33 @@ Forecasts
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Signal",
-        "Time": {
-            "Horizon": 4,
-            "TimeMinMax": [
-                "2000-01-01 00:00:00",
-                "2000-10-18 03:00:00"
-            ],
-            "TimeVariable": "Date"
+    "Signal": {
+        "Dataset": {
+            "Signal": "Signal",
+            "Time": {
+                "Horizon": 4,
+                "TimeMinMax": [
+                    "2000-01-01 00:00:00",
+                    "2000-10-18 03:00:00"
+                ],
+                "TimeVariable": "Date"
+            },
+            "Training_Signal_Length": 6988
         },
-        "Training_Signal_Length": 6988
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
-        "Cycle": "NoCycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "0",
-        "MAE": "0.07886487265521876",
-        "MAPE": "0.0578",
-        "MASE": "0.6955",
-        "RMSE": "0.09988553152159205"
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
+            "Cycle": "NoCycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "0",
+            "MAE": "0.07886487265521876",
+            "MAPE": "0.0578",
+            "MASE": "0.6955",
+            "RMSE": "0.09988553152159205"
+        }
     }
 }
 </ModelInfo>
@@ -653,7 +730,7 @@ TEST_CYCLES_END 2
 TEST_CYCLES_START 8000 2
 GENERATING_RANDOM_DATASET Signal_8000_H_0_constant_2_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal' 23.77693819999695
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 42.24233651161194
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2000-09-23T02:00:00.000000 TimeDelta=<DateOffset: hours=1> Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=7988  Min=1.0 Max=1.7541760852918893  Mean=1.3725821236358497 StdDev=0.09869628973192271
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=1.7541760852918893  Mean=1.3725821236358497 StdDev=0.09869628973192271
@@ -668,10 +745,19 @@ INFO:pyaf.std:MODEL_MASE MASE_Fit=0.703 MASE_Forecast=0.7123 MASE_Test=0.7811
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.07876384769822455 L1_Forecast=0.0775976552597493 L1_Test=0.021268388336574295
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.09874146087577965 L2_Forecast=0.09862837861411018 L2_Test=0.02927974991550791
 INFO:pyaf.std:MODEL_COMPLEXITY 0
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:CONSTANT_TREND ConstantTrend 1.372523863087832
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 1.6188271045684814
+INFO:pyaf.std:START_FORECASTING '['Signal']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 1.2124509811401367
 INFO:pyaf.std:START_TRAINING 'Signal'
 Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
@@ -705,31 +791,33 @@ Forecasts
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Signal",
-        "Time": {
-            "Horizon": 4,
-            "TimeMinMax": [
-                "2000-01-01 00:00:00",
-                "2000-11-28 19:00:00"
-            ],
-            "TimeVariable": "Date"
+    "Signal": {
+        "Dataset": {
+            "Signal": "Signal",
+            "Time": {
+                "Horizon": 4,
+                "TimeMinMax": [
+                    "2000-01-01 00:00:00",
+                    "2000-11-28 19:00:00"
+                ],
+                "TimeVariable": "Date"
+            },
+            "Training_Signal_Length": 7988
         },
-        "Training_Signal_Length": 7988
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
-        "Cycle": "NoCycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "0",
-        "MAE": "0.0775976552597493",
-        "MAPE": "0.0571",
-        "MASE": "0.7123",
-        "RMSE": "0.09862837861411018"
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
+            "Cycle": "NoCycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "0",
+            "MAE": "0.0775976552597493",
+            "MAPE": "0.0571",
+            "MASE": "0.7123",
+            "RMSE": "0.09862837861411018"
+        }
     }
 }
 </ModelInfo>
@@ -746,7 +834,7 @@ TEST_CYCLES_END 2
 TEST_CYCLES_START 9000 2
 GENERATING_RANDOM_DATASET Signal_9000_H_0_constant_2_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal' 25.449299573898315
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 43.56703162193298
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2000-10-26T10:00:00.000000 TimeDelta=<DateOffset: hours=1> Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=8988  Min=1.0 Max=1.7541760852918893  Mean=1.3721605758965485 StdDev=0.09846463873290134
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=1.7541760852918893  Mean=1.3721605758965485 StdDev=0.09846463873290134
@@ -761,10 +849,19 @@ INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7041 MASE_Forecast=0.7178 MASE_Test=0.7485
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.07865597791811398 L1_Forecast=0.07672655075664514 L1_Test=0.11980479686063417
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.09862402726588992 L2_Forecast=0.09773943973042094 L2_Test=0.1322637264751117
 INFO:pyaf.std:MODEL_COMPLEXITY 0
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:CONSTANT_TREND ConstantTrend 1.3725370598741222
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 1.0896904468536377
+INFO:pyaf.std:START_FORECASTING '['Signal']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 1.1742277145385742
 INFO:pyaf.std:START_TRAINING 'Signal'
 Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
@@ -798,31 +895,33 @@ Forecasts
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Signal",
-        "Time": {
-            "Horizon": 4,
-            "TimeMinMax": [
-                "2000-01-01 00:00:00",
-                "2001-01-09 11:00:00"
-            ],
-            "TimeVariable": "Date"
+    "Signal": {
+        "Dataset": {
+            "Signal": "Signal",
+            "Time": {
+                "Horizon": 4,
+                "TimeMinMax": [
+                    "2000-01-01 00:00:00",
+                    "2001-01-09 11:00:00"
+                ],
+                "TimeVariable": "Date"
+            },
+            "Training_Signal_Length": 8988
         },
-        "Training_Signal_Length": 8988
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
-        "Cycle": "NoCycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "0",
-        "MAE": "0.07672655075664514",
-        "MAPE": "0.0566",
-        "MASE": "0.7178",
-        "RMSE": "0.09773943973042094"
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
+            "Cycle": "NoCycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "0",
+            "MAE": "0.07672655075664514",
+            "MAPE": "0.0566",
+            "MASE": "0.7178",
+            "RMSE": "0.09773943973042094"
+        }
     }
 }
 </ModelInfo>
@@ -839,7 +938,7 @@ TEST_CYCLES_END 2
 TEST_CYCLES_START 10000 2
 GENERATING_RANDOM_DATASET Signal_10000_H_0_constant_2_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal' 22.97901964187622
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 55.60714840888977
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2000-11-28T18:00:00.000000 TimeDelta=<DateOffset: hours=1> Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=9988  Min=1.0 Max=1.7541760852918893  Mean=1.3720742755907434 StdDev=0.09871061738849869
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=1.7541760852918893  Mean=1.3720742755907434 StdDev=0.09871061738849869
@@ -854,10 +953,19 @@ INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7048 MASE_Forecast=0.714 MASE_Test=1.3064
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.07850615460254619 L1_Forecast=0.07904931120472351 L1_Test=0.03739287955671844
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.0987010370556763 L2_Forecast=0.0988287268416534 L2_Test=0.05031118655416101
 INFO:pyaf.std:MODEL_COMPLEXITY 0
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:CONSTANT_TREND ConstantTrend 1.372588070451283
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 1.867051362991333
+INFO:pyaf.std:START_FORECASTING '['Signal']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 1.2183384895324707
 INFO:pyaf.std:START_TRAINING 'Signal'
 Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
@@ -891,31 +999,33 @@ Forecasts
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Signal",
-        "Time": {
-            "Horizon": 4,
-            "TimeMinMax": [
-                "2000-01-01 00:00:00",
-                "2001-02-20 03:00:00"
-            ],
-            "TimeVariable": "Date"
+    "Signal": {
+        "Dataset": {
+            "Signal": "Signal",
+            "Time": {
+                "Horizon": 4,
+                "TimeMinMax": [
+                    "2000-01-01 00:00:00",
+                    "2001-02-20 03:00:00"
+                ],
+                "TimeVariable": "Date"
+            },
+            "Training_Signal_Length": 9988
         },
-        "Training_Signal_Length": 9988
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
-        "Cycle": "NoCycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "0",
-        "MAE": "0.07904931120472351",
-        "MAPE": "0.0584",
-        "MASE": "0.714",
-        "RMSE": "0.0988287268416534"
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
+            "Cycle": "NoCycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "0",
+            "MAE": "0.07904931120472351",
+            "MAPE": "0.0584",
+            "MASE": "0.714",
+            "RMSE": "0.0988287268416534"
+        }
     }
 }
 </ModelInfo>
@@ -932,7 +1042,7 @@ TEST_CYCLES_END 2
 TEST_CYCLES_START 11000 2
 GENERATING_RANDOM_DATASET Signal_11000_H_0_constant_2_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal' 30.58895754814148
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 61.83783221244812
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2001-01-01T02:00:00.000000 TimeDelta=<DateOffset: hours=1> Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=10988  Min=1.0 Max=1.7541760852918893  Mean=1.3727570138833984 StdDev=0.09889602357657945
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=1.7541760852918893  Mean=1.3727570138833984 StdDev=0.09889602357657945
@@ -947,10 +1057,19 @@ INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7078 MASE_Forecast=0.7124 MASE_Test=0.4606
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.0783416702699973 L1_Forecast=0.0802944082945034 L1_Test=0.07132912288903492
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.09851368000810404 L2_Forecast=0.10041405617035813 L2_Test=0.09984812076939467
 INFO:pyaf.std:MODEL_COMPLEXITY 0
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:CONSTANT_TREND ConstantTrend 1.3723043631128524
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 1.3290519714355469
+INFO:pyaf.std:START_FORECASTING '['Signal']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 1.7078030109405518
 INFO:pyaf.std:START_TRAINING 'Signal'
 Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
@@ -984,31 +1103,33 @@ Forecasts
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Signal",
-        "Time": {
-            "Horizon": 4,
-            "TimeMinMax": [
-                "2000-01-01 00:00:00",
-                "2001-04-02 19:00:00"
-            ],
-            "TimeVariable": "Date"
+    "Signal": {
+        "Dataset": {
+            "Signal": "Signal",
+            "Time": {
+                "Horizon": 4,
+                "TimeMinMax": [
+                    "2000-01-01 00:00:00",
+                    "2001-04-02 19:00:00"
+                ],
+                "TimeVariable": "Date"
+            },
+            "Training_Signal_Length": 10988
         },
-        "Training_Signal_Length": 10988
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
-        "Cycle": "NoCycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "0",
-        "MAE": "0.0802944082945034",
-        "MAPE": "0.0589",
-        "MASE": "0.7124",
-        "RMSE": "0.10041405617035813"
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
+            "Cycle": "NoCycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "0",
+            "MAE": "0.0802944082945034",
+            "MAPE": "0.0589",
+            "MASE": "0.7124",
+            "RMSE": "0.10041405617035813"
+        }
     }
 }
 </ModelInfo>
@@ -1025,7 +1146,7 @@ TEST_CYCLES_END 2
 TEST_CYCLES_START 12000 2
 GENERATING_RANDOM_DATASET Signal_12000_H_0_constant_2_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal' 24.12173581123352
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 78.7697286605835
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2001-02-03T10:00:00.000000 TimeDelta=<DateOffset: hours=1> Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=11988  Min=1.0 Max=1.7541760852918893  Mean=1.3724000573891202 StdDev=0.0990227532196697
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=1.7541760852918893  Mean=1.3724000573891202 StdDev=0.0990227532196697
@@ -1040,10 +1161,19 @@ INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7057 MASE_Forecast=0.7158 MASE_Test=0.8198
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.07857813163230247 L1_Forecast=0.07963903258584329 L1_Test=0.07061341174470903
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.0987401476150457 L2_Forecast=0.10017654065470534 L2_Test=0.0820131237620789
 INFO:pyaf.std:MODEL_COMPLEXITY 0
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:CONSTANT_TREND ConstantTrend 1.3719179013431293
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 1.0996441841125488
+INFO:pyaf.std:START_FORECASTING '['Signal']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 1.7542004585266113
 INFO:pyaf.std:START_TRAINING 'Signal'
 Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
@@ -1077,31 +1207,33 @@ Forecasts
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Signal",
-        "Time": {
-            "Horizon": 4,
-            "TimeMinMax": [
-                "2000-01-01 00:00:00",
-                "2001-05-14 11:00:00"
-            ],
-            "TimeVariable": "Date"
+    "Signal": {
+        "Dataset": {
+            "Signal": "Signal",
+            "Time": {
+                "Horizon": 4,
+                "TimeMinMax": [
+                    "2000-01-01 00:00:00",
+                    "2001-05-14 11:00:00"
+                ],
+                "TimeVariable": "Date"
+            },
+            "Training_Signal_Length": 11988
         },
-        "Training_Signal_Length": 11988
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
-        "Cycle": "NoCycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "0",
-        "MAE": "0.07963903258584329",
-        "MAPE": "0.0584",
-        "MASE": "0.7158",
-        "RMSE": "0.10017654065470534"
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
+            "Cycle": "NoCycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "0",
+            "MAE": "0.07963903258584329",
+            "MAPE": "0.0584",
+            "MASE": "0.7158",
+            "RMSE": "0.10017654065470534"
+        }
     }
 }
 </ModelInfo>
@@ -1118,7 +1250,7 @@ TEST_CYCLES_END 2
 TEST_CYCLES_START 13000 2
 GENERATING_RANDOM_DATASET Signal_13000_H_0_constant_2_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal' 20.689087867736816
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 72.56379985809326
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2001-03-08T18:00:00.000000 TimeDelta=<DateOffset: hours=1> Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=12988  Min=1.0 Max=1.7541760852918893  Mean=1.3723122380095796 StdDev=0.09924891305026087
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=1.7541760852918893  Mean=1.3723122380095796 StdDev=0.09924891305026087
@@ -1133,10 +1265,19 @@ INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7075 MASE_Forecast=0.7052 MASE_Test=0.6728
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.0786245768379836 L1_Forecast=0.08004108897773692 L1_Test=0.07582885539314255
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.09872550233694065 L2_Forecast=0.10131663847786716 L2_Test=0.09837997235308765
 INFO:pyaf.std:MODEL_COMPLEXITY 0
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:CONSTANT_TREND ConstantTrend 1.3722914090203804
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 1.4128057956695557
+INFO:pyaf.std:START_FORECASTING '['Signal']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 1.2633278369903564
 INFO:pyaf.std:START_TRAINING 'Signal'
 Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
@@ -1170,31 +1311,33 @@ Forecasts
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Signal",
-        "Time": {
-            "Horizon": 4,
-            "TimeMinMax": [
-                "2000-01-01 00:00:00",
-                "2001-06-25 03:00:00"
-            ],
-            "TimeVariable": "Date"
+    "Signal": {
+        "Dataset": {
+            "Signal": "Signal",
+            "Time": {
+                "Horizon": 4,
+                "TimeMinMax": [
+                    "2000-01-01 00:00:00",
+                    "2001-06-25 03:00:00"
+                ],
+                "TimeVariable": "Date"
+            },
+            "Training_Signal_Length": 12988
         },
-        "Training_Signal_Length": 12988
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
-        "Cycle": "NoCycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "0",
-        "MAE": "0.08004108897773692",
-        "MAPE": "0.0588",
-        "MASE": "0.7052",
-        "RMSE": "0.10131663847786716"
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
+            "Cycle": "NoCycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "0",
+            "MAE": "0.08004108897773692",
+            "MAPE": "0.0588",
+            "MASE": "0.7052",
+            "RMSE": "0.10131663847786716"
+        }
     }
 }
 </ModelInfo>
@@ -1211,7 +1354,7 @@ TEST_CYCLES_END 2
 TEST_CYCLES_START 14000 2
 GENERATING_RANDOM_DATASET Signal_14000_H_0_constant_2_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal' 22.79624056816101
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 68.80672025680542
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2001-04-11T02:00:00.000000 TimeDelta=<DateOffset: hours=1> Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=13988  Min=1.0 Max=1.7541760852918893  Mean=1.37251295303514 StdDev=0.09915405995557493
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=1.7541760852918893  Mean=1.37251295303514 StdDev=0.09915405995557493
@@ -1226,10 +1369,19 @@ INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7088 MASE_Forecast=0.6957 MASE_Test=0.8333
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.07873530238661056 L1_Forecast=0.07914344575308124 L1_Test=0.07305906381355454
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.09891789466406713 L2_Forecast=0.10011429846120641 L2_Test=0.08318522648581558
 INFO:pyaf.std:MODEL_COMPLEXITY 0
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:CONSTANT_TREND ConstantTrend 1.3726447668888382
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 2.064413070678711
+INFO:pyaf.std:START_FORECASTING '['Signal']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 2.120952844619751
 INFO:pyaf.std:START_TRAINING 'Signal'
 Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
@@ -1263,31 +1415,33 @@ Forecasts
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Signal",
-        "Time": {
-            "Horizon": 4,
-            "TimeMinMax": [
-                "2000-01-01 00:00:00",
-                "2001-08-05 19:00:00"
-            ],
-            "TimeVariable": "Date"
+    "Signal": {
+        "Dataset": {
+            "Signal": "Signal",
+            "Time": {
+                "Horizon": 4,
+                "TimeMinMax": [
+                    "2000-01-01 00:00:00",
+                    "2001-08-05 19:00:00"
+                ],
+                "TimeVariable": "Date"
+            },
+            "Training_Signal_Length": 13988
         },
-        "Training_Signal_Length": 13988
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
-        "Cycle": "NoCycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "0",
-        "MAE": "0.07914344575308124",
-        "MAPE": "0.0583",
-        "MASE": "0.6957",
-        "RMSE": "0.10011429846120641"
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
+            "Cycle": "NoCycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "0",
+            "MAE": "0.07914344575308124",
+            "MAPE": "0.0583",
+            "MASE": "0.6957",
+            "RMSE": "0.10011429846120641"
+        }
     }
 }
 </ModelInfo>
@@ -1304,7 +1458,7 @@ TEST_CYCLES_END 2
 TEST_CYCLES_START 15000 2
 GENERATING_RANDOM_DATASET Signal_15000_H_0_constant_2_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal' 18.835888385772705
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 73.80287528038025
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2001-05-14T10:00:00.000000 TimeDelta=<DateOffset: hours=1> Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=14988  Min=1.0 Max=1.7541760852918893  Mean=1.3729080342742703 StdDev=0.09889497643566447
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=1.7541760852918893  Mean=1.3729080342742703 StdDev=0.09889497643566447
@@ -1319,10 +1473,19 @@ INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7078 MASE_Forecast=0.7076 MASE_Test=2.9316
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.07879031786285325 L1_Forecast=0.07810643813318749 L1_Test=0.1124902896609492
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.09902499798499524 L2_Forecast=0.09834564957998833 L2_Test=0.121784338801257
 INFO:pyaf.std:MODEL_COMPLEXITY 0
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:CONSTANT_TREND ConstantTrend 1.3723944760605704
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 1.28987717628479
+INFO:pyaf.std:START_FORECASTING '['Signal']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 3.1840343475341797
 INFO:pyaf.std:START_TRAINING 'Signal'
 Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
@@ -1356,31 +1519,33 @@ Forecasts
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Signal",
-        "Time": {
-            "Horizon": 4,
-            "TimeMinMax": [
-                "2000-01-01 00:00:00",
-                "2001-09-16 11:00:00"
-            ],
-            "TimeVariable": "Date"
+    "Signal": {
+        "Dataset": {
+            "Signal": "Signal",
+            "Time": {
+                "Horizon": 4,
+                "TimeMinMax": [
+                    "2000-01-01 00:00:00",
+                    "2001-09-16 11:00:00"
+                ],
+                "TimeVariable": "Date"
+            },
+            "Training_Signal_Length": 14988
         },
-        "Training_Signal_Length": 14988
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
-        "Cycle": "NoCycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "0",
-        "MAE": "0.07810643813318749",
-        "MAPE": "0.0572",
-        "MASE": "0.7076",
-        "RMSE": "0.09834564957998833"
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
+            "Cycle": "NoCycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "0",
+            "MAE": "0.07810643813318749",
+            "MAPE": "0.0572",
+            "MASE": "0.7076",
+            "RMSE": "0.09834564957998833"
+        }
     }
 }
 </ModelInfo>
@@ -1397,7 +1562,7 @@ TEST_CYCLES_END 2
 TEST_CYCLES_START 16000 2
 GENERATING_RANDOM_DATASET Signal_16000_H_0_constant_2_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal' 18.044116973876953
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 79.52713251113892
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2001-06-16T18:00:00.000000 TimeDelta=<DateOffset: hours=1> Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=15988  Min=1.0 Max=1.7541760852918893  Mean=1.3730354927008195 StdDev=0.09893226904255123
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=1.7541760852918893  Mean=1.3730354927008195 StdDev=0.09893226904255123
@@ -1412,10 +1577,19 @@ INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7071 MASE_Forecast=0.7079 MASE_Test=0.5914
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.07880633163069527 L1_Forecast=0.07834971194379974 L1_Test=0.11832436771392463
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.09907442608079217 L2_Forecast=0.09831932322312618 L2_Test=0.13944552457315665
 INFO:pyaf.std:MODEL_COMPLEXITY 0
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:CONSTANT_TREND ConstantTrend 1.3721681651288564
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 1.0569872856140137
+INFO:pyaf.std:START_FORECASTING '['Signal']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 1.103804349899292
 INFO:pyaf.std:START_TRAINING 'Signal'
 Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
@@ -1449,31 +1623,33 @@ Forecasts
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Signal",
-        "Time": {
-            "Horizon": 4,
-            "TimeMinMax": [
-                "2000-01-01 00:00:00",
-                "2001-10-28 03:00:00"
-            ],
-            "TimeVariable": "Date"
+    "Signal": {
+        "Dataset": {
+            "Signal": "Signal",
+            "Time": {
+                "Horizon": 4,
+                "TimeMinMax": [
+                    "2000-01-01 00:00:00",
+                    "2001-10-28 03:00:00"
+                ],
+                "TimeVariable": "Date"
+            },
+            "Training_Signal_Length": 15988
         },
-        "Training_Signal_Length": 15988
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
-        "Cycle": "NoCycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "0",
-        "MAE": "0.07834971194379974",
-        "MAPE": "0.0573",
-        "MASE": "0.7079",
-        "RMSE": "0.09831932322312618"
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
+            "Cycle": "NoCycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "0",
+            "MAE": "0.07834971194379974",
+            "MAPE": "0.0573",
+            "MASE": "0.7079",
+            "RMSE": "0.09831932322312618"
+        }
     }
 }
 </ModelInfo>
@@ -1490,7 +1666,7 @@ TEST_CYCLES_END 2
 TEST_CYCLES_START 17000 2
 GENERATING_RANDOM_DATASET Signal_17000_H_0_constant_2_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal' 14.497398376464844
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 68.09179353713989
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2001-07-20T02:00:00.000000 TimeDelta=<DateOffset: hours=1> Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=16988  Min=1.0 Max=1.7541760852918893  Mean=1.3736146146811243 StdDev=0.09886833866154503
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=1.7541760852918893  Mean=1.3736146146811243 StdDev=0.09886833866154503
@@ -1505,10 +1681,19 @@ INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7057 MASE_Forecast=0.7177 MASE_Test=0.5689
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.0788003762300406 L1_Forecast=0.07832046470566557 L1_Test=0.0692940108431106
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.09909704747160511 L2_Forecast=0.09801459553543301 L2_Test=0.07718909603868106
 INFO:pyaf.std:MODEL_COMPLEXITY 0
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:CONSTANT_TREND ConstantTrend 1.3723100749415975
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 1.0637331008911133
+INFO:pyaf.std:START_FORECASTING '['Signal']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 1.7872989177703857
 INFO:pyaf.std:START_TRAINING 'Signal'
 Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
@@ -1542,31 +1727,33 @@ Forecasts
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Signal",
-        "Time": {
-            "Horizon": 4,
-            "TimeMinMax": [
-                "2000-01-01 00:00:00",
-                "2001-12-08 19:00:00"
-            ],
-            "TimeVariable": "Date"
+    "Signal": {
+        "Dataset": {
+            "Signal": "Signal",
+            "Time": {
+                "Horizon": 4,
+                "TimeMinMax": [
+                    "2000-01-01 00:00:00",
+                    "2001-12-08 19:00:00"
+                ],
+                "TimeVariable": "Date"
+            },
+            "Training_Signal_Length": 16988
         },
-        "Training_Signal_Length": 16988
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
-        "Cycle": "NoCycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "0",
-        "MAE": "0.07832046470566557",
-        "MAPE": "0.0571",
-        "MASE": "0.7177",
-        "RMSE": "0.09801459553543301"
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
+            "Cycle": "NoCycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "0",
+            "MAE": "0.07832046470566557",
+            "MAPE": "0.0571",
+            "MASE": "0.7177",
+            "RMSE": "0.09801459553543301"
+        }
     }
 }
 </ModelInfo>
@@ -1583,7 +1770,7 @@ TEST_CYCLES_END 2
 TEST_CYCLES_START 18000 2
 GENERATING_RANDOM_DATASET Signal_18000_H_0_constant_2_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal' 15.494671106338501
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 63.6625337600708
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2001-08-22T10:00:00.000000 TimeDelta=<DateOffset: hours=1> Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=17988  Min=1.0 Max=1.7541760852918893  Mean=1.373439890044498 StdDev=0.09898218379134478
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=1.7541760852918893  Mean=1.373439890044498 StdDev=0.09898218379134478
@@ -1598,10 +1785,19 @@ INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7071 MASE_Forecast=0.7116 MASE_Test=0.4882
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.07876322141537849 L1_Forecast=0.07936137593484287 L1_Test=0.06079538865782341
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.09907675940328484 L2_Forecast=0.0986288486962879 L2_Test=0.08205660432560209
 INFO:pyaf.std:MODEL_COMPLEXITY 0
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:CONSTANT_TREND ConstantTrend 1.3728584625871438
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 1.2180514335632324
+INFO:pyaf.std:START_FORECASTING '['Signal']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 1.6491129398345947
 INFO:pyaf.std:START_TRAINING 'Signal'
 Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
@@ -1635,31 +1831,33 @@ Forecasts
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Signal",
-        "Time": {
-            "Horizon": 4,
-            "TimeMinMax": [
-                "2000-01-01 00:00:00",
-                "2002-01-19 11:00:00"
-            ],
-            "TimeVariable": "Date"
+    "Signal": {
+        "Dataset": {
+            "Signal": "Signal",
+            "Time": {
+                "Horizon": 4,
+                "TimeMinMax": [
+                    "2000-01-01 00:00:00",
+                    "2002-01-19 11:00:00"
+                ],
+                "TimeVariable": "Date"
+            },
+            "Training_Signal_Length": 17988
         },
-        "Training_Signal_Length": 17988
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
-        "Cycle": "NoCycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "0",
-        "MAE": "0.07936137593484287",
-        "MAPE": "0.0582",
-        "MASE": "0.7116",
-        "RMSE": "0.0986288486962879"
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
+            "Cycle": "NoCycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "0",
+            "MAE": "0.07936137593484287",
+            "MAPE": "0.0582",
+            "MASE": "0.7116",
+            "RMSE": "0.0986288486962879"
+        }
     }
 }
 </ModelInfo>
@@ -1676,7 +1874,7 @@ TEST_CYCLES_END 2
 TEST_CYCLES_START 19000 2
 GENERATING_RANDOM_DATASET Signal_19000_H_0_constant_2_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal' 17.442260026931763
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 64.8749828338623
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2001-09-24T18:00:00.000000 TimeDelta=<DateOffset: hours=1> Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=18988  Min=1.0 Max=1.7541760852918893  Mean=1.3733133853431232 StdDev=0.09891692702493152
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=1.7541760852918893  Mean=1.3733133853431232 StdDev=0.09891692702493152
@@ -1691,10 +1889,19 @@ INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7087 MASE_Forecast=0.704 MASE_Test=0.9205
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.07878542780391853 L1_Forecast=0.07886216370699059 L1_Test=0.057263474599044906
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.09900594287273545 L2_Forecast=0.09859304821015864 L2_Test=0.06483150368367378
 INFO:pyaf.std:MODEL_COMPLEXITY 0
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:CONSTANT_TREND ConstantTrend 1.3729614713201188
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 1.2256388664245605
+INFO:pyaf.std:START_FORECASTING '['Signal']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 1.6442656517028809
 INFO:pyaf.std:START_TRAINING 'Signal'
 Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
@@ -1728,31 +1935,33 @@ Forecasts
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Signal",
-        "Time": {
-            "Horizon": 4,
-            "TimeMinMax": [
-                "2000-01-01 00:00:00",
-                "2002-03-02 03:00:00"
-            ],
-            "TimeVariable": "Date"
+    "Signal": {
+        "Dataset": {
+            "Signal": "Signal",
+            "Time": {
+                "Horizon": 4,
+                "TimeMinMax": [
+                    "2000-01-01 00:00:00",
+                    "2002-03-02 03:00:00"
+                ],
+                "TimeVariable": "Date"
+            },
+            "Training_Signal_Length": 18988
         },
-        "Training_Signal_Length": 18988
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
-        "Cycle": "NoCycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "0",
-        "MAE": "0.07886216370699059",
-        "MAPE": "0.0579",
-        "MASE": "0.704",
-        "RMSE": "0.09859304821015864"
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
+            "Cycle": "NoCycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "0",
+            "MAE": "0.07886216370699059",
+            "MAPE": "0.0579",
+            "MASE": "0.704",
+            "RMSE": "0.09859304821015864"
+        }
     }
 }
 </ModelInfo>
@@ -1769,7 +1978,7 @@ TEST_CYCLES_END 2
 TEST_CYCLES_START 20000 2
 GENERATING_RANDOM_DATASET Signal_20000_H_0_constant_2_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal' 16.946390390396118
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 67.11559963226318
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2001-10-28T02:00:00.000000 TimeDelta=<DateOffset: hours=1> Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=19988  Min=1.0 Max=1.8248292456326407  Mean=1.4442612260561516 StdDev=0.09902327366225308
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=1.8248292456326407  Mean=1.4442612260561516 StdDev=0.09902327366225308
@@ -1784,10 +1993,19 @@ INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7073 MASE_Forecast=0.7092 MASE_Test=1.1824
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.07872916638445125 L1_Forecast=0.07924233589836825 L1_Test=0.17661568091626856
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.09893366020486016 L2_Forecast=0.09926718253483441 L2_Test=0.1843634970301981
 INFO:pyaf.std:MODEL_COMPLEXITY 0
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:CONSTANT_TREND ConstantTrend 1.4436932438702816
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 1.230530023574829
+INFO:pyaf.std:START_FORECASTING '['Signal']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 1.974985122680664
 INFO:pyaf.std:START_TRAINING 'Signal'
 Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
@@ -1821,31 +2039,33 @@ Forecasts
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Signal",
-        "Time": {
-            "Horizon": 4,
-            "TimeMinMax": [
-                "2000-01-01 00:00:00",
-                "2002-04-12 19:00:00"
-            ],
-            "TimeVariable": "Date"
+    "Signal": {
+        "Dataset": {
+            "Signal": "Signal",
+            "Time": {
+                "Horizon": 4,
+                "TimeMinMax": [
+                    "2000-01-01 00:00:00",
+                    "2002-04-12 19:00:00"
+                ],
+                "TimeVariable": "Date"
+            },
+            "Training_Signal_Length": 19988
         },
-        "Training_Signal_Length": 19988
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
-        "Cycle": "NoCycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "0",
-        "MAE": "0.07924233589836825",
-        "MAPE": "0.0552",
-        "MASE": "0.7092",
-        "RMSE": "0.09926718253483441"
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
+            "Cycle": "NoCycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "0",
+            "MAE": "0.07924233589836825",
+            "MAPE": "0.0552",
+            "MASE": "0.7092",
+            "RMSE": "0.09926718253483441"
+        }
     }
 }
 </ModelInfo>
@@ -1862,7 +2082,7 @@ TEST_CYCLES_END 2
 TEST_CYCLES_START 21000 2
 GENERATING_RANDOM_DATASET Signal_21000_H_0_constant_2_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal' 13.10918116569519
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 52.036991357803345
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2001-11-30T10:00:00.000000 TimeDelta=<DateOffset: hours=1> Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=20988  Min=1.0 Max=1.8248292456326407  Mean=1.4444177546259254 StdDev=0.09904772644784893
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=1.8248292456326407  Mean=1.4444177546259254 StdDev=0.09904772644784893
@@ -1877,10 +2097,19 @@ INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7078 MASE_Forecast=0.7042 MASE_Test=0.6044
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.0786935088664862 L1_Forecast=0.07947481060474017 L1_Test=0.050232012173868856
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.09888038284513427 L2_Forecast=0.09974148030925464 L2_Test=0.06589266930329672
 INFO:pyaf.std:MODEL_COMPLEXITY 0
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:CONSTANT_TREND ConstantTrend 1.4442086098558904
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 1.178981065750122
+INFO:pyaf.std:START_FORECASTING '['Signal']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 1.4980690479278564
 INFO:pyaf.std:START_TRAINING 'Signal'
 Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
@@ -1914,31 +2143,33 @@ Forecasts
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Signal",
-        "Time": {
-            "Horizon": 4,
-            "TimeMinMax": [
-                "2000-01-01 00:00:00",
-                "2002-05-24 11:00:00"
-            ],
-            "TimeVariable": "Date"
+    "Signal": {
+        "Dataset": {
+            "Signal": "Signal",
+            "Time": {
+                "Horizon": 4,
+                "TimeMinMax": [
+                    "2000-01-01 00:00:00",
+                    "2002-05-24 11:00:00"
+                ],
+                "TimeVariable": "Date"
+            },
+            "Training_Signal_Length": 20988
         },
-        "Training_Signal_Length": 20988
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
-        "Cycle": "NoCycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "0",
-        "MAE": "0.07947481060474017",
-        "MAPE": "0.0555",
-        "MASE": "0.7042",
-        "RMSE": "0.09974148030925464"
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
+            "Cycle": "NoCycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "0",
+            "MAE": "0.07947481060474017",
+            "MAPE": "0.0555",
+            "MASE": "0.7042",
+            "RMSE": "0.09974148030925464"
+        }
     }
 }
 </ModelInfo>
@@ -1955,7 +2186,7 @@ TEST_CYCLES_END 2
 TEST_CYCLES_START 22000 2
 GENERATING_RANDOM_DATASET Signal_22000_H_0_constant_2_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal' 13.872032165527344
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 42.44377684593201
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2002-01-02T18:00:00.000000 TimeDelta=<DateOffset: hours=1> Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=21988  Min=1.0 Max=1.8248292456326407  Mean=1.4445523833778635 StdDev=0.09896124420297311
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=1.8248292456326407  Mean=1.4445523833778635 StdDev=0.09896124420297311
@@ -1970,10 +2201,19 @@ INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7083 MASE_Forecast=0.7052 MASE_Test=1.0793
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.07888193358391257 L1_Forecast=0.07843482485507453 L1_Test=0.08001676942310643
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.09899966609679865 L2_Forecast=0.09881838154869832 L2_Test=0.09073869359975172
 INFO:pyaf.std:MODEL_COMPLEXITY 0
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:CONSTANT_TREND ConstantTrend 1.4441656031121766
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 1.3626151084899902
+INFO:pyaf.std:START_FORECASTING '['Signal']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 1.2356338500976562
 INFO:pyaf.std:START_TRAINING 'Signal'
 Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
@@ -2007,31 +2247,33 @@ Forecasts
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Signal",
-        "Time": {
-            "Horizon": 4,
-            "TimeMinMax": [
-                "2000-01-01 00:00:00",
-                "2002-07-05 03:00:00"
-            ],
-            "TimeVariable": "Date"
+    "Signal": {
+        "Dataset": {
+            "Signal": "Signal",
+            "Time": {
+                "Horizon": 4,
+                "TimeMinMax": [
+                    "2000-01-01 00:00:00",
+                    "2002-07-05 03:00:00"
+                ],
+                "TimeVariable": "Date"
+            },
+            "Training_Signal_Length": 21988
         },
-        "Training_Signal_Length": 21988
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
-        "Cycle": "NoCycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "0",
-        "MAE": "0.07843482485507453",
-        "MAPE": "0.0548",
-        "MASE": "0.7052",
-        "RMSE": "0.09881838154869832"
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
+            "Cycle": "NoCycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "0",
+            "MAE": "0.07843482485507453",
+            "MAPE": "0.0548",
+            "MASE": "0.7052",
+            "RMSE": "0.09881838154869832"
+        }
     }
 }
 </ModelInfo>
@@ -2048,7 +2290,7 @@ TEST_CYCLES_END 2
 TEST_CYCLES_START 23000 2
 GENERATING_RANDOM_DATASET Signal_23000_H_0_constant_2_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal' 14.16695237159729
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 42.14847373962402
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2002-02-05T02:00:00.000000 TimeDelta=<DateOffset: hours=1> Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=22988  Min=1.0 Max=1.827842240376035  Mean=1.444505672391023 StdDev=0.0991518412598356
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=1.827842240376035  Mean=1.444505672391023 StdDev=0.0991518412598356
@@ -2063,10 +2305,19 @@ INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7081 MASE_Forecast=0.7037 MASE_Test=0.8836
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.07884730498139066 L1_Forecast=0.0789547554014068 L1_Test=0.1771693990089318
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.09893711145156023 L2_Forecast=0.09984963641409 L2_Test=0.216811296157201
 INFO:pyaf.std:MODEL_COMPLEXITY 0
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:CONSTANT_TREND ConstantTrend 1.4440415463689749
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 1.3180651664733887
+INFO:pyaf.std:START_FORECASTING '['Signal']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 1.3132445812225342
 INFO:pyaf.std:START_TRAINING 'Signal'
 Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
@@ -2100,31 +2351,33 @@ Forecasts
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Signal",
-        "Time": {
-            "Horizon": 4,
-            "TimeMinMax": [
-                "2000-01-01 00:00:00",
-                "2002-08-15 19:00:00"
-            ],
-            "TimeVariable": "Date"
+    "Signal": {
+        "Dataset": {
+            "Signal": "Signal",
+            "Time": {
+                "Horizon": 4,
+                "TimeMinMax": [
+                    "2000-01-01 00:00:00",
+                    "2002-08-15 19:00:00"
+                ],
+                "TimeVariable": "Date"
+            },
+            "Training_Signal_Length": 22988
         },
-        "Training_Signal_Length": 22988
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
-        "Cycle": "NoCycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "0",
-        "MAE": "0.0789547554014068",
-        "MAPE": "0.0551",
-        "MASE": "0.7037",
-        "RMSE": "0.09984963641409"
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
+            "Cycle": "NoCycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "0",
+            "MAE": "0.0789547554014068",
+            "MAPE": "0.0551",
+            "MASE": "0.7037",
+            "RMSE": "0.09984963641409"
+        }
     }
 }
 </ModelInfo>
@@ -2141,7 +2394,7 @@ TEST_CYCLES_END 2
 TEST_CYCLES_START 24000 2
 GENERATING_RANDOM_DATASET Signal_24000_H_0_constant_2_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal' 13.955019474029541
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 45.62004065513611
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2002-03-10T10:00:00.000000 TimeDelta=<DateOffset: hours=1> Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=23988  Min=1.0 Max=1.827842240376035  Mean=1.4444626525457447 StdDev=0.09915452537109536
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=1.827842240376035  Mean=1.4444626525457447 StdDev=0.09915452537109536
@@ -2156,10 +2409,19 @@ INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7077 MASE_Forecast=0.7029 MASE_Test=0.8886
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.07877352488725974 L1_Forecast=0.07927639966097866 L1_Test=0.05274495242952981
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.0989253581801834 L2_Forecast=0.10009233641400067 L2_Test=0.06804838349832949
 INFO:pyaf.std:MODEL_COMPLEXITY 0
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:CONSTANT_TREND ConstantTrend 1.4440256856487466
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 1.5043883323669434
+INFO:pyaf.std:START_FORECASTING '['Signal']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 1.6246912479400635
 INFO:pyaf.std:START_TRAINING 'Signal'
 Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
@@ -2193,31 +2455,33 @@ Forecasts
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Signal",
-        "Time": {
-            "Horizon": 4,
-            "TimeMinMax": [
-                "2000-01-01 00:00:00",
-                "2002-09-26 11:00:00"
-            ],
-            "TimeVariable": "Date"
+    "Signal": {
+        "Dataset": {
+            "Signal": "Signal",
+            "Time": {
+                "Horizon": 4,
+                "TimeMinMax": [
+                    "2000-01-01 00:00:00",
+                    "2002-09-26 11:00:00"
+                ],
+                "TimeVariable": "Date"
+            },
+            "Training_Signal_Length": 23988
         },
-        "Training_Signal_Length": 23988
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
-        "Cycle": "NoCycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "0",
-        "MAE": "0.07927639966097866",
-        "MAPE": "0.0553",
-        "MASE": "0.7029",
-        "RMSE": "0.10009233641400067"
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
+            "Cycle": "NoCycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "0",
+            "MAE": "0.07927639966097866",
+            "MAPE": "0.0553",
+            "MASE": "0.7029",
+            "RMSE": "0.10009233641400067"
+        }
     }
 }
 </ModelInfo>
@@ -2234,7 +2498,7 @@ TEST_CYCLES_END 2
 TEST_CYCLES_START 25000 2
 GENERATING_RANDOM_DATASET Signal_25000_H_0_constant_2_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal' 16.478989362716675
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 42.930967807769775
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2002-04-12T18:00:00.000000 TimeDelta=<DateOffset: hours=1> Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=24988  Min=1.0 Max=1.827842240376035  Mean=1.4444249509558438 StdDev=0.09907964085829919
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=1.827842240376035  Mean=1.4444249509558438 StdDev=0.09907964085829919
@@ -2249,10 +2513,19 @@ INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7078 MASE_Forecast=0.7006 MASE_Test=0.6235
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.07884702883835266 L1_Forecast=0.07870084106400965 L1_Test=0.0954034663958675
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.09901541943544223 L2_Forecast=0.09933203404105737 L2_Test=0.10494912768313834
 INFO:pyaf.std:MODEL_COMPLEXITY 0
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:CONSTANT_TREND ConstantTrend 1.4442511085749927
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 1.5896415710449219
+INFO:pyaf.std:START_FORECASTING '['Signal']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 1.3714799880981445
 INFO:pyaf.std:START_TRAINING 'Signal'
 Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
@@ -2286,31 +2559,33 @@ Forecasts
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Signal",
-        "Time": {
-            "Horizon": 4,
-            "TimeMinMax": [
-                "2000-01-01 00:00:00",
-                "2002-11-07 03:00:00"
-            ],
-            "TimeVariable": "Date"
+    "Signal": {
+        "Dataset": {
+            "Signal": "Signal",
+            "Time": {
+                "Horizon": 4,
+                "TimeMinMax": [
+                    "2000-01-01 00:00:00",
+                    "2002-11-07 03:00:00"
+                ],
+                "TimeVariable": "Date"
+            },
+            "Training_Signal_Length": 24988
         },
-        "Training_Signal_Length": 24988
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
-        "Cycle": "NoCycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "0",
-        "MAE": "0.07870084106400965",
-        "MAPE": "0.055",
-        "MASE": "0.7006",
-        "RMSE": "0.09933203404105737"
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
+            "Cycle": "NoCycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "0",
+            "MAE": "0.07870084106400965",
+            "MAPE": "0.055",
+            "MASE": "0.7006",
+            "RMSE": "0.09933203404105737"
+        }
     }
 }
 </ModelInfo>
@@ -2327,7 +2602,7 @@ TEST_CYCLES_END 2
 TEST_CYCLES_START 26000 2
 GENERATING_RANDOM_DATASET Signal_26000_H_0_constant_2_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal' 15.429480791091919
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 43.85330843925476
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2002-05-16T02:00:00.000000 TimeDelta=<DateOffset: hours=1> Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=25988  Min=1.0 Max=1.827842240376035  Mean=1.4443972763721904 StdDev=0.09911037967856144
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=1.827842240376035  Mean=1.4443972763721904 StdDev=0.09911037967856144
@@ -2342,10 +2617,19 @@ INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7068 MASE_Forecast=0.7082 MASE_Test=1.4226
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.07887449262005654 L1_Forecast=0.07880320007191213 L1_Test=0.06486414893816339
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.0990892294482006 L2_Forecast=0.09921497467989297 L2_Test=0.06827112121392744
 INFO:pyaf.std:MODEL_COMPLEXITY 0
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:CONSTANT_TREND ConstantTrend 1.4444247589398462
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 1.6138272285461426
+INFO:pyaf.std:START_FORECASTING '['Signal']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 1.6961660385131836
 INFO:pyaf.std:START_TRAINING 'Signal'
 Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
@@ -2379,31 +2663,33 @@ Forecasts
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Signal",
-        "Time": {
-            "Horizon": 4,
-            "TimeMinMax": [
-                "2000-01-01 00:00:00",
-                "2002-12-18 19:00:00"
-            ],
-            "TimeVariable": "Date"
+    "Signal": {
+        "Dataset": {
+            "Signal": "Signal",
+            "Time": {
+                "Horizon": 4,
+                "TimeMinMax": [
+                    "2000-01-01 00:00:00",
+                    "2002-12-18 19:00:00"
+                ],
+                "TimeVariable": "Date"
+            },
+            "Training_Signal_Length": 25988
         },
-        "Training_Signal_Length": 25988
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
-        "Cycle": "NoCycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "0",
-        "MAE": "0.07880320007191213",
-        "MAPE": "0.0551",
-        "MASE": "0.7082",
-        "RMSE": "0.09921497467989297"
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
+            "Cycle": "NoCycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "0",
+            "MAE": "0.07880320007191213",
+            "MAPE": "0.0551",
+            "MASE": "0.7082",
+            "RMSE": "0.09921497467989297"
+        }
     }
 }
 </ModelInfo>
@@ -2420,7 +2706,7 @@ TEST_CYCLES_END 2
 TEST_CYCLES_START 27000 2
 GENERATING_RANDOM_DATASET Signal_27000_H_0_constant_2_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal' 14.923411130905151
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 45.975135803222656
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2002-06-18T10:00:00.000000 TimeDelta=<DateOffset: hours=1> Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=26988  Min=1.0 Max=1.827842240376035  Mean=1.4444109165841574 StdDev=0.09916567640014913
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=1.827842240376035  Mean=1.4444109165841574 StdDev=0.09916567640014913
@@ -2435,10 +2721,19 @@ INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7074 MASE_Forecast=0.7035 MASE_Test=1.0472
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.07882877229621851 L1_Forecast=0.07926071851582213 L1_Test=0.09586926562496179
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.09902902031559667 L2_Forecast=0.09970110683629041 L2_Test=0.11107294628742155
 INFO:pyaf.std:MODEL_COMPLEXITY 0
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:CONSTANT_TREND ConstantTrend 1.4443925903600903
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 1.5148835182189941
+INFO:pyaf.std:START_FORECASTING '['Signal']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 1.6270530223846436
 INFO:pyaf.std:START_TRAINING 'Signal'
 Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
@@ -2472,31 +2767,33 @@ Forecasts
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Signal",
-        "Time": {
-            "Horizon": 4,
-            "TimeMinMax": [
-                "2000-01-01 00:00:00",
-                "2003-01-29 11:00:00"
-            ],
-            "TimeVariable": "Date"
+    "Signal": {
+        "Dataset": {
+            "Signal": "Signal",
+            "Time": {
+                "Horizon": 4,
+                "TimeMinMax": [
+                    "2000-01-01 00:00:00",
+                    "2003-01-29 11:00:00"
+                ],
+                "TimeVariable": "Date"
+            },
+            "Training_Signal_Length": 26988
         },
-        "Training_Signal_Length": 26988
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
-        "Cycle": "NoCycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "0",
-        "MAE": "0.07926071851582213",
-        "MAPE": "0.0554",
-        "MASE": "0.7035",
-        "RMSE": "0.09970110683629041"
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
+            "Cycle": "NoCycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "0",
+            "MAE": "0.07926071851582213",
+            "MAPE": "0.0554",
+            "MASE": "0.7035",
+            "RMSE": "0.09970110683629041"
+        }
     }
 }
 </ModelInfo>
@@ -2513,7 +2810,7 @@ TEST_CYCLES_END 2
 TEST_CYCLES_START 28000 2
 GENERATING_RANDOM_DATASET Signal_28000_H_0_constant_2_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal' 16.170550107955933
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 42.5651695728302
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2002-07-21T18:00:00.000000 TimeDelta=<DateOffset: hours=1> Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=27988  Min=1.0 Max=1.827842240376035  Mean=1.4443821584231487 StdDev=0.09919303637735678
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=1.827842240376035  Mean=1.4443821584231487 StdDev=0.09919303637735678
@@ -2528,10 +2825,19 @@ INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7075 MASE_Forecast=0.7012 MASE_Test=0.9128
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.07884344226554545 L1_Forecast=0.07935941004584059 L1_Test=0.07691519830128513
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.09903438709958272 L2_Forecast=0.09983590725963652 L2_Test=0.08319253850379515
 INFO:pyaf.std:MODEL_COMPLEXITY 0
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:CONSTANT_TREND ConstantTrend 1.4445049463404567
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 1.7034952640533447
+INFO:pyaf.std:START_FORECASTING '['Signal']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 1.6846888065338135
 INFO:pyaf.std:START_TRAINING 'Signal'
 Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
@@ -2565,31 +2871,33 @@ Forecasts
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Signal",
-        "Time": {
-            "Horizon": 4,
-            "TimeMinMax": [
-                "2000-01-01 00:00:00",
-                "2003-03-12 03:00:00"
-            ],
-            "TimeVariable": "Date"
+    "Signal": {
+        "Dataset": {
+            "Signal": "Signal",
+            "Time": {
+                "Horizon": 4,
+                "TimeMinMax": [
+                    "2000-01-01 00:00:00",
+                    "2003-03-12 03:00:00"
+                ],
+                "TimeVariable": "Date"
+            },
+            "Training_Signal_Length": 27988
         },
-        "Training_Signal_Length": 27988
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
-        "Cycle": "NoCycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "0",
-        "MAE": "0.07935941004584059",
-        "MAPE": "0.0555",
-        "MASE": "0.7012",
-        "RMSE": "0.09983590725963652"
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
+            "Cycle": "NoCycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "0",
+            "MAE": "0.07935941004584059",
+            "MAPE": "0.0555",
+            "MASE": "0.7012",
+            "RMSE": "0.09983590725963652"
+        }
     }
 }
 </ModelInfo>
@@ -2606,7 +2914,7 @@ TEST_CYCLES_END 2
 TEST_CYCLES_START 29000 2
 GENERATING_RANDOM_DATASET Signal_29000_H_0_constant_2_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal' 16.656190395355225
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 47.58840084075928
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2002-08-24T02:00:00.000000 TimeDelta=<DateOffset: hours=1> Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=28988  Min=1.0 Max=1.8491743129800016  Mean=1.4656312357930716 StdDev=0.09924363935327768
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=1.8491743129800016  Mean=1.4656312357930716 StdDev=0.09924363935327768
@@ -2621,10 +2929,19 @@ INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7071 MASE_Forecast=0.7045 MASE_Test=1.1742
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.07884899404149656 L1_Forecast=0.0794837978849208 L1_Test=0.10139503466730293
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.09911179864741376 L2_Forecast=0.099762260361262 L2_Test=0.1112211764707545
 INFO:pyaf.std:MODEL_COMPLEXITY 0
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:CONSTANT_TREND ConstantTrend 1.465894768998823
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 1.6637470722198486
+INFO:pyaf.std:START_FORECASTING '['Signal']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 1.6707019805908203
 INFO:pyaf.std:START_TRAINING 'Signal'
 Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
@@ -2658,31 +2975,33 @@ Forecasts
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Signal",
-        "Time": {
-            "Horizon": 4,
-            "TimeMinMax": [
-                "2000-01-01 00:00:00",
-                "2003-04-22 19:00:00"
-            ],
-            "TimeVariable": "Date"
+    "Signal": {
+        "Dataset": {
+            "Signal": "Signal",
+            "Time": {
+                "Horizon": 4,
+                "TimeMinMax": [
+                    "2000-01-01 00:00:00",
+                    "2003-04-22 19:00:00"
+                ],
+                "TimeVariable": "Date"
+            },
+            "Training_Signal_Length": 28988
         },
-        "Training_Signal_Length": 28988
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
-        "Cycle": "NoCycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "0",
-        "MAE": "0.0794837978849208",
-        "MAPE": "0.0549",
-        "MASE": "0.7045",
-        "RMSE": "0.099762260361262"
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
+            "Cycle": "NoCycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "0",
+            "MAE": "0.0794837978849208",
+            "MAPE": "0.0549",
+            "MASE": "0.7045",
+            "RMSE": "0.099762260361262"
+        }
     }
 }
 </ModelInfo>
@@ -2699,7 +3018,7 @@ TEST_CYCLES_END 2
 TEST_CYCLES_START 30000 2
 GENERATING_RANDOM_DATASET Signal_30000_H_0_constant_2_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal' 17.016258716583252
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 56.944111824035645
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2002-09-26T10:00:00.000000 TimeDelta=<DateOffset: hours=1> Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=29988  Min=1.0 Max=1.8491743129800016  Mean=1.4655412291710663 StdDev=0.09926381673276578
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=1.8491743129800016  Mean=1.4655412291710663 StdDev=0.09926381673276578
@@ -2714,10 +3033,19 @@ INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7067 MASE_Forecast=0.7071 MASE_Test=1.0728
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.07886812249701938 L1_Forecast=0.07961297318518705 L1_Test=0.11400055199410453
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.09915332901236772 L2_Forecast=0.09967975988950091 L2_Test=0.13325892514933727
 INFO:pyaf.std:MODEL_COMPLEXITY 0
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:CONSTANT_TREND ConstantTrend 1.4657999190720326
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 1.7791211605072021
+INFO:pyaf.std:START_FORECASTING '['Signal']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 1.655552625656128
 INFO:pyaf.std:START_TRAINING 'Signal'
 Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
@@ -2751,31 +3079,33 @@ Forecasts
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Signal",
-        "Time": {
-            "Horizon": 4,
-            "TimeMinMax": [
-                "2000-01-01 00:00:00",
-                "2003-06-03 11:00:00"
-            ],
-            "TimeVariable": "Date"
+    "Signal": {
+        "Dataset": {
+            "Signal": "Signal",
+            "Time": {
+                "Horizon": 4,
+                "TimeMinMax": [
+                    "2000-01-01 00:00:00",
+                    "2003-06-03 11:00:00"
+                ],
+                "TimeVariable": "Date"
+            },
+            "Training_Signal_Length": 29988
         },
-        "Training_Signal_Length": 29988
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
-        "Cycle": "NoCycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "0",
-        "MAE": "0.07961297318518705",
-        "MAPE": "0.055",
-        "MASE": "0.7071",
-        "RMSE": "0.09967975988950091"
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
+            "Cycle": "NoCycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "0",
+            "MAE": "0.07961297318518705",
+            "MAPE": "0.055",
+            "MASE": "0.7071",
+            "RMSE": "0.09967975988950091"
+        }
     }
 }
 </ModelInfo>
@@ -2792,7 +3122,7 @@ TEST_CYCLES_END 2
 TEST_CYCLES_START 31000 2
 GENERATING_RANDOM_DATASET Signal_31000_H_0_constant_2_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS 'Signal' 17.65751361846924
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 68.47109007835388
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2002-10-29T18:00:00.000000 TimeDelta=<DateOffset: hours=1> Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=30988  Min=1.0 Max=1.8491743129800016  Mean=1.4655115960212783 StdDev=0.09944687104033499
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=1.8491743129800016  Mean=1.4655115960212783 StdDev=0.09944687104033499
@@ -2807,10 +3137,19 @@ INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7066 MASE_Forecast=0.7103 MASE_Test=0.6953
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.07883624281815105 L1_Forecast=0.08033214154023202 L1_Test=0.07104460504786325
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.09911739554984146 L2_Forecast=0.10074164845298081 L2_Test=0.11821649690194826
 INFO:pyaf.std:MODEL_COMPLEXITY 0
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:CONSTANT_TREND ConstantTrend 1.4656898851607476
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS 1.9284846782684326
+INFO:pyaf.std:START_FORECASTING '['Signal']'
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 1.7748610973358154
 Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
        '_Signal_ConstantTrend_residue_zeroCycle',
@@ -2843,31 +3182,33 @@ Forecasts
 
 <ModelInfo>
 {
-    "Dataset": {
-        "Signal": "Signal",
-        "Time": {
-            "Horizon": 4,
-            "TimeMinMax": [
-                "2000-01-01 00:00:00",
-                "2003-07-15 03:00:00"
-            ],
-            "TimeVariable": "Date"
+    "Signal": {
+        "Dataset": {
+            "Signal": "Signal",
+            "Time": {
+                "Horizon": 4,
+                "TimeMinMax": [
+                    "2000-01-01 00:00:00",
+                    "2003-07-15 03:00:00"
+                ],
+                "TimeVariable": "Date"
+            },
+            "Training_Signal_Length": 30988
         },
-        "Training_Signal_Length": 30988
-    },
-    "Model": {
-        "AR_Model": "NoAR",
-        "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
-        "Cycle": "NoCycle",
-        "Signal_Transoformation": "NoTransf",
-        "Trend": "ConstantTrend"
-    },
-    "Model_Performance": {
-        "COMPLEXITY": "0",
-        "MAE": "0.08033214154023202",
-        "MAPE": "0.0555",
-        "MASE": "0.7103",
-        "RMSE": "0.10074164845298081"
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
+            "Cycle": "NoCycle",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "COMPLEXITY": "0",
+            "MAE": "0.08033214154023202",
+            "MAPE": "0.0555",
+            "MASE": "0.7103",
+            "RMSE": "0.10074164845298081"
+        }
     }
 }
 </ModelInfo>
