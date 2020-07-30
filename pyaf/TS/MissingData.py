@@ -61,7 +61,7 @@ class cMissingDataImputer:
             iInputDS[iSignal] = lSignal
             
         elif(self.mOptions.mMissingDataOptions.mSignalMissingDataImputation == "Mean"):
-            lMean = iInputDS[iSignal].median()
+            lMean = iInputDS[iSignal].mean()
             lSignal = iInputDS[iSignal].fillna(lMean, method=None)
             iInputDS[iSignal] = lSignal
             
