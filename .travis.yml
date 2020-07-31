@@ -9,17 +9,19 @@ os: linux
 
 language: python
 python:
-    - 3.7
+    - 3.8
 
 before_install:
-    - sudo apt-get install -y graphviz
+    - sudo apt-get install -y graphviz python3-matplotlib python3-sklearn python3-pandas python3-scipy python3-numpy python3-sqlalchemy ipython3 jupyter-notebook python3-pydot 
 
 cache:
 directories:
 - $HOME/.cache/matplotlib
 
-install: 
-    pip install scipy pandas sklearn matplotlib pydot dill sqlalchemy jupyter xgboost ipython
+install:
+    # removed all these. replaced by equivalent debian packages  
+    # pip install scipy pandas sklearn matplotlib pydot dill sqlalchemy jupyter xgboost ipython
+    # 
 
 script: 
     - export PYTHONPATH=$PYTHONPATH:..
