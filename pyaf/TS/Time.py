@@ -51,7 +51,7 @@ class cTimeInfo:
 
     def get_time_dtype(self):
         # print(self.mTimeMax, type(self.mTimeMax))
-        lType = np.dtype(self.mTimeMax);
+        lType = self.mSignalFrame[self.mTime].dtype;
         return lType;
 
     def checkDateTypesForNewDataset(self, df):
