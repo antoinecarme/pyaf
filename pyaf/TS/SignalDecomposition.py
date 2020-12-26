@@ -349,9 +349,9 @@ class cModelSelector_OneSignal:
                 lForecastPerf = value[3];
                 lTestPerf = value[4];
                 row = [lSplit, lTranformName, lModelFormula , lModelCategory, lComplexity,
-                       lFitPerf.mCount, lFitPerf.mL1, lFitPerf.mL2, lFitPerf.mMAPE,  lFitPerf.mMASE, 
-                       lForecastPerf.mCount, lForecastPerf.mL1, lForecastPerf.mL2, lForecastPerf.mMAPE, lForecastPerf.mMASE,
-                       lTestPerf.mCount, lTestPerf.mL1, lTestPerf.mL2, lTestPerf.mMAPE, lTestPerf.mMASE]
+                       lFitPerf.mCount, lFitPerf.mL1, lFitPerf.mL2, lFitPerf.mMAPE,  lFitPerf.mMASE, lFitPerf.mCRPS, 
+                       lForecastPerf.mCount, lForecastPerf.mL1, lForecastPerf.mL2, lForecastPerf.mMAPE, lForecastPerf.mMASE, lForecastPerf.mCRPS,
+                       lTestPerf.mCount, lTestPerf.mL1, lTestPerf.mL2, lTestPerf.mMAPE, lTestPerf.mMASE, lTestPerf.mCRPS]
                 rows_list.append(row);
                 if(self.mOptions.mDebugPerformance):
                     lIndicatorValue = lForecastPerf.getCriterionValue(self.mOptions.mModelSelection_Criterion)
@@ -359,9 +359,9 @@ class cModelSelector_OneSignal:
 
         self.mTrPerfDetails =  pd.DataFrame(rows_list, columns=
                                             ('Split', 'Transformation', 'Model', 'Category', 'Complexity',
-                                             'FitCount', 'FitL1', 'FitL2', 'FitMAPE', 'FitMASE',
-                                             'ForecastCount', 'ForecastL1', 'ForecastL2', 'ForecastMAPE', 'ForecastMASE',
-                                             'TestCount', 'TestL1', 'TestL2', 'TestMAPE', 'TestMASE')) 
+                                             'FitCount', 'FitL1', 'FitL2', 'FitMAPE', 'FitMASE', 'FitCRPS',
+                                             'ForecastCount', 'ForecastL1', 'ForecastL2', 'ForecastMAPE', 'ForecastMASE', 'ForecastCRPS',
+                                             'TestCount', 'TestL1', 'TestL2', 'TestMAPE', 'TestMASE', 'TestCRPS')) 
         # print(self.mTrPerfDetails.head(self.mTrPerfDetails.shape[0]));
         lIndicator = 'Forecast' + self.mOptions.mModelSelection_Criterion;
         lBestPerf = self.mTrPerfDetails[ lIndicator ].min();
