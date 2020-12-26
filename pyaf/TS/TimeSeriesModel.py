@@ -134,6 +134,7 @@ class cTimeSeriesModel:
         logger.info("MODEL_MAPE MAPE_Fit=" + str(self.mFitPerf.mMAPE) + " MAPE_Forecast=" + str(self.mForecastPerf.mMAPE)  + " MAPE_Test=" + str(self.mTestPerf.mMAPE) );
         logger.info("MODEL_SMAPE SMAPE_Fit=" + str(self.mFitPerf.mSMAPE) + " SMAPE_Forecast=" + str(self.mForecastPerf.mSMAPE)  + " SMAPE_Test=" + str(self.mTestPerf.mSMAPE) );
         logger.info("MODEL_MASE MASE_Fit=" + str(self.mFitPerf.mMASE) + " MASE_Forecast=" + str(self.mForecastPerf.mMASE)  + " MASE_Test=" + str(self.mTestPerf.mMASE) );
+        logger.info("MODEL_CRPS CRPS_Fit=" + str(self.mFitPerf.mCRPS) + " CRPS_Forecast=" + str(self.mForecastPerf.mCRPS)  + " CRPS_Test=" + str(self.mTestPerf.mCRPS) );
         logger.info("MODEL_L1 L1_Fit=" + str(self.mFitPerf.mL1) + " L1_Forecast=" + str(self.mForecastPerf.mL1)  + " L1_Test=" + str(self.mTestPerf.mL1) );
         logger.info("MODEL_L2 L2_Fit=" + str(self.mFitPerf.mL2) + " L2_Forecast=" + str(self.mForecastPerf.mL2)  + " L2_Test=" + str(self.mTestPerf.mL2) );
         logger.info("MODEL_COMPLEXITY " + str(self.getComplexity()) );
@@ -292,6 +293,7 @@ class cTimeSeriesModel:
         dict1["Model"] = d2;
         d3 = {"MAPE" : str(self.mForecastPerf.mMAPE),
               "MASE" : str(self.mForecastPerf.mMASE),
+              "CRPS" : str(self.mForecastPerf.mCRPS),
               "MAE" : str(self.mForecastPerf.mL1),
               "RMSE" : str(self.mForecastPerf.mL2),
               "COMPLEXITY" : str(self.getComplexity())};
