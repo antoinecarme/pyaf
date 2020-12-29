@@ -234,6 +234,7 @@ class cTimeSeriesModel:
         # print(df1.head())
         if(self.mTimeInfo.mOptions.mAddPredictionIntervals):
             df1 = self.addPredictionIntervals(df, df1, iHorizon);
+        self.addForecastQuantiles(df, df1, iHorizon);
         if(self.mTimeInfo.mOptions.mForecastRectifier is not None):
             df1 = self.applyForecastRectifier(df1)
         return df1
@@ -267,6 +268,27 @@ class cTimeSeriesModel:
         # print(lWidths)
         iForecastFrame.loc[N:N+iHorizon, lLowerBoundName] = lForcastValues - lWidths
         iForecastFrame.loc[N:N+iHorizon, lUpperBoundName] = lForcastValues + lWidths
+        return iForecastFrame;
+
+    def addForecastQuantiles(self, iInputDS, iForecastFrame, iHorizon):
+        lSignalColumn = self.mOriginalSignal;
+
+        N = iInputDS.shape[0] ;
+        lForecastColumn = str(lSignalColumn) + "_Forecast";
+        lQuantileName = lForecastColumn + "_Quantile_"
+
+        # the prediction intervals are only computed for the training horizon
+        lHorizon = min(iHorizon , self.mTimeInfo.mHorizon);
+        lPerfs = [self.mPredictionIntervalsEstimator.mForecastPerformances[lForecastColumn + "_" + str(h + 1)]
+                   for h in range(0 , self.mTimeInfo.mHorizon)]
+        lForcastValues = iForecastFrame.loc[N:N+iHorizon, lForecastColumn]
+        
+        lQuantiles = self.mPredictionIntervalsEstimator.mForecastPerformances[lForecastColumn + "_1"].mErrorQuantiles.keys()
+        lQuantiles = sorted(lQuantiles)
+        for q in lQuantiles:
+            iForecastFrame[lQuantileName + str(q)] = np.nan
+            lQuants = [lPerf.mErrorQuantiles[q] for lPerf in lPerfs]
+            iForecastFrame.loc[N:N+iHorizon, lQuantileName + str(q)] =  lForcastValues.values + np.array(lQuants)
         return iForecastFrame;
 
 
@@ -337,13 +359,22 @@ class cTimeSeriesModel:
         lTime = self.mTimeInfo.mTime;            
         lOutput.set_index(lTime, inplace=True, drop=False);
         # print(lOutput[lTime].dtype);
+        lQuantiles = self.mPredictionIntervalsEstimator.mForecastPerformances[lForecastColumn + "_1"].mErrorQuantiles.keys()
+        lQuantiles = sorted(lQuantiles)
+
         tsplot.prediction_interval_plot(lOutput,
                                         lTime, self.mOriginalSignal,
-                                        lForecastColumn  ,
+                                        lForecastColumn,
                                         lForecastColumn + '_Lower_Bound',
                                         lForecastColumn + '_Upper_Bound',
                                         name = name,
                                         format= format, horizon = self.mTimeInfo.mHorizon);
+        tsplot.quantiles_plot(lOutput,
+                              lTime, self.mOriginalSignal,
+                              lForecastColumn  ,
+                              lQuantiles,
+                              name = name,
+                              format= format, horizon = self.mTimeInfo.mHorizon);
         #lOutput.plot()
         
     def getPlotsAsDict(self):
