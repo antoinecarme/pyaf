@@ -99,8 +99,8 @@ def decomp_plot_as_png_base64(df, time, signal, estimator, residue, name = None,
     plt.close(fig)
     return figdata_png.decode('utf8')
     
-
-def prediction_interval_plot(df, time, signal, estimator, lower, upper, name = None, format='png', max_length = 1000, horizon = 1) :
+def prediction_interval_plot(df, time, signal, estimator, lower, upper, name = None, format='png', max_length = 1000, horizon =
+ 1) :
     assert(df.shape[0] > 0)
     assert(df.shape[1] > 0)
     assert(time in df.columns)
@@ -111,8 +111,8 @@ def prediction_interval_plot(df, time, signal, estimator, lower, upper, name = N
 
 
     df1 = df.tail(max(max_length, 4 * horizon)).copy();
-    lMin = np.mean(df1[signal]) -  np.std(df1[signal]) * 3;
-    lMax = np.mean(df1[signal]) +  np.std(df1[signal]) * 3;
+    lMin = np.mean(df1[signal]) -  np.std(df1[signal]) * 10;
+    lMax = np.mean(df1[signal]) +  np.std(df1[signal]) * 10;
     df1[lower] = df1[lower].apply(lambda x : x if (np.isnan(x) or x >= lMin) else np.nan);
     df1[upper] = df1[upper].apply(lambda x : x if (np.isnan(x) or x <= lMax) else np.nan);
 
@@ -143,6 +143,46 @@ def prediction_interval_plot(df, time, signal, estimator, lower, upper, name = N
         plt.switch_backend('Agg')
         fig.savefig(name + '_prediction_intervals_output.' + format)
         plt.close(fig)
+
+
+
+def quantiles_plot(df, time, signal, estimator, iQuantiles, name = None, format='png', max_length = 1000, horizon = 1) :
+    assert(df.shape[0] > 0)
+    assert(df.shape[1] > 0)
+    assert(time in df.columns)
+    assert(signal in df.columns)
+    assert(estimator in df.columns)
+
+    lQuantileNames = [estimator + '_Quantile_' + str(q) for q in iQuantiles]
+    df1 = df.tail(horizon)
+
+    import matplotlib
+    # matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+    if(name is not None):
+        plt.switch_backend('Agg')
+    lMin, lMax = df1[lQuantileNames].values.min(), df1[lQuantileNames].values.max()
+    
+    cm = plt.cm.get_cmap('RdYlBu_r')
+    fig, axs = plt.subplots(horizon, 1, figsize=(16, 8), squeeze = True)
+    plt.subplots_adjust(hspace=6)
+    # print(axs)
+    for h in range(horizon):
+        lIdx = df1.index[h]
+        lTime = df1.loc[lIdx, time]
+        q_values = df1.loc[lIdx, lQuantileNames].tolist()
+        _, bins1, patches = axs[h].hist(q_values, bins = q_values, weights=[1]*len(lQuantileNames), density = True)
+        for i, p in enumerate(patches):
+            j = (bins1[i] - lMin) / (lMax - lMin)
+            plt.setp(p, 'facecolor', cm(j))
+        axs[h].set_ylabel('density')
+        axs[h].set_title('Horizon_' + str(h + 1) + " ( " + time + " = " + str(lTime) + " ) ")
+        axs[h].set_xlim((lMin,lMax))
+        axs[h].set_ylim((0, 1.0))
+    if(name is not None):
+        plt.switch_backend('Agg')
+        fig.savefig(name + '_quantiles_output.' + format)
+        plt.close(fig)
     
 
 def prediction_interval_plot_as_png_base64(df, time, signal, estimator, lower, upper, name = None, max_length = 1000, horizon = 1) :
@@ -156,8 +196,8 @@ def prediction_interval_plot_as_png_base64(df, time, signal, estimator, lower, u
 
 
     df1 = df.tail(max(max_length, 4 * horizon)).copy();
-    lMin = np.mean(df1[signal]) -  np.std(df1[signal]) * 3;
-    lMax = np.mean(df1[signal]) +  np.std(df1[signal]) * 3;
+    lMin = np.mean(df1[signal]) -  np.std(df1[signal]) * 10;
+    lMax = np.mean(df1[signal]) +  np.std(df1[signal]) * 10;
     df1[lower] = df1[lower].apply(lambda x : x if (np.isnan(x) or x >= lMin) else np.nan);
     df1[upper] = df1[upper].apply(lambda x : x if (np.isnan(x) or x <= lMax) else np.nan);
 
