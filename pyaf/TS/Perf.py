@@ -131,12 +131,18 @@ class cPerf:
 
     def compute_signal_quantiles(self, signal , estimator):
         myerror = (estimator.values - signal.values);
-        Q = int(min(20, np.sqrt(signal.shape[0]))) # optimal quantiles number heuristics : sqrt(N)
-        lPercentiles = [q for q in range(Q, 100, Q)]
+        NQ = int(min(20, np.sqrt(signal.shape[0]))) # optimal quantiles number heuristics : sqrt(N)
+        Q = int(100 // NQ)
+        lPercentiles = [50 - q for q in range(Q, 50, Q)] + [50] + [50 + q for q in range(Q, 50, Q)]
+        lPercentiles = sorted(lPercentiles)
         # print(lPercentiles)
         lSignalQuantiles = np.percentile(signal, lPercentiles)
         lSignalQuantiles = dict(zip(lPercentiles, list(lSignalQuantiles)))
         # print("SIGNAL_QUANTILES" , (self.mName , lSignalQuantiles))
+        Q = 20
+        lPercentiles2 = [50 - q for q in range(Q, 50, Q)] + [50] + [50 + q for q in range(Q, 50, Q)]
+        lErrorQuantiles = np.percentile(myerror, lPercentiles2)
+        self.mErrorQuantiles = dict(zip(lPercentiles2, list(lErrorQuantiles)))
         return lSignalQuantiles
     
     def compute_CRPS(self, signal , estimator):
