@@ -164,8 +164,8 @@ def quantiles_plot(df, time, signal, estimator, iQuantiles, name = None, format=
     lMin, lMax = df1[lQuantileNames].values.min(), df1[lQuantileNames].values.max()
     
     cm = plt.cm.get_cmap('RdYlBu_r')
-    fig, axs = plt.subplots(horizon, 1, figsize=(16, 8), squeeze = True)
-    plt.subplots_adjust(hspace=6)
+    fig, axs = plt.subplots(horizon, 1, figsize=(12, 12), squeeze = True)
+    # plt.subplots_adjust(hspace=1)
     # print(axs)
     for h in range(horizon):
         lIdx = df1.index[h]
@@ -175,10 +175,16 @@ def quantiles_plot(df, time, signal, estimator, iQuantiles, name = None, format=
         for i, p in enumerate(patches):
             j = (bins1[i] - lMin) / (lMax - lMin)
             plt.setp(p, 'facecolor', cm(j))
-        axs[h].set_ylabel('density')
-        axs[h].set_title('Horizon_' + str(h + 1) + " ( " + time + " = " + str(lTime) + " ) ")
+        if(h == 0):
+            axs[h].set_title('Forecast Quantiles')
         axs[h].set_xlim((lMin,lMax))
-        axs[h].set_ylim((0, 1.0))
+        # axs[h].set_ylim((0, 1.0))
+        axs[h].set_ylabel('H_' + str(h + 1))
+        axs[h].set_yticklabels([])
+        if(h < (horizon - 1)):
+            axs[h].set_xlabel('')
+            axs[h].set_xticklabels([])
+            
     if(name is not None):
         plt.switch_backend('Agg')
         fig.savefig(name + '_quantiles_output.' + format)
