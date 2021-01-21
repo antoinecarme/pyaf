@@ -206,35 +206,75 @@ bugs/test_random_exogenous.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_test_random_exogenous.log logs/bugs_test_random_exogenous.log  >  logs/bugs_test_random_exogenous.log.diff
 	 tail -10  logs/bugs_test_random_exogenous.log.diff 
 
+bugs/issue_79/test_ozone_missing_signal.py  :  
+	 $(PYTHON)  tests/bugs/issue_79/test_ozone_missing_signal.py  >  logs/bugs_issue_79_test_ozone_missing_signal.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_79_test_ozone_missing_signal.log logs/bugs_issue_79_test_ozone_missing_signal.log  >  logs/bugs_issue_79_test_ozone_missing_signal.log.diff
+	 tail -10  logs/bugs_issue_79_test_ozone_missing_signal.log.diff 
+
+bugs/issue_55/grouping_issue_55_notebook.py  :  
+	 $(PYTHON)  tests/bugs/issue_55/grouping_issue_55_notebook.py  >  logs/bugs_issue_55_grouping_issue_55_notebook.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_55_grouping_issue_55_notebook.log logs/bugs_issue_55_grouping_issue_55_notebook.log  >  logs/bugs_issue_55_grouping_issue_55_notebook.log.diff
+	 tail -10  logs/bugs_issue_55_grouping_issue_55_notebook.log.diff 
+
+bugs/issue_19/issue_19_no_interpolation.py  :  
+	 $(PYTHON)  tests/bugs/issue_19/issue_19_no_interpolation.py  >  logs/bugs_issue_19_issue_19_no_interpolation.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_19_issue_19_no_interpolation.log logs/bugs_issue_19_issue_19_no_interpolation.log  >  logs/bugs_issue_19_issue_19_no_interpolation.log.diff
+	 tail -10  logs/bugs_issue_19_issue_19_no_interpolation.log.diff 
+
+bugs/issue_72/test_artificial_32_exp_linear_0__100.py  :  
+	 $(PYTHON)  tests/bugs/issue_72/test_artificial_32_exp_linear_0__100.py  >  logs/bugs_issue_72_test_artificial_32_exp_linear_0__100.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_72_test_artificial_32_exp_linear_0__100.log logs/bugs_issue_72_test_artificial_32_exp_linear_0__100.log  >  logs/bugs_issue_72_test_artificial_32_exp_linear_0__100.log.diff
+	 tail -10  logs/bugs_issue_72_test_artificial_32_exp_linear_0__100.log.diff 
+
+bugs/issue_72/test_artificial_32_sqrt_poly_7__20.py  :  
+	 $(PYTHON)  tests/bugs/issue_72/test_artificial_32_sqrt_poly_7__20.py  >  logs/bugs_issue_72_test_artificial_32_sqrt_poly_7__20.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_72_test_artificial_32_sqrt_poly_7__20.log logs/bugs_issue_72_test_artificial_32_sqrt_poly_7__20.log  >  logs/bugs_issue_72_test_artificial_32_sqrt_poly_7__20.log.diff
+	 tail -10  logs/bugs_issue_72_test_artificial_32_sqrt_poly_7__20.log.diff 
+
+bugs/issue_4/issue_4.py  :  
+	 $(PYTHON)  tests/bugs/issue_4/issue_4.py  >  logs/bugs_issue_4_issue_4.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_4_issue_4.log logs/bugs_issue_4_issue_4.log  >  logs/bugs_issue_4_issue_4.log.diff
+	 tail -10  logs/bugs_issue_4_issue_4.log.diff 
+
+bugs/issue_73/issue_73_1_fast_mode.py  :  
+	 $(PYTHON)  tests/bugs/issue_73/issue_73_1_fast_mode.py  >  logs/bugs_issue_73_issue_73_1_fast_mode.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_73_issue_73_1_fast_mode.log logs/bugs_issue_73_issue_73_1_fast_mode.log  >  logs/bugs_issue_73_issue_73_1_fast_mode.log.diff
+	 tail -10  logs/bugs_issue_73_issue_73_1_fast_mode.log.diff 
+
+bugs/issue_73/issue_73_1_fast_mode_2.py  :  
+	 $(PYTHON)  tests/bugs/issue_73/issue_73_1_fast_mode_2.py  >  logs/bugs_issue_73_issue_73_1_fast_mode_2.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_73_issue_73_1_fast_mode_2.log logs/bugs_issue_73_issue_73_1_fast_mode_2.log  >  logs/bugs_issue_73_issue_73_1_fast_mode_2.log.diff
+	 tail -10  logs/bugs_issue_73_issue_73_1_fast_mode_2.log.diff 
+
+bugs/issue_75/issue_75_plot.py  :  
+	 $(PYTHON)  tests/bugs/issue_75/issue_75_plot.py  >  logs/bugs_issue_75_issue_75_plot.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_75_issue_75_plot.log logs/bugs_issue_75_issue_75_plot.log  >  logs/bugs_issue_75_issue_75_plot.log.diff
+	 tail -10  logs/bugs_issue_75_issue_75_plot.log.diff 
+
+bugs/issue_75/issue_75_residues_Are_empty.py  :  
+	 $(PYTHON)  tests/bugs/issue_75/issue_75_residues_Are_empty.py  >  logs/bugs_issue_75_issue_75_residues_Are_empty.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_75_issue_75_residues_Are_empty.log logs/bugs_issue_75_issue_75_residues_Are_empty.log  >  logs/bugs_issue_75_issue_75_residues_Are_empty.log.diff
+	 tail -10  logs/bugs_issue_75_issue_75_residues_Are_empty.log.diff 
+
+bugs/issue_22/test_artificial_1024_cumsum_constant_5__20.py  :  
+	 $(PYTHON)  tests/bugs/issue_22/test_artificial_1024_cumsum_constant_5__20.py  >  logs/bugs_issue_22_test_artificial_1024_cumsum_constant_5__20.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_22_test_artificial_1024_cumsum_constant_5__20.log logs/bugs_issue_22_test_artificial_1024_cumsum_constant_5__20.log  >  logs/bugs_issue_22_test_artificial_1024_cumsum_constant_5__20.log.diff
+	 tail -10  logs/bugs_issue_22_test_artificial_1024_cumsum_constant_5__20.log.diff 
+
 bugs/issue_29/test_mem_1.py  :  
 	 $(PYTHON)  tests/bugs/issue_29/test_mem_1.py  >  logs/bugs_issue_29_test_mem_1.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_29_test_mem_1.log logs/bugs_issue_29_test_mem_1.log  >  logs/bugs_issue_29_test_mem_1.log.diff
 	 tail -10  logs/bugs_issue_29_test_mem_1.log.diff 
 
-bugs/issue_94/issue_94.py  :  
-	 $(PYTHON)  tests/bugs/issue_94/issue_94.py  >  logs/bugs_issue_94_issue_94.log  2>&1
-	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_94_issue_94.log logs/bugs_issue_94_issue_94.log  >  logs/bugs_issue_94_issue_94.log.diff
-	 tail -10  logs/bugs_issue_94_issue_94.log.diff 
+bugs/issue_32/bug_test_ozone_heroku_1.py  :  
+	 $(PYTHON)  tests/bugs/issue_32/bug_test_ozone_heroku_1.py  >  logs/bugs_issue_32_bug_test_ozone_heroku_1.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_32_bug_test_ozone_heroku_1.log logs/bugs_issue_32_bug_test_ozone_heroku_1.log  >  logs/bugs_issue_32_bug_test_ozone_heroku_1.log.diff
+	 tail -10  logs/bugs_issue_32_bug_test_ozone_heroku_1.log.diff 
 
-bugs/issue_36/display_version_info.py  :  
-	 $(PYTHON)  tests/bugs/issue_36/display_version_info.py  >  logs/bugs_issue_36_display_version_info.log  2>&1
-	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_36_display_version_info.log logs/bugs_issue_36_display_version_info.log  >  logs/bugs_issue_36_display_version_info.log.diff
-	 tail -10  logs/bugs_issue_36_display_version_info.log.diff 
-
-bugs/issue_36/issue_36_version_info.py  :  
-	 $(PYTHON)  tests/bugs/issue_36/issue_36_version_info.py  >  logs/bugs_issue_36_issue_36_version_info.log  2>&1
-	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_36_issue_36_version_info.log logs/bugs_issue_36_issue_36_version_info.log  >  logs/bugs_issue_36_issue_36_version_info.log.diff
-	 tail -10  logs/bugs_issue_36_issue_36_version_info.log.diff 
-
-bugs/issue_69/issue_69_example_1_no_rectifier.py  :  
-	 $(PYTHON)  tests/bugs/issue_69/issue_69_example_1_no_rectifier.py  >  logs/bugs_issue_69_issue_69_example_1_no_rectifier.log  2>&1
-	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_69_issue_69_example_1_no_rectifier.log logs/bugs_issue_69_issue_69_example_1_no_rectifier.log  >  logs/bugs_issue_69_issue_69_example_1_no_rectifier.log.diff
-	 tail -10  logs/bugs_issue_69_issue_69_example_1_no_rectifier.log.diff 
-
-bugs/issue_69/issue_69_example_1_with_rectifier.py  :  
-	 $(PYTHON)  tests/bugs/issue_69/issue_69_example_1_with_rectifier.py  >  logs/bugs_issue_69_issue_69_example_1_with_rectifier.log  2>&1
-	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_69_issue_69_example_1_with_rectifier.log logs/bugs_issue_69_issue_69_example_1_with_rectifier.log  >  logs/bugs_issue_69_issue_69_example_1_with_rectifier.log.diff
-	 tail -10  logs/bugs_issue_69_issue_69_example_1_with_rectifier.log.diff 
+bugs/issue_32/bug_test_ozone_heroku_1_ws.py  :  
+	 $(PYTHON)  tests/bugs/issue_32/bug_test_ozone_heroku_1_ws.py  >  logs/bugs_issue_32_bug_test_ozone_heroku_1_ws.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_32_bug_test_ozone_heroku_1_ws.log logs/bugs_issue_32_bug_test_ozone_heroku_1_ws.log  >  logs/bugs_issue_32_bug_test_ozone_heroku_1_ws.log.diff
+	 tail -10  logs/bugs_issue_32_bug_test_ozone_heroku_1_ws.log.diff 
 
 bugs/issue_34/issue_34.py  :  
 	 $(PYTHON)  tests/bugs/issue_34/issue_34.py  >  logs/bugs_issue_34_issue_34.log  2>&1
@@ -296,15 +336,65 @@ bugs/issue_34/test_artificial_1024_sqrt_linear_30_12_20.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_34_test_artificial_1024_sqrt_linear_30_12_20.log logs/bugs_issue_34_test_artificial_1024_sqrt_linear_30_12_20.log  >  logs/bugs_issue_34_test_artificial_1024_sqrt_linear_30_12_20.log.diff
 	 tail -10  logs/bugs_issue_34_test_artificial_1024_sqrt_linear_30_12_20.log.diff 
 
+bugs/issue_94/issue_94.py  :  
+	 $(PYTHON)  tests/bugs/issue_94/issue_94.py  >  logs/bugs_issue_94_issue_94.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_94_issue_94.log logs/bugs_issue_94_issue_94.log  >  logs/bugs_issue_94_issue_94.log.diff
+	 tail -10  logs/bugs_issue_94_issue_94.log.diff 
+
+bugs/issue_56/issue_56_order1.py  :  
+	 $(PYTHON)  tests/bugs/issue_56/issue_56_order1.py  >  logs/bugs_issue_56_issue_56_order1.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_56_issue_56_order1.log logs/bugs_issue_56_issue_56_order1.log  >  logs/bugs_issue_56_issue_56_order1.log.diff
+	 tail -10  logs/bugs_issue_56_issue_56_order1.log.diff 
+
+bugs/issue_56/issue_56_order2.py  :  
+	 $(PYTHON)  tests/bugs/issue_56/issue_56_order2.py  >  logs/bugs_issue_56_issue_56_order2.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_56_issue_56_order2.log logs/bugs_issue_56_issue_56_order2.log  >  logs/bugs_issue_56_issue_56_order2.log.diff
+	 tail -10  logs/bugs_issue_56_issue_56_order2.log.diff 
+
+bugs/issue_69/issue_69_example_1_no_rectifier.py  :  
+	 $(PYTHON)  tests/bugs/issue_69/issue_69_example_1_no_rectifier.py  >  logs/bugs_issue_69_issue_69_example_1_no_rectifier.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_69_issue_69_example_1_no_rectifier.log logs/bugs_issue_69_issue_69_example_1_no_rectifier.log  >  logs/bugs_issue_69_issue_69_example_1_no_rectifier.log.diff
+	 tail -10  logs/bugs_issue_69_issue_69_example_1_no_rectifier.log.diff 
+
+bugs/issue_69/issue_69_example_1_with_rectifier.py  :  
+	 $(PYTHON)  tests/bugs/issue_69/issue_69_example_1_with_rectifier.py  >  logs/bugs_issue_69_issue_69_example_1_with_rectifier.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_69_issue_69_example_1_with_rectifier.log logs/bugs_issue_69_issue_69_example_1_with_rectifier.log  >  logs/bugs_issue_69_issue_69_example_1_with_rectifier.log.diff
+	 tail -10  logs/bugs_issue_69_issue_69_example_1_with_rectifier.log.diff 
+
 bugs/issue_46/issue_46_one_or_two_rows.py  :  
 	 $(PYTHON)  tests/bugs/issue_46/issue_46_one_or_two_rows.py  >  logs/bugs_issue_46_issue_46_one_or_two_rows.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_46_issue_46_one_or_two_rows.log logs/bugs_issue_46_issue_46_one_or_two_rows.log  >  logs/bugs_issue_46_issue_46_one_or_two_rows.log.diff
 	 tail -10  logs/bugs_issue_46_issue_46_one_or_two_rows.log.diff 
 
-bugs/issue_76/test_ozone_unicode.py  :  
-	 $(PYTHON)  tests/bugs/issue_76/test_ozone_unicode.py  >  logs/bugs_issue_76_test_ozone_unicode.log  2>&1
-	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_76_test_ozone_unicode.log logs/bugs_issue_76_test_ozone_unicode.log  >  logs/bugs_issue_76_test_ozone_unicode.log.diff
-	 tail -10  logs/bugs_issue_76_test_ozone_unicode.log.diff 
+bugs/issue_58/issue_58_1_categorical_exogenous.py  :  
+	 $(PYTHON)  tests/bugs/issue_58/issue_58_1_categorical_exogenous.py  >  logs/bugs_issue_58_issue_58_1_categorical_exogenous.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_58_issue_58_1_categorical_exogenous.log logs/bugs_issue_58_issue_58_1_categorical_exogenous.log  >  logs/bugs_issue_58_issue_58_1_categorical_exogenous.log.diff
+	 tail -10  logs/bugs_issue_58_issue_58_1_categorical_exogenous.log.diff 
+
+bugs/issue_21/test_artificial_1024__poly_7__20.py  :  
+	 $(PYTHON)  tests/bugs/issue_21/test_artificial_1024__poly_7__20.py  >  logs/bugs_issue_21_test_artificial_1024__poly_7__20.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_21_test_artificial_1024__poly_7__20.log logs/bugs_issue_21_test_artificial_1024__poly_7__20.log  >  logs/bugs_issue_21_test_artificial_1024__poly_7__20.log.diff
+	 tail -10  logs/bugs_issue_21_test_artificial_1024__poly_7__20.log.diff 
+
+bugs/issue_21/test_ozone_max_autoreg_5.py  :  
+	 $(PYTHON)  tests/bugs/issue_21/test_ozone_max_autoreg_5.py  >  logs/bugs_issue_21_test_ozone_max_autoreg_5.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_21_test_ozone_max_autoreg_5.log logs/bugs_issue_21_test_ozone_max_autoreg_5.log  >  logs/bugs_issue_21_test_ozone_max_autoreg_5.log.diff
+	 tail -10  logs/bugs_issue_21_test_ozone_max_autoreg_5.log.diff 
+
+bugs/issue_36/display_version_info.py  :  
+	 $(PYTHON)  tests/bugs/issue_36/display_version_info.py  >  logs/bugs_issue_36_display_version_info.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_36_display_version_info.log logs/bugs_issue_36_display_version_info.log  >  logs/bugs_issue_36_display_version_info.log.diff
+	 tail -10  logs/bugs_issue_36_display_version_info.log.diff 
+
+bugs/issue_36/issue_36_version_info.py  :  
+	 $(PYTHON)  tests/bugs/issue_36/issue_36_version_info.py  >  logs/bugs_issue_36_issue_36_version_info.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_36_issue_36_version_info.log logs/bugs_issue_36_issue_36_version_info.log  >  logs/bugs_issue_36_issue_36_version_info.log.diff
+	 tail -10  logs/bugs_issue_36_issue_36_version_info.log.diff 
+
+bugs/issue_80/test_ozone_missing_time.py  :  
+	 $(PYTHON)  tests/bugs/issue_80/test_ozone_missing_time.py  >  logs/bugs_issue_80_test_ozone_missing_time.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_80_test_ozone_missing_time.log logs/bugs_issue_80_test_ozone_missing_time.log  >  logs/bugs_issue_80_test_ozone_missing_time.log.diff
+	 tail -10  logs/bugs_issue_80_test_ozone_missing_time.log.diff 
 
 bugs/issue_106/insurance_exog.py  :  
 	 $(PYTHON)  tests/bugs/issue_106/insurance_exog.py  >  logs/bugs_issue_106_insurance_exog.log  2>&1
@@ -326,65 +416,15 @@ bugs/issue_106/submitted_script.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_106_submitted_script.log logs/bugs_issue_106_submitted_script.log  >  logs/bugs_issue_106_submitted_script.log.diff
 	 tail -10  logs/bugs_issue_106_submitted_script.log.diff 
 
-bugs/issue_22/test_artificial_1024_cumsum_constant_5__20.py  :  
-	 $(PYTHON)  tests/bugs/issue_22/test_artificial_1024_cumsum_constant_5__20.py  >  logs/bugs_issue_22_test_artificial_1024_cumsum_constant_5__20.log  2>&1
-	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_22_test_artificial_1024_cumsum_constant_5__20.log logs/bugs_issue_22_test_artificial_1024_cumsum_constant_5__20.log  >  logs/bugs_issue_22_test_artificial_1024_cumsum_constant_5__20.log.diff
-	 tail -10  logs/bugs_issue_22_test_artificial_1024_cumsum_constant_5__20.log.diff 
-
-bugs/issue_19/issue_19_no_interpolation.py  :  
-	 $(PYTHON)  tests/bugs/issue_19/issue_19_no_interpolation.py  >  logs/bugs_issue_19_issue_19_no_interpolation.log  2>&1
-	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_19_issue_19_no_interpolation.log logs/bugs_issue_19_issue_19_no_interpolation.log  >  logs/bugs_issue_19_issue_19_no_interpolation.log.diff
-	 tail -10  logs/bugs_issue_19_issue_19_no_interpolation.log.diff 
+bugs/issue_149/test_python_39_multiporocessing.py  :  
+	 $(PYTHON)  tests/bugs/issue_149/test_python_39_multiporocessing.py  >  logs/bugs_issue_149_test_python_39_multiporocessing.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_149_test_python_39_multiporocessing.log logs/bugs_issue_149_test_python_39_multiporocessing.log  >  logs/bugs_issue_149_test_python_39_multiporocessing.log.diff
+	 tail -10  logs/bugs_issue_149_test_python_39_multiporocessing.log.diff 
 
 bugs/issue_82/issue_82_long_cycles.py  :  
 	 $(PYTHON)  tests/bugs/issue_82/issue_82_long_cycles.py  >  logs/bugs_issue_82_issue_82_long_cycles.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_82_issue_82_long_cycles.log logs/bugs_issue_82_issue_82_long_cycles.log  >  logs/bugs_issue_82_issue_82_long_cycles.log.diff
 	 tail -10  logs/bugs_issue_82_issue_82_long_cycles.log.diff 
-
-bugs/issue_72/test_artificial_32_exp_linear_0__100.py  :  
-	 $(PYTHON)  tests/bugs/issue_72/test_artificial_32_exp_linear_0__100.py  >  logs/bugs_issue_72_test_artificial_32_exp_linear_0__100.log  2>&1
-	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_72_test_artificial_32_exp_linear_0__100.log logs/bugs_issue_72_test_artificial_32_exp_linear_0__100.log  >  logs/bugs_issue_72_test_artificial_32_exp_linear_0__100.log.diff
-	 tail -10  logs/bugs_issue_72_test_artificial_32_exp_linear_0__100.log.diff 
-
-bugs/issue_72/test_artificial_32_sqrt_poly_7__20.py  :  
-	 $(PYTHON)  tests/bugs/issue_72/test_artificial_32_sqrt_poly_7__20.py  >  logs/bugs_issue_72_test_artificial_32_sqrt_poly_7__20.log  2>&1
-	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_72_test_artificial_32_sqrt_poly_7__20.log logs/bugs_issue_72_test_artificial_32_sqrt_poly_7__20.log  >  logs/bugs_issue_72_test_artificial_32_sqrt_poly_7__20.log.diff
-	 tail -10  logs/bugs_issue_72_test_artificial_32_sqrt_poly_7__20.log.diff 
-
-bugs/issue_79/test_ozone_missing_signal.py  :  
-	 $(PYTHON)  tests/bugs/issue_79/test_ozone_missing_signal.py  >  logs/bugs_issue_79_test_ozone_missing_signal.log  2>&1
-	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_79_test_ozone_missing_signal.log logs/bugs_issue_79_test_ozone_missing_signal.log  >  logs/bugs_issue_79_test_ozone_missing_signal.log.diff
-	 tail -10  logs/bugs_issue_79_test_ozone_missing_signal.log.diff 
-
-bugs/issue_32/bug_test_ozone_heroku_1.py  :  
-	 $(PYTHON)  tests/bugs/issue_32/bug_test_ozone_heroku_1.py  >  logs/bugs_issue_32_bug_test_ozone_heroku_1.log  2>&1
-	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_32_bug_test_ozone_heroku_1.log logs/bugs_issue_32_bug_test_ozone_heroku_1.log  >  logs/bugs_issue_32_bug_test_ozone_heroku_1.log.diff
-	 tail -10  logs/bugs_issue_32_bug_test_ozone_heroku_1.log.diff 
-
-bugs/issue_32/bug_test_ozone_heroku_1_ws.py  :  
-	 $(PYTHON)  tests/bugs/issue_32/bug_test_ozone_heroku_1_ws.py  >  logs/bugs_issue_32_bug_test_ozone_heroku_1_ws.log  2>&1
-	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_32_bug_test_ozone_heroku_1_ws.log logs/bugs_issue_32_bug_test_ozone_heroku_1_ws.log  >  logs/bugs_issue_32_bug_test_ozone_heroku_1_ws.log.diff
-	 tail -10  logs/bugs_issue_32_bug_test_ozone_heroku_1_ws.log.diff 
-
-bugs/issue_58/issue_58_1_categorical_exogenous.py  :  
-	 $(PYTHON)  tests/bugs/issue_58/issue_58_1_categorical_exogenous.py  >  logs/bugs_issue_58_issue_58_1_categorical_exogenous.log  2>&1
-	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_58_issue_58_1_categorical_exogenous.log logs/bugs_issue_58_issue_58_1_categorical_exogenous.log  >  logs/bugs_issue_58_issue_58_1_categorical_exogenous.log.diff
-	 tail -10  logs/bugs_issue_58_issue_58_1_categorical_exogenous.log.diff 
-
-bugs/issue_73/issue_73_1_fast_mode.py  :  
-	 $(PYTHON)  tests/bugs/issue_73/issue_73_1_fast_mode.py  >  logs/bugs_issue_73_issue_73_1_fast_mode.log  2>&1
-	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_73_issue_73_1_fast_mode.log logs/bugs_issue_73_issue_73_1_fast_mode.log  >  logs/bugs_issue_73_issue_73_1_fast_mode.log.diff
-	 tail -10  logs/bugs_issue_73_issue_73_1_fast_mode.log.diff 
-
-bugs/issue_73/issue_73_1_fast_mode_2.py  :  
-	 $(PYTHON)  tests/bugs/issue_73/issue_73_1_fast_mode_2.py  >  logs/bugs_issue_73_issue_73_1_fast_mode_2.log  2>&1
-	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_73_issue_73_1_fast_mode_2.log logs/bugs_issue_73_issue_73_1_fast_mode_2.log  >  logs/bugs_issue_73_issue_73_1_fast_mode_2.log.diff
-	 tail -10  logs/bugs_issue_73_issue_73_1_fast_mode_2.log.diff 
-
-bugs/issue_4/issue_4.py  :  
-	 $(PYTHON)  tests/bugs/issue_4/issue_4.py  >  logs/bugs_issue_4_issue_4.log  2>&1
-	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_4_issue_4.log logs/bugs_issue_4_issue_4.log  >  logs/bugs_issue_4_issue_4.log.diff
-	 tail -10  logs/bugs_issue_4_issue_4.log.diff 
 
 bugs/issue_70/test_artificial_filter_seasonals_day.py  :  
 	 $(PYTHON)  tests/bugs/issue_70/test_artificial_filter_seasonals_day.py  >  logs/bugs_issue_70_test_artificial_filter_seasonals_day.log  2>&1
@@ -436,49 +476,14 @@ bugs/issue_70/test_ozone_keep_all_seasonals.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_70_test_ozone_keep_all_seasonals.log logs/bugs_issue_70_test_ozone_keep_all_seasonals.log  >  logs/bugs_issue_70_test_ozone_keep_all_seasonals.log.diff
 	 tail -10  logs/bugs_issue_70_test_ozone_keep_all_seasonals.log.diff 
 
-bugs/issue_55/grouping_issue_55_notebook.py  :  
-	 $(PYTHON)  tests/bugs/issue_55/grouping_issue_55_notebook.py  >  logs/bugs_issue_55_grouping_issue_55_notebook.log  2>&1
-	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_55_grouping_issue_55_notebook.log logs/bugs_issue_55_grouping_issue_55_notebook.log  >  logs/bugs_issue_55_grouping_issue_55_notebook.log.diff
-	 tail -10  logs/bugs_issue_55_grouping_issue_55_notebook.log.diff 
-
-bugs/issue_80/test_ozone_missing_time.py  :  
-	 $(PYTHON)  tests/bugs/issue_80/test_ozone_missing_time.py  >  logs/bugs_issue_80_test_ozone_missing_time.log  2>&1
-	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_80_test_ozone_missing_time.log logs/bugs_issue_80_test_ozone_missing_time.log  >  logs/bugs_issue_80_test_ozone_missing_time.log.diff
-	 tail -10  logs/bugs_issue_80_test_ozone_missing_time.log.diff 
-
-bugs/issue_56/issue_56_order1.py  :  
-	 $(PYTHON)  tests/bugs/issue_56/issue_56_order1.py  >  logs/bugs_issue_56_issue_56_order1.log  2>&1
-	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_56_issue_56_order1.log logs/bugs_issue_56_issue_56_order1.log  >  logs/bugs_issue_56_issue_56_order1.log.diff
-	 tail -10  logs/bugs_issue_56_issue_56_order1.log.diff 
-
-bugs/issue_56/issue_56_order2.py  :  
-	 $(PYTHON)  tests/bugs/issue_56/issue_56_order2.py  >  logs/bugs_issue_56_issue_56_order2.log  2>&1
-	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_56_issue_56_order2.log logs/bugs_issue_56_issue_56_order2.log  >  logs/bugs_issue_56_issue_56_order2.log.diff
-	 tail -10  logs/bugs_issue_56_issue_56_order2.log.diff 
-
-bugs/issue_75/issue_75_plot.py  :  
-	 $(PYTHON)  tests/bugs/issue_75/issue_75_plot.py  >  logs/bugs_issue_75_issue_75_plot.log  2>&1
-	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_75_issue_75_plot.log logs/bugs_issue_75_issue_75_plot.log  >  logs/bugs_issue_75_issue_75_plot.log.diff
-	 tail -10  logs/bugs_issue_75_issue_75_plot.log.diff 
-
-bugs/issue_75/issue_75_residues_Are_empty.py  :  
-	 $(PYTHON)  tests/bugs/issue_75/issue_75_residues_Are_empty.py  >  logs/bugs_issue_75_issue_75_residues_Are_empty.log  2>&1
-	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_75_issue_75_residues_Are_empty.log logs/bugs_issue_75_issue_75_residues_Are_empty.log  >  logs/bugs_issue_75_issue_75_residues_Are_empty.log.diff
-	 tail -10  logs/bugs_issue_75_issue_75_residues_Are_empty.log.diff 
-
-bugs/issue_21/test_artificial_1024__poly_7__20.py  :  
-	 $(PYTHON)  tests/bugs/issue_21/test_artificial_1024__poly_7__20.py  >  logs/bugs_issue_21_test_artificial_1024__poly_7__20.log  2>&1
-	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_21_test_artificial_1024__poly_7__20.log logs/bugs_issue_21_test_artificial_1024__poly_7__20.log  >  logs/bugs_issue_21_test_artificial_1024__poly_7__20.log.diff
-	 tail -10  logs/bugs_issue_21_test_artificial_1024__poly_7__20.log.diff 
-
-bugs/issue_21/test_ozone_max_autoreg_5.py  :  
-	 $(PYTHON)  tests/bugs/issue_21/test_ozone_max_autoreg_5.py  >  logs/bugs_issue_21_test_ozone_max_autoreg_5.log  2>&1
-	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_21_test_ozone_max_autoreg_5.log logs/bugs_issue_21_test_ozone_max_autoreg_5.log  >  logs/bugs_issue_21_test_ozone_max_autoreg_5.log.diff
-	 tail -10  logs/bugs_issue_21_test_ozone_max_autoreg_5.log.diff 
+bugs/issue_76/test_ozone_unicode.py  :  
+	 $(PYTHON)  tests/bugs/issue_76/test_ozone_unicode.py  >  logs/bugs_issue_76_test_ozone_unicode.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_76_test_ozone_unicode.log logs/bugs_issue_76_test_ozone_unicode.log  >  logs/bugs_issue_76_test_ozone_unicode.log.diff
+	 tail -10  logs/bugs_issue_76_test_ozone_unicode.log.diff 
 
 
 
- bugs :  bugs/test_random_exogenous.py bugs/test_artificial_bug_2.py bugs/test_artificial_bug_1.py bugs/run_benchmark_Yahoo_nysecomp_VRS.py bugs/run_benchmark_M4Comp_ECONOMICS_ECON1151_18.py bugs/run_benchmark_M1Comp_MNB71_18.py bugs/issue_29/test_mem_1.py bugs/issue_94/issue_94.py bugs/issue_36/issue_36_version_info.py bugs/issue_36/display_version_info.py bugs/issue_69/issue_69_example_1_with_rectifier.py bugs/issue_69/issue_69_example_1_no_rectifier.py bugs/issue_34/test_artificial_1024_sqrt_linear_30_12_20.py bugs/issue_34/test_artificial_1024_sqrt_constant_7_12_100.py bugs/issue_34/test_artificial_1024_sqr_poly_5_12_20.py bugs/issue_34/test_artificial_1024_log_linear_5_12_100.py bugs/issue_34/test_artificial_1024_log_linear_30_12_20.py bugs/issue_34/test_artificial_1024_inv_linear_7_12_100.py bugs/issue_34/test_artificial_1024_inv_constant_30__20.py bugs/issue_34/test_artificial_1024_diff_poly_0__100.py bugs/issue_34/test_artificial_1024_diff_poly_0__0.py bugs/issue_34/test_artificial_1024__poly_7_12_100.py bugs/issue_34/issue_34_1.py bugs/issue_34/issue_34.py bugs/issue_46/issue_46_one_or_two_rows.py bugs/issue_76/test_ozone_unicode.py bugs/issue_106/submitted_script.py bugs/issue_106/insurance_exog_xgbx.py bugs/issue_106/insurance_exog_svrx.py bugs/issue_106/insurance_exog.py bugs/issue_22/test_artificial_1024_cumsum_constant_5__20.py bugs/issue_19/issue_19_no_interpolation.py bugs/issue_82/issue_82_long_cycles.py bugs/issue_72/test_artificial_32_sqrt_poly_7__20.py bugs/issue_72/test_artificial_32_exp_linear_0__100.py bugs/issue_79/test_ozone_missing_signal.py bugs/issue_32/bug_test_ozone_heroku_1_ws.py bugs/issue_32/bug_test_ozone_heroku_1.py bugs/issue_58/issue_58_1_categorical_exogenous.py bugs/issue_73/issue_73_1_fast_mode_2.py bugs/issue_73/issue_73_1_fast_mode.py bugs/issue_4/issue_4.py bugs/issue_70/test_ozone_keep_all_seasonals.py bugs/issue_70/test_ozone_filter_seasonals.py bugs/issue_70/test_artificial_keep_all_seasonals_second.py bugs/issue_70/test_artificial_keep_all_seasonals_minute.py bugs/issue_70/test_artificial_keep_all_seasonals_hour.py bugs/issue_70/test_artificial_keep_all_seasonals_day.py bugs/issue_70/test_artificial_filter_seasonals_second.py bugs/issue_70/test_artificial_filter_seasonals_min.py bugs/issue_70/test_artificial_filter_seasonals_hour.py bugs/issue_70/test_artificial_filter_seasonals_day.py bugs/issue_55/grouping_issue_55_notebook.py bugs/issue_80/test_ozone_missing_time.py bugs/issue_56/issue_56_order2.py bugs/issue_56/issue_56_order1.py bugs/issue_75/issue_75_residues_Are_empty.py bugs/issue_75/issue_75_plot.py bugs/issue_21/test_ozone_max_autoreg_5.py bugs/issue_21/test_artificial_1024__poly_7__20.py  
+ bugs :  bugs/test_random_exogenous.py bugs/test_artificial_bug_2.py bugs/test_artificial_bug_1.py bugs/run_benchmark_Yahoo_nysecomp_VRS.py bugs/run_benchmark_M4Comp_ECONOMICS_ECON1151_18.py bugs/run_benchmark_M1Comp_MNB71_18.py bugs/issue_79/test_ozone_missing_signal.py bugs/issue_55/grouping_issue_55_notebook.py bugs/issue_19/issue_19_no_interpolation.py bugs/issue_72/test_artificial_32_sqrt_poly_7__20.py bugs/issue_72/test_artificial_32_exp_linear_0__100.py bugs/issue_4/issue_4.py bugs/issue_73/issue_73_1_fast_mode_2.py bugs/issue_73/issue_73_1_fast_mode.py bugs/issue_75/issue_75_residues_Are_empty.py bugs/issue_75/issue_75_plot.py bugs/issue_22/test_artificial_1024_cumsum_constant_5__20.py bugs/issue_29/test_mem_1.py bugs/issue_32/bug_test_ozone_heroku_1_ws.py bugs/issue_32/bug_test_ozone_heroku_1.py bugs/issue_34/test_artificial_1024_sqrt_linear_30_12_20.py bugs/issue_34/test_artificial_1024_sqrt_constant_7_12_100.py bugs/issue_34/test_artificial_1024_sqr_poly_5_12_20.py bugs/issue_34/test_artificial_1024_log_linear_5_12_100.py bugs/issue_34/test_artificial_1024_log_linear_30_12_20.py bugs/issue_34/test_artificial_1024_inv_linear_7_12_100.py bugs/issue_34/test_artificial_1024_inv_constant_30__20.py bugs/issue_34/test_artificial_1024_diff_poly_0__100.py bugs/issue_34/test_artificial_1024_diff_poly_0__0.py bugs/issue_34/test_artificial_1024__poly_7_12_100.py bugs/issue_34/issue_34_1.py bugs/issue_34/issue_34.py bugs/issue_94/issue_94.py bugs/issue_56/issue_56_order2.py bugs/issue_56/issue_56_order1.py bugs/issue_69/issue_69_example_1_with_rectifier.py bugs/issue_69/issue_69_example_1_no_rectifier.py bugs/issue_46/issue_46_one_or_two_rows.py bugs/issue_58/issue_58_1_categorical_exogenous.py bugs/issue_21/test_ozone_max_autoreg_5.py bugs/issue_21/test_artificial_1024__poly_7__20.py bugs/issue_36/issue_36_version_info.py bugs/issue_36/display_version_info.py bugs/issue_80/test_ozone_missing_time.py bugs/issue_106/submitted_script.py bugs/issue_106/insurance_exog_xgbx.py bugs/issue_106/insurance_exog_svrx.py bugs/issue_106/insurance_exog.py bugs/issue_149/test_python_39_multiporocessing.py bugs/issue_82/issue_82_long_cycles.py bugs/issue_70/test_ozone_keep_all_seasonals.py bugs/issue_70/test_ozone_filter_seasonals.py bugs/issue_70/test_artificial_keep_all_seasonals_second.py bugs/issue_70/test_artificial_keep_all_seasonals_minute.py bugs/issue_70/test_artificial_keep_all_seasonals_hour.py bugs/issue_70/test_artificial_keep_all_seasonals_day.py bugs/issue_70/test_artificial_filter_seasonals_second.py bugs/issue_70/test_artificial_filter_seasonals_min.py bugs/issue_70/test_artificial_filter_seasonals_hour.py bugs/issue_70/test_artificial_filter_seasonals_day.py bugs/issue_76/test_ozone_unicode.py  
  
 
 cross_validation/test_air_passengers_cross_valid.py  :  
