@@ -191,10 +191,11 @@ def load_ozone_exogenous_categorical() :
 
 
 def add_some_noise(x , p , min_sig, max_sig, e , f):
-    delta = (x - min_sig) / (max_sig - min_sig);
-    if( (delta >= e) and (delta <= f) ):
-        if(np.random.random() < p):
-            return "A";
+    if(max_sig > min_sig):
+        delta = (x - min_sig) / (max_sig - min_sig);
+        if( (delta >= e) and (delta <= f) ):
+            if(np.random.random() < p):
+                return "A";
     return "0";
 
 
