@@ -666,7 +666,10 @@ def load_M4_comp(iType = None) :
 
 def get_stock_web_link():
     YAHOO_LINKS_DATA = {}
-    lines = [line.rstrip('\n') for line in open('data/yahoo_list.txt')]
+    lines = []
+    with open('data/yahoo_list.txt') as data_file:
+        lines = data_file.readlines()
+        lines = [line.rstrip('\n') for line in lines]
     import re
     for line in lines:
         csv = line.replace('.csv', '')
