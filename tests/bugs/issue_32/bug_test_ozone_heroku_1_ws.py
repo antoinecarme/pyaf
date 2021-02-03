@@ -23,6 +23,7 @@ def test_heroku_pyaf_2(data):
 
     content = r.data
     content = content.decode('utf-8').replace("\\n" , "\n");
+    r.close()
     return content;
 
 CSV="https://raw.githubusercontent.com/antoinecarme/TimeSeriesData/master/ozone-la.csv"
