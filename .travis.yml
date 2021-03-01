@@ -9,15 +9,12 @@ python:
     - 3.9
 
 before_install:
-    - sudo apt-get install -y graphviz python3-sklearn python3-pandas python3-sqlalchemy python3-matplotlib jupyter-notebook python3-ipython python3-scipy python3-numpy
+    - sudo apt-get install -y graphviz python3-sklearn python3-pandas python3-sqlalchemy python3-matplotlib jupyter-notebook python3-ipython python3-scipy python3-numpy python3-dill python3-pydot
 
 
 cache:
 directories:
 - $HOME/.cache/matplotlib
-
-install: 
-    pip install scipy pandas sklearn matplotlib pydot dill sqlalchemy jupyter xgboost ipython
 
 script: 
     - export PYTHONPATH=$PYTHONPATH:..
