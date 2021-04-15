@@ -191,10 +191,11 @@ def load_ozone_exogenous_categorical() :
 
 
 def add_some_noise(x , p , min_sig, max_sig, e , f):
-    delta = (x - min_sig) / (max_sig - min_sig);
-    if( (delta >= e) and (delta <= f) ):
-        if(np.random.random() < p):
-            return "A";
+    if(max_sig > min_sig):
+        delta = (x - min_sig) / (max_sig - min_sig);
+        if( (delta >= e) and (delta <= f) ):
+            if(np.random.random() < p):
+                return "A";
     return "0";
 
 
@@ -665,7 +666,10 @@ def load_M4_comp(iType = None) :
 
 def get_stock_web_link():
     YAHOO_LINKS_DATA = {}
-    lines = [line.rstrip('\n') for line in open('data/yahoo_list.txt')]
+    lines = []
+    with open('data/yahoo_list.txt') as data_file:
+        lines = data_file.readlines()
+        lines = [line.rstrip('\n') for line in lines]
     import re
     for line in lines:
         csv = line.replace('.csv', '')
