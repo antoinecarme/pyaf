@@ -134,6 +134,7 @@ class cTimeSeriesModel:
         logger.info("MODEL_MAPE MAPE_Fit=" + str(self.mFitPerf.mMAPE) + " MAPE_Forecast=" + str(self.mForecastPerf.mMAPE)  + " MAPE_Test=" + str(self.mTestPerf.mMAPE) );
         logger.info("MODEL_SMAPE SMAPE_Fit=" + str(self.mFitPerf.mSMAPE) + " SMAPE_Forecast=" + str(self.mForecastPerf.mSMAPE)  + " SMAPE_Test=" + str(self.mTestPerf.mSMAPE) );
         logger.info("MODEL_MASE MASE_Fit=" + str(self.mFitPerf.mMASE) + " MASE_Forecast=" + str(self.mForecastPerf.mMASE)  + " MASE_Test=" + str(self.mTestPerf.mMASE) );
+        logger.info("MODEL_CRPS CRPS_Fit=" + str(self.mFitPerf.mCRPS) + " CRPS_Forecast=" + str(self.mForecastPerf.mCRPS)  + " CRPS_Test=" + str(self.mTestPerf.mCRPS) );
         logger.info("MODEL_L1 L1_Fit=" + str(self.mFitPerf.mL1) + " L1_Forecast=" + str(self.mForecastPerf.mL1)  + " L1_Test=" + str(self.mTestPerf.mL1) );
         logger.info("MODEL_L2 L2_Fit=" + str(self.mFitPerf.mL2) + " L2_Forecast=" + str(self.mForecastPerf.mL2)  + " L2_Test=" + str(self.mTestPerf.mL2) );
         logger.info("MODEL_COMPLEXITY " + str(self.getComplexity()) );
@@ -233,6 +234,7 @@ class cTimeSeriesModel:
         # print(df1.head())
         if(self.mTimeInfo.mOptions.mAddPredictionIntervals):
             df1 = self.addPredictionIntervals(df, df1, iHorizon);
+        self.addForecastQuantiles(df, df1, iHorizon);
         if(self.mTimeInfo.mOptions.mForecastRectifier is not None):
             df1 = self.applyForecastRectifier(df1)
         return df1
@@ -268,6 +270,27 @@ class cTimeSeriesModel:
         iForecastFrame.loc[N:N+iHorizon, lUpperBoundName] = lForcastValues + lWidths
         return iForecastFrame;
 
+    def addForecastQuantiles(self, iInputDS, iForecastFrame, iHorizon):
+        lSignalColumn = self.mOriginalSignal;
+
+        N = iInputDS.shape[0] ;
+        lForecastColumn = str(lSignalColumn) + "_Forecast";
+        lQuantileName = lForecastColumn + "_Quantile_"
+
+        # the prediction intervals are only computed for the training horizon
+        lHorizon = min(iHorizon , self.mTimeInfo.mHorizon);
+        lPerfs = [self.mPredictionIntervalsEstimator.mForecastPerformances[lForecastColumn + "_" + str(h + 1)]
+                   for h in range(0 , self.mTimeInfo.mHorizon)]
+        lForcastValues = iForecastFrame.loc[N:N+iHorizon, lForecastColumn]
+        
+        lQuantiles = self.mPredictionIntervalsEstimator.mForecastPerformances[lForecastColumn + "_1"].mErrorQuantiles.keys()
+        lQuantiles = sorted(lQuantiles)
+        for q in lQuantiles:
+            iForecastFrame[lQuantileName + str(q)] = np.nan
+            lQuants = [lPerf.mErrorQuantiles[q] for lPerf in lPerfs]
+            iForecastFrame.loc[N:N+iHorizon, lQuantileName + str(q)] =  lForcastValues.values + np.array(lQuants)
+        return iForecastFrame;
+
 
     def plotForecasts(self, df):
         lPrefix = self.mSignal + "_";
@@ -292,6 +315,7 @@ class cTimeSeriesModel:
         dict1["Model"] = d2;
         d3 = {"MAPE" : str(self.mForecastPerf.mMAPE),
               "MASE" : str(self.mForecastPerf.mMASE),
+              "CRPS" : str(self.mForecastPerf.mCRPS),
               "MAE" : str(self.mForecastPerf.mL1),
               "RMSE" : str(self.mForecastPerf.mL2),
               "COMPLEXITY" : str(self.getComplexity())};
@@ -335,13 +359,22 @@ class cTimeSeriesModel:
         lTime = self.mTimeInfo.mTime;            
         lOutput.set_index(lTime, inplace=True, drop=False);
         # print(lOutput[lTime].dtype);
+        lQuantiles = self.mPredictionIntervalsEstimator.mForecastPerformances[lForecastColumn + "_1"].mErrorQuantiles.keys()
+        lQuantiles = sorted(lQuantiles)
+
         tsplot.prediction_interval_plot(lOutput,
                                         lTime, self.mOriginalSignal,
-                                        lForecastColumn  ,
+                                        lForecastColumn,
                                         lForecastColumn + '_Lower_Bound',
                                         lForecastColumn + '_Upper_Bound',
                                         name = name,
                                         format= format, horizon = self.mTimeInfo.mHorizon);
+        tsplot.quantiles_plot(lOutput,
+                              lTime, self.mOriginalSignal,
+                              lForecastColumn  ,
+                              lQuantiles,
+                              name = name,
+                              format= format, horizon = self.mTimeInfo.mHorizon);
         #lOutput.plot()
         
     def getPlotsAsDict(self):

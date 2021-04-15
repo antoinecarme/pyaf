@@ -22,6 +22,8 @@ class cPerf:
         self.mPearsonR = None;
         self.mCount = None;
         self.mName = "No_Name";
+        self.mSignalQuantiles = None
+        self.mCRPS = None # Continuous Ranked Probability Score ( issue #47 )
         self.mDebug = False;
 
     def to_dict(self):
@@ -124,8 +126,37 @@ class cPerf:
         self.mR2 = self.compute_R2(signal, estimator)
         
         self.mPearsonR = self.compute_pearson_r(signal , estimator);
-        
+        self.mSignalQuantiles = self.compute_signal_quantiles(signal , estimator);
+        self.mCRPS = self.compute_CRPS(signal , estimator);
 
+    def compute_signal_quantiles(self, signal , estimator):
+        myerror = (estimator.values - signal.values);
+        NQ = int(min(20, np.sqrt(signal.shape[0]))) # optimal quantiles number heuristics : sqrt(N)
+        Q = int(100 // NQ)
+        lPercentiles = [50 - q for q in range(Q, 50, Q)] + [50] + [50 + q for q in range(Q, 50, Q)]
+        lPercentiles = sorted(lPercentiles)
+        # print(lPercentiles)
+        lSignalQuantiles = np.percentile(signal, lPercentiles)
+        lSignalQuantiles = dict(zip(lPercentiles, list(lSignalQuantiles)))
+        # print("SIGNAL_QUANTILES" , (self.mName , lSignalQuantiles))
+        Q = 20
+        lPercentiles2 = [50 - q for q in range(Q, 50, Q)] + [50] + [50 + q for q in range(Q, 50, Q)]
+        lErrorQuantiles = np.percentile(myerror, lPercentiles2)
+        self.mErrorQuantiles = dict(zip(lPercentiles2, list(lErrorQuantiles)))
+        return lSignalQuantiles
+    
+    def compute_CRPS(self, signal , estimator):
+        lLossValues = []
+        # some normalization
+        for (a, q) in self.mSignalQuantiles.items():
+            lPinballLoss_a = lambda y : ((1.0 - a / 100) * (q - y)) if (y < q) else (a / 100 * (y - q))
+            lLossValue_a = estimator.apply(lPinballLoss_a).mean()
+            lLossValues.append(lLossValue_a)
+        lCRPS = np.mean(lLossValues)
+        # print("CRPS" , (self.mName , lCRPS))
+        return lCRPS
+
+            
     def computeCriterion(self, signal , estimator, criterion, name):
         self.mName = name;
         
@@ -158,6 +189,11 @@ class cPerf:
             self.compute_MAPE_SMAPE_MASE(signal , estimator);
             return self.mMASE;
         
+        if(criterion == "CRPS"):
+            self.mSignalQuantiles = self.compute_signal_quantiles(signal , estimator);
+            self.mCRPS = self.compute_CRPS(signal , estimator);
+            return self.mCRPS;
+        
         raise tsutil.Internal_PyAF_Error("Unknown Performance Measure ['" + self.mName + "'] '" + criterion + "'");
         return 0.0;
 
@@ -176,13 +212,15 @@ class cPerf:
             return self.mMAPE;
         if(criterion == "MASE"):
             return self.mMASE;
+        if(criterion == "CRPS"):
+            return self.mCRPS;
         raise tsutil.Internal_PyAF_Error("Unknown Performance Measure ['" + self.mName + "'] '" + criterion + "'");
         return 0.0;
 
 
     def is_acceptable_criterion_value(self, criterion, iRefValue = None):
         # percentages are bad when the mean error is above 1.0
-        if(criterion in ['MAPE' , 'SMAPE' , 'MASE']):
+        if(criterion in ['MAPE' , 'SMAPE' , 'MASE', 'CRPS']):
             lCritValue = iRefValue
             if(iRefValue is None):
                 lCritValue = self.getCriterionValue(criterion)
@@ -196,7 +234,7 @@ class cPerf:
         lCritValue = iRefValue
         if(iRefValue is None):
             lCritValue = self.getCriterionValue(criterion)
-        if(criterion in ['MAPE' , 'SMAPE' , 'MASE']):
+        if(criterion in ['MAPE' , 'SMAPE' , 'MASE', 'CRPS']):
             return (value <= (lCritValue + iTolerance))
         # otherwise, multiplicative
         return (value <= (lCritValue * (1.0 + iTolerance)))
