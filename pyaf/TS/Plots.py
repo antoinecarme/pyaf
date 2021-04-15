@@ -25,9 +25,9 @@ def add_patched_legend(ax , names):
     patched_names = []
     for name in names:
         # remove leading '_' => here, this is almost OK: no signal transformation
-        patched_name = name[2:] if(name.startswith('__')) else name
-        patched_name = patched_name[1:] if(patched_name.startswith('_')) else patched_name
+        patched_name = name.lstrip('_')
         patched_names = patched_names + [ patched_name ]
+    # print("add_patched_legend" , names, patched_names)
     ax.legend(patched_names)
 
 def decomp_plot(df, time, signal, estimator, residue, name = None, format='png', max_length = 1000, horizon = 1) :

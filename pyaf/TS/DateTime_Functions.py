@@ -44,13 +44,14 @@ class cDateTime_Helper:
     def __init__(self):
         pass
 
-
     def get_week_of_month(self, series):
         lFirstDayOfMonth = series - pd.to_timedelta(series.dt.day - 1, unit='D')
-        return series.dt.weekofyear - lFirstDayOfMonth.dt.weekofyear + 1
+        return series.dt.isocalendar().week - lFirstDayOfMonth.dt.isocalendar().week + 1
     
     def apply_date_time_computer(self, iDatePart, series):
         lOut = None
+        # Future Warning regarding DateTime_Functions - series.dt.weekofyear #153
+        lIsoDate = series.dt.isocalendar()
         if(iDatePart == eDatePart.Second):
             lOut = series.dt.second
         elif(iDatePart == eDatePart.Minute):
@@ -80,7 +81,7 @@ class cDateTime_Helper:
         elif(iDatePart == eDatePart.MonthOfYear):
             lOut = series.dt.month
         elif(iDatePart == eDatePart.WeekOfYear):
-            lOut = series.dt.week
+            lOut = lIsoDate.week
         elif(iDatePart == eDatePart.WeekOfMonth):
             lOut = self.get_week_of_month(series)
         elif(iDatePart == eDatePart.DayOfNthWeekOfMonth):

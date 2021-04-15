@@ -434,9 +434,6 @@ class cTimeSeriesModel:
         import pydot
         lVersionDict["pydot_version"] = pydot.__version__
 
-        import sqlalchemy
-        lVersionDict["sqlalchemy_version"] = sqlalchemy.__version__
-
         # print([(k, lVersionDict[k]) for k in sorted(lVersionDict)]);
         return lVersionDict;
     
