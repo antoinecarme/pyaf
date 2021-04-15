@@ -288,6 +288,7 @@ class cTimeSeriesModel:
         for q in lQuantiles:
             iForecastFrame[lQuantileName + str(q)] = np.nan
             lQuants = [lPerf.mErrorQuantiles[q] for lPerf in lPerfs]
+            lQuants = (lQuants + [np.nan]*iHorizon)[:iHorizon]
             iForecastFrame.loc[N:N+iHorizon, lQuantileName + str(q)] =  lForcastValues.values + np.array(lQuants)
         return iForecastFrame;
 
