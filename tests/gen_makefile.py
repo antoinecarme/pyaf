@@ -28,6 +28,7 @@ def add_makefile_entry(subdir1):
 
 
 str1 = "artificial basic_checks bugs cross_validation croston exog expsmooth func HeartRateTimeSeries heroku hierarchical  HourOfWeek model_control perf svr transformations  neuralnet real-life  time_res perfs demos xgb xeon-phi-parallel sampling temporal_hierarchy WeekOfMonth missing_data";
+str1 = str1 + " probabilistic_forecasting"
 subdirs = str1.split();
 
 print("PYTHON=python3\n\n");

@@ -1631,6 +1631,21 @@ perfs/test_ozone_perf_measure_MASE.py  :
  perfs :  perfs/test_ozone_perf_measure_MASE.py perfs/test_ozone_perf_measure_MAPE.py perfs/test_ozone_perf_measure_L2.py perfs/test_ozone_perf_measure_L1.py perfs/test_ozone_perf_measure.py  
  
 
+probabilistic_forecasting/test_air_passengers.py  :  
+	 $(PYTHON)  tests/probabilistic_forecasting/test_air_passengers.py  >  logs/probabilistic_forecasting_test_air_passengers.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/probabilistic_forecasting_test_air_passengers.log logs/probabilistic_forecasting_test_air_passengers.log  >  logs/probabilistic_forecasting_test_air_passengers.log.diff
+	 tail -10  logs/probabilistic_forecasting_test_air_passengers.log.diff 
+
+probabilistic_forecasting/test_ozone.py  :  
+	 $(PYTHON)  tests/probabilistic_forecasting/test_ozone.py  >  logs/probabilistic_forecasting_test_ozone.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/probabilistic_forecasting_test_ozone.log logs/probabilistic_forecasting_test_ozone.log  >  logs/probabilistic_forecasting_test_ozone.log.diff
+	 tail -10  logs/probabilistic_forecasting_test_ozone.log.diff 
+
+
+
+ probabilistic_forecasting :  probabilistic_forecasting/test_ozone.py probabilistic_forecasting/test_air_passengers.py  
+ 
+
 real-life/test_sof_example.py  :  
 	 $(PYTHON)  tests/real-life/test_sof_example.py  >  logs/real-life_test_sof_example.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/real-life_test_sof_example.log logs/real-life_test_sof_example.log  >  logs/real-life_test_sof_example.log.diff
@@ -1929,7 +1944,7 @@ xgb/test_ozone_xgbx_exogenous.py  :
 
 # ********************************************** 
 
-all:  artificial basic_checks bugs cross_validation croston exog expsmooth func HeartRateTimeSeries heroku hierarchical  HourOfWeek model_control perf svr transformations  neuralnet real-life  time_res perfs demos xgb xeon-phi-parallel sampling temporal_hierarchy WeekOfMonth missing_data 
+all:  artificial basic_checks bugs cross_validation croston exog expsmooth func HeartRateTimeSeries heroku hierarchical  HourOfWeek model_control perf svr transformations  neuralnet real-life  time_res perfs demos xgb xeon-phi-parallel sampling temporal_hierarchy WeekOfMonth missing_data probabilistic_forecasting 
 	
 
 build-test :  demos basic_checks cross_validation croston exog heroku hierarchical model_control perfs svr transformations func real-life  time_res xgb sampling HourOfWeek WeekOfMonth missing_data 
