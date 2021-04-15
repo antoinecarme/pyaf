@@ -234,7 +234,7 @@ class cTimeSeriesModel:
         # print(df1.head())
         if(self.mTimeInfo.mOptions.mAddPredictionIntervals):
             df1 = self.addPredictionIntervals(df, df1, iHorizon);
-        self.addForecastQuantiles(df, df1, iHorizon);
+            self.addForecastQuantiles(df, df1, iHorizon);
         if(self.mTimeInfo.mOptions.mForecastRectifier is not None):
             df1 = self.applyForecastRectifier(df1)
         return df1
