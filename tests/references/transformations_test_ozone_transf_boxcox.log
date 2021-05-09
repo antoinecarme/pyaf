@@ -485,7 +485,7 @@ INFO:pyaf.std:collectPerformanceIndices : MAPE None Box_Cox_0.25_Ozone BoxCox(La
 INFO:pyaf.std:collectPerformanceIndices : MAPE None Box_Cox_0.25_Ozone BoxCox(Lambda=0.25)_PolyTrend_Cycle_None_NoAR 88 0.3361
 INFO:pyaf.std:collectPerformanceIndices : MAPE None Box_Cox_0.25_Ozone BoxCox(Lambda=0.25)_PolyTrend_NoCycle_AR 118 0.1676
 INFO:pyaf.std:collectPerformanceIndices : MAPE None Box_Cox_0.25_Ozone BoxCox(Lambda=0.25)_PolyTrend_NoCycle_NoAR 80 0.3361
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Ozone']' 14.236896276473999
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Ozone']' 16.62609601020813
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01T00:00:00.000000 TimeMax=1967-09-01T00:00:00.000000 TimeDelta=<DateOffset: months=1> Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Length=204  Min=1.2 Max=8.7  Mean=3.8357843137254903 StdDev=1.4915592159401185
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='Box_Cox_0.5_Ozone' Min=-1.9999999998 Max=0.0  Mean=-0.870301741487325 StdDev=0.35990759744739725
@@ -497,6 +497,7 @@ INFO:pyaf.std:AUTOREG_DETAIL 'Box_Cox_0.5_Ozone_LinearTrend_residue_zeroCycle_re
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.1613 MAPE_Forecast=0.1414 MAPE_Test=0.1662
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.1554 SMAPE_Forecast=0.1528 SMAPE_Test=0.1605
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7181 MASE_Forecast=0.6203 MASE_Test=0.8999
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=0.3410260113038663 CRPS_Forecast=0.2574159687425535 CRPS_Test=0.27699200797647117
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.631186300018043 L1_Forecast=0.4815602673846239 L1_Test=0.4253842990374162
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.8400354866381945 L2_Forecast=0.6861380988752174 L2_Test=0.5250757517407494
 INFO:pyaf.std:MODEL_COMPLEXITY 118
@@ -522,17 +523,17 @@ INFO:pyaf.std:AR_MODEL_COEFF 9 Box_Cox_0.5_Ozone_LinearTrend_residue_zeroCycle_r
 INFO:pyaf.std:AR_MODEL_COEFF 10 Box_Cox_0.5_Ozone_LinearTrend_residue_zeroCycle_residue_Lag35 -0.08353023150972819
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_PLOTTING
-INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 3.3097565174102783
+INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 3.7617058753967285
 INFO:pyaf.std:START_FORECASTING '['Ozone']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Ozone']' 0.3953821659088135
-  Split      Transformation  ... TestMAPE TestMASE
-0  None   Box_Cox_0.5_Ozone  ...   0.1662   0.8999
-1  None   Box_Cox_0.5_Ozone  ...   0.1662   0.8999
-2  None  Box_Cox_0.33_Ozone  ...   0.1866   1.0446
-3  None  Box_Cox_0.33_Ozone  ...   0.1866   1.0446
-4  None   Box_Cox_0.5_Ozone  ...   0.2790   1.4518
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Ozone']' 0.3606705665588379
+  Split      Transformation  ... TestMASE TestCRPS
+0  None   Box_Cox_0.5_Ozone  ...   0.8999     None
+1  None   Box_Cox_0.5_Ozone  ...   0.8999     None
+2  None  Box_Cox_0.33_Ozone  ...   1.0446     None
+3  None  Box_Cox_0.33_Ozone  ...   1.0446     None
+4  None   Box_Cox_0.5_Ozone  ...   1.4518     None
 
-[5 rows x 20 columns]
+[5 rows x 23 columns]
 Forecast Columns  Index(['Time', 'Ozone', 'row_number', 'Time_Normalized', 'Box_Cox_0.5_Ozone',
        'Box_Cox_0.5_Ozone_LinearTrend',
        'Box_Cox_0.5_Ozone_LinearTrend_residue',
@@ -545,7 +546,10 @@ Forecast Columns  Index(['Time', 'Ozone', 'row_number', 'Time_Normalized', 'Box_
        'Box_Cox_0.5_Ozone_AR', 'Box_Cox_0.5_Ozone_AR_residue',
        'Box_Cox_0.5_Ozone_TransformedForecast', 'Ozone_Forecast',
        'Box_Cox_0.5_Ozone_TransformedResidue', 'Ozone_Residue',
-       'Ozone_Forecast_Lower_Bound', 'Ozone_Forecast_Upper_Bound'],
+       'Ozone_Forecast_Lower_Bound', 'Ozone_Forecast_Upper_Bound',
+       'Ozone_Forecast_Quantile_10', 'Ozone_Forecast_Quantile_30',
+       'Ozone_Forecast_Quantile_50', 'Ozone_Forecast_Quantile_70',
+       'Ozone_Forecast_Quantile_90'],
       dtype='object')
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 216 entries, 0 to 215
@@ -598,6 +602,7 @@ Forecasts
         },
         "Model_Performance": {
             "COMPLEXITY": "118",
+            "CRPS": "0.2574159687425535",
             "MAE": "0.4815602673846239",
             "MAPE": "0.1414",
             "MASE": "0.6203",

@@ -401,7 +401,7 @@ INFO:pyaf.std:collectPerformanceIndices : MAPE None CumSum_Signal Integration_Po
 INFO:pyaf.std:collectPerformanceIndices : MAPE None CumSum_Signal Integration_PolyTrend_Seasonal_WeekOfYear_NoAR 52 3.7767
 INFO:pyaf.std:collectPerformanceIndices : MAPE None CumSum_Signal Integration_PolyTrend_Cycle_None_NoAR 56 2.78
 INFO:pyaf.std:collectPerformanceIndices : MAPE None CumSum_Signal Integration_PolyTrend_NoCycle_NoAR 48 2.78
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 16.30974555015564
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 89.51402735710144
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time_Hourly' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2000-11-28T11:00:00.000000 TimeDelta=<DateOffset: hours=1> Horizon=24
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=10000  Min=4.0460889218351275 Max=240.0706204906302  Mean=87.41957146382518 StdDev=95.87686313092453
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=4.0460889218351275 Max=240.0706204906302  Mean=87.41957146382518 StdDev=95.87686313092453
@@ -413,6 +413,7 @@ INFO:pyaf.std:AUTOREG_DETAIL '_Signal_ConstantTrend_residue_Seasonal_DayOfWeek_r
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0345 MAPE_Forecast=0.0336 MAPE_Test=0.0495
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0339 SMAPE_Forecast=0.0332 SMAPE_Test=0.0493
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.2079 MASE_Forecast=0.2074 MASE_Test=0.4818
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=24.80799205119161 CRPS_Forecast=24.762806651913564 CRPS_Test=1.4357683817029248
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.7941803734124241 L1_Forecast=0.8010224899152841 L1_Test=0.5654804639702119
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.9915660587019612 L2_Forecast=0.9993840459287185 L2_Test=0.7002804618573687
 INFO:pyaf.std:MODEL_COMPLEXITY 4
@@ -428,17 +429,17 @@ INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_FORECASTING '['Signal']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 0.637662410736084
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 0.6399250030517578
 INFO:pyaf.std:START_PLOTTING
-INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 3.6942837238311768
-  Split Transformation  ... TestMAPE TestMASE
-0  None        _Signal  ...   0.0495   0.4818
-1  None  CumSum_Signal  ...   0.0652   0.6505
-2  None        _Signal  ...   0.1008   1.1275
-3  None  CumSum_Signal  ...   0.0885   1.0240
-4  None        _Signal  ...   0.0638   0.6269
+INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 4.725250959396362
+  Split Transformation  ... TestMASE TestCRPS
+0  None        _Signal  ...   0.4818     None
+1  None  CumSum_Signal  ...   0.6505     None
+2  None        _Signal  ...   1.1275     None
+3  None  CumSum_Signal  ...   1.0240     None
+4  None        _Signal  ...   0.6269     None
 
-[5 rows x 20 columns]
+[5 rows x 23 columns]
 Forecast Columns  Index(['Time_Hourly', 'Signal', 'row_number', 'Time_Hourly_Normalized',
        '_Signal', '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
        '_Signal_ConstantTrend_residue_Seasonal_DayOfWeek',
@@ -449,7 +450,10 @@ Forecast Columns  Index(['Time_Hourly', 'Signal', 'row_number', 'Time_Hourly_Nor
        '_Signal_Cycle_residue', '_Signal_AR', '_Signal_AR_residue',
        '_Signal_TransformedForecast', 'Signal_Forecast',
        '_Signal_TransformedResidue', 'Signal_Residue',
-       'Signal_Forecast_Lower_Bound', 'Signal_Forecast_Upper_Bound'],
+       'Signal_Forecast_Lower_Bound', 'Signal_Forecast_Upper_Bound',
+       'Signal_Forecast_Quantile_10', 'Signal_Forecast_Quantile_30',
+       'Signal_Forecast_Quantile_50', 'Signal_Forecast_Quantile_70',
+       'Signal_Forecast_Quantile_90'],
       dtype='object')
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 10024 entries, 0 to 10023
@@ -514,6 +518,7 @@ Forecasts
         },
         "Model_Performance": {
             "COMPLEXITY": "4",
+            "CRPS": "24.762806651913564",
             "MAE": "0.8010224899152841",
             "MAPE": "0.0336",
             "MASE": "0.2074",

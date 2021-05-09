@@ -149,7 +149,7 @@ INFO:pyaf.std:collectPerformanceIndices : MAPE None Quantized_20_Ozone Quantizat
 INFO:pyaf.std:collectPerformanceIndices : MAPE None Quantized_20_Ozone Quantization_PolyTrend_Cycle_None_NoAR 88 0.3985
 INFO:pyaf.std:collectPerformanceIndices : MAPE None Quantized_20_Ozone Quantization_PolyTrend_NoCycle_AR 118 0.1753
 INFO:pyaf.std:collectPerformanceIndices : MAPE None Quantized_20_Ozone Quantization_PolyTrend_NoCycle_NoAR 80 0.3985
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Ozone']' 4.170199394226074
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Ozone']' 4.9638893604278564
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01T00:00:00.000000 TimeMax=1967-09-01T00:00:00.000000 TimeDelta=<DateOffset: months=1> Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Length=204  Min=1.2 Max=8.7  Mean=3.8357843137254903 StdDev=1.4915592159401185
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='Quantized_10_Ozone' Min=0 Max=9  Mean=4.96078431372549 StdDev=2.838535830205739
@@ -161,11 +161,12 @@ INFO:pyaf.std:AUTOREG_DETAIL 'Quantized_10_Ozone_ConstantTrend_residue_zeroCycle
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.1798 MAPE_Forecast=0.185 MAPE_Test=0.1956
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.1867 SMAPE_Forecast=0.1845 SMAPE_Test=0.1818
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.8305 MASE_Forecast=0.7679 MASE_Test=1.0207
-INFO:pyaf.std:MODEL_L1 L1_Fit=0.7300000000000002 L1_Forecast=0.5961538461538463 L1_Test=0.48249999999999976
-INFO:pyaf.std:MODEL_L2 L2_Fit=1.0034759849082497 L2_Forecast=0.7479116223671048 L2_Test=0.586038963437301
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=0.3162074811463047 CRPS_Forecast=0.2936590476190476 CRPS_Test=0.32280777777777775
+INFO:pyaf.std:MODEL_L1 L1_Fit=0.73 L1_Forecast=0.5961538461538463 L1_Test=0.48249999999999993
+INFO:pyaf.std:MODEL_L2 L2_Fit=1.0034759849082497 L2_Forecast=0.7479116223671048 L2_Test=0.5860389634373012
 INFO:pyaf.std:MODEL_COMPLEXITY 102
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
-INFO:pyaf.std:QUANTIZE_TRANSFORMATION_MIN_MAX_CURVE Quantization (0, 9) {0: 1.2, 1: 2.0, 2: 2.46, 3: 2.8899999999999997, 4: 3.32, 5: 3.75, 6: 4.18, 7: 4.6099999999999985, 8: 5.0, 9: 5.7}
+INFO:pyaf.std:QUANTIZE_TRANSFORMATION_MIN_MAX_CURVE Quantization (0, 9) {0: 1.2, 1: 2.0, 2: 2.46, 3: 2.8899999999999997, 4: 3.3200000000000003, 5: 3.75, 6: 4.18, 7: 4.609999999999999, 8: 5.0, 9: 5.7}
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
 INFO:pyaf.std:CONSTANT_TREND ConstantTrend 5.477124183006536
@@ -186,17 +187,17 @@ INFO:pyaf.std:AR_MODEL_COEFF 9 Quantized_10_Ozone_ConstantTrend_residue_zeroCycl
 INFO:pyaf.std:AR_MODEL_COEFF 10 Quantized_10_Ozone_ConstantTrend_residue_zeroCycle_residue_Lag44 0.12674362266822553
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_PLOTTING
-INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 3.2183632850646973
+INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 3.7324917316436768
 INFO:pyaf.std:START_FORECASTING '['Ozone']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Ozone']' 0.32494282722473145
-  Split      Transformation  ... TestMAPE TestMASE
-0  None  Quantized_20_Ozone  ...   0.2120   1.1723
-1  None  Quantized_20_Ozone  ...   0.2120   1.1723
-2  None  Quantized_10_Ozone  ...   0.2001   1.0365
-3  None  Quantized_10_Ozone  ...   0.1956   1.0207
-4  None  Quantized_20_Ozone  ...   0.2284   1.1511
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Ozone']' 0.3108329772949219
+  Split      Transformation  ... TestMASE TestCRPS
+0  None  Quantized_20_Ozone  ...   1.1723     None
+1  None  Quantized_20_Ozone  ...   1.1723     None
+2  None  Quantized_10_Ozone  ...   1.0365     None
+3  None  Quantized_10_Ozone  ...   1.0207     None
+4  None  Quantized_20_Ozone  ...   1.1511     None
 
-[5 rows x 20 columns]
+[5 rows x 23 columns]
 Forecast Columns  Index(['Time', 'Ozone', 'row_number', 'Time_Normalized', 'Quantized_10_Ozone',
        'Quantized_10_Ozone_ConstantTrend',
        'Quantized_10_Ozone_ConstantTrend_residue',
@@ -209,7 +210,10 @@ Forecast Columns  Index(['Time', 'Ozone', 'row_number', 'Time_Normalized', 'Quan
        'Quantized_10_Ozone_AR', 'Quantized_10_Ozone_AR_residue',
        'Quantized_10_Ozone_TransformedForecast', 'Ozone_Forecast',
        'Quantized_10_Ozone_TransformedResidue', 'Ozone_Residue',
-       'Ozone_Forecast_Lower_Bound', 'Ozone_Forecast_Upper_Bound'],
+       'Ozone_Forecast_Lower_Bound', 'Ozone_Forecast_Upper_Bound',
+       'Ozone_Forecast_Quantile_10', 'Ozone_Forecast_Quantile_30',
+       'Ozone_Forecast_Quantile_50', 'Ozone_Forecast_Quantile_70',
+       'Ozone_Forecast_Quantile_90'],
       dtype='object')
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 216 entries, 0 to 215
@@ -262,6 +266,7 @@ Forecasts
         },
         "Model_Performance": {
             "COMPLEXITY": "102",
+            "CRPS": "0.2936590476190476",
             "MAE": "0.5961538461538463",
             "MAPE": "0.185",
             "MASE": "0.7679",

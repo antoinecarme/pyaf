@@ -47,7 +47,7 @@ INFO:pyaf.std:collectPerformanceIndices : MAPE None Logit_Ozone Logit_PolyTrend_
 INFO:pyaf.std:collectPerformanceIndices : MAPE None Logit_Ozone Logit_PolyTrend_Cycle_None_NoAR 56 0.3443
 INFO:pyaf.std:collectPerformanceIndices : MAPE None Logit_Ozone Logit_PolyTrend_NoCycle_AR 86 0.1676
 INFO:pyaf.std:collectPerformanceIndices : MAPE None Logit_Ozone Logit_PolyTrend_NoCycle_NoAR 48 0.3443
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Ozone']' 1.651916742324829
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Ozone']' 1.9820261001586914
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01T00:00:00.000000 TimeMax=1967-09-01T00:00:00.000000 TimeDelta=<DateOffset: months=1> Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Length=204  Min=1.2 Max=8.7  Mean=3.8357843137254903 StdDev=1.4915592159401185
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='Logit_Ozone' Min=-18.420680733952366 Max=18.420680728927607  Mean=-0.7577986766139785 StdDev=2.1128151505874566
@@ -59,6 +59,7 @@ INFO:pyaf.std:AUTOREG_DETAIL 'Logit_Ozone_PolyTrend_residue_zeroCycle_residue_AR
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.2046 MAPE_Forecast=0.1676 MAPE_Test=0.3468
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.1896 SMAPE_Forecast=0.1696 SMAPE_Test=0.2819
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.8972 MASE_Forecast=0.6483 MASE_Test=1.7761
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=0.43514334665650534 CRPS_Forecast=0.24932082949183987 CRPS_Test=0.42814455064468143
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.7885805207550322 L1_Forecast=0.5032826557074455 L1_Test=0.8396136811440961
 INFO:pyaf.std:MODEL_L2 L2_Fit=1.0618144370973115 L2_Forecast=0.7132428843745128 L2_Test=0.9939582459820107
 INFO:pyaf.std:MODEL_COMPLEXITY 86
@@ -84,23 +85,23 @@ INFO:pyaf.std:AR_MODEL_COEFF 9 Logit_Ozone_PolyTrend_residue_zeroCycle_residue_L
 INFO:pyaf.std:AR_MODEL_COEFF 10 Logit_Ozone_PolyTrend_residue_zeroCycle_residue_Lag18 -0.07058820739983514
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_PLOTTING
-INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 3.190814971923828
+INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 3.908355236053467
 INFO:pyaf.std:START_FORECASTING '['Ozone']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Ozone']' 0.34093451499938965
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Ozone']' 0.3283390998840332
      Month  Ozone       Time
 0  1955-01    2.7 1955-01-01
 1  1955-02    2.0 1955-02-01
 2  1955-03    3.6 1955-03-01
 3  1955-04    5.0 1955-04-01
 4  1955-05    6.5 1955-05-01
-  Split Transformation  ... TestMAPE TestMASE
-0  None    Logit_Ozone  ...   0.3468   1.7761
-1  None    Logit_Ozone  ...   0.3468   1.7761
-2  None    Logit_Ozone  ...   0.4365   2.1142
-3  None    Logit_Ozone  ...   0.3928   1.9479
-4  None    Logit_Ozone  ...   0.2106   1.0434
+  Split Transformation  ... TestMASE TestCRPS
+0  None    Logit_Ozone  ...   1.7761     None
+1  None    Logit_Ozone  ...   1.7761     None
+2  None    Logit_Ozone  ...   2.1142     None
+3  None    Logit_Ozone  ...   1.9479     None
+4  None    Logit_Ozone  ...   1.0434     None
 
-[5 rows x 20 columns]
+[5 rows x 23 columns]
 Forecast Columns  Index(['Time', 'Ozone', 'row_number', 'Time_Normalized', 'Logit_Ozone',
        'Time_Normalized_^2', 'Time_Normalized_^3', 'Logit_Ozone_PolyTrend',
        'Logit_Ozone_PolyTrend_residue',
@@ -112,7 +113,10 @@ Forecast Columns  Index(['Time', 'Ozone', 'row_number', 'Time_Normalized', 'Logi
        'Logit_Ozone_Cycle_residue', 'Logit_Ozone_AR', 'Logit_Ozone_AR_residue',
        'Logit_Ozone_TransformedForecast', 'Ozone_Forecast',
        'Logit_Ozone_TransformedResidue', 'Ozone_Residue',
-       'Ozone_Forecast_Lower_Bound', 'Ozone_Forecast_Upper_Bound'],
+       'Ozone_Forecast_Lower_Bound', 'Ozone_Forecast_Upper_Bound',
+       'Ozone_Forecast_Quantile_10', 'Ozone_Forecast_Quantile_30',
+       'Ozone_Forecast_Quantile_50', 'Ozone_Forecast_Quantile_70',
+       'Ozone_Forecast_Quantile_90'],
       dtype='object')
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 216 entries, 0 to 215
@@ -165,6 +169,7 @@ Forecasts
         },
         "Model_Performance": {
             "COMPLEXITY": "86",
+            "CRPS": "0.24932082949183987",
             "MAE": "0.5032826557074455",
             "MAPE": "0.1676",
             "MASE": "0.6483",

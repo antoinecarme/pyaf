@@ -5,7 +5,7 @@ INFO:pyaf.std:START_TRAINING 'Ozone2'
 2  1955-03   1955     3    AS   P_S    3.6 1955-03-01     3.6
 3  1955-04   1955     4    AT   P_U    5.0 1955-04-01     5.0
 4  1955-05   1955     5    AU   P_V    6.5 1955-05-01     6.5
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Ozone2']' 1.914416790008545
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Ozone2']' 1.9988465309143066
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01T00:00:00.000000 TimeMax=1959-03-01T00:00:00.000000 TimeDelta=<DateOffset: months=1> Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone2' Length=51  Min=0.0 Max=26.099999999999998  Mean=5.7529411764705864 StdDev=5.086288871735056
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='RelDiff_Ozone2' Min=-0.9999999681707318 Max=36781608.195402294  Mean=1171963.1590098052 StdDev=5559717.681827764
@@ -18,6 +18,7 @@ INFO:pyaf.std:AUTOREG_DETAIL 'RelDiff_Ozone2_ConstantTrend_residue_zeroCycle_res
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.902 MAPE_Forecast=0.902 MAPE_Test=0.902
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=1.8039 SMAPE_Forecast=1.8039 SMAPE_Test=1.8039
 INFO:pyaf.std:MODEL_MASE MASE_Fit=1.5021 MASE_Forecast=1.5021 MASE_Test=1.5021
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=1.6851428571428568 CRPS_Forecast=1.6851428571428568 CRPS_Test=1.6851428571428568
 INFO:pyaf.std:MODEL_L1 L1_Fit=5.7529411764705864 L1_Forecast=5.7529411764705864 L1_Test=5.7529411764705864
 INFO:pyaf.std:MODEL_L2 L2_Fit=7.67897562612792 L2_Forecast=7.67897562612792 L2_Test=7.67897562612792
 INFO:pyaf.std:MODEL_COMPLEXITY 44
@@ -43,9 +44,9 @@ INFO:pyaf.std:AR_MODEL_COEFF 9 Exog4=P_U_Lag9 441781.7927186434
 INFO:pyaf.std:AR_MODEL_COEFF 10 Exog4=P_U_Lag4 -365013.34041281475
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_PLOTTING
-INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 3.028836965560913
+INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 3.5747885704040527
 INFO:pyaf.std:START_FORECASTING '['Ozone2']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Ozone2']' 0.2903861999511719
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Ozone2']' 0.3059654235839844
 INFO:pyaf.std:START_TRAINING 'Ozone2'
 Forecast Columns  Index(['Time', 'Ozone2', 'row_number', 'Time_Normalized', 'RelDiff_Ozone2',
        'RelDiff_Ozone2_ConstantTrend', 'RelDiff_Ozone2_ConstantTrend_residue',
@@ -59,7 +60,10 @@ Forecast Columns  Index(['Time', 'Ozone2', 'row_number', 'Time_Normalized', 'Rel
        'RelDiff_Ozone2_AR', 'RelDiff_Ozone2_AR_residue',
        'RelDiff_Ozone2_TransformedForecast', 'Ozone2_Forecast',
        'RelDiff_Ozone2_TransformedResidue', 'Ozone2_Residue',
-       'Ozone2_Forecast_Lower_Bound', 'Ozone2_Forecast_Upper_Bound'],
+       'Ozone2_Forecast_Lower_Bound', 'Ozone2_Forecast_Upper_Bound',
+       'Ozone2_Forecast_Quantile_10', 'Ozone2_Forecast_Quantile_30',
+       'Ozone2_Forecast_Quantile_50', 'Ozone2_Forecast_Quantile_70',
+       'Ozone2_Forecast_Quantile_90'],
       dtype='object')
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 63 entries, 0 to 62
@@ -111,6 +115,7 @@ Forecasts
         },
         "Model_Performance": {
             "COMPLEXITY": "44",
+            "CRPS": "1.6851428571428568",
             "MAE": "5.7529411764705864",
             "MAPE": "0.902",
             "MASE": "1.5021",
@@ -128,7 +133,7 @@ Forecasts
 </Forecast>
 
 
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Ozone2']' 1.6814494132995605
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Ozone2']' 1.6343157291412354
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01T00:00:00.000000 TimeMax=1959-03-01T00:00:00.000000 TimeDelta=<DateOffset: months=1> Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone2' Length=51  Min=0.0 Max=26.099999999999998  Mean=5.7529411764705864 StdDev=5.086288871735056
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='RelDiff_Ozone2' Min=-0.9999999681707318 Max=36781608.195402294  Mean=1171963.1590098052 StdDev=5559717.681827764
@@ -141,6 +146,7 @@ INFO:pyaf.std:AUTOREG_DETAIL 'RelDiff_Ozone2_ConstantTrend_residue_zeroCycle_res
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.902 MAPE_Forecast=0.902 MAPE_Test=0.902
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=1.8039 SMAPE_Forecast=1.8039 SMAPE_Test=1.8039
 INFO:pyaf.std:MODEL_MASE MASE_Fit=1.5021 MASE_Forecast=1.5021 MASE_Test=1.5021
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=1.6851428571428568 CRPS_Forecast=1.6851428571428568 CRPS_Test=1.6851428571428568
 INFO:pyaf.std:MODEL_L1 L1_Fit=5.7529411764705864 L1_Forecast=5.7529411764705864 L1_Test=5.7529411764705864
 INFO:pyaf.std:MODEL_L2 L2_Fit=7.67897562612792 L2_Forecast=7.67897562612792 L2_Test=7.67897562612792
 INFO:pyaf.std:MODEL_COMPLEXITY 44
@@ -166,9 +172,9 @@ INFO:pyaf.std:AR_MODEL_COEFF 9 Exog4=P_U_Lag9 441781.7927186434
 INFO:pyaf.std:AR_MODEL_COEFF 10 Exog4=P_U_Lag4 -365013.34041281475
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_PLOTTING
-INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 2.829460382461548
+INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 3.35766863822937
 INFO:pyaf.std:START_FORECASTING '['Ozone2']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Ozone2']' 0.2886791229248047
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Ozone2']' 0.302504301071167
 INFO:pyaf.std:START_TRAINING 'Ozone2'
 Forecast Columns  Index(['Time', 'Ozone2', 'row_number', 'Time_Normalized', 'RelDiff_Ozone2',
        'RelDiff_Ozone2_ConstantTrend', 'RelDiff_Ozone2_ConstantTrend_residue',
@@ -182,7 +188,10 @@ Forecast Columns  Index(['Time', 'Ozone2', 'row_number', 'Time_Normalized', 'Rel
        'RelDiff_Ozone2_AR', 'RelDiff_Ozone2_AR_residue',
        'RelDiff_Ozone2_TransformedForecast', 'Ozone2_Forecast',
        'RelDiff_Ozone2_TransformedResidue', 'Ozone2_Residue',
-       'Ozone2_Forecast_Lower_Bound', 'Ozone2_Forecast_Upper_Bound'],
+       'Ozone2_Forecast_Lower_Bound', 'Ozone2_Forecast_Upper_Bound',
+       'Ozone2_Forecast_Quantile_10', 'Ozone2_Forecast_Quantile_30',
+       'Ozone2_Forecast_Quantile_50', 'Ozone2_Forecast_Quantile_70',
+       'Ozone2_Forecast_Quantile_90'],
       dtype='object')
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 63 entries, 0 to 62
@@ -234,6 +243,7 @@ Forecasts
         },
         "Model_Performance": {
             "COMPLEXITY": "44",
+            "CRPS": "1.6851428571428568",
             "MAE": "5.7529411764705864",
             "MAPE": "0.902",
             "MASE": "1.5021",
@@ -251,7 +261,7 @@ Forecasts
 </Forecast>
 
 
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Ozone2']' 3.70257306098938
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Ozone2']' 3.7576181888580322
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01T00:00:00.000000 TimeMax=1960-12-01T00:00:00.000000 TimeDelta=<DateOffset: months=1> Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone2' Length=102  Min=0.0 Max=26.099999999999998  Mean=5.548039215686275 StdDev=4.275597203835099
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Ozone2' Min=0.0 Max=26.099999999999998  Mean=5.548039215686275 StdDev=4.275597203835099
@@ -264,6 +274,7 @@ INFO:pyaf.std:AUTOREG_DETAIL '_Ozone2_PolyTrend_residue_zeroCycle_residue_ARX(25
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=3644101649.3845 MAPE_Forecast=0.3368 MAPE_Test=0.285
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.3953 SMAPE_Forecast=0.3242 SMAPE_Test=0.337
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.4788 MASE_Forecast=0.7555 MASE_Test=0.5945
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=0.6469124843262823 CRPS_Forecast=0.634963099559555 CRPS_Test=0.9698922975114871
 INFO:pyaf.std:MODEL_L1 L1_Fit=1.7504733195812596 L1_Forecast=1.6797892595416455 L1_Test=1.826675658993765
 INFO:pyaf.std:MODEL_L2 L2_Fit=2.4713461939361285 L2_Forecast=2.3717534046265407 L2_Test=2.3482352036009604
 INFO:pyaf.std:MODEL_COMPLEXITY 34
@@ -289,9 +300,9 @@ INFO:pyaf.std:AR_MODEL_COEFF 9 Exog3=AQ_Lag8 0.45660056565641427
 INFO:pyaf.std:AR_MODEL_COEFF 10 _Ozone2_PolyTrend_residue_zeroCycle_residue_Lag12 0.16502320433323697
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_PLOTTING
-INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 3.036036968231201
+INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 3.679018020629883
 INFO:pyaf.std:START_FORECASTING '['Ozone2']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Ozone2']' 0.32065749168395996
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Ozone2']' 0.31716060638427734
 INFO:pyaf.std:START_TRAINING 'Ozone2'
 Forecast Columns  Index(['Time', 'Ozone2', 'row_number', 'Time_Normalized', '_Ozone2',
        'Time_Normalized_^2', 'Time_Normalized_^3', '_Ozone2_PolyTrend',
@@ -306,7 +317,10 @@ Forecast Columns  Index(['Time', 'Ozone2', 'row_number', 'Time_Normalized', '_Oz
        '_Ozone2_Cycle_residue', '_Ozone2_AR', '_Ozone2_AR_residue',
        '_Ozone2_TransformedForecast', 'Ozone2_Forecast',
        '_Ozone2_TransformedResidue', 'Ozone2_Residue',
-       'Ozone2_Forecast_Lower_Bound', 'Ozone2_Forecast_Upper_Bound'],
+       'Ozone2_Forecast_Lower_Bound', 'Ozone2_Forecast_Upper_Bound',
+       'Ozone2_Forecast_Quantile_10', 'Ozone2_Forecast_Quantile_30',
+       'Ozone2_Forecast_Quantile_50', 'Ozone2_Forecast_Quantile_70',
+       'Ozone2_Forecast_Quantile_90'],
       dtype='object')
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 114 entries, 0 to 113
@@ -358,6 +372,7 @@ Forecasts
         },
         "Model_Performance": {
             "COMPLEXITY": "34",
+            "CRPS": "0.634963099559555",
             "MAE": "1.6797892595416455",
             "MAPE": "0.3368",
             "MASE": "0.7555",
@@ -375,7 +390,7 @@ Forecasts
 </Forecast>
 
 
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Ozone2']' 6.269187927246094
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Ozone2']' 6.251132011413574
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01T00:00:00.000000 TimeMax=1967-09-01T00:00:00.000000 TimeDelta=<DateOffset: months=1> Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone2' Length=204  Min=0.0 Max=26.099999999999998  Mean=5.529411764705882 StdDev=3.838506864406639
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Ozone2' Min=0.0 Max=26.099999999999998  Mean=5.529411764705882 StdDev=3.838506864406639
@@ -388,6 +403,7 @@ INFO:pyaf.std:AUTOREG_DETAIL '_Ozone2_LinearTrend_residue_zeroCycle_residue_ARX(
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=2109152020.0645 MAPE_Forecast=0.3014 MAPE_Test=0.3076
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.3346 SMAPE_Forecast=0.2841 SMAPE_Test=0.2663
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.5056 MASE_Forecast=0.5276 MASE_Test=0.6554
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=0.6343034841267706 CRPS_Forecast=0.5612645620779048 CRPS_Test=0.6768755029795824
 INFO:pyaf.std:MODEL_L1 L1_Fit=1.647664584531131 L1_Forecast=1.4994398611500226 L1_Test=1.1677849321896334
 INFO:pyaf.std:MODEL_L2 L2_Fit=2.4513423153465568 L2_Forecast=2.057703776386393 L2_Test=1.3080463795624169
 INFO:pyaf.std:MODEL_COMPLEXITY 54
@@ -413,9 +429,9 @@ INFO:pyaf.std:AR_MODEL_COEFF 9 Exog3=AT_Lag29 -0.8383550959251934
 INFO:pyaf.std:AR_MODEL_COEFF 10 Exog2=4_Lag29 -0.8383550959251926
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_PLOTTING
-INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 3.005558490753174
+INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 3.62748122215271
 INFO:pyaf.std:START_FORECASTING '['Ozone2']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Ozone2']' 0.3731224536895752
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Ozone2']' 0.3939018249511719
 Forecast Columns  Index(['Time', 'Ozone2', 'row_number', 'Time_Normalized', '_Ozone2',
        '_Ozone2_LinearTrend', '_Ozone2_LinearTrend_residue',
        '_Ozone2_LinearTrend_residue_zeroCycle',
@@ -429,7 +445,10 @@ Forecast Columns  Index(['Time', 'Ozone2', 'row_number', 'Time_Normalized', '_Oz
        '_Ozone2_Cycle_residue', '_Ozone2_AR', '_Ozone2_AR_residue',
        '_Ozone2_TransformedForecast', 'Ozone2_Forecast',
        '_Ozone2_TransformedResidue', 'Ozone2_Residue',
-       'Ozone2_Forecast_Lower_Bound', 'Ozone2_Forecast_Upper_Bound'],
+       'Ozone2_Forecast_Lower_Bound', 'Ozone2_Forecast_Upper_Bound',
+       'Ozone2_Forecast_Quantile_10', 'Ozone2_Forecast_Quantile_30',
+       'Ozone2_Forecast_Quantile_50', 'Ozone2_Forecast_Quantile_70',
+       'Ozone2_Forecast_Quantile_90'],
       dtype='object')
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 216 entries, 0 to 215
@@ -481,6 +500,7 @@ Forecasts
         },
         "Model_Performance": {
             "COMPLEXITY": "54",
+            "CRPS": "0.5612645620779048",
             "MAE": "1.4994398611500226",
             "MAPE": "0.3014",
             "MASE": "0.5276",

@@ -1,5 +1,5 @@
 INFO:pyaf.std:START_TRAINING 'Signal'
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 1.9906737804412842
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 1.9634556770324707
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2016-01-25T00:00:00.000000 TimeMax=2016-11-05T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=7
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=365  Min=0.0 Max=97.0  Mean=1.0520547945205478 StdDev=8.398631812727873
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=0.0 Max=97.0  Mean=1.0520547945205478 StdDev=8.398631812727873
@@ -11,6 +11,7 @@ INFO:pyaf.std:AUTOREG_DETAIL '_Signal_ConstantTrend_residue_zeroCycle_residue_CR
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=166570291253.2988 MAPE_Forecast=23597014621.9707 MAPE_Test=20278312516.2075
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=1.9795 SMAPE_Forecast=1.9986 SMAPE_Test=2.0
 INFO:pyaf.std:MODEL_MASE MASE_Fit=8.7383 MASE_Forecast=1.5821 MASE_Test=20278312516.2075
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=8.293467925301185 CRPS_Forecast=1.1939328925674493 CRPS_Test=1.0139156258103752
 INFO:pyaf.std:MODEL_L1 L1_Fit=17.292699561061582 L1_Forecast=3.3870926948121 L1_Test=2.0278312516207504
 INFO:pyaf.std:MODEL_L2 L2_Fit=24.449633384717657 L2_Forecast=9.04022326571336 L2_Test=2.0278312516207504
 INFO:pyaf.std:MODEL_COMPLEXITY 2
@@ -28,9 +29,13 @@ INFO:pyaf.std:CROSTON_ALPHA 0.1
 INFO:pyaf.std:CROSTON_METHOD SBJ
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_PLOTTING
-INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 3.38971209526062
+/home/travis/virtualenv/python3.9-dev/lib/python3.9/site-packages/numpy/lib/histograms.py:905: RuntimeWarning: divide by zero encountered in true_divide
+  return n/db/n.sum(), bin_edges
+/home/travis/virtualenv/python3.9-dev/lib/python3.9/site-packages/numpy/lib/histograms.py:905: RuntimeWarning: invalid value encountered in true_divide
+  return n/db/n.sum(), bin_edges
+INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 3.7109978199005127
 INFO:pyaf.std:START_FORECASTING '['Signal']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 0.18327856063842773
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 0.1910533905029297
 Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
        '_Signal_ConstantTrend_residue_zeroCycle',
@@ -41,7 +46,10 @@ Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_Cycle_residue', '_Signal_AR', '_Signal_AR_residue',
        '_Signal_TransformedForecast', 'Signal_Forecast',
        '_Signal_TransformedResidue', 'Signal_Residue',
-       'Signal_Forecast_Lower_Bound', 'Signal_Forecast_Upper_Bound'],
+       'Signal_Forecast_Lower_Bound', 'Signal_Forecast_Upper_Bound',
+       'Signal_Forecast_Quantile_10', 'Signal_Forecast_Quantile_30',
+       'Signal_Forecast_Quantile_50', 'Signal_Forecast_Quantile_70',
+       'Signal_Forecast_Quantile_90'],
       dtype='object')
           Date  Signal  _Signal  _Signal_TransformedForecast  Signal_Forecast
 360 2017-01-19     0.0      0.0                     2.027831         2.027831

@@ -133,7 +133,7 @@ INFO:pyaf.std:collectPerformanceIndices : MAPE None CumSum_Used Integration_Poly
 INFO:pyaf.std:collectPerformanceIndices : MAPE None CumSum_Used Integration_PolyTrend_Cycle_None_NoAR 56 0.7699
 INFO:pyaf.std:collectPerformanceIndices : MAPE None CumSum_Used Integration_PolyTrend_NoCycle_AR 58 0.0504
 INFO:pyaf.std:collectPerformanceIndices : MAPE None CumSum_Used Integration_PolyTrend_NoCycle_NoAR 48 0.7699
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Used']' 3.053455352783203
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Used']' 3.2885520458221436
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2011-11-01T00:00:00.000000 TimeMax=2011-12-10T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=10
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Used' Length=61  Min=550 Max=800  Mean=627.8852459016393 StdDev=51.32445758360245
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Used' Min=550 Max=800  Mean=627.8852459016393 StdDev=51.32445758360245
@@ -145,6 +145,7 @@ INFO:pyaf.std:AUTOREG_DETAIL '_Used_ConstantTrend_residue_zeroCycle_residue_AR(1
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.036 MAPE_Forecast=0.0219 MAPE_Test=0.088
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.036 SMAPE_Forecast=0.0218 SMAPE_Test=0.0952
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.623 MASE_Forecast=0.5042 MASE_Test=1.1484
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=6.294082041364844 CRPS_Forecast=9.757029886014104 CRPS_Test=18.080198173677154
 INFO:pyaf.std:MODEL_L1 L1_Fit=22.187872017704517 L1_Forecast=13.612426292653016 L1_Test=64.81889200924047
 INFO:pyaf.std:MODEL_L2 L2_Fit=29.11620775569817 L2_Forecast=15.415689563294164 L2_Test=89.82108749258758
 INFO:pyaf.std:MODEL_COMPLEXITY 10
@@ -170,17 +171,17 @@ INFO:pyaf.std:AR_MODEL_COEFF 9 _Used_ConstantTrend_residue_zeroCycle_residue_Lag
 INFO:pyaf.std:AR_MODEL_COEFF 10 _Used_ConstantTrend_residue_zeroCycle_residue_Lag12 -0.015196122159948589
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_PLOTTING
-INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 3.5275614261627197
+INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 4.085065603256226
 INFO:pyaf.std:START_FORECASTING '['Used']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Used']' 0.1666276454925537
-  Split Transformation  ... TestMAPE TestMASE
-0  None          _Used  ...   0.0880   1.1484
-1  None          _Used  ...   0.0880   1.1484
-2  None          _Used  ...   0.0859   1.1196
-3  None          _Used  ...   0.0859   1.1196
-4  None          _Used  ...   0.1178   1.5322
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Used']' 0.15462827682495117
+  Split Transformation  ... TestMASE TestCRPS
+0  None          _Used  ...   1.1484     None
+1  None          _Used  ...   1.1484     None
+2  None          _Used  ...   1.1196     None
+3  None          _Used  ...   1.1196     None
+4  None          _Used  ...   1.5322     None
 
-[5 rows x 20 columns]
+[5 rows x 23 columns]
 Forecast Columns  Index(['Date', 'Used', 'row_number', 'Date_Normalized', '_Used',
        '_Used_ConstantTrend', '_Used_ConstantTrend_residue',
        '_Used_ConstantTrend_residue_zeroCycle',
@@ -191,7 +192,9 @@ Forecast Columns  Index(['Date', 'Used', 'row_number', 'Date_Normalized', '_Used
        '_Used_Cycle_residue', '_Used_AR', '_Used_AR_residue',
        '_Used_TransformedForecast', 'Used_Forecast',
        '_Used_TransformedResidue', 'Used_Residue', 'Used_Forecast_Lower_Bound',
-       'Used_Forecast_Upper_Bound'],
+       'Used_Forecast_Upper_Bound', 'Used_Forecast_Quantile_10',
+       'Used_Forecast_Quantile_30', 'Used_Forecast_Quantile_50',
+       'Used_Forecast_Quantile_70', 'Used_Forecast_Quantile_90'],
       dtype='object')
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 71 entries, 0 to 70
@@ -256,6 +259,7 @@ Forecasts
         },
         "Model_Performance": {
             "COMPLEXITY": "10",
+            "CRPS": "9.757029886014104",
             "MAE": "13.612426292653016",
             "MAPE": "0.0219",
             "MASE": "0.5042",

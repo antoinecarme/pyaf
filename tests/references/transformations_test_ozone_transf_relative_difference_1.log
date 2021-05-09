@@ -15,7 +15,7 @@ INFO:pyaf.std:collectPerformanceIndices : MAPE None RelDiff_signal2 RelativeDiff
 INFO:pyaf.std:collectPerformanceIndices : MAPE None RelDiff_signal2 RelativeDifference_LinearTrend_NoCycle_NoAR 48 1.0
 INFO:pyaf.std:collectPerformanceIndices : MAPE None RelDiff_signal2 RelativeDifference_PolyTrend_Cycle_NoAR 56 1.0
 INFO:pyaf.std:collectPerformanceIndices : MAPE None RelDiff_signal2 RelativeDifference_PolyTrend_NoCycle_NoAR 48 1.0
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['signal2']' 0.8375778198242188
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['signal2']' 1.4140276908874512
 INFO:pyaf.std:TIME_DETAIL TimeVariable='time' TimeMin=0 TimeMax=949 TimeDelta=1 Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='signal2' Length=1200  Min=1.0 Max=8.675889481882477e+94  Mean=4.337944740941239e+92 StdDev=4.510021374694525e+93
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='RelDiff_signal2' Min=0.0 Max=0.20000000000000018  Mean=0.01683851899113984 StdDev=0.055526238969589435
@@ -27,6 +27,7 @@ INFO:pyaf.std:AUTOREG_DETAIL 'RelDiff_signal2_ConstantTrend_residue_zeroCycle_re
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.9937 MAPE_Forecast=1.0 MAPE_Test=1.0
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=1.9829 SMAPE_Forecast=2.0 SMAPE_Test=2.0
 INFO:pyaf.std:MODEL_MASE MASE_Fit=5.9937 MASE_Forecast=5.9748 MASE_Test=5.6426
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=6.426783062035171e+68 CRPS_Forecast=6.496549402336297e+90 CRPS_Test=1.338091565452224e+94
 INFO:pyaf.std:MODEL_L1 L1_Fit=8.778698714990702e+72 L1_Forecast=2.453089264459579e+92 L1_Test=3.851415370156756e+94
 INFO:pyaf.std:MODEL_L2 L2_Fit=8.158223601882861e+73 L2_Forecast=1.1410521347259163e+93 L2_Test=4.5022483773199936e+94
 INFO:pyaf.std:MODEL_COMPLEXITY 32
@@ -42,9 +43,9 @@ INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_PLOTTING
-INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 2.804844617843628
+INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 3.176137685775757
 INFO:pyaf.std:START_FORECASTING '['signal2']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['signal2']' 0.1791977882385254
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['signal2']' 0.1939537525177002
 INFO:pyaf.std:START_TRAINING 'signal2'
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 1200 entries, 0 to 1199
@@ -61,17 +62,17 @@ memory usage: 18.9 KB
 2     2   0.2   1.4400
 3     3   0.2   1.7280
 4     4   0.2   2.0736
-  Split   Transformation  ... TestMAPE TestMASE
-0  None  RelDiff_signal2  ...      1.0   5.6426
-1  None  RelDiff_signal2  ...      1.0   5.6426
-2  None  RelDiff_signal2  ...      1.0   5.6426
-3  None  RelDiff_signal2  ...      1.0   5.6426
-4  None  RelDiff_signal2  ...      1.0   5.6426
-5  None  RelDiff_signal2  ...      1.0   5.6426
-6  None  RelDiff_signal2  ...      1.0   5.6426
-7  None  RelDiff_signal2  ...      1.0   5.6426
+  Split   Transformation  ... TestMASE TestCRPS
+0  None  RelDiff_signal2  ...   5.6426     None
+1  None  RelDiff_signal2  ...   5.6426     None
+2  None  RelDiff_signal2  ...   5.6426     None
+3  None  RelDiff_signal2  ...   5.6426     None
+4  None  RelDiff_signal2  ...   5.6426     None
+5  None  RelDiff_signal2  ...   5.6426     None
+6  None  RelDiff_signal2  ...   5.6426     None
+7  None  RelDiff_signal2  ...   5.6426     None
 
-[8 rows x 20 columns]
+[8 rows x 23 columns]
 Forecast Columns  Index(['time', 'signal2', 'row_number', 'time_Normalized', 'RelDiff_signal2',
        'RelDiff_signal2_ConstantTrend',
        'RelDiff_signal2_ConstantTrend_residue',
@@ -84,7 +85,10 @@ Forecast Columns  Index(['time', 'signal2', 'row_number', 'time_Normalized', 'Re
        'RelDiff_signal2_AR', 'RelDiff_signal2_AR_residue',
        'RelDiff_signal2_TransformedForecast', 'signal2_Forecast',
        'RelDiff_signal2_TransformedResidue', 'signal2_Residue',
-       'signal2_Forecast_Lower_Bound', 'signal2_Forecast_Upper_Bound'],
+       'signal2_Forecast_Lower_Bound', 'signal2_Forecast_Upper_Bound',
+       'signal2_Forecast_Quantile_10', 'signal2_Forecast_Quantile_30',
+       'signal2_Forecast_Quantile_50', 'signal2_Forecast_Quantile_70',
+       'signal2_Forecast_Quantile_90'],
       dtype='object')
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 1212 entries, 0 to 1211
@@ -137,6 +141,7 @@ Forecasts
         },
         "Model_Performance": {
             "COMPLEXITY": "32",
+            "CRPS": "6.496549402336297e+90",
             "MAE": "2.453089264459579e+92",
             "MAPE": "1.0",
             "MASE": "5.9748",
@@ -169,35 +174,35 @@ memory usage: 18.9 KB
 2     2   0.2   1.4400
 3     3   0.2   1.7280
 4     4   0.2   2.0736
-/home/travis/virtualenv/python3.8.6/lib/python3.8/site-packages/scipy/stats/stats.py:3845: PearsonRConstantInputWarning: An input array is constant; the correlation coefficent is not defined.
+/home/travis/virtualenv/python3.9-dev/lib/python3.9/site-packages/scipy/stats/stats.py:3913: PearsonRConstantInputWarning: An input array is constant; the correlation coefficent is not defined.
   warnings.warn(PearsonRConstantInputWarning())
-/home/travis/virtualenv/python3.8.6/lib/python3.8/site-packages/sklearn/feature_selection/_univariate_selection.py:306: RuntimeWarning: divide by zero encountered in true_divide
-  F = corr ** 2 / (1 - corr ** 2) * degrees_of_freedom
-/home/travis/virtualenv/python3.8.6/lib/python3.8/site-packages/sklearn/feature_selection/_univariate_selection.py:306: RuntimeWarning: divide by zero encountered in true_divide
-  F = corr ** 2 / (1 - corr ** 2) * degrees_of_freedom
-/home/travis/virtualenv/python3.8.6/lib/python3.8/site-packages/sklearn/feature_selection/_univariate_selection.py:306: RuntimeWarning: divide by zero encountered in true_divide
-  F = corr ** 2 / (1 - corr ** 2) * degrees_of_freedom
-/home/travis/virtualenv/python3.8.6/lib/python3.8/site-packages/sklearn/feature_selection/_univariate_selection.py:306: RuntimeWarning: divide by zero encountered in true_divide
-  F = corr ** 2 / (1 - corr ** 2) * degrees_of_freedom
-/home/travis/virtualenv/python3.8.6/lib/python3.8/site-packages/scipy/stats/stats.py:3845: PearsonRConstantInputWarning: An input array is constant; the correlation coefficent is not defined.
+/home/travis/virtualenv/python3.9-dev/lib/python3.9/site-packages/scipy/stats/stats.py:3913: PearsonRConstantInputWarning: An input array is constant; the correlation coefficent is not defined.
   warnings.warn(PearsonRConstantInputWarning())
-/home/travis/virtualenv/python3.8.6/lib/python3.8/site-packages/sklearn/feature_selection/_univariate_selection.py:306: RuntimeWarning: divide by zero encountered in true_divide
-  F = corr ** 2 / (1 - corr ** 2) * degrees_of_freedom
-/home/travis/virtualenv/python3.8.6/lib/python3.8/site-packages/sklearn/feature_selection/_univariate_selection.py:306: RuntimeWarning: divide by zero encountered in true_divide
-  F = corr ** 2 / (1 - corr ** 2) * degrees_of_freedom
-/home/travis/virtualenv/python3.8.6/lib/python3.8/site-packages/sklearn/feature_selection/_univariate_selection.py:306: RuntimeWarning: divide by zero encountered in true_divide
-  F = corr ** 2 / (1 - corr ** 2) * degrees_of_freedom
-/home/travis/virtualenv/python3.8.6/lib/python3.8/site-packages/sklearn/feature_selection/_univariate_selection.py:306: RuntimeWarning: divide by zero encountered in true_divide
-  F = corr ** 2 / (1 - corr ** 2) * degrees_of_freedom
-/home/travis/virtualenv/python3.8.6/lib/python3.8/site-packages/scipy/stats/stats.py:3845: PearsonRConstantInputWarning: An input array is constant; the correlation coefficent is not defined.
+/home/travis/virtualenv/python3.9-dev/lib/python3.9/site-packages/scipy/stats/stats.py:3913: PearsonRConstantInputWarning: An input array is constant; the correlation coefficent is not defined.
   warnings.warn(PearsonRConstantInputWarning())
-/home/travis/virtualenv/python3.8.6/lib/python3.8/site-packages/sklearn/feature_selection/_univariate_selection.py:306: RuntimeWarning: divide by zero encountered in true_divide
+/home/travis/virtualenv/python3.9-dev/lib/python3.9/site-packages/sklearn/feature_selection/_univariate_selection.py:307: RuntimeWarning: divide by zero encountered in true_divide
   F = corr ** 2 / (1 - corr ** 2) * degrees_of_freedom
-/home/travis/virtualenv/python3.8.6/lib/python3.8/site-packages/sklearn/feature_selection/_univariate_selection.py:306: RuntimeWarning: divide by zero encountered in true_divide
+/home/travis/virtualenv/python3.9-dev/lib/python3.9/site-packages/sklearn/feature_selection/_univariate_selection.py:307: RuntimeWarning: divide by zero encountered in true_divide
   F = corr ** 2 / (1 - corr ** 2) * degrees_of_freedom
-/home/travis/virtualenv/python3.8.6/lib/python3.8/site-packages/sklearn/feature_selection/_univariate_selection.py:306: RuntimeWarning: divide by zero encountered in true_divide
+/home/travis/virtualenv/python3.9-dev/lib/python3.9/site-packages/sklearn/feature_selection/_univariate_selection.py:307: RuntimeWarning: divide by zero encountered in true_divide
   F = corr ** 2 / (1 - corr ** 2) * degrees_of_freedom
-/home/travis/virtualenv/python3.8.6/lib/python3.8/site-packages/sklearn/feature_selection/_univariate_selection.py:306: RuntimeWarning: divide by zero encountered in true_divide
+/home/travis/virtualenv/python3.9-dev/lib/python3.9/site-packages/sklearn/feature_selection/_univariate_selection.py:307: RuntimeWarning: divide by zero encountered in true_divide
+  F = corr ** 2 / (1 - corr ** 2) * degrees_of_freedom
+/home/travis/virtualenv/python3.9-dev/lib/python3.9/site-packages/sklearn/feature_selection/_univariate_selection.py:307: RuntimeWarning: divide by zero encountered in true_divide
+  F = corr ** 2 / (1 - corr ** 2) * degrees_of_freedom
+/home/travis/virtualenv/python3.9-dev/lib/python3.9/site-packages/sklearn/feature_selection/_univariate_selection.py:307: RuntimeWarning: divide by zero encountered in true_divide
+  F = corr ** 2 / (1 - corr ** 2) * degrees_of_freedom
+/home/travis/virtualenv/python3.9-dev/lib/python3.9/site-packages/sklearn/feature_selection/_univariate_selection.py:307: RuntimeWarning: divide by zero encountered in true_divide
+  F = corr ** 2 / (1 - corr ** 2) * degrees_of_freedom
+/home/travis/virtualenv/python3.9-dev/lib/python3.9/site-packages/sklearn/feature_selection/_univariate_selection.py:307: RuntimeWarning: divide by zero encountered in true_divide
+  F = corr ** 2 / (1 - corr ** 2) * degrees_of_freedom
+/home/travis/virtualenv/python3.9-dev/lib/python3.9/site-packages/sklearn/feature_selection/_univariate_selection.py:307: RuntimeWarning: divide by zero encountered in true_divide
+  F = corr ** 2 / (1 - corr ** 2) * degrees_of_freedom
+/home/travis/virtualenv/python3.9-dev/lib/python3.9/site-packages/sklearn/feature_selection/_univariate_selection.py:307: RuntimeWarning: divide by zero encountered in true_divide
+  F = corr ** 2 / (1 - corr ** 2) * degrees_of_freedom
+/home/travis/virtualenv/python3.9-dev/lib/python3.9/site-packages/sklearn/feature_selection/_univariate_selection.py:307: RuntimeWarning: divide by zero encountered in true_divide
+  F = corr ** 2 / (1 - corr ** 2) * degrees_of_freedom
+/home/travis/virtualenv/python3.9-dev/lib/python3.9/site-packages/sklearn/feature_selection/_univariate_selection.py:307: RuntimeWarning: divide by zero encountered in true_divide
   F = corr ** 2 / (1 - corr ** 2) * degrees_of_freedom
 INFO:pyaf.std:collectPerformanceIndices : MAPE None _signal2_ConstantTrend_residue_bestCycle_byMAPE_residue_AR(64) 72 0.0
 INFO:pyaf.std:collectPerformanceIndices : MAPE None _signal2_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR 8 1.0
@@ -311,7 +316,7 @@ INFO:pyaf.std:collectPerformanceIndices : MAPE None CumSum_signal2 Integration_P
 INFO:pyaf.std:collectPerformanceIndices : MAPE None CumSum_signal2 Integration_PolyTrend_Cycle_NoAR 56 1.0
 INFO:pyaf.std:collectPerformanceIndices : MAPE None CumSum_signal2 Integration_PolyTrend_NoCycle_AR 112 0.0
 INFO:pyaf.std:collectPerformanceIndices : MAPE None CumSum_signal2 Integration_PolyTrend_NoCycle_NoAR 48 1.0
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['signal2']' 5.864378929138184
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['signal2']' 8.175707817077637
 INFO:pyaf.std:TIME_DETAIL TimeVariable='time' TimeMin=0 TimeMax=949 TimeDelta=1 Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='signal2' Length=1200  Min=1.0 Max=8.675889481882477e+94  Mean=4.337944740941239e+92 StdDev=4.510021374694525e+93
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_signal2' Min=1.0 Max=8.675889481882477e+94  Mean=4.337944740941239e+92 StdDev=4.510021374694525e+93
@@ -323,6 +328,7 @@ INFO:pyaf.std:AUTOREG_DETAIL '_signal2_ConstantTrend_residue_zeroCycle_residue_A
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=7.928970612687529e+55 MAPE_Forecast=0.0 MAPE_Test=0.0
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=1.5632 SMAPE_Forecast=0.0 SMAPE_Test=0.0
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.0 MASE_Forecast=0.0 MASE_Test=0.0
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=4.389269470945109e+72 CRPS_Forecast=1.1612690301054723e+92 CRPS_Test=6.953333960705794e+93
 INFO:pyaf.std:MODEL_L1 L1_Fit=2.1155513220885884e+58 L1_Forecast=1.7944613320613657e+77 L1_Test=2.1923302228931867e+79
 INFO:pyaf.std:MODEL_L2 L2_Fit=6.258287591509712e+58 L2_Forecast=9.218600021027566e+77 L2_Test=2.926403096125504e+79
 INFO:pyaf.std:MODEL_COMPLEXITY 64
@@ -348,68 +354,72 @@ INFO:pyaf.std:AR_MODEL_COEFF 9 _signal2_ConstantTrend_residue_zeroCycle_residue_
 INFO:pyaf.std:AR_MODEL_COEFF 10 _signal2_ConstantTrend_residue_zeroCycle_residue_Lag14 -0.6578274117484054
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_PLOTTING
-INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 3.2613914012908936
+/home/travis/virtualenv/python3.9-dev/lib/python3.9/site-packages/numpy/lib/histograms.py:905: RuntimeWarning: divide by zero encountered in true_divide
+  return n/db/n.sum(), bin_edges
+/home/travis/virtualenv/python3.9-dev/lib/python3.9/site-packages/numpy/lib/histograms.py:905: RuntimeWarning: invalid value encountered in true_divide
+  return n/db/n.sum(), bin_edges
+INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 3.759005546569824
 INFO:pyaf.std:START_FORECASTING '['signal2']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['signal2']' 0.8719947338104248
-   Split   Transformation  ... TestMAPE TestMASE
-0   None         _signal2  ...   0.0000   0.0000
-1   None         _signal2  ...   0.0000   0.0000
-2   None         _signal2  ...   0.0000   0.0000
-3   None         _signal2  ...   0.0000   0.0000
-4   None         _signal2  ...   0.0000   0.0000
-5   None         _signal2  ...   0.0000   0.0000
-6   None   CumSum_signal2  ...   0.0000   0.0000
-7   None     Diff_signal2  ...   0.0000   0.0000
-8   None         _signal2  ...   0.0000   0.0000
-9   None   CumSum_signal2  ...   0.0000   0.0000
-10  None     Diff_signal2  ...   0.0000   0.0000
-11  None         _signal2  ...   0.0000   0.0000
-12  None   CumSum_signal2  ...   0.0000   0.0000
-13  None   CumSum_signal2  ...   0.0000   0.0000
-14  None     Diff_signal2  ...   0.0000   0.0000
-15  None     Diff_signal2  ...   0.0000   0.0000
-16  None   CumSum_signal2  ...   0.0000   0.0000
-17  None   CumSum_signal2  ...   0.0000   0.0000
-18  None     Diff_signal2  ...   0.0000   0.0000
-19  None     Diff_signal2  ...   0.0000   0.0000
-20  None   CumSum_signal2  ...   0.0000   0.0000
-21  None     Diff_signal2  ...   0.0000   0.0000
-22  None   CumSum_signal2  ...   0.0000   0.0000
-23  None     Diff_signal2  ...   0.0000   0.0000
-24  None         _signal2  ...   0.1667   0.9404
-25  None         _signal2  ...   0.1667   0.9404
-26  None   CumSum_signal2  ...   0.1667   0.9404
-27  None     Diff_signal2  ...   0.1667   0.9404
-28  None   CumSum_signal2  ...   0.1667   0.9404
-29  None     Diff_signal2  ...   0.1667   0.9404
-30  None     Diff_signal2  ...   1.0000   5.6426
-31  None     Diff_signal2  ...   1.0000   5.6426
-32  None     Diff_signal2  ...   1.0000   5.6426
-33  None     Diff_signal2  ...   1.0000   5.6426
-34  None     Diff_signal2  ...   1.0000   5.6426
-35  None     Diff_signal2  ...   1.0000   5.6426
-36  None         _signal2  ...   1.0000   5.6426
-37  None         _signal2  ...   1.0000   5.6426
-38  None         _signal2  ...   1.0000   5.6426
-39  None         _signal2  ...   1.0000   5.6426
-40  None         _signal2  ...   1.0000   5.6426
-41  None         _signal2  ...   1.0000   5.6426
-42  None   CumSum_signal2  ...   1.0000   5.6426
-43  None  RelDiff_signal2  ...   1.0000   5.6426
-44  None   CumSum_signal2  ...   1.0000   5.6426
-45  None  RelDiff_signal2  ...   1.0000   5.6426
-46  None   CumSum_signal2  ...   1.0000   5.6426
-47  None   CumSum_signal2  ...   1.0000   5.6426
-48  None  RelDiff_signal2  ...   1.0000   5.6426
-49  None  RelDiff_signal2  ...   1.0000   5.6426
-50  None   CumSum_signal2  ...   1.0000   5.6426
-51  None   CumSum_signal2  ...   1.0000   5.6426
-52  None  RelDiff_signal2  ...   1.0000   5.6426
-53  None  RelDiff_signal2  ...   1.0000   5.6426
-54  None  RelDiff_signal2  ...   1.0000   5.6426
-55  None  RelDiff_signal2  ...   1.0000   5.6426
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['signal2']' 0.8466911315917969
+   Split   Transformation  ... TestMASE TestCRPS
+0   None         _signal2  ...   0.0000     None
+1   None         _signal2  ...   0.0000     None
+2   None         _signal2  ...   0.0000     None
+3   None         _signal2  ...   0.0000     None
+4   None         _signal2  ...   0.0000     None
+5   None         _signal2  ...   0.0000     None
+6   None   CumSum_signal2  ...   0.0000     None
+7   None     Diff_signal2  ...   0.0000     None
+8   None         _signal2  ...   0.0000     None
+9   None   CumSum_signal2  ...   0.0000     None
+10  None     Diff_signal2  ...   0.0000     None
+11  None         _signal2  ...   0.0000     None
+12  None   CumSum_signal2  ...   0.0000     None
+13  None   CumSum_signal2  ...   0.0000     None
+14  None     Diff_signal2  ...   0.0000     None
+15  None     Diff_signal2  ...   0.0000     None
+16  None   CumSum_signal2  ...   0.0000     None
+17  None   CumSum_signal2  ...   0.0000     None
+18  None     Diff_signal2  ...   0.0000     None
+19  None     Diff_signal2  ...   0.0000     None
+20  None   CumSum_signal2  ...   0.0000     None
+21  None     Diff_signal2  ...   0.0000     None
+22  None   CumSum_signal2  ...   0.0000     None
+23  None     Diff_signal2  ...   0.0000     None
+24  None         _signal2  ...   0.9404     None
+25  None         _signal2  ...   0.9404     None
+26  None   CumSum_signal2  ...   0.9404     None
+27  None     Diff_signal2  ...   0.9404     None
+28  None   CumSum_signal2  ...   0.9404     None
+29  None     Diff_signal2  ...   0.9404     None
+30  None     Diff_signal2  ...   5.6426     None
+31  None     Diff_signal2  ...   5.6426     None
+32  None     Diff_signal2  ...   5.6426     None
+33  None     Diff_signal2  ...   5.6426     None
+34  None     Diff_signal2  ...   5.6426     None
+35  None     Diff_signal2  ...   5.6426     None
+36  None         _signal2  ...   5.6426     None
+37  None         _signal2  ...   5.6426     None
+38  None         _signal2  ...   5.6426     None
+39  None         _signal2  ...   5.6426     None
+40  None         _signal2  ...   5.6426     None
+41  None         _signal2  ...   5.6426     None
+42  None   CumSum_signal2  ...   5.6426     None
+43  None  RelDiff_signal2  ...   5.6426     None
+44  None   CumSum_signal2  ...   5.6426     None
+45  None  RelDiff_signal2  ...   5.6426     None
+46  None   CumSum_signal2  ...   5.6426     None
+47  None   CumSum_signal2  ...   5.6426     None
+48  None  RelDiff_signal2  ...   5.6426     None
+49  None  RelDiff_signal2  ...   5.6426     None
+50  None   CumSum_signal2  ...   5.6426     None
+51  None   CumSum_signal2  ...   5.6426     None
+52  None  RelDiff_signal2  ...   5.6426     None
+53  None  RelDiff_signal2  ...   5.6426     None
+54  None  RelDiff_signal2  ...   5.6426     None
+55  None  RelDiff_signal2  ...   5.6426     None
 
-[56 rows x 20 columns]
+[56 rows x 23 columns]
 Forecast Columns  Index(['time', 'signal2', 'row_number', 'time_Normalized', '_signal2',
        '_signal2_ConstantTrend', '_signal2_ConstantTrend_residue',
        '_signal2_ConstantTrend_residue_zeroCycle',
@@ -420,7 +430,10 @@ Forecast Columns  Index(['time', 'signal2', 'row_number', 'time_Normalized', '_s
        '_signal2_Cycle_residue', '_signal2_AR', '_signal2_AR_residue',
        '_signal2_TransformedForecast', 'signal2_Forecast',
        '_signal2_TransformedResidue', 'signal2_Residue',
-       'signal2_Forecast_Lower_Bound', 'signal2_Forecast_Upper_Bound'],
+       'signal2_Forecast_Lower_Bound', 'signal2_Forecast_Upper_Bound',
+       'signal2_Forecast_Quantile_10', 'signal2_Forecast_Quantile_30',
+       'signal2_Forecast_Quantile_50', 'signal2_Forecast_Quantile_70',
+       'signal2_Forecast_Quantile_90'],
       dtype='object')
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 1212 entries, 0 to 1211
@@ -473,6 +486,7 @@ Forecasts
         },
         "Model_Performance": {
             "COMPLEXITY": "64",
+            "CRPS": "1.1612690301054723e+92",
             "MAE": "1.7944613320613657e+77",
             "MAPE": "0.0",
             "MASE": "0.0",

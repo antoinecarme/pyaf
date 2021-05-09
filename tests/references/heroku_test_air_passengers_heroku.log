@@ -4,11 +4,11 @@ None
 DATASET_DETECTED_COLUMNS Index(['Unnamed: 0', 'time', 'value'], dtype='object')
 DATASET_FINAL_COLUMNS Index(['Unnamed: 0', 'time', 'value', 'AirPassengers'], dtype='object')
 TRAIN_PARAMS (144, 4) Index(['Unnamed: 0', 'time', 'value', 'AirPassengers'], dtype='object') time AirPassengers 7
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['AirPassengers']' 3.025798797607422
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['AirPassengers']' 3.0238564014434814
 INFO:pyaf.std:START_FORECASTING '['AirPassengers']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['AirPassengers']' 0.15105533599853516
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['AirPassengers']' 0.14226603507995605
 INFO:pyaf.std:START_FORECASTING '['AirPassengers']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['AirPassengers']' 0.14858531951904297
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['AirPassengers']' 0.14109015464782715
   Split  Transformation  ... ForecastMAPE TestMAPE
 0  None  _AirPassengers  ...       0.0305   0.0267
 1  None  _AirPassengers  ...       0.0313   0.0292
@@ -30,7 +30,12 @@ Forecast Columns  Index(['time', 'AirPassengers', 'row_number', 'time_Normalized
        '_AirPassengers_TransformedForecast', 'AirPassengers_Forecast',
        '_AirPassengers_TransformedResidue', 'AirPassengers_Residue',
        'AirPassengers_Forecast_Lower_Bound',
-       'AirPassengers_Forecast_Upper_Bound'],
+       'AirPassengers_Forecast_Upper_Bound',
+       'AirPassengers_Forecast_Quantile_10',
+       'AirPassengers_Forecast_Quantile_30',
+       'AirPassengers_Forecast_Quantile_50',
+       'AirPassengers_Forecast_Quantile_70',
+       'AirPassengers_Forecast_Quantile_90'],
       dtype='object')
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 151 entries, 0 to 150
@@ -78,6 +83,7 @@ Forecasts
         },
         "Model_Performance": {
             "COMPLEXITY": "27",
+            "CRPS": "19.2560697673432",
             "MAE": "12.711938744752944",
             "MAPE": "0.0313",
             "MASE": "0.3196",

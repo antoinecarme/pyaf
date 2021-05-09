@@ -69,7 +69,7 @@ INFO:pyaf.std:collectPerformanceIndices : MAPE None CumSum_Ozone Integration_Lin
 INFO:pyaf.std:collectPerformanceIndices : MAPE None CumSum_Ozone Integration_LinearTrend_NoCycle_NoAR 48 0.4271
 INFO:pyaf.std:collectPerformanceIndices : MAPE None CumSum_Ozone Integration_PolyTrend_Cycle_None_NoAR 56 0.7646
 INFO:pyaf.std:collectPerformanceIndices : MAPE None CumSum_Ozone Integration_PolyTrend_NoCycle_NoAR 48 0.7646
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Ozone']' 2.183248996734619
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Ozone']' 2.6734261512756348
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time_1_PerMinute' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2000-01-01T02:32:00.000000 TimeDelta=<DateOffset: minutes=1> Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Length=204  Min=1.2 Max=8.7  Mean=3.8357843137254903 StdDev=1.4915592159401185
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='CumSum_Ozone' Min=2.7 Max=782.4999999999999  Mean=434.11372549019586 StdDev=222.55463397945354
@@ -81,6 +81,7 @@ INFO:pyaf.std:AUTOREG_DETAIL 'CumSum_Ozone_Lag1Trend_residue_bestCycle_byMAPE_re
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.2159 MAPE_Forecast=0.2515 MAPE_Test=0.1962
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.2134 SMAPE_Forecast=0.2519 SMAPE_Test=0.2226
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.931 MASE_Forecast=0.9826 MASE_Test=0.9343
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=0.42671678230266635 CRPS_Forecast=0.31394476190476145 CRPS_Test=0.3496133333333377
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.8183006535947743 L1_Forecast=0.7628205128205187 L1_Test=0.44166666666666293
 INFO:pyaf.std:MODEL_L2 L2_Fit=1.0801839591573854 L2_Forecast=0.9164801675082231 L2_Test=0.5458174297937527
 INFO:pyaf.std:MODEL_COMPLEXITY 72
@@ -96,16 +97,16 @@ INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_FORECASTING '['Ozone']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Ozone']' 0.1518094539642334
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Ozone']' 0.153855562210083
 INFO:pyaf.std:START_TRAINING 'Ozone'
-  Split Transformation  ... TestMAPE TestMASE
-0  None   CumSum_Ozone  ...   0.1962   0.9343
-1  None         _Ozone  ...   0.2132   1.0048
-2  None   CumSum_Ozone  ...   0.2132   1.0048
-3  None     Diff_Ozone  ...   0.2132   1.0048
-4  None  RelDiff_Ozone  ...   0.2132   1.0048
+  Split Transformation  ... TestMASE TestCRPS
+0  None   CumSum_Ozone  ...   0.9343     None
+1  None         _Ozone  ...   1.0048     None
+2  None   CumSum_Ozone  ...   1.0048     None
+3  None     Diff_Ozone  ...   1.0048     None
+4  None  RelDiff_Ozone  ...   1.0048     None
 
-[5 rows x 20 columns]
+[5 rows x 23 columns]
 Forecast Columns  Index(['Time_1_PerMinute', 'Ozone', 'row_number',
        'Time_1_PerMinute_Normalized', 'CumSum_Ozone', 'CumSum_Ozone_Lag1Trend',
        'CumSum_Ozone_Lag1Trend_residue', 'cycle_internal',
@@ -117,7 +118,10 @@ Forecast Columns  Index(['Time_1_PerMinute', 'Ozone', 'row_number',
        'CumSum_Ozone_Cycle', 'CumSum_Ozone_Cycle_residue', 'CumSum_Ozone_AR',
        'CumSum_Ozone_AR_residue', 'CumSum_Ozone_TransformedForecast',
        'Ozone_Forecast', 'CumSum_Ozone_TransformedResidue', 'Ozone_Residue',
-       'Ozone_Forecast_Lower_Bound', 'Ozone_Forecast_Upper_Bound'],
+       'Ozone_Forecast_Lower_Bound', 'Ozone_Forecast_Upper_Bound',
+       'Ozone_Forecast_Quantile_10', 'Ozone_Forecast_Quantile_30',
+       'Ozone_Forecast_Quantile_50', 'Ozone_Forecast_Quantile_70',
+       'Ozone_Forecast_Quantile_90'],
       dtype='object')
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 216 entries, 0 to 215
@@ -170,6 +174,7 @@ Forecasts
         },
         "Model_Performance": {
             "COMPLEXITY": "72",
+            "CRPS": "0.31394476190476145",
             "MAE": "0.7628205128205187",
             "MAPE": "0.2515",
             "MASE": "0.9826",
@@ -283,7 +288,7 @@ INFO:pyaf.std:collectPerformanceIndices : MAPE None CumSum_Ozone Integration_Lin
 INFO:pyaf.std:collectPerformanceIndices : MAPE None CumSum_Ozone Integration_PolyTrend_Seasonal_Minute_NoAR 52 0.6681
 INFO:pyaf.std:collectPerformanceIndices : MAPE None CumSum_Ozone Integration_PolyTrend_Cycle_None_NoAR 56 0.7646
 INFO:pyaf.std:collectPerformanceIndices : MAPE None CumSum_Ozone Integration_PolyTrend_NoCycle_NoAR 48 0.7646
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Ozone']' 2.6030523777008057
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Ozone']' 3.228656053543091
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time_5_PerMinute' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2000-01-01T12:40:00.000000 TimeDelta=<DateOffset: minutes=5> Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Length=204  Min=1.2 Max=8.7  Mean=3.8357843137254903 StdDev=1.4915592159401185
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Ozone' Min=1.2 Max=8.7  Mean=3.8357843137254903 StdDev=1.4915592159401185
@@ -295,6 +300,7 @@ INFO:pyaf.std:AUTOREG_DETAIL '_Ozone_LinearTrend_residue_Seasonal_Minute_residue
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.1761 MAPE_Forecast=0.1764 MAPE_Test=0.2208
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.1712 SMAPE_Forecast=0.194 SMAPE_Test=0.2249
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7728 MASE_Forecast=0.715 MASE_Test=1.0917
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=0.3307709923113241 CRPS_Forecast=0.2854405557773859 CRPS_Test=0.3408775845230345
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.6792504453630173 L1_Forecast=0.555079260429495 L1_Test=0.5160945527373147
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.9118592072313589 L2_Forecast=0.66282350137535 L2_Test=0.5961519352473634
 INFO:pyaf.std:MODEL_COMPLEXITY 20
@@ -310,15 +316,15 @@ INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_FORECASTING '['Ozone']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Ozone']' 0.16523051261901855
-  Split Transformation  ... TestMAPE TestMASE
-0  None         _Ozone  ...   0.2208   1.0917
-1  None         _Ozone  ...   0.5739   2.8035
-2  None         _Ozone  ...   0.1221   0.6258
-3  None   CumSum_Ozone  ...   0.1962   0.9343
-4  None   CumSum_Ozone  ...   0.1962   0.9343
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Ozone']' 0.16507792472839355
+  Split Transformation  ... TestMASE TestCRPS
+0  None         _Ozone  ...   1.0917     None
+1  None         _Ozone  ...   2.8035     None
+2  None         _Ozone  ...   0.6258     None
+3  None   CumSum_Ozone  ...   0.9343     None
+4  None   CumSum_Ozone  ...   0.9343     None
 
-[5 rows x 20 columns]
+[5 rows x 23 columns]
 Forecast Columns  Index(['Time_5_PerMinute', 'Ozone', 'row_number',
        'Time_5_PerMinute_Normalized', '_Ozone', '_Ozone_LinearTrend',
        '_Ozone_LinearTrend_residue',
@@ -330,7 +336,10 @@ Forecast Columns  Index(['Time_5_PerMinute', 'Ozone', 'row_number',
        '_Ozone_Cycle_residue', '_Ozone_AR', '_Ozone_AR_residue',
        '_Ozone_TransformedForecast', 'Ozone_Forecast',
        '_Ozone_TransformedResidue', 'Ozone_Residue',
-       'Ozone_Forecast_Lower_Bound', 'Ozone_Forecast_Upper_Bound'],
+       'Ozone_Forecast_Lower_Bound', 'Ozone_Forecast_Upper_Bound',
+       'Ozone_Forecast_Quantile_10', 'Ozone_Forecast_Quantile_30',
+       'Ozone_Forecast_Quantile_50', 'Ozone_Forecast_Quantile_70',
+       'Ozone_Forecast_Quantile_90'],
       dtype='object')
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 216 entries, 0 to 215
@@ -383,6 +392,7 @@ Forecasts
         },
         "Model_Performance": {
             "COMPLEXITY": "20",
+            "CRPS": "0.2854405557773859",
             "MAE": "0.555079260429495",
             "MAPE": "0.1764",
             "MASE": "0.715",
