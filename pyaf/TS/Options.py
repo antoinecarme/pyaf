@@ -44,7 +44,7 @@ class cModelControl:
         # "AutoRegression" becomes a little bit confusing as croston does not use lags (???)
         # rather use wikipedia terminology :  https://en.wikipedia.org/wiki/Decomposition_of_time_series
         # AutoRegression => "irregular component"
-        self.mKnownAutoRegressions = ['NoAR' , 'AR' , 'ARX' , 'SVR', 'SVRX', 'MLP' , 'LSTM' , 'XGB' , 'XGBX' , 'CROSTON'];
+        self.mKnownAutoRegressions = ['NoAR' , 'AR' , 'ARX' , 'SVR', 'SVRX', 'MLP' , 'LSTM' , 'XGB' , 'XGBX' , 'CROSTON', 'LGB', 'LGBX'];
         # now , set he default models
         self.set_active_transformations(self.mKnownTransformations[0:4]);
         self.set_active_trends(self.mKnownTrends[0:4]);
@@ -158,6 +158,7 @@ class cSignalDecomposition_Options(cModelControl):
         self.mHierarchicalCombinationMethod = "BU";
         self.mForecastRectifier = None # can be "relu" to force positive forecast values
         self.mXGBOptions = None
+        self.mLGBMOptions = None
         self.mCrossValidationOptions = cCrossValidationOptions()
         self.mCrostonOptions = cCrostonOptions()
         self.mMissingDataOptions = cMissingDataOptions()

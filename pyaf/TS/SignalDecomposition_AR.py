@@ -338,6 +338,14 @@ class cAutoRegressiveEstimator:
                                                        self.mExogenousInfo);
                         self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lXGBX];
                         lNeedExogenous = True;
+                    if(self.mOptions.mActiveAutoRegressions['LGB']):
+                        lLGB = tsscikit.cLightGBM_Model(cycle_residue, lLags)
+                        self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lLGB];
+                    if(self.mOptions.mActiveAutoRegressions['LGBX'] and (self.mExogenousInfo is not None)):
+                        lLGBX = tsscikit.cLightGBM_Model(cycle_residue, lLags,
+                                                       self.mExogenousInfo);
+                        self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lLGBX];
+                        lNeedExogenous = True;
                     if(self.mOptions.mActiveAutoRegressions['CROSTON']):
                         lIsSignalIntermittent = interm.is_signal_intermittent(self.mCycleFrame[cycle_residue] , self.mOptions)
                         if(lIsSignalIntermittent):

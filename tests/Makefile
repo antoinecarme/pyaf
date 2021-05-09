@@ -896,6 +896,46 @@ hierarchical/test_hierarchy_AU_TD.py  :
  hierarchical :  hierarchical/test_hierarchy_AU_TD.py hierarchical/test_hierarchy_AU_OC.py hierarchical/test_hierarchy_AU_MO.py hierarchical/test_hierarchy_AU_BU.py hierarchical/test_hierarchy_AU_AllMethods_Exogenous_per_node.py hierarchical/test_hierarchy_AU_AllMethods_Exogenous_all_nodes.py hierarchical/test_hierarchy_AU_AllMethods.py hierarchical/test_hierarchy_AU.py hierarchical/test_grouped_signals_TD.py hierarchical/test_grouped_signals_OC.py hierarchical/test_grouped_signals_MO.py hierarchical/test_grouped_signals_BU.py hierarchical/test_grouped_signals_AllMethods_Exogenous_per_node.py hierarchical/test_grouped_signals_AllMethods_Exogenous_all_nodes.py hierarchical/test_grouped_signals_AllMethods_2.py hierarchical/test_grouped_signals_AllMethods.py hierarchical/test_grouped.py  
  
 
+lgbm/test_air_passengers_lgb.py  :  
+	 $(PYTHON)  tests/lgbm/test_air_passengers_lgb.py  >  logs/lgbm_test_air_passengers_lgb.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/lgbm_test_air_passengers_lgb.log logs/lgbm_test_air_passengers_lgb.log  >  logs/lgbm_test_air_passengers_lgb.log.diff
+	 tail -10  logs/lgbm_test_air_passengers_lgb.log.diff 
+
+lgbm/test_air_passengers_lgb_only.py  :  
+	 $(PYTHON)  tests/lgbm/test_air_passengers_lgb_only.py  >  logs/lgbm_test_air_passengers_lgb_only.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/lgbm_test_air_passengers_lgb_only.log logs/lgbm_test_air_passengers_lgb_only.log  >  logs/lgbm_test_air_passengers_lgb_only.log.diff
+	 tail -10  logs/lgbm_test_air_passengers_lgb_only.log.diff 
+
+lgbm/test_air_passengers_lgb_only_with_custom_options.py  :  
+	 $(PYTHON)  tests/lgbm/test_air_passengers_lgb_only_with_custom_options.py  >  logs/lgbm_test_air_passengers_lgb_only_with_custom_options.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/lgbm_test_air_passengers_lgb_only_with_custom_options.log logs/lgbm_test_air_passengers_lgb_only_with_custom_options.log  >  logs/lgbm_test_air_passengers_lgb_only_with_custom_options.log.diff
+	 tail -10  logs/lgbm_test_air_passengers_lgb_only_with_custom_options.log.diff 
+
+lgbm/test_ozone_lgb.py  :  
+	 $(PYTHON)  tests/lgbm/test_ozone_lgb.py  >  logs/lgbm_test_ozone_lgb.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/lgbm_test_ozone_lgb.log logs/lgbm_test_ozone_lgb.log  >  logs/lgbm_test_ozone_lgb.log.diff
+	 tail -10  logs/lgbm_test_ozone_lgb.log.diff 
+
+lgbm/test_ozone_lgb_exogenous.py  :  
+	 $(PYTHON)  tests/lgbm/test_ozone_lgb_exogenous.py  >  logs/lgbm_test_ozone_lgb_exogenous.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/lgbm_test_ozone_lgb_exogenous.log logs/lgbm_test_ozone_lgb_exogenous.log  >  logs/lgbm_test_ozone_lgb_exogenous.log.diff
+	 tail -10  logs/lgbm_test_ozone_lgb_exogenous.log.diff 
+
+lgbm/test_ozone_lgb_only.py  :  
+	 $(PYTHON)  tests/lgbm/test_ozone_lgb_only.py  >  logs/lgbm_test_ozone_lgb_only.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/lgbm_test_ozone_lgb_only.log logs/lgbm_test_ozone_lgb_only.log  >  logs/lgbm_test_ozone_lgb_only.log.diff
+	 tail -10  logs/lgbm_test_ozone_lgb_only.log.diff 
+
+lgbm/test_ozone_lgbx_exogenous.py  :  
+	 $(PYTHON)  tests/lgbm/test_ozone_lgbx_exogenous.py  >  logs/lgbm_test_ozone_lgbx_exogenous.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/lgbm_test_ozone_lgbx_exogenous.log logs/lgbm_test_ozone_lgbx_exogenous.log  >  logs/lgbm_test_ozone_lgbx_exogenous.log.diff
+	 tail -10  logs/lgbm_test_ozone_lgbx_exogenous.log.diff 
+
+
+
+ lgbm :  lgbm/test_ozone_lgbx_exogenous.py lgbm/test_ozone_lgb_only.py lgbm/test_ozone_lgb_exogenous.py lgbm/test_ozone_lgb.py lgbm/test_air_passengers_lgb_only_with_custom_options.py lgbm/test_air_passengers_lgb_only.py lgbm/test_air_passengers_lgb.py  
+ 
+
 missing_data/gen_air_passengers_tests.py  :  
 	 $(PYTHON)  tests/missing_data/gen_air_passengers_tests.py  >  logs/missing_data_gen_air_passengers_tests.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/missing_data_gen_air_passengers_tests.log logs/missing_data_gen_air_passengers_tests.log  >  logs/missing_data_gen_air_passengers_tests.log.diff
@@ -1944,9 +1984,9 @@ xgb/test_ozone_xgbx_exogenous.py  :
 
 # ********************************************** 
 
-all:  artificial basic_checks bugs cross_validation croston exog expsmooth func HeartRateTimeSeries heroku hierarchical  HourOfWeek model_control perf svr transformations  neuralnet real-life  time_res perfs demos xgb xeon-phi-parallel sampling temporal_hierarchy WeekOfMonth missing_data probabilistic_forecasting 
+all:  artificial basic_checks bugs cross_validation croston exog expsmooth func HeartRateTimeSeries heroku hierarchical  HourOfWeek model_control perf svr transformations  neuralnet real-life  time_res perfs demos xgb xeon-phi-parallel sampling temporal_hierarchy WeekOfMonth missing_data probabilistic_forecasting lgbm 
 	
 
-build-test :  demos basic_checks cross_validation croston exog heroku hierarchical model_control perfs svr transformations func real-life  time_res xgb sampling HourOfWeek WeekOfMonth missing_data 
+build-test :  demos basic_checks cross_validation croston exog heroku hierarchical model_control perfs svr transformations func real-life  time_res xgb sampling HourOfWeek WeekOfMonth missing_data lgbm 
 	
 
