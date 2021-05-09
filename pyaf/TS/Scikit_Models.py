@@ -209,7 +209,6 @@ class cXGBoost_Model(cAbstract_Scikit_Model):
     def build_Scikit_Model(self):
         import xgboost as xgb
 
-        import sklearn.svm as svm
         lXGBOptions = self.mOptions.mXGBOptions;
         if(lXGBOptions is None):
             lXGBOptions = self.get_default_xgb_options()
@@ -222,3 +221,36 @@ class cXGBoost_Model(cAbstract_Scikit_Model):
         if(self.mExogenousInfo is not None):
             self.mOutName = self.mCycleResidueName +  '_XGBX(' + str(self.mNbLags) + ")";
             self.mFormula = "XGBX" # (" + str(self.mNbExogenousLags) + ")";
+
+
+
+class cLightGBM_Model(cAbstract_Scikit_Model):
+    def __init__(self , cycle_residue_name, P , iExogenousInfo = None):
+        super().__init__(cycle_residue_name, P, iExogenousInfo)
+        self.mComplexity = 2*P;
+
+    def dumpCoefficients(self, iMax=10):
+        pass
+
+    def get_default_lgbm_options(self):
+        lLGBMOptions = dict(objective='regression',
+                            n_estimators=32,
+                            random_state=self.mOptions.mSeed)
+        return lLGBMOptions
+        
+    def build_Scikit_Model(self):
+        import lightgbm as lgb
+
+        lLGBMOptions = self.mOptions.mLGBMOptions;
+        if(lLGBMOptions is None):
+            lLGBMOptions = self.get_default_lgbm_options()
+            
+        self.mScikitModel = lgb.LGBMRegressor(**lLGBMOptions)
+
+    def set_name(self):
+        self.mOutName = self.mCycleResidueName +  '_LGB(' + str(self.mNbLags) + ")";
+        self.mFormula = "LGB" #  + str(self.mNbLags) + ")";
+        if(self.mExogenousInfo is not None):
+            self.mOutName = self.mCycleResidueName +  '_LGBX(' + str(self.mNbLags) + ")";
+            self.mFormula = "LGBX" # (" + str(self.mNbExogenousLags) + ")";
+
