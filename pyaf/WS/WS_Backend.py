@@ -120,7 +120,7 @@ class cWSModel:
         logger = logging.getLogger(__name__)
         self.mPlots = {};
         try:
-            self.mPlots = self.mForecastEngine.getPlotsAsDict();
+            self.mPlots = self.mForecastEngine.getPlotsAsDict()[self.mSignalVar];
         except Exception as e:
             logger.error("FAILED_TO_GENERATE_PLOTS " + self.mName + " " + str(e));
             raise
