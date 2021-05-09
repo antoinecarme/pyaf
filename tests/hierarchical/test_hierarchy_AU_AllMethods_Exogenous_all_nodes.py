@@ -21,7 +21,7 @@ def create_exog_data(b1):
     lExogenousDataFrame['Date_day'] = lDate.dt.day
     lExogenousDataFrame['Date_dayofyear'] = lDate.dt.dayofyear
     lExogenousDataFrame['Date_month'] = lDate.dt.month
-    lExogenousDataFrame['Date_week'] = lDate.dt.week
+    lExogenousDataFrame['Date_week'] = lDate.dt.isocalendar().week
     # a column in the exog data can be of any type
     lExogenousDataFrame['Date_day_name'] = lDate.dt.day_name()
     lExogenousDataFrame['Date_month_name'] = lDate.dt.month_name()
