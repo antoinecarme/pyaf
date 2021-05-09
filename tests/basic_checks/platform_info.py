@@ -19,7 +19,7 @@ def getVersions():
     lVersionDict["python_version"] = platform.python_version();
 
     lModules = ["pyaf", "sklearn", "pandas", "numpy" , "scipy" , "matplotlib", "pydot", "sqlalchemy" ,
-                "xgboost" , "keras", "pip" , "setuptools", "Cython", "dill" , "pathos"]
+                "xgboost" , "keras", "pip" , "setuptools", "Cython", "dill" , "pathos", "lightgbm"]
 
     for module_name in lModules:
         lVersionDict[module_name + "_version"] = get_module_version_when_available(module_name)
