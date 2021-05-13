@@ -360,8 +360,6 @@ class cTimeSeriesModel:
         lTime = self.mTimeInfo.mTime;            
         lOutput.set_index(lTime, inplace=True, drop=False);
         # print(lOutput[lTime].dtype);
-        lQuantiles = self.mPredictionIntervalsEstimator.mForecastPerformances[lForecastColumn + "_1"].mErrorQuantiles.keys()
-        lQuantiles = sorted(lQuantiles)
 
         tsplot.prediction_interval_plot(lOutput,
                                         lTime, self.mOriginalSignal,
@@ -370,12 +368,16 @@ class cTimeSeriesModel:
                                         lForecastColumn + '_Upper_Bound',
                                         name = name,
                                         format= format, horizon = self.mTimeInfo.mHorizon);
-        tsplot.quantiles_plot(lOutput,
-                              lTime, self.mOriginalSignal,
-                              lForecastColumn  ,
-                              lQuantiles,
-                              name = name,
-                              format= format, horizon = self.mTimeInfo.mHorizon);
+        
+        if(self.mTimeInfo.mOptions.mAddPredictionIntervals):
+            lQuantiles = self.mPredictionIntervalsEstimator.mForecastPerformances[lForecastColumn + "_1"].mErrorQuantiles.keys()
+            lQuantiles = sorted(lQuantiles)
+            tsplot.quantiles_plot(lOutput,
+                                  lTime, self.mOriginalSignal,
+                                  lForecastColumn  ,
+                                  lQuantiles,
+                                  name = name,
+                                  format= format, horizon = self.mTimeInfo.mHorizon);
         #lOutput.plot()
         
     def getPlotsAsDict(self):
