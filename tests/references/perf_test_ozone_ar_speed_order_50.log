@@ -1,3 +1,5 @@
+/home/antoine/dev/python/packages/timeseries/pyaf/tests/perf/test_ozone_ar_speed_many.py:25: FutureWarning: Treating datetime data as categorical rather than numeric in `.describe` is deprecated and will be removed in a future version of pandas. Specify `datetime_is_numeric=True` to silence this warning and adopt the future behavior now.
+  print(Time1.shape, Ozone1.shape, Time1.describe(), Ozone1.describe())
 INFO:pyaf.std:START_TRAINING 'Ozone'
      Month  Ozone       Time
 0  1955-01    2.7 1955-01-01
@@ -29,10 +31,12 @@ min          1.200000
 75%          4.825000
 max          8.700000
 Name: Ozone, dtype: float64
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Ozone']' 15.82571530342102
+/usr/lib/python3/dist-packages/scipy/stats/stats.py:3913: PearsonRConstantInputWarning: An input array is constant; the correlation coefficent is not defined.
+  warnings.warn(PearsonRConstantInputWarning())
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Ozone']' 427.3150386810303
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01T00:00:00.000000 TimeMax=2111-03-07T00:00:00.000000 TimeDelta=<DateOffset: days=7> Horizon=12
-INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Length=10200  Min=1.2 Max=8.7  Mean=3.8357843137254903 StdDev=1.4915592159401188
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Ozone' Min=1.2 Max=8.7  Mean=3.8357843137254903 StdDev=1.4915592159401188
+INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Length=10200  Min=1.2 Max=8.7  Mean=3.8357843137255174 StdDev=1.4915592159401139
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Ozone' Min=1.2 Max=8.7  Mean=3.8357843137255174 StdDev=1.4915592159401139
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
 INFO:pyaf.std:BEST_DECOMPOSITION  '_Ozone_ConstantTrend_residue_zeroCycle_residue_AR(50)' [ConstantTrend + NoCycle + AR]
 INFO:pyaf.std:TREND_DETAIL '_Ozone_ConstantTrend' [ConstantTrend]
@@ -41,27 +45,28 @@ INFO:pyaf.std:AUTOREG_DETAIL '_Ozone_ConstantTrend_residue_zeroCycle_residue_AR(
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.1652 MAPE_Forecast=0.1653 MAPE_Test=0.1903
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.1595 SMAPE_Forecast=0.1596 SMAPE_Test=0.1768
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.6901 MASE_Forecast=0.6898 MASE_Test=0.9253
-INFO:pyaf.std:MODEL_L1 L1_Fit=0.5820898625007142 L1_Forecast=0.5821675672022341 L1_Test=0.4373917755728303
-INFO:pyaf.std:MODEL_L2 L2_Fit=0.7784586364606513 L2_Forecast=0.7781974157435858 L2_Test=0.5140916849060585
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=0.38397472295582213 CRPS_Forecast=0.38365134118332883 CRPS_Test=0.3053741666888199
+INFO:pyaf.std:MODEL_L1 L1_Fit=0.5820898625007144 L1_Forecast=0.5821675672022343 L1_Test=0.43739177557282943
+INFO:pyaf.std:MODEL_L2 L2_Fit=0.7784586364606513 L2_Forecast=0.7781974157435858 L2_Test=0.5140916849060575
 INFO:pyaf.std:MODEL_COMPLEXITY 50
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND ConstantTrend 3.8373128834355827
+INFO:pyaf.std:CONSTANT_TREND ConstantTrend 3.8373128834356267
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
 INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Ozone_ConstantTrend_residue_zeroCycle 0.0 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
-INFO:pyaf.std:AR_MODEL_COEFF 1 _Ozone_ConstantTrend_residue_zeroCycle_residue_Lag1 0.46716516523134277
-INFO:pyaf.std:AR_MODEL_COEFF 2 _Ozone_ConstantTrend_residue_zeroCycle_residue_Lag28 -0.16591202108286163
-INFO:pyaf.std:AR_MODEL_COEFF 3 _Ozone_ConstantTrend_residue_zeroCycle_residue_Lag15 -0.15982183881941225
-INFO:pyaf.std:AR_MODEL_COEFF 4 _Ozone_ConstantTrend_residue_zeroCycle_residue_Lag9 0.1417171675471157
-INFO:pyaf.std:AR_MODEL_COEFF 5 _Ozone_ConstantTrend_residue_zeroCycle_residue_Lag2 0.1409110401759769
-INFO:pyaf.std:AR_MODEL_COEFF 6 _Ozone_ConstantTrend_residue_zeroCycle_residue_Lag7 -0.14000940091747033
-INFO:pyaf.std:AR_MODEL_COEFF 7 _Ozone_ConstantTrend_residue_zeroCycle_residue_Lag48 0.12963386728695633
-INFO:pyaf.std:AR_MODEL_COEFF 8 _Ozone_ConstantTrend_residue_zeroCycle_residue_Lag12 0.1211252731468459
-INFO:pyaf.std:AR_MODEL_COEFF 9 _Ozone_ConstantTrend_residue_zeroCycle_residue_Lag32 -0.12091149023601114
-INFO:pyaf.std:AR_MODEL_COEFF 10 _Ozone_ConstantTrend_residue_zeroCycle_residue_Lag37 0.1193596496924073
+INFO:pyaf.std:AR_MODEL_COEFF 1 _Ozone_ConstantTrend_residue_zeroCycle_residue_Lag1 0.467165165231341
+INFO:pyaf.std:AR_MODEL_COEFF 2 _Ozone_ConstantTrend_residue_zeroCycle_residue_Lag28 -0.16591202108286157
+INFO:pyaf.std:AR_MODEL_COEFF 3 _Ozone_ConstantTrend_residue_zeroCycle_residue_Lag15 -0.15982183881941414
+INFO:pyaf.std:AR_MODEL_COEFF 4 _Ozone_ConstantTrend_residue_zeroCycle_residue_Lag9 0.14171716754711539
+INFO:pyaf.std:AR_MODEL_COEFF 5 _Ozone_ConstantTrend_residue_zeroCycle_residue_Lag2 0.14091104017597922
+INFO:pyaf.std:AR_MODEL_COEFF 6 _Ozone_ConstantTrend_residue_zeroCycle_residue_Lag7 -0.14000940091746883
+INFO:pyaf.std:AR_MODEL_COEFF 7 _Ozone_ConstantTrend_residue_zeroCycle_residue_Lag48 0.129633867286957
+INFO:pyaf.std:AR_MODEL_COEFF 8 _Ozone_ConstantTrend_residue_zeroCycle_residue_Lag12 0.12112527314684568
+INFO:pyaf.std:AR_MODEL_COEFF 9 _Ozone_ConstantTrend_residue_zeroCycle_residue_Lag32 -0.120911490236009
+INFO:pyaf.std:AR_MODEL_COEFF 10 _Ozone_ConstantTrend_residue_zeroCycle_residue_Lag37 0.11935964969240725
 INFO:pyaf.std:AR_MODEL_DETAIL_END

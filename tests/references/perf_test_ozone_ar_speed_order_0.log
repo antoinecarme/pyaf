@@ -1,3 +1,5 @@
+/home/antoine/dev/python/packages/timeseries/pyaf/tests/perf/test_ozone_ar_speed_many.py:25: FutureWarning: Treating datetime data as categorical rather than numeric in `.describe` is deprecated and will be removed in a future version of pandas. Specify `datetime_is_numeric=True` to silence this warning and adopt the future behavior now.
+  print(Time1.shape, Ozone1.shape, Time1.describe(), Ozone1.describe())
 INFO:pyaf.std:START_TRAINING 'Ozone'
      Month  Ozone       Time
 0  1955-01    2.7 1955-01-01
@@ -29,10 +31,12 @@ min          1.200000
 75%          4.825000
 max          8.700000
 Name: Ozone, dtype: float64
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Ozone']' 8.315699100494385
+/usr/lib/python3/dist-packages/scipy/stats/stats.py:3913: PearsonRConstantInputWarning: An input array is constant; the correlation coefficent is not defined.
+  warnings.warn(PearsonRConstantInputWarning())
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Ozone']' 281.3414363861084
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01T00:00:00.000000 TimeMax=2111-03-07T00:00:00.000000 TimeDelta=<DateOffset: days=7> Horizon=12
-INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Length=10200  Min=1.2 Max=8.7  Mean=3.8357843137254903 StdDev=1.4915592159401188
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='CumSum_Ozone' Min=2.7 Max=39125.00000000028  Mean=19605.363725490337 StdDev=11294.348459632758
+INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Length=10200  Min=1.2 Max=8.7  Mean=3.8357843137255174 StdDev=1.4915592159401139
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='CumSum_Ozone' Min=2.7 Max=39125.00000000028  Mean=19605.36372549013 StdDev=11294.348459632758
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'CumSum_'
 INFO:pyaf.std:BEST_DECOMPOSITION  'CumSum_Ozone_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR' [Lag1Trend + Cycle + NoAR]
 INFO:pyaf.std:TREND_DETAIL 'CumSum_Ozone_Lag1Trend' [Lag1Trend]
@@ -41,6 +45,7 @@ INFO:pyaf.std:AUTOREG_DETAIL 'CumSum_Ozone_Lag1Trend_residue_bestCycle_byMAPE_re
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.2167 MAPE_Forecast=0.2166 MAPE_Test=0.1912
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.2147 SMAPE_Forecast=0.2146 SMAPE_Test=0.2239
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.9142 MASE_Forecast=0.9136 MASE_Test=0.899
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=0.45500710364865293 CRPS_Forecast=0.45469290067660834 CRPS_Test=0.33850222222210097
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.7711411042944856 L1_Forecast=0.7710009813544707 L1_Test=0.42500000000048516
 INFO:pyaf.std:MODEL_L2 L2_Fit=1.017215011867223 L2_Forecast=1.0169394519200639 L2_Test=0.5074445782552324
 INFO:pyaf.std:MODEL_COMPLEXITY 72
