@@ -18,7 +18,7 @@ def add_makefile_entry(subdir1):
             difffile = logfile + ".diff"
             # print("#PROCESSING FILE : " , filename, bn , logfile);
         
-            print(bn , " : " , "\n\t", "$(PYTHON) " , filename , " > " , logfile, " 2>&1");
+            print(bn , " : " , "\n\t", "-$(PYTHON) " , filename , " > " , logfile, " 2>&1");
             print("\t", "$(PYTHON) scripts/num_diff.py " , reflogfile , logfile, " > " , difffile);
             print("\t", "tail -10 " ,  difffile, "\n");
                 
@@ -32,14 +32,14 @@ str1 = str1 + " probabilistic_forecasting"
 str1 = str1 + " lgbm"
 subdirs = str1.split();
 
-print("PYTHON=python3\n\n");
+print("PYTHON=timeout 600 python3\n\n");
 
 for subdir1 in sorted(subdirs):
     test_target = add_makefile_entry(subdir1)
     if(subdir1 == "bugs"):
         bugdirs = glob.glob("tests/bugs/*")
         bugdirs1 = [dir1.replace("tests/" , "") for dir1 in bugdirs]
-        for dir1 in bugdirs1:
+        for dir1 in sorted(bugdirs1):
             test_target = test_target + add_makefile_entry(dir1)
     print("\n\n", subdir1, ": ", test_target, "\n" , "\n");
 
