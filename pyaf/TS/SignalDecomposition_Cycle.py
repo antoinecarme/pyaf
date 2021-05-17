@@ -55,14 +55,16 @@ class cAbstractCycle:
             lEncodedValueDict = lGroupBy.mean().to_dict();
         else:
             lEncodedValueDict = lGroupBy.median().to_dict();
+        for x in lEncodedValueDict.keys():
+            lEncodedValueDict[ x ] = np.float64(lEncodedValueDict[ x ])
         return lEncodedValueDict
 
     def compute_target_means_default_value(self):
         # we encode only using estimation
         lCycleFrameEstim = self.mSplit.getEstimPart(self.mCycleFrame);
         if(self.mOptions.mCycle_Encoding_Scheme == "Target_Mean"):
-            return lCycleFrameEstim[self.mTrend_residue_name].mean();
-        return lCycleFrameEstim[self.mTrend_residue_name].median();
+            return np.float64(lCycleFrameEstim[self.mTrend_residue_name].mean());
+        return np.float64(lCycleFrameEstim[self.mTrend_residue_name].median());
 
     def computePerf(self):
         if(self.mOptions.mDebug):
@@ -73,10 +75,12 @@ class cAbstractCycle:
         # self.mCycleFrame[[self.mTrend_residue_name, self.getCycleName()]].to_csv(self.getCycleName() + ".csv");
         (lFrameFit, lFrameForecast, lFrameTest) = self.mSplit.cutFrame(self.mCycleFrame);
         
-        self.mCycleFitPerf.compute(
-            lFrameFit[self.mTrend_residue_name], lFrameFit[self.getCycleName()], self.getCycleName())
-        self.mCycleForecastPerf.compute(
-            lFrameForecast[self.mTrend_residue_name], lFrameForecast[self.getCycleName()], self.getCycleName())
+        self.mCycleFitPerf.computeCriterion(
+            lFrameFit[self.mTrend_residue_name], lFrameFit[self.getCycleName()],
+            self.mOptions.mCycle_Criterion, self.getCycleName())
+        self.mCycleForecastPerf.computeCriterion(
+            lFrameForecast[self.mTrend_residue_name], lFrameForecast[self.getCycleName()],
+            self.mOptions.mCycle_Criterion, self.getCycleName())
     
 
 class cZeroCycle(cAbstractCycle):
