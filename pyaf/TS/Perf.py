@@ -139,7 +139,6 @@ class cPerf:
         lSignalQuantiles = np.percentile(signal, lPercentiles)
         lSignalQuantiles = dict(zip(lPercentiles, list(lSignalQuantiles)))
         # print("SIGNAL_QUANTILES" , (self.mName , lSignalQuantiles))
-        Q = 20
         lPercentiles2 = [50 - q for q in range(Q, 50, Q)] + [50] + [50 + q for q in range(Q, 50, Q)]
         lErrorQuantiles = np.percentile(myerror, lPercentiles2)
         self.mErrorQuantiles = dict(zip(lPercentiles2, list(lErrorQuantiles)))
@@ -149,8 +148,9 @@ class cPerf:
         lLossValues = []
         # some normalization
         for (a, q) in self.mSignalQuantiles.items():
-            lPinballLoss_a = lambda y : ((1.0 - a / 100) * (q - y)) if (y < q) else (a / 100 * (y - q))
-            lLossValue_a = estimator.apply(lPinballLoss_a).mean()
+            lDiff_q = q - estimator.values
+            lPinballLoss_a = (1.0 - a / 100) * np.maximum(lDiff_q, 0.0) +  a / 100 * np.maximum(-lDiff_q, 0)
+            lLossValue_a = lPinballLoss_a.mean()
             lLossValues.append(lLossValue_a)
         lCRPS = np.mean(lLossValues)
         # print("CRPS" , (self.mName , lCRPS))
