@@ -1,0 +1,71 @@
+version: 2.1
+
+orbs:
+  python: circleci/python@1.2
+
+workflows:
+  sample:      
+    jobs:
+      - build-and-test
+
+
+jobs:
+  build-and-test:  
+
+    docker:
+      - image: cimg/python:3.9.5
+
+    steps:
+      - checkout
+
+      - python/install-packages:
+          pkg-manager: pip
+      - run:
+          name: Test Machine Info
+          command: |
+            df
+            free
+            cat /proc/cpuinfo
+      - run:
+          name: Install Debian Packages
+          command: |
+            sudo apt update
+            sudo apt-get install -y graphviz python3-sklearn python3-pandas python3-sqlalchemy python3-matplotlib jupyter-notebook python3-ipython python3-scipy python3-numpy python3-dill python3-pydot
+      - run:
+          name: Install Python Packages(most recent versions) 
+          command: |
+            pip install numpy scipy pandas sklearn matplotlib pydot dill sqlalchemy jupyter xgboost ipython lightgbm
+      - run:
+          name: Initial Cleanup
+          command: |
+            mkdir -p logs
+            rm -rf ~/.matplotlib
+            rm -rf ~/.cache/matplotlib
+            rm -rf ~/.matplotlib/fontList.cache  
+            fc-cache 
+      - run:
+          name: Check Installed Versions
+          command: |
+            export PYTHONPATH=$PYTHONPATH:.
+            python ./tests/bugs/issue_36/display_version_info.py
+      - run:
+          name: Basic Tests
+          command: |
+            export PYTHONPATH=$PYTHONPATH:.
+            python tests/demos/demo1.py
+            python tests/func/test_ozone.py
+            python tests/func/test_air_passengers.py
+      - run:
+          name: Build Tests
+          command: |
+            export PYTHONPATH=$PYTHONPATH:.
+            make PYTHON=python -f tests/Makefile -j 8 build-test
+            python scripts/upload_to_chunk.io.py
+      - run:
+          name: Jupyter Notebooks
+          command: |
+            pip install .
+            jupyter nbconvert --to notebook --ExecutePreprocessor.timeout=None --execute docs/sample_code.ipynb
+            jupyter nbconvert --to notebook --ExecutePreprocessor.timeout=None --execute docs/PyAF_Introduction.ipynb
+            jupyter nbconvert --to notebook --ExecutePreprocessor.timeout=None --execute docs/PyAF_Exogenous.ipynb
+
