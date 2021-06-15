@@ -40,16 +40,18 @@ jobs:
           name: Run tests
           # This assumes pytest is installed via the install-package step above
           command: |
+            df
+            free
+            cat /proc/cpuinfo
             sudo apt update
             sudo apt-get install -y graphviz python3-sklearn python3-pandas python3-sqlalchemy python3-matplotlib jupyter-notebook python3-ipython python3-scipy python3-numpy python3-dill python3-pydot
             pip install numpy scipy pandas sklearn matplotlib pydot dill sqlalchemy jupyter xgboost ipython lightgbm
-            df
-            cat /proc/cpuinfo
             mkdir -p logs
             rm -rf ~/.matplotlib
             rm -rf ~/.cache/matplotlib
             rm -rf ~/.matplotlib/fontList.cache  
             fc-cache 
+            export PYTHONPATH=$PYTHONPATH:.
             python ./tests/bugs/issue_36/display_version_info.py
             python tests/demos/demo1.py
             python tests/func/test_ozone.py
