@@ -193,6 +193,8 @@ class cSignalHierarchy:
         if(self.discard_nans_in_aggregate_signals()):
             lEngine.mOptions.mMissingDataOptions.mTimeMissingDataImputation = "DiscardRow"
             lEngine.mOptions.mMissingDataOptions.mSignalMissingDataImputation = "DiscardRow"
+            # Sampling is not compatible with Temporal Hierarchies (#163)
+            lEngine.mOptions.mActivateSampling = False
         assert(iAllLevelsDataset.shape[0] > 0)
         lEngine.train(iAllLevelsDataset, lDateColumns , lSignals, lHorizons, iExogenousData = lExogenousData);
         self.mModels = lEngine
@@ -363,6 +365,9 @@ class cSignalHierarchy:
                 lForecast_DF = self.get_clean_signal_and_forecasts(iForecast_DF, signal, lPrefixes)                
                 lFrameFit = self.getEstimPart(lForecast_DF);
                 lFrameValid = self.getValidPart(lForecast_DF);
+                lColumns = [signal , str(signal) + "_Forecast"] + [str(signal) + "_" + lPrefix + "_Forecast" for lPrefix in lPrefixes]
+                lFrameFit = lFrameFit[lColumns]
+                lFrameValid = lFrameValid[lColumns]
                 if(self.discard_nans_in_aggregate_signals()):
                     lFrameFit = lFrameFit.dropna()
                     lFrameValid = lFrameValid.dropna()

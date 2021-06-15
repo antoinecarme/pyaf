@@ -81,6 +81,8 @@ class cTemporalHierarchy (sighier.cSignalHierarchy):
             df_merge = df[[self.mDateColumn , self.mSignal]].merge(WData, left_on=self.mDateColumn,right_on=lName, how='left', suffixes=('_x', '_Period'), sort=True)
             df[self.mSignal + '_' + lPeriod] = df_merge[self.mSignal + '_Period']
             df[lName] = df_merge[lName]
+            logger.info("FORECASTING_HIERARCHICAL_TEMPORAL_LEVEL " + str((lPeriod, lName, list(df.columns), WData.shape)))
+            
 
         return df
 
