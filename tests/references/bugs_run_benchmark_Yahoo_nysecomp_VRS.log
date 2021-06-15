@@ -1547,112 +1547,11 @@ YAHOO_DATA_LINK_URI ZAP data/yahoo/nysecomp/yahoo_ZAP.csv
 YAHOO_DATA_LINK_URI ZLC data/yahoo/nysecomp/yahoo_ZLC.csv
 YAHOO_DATA_LINK_URI ZNH data/yahoo/nysecomp/yahoo_ZNH.csv
 YAHOO_DATA_LINK_URI ZZ data/yahoo/nysecomp/yahoo_ZZ.csv
-load_yahoo_stock_prices nysecomp 1544
+load_yahoo_stock_prices nysecomp 0
 BENCH_TYPE YAHOO_STOCKS_nysecomp OneDataFramePerSignal
-BENCH_DATA YAHOO_STOCKS_nysecomp
-TIME :  Date N= 5 H= 1 HEAD= ['2016-07-20T00:00:00.000000000' '2016-07-21T00:00:00.000000000'
- '2016-07-22T00:00:00.000000000' '2016-07-25T00:00:00.000000000'
- '2016-07-26T00:00:00.000000000'] TAIL= ['2016-07-20T00:00:00.000000000' '2016-07-21T00:00:00.000000000'
- '2016-07-22T00:00:00.000000000' '2016-07-25T00:00:00.000000000'
- '2016-07-26T00:00:00.000000000']
-SIGNAL :  VRS N= 5 H= 1 HEAD= [11.8  11.75 11.6  11.54 11.53] TAIL= [11.8  11.75 11.6  11.54 11.53]
-     VRS       Date
-0  11.80 2016-07-20
-1  11.75 2016-07-21
-2  11.60 2016-07-22
-3  11.54 2016-07-25
-4  11.53 2016-07-26INFO:pyaf.std:START_TRAINING 'VRS'
-
-<class 'pandas.core.frame.DataFrame'>
-Int64Index: 5 entries, 0 to 4
-Data columns (total 2 columns):
- #   Column  Non-Null Count  Dtype         
----  ------  --------------  -----         
- 0   VRS     5 non-null      float64       
- 1   Date    5 non-null      datetime64[ns]
-dtypes: datetime64[ns](1), float64(1)
-memory usage: 120.0 bytes
-None
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['VRS']' 1.327857255935669
-INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2016-07-20T00:00:00.000000 TimeMax=2016-07-26T00:00:00.000000 TimeDelta=<DateOffset: days=2> Horizon=1
-INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='VRS' Length=5  Min=11.53 Max=11.8  Mean=11.644 StdDev=0.11074294559925753
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_VRS' Min=11.53 Max=11.8  Mean=11.644 StdDev=0.11074294559925753
-INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_VRS_ConstantTrend_residue_zeroCycle_residue_NoAR' [ConstantTrend + NoCycle + NoAR]
-INFO:pyaf.std:TREND_DETAIL '_VRS_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_VRS_ConstantTrend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_VRS_ConstantTrend_residue_zeroCycle_residue_NoAR' [NoAR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.009 MAPE_Forecast=0.009 MAPE_Test=0.009
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.009 SMAPE_Forecast=0.009 SMAPE_Test=0.009
-INFO:pyaf.std:MODEL_MASE MASE_Fit=1.5526 MASE_Forecast=1.5526 MASE_Test=1.5526
-INFO:pyaf.std:MODEL_L1 L1_Fit=0.10480000000000053 L1_Forecast=0.10480000000000053 L1_Test=0.10480000000000053
-INFO:pyaf.std:MODEL_L2 L2_Fit=0.11074294559925753 L2_Forecast=0.11074294559925753 L2_Test=0.11074294559925753
-INFO:pyaf.std:MODEL_COMPLEXITY 0
-INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
-INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
-INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
-INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND ConstantTrend 11.644
-INFO:pyaf.std:TREND_DETAIL_END
-INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _VRS_ConstantTrend_residue_zeroCycle 0.0 {}
-INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
-INFO:pyaf.std:AR_MODEL_DETAIL_START
-INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING '['VRS']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['VRS']' 0.04795575141906738
-   Split Transformation  ... ForecastMAPE TestMAPE
-0   None       Diff_VRS  ...       0.0030   0.0030
-1   None       Diff_VRS  ...       0.0030   0.0030
-2   None       Diff_VRS  ...       0.0033   0.0033
-3   None       Diff_VRS  ...       0.0033   0.0033
-4   None       Diff_VRS  ...       0.0033   0.0033
-5   None    RelDiff_VRS  ...       0.0033   0.0033
-6   None       Diff_VRS  ...       0.0033   0.0033
-7   None    RelDiff_VRS  ...       0.0033   0.0033
-8   None    RelDiff_VRS  ...       0.0042   0.0042
-9   None    RelDiff_VRS  ...       0.0042   0.0042
-10  None           _VRS  ...       0.0047   0.0047
-11  None           _VRS  ...       0.0047   0.0047
-12  None       Diff_VRS  ...       0.0047   0.0047
-13  None    RelDiff_VRS  ...       0.0047   0.0047
-14  None       Diff_VRS  ...       0.0047   0.0047
-15  None    RelDiff_VRS  ...       0.0047   0.0047
-16  None           _VRS  ...       0.0048   0.0048
-17  None           _VRS  ...       0.0048   0.0048
-18  None           _VRS  ...       0.0060   0.0060
-19  None           _VRS  ...       0.0060   0.0060
-20  None    RelDiff_VRS  ...       0.0062   0.0062
-21  None    RelDiff_VRS  ...       0.0062   0.0062
-22  None           _VRS  ...       0.0090   0.0090
-23  None           _VRS  ...       0.0090   0.0090
-24  None     CumSum_VRS  ...       0.2038   0.2038
-25  None     CumSum_VRS  ...       0.2038   0.2038
-26  None     CumSum_VRS  ...       0.6507   0.6507
-27  None     CumSum_VRS  ...       0.6507   0.6507
-28  None     CumSum_VRS  ...       0.7485   0.7485
-29  None     CumSum_VRS  ...       0.7485   0.7485
-30  None     CumSum_VRS  ...       1.1946   1.1946
-31  None     CumSum_VRS  ...       1.1946   1.1946
-
-[32 rows x 8 columns]
-  Split Transformation  ... ForecastMAPE TestMAPE
-0  None       Diff_VRS  ...       0.0030   0.0030
-1  None       Diff_VRS  ...       0.0030   0.0030
-2  None       Diff_VRS  ...       0.0033   0.0033
-3  None       Diff_VRS  ...       0.0033   0.0033
-4  None       Diff_VRS  ...       0.0033   0.0033
-
-[5 rows x 8 columns]
-1 0    11.55
-Name: VRS, dtype: float64
-1 0    11.644
-Name: VRS_Forecast, dtype: float64
-FORECAST_DETAIL_ACTUAL Yahoo_Stock_Price_VRS VRS [11.55]
-FORECAST_DETAIL_PREDICTED Yahoo_Stock_Price_VRS VRS [11.644]
-BENCHMARK_PERF_DETAIL_SIGNAL_HORIZON Yahoo_Stock_Price_VRS VRS 5 1
-BENCHMARK_PERF_DETAIL_BENCH_TIME_IN_SECONDS PYAF_SYSTEM_DEPENDENT_ Yahoo_Stock_Price_VRS VRS 1.490490436553955
-BENCHMARK_PERF_DETAIL_BEST_MODEL Yahoo_Stock_Price_VRS VRS ConstantTrend + NoCycle + NoAR
-BENCHMARK_PERF_DETAIL_PERF_COUNT Yahoo_Stock_Price_VRS VRS 1
-BENCHMARK_PERF_DETAIL_PERF_MAPE_SMAPE_MASE Yahoo_Stock_Price_VRS VRS 0.0081 0.0081 None
-BENCHMARK_PERF_DETAIL_PERF_L1_L2_R2 Yahoo_Stock_Price_VRS VRS 0.09399999999999942 0.09399999999999942 -88359998.99999891
+Traceback (most recent call last):
+  File "/home/antoine/dev/python/packages/timeseries/pyaf/tests/bugs/run_benchmark_Yahoo_nysecomp_VRS.py", line 12, in <module>
+    tester.testSignals('VRS');
+  File "/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/Bench/GenericBenchmark.py", line 408, in testSignals
+    raise cBenchmarkError("UNKNOWN_SIGNAL '" + sig + "'");
+pyaf.Bench.GenericBenchmark.cBenchmarkError: UNKNOWN_SIGNAL 'VRS'

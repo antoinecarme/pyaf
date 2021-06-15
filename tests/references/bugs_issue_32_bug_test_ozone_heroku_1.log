@@ -4,11 +4,11 @@ None
 DATASET_DETECTED_COLUMNS Index(['Month', 'Ozone'], dtype='object')
 DATASET_FINAL_COLUMNS Index(['Month', 'Ozone'], dtype='object')
 TRAIN_PARAMS (164, 2) Index(['Month', 'Ozone'], dtype='object') Month Ozone 12
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Ozone']' 5.379494905471802
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Ozone']' 22.437652349472046
 INFO:pyaf.std:START_FORECASTING '['Ozone']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Ozone']' 1.327519416809082
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Ozone']' 3.4098124504089355
 INFO:pyaf.std:START_FORECASTING '['Ozone']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Ozone']' 0.9676716327667236
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Ozone']' 4.7125349044799805
   Split Transformation  ... ForecastMAPE TestMAPE
 0  None         _Ozone  ...       0.1982   0.2201
 1  None         _Ozone  ...       0.1983   0.2233
@@ -27,7 +27,10 @@ Forecast Columns  Index(['Month', 'Ozone', 'row_number', 'Month_Normalized', '_O
        '_Ozone_Cycle_residue', '_Ozone_AR', '_Ozone_AR_residue',
        '_Ozone_TransformedForecast', 'Ozone_Forecast',
        '_Ozone_TransformedResidue', 'Ozone_Residue',
-       'Ozone_Forecast_Lower_Bound', 'Ozone_Forecast_Upper_Bound'],
+       'Ozone_Forecast_Lower_Bound', 'Ozone_Forecast_Upper_Bound',
+       'Ozone_Forecast_Quantile_10', 'Ozone_Forecast_Quantile_30',
+       'Ozone_Forecast_Quantile_50', 'Ozone_Forecast_Quantile_70',
+       'Ozone_Forecast_Quantile_90'],
       dtype='object')
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 176 entries, 0 to 175
@@ -80,10 +83,11 @@ Forecasts
         },
         "Model_Performance": {
             "COMPLEXITY": "46",
-            "MAE": "0.7190207683728788",
+            "CRPS": "0.37601230992445134",
+            "MAE": "0.7190207683728786",
             "MAPE": "0.1983",
             "MASE": "0.8049",
-            "RMSE": "0.9679782641701922"
+            "RMSE": "0.9679782641701923"
         }
     }
 }

@@ -1,5 +1,5 @@
 INFO:pyaf.std:START_HIERARCHICAL_PLOTTING
-INFO:pyaf.std:END_HIERARCHICAL_PLOTTING_TIME_IN_SECONDS 0.4403717517852783
+INFO:pyaf.std:END_HIERARCHICAL_PLOTTING_TIME_IN_SECONDS 2.5749709606170654
 INFO:pyaf.std:START_HIERARCHICAL_TRAINING
 INFO:pyaf.hierarchical:FORECASTING_HIERARCHICAL_TEMPORAL_FREQUENCIES {'W': 604800.0, '2W': 1209600.0, 'M': 2419200.0, 'Q': 7862400.0}
 INFO:pyaf.hierarchical:FORECASTING_HIERARCHICAL_TEMPORAL_HORIZONS_FIRST_RESAMPLED_DATA W {'TH_W_start': {0: Timestamp('2001-01-28 00:00:00'), 1: Timestamp('2001-02-04 00:00:00'), 2: Timestamp('2001-02-11 00:00:00'), 3: Timestamp('2001-02-18 00:00:00'), 4: Timestamp('2001-02-25 00:00:00')}, 'Signal': {0: 1.9048968112034605, 1: -0.42967395611318193, 2: 0.6856129262199164, 3: 3.0251231243596757, 4: 4.401208611312959}}
@@ -9,10 +9,10 @@ INFO:pyaf.hierarchical:FORECASTING_HIERARCHICAL_TEMPORAL_HORIZONS_FIRST_RESAMPLE
 INFO:pyaf.hierarchical:FORECASTING_HIERARCHICAL_TEMPORAL_HORIZONS {'W': 36, '2W': 18, 'M': 9, 'Q': 2}
 INFO:pyaf.std:START_TRAINING '['Signal_W', 'Signal_2W', 'Signal_M', 'Signal_Q']'
 <IPython.core.display.Image object>
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal_W', 'Signal_2W', 'Signal_M', 'Signal_Q']' 13.342710018157959
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal_W', 'Signal_2W', 'Signal_M', 'Signal_Q']' 167.36388039588928
 INFO:pyaf.hierarchical:TRAINING_HIERARCHICAL_MODEL_COMPUTE_TOP_DOWN_HISTORICAL_PROPORTIONS
 INFO:pyaf.std:START_FORECASTING '['Signal_W', 'Signal_2W', 'Signal_M', 'Signal_Q']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal_W', 'Signal_2W', 'Signal_M', 'Signal_Q']' 2.3858070373535156
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal_W', 'Signal_2W', 'Signal_M', 'Signal_Q']' 22.542559385299683
 INFO:pyaf.hierarchical:FORECASTING_HIERARCHICAL_MODEL_COMBINATION_METHODS ['BU', 'TD', 'MO', 'OC']
 INFO:pyaf.hierarchical:FORECASTING_HIERARCHICAL_MODEL_BOTTOM_UP_METHOD BU
 INFO:pyaf.hierarchical:FORECASTING_HIERARCHICAL_MODEL_TOP_DOWN_METHOD AHP_TD
@@ -21,7 +21,7 @@ INFO:pyaf.hierarchical:FORECASTING_HIERARCHICAL_MODEL_MIDDLE_OUT_METHOD MO
 INFO:pyaf.hierarchical:FORECASTING_HIERARCHICAL_MODEL_OPTIMAL_COMBINATION_METHOD OC
 INFO:pyaf.hierarchical:FORECASTING_HIERARCHICAL_MODEL_OPTIMAL_COMBINATION_METHOD
 INFO:pyaf.hierarchical:STRUCTURE [0, 1, 2, 3]
-INFO:pyaf.hierarchical:DATASET_COLUMNS Index(['TH_M_start', 'TH_W_start', 'TH_2W_start', 'TH_Q_start', 'Signal_W',
+INFO:pyaf.hierarchical:DATASET_COLUMNS Index(['TH_Q_start', 'TH_M_start', 'TH_2W_start', 'TH_W_start', 'Signal_W',
        'Signal_W_Forecast', 'Signal_W_Forecast_Lower_Bound',
        'Signal_W_Forecast_Upper_Bound', 'Signal_2W', 'Signal_2W_Forecast',
        'Signal_2W_Forecast_Lower_Bound', 'Signal_2W_Forecast_Upper_Bound',
@@ -52,241 +52,33 @@ INFO:pyaf.hierarchical:STRUCTURE_LEVEL (3, ['Signal_Q'])
   arrmean = um.true_divide(
 /usr/lib/python3/dist-packages/numpy/core/_methods.py:226: RuntimeWarning: invalid value encountered in double_scalars
   ret = ret.dtype.type(ret / rcount)
-INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_FIT_PERF {'Signal': 'Signal_2W_AHP_TD_Forecast', 'Length': 6, 'MAPE': 0.9326, 'RMSE': 21.728165979134875, 'MAE': 18.414159393365953, 'SMAPE': 1.808, 'ErrorMean': -18.414159393365953, 'ErrorStdDev': 11.533946880948722, 'R2': -2.668999356163141, 'Pearson': 0.0}
-INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_VALID_PERF {'Signal': 'Signal_2W_AHP_TD_Forecast', 'Length': 1, 'MAPE': 1.0, 'RMSE': 23.317870041845083, 'MAE': 23.317870041845083, 'SMAPE': 2.0, 'ErrorMean': -23.317870041845083, 'ErrorStdDev': 0.0, 'R2': -5437230632882.765, 'Pearson': 0.0}
-INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_FIT_PERF {'Signal': 'Signal_2W_BU_Forecast', 'Length': 6, 'MAPE': 0.6473, 'RMSE': 13.274980795281872, 'MAE': 10.771139341166196, 'SMAPE': 0.7681, 'ErrorMean': -10.01776535960562, 'ErrorStdDev': 8.710309541858326, 'R2': -0.3695228988651553, 'Pearson': 0.0}
-INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_VALID_PERF {'Signal': 'Signal_2W_BU_Forecast', 'Length': 1, 'MAPE': 0.5048, 'RMSE': 11.771586350794337, 'MAE': 11.771586350794337, 'SMAPE': 0.6753, 'ErrorMean': -11.771586350794337, 'ErrorStdDev': 0.0, 'R2': -1385702452141.0752, 'Pearson': 0.0}
-INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_FIT_PERF {'Signal': 'Signal_2W_MO_Forecast', 'Length': 6, 'MAPE': 0.5758, 'RMSE': 17.277621849901333, 'MAE': 11.311246455588991, 'SMAPE': 0.7486, 'ErrorMean': -6.487619412857839, 'ErrorStdDev': 16.013338538296694, 'R2': -1.3199008512889434, 'Pearson': 0.0}
-INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_VALID_PERF {'Signal': 'Signal_2W_MO_Forecast', 'Length': 1, 'MAPE': 0.4419, 'RMSE': 10.304942462618406, 'MAE': 10.304942462618406, 'SMAPE': 0.362, 'ErrorMean': 10.304942462618406, 'ErrorStdDev': 0.0, 'R2': -1061918391577.759, 'Pearson': 0.0}
-INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_FIT_PERF {'Signal': 'Signal_2W_OC_Forecast', 'Length': 6, 'MAPE': 1.0222, 'RMSE': 10.689430870418192, 'MAE': 8.36371807568267, 'SMAPE': 0.6337, 'ErrorMean': -4.743474710803223, 'ErrorStdDev': 9.579320435261558, 'R2': 0.11200471202514395, 'Pearson': 0.0}
-INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_VALID_PERF {'Signal': 'Signal_2W_OC_Forecast', 'Length': 1, 'MAPE': 0.0565, 'RMSE': 1.3180389180796546, 'MAE': 1.3180389180796546, 'SMAPE': 0.055, 'ErrorMean': 1.3180389180796546, 'ErrorStdDev': 0.0, 'R2': -17372265894.725864, 'Pearson': 0.0}
-INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_FIT_PERF {'Signal': 'Signal_2W_PHA_TD_Forecast', 'Length': 6, 'MAPE': 1.0298, 'RMSE': 21.742564806447106, 'MAE': 18.59935005501401, 'SMAPE': 1.7903, 'ErrorMean': -17.85084126117022, 'ErrorStdDev': 12.413161991654466, 'R2': -2.673863714494424, 'Pearson': 0.0}
-INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_VALID_PERF {'Signal': 'Signal_2W_PHA_TD_Forecast', 'Length': 1, 'MAPE': 1.0, 'RMSE': 23.317870041845083, 'MAE': 23.317870041845083, 'SMAPE': 2.0, 'ErrorMean': -23.317870041845083, 'ErrorStdDev': 0.0, 'R2': -5437230632882.765, 'Pearson': 0.0}
-INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_FIT_PERF {'Signal': 'Signal_M_AHP_TD_Forecast', 'Length': 6, 'MAPE': 0.8984, 'RMSE': 45.74558152297604, 'MAE': 36.5487770596126, 'SMAPE': 1.7474, 'ErrorMean': -36.5487770596126, 'ErrorStdDev': 27.510818314291985, 'R2': -1.8158649898815735, 'Pearson': 0.0}
-INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_VALID_PERF {'Signal': 'Signal_M_AHP_TD_Forecast', 'Length': 1, 'MAPE': 1.0, 'RMSE': 42.784676995021144, 'MAE': 42.784676995021144, 'SMAPE': 2.0, 'ErrorMean': -42.784676995021144, 'ErrorStdDev': 0.0, 'R2': -18305285855681.914, 'Pearson': 0.0}
-INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_FIT_PERF {'Signal': 'Signal_M_BU_Forecast', 'Length': 6, 'MAPE': 1.0236, 'RMSE': 24.421856397727975, 'MAE': 19.192416080523397, 'SMAPE': 0.6753, 'ErrorMean': -16.229272756570015, 'ErrorStdDev': 18.249322609458716, 'R2': 0.19745227290010103, 'Pearson': 0.0}
-INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_VALID_PERF {'Signal': 'Signal_M_BU_Forecast', 'Length': 1, 'MAPE': 0.4125, 'RMSE': 17.646683506010284, 'MAE': 17.646683506010284, 'SMAPE': 0.5196, 'ErrorMean': -17.646683506010284, 'ErrorStdDev': 0.0, 'R2': -3114054387611.9536, 'Pearson': 0.0}
-INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_FIT_PERF {'Signal': 'Signal_M_MO_Forecast', 'Length': 6, 'MAPE': 0.5935, 'RMSE': 31.934981854001215, 'MAE': 21.63750180020112, 'SMAPE': 0.7142, 'ErrorMean': -14.563646044168456, 'ErrorStdDev': 28.420824757834943, 'R2': -0.3722930697143514, 'Pearson': 0.0}
-INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_VALID_PERF {'Signal': 'Signal_M_MO_Forecast', 'Length': 1, 'MAPE': 0.4458, 'RMSE': 19.0746816646162, 'MAE': 19.0746816646162, 'SMAPE': 0.3646, 'ErrorMean': 19.0746816646162, 'ErrorStdDev': 0.0, 'R2': -3638434806063.454, 'Pearson': 0.0}
-INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_FIT_PERF {'Signal': 'Signal_M_OC_Forecast', 'Length': 6, 'MAPE': 1.2105, 'RMSE': 32.48278859897112, 'MAE': 25.66879749693285, 'SMAPE': 0.9706, 'ErrorMean': -22.943294748362206, 'ErrorStdDev': 22.99427714139376, 'R2': -0.41977699220697984, 'Pearson': 0.0}
-INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_VALID_PERF {'Signal': 'Signal_M_OC_Forecast', 'Length': 1, 'MAPE': 0.4242, 'RMSE': 18.148768035096406, 'MAE': 18.148768035096406, 'SMAPE': 0.5384, 'ErrorMean': -18.148768035096406, 'ErrorStdDev': 0.0, 'R2': -3293777811916.3706, 'Pearson': 0.0}
-INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_FIT_PERF {'Signal': 'Signal_M_PHA_TD_Forecast', 'Length': 6, 'MAPE': 1.3348, 'RMSE': 45.80437057367682, 'MAE': 37.38009321844972, 'SMAPE': 1.8669, 'ErrorMean': -35.46973817285247, 'ErrorStdDev': 28.98168451971008, 'R2': -1.8231071494831435, 'Pearson': 0.0}
-INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_VALID_PERF {'Signal': 'Signal_M_PHA_TD_Forecast', 'Length': 1, 'MAPE': 1.0, 'RMSE': 42.784676995021144, 'MAE': 42.784676995021144, 'SMAPE': 2.0, 'ErrorMean': -42.784676995021144, 'ErrorStdDev': 0.0, 'R2': -18305285855681.914, 'Pearson': 0.0}
-INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_FIT_PERF {'Signal': 'Signal_Q_AHP_TD_Forecast', 'Length': 1, 'MAPE': 0.3901, 'RMSE': 15.275188881393447, 'MAE': 15.275188881393447, 'SMAPE': 0.4847, 'ErrorMean': -15.275188881393447, 'ErrorStdDev': 0.0, 'R2': -2333313953621.46, 'Pearson': 0.0}
-INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_VALID_PERF {'Signal': 'Signal_Q_AHP_TD_Forecast', 'Length': 0, 'MAPE': None, 'RMSE': nan, 'MAE': nan, 'SMAPE': None, 'ErrorMean': nan, 'ErrorStdDev': nan, 'R2': 1.0, 'Pearson': 0.0}
-INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_FIT_PERF {'Signal': 'Signal_Q_BU_Forecast', 'Length': 1, 'MAPE': 0.9325, 'RMSE': 36.51067212362493, 'MAE': 36.51067212362493, 'SMAPE': 1.7471, 'ErrorMean': -36.51067212362493, 'ErrorStdDev': 0.0, 'R2': -13330291789187.424, 'Pearson': 0.0}
-INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_VALID_PERF {'Signal': 'Signal_Q_BU_Forecast', 'Length': 0, 'MAPE': None, 'RMSE': nan, 'MAE': nan, 'SMAPE': None, 'ErrorMean': nan, 'ErrorStdDev': nan, 'R2': 1.0, 'Pearson': 0.0}
-INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_FIT_PERF {'Signal': 'Signal_Q_MO_Forecast', 'Length': 1, 'MAPE': 0.9325, 'RMSE': 36.51067212362493, 'MAE': 36.51067212362493, 'SMAPE': 1.7471, 'ErrorMean': -36.51067212362493, 'ErrorStdDev': 0.0, 'R2': -13330291789187.424, 'Pearson': 0.0}
-INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_VALID_PERF {'Signal': 'Signal_Q_MO_Forecast', 'Length': 0, 'MAPE': None, 'RMSE': nan, 'MAE': nan, 'SMAPE': None, 'ErrorMean': nan, 'ErrorStdDev': nan, 'R2': 1.0, 'Pearson': 0.0}
-INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_FIT_PERF {'Signal': 'Signal_Q_OC_Forecast', 'Length': 1, 'MAPE': 0.7425, 'RMSE': 29.072126036313605, 'MAE': 29.072126036313605, 'SMAPE': 1.181, 'ErrorMean': -29.072126036313605, 'ErrorStdDev': 0.0, 'R2': -8451885122712.034, 'Pearson': 0.0}
-INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_VALID_PERF {'Signal': 'Signal_Q_OC_Forecast', 'Length': 0, 'MAPE': None, 'RMSE': nan, 'MAE': nan, 'SMAPE': None, 'ErrorMean': nan, 'ErrorStdDev': nan, 'R2': 1.0, 'Pearson': 0.0}
-INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_FIT_PERF {'Signal': 'Signal_Q_PHA_TD_Forecast', 'Length': 1, 'MAPE': 0.3901, 'RMSE': 15.275188881393447, 'MAE': 15.275188881393447, 'SMAPE': 0.4847, 'ErrorMean': -15.275188881393447, 'ErrorStdDev': 0.0, 'R2': -2333313953621.46, 'Pearson': 0.0}
-INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_VALID_PERF {'Signal': 'Signal_Q_PHA_TD_Forecast', 'Length': 0, 'MAPE': None, 'RMSE': nan, 'MAE': nan, 'SMAPE': None, 'ErrorMean': nan, 'ErrorStdDev': nan, 'R2': 1.0, 'Pearson': 0.0}
-INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_FIT_PERF {'Signal': 'Signal_W_AHP_TD_Forecast', 'Length': 6, 'MAPE': 0.9651, 'RMSE': 9.401572257513607, 'MAE': 7.95691815459922, 'SMAPE': 1.8844, 'ErrorMean': -7.95691815459922, 'ErrorStdDev': 5.007695517327193, 'R2': -2.646410029475135, 'Pearson': 0.0}
-INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_VALID_PERF {'Signal': 'Signal_W_AHP_TD_Forecast', 'Length': 1, 'MAPE': 1.0, 'RMSE': 11.912826793784575, 'MAE': 11.912826793784575, 'SMAPE': 2.0, 'ErrorMean': -11.912826793784575, 'ErrorStdDev': 0.0, 'R2': -1419154422186.1165, 'Pearson': 0.0}
-INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_FIT_PERF {'Signal': 'Signal_W_BU_Forecast', 'Length': 6, 'MAPE': 0.3159, 'RMSE': 1.7685424241954468, 'MAE': 1.4843785622268288, 'SMAPE': 0.2417, 'ErrorMean': 0.5013197475223127, 'ErrorStdDev': 1.696001420082917, 'R2': 0.870968575960472, 'Pearson': 0.0}
-INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_VALID_PERF {'Signal': 'Signal_W_BU_Forecast', 'Length': 1, 'MAPE': 0.0308, 'RMSE': 0.3665431027338286, 'MAE': 0.3665431027338286, 'SMAPE': 0.0312, 'ErrorMean': -0.3665431027338286, 'ErrorStdDev': 0.0, 'R2': -1343538460.6174202, 'Pearson': 0.0}
-INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_FIT_PERF {'Signal': 'Signal_W_MO_Forecast', 'Length': 6, 'MAPE': 1.0662, 'RMSE': 9.845033993892581, 'MAE': 7.392233532283323, 'SMAPE': 1.014, 'ErrorMean': -1.972741707568116, 'ErrorStdDev': 9.645360775840464, 'R2': -2.998517176653303, 'Pearson': 0.0}
-INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_VALID_PERF {'Signal': 'Signal_W_MO_Forecast', 'Length': 1, 'MAPE': 0.4167, 'RMSE': 4.963488362895941, 'MAE': 4.963488362895941, 'SMAPE': 0.3448, 'ErrorMean': 4.963488362895941, 'ErrorStdDev': 0.0, 'R2': -246362167285.03424, 'Pearson': 0.0}
-INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_FIT_PERF {'Signal': 'Signal_W_OC_Forecast', 'Length': 6, 'MAPE': 1.806, 'RMSE': 10.088559902162848, 'MAE': 8.090127007128357, 'SMAPE': 0.7233, 'ErrorMean': 5.775610396324709, 'ErrorStdDev': 8.271720827578381, 'R2': -3.1987776802132215, 'Pearson': 0.0}
-INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_VALID_PERF {'Signal': 'Signal_W_OC_Forecast', 'Length': 1, 'MAPE': 1.068, 'RMSE': 12.723082166140163, 'MAE': 12.723082166140163, 'SMAPE': 0.6962, 'ErrorMean': 12.723082166140163, 'ErrorStdDev': 0.0, 'R2': -1618768198062.5386, 'Pearson': 0.0}
-INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_FIT_PERF {'Signal': 'Signal_W_PHA_TD_Forecast', 'Length': 6, 'MAPE': 0.8489, 'RMSE': 9.3817446808881, 'MAE': 7.735731748489172, 'SMAPE': 1.6816, 'ErrorMean': -7.676289353439198, 'ErrorStdDev': 5.393673610782192, 'R2': -2.631045953382735, 'Pearson': 0.0}
-INFO:pyaf.hierarchical:REPORT_COMBINED_FORECASTS_VALID_PERF {'Signal': 'Signal_W_PHA_TD_Forecast', 'Length': 1, 'MAPE': 1.0, 'RMSE': 11.912826793784575, 'MAE': 11.912826793784575, 'SMAPE': 2.0, 'ErrorMean': -11.912826793784575, 'ErrorStdDev': 0.0, 'R2': -1419154422186.1165, 'Pearson': 0.0}
-INFO:pyaf.std:END_HIERARCHICAL_TRAINING_TIME_IN_SECONDS 16.342135429382324
-INFO:pyaf.std:TIME_DETAIL TimeVariable='TH_W_start' TimeMin=2001-01-28T00:00:00.000000 TimeMax=2006-01-08T00:00:00.000000 TimeDelta=<DateOffset: days=7> Horizon=36
-INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal_W' Length=360  Min=-0.6219775856788415 Max=28.87537250288579  Mean=13.929719090432725 StdDev=6.723008300790963
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal_W' Min=-0.6219775856788415 Max=28.87537250288579  Mean=13.929719090432725 StdDev=6.723008300790963
-INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_Signal_W_ConstantTrend_residue_zeroCycle_residue_AR(64)' [ConstantTrend + NoCycle + AR]
-INFO:pyaf.std:TREND_DETAIL '_Signal_W_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_Signal_W_ConstantTrend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_Signal_W_ConstantTrend_residue_zeroCycle_residue_AR(64)' [AR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.3608 MAPE_Forecast=0.0933 MAPE_Test=0.0727
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.1559 SMAPE_Forecast=0.1004 SMAPE_Test=0.0754
-INFO:pyaf.std:MODEL_MASE MASE_Fit=0.5456 MASE_Forecast=0.6072 MASE_Test=0.5062
-INFO:pyaf.std:MODEL_L1 L1_Fit=1.270765506952389 L1_Forecast=1.3119893773007616 L1_Test=1.269372776026798
-INFO:pyaf.std:MODEL_L2 L2_Fit=1.8075756006784895 L2_Forecast=1.746463503658606 L2_Test=1.4940617790422324
-INFO:pyaf.std:MODEL_COMPLEXITY 64
-INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
-INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
-INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
-INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND ConstantTrend 12.516770159495985
-INFO:pyaf.std:TREND_DETAIL_END
-INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_W_ConstantTrend_residue_zeroCycle 0.0 {}
-INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
-INFO:pyaf.std:AR_MODEL_DETAIL_START
-INFO:pyaf.std:AR_MODEL_COEFF 1 _Signal_W_ConstantTrend_residue_zeroCycle_residue_Lag21 0.5597208683529054
-INFO:pyaf.std:AR_MODEL_COEFF 2 _Signal_W_ConstantTrend_residue_zeroCycle_residue_Lag1 0.5009964302969634
-INFO:pyaf.std:AR_MODEL_COEFF 3 _Signal_W_ConstantTrend_residue_zeroCycle_residue_Lag42 0.34488407178813113
-INFO:pyaf.std:AR_MODEL_COEFF 4 _Signal_W_ConstantTrend_residue_zeroCycle_residue_Lag43 -0.2770936589630128
-INFO:pyaf.std:AR_MODEL_COEFF 5 _Signal_W_ConstantTrend_residue_zeroCycle_residue_Lag22 -0.24858732249067456
-INFO:pyaf.std:AR_MODEL_COEFF 6 _Signal_W_ConstantTrend_residue_zeroCycle_residue_Lag55 -0.16334446749684117
-INFO:pyaf.std:AR_MODEL_COEFF 7 _Signal_W_ConstantTrend_residue_zeroCycle_residue_Lag2 0.15927613077395358
-INFO:pyaf.std:AR_MODEL_COEFF 8 _Signal_W_ConstantTrend_residue_zeroCycle_residue_Lag6 -0.15226963181632097
-INFO:pyaf.std:AR_MODEL_COEFF 9 _Signal_W_ConstantTrend_residue_zeroCycle_residue_Lag23 -0.14807146265070792
-INFO:pyaf.std:AR_MODEL_COEFF 10 _Signal_W_ConstantTrend_residue_zeroCycle_residue_Lag56 0.1477744088024236
-INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:TIME_DETAIL TimeVariable='TH_2W_start' TimeMin=2001-01-28T00:00:00.000000 TimeMax=2005-12-25T00:00:00.000000 TimeDelta=<DateOffset: days=14> Horizon=18
-INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal_2W' Length=180  Min=-0.41263817098822364 Max=54.50574426645973  Mean=27.79443879544697 StdDev=12.710746738178202
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal_2W' Min=-0.41263817098822364 Max=54.50574426645973  Mean=27.79443879544697 StdDev=12.710746738178202
-INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_Signal_2W_PolyTrend_residue_zeroCycle_residue_AR(45)' [PolyTrend + NoCycle + AR]
-INFO:pyaf.std:TREND_DETAIL '_Signal_2W_PolyTrend' [PolyTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_Signal_2W_PolyTrend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_Signal_2W_PolyTrend_residue_zeroCycle_residue_AR(45)' [AR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.8964 MAPE_Forecast=0.0527 MAPE_Test=0.0492
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.143 SMAPE_Forecast=0.0527 SMAPE_Test=0.0476
-INFO:pyaf.std:MODEL_MASE MASE_Fit=0.3316 MASE_Forecast=0.2436 MASE_Test=0.2129
-INFO:pyaf.std:MODEL_L1 L1_Fit=2.3053562564736425 L1_Forecast=1.5918576328232352 L1_Test=1.623168022732378
-INFO:pyaf.std:MODEL_L2 L2_Fit=3.8151287861216696 L2_Forecast=2.0096354966608727 L2_Test=2.084720080729197
-INFO:pyaf.std:MODEL_COMPLEXITY 48
-INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
-INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
-INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
-INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:POLYNOMIAL_RIDGE_TREND PolyTrend (18.706255917598163, array([10.96460892,  2.61971852, -0.47456439]))
-INFO:pyaf.std:TREND_DETAIL_END
-INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_2W_PolyTrend_residue_zeroCycle 0.0 {}
-INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
-INFO:pyaf.std:AR_MODEL_DETAIL_START
-INFO:pyaf.std:AR_MODEL_COEFF 1 _Signal_2W_PolyTrend_residue_zeroCycle_residue_Lag21 0.6307297929424714
-INFO:pyaf.std:AR_MODEL_COEFF 2 _Signal_2W_PolyTrend_residue_zeroCycle_residue_Lag1 0.5615488467733346
-INFO:pyaf.std:AR_MODEL_COEFF 3 _Signal_2W_PolyTrend_residue_zeroCycle_residue_Lag22 -0.46569582858441355
-INFO:pyaf.std:AR_MODEL_COEFF 4 _Signal_2W_PolyTrend_residue_zeroCycle_residue_Lag10 0.398286556958216
-INFO:pyaf.std:AR_MODEL_COEFF 5 _Signal_2W_PolyTrend_residue_zeroCycle_residue_Lag12 -0.1890207661092233
-INFO:pyaf.std:AR_MODEL_COEFF 6 _Signal_2W_PolyTrend_residue_zeroCycle_residue_Lag31 -0.18532476993292182
-INFO:pyaf.std:AR_MODEL_COEFF 7 _Signal_2W_PolyTrend_residue_zeroCycle_residue_Lag20 -0.15284118809191252
-INFO:pyaf.std:AR_MODEL_COEFF 8 _Signal_2W_PolyTrend_residue_zeroCycle_residue_Lag42 0.13307094000109737
-INFO:pyaf.std:AR_MODEL_COEFF 9 _Signal_2W_PolyTrend_residue_zeroCycle_residue_Lag33 0.11515149464400884
-INFO:pyaf.std:AR_MODEL_COEFF 10 _Signal_2W_PolyTrend_residue_zeroCycle_residue_Lag7 -0.11432784499671315
-INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:TIME_DETAIL TimeVariable='TH_M_start' TimeMin=2001-01-28T00:00:00.000000 TimeMax=2007-10-28T00:00:00.000000 TimeDelta=<DateOffset: days=190> Horizon=9
-INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal_M' Length=14  Min=1.9048968112034605 Max=96.32920484609802  Mean=52.62443024801729 StdDev=27.28407216591746
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='Diff_Signal_M' Min=-47.31230670245864 Max=58.154167627267505  Mean=6.27927722257703 StdDev=34.11932683375627
-INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'Diff_'
-INFO:pyaf.std:BEST_DECOMPOSITION  'Diff_Signal_M_Lag1Trend_residue_zeroCycle_residue_AR(3)' [Lag1Trend + NoCycle + AR]
-INFO:pyaf.std:TREND_DETAIL 'Diff_Signal_M_Lag1Trend' [Lag1Trend]
-INFO:pyaf.std:CYCLE_DETAIL 'Diff_Signal_M_Lag1Trend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL 'Diff_Signal_M_Lag1Trend_residue_zeroCycle_residue_AR(3)' [AR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.4433 MAPE_Forecast=0.4433 MAPE_Test=0.4433
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.5793 SMAPE_Forecast=0.5793 SMAPE_Test=0.5793
-INFO:pyaf.std:MODEL_MASE MASE_Fit=0.6609 MASE_Forecast=0.6609 MASE_Test=0.6609
-INFO:pyaf.std:MODEL_L1 L1_Fit=20.354736882134148 L1_Forecast=20.354736882134148 L1_Test=20.354736882134148
-INFO:pyaf.std:MODEL_L2 L2_Fit=29.44726724140883 L2_Forecast=29.44726724140883 L2_Test=29.44726724140883
-INFO:pyaf.std:MODEL_COMPLEXITY 67
-INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
-INFO:pyaf.std:DIFFERENCING_TRANSFORMATION Difference 1.9048968112034605
-INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
-INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:LAG1_TREND Lag1Trend 0.0
-INFO:pyaf.std:TREND_DETAIL_END
-INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES Diff_Signal_M_Lag1Trend_residue_zeroCycle 0.0 {}
-INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
-INFO:pyaf.std:AR_MODEL_DETAIL_START
-INFO:pyaf.std:AR_MODEL_COEFF 1 Diff_Signal_M_Lag1Trend_residue_zeroCycle_residue_Lag1 -1.3652407356299154
-INFO:pyaf.std:AR_MODEL_COEFF 2 Diff_Signal_M_Lag1Trend_residue_zeroCycle_residue_Lag2 -0.9484405479957255
-INFO:pyaf.std:AR_MODEL_COEFF 3 Diff_Signal_M_Lag1Trend_residue_zeroCycle_residue_Lag3 -0.4733332743266887
-INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:TIME_DETAIL TimeVariable='TH_Q_start' TimeMin=2001-01-28T00:00:00.000000 TimeMax=2007-04-29T00:00:00.000000 TimeDelta=<DateOffset: days=456> Horizon=2
-INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal_Q' Length=6  Min=39.15353109322899 Max=272.5452226620775  Mean=192.85929432770362 StdDev=76.93391233657083
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='Diff_Signal_Q' Min=-65.29286109746556 Max=133.60726075440868  Mean=38.89861526147475 StdDev=61.815595156813615
-INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'Diff_'
-INFO:pyaf.std:BEST_DECOMPOSITION  'Diff_Signal_Q_PolyTrend_residue_Seasonal_DayOfMonth_residue_NoAR' [PolyTrend + Seasonal_DayOfMonth + NoAR]
-INFO:pyaf.std:TREND_DETAIL 'Diff_Signal_Q_PolyTrend' [PolyTrend]
-INFO:pyaf.std:CYCLE_DETAIL 'Diff_Signal_Q_PolyTrend_residue_Seasonal_DayOfMonth' [Seasonal_DayOfMonth]
-INFO:pyaf.std:AUTOREG_DETAIL 'Diff_Signal_Q_PolyTrend_residue_Seasonal_DayOfMonth_residue_NoAR' [NoAR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.1297 MAPE_Forecast=0.1297 MAPE_Test=0.1297
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.1492 SMAPE_Forecast=0.1492 SMAPE_Test=0.1492
-INFO:pyaf.std:MODEL_MASE MASE_Fit=0.2207 MASE_Forecast=0.2207 MASE_Test=0.2207
-INFO:pyaf.std:MODEL_L1 L1_Fit=16.062475432536427 L1_Forecast=16.062475432536427 L1_Test=16.062475432536427
-INFO:pyaf.std:MODEL_L2 L2_Fit=18.456837369965267 L2_Forecast=18.456837369965267 L2_Test=18.456837369965267
-INFO:pyaf.std:MODEL_COMPLEXITY 52
-INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
-INFO:pyaf.std:DIFFERENCING_TRANSFORMATION Difference 39.15353109322899
-INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
-INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:POLYNOMIAL_RIDGE_TREND PolyTrend (59.631883409618226, array([-11.54796233, -13.6024255 , -12.5591831 ]))
-INFO:pyaf.std:TREND_DETAIL_END
-INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:SEASONAL_MODEL_VALUES Diff_Signal_Q_PolyTrend_residue_Seasonal_DayOfMonth 9.59353799860087 {28: -74.90707229101167, 29: 65.3135342924108, 30: 9.59353799860087}
-INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
-INFO:pyaf.std:AR_MODEL_DETAIL_START
-INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_HIERARCHICAL_FORECASTING
-INFO:pyaf.std:START_FORECASTING '['Signal_W', 'Signal_2W', 'Signal_M', 'Signal_Q']'
-<class 'pandas.core.frame.DataFrame'>
-RangeIndex: 360 entries, 0 to 359
-Data columns (total 2 columns):
- #   Column  Non-Null Count  Dtype         
----  ------  --------------  -----         
- 0   Date    360 non-null    datetime64[ns]
- 1   Signal  360 non-null    float64       
-dtypes: datetime64[ns](1), float64(1)
-memory usage: 5.8 KB
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal_W', 'Signal_2W', 'Signal_M', 'Signal_Q']' 2.491361618041992
-INFO:pyaf.hierarchical:FORECASTING_HIERARCHICAL_MODEL_COMBINATION_METHODS ['BU', 'TD', 'MO', 'OC']
-INFO:pyaf.hierarchical:FORECASTING_HIERARCHICAL_MODEL_BOTTOM_UP_METHOD BU
-INFO:pyaf.hierarchical:FORECASTING_HIERARCHICAL_MODEL_TOP_DOWN_METHOD AHP_TD
-INFO:pyaf.hierarchical:FORECASTING_HIERARCHICAL_MODEL_TOP_DOWN_METHOD PHA_TD
-INFO:pyaf.hierarchical:FORECASTING_HIERARCHICAL_MODEL_MIDDLE_OUT_METHOD MO
-INFO:pyaf.hierarchical:FORECASTING_HIERARCHICAL_MODEL_OPTIMAL_COMBINATION_METHOD OC
-INFO:pyaf.std:END_HIERARCHICAL_FORECAST_TIME_IN_SECONDS 2.6062798500061035
-<class 'pandas.core.frame.DataFrame'>
-Int64Index: 396 entries, 0 to 395
-Data columns (total 40 columns):
- #   Column                          Non-Null Count  Dtype         
----  ------                          --------------  -----         
- 0   TH_M_start                      14 non-null     datetime64[ns]
- 1   TH_W_start                      396 non-null    datetime64[ns]
- 2   TH_2W_start                     198 non-null    datetime64[ns]
- 3   TH_Q_start                      6 non-null      datetime64[ns]
- 4   Signal_W                        360 non-null    float64       
- 5   Signal_W_Forecast               396 non-null    float64       
- 6   Signal_W_Forecast_Lower_Bound   36 non-null     float64       
- 7   Signal_W_Forecast_Upper_Bound   36 non-null     float64       
- 8   Signal_2W                       180 non-null    float64       
- 9   Signal_2W_Forecast              198 non-null    float64       
- 10  Signal_2W_Forecast_Lower_Bound  18 non-null     float64       
- 11  Signal_2W_Forecast_Upper_Bound  18 non-null     float64       
- 12  Signal_M                        14 non-null     float64       
- 13  Signal_M_Forecast               14 non-null     float64       
- 14  Signal_M_Forecast_Lower_Bound   0 non-null      float64       
- 15  Signal_M_Forecast_Upper_Bound   0 non-null      float64       
- 16  Signal_Q                        361 non-null    float64       
- 17  Signal_Q_Forecast               396 non-null    float64       
- 18  Signal_Q_Forecast_Lower_Bound   0 non-null      float64       
- 19  Signal_Q_Forecast_Upper_Bound   0 non-null      float64       
- 20  Signal_W_BU_Forecast            396 non-null    float64       
- 21  Signal_2W_BU_Forecast           396 non-null    float64       
- 22  Signal_M_BU_Forecast            198 non-null    float64       
- 23  Signal_Q_BU_Forecast            14 non-null     float64       
- 24  Signal_Q_AHP_TD_Forecast        396 non-null    float64       
- 25  Signal_M_AHP_TD_Forecast        396 non-null    float64       
- 26  Signal_2W_AHP_TD_Forecast       396 non-null    float64       
- 27  Signal_W_AHP_TD_Forecast        396 non-null    float64       
- 28  Signal_Q_PHA_TD_Forecast        396 non-null    float64       
- 29  Signal_M_PHA_TD_Forecast        396 non-null    float64       
- 30  Signal_2W_PHA_TD_Forecast       396 non-null    float64       
- 31  Signal_W_PHA_TD_Forecast        396 non-null    float64       
- 32  Signal_M_MO_Forecast            14 non-null     float64       
- 33  Signal_2W_MO_Forecast           14 non-null     float64       
- 34  Signal_W_MO_Forecast            14 non-null     float64       
- 35  Signal_Q_MO_Forecast            14 non-null     float64       
- 36  Signal_W_OC_Forecast            8 non-null      float64       
- 37  Signal_2W_OC_Forecast           8 non-null      float64       
- 38  Signal_M_OC_Forecast            8 non-null      float64       
- 39  Signal_Q_OC_Forecast            8 non-null      float64       
-dtypes: datetime64[ns](4), float64(36)
-memory usage: 146.8 KB
-    TH_M_start TH_W_start  ... Signal_M_OC_Forecast Signal_Q_OC_Forecast
-391        NaT 2008-07-27  ...                  NaN                  NaN
-392        NaT 2008-08-03  ...                  NaN                  NaN
-393        NaT 2008-08-10  ...                  NaN                  NaN
-394        NaT 2008-08-17  ...                  NaN                  NaN
-395        NaT 2008-08-24  ...                  NaN                  NaN
+ERROR:pyaf.std:Failure when computing perf ['Signal_Q'] 'Signal_Q'
+Traceback (most recent call last):
+  File "/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/Perf.py", line 80, in compute
+    return self.real_compute(signal, estimator, name);
+  File "/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/Perf.py", line 129, in real_compute
+    self.mSignalQuantiles = self.compute_signal_quantiles(signal , estimator);
+  File "/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/Perf.py", line 135, in compute_signal_quantiles
+    Q = int(100 // NQ)
+ZeroDivisionError: integer division or modulo by zero
 
-[5 rows x 40 columns]
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/antoine/dev/python/packages/timeseries/pyaf/tests/temporal_hierarchy/test_temporal_demo_weekly_W_2W_M_Q.py", line 50, in <module>
+    lSignalHierarchy = lEngine.train(df_train , lDateColumn, lSignalVar, H, lHierarchy, None);
+  File "/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/HierarchicalForecastEngine.py", line 25, in train
+    raise error
+  File "/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/HierarchicalForecastEngine.py", line 23, in train
+    self.train_HierarchicalModel(iInputDS, iTime, iSignal, iHorizon, iHierarchy, iExogenousData);
+  File "/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/HierarchicalForecastEngine.py", line 103, in train_HierarchicalModel
+    self.mSignalHierarchy.fit();
+  File "/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalHierarchy.py", line 213, in fit
+    self.computePerfOnCombinedForecasts(lForecast_DF.head(lForecast_DF.shape[0] - self.mHorizon));
+  File "/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalHierarchy.py", line 370, in computePerfOnCombinedForecasts
+    lPerfValid = lEngine.computePerf(lFrameValid[signal], lFrameValid[str(signal) + "_Forecast"], signal)
+  File "/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/ForecastEngine.py", line 63, in computePerf
+    lForecastPerf.compute(actual, predicted, name);
+  File "/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/Perf.py", line 85, in compute
+    raise tsutil.Internal_PyAF_Error("Failure when computing perf ['" + self.mName + "'] '" + name + "'");
+pyaf.TS.Utils.Internal_PyAF_Error: Failure when computing perf ['Signal_Q'] 'Signal_Q'

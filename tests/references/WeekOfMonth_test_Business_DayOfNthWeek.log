@@ -18,6 +18,8 @@ Data columns (total 5 columns):
 dtypes: datetime64[ns](1), float64(1), int64(3)
 memory usage: 390.8 KB
 None
+/usr/lib/python3/dist-packages/scipy/stats/stats.py:3913: PearsonRConstantInputWarning: An input array is constant; the correlation coefficent is not defined.
+  warnings.warn(PearsonRConstantInputWarning())
 INFO:pyaf.std:collectPerformanceIndices : MAPE None _Signal_ConstantTrend_residue_Seasonal_DayOfNthWeekOfMonth_residue_NoAR 4 0.0493
 INFO:pyaf.std:collectPerformanceIndices : MAPE None _Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR 8 2.3461
 INFO:pyaf.std:collectPerformanceIndices : MAPE None _Signal_ConstantTrend_residue_zeroCycle_residue_NoAR 0 3.9667
@@ -402,10 +404,10 @@ INFO:pyaf.std:collectPerformanceIndices : MAPE None CumSum_Signal Integration_Po
 INFO:pyaf.std:collectPerformanceIndices : MAPE None CumSum_Signal Integration_PolyTrend_Seasonal_WeekOfYear_NoAR 52 8.3827
 INFO:pyaf.std:collectPerformanceIndices : MAPE None CumSum_Signal Integration_PolyTrend_Cycle_None_NoAR 56 3.7082
 INFO:pyaf.std:collectPerformanceIndices : MAPE None CumSum_Signal Integration_PolyTrend_NoCycle_NoAR 48 3.7082
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 71.90935373306274
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 355.5679626464844
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time_Hourly' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2000-11-28T11:00:00.000000 TimeDelta=<DateOffset: hours=1> Horizon=24
-INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=10000  Min=2.0460889218351275 Max=128.97642295777942  Mean=58.20357146382517 StdDev=50.73285407810681
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='CumSum_Signal' Min=6.904896811203461 Max=582035.7146382505  Mean=287070.56182537746 StdDev=170703.72771107237
+INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=10000  Min=2.0460889218351275 Max=128.97642295777942  Mean=58.20357146382505 StdDev=50.732854078106854
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='CumSum_Signal' Min=6.904896811203461 Max=582035.7146382505  Mean=287070.5618253782 StdDev=170703.7277110725
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'CumSum_'
 INFO:pyaf.std:BEST_DECOMPOSITION  'CumSum_Signal_Lag1Trend_residue_Seasonal_DayOfNthWeekOfMonth_residue_NoAR' [Lag1Trend + Seasonal_DayOfNthWeekOfMonth + NoAR]
 INFO:pyaf.std:TREND_DETAIL 'CumSum_Signal_Lag1Trend' [Lag1Trend]
@@ -414,7 +416,7 @@ INFO:pyaf.std:AUTOREG_DETAIL 'CumSum_Signal_Lag1Trend_residue_Seasonal_DayOfNthW
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0983 MAPE_Forecast=0.1092 MAPE_Test=0.0615
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0914 SMAPE_Forecast=0.0924 SMAPE_Test=0.0607
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.5924 MASE_Forecast=0.6113 MASE_Test=0.3087
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=14.606212652984617 CRPS_Forecast=14.504196454992915 CRPS_Test=5.743377004020869
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=14.606212652984691 CRPS_Forecast=14.504196454992933 CRPS_Test=5.7433770040208705
 INFO:pyaf.std:MODEL_L1 L1_Fit=1.2764263160104408 L1_Forecast=1.361697843252755 L1_Test=0.7650059074907231
 INFO:pyaf.std:MODEL_L2 L2_Fit=3.1465134986403225 L2_Forecast=3.8434676879479586 L2_Test=0.8636215044609465
 INFO:pyaf.std:MODEL_COMPLEXITY 68
@@ -430,9 +432,9 @@ INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_FORECASTING '['Signal']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 0.8353018760681152
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 8.649378538131714
 INFO:pyaf.std:START_PLOTTING
-INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 4.717419624328613
+INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 34.726909160614014
   Split Transformation  ... TestMASE TestCRPS
 0  None  CumSum_Signal  ...   0.3087     None
 1  None        _Signal  ...   0.3365     None
@@ -521,7 +523,7 @@ Forecasts
         },
         "Model_Performance": {
             "COMPLEXITY": "68",
-            "CRPS": "14.504196454992915",
+            "CRPS": "14.504196454992933",
             "MAE": "1.361697843252755",
             "MAPE": "0.1092",
             "MASE": "0.6113",
