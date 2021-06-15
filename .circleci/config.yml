@@ -21,7 +21,7 @@ jobs:
       - python/install-packages:
           pkg-manager: pip
       - run:
-          name: Test Macjhine Info
+          name: Test Machine Info
           command: |
             df
             free
@@ -32,6 +32,9 @@ jobs:
           command: |
             sudo apt update
             sudo apt-get install -y graphviz python3-sklearn python3-pandas python3-sqlalchemy python3-matplotlib jupyter-notebook python3-ipython python3-scipy python3-numpy python3-dill python3-pydot
+      - run:
+          name: Install Python Packages(most recent versions) 
+          command: |
             pip install numpy scipy pandas sklearn matplotlib pydot dill sqlalchemy jupyter xgboost ipython lightgbm
       - run:
           name: Initial Cleanup
@@ -42,16 +45,21 @@ jobs:
             rm -rf ~/.matplotlib/fontList.cache  
             fc-cache 
       - run:
-          name: Basic Tests
+          name: Check Installed Versions
           command: |
             export PYTHONPATH=$PYTHONPATH:.
             python ./tests/bugs/issue_36/display_version_info.py
+      - run:
+          name: Basic Tests
+          command: |
+            export PYTHONPATH=$PYTHONPATH:.
             python tests/demos/demo1.py
             python tests/func/test_ozone.py
             python tests/func/test_air_passengers.py
       - run:
           name: Build Tests
           command: |
+            export PYTHONPATH=$PYTHONPATH:.
             make PYTHON=python -f tests/Makefile -j 8 build-test
             python scripts/upload_to_chunk.io.py
       - run:
