@@ -1,8 +1,7 @@
 import os
-myhost = os.uname()[1]
-print(myhost)
-if("travis-job" in myhost):
-    print("on travis-ci")
+circleci = os.environ.get("", None)
+if(circleci == "true"):
+    print("on circleci")
     os.system("tar cvfz last_logs.tar.gz logs/")
     os.system("curl -s -T last_logs.tar.gz curldu.mp")
 
