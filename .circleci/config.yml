@@ -32,7 +32,7 @@ jobs:
             sudo apt update
             sudo apt-get install -y graphviz python3-sklearn python3-pandas python3-sqlalchemy python3-matplotlib jupyter-notebook python3-ipython python3-scipy python3-numpy python3-dill python3-pydot
       - run:
-          name: Install Python Packages(most recent versions) 
+          name: Install Python Packages (most recent versions) 
           command: |
             pip install numpy scipy pandas sklearn matplotlib pydot dill sqlalchemy jupyter xgboost ipython lightgbm
       - run:
@@ -59,7 +59,7 @@ jobs:
           name: Build Tests
           command: |
             export PYTHONPATH=$PYTHONPATH:.
-            make PYTHON=python -f tests/Makefile -j 16 build-test
+            make PYTHON=python -f tests/Makefile build-test
       - run:
           name: Upload logs
           command: |
