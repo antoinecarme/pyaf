@@ -59,7 +59,10 @@ jobs:
           name: Build Tests
           command: |
             export PYTHONPATH=$PYTHONPATH:.
-            make PYTHON=python -f tests/Makefile -j 8 build-test
+            make PYTHON=python -f tests/Makefile -j 16 build-test
+      - run:
+          name: Upload logs
+          command: |
             python scripts/upload_to_chunk.io.py
       - run:
           name: Jupyter Notebooks
