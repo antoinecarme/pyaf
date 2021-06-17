@@ -1,5 +1,5 @@
 import os
-circleci = os.environ.get("", None)
+circleci = os.environ.get("CIRCLECI", None)
 if(circleci == "true"):
     print("on circleci")
     os.system("tar cvfz last_logs.tar.gz logs/")
