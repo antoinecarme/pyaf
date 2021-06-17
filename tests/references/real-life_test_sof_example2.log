@@ -389,10 +389,10 @@ INFO:pyaf.std:collectPerformanceIndices : MAPE None CumSum_dengue_index Integrat
 INFO:pyaf.std:collectPerformanceIndices : MAPE None CumSum_dengue_index Integration_PolyTrend_Cycle_None_NoAR 56 0.4279
 INFO:pyaf.std:collectPerformanceIndices : MAPE None CumSum_dengue_index Integration_PolyTrend_NoCycle_AR 112 0.0232
 INFO:pyaf.std:collectPerformanceIndices : MAPE None CumSum_dengue_index Integration_PolyTrend_NoCycle_NoAR 48 0.4279
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['dengue_index']' 29.392455339431763
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['dengue_index']' 5.855750322341919
 INFO:pyaf.std:TIME_DETAIL TimeVariable='date' TimeMin=2010-01-01T00:00:00.000000 TimeMax=2014-06-11T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=5
-INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='dengue_index' Length=2034  Min=0.109196345 Max=0.377576611  Mean=0.2029481254252704 StdDev=0.08800258476886157
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_dengue_index' Min=0.109196345 Max=0.377576611  Mean=0.2029481254252704 StdDev=0.08800258476886157
+INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='dengue_index' Length=2034  Min=0.109196345 Max=0.377576611  Mean=0.20294812542527074 StdDev=0.08800258476886165
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_dengue_index' Min=0.109196345 Max=0.377576611  Mean=0.20294812542527074 StdDev=0.08800258476886165
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
 INFO:pyaf.std:BEST_DECOMPOSITION  '_dengue_index_Lag1Trend_residue_zeroCycle_residue_NoAR' [Lag1Trend + NoCycle + NoAR]
 INFO:pyaf.std:TREND_DETAIL '_dengue_index_Lag1Trend' [Lag1Trend]
@@ -401,15 +401,17 @@ INFO:pyaf.std:AUTOREG_DETAIL '_dengue_index_Lag1Trend_residue_zeroCycle_residue_
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0127 MAPE_Forecast=0.0138 MAPE_Test=0.0069
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0122 SMAPE_Forecast=0.0126 SMAPE_Test=0.0069
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.9994 MASE_Forecast=0.9993 MASE_Test=0.8936
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=0.025890373885269158 CRPS_Forecast=0.02441309125000324 CRPS_Test=0.0004322678999999996
-INFO:pyaf.std:MODEL_L1 L1_Fit=0.002381172178065311 L1_Forecast=0.002337476751231527 L1_Test=0.0007812789999999987
-INFO:pyaf.std:MODEL_L2 L2_Fit=0.0072506761501357885 L2_Forecast=0.008197099249173069 L2_Test=0.0010444206701429248
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=0.025890373885269158 CRPS_Forecast=0.02441309125000324 CRPS_Test=0.00043226790000000097
+INFO:pyaf.std:MODEL_L1 L1_Fit=0.0023811721780653107 L1_Forecast=0.002337476751231526 L1_Test=0.0007812789999999987
+INFO:pyaf.std:MODEL_L2 L2_Fit=0.007250676150135788 L2_Forecast=0.008197099249173069 L2_Test=0.0010444206701429293
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=2.611085876639124 LnQ_Forecast=0.9558572188477477 LnQ_Test=0.00042534537217634084
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.0012042449999999927 MedAE_Forecast=0.001029028999999973 MedAE_Test=0.0004090849999999896
 INFO:pyaf.std:MODEL_COMPLEXITY 32
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:LAG1_TREND Lag1Trend 0.169194109
+INFO:pyaf.std:LAG1_TREND Lag1Trend 0.16919410899999998
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
 INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _dengue_index_Lag1Trend_residue_zeroCycle 0.0 {}
@@ -417,9 +419,9 @@ INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_PLOTTING
-INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 3.380763053894043
+INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 5.471020936965942
 INFO:pyaf.std:START_FORECASTING '['dengue_index']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['dengue_index']' 0.10680150985717773
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['dengue_index']' 0.18973374366760254
   Split Transformation  ... TestMASE TestCRPS
 0  None  _dengue_index  ...   0.6216     None
 1  None  _dengue_index  ...   0.9291     None
@@ -441,12 +443,25 @@ Forecast Columns  Index(['date', 'dengue_index', 'row_number', 'date_Normalized'
        '_dengue_index_TransformedForecast', 'dengue_index_Forecast',
        '_dengue_index_TransformedResidue', 'dengue_index_Residue',
        'dengue_index_Forecast_Lower_Bound',
-       'dengue_index_Forecast_Upper_Bound',
+       'dengue_index_Forecast_Upper_Bound', 'dengue_index_Forecast_Quantile_5',
        'dengue_index_Forecast_Quantile_10',
+       'dengue_index_Forecast_Quantile_15',
+       'dengue_index_Forecast_Quantile_20',
+       'dengue_index_Forecast_Quantile_25',
        'dengue_index_Forecast_Quantile_30',
+       'dengue_index_Forecast_Quantile_35',
+       'dengue_index_Forecast_Quantile_40',
+       'dengue_index_Forecast_Quantile_45',
        'dengue_index_Forecast_Quantile_50',
+       'dengue_index_Forecast_Quantile_55',
+       'dengue_index_Forecast_Quantile_60',
+       'dengue_index_Forecast_Quantile_65',
        'dengue_index_Forecast_Quantile_70',
-       'dengue_index_Forecast_Quantile_90'],
+       'dengue_index_Forecast_Quantile_75',
+       'dengue_index_Forecast_Quantile_80',
+       'dengue_index_Forecast_Quantile_85',
+       'dengue_index_Forecast_Quantile_90',
+       'dengue_index_Forecast_Quantile_95'],
       dtype='object')
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 2039 entries, 0 to 2038
@@ -502,9 +517,11 @@ Forecasts
         "Model_Performance": {
             "COMPLEXITY": "32",
             "CRPS": "0.02441309125000324",
-            "MAE": "0.002337476751231527",
+            "LnQ": "0.9558572188477477",
+            "MAE": "0.002337476751231526",
             "MAPE": "0.0138",
             "MASE": "0.9993",
+            "MedAE": "0.001029028999999973",
             "RMSE": "0.008197099249173069"
         }
     }

@@ -10,11 +10,11 @@ DATASET_FINAL_COLUMNS Index(['Unnamed: 0', 'Symbol', 'Date', 'Close', 'Low', 'Vo
 TRAIN_PARAMS (857, 9) Index(['Unnamed: 0', 'Symbol', 'Date', 'Close', 'Low', 'Volume', 'Open',
        'Adj_Close', 'High'],
       dtype='object') Date Close 21
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Close']' 16.01534104347229
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Close']' 5.357708930969238
 INFO:pyaf.std:START_FORECASTING '['Close']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Close']' 0.24419784545898438
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Close']' 0.4116361141204834
 INFO:pyaf.std:START_FORECASTING '['Close']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Close']' 0.22934579849243164
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Close']' 0.366945743560791
   Split Transformation  ... ForecastMAPE TestMAPE
 0  None         _Close  ...       0.0121   0.0102
 1  None         _Close  ...       0.0121   0.0106
@@ -34,9 +34,13 @@ Forecast Columns  Index(['Date', 'Close', 'row_number', 'Date_Normalized', '_Clo
        '_Close_TransformedForecast', 'Close_Forecast',
        '_Close_TransformedResidue', 'Close_Residue',
        'Close_Forecast_Lower_Bound', 'Close_Forecast_Upper_Bound',
-       'Close_Forecast_Quantile_10', 'Close_Forecast_Quantile_30',
-       'Close_Forecast_Quantile_50', 'Close_Forecast_Quantile_70',
-       'Close_Forecast_Quantile_90'],
+       'Close_Forecast_Quantile_2', 'Close_Forecast_Quantile_10',
+       'Close_Forecast_Quantile_18', 'Close_Forecast_Quantile_26',
+       'Close_Forecast_Quantile_34', 'Close_Forecast_Quantile_42',
+       'Close_Forecast_Quantile_50', 'Close_Forecast_Quantile_58',
+       'Close_Forecast_Quantile_66', 'Close_Forecast_Quantile_74',
+       'Close_Forecast_Quantile_82', 'Close_Forecast_Quantile_90',
+       'Close_Forecast_Quantile_98'],
       dtype='object')
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 878 entries, 0 to 877
@@ -99,10 +103,12 @@ Forecasts
         "Model_Performance": {
             "COMPLEXITY": "32",
             "CRPS": "19.116303379394875",
-            "MAE": "7.5009137321428545",
+            "LnQ": "0.06762097969376754",
+            "MAE": "7.500913732142857",
             "MAPE": "0.0121",
             "MASE": "0.995",
-            "RMSE": "12.51238590052718"
+            "MedAE": "4.595008999999948",
+            "RMSE": "12.512385900527176"
         }
     }
 }

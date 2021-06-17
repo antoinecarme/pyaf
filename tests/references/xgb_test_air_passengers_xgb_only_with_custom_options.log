@@ -63,7 +63,7 @@ INFO:pyaf.std:collectPerformanceIndices : MAPE None CumSum_AirPassengers Integra
 INFO:pyaf.std:collectPerformanceIndices : MAPE None CumSum_AirPassengers Integration_LinearTrend_NoCycle_XGB 72 0.4856
 INFO:pyaf.std:collectPerformanceIndices : MAPE None CumSum_AirPassengers Integration_PolyTrend_Cycle_None_XGB 80 0.1743
 INFO:pyaf.std:collectPerformanceIndices : MAPE None CumSum_AirPassengers Integration_PolyTrend_NoCycle_XGB 72 0.1743
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['AirPassengers']' 15.719886302947998
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['AirPassengers']' 1.678312063217163
 INFO:pyaf.std:TIME_DETAIL TimeVariable='time' TimeMin=1949.0 TimeMax=1956.91666666667 TimeDelta=0.08333333333336763 Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='AirPassengers' Length=132  Min=104 Max=559  Mean=262.49242424242425 StdDev=106.22114554451818
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_AirPassengers' Min=104 Max=559  Mean=262.49242424242425 StdDev=106.22114554451818
@@ -75,9 +75,11 @@ INFO:pyaf.std:AUTOREG_DETAIL '_AirPassengers_Lag1Trend_residue_zeroCycle_residue
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0281 MAPE_Forecast=0.045 MAPE_Test=0.0489
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0282 SMAPE_Forecast=0.0443 SMAPE_Test=0.0486
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.2999 MASE_Forecast=0.4656 MASE_Test=0.4746
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=20.309750194701056 CRPS_Forecast=18.871105708181858 CRPS_Test=21.649740363375347
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=20.30975019470106 CRPS_Forecast=18.871105708181858 CRPS_Test=21.649740363375354
 INFO:pyaf.std:MODEL_L1 L1_Fit=5.6074162516742945 L1_Forecast=17.249076053500175 L1_Test=21.357190211613972
 INFO:pyaf.std:MODEL_L2 L2_Fit=7.182765451765229 L2_Forecast=23.29300793111707 L2_Test=28.400064014099645
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.12328160012052346 LnQ_Forecast=0.07884410771779485 LnQ_Test=0.045628969031813314
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=4.789776563644409 MedAE_Forecast=14.233430862426758 MedAE_Test=16.82925844192505
 INFO:pyaf.std:MODEL_COMPLEXITY 56
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
@@ -91,9 +93,9 @@ INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_PLOTTING
-INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 46.72844576835632
+INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 5.450030326843262
 INFO:pyaf.std:START_FORECASTING '['AirPassengers']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['AirPassengers']' 3.6687841415405273
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['AirPassengers']' 0.3565640449523926
   Split      Transformation  ... TestMASE TestCRPS
 0  None      _AirPassengers  ...   0.4746     None
 1  None      _AirPassengers  ...   0.5315     None
@@ -116,11 +118,9 @@ Forecast Columns  Index(['time', 'AirPassengers', 'row_number', 'time_Normalized
        '_AirPassengers_TransformedResidue', 'AirPassengers_Residue',
        'AirPassengers_Forecast_Lower_Bound',
        'AirPassengers_Forecast_Upper_Bound',
-       'AirPassengers_Forecast_Quantile_10',
-       'AirPassengers_Forecast_Quantile_30',
+       'AirPassengers_Forecast_Quantile_25',
        'AirPassengers_Forecast_Quantile_50',
-       'AirPassengers_Forecast_Quantile_70',
-       'AirPassengers_Forecast_Quantile_90'],
+       'AirPassengers_Forecast_Quantile_75'],
       dtype='object')
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 144 entries, 0 to 143
@@ -190,9 +190,11 @@ Forecasts
         "Model_Performance": {
             "COMPLEXITY": "56",
             "CRPS": "18.871105708181858",
+            "LnQ": "0.07884410771779485",
             "MAE": "17.249076053500175",
             "MAPE": "0.045",
             "MASE": "0.4656",
+            "MedAE": "14.233430862426758",
             "RMSE": "23.29300793111707"
         }
     }

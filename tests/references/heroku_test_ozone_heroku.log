@@ -4,11 +4,11 @@ None
 DATASET_DETECTED_COLUMNS Index(['Month', 'Ozone'], dtype='object')
 DATASET_FINAL_COLUMNS Index(['Month', 'Ozone'], dtype='object')
 TRAIN_PARAMS (216, 2) Index(['Month', 'Ozone'], dtype='object') Month Ozone 12
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Ozone']' 5.618689060211182
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Ozone']' 2.651559829711914
 INFO:pyaf.std:START_FORECASTING '['Ozone']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Ozone']' 0.3058278560638428
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Ozone']' 0.5228688716888428
 INFO:pyaf.std:START_FORECASTING '['Ozone']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Ozone']' 0.3063342571258545
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Ozone']' 0.47278499603271484
   Split Transformation  ... ForecastMAPE TestMAPE
 0  None         _Ozone  ...       0.1911   0.1412
 1  None         _Ozone  ...       0.1928   0.1521
@@ -28,9 +28,10 @@ Forecast Columns  Index(['Month', 'Ozone', 'row_number', 'Month_Normalized', '_O
        '_Ozone_TransformedForecast', 'Ozone_Forecast',
        '_Ozone_TransformedResidue', 'Ozone_Residue',
        'Ozone_Forecast_Lower_Bound', 'Ozone_Forecast_Upper_Bound',
-       'Ozone_Forecast_Quantile_10', 'Ozone_Forecast_Quantile_30',
-       'Ozone_Forecast_Quantile_50', 'Ozone_Forecast_Quantile_70',
-       'Ozone_Forecast_Quantile_90'],
+       'Ozone_Forecast_Quantile_2', 'Ozone_Forecast_Quantile_18',
+       'Ozone_Forecast_Quantile_34', 'Ozone_Forecast_Quantile_50',
+       'Ozone_Forecast_Quantile_66', 'Ozone_Forecast_Quantile_82',
+       'Ozone_Forecast_Quantile_98'],
       dtype='object')
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 228 entries, 0 to 227
@@ -84,10 +85,12 @@ Forecasts
         "Model_Performance": {
             "COMPLEXITY": "56",
             "CRPS": "0.29579469749759796",
-            "MAE": "0.5259990223234974",
+            "LnQ": "3.065808781205109",
+            "MAE": "0.5259990223234972",
             "MAPE": "0.1911",
             "MASE": "0.7568",
-            "RMSE": "0.6332578057427524"
+            "MedAE": "0.461258614253524",
+            "RMSE": "0.6332578057427523"
         }
     }
 }
