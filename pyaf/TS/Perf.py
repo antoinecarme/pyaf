@@ -25,13 +25,14 @@ class cPerf:
         self.mName = "No_Name";
         self.mSignalQuantiles = None
         self.mCRPS = None # Continuous Ranked Probability Score ( issue #47 )
+        self.mLnQ = None
         self.mDebug = False;
 
     def to_dict(self):
         lDict = {"Signal" : self.mName , "Length" : self.mCount, "MAPE" : self.mMAPE,
                  "RMSE" : self.mL2,  "MAE" : self.mL1,  "SMAPE" : self.mSMAPE,
                  "ErrorMean" : self.mErrorMean, "ErrorStdDev" : self.mErrorStdDev, 
-                 "R2" : self.mR2, "Pearson" : self.mPearsonR, "MedAE": self.mMedAE}
+                 "R2" : self.mR2, "Pearson" : self.mPearsonR, "MedAE": self.mMedAE, "LnQ" : self.mLnQ}
         return lDict
     
     def check_not_nan(self, sig , name):
@@ -66,6 +67,15 @@ class cPerf:
         SSRes = np.sum((signal.values - estimator.values)**2)
         R2 = 1 - SSRes/SST
         return R2
+
+    def compute_LnQ(self, signal , estimator):
+        min_signal , min_estimator = signal.min() , estimator.min()
+        # return +inf if the signals are not strictly positive (discard the model)
+        self.mLnQ = np.Inf
+        if(min_signal > 0.0 and min_estimator > 0.0):
+            log_diff = np.log(estimator) - np.log(signal)
+            self.mLnQ = np.sum(log_diff * log_diff)
+        return self.mLnQ
 
     def dump_perf_data(self, signal , estimator):
         logger = tsutil.get_pyaf_logger();
@@ -125,6 +135,7 @@ class cPerf:
         self.mL2 = np.sqrt(np.mean(abs_error ** 2))
         self.mCount = signal.shape[0];
         self.mR2 = self.compute_R2(signal, estimator)
+        self.mLnQ = self.compute_LnQ(signal, estimator)
         
         self.mPearsonR = self.compute_pearson_r(signal , estimator);
         self.mSignalQuantiles = self.compute_signal_quantiles(signal , estimator);
@@ -180,6 +191,9 @@ class cPerf:
         if(criterion == "R2"):
             self.mR2 = self.compute_R2(signal, estimator)
             return self.mR2;
+        if(criterion == "LnQ"):
+            self.mLnQ = self.compute_LnQ(signal, estimator)
+            return self.mLnQ;
         if(criterion == "PEARSONR"):
             self.mPearsonR = self.compute_pearson_r(signal , estimator)
             return self.mPearsonR;
@@ -209,6 +223,8 @@ class cPerf:
             return self.mL1;
         if(criterion == "MedAE"):
             return self.mMedAE;
+        if(criterion == "LnQ"):
+            return self.mLnQ;
         if(criterion == "L2" or criterion == "RMSE"):
             return self.mL2;
         if(criterion == "R2"):
