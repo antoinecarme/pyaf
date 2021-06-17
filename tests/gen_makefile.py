@@ -31,6 +31,7 @@ str1 = "artificial basic_checks bugs cross_validation croston exog expsmooth fun
 str1 = str1 + " probabilistic_forecasting"
 str1 = str1 + " lgbm"
 str1 = str1 + " perf_MedAE"
+str1 = str1 + " perf_LnQ"
 subdirs = str1.split();
 
 print("PYTHON=timeout 600 python3\n\n");
@@ -48,6 +49,6 @@ print("\n# ********************************************** \n");
 
 print("all: " , str1 , "\n\t\n");
 
-str2 = "demos basic_checks cross_validation croston exog heroku hierarchical model_control perfs svr transformations func real-life  time_res xgb sampling HourOfWeek WeekOfMonth missing_data lgbm perf_MedAE";
+str2 = "demos basic_checks cross_validation croston exog heroku hierarchical model_control perfs svr transformations func real-life  time_res xgb sampling HourOfWeek WeekOfMonth missing_data lgbm perf_MedAE perf_LnQ";
 
 print("build-test : " , str2 , "\n\t\n");
