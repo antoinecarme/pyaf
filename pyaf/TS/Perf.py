@@ -20,6 +20,7 @@ class cPerf:
         self.mL2 = None;
         self.mR2 = None;
         self.mPearsonR = None;
+        self.mMedAE = None;
         self.mCount = None;
         self.mName = "No_Name";
         self.mSignalQuantiles = None
@@ -30,7 +31,7 @@ class cPerf:
         lDict = {"Signal" : self.mName , "Length" : self.mCount, "MAPE" : self.mMAPE,
                  "RMSE" : self.mL2,  "MAE" : self.mL1,  "SMAPE" : self.mSMAPE,
                  "ErrorMean" : self.mErrorMean, "ErrorStdDev" : self.mErrorStdDev, 
-                 "R2" : self.mR2, "Pearson" : self.mPearsonR}
+                 "R2" : self.mR2, "Pearson" : self.mPearsonR, "MedAE": self.mMedAE}
         return lDict
     
     def check_not_nan(self, sig , name):
@@ -128,6 +129,7 @@ class cPerf:
         self.mPearsonR = self.compute_pearson_r(signal , estimator);
         self.mSignalQuantiles = self.compute_signal_quantiles(signal , estimator);
         self.mCRPS = self.compute_CRPS(signal , estimator);
+        self.mMedAE = np.median(abs_error)
 
     def compute_signal_quantiles(self, signal , estimator):
         myerror = (estimator.values - signal.values);
@@ -166,6 +168,11 @@ class cPerf:
             abs_error = abs(myerror)
             self.mL1 = np.mean(abs_error)
             return self.mL1;
+        if(criterion == "MedAE"):
+            myerror = (estimator.values - signal.values);
+            abs_error = abs(myerror)
+            self.mMedAE = np.median(abs_error)
+            return self.mMedAE;
         if(criterion == "L2" or criterion == "RMSE"):
             myerror = (estimator.values - signal.values);
             self.mL2 = np.sqrt(np.mean(myerror ** 2))
@@ -200,6 +207,8 @@ class cPerf:
     def getCriterionValue(self, criterion):
         if(criterion == "L1" or criterion == "MAE"):
             return self.mL1;
+        if(criterion == "MedAE"):
+            return self.mMedAE;
         if(criterion == "L2" or criterion == "RMSE"):
             return self.mL2;
         if(criterion == "R2"):
