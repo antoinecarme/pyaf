@@ -1636,6 +1636,21 @@ perf/test_web-traffic-time-series-forecasting_all.py  :
  perf :  perf/test_web-traffic-time-series-forecasting_all.py perf/test_web-traffic-time-series-forecasting.py perf/test_perf2.py perf/test_perf1.py perf/test_parallel.py perf/test_ozone_long_series_2.py perf/test_ozone_long_series.py perf/test_ozone_debug_perf.py perf/test_ozone_ar_speed_order_950.py perf/test_ozone_ar_speed_order_900.py perf/test_ozone_ar_speed_order_850.py perf/test_ozone_ar_speed_order_800.py perf/test_ozone_ar_speed_order_750.py perf/test_ozone_ar_speed_order_700.py perf/test_ozone_ar_speed_order_650.py perf/test_ozone_ar_speed_order_600.py perf/test_ozone_ar_speed_order_550.py perf/test_ozone_ar_speed_order_500.py perf/test_ozone_ar_speed_order_50.py perf/test_ozone_ar_speed_order_450.py perf/test_ozone_ar_speed_order_400.py perf/test_ozone_ar_speed_order_350.py perf/test_ozone_ar_speed_order_300.py perf/test_ozone_ar_speed_order_250.py perf/test_ozone_ar_speed_order_200.py perf/test_ozone_ar_speed_order_150.py perf/test_ozone_ar_speed_order_100.py perf/test_ozone_ar_speed_order_0.py perf/test_ozone_ar_speed_many.py perf/test_ozone_ar_speed.py perf/test_long_cycles_nbrows_cycle_length_41000_80.py perf/test_long_cycles_nbrows_cycle_length_41000_440.py perf/test_long_cycles_nbrows_cycle_length_41000_380.py perf/test_long_cycles_nbrows_cycle_length_41000_320.py perf/test_long_cycles_nbrows_cycle_length_41000_260.py perf/test_long_cycles_nbrows_cycle_length_41000_200.py perf/test_long_cycles_nbrows_cycle_length_41000_20.py perf/test_long_cycles_nbrows_cycle_length_41000_140.py perf/test_long_cycles_nbrows_cycle_length_31000_80.py perf/test_long_cycles_nbrows_cycle_length_31000_440.py perf/test_long_cycles_nbrows_cycle_length_31000_380.py perf/test_long_cycles_nbrows_cycle_length_31000_320.py perf/test_long_cycles_nbrows_cycle_length_31000_260.py perf/test_long_cycles_nbrows_cycle_length_31000_200.py perf/test_long_cycles_nbrows_cycle_length_31000_20.py perf/test_long_cycles_nbrows_cycle_length_31000_140.py perf/test_long_cycles_nbrows_cycle_length_21000_80.py perf/test_long_cycles_nbrows_cycle_length_21000_440.py perf/test_long_cycles_nbrows_cycle_length_21000_380.py perf/test_long_cycles_nbrows_cycle_length_21000_320.py perf/test_long_cycles_nbrows_cycle_length_21000_260.py perf/test_long_cycles_nbrows_cycle_length_21000_200.py perf/test_long_cycles_nbrows_cycle_length_21000_20.py perf/test_long_cycles_nbrows_cycle_length_21000_140.py perf/test_long_cycles_nbrows_cycle_length_11000_80.py perf/test_long_cycles_nbrows_cycle_length_11000_440.py perf/test_long_cycles_nbrows_cycle_length_11000_380.py perf/test_long_cycles_nbrows_cycle_length_11000_320.py perf/test_long_cycles_nbrows_cycle_length_11000_260.py perf/test_long_cycles_nbrows_cycle_length_11000_200.py perf/test_long_cycles_nbrows_cycle_length_11000_20.py perf/test_long_cycles_nbrows_cycle_length_11000_140.py perf/test_long_cycles_nbrows_cycle_length_1000_80.py perf/test_long_cycles_nbrows_cycle_length_1000_440.py perf/test_long_cycles_nbrows_cycle_length_1000_380.py perf/test_long_cycles_nbrows_cycle_length_1000_320.py perf/test_long_cycles_nbrows_cycle_length_1000_260.py perf/test_long_cycles_nbrows_cycle_length_1000_200.py perf/test_long_cycles_nbrows_cycle_length_1000_20.py perf/test_long_cycles_nbrows_cycle_length_1000_140.py perf/test_cycles_full_long_long.py perf/test_cycles_full_long.py perf/gen_long_cycles_tests.py perf/gen_ar_speed_tests.py  
  
 
+perf_MedAE/test_air_passengers_MedAE.py  :  
+	 -$(PYTHON)  tests/perf_MedAE/test_air_passengers_MedAE.py  >  logs/perf_MedAE_test_air_passengers_MedAE.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_MedAE_test_air_passengers_MedAE.log logs/perf_MedAE_test_air_passengers_MedAE.log  >  logs/perf_MedAE_test_air_passengers_MedAE.log.diff
+	 tail -10  logs/perf_MedAE_test_air_passengers_MedAE.log.diff 
+
+perf_MedAE/test_ozone_MedAE.py  :  
+	 -$(PYTHON)  tests/perf_MedAE/test_ozone_MedAE.py  >  logs/perf_MedAE_test_ozone_MedAE.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_MedAE_test_ozone_MedAE.log logs/perf_MedAE_test_ozone_MedAE.log  >  logs/perf_MedAE_test_ozone_MedAE.log.diff
+	 tail -10  logs/perf_MedAE_test_ozone_MedAE.log.diff 
+
+
+
+ perf_MedAE :  perf_MedAE/test_ozone_MedAE.py perf_MedAE/test_air_passengers_MedAE.py  
+ 
+
 perfs/test_ozone_perf_measure.py  :  
 	 -$(PYTHON)  tests/perfs/test_ozone_perf_measure.py  >  logs/perfs_test_ozone_perf_measure.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/perfs_test_ozone_perf_measure.log logs/perfs_test_ozone_perf_measure.log  >  logs/perfs_test_ozone_perf_measure.log.diff
@@ -1979,9 +1994,9 @@ xgb/test_ozone_xgbx_exogenous.py  :
 
 # ********************************************** 
 
-all:  artificial basic_checks bugs cross_validation croston exog expsmooth func HeartRateTimeSeries heroku hierarchical  HourOfWeek model_control perf svr transformations  neuralnet real-life  time_res perfs demos xgb xeon-phi-parallel sampling temporal_hierarchy WeekOfMonth missing_data probabilistic_forecasting lgbm 
+all:  artificial basic_checks bugs cross_validation croston exog expsmooth func HeartRateTimeSeries heroku hierarchical  HourOfWeek model_control perf svr transformations  neuralnet real-life  time_res perfs demos xgb xeon-phi-parallel sampling temporal_hierarchy WeekOfMonth missing_data probabilistic_forecasting lgbm perf_MedAE 
 	
 
-build-test :  demos basic_checks cross_validation croston exog heroku hierarchical model_control perfs svr transformations func real-life  time_res xgb sampling HourOfWeek WeekOfMonth missing_data lgbm 
+build-test :  demos basic_checks cross_validation croston exog heroku hierarchical model_control perfs svr transformations func real-life  time_res xgb sampling HourOfWeek WeekOfMonth missing_data lgbm perf_MedAE 
 	
 
