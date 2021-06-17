@@ -137,6 +137,7 @@ class cTimeSeriesModel:
         logger.info("MODEL_CRPS CRPS_Fit=" + str(self.mFitPerf.mCRPS) + " CRPS_Forecast=" + str(self.mForecastPerf.mCRPS)  + " CRPS_Test=" + str(self.mTestPerf.mCRPS) );
         logger.info("MODEL_L1 L1_Fit=" + str(self.mFitPerf.mL1) + " L1_Forecast=" + str(self.mForecastPerf.mL1)  + " L1_Test=" + str(self.mTestPerf.mL1) );
         logger.info("MODEL_L2 L2_Fit=" + str(self.mFitPerf.mL2) + " L2_Forecast=" + str(self.mForecastPerf.mL2)  + " L2_Test=" + str(self.mTestPerf.mL2) );
+        logger.info("MODEL_MEDIAN_AE MedAE_Fit=" + str(self.mFitPerf.mMedAE) + " MedAE_Forecast=" + str(self.mForecastPerf.mMedAE)  + " MedAE_Test=" + str(self.mTestPerf.mMedAE) );
         logger.info("MODEL_COMPLEXITY " + str(self.getComplexity()) );
         logger.info("SIGNAL_TRANSFORMATION_DETAIL_START");
         self.mTransformation.dump_values();
@@ -319,6 +320,7 @@ class cTimeSeriesModel:
               "CRPS" : str(self.mForecastPerf.mCRPS),
               "MAE" : str(self.mForecastPerf.mL1),
               "RMSE" : str(self.mForecastPerf.mL2),
+              "MedAE" : str(self.mForecastPerf.mMedAE),
               "COMPLEXITY" : str(self.getComplexity())};
         dict1["Model_Performance"] = d3;
         if(iWithOptions):
