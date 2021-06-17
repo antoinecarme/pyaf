@@ -1,11 +1,11 @@
 INFO:pyaf.std:START_TRAINING 'Ozone'
-      Date  Month  Exog2 Exog3 Exog4  Ozone       Time
-0  1955-01   1955      1    AQ   P_R    2.7 1955-01-01
-1  1955-02   1955      2    AR   P_R    2.0 1955-02-01
-2  1955-03   1955      3    AS   P_S    3.6 1955-03-01
-3  1955-04   1955      4    AT   P_U    5.0 1955-04-01
-4  1955-05   1955      5    AU   P_V    6.5 1955-05-01
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Ozone']' 7.143828392028809
+     Month  Ozone       Time
+0  1955-01    2.7 1955-01-01
+1  1955-02    2.0 1955-02-01
+2  1955-03    3.6 1955-03-01
+3  1955-04    5.0 1955-04-01
+4  1955-05    6.5 1955-05-01
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Ozone']' 2.458332061767578
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01T00:00:00.000000 TimeMax=1967-09-01T00:00:00.000000 TimeDelta=<DateOffset: months=1> Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Length=204  Min=1.2 Max=8.7  Mean=3.8357843137254894 StdDev=1.491559215940118
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Ozone' Min=1.2 Max=8.7  Mean=3.8357843137254894 StdDev=1.491559215940118
@@ -45,9 +45,17 @@ INFO:pyaf.std:AR_MODEL_COEFF 9 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag2
 INFO:pyaf.std:AR_MODEL_COEFF 10 _Ozone_LinearTrend_residue_zeroCycle_residue_Lag39 -0.11612291477947771
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_PLOTTING
-INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 5.281327486038208
+INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 5.251609802246094
 INFO:pyaf.std:START_FORECASTING '['Ozone']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Ozone']' 0.4128427505493164
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Ozone']' 0.40505385398864746
+  Split Transformation  ... ForecastMedAE TestMedAE
+0  None         _Ozone  ...      0.338541  0.361280
+1  None         _Ozone  ...      0.338541  0.361280
+2  None     Diff_Ozone  ...      0.349416  0.543050
+3  None     Diff_Ozone  ...      0.349416  0.543050
+4  None         _Ozone  ...      0.373051  0.524332
+
+[5 rows x 8 columns]
 Forecast Columns  Index(['Time', 'Ozone', 'row_number', 'Time_Normalized', '_Ozone',
        '_Ozone_LinearTrend', '_Ozone_LinearTrend_residue',
        '_Ozone_LinearTrend_residue_zeroCycle',
@@ -76,18 +84,19 @@ dtypes: datetime64[ns](1), float64(2)
 memory usage: 5.2 KB
 None
 Forecasts
- [[Timestamp('1972-01-01 00:00:00') nan 0.6111465641695248]
- [Timestamp('1972-02-01 00:00:00') nan 1.6265294602869078]
- [Timestamp('1972-03-01 00:00:00') nan 1.9422085585983488]
- [Timestamp('1972-04-01 00:00:00') nan 2.3696733128899754]
- [Timestamp('1972-05-01 00:00:00') nan 2.6630222017572542]
- [Timestamp('1972-06-01 00:00:00') nan 3.248702087873624]
- [Timestamp('1972-07-01 00:00:00') nan 3.220269503043295]
- [Timestamp('1972-08-01 00:00:00') nan 3.3293872899828645]
- [Timestamp('1972-09-01 00:00:00') nan 2.996846273026353]
- [Timestamp('1972-10-01 00:00:00') nan 2.118734432843619]
- [Timestamp('1972-11-01 00:00:00') nan 1.3326002972043849]
- [Timestamp('1972-12-01 00:00:00') nan 0.8415747446287944]]
+           Time  Ozone  Ozone_Forecast
+204 1972-01-01    NaN        0.611147
+205 1972-02-01    NaN        1.626529
+206 1972-03-01    NaN        1.942209
+207 1972-04-01    NaN        2.369673
+208 1972-05-01    NaN        2.663022
+209 1972-06-01    NaN        3.248702
+210 1972-07-01    NaN        3.220270
+211 1972-08-01    NaN        3.329387
+212 1972-09-01    NaN        2.996846
+213 1972-10-01    NaN        2.118734
+214 1972-11-01    NaN        1.332600
+215 1972-12-01    NaN        0.841575
 
 
 <ModelInfo>

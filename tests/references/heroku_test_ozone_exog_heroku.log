@@ -6,11 +6,11 @@ DATASET_DETECTED_COLUMNS Index(['Month', 'Ozone'], dtype='object')
 DATASET_FINAL_COLUMNS Index(['Month', 'Ozone'], dtype='object')
 https://raw.githubusercontent.com/antoinecarme/pyaf/master/data/ozone-la-exogenous-3.csv
 TRAIN_PARAMS (216, 2) Index(['Month', 'Ozone'], dtype='object') Month Ozone 12
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Ozone']' 18.018476009368896
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Ozone']' 7.264239311218262
 INFO:pyaf.std:START_FORECASTING '['Ozone']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Ozone']' 0.39060282707214355
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Ozone']' 0.5935103893280029
 INFO:pyaf.std:START_FORECASTING '['Ozone']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Ozone']' 0.3858368396759033
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Ozone']' 0.5764551162719727
   Split Transformation  ... ForecastMAPE TestMAPE
 0  None         _Ozone  ...       0.1230   0.0995
 1  None         _Ozone  ...       0.1402   0.1598
@@ -32,9 +32,10 @@ Forecast Columns  Index(['Month', 'Ozone', 'row_number', 'Month_Normalized', '_O
        '_Ozone_TransformedForecast', 'Ozone_Forecast',
        '_Ozone_TransformedResidue', 'Ozone_Residue',
        'Ozone_Forecast_Lower_Bound', 'Ozone_Forecast_Upper_Bound',
-       'Ozone_Forecast_Quantile_10', 'Ozone_Forecast_Quantile_30',
-       'Ozone_Forecast_Quantile_50', 'Ozone_Forecast_Quantile_70',
-       'Ozone_Forecast_Quantile_90'],
+       'Ozone_Forecast_Quantile_2', 'Ozone_Forecast_Quantile_18',
+       'Ozone_Forecast_Quantile_34', 'Ozone_Forecast_Quantile_50',
+       'Ozone_Forecast_Quantile_66', 'Ozone_Forecast_Quantile_82',
+       'Ozone_Forecast_Quantile_98'],
       dtype='object')
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 228 entries, 0 to 227
@@ -87,11 +88,13 @@ Forecasts
         },
         "Model_Performance": {
             "COMPLEXITY": "40",
-            "CRPS": "0.26375728917644453",
+            "CRPS": "0.2637572891764441",
+            "LnQ": "0.8956509568089879",
             "MAE": "0.32289108944709655",
             "MAPE": "0.123",
             "MASE": "0.4646",
-            "RMSE": "0.40299738451311923"
+            "MedAE": "0.2792735825667336",
+            "RMSE": "0.4029973845131193"
         }
     }
 }
