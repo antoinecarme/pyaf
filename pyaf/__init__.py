@@ -14,5 +14,5 @@ check_python_version_for_pyaf()
 
 from . import ForecastEngine, HierarchicalForecastEngine
 
-__version__ = '2.0'
+__version__ = '3.0'
 
