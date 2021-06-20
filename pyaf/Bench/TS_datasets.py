@@ -124,18 +124,18 @@ def load_ozone_exogenous() :
     tsspec.mName = "Ozone"
     tsspec.mDescription = "https://datamarket.com/data/set/22u8/ozon-concentration-downtown-l-a-1955-1972"
     
-    #trainfile = "data/ozone-la.csv"
+    # trainfile = "data/ozone-la-exogenous.csv"
     trainfile = "https://raw.githubusercontent.com/antoinecarme/pyaf/master/data/ozone-la-exogenous.csv"
     # "https://raw.githubusercontent.com/antoinecarme/TimeSeriesData/master/ozone-la.csv"
 
-    cols = ["Date", "Month", "Exog2", "Exog3", "Exog4", "Ozone"];
+    cols = ["Date", "Exog2", "Exog3", "Exog4", "Ozone"];
     
-    df_train = pd.read_csv(trainfile, names = cols, sep=r',', engine='python', skiprows=1);
+    df_train = pd.read_csv(trainfile, names = cols, sep=',', engine='python', skiprows=1);
     df_train['Time'] = df_train['Date'].apply(lambda x : datetime.datetime.strptime(x, "%Y-%m"))
 
     tsspec.mTimeVar = "Time";
     tsspec.mSignalVar = "Ozone";
-    tsspec.mExogenousVariables = ["Month", "Exog2", "Exog3", "Exog4"];
+    tsspec.mExogenousVariables = ["Exog2", "Exog3", "Exog4"];
     # this is the full dataset . must contain future exogenius data
     tsspec.mExogenousDataFrame = df_train;
     # tsspec.mExogenousVariables = ["Exog2"];
@@ -153,11 +153,11 @@ def load_ozone_exogenous_categorical() :
     tsspec.mName = "Ozone"
     tsspec.mDescription = "https://datamarket.com/data/set/22u8/ozon-concentration-downtown-l-a-1955-1972"
     
-    #trainfile = "data/ozone-la.csv"
+    # trainfile = "data/ozone-la-exogenous.csv"
     trainfile = "https://raw.githubusercontent.com/antoinecarme/pyaf/master/data/ozone-la-exogenous.csv"
     # "https://raw.githubusercontent.com/antoinecarme/TimeSeriesData/master/ozone-la.csv"
 
-    cols = ["Date", "Month", "Exog2", "Exog3", "Exog4", "Ozone"];
+    cols = ["Date", "Exog2", "Exog3", "Exog4", "Ozone"];
     
     df_train = pd.read_csv(trainfile, names = cols, sep=r',', engine='python', skiprows=1);
     df_train['Time'] = df_train['Date'].apply(lambda x : datetime.datetime.strptime(x, "%Y-%m"))
