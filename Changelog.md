@@ -1,5 +1,18 @@
 
-RELEASE 2.0 (expected 2020-07-14)
+RELEASE 3.0 (expected 2021-07-14)
+
+1. Python 3.9 support #149
+2. Probabilistic Forecasting  : Forecast quantiles (#140), CRPS (#74), Plots and Docs (#158).
+3. Add LightGBM based models #143
+4. Add more Performance Measures : MedAE (#144) , LnQ ( #43 )
+5. PyAF Powerpc support (IBM S822xx) #160
+6. More Parallelization Efforts (#145)
+7. Add Missing Data Imputation Methods (#146 )
+8. Warning Hunts (#153)
+9. Some Bug Fixes (#163, #142).
+
+
+RELEASE 2.0 (released on 2020-07-14)
 
 1. Time column is normalized frequently leading to a performance issue. Profiling. Significant speedup. Issue #121
 2. Corrected PyPi packaging. Issue #123
