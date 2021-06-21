@@ -1,10 +1,16 @@
 import pandas as pd
 import numpy as np
 
+from matplotlib import rcParams
+
+rcParams['font.family'] = 'sans-serif'
+rcParams['font.sans-serif'] = ['STIXNonUni.ttf']
 
 import pyaf.ForecastEngine as autof
 import pyaf.Bench.TS_datasets as tsds
 
+import logging
+logging.basicConfig(level='DEBUG')
 
 b1 = tsds.load_ozone()
 df = b1.mPastData
