@@ -9,7 +9,6 @@ import numpy as np
 
 import traceback
 
-from multiprocessing import Pool
 
 # for timing
 import time
@@ -491,6 +490,7 @@ class cSignalDecompositionTrainer:
         self.mBestModels = {}
         NCores = min(len(args) , self.mOptions.mNbCores) 
         if(self.mOptions.mParallelMode and NCores > 1):
+            from multiprocessing import Pool
             pool = Pool(NCores)
         
             for res in pool.imap(run_finalize_training, args):
@@ -547,6 +547,7 @@ class cSignalDecompositionTrainer:
 
         NCores = min(len(args) , self.mOptions.mNbCores) 
         if(self.mOptions.mParallelMode and NCores > 1):
+            from multiprocessing import Pool
             pool = Pool(NCores)
             for res in pool.imap(run_transform_thread, args):
                 lSignal = res.mName[0]
@@ -611,6 +612,7 @@ class cSignalDecompositionForecaster:
 
         NCores = min(len(args) , iDecomsposition.mOptions.mNbCores) 
         if(iDecomsposition.mOptions.mParallelMode and  NCores > 1):
+            from multiprocessing import Pool
             pool = Pool(NCores)
         
             for res in pool.imap(forecast_one_signal, args):

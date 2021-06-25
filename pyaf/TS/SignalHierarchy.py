@@ -13,8 +13,6 @@ from . import Perf as tsperf
 from . import Utils as tsutil
 from . import Plots as tsplot
 
-from multiprocessing import Pool
-
 # for timing
 import time, copy
 
