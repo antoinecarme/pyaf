@@ -167,6 +167,8 @@ def quantiles_plot(df, time, signal, estimator, iQuantiles, name = None, format=
     fig, axs = plt.subplots(horizon, 1, figsize=(12, 12), squeeze = True)
     # plt.subplots_adjust(hspace=1)
     # print(axs)
+    if (horizon == 1):
+        axs = [axs]
     for h in range(horizon):
         lIdx = df1.index[h]
         lTime = df1.loc[lIdx, time]
