@@ -117,6 +117,7 @@ class cPerf:
             
     def real_compute(self, signal , estimator, name):
         self.mName = name;
+        assert(signal.shape[0] > 0)
         if(self.mDebug):
             self.check_not_nan(signal.values , "signal")
             self.check_not_nan(estimator.values , "estimator")
@@ -172,6 +173,7 @@ class cPerf:
             
     def computeCriterion(self, signal , estimator, criterion, name):
         self.mName = name;
+        assert(signal.shape[0] > 0)
         
         self.mCount = signal.shape[0];
         if(criterion == "L1" or criterion == "MAE"):

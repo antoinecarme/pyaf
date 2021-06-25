@@ -31,6 +31,15 @@ from . import Utils as tsutil
 
 import copy
 
+def sample_signal_if_needed(iInputDS, iOptions):
+    logger = tsutil.get_pyaf_logger();
+    lInputDS = iInputDS
+    if(iOptions.mActivateSampling):
+        if(iOptions.mDebugProfile):
+            logger.info("PYAF_MODEL_SAMPLING_ACTIVATED " +
+                        str((iOptions.mSamplingThreshold, iOptions.mSeed)));
+        lInputDS = iInputDS.tail(iOptions.mSamplingThreshold);
+    return lInputDS
 
 class cSignalDecompositionOneTransform:
         
@@ -155,6 +164,8 @@ class cSignalDecompositionOneTransform:
 
         start_time = time.time()
         lInputDS = iInputDS[[iTime, iSignal]].copy()
+        lInputDS = sample_signal_if_needed(lInputDS, self.mOptions)
+        
         self.setParams(lInputDS, iTime, iSignal, iHorizon, iTransformation, self.mExogenousData);
 
         lMissingImputer = tsmiss.cMissingDataImputer()
@@ -717,7 +728,8 @@ class cSignalDecomposition:
         logger = tsutil.get_pyaf_logger();
         logger.info("START_FORECASTING '" + str(self.mSignals) + "'")
         lForecaster = cSignalDecompositionForecaster()
-        lForecastFrame = lForecaster.forecast(self, iInputDS, iHorizon)
+        lInputDS = sample_signal_if_needed(iInputDS, self.mOptions)
+        lForecastFrame = lForecaster.forecast(self, lInputDS, iHorizon)
         lForecastTime = time.time() - start_time;
         logger.info("END_FORECAST_TIME_IN_SECONDS  '" + str(self.mSignals) + "' " + str(lForecastTime))
         return lForecastFrame;

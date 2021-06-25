@@ -110,6 +110,7 @@ class cZeroAR(cAbstractAR):
         # self.mARFrame[series] = self.mCycleFrame[series]
         self.mARFrame[self.mOutName] = self.mARFrame[series] * 0.0;
         self.mARFrame[self.mOutName + '_residue'] = self.mARFrame[series];
+        assert(self.mARFrame.shape[0] > 0)
                 
 
     def transformDataset(self, df, horizon_index = 1):
@@ -117,6 +118,7 @@ class cZeroAR(cAbstractAR):
         df[self.mOutName] = 0.0;
         target = df[series].values
         df[self.mOutName + '_residue'] = target - df[self.mOutName].values        
+        assert(df.shape[0] > 0)
         return df;
 
 
@@ -199,17 +201,6 @@ class cAutoRegressiveEstimator:
                   str(len(self.mARFrame.columns)) + " " +
                   str(time.time() - add_lag_start_time))
 
-    def sample_lags_if_needed(self, cycle_residue):
-        logger = tsutil.get_pyaf_logger();
-        if(self.mOptions.mActivateSampling):
-            if(self.mARFrame.shape[0] > self.mOptions.mSamplingThreshold):                    
-                lFraction = self.mOptions.mSamplingThreshold / self.mARFrame.shape[0]
-                if(self.mOptions.mDebugProfile):
-                    logger.info("AR_MODEL_LAG_SAMPLING_ACTIVATED '" +
-                                cycle_residue + "' "
-                                + str((self.mARFrame.shape[0],  self.mOptions.mSamplingThreshold, self.mOptions.mSeed, lFraction)));
-                self.mARFrame = self.mARFrame.sample(frac = lFraction, replace=False, random_state=self.mOptions.mSeed);
-        
 
     # @profile
     def estimate_ar_models_for_cycle(self, cycle_residue):
@@ -228,7 +219,6 @@ class cAutoRegressiveEstimator:
                   + str(self.mARFrame.shape[1]));
 
         self.addLagsForTraining(self.mCycleFrame, cycle_residue);
-        self.sample_lags_if_needed(cycle_residue)
 
         if(self.mOptions.mDebugProfile):
             logger.info("AR_MODEL_ADD_LAGS_END '" +
