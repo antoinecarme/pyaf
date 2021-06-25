@@ -1,7 +1,7 @@
 INFO:pyaf.std:START_TRAINING 'Signal_0.01'
 GENERATING_RANDOM_DATASET Signal_1024_D_0_poly_7_None_0.0_20
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal_0.01']' 163.9622049331665
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal_0.01']' 20.06817865371704
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2002-03-10T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal_0.01' Length=1012  Min=0.9748625189130324 Max=8.174474529963426  Mean=4.467083113887295 StdDev=2.272010123888374
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal_0.01' Min=0.9748625189130324 Max=8.174474529963426  Mean=4.467083113887295 StdDev=2.272010123888374
@@ -13,9 +13,11 @@ INFO:pyaf.std:AUTOREG_DETAIL '_Signal_0.01_ConstantTrend_residue_Seasonal_DayOfW
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0027 MAPE_Forecast=0.0026 MAPE_Test=0.0023
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0027 SMAPE_Forecast=0.0026 SMAPE_Test=0.0023
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.0024 MASE_Forecast=0.0024 MASE_Test=0.0024
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=0.6738920940766878 CRPS_Forecast=0.6088363797430861 CRPS_Test=0.7198793324902928
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=0.6738920940766876 CRPS_Forecast=0.6088363797430861 CRPS_Test=0.7198793324902928
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.007733941651715486 L1_Forecast=0.00781048053426572 L1_Test=0.007931562352892718
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.009571772574003903 L2_Forecast=0.00978873961733261 L2_Test=0.009289379331030634
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.01463140372021577 LnQ_Forecast=0.0031744419740936643 LnQ_Test=0.00010476137709828421
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.006238422700314494 MedAE_Forecast=0.0067052501662092645 MedAE_Test=0.0088095926311057
 INFO:pyaf.std:MODEL_COMPLEXITY 4
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
@@ -29,7 +31,7 @@ INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_FORECASTING '['Signal_0.01']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal_0.01']' 1.3691792488098145
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal_0.01']' 0.4248359203338623
 Forecast Columns  Index(['Date', 'Signal_0.01', 'row_number', 'Date_Normalized', '_Signal_0.01',
        '_Signal_0.01_ConstantTrend', '_Signal_0.01_ConstantTrend_residue',
        '_Signal_0.01_ConstantTrend_residue_Seasonal_DayOfWeek',
@@ -41,9 +43,14 @@ Forecast Columns  Index(['Date', 'Signal_0.01', 'row_number', 'Date_Normalized',
        '_Signal_0.01_AR_residue', '_Signal_0.01_TransformedForecast',
        'Signal_0.01_Forecast', '_Signal_0.01_TransformedResidue',
        'Signal_0.01_Residue', 'Signal_0.01_Forecast_Lower_Bound',
-       'Signal_0.01_Forecast_Upper_Bound', 'Signal_0.01_Forecast_Quantile_10',
-       'Signal_0.01_Forecast_Quantile_30', 'Signal_0.01_Forecast_Quantile_50',
-       'Signal_0.01_Forecast_Quantile_70', 'Signal_0.01_Forecast_Quantile_90'],
+       'Signal_0.01_Forecast_Upper_Bound', 'Signal_0.01_Forecast_Quantile_1',
+       'Signal_0.01_Forecast_Quantile_8', 'Signal_0.01_Forecast_Quantile_15',
+       'Signal_0.01_Forecast_Quantile_22', 'Signal_0.01_Forecast_Quantile_29',
+       'Signal_0.01_Forecast_Quantile_36', 'Signal_0.01_Forecast_Quantile_43',
+       'Signal_0.01_Forecast_Quantile_50', 'Signal_0.01_Forecast_Quantile_57',
+       'Signal_0.01_Forecast_Quantile_64', 'Signal_0.01_Forecast_Quantile_71',
+       'Signal_0.01_Forecast_Quantile_78', 'Signal_0.01_Forecast_Quantile_85',
+       'Signal_0.01_Forecast_Quantile_92', 'Signal_0.01_Forecast_Quantile_99'],
       dtype='object')
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 1024 entries, 0 to 1023
@@ -109,9 +116,11 @@ Forecasts
         "Model_Performance": {
             "COMPLEXITY": "4",
             "CRPS": "0.6088363797430861",
+            "LnQ": "0.0031744419740936643",
             "MAE": "0.00781048053426572",
             "MAPE": "0.0026",
             "MASE": "0.0024",
+            "MedAE": "0.0067052501662092645",
             "RMSE": "0.00978873961733261"
         }
     }

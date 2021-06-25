@@ -27,7 +27,7 @@ Data columns (total 2 columns):
  1   TV.advert  40 non-null     float64
 dtypes: float64(2)
 memory usage: 768.0 bytes
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Quotes']' 8.286697626113892
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Quotes']' 1.04720139503479
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Index' TimeMin=2002.0 TimeMax=2004.25 TimeDelta=0.08333333333333333 Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Quotes' Length=40  Min=8.394680000000001 Max=18.438979999999997  Mean=13.604346999999999 StdDev=2.369165266733412
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Quotes' Min=8.394680000000001 Max=18.438979999999997  Mean=13.604346999999999 StdDev=2.369165266733412
@@ -40,9 +40,11 @@ INFO:pyaf.std:AUTOREG_DETAIL '_Quotes_ConstantTrend_residue_zeroCycle_residue_SV
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.1031 MAPE_Forecast=0.0771 MAPE_Test=0.1391
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0986 SMAPE_Forecast=0.075 SMAPE_Test=0.1535
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.9139 MASE_Forecast=0.7398 MASE_Test=1.0453
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=0.44827623241961445 CRPS_Forecast=0.3915609797071967 CRPS_Test=1.208804905408721
-INFO:pyaf.std:MODEL_L1 L1_Fit=1.2592287805681903 L1_Forecast=1.0137629010453006 L1_Test=2.4094948108174394
-INFO:pyaf.std:MODEL_L2 L2_Fit=1.540112999787147 L2_Forecast=1.3045166407249258 L2_Test=2.8499101602945838
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=0.44827623241961456 CRPS_Forecast=0.39156097970719683 CRPS_Test=1.2088049054087213
+INFO:pyaf.std:MODEL_L1 L1_Fit=1.2592287805681903 L1_Forecast=1.0137629010453009 L1_Test=2.40949481081744
+INFO:pyaf.std:MODEL_L2 L2_Fit=1.540112999787147 L2_Forecast=1.3045166407249262 L2_Test=2.849910160294584
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.44986377856030185 LnQ_Forecast=0.07344704999124324 LnQ_Test=0.12968093589532315
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=1.09158337765808 MedAE_Forecast=0.9784389980920283 MedAE_Test=2.3610965415370195
 INFO:pyaf.std:MODEL_COMPLEXITY 7
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
@@ -56,9 +58,9 @@ INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_PLOTTING
-INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 38.10123252868652
+INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 4.4496142864227295
 INFO:pyaf.std:START_FORECASTING '['Quotes']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Quotes']' 1.1664903163909912
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Quotes']' 0.10641050338745117
 Forecast Columns  Index(['Index', 'Quotes', 'row_number', 'Index_Normalized', '_Quotes',
        '_Quotes_ConstantTrend', '_Quotes_ConstantTrend_residue',
        '_Quotes_ConstantTrend_residue_zeroCycle',
@@ -70,9 +72,7 @@ Forecast Columns  Index(['Index', 'Quotes', 'row_number', 'Index_Normalized', '_
        '_Quotes_TransformedForecast', 'Quotes_Forecast',
        '_Quotes_TransformedResidue', 'Quotes_Residue',
        'Quotes_Forecast_Lower_Bound', 'Quotes_Forecast_Upper_Bound',
-       'Quotes_Forecast_Quantile_10', 'Quotes_Forecast_Quantile_30',
-       'Quotes_Forecast_Quantile_50', 'Quotes_Forecast_Quantile_70',
-       'Quotes_Forecast_Quantile_90'],
+       'Quotes_Forecast_Quantile_50'],
       dtype='object')
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 44 entries, 0 to 43
@@ -116,11 +116,13 @@ Forecasts
         },
         "Model_Performance": {
             "COMPLEXITY": "7",
-            "CRPS": "0.3915609797071967",
-            "MAE": "1.0137629010453006",
+            "CRPS": "0.39156097970719683",
+            "LnQ": "0.07344704999124324",
+            "MAE": "1.0137629010453009",
             "MAPE": "0.0771",
             "MASE": "0.7398",
-            "RMSE": "1.3045166407249258"
+            "MedAE": "0.9784389980920283",
+            "RMSE": "1.3045166407249262"
         }
     }
 }

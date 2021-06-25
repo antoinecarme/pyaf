@@ -133,7 +133,7 @@ INFO:pyaf.std:collectPerformanceIndices : MAPE None CumSum_HeartRate Integration
 INFO:pyaf.std:collectPerformanceIndices : MAPE None CumSum_HeartRate Integration_PolyTrend_Cycle_None_NoAR 56 0.0742
 INFO:pyaf.std:collectPerformanceIndices : MAPE None CumSum_HeartRate Integration_PolyTrend_NoCycle_AR 112 0.018
 INFO:pyaf.std:collectPerformanceIndices : MAPE None CumSum_HeartRate Integration_PolyTrend_NoCycle_NoAR 48 0.0742
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['HeartRate']' 29.82116961479187
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['HeartRate']' 2.6343939304351807
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=0 TimeMax=750 TimeDelta=1 Horizon=10
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='HeartRate' Length=949  Min=52.9153 Max=77.4244  Mean=58.726979978925165 StdDev=3.5400112568120123
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_HeartRate' Min=52.9153 Max=77.4244  Mean=58.726979978925165 StdDev=3.5400112568120123
@@ -145,9 +145,11 @@ INFO:pyaf.std:AUTOREG_DETAIL '_HeartRate_Lag1Trend_residue_zeroCycle_residue_NoA
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0123 MAPE_Forecast=0.0157 MAPE_Test=0.0226
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0122 SMAPE_Forecast=0.0158 SMAPE_Test=0.0225
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.9987 MASE_Forecast=0.9978 MASE_Test=0.9692
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=0.9337641204709509 CRPS_Forecast=0.8969595471489361 CRPS_Test=0.9013733833333336
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=0.9337641204709511 CRPS_Forecast=0.8969595471489362 CRPS_Test=0.9013733833333336
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.7362363515312917 L1_Forecast=0.9636781914893616 L1_Test=1.37391
 INFO:pyaf.std:MODEL_L2 L2_Fit=1.3136394202284594 L2_Forecast=1.779634744484551 L2_Test=1.6193514217117915
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.3263673224304213 LnQ_Forecast=0.15002707174784213 LnQ_Test=0.006987273915130549
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.4577999999999989 MedAE_Forecast=0.5238499999999995 MedAE_Test=1.464250000000007
 INFO:pyaf.std:MODEL_COMPLEXITY 32
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
@@ -161,9 +163,9 @@ INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_PLOTTING
-INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 53.27762484550476
+INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 5.444309949874878
 INFO:pyaf.std:START_FORECASTING '['HeartRate']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['HeartRate']' 2.9791369438171387
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['HeartRate']' 0.1891002655029297
   Split    Transformation  ... TestMASE TestCRPS
 0  None  CumSum_HeartRate  ...   0.6384     None
 1  None  CumSum_HeartRate  ...   0.6496     None
@@ -183,9 +185,14 @@ Forecast Columns  Index(['Date', 'HeartRate', 'row_number', 'Date_Normalized', '
        '_HeartRate_TransformedForecast', 'HeartRate_Forecast',
        '_HeartRate_TransformedResidue', 'HeartRate_Residue',
        'HeartRate_Forecast_Lower_Bound', 'HeartRate_Forecast_Upper_Bound',
-       'HeartRate_Forecast_Quantile_10', 'HeartRate_Forecast_Quantile_30',
-       'HeartRate_Forecast_Quantile_50', 'HeartRate_Forecast_Quantile_70',
-       'HeartRate_Forecast_Quantile_90'],
+       'HeartRate_Forecast_Quantile_1', 'HeartRate_Forecast_Quantile_8',
+       'HeartRate_Forecast_Quantile_15', 'HeartRate_Forecast_Quantile_22',
+       'HeartRate_Forecast_Quantile_29', 'HeartRate_Forecast_Quantile_36',
+       'HeartRate_Forecast_Quantile_43', 'HeartRate_Forecast_Quantile_50',
+       'HeartRate_Forecast_Quantile_57', 'HeartRate_Forecast_Quantile_64',
+       'HeartRate_Forecast_Quantile_71', 'HeartRate_Forecast_Quantile_78',
+       'HeartRate_Forecast_Quantile_85', 'HeartRate_Forecast_Quantile_92',
+       'HeartRate_Forecast_Quantile_99'],
       dtype='object')
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 959 entries, 0 to 958
@@ -250,10 +257,12 @@ Forecasts
         },
         "Model_Performance": {
             "COMPLEXITY": "32",
-            "CRPS": "0.8969595471489361",
+            "CRPS": "0.8969595471489362",
+            "LnQ": "0.15002707174784213",
             "MAE": "0.9636781914893616",
             "MAPE": "0.0157",
             "MASE": "0.9978",
+            "MedAE": "0.5238499999999995",
             "RMSE": "1.779634744484551"
         }
     }

@@ -1,7 +1,7 @@
 INFO:pyaf.std:START_TRAINING 'Signal_0.01'
 GENERATING_RANDOM_DATASET Signal_32_D_0_linear_0_exp_0.0_100
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal_0.01']' 21.424984216690063
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal_0.01']' 2.198660135269165
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2000-01-24T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=1
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal_0.01' Length=31  Min=0.3485473933773712 Max=0.38263933949626505  Mean=0.3659949585684345 StdDev=0.007368735349292027
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal_0.01' Min=0.3485473933773712 Max=0.38263933949626505  Mean=0.3659949585684345 StdDev=0.007368735349292027
@@ -16,6 +16,8 @@ INFO:pyaf.std:MODEL_MASE MASE_Fit=0.5539 MASE_Forecast=0.8397 MASE_Test=None
 INFO:pyaf.std:MODEL_CRPS CRPS_Fit=0.0008007067941520942 CRPS_Forecast=0.002444669840848679 CRPS_Test=0.0003170249790553914
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.005453511692656507 L1_Forecast=0.006906249278916042 L1_Test=0.0006340499581107828
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.007192214897913679 L2_Forecast=0.008883347268888727 L2_Test=0.0006340499581107828
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.009360404425402551 LnQ_Forecast=0.0034228656198652388 LnQ_Test=3.0232250201068704e-06
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.004755744430216452 MedAE_Forecast=0.00552085393962215 MedAE_Test=0.0006340499581107828
 INFO:pyaf.std:MODEL_COMPLEXITY 0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
@@ -29,7 +31,7 @@ INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_FORECASTING '['Signal_0.01']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal_0.01']' 0.2103748321533203
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal_0.01']' 0.025133848190307617
 Forecast Columns  Index(['Date', 'Signal_0.01', '_Signal_0.01', 'row_number', 'Date_Normalized',
        '_Signal_0.01_ConstantTrend', '_Signal_0.01_ConstantTrend_residue',
        '_Signal_0.01_ConstantTrend_residue_zeroCycle',
@@ -41,9 +43,7 @@ Forecast Columns  Index(['Date', 'Signal_0.01', '_Signal_0.01', 'row_number', 'D
        '_Signal_0.01_AR_residue', '_Signal_0.01_TransformedForecast',
        'Signal_0.01_Forecast', '_Signal_0.01_TransformedResidue',
        'Signal_0.01_Residue', 'Signal_0.01_Forecast_Lower_Bound',
-       'Signal_0.01_Forecast_Upper_Bound', 'Signal_0.01_Forecast_Quantile_10',
-       'Signal_0.01_Forecast_Quantile_30', 'Signal_0.01_Forecast_Quantile_50',
-       'Signal_0.01_Forecast_Quantile_70', 'Signal_0.01_Forecast_Quantile_90'],
+       'Signal_0.01_Forecast_Upper_Bound', 'Signal_0.01_Forecast_Quantile_50'],
       dtype='object')
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 32 entries, 0 to 31
@@ -87,9 +87,11 @@ Forecasts
         "Model_Performance": {
             "COMPLEXITY": "0",
             "CRPS": "0.002444669840848679",
+            "LnQ": "0.0034228656198652388",
             "MAE": "0.006906249278916042",
             "MAPE": "0.0184",
             "MASE": "0.8397",
+            "MedAE": "0.00552085393962215",
             "RMSE": "0.008883347268888727"
         }
     }

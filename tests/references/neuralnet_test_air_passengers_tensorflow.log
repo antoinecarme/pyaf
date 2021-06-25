@@ -1,21 +1,9 @@
 INFO:pyaf.std:START_TRAINING 'AirPassengers'
-2021-05-13 11:40:24.301749: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
-2021-05-13 11:40:24.301976: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
-INFO:tensorflow:Enabling eager execution
-INFO:tensorflow:Enabling v2 tensorshape
-INFO:tensorflow:Enabling resource variables
-INFO:tensorflow:Enabling tensor equality
-INFO:tensorflow:Enabling control flow v2
-2021-05-13 11:40:33.957232: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcuda.so.1'; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
-2021-05-13 11:40:33.957513: W tensorflow/stream_executor/cuda/cuda_driver.cc:326] failed call to cuInit: UNKNOWN ERROR (303)
-2021-05-13 11:40:33.957700: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (corbiere): /proc/driver/nvidia/version does not exist
-2021-05-13 11:40:33.959436: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
-To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
-2021-05-13 11:40:36.689041: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:176] None of the MLIR Optimization Passes are enabled (registered 2)
-2021-05-13 11:40:36.694900: I tensorflow/core/platform/profile_utils/cpu_utils.cc:114] CPU Frequency: 1300065000 Hz
-INFO:pyaf.std:collectPerformanceIndices : MAPE None _AirPassengers_ConstantTrend_residue_zeroCycle_residue_LSTM(7) 7 0.4908
-INFO:pyaf.std:collectPerformanceIndices : MAPE None _AirPassengers NoTransf_ConstantTrend_NoCycle_LSTM(7) 7 0.418
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['AirPassengers']' 52.20583653450012
+2021-06-25 14:57:40.921225: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:176] None of the MLIR Optimization Passes are enabled (registered 2)
+2021-06-25 14:57:40.921633: I tensorflow/core/platform/profile_utils/cpu_utils.cc:114] CPU Frequency: 2659910000 Hz
+INFO:pyaf.std:collectPerformanceIndices : MAPE None _AirPassengers_ConstantTrend_residue_zeroCycle_residue_LSTM(7) 7 0.4905
+INFO:pyaf.std:collectPerformanceIndices : MAPE None _AirPassengers NoTransf_ConstantTrend_NoCycle_LSTM(7) 7 0.4173
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['AirPassengers']' 28.84774923324585
 INFO:pyaf.std:TIME_DETAIL TimeVariable='time' TimeMin=1949.0 TimeMax=1956.91666666667 TimeDelta=0.08333333333336763 Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='AirPassengers' Length=132  Min=104 Max=559  Mean=262.49242424242425 StdDev=106.22114554451818
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_AirPassengers' Min=104 Max=559  Mean=262.49242424242425 StdDev=106.22114554451818
@@ -24,12 +12,14 @@ INFO:pyaf.std:BEST_DECOMPOSITION  '_AirPassengers_ConstantTrend_residue_zeroCycl
 INFO:pyaf.std:TREND_DETAIL '_AirPassengers_ConstantTrend' [ConstantTrend]
 INFO:pyaf.std:CYCLE_DETAIL '_AirPassengers_ConstantTrend_residue_zeroCycle' [NoCycle]
 INFO:pyaf.std:AUTOREG_DETAIL '_AirPassengers_ConstantTrend_residue_zeroCycle_residue_LSTM(7)' [LSTM(7)]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.3063 MAPE_Forecast=0.418 MAPE_Test=0.4908
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.2773 SMAPE_Forecast=0.5356 SMAPE_Test=0.6568
-INFO:pyaf.std:MODEL_MASE MASE_Fit=3.1405 MASE_Forecast=4.3593 MASE_Test=4.779
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=9.47442004995407 CRPS_Forecast=70.86728676201918 CRPS_Test=88.49902895760609
-INFO:pyaf.std:MODEL_L1 L1_Fit=58.710213189231126 L1_Forecast=161.48457352403838 L1_Test=215.05552458187887
-INFO:pyaf.std:MODEL_L2 L2_Fit=71.23371330978338 L2_Forecast=171.8794217521342 L2_Test=225.13970544521382
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.302 MAPE_Forecast=0.4173 MAPE_Test=0.4905
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.2743 SMAPE_Forecast=0.5348 SMAPE_Test=0.6564
+INFO:pyaf.std:MODEL_MASE MASE_Fit=3.105 MASE_Forecast=4.3544 MASE_Test=4.7776
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=9.448753099588 CRPS_Forecast=70.77625295545491 CRPS_Test=88.46712359720873
+INFO:pyaf.std:MODEL_L1 L1_Fit=58.04633963909108 L1_Forecast=161.30250591090982 L1_Test=214.9917138610841
+INFO:pyaf.std:MODEL_L2 L2_Fit=70.671764989034 L2_Forecast=171.85392174225157 L2_Test=225.23920848777934
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=10.652638863530122 LnQ_Forecast=7.847119615112614 LnQ_Test=5.913650392516481
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=53.47161553512349 MedAE_Forecast=142.34792809973592 MedAE_Test=192.67163593084803
 INFO:pyaf.std:MODEL_COMPLEXITY 7
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
@@ -43,11 +33,11 @@ INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_PLOTTING
-INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 41.803842306137085
+INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 6.3390138149261475
 INFO:pyaf.std:START_FORECASTING '['AirPassengers']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['AirPassengers']' 6.466402053833008
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['AirPassengers']' 0.8608012199401855
   Split  Transformation  ... TestMASE TestCRPS
-0  None  _AirPassengers  ...    4.779     None
+0  None  _AirPassengers  ...   4.7776     None
 
 [1 rows x 23 columns]
 Forecast Columns  Index(['time', 'AirPassengers', 'row_number', 'time_Normalized',
@@ -64,11 +54,9 @@ Forecast Columns  Index(['time', 'AirPassengers', 'row_number', 'time_Normalized
        '_AirPassengers_TransformedResidue', 'AirPassengers_Residue',
        'AirPassengers_Forecast_Lower_Bound',
        'AirPassengers_Forecast_Upper_Bound',
-       'AirPassengers_Forecast_Quantile_10',
-       'AirPassengers_Forecast_Quantile_30',
+       'AirPassengers_Forecast_Quantile_25',
        'AirPassengers_Forecast_Quantile_50',
-       'AirPassengers_Forecast_Quantile_70',
-       'AirPassengers_Forecast_Quantile_90'],
+       'AirPassengers_Forecast_Quantile_75'],
       dtype='object')
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 144 entries, 0 to 143
@@ -97,18 +85,18 @@ Forecasts
 129  1959.750000  ...                                 NaN
 130  1959.833333  ...                                 NaN
 131  1959.916667  ...                                 NaN
-132  1960.000000  ...                          550.340038
-133  1960.083333  ...                          549.477749
-134  1960.166667  ...                          549.622915
-135  1960.250000  ...                          549.311848
-136  1960.333333  ...                          549.588080
-137  1960.416667  ...                          549.592459
-138  1960.500000  ...                          550.123874
-139  1960.583333  ...                          550.014219
-140  1960.666667  ...                          549.994658
-141  1960.750000  ...                          550.009686
-142  1960.833333  ...                          550.014385
-143  1960.916667  ...                          550.033917
+132  1960.000000  ...                          550.323895
+133  1960.083333  ...                          550.293899
+134  1960.166667  ...                          550.510835
+135  1960.250000  ...                          550.351582
+136  1960.333333  ...                          550.585413
+137  1960.416667  ...                          550.192570
+138  1960.500000  ...                          550.735058
+139  1960.583333  ...                          550.356996
+140  1960.666667  ...                          550.330622
+141  1960.750000  ...                          550.383496
+142  1960.833333  ...                          550.251602
+143  1960.916667  ...                          550.325697
 
 [24 rows x 5 columns]
 
@@ -137,11 +125,13 @@ Forecasts
         },
         "Model_Performance": {
             "COMPLEXITY": "7",
-            "CRPS": "70.86728676201918",
-            "MAE": "161.48457352403838",
-            "MAPE": "0.418",
-            "MASE": "4.3593",
-            "RMSE": "171.8794217521342"
+            "CRPS": "70.77625295545491",
+            "LnQ": "7.847119615112614",
+            "MAE": "161.30250591090982",
+            "MAPE": "0.4173",
+            "MASE": "4.3544",
+            "MedAE": "142.34792809973592",
+            "RMSE": "171.85392174225157"
         }
     }
 }
@@ -151,7 +141,7 @@ Forecasts
 
 
 <Forecast>
-{"time":{"120":1959.0,"121":1959.0833333333,"122":1959.1666666667,"123":1959.25,"124":1959.3333333333,"125":1959.4166666667,"126":1959.5,"127":1959.5833333333,"128":1959.6666666667,"129":1959.75,"130":1959.8333333333,"131":1959.9166666667,"132":1960.0,"133":1960.0833333333,"134":1960.1666666667,"135":1960.25,"136":1960.3333333333,"137":1960.4166666667,"138":1960.5,"139":1960.5833333333,"140":1960.6666666667,"141":1960.75,"142":1960.8333333333,"143":1960.9166666667},"AirPassengers":{"120":360.0,"121":342.0,"122":406.0,"123":396.0,"124":420.0,"125":472.0,"126":548.0,"127":559.0,"128":463.0,"129":407.0,"130":362.0,"131":405.0,"132":null,"133":null,"134":null,"135":null,"136":null,"137":null,"138":null,"139":null,"140":null,"141":null,"142":null,"143":null},"AirPassengers_Forecast":{"120":213.4563469413,"121":212.8952073476,"122":212.895324171,"123":212.8952072647,"124":212.8952073658,"125":213.4036376486,"126":213.768126728,"127":213.8745088375,"128":213.4530478094,"129":212.8952072305,"130":213.4455123772,"131":213.4563712959,"132":213.4563712949,"133":213.2098845378,"134":213.1757888913,"135":212.9074093453,"136":213.1758764716,"137":213.1817788822,"138":213.7128576955,"139":213.6031544631,"140":213.5836593168,"141":213.5986690771,"142":213.6033708653,"143":213.6229039694},"AirPassengers_Forecast_Lower_Bound":{"120":null,"121":null,"122":null,"123":null,"124":null,"125":null,"126":null,"127":null,"128":null,"129":null,"130":null,"131":null,"132":-123.4272953393,"133":-123.057979472,"134":-123.2713370373,"135":-123.4970292091,"136":-123.2363273118,"137":-123.2289008725,"138":-122.6981582133,"139":-122.8079102898,"140":-122.8273393822,"141":-122.812347451,"142":-122.8076431955,"143":-122.7881094471},"AirPassengers_Forecast_Upper_Bound":{"120":null,"121":null,"122":null,"123":null,"124":null,"125":null,"126":null,"127":null,"128":null,"129":null,"130":null,"131":null,"132":550.3400379291,"133":549.4777485477,"134":549.6229148199,"135":549.3118478998,"136":549.588080255,"137":549.5924586369,"138":550.1238736043,"139":550.0142192161,"140":549.9946580158,"141":550.0096856053,"142":550.0143849261,"143":550.033917386}}
+{"time":{"120":1959.0,"121":1959.0833333333,"122":1959.1666666667,"123":1959.25,"124":1959.3333333333,"125":1959.4166666667,"126":1959.5,"127":1959.5833333333,"128":1959.6666666667,"129":1959.75,"130":1959.8333333333,"131":1959.9166666667,"132":1960.0,"133":1960.0833333333,"134":1960.1666666667,"135":1960.25,"136":1960.3333333333,"137":1960.4166666667,"138":1960.5,"139":1960.5833333333,"140":1960.6666666667,"141":1960.75,"142":1960.8333333333,"143":1960.9166666667},"AirPassengers":{"120":360.0,"121":342.0,"122":406.0,"123":396.0,"124":420.0,"125":472.0,"126":548.0,"127":559.0,"128":463.0,"129":407.0,"130":362.0,"131":405.0,"132":null,"133":null,"134":null,"135":null,"136":null,"137":null,"138":null,"139":null,"140":null,"141":null,"142":null,"143":null},"AirPassengers_Forecast":{"120":213.4902085067,"121":213.4902085067,"122":213.4902085067,"123":213.4902085067,"124":212.8170696102,"125":212.8138973819,"126":213.0565901098,"127":212.8138973819,"128":212.8138973863,"129":214.1665196316,"130":214.1665196316,"131":213.4902085067,"132":213.4902085067,"133":213.4902085067,"134":213.6954132358,"135":213.4902085067,"136":213.6953869164,"137":213.2850037776,"138":213.8174637912,"139":213.4330904007,"140":213.4025070805,"141":213.4524254265,"142":213.3185800772,"143":213.3914246212},"AirPassengers_Forecast_Lower_Bound":{"120":null,"121":null,"122":null,"123":null,"124":null,"125":null,"126":null,"127":null,"128":null,"129":null,"130":null,"131":null,"132":-123.3434781081,"133":-123.3134819478,"134":-123.1200086801,"135":-123.3711652995,"136":-123.1946391433,"137":-123.6225626184,"138":-123.1001308637,"139":-123.4908156013,"140":-123.525607468,"141":-123.4786452948,"142":-123.614441637,"143":-123.5428479693},"AirPassengers_Forecast_Upper_Bound":{"120":null,"121":null,"122":null,"123":null,"124":null,"125":null,"126":null,"127":null,"128":null,"129":null,"130":null,"131":null,"132":550.3238951216,"133":550.2938989613,"134":550.5108351518,"135":550.3515823129,"136":550.5854129761,"137":550.1925701736,"138":550.7350584461,"139":550.3569964027,"140":550.3306216289,"141":550.3834961477,"142":550.2516017914,"143":550.3256972118}}
 </Forecast>
 
 
