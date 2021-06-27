@@ -30,7 +30,16 @@ def add_patched_legend(ax , names):
     # print("add_patched_legend" , names, patched_names)
     ax.legend(patched_names)
 
-def decomp_plot(df, time, signal, estimator, residue, name = None, format='png', max_length = 1000, horizon = 1) :
+def fig_to_png_base64(fig):
+    figfile = BytesIO()
+    fig.savefig(figfile, format='png')
+    figfile.seek(0)  # rewind to beginning of file
+    figdata_png = base64.b64encode(figfile.getvalue())
+    return figdata_png.decode('utf8')
+
+
+    
+def decomp_plot_internal(df, time, signal, estimator, residue, name = None, format='png', max_length = 1000, horizon = 1) :
     assert(df.shape[0] > 0)
     assert(df.shape[1] > 0)
     assert(time in df.columns)
@@ -40,9 +49,9 @@ def decomp_plot(df, time, signal, estimator, residue, name = None, format='png',
 
 
     import matplotlib
+    import matplotlib.pyplot as plt
     # print("MATPLOTLIB_BACKEND",  matplotlib.get_backend())
     # matplotlib.use('Agg')
-    import matplotlib.pyplot as plt
     df1 = df.tail(max(max_length , 4 * horizon));
     if(name is not None):
         plt.switch_backend('Agg')
@@ -60,46 +69,28 @@ def decomp_plot(df, time, signal, estimator, residue, name = None, format='png',
     resid = residues[~np.isnan(residues)]
     scistats.probplot(resid, dist="norm", plot=axs[1])
 
+    return fig
+
+def decomp_plot(df, time, signal, estimator, residue, name = None, format='png', max_length = 1000, horizon = 1) :
+    fig = decomp_plot_internal(df, time, signal, estimator, residue, name, format, max_length, horizon)
     if(name is not None):
+        import matplotlib
+        import matplotlib.pyplot as plt
         plt.switch_backend('Agg')
         fig.savefig(name + '_decomp_output.' + format)
         plt.close(fig)
 
+
 def decomp_plot_as_png_base64(df, time, signal, estimator, residue, name = None, max_length = 1000, horizon = 1) :
-    assert(df.shape[0] > 0)
-    assert(df.shape[1] > 0)
-    assert(time in df.columns)
-    assert(signal in df.columns)
-    assert(estimator in df.columns)
-    assert(residue in df.columns)
-
+    fig = decomp_plot_internal(df, time, signal, estimator, residue, name, format, max_length, horizon)
+ 
     import matplotlib
-    # matplotlib.use('Agg')
     import matplotlib.pyplot as plt
-    plt.switch_backend('Agg')
-    df1 = df.tail(max(max_length, 4 * horizon));
-    fig, axs = plt.subplots(ncols=2, figsize=(16, 8))
-    lColor = COMPONENT_COLOR;
-    if(name is not None and name.endswith("Forecast")):
-        lColor = FORECAST_COLOR;
-    df1.plot.line(time, [signal, estimator, residue],
-                  color=[SIGNAL_COLOR, lColor, RESIDUE_COLOR],
-                  ax=axs[0] , grid = True, legend = False)
-    add_patched_legend(axs[0] , [signal, estimator, residue])
-    residues =  df1[residue].values
-
-    import scipy.stats as scistats
-    resid = residues[~np.isnan(residues)]
-    scistats.probplot(resid, dist="norm", plot=axs[1])
-
-    figfile = BytesIO()
-    fig.savefig(figfile, format='png')
-    figfile.seek(0)  # rewind to beginning of file
-    figdata_png = base64.b64encode(figfile.getvalue())
+    png_b64 = fig_to_png_base64(fig)
     plt.close(fig)
-    return figdata_png.decode('utf8')
+    return png_b64
     
-def prediction_interval_plot(df, time, signal, estimator, lower, upper, name = None, format='png', max_length = 1000, horizon =
+def prediction_interval_plot_internal(df, time, signal, estimator, lower, upper, name = None, format='png', max_length = 1000, horizon =
  1) :
     assert(df.shape[0] > 0)
     assert(df.shape[1] > 0)
@@ -139,14 +130,28 @@ def prediction_interval_plot(df, time, signal, estimator, lower, upper, name = N
         x = x.apply(lambda t : t.date());
     axs.fill_between(x.values, df1[lower], df1[upper], color=SHADED_COLOR, alpha=.2)
 
+    return fig
+
+def prediction_interval_plot(df, time, signal, estimator, lower, upper, name = None, format='png', max_length = 1000, horizon = 1) :
+    fig = prediction_interval_plot_internal(df, time, signal, estimator, lower, upper, name, format, max_length, horizon)
     if(name is not None):
+        import matplotlib
+        import matplotlib.pyplot as plt
         plt.switch_backend('Agg')
         fig.savefig(name + '_prediction_intervals_output.' + format)
         plt.close(fig)
+    
+def prediction_interval_plot_as_png_base64(df, time, signal, estimator, lower, upper, name = None, max_length = 1000, horizon = 1) :
+    fig = prediction_interval_plot_internal(df, time, signal, estimator, lower, upper, name, format, max_length, horizon)
+
+    import matplotlib
+    import matplotlib.pyplot as plt
+    png_b64 = fig_to_png_base64(fig)
+    plt.close(fig)
+    return png_b64
 
 
-
-def quantiles_plot(df, time, signal, estimator, iQuantiles, name = None, format='png', max_length = 1000, horizon = 1) :
+def quantiles_plot_internal(df, time, signal, estimator, iQuantiles, name = None, format='png', horizon = 1) :
     assert(df.shape[0] > 0)
     assert(df.shape[1] > 0)
     assert(time in df.columns)
@@ -186,58 +191,27 @@ def quantiles_plot(df, time, signal, estimator, iQuantiles, name = None, format=
         if(h < (horizon - 1)):
             axs[h].set_xlabel('')
             axs[h].set_xticklabels([])
-            
+
+    return fig
+
+def quantiles_plot(df, time, signal, estimator, iQuantiles, name = None, format='png', horizon = 1) :
+    fig = quantiles_plot_internal(df, time, signal, estimator, iQuantiles, name, format, horizon)
+    import matplotlib
+    import matplotlib.pyplot as plt
     if(name is not None):
         plt.switch_backend('Agg')
         fig.savefig(name + '_quantiles_output.' + format)
         plt.close(fig)
     
 
-def prediction_interval_plot_as_png_base64(df, time, signal, estimator, lower, upper, name = None, max_length = 1000, horizon = 1) :
-    assert(df.shape[0] > 0)
-    assert(df.shape[1] > 0)
-    assert(time in df.columns)
-    assert(signal in df.columns)
-    assert(estimator in df.columns)
-    assert(lower in df.columns)
-    assert(upper in df.columns)
-
-
-    df1 = df.tail(max(max_length, 4 * horizon)).copy();
-    lMin = np.mean(df1[signal]) -  np.std(df1[signal]) * 10;
-    lMax = np.mean(df1[signal]) +  np.std(df1[signal]) * 10;
-    df1[lower] = df1[lower].apply(lambda x : x if (np.isnan(x) or x >= lMin) else np.nan);
-    df1[upper] = df1[upper].apply(lambda x : x if (np.isnan(x) or x <= lMax) else np.nan);
-
-    # last value of the signal
-    lLastSignalPos = df1[signal].dropna().tail(1).index;
-    lEstimtorValue = df1[estimator][lLastSignalPos];
-    df1.loc[lLastSignalPos , lower] = lEstimtorValue;
-    df1.loc[lLastSignalPos , upper] = lEstimtorValue;
-
+def quantiles_plot_as_png_base64(df, time, signal, estimator, iQuantiles, name = None, format='png', horizon = 1) :
+    fig = quantiles_plot_internal(df, time, signal, estimator, iQuantiles, name, format, horizon)
     import matplotlib
-    # matplotlib.use('Agg')
     import matplotlib.pyplot as plt
-    plt.switch_backend('Agg')
-    fig, axs = plt.subplots(ncols=1, figsize=(16, 8))
-    df1.plot.line(time, [signal, estimator, lower, upper],
-                  color=[SIGNAL_COLOR, FORECAST_COLOR, FORECAST_COLOR, FORECAST_COLOR],
-                  ax=axs, grid = True, legend=False)
-    add_patched_legend(axs , [signal, estimator, lower, upper])
-
-    x = df1[time];
-    type1 = np.dtype(x)
-    if(type1.kind == 'M'):
-        x = x.apply(lambda t : t.date());
-    axs.fill_between(x.values, df1[lower], df1[upper], color=SHADED_COLOR, alpha=.5)
-
-    figfile = BytesIO()
-    fig.savefig(figfile, format='png')
+    
+    png_b64 = fig_to_png_base64(fig)
     plt.close(fig)
-    figfile.seek(0)  # rewind to beginning of file
-    figdata_png = base64.b64encode(figfile.getvalue())
-    return figdata_png.decode('utf8')
-
+    return png_b64
 
 def qqplot_residues(df , residue):
     pass
@@ -251,7 +225,7 @@ def build_record_label(labels_list):
     return out + "";
 
 
-def plot_hierarchy(structure , iAnnotations, name):
+def plot_hierarchy_internal(structure , iAnnotations, name):
     import pydot
     graph = pydot.Dot(graph_type='graph', rankdir='LR', fontsize="12.0");
     graph.set_node_defaults(shape='record')
@@ -278,9 +252,20 @@ def plot_hierarchy(structure , iAnnotations, name):
                 lEdge = pydot.Edge(node_col, node_col1, color="red", label=lEdgeLabel, fontsize="12.0")
                 graph.add_edge(lEdge)
     # print(graph.obj_dict)
+    return graph
+    
+def plot_hierarchy(structure , iAnnotations, name):
+    graph = plot_hierarchy_internal(structure , iAnnotations, name)
     if(name is not None):
         graph.write_png(name);
     else:
         from IPython.display import Image, display
         plot1 = Image(graph.create_png())
         display(plot1)
+
+
+def plot_hierarchy_as_png_base64(structure , iAnnotations, name):
+    graph = plot_hierarchy_internal(structure , iAnnotations, name)
+    figdata_png = base64.b64encode(graph.create_png())
+    return figdata_png.decode('utf8')
+
