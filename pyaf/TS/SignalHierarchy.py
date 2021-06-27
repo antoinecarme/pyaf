@@ -219,10 +219,8 @@ class cSignalHierarchy:
         lEngine = self.mModels
         lEngine.getModelInfo();
 
-    def plot(self , name = None):
-        logger = tsutil.get_pyaf_logger();
-        logger.info("START_HIERARCHICAL_PLOTTING")
-        start_time = time.time()
+
+    def get_plot_annotations(self):
         lAnnotations = None;
         lHasModels = (self.mModels is not None)
         if(lHasModels):
@@ -236,14 +234,38 @@ class cSignalHierarchy:
                     for col1 in sorted(self.mStructure[level][signal]):
                         lProp = self.mAvgHistProp[signal][col1] * 100;
                         lAnnotations[str(signal) +"_" + col1] = ('%2.2f %%' % lProp)
+        return lAnnotations
+
+    def plot(self , name = None):
+        logger = tsutil.get_pyaf_logger();
+        logger.info("START_HIERARCHICAL_PLOTTING")
+        start_time = time.time()
+        lAnnotations = self.get_plot_annotations()
         tsplot.plot_hierarchy(self.mStructure, lAnnotations, name)
         lPlotTime = time.time() - start_time;
         logger.info("END_HIERARCHICAL_PLOTTING_TIME_IN_SECONDS " + str(lPlotTime))
 
+    def plot_as_png_base64(self , name = None):
+        logger = tsutil.get_pyaf_logger();
+        logger.info("START_HIERARCHICAL_PLOTTING")
+        start_time = time.time()
+        lAnnotations = self.get_plot_annotations()
+        lBase64 = tsplot.plot_hierarchy_as_png_base64(self.mStructure, lAnnotations, name)
+        lPlotTime = time.time() - start_time;
+        logger.info("END_HIERARCHICAL_PLOTTING_TIME_IN_SECONDS " + str(lPlotTime))
+        return lBase64
     
     def standardPlots(self , name = None):
         lEngine = self.mModels
         lEngine.standardPlots(name + "_Hierarchy_Level_Signal_");
+        self.plot(name + "_Hierarchical_Structure.png")
+
+    def getPlotsAsDict(self):
+        lDict = {}
+        lDict["Models"] = self.mModels.getPlotsAsDict()
+        lDict["Hierarchical_Structure"] = self.plot_as_png_base64()
+        return lDict
+    
 
     def forecastAllModels_with_one_engine(self, iAllLevelsDataset, H, iDateColumn):
         logger = tsutil.get_pyaf_hierarchical_logger();
