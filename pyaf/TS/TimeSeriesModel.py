@@ -409,6 +409,16 @@ class cTimeSeriesModel:
                                                                                       lForecastColumn + '_Upper_Bound',
                                                                                       name = "prediction_intervals",
                                                                                       horizon = self.mTimeInfo.mHorizon);
+        if(self.mTimeInfo.mOptions.mAddPredictionIntervals):
+            lQuantiles = self.mPredictionIntervalsEstimator.mForecastPerformances[lForecastColumn + "_1"].mErrorQuantiles.keys()
+            lQuantiles = sorted(lQuantiles)
+            lDict["Forecast_Quantiles"] = tsplot.quantiles_plot_as_png_base64(lOutput,
+                                                                              lTime, self.mOriginalSignal,
+                                                                              lForecastColumn  ,
+                                                                              lQuantiles,
+                                                                              name = "Forecast_Quantiles",
+                                                                              format= format, horizon = self.mTimeInfo.mHorizon);
+            
         return lDict;
 
 
