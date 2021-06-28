@@ -42,8 +42,8 @@ class cHierarchicalForecastEngine:
         self.mSignalHierarchy.getModelInfo();
 
     
-    def standrdPlots(self , name = None):
-        self.mSignalHierarchy.standrdPlots(name);
+    def standardPlots(self , name = None):
+        self.mSignalHierarchy.standardPlots(name);
 
     def getPlotsAsDict(self):
         return self.mSignalHierarchy.getPlotsAsDict();

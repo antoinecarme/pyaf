@@ -8,8 +8,10 @@ RELEASE 3.0 (expected 2021-07-14)
 5. PyAF Powerpc support (IBM S822xx) #160
 6. More Parallelization Efforts (#145)
 7. Add Missing Data Imputation Methods (#146 )
-8. Warning Hunts (#153)
-9. Some Bug Fixes (#163, #142).
+8. Improved long signals modeling (#167)
+9. Warning Hunts (#153)
+10. Some Bug Fixes (#163, #142, #168).
+11. Switched to Circle-CI (#164)
 
 
 RELEASE 2.0 (released on 2020-07-14)
