@@ -756,6 +756,11 @@ func/test_ozone_bench_mode.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/func_test_ozone_bench_mode.log logs/func_test_ozone_bench_mode.log  >  logs/func_test_ozone_bench_mode.log.diff
 	 tail -10  logs/func_test_ozone_bench_mode.log.diff 
 
+func/test_ozone_horizon_one.py  :  
+	 -$(PYTHON)  tests/func/test_ozone_horizon_one.py  >  logs/func_test_ozone_horizon_one.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/func_test_ozone_horizon_one.log logs/func_test_ozone_horizon_one.log  >  logs/func_test_ozone_horizon_one.log.diff
+	 tail -10  logs/func_test_ozone_horizon_one.log.diff 
+
 func/test_ozone_with_logging.py  :  
 	 -$(PYTHON)  tests/func/test_ozone_with_logging.py  >  logs/func_test_ozone_with_logging.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/func_test_ozone_with_logging.log logs/func_test_ozone_with_logging.log  >  logs/func_test_ozone_with_logging.log.diff
@@ -768,7 +773,7 @@ func/test_version.py  :
 
 
 
- func :  func/test_version.py func/test_ozone_with_logging.py func/test_ozone_bench_mode.py func/test_ozone.py func/test_cycles_full.py func/test_cycle.py func/test_const_signal.py func/test_ar.py func/test_air_passengers.py  
+ func :  func/test_version.py func/test_ozone_with_logging.py func/test_ozone_horizon_one.py func/test_ozone_bench_mode.py func/test_ozone.py func/test_cycles_full.py func/test_cycle.py func/test_const_signal.py func/test_ar.py func/test_air_passengers.py  
  
 
 heroku/build_generic_heroku_model.py  :  
@@ -1696,6 +1701,31 @@ perfs/test_ozone_perf_measure_MASE.py  :
  perfs :  perfs/test_ozone_perf_measure_MASE.py perfs/test_ozone_perf_measure_MAPE.py perfs/test_ozone_perf_measure_L2.py perfs/test_ozone_perf_measure_L1.py perfs/test_ozone_perf_measure.py  
  
 
+plots/test_air_passengers_plots.py  :  
+	 -$(PYTHON)  tests/plots/test_air_passengers_plots.py  >  logs/plots_test_air_passengers_plots.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/plots_test_air_passengers_plots.log logs/plots_test_air_passengers_plots.log  >  logs/plots_test_air_passengers_plots.log.diff
+	 tail -10  logs/plots_test_air_passengers_plots.log.diff 
+
+plots/test_hierarchy_AU_all_reconciliations_plots.py  :  
+	 -$(PYTHON)  tests/plots/test_hierarchy_AU_all_reconciliations_plots.py  >  logs/plots_test_hierarchy_AU_all_reconciliations_plots.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/plots_test_hierarchy_AU_all_reconciliations_plots.log logs/plots_test_hierarchy_AU_all_reconciliations_plots.log  >  logs/plots_test_hierarchy_AU_all_reconciliations_plots.log.diff
+	 tail -10  logs/plots_test_hierarchy_AU_all_reconciliations_plots.log.diff 
+
+plots/test_hierarchy_AU_plots.py  :  
+	 -$(PYTHON)  tests/plots/test_hierarchy_AU_plots.py  >  logs/plots_test_hierarchy_AU_plots.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/plots_test_hierarchy_AU_plots.log logs/plots_test_hierarchy_AU_plots.log  >  logs/plots_test_hierarchy_AU_plots.log.diff
+	 tail -10  logs/plots_test_hierarchy_AU_plots.log.diff 
+
+plots/test_ozone_plots.py  :  
+	 -$(PYTHON)  tests/plots/test_ozone_plots.py  >  logs/plots_test_ozone_plots.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/plots_test_ozone_plots.log logs/plots_test_ozone_plots.log  >  logs/plots_test_ozone_plots.log.diff
+	 tail -10  logs/plots_test_ozone_plots.log.diff 
+
+
+
+ plots :  plots/test_ozone_plots.py plots/test_hierarchy_AU_plots.py plots/test_hierarchy_AU_all_reconciliations_plots.py plots/test_air_passengers_plots.py  
+ 
+
 probabilistic_forecasting/test_air_passengers.py  :  
 	 -$(PYTHON)  tests/probabilistic_forecasting/test_air_passengers.py  >  logs/probabilistic_forecasting_test_air_passengers.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/probabilistic_forecasting_test_air_passengers.log logs/probabilistic_forecasting_test_air_passengers.log  >  logs/probabilistic_forecasting_test_air_passengers.log.diff
@@ -2009,7 +2039,7 @@ xgb/test_ozone_xgbx_exogenous.py  :
 
 # ********************************************** 
 
-all:  artificial basic_checks bugs cross_validation croston exog expsmooth func HeartRateTimeSeries heroku hierarchical  HourOfWeek model_control perf svr transformations  neuralnet real-life  time_res perfs demos xgb xeon-phi-parallel sampling temporal_hierarchy WeekOfMonth missing_data probabilistic_forecasting lgbm perf_MedAE perf_LnQ 
+all:  artificial basic_checks bugs cross_validation croston exog expsmooth func HeartRateTimeSeries heroku hierarchical  HourOfWeek model_control perf svr transformations  neuralnet real-life  time_res perfs demos xgb xeon-phi-parallel sampling temporal_hierarchy WeekOfMonth missing_data probabilistic_forecasting lgbm perf_MedAE perf_LnQ plots 
 	
 
 build-test :  demos basic_checks cross_validation croston exog heroku hierarchical model_control perfs svr transformations func real-life  time_res xgb sampling HourOfWeek WeekOfMonth missing_data lgbm perf_MedAE perf_LnQ 

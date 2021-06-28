@@ -32,6 +32,7 @@ str1 = str1 + " probabilistic_forecasting"
 str1 = str1 + " lgbm"
 str1 = str1 + " perf_MedAE"
 str1 = str1 + " perf_LnQ"
+str1 = str1 + " plots"
 subdirs = str1.split();
 
 print("PYTHON=timeout 600 python3\n\n");

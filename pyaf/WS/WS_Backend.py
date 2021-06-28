@@ -208,7 +208,7 @@ class cWSModel:
         }
         lPlotLinks = {};
         lPlotLinks["all"] = self.mURI + "model/" + self.mName + "/plot/" + "all";
-        for k in ["Forecast", "Trend" , "Cycle", "AR", "Prediction_Intervals"]:
+        for k in ["Forecast", "Trend" , "Cycle", "AR", "Prediction_Intervals", "Forecast_Quantiles"]:
             lPlotLinks[k] = self.mURI + "model/" + self.mName + "/plot/" + k;
         lTrainOptionsDescription =  {
             'CSVFile': "A CSV file (URIs are also welcome!!!) containing a date column (optional, a integer sequence starting at zero is used if not present), and a signal column, for which the future values are to be predicted. ",

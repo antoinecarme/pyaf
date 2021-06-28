@@ -12,7 +12,7 @@ RELEASE 3.0 (expected 2021-07-14)
 9. Warning Hunts (#153)
 10. Some Bug Fixes (#163, #142, #168).
 11. Switched to Circle-CI (#164)
-
+12. Plot Functions Improvement #169
 
 RELEASE 2.0 (released on 2020-07-14)
 

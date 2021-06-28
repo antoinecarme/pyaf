@@ -224,13 +224,17 @@ class cSignalHierarchy:
         lAnnotations = None;
         lHasModels = (self.mModels is not None)
         if(lHasModels):
+            lPrefixes = self.get_reconciled_forecast_prefixes()
             lAnnotations = {};
             for level in sorted(self.mStructure.keys()):
                 for signal in sorted(self.mStructure[level].keys()):
                     lEngine = self.mModels
-                    lMAPE = lEngine.mSignalDecomposition.mBestModels[signal].mForecastPerf.mMAPE;
-                    lMAPE = ('MAPE = %.4f' % lMAPE);
-                    lAnnotations[signal] = [signal , lMAPE];
+                    lMAPE = 'MAPE = %.4f' % self.mValidPerfs[str(signal) + "_Forecast"].mMAPE
+                    lReconciledMAPEs = [ ]
+                    for lPrefix in lPrefixes:
+                        lMAPE_Rec = self.mValidPerfs[str(signal) + "_" + lPrefix + "_Forecast"].mMAPE
+                        lReconciledMAPEs.append('MAPE_' + lPrefix + ' = %.4f' % lMAPE_Rec);
+                    lAnnotations[signal] = [signal , lMAPE ] + lReconciledMAPEs;
                     for col1 in sorted(self.mStructure[level][signal]):
                         lProp = self.mAvgHistProp[signal][col1] * 100;
                         lAnnotations[str(signal) +"_" + col1] = ('%2.2f %%' % lProp)
@@ -363,19 +367,23 @@ class cSignalHierarchy:
         lForecast_DF = iForecast_DF[lColumns]
         return lForecast_DF
 
-    def computePerfOnCombinedForecasts(self, iForecast_DF):
-        logger = tsutil.get_pyaf_hierarchical_logger();
-        logger.info("FORECASTING_HIERARCHICAL_MODEL_OPTIMAL_COMBINATION_METHOD");
-        lEngine = self.mModels
-
-        self.mEstimPerfs = {}
-        self.mValidPerfs = {}
+    def get_reconciled_forecast_prefixes(self):
         lCombinationMethods = self.mOptions.mHierarchicalCombinationMethod;
         if type(lCombinationMethods) is not list:
             lCombinationMethods = [lCombinationMethods];
         lPrefixes = [lPrefix for lPrefix in lCombinationMethods if (lPrefix != 'TD')];
         if('TD' in lCombinationMethods):
             lPrefixes = lPrefixes + ['AHP_TD', 'PHA_TD'];
+        return lPrefixes
+
+    def computePerfOnCombinedForecasts(self, iForecast_DF):
+        logger = tsutil.get_pyaf_hierarchical_logger();
+        logger.info("FORECASTING_HIERARCHICAL_MODEL_OPTIMAL_COMBINATION_METHOD");
+        lEngine = self.mModels
+        lPrefixes = self.get_reconciled_forecast_prefixes()
+        
+        self.mEstimPerfs = {}
+        self.mValidPerfs = {}
         lPerfs = {};
         logger.info("STRUCTURE " + str(sorted(list(self.mStructure.keys()))));
         logger.info("DATASET_COLUMNS "  + str(iForecast_DF.columns));
