@@ -1,13 +1,13 @@
 INFO:pyaf.std:START_TRAINING 'AirPassengers'
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['AirPassengers']' 1.4711394309997559
-INFO:pyaf.std:TIME_DETAIL TimeVariable='time' TimeMin=1949.0 TimeMax=1956.91666666667 TimeDelta=0.08333333333336763 Horizon=12
-INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='AirPassengers' Length=132  Min=0.0 Max=559.0  Mean=217.7651515151515 StdDev=145.1984983982212
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['AirPassengers']' 4.5567944049835205
+INFO:pyaf.std:TIME_DETAIL TimeVariable='time' TimeMin=1949.0 TimeMax=1956.9166666666702 TimeDelta=0.08333333333337004 Horizon=12
+INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='AirPassengers' Length=132  Min=0.0 Max=559.0  Mean=217.7651515151515 StdDev=145.19849839822123
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='CumSum_AirPassengers' Min=112.0 Max=28745.0  Mean=10835.780303030304 StdDev=8180.063378944654
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'CumSum_'
-INFO:pyaf.std:BEST_DECOMPOSITION  'CumSum_AirPassengers_ConstantTrend_residue_zeroCycle_residue_NoAR' [ConstantTrend + NoCycle + NoAR]
+INFO:pyaf.std:BEST_DECOMPOSITION  'CumSum_AirPassengers_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [ConstantTrend + Cycle_None + NoAR]
 INFO:pyaf.std:TREND_DETAIL 'CumSum_AirPassengers_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL 'CumSum_AirPassengers_ConstantTrend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL 'CumSum_AirPassengers_ConstantTrend_residue_zeroCycle_residue_NoAR' [NoAR]
+INFO:pyaf.std:CYCLE_DETAIL 'CumSum_AirPassengers_ConstantTrend_residue_bestCycle_byMAPE' [Cycle_None]
+INFO:pyaf.std:AUTOREG_DETAIL 'CumSum_AirPassengers_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [NoAR]
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=1.3744 MAPE_Forecast=0.7917 MAPE_Test=1.0
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=1.5618 SMAPE_Forecast=1.5833 SMAPE_Test=2.0
 INFO:pyaf.std:MODEL_MASE MASE_Fit=3.496 MASE_Forecast=1.7806 MASE_Test=9.5185
@@ -16,7 +16,7 @@ INFO:pyaf.std:MODEL_L1 L1_Fit=237.36208767361111 L1_Forecast=299.8333333333333 L
 INFO:pyaf.std:MODEL_L2 L2_Fit=692.9687888724792 L2_Forecast=341.0758713248417 L2_Test=433.5197035122318
 INFO:pyaf.std:MODEL_LnQ LnQ_Fit=inf LnQ_Forecast=inf LnQ_Test=inf
 INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=182.0 MedAE_Forecast=351.5 MedAE_Test=406.5
-INFO:pyaf.std:MODEL_COMPLEXITY 32
+INFO:pyaf.std:MODEL_COMPLEXITY 1
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES Integration None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
@@ -24,12 +24,12 @@ INFO:pyaf.std:TREND_DETAIL_START
 INFO:pyaf.std:CONSTANT_TREND ConstantTrend 6601.760416666667
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES CumSum_AirPassengers_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES CumSum_AirPassengers_ConstantTrend_residue_bestCycle_byMAPE None -421.76041666666697 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:START_FORECASTING '['AirPassengers']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['AirPassengers']' 0.1914839744567871
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['AirPassengers']' 0.3846893310546875
   Split        Transformation  ...  ForecastMAPE TestMAPE
 0  None  CumSum_AirPassengers  ...  7.917000e-01   1.0000
 1  None  CumSum_AirPassengers  ...  7.917000e-01   1.0000
@@ -41,10 +41,10 @@ INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['AirPassengers']' 0.19148397445678
 Forecast Columns  Index(['time', 'AirPassengers', 'row_number', 'time_Normalized',
        'CumSum_AirPassengers', 'CumSum_AirPassengers_ConstantTrend',
        'CumSum_AirPassengers_ConstantTrend_residue',
-       'CumSum_AirPassengers_ConstantTrend_residue_zeroCycle',
-       'CumSum_AirPassengers_ConstantTrend_residue_zeroCycle_residue',
-       'CumSum_AirPassengers_ConstantTrend_residue_zeroCycle_residue_NoAR',
-       'CumSum_AirPassengers_ConstantTrend_residue_zeroCycle_residue_NoAR_residue',
+       'CumSum_AirPassengers_ConstantTrend_residue_bestCycle_byMAPE',
+       'CumSum_AirPassengers_ConstantTrend_residue_bestCycle_byMAPE_residue',
+       'CumSum_AirPassengers_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR',
+       'CumSum_AirPassengers_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR_residue',
        'CumSum_AirPassengers_Trend', 'CumSum_AirPassengers_Trend_residue',
        'CumSum_AirPassengers_Cycle', 'CumSum_AirPassengers_Cycle_residue',
        'CumSum_AirPassengers_AR', 'CumSum_AirPassengers_AR_residue',
@@ -100,13 +100,13 @@ Forecasts
         },
         "Model": {
             "AR_Model": "NoAR",
-            "Best_Decomposition": "CumSum_AirPassengers_ConstantTrend_residue_zeroCycle_residue_NoAR",
-            "Cycle": "NoCycle",
+            "Best_Decomposition": "CumSum_AirPassengers_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR",
+            "Cycle": "Cycle_None",
             "Signal_Transoformation": "Integration",
             "Trend": "ConstantTrend"
         },
         "Model_Performance": {
-            "COMPLEXITY": "32",
+            "COMPLEXITY": "1",
             "CRPS": "169.1875",
             "LnQ": "inf",
             "MAE": "299.8333333333333",

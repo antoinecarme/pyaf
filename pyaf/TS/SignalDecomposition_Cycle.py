@@ -120,7 +120,6 @@ class cSeasonalPeriodic(cAbstractCycle):
         self.mDatePart = date_part;
         self.mEncodedValueDict = {}
         self.mFormula = "Seasonal_" + self.mDatePart.name;
-        self.mComplexity = 1;
         
         
     def getCycleName(self):
@@ -194,6 +193,8 @@ class cSeasonalPeriodic(cAbstractCycle):
         
         self.mOutName = self.getCycleName()
         #print("encoding '" + lName + "' " + str(self.mEncodedValueDict));
+        # The longer the seasonal, the more complex it is.
+        self.mComplexity = len(self.mEncodedValueDict.keys())
 
     def transformDataset(self, df):
         target = df[self.mTrend_residue_name]
@@ -210,7 +211,6 @@ class cBestCycleForTrend(cAbstractCycle):
         self.mBestCycleValueDict = {}
         self.mBestCycleLength = None
         self.mCriterion = criterion
-        self.mComplexity = 2;
         self.mFormula = "BestCycle"
         
     def getCycleName(self):
@@ -296,6 +296,10 @@ class cBestCycleForTrend(cAbstractCycle):
         if(self.mBestCycleLength is not None):
             self.mFormula = "Cycle" #  + str(self.mBestCycleLength);
         self.transformDataset(self.mCycleFrame);
+        self.mComplexity = 0
+        if(self.mBestCycleLength is not None):
+            lDict = self.mBestCycleValueDict[self.mBestCycleLength];
+            self.mComplexity = len(lDict.keys())
 
     def transformDataset(self, df):
         if(self.mBestCycleLength is not None):
