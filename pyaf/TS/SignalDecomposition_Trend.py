@@ -146,7 +146,7 @@ class cMovingAverageTrend(cAbstractTrend):
         self.mOutName = "MovingAverage";
         self.mWindow = iWindow;
         self.mFormula = self.mOutName;
-        self.mComplexity = 3;
+        self.mComplexity = iWindow;
         
     def addTrendInputVariables(self):
         self.mTime = self.mTimeInfo.mTime;
@@ -185,7 +185,7 @@ class cMovingMedianTrend(cAbstractTrend):
         self.mOutName = "MovingMedian";
         self.mWindow = iWindow;
         self.mFormula = self.mOutName;
-        self.mComplexity = 3;
+        self.mComplexity = iWindow;
         
     def addTrendInputVariables(self):
         self.mTime = self.mTimeInfo.mTime;
@@ -269,7 +269,7 @@ class cPolyTrend(cAbstractTrend):
         self.mTrendRidge = linear_model.Ridge()
         self.mOutName = "PolyTrend"
         self.mFormula = self.mOutName
-        self.mComplexity = 1;
+        self.mComplexity = 3;
 
     def addTrendInputVariables(self):
         self.mTime = self.mTimeInfo.mTime;
