@@ -10,25 +10,25 @@ DATASET_FINAL_COLUMNS Index(['Unnamed: 0', 'Symbol', 'Date', 'Close', 'Low', 'Vo
 TRAIN_PARAMS (857, 9) Index(['Unnamed: 0', 'Symbol', 'Date', 'Close', 'Low', 'Volume', 'Open',
        'Adj_Close', 'High'],
       dtype='object') Date Close 21
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Close']' 5.357708930969238
+INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Close']' 15.44494080543518
 INFO:pyaf.std:START_FORECASTING '['Close']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Close']' 0.4116361141204834
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Close']' 0.5875444412231445
 INFO:pyaf.std:START_FORECASTING '['Close']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Close']' 0.366945743560791
+INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Close']' 0.5761303901672363
   Split Transformation  ... ForecastMAPE TestMAPE
 0  None         _Close  ...       0.0121   0.0102
-1  None         _Close  ...       0.0121   0.0106
-2  None         _Close  ...       0.0121   0.0102
-3  None         _Close  ...       0.0121   0.0102
-4  None   CumSum_Close  ...       0.0121   0.0102
+1  None         _Close  ...       0.0121   0.0102
+2  None   CumSum_Close  ...       0.0121   0.0102
+3  None     Diff_Close  ...       0.0121   0.0102
+4  None     Diff_Close  ...       0.0121   0.0102
 
 [5 rows x 8 columns]
 Forecast Columns  Index(['Date', 'Close', 'row_number', 'Date_Normalized', '_Close',
        '_Close_Lag1Trend', '_Close_Lag1Trend_residue',
-       '_Close_Lag1Trend_residue_zeroCycle',
-       '_Close_Lag1Trend_residue_zeroCycle_residue',
-       '_Close_Lag1Trend_residue_zeroCycle_residue_NoAR',
-       '_Close_Lag1Trend_residue_zeroCycle_residue_NoAR_residue',
+       '_Close_Lag1Trend_residue_bestCycle_byMAPE',
+       '_Close_Lag1Trend_residue_bestCycle_byMAPE_residue',
+       '_Close_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR',
+       '_Close_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR_residue',
        '_Close_Trend', '_Close_Trend_residue', '_Close_Cycle',
        '_Close_Cycle_residue', '_Close_AR', '_Close_AR_residue',
        '_Close_TransformedForecast', 'Close_Forecast',
@@ -95,20 +95,20 @@ Forecasts
         },
         "Model": {
             "AR_Model": "NoAR",
-            "Best_Decomposition": "_Close_Lag1Trend_residue_zeroCycle_residue_NoAR",
-            "Cycle": "NoCycle",
+            "Best_Decomposition": "_Close_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR",
+            "Cycle": "Cycle_None",
             "Signal_Transoformation": "NoTransf",
             "Trend": "Lag1Trend"
         },
         "Model_Performance": {
-            "COMPLEXITY": "32",
+            "COMPLEXITY": "2",
             "CRPS": "19.116303379394875",
-            "LnQ": "0.06762097969376754",
-            "MAE": "7.500913732142857",
+            "LnQ": "0.06762097969376782",
+            "MAE": "7.5009137321428545",
             "MAPE": "0.0121",
             "MASE": "0.995",
             "MedAE": "4.595008999999948",
-            "RMSE": "12.512385900527176"
+            "RMSE": "12.51238590052718"
         }
     }
 }
