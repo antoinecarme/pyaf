@@ -271,7 +271,7 @@ class cSignalTransform_BoxCox(cAbstractSignalTransform):
     def specific_apply(self, df):
         lEps = 1e-20
         log_df = df.apply(lambda x : np.log(max(x , lEps)));
-        if(abs(self.mLambda) <= 0.01):
+        if(abs(self.mLambda) <= 0.001):
             return log_df;
         return (np.exp(log_df * self.mLambda) - 1) / self.mLambda;
 
