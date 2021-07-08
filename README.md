@@ -26,18 +26,18 @@ import pyaf.ForecastEngine as autof
 
 # generate a daily signal covering one year 2016 in a pandas dataframe
 N = 360
-df_train = pd.DataFrame({"Date" : pd.date_range(start="2016-01-25", periods=N, freq='D'),
-                         "Signal" : (np.arange(N)//40 + np.arange(N) % 21 + np.random.randn(N))})
+df_train = pd.DataFrame({"Date": pd.date_range(start="2016-01-25", periods=N, freq='D'),
+                         "Signal": (np.arange(N)//40 + np.arange(N) % 21 + np.random.randn(N))})
 
 # create a forecast engine, the main object handling all the operations
 lEngine = autof.cForecastEngine()
 
 # get the best time series model for predicting one week
-lEngine.train(iInputDS = df_train, iTime = 'Date', iSignal = 'Signal', iHorizon = 7);
+lEngine.train(iInputDS=df_train, iTime='Date', iSignal='Signal', iHorizon=7);
 lEngine.getModelInfo() # => relative error 7% (MAPE)
 
 # predict one week
-df_forecast = lEngine.forecast(iInputDS = df_train, iHorizon = 7)
+df_forecast = lEngine.forecast(iInputDS=df_train, iHorizon=7)
 # list the columns of the forecast dataset
 print(df_forecast.columns)
 
