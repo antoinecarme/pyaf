@@ -14,6 +14,7 @@ RELEASE 3.0 (expected 2021-07-14)
 11. Switched to Circle-CI (#164)
 12. Plot Functions Improvement #169
 13. Model Complexity Improvement (#171)
+14. Documentation review/corrections (#174)
 
 RELEASE 2.0 (released on 2020-07-14)
 
