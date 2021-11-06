@@ -190,6 +190,8 @@ provided when possible and even if you are not creating an issue, you are encour
 Bug reports, improvement requests, documentation, hints and test scripts are
 welcome. Please use the GitHub platform for these tasks.
 
+Please don't ask too much about new features. PyAF is only about forecasting (the last F). To keep PyAF design simple and flexible, we avoid [Feature Creep](https://en.wikipedia.org/wiki/Feature_creep).
+
 For your commercial forecasting projects, please consider using the services of a forecasting expert near you (be it an R or a Python expert). 
 
 Documentation
