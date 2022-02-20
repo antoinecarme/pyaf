@@ -9,7 +9,6 @@ import numpy as np
 
 from . import Utils as tsutil
 
-
 def testTransform_one_seed(tr1 , seed_value):
     df = pd.DataFrame();
     np.random.seed(seed_value)
@@ -338,7 +337,7 @@ class cSignalTransform_RelativeDifferencing(cAbstractSignalTransform):
 
     def get_name(self, iSig):
         return "RelDiff_" + str(iSig);
-
+    
     def specific_fit(self, sig):
         self.mFirstValue = sig.iloc[0];
         pass
@@ -356,12 +355,21 @@ class cSignalTransform_RelativeDifferencing(cAbstractSignalTransform):
         rate = rate.clip(-1.0e+8 , +1.0e+8)
         # print("RelDiff_apply_DEBUG_END" , rate[0:10]);
         return rate;
-    
+
+
+    def cumprod_no_overflow(self, rate):
+        lEps = 1e-8
+        lLogRate = np.log(rate.clip(lEps, +1.0e+8))
+        lCumSum = lLogRate.cumsum()
+        lCumSum = lCumSum.clip(lEps , +1.0e+2)
+        lResult = np.exp(lCumSum)
+        return lResult
+        
     def specific_invert(self, df):
         # print("RelDiff_invert_DEBUG_START" , self.mFirstValue, df.values[0:10]);
         rate = df + 1;
         rate = rate.clip(-1.0e+8 , +1.0e+8)
-        rate_cum = rate.cumprod();
+        rate_cum = self.cumprod_no_overflow(rate);
         df_orig = rate_cum.clip(-1.0e+8 , +1.0e+8)
         df_orig = self.mFirstValue * df_orig;
         # print("rate" , rate)
