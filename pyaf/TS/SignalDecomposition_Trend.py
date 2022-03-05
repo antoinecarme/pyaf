@@ -51,6 +51,16 @@ class cAbstractTrend:
         self.mTrendForecastPerf.compute(lFrameForecast[self.mSignal] ,
                                         lFrameForecast[self.mOutName], self.mOutName)
 
+    def compute_trend_residue(self, df):
+        target = df[self.mSignal].values
+        if(self.mDecompositionType in ['T+S+R']):
+            df[self.mOutName + '_residue'] = target - df[self.mOutName].values
+        else:
+            if(df[self.mOutName].min() > 0.0):
+                df[self.mOutName + '_residue'] = target / df[self.mOutName].values
+            else:
+                df[self.mOutName + '_residue'] = 1.0
+
 
 class cConstantTrend(cAbstractTrend):
     def __init__(self):
@@ -70,7 +80,7 @@ class cConstantTrend(cAbstractTrend):
     def transformDataset(self, df):
         target = df[self.mSignal].values
         df[self.mOutName] = self.mMean * np.ones_like(df[self.mSignal]);
-        df[self.mOutName + '_residue'] = target - df[self.mOutName].values        
+        self.compute_trend_residue(df)
         return df;
     
     def fit(self):
@@ -79,7 +89,7 @@ class cConstantTrend(cAbstractTrend):
         self.mMean = lTrendEstimFrame[self.mSignal].mean()
         target = self.mTrendFrame[self.mSignal]
         self.mTrendFrame[self.mOutName] = self.mMean * np.ones_like(target);
-        self.mTrendFrame[self.mOutName + '_residue'] = target - self.mTrendFrame[self.mOutName]
+        self.compute_trend_residue(self.mTrendFrame)
         # self.mTrendFrame.to_csv("aaaa.csv")
         # print("cConstantTrend" , self.mMean);
         # self.mFormula = self.mOutName + "[" + str(self.mMean) + "]";    
@@ -121,7 +131,7 @@ class cLag1Trend(cAbstractTrend):
         self.mTrendFrame[self.mOutName] = self.mTrendFrame[self.mSignal].shift(1);
         # print(self.mTrendFrame[self.mSignal].shape , self.mTrendFrame[self.mOutName].shape)
         self.replaceFirstMissingValue(self.mTrendFrame, self.mOutName);
-        self.mTrendFrame[self.mOutName + '_residue'] =  target - self.mTrendFrame[self.mOutName].values
+        self.compute_trend_residue(self.mTrendFrame)
         # print("cLag1Trend_FirstValue" , self.mDefaultValue);
 
 
@@ -129,7 +139,7 @@ class cLag1Trend(cAbstractTrend):
         target = df[self.mSignal].values
         df[self.mOutName] = df[self.mSignal].shift(1);
         self.replaceFirstMissingValue(df, self.mOutName);
-        df[self.mOutName + '_residue'] = target - df[self.mOutName].values        
+        self.compute_trend_residue(df)
         return df;
 
     def compute(self):
@@ -163,12 +173,12 @@ class cMovingAverageTrend(cAbstractTrend):
         self.mTrendFrame[self.mOutName] = self.mTrendFrame[self.mSignal].shift(1).rolling(self.mWindow).mean().fillna(method='bfill')
         mean = self.mSplit.getEstimPart(self.mTrendFrame)[self.mSignal].mean()
         self.mTrendFrame[self.mOutName].fillna(mean , inplace=True)
-        self.mTrendFrame[self.mOutName + '_residue'] =  target - self.mTrendFrame[self.mOutName].values
+        self.compute_trend_residue(self.mTrendFrame)
 
     def transformDataset(self, df):
         target = df[self.mSignal].values
         df[self.mOutName] = df[self.mSignal].shift(1).rolling(self.mWindow).mean().fillna(method='bfill');
-        df[self.mOutName + '_residue'] = target - df[self.mOutName].values        
+        self.compute_trend_residue(df)
         return df;
 
     def compute(self):
@@ -202,12 +212,12 @@ class cMovingMedianTrend(cAbstractTrend):
         self.mTrendFrame[self.mOutName] = self.mTrendFrame[self.mSignal].shift(1).rolling(self.mWindow).median().fillna(method='bfill')
         mean = self.mSplit.getEstimPart(self.mTrendFrame)[self.mSignal].mean()
         self.mTrendFrame[self.mOutName].fillna(mean , inplace=True)
-        self.mTrendFrame[self.mOutName + '_residue'] =  target - self.mTrendFrame[self.mOutName].values
+        self.compute_trend_residue(self.mTrendFrame)
 
     def transformDataset(self, df):
         target = df[self.mSignal].values
         df[self.mOutName] = df[self.mSignal].shift(1).rolling(self.mWindow).median().fillna(method='bfill');
-        df[self.mOutName + '_residue'] = target - df[self.mOutName].values        
+        self.compute_trend_residue(df)
         return df;
 
     def compute(self):
@@ -242,14 +252,14 @@ class cLinearTrend(cAbstractTrend):
         target = self.mTrendFrame[self.mSignal].values
         inputs = self.mTrendFrame[[self.mTimeInfo.mNormalizedTimeColumn]].values
         self.mTrendFrame[self.mOutName] = self.mTrendRidge.predict(inputs)
-        self.mTrendFrame[self.mOutName + '_residue'] =  target - self.mTrendFrame[self.mOutName].values
+        self.compute_trend_residue(self.mTrendFrame)
 
 
     def transformDataset(self, df):
         target = df[self.mSignal].values
         inputs = df[[self.mTimeInfo.mNormalizedTimeColumn]].values
         df[self.mOutName] = self.mTrendRidge.predict(inputs)
-        df[self.mOutName + '_residue'] = target - df[self.mOutName].values        
+        self.compute_trend_residue(df)
         return df;
 
     def compute(self):
@@ -295,7 +305,7 @@ class cPolyTrend(cAbstractTrend):
              self.mTimeInfo.mNormalizedTimeColumn + "_^2",
              self.mTimeInfo.mNormalizedTimeColumn + "_^3"]].values
         self.mTrendFrame[self.mOutName] = self.mTrendRidge.predict(inputs)
-        self.mTrendFrame[self.mOutName + '_residue'] =  target - self.mTrendFrame[self.mOutName].values
+        self.compute_trend_residue(self.mTrendFrame)
 
 
     def transformDataset(self, df):
@@ -309,7 +319,7 @@ class cPolyTrend(cAbstractTrend):
         #print(inputs);
         pred = self.mTrendRidge.predict(inputs)
         df[self.mOutName] = pred;
-        df[self.mOutName + '_residue'] = target - df[self.mOutName].values        
+        self.compute_trend_residue(df)
         return df;
 
 
@@ -398,6 +408,7 @@ class cTrendEstimator:
         self.mTimeInfo.addVars(self.mTrendFrame);
         for trend in self.mTrendList:
             trend.mOptions = self.mOptions
+            trend.mDecompositionType = self.mDecompositionType
             trend.fit();
             if(trend.mOptions.mDebugPerformance):
                 trend.computePerf();
