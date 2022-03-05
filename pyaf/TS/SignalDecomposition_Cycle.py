@@ -45,6 +45,18 @@ class cAbstractCycle:
             raise tsutil.Internal_PyAF_Error("CYCLE_COLUMN _FOR_TREND_RESIDUE ['"  + name + "'");
         pass
 
+    def compute_cycle_residue(self, df):
+        target = df[self.mTrend_residue_name].values
+        if(self.mDecompositionType in ['T+S+R', 'TS+R']):
+            df[self.getCycleResidueName()] = target - df[self.getCycleName()].values
+        else:
+            if(df[self.getCycleName()].min() > 0.0):
+                df[self.getCycleResidueName()] = target / df[self.getCycleName()].values
+            else:
+                df[self.getCycleResidueName()] = 1.0
+
+
+
 
     def compute_target_means_by_cycle_value(self , iCycleFrame, iCycleName):
         # we encode only using estimation
@@ -111,7 +123,7 @@ class cZeroCycle(cAbstractCycle):
     def transformDataset(self, df):
         target = df[self.mTrend_residue_name]
         df[self.getCycleName()] = np.zeros_like(df[self.mTrend_residue_name]);
-        df[self.getCycleResidueName()] = target - df[self.getCycleName()].values        
+        self.compute_cycle_residue(df)
         return df;
 
 class cSeasonalPeriodic(cAbstractCycle):
@@ -187,7 +199,7 @@ class cSeasonalPeriodic(cAbstractCycle):
 
         self.mCycleFrame[lName + '_enc'] = self.mCycleFrame[lName].apply(lambda x : self.mEncodedValueDict.get(x , self.mDefaultValue))
         self.mCycleFrame[lName + '_enc'].fillna(self.mDefaultValue, inplace=True);
-        self.mCycleFrame[self.getCycleResidueName()] = self.mCycleFrame[self.mTrend_residue_name] - self.mCycleFrame[lName + '_enc'];
+        self.compute_cycle_residue(self.mCycleFrame)
         self.mCycleFrame[lName + '_NotEncoded'] = self.mCycleFrame[lName];
         self.mCycleFrame[lName] = self.mCycleFrame[lName + '_enc'];
         
@@ -200,7 +212,7 @@ class cSeasonalPeriodic(cAbstractCycle):
         target = df[self.mTrend_residue_name]
         lDateParts = self.compute_date_parts(df[self.mTime])
         df[self.getCycleName()] = lDateParts.apply(lambda x : self.mEncodedValueDict.get(x , self.mDefaultValue))
-        df[self.getCycleResidueName()] = target - df[self.getCycleName()].values        
+        self.compute_cycle_residue(df)
         return df;
 
 class cBestCycleForTrend(cAbstractCycle):
@@ -313,7 +325,7 @@ class cBestCycleForTrend(cAbstractCycle):
             df[self.getCycleName()] = np.zeros_like(df[self.mTimeInfo.mRowNumberColumn]);            
 
         target = df[self.mTrend_residue_name]
-        df[self.getCycleResidueName()] = target - df[self.getCycleName()].values
+        self.compute_cycle_residue(df)
         if(self.mOptions.mDebug):
             self.check_not_nan(self.mCycleFrame[self.getCycleName()].values , self.getCycleName());
 
@@ -381,6 +393,7 @@ class cCycleEstimator:
                 cycle.mTimeInfo = self.mTimeInfo;
                 cycle.mSplit = self.mSplit;
                 cycle.mOptions = self.mOptions;
+                cycle.mDecompositionType = self.mDecompositionType
             
     def plotCycles(self):
         for trend in self.mTrendList:
