@@ -55,9 +55,9 @@ class cModelControl:
         self.set_active_autoregressions(self.mKnownAutoRegressions[0:3]);
         # Add Multiplicative Models/Seasonals #178.
         # Only additive models are activated by default        
-        self.set_active_decopomposition_types(['T+S+R']);
+        self.set_active_decomposition_types(['T+S+R']);
         
-    def set_active_decopomposition_types(self, iDecompTypes):
+    def set_active_decomposition_types(self, iDecompTypes):
         self.mActiveDecompositionTypes = {};
         for decomp_type in self.mKnownDecompositionTypes:
             if(decomp_type in iDecompTypes):
@@ -200,6 +200,7 @@ class cSignalDecomposition_Options(cModelControl):
         self.set_active_trends(self.mKnownTrends);
         self.set_active_periodics(self.mKnownPeriodics);
         self.set_active_autoregressions(self.mKnownAutoRegressions);
+        self.set_active_decomposition_types(self.mKnownDecompositionTypes);
         
         self.mMaxAROrder = 64;
         self.mFilterSeasonals = False
@@ -243,6 +244,20 @@ class cSignalDecomposition_Options(cModelControl):
                 return False;
             else:
                 return True;
+        except:
+            return False;
+
+    def  canBuildXGBoostModel(self, iModel):
+        try:
+            import xgboost
+            return True;
+        except:
+            return False;
+
+    def  canBuildLightGBMModel(self, iModel):
+        try:
+            import lightgbm
+            return True;
         except:
             return False;
 
