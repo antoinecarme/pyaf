@@ -561,9 +561,14 @@ demos/demo1.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/demos_demo1.log logs/demos_demo1.log  >  logs/demos_demo1.log.diff
 	 tail -10  logs/demos_demo1.log.diff 
 
+demos/demo2.py  :  
+	 -$(PYTHON)  tests/demos/demo2.py  >  logs/demos_demo2.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/demos_demo2.log logs/demos_demo2.log  >  logs/demos_demo2.log.diff
+	 tail -10  logs/demos_demo2.log.diff 
 
 
- demos :  demos/demo1.py  
+
+ demos :  demos/demo2.py demos/demo1.py  
  
 
 exog/test_ozone_exogenous.py  :  
@@ -726,6 +731,11 @@ func/test_air_passengers.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/func_test_air_passengers.log logs/func_test_air_passengers.log  >  logs/func_test_air_passengers.log.diff
 	 tail -10  logs/func_test_air_passengers.log.diff 
 
+func/test_air_passengers_robustness.py  :  
+	 -$(PYTHON)  tests/func/test_air_passengers_robustness.py  >  logs/func_test_air_passengers_robustness.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/func_test_air_passengers_robustness.log logs/func_test_air_passengers_robustness.log  >  logs/func_test_air_passengers_robustness.log.diff
+	 tail -10  logs/func_test_air_passengers_robustness.log.diff 
+
 func/test_ar.py  :  
 	 -$(PYTHON)  tests/func/test_ar.py  >  logs/func_test_ar.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/func_test_ar.log logs/func_test_ar.log  >  logs/func_test_ar.log.diff
@@ -761,6 +771,11 @@ func/test_ozone_horizon_one.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/func_test_ozone_horizon_one.log logs/func_test_ozone_horizon_one.log  >  logs/func_test_ozone_horizon_one.log.diff
 	 tail -10  logs/func_test_ozone_horizon_one.log.diff 
 
+func/test_ozone_robustness.py  :  
+	 -$(PYTHON)  tests/func/test_ozone_robustness.py  >  logs/func_test_ozone_robustness.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/func_test_ozone_robustness.log logs/func_test_ozone_robustness.log  >  logs/func_test_ozone_robustness.log.diff
+	 tail -10  logs/func_test_ozone_robustness.log.diff 
+
 func/test_ozone_with_logging.py  :  
 	 -$(PYTHON)  tests/func/test_ozone_with_logging.py  >  logs/func_test_ozone_with_logging.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/func_test_ozone_with_logging.log logs/func_test_ozone_with_logging.log  >  logs/func_test_ozone_with_logging.log.diff
@@ -773,7 +788,7 @@ func/test_version.py  :
 
 
 
- func :  func/test_version.py func/test_ozone_with_logging.py func/test_ozone_horizon_one.py func/test_ozone_bench_mode.py func/test_ozone.py func/test_cycles_full.py func/test_cycle.py func/test_const_signal.py func/test_ar.py func/test_air_passengers.py  
+ func :  func/test_version.py func/test_ozone_with_logging.py func/test_ozone_robustness.py func/test_ozone_horizon_one.py func/test_ozone_bench_mode.py func/test_ozone.py func/test_cycles_full.py func/test_cycle.py func/test_const_signal.py func/test_ar.py func/test_air_passengers_robustness.py func/test_air_passengers.py  
  
 
 heroku/build_generic_heroku_model.py  :  
@@ -1189,6 +1204,51 @@ model_control/test_ozone_no_models_enabled.py  :
 
 
  model_control :  model_control/test_ozone_no_models_enabled.py model_control/test_ozone_custom_models_enabled.py model_control/test_ozone_all_models_enabled.py  
+ 
+
+multiplicative_seasonal/test_air_passengers_multiplicative_seasonal_T+S+R.py  :  
+	 -$(PYTHON)  tests/multiplicative_seasonal/test_air_passengers_multiplicative_seasonal_T+S+R.py  >  logs/multiplicative_seasonal_test_air_passengers_multiplicative_seasonal_T+S+R.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/multiplicative_seasonal_test_air_passengers_multiplicative_seasonal_T+S+R.log logs/multiplicative_seasonal_test_air_passengers_multiplicative_seasonal_T+S+R.log  >  logs/multiplicative_seasonal_test_air_passengers_multiplicative_seasonal_T+S+R.log.diff
+	 tail -10  logs/multiplicative_seasonal_test_air_passengers_multiplicative_seasonal_T+S+R.log.diff 
+
+multiplicative_seasonal/test_air_passengers_multiplicative_seasonal_TS+R.py  :  
+	 -$(PYTHON)  tests/multiplicative_seasonal/test_air_passengers_multiplicative_seasonal_TS+R.py  >  logs/multiplicative_seasonal_test_air_passengers_multiplicative_seasonal_TS+R.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/multiplicative_seasonal_test_air_passengers_multiplicative_seasonal_TS+R.log logs/multiplicative_seasonal_test_air_passengers_multiplicative_seasonal_TS+R.log  >  logs/multiplicative_seasonal_test_air_passengers_multiplicative_seasonal_TS+R.log.diff
+	 tail -10  logs/multiplicative_seasonal_test_air_passengers_multiplicative_seasonal_TS+R.log.diff 
+
+multiplicative_seasonal/test_air_passengers_multiplicative_seasonal_TSR.py  :  
+	 -$(PYTHON)  tests/multiplicative_seasonal/test_air_passengers_multiplicative_seasonal_TSR.py  >  logs/multiplicative_seasonal_test_air_passengers_multiplicative_seasonal_TSR.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/multiplicative_seasonal_test_air_passengers_multiplicative_seasonal_TSR.log logs/multiplicative_seasonal_test_air_passengers_multiplicative_seasonal_TSR.log  >  logs/multiplicative_seasonal_test_air_passengers_multiplicative_seasonal_TSR.log.diff
+	 tail -10  logs/multiplicative_seasonal_test_air_passengers_multiplicative_seasonal_TSR.log.diff 
+
+multiplicative_seasonal/test_air_passengers_multiplicative_seasonal_ssslow_mode.py  :  
+	 -$(PYTHON)  tests/multiplicative_seasonal/test_air_passengers_multiplicative_seasonal_ssslow_mode.py  >  logs/multiplicative_seasonal_test_air_passengers_multiplicative_seasonal_ssslow_mode.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/multiplicative_seasonal_test_air_passengers_multiplicative_seasonal_ssslow_mode.log logs/multiplicative_seasonal_test_air_passengers_multiplicative_seasonal_ssslow_mode.log  >  logs/multiplicative_seasonal_test_air_passengers_multiplicative_seasonal_ssslow_mode.log.diff
+	 tail -10  logs/multiplicative_seasonal_test_air_passengers_multiplicative_seasonal_ssslow_mode.log.diff 
+
+multiplicative_seasonal/test_ozone_multiplicative_seasonal_T+S+R.py  :  
+	 -$(PYTHON)  tests/multiplicative_seasonal/test_ozone_multiplicative_seasonal_T+S+R.py  >  logs/multiplicative_seasonal_test_ozone_multiplicative_seasonal_T+S+R.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/multiplicative_seasonal_test_ozone_multiplicative_seasonal_T+S+R.log logs/multiplicative_seasonal_test_ozone_multiplicative_seasonal_T+S+R.log  >  logs/multiplicative_seasonal_test_ozone_multiplicative_seasonal_T+S+R.log.diff
+	 tail -10  logs/multiplicative_seasonal_test_ozone_multiplicative_seasonal_T+S+R.log.diff 
+
+multiplicative_seasonal/test_ozone_multiplicative_seasonal_TS+R.py  :  
+	 -$(PYTHON)  tests/multiplicative_seasonal/test_ozone_multiplicative_seasonal_TS+R.py  >  logs/multiplicative_seasonal_test_ozone_multiplicative_seasonal_TS+R.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/multiplicative_seasonal_test_ozone_multiplicative_seasonal_TS+R.log logs/multiplicative_seasonal_test_ozone_multiplicative_seasonal_TS+R.log  >  logs/multiplicative_seasonal_test_ozone_multiplicative_seasonal_TS+R.log.diff
+	 tail -10  logs/multiplicative_seasonal_test_ozone_multiplicative_seasonal_TS+R.log.diff 
+
+multiplicative_seasonal/test_ozone_multiplicative_seasonal_TSR.py  :  
+	 -$(PYTHON)  tests/multiplicative_seasonal/test_ozone_multiplicative_seasonal_TSR.py  >  logs/multiplicative_seasonal_test_ozone_multiplicative_seasonal_TSR.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/multiplicative_seasonal_test_ozone_multiplicative_seasonal_TSR.log logs/multiplicative_seasonal_test_ozone_multiplicative_seasonal_TSR.log  >  logs/multiplicative_seasonal_test_ozone_multiplicative_seasonal_TSR.log.diff
+	 tail -10  logs/multiplicative_seasonal_test_ozone_multiplicative_seasonal_TSR.log.diff 
+
+multiplicative_seasonal/test_ozone_multiplicative_seasonal_ssslow_mode.py  :  
+	 -$(PYTHON)  tests/multiplicative_seasonal/test_ozone_multiplicative_seasonal_ssslow_mode.py  >  logs/multiplicative_seasonal_test_ozone_multiplicative_seasonal_ssslow_mode.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/multiplicative_seasonal_test_ozone_multiplicative_seasonal_ssslow_mode.log logs/multiplicative_seasonal_test_ozone_multiplicative_seasonal_ssslow_mode.log  >  logs/multiplicative_seasonal_test_ozone_multiplicative_seasonal_ssslow_mode.log.diff
+	 tail -10  logs/multiplicative_seasonal_test_ozone_multiplicative_seasonal_ssslow_mode.log.diff 
+
+
+
+ multiplicative_seasonal :  multiplicative_seasonal/test_ozone_multiplicative_seasonal_ssslow_mode.py multiplicative_seasonal/test_ozone_multiplicative_seasonal_TSR.py multiplicative_seasonal/test_ozone_multiplicative_seasonal_TS+R.py multiplicative_seasonal/test_ozone_multiplicative_seasonal_T+S+R.py multiplicative_seasonal/test_air_passengers_multiplicative_seasonal_ssslow_mode.py multiplicative_seasonal/test_air_passengers_multiplicative_seasonal_TSR.py multiplicative_seasonal/test_air_passengers_multiplicative_seasonal_TS+R.py multiplicative_seasonal/test_air_passengers_multiplicative_seasonal_T+S+R.py  
  
 
 neuralnet/test_air_passengers_CPU_theano.py  :  
@@ -2039,9 +2099,9 @@ xgb/test_ozone_xgbx_exogenous.py  :
 
 # ********************************************** 
 
-all:  artificial basic_checks bugs cross_validation croston exog expsmooth func HeartRateTimeSeries heroku hierarchical  HourOfWeek model_control perf svr transformations  neuralnet real-life  time_res perfs demos xgb xeon-phi-parallel sampling temporal_hierarchy WeekOfMonth missing_data probabilistic_forecasting lgbm perf_MedAE perf_LnQ plots 
+all:  artificial basic_checks bugs cross_validation croston exog expsmooth func HeartRateTimeSeries heroku hierarchical  HourOfWeek model_control perf svr transformations  neuralnet real-life  time_res perfs demos xgb xeon-phi-parallel sampling temporal_hierarchy WeekOfMonth missing_data  probabilistic_forecasting lgbm perf_MedAE perf_LnQ plots multiplicative_seasonal 
 	
 
-build-test :  demos basic_checks cross_validation croston exog heroku hierarchical model_control perfs svr transformations func real-life  time_res xgb sampling HourOfWeek WeekOfMonth missing_data lgbm perf_MedAE perf_LnQ 
+build-test :  demos basic_checks cross_validation croston exog heroku hierarchical model_control perfs svr transformations func real-life  time_res xgb sampling HourOfWeek WeekOfMonth missing_data lgbm perf_MedAE perf_LnQ multiplicative_seasonal 
 	
 
