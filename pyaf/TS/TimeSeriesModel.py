@@ -16,8 +16,9 @@ import time
 
 class cTimeSeriesModel:
     
-    def __init__(self, transf, trend, cycle, autoreg):
+    def __init__(self, transf, iDecompType, trend, cycle, autoreg):
         self.mTransformation = transf;
+        self.mDecompositionType = iDecompType;
         self.mTrend = trend;
         self.mCycle = cycle;
         self.mAR = autoreg;
@@ -153,7 +154,12 @@ class cTimeSeriesModel:
         self.mAR.dumpCoefficients();
         logger.info("AR_MODEL_DETAIL_END");
 
-
+    def compute_model_forecast(self, iTrendValue, iCycleValue, iARValue):
+        if(self.mDecompositionType in ['TS+R']):
+            return iTrendValue * iCycleValue + iARValue
+        if(self.mDecompositionType in ['TSR']):
+            return iTrendValue * iCycleValue * iARValue
+        return iTrendValue + iCycleValue + iARValue
 
     def forecastOneStepAhead(self , df , horizon_index = 1, perf_mode = False):
         assert(self.mTime in df.columns)
@@ -190,15 +196,15 @@ class cTimeSeriesModel:
         lSignal = df2[self.mSignal]
         if(not perf_mode):
             df2[lPrefix + 'Trend'] =  lTrendColumn;
-            df2[lPrefix + 'Trend_residue'] =  lSignal - lTrendColumn;
+            df2[lPrefix + 'Trend_residue'] = df2[self.mCycle.mTrend_residue_name]
             df2[lPrefix + 'Cycle'] =  lCycleColumn;
-            df2[lPrefix + 'Cycle_residue'] = df2[lPrefix + 'Trend_residue'] - lCycleColumn;
+            df2[lPrefix + 'Cycle_residue'] = df2[self.mCycle.getCycleResidueName()];
             df2[lPrefix + 'AR'] =  lARColumn ;
-            df2[lPrefix + 'AR_residue'] = df2[lPrefix + 'Cycle_residue'] - lARColumn;
+            df2[lPrefix + 'AR_residue'] = df2[self.mAR.mOutName + '_residue'];
 
         lPrefix2 = str(self.mOriginalSignal) + "_";
         # print("TimeSeriesModel_forecast_invert");
-        df2[lPrefix + 'TransformedForecast'] =  lTrendColumn + lCycleColumn + lARColumn ;
+        df2[lPrefix + 'TransformedForecast'] = self.compute_model_forecast(lTrendColumn, lCycleColumn, lARColumn)
         df2[lPrefix2 + 'Forecast'] = self.mTransformation.invert(df2[lPrefix + 'TransformedForecast']);
 
         if(not perf_mode):
@@ -310,6 +316,7 @@ class cTimeSeriesModel:
         dict1["Dataset"] = d1;
         lTransformation = self.mTransformation.mFormula;
         d2 = { "Best_Decomposition" : self.mOutName,
+               "Signal_Decomposition_Type" : self.mDecompositionType,
                "Signal_Transoformation" : lTransformation,
                "Trend" : self.mTrend.mFormula,
                "Cycle" : self.mCycle.mFormula,
