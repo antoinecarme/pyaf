@@ -31,6 +31,10 @@ class cAbstractAR:
         self.mExogenousInfo = iExogenousInfo;
         self.mLagsForSeries = {}
 
+    def compute_ar_residue(self, df):
+        target = df[self.mCycleResidueName].values
+        df[self.mOutName + '_residue'] = target - df[self.mOutName].values        
+
     def plot(self):
         tsplot.decomp_plot(self.mARFrame, self.mTimeInfo.mNormalizedTimeColumn,
                            self.mCycleResidueName, self.mOutName , self.mOutName + '_residue', horizon = self.mTimeInfo.mHorizon);
@@ -114,10 +118,8 @@ class cZeroAR(cAbstractAR):
                 
 
     def transformDataset(self, df, horizon_index = 1):
-        series = self.mCycleResidueName; 
         df[self.mOutName] = 0.0;
-        target = df[series].values
-        df[self.mOutName + '_residue'] = target - df[self.mOutName].values        
+        self.compute_ar_residue(df)
         assert(df.shape[0] > 0)
         return df;
 
@@ -321,21 +323,34 @@ class cAutoRegressiveEstimator:
                         self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lSVRX];
                         lNeedExogenous = True;
                     if(self.mOptions.mActiveAutoRegressions['XGB']):
-                        lXGB = tsscikit.cXGBoost_Model(cycle_residue, lLags)
-                        self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lXGB];
+                        if(self.mOptions.canBuildXGBoostModel('XGB')):
+                            lXGB = tsscikit.cXGBoost_Model(cycle_residue, lLags)
+                            self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lXGB];
+                        else:
+                            logger.debug("SKIPPING_MODEL_WITH_XGBOOST '" + 'XGB');
                     if(self.mOptions.mActiveAutoRegressions['XGBX'] and (self.mExogenousInfo is not None)):
-                        lXGBX = tsscikit.cXGBoost_Model(cycle_residue, lLags,
-                                                       self.mExogenousInfo);
-                        self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lXGBX];
-                        lNeedExogenous = True;
+                        if(self.mOptions.canBuildXGBoostModel('XGBX')):
+                            lXGBX = tsscikit.cXGBoost_Model(cycle_residue, lLags,
+                                                            self.mExogenousInfo);
+                            self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lXGBX];
+                            lNeedExogenous = True;
+                        else:
+                            logger.debug("SKIPPING_MODEL_WITH_XGBOOST '" + 'XGBX');
+                            
                     if(self.mOptions.mActiveAutoRegressions['LGB']):
-                        lLGB = tsscikit.cLightGBM_Model(cycle_residue, lLags)
-                        self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lLGB];
+                        if(self.mOptions.canBuildLightGBMModel('LGB')):
+                            lLGB = tsscikit.cLightGBM_Model(cycle_residue, lLags)
+                            self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lLGB];
+                        else:
+                            logger.debug("SKIPPING_MODEL_WITH_LIGHTGBM '" + 'LGB');
                     if(self.mOptions.mActiveAutoRegressions['LGBX'] and (self.mExogenousInfo is not None)):
-                        lLGBX = tsscikit.cLightGBM_Model(cycle_residue, lLags,
-                                                       self.mExogenousInfo);
-                        self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lLGBX];
-                        lNeedExogenous = True;
+                        if(self.mOptions.canBuildLightGBMModel('LGBX')):
+                            lLGBX = tsscikit.cLightGBM_Model(cycle_residue, lLags,
+                                                             self.mExogenousInfo);
+                            self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lLGBX];
+                            lNeedExogenous = True;
+                        else:
+                            logger.debug("SKIPPING_MODEL_WITH_LIGHTGBM '" + 'LGBX');
                     if(self.mOptions.mActiveAutoRegressions['CROSTON']):
                         lIsSignalIntermittent = interm.is_signal_intermittent(self.mCycleFrame[cycle_residue] , self.mOptions)
                         if(lIsSignalIntermittent):
