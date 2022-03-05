@@ -55,7 +55,8 @@ class cSignalDecompositionOneTransform:
         from sklearn.externals import joblib
         joblib.dump(self, self.mTimeInfo.mTime + "_" + self.mSignal + "_TS.pkl")        
 
-    def setParams(self , iInputDS, iTime, iSignal, iHorizon, iTransformation, iExogenousData = None):
+    def setParams(self , iInputDS, iTime, iSignal, iHorizon, iTransformation,
+                  iDecomspositionType, iExogenousData = None):
         assert(iInputDS.shape[0] > 0)
         assert(iInputDS.shape[1] > 0)
         assert(iTime in iInputDS.columns)
@@ -67,6 +68,8 @@ class cSignalDecompositionOneTransform:
         
         self.mTime = iTime
         self.mOriginalSignal = iSignal;
+
+        self.mDecompositionType = iDecomspositionType
         
         self.mTransformation = iTransformation;
         self.mTransformation.mOriginalSignal = iSignal; 
@@ -158,14 +161,14 @@ class cSignalDecompositionOneTransform:
     
 
     def train(self , iInputDS, iSplit, iTime, iSignal,
-              iHorizon, iTransformation):
+              iHorizon, iTransformation, iDecomspositionType):
         logger = tsutil.get_pyaf_logger();
 
         start_time = time.time()
         lInputDS = iInputDS[[iTime, iSignal]].copy()
         lInputDS = sample_signal_if_needed(lInputDS, self.mOptions)
         
-        self.setParams(lInputDS, iTime, iSignal, iHorizon, iTransformation, self.mExogenousData);
+        self.setParams(lInputDS, iTime, iSignal, iHorizon, iTransformation, iDecomspositionType, self.mExogenousData);
 
         lMissingImputer = tsmiss.cMissingDataImputer()
         lMissingImputer.mOptions = self.mOptions
@@ -199,6 +202,7 @@ class cSignalDecompositionOneTransform:
         lTrendEstimator.mTimeInfo = self.mTimeInfo
         lTrendEstimator.mSplit = self.mSplit
         lTrendEstimator.mOptions = self.mOptions;
+        lTrendEstimator.mDecompositionType = iDecomspositionType
         
         trend_start_time = time.time()
         lTrendEstimator.estimateTrend();
@@ -218,6 +222,7 @@ class cSignalDecompositionOneTransform:
 
         lCycleEstimator.mTimeInfo = self.mTimeInfo
         lCycleEstimator.mSplit = self.mSplit
+        lCycleEstimator.mDecompositionType = iDecomspositionType
         lCycleEstimator.mOptions = self.mOptions;
 
         lCycleEstimator.estimateAllCycles();
@@ -238,6 +243,7 @@ class cSignalDecompositionOneTransform:
 
         lAREstimator.mTimeInfo = self.mTimeInfo
         lAREstimator.mSplit = self.mSplit
+        lAREstimator.mDecompositionType = iDecomspositionType
         lAREstimator.mExogenousInfo = self.mExogenousInfo;
         lAREstimator.mOptions = self.mOptions;
         lAREstimator.estimate();
@@ -252,7 +258,8 @@ class cSignalDecompositionOneTransform:
             for cycle in lAREstimator.mCycleList[trend]:
                 cycle_residue = cycle.getCycleResidueName();
                 for autoreg in lAREstimator.mARList[cycle_residue]:
-                    lModel = tsmodel.cTimeSeriesModel(self.mTransformation, trend, cycle, autoreg);
+                    lModel = tsmodel.cTimeSeriesModel(self.mTransformation, iDecomspositionType,
+                                                      trend, cycle, autoreg);
                     lModels[lModel.mOutName] = lModel;
 
         del lAREstimator;
@@ -438,7 +445,7 @@ class cModelSelector_OneSignal:
         pass
 
 def run_transform_thread(arg):
-    arg.mSigDec.train(arg.mInputDS, arg.mSplit, arg.mTime, arg.mSignal, arg.mHorizon, arg.mTransformation);
+    arg.mSigDec.train(arg.mInputDS, arg.mSplit, arg.mTime, arg.mSignal, arg.mHorizon, arg.mTransformation, arg.mDecompositionType);
     return arg;
 
 def run_finalize_training(arg):
@@ -524,26 +531,29 @@ class cSignalDecompositionTrainer:
         args = [];
         for lSignal in iSignals:
             self.mSigDecBySplitAndTransform[lSignal] = {}
+        lActiveDecompositionTypes = [decomp_type for (decomp_type, active_status) in self.mOptions.mActiveDecompositionTypes.items() if (active_status is True)]
         for lSplit in iSplits:
             for lSignal in iSignals:
                 self.defineTransformations(iInputDS, lSplit, iTimes[lSignal], lSignal);
                 for transform1 in self.mTransformList[(lSignal, lSplit)]:
-                    arg = cTraining_Arg(transform1.get_name(""));
-                    arg.mName = (lSignal, str(lSplit) , transform1.get_name(""))
-                    arg.mSigDec = cSignalDecompositionOneTransform();
-                    arg.mSigDec.mOptions = copy.copy(self.mOptions);
-                    arg.mSigDec.mOptions.mCustomSplit = lSplit
-                    arg.mSplit = lSplit
-                    arg.mSigDec.mExogenousData = self.mExogenousData[lSignal];
-                    arg.mInputDS = iInputDS;
-                    arg.mTime = iTimes[lSignal];
-                    arg.mSignal = lSignal;
-                    arg.mHorizon = iHorizons[lSignal];
-                    arg.mTransformation = transform1;
-                    arg.mOptions = self.mOptions;
-                    arg.mExogenousData = self.mExogenousData[lSignal];
-                    arg.mResult = None;
-                    args.append(arg);
+                    for decomp_type in lActiveDecompositionTypes:
+                        arg = cTraining_Arg(transform1.get_name(""));
+                        arg.mName = (lSignal, str(lSplit) , transform1.get_name(""), decomp_type)
+                        arg.mDecompositionType= decomp_type
+                        arg.mSigDec = cSignalDecompositionOneTransform();
+                        arg.mSigDec.mOptions = copy.copy(self.mOptions);
+                        arg.mSigDec.mOptions.mCustomSplit = lSplit
+                        arg.mSplit = lSplit
+                        arg.mSigDec.mExogenousData = self.mExogenousData[lSignal];
+                        arg.mInputDS = iInputDS;
+                        arg.mTime = iTimes[lSignal];
+                        arg.mSignal = lSignal;
+                        arg.mHorizon = iHorizons[lSignal];
+                        arg.mTransformation = transform1;
+                        arg.mOptions = self.mOptions;
+                        arg.mExogenousData = self.mExogenousData[lSignal];
+                        arg.mResult = None;
+                        args.append(arg);
 
         NCores = min(len(args) , self.mOptions.mNbCores) 
         if(self.mOptions.mParallelMode and NCores > 1):
