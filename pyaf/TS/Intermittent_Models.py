@@ -131,7 +131,7 @@ class cCroston_Model(tsar.cAbstractAR):
 
         lPredicted = self.croston(self.mARFrame);
         self.mARFrame[self.mOutName] = lPredicted['forecast']
-        self.mARFrame[self.mOutName + '_residue'] =  self.mARFrame[series] - self.mARFrame[self.mOutName]
+        self.compute_ar_residue(self.mARFrame)
 
         # print("ESTIMATE_CROSTON_MODEL_END" , self.mOutName);
 
@@ -140,7 +140,6 @@ class cCroston_Model(tsar.cAbstractAR):
         series = self.mCycleResidueName;
         pred = self.croston(df, horizon_index)
         df[self.mOutName] = pred['forecast'];
-        target = df[series].values
-        df[self.mOutName + '_residue'] = target - df[self.mOutName].values        
+        self.compute_ar_residue(df)
         return df;
 

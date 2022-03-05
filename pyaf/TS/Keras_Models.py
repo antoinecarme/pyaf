@@ -91,7 +91,7 @@ class cAbstract_RNN_Model(tsar.cAbstractAR):
 
         # print("ESTIMATE_RNN_MODEL_STEP8" , self.mOutName);
 
-        self.mARFrame[self.mOutName + '_residue'] =  self.mARFrame[series] - self.mARFrame[self.mOutName]
+        self.compute_ar_residue(self.mARFrame)
 
         # print("ESTIMATE_RNN_MODEL_END" , self.mOutName, self.mModel.__dict__);
         # self.testPickle_old();
@@ -114,8 +114,7 @@ class cAbstract_RNN_Model(tsar.cAbstractAR):
         lPredicted = self.mModel.predict(inputs)
         lPredicted = np.reshape(lPredicted, (lPredicted.shape[0]))
         df[self.mOutName] = lPredicted;
-        target = df[series].values
-        df[self.mOutName + '_residue'] = target - df[self.mOutName].values        
+        self.compute_ar_residue(df)
         return df;
 
 class cMLP_Model(cAbstract_RNN_Model):
