@@ -188,6 +188,9 @@ class cAutoRegressiveEstimator:
             for p in range(1,P+1):
                 # signal lags ... plain old AR model
                 self.addLagForTraining(df, self.mARFrame, cycle_residue, autoreg, p);
+            # Avoid dataframe fragemntation.
+            self.mARFrame = self.mARFrame.copy()
+
             # Exogenous variables lags
             if(autoreg.mExogenousInfo is not None):
                 P1 = P;
@@ -196,11 +199,14 @@ class cAutoRegressiveEstimator:
                 if(lNbVars >= self.mOptions.mMaxFeatureForAutoreg):
                    P1 = self.mOptions.mMaxFeatureForAutoreg // lExogCount;
                 autoreg.mNbExogenousLags = P1;
-                for p in range(1,P1+1):
-                    # print(autoreg.mExogenousInfo.mEncodedExogenous);
-                    # print(df.columns);
-                    for ex in autoreg.mExogenousInfo.mEncodedExogenous:
+                for ex in autoreg.mExogenousInfo.mEncodedExogenous:
+                    for p in range(1,P1+1):
+                        # print(autoreg.mExogenousInfo.mEncodedExogenous);
+                        # print(df.columns);
                         self.addLagForTraining(df, self.mARFrame, ex, autoreg, p);
+                    # Avoid dataframe fragemntation.
+                    self.mARFrame = self.mARFrame.copy()
+
             # print("AUTOREG_DETAIL" , P , len(autoreg.mInputNames));
             if(autoreg.mExogenousInfo is not None):
                 assert((P + P*len(autoreg.mExogenousInfo.mEncodedExogenous)) >= len(autoreg.mInputNames));
