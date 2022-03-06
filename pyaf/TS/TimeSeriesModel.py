@@ -113,10 +113,11 @@ class cTimeSeriesModel:
         pass
 
     def getFormula(self):
-        lFormula = self.mTrend.mFormula + " + ";
-        lFormula += self.mCycle.mFormula + " + ";
-        lFormula += self.mAR.mFormula;
-        return lFormula;
+        if(self.mDecompositionType in ['TS+R']):
+            return self.mTrend.mFormula + " * " + self.mCycle.mFormula + " + " + self.mAR.mFormula
+        if(self.mDecompositionType in ['TSR']):
+            return self.mTrend.mFormula + " * " + self.mCycle.mFormula + " * " + self.mAR.mFormula
+        return self.mTrend.mFormula + " + " + self.mCycle.mFormula + " + " + self.mAR.mFormula
 
 
     def getInfo(self):
@@ -127,6 +128,7 @@ class cTimeSeriesModel:
         logger.info("SIGNAL_DETAIL_TRANSFORMED " + sig_info[1]);
         if(self.mAR.mExogenousInfo):
             logger.info("EXOGENOUS_DATA " + str(self.mAR.mExogenousInfo.mExogenousVariables));        
+        logger.info("DECOMPOSITION_TYPE '" + self.mDecompositionType + "'");
         logger.info("BEST_TRANSOFORMATION_TYPE '" + self.mTransformation.get_name("") + "'");
         logger.info("BEST_DECOMPOSITION  '" + self.mOutName + "' [" + self.getFormula() + "]");
         logger.info("TREND_DETAIL '" + self.mTrend.mOutName + "' [" + self.mTrend.mFormula + "]");
