@@ -101,28 +101,34 @@ class cZeroCycle(cAbstractCycle):
         super().__init__(trend);
         self.mFormula = "NoCycle"
         self.mComplexity = 0;
+        self.mConstantValue = 0.0
 
     def getCycleName(self):
-        return self.mTrend_residue_name + "_zeroCycle";
+        return self.mTrend_residue_name + "_zeroCycle[" + str(self.mConstantValue) + "]";
 
 
     def dump_values(self):
         logger = tsutil.get_pyaf_logger();
         lDict = {}
-        logger.info("ZERO_CYCLE_MODEL_VALUES " + self.getCycleName() + " 0.0 " + "{}");        
+        logger.info("ZERO_CYCLE_MODEL_VALUES " + self.getCycleName() + " " + str(self.mConstantValue) + " {}");        
     
     def fit(self):
         self.mTime = self.mTimeInfo.mTime;
         self.mSignal = self.mTimeInfo.mSignal;
         self.mTimeInfo.addVars(self.mCycleFrame);
+        self.mConstantValue = 0.0        
+        if(self.mDecompositionType in ['TS+R', 'TSR']):
+            # multiplicative models
+            self.mConstantValue = 1.0
+
         self.mCycleFrame[self.mTrend_residue_name] = self.mTrendFrame[self.mTrend_residue_name]
-        self.mCycleFrame[self.getCycleName()] = np.zeros_like(self.mTrendFrame[self.mTrend_residue_name])
-        self.mCycleFrame[self.getCycleResidueName()] = self.mCycleFrame[self.mTrend_residue_name];
+        self.mCycleFrame[self.getCycleName()] = self.mConstantValue
+        self.compute_cycle_residue(self.mCycleFrame)
         self.mOutName = self.getCycleName()
         
     def transformDataset(self, df):
         target = df[self.mTrend_residue_name]
-        df[self.getCycleName()] = np.zeros_like(df[self.mTrend_residue_name]);
+        df[self.getCycleName()] = self.mConstantValue;
         self.compute_cycle_residue(df)
         return df;
 
@@ -306,7 +312,7 @@ class cBestCycleForTrend(cAbstractCycle):
         self.mOutName = self.getCycleName()
         self.mFormula = "Cycle_None"
         if(self.mBestCycleLength is not None):
-            self.mFormula = "Cycle" #  + str(self.mBestCycleLength);
+            self.mFormula = "Cycle_" + str(self.mBestCycleLength);
         self.transformDataset(self.mCycleFrame);
         self.mComplexity = 0
         if(self.mBestCycleLength is not None):
