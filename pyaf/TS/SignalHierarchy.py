@@ -113,7 +113,7 @@ class cSignalHierarchy:
             raise tsutil.PyAF_Error("PYAF_ERROR_NEGATIVE_OR_NULL_HORIZON " + str(self.mHorizon));
         if(self.mDateColumn not in df.columns):
             raise tsutil.PyAF_Error("PYAF_ERROR_HIERARCHY_TIME_COLUMN_NOT_FOUND " + str(self.mDateColumn));
-        type1 = np.dtype(df[self.mDateColumn])
+        type1 = df[self.mDateColumn].dtype
         # print(type1)
         if(type1.kind != 'M' and type1.kind != 'i' and type1.kind != 'u' and type1.kind != 'f'):
             raise tsutil.PyAF_Error("PYAF_ERROR_TIME_COLUMN_TYPE_NOT_ALLOWED '" + str(self.mDateColumn) + "' '" + str(type1) + "'");
@@ -122,7 +122,7 @@ class cSignalHierarchy:
             if(k not in df.columns) :
                 raise tsutil.PyAF_Error("PYAF_ERROR_HIERARCHY_BASE_COLUMN_NOT_FOUND " + str(k));
             # print(type2)
-            type2 = np.dtype(df[k])
+            type2 = df[k].dtype
             if(type2.kind != 'i' and type2.kind != 'u' and type2.kind != 'f'):
                 raise tsutil.PyAF_Error("PYAF_ERROR_HIERARCHY_BASE_SIGNAL_COLUMN_TYPE_NOT_ALLOWED '" + str(k) + "' '" + str(type2) + "'");
 

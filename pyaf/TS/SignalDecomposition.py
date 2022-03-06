@@ -659,11 +659,11 @@ class cSignalDecomposition:
         for lSignal in [iSignal]:
             if(lSignal not in iInputDS.columns):
                 raise tsutil.PyAF_Error("PYAF_ERROR_SIGNAL_COLUMN_NOT_FOUND " + str(lSignal));
-            type2 = np.dtype(iInputDS[lSignal])
+            type2 = iInputDS[lSignal].dtype
             # print(type2)
             if(type2.kind != 'i' and type2.kind != 'u' and type2.kind != 'f'):
                 raise tsutil.PyAF_Error("PYAF_ERROR_SIGNAL_COLUMN_TYPE_NOT_ALLOWED '" + str(lSignal) + "' '" + str(type2) + "'");
-        type1 = np.dtype(iInputDS[iTime])
+        type1 = iInputDS[iTime].dtype
         # print(type1)
         if(type1.kind != 'M' and type1.kind != 'i' and type1.kind != 'u' and type1.kind != 'f'):
             raise tsutil.PyAF_Error("PYAF_ERROR_TIME_COLUMN_TYPE_NOT_ALLOWED '" + str(iTime) + "' '" + str(type1) + "'");
@@ -677,7 +677,7 @@ class cSignalDecomposition:
                 if(exog not in lExogenousDataFrame.columns):
                     raise tsutil.PyAF_Error("PYAF_ERROR_EXOGENOUS_VARIABLE_NOT_FOUND " + str(exog));
                 
-            type3 = np.dtype(lExogenousDataFrame[iTime])
+            type3 = lExogenousDataFrame[iTime].dtype
             if(type1 != type3):
                 raise tsutil.PyAF_Error("PYAF_ERROR_INCOMPATIBLE_TIME_COLUMN_TYPE_IN_EXOGENOUS '" + str(iTime) + "' '" + str(type1)  + "' '" + str(type3) + "'");
 

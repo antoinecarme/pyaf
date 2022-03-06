@@ -54,6 +54,7 @@ class cAbstractCycle:
                 df[self.getCycleResidueName()] = target / df[self.getCycleName()].values
             else:
                 df[self.getCycleResidueName()] = 1.0
+        df[self.getCycleResidueName()] = df[self.getCycleResidueName()].astype(target.dtype)
 
 
 

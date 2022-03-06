@@ -57,7 +57,7 @@ class cTimeInfo:
     def checkDateTypesForNewDataset(self, df):
         if(self.mTimeMax is not None):
             lType1 = self.get_time_dtype();
-            lType2 = np.dtype(df[self.mTime]);
+            lType2 = df[self.mTime].dtype
             if(lType1.kind != lType2.kind):
                 raise tsutil.PyAF_Error('Incompatible Time Column Type expected=' + str(lType1) + ' got: ' + str(lType2) + "'");
                 pass
@@ -101,7 +101,7 @@ class cTimeInfo:
 
     def checkDateTypes(self):
         # print(self.mSignalFrame.info());
-        type1 = np.dtype(self.mSignalFrame[self.mTime])
+        type1 = self.mSignalFrame[self.mTime].dtype
         if(type1.kind == 'O'):
             raise tsutil.PyAF_Error('Invalid Time Column Type ' + self.mTime + '[' + str(type1) + ']');
         
@@ -135,7 +135,7 @@ class cTimeInfo:
             self.mTimeDelta = self.mOptions.mUserTimeDelta;
         if(self.mOptions.mTimeDeltaComputationMethod == "AVG"):
             self.mTimeDelta = np.mean(lDiffs);
-            type1 = np.dtype(self.mSignalFrame[self.mTime])
+            type1 = self.mSignalFrame[self.mTime].dtype
             if(type1.kind == 'i' or type1.kind == 'u'):
                 self.mTimeDelta = int(self.mTimeDelta)
         if(self.mOptions.mTimeDeltaComputationMethod == "MODE"):

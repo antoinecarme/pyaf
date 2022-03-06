@@ -167,7 +167,7 @@ class cDateTime_Helper:
 
 
     def isPhysicalTime(self, iTimeColumn):
-        type1 = np.dtype(iTimeColumn)
+        type1 = iTimeColumn.dtype
         return (type1.kind == 'M');
         
         

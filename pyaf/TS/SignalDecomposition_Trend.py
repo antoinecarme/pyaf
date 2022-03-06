@@ -60,6 +60,7 @@ class cAbstractTrend:
                 df[self.mOutName + '_residue'] = target / df[self.mOutName].values
             else:
                 df[self.mOutName + '_residue'] = 1.0
+        df[self.mOutName + '_residue'] = df[self.mOutName + '_residue'].astype(target.dtype)
 
 
 class cConstantTrend(cAbstractTrend):

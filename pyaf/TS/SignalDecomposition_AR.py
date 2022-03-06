@@ -34,7 +34,7 @@ class cAbstractAR:
     def compute_ar_residue(self, df):
         target = df[self.mCycleResidueName].values
         df[self.mOutName + '_residue'] = target - df[self.mOutName].values        
-
+        df[self.mOutName + '_residue'] = df[self.mOutName + '_residue'].astype(target.dtype)
     def plot(self):
         tsplot.decomp_plot(self.mARFrame, self.mTimeInfo.mNormalizedTimeColumn,
                            self.mCycleResidueName, self.mOutName , self.mOutName + '_residue', horizon = self.mTimeInfo.mHorizon);
@@ -61,9 +61,10 @@ class cAbstractAR:
 
     def shift_series(self, series, p, idefault):
         N = series.shape[0];
-        lType = np.dtype(series);
+        lType = series.dtype
         first_values = np.full((p), idefault, dtype=lType)
         new_values = np.hstack((first_values, series.values[0:N-p]));
+        new_values = new_values.astype(lType)
         return new_values;
 
     def getDefaultValue(self, series):
@@ -155,9 +156,10 @@ class cAutoRegressiveEstimator:
 
     def shift_series(self, series, p):
         N = series.shape[0];
-        lType = np.dtype(series);
+        lType = series.dtype
         first_values = np.full((p), series.values[0], dtype=lType)
         new_values = np.hstack((first_values, series.values[0:N-p]));
+        new_values = new_values.astype(lType)
         return new_values;
 
     def addLagForTraining(self, df, lag_df, series, autoreg, p):
