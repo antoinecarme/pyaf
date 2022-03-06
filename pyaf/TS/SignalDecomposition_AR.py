@@ -105,20 +105,26 @@ class cZeroAR(cAbstractAR):
         self.mNbLags = 0;
         self.mFormula = "NoAR";
         self.mComplexity = 0;
+        self.mConstantValue = 0.0
         
     def fit(self):
         series = self.mCycleResidueName; 
         self.mTime = self.mTimeInfo.mTime;
         self.mSignal = self.mTimeInfo.mSignal;
+        self.mConstantValue = 0.0
+        if(self.mDecompositionType in ['TSR']):
+            # multiplicative models
+            self.mConstantValue = 1.0
+        
         # self.mTimeInfo.addVars(self.mARFrame);
         # self.mARFrame[series] = self.mCycleFrame[series]
-        self.mARFrame[self.mOutName] = self.mARFrame[series] * 0.0;
-        self.mARFrame[self.mOutName + '_residue'] = self.mARFrame[series];
+        self.mARFrame[self.mOutName] = self.mConstantValue;
+        self.compute_ar_residue(self.mARFrame)
         assert(self.mARFrame.shape[0] > 0)
                 
 
     def transformDataset(self, df, horizon_index = 1):
-        df[self.mOutName] = 0.0;
+        df[self.mOutName] = self.mConstantValue;
         self.compute_ar_residue(df)
         assert(df.shape[0] > 0)
         return df;
@@ -248,6 +254,7 @@ class cAutoRegressiveEstimator:
             autoreg.mSplit = self.mSplit;
             autoreg.mLagOrigins = self.mLagOrigins;
             autoreg.mDefaultValues = self.mDefaultValues;
+            autoreg.mDecompositionType = self.mDecompositionType
             autoreg.fit();
             if(self.mOptions.mDebugPerformance):
                 autoreg.computePerf();
