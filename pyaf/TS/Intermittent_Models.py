@@ -75,6 +75,7 @@ class cCroston_Model(tsar.cAbstractAR):
         # print(df.columns)
         # print(df[['Date', 'Signal', '_Signal', 'row_number', '_Signal_ConstantTrend_residue_zeroCycle_residue']].tail(12))
         lCounts_df = df[[self.mTime, self.mCycleResidueName]].copy()
+        lCounts_df['index'] = np.arange(lCounts_df.shape[0])
         counts = lCounts_df[self.mCycleResidueName] - self.mOffset
         counts = counts[:-(horizon_index)]
         # print(list(counts.unique()))
