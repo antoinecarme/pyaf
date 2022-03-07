@@ -48,18 +48,17 @@ class cAbstractCycle:
     def compute_cycle_residue(self, df):
         target = df[self.mTrend_residue_name].values
         lSignal = df[self.mSignal].values
-        lTrend = df[self.mTrend.mOutName].values
-        lCycle = df[self.getCycleName()].values
+        lTrend = df[self.mTrend.mOutName]
+        lCycle = df[self.getCycleName()]
         if(self.mDecompositionType in ['T+S+R']):
             df[self.getCycleResidueName()] = lSignal - lTrend - lCycle
         elif(self.mDecompositionType in ['TS+R']):
             df[self.getCycleResidueName()] = lSignal - lTrend * lCycle 
         else:
             lTrendCycle = lTrend * lCycle
-            if(lTrendCycle.min() > 0.0):
-                df[self.getCycleResidueName()] = lSignal / lTrendCycle
-            else:
-                df[self.getCycleResidueName()] = 1.0
+            # This is questionable. But if only a few values are zero, it is the safest.
+            lTrendCycle = lTrendCycle.apply(lambda x : x if(abs(x) > 1e-8) else 1e-8)
+            df[self.getCycleResidueName()] = lSignal / lTrendCycle
         df[self.getCycleResidueName()] = df[self.getCycleResidueName()].astype(target.dtype)
 
 

@@ -56,10 +56,9 @@ class cAbstractTrend:
         if(self.mDecompositionType in ['T+S+R']):
             df[self.mOutName + '_residue'] = target - df[self.mOutName].values
         else:
-            if(df[self.mOutName].min() > 0.0):
-                df[self.mOutName + '_residue'] = target / df[self.mOutName].values
-            else:
-                df[self.mOutName + '_residue'] = 1.0
+            # This is questionable. But if only a few values are zero, it is the safest.
+            lTrendWithNoZero = df[self.mOutName].apply(lambda x : x if(abs(x) > 1e-8) else 1e-8)
+            df[self.mOutName + '_residue'] = target / lTrendWithNoZero
         df[self.mOutName + '_residue'] = df[self.mOutName + '_residue'].astype(target.dtype)
 
 
