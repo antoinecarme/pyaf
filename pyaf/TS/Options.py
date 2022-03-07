@@ -204,8 +204,8 @@ class cSignalDecomposition_Options(cModelControl):
         
         self.mMaxAROrder = 64;
         self.mFilterSeasonals = False
-        # enable cross validation
-        self.mCrossValidationOptions.mMethod = "TSCV";
+        # disable cross validation
+        # self.mCrossValidationOptions.mMethod = "TSCV";
         self.mActivateSampling = False
 
     def enable_fast_mode(self):
