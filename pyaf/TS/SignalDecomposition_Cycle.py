@@ -455,6 +455,8 @@ class cCycleEstimator:
                 if(self.mOptions.mDebugProfile):
                     logger = tsutil.get_pyaf_logger();
                     logger.info("CYCLE_TRAINING_TIME_IN_SECONDS '" + cycle.mOutName + "' " + str(lTrainingTime))
+            # Avoid dataframe fragmentation warnings.
+            self.mCycleFrame = self.mCycleFrame.copy()
         pass
 
 
