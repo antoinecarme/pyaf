@@ -24,6 +24,8 @@ class cAbstractAR:
         self.mCycleFrame = pd.DataFrame()
         self.mARFrame = pd.DataFrame()        
         self.mCycleResidueName = cycle_residue_name
+        self.mCycle = None
+        self.mTrend = None
         self.mComplexity = None;
         self.mFormula = None;
         self.mTargetName = self.mCycleResidueName;
@@ -33,8 +35,18 @@ class cAbstractAR:
 
     def compute_ar_residue(self, df):
         target = df[self.mCycleResidueName].values
-        df[self.mOutName + '_residue'] = target - df[self.mOutName].values        
+        lSignal = df[self.mSignal].values
+        lTrend = df[self.mTrend.mOutName].values
+        lCycle = df[self.mCycle.mOutName].values
+        lAR = df[self.mOutName].values
+        if(self.mDecompositionType in ['T+S+R']):
+            df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+        if(self.mDecompositionType in ['TS+R']):
+            df[self.mOutName + '_residue'] = lSignal - lTrend * lCycle - lAR
+        else:
+            df[self.mOutName + '_residue'] = lSignal - (lTrend * lCycle * lAR)
         df[self.mOutName + '_residue'] = df[self.mOutName + '_residue'].astype(target.dtype)
+        
     def plot(self):
         tsplot.decomp_plot(self.mARFrame, self.mTimeInfo.mNormalizedTimeColumn,
                            self.mCycleResidueName, self.mOutName , self.mOutName + '_residue', horizon = self.mTimeInfo.mHorizon);
@@ -120,6 +132,8 @@ class cZeroAR(cAbstractAR):
         # self.mTimeInfo.addVars(self.mARFrame);
         # self.mARFrame[series] = self.mCycleFrame[series]
         self.mARFrame[self.mOutName] = self.mConstantValue;
+        self.mARFrame[self.mCycle.mOutName] = self.mConstantValue;
+        self.mARFrame[self.mTrend.mOutName] = self.mConstantValue;
         self.compute_ar_residue(self.mARFrame)
         assert(self.mARFrame.shape[0] > 0)
                 
@@ -245,6 +259,8 @@ class cAutoRegressiveEstimator:
 
         lCleanListOfArModels = [];
         for autoreg in self.mARList[cycle_residue]:
+            self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]            
+            self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]            
             if((autoreg.mFormula == "NoAR") or (len(autoreg.mInputNames) > 0)):
                 lCleanListOfArModels.append(autoreg);
         self.mARList[cycle_residue] = lCleanListOfArModels;
@@ -373,7 +389,9 @@ class cAutoRegressiveEstimator:
                             self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lCroston];
                 if(len(self.mARList[cycle_residue]) == 0):
                     self.mARList[cycle_residue] = [ cZeroAR(cycle_residue)];
-                        
+                for lAR in self.mARList[cycle_residue]:
+                    lAR.mCycle = cycle
+                    lAR.mTrend = cycle.mTrend
 
         if(lNeedExogenous):
             if(self.mOptions.mDebugProfile):

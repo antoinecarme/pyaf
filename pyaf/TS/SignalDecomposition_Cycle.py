@@ -47,11 +47,17 @@ class cAbstractCycle:
 
     def compute_cycle_residue(self, df):
         target = df[self.mTrend_residue_name].values
-        if(self.mDecompositionType in ['T+S+R', 'TS+R']):
-            df[self.getCycleResidueName()] = target - df[self.getCycleName()].values
+        lSignal = df[self.mSignal].values
+        lTrend = df[self.mTrend.mOutName].values
+        lCycle = df[self.getCycleName()].values
+        if(self.mDecompositionType in ['T+S+R']):
+            df[self.getCycleResidueName()] = lSignal - lTrend - lCycle
+        elif(self.mDecompositionType in ['TS+R']):
+            df[self.getCycleResidueName()] = lSignal - lTrend * lCycle 
         else:
-            if(df[self.getCycleName()].min() > 0.0):
-                df[self.getCycleResidueName()] = target / df[self.getCycleName()].values
+            lTrendCycle = lTrend * lCycle
+            if(lTrendCycle.min() > 0.0):
+                df[self.getCycleResidueName()] = lSignal / lTrendCycle
             else:
                 df[self.getCycleResidueName()] = 1.0
         df[self.getCycleResidueName()] = df[self.getCycleResidueName()].astype(target.dtype)
@@ -122,6 +128,7 @@ class cZeroCycle(cAbstractCycle):
             # multiplicative models
             self.mConstantValue = 1.0
 
+        self.mCycleFrame[self.mTrend.mOutName] = self.mTrendFrame[self.mTrend.mOutName]
         self.mCycleFrame[self.mTrend_residue_name] = self.mTrendFrame[self.mTrend_residue_name]
         self.mCycleFrame[self.getCycleName()] = self.mConstantValue
         self.compute_cycle_residue(self.mCycleFrame)
@@ -200,6 +207,7 @@ class cSeasonalPeriodic(cAbstractCycle):
         self.mTimeInfo.addVars(self.mCycleFrame);
         lName = self.getCycleName();
         self.mCycleFrame[self.mTrend_residue_name] = self.mTrendFrame[self.mTrend_residue_name]
+        self.mCycleFrame[self.mTrend.mOutName] = self.mTrendFrame[self.mTrend.mOutName]
         self.mCycleFrame[lName] = self.compute_date_parts(self.mTrendFrame[self.mTime])
         self.mDefaultValue = self.compute_target_means_default_value()
         self.mEncodedValueDict = self.compute_target_means_by_cycle_value(self.mCycleFrame, self.getCycleName())
@@ -271,7 +279,8 @@ class cBestCycleForTrend(cAbstractCycle):
 
     def generate_cycles(self):
         self.mTimeInfo.addVars(self.mCycleFrame);
-        self.mCycleFrame[self.mTrend_residue_name ] = self.mTrendFrame[self.mTrend_residue_name]
+        self.mCycleFrame[self.mTrend_residue_name] = self.mTrendFrame[self.mTrend_residue_name]
+        self.mCycleFrame[self.mTrend.mOutName] = self.mTrendFrame[self.mTrend.mOutName]
         self.mDefaultValue = self.compute_target_means_default_value();
         self.mCyclePerfByLength = {}
         lMaxRobustCycleLength = self.mTrendFrame.shape[0]//12;
