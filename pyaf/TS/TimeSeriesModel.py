@@ -53,7 +53,13 @@ class cTimeSeriesModel:
         return str(lModelCategory)
         
     def getComplexity(self):
+        # This is just a way to give priority to additive decompositions (default = 0 for additive).
+        lModelTypeComplexity = {
+            "TS+R" : 1,
+            "TSR" : 2,
+        }
         lComplexity = self.mTransformation.mComplexity +  self.mTrend.mComplexity + self.mCycle.mComplexity + self.mAR.mComplexity;
+        lComplexity = lComplexity + lModelTypeComplexity.get(self.mDecompositionType, 0.0)
         return lComplexity;     
 
     def updatePerfs(self, compute_all_indicators = False):
@@ -325,14 +331,14 @@ class cTimeSeriesModel:
                "AR_Model" : self.mAR.mFormula,
                };
         dict1["Model"] = d2;
-        d3 = {"MAPE" : str(self.mForecastPerf.mMAPE),
-              "MASE" : str(self.mForecastPerf.mMASE),
-              "CRPS" : str(self.mForecastPerf.mCRPS),
-              "MAE" : str(self.mForecastPerf.mL1),
-              "RMSE" : str(self.mForecastPerf.mL2),
-              "MedAE" : str(self.mForecastPerf.mMedAE),
-              "LnQ" : str(self.mForecastPerf.mLnQ),
-              "COMPLEXITY" : str(self.getComplexity())};
+        d3 = {"MAPE" : self.mForecastPerf.mMAPE,
+              "MASE" : self.mForecastPerf.mMASE,
+              "CRPS" : self.mForecastPerf.mCRPS,
+              "MAE" : self.mForecastPerf.mL1,
+              "RMSE" : self.mForecastPerf.mL2,
+              "MedAE" : self.mForecastPerf.mMedAE,
+              "LnQ" : self.mForecastPerf.mLnQ,
+              "COMPLEXITY" : self.getComplexity()};
         dict1["Model_Performance"] = d3;
         if(iWithOptions):
             dict1["Options"] = self.mTimeInfo.mOptions.__dict__
