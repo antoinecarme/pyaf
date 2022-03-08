@@ -75,8 +75,9 @@ class cTimeInfo:
             lLastRow[self.mRowNumberColumn] = lLastRow[self.mRowNumberColumn].max() + 1
         # print(lLastRow.columns ,  df.columns)
         assert(str(lLastRow.columns) == str(df.columns))
-        df = pd.concat([df, lLastRow], ignore_index=True,
-                       verify_integrity = True, sort=False);        
+
+        df = pd.concat([df, lLastRow], ignore_index=True, verify_integrity = True, sort=False); 
+        
         if(self.mNormalizedTimeColumn not in df.columns):
             df[self.mRowNumberColumn] = np.arange(0, df.shape[0]);
             df[self.mNormalizedTimeColumn] = self.compute_normalized_date_column(df[self.mTime])
