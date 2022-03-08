@@ -45,6 +45,24 @@ class cAbstractCycle:
             raise tsutil.Internal_PyAF_Error("CYCLE_COLUMN _FOR_TREND_RESIDUE ['"  + name + "'");
         pass
 
+    def compute_cycle_residue(self, df):
+        target = df[self.mTrend_residue_name].values
+        lSignal = df[self.mSignal].values
+        lTrend = df[self.mTrend.mOutName]
+        lCycle = df[self.getCycleName()]
+        if(self.mDecompositionType in ['T+S+R']):
+            df[self.getCycleResidueName()] = lSignal - lTrend - lCycle
+        elif(self.mDecompositionType in ['TS+R']):
+            df[self.getCycleResidueName()] = lSignal - lTrend * lCycle 
+        else:
+            lTrendCycle = lTrend * lCycle
+            # This is questionable. But if only a few values are zero, it is the safest.
+            lTrendCycle = lTrendCycle.apply(lambda x : x if(abs(x) > 1e-8) else 1e-8)
+            df[self.getCycleResidueName()] = lSignal / lTrendCycle
+        df[self.getCycleResidueName()] = df[self.getCycleResidueName()].astype(target.dtype)
+
+
+
 
     def compute_target_means_by_cycle_value(self , iCycleFrame, iCycleName):
         # we encode only using estimation
@@ -89,29 +107,36 @@ class cZeroCycle(cAbstractCycle):
         super().__init__(trend);
         self.mFormula = "NoCycle"
         self.mComplexity = 0;
+        self.mConstantValue = 0.0
 
     def getCycleName(self):
-        return self.mTrend_residue_name + "_zeroCycle";
+        return self.mTrend_residue_name + "_zeroCycle[" + str(self.mConstantValue) + "]";
 
 
     def dump_values(self):
         logger = tsutil.get_pyaf_logger();
         lDict = {}
-        logger.info("ZERO_CYCLE_MODEL_VALUES " + self.getCycleName() + " 0.0 " + "{}");        
+        logger.info("ZERO_CYCLE_MODEL_VALUES " + self.getCycleName() + " " + str(self.mConstantValue) + " {}");        
     
     def fit(self):
         self.mTime = self.mTimeInfo.mTime;
         self.mSignal = self.mTimeInfo.mSignal;
         self.mTimeInfo.addVars(self.mCycleFrame);
+        self.mConstantValue = 0.0        
+        if(self.mDecompositionType in ['TS+R', 'TSR']):
+            # multiplicative models
+            self.mConstantValue = 1.0
+
+        self.mCycleFrame[self.mTrend.mOutName] = self.mTrendFrame[self.mTrend.mOutName]
         self.mCycleFrame[self.mTrend_residue_name] = self.mTrendFrame[self.mTrend_residue_name]
-        self.mCycleFrame[self.getCycleName()] = np.zeros_like(self.mTrendFrame[self.mTrend_residue_name])
-        self.mCycleFrame[self.getCycleResidueName()] = self.mCycleFrame[self.mTrend_residue_name];
+        self.mCycleFrame[self.getCycleName()] = self.mConstantValue
+        self.compute_cycle_residue(self.mCycleFrame)
         self.mOutName = self.getCycleName()
         
     def transformDataset(self, df):
         target = df[self.mTrend_residue_name]
-        df[self.getCycleName()] = np.zeros_like(df[self.mTrend_residue_name]);
-        df[self.getCycleResidueName()] = target - df[self.getCycleName()].values        
+        df[self.getCycleName()] = self.mConstantValue;
+        self.compute_cycle_residue(df)
         return df;
 
 class cSeasonalPeriodic(cAbstractCycle):
@@ -181,13 +206,14 @@ class cSeasonalPeriodic(cAbstractCycle):
         self.mTimeInfo.addVars(self.mCycleFrame);
         lName = self.getCycleName();
         self.mCycleFrame[self.mTrend_residue_name] = self.mTrendFrame[self.mTrend_residue_name]
+        self.mCycleFrame[self.mTrend.mOutName] = self.mTrendFrame[self.mTrend.mOutName]
         self.mCycleFrame[lName] = self.compute_date_parts(self.mTrendFrame[self.mTime])
         self.mDefaultValue = self.compute_target_means_default_value()
         self.mEncodedValueDict = self.compute_target_means_by_cycle_value(self.mCycleFrame, self.getCycleName())
 
         self.mCycleFrame[lName + '_enc'] = self.mCycleFrame[lName].apply(lambda x : self.mEncodedValueDict.get(x , self.mDefaultValue))
         self.mCycleFrame[lName + '_enc'].fillna(self.mDefaultValue, inplace=True);
-        self.mCycleFrame[self.getCycleResidueName()] = self.mCycleFrame[self.mTrend_residue_name] - self.mCycleFrame[lName + '_enc'];
+        self.compute_cycle_residue(self.mCycleFrame)
         self.mCycleFrame[lName + '_NotEncoded'] = self.mCycleFrame[lName];
         self.mCycleFrame[lName] = self.mCycleFrame[lName + '_enc'];
         
@@ -200,7 +226,7 @@ class cSeasonalPeriodic(cAbstractCycle):
         target = df[self.mTrend_residue_name]
         lDateParts = self.compute_date_parts(df[self.mTime])
         df[self.getCycleName()] = lDateParts.apply(lambda x : self.mEncodedValueDict.get(x , self.mDefaultValue))
-        df[self.getCycleResidueName()] = target - df[self.getCycleName()].values        
+        self.compute_cycle_residue(df)
         return df;
 
 class cBestCycleForTrend(cAbstractCycle):
@@ -252,7 +278,8 @@ class cBestCycleForTrend(cAbstractCycle):
 
     def generate_cycles(self):
         self.mTimeInfo.addVars(self.mCycleFrame);
-        self.mCycleFrame[self.mTrend_residue_name ] = self.mTrendFrame[self.mTrend_residue_name]
+        self.mCycleFrame[self.mTrend_residue_name] = self.mTrendFrame[self.mTrend_residue_name]
+        self.mCycleFrame[self.mTrend.mOutName] = self.mTrendFrame[self.mTrend.mOutName]
         self.mDefaultValue = self.compute_target_means_default_value();
         self.mCyclePerfByLength = {}
         lMaxRobustCycleLength = self.mTrendFrame.shape[0]//12;
@@ -294,7 +321,7 @@ class cBestCycleForTrend(cAbstractCycle):
         self.mOutName = self.getCycleName()
         self.mFormula = "Cycle_None"
         if(self.mBestCycleLength is not None):
-            self.mFormula = "Cycle" #  + str(self.mBestCycleLength);
+            self.mFormula = "Cycle_" + str(self.mBestCycleLength);
         self.transformDataset(self.mCycleFrame);
         self.mComplexity = 0
         if(self.mBestCycleLength is not None):
@@ -313,7 +340,7 @@ class cBestCycleForTrend(cAbstractCycle):
             df[self.getCycleName()] = np.zeros_like(df[self.mTimeInfo.mRowNumberColumn]);            
 
         target = df[self.mTrend_residue_name]
-        df[self.getCycleResidueName()] = target - df[self.getCycleName()].values
+        self.compute_cycle_residue(df)
         if(self.mOptions.mDebug):
             self.check_not_nan(self.mCycleFrame[self.getCycleName()].values , self.getCycleName());
 
@@ -381,6 +408,7 @@ class cCycleEstimator:
                 cycle.mTimeInfo = self.mTimeInfo;
                 cycle.mSplit = self.mSplit;
                 cycle.mOptions = self.mOptions;
+                cycle.mDecompositionType = self.mDecompositionType
             
     def plotCycles(self):
         for trend in self.mTrendList:
@@ -427,6 +455,8 @@ class cCycleEstimator:
                 if(self.mOptions.mDebugProfile):
                     logger = tsutil.get_pyaf_logger();
                     logger.info("CYCLE_TRAINING_TIME_IN_SECONDS '" + cycle.mOutName + "' " + str(lTrainingTime))
+            # Avoid dataframe fragmentation warnings.
+            self.mCycleFrame = self.mCycleFrame.copy()
         pass
 
 

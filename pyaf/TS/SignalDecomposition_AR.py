@@ -24,6 +24,8 @@ class cAbstractAR:
         self.mCycleFrame = pd.DataFrame()
         self.mARFrame = pd.DataFrame()        
         self.mCycleResidueName = cycle_residue_name
+        self.mCycle = None
+        self.mTrend = None
         self.mComplexity = None;
         self.mFormula = None;
         self.mTargetName = self.mCycleResidueName;
@@ -31,6 +33,20 @@ class cAbstractAR:
         self.mExogenousInfo = iExogenousInfo;
         self.mLagsForSeries = {}
 
+    def compute_ar_residue(self, df):
+        target = df[self.mCycleResidueName].values
+        lSignal = df[self.mSignal].values
+        lTrend = df[self.mTrend.mOutName].values
+        lCycle = df[self.mCycle.mOutName].values
+        lAR = df[self.mOutName].values
+        if(self.mDecompositionType in ['T+S+R']):
+            df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+        if(self.mDecompositionType in ['TS+R']):
+            df[self.mOutName + '_residue'] = lSignal - lTrend * lCycle - lAR
+        else:
+            df[self.mOutName + '_residue'] = lSignal - (lTrend * lCycle * lAR)
+        df[self.mOutName + '_residue'] = df[self.mOutName + '_residue'].astype(target.dtype)
+        
     def plot(self):
         tsplot.decomp_plot(self.mARFrame, self.mTimeInfo.mNormalizedTimeColumn,
                            self.mCycleResidueName, self.mOutName , self.mOutName + '_residue', horizon = self.mTimeInfo.mHorizon);
@@ -57,9 +73,10 @@ class cAbstractAR:
 
     def shift_series(self, series, p, idefault):
         N = series.shape[0];
-        lType = np.dtype(series);
+        lType = series.dtype
         first_values = np.full((p), idefault, dtype=lType)
         new_values = np.hstack((first_values, series.values[0:N-p]));
+        new_values = new_values.astype(lType)
         return new_values;
 
     def getDefaultValue(self, series):
@@ -101,23 +118,29 @@ class cZeroAR(cAbstractAR):
         self.mNbLags = 0;
         self.mFormula = "NoAR";
         self.mComplexity = 0;
+        self.mConstantValue = 0.0
         
     def fit(self):
         series = self.mCycleResidueName; 
         self.mTime = self.mTimeInfo.mTime;
         self.mSignal = self.mTimeInfo.mSignal;
+        self.mConstantValue = 0.0
+        if(self.mDecompositionType in ['TSR']):
+            # multiplicative models
+            self.mConstantValue = 1.0
+        
         # self.mTimeInfo.addVars(self.mARFrame);
         # self.mARFrame[series] = self.mCycleFrame[series]
-        self.mARFrame[self.mOutName] = self.mARFrame[series] * 0.0;
-        self.mARFrame[self.mOutName + '_residue'] = self.mARFrame[series];
+        self.mARFrame[self.mOutName] = self.mConstantValue;
+        self.mARFrame[self.mCycle.mOutName] = self.mConstantValue;
+        self.mARFrame[self.mTrend.mOutName] = self.mConstantValue;
+        self.compute_ar_residue(self.mARFrame)
         assert(self.mARFrame.shape[0] > 0)
                 
 
     def transformDataset(self, df, horizon_index = 1):
-        series = self.mCycleResidueName; 
-        df[self.mOutName] = 0.0;
-        target = df[series].values
-        df[self.mOutName + '_residue'] = target - df[self.mOutName].values        
+        df[self.mOutName] = self.mConstantValue;
+        self.compute_ar_residue(df)
         assert(df.shape[0] > 0)
         return df;
 
@@ -147,9 +170,10 @@ class cAutoRegressiveEstimator:
 
     def shift_series(self, series, p):
         N = series.shape[0];
-        lType = np.dtype(series);
+        lType = series.dtype
         first_values = np.full((p), series.values[0], dtype=lType)
         new_values = np.hstack((first_values, series.values[0:N-p]));
+        new_values = new_values.astype(lType)
         return new_values;
 
     def addLagForTraining(self, df, lag_df, series, autoreg, p):
@@ -178,6 +202,9 @@ class cAutoRegressiveEstimator:
             for p in range(1,P+1):
                 # signal lags ... plain old AR model
                 self.addLagForTraining(df, self.mARFrame, cycle_residue, autoreg, p);
+            # Avoid dataframe fragemntation.
+            self.mARFrame = self.mARFrame.copy()
+
             # Exogenous variables lags
             if(autoreg.mExogenousInfo is not None):
                 P1 = P;
@@ -186,11 +213,14 @@ class cAutoRegressiveEstimator:
                 if(lNbVars >= self.mOptions.mMaxFeatureForAutoreg):
                    P1 = self.mOptions.mMaxFeatureForAutoreg // lExogCount;
                 autoreg.mNbExogenousLags = P1;
-                for p in range(1,P1+1):
-                    # print(autoreg.mExogenousInfo.mEncodedExogenous);
-                    # print(df.columns);
-                    for ex in autoreg.mExogenousInfo.mEncodedExogenous:
+                for ex in autoreg.mExogenousInfo.mEncodedExogenous:
+                    for p in range(1,P1+1):
+                        # print(autoreg.mExogenousInfo.mEncodedExogenous);
+                        # print(df.columns);
                         self.addLagForTraining(df, self.mARFrame, ex, autoreg, p);
+                    # Avoid dataframe fragemntation.
+                    self.mARFrame = self.mARFrame.copy()
+
             # print("AUTOREG_DETAIL" , P , len(autoreg.mInputNames));
             if(autoreg.mExogenousInfo is not None):
                 assert((P + P*len(autoreg.mExogenousInfo.mEncodedExogenous)) >= len(autoreg.mInputNames));
@@ -229,6 +259,8 @@ class cAutoRegressiveEstimator:
 
         lCleanListOfArModels = [];
         for autoreg in self.mARList[cycle_residue]:
+            self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]            
+            self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]            
             if((autoreg.mFormula == "NoAR") or (len(autoreg.mInputNames) > 0)):
                 lCleanListOfArModels.append(autoreg);
         self.mARList[cycle_residue] = lCleanListOfArModels;
@@ -246,6 +278,7 @@ class cAutoRegressiveEstimator:
             autoreg.mSplit = self.mSplit;
             autoreg.mLagOrigins = self.mLagOrigins;
             autoreg.mDefaultValues = self.mDefaultValues;
+            autoreg.mDecompositionType = self.mDecompositionType
             autoreg.fit();
             if(self.mOptions.mDebugPerformance):
                 autoreg.computePerf();
@@ -321,21 +354,34 @@ class cAutoRegressiveEstimator:
                         self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lSVRX];
                         lNeedExogenous = True;
                     if(self.mOptions.mActiveAutoRegressions['XGB']):
-                        lXGB = tsscikit.cXGBoost_Model(cycle_residue, lLags)
-                        self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lXGB];
+                        if(self.mOptions.canBuildXGBoostModel('XGB')):
+                            lXGB = tsscikit.cXGBoost_Model(cycle_residue, lLags)
+                            self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lXGB];
+                        else:
+                            logger.debug("SKIPPING_MODEL_WITH_XGBOOST '" + 'XGB');
                     if(self.mOptions.mActiveAutoRegressions['XGBX'] and (self.mExogenousInfo is not None)):
-                        lXGBX = tsscikit.cXGBoost_Model(cycle_residue, lLags,
-                                                       self.mExogenousInfo);
-                        self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lXGBX];
-                        lNeedExogenous = True;
+                        if(self.mOptions.canBuildXGBoostModel('XGBX')):
+                            lXGBX = tsscikit.cXGBoost_Model(cycle_residue, lLags,
+                                                            self.mExogenousInfo);
+                            self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lXGBX];
+                            lNeedExogenous = True;
+                        else:
+                            logger.debug("SKIPPING_MODEL_WITH_XGBOOST '" + 'XGBX');
+                            
                     if(self.mOptions.mActiveAutoRegressions['LGB']):
-                        lLGB = tsscikit.cLightGBM_Model(cycle_residue, lLags)
-                        self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lLGB];
+                        if(self.mOptions.canBuildLightGBMModel('LGB')):
+                            lLGB = tsscikit.cLightGBM_Model(cycle_residue, lLags)
+                            self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lLGB];
+                        else:
+                            logger.debug("SKIPPING_MODEL_WITH_LIGHTGBM '" + 'LGB');
                     if(self.mOptions.mActiveAutoRegressions['LGBX'] and (self.mExogenousInfo is not None)):
-                        lLGBX = tsscikit.cLightGBM_Model(cycle_residue, lLags,
-                                                       self.mExogenousInfo);
-                        self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lLGBX];
-                        lNeedExogenous = True;
+                        if(self.mOptions.canBuildLightGBMModel('LGBX')):
+                            lLGBX = tsscikit.cLightGBM_Model(cycle_residue, lLags,
+                                                             self.mExogenousInfo);
+                            self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lLGBX];
+                            lNeedExogenous = True;
+                        else:
+                            logger.debug("SKIPPING_MODEL_WITH_LIGHTGBM '" + 'LGBX');
                     if(self.mOptions.mActiveAutoRegressions['CROSTON']):
                         lIsSignalIntermittent = interm.is_signal_intermittent(self.mCycleFrame[cycle_residue] , self.mOptions)
                         if(lIsSignalIntermittent):
@@ -343,7 +389,9 @@ class cAutoRegressiveEstimator:
                             self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lCroston];
                 if(len(self.mARList[cycle_residue]) == 0):
                     self.mARList[cycle_residue] = [ cZeroAR(cycle_residue)];
-                        
+                for lAR in self.mARList[cycle_residue]:
+                    lAR.mCycle = cycle
+                    lAR.mTrend = cycle.mTrend
 
         if(lNeedExogenous):
             if(self.mOptions.mDebugProfile):

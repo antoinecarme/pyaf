@@ -75,6 +75,7 @@ class cCroston_Model(tsar.cAbstractAR):
         # print(df.columns)
         # print(df[['Date', 'Signal', '_Signal', 'row_number', '_Signal_ConstantTrend_residue_zeroCycle_residue']].tail(12))
         lCounts_df = df[[self.mTime, self.mCycleResidueName]].copy()
+        lCounts_df['index'] = np.arange(lCounts_df.shape[0])
         counts = lCounts_df[self.mCycleResidueName] - self.mOffset
         counts = counts[:-(horizon_index)]
         # print(list(counts.unique()))
@@ -131,7 +132,7 @@ class cCroston_Model(tsar.cAbstractAR):
 
         lPredicted = self.croston(self.mARFrame);
         self.mARFrame[self.mOutName] = lPredicted['forecast']
-        self.mARFrame[self.mOutName + '_residue'] =  self.mARFrame[series] - self.mARFrame[self.mOutName]
+        self.compute_ar_residue(self.mARFrame)
 
         # print("ESTIMATE_CROSTON_MODEL_END" , self.mOutName);
 
@@ -140,7 +141,6 @@ class cCroston_Model(tsar.cAbstractAR):
         series = self.mCycleResidueName;
         pred = self.croston(df, horizon_index)
         df[self.mOutName] = pred['forecast'];
-        target = df[series].values
-        df[self.mOutName + '_residue'] = target - df[self.mOutName].values        
+        self.compute_ar_residue(df)
         return df;
 

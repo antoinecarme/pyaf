@@ -56,8 +56,8 @@ class cExogenousInfo:
     def addVars(self, df):
         lExogDate = self.mDateVariable;
         N = df.shape[0]
-        # print(np.dtype(df[self.mDateVariable]) ,
-        #      np.dtype(self.mEncodedExogenousDataFrame[self.mDateVariable]));
+        # print(df[self.mDateVariable].dtype ,
+        #       self.mEncodedExogenousDataFrame[self.mDateVariable].dtype);
         # print(df.info());
         # print(self.mEncodedExogenousDataFrame.info());
         # print(df.head());

@@ -106,7 +106,7 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
             # issue_34 failure SVD does not converge
             self.mARFrame[self.mOutName] = self.mDefaultValues[series]
 
-        self.mARFrame[self.mOutName + '_residue'] =  self.mARFrame[series] - self.mARFrame[self.mOutName]
+        self.compute_ar_residue(self.mARFrame)
 
         # print("ESTIMATE_SCIKIT_MODEL_END" , self.mOutName);
 
@@ -132,8 +132,7 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
         else:
             df[self.mOutName] = self.mDefaultValues[series];
             
-        target = df[series].values
-        df[self.mOutName + '_residue'] = target - df[self.mOutName].values        
+        self.compute_ar_residue(df)
         return df;
 
 

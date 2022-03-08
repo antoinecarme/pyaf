@@ -113,7 +113,7 @@ class cSignalHierarchy:
             raise tsutil.PyAF_Error("PYAF_ERROR_NEGATIVE_OR_NULL_HORIZON " + str(self.mHorizon));
         if(self.mDateColumn not in df.columns):
             raise tsutil.PyAF_Error("PYAF_ERROR_HIERARCHY_TIME_COLUMN_NOT_FOUND " + str(self.mDateColumn));
-        type1 = np.dtype(df[self.mDateColumn])
+        type1 = df[self.mDateColumn].dtype
         # print(type1)
         if(type1.kind != 'M' and type1.kind != 'i' and type1.kind != 'u' and type1.kind != 'f'):
             raise tsutil.PyAF_Error("PYAF_ERROR_TIME_COLUMN_TYPE_NOT_ALLOWED '" + str(self.mDateColumn) + "' '" + str(type1) + "'");
@@ -122,7 +122,7 @@ class cSignalHierarchy:
             if(k not in df.columns) :
                 raise tsutil.PyAF_Error("PYAF_ERROR_HIERARCHY_BASE_COLUMN_NOT_FOUND " + str(k));
             # print(type2)
-            type2 = np.dtype(df[k])
+            type2 = df[k].dtype
             if(type2.kind != 'i' and type2.kind != 'u' and type2.kind != 'f'):
                 raise tsutil.PyAF_Error("PYAF_ERROR_HIERARCHY_BASE_SIGNAL_COLUMN_TYPE_NOT_ALLOWED '" + str(k) + "' '" + str(type2) + "'");
 
@@ -347,7 +347,7 @@ class cSignalHierarchy:
     def computeBottomUpForecasts(self, iForecast_DF):
         logger = tsutil.get_pyaf_hierarchical_logger();
         logger.info("FORECASTING_HIERARCHICAL_MODEL_BOTTOM_UP_METHOD " + "BU");
-        lForecast_DF_BU = iForecast_DF;
+        lForecast_DF_BU = iForecast_DF.copy()
         # print("STRUCTURE " , self.mStructure.keys());
         for level in sorted(self.mStructure.keys()):
             for signal in sorted(self.mStructure[level].keys()):
@@ -420,7 +420,7 @@ class cSignalHierarchy:
     def computeTopDownForecasts(self, iForecast_DF , iProp , iPrefix):
         logger = tsutil.get_pyaf_hierarchical_logger();
         logger.info("FORECASTING_HIERARCHICAL_MODEL_TOP_DOWN_METHOD " + iPrefix);
-        lForecast_DF_TD = iForecast_DF;
+        lForecast_DF_TD = iForecast_DF.copy()
         lLevelsReversed = sorted(self.mStructure.keys(), reverse=True);
         # print("TOPDOWN_STRUCTURE", self.mStructure)
         # print("TOPDOWN_LEVELS", lLevelsReversed)
@@ -444,7 +444,7 @@ class cSignalHierarchy:
         logger.info("FORECASTING_HIERARCHICAL_MODEL_MIDDLE_OUT_METHOD " + iPrefix);
         lLevels = self.mStructure.keys();
         lMidLevel = len(lLevels) // 2;
-        lForecast_DF_MO = iForecast_DF;
+        lForecast_DF_MO = iForecast_DF.copy()
         # lower levels .... top-down starting from the middle.
         levels_below = sorted([level for level in self.mStructure.keys()  if (level <= lMidLevel) ],
                               reverse=True);

@@ -15,6 +15,9 @@ class cModelControl:
         self.mActivePeriodics = {};
         self.mActiveTrends = {};
         self.mActiveAutoRegressions = {};
+        #  Add Multiplicative Models/Seasonals #178 
+        self.mActiveDecompositionTypes = {}
+        self.mKnownDecompositionTypes = ['T+S+R', 'TS+R', 'TSR']
         self.mKnownTransformations = ['None', 'Difference', 'RelativeDifference',
                                       'Integration', 'BoxCox',
                                       'Quantization', 'Logit',
@@ -50,7 +53,21 @@ class cModelControl:
         self.set_active_trends(self.mKnownTrends[0:4]);
         self.set_active_periodics(self.mKnownPeriodics);
         self.set_active_autoregressions(self.mKnownAutoRegressions[0:3]);
+        # Add Multiplicative Models/Seasonals #178.
+        # Only additive models are activated by default        
+        self.set_active_decomposition_types(['T+S+R']);
         
+    def set_active_decomposition_types(self, iDecompTypes):
+        self.mActiveDecompositionTypes = {};
+        for decomp_type in self.mKnownDecompositionTypes:
+            if(decomp_type in iDecompTypes):
+                self.mActiveDecompositionTypes[decomp_type] = True;
+            else:
+                self.mActiveDecompositionTypes[decomp_type] = False;
+        if(True not in self.mActiveDecompositionTypes.values()):
+            # default
+            self.mActiveTransformations['T+S+R'] = True;
+            
     def set_active_transformations(self, transformations):
         self.mActiveTransformations = {};
         for transformation in self.mKnownTransformations:
@@ -183,11 +200,12 @@ class cSignalDecomposition_Options(cModelControl):
         self.set_active_trends(self.mKnownTrends);
         self.set_active_periodics(self.mKnownPeriodics);
         self.set_active_autoregressions(self.mKnownAutoRegressions);
+        self.set_active_decomposition_types(self.mKnownDecompositionTypes);
         
         self.mMaxAROrder = 64;
         self.mFilterSeasonals = False
-        # enable cross validation
-        self.mCrossValidationOptions.mMethod = "TSCV";
+        # disable cross validation
+        # self.mCrossValidationOptions.mMethod = "TSCV";
         self.mActivateSampling = False
 
     def enable_fast_mode(self):
@@ -226,6 +244,20 @@ class cSignalDecomposition_Options(cModelControl):
                 return False;
             else:
                 return True;
+        except:
+            return False;
+
+    def  canBuildXGBoostModel(self, iModel):
+        try:
+            import xgboost
+            return True;
+        except:
+            return False;
+
+    def  canBuildLightGBMModel(self, iModel):
+        try:
+            import lightgbm
+            return True;
         except:
             return False;
 

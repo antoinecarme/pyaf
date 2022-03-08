@@ -426,7 +426,7 @@ def load_MWH_dataset(name):
     # trainfile = "data/FMA/" + name + ".csv"
     df_train = pd.read_csv(trainfile, sep=r',', header=None,  engine='python', skipinitialspace=True);
     # print(df_train.head(3));
-    type1 = np.dtype(df_train[df_train.columns[0]])
+    type1 = df_train[df_train.columns[0]].dtype
     if(type1.kind == 'O'):
         # there is (probably) a header, re-read the csv file
         df_train = pd.read_csv(trainfile, sep=r',', header=0,  engine='python', skipinitialspace=True);
