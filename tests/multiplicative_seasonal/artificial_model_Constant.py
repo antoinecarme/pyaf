@@ -13,12 +13,15 @@ df_train["Noise"] = 0.1 * np.random.standard_normal()
 df_train["Signal_T_S_R"] = df_train["T"] + df_train["S"] + df_train["Noise"]
 df_train["Signal_TS_R"] = df_train["T"] * df_train["S"] + df_train["Noise"]
 df_train["Signal_TSR"] = df_train["T"] * df_train["S"] * df_train["Noise"]
+df_train["Signal_Constant"] = 4.0
+df_train["Signal_Zero"] = 0.0
+df_train["Signal_One"] = 1.0
 print(df_train.head(24))
 
 import pyaf.ForecastEngine as autof
 # create a forecast engine. This is the main object handling all the operations
 lEngine = autof.cForecastEngine()
-lSignal = 'Signal_TS_R'
+lSignal = 'Signal_Constant'
 lEngine.mOptions.enable_slow_mode();
 lEngine.mOptions.mDebugPerformance = True;
 
@@ -38,4 +41,4 @@ print(df_forecast['Date'].tail(7).values)
 
 # signal forecast : [ 9.74934646  10.04419761  12.15136455  12.20369717  14.09607727 15.68086323  16.22296559]
 print(df_forecast[lSignal + '_Forecast'].tail(7).values)
-lEngine.standardPlots("outputs/artificial_TS+R");
+lEngine.standardPlots("outputs/artificial_" + lSignal);
