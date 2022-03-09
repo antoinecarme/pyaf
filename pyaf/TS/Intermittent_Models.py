@@ -98,19 +98,8 @@ class cCroston_Model(tsar.cAbstractAR):
         df2 = pd.DataFrame({'demand_time' : list(demand_times), 'q' : list(q) , 'a' : list(a) })
         
         # Use statmopdels library to perform SES to avoid recursion and also avoid reinventing the wheel.
-        import warnings
-        with warnings.catch_warnings():
-            # warnings.simplefilter("error")
-            try:
-                df2['q_est'] = self.simple_ses(df2['q'].values, alpha)
-            except Exception as e:
-                print(df2[['q']].head())
-                # raise
-            try:
-                df2['a_est'] = self.simple_ses(df2['a'].values, alpha)
-            except Exception as e:
-                print(df2[['a']].head())
-                # raise
+        df2['q_est'] = self.simple_ses(df2['q'].values, alpha)
+        df2['a_est'] = self.simple_ses(df2['a'].values, alpha)
 
         df2['forecast'] = self.get_coeff(alpha , method) * df2['q_est'] / df2['a_est']
         df2['index'] = df2['demand_time'] - 1
