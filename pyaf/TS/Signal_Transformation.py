@@ -60,17 +60,17 @@ class cAbstractSignalTransform:
         if(self.mScaling is not None):
             # self.mMeanValue = np.mean(sig);
             # self.mStdValue = np.std(sig);
-            self.mMinValue = np.min(sig);
-            self.mMaxValue = np.max(sig);
-            self.mDelta = self.mMaxValue - self.mMinValue;
-            eps = 1.0e-10
-            if(self.mDelta < eps):
-                self.mDelta = eps;
+            # lEps = 1.0e-10
+            self.mMinInputValue = np.min(sig);
+            self.mMaxInputValue = np.max(sig);
+            self.mInputValueRange = self.mMaxInputValue - self.mMinInputValue;
         else:
-            return sig;
+            pass
 
     def scale_value(self, x):
-        return (x - self.mMinValue) / self.mDelta;
+        if(np.fabs(self.mInputValueRange) < 1e-10):
+            return 0.0
+        return (x - self.mMinInputValue) / self.mInputValueRange;
 
     def scale_signal(self, sig):
         if(self.mScaling is not None):
@@ -82,7 +82,10 @@ class cAbstractSignalTransform:
             return sig;
 
     def rescale_value(self, x):
-        return self.mMinValue + x * self.mDelta;
+        y = self.mMinInputValue + x * self.mInputValueRange;
+        return y
+    
+    
         
 
     def rescale_signal(self, sig1):
@@ -151,6 +154,7 @@ class cSignalTransform_None(cAbstractSignalTransform):
         cAbstractSignalTransform.__init__(self);
         self.mFormula = "NoTransf";
         self.mComplexity = 0;
+        self.mScaling = True;
         pass
 
     def get_name(self, iSig):
@@ -176,6 +180,7 @@ class cSignalTransform_Accumulate(cAbstractSignalTransform):
         cAbstractSignalTransform.__init__(self);
         self.mFormula = "Integration";
         self.mComplexity = 1;
+        self.mScaling = True;
         pass
 
     def get_name(self, iSig):
@@ -203,6 +208,7 @@ class cSignalTransform_Quantize(cAbstractSignalTransform):
         self.mQuantiles = iQuantiles;
         self.mFormula = "Quantization";
         self.mComplexity = 2;
+        self.mScaling = True;
         pass
 
     def get_name(self, iSig):
@@ -255,7 +261,7 @@ class cSignalTransform_BoxCox(cAbstractSignalTransform):
         cAbstractSignalTransform.__init__(self);
         self.mFormula = "BoxCox";
         self.mLambda = iLambda;
-        self.mComplexity = 2;
+        self.mComplexity = 2 + abs(self.mLambda);
         self.mScaling = True;
         pass
 
@@ -268,21 +274,25 @@ class cSignalTransform_BoxCox(cAbstractSignalTransform):
     
 
     def specific_apply(self, df):
-        lEps = 1e-20
+        lEps = 1e-3
+        assert(df.min() > -lEps)
         log_df = df.apply(lambda x : np.log(max(x , lEps)));
         if(abs(self.mLambda) <= 0.001):
             return log_df;
-        return (np.exp(log_df * self.mLambda) - 1) / self.mLambda;
+        lLimit = 5.0 / abs(self.mLambda)
+        log_df = log_df.clip(-lLimit , lLimit)
+        df1 = (np.exp(log_df * self.mLambda) - 1) / self.mLambda
+        return df1;
 
     def invert_value(self, y):
         x = y;
-        lEps = 1e-20
+        lEps = 1e-5
         x1 = np.log(max(self.mLambda * x + 1, lEps)) / self.mLambda;
-        return np.exp(x1.clip(-20, 20)) ;        
+        return np.exp(x1).clip(0, 1) ;        
     
     def specific_invert(self, df):
         if(abs(self.mLambda) <= 0.001):
-            df_orig = np.exp(df.clip(-20, 20));
+            df_orig = np.exp(df).clip(0, 1);
             return df_orig;
         df_pos = df.apply(self.invert_value);
         return df_pos;
@@ -299,6 +309,7 @@ class cSignalTransform_Differencing(cAbstractSignalTransform):
         self.mFirstValue = None;
         self.mFormula = "Difference";
         self.mComplexity = 1;
+        self.mScaling = True;
         pass
 
     def get_name(self, iSig):
@@ -313,11 +324,12 @@ class cSignalTransform_Differencing(cAbstractSignalTransform):
     def specific_apply(self, df):
         df_shifted = df.shift(1)
         df_shifted.iloc[0] = self.mFirstValue;
-        return (df - df_shifted);
+        lResult = df - df_shifted
+        return lResult
     
     def specific_invert(self, df):
-        df_orig = df.cumsum();
-        df_orig = df_orig + self.mFirstValue;
+        df_cumsum = df.cumsum();
+        df_orig = df_cumsum + self.mFirstValue;
         return df_orig;
 
     def dump_values(self):
@@ -343,7 +355,7 @@ class cSignalTransform_RelativeDifferencing(cAbstractSignalTransform):
         pass
 
     def specific_apply(self, df):
-        lEps = 1e-8
+        lEps = 1e-2
         # print("RelDiff_apply_DEBUG_START" , self.mFirstValue, df.values[0:10]);
         df1 = df.apply(lambda x : x if (abs(x) > lEps) else lEps)
         df_shifted = df1.shift(1)
@@ -352,14 +364,14 @@ class cSignalTransform_RelativeDifferencing(cAbstractSignalTransform):
         rate.iloc[0] = 0.0;
         # print(df1)
         # print(df_shifted)
-        rate = rate.clip(-1.0e+8 , +1.0e+8)
+        rate = rate.clip(-1.0e+2 , +1.0e+2)
         # print("RelDiff_apply_DEBUG_END" , rate[0:10]);
         return rate;
 
 
     def cumprod_no_overflow(self, rate):
-        lEps = 1e-8
-        lLogRate = np.log(rate.clip(lEps, +1.0e+8))
+        lEps = 1e-2
+        lLogRate = np.log(rate.clip(lEps, +1.0e+2))
         lCumSum = lLogRate.cumsum()
         lCumSum = lCumSum.clip(lEps , +1.0e+2)
         lResult = np.exp(lCumSum)
@@ -395,30 +407,20 @@ class cSignalTransform_Logit(cAbstractSignalTransform):
 
 
     def is_applicable(self, sig):
-        if(self.mScaling is not None):
-            return True;
-        # this has to be a proportion ( 0 <= p <= 1.0 )
-        lMinValue = np.min(sig);
-        lMaxValue = np.max(sig);
-        if((lMinValue >= 0.0) and (lMaxValue <= 1.0)):
-            return True;
-        return False;
+        return True;
 
     def specific_fit(self, sig):
         pass
 
     def logit(self, x):
-        eps = 1.0e-8;
-        x1 = x;
-        if(x < eps):
-            x1 = eps;
-        if(x > (1.0 - eps)):
-            x1 = 1.0 - eps;
+        eps = 1.0e-2;
+        x1 = np.clip(x, eps, 1 - eps)
         y = np.log(x1) - np.log(1 - x1);
         return y;
 
     def inv_logit(self, y):
-        x = np.exp(y);
+        y1 = np.clip(y, -5, 5)
+        x = np.exp(y1);
         p = x / (1 + x);
         return p;
 
@@ -463,7 +465,8 @@ class cSignalTransform_Anscombe(cAbstractSignalTransform):
         return y;
     
     def specific_invert(self, sig):
-        x = sig.apply(lambda x : ((x/2 * x/2) - self.mConstant))
+        y1 = sig.clip(1.22, 2.34)
+        x = y1.apply(lambda x : ((x/2 * x/2) - self.mConstant))
         return x;
 
     def dump_values(self):
@@ -490,7 +493,7 @@ class cSignalTransform_Fisher(cAbstractSignalTransform):
         pass
     
     def specific_apply(self, sig):
-        eps = 1.0e-8;
+        eps = 1.0e-2;
         y = sig.apply(lambda x : np.arctanh(np.clip(x , -1 + eps , 1.0 - eps)));
         return y;
     
