@@ -45,6 +45,8 @@ class cAbstractAR:
             df[self.mOutName + '_residue'] = lSignal - lTrend * lCycle - lAR
         else:
             df[self.mOutName + '_residue'] = lSignal - (lTrend * lCycle * lAR)
+        # df_detail = df[[self.mSignal, self.mTrend.mOutName, self.mCycle.mOutName, self.mOutName, self.mOutName + '_residue']]
+        # print("compute_ar_residue_detail ", (self.mOutName, self.mDecompositionType, df_detail.describe(include='all').to_dict()))
         df[self.mOutName + '_residue'] = df[self.mOutName + '_residue'].astype(target.dtype)
         
     def plot(self):
@@ -291,7 +293,7 @@ class cAutoRegressiveEstimator:
 
     def check_not_nan(self, sig , name):
         #print("check_not_nan");
-        if(np.isnan(sig).any()):
+        if(np.isnan(sig[:-1]).any()):
             logger = tsutil.get_pyaf_logger();
             logger.error("CYCLE_RESIDUE_WITH_NAN_IN_SIGNAL" + str(sig));
             raise tsutil.Internal_PyAF_Error("INVALID_COLUMN _FOR_CYCLE_RESIDUE ['"  + name + "'");
@@ -320,7 +322,11 @@ class cAutoRegressiveEstimator:
                 lLags = self.mCycleFrame[cycle_residue].shape[0] // 4;
                 if(lLags >= self.mOptions.mMaxAROrder):
                     lLags = self.mOptions.mMaxAROrder;
-                if((self.mCycleFrame[cycle_residue].shape[0] > 12) and (self.mCycleFrame[cycle_residue].std() > 0.00001)):
+                lKeep = (self.mCycleFrame[cycle_residue].shape[0] > 12) and (self.mCycleFrame[cycle_residue].std() > 0.00001)
+                if(not lKeep):
+                    logger.info("SKIPPING_AR_MODELS_WITH_LOW_VARIANCE_CYCLE_RESIDUE '" + cycle_residue + "'");
+                    
+                if(lKeep):
                     if(self.mOptions.mActiveAutoRegressions['AR']):
                         lAR = tsscikit.cAutoRegressiveModel(cycle_residue, lLags);
                         self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lAR];
