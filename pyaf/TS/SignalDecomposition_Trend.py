@@ -31,7 +31,7 @@ class cAbstractTrend:
 
     def check_not_nan(self, sig , name):
         #print("check_not_nan");
-        if(np.isnan(sig).any() or np.isinf(sig).any() ):
+        if(np.isnan(sig[:-1]).any() or np.isinf(sig[:-1]).any() ):
             logger = tsutil.get_pyaf_logger();
             logger.error("TREND_RESIDUE_WITH_NAN_IN_SIGNAL" + str(sig));
             raise tsutil.Internal_PyAF_Error("INVALID_COLUMN _FOR_TREND_RESIDUE ['"  + name + "'");
@@ -52,13 +52,16 @@ class cAbstractTrend:
                                         lFrameForecast[self.mOutName], self.mOutName)
 
     def compute_trend_residue(self, df):
-        target = df[self.mSignal].values
+        target = df[self.mSignal]
+        lTrend = df[self.mOutName]
         if(self.mDecompositionType in ['T+S+R']):
-            df[self.mOutName + '_residue'] = target - df[self.mOutName].values
+            df[self.mOutName + '_residue'] = target - lTrend
         else:
             # This is questionable. But if only a few values are zero, it is the safest.
-            lTrendWithNoZero = df[self.mOutName].apply(lambda x : x if(abs(x) > 1e-8) else 1e-8)
+            lTrendWithNoZero = lTrend.apply(lambda x : x if(abs(x) > 1e-2) else 1e-2)
             df[self.mOutName + '_residue'] = target / lTrendWithNoZero
+        # df_detail = df[[self.mSignal, self.mOutName, self.mOutName + '_residue']]
+        # print("compute_trend_residue_detail ", (self.mOutName, self.mDecompositionType, df_detail.describe(include='all').to_dict()))
         df[self.mOutName + '_residue'] = df[self.mOutName + '_residue'].astype(target.dtype)
 
 
@@ -90,9 +93,6 @@ class cConstantTrend(cAbstractTrend):
         target = self.mTrendFrame[self.mSignal]
         self.mTrendFrame[self.mOutName] = self.mMean * np.ones_like(target);
         self.compute_trend_residue(self.mTrendFrame)
-        # self.mTrendFrame.to_csv("aaaa.csv")
-        # print("cConstantTrend" , self.mMean);
-        # self.mFormula = self.mOutName + "[" + str(self.mMean) + "]";    
 
     def compute(self):
         Y_pred = self.mMean
@@ -100,7 +100,7 @@ class cConstantTrend(cAbstractTrend):
 
     def dump_values(self):
         logger = tsutil.get_pyaf_logger();
-        logger.info("CONSTANT_TREND " + self.mFormula + " " + str(self.mMean));
+        logger.info("CONSTANT_TREND " + self.mOutName + " " + str(self.mMean));
 
 class cLag1Trend(cAbstractTrend):
     def __init__(self):
@@ -166,7 +166,7 @@ class cMovingAverageTrend(cAbstractTrend):
         self.mTimeInfo.addVars(self.mTrendFrame);
 
     def fit(self):
-        self.mOutName = "MovingAverage(" + str(self.mWindow) + ")";
+        self.mOutName = self.mOutName + "(" + str(self.mWindow) + ")";
         self.mFormula = self.mOutName;
         # real lag1
         target = self.mTrendFrame[self.mSignal].values
@@ -205,7 +205,7 @@ class cMovingMedianTrend(cAbstractTrend):
         self.mTimeInfo.addVars(self.mTrendFrame);
 
     def fit(self):
-        self.mOutName = "MovingMedian(" + str(self.mWindow) + ")";
+        self.mOutName = self.mOutName + "(" + str(self.mWindow) + ")";
         self.mFormula = self.mOutName;
         # real lag1
         target = self.mTrendFrame[self.mSignal].values
@@ -394,11 +394,14 @@ class cTrendEstimator:
             trend.addTrendInputVariables()
         pass
 
-    def check_residue(self , sig, name):
-#        print("check_not_nan "  + name);
-#        print(sig);
+    def check_residue(self , trend, sig, name):
+        # print("check_trend_residue ", (name, trend.mDecompositionType, sig.min(), sig.max(), sig.mean(), sig .std()))
         if(np.isnan(sig).any()):
-            raise tsutil.Internal_PyAF_Error("Invalid residue '" + name + "'");
+            raise tsutil.Internal_PyAF_Error("Invalid residue_is_nan '" +
+                                             str((name, trend.mDecompositionType, sig.min(), sig.max(), sig.mean(), sig .std())) + "'");
+        if(sig.max() > 1.e5):
+            raise tsutil.Internal_PyAF_Error("Invalid residue_too_large '" +
+                                             str((name, trend.mDecompositionType, sig.min(), sig.max(), sig.mean(), sig .std())) + "'");
         pass
 
     def estimateTrends(self):
@@ -415,7 +418,7 @@ class cTrendEstimator:
             self.mTrendFrame[trend.mOutName] = trend.mTrendFrame[trend.mOutName]
             self.mTrendFrame[trend.mOutName + "_residue"] = trend.mTrendFrame[trend.mOutName + "_residue"]
             if(self.mOptions.mDebug):
-                self.check_residue(self.mTrendFrame[trend.mOutName + "_residue"].values,
+                self.check_residue(trend, self.mTrendFrame[trend.mOutName + "_residue"].values[:-1],
                                    trend.mOutName + "_residue");
         pass
 
