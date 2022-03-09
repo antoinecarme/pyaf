@@ -39,17 +39,23 @@ class cAbstractCycle:
 
     def check_not_nan(self, sig , name):
         #print("check_not_nan");
-        if(np.isnan(sig).any() or np.isinf(sig).any() ):
+        if(np.isnan(sig[:-1]).any() or np.isinf(sig[:-1]).any() ):
             logger = tsutil.get_pyaf_logger();
             logger.error("CYCLE_RESIDUE_WITH_NAN_IN_SIGNAL" + str(sig));
             raise tsutil.Internal_PyAF_Error("CYCLE_COLUMN _FOR_TREND_RESIDUE ['"  + name + "'");
+        # print("check_cycle_residue ", (name, self.mDecompositionType, sig[:-1].min(), sig[:-1].max(), sig[:-1].mean(), sig[:-1].std()))
+        if(sig[:-1].max() > 1e5):
+            self.dump_values()
+            raise tsutil.Internal_PyAF_Error("Invalid cycle_residue_too_large '" + str(name) + "'");
+        pass
         pass
 
     def compute_cycle_residue(self, df):
-        target = df[self.mTrend_residue_name].values
-        lSignal = df[self.mSignal].values
+        target = df[self.mTrend_residue_name]
+        lSignal = df[self.mSignal]
         lTrend = df[self.mTrend.mOutName]
         lCycle = df[self.getCycleName()]
+        lOutName = self.getCycleName()
         if(self.mDecompositionType in ['T+S+R']):
             df[self.getCycleResidueName()] = lSignal - lTrend - lCycle
         elif(self.mDecompositionType in ['TS+R']):
@@ -57,8 +63,11 @@ class cAbstractCycle:
         else:
             lTrendCycle = lTrend * lCycle
             # This is questionable. But if only a few values are zero, it is the safest.
-            lTrendCycle = lTrendCycle.apply(lambda x : x if(abs(x) > 1e-8) else 1e-8)
+            lTrendCycle = lTrendCycle.apply(lambda x : x if(abs(x) > 1e-2) else 1e-2)
             df[self.getCycleResidueName()] = lSignal / lTrendCycle
+        # df_detail = df[[self.mSignal, self.mTrend.mOutName, self.getCycleName(), self.getCycleResidueName()]]
+        # print("compute_cycle_residue_detail ", (lOutName, self.mDecompositionType, df_detail.describe(include='all').to_dict()))
+        
         df[self.getCycleResidueName()] = df[self.getCycleResidueName()].astype(target.dtype)
 
 
@@ -130,8 +139,8 @@ class cZeroCycle(cAbstractCycle):
         self.mCycleFrame[self.mTrend.mOutName] = self.mTrendFrame[self.mTrend.mOutName]
         self.mCycleFrame[self.mTrend_residue_name] = self.mTrendFrame[self.mTrend_residue_name]
         self.mCycleFrame[self.getCycleName()] = self.mConstantValue
-        self.compute_cycle_residue(self.mCycleFrame)
         self.mOutName = self.getCycleName()
+        self.compute_cycle_residue(self.mCycleFrame)
         
     def transformDataset(self, df):
         target = df[self.mTrend_residue_name]
@@ -213,7 +222,6 @@ class cSeasonalPeriodic(cAbstractCycle):
 
         self.mCycleFrame[lName + '_enc'] = self.mCycleFrame[lName].apply(lambda x : self.mEncodedValueDict.get(x , self.mDefaultValue))
         self.mCycleFrame[lName + '_enc'].fillna(self.mDefaultValue, inplace=True);
-        self.compute_cycle_residue(self.mCycleFrame)
         self.mCycleFrame[lName + '_NotEncoded'] = self.mCycleFrame[lName];
         self.mCycleFrame[lName] = self.mCycleFrame[lName + '_enc'];
         
@@ -221,6 +229,7 @@ class cSeasonalPeriodic(cAbstractCycle):
         #print("encoding '" + lName + "' " + str(self.mEncodedValueDict));
         # The longer the seasonal, the more complex it is.
         self.mComplexity = len(self.mEncodedValueDict.keys())
+        self.compute_cycle_residue(self.mCycleFrame)
 
     def transformDataset(self, df):
         target = df[self.mTrend_residue_name]
