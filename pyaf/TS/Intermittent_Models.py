@@ -70,6 +70,16 @@ class cCroston_Model(tsar.cAbstractAR):
         df = self.compute_forecast(df, alpha , method , horizon_index)
         return df
 
+    def simple_ses(self, x, alpha):
+        #  Croston implementation is slow #182. Use statsmodels 
+        if(np.std(x) < 1e-8):
+            # Avoid warnings from statsmodels for constant signals 
+            return x.mean() + np.zeros_like(x)
+        from statsmodels.tsa.api import SimpleExpSmoothing
+        lSES = SimpleExpSmoothing(x).fit(smoothing_level=alpha, optimized=False)
+        y = lSES.fittedvalues
+        return y
+    
     def compute_forecast(self, df, alpha, method, horizon_index = 1):
         # print(df.shape)
         # print(df.columns)
@@ -87,17 +97,9 @@ class cCroston_Model(tsar.cAbstractAR):
         a = demand_times - demand_times.shift(1).fillna(0.0)
         df2 = pd.DataFrame({'demand_time' : list(demand_times), 'q' : list(q) , 'a' : list(a) })
         
-        df2['q_est'] = None
-        df2['a_est'] = None
-        
-        # initialization : first values
-        df2.loc[0 , 'q_est'] = df2['q'][0]
-        df2.loc[0,  'a_est'] = df2['a'][0]
-        for i in range(df2.shape[0] - 1):
-            q1 = (1.0 - alpha) * df2['q_est'][ i ] + alpha * df2['q'][ i ]
-            a1 = (1.0 - alpha) * df2['a_est'][ i ] + alpha * df2['a'][ i ]
-            df2.loc[i + 1, 'q_est'] = q1
-            df2.loc[i + 1, 'a_est'] = a1
+        # Use statmopdels library to perform SES to avoid recursion and also avoid reinventing the wheel.
+        df2['q_est'] = self.simple_ses(df2['q'].values, alpha)
+        df2['a_est'] = self.simple_ses(df2['a'].values, alpha)
 
         df2['forecast'] = self.get_coeff(alpha , method) * df2['q_est'] / df2['a_est']
         df2['index'] = df2['demand_time'] - 1
@@ -125,6 +127,7 @@ class cCroston_Model(tsar.cAbstractAR):
         self.mSignal = self.mTimeInfo.mSignal;
         lAREstimFrame = self.mSplit.getEstimPart(self.mARFrame)
         self.mOffset = lAREstimFrame[self.mCycleResidueName].min()
+        print("OFFSET", (self.mCycleResidueName, self.mOffset))
         self.estimate_alpha(lAREstimFrame)
         self.mFeatureSelector =  None;
         self.mInputNamesAfterSelection = self.mInputNames;
