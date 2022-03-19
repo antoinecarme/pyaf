@@ -43,18 +43,13 @@ def sample_signal_if_needed(iInputDS, iOptions):
 class cSignalDecompositionOneTransform:
         
     def __init__(self):
-        self.mSignalFrame = pd.DataFrame()
+        self.mSignalFrame = None
         self.mTime = None
         self.mSignal = None
         self.mTimeInfo = tsti.cTimeInfo();
-        self.mForecastFrame = pd.DataFrame()
         self.mTransformation = tstransf.cSignalTransform_None();
+
         
-
-    def serialize(self):
-        from sklearn.externals import joblib
-        joblib.dump(self, self.mTimeInfo.mTime + "_" + self.mSignal + "_TS.pkl")        
-
     def setParams(self , iInputDS, iTime, iSignal, iHorizon, iTransformation,
                   iDecomspositionType, iExogenousData = None):
         assert(iInputDS.shape[0] > 0)
