@@ -10,7 +10,7 @@ import numpy as np
 from . import Utils as tsutil
 
 def testTransform_one_seed(tr1 , seed_value):
-    df = pd.DataFrame();
+    df = pd.DataFrame(index = None);
     np.random.seed(seed_value)
     df['A'] = np.random.normal(0, 1.0, 10);
     # df['A'] = range(1, 6000);
@@ -135,7 +135,7 @@ class cAbstractSignalTransform:
         pass
 
     def dump_apply_invert(self, df_before_apply, df_after_apply):
-        df = pd.DataFrame();
+        df = pd.DataFrame(index = None);
         df['before_apply'] = df_before_apply;
         df['after_apply'] = df_after_apply;
         print("dump_apply_invert_head", df.head());
@@ -541,7 +541,7 @@ def create_tranformation(iName , arg):
 class cTransformationEstimator:
     
     def __init__(self):
-        self.mSignalFrame = pd.DataFrame()
+        self.mSignalFrame = None
         self.mTransformList = {}
 
     def validateTransformation(self , transf , df, iTime, iSignal):

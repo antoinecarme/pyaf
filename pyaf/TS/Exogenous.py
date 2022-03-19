@@ -91,9 +91,9 @@ class cExogenousInfo:
         return df1;
         
     def createEncodedExogenous(self):
-        self.mExogDummiesDataFrame = pd.DataFrame();
+        self.mExogDummiesDataFrame = pd.DataFrame(index = self.mExogenousDataFrame.index);
         self.mEncodedExogenous = [];
-        self.mEncodedExogenousDataFrame = pd.DataFrame();
+        self.mEncodedExogenousDataFrame = pd.DataFrame(index = self.mExogenousDataFrame.index);
         self.mEncodedExogenousDataFrame[self.mDateVariable] = self.mExogenousDataFrame[self.mDateVariable];
         for exog in self.mExogenousVariables:
             if(exog not in self.mExcluded):

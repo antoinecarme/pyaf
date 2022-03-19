@@ -12,6 +12,7 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
         self.mNbLags = P;
         self.mNbExogenousLags = P;
         self.mScikitModel = None;
+        self.mFeatureSelector = None
 
     def dumpCoefficients(self, iMax=10):
         # print(self.mScikitModel.__dict__);
@@ -24,11 +25,6 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
         assert(0);
 
 
-    def is_used(self, name):
-        if(self.mFeatureSelector):
-            return (name in self.mInputNamesAfterSelection)
-        return True
-        
     def fit(self):
         #  print("ESTIMATE_SCIKIT_MODEL_START" , self.mCycleResidueName);
 
@@ -40,12 +36,12 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
         self.mSignal = self.mTimeInfo.mSignal;
         lAREstimFrame = self.mSplit.getEstimPart(self.mARFrame)
 
-        # print("mAREstimFrame columns :" , self.mAREstimFrame.columns);
         lARInputs = lAREstimFrame[self.mInputNames].values
         lARTarget = lAREstimFrame[series].values
         # print(len(self.mInputNames), lARInputs.shape , lARTarget.shape)
         assert(lARInputs.shape[1] > 0);
         assert(lARTarget.shape[0] > 0);
+        assert(lARInputs.shape[1] == len(self.mInputNames))
 
         from sklearn.feature_selection import SelectKBest
         from sklearn.feature_selection import f_regression
@@ -69,9 +65,9 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
 
         if(self.mFeatureSelector):
             lARInputsAfterSelection =  self.mFeatureSelector.transform(lARInputs);
-            # print(self.mInputNames , self.mFeatureSelector.get_support(indices=True));
             lSupport = self.mFeatureSelector.get_support(indices=True);
             self.mInputNamesAfterSelection = [self.mInputNames[k] for k in lSupport];
+                
         else:
             lARInputsAfterSelection = lARInputs;
             self.mInputNamesAfterSelection = self.mInputNames;
@@ -115,16 +111,8 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
         series = self.mCycleResidueName; 
         if(self.mExogenousInfo is not None):
             df = self.mExogenousInfo.transformDataset(df);
-        # print(df.columns);
-        # print(df.info());
-        # print(df.head());
-        # print(df.tail());
         lag_df = self.generateLagsForForecast(df);
-        # print(self.mInputNames);
-        # print(self.mFormula, "\n", lag_df.columns);
-        # lag_df.to_csv("LAGGED_ " + str(self.mNbLags) + ".csv");
-        # print(len(list(lag_df.columns)) , len(self.mInputNamesAfterSelection))
-        inputs_after_feat_selection = lag_df.values[:,1:] # the first column is the signal
+        inputs_after_feat_selection = lag_df[self.mInputNamesAfterSelection].values
         # inputs_after_feat_selection = self.mFeatureSelector.transform(inputs) if self.mFeatureSelector else inputs;
         if(self.mScikitModel is not None):
             pred = self.mScikitModel.predict(inputs_after_feat_selection)

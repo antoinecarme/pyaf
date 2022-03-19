@@ -16,7 +16,7 @@ class cTimeInfo:
     # class data
 
     def __init__(self):
-        self.mSignalFrame = pd.DataFrame()
+        self.mSignalFrame = None
         self.mTimeMin = None;
         self.mTimeMax = None;
         self.mTimeMinMaxDiff = None;

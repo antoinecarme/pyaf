@@ -63,7 +63,7 @@ class cTimeSeriesModel:
         return lComplexity;     
 
     def updatePerfs(self, compute_all_indicators = False):
-        self.mModelFrame = pd.DataFrame();
+        self.mModelFrame = pd.DataFrame(index = self.mTrend.mSignalFrame.index);
         lSignal = self.mTrend.mSignalFrame[self.mSignal]
         N = lSignal.shape[0];
         self.mTrend.mTimeInfo.addVars(self.mModelFrame);

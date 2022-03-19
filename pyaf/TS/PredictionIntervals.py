@@ -16,7 +16,7 @@ class cPredictionIntervalsEstimator:
     
     def __init__(self):
         self.mModel = None;
-        self.mSignalFrame = pd.DataFrame()
+        self.mSignalFrame = None
         self.mHorizon = -1;
         self.mFitPerformances = {}
         self.mForecastPerformances = {}
