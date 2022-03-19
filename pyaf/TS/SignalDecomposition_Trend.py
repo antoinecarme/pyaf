@@ -13,17 +13,13 @@ from . import Perf as tsperf
 from . import Plots as tsplot
 from . import Utils as tsutil
 
-import sklearn as skl
-import sklearn.preprocessing as preprocessing
 import sklearn.linear_model as linear_model
-from sklearn.feature_selection import RFE
-from sklearn.linear_model import LinearRegression
 
 class cAbstractTrend:
     def __init__(self):
-        self.mSignalFrame = pd.DataFrame()
+        self.mSignalFrame = None
         self.mTimeInfo = tsti.cTimeInfo()
-        self.mTrendFrame = pd.DataFrame()
+        self.mTrendFrame = None
         self.mTrendPerf = tsperf.cPerf();
         self.mOutName = ""
         self.mFormula = None;
@@ -77,7 +73,7 @@ class cConstantTrend(cAbstractTrend):
         self.mTime = self.mTimeInfo.mTime;
         self.mSignal = self.mTimeInfo.mSignal;
         self.mOutName = self.mSignal + "_" + self.mOutName;
-        self.mTrendFrame = pd.DataFrame()
+        self.mTrendFrame = pd.DataFrame(index = self.mTimeInfo.mSignalFrame.index)
         self.mTimeInfo.addVars(self.mTrendFrame);
 
     def transformDataset(self, df):
@@ -114,7 +110,7 @@ class cLag1Trend(cAbstractTrend):
         self.mTime = self.mTimeInfo.mTime;
         self.mSignal = self.mTimeInfo.mSignal;
         self.mOutName = self.mSignal + "_" + self.mOutName;
-        self.mTrendFrame = pd.DataFrame()
+        self.mTrendFrame = pd.DataFrame(index = self.mTimeInfo.mSignalFrame.index)
         self.mTimeInfo.addVars(self.mTrendFrame);
 
     def replaceFirstMissingValue(self, df, series):
@@ -162,7 +158,7 @@ class cMovingAverageTrend(cAbstractTrend):
         self.mTime = self.mTimeInfo.mTime;
         self.mSignal = self.mTimeInfo.mSignal;
         self.mOutName = self.mSignal + "_" + self.mOutName;
-        self.mTrendFrame = pd.DataFrame()
+        self.mTrendFrame = pd.DataFrame(index = self.mTimeInfo.mSignalFrame.index)
         self.mTimeInfo.addVars(self.mTrendFrame);
 
     def fit(self):
@@ -201,7 +197,7 @@ class cMovingMedianTrend(cAbstractTrend):
         self.mTime = self.mTimeInfo.mTime;
         self.mSignal = self.mTimeInfo.mSignal;
         self.mOutName = self.mSignal + "_" + self.mOutName;
-        self.mTrendFrame = pd.DataFrame()
+        self.mTrendFrame = pd.DataFrame(index = self.mTimeInfo.mSignalFrame.index)
         self.mTimeInfo.addVars(self.mTrendFrame);
 
     def fit(self):
@@ -240,7 +236,7 @@ class cLinearTrend(cAbstractTrend):
         self.mTime = self.mTimeInfo.mTime;
         self.mSignal = self.mTimeInfo.mSignal;
         self.mOutName = self.mSignal + "_" + self.mOutName;
-        self.mTrendFrame = pd.DataFrame()
+        self.mTrendFrame = pd.DataFrame(index = self.mTimeInfo.mSignalFrame.index)
         self.mTimeInfo.addVars(self.mTrendFrame);
 
     def fit(self):
@@ -285,7 +281,7 @@ class cPolyTrend(cAbstractTrend):
         self.mTime = self.mTimeInfo.mTime;
         self.mSignal = self.mTimeInfo.mSignal;
         self.mOutName = self.mSignal + "_" + self.mOutName;
-        self.mTrendFrame = pd.DataFrame()
+        self.mTrendFrame = pd.DataFrame(index = self.mTimeInfo.mSignalFrame.index)
         self.mTimeInfo.addVars(self.mTrendFrame);
         self.mTrendFrame[self.mTimeInfo.mNormalizedTimeColumn + "_^2"] = self.mTrendFrame[self.mTimeInfo.mNormalizedTimeColumn] ** 2;    
         self.mTrendFrame[self.mTimeInfo.mNormalizedTimeColumn + "_^3"] = self.mTrendFrame[self.mTimeInfo.mNormalizedTimeColumn] ** 3;    
@@ -337,9 +333,9 @@ class cPolyTrend(cAbstractTrend):
 class cTrendEstimator:
     
     def __init__(self):
-        self.mSignalFrame = pd.DataFrame()
+        self.mSignalFrame = None
         self.mTimeInfo = tsti.cTimeInfo()
-        self.mTrendFrame = pd.DataFrame()
+        self.mTrendFrame = None
 
 
     def needMovingTrend(self, df, i):
@@ -407,7 +403,7 @@ class cTrendEstimator:
     def estimateTrends(self):
         self.mTime = self.mTimeInfo.mTime;
         self.mSignal = self.mTimeInfo.mSignal;
-        self.mTrendFrame = pd.DataFrame()
+        self.mTrendFrame = pd.DataFrame(index = self.mSignalFrame.index)
         self.mTimeInfo.addVars(self.mTrendFrame);
         for trend in self.mTrendList:
             trend.mOptions = self.mOptions
