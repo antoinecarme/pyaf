@@ -79,7 +79,7 @@ class cPerf:
 
     def dump_perf_data(self, signal , estimator):
         logger = tsutil.get_pyaf_logger();
-        df = pd.DataFrame();
+        df = pd.DataFrame(index = signal.index);
         df['sig'] = signal.values;
         df['est'] = estimator.values;
         logger.debug(str(df.head()));
