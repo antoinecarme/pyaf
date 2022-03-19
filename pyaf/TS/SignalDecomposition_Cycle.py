@@ -20,8 +20,8 @@ import time
 class cAbstractCycle:
     def __init__(self , trend):
         self.mTimeInfo = tsti.cTimeInfo()
-        self.mTrendFrame = pd.DataFrame()
-        self.mCycleFrame = pd.DataFrame()
+        self.mTrendFrame = None
+        self.mCycleFrame = None
         self.mTrend = trend;
         self.mTrend_residue_name = self.mTrend.mOutName + '_residue'
         self.mFormula = None;
@@ -241,7 +241,7 @@ class cSeasonalPeriodic(cAbstractCycle):
 class cBestCycleForTrend(cAbstractCycle):
     def __init__(self , trend, criterion):
         super().__init__(trend);
-        self.mCycleFrame = pd.DataFrame()
+        self.mCycleFrame = None
         self.mCyclePerfByLength = {}
         self.mBestCycleValueDict = {}
         self.mBestCycleLength = None
@@ -294,7 +294,7 @@ class cBestCycleForTrend(cAbstractCycle):
         lMaxRobustCycleLength = self.mTrendFrame.shape[0]//12;
         # print("MAX_ROBUST_CYCLE_LENGTH", self.mTrendFrame.shape[0], lMaxRobustCycleLength);
         lCycleLengths = self.mOptions.mCycleLengths or range(2,lMaxRobustCycleLength + 1)
-        lCycleFrame = pd.DataFrame();
+        lCycleFrame = pd.DataFrame(index = self.mTrendFrame.index);
         lCycleFrame[self.mTrend_residue_name ] = self.mTrendFrame[self.mTrend_residue_name]
         for lLength in lCycleLengths:
             if ((lLength > 1) and (lLength <= lMaxRobustCycleLength)):
@@ -359,8 +359,8 @@ class cCycleEstimator:
     
     def __init__(self):
         self.mTimeInfo = tsti.cTimeInfo()
-        self.mTrendFrame = pd.DataFrame()
-        self.mCycleFrame = pd.DataFrame()
+        self.mTrendFrame = None
+        self.mCycleFrame = None
         self.mCycleList = {}
         
     def addSeasonal(self, trend, seas_type, resolution):
@@ -414,6 +414,7 @@ class cCycleEstimator:
                 self.mCycleList[trend] = [cZeroCycle(trend)];
             for cycle in self.mCycleList[trend]:
                 cycle.mTrendFrame = self.mTrendFrame;
+                cycle.mCycleFrame = pd.DataFrame(index = self.mTrendFrame.index)
                 cycle.mTimeInfo = self.mTimeInfo;
                 cycle.mSplit = self.mSplit;
                 cycle.mOptions = self.mOptions;
@@ -444,6 +445,7 @@ class cCycleEstimator:
     def estimateCycles(self):
         self.mTime = self.mTimeInfo.mTime;
         self.mSignal = self.mTimeInfo.mSignal;
+        self.mCycleFrame = pd.DataFrame(index = self.mTrendFrame.index);
         self.mTimeInfo.addVars(self.mCycleFrame);
         for trend in self.mTrendList:
             lTrend_residue_name = trend.mOutName + '_residue'
