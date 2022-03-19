@@ -127,7 +127,7 @@ class cCroston_Model(tsar.cAbstractAR):
         self.mSignal = self.mTimeInfo.mSignal;
         lAREstimFrame = self.mSplit.getEstimPart(self.mARFrame)
         self.mOffset = lAREstimFrame[self.mCycleResidueName].min()
-        print("OFFSET", (self.mCycleResidueName, self.mOffset))
+        # print("OFFSET", (self.mCycleResidueName, self.mOffset))
         self.estimate_alpha(lAREstimFrame)
         self.mFeatureSelector =  None;
         self.mInputNamesAfterSelection = self.mInputNames;
