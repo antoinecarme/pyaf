@@ -109,14 +109,10 @@ class cTimeSeriesModel:
     def computePredictionIntervals(self):
         # prediction intervals
         if(self.mTimeInfo.mOptions.mAddPredictionIntervals):
-            logger = tsutil.get_pyaf_logger();
-            pred_interval_start_time = time.time()
+            lTimer = tsutil.cTimer(("COMPUTE_PREDICTION_INTERVALS", {"Signal" : self.mOriginalSignal}))
             self.mPredictionIntervalsEstimator = predint.cPredictionIntervalsEstimator();
             self.mPredictionIntervalsEstimator.mModel = self;        
             self.mPredictionIntervalsEstimator.computePerformances();
-            if(self.mTimeInfo.mOptions.mDebugProfile):
-                logger.info("PREDICTION_INTERVAL_TIME_IN_SECONDS "  + str(self.mOriginalSignal) + " " + str(time.time() - pred_interval_start_time))
-        pass
 
     def getFormula(self):
         if(self.mDecompositionType in ['TS+R']):
