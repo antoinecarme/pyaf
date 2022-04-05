@@ -513,7 +513,7 @@ class cCycleEstimator:
     def estimateAllCycles(self):
         lTimer = None
         if(self.mOptions.mDebugProfile):
-            lTimer = tsutil.cTimer(("TRAINING_CYCLES", {"Signal" : self.mSignal}))
+            lTimer = tsutil.cTimer(("TRAINING_CYCLES", {"Signal" : self.mTimeInfo.mSignal}))
         self.defineCycles();
         self.estimateCycles()
         if(self.mOptions.mFilterSeasonals):

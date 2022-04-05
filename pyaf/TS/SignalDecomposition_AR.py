@@ -278,7 +278,7 @@ class cAutoRegressiveEstimator:
 
         lTimer = None
         if(self.mOptions.mDebugProfile):
-            lTimer = tsutil.cTimer(("TRAINING_AR_MODELS", {"Signal" : self.mSignal}))
+            lTimer = tsutil.cTimer(("TRAINING_AR_MODELS", {"Signal" : self.mTimeInfo.mSignal}))
             
         logger = tsutil.get_pyaf_logger();
         mARList = {}
