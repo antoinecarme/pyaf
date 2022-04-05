@@ -200,7 +200,11 @@ class cAutoRegressiveEstimator:
                 autoreg.register_lag(name, p)
 
         # Exogenous variables lags
-        if(self.mExogenousInfo is not None):
+        lUseExog = False # Exog variables can be configured but not used ("AR" activated and "ARX" disabled).
+        for autoreg in self.mARList[cycle_residue]:
+            if(autoreg.mExogenousInfo is not None): # ARX,XGBX, ... only
+                lUseExog = True
+        if(lUseExog):
             P1 = P;
             lExogCount = len(self.mExogenousInfo.mEncodedExogenous);
             lNbVars = P * lExogCount;
@@ -215,12 +219,6 @@ class cAutoRegressiveEstimator:
                         for lag in lags_ex:
                             (name , p) = lag
                             autoreg.register_lag(name, p)
-
-            # print("AUTOREG_DETAIL" , P , len(autoreg.mInputNames));
-            if(autoreg.mExogenousInfo is not None):
-                assert((P + P*len(autoreg.mExogenousInfo.mEncodedExogenous)) >= len(autoreg.mInputNames));
-            else:
-                assert(P >= len(autoreg.mInputNames));
 
         self.mARFrame = pd.concat([self.mARFrame] + lag_dfs, axis = 1)
 
