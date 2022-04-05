@@ -22,7 +22,7 @@ def process_dataset_with_noise(idataset , sigma):
     import warnings
 
     with warnings.catch_warnings():
-        warnings.simplefilter("error")
+        # warnings.simplefilter("error")
         N = idataset.mFullDataset.shape[0];
         idataset.mFullDataset["orig_" + idataset.mSignalVar] = idataset.mFullDataset[idataset.mSignalVar];
         lSignalVar = idataset.mSignalVar + "_" + str(sigma);
