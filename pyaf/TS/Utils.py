@@ -6,6 +6,8 @@
 
 import sys, os
 
+from datetime import datetime
+
 from functools import partial
 
 def createDirIfNeeded(dirname):
@@ -59,7 +61,31 @@ def get_pyaf_logger():
         logging.basicConfig(level=logging.INFO)        
     return logger;
 
+def get_pyaf_timing_logger():
+    import logging;
+    logger = logging.getLogger('pyaf.timing');
+    if(logger.handlers == []):
+        import logging.config
+        logging.basicConfig(level=logging.INFO)        
+    return logger;
+
 def get_pyaf_hierarchical_logger():
     import logging;
     logger = logging.getLogger('pyaf.hierarchical');
     return logger;
+
+
+
+class cTimer:
+    def __init__(self, iMess = "PYAF_UNKNOWN_OP", iDebug = False):
+        self.mMessage = iMess
+        self.mStart = datetime.now();
+        logger = get_pyaf_timing_logger();
+        logger.info(("OPERATION_START", self.mMessage))
+
+    def __del__(self):
+        self.mEnd = datetime.now();
+        lDelta = self.mEnd - self.mStart
+        logger = get_pyaf_timing_logger();
+        logger.info(("OPERATION_END_ELAPSED" , round(lDelta.total_seconds(), 3), self.mMessage))
+
