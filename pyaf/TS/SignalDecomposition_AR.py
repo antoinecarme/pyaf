@@ -31,7 +31,7 @@ class cAbstractAR:
         self.mTargetName = self.mCycleResidueName;
         self.mInputNames = [];
         self.mExogenousInfo = iExogenousInfo;
-        self.mLagsForSeries = {}
+        self.mLagsForSeries = {cycle_residue_name : []}
 
     def compute_ar_residue(self, df):
         target = df[self.mCycleResidueName].values
