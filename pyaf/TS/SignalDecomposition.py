@@ -227,10 +227,7 @@ class cModelSelector_OneSignal:
 
     def collectPerformanceIndices_ModelSelection(self, iSignal, iSigDecs) :
         logger = tsutil.get_pyaf_logger();
-        lTimer = None
-        if(self.mOptions.mDebugProfile):
-            lTimer = tsutil.cTimer(("MODEL_SELECTION", {"Signal" : iSignal}))
-
+        lTimer = tsutil.cTimer(("MODEL_SELECTION", {"Signal" : iSignal, "Transformations" : sorted(list(iSigDecs.keys()))}))
         rows_list = []
         lPerfsByModel = {}
         for (lName, sigdec) in iSigDecs.items():
@@ -344,12 +341,6 @@ class cModelSelector_OneSignal:
         self.mModelShortList = lInterestingModels[['Transformation', 'DecompositionType', 'Model', lIndicator, 'Complexity']] 
         return (iSignal, lPerfsByModel, lBestModel, self.mModelShortList)
 
-    
-    def perform_model_selection(self, lSignal, sigdecs):
-        if(self.mOptions.mDebugPerformance):
-            self.collectPerformanceIndices(lSignal, sigdecs);
-        else:
-            self.collectPerformanceIndices_ModelSelection(lSignal, sigdecs);
 
     def perform_model_selection_cross_validation(self):
         lTimer = None
@@ -395,12 +386,11 @@ def run_finalize_training(arg):
     lModelSelector = cModelSelector_OneSignal()
     lModelSelector.mOptions = lOptions
     lModelSelector.collectPerformanceIndices_ModelSelection(lSignal, sigdecs)
-    lModelSelector.perform_model_selection(lSignal, sigdecs)
     if(lOptions.mCrossValidationOptions.mMethod is not None):
         lModelSelector.perform_model_selection_cross_validation()
         
     # Prediction Intervals
-    lModelSelector.mBestModel.updatePerfs(compute_all_indicators = True);
+    lModelSelector.mBestModel.updateAllPerfs();
     lModelSelector.mBestModel.computePredictionIntervals();
     return (lSignal, lModelSelector.mPerfsByModel, lModelSelector.mBestModel, lModelSelector.mTrPerfDetails, lModelSelector.mModelShortList)
 
@@ -423,14 +413,12 @@ class cSignalDecompositionTrainer:
 
 
     def train(self, iInputDS, iSplits, iTime, iSignals, iHorizon):
-        self.train_all_transofrmations(iInputDS, iSplits, iTime, iSignals, iHorizon);
+        self.train_all_transformations(iInputDS, iSplits, iTime, iSignals, iHorizon);
         self.finalize_training()
         # self.cleanup_after_model_selection()
     
 
     def finalize_training(self):
-                # print("FINISHED_TRAINING" , res.mName);
-        # print([transform1.mFormula for transform1 in self.mTransformList]);
         args = [];
         for (lSignal , sigdecs) in self.mSigDecBySplitAndTransform.items():
             args = args + [(lSignal, sigdecs, self.mOptions)]
@@ -442,6 +430,7 @@ class cSignalDecompositionTrainer:
         NCores = min(len(args) , self.mOptions.mNbCores) 
         lTimer = tsutil.cTimer(("FINALIZE_TRAINING",
                                 {"Signals" : [lSignal for (lSignal , sigdecs) in self.mSigDecBySplitAndTransform.items()],
+                                 "Transformations" : [(lSignal, sorted(list(lSigDecs.keys()))) for (lSignal , lSigDecs) in self.mSigDecBySplitAndTransform.items()],
                                  "Cores" : NCores}))
         if(self.mOptions.mParallelMode and NCores > 1):
             from multiprocessing import Pool
@@ -476,7 +465,7 @@ class cSignalDecompositionTrainer:
         self.mTransformList[(iSignal, iSplit)] = lTransformationEstimator.mTransformList
             
         
-    def train_all_transofrmations(self , iInputDS, iSplits, iTimes, iSignals, iHorizons):
+    def train_all_transformations(self , iInputDS, iSplits, iTimes, iSignals, iHorizons):
         # print([transform1.mFormula for transform1 in self.mTransformList]);
         args = [];
         for lSignal in iSignals:
@@ -506,7 +495,9 @@ class cSignalDecompositionTrainer:
                         args.append(arg);
 
         NCores = min(len(args) , self.mOptions.mNbCores)
-        lTimer = tsutil.cTimer(("SIGNAL_TRAINING",{"Signals" : iSignals, "Cores" : NCores}))
+        lTimer = tsutil.cTimer(("SIGNAL_TRAINING",{"Signals" : iSignals,
+                                                   "Transformations" : [arg.mName for arg in args],
+                                                   "Cores" : NCores}))
         
         if(self.mOptions.mParallelMode and NCores > 1):
             from multiprocessing import Pool

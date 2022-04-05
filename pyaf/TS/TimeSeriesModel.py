@@ -62,6 +62,10 @@ class cTimeSeriesModel:
         lComplexity = lComplexity + lModelTypeComplexity.get(self.mDecompositionType, 0.0)
         return lComplexity;     
 
+    def updateAllPerfs(self):
+        lTimer = tsutil.cTimer(("UPDATE_BEST_MODEL_PERFS", {"Signal" : self.mOriginalSignal, "Model" : self.mOutName}))
+        self.updatePerfs(compute_all_indicators = True)
+
     def updatePerfs(self, compute_all_indicators = False):
         self.mModelFrame = pd.DataFrame(index = self.mTrend.mSignalFrame.index);
         lSignal = self.mTrend.mSignalFrame[self.mSignal]
