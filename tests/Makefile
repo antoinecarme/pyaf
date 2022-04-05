@@ -236,6 +236,21 @@ bugs/issue_19/issue_19_no_interpolation.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_19_issue_19_no_interpolation.log logs/bugs_issue_19_issue_19_no_interpolation.log  >  logs/bugs_issue_19_issue_19_no_interpolation.log.diff
 	 tail -10  logs/bugs_issue_19_issue_19_no_interpolation.log.diff 
 
+bugs/issue_193/test_ozone_exogenous_issue_193_no_exog.py  :  
+	 -$(PYTHON)  tests/bugs/issue_193/test_ozone_exogenous_issue_193_no_exog.py  >  logs/bugs_issue_193_test_ozone_exogenous_issue_193_no_exog.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_193_test_ozone_exogenous_issue_193_no_exog.log logs/bugs_issue_193_test_ozone_exogenous_issue_193_no_exog.log  >  logs/bugs_issue_193_test_ozone_exogenous_issue_193_no_exog.log.diff
+	 tail -10  logs/bugs_issue_193_test_ozone_exogenous_issue_193_no_exog.log.diff 
+
+bugs/issue_193/test_ozone_exogenous_issue_193_with_exog_arx_disabled.py  :  
+	 -$(PYTHON)  tests/bugs/issue_193/test_ozone_exogenous_issue_193_with_exog_arx_disabled.py  >  logs/bugs_issue_193_test_ozone_exogenous_issue_193_with_exog_arx_disabled.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_193_test_ozone_exogenous_issue_193_with_exog_arx_disabled.log logs/bugs_issue_193_test_ozone_exogenous_issue_193_with_exog_arx_disabled.log  >  logs/bugs_issue_193_test_ozone_exogenous_issue_193_with_exog_arx_disabled.log.diff
+	 tail -10  logs/bugs_issue_193_test_ozone_exogenous_issue_193_with_exog_arx_disabled.log.diff 
+
+bugs/issue_193/test_ozone_exogenous_issue_193_with_exog_arx_enabled.py  :  
+	 -$(PYTHON)  tests/bugs/issue_193/test_ozone_exogenous_issue_193_with_exog_arx_enabled.py  >  logs/bugs_issue_193_test_ozone_exogenous_issue_193_with_exog_arx_enabled.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_193_test_ozone_exogenous_issue_193_with_exog_arx_enabled.log logs/bugs_issue_193_test_ozone_exogenous_issue_193_with_exog_arx_enabled.log  >  logs/bugs_issue_193_test_ozone_exogenous_issue_193_with_exog_arx_enabled.log.diff
+	 tail -10  logs/bugs_issue_193_test_ozone_exogenous_issue_193_with_exog_arx_enabled.log.diff 
+
 bugs/issue_21/test_artificial_1024__poly_7__20.py  :  
 	 -$(PYTHON)  tests/bugs/issue_21/test_artificial_1024__poly_7__20.py  >  logs/bugs_issue_21_test_artificial_1024__poly_7__20.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/bugs_issue_21_test_artificial_1024__poly_7__20.log logs/bugs_issue_21_test_artificial_1024__poly_7__20.log  >  logs/bugs_issue_21_test_artificial_1024__poly_7__20.log.diff
@@ -483,7 +498,7 @@ bugs/issue_94/issue_94.py  :
 
 
 
- bugs :  bugs/test_random_exogenous.py bugs/test_artificial_bug_2.py bugs/test_artificial_bug_1.py bugs/run_benchmark_Yahoo_nysecomp_VRS.py bugs/run_benchmark_M4Comp_ECONOMICS_ECON1151_18.py bugs/run_benchmark_M1Comp_MNB71_18.py bugs/issue_106/submitted_script.py bugs/issue_106/insurance_exog_xgbx.py bugs/issue_106/insurance_exog_svrx.py bugs/issue_106/insurance_exog.py bugs/issue_179/issue_179_cumprod_overflow.py bugs/issue_19/issue_19_no_interpolation.py bugs/issue_21/test_ozone_max_autoreg_5.py bugs/issue_21/test_artificial_1024__poly_7__20.py bugs/issue_22/test_artificial_1024_cumsum_constant_5__20.py bugs/issue_29/test_mem_1.py bugs/issue_32/bug_test_ozone_heroku_1_ws.py bugs/issue_32/bug_test_ozone_heroku_1.py bugs/issue_34/test_artificial_1024_sqrt_linear_30_12_20.py bugs/issue_34/test_artificial_1024_sqrt_constant_7_12_100.py bugs/issue_34/test_artificial_1024_sqr_poly_5_12_20.py bugs/issue_34/test_artificial_1024_log_linear_5_12_100.py bugs/issue_34/test_artificial_1024_log_linear_30_12_20.py bugs/issue_34/test_artificial_1024_inv_linear_7_12_100.py bugs/issue_34/test_artificial_1024_inv_constant_30__20.py bugs/issue_34/test_artificial_1024_diff_poly_0__100.py bugs/issue_34/test_artificial_1024_diff_poly_0__0.py bugs/issue_34/test_artificial_1024__poly_7_12_100.py bugs/issue_34/issue_34_1.py bugs/issue_34/issue_34.py bugs/issue_36/issue_36_version_info.py bugs/issue_36/display_version_info.py bugs/issue_4/issue_4.py bugs/issue_46/issue_46_one_or_two_rows.py bugs/issue_55/grouping_issue_55_notebook.py bugs/issue_56/issue_56_order2.py bugs/issue_56/issue_56_order1.py bugs/issue_58/issue_58_1_categorical_exogenous.py bugs/issue_69/issue_69_example_1_with_rectifier.py bugs/issue_69/issue_69_example_1_no_rectifier.py bugs/issue_70/test_ozone_keep_all_seasonals.py bugs/issue_70/test_ozone_filter_seasonals.py bugs/issue_70/test_artificial_keep_all_seasonals_second.py bugs/issue_70/test_artificial_keep_all_seasonals_minute.py bugs/issue_70/test_artificial_keep_all_seasonals_hour.py bugs/issue_70/test_artificial_keep_all_seasonals_day.py bugs/issue_70/test_artificial_filter_seasonals_second.py bugs/issue_70/test_artificial_filter_seasonals_min.py bugs/issue_70/test_artificial_filter_seasonals_hour.py bugs/issue_70/test_artificial_filter_seasonals_day.py bugs/issue_72/test_artificial_32_sqrt_poly_7__20.py bugs/issue_72/test_artificial_32_exp_linear_0__100.py bugs/issue_73/issue_73_1_fast_mode_2.py bugs/issue_73/issue_73_1_fast_mode.py bugs/issue_75/issue_75_residues_Are_empty.py bugs/issue_75/issue_75_plot.py bugs/issue_76/test_ozone_unicode.py bugs/issue_79/test_ozone_missing_signal.py bugs/issue_80/test_ozone_missing_time.py bugs/issue_82/issue_82_long_cycles.py bugs/issue_94/issue_94.py  
+ bugs :  bugs/test_random_exogenous.py bugs/test_artificial_bug_2.py bugs/test_artificial_bug_1.py bugs/run_benchmark_Yahoo_nysecomp_VRS.py bugs/run_benchmark_M4Comp_ECONOMICS_ECON1151_18.py bugs/run_benchmark_M1Comp_MNB71_18.py bugs/issue_106/submitted_script.py bugs/issue_106/insurance_exog_xgbx.py bugs/issue_106/insurance_exog_svrx.py bugs/issue_106/insurance_exog.py bugs/issue_179/issue_179_cumprod_overflow.py bugs/issue_19/issue_19_no_interpolation.py bugs/issue_193/test_ozone_exogenous_issue_193_with_exog_arx_enabled.py bugs/issue_193/test_ozone_exogenous_issue_193_with_exog_arx_disabled.py bugs/issue_193/test_ozone_exogenous_issue_193_no_exog.py bugs/issue_21/test_ozone_max_autoreg_5.py bugs/issue_21/test_artificial_1024__poly_7__20.py bugs/issue_22/test_artificial_1024_cumsum_constant_5__20.py bugs/issue_29/test_mem_1.py bugs/issue_32/bug_test_ozone_heroku_1_ws.py bugs/issue_32/bug_test_ozone_heroku_1.py bugs/issue_34/test_artificial_1024_sqrt_linear_30_12_20.py bugs/issue_34/test_artificial_1024_sqrt_constant_7_12_100.py bugs/issue_34/test_artificial_1024_sqr_poly_5_12_20.py bugs/issue_34/test_artificial_1024_log_linear_5_12_100.py bugs/issue_34/test_artificial_1024_log_linear_30_12_20.py bugs/issue_34/test_artificial_1024_inv_linear_7_12_100.py bugs/issue_34/test_artificial_1024_inv_constant_30__20.py bugs/issue_34/test_artificial_1024_diff_poly_0__100.py bugs/issue_34/test_artificial_1024_diff_poly_0__0.py bugs/issue_34/test_artificial_1024__poly_7_12_100.py bugs/issue_34/issue_34_1.py bugs/issue_34/issue_34.py bugs/issue_36/issue_36_version_info.py bugs/issue_36/display_version_info.py bugs/issue_4/issue_4.py bugs/issue_46/issue_46_one_or_two_rows.py bugs/issue_55/grouping_issue_55_notebook.py bugs/issue_56/issue_56_order2.py bugs/issue_56/issue_56_order1.py bugs/issue_58/issue_58_1_categorical_exogenous.py bugs/issue_69/issue_69_example_1_with_rectifier.py bugs/issue_69/issue_69_example_1_no_rectifier.py bugs/issue_70/test_ozone_keep_all_seasonals.py bugs/issue_70/test_ozone_filter_seasonals.py bugs/issue_70/test_artificial_keep_all_seasonals_second.py bugs/issue_70/test_artificial_keep_all_seasonals_minute.py bugs/issue_70/test_artificial_keep_all_seasonals_hour.py bugs/issue_70/test_artificial_keep_all_seasonals_day.py bugs/issue_70/test_artificial_filter_seasonals_second.py bugs/issue_70/test_artificial_filter_seasonals_min.py bugs/issue_70/test_artificial_filter_seasonals_hour.py bugs/issue_70/test_artificial_filter_seasonals_day.py bugs/issue_72/test_artificial_32_sqrt_poly_7__20.py bugs/issue_72/test_artificial_32_exp_linear_0__100.py bugs/issue_73/issue_73_1_fast_mode_2.py bugs/issue_73/issue_73_1_fast_mode.py bugs/issue_75/issue_75_residues_Are_empty.py bugs/issue_75/issue_75_plot.py bugs/issue_76/test_ozone_unicode.py bugs/issue_79/test_ozone_missing_signal.py bugs/issue_80/test_ozone_missing_time.py bugs/issue_82/issue_82_long_cycles.py bugs/issue_94/issue_94.py  
  
 
 cross_validation/test_air_passengers_cross_valid.py  :  
@@ -566,12 +581,9 @@ demos/demo1.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/demos_demo1.log logs/demos_demo1.log  >  logs/demos_demo1.log.diff
 	 tail -10  logs/demos_demo1.log.diff 
 
-demos/demo2.py  :  
-	 -$(PYTHON)  tests/demos/demo2.py  >  logs/demos_demo2.log  2>&1
-	 $(PYTHON) scripts/num_diff.py  tests/references/demos_demo2.log logs/demos_demo2.log  >  logs/demos_demo2.log.diff
-	 tail -10  logs/demos_demo2.log.diff 
 
- demos :  demos/demo2.py demos/demo1.py  
+
+ demos :  demos/demo1.py  
  
 
 exog/test_ozone_exogenous.py  :  
@@ -734,11 +746,6 @@ func/test_air_passengers.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/func_test_air_passengers.log logs/func_test_air_passengers.log  >  logs/func_test_air_passengers.log.diff
 	 tail -10  logs/func_test_air_passengers.log.diff 
 
-func/test_air_passengers_robustness.py  :  
-	 -$(PYTHON)  tests/func/test_air_passengers_robustness.py  >  logs/func_test_air_passengers_robustness.log  2>&1
-	 $(PYTHON) scripts/num_diff.py  tests/references/func_test_air_passengers_robustness.log logs/func_test_air_passengers_robustness.log  >  logs/func_test_air_passengers_robustness.log.diff
-	 tail -10  logs/func_test_air_passengers_robustness.log.diff 
-
 func/test_ar.py  :  
 	 -$(PYTHON)  tests/func/test_ar.py  >  logs/func_test_ar.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/func_test_ar.log logs/func_test_ar.log  >  logs/func_test_ar.log.diff
@@ -774,11 +781,6 @@ func/test_ozone_horizon_one.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/func_test_ozone_horizon_one.log logs/func_test_ozone_horizon_one.log  >  logs/func_test_ozone_horizon_one.log.diff
 	 tail -10  logs/func_test_ozone_horizon_one.log.diff 
 
-func/test_ozone_robustness.py  :  
-	 -$(PYTHON)  tests/func/test_ozone_robustness.py  >  logs/func_test_ozone_robustness.log  2>&1
-	 $(PYTHON) scripts/num_diff.py  tests/references/func_test_ozone_robustness.log logs/func_test_ozone_robustness.log  >  logs/func_test_ozone_robustness.log.diff
-	 tail -10  logs/func_test_ozone_robustness.log.diff 
-
 func/test_ozone_with_logging.py  :  
 	 -$(PYTHON)  tests/func/test_ozone_with_logging.py  >  logs/func_test_ozone_with_logging.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/func_test_ozone_with_logging.log logs/func_test_ozone_with_logging.log  >  logs/func_test_ozone_with_logging.log.diff
@@ -791,7 +793,7 @@ func/test_version.py  :
 
 
 
- func :  func/test_version.py func/test_ozone_with_logging.py func/test_ozone_robustness.py func/test_ozone_horizon_one.py func/test_ozone_bench_mode.py func/test_ozone.py func/test_cycles_full.py func/test_cycle.py func/test_const_signal.py func/test_ar.py func/test_air_passengers_robustness.py func/test_air_passengers.py  
+ func :  func/test_version.py func/test_ozone_with_logging.py func/test_ozone_horizon_one.py func/test_ozone_bench_mode.py func/test_ozone.py func/test_cycles_full.py func/test_cycle.py func/test_const_signal.py func/test_ar.py func/test_air_passengers.py  
  
 
 heroku/build_generic_heroku_model.py  :  
