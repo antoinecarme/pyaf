@@ -200,9 +200,7 @@ class cSignalHierarchy:
 
 
     def fit(self):
-        logger = tsutil.get_pyaf_logger();
-        logger.info("START_HIERARCHICAL_TRAINING")
-        start_time = time.time()
+        lTimer = tsutil.cTimer(("HIERARCHICAL_TRAINING"))
         self.create_HierarchicalStructure();
         # self.plot();
         self.create_SummingMatrix();
@@ -211,8 +209,6 @@ class cSignalHierarchy:
         self.computeTopDownHistoricalProportions(lAllLevelsDataset);
         lForecast_DF = self.internal_forecast(self.mTrainingDataset , self.mHorizon)
         self.computePerfOnCombinedForecasts(lForecast_DF.head(lForecast_DF.shape[0] - self.mHorizon));
-        lTrainTime = time.time() - start_time;
-        logger.info("END_HIERARCHICAL_TRAINING_TIME_IN_SECONDS " + str(lTrainTime))
 
 
     def getModelInfo(self):
@@ -241,22 +237,14 @@ class cSignalHierarchy:
         return lAnnotations
 
     def plot(self , name = None):
-        logger = tsutil.get_pyaf_logger();
-        logger.info("START_HIERARCHICAL_PLOTTING")
-        start_time = time.time()
+        lTimer = tsutil.cTimer(("HIERARCHICAL_PLOTTING"))
         lAnnotations = self.get_plot_annotations()
         tsplot.plot_hierarchy(self.mStructure, lAnnotations, name)
-        lPlotTime = time.time() - start_time;
-        logger.info("END_HIERARCHICAL_PLOTTING_TIME_IN_SECONDS " + str(lPlotTime))
 
     def plot_as_png_base64(self , name = None):
-        logger = tsutil.get_pyaf_logger();
-        logger.info("START_HIERARCHICAL_PLOTTING")
-        start_time = time.time()
+        lTimer = tsutil.cTimer(("HIERARCHICAL_PLOTTING_AS_PNG"))
         lAnnotations = self.get_plot_annotations()
         lBase64 = tsplot.plot_hierarchy_as_png_base64(self.mStructure, lAnnotations, name)
-        lPlotTime = time.time() - start_time;
-        logger.info("END_HIERARCHICAL_PLOTTING_TIME_IN_SECONDS " + str(lPlotTime))
         return lBase64
     
     def standardPlots(self , name = None):
@@ -530,12 +518,8 @@ class cSignalHierarchy:
         return lForecast_DF
 
     def forecast(self , iInputDS, iHorizon):
-        logger = tsutil.get_pyaf_logger();
-        logger.info("START_HIERARCHICAL_FORECASTING")
-        start_time = time.time()
+        lTimer = tsutil.cTimer(("HIERARCHICAL_FORECAST"))
 
         lForecast_DF = self.internal_forecast(iInputDS , iHorizon)
 
-        lForecastTime = time.time() - start_time;
-        logger.info("END_HIERARCHICAL_FORECAST_TIME_IN_SECONDS " + str(lForecastTime))
         return lForecast_DF;

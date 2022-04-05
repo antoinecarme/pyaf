@@ -226,6 +226,7 @@ class cModelSelector_OneSignal:
         pass
 
     def collectPerformanceIndices_ModelSelection(self, iSignal, iSigDecs) :
+        logger = tsutil.get_pyaf_logger();
         lTimer = None
         if(self.mOptions.mDebugProfile):
             lTimer = tsutil.cTimer(("MODEL_SELECTION", {"Signal" : iSignal}))
@@ -285,6 +286,7 @@ class cModelSelector_OneSignal:
         return (iSignal, lPerfsByModel, lBestModel, self.mModelShortList)
 
     def collectPerformanceIndices(self, iSignal, iSigDecs) :
+        logger = tsutil.get_pyaf_logger();
         lTimer = None
         if(self.mOptions.mDebugProfile):
             lTimer = tsutil.cTimer(("MODEL_SELECTION", {"Signal" : iSignal}))
