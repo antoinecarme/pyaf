@@ -401,6 +401,9 @@ class cTrendEstimator:
         pass
 
     def estimateTrends(self):
+        lTimer = None
+        if(self.mOptions.mDebugProfile):
+            lTimer = tsutil.cTimer(("TRAINING_TRENDS", {"Signal" : self.mSignal}))
         self.mTime = self.mTimeInfo.mTime;
         self.mSignal = self.mTimeInfo.mSignal;
         self.mTrendFrame = pd.DataFrame(index = self.mSignalFrame.index)

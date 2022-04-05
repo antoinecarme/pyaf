@@ -118,9 +118,7 @@ class cSignalDecompositionOneTransform:
 
     def train(self , iInputDS, iSplit, iTime, iSignal,
               iHorizon, iTransformation, iDecomspositionType):
-        logger = tsutil.get_pyaf_logger();
-
-        start_time = time.time()
+        lTimer = tsutil.cTimer(("TRAINING", {"Signal" : iSignal, "Transformation" : iTransformation.get_name(iSignal)}))
         lInputDS = iInputDS[[iTime, iSignal]].copy()
         lInputDS = sample_signal_if_needed(lInputDS, self.mOptions)
         
@@ -145,11 +143,11 @@ class cSignalDecompositionOneTransform:
         self.mSignalFrame[self.mSignal] = self.mTransformation.apply(lSignal);
         # self.mSignalFrame[self.mSignal] = self.mSignalFrame[self.mSignal].astype(np.float32);
         
-        exog_start_time = time.time()
         if(self.mExogenousInfo is not None):
-            self.mExogenousInfo.fit();
+            lTimer2 = None
             if(self.mOptions.mDebugProfile):
-                logger.info("EXOGENOUS_ENCODING_TIME_IN_SECONDS " + str(self.mSignal) + " " + str(time.time() - exog_start_time))
+                lTimer2 = tsutil.cTimer(("TRAINING_EXOGENOUS_DATA", {"Signal" : iSignal}))
+            self.mExogenousInfo.fit();
 
         # estimate the trend
 
@@ -160,15 +158,11 @@ class cSignalDecompositionOneTransform:
         lTrendEstimator.mOptions = self.mOptions;
         lTrendEstimator.mDecompositionType = iDecomspositionType
         
-        trend_start_time = time.time()
         lTrendEstimator.estimateTrend();
         #lTrendEstimator.plotTrend();
-        if(self.mOptions.mDebugProfile):
-            logger.info("TREND_TIME_IN_SECONDS "  + str(self.mSignal) + " " + str(time.time() - trend_start_time))
 
 
         # estimate cycles
-        cycle_start_time = time.time()
 
         lCycleEstimator = tscy.cCycleEstimator();
         lCycleEstimator.mTrendFrame = lTrendEstimator.mTrendFrame;
@@ -182,14 +176,9 @@ class cSignalDecompositionOneTransform:
         lCycleEstimator.mOptions = self.mOptions;
 
         lCycleEstimator.estimateAllCycles();
-        # if(self.mOptions.mDebugCycles):
-            # lCycleEstimator.plotCycles();
-        if(self.mOptions.mDebugProfile):
-            logger.info("CYCLE_TIME_IN_SECONDS "  + str(self.mSignal) + " " + str( str(time.time() - cycle_start_time)))
 
 
         # autoregressive
-        ar_start_time = time.time()
         lAREstimator = tsar.cAutoRegressiveEstimator();
         lAREstimator.mCycleFrame = lCycleEstimator.mCycleFrame;
         lAREstimator.mTrendList = lCycleEstimator.mTrendList;
@@ -203,12 +192,8 @@ class cSignalDecompositionOneTransform:
         lAREstimator.mExogenousInfo = self.mExogenousInfo;
         lAREstimator.mOptions = self.mOptions;
         lAREstimator.estimate();
-        #lAREstimator.plotAR();
-        if(self.mOptions.mDebugProfile):
-            logger.info("AUTOREG_TIME_IN_SECONDS " + str(self.mSignal) + " " + str( str(time.time() - ar_start_time)))
-        # forecast perfs
 
-        perf_start_time = time.time()
+        # forecast perfs
         lModels = {};
         for trend in lAREstimator.mTrendList:
             for cycle in lAREstimator.mCycleList[trend]:
@@ -221,12 +206,6 @@ class cSignalDecompositionOneTransform:
         del lAREstimator;
         self.updatePerfsForAllModels(lModels);
         
-        if(self.mOptions.mDebugProfile):
-            logger.info("PERF_TIME_IN_SECONDS " + str(self.mSignal) + " " + str(len(lModels)) + " " + str( str(time.time() - perf_start_time)))
-
-        if(self.mOptions.mDebugProfile):
-            logger.info("TRAINING_TIME_IN_SECONDS "  + str(self.mSignal) + " " + str(time.time() - start_time))
-
 
 class cTraining_Arg:
     def __init__(self , name):
@@ -247,8 +226,9 @@ class cModelSelector_OneSignal:
         pass
 
     def collectPerformanceIndices_ModelSelection(self, iSignal, iSigDecs) :
-        modelsel_start_time = time.time()
-        logger = tsutil.get_pyaf_logger();
+        lTimer = None
+        if(self.mOptions.mDebugProfile):
+            lTimer = tsutil.cTimer(("MODEL_SELECTION", {"Signal" : iSignal}))
 
         rows_list = []
         lPerfsByModel = {}
@@ -299,16 +279,15 @@ class cModelSelector_OneSignal:
         lBestName = lInterestingModels['DetailedFormula'].iloc[0]
         lBestModel = lPerfsByModel[lBestName][0][2];
         # print("BEST_MODEL", lBestName, lBestModel)
-        if(self.mOptions.mDebugProfile):
-            logger.info("MODEL_SELECTION_TIME_IN_SECONDS "  + str(iSignal) + " " + str(time.time() - modelsel_start_time))
         self.mBestModel = lBestModel
         self.mPerfsByModel = lPerfsByModel
         self.mModelShortList = lInterestingModels[['Transformation', 'DecompositionType', 'Model', lIndicator, 'Complexity']] 
         return (iSignal, lPerfsByModel, lBestModel, self.mModelShortList)
 
     def collectPerformanceIndices(self, iSignal, iSigDecs) :
-        modelsel_start_time = time.time()
-        logger = tsutil.get_pyaf_logger();
+        lTimer = None
+        if(self.mOptions.mDebugProfile):
+            lTimer = tsutil.cTimer(("MODEL_SELECTION", {"Signal" : iSignal}))
 
         rows_list = []
         lPerfsByModel = {}
@@ -358,8 +337,6 @@ class cModelSelector_OneSignal:
         # print(lInterestingModels.head());
         lBestName = lInterestingModels['DetailedFormula'].iloc[0];
         lBestModel = lPerfsByModel[lBestName][0][2];
-        if(self.mOptions.mDebugProfile):
-            logger.info("MODEL_SELECTION_TIME_IN_SECONDS "  + str(self.mBestModel.mSignal) + " " + str(time.time() - modelsel_start_time))
         self.mBestModel = lBestModel
         self.mPerfsByModel = lPerfsByModel
         self.mModelShortList = lInterestingModels[['Transformation', 'DecompositionType', 'Model', lIndicator, 'Complexity']] 
@@ -373,8 +350,9 @@ class cModelSelector_OneSignal:
             self.collectPerformanceIndices_ModelSelection(lSignal, sigdecs);
 
     def perform_model_selection_cross_validation(self):
-        logger = tsutil.get_pyaf_logger();
-        modelsel_start_time = time.time()
+        lTimer = None
+        if(self.mOptions.mDebugProfile):
+            lTimer = tsutil.cTimer(("MODEL_SELECTION_FOR_CROSS_VALIDATION"))
         # self.mTrPerfDetails.to_csv("perf_time_series_cross_val.csv")
         lIndicator = 'Forecast' + self.mOptions.mModelSelection_Criterion;
         lColumns = ['Category', 'Complexity', lIndicator]
@@ -404,9 +382,6 @@ class cModelSelector_OneSignal:
         self.mBestModel = self.mPerfsByModel[lBestName][0][2];
         self.mModelShortList = lInterestingModels[['Model', 'Category', 'Split', lIndicator, 'IC']]
         # print("BEST_MODEL", lBestName, self.mBestModel)
-        if(self.mOptions.mDebugProfile):
-            logger.info("MODEL_SELECTION_TIME_IN_SECONDS "  + str(self.mBestModel.mSignal) + " " + str(time.time() - modelsel_start_time))
-        pass
 
 def run_transform_thread(arg):
     arg.mSigDec.train(arg.mInputDS, arg.mSplit, arg.mTime, arg.mSignal, arg.mHorizon, arg.mTransformation, arg.mDecompositionType);
@@ -452,6 +427,7 @@ class cSignalDecompositionTrainer:
     
 
     def finalize_training(self):
+                # print("FINISHED_TRAINING" , res.mName);
         # print([transform1.mFormula for transform1 in self.mTransformList]);
         args = [];
         for (lSignal , sigdecs) in self.mSigDecBySplitAndTransform.items():
@@ -462,12 +438,14 @@ class cSignalDecompositionTrainer:
         self.mModelShortList = {}
         self.mBestModels = {}
         NCores = min(len(args) , self.mOptions.mNbCores) 
+        lTimer = tsutil.cTimer(("FINALIZE_TRAINING",
+                                {"Signals" : [lSignal for (lSignal , sigdecs) in self.mSigDecBySplitAndTransform.items()],
+                                 "Cores" : NCores}))
         if(self.mOptions.mParallelMode and NCores > 1):
             from multiprocessing import Pool
             pool = Pool(NCores)
         
             for res in pool.imap(run_finalize_training, args):
-                # print("FINISHED_TRAINING" , res.mName);
                 (lSignal, lPerfsByModel, lBestModel, lPerfDetails, lModelShortList) = res
                 assert(self.mPerfsByModel.get(lSignal) is None)
                 self.mPerfsByModel[lSignal] = lPerfsByModel;
@@ -525,7 +503,9 @@ class cSignalDecompositionTrainer:
                         arg.mResult = None;
                         args.append(arg);
 
-        NCores = min(len(args) , self.mOptions.mNbCores) 
+        NCores = min(len(args) , self.mOptions.mNbCores)
+        lTimer = tsutil.cTimer(("SIGNAL_TRAINING",{"Signals" : iSignals, "Cores" : NCores}))
+        
         if(self.mOptions.mParallelMode and NCores > 1):
             from multiprocessing import Pool
             pool = Pool(NCores)
@@ -677,9 +657,6 @@ class cSignalDecomposition:
         
             
     def train(self , iInputDS, iTimes, iSignals, iHorizons, iExogenousData = None):
-        logger = tsutil.get_pyaf_logger();
-        logger.info("START_TRAINING '" + str(iSignals) + "'")
-        start_time = time.time()
         self.reinterpret_by_signal_args(iTimes, iSignals, iHorizons, iExogenousData)
         # print(iInputDS.shape, iInputDS.columns, self.mSignals, self.mDateColumns, self.mHorizons)
 
@@ -703,20 +680,12 @@ class cSignalDecomposition:
         self.mModelShortList = lTrainer.mModelShortList[lFirstSignal]
         self.mBestModel = self.mBestModels[lFirstSignal]
 
-        end_time = time.time()
-        self.mTrainingTime = end_time - start_time;
-        logger.info("END_TRAINING_TIME_IN_SECONDS '" + str(self.mSignals) + "' " + str(self.mTrainingTime))
-        pass
 
     def forecast(self , iInputDS, iHorizon):
-        start_time = time.time()
-        logger = tsutil.get_pyaf_logger();
-        logger.info("START_FORECASTING '" + str(self.mSignals) + "'")
+        lTimer = tsutil.cTimer(("FORECASTING", {"Signals" : self.mSignals, "Horizon" : iHorizon}))
         lForecaster = cSignalDecompositionForecaster()
         lInputDS = sample_signal_if_needed(iInputDS, self.mOptions)
         lForecastFrame = lForecaster.forecast(self, lInputDS, iHorizon)
-        lForecastTime = time.time() - start_time;
-        logger.info("END_FORECAST_TIME_IN_SECONDS  '" + str(self.mSignals) + "' " + str(lForecastTime))
         return lForecastFrame;
 
 
@@ -738,16 +707,12 @@ class cSignalDecomposition:
         return dict1
         
     def standardPlots(self, name = None, format = 'png'):
-        logger = tsutil.get_pyaf_logger();
-        start_time = time.time()
-        logger.info("START_PLOTTING")
+        lTimer = tsutil.cTimer(("PLOTTING", {"Signals" : self.mSignals}))
         for lSignal in self.mSignals:
             lName = name
             if(name is not None):
                 lName = str(name) + "_" + str(lSignal)
             self.mBestModels[lSignal].standardPlots(lName, format);
-        lPlotTime = time.time() - start_time;
-        logger.info("END_PLOTTING_TIME_IN_SECONDS " + str(lPlotTime))
         
     def getPlotsAsDict(self):
         lDict = {}

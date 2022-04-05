@@ -451,7 +451,6 @@ class cCycleEstimator:
             lTrend_residue_name = trend.mOutName + '_residue'
             self.mCycleFrame[lTrend_residue_name] = self.mTrendFrame[lTrend_residue_name]
             for cycle in self.mCycleList[trend]:
-                start_time = time.time()
                 cycle.fit();
                 if(self.mOptions.mDebugPerformance):
                     cycle.computePerf();
@@ -461,11 +460,6 @@ class cCycleEstimator:
                 if(self.mOptions.mDebug):
                     cycle.check_not_nan(self.mCycleFrame[cycle.getCycleResidueName()].values ,
                                         cycle.getCycleResidueName())
-                end_time = time.time()
-                lTrainingTime = round(end_time - start_time , 2);
-                if(self.mOptions.mDebugProfile):
-                    logger = tsutil.get_pyaf_logger();
-                    logger.info("CYCLE_TRAINING_TIME_IN_SECONDS '" + cycle.mOutName + "' " + str(lTrainingTime))
             # Avoid dataframe fragmentation warnings.
             self.mCycleFrame = self.mCycleFrame.copy()
         pass
@@ -517,6 +511,9 @@ class cCycleEstimator:
         pass
 
     def estimateAllCycles(self):
+        lTimer = None
+        if(self.mOptions.mDebugProfile):
+            lTimer = tsutil.cTimer(("TRAINING_CYCLES", {"Signal" : self.mSignal}))
         self.defineCycles();
         self.estimateCycles()
         if(self.mOptions.mFilterSeasonals):
