@@ -27,7 +27,7 @@ def process_dataset(N, FREQ, seed, trendtype ,
     dataset = tsds.generate_random_TS(N, FREQ, seed,
                                       trendtype, cycle_length,
                                       transform, sigma, exog_count, ar_order);
-    model_type = (transform, trendtype, "BestCycle" , "AR")
+    model_type = (transform, trendtype, "BestCycle" , ["AR", "ARX"])
     return process_dataset_1(dataset , model_type, debug = True)
 
 
@@ -59,13 +59,10 @@ def process_dataset_with_noise(idataset , model_type, sigma, debug=False):
         lEngine = autof.cForecastEngine()
         # lEngine.mOptions.mDebugProfile = True;
         lEngine.mOptions.mDebug = debug;
-        is_old = (model_type[0] not in lEngine.mOptions.mKnownTransformations)
-        is_old = is_old or (model_type[1] not in lEngine.mOptions.mKnownTrends)
-        if(not is_old and model_type is not None):
-            lEngine.mOptions.set_active_transformations([model_type[0]])
-            lEngine.mOptions.set_active_trends([model_type[1]])
-            lEngine.mOptions.set_active_periodics([model_type[2]])
-            lEngine.mOptions.set_active_autoregressions([model_type[3]])
+        lEngine.mOptions.set_active_transformations([model_type[0]])
+        lEngine.mOptions.set_active_trends([model_type[1]])
+        lEngine.mOptions.set_active_periodics([model_type[2]])
+        lEngine.mOptions.set_active_autoregressions(model_type[3])
         # lEngine.mOptions.enable_slow_mode();
         # mDebugProfile = True;
         # lEngine
