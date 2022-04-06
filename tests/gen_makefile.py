@@ -15,11 +15,13 @@ def add_makefile_entry(subdir1):
             logname = logfile.replace(".py" , ".log");
             logfile = "logs/" + logname;
             reflogfile = "tests/references/" + logname;
+            reflogfile2 = "tests/references/" + subdir1 + "/" + lShortName.replace(".py", ".log")
+            # print("EXEC_THIS=1 mkdir -p " , "tests/references/" + subdir1 , "; git mv " , reflogfile, reflogfile2)
             difffile = logfile + ".diff"
             # print("#PROCESSING FILE : " , filename, bn , logfile);
         
             print(bn , " : " , "\n\t", "-$(PYTHON) " , filename , " > " , logfile, " 2>&1");
-            print("\t", "$(PYTHON) scripts/num_diff.py " , reflogfile , logfile, " > " , difffile);
+            print("\t", "$(PYTHON) scripts/num_diff.py " , reflogfile2 , logfile, " > " , difffile);
             print("\t", "tail -10 " ,  difffile, "\n");
                 
             test_target = bn + " " + test_target;
