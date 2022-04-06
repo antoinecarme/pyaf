@@ -1,164 +1,232 @@
-INFO:pyaf.std:START_TRAINING 'ukcars'
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['ukcars']' 1.4763586521148682
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['ukcars'], 'Transformations': [('ukcars', 'None', '_', 'T+S+R'), ('ukcars', 'None', 'Diff_', 'T+S+R'), ('ukcars', 'None', 'RelDiff_', 'T+S+R'), ('ukcars', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'ukcars', 'Transformation': 'RelDiff_ukcars'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'ukcars', 'Transformation': '_ukcars'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'ukcars', 'Transformation': 'Diff_ukcars'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'ukcars', 'Transformation': 'CumSum_ukcars'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.092, ('TRAINING', {'Signal': 'ukcars', 'Transformation': 'Diff_ukcars'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.124, ('TRAINING', {'Signal': 'ukcars', 'Transformation': '_ukcars'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.147, ('TRAINING', {'Signal': 'ukcars', 'Transformation': 'CumSum_ukcars'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.187, ('TRAINING', {'Signal': 'ukcars', 'Transformation': 'RelDiff_ukcars'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.3, ('SIGNAL_TRAINING', {'Signals': ['ukcars'], 'Transformations': [('ukcars', 'None', '_', 'T+S+R'), ('ukcars', 'None', 'Diff_', 'T+S+R'), ('ukcars', 'None', 'RelDiff_', 'T+S+R'), ('ukcars', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['ukcars'], 'Transformations': [('ukcars', [('ukcars', 'None', 'CumSum_', 'T+S+R'), ('ukcars', 'None', 'Diff_', 'T+S+R'), ('ukcars', 'None', 'RelDiff_', 'T+S+R'), ('ukcars', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'ukcars', 'Transformations': [('ukcars', 'None', 'CumSum_', 'T+S+R'), ('ukcars', 'None', 'Diff_', 'T+S+R'), ('ukcars', 'None', 'RelDiff_', 'T+S+R'), ('ukcars', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.011, ('MODEL_SELECTION', {'Signal': 'ukcars', 'Transformations': [('ukcars', 'None', 'CumSum_', 'T+S+R'), ('ukcars', 'None', 'Diff_', 'T+S+R'), ('ukcars', 'None', 'RelDiff_', 'T+S+R'), ('ukcars', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'ukcars', 'Model': 'CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_AR(28)'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.044, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'ukcars', 'Model': 'CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_AR(28)'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'ukcars'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.072, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'ukcars'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.128, ('FINALIZE_TRAINING', {'Signals': ['ukcars'], 'Transformations': [('ukcars', [('ukcars', 'None', 'CumSum_', 'T+S+R'), ('ukcars', 'None', 'Diff_', 'T+S+R'), ('ukcars', 'None', 'RelDiff_', 'T+S+R'), ('ukcars', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1977.0 TimeMax=1998.75 TimeDelta=0.25 Horizon=2
-INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='ukcars' Length=113  Min=171.153 Max=494.311  Mean=333.4777522123894 StdDev=78.21193814976165
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='CumSum_ukcars' Min=330.371 Max=37682.986000000004  Mean=17058.763867256635 StdDev=10825.833860229612
+INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='ukcars' Length=113  Min=171.153 Max=494.311  Mean=333.47775221238936 StdDev=78.21193814976164
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='CumSum_ukcars' Min=0.4926939763211803 Max=56.760770273364756  Mean=22.598985224740346 StdDev=16.43835156808461
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'CumSum_'
-INFO:pyaf.std:BEST_DECOMPOSITION  'CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_AR(28)' [ConstantTrend + NoCycle + AR]
+INFO:pyaf.std:BEST_DECOMPOSITION  'CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_AR(28)' [ConstantTrend + Cycle_None + AR]
 INFO:pyaf.std:TREND_DETAIL 'CumSum_ukcars_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL 'CumSum_ukcars_ConstantTrend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL 'CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_AR(28)' [AR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.1049 MAPE_Forecast=0.0585 MAPE_Test=0.0418
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.1126 SMAPE_Forecast=0.0581 SMAPE_Test=0.0409
-INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7735 MASE_Forecast=0.669 MASE_Test=0.4508
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=24.486059242670134 CRPS_Forecast=14.693645459612346 CRPS_Test=12.062195850201533
-INFO:pyaf.std:MODEL_L1 L1_Fit=31.906128299453123 L1_Forecast=24.0153185553631 L1_Test=17.46974597963151
-INFO:pyaf.std:MODEL_L2 L2_Fit=57.58616981997759 L2_Forecast=28.544831832976875 L2_Test=18.10330777924043
-INFO:pyaf.std:MODEL_LnQ LnQ_Fit=inf LnQ_Forecast=0.10718430491113311 LnQ_Test=0.003515732350744532
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=21.198483690177497 MedAE_Forecast=22.38401614553294 MedAE_Test=17.46974597963151
-INFO:pyaf.std:MODEL_COMPLEXITY 54
+INFO:pyaf.std:CYCLE_DETAIL 'CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE' [Cycle_None]
+INFO:pyaf.std:AUTOREG_DETAIL 'CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_AR(28)' [AR]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0968 MAPE_Forecast=0.0521 MAPE_Test=0.0292
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0962 SMAPE_Forecast=0.05 SMAPE_Test=0.0286
+INFO:pyaf.std:MODEL_MASE MASE_Fit=0.6868 MASE_Forecast=0.5769 MASE_Test=0.3017
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=20.573246470615256 CRPS_Forecast=12.025173169022779 CRPS_Test=6.136077299798899
+INFO:pyaf.std:MODEL_L1 L1_Fit=28.32894622408262 L1_Forecast=20.706836330647803 L1_Test=11.692580281685764
+INFO:pyaf.std:MODEL_L2 L2_Fit=40.35458157065198 L2_Forecast=29.00361718602801 L2_Test=13.681931947180676
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=1.8543521928297173 LnQ_Forecast=0.11665217476114725 LnQ_Test=0.00228285837210264
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=21.647821874094916 MedAE_Forecast=14.076371428054756 MedAE_Test=11.692580281685764
+INFO:pyaf.std:MODEL_COMPLEXITY 23.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES Integration None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND ConstantTrend 12588.319352272729
+INFO:pyaf.std:CONSTANT_TREND CumSum_ukcars_ConstantTrend 15.385696322766968
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES CumSum_ukcars_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE None -2.774766065740991 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
-INFO:pyaf.std:AR_MODEL_COEFF 1 CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_Lag1 1.2794577357334633
-INFO:pyaf.std:AR_MODEL_COEFF 2 CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_Lag9 -0.4997948644143176
-INFO:pyaf.std:AR_MODEL_COEFF 3 CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_Lag10 0.38726991599544264
-INFO:pyaf.std:AR_MODEL_COEFF 4 CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_Lag5 -0.3857790602549336
-INFO:pyaf.std:AR_MODEL_COEFF 5 CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_Lag7 0.3414842343329012
-INFO:pyaf.std:AR_MODEL_COEFF 6 CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_Lag16 0.28500637998641676
-INFO:pyaf.std:AR_MODEL_COEFF 7 CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_Lag17 -0.23214811790604173
-INFO:pyaf.std:AR_MODEL_COEFF 8 CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_Lag18 -0.19985902326619734
-INFO:pyaf.std:AR_MODEL_COEFF 9 CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_Lag20 0.18238488493479899
-INFO:pyaf.std:AR_MODEL_COEFF 10 CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_Lag4 0.17813293825528895
+INFO:pyaf.std:AR_MODEL_COEFF 1 CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag1 0.7699933052838919
+INFO:pyaf.std:AR_MODEL_COEFF 2 CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag2 0.2376242841184637
+INFO:pyaf.std:AR_MODEL_COEFF 3 CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag5 -0.1702904124130051
+INFO:pyaf.std:AR_MODEL_COEFF 4 CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag9 -0.1542734336178475
+INFO:pyaf.std:AR_MODEL_COEFF 5 CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag18 -0.13492334405241305
+INFO:pyaf.std:AR_MODEL_COEFF 6 CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag20 0.1111903002662365
+INFO:pyaf.std:AR_MODEL_COEFF 7 CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag17 -0.10865887394286508
+INFO:pyaf.std:AR_MODEL_COEFF 8 CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag12 0.10844174674272254
+INFO:pyaf.std:AR_MODEL_COEFF 9 CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag8 0.10436401240057662
+INFO:pyaf.std:AR_MODEL_COEFF 10 CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag16 0.10258125982042211
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_TRAINING 'ukcars'
-PERFORMANCE MAPE_FORECAST ukcars 0.0585
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['ukcars']' 1.4668266773223877
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['ukcars'], 'Transformations': [('ukcars', 'None', '_', 'T+S+R'), ('ukcars', 'None', 'Diff_', 'T+S+R'), ('ukcars', 'None', 'RelDiff_', 'T+S+R'), ('ukcars', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+PERFORMANCE MAPE_FORECAST ukcars 0.0521
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'ukcars', 'Transformation': 'Diff_ukcars'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'ukcars', 'Transformation': '_ukcars'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'ukcars', 'Transformation': 'RelDiff_ukcars'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'ukcars', 'Transformation': 'CumSum_ukcars'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.015, ('TRAINING', {'Signal': 'ukcars', 'Transformation': 'CumSum_ukcars'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.024, ('TRAINING', {'Signal': 'ukcars', 'Transformation': 'Diff_ukcars'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.18, ('TRAINING', {'Signal': 'ukcars', 'Transformation': '_ukcars'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.332, ('TRAINING', {'Signal': 'ukcars', 'Transformation': 'RelDiff_ukcars'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.419, ('SIGNAL_TRAINING', {'Signals': ['ukcars'], 'Transformations': [('ukcars', 'None', '_', 'T+S+R'), ('ukcars', 'None', 'Diff_', 'T+S+R'), ('ukcars', 'None', 'RelDiff_', 'T+S+R'), ('ukcars', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['ukcars'], 'Transformations': [('ukcars', [('ukcars', 'None', 'CumSum_', 'T+S+R'), ('ukcars', 'None', 'Diff_', 'T+S+R'), ('ukcars', 'None', 'RelDiff_', 'T+S+R'), ('ukcars', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'ukcars', 'Transformations': [('ukcars', 'None', 'CumSum_', 'T+S+R'), ('ukcars', 'None', 'Diff_', 'T+S+R'), ('ukcars', 'None', 'RelDiff_', 'T+S+R'), ('ukcars', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.009, ('MODEL_SELECTION', {'Signal': 'ukcars', 'Transformations': [('ukcars', 'None', 'CumSum_', 'T+S+R'), ('ukcars', 'None', 'Diff_', 'T+S+R'), ('ukcars', 'None', 'RelDiff_', 'T+S+R'), ('ukcars', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'ukcars', 'Model': 'CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_AR(28)'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.036, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'ukcars', 'Model': 'CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_AR(28)'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'ukcars'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.161, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'ukcars'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.207, ('FINALIZE_TRAINING', {'Signals': ['ukcars'], 'Transformations': [('ukcars', [('ukcars', 'None', 'CumSum_', 'T+S+R'), ('ukcars', 'None', 'Diff_', 'T+S+R'), ('ukcars', 'None', 'RelDiff_', 'T+S+R'), ('ukcars', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1977.0 TimeMax=1998.5 TimeDelta=0.25 Horizon=4
-INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='ukcars' Length=113  Min=171.153 Max=494.311  Mean=333.4777522123894 StdDev=78.21193814976165
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='CumSum_ukcars' Min=330.371 Max=37682.986000000004  Mean=17058.763867256635 StdDev=10825.833860229612
+INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='ukcars' Length=113  Min=171.153 Max=494.311  Mean=333.47775221238936 StdDev=78.21193814976164
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='CumSum_ukcars' Min=0.4926939763211803 Max=56.760770273364756  Mean=22.598985224740346 StdDev=16.43835156808461
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'CumSum_'
-INFO:pyaf.std:BEST_DECOMPOSITION  'CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_AR(28)' [ConstantTrend + NoCycle + AR]
+INFO:pyaf.std:BEST_DECOMPOSITION  'CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_AR(28)' [ConstantTrend + Cycle_None + AR]
 INFO:pyaf.std:TREND_DETAIL 'CumSum_ukcars_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL 'CumSum_ukcars_ConstantTrend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL 'CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_AR(28)' [AR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.1065 MAPE_Forecast=0.0649 MAPE_Test=0.0358
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.1143 SMAPE_Forecast=0.0643 SMAPE_Test=0.0356
-INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7711 MASE_Forecast=0.7286 MASE_Test=0.4303
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=24.1869431674412 CRPS_Forecast=15.64212741258804 CRPS_Test=8.090941095860359
-INFO:pyaf.std:MODEL_L1 L1_Fit=32.083532287331614 L1_Forecast=26.710721798961593 L1_Test=14.760839613862402
-INFO:pyaf.std:MODEL_L2 L2_Fit=57.880431056995654 L2_Forecast=31.445537788860758 L2_Test=15.100572806801646
-INFO:pyaf.std:MODEL_LnQ LnQ_Fit=inf LnQ_Forecast=0.12353089163733488 LnQ_Test=0.005224552794021037
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=21.196667181678862 MedAE_Forecast=26.273124215557544 MedAE_Test=15.837911888878892
-INFO:pyaf.std:MODEL_COMPLEXITY 53
+INFO:pyaf.std:CYCLE_DETAIL 'CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE' [Cycle_None]
+INFO:pyaf.std:AUTOREG_DETAIL 'CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_AR(28)' [AR]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0968 MAPE_Forecast=0.0546 MAPE_Test=0.0342
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0962 SMAPE_Forecast=0.0525 SMAPE_Test=0.0336
+INFO:pyaf.std:MODEL_MASE MASE_Fit=0.6767 MASE_Forecast=0.5965 MASE_Test=0.3957
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=20.19475712557748 CRPS_Forecast=12.775579177261314 CRPS_Test=6.464667802578475
+INFO:pyaf.std:MODEL_L1 L1_Fit=28.15586182531899 L1_Forecast=21.865082289272166 L1_Test=13.57106365942792
+INFO:pyaf.std:MODEL_L2 L2_Fit=40.24051799312317 L2_Forecast=29.948681520130688 L2_Test=15.059826378515632
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=1.8350212796849055 LnQ_Forecast=0.11778076207909964 LnQ_Test=0.005695293453756081
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=21.12530293558416 MedAE_Forecast=14.219721078263348 MedAE_Test=13.265553481421335
+INFO:pyaf.std:MODEL_COMPLEXITY 22.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES Integration None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND ConstantTrend 12418.11959770115
+INFO:pyaf.std:CONSTANT_TREND CumSum_ukcars_ConstantTrend 15.123832916719222
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES CumSum_ukcars_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE None -2.7217416796153877 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
-INFO:pyaf.std:AR_MODEL_COEFF 1 CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_Lag1 1.2821795704893058
-INFO:pyaf.std:AR_MODEL_COEFF 2 CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_Lag9 -0.5077472376768583
-INFO:pyaf.std:AR_MODEL_COEFF 3 CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_Lag10 0.38452194131338935
-INFO:pyaf.std:AR_MODEL_COEFF 4 CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_Lag5 -0.3788991853207042
-INFO:pyaf.std:AR_MODEL_COEFF 5 CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_Lag7 0.32678796506645047
-INFO:pyaf.std:AR_MODEL_COEFF 6 CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_Lag16 0.274252181355105
-INFO:pyaf.std:AR_MODEL_COEFF 7 CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_Lag17 -0.22348560787855076
-INFO:pyaf.std:AR_MODEL_COEFF 8 CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_Lag20 0.20179008505531956
-INFO:pyaf.std:AR_MODEL_COEFF 9 CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_Lag18 -0.2010476663227675
-INFO:pyaf.std:AR_MODEL_COEFF 10 CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_Lag4 0.18235590649293498
+INFO:pyaf.std:AR_MODEL_COEFF 1 CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag1 0.7724093291065632
+INFO:pyaf.std:AR_MODEL_COEFF 2 CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag2 0.24824672686487032
+INFO:pyaf.std:AR_MODEL_COEFF 3 CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag5 -0.18257954685742203
+INFO:pyaf.std:AR_MODEL_COEFF 4 CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag9 -0.15937370201377343
+INFO:pyaf.std:AR_MODEL_COEFF 5 CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag18 -0.13156067830682833
+INFO:pyaf.std:AR_MODEL_COEFF 6 CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag20 0.12534479822894953
+INFO:pyaf.std:AR_MODEL_COEFF 7 CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag17 -0.12408622595044366
+INFO:pyaf.std:AR_MODEL_COEFF 8 CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag8 0.11015713766282993
+INFO:pyaf.std:AR_MODEL_COEFF 9 CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag12 0.10138478962065846
+INFO:pyaf.std:AR_MODEL_COEFF 10 CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag16 0.0952408848380975
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_TRAINING 'ukcars'
-PERFORMANCE MAPE_FORECAST ukcars 0.0649
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['ukcars']' 1.6667914390563965
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['ukcars'], 'Transformations': [('ukcars', 'None', '_', 'T+S+R'), ('ukcars', 'None', 'Diff_', 'T+S+R'), ('ukcars', 'None', 'RelDiff_', 'T+S+R'), ('ukcars', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+PERFORMANCE MAPE_FORECAST ukcars 0.0546
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'ukcars', 'Transformation': '_ukcars'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'ukcars', 'Transformation': 'Diff_ukcars'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'ukcars', 'Transformation': 'RelDiff_ukcars'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'ukcars', 'Transformation': 'CumSum_ukcars'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.934, ('TRAINING', {'Signal': 'ukcars', 'Transformation': 'Diff_ukcars'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.06, ('TRAINING', {'Signal': 'ukcars', 'Transformation': '_ukcars'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.103, ('TRAINING', {'Signal': 'ukcars', 'Transformation': 'CumSum_ukcars'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.284, ('TRAINING', {'Signal': 'ukcars', 'Transformation': 'RelDiff_ukcars'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.38, ('SIGNAL_TRAINING', {'Signals': ['ukcars'], 'Transformations': [('ukcars', 'None', '_', 'T+S+R'), ('ukcars', 'None', 'Diff_', 'T+S+R'), ('ukcars', 'None', 'RelDiff_', 'T+S+R'), ('ukcars', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['ukcars'], 'Transformations': [('ukcars', [('ukcars', 'None', 'CumSum_', 'T+S+R'), ('ukcars', 'None', 'Diff_', 'T+S+R'), ('ukcars', 'None', 'RelDiff_', 'T+S+R'), ('ukcars', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'ukcars', 'Transformations': [('ukcars', 'None', 'CumSum_', 'T+S+R'), ('ukcars', 'None', 'Diff_', 'T+S+R'), ('ukcars', 'None', 'RelDiff_', 'T+S+R'), ('ukcars', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.011, ('MODEL_SELECTION', {'Signal': 'ukcars', 'Transformations': [('ukcars', 'None', 'CumSum_', 'T+S+R'), ('ukcars', 'None', 'Diff_', 'T+S+R'), ('ukcars', 'None', 'RelDiff_', 'T+S+R'), ('ukcars', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'ukcars', 'Model': 'CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_AR(28)'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.045, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'ukcars', 'Model': 'CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_AR(28)'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'ukcars'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.346, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'ukcars'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.403, ('FINALIZE_TRAINING', {'Signals': ['ukcars'], 'Transformations': [('ukcars', [('ukcars', 'None', 'CumSum_', 'T+S+R'), ('ukcars', 'None', 'Diff_', 'T+S+R'), ('ukcars', 'None', 'RelDiff_', 'T+S+R'), ('ukcars', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1977.0 TimeMax=1997.75 TimeDelta=0.25 Horizon=8
-INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='ukcars' Length=113  Min=171.153 Max=494.311  Mean=333.4777522123894 StdDev=78.21193814976165
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='CumSum_ukcars' Min=330.371 Max=37682.986000000004  Mean=17058.763867256635 StdDev=10825.833860229612
+INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='ukcars' Length=113  Min=171.153 Max=494.311  Mean=333.47775221238936 StdDev=78.21193814976164
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='CumSum_ukcars' Min=0.4926939763211803 Max=56.760770273364756  Mean=22.598985224740346 StdDev=16.43835156808461
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'CumSum_'
-INFO:pyaf.std:BEST_DECOMPOSITION  'CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_AR(28)' [ConstantTrend + NoCycle + AR]
+INFO:pyaf.std:BEST_DECOMPOSITION  'CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_AR(28)' [ConstantTrend + Cycle_None + AR]
 INFO:pyaf.std:TREND_DETAIL 'CumSum_ukcars_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL 'CumSum_ukcars_ConstantTrend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL 'CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_AR(28)' [AR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.1094 MAPE_Forecast=0.0588 MAPE_Test=0.0517
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.1175 SMAPE_Forecast=0.0582 SMAPE_Test=0.0512
-INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7807 MASE_Forecast=0.6479 MASE_Test=0.6914
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=23.102240989479867 CRPS_Forecast=16.881420917670326 CRPS_Test=8.322048322082992
-INFO:pyaf.std:MODEL_L1 L1_Fit=32.88658679206735 L1_Forecast=24.143853422234166 L1_Test=21.380825770155454
-INFO:pyaf.std:MODEL_L2 L2_Fit=58.782703261272566 L2_Forecast=30.281994654664746 L2_Test=23.122940399452503
-INFO:pyaf.std:MODEL_LnQ LnQ_Fit=inf LnQ_Forecast=0.10940162168239664 LnQ_Test=0.02451239094325907
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=21.093011170181825 MedAE_Forecast=23.27035066984513 MedAE_Test=16.72980266879503
-INFO:pyaf.std:MODEL_COMPLEXITY 53
+INFO:pyaf.std:CYCLE_DETAIL 'CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE' [Cycle_None]
+INFO:pyaf.std:AUTOREG_DETAIL 'CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_AR(28)' [AR]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0998 MAPE_Forecast=0.054 MAPE_Test=0.0409
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0992 SMAPE_Forecast=0.0517 SMAPE_Test=0.0399
+INFO:pyaf.std:MODEL_MASE MASE_Fit=0.6854 MASE_Forecast=0.58 MASE_Test=0.5322
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=18.856093141220878 CRPS_Forecast=14.076879961296767 CRPS_Test=5.772433529164704
+INFO:pyaf.std:MODEL_L1 L1_Fit=28.873205421721867 L1_Forecast=21.612912998764394 L1_Test=16.458231131205572
+INFO:pyaf.std:MODEL_L2 L2_Fit=40.93013925296705 L2_Forecast=30.773302620144726 L2_Test=19.138113160626414
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=1.8361012621337875 LnQ_Forecast=0.11833007667966312 LnQ_Test=0.017478940666568965
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=22.01608255318581 MedAE_Forecast=12.45134694968118 MedAE_Test=15.598319597539898
+INFO:pyaf.std:MODEL_COMPLEXITY 22.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES Integration None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND ConstantTrend 11913.174511904761
+INFO:pyaf.std:CONSTANT_TREND CumSum_ukcars_ConstantTrend 14.355739334643618
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES CumSum_ukcars_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE None -2.4821465410256325 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
-INFO:pyaf.std:AR_MODEL_COEFF 1 CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_Lag1 1.2762290325098342
-INFO:pyaf.std:AR_MODEL_COEFF 2 CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_Lag9 -0.5040225699181682
-INFO:pyaf.std:AR_MODEL_COEFF 3 CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_Lag10 0.3923805675699522
-INFO:pyaf.std:AR_MODEL_COEFF 4 CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_Lag5 -0.3801757587431416
-INFO:pyaf.std:AR_MODEL_COEFF 5 CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_Lag7 0.3314868340809719
-INFO:pyaf.std:AR_MODEL_COEFF 6 CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_Lag16 0.2725390459533594
-INFO:pyaf.std:AR_MODEL_COEFF 7 CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_Lag17 -0.2210579535439982
-INFO:pyaf.std:AR_MODEL_COEFF 8 CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_Lag18 -0.20079948945883053
-INFO:pyaf.std:AR_MODEL_COEFF 9 CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_Lag20 0.20051969777878037
-INFO:pyaf.std:AR_MODEL_COEFF 10 CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_Lag4 0.18466462270166156
+INFO:pyaf.std:AR_MODEL_COEFF 1 CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag1 0.7660001238157593
+INFO:pyaf.std:AR_MODEL_COEFF 2 CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag2 0.25182483963484326
+INFO:pyaf.std:AR_MODEL_COEFF 3 CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag5 -0.1854863175925216
+INFO:pyaf.std:AR_MODEL_COEFF 4 CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag9 -0.15347336664648487
+INFO:pyaf.std:AR_MODEL_COEFF 5 CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag18 -0.13043411580912545
+INFO:pyaf.std:AR_MODEL_COEFF 6 CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag20 0.12125660225260312
+INFO:pyaf.std:AR_MODEL_COEFF 7 CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag17 -0.11976187137201624
+INFO:pyaf.std:AR_MODEL_COEFF 8 CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag8 0.11059337784054955
+INFO:pyaf.std:AR_MODEL_COEFF 9 CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag16 0.09515974720163799
+INFO:pyaf.std:AR_MODEL_COEFF 10 CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag3 0.09045096228796128
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_TRAINING 'ukcars'
-PERFORMANCE MAPE_FORECAST ukcars 0.0588
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['ukcars']' 1.9801595211029053
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['ukcars'], 'Transformations': [('ukcars', 'None', '_', 'T+S+R'), ('ukcars', 'None', 'Diff_', 'T+S+R'), ('ukcars', 'None', 'RelDiff_', 'T+S+R'), ('ukcars', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+PERFORMANCE MAPE_FORECAST ukcars 0.054
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'ukcars', 'Transformation': '_ukcars'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'ukcars', 'Transformation': 'Diff_ukcars'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'ukcars', 'Transformation': 'RelDiff_ukcars'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'ukcars', 'Transformation': 'CumSum_ukcars'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.097, ('TRAINING', {'Signal': 'ukcars', 'Transformation': 'CumSum_ukcars'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.131, ('TRAINING', {'Signal': 'ukcars', 'Transformation': '_ukcars'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.241, ('TRAINING', {'Signal': 'ukcars', 'Transformation': 'Diff_ukcars'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.394, ('TRAINING', {'Signal': 'ukcars', 'Transformation': 'RelDiff_ukcars'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.496, ('SIGNAL_TRAINING', {'Signals': ['ukcars'], 'Transformations': [('ukcars', 'None', '_', 'T+S+R'), ('ukcars', 'None', 'Diff_', 'T+S+R'), ('ukcars', 'None', 'RelDiff_', 'T+S+R'), ('ukcars', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['ukcars'], 'Transformations': [('ukcars', [('ukcars', 'None', 'CumSum_', 'T+S+R'), ('ukcars', 'None', 'Diff_', 'T+S+R'), ('ukcars', 'None', 'RelDiff_', 'T+S+R'), ('ukcars', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'ukcars', 'Transformations': [('ukcars', 'None', 'CumSum_', 'T+S+R'), ('ukcars', 'None', 'Diff_', 'T+S+R'), ('ukcars', 'None', 'RelDiff_', 'T+S+R'), ('ukcars', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.012, ('MODEL_SELECTION', {'Signal': 'ukcars', 'Transformations': [('ukcars', 'None', 'CumSum_', 'T+S+R'), ('ukcars', 'None', 'Diff_', 'T+S+R'), ('ukcars', 'None', 'RelDiff_', 'T+S+R'), ('ukcars', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'ukcars', 'Model': 'CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_AR(28)'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.046, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'ukcars', 'Model': 'CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_AR(28)'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'ukcars'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.483, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'ukcars'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.542, ('FINALIZE_TRAINING', {'Signals': ['ukcars'], 'Transformations': [('ukcars', [('ukcars', 'None', 'CumSum_', 'T+S+R'), ('ukcars', 'None', 'Diff_', 'T+S+R'), ('ukcars', 'None', 'RelDiff_', 'T+S+R'), ('ukcars', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1977.0 TimeMax=1996.75 TimeDelta=0.25 Horizon=12
-INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='ukcars' Length=113  Min=171.153 Max=494.311  Mean=333.4777522123894 StdDev=78.21193814976165
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='CumSum_ukcars' Min=330.371 Max=37682.986000000004  Mean=17058.763867256635 StdDev=10825.833860229612
+INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='ukcars' Length=113  Min=171.153 Max=494.311  Mean=333.47775221238936 StdDev=78.21193814976164
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='CumSum_ukcars' Min=0.4926939763211803 Max=56.760770273364756  Mean=22.598985224740346 StdDev=16.43835156808461
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'CumSum_'
-INFO:pyaf.std:BEST_DECOMPOSITION  'CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_AR(28)' [ConstantTrend + NoCycle + AR]
+INFO:pyaf.std:BEST_DECOMPOSITION  'CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_AR(28)' [ConstantTrend + Cycle_None + AR]
 INFO:pyaf.std:TREND_DETAIL 'CumSum_ukcars_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL 'CumSum_ukcars_ConstantTrend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL 'CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_AR(28)' [AR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.1097 MAPE_Forecast=0.0547 MAPE_Test=0.0604
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.1181 SMAPE_Forecast=0.0544 SMAPE_Test=0.0593
-INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7834 MASE_Forecast=0.5604 MASE_Test=0.9641
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=20.23413693853072 CRPS_Forecast=16.95848684233342 CRPS_Test=7.41818428093331
-INFO:pyaf.std:MODEL_L1 L1_Fit=32.87641212522834 L1_Forecast=22.782178555854113 L1_Test=24.560147335140957
-INFO:pyaf.std:MODEL_L2 L2_Fit=60.10519925799011 L2_Forecast=28.541316180779567 L2_Test=27.73699276097033
-INFO:pyaf.std:MODEL_LnQ LnQ_Fit=inf LnQ_Forecast=0.09478718309156467 LnQ_Test=0.053812960329403234
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=21.45389939592299 MedAE_Forecast=17.77633348827993 MedAE_Test=21.803813617000486
-INFO:pyaf.std:MODEL_COMPLEXITY 52
+INFO:pyaf.std:CYCLE_DETAIL 'CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE' [Cycle_None]
+INFO:pyaf.std:AUTOREG_DETAIL 'CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_AR(28)' [AR]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.1016 MAPE_Forecast=0.0553 MAPE_Test=0.045
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.1008 SMAPE_Forecast=0.0536 SMAPE_Test=0.0436
+INFO:pyaf.std:MODEL_MASE MASE_Fit=0.6886 MASE_Forecast=0.5541 MASE_Test=0.7038
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=15.81947512640631 CRPS_Forecast=14.086931811633361 CRPS_Test=6.538294001978394
+INFO:pyaf.std:MODEL_L1 L1_Fit=28.89978937196151 L1_Forecast=22.522777831931798 L1_Test=17.928090354078588
+INFO:pyaf.std:MODEL_L2 L2_Fit=41.41844566582387 L2_Forecast=30.785413086459823 L2_Test=21.9672226324029
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=1.8272449109369016 LnQ_Forecast=0.11625884347256749 LnQ_Test=0.03456199417642297
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=20.572144328066116 MedAE_Forecast=14.632533669618851 MedAE_Test=16.696753277914894
+INFO:pyaf.std:MODEL_COMPLEXITY 21.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES Integration None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND ConstantTrend 11258.121087500002
+INFO:pyaf.std:CONSTANT_TREND CumSum_ukcars_ConstantTrend 13.387954460356855
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES CumSum_ukcars_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE None -2.2299326877255083 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
-INFO:pyaf.std:AR_MODEL_COEFF 1 CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_Lag1 1.2813667262726085
-INFO:pyaf.std:AR_MODEL_COEFF 2 CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_Lag9 -0.5077178630072734
-INFO:pyaf.std:AR_MODEL_COEFF 3 CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_Lag5 -0.401879649136895
-INFO:pyaf.std:AR_MODEL_COEFF 4 CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_Lag10 0.3972002954387365
-INFO:pyaf.std:AR_MODEL_COEFF 5 CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_Lag7 0.35385186080492037
-INFO:pyaf.std:AR_MODEL_COEFF 6 CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_Lag16 0.30173876486979256
-INFO:pyaf.std:AR_MODEL_COEFF 7 CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_Lag17 -0.23522134837297787
-INFO:pyaf.std:AR_MODEL_COEFF 8 CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_Lag4 0.20330594629244583
-INFO:pyaf.std:AR_MODEL_COEFF 9 CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_Lag18 -0.1864519544097716
-INFO:pyaf.std:AR_MODEL_COEFF 10 CumSum_ukcars_ConstantTrend_residue_zeroCycle_residue_Lag2 -0.1598391561289214
+INFO:pyaf.std:AR_MODEL_COEFF 1 CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag1 0.7760216127203664
+INFO:pyaf.std:AR_MODEL_COEFF 2 CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag2 0.2459758296047435
+INFO:pyaf.std:AR_MODEL_COEFF 3 CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag20 0.1798069717595258
+INFO:pyaf.std:AR_MODEL_COEFF 4 CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag5 -0.17311824583165222
+INFO:pyaf.std:AR_MODEL_COEFF 5 CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag9 -0.14446474786710325
+INFO:pyaf.std:AR_MODEL_COEFF 6 CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag18 -0.12662993043079374
+INFO:pyaf.std:AR_MODEL_COEFF 7 CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag17 -0.11540465006201259
+INFO:pyaf.std:AR_MODEL_COEFF 8 CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag8 0.10564816736960339
+INFO:pyaf.std:AR_MODEL_COEFF 9 CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag3 0.08398964896616867
+INFO:pyaf.std:AR_MODEL_COEFF 10 CumSum_ukcars_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag6 -0.08205569061524859
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-PERFORMANCE MAPE_FORECAST ukcars 0.0547
+PERFORMANCE MAPE_FORECAST ukcars 0.0553

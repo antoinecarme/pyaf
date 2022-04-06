@@ -1,124 +1,192 @@
-INFO:pyaf.std:START_TRAINING 'jewelry'
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['jewelry']' 2.147218704223633
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['jewelry'], 'Transformations': [('jewelry', 'None', '_', 'T+S+R'), ('jewelry', 'None', 'Diff_', 'T+S+R'), ('jewelry', 'None', 'RelDiff_', 'T+S+R'), ('jewelry', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'jewelry', 'Transformation': '_jewelry'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'jewelry', 'Transformation': 'Diff_jewelry'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'jewelry', 'Transformation': 'RelDiff_jewelry'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'jewelry', 'Transformation': 'CumSum_jewelry'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.874, ('TRAINING', {'Signal': 'jewelry', 'Transformation': 'CumSum_jewelry'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.981, ('TRAINING', {'Signal': 'jewelry', 'Transformation': '_jewelry'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.023, ('TRAINING', {'Signal': 'jewelry', 'Transformation': 'Diff_jewelry'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.161, ('TRAINING', {'Signal': 'jewelry', 'Transformation': 'RelDiff_jewelry'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.235, ('SIGNAL_TRAINING', {'Signals': ['jewelry'], 'Transformations': [('jewelry', 'None', '_', 'T+S+R'), ('jewelry', 'None', 'Diff_', 'T+S+R'), ('jewelry', 'None', 'RelDiff_', 'T+S+R'), ('jewelry', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['jewelry'], 'Transformations': [('jewelry', [('jewelry', 'None', 'CumSum_', 'T+S+R'), ('jewelry', 'None', 'Diff_', 'T+S+R'), ('jewelry', 'None', 'RelDiff_', 'T+S+R'), ('jewelry', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'jewelry', 'Transformations': [('jewelry', 'None', 'CumSum_', 'T+S+R'), ('jewelry', 'None', 'Diff_', 'T+S+R'), ('jewelry', 'None', 'RelDiff_', 'T+S+R'), ('jewelry', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.007, ('MODEL_SELECTION', {'Signal': 'jewelry', 'Transformations': [('jewelry', 'None', 'CumSum_', 'T+S+R'), ('jewelry', 'None', 'Diff_', 'T+S+R'), ('jewelry', 'None', 'RelDiff_', 'T+S+R'), ('jewelry', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'jewelry', 'Model': '_jewelry_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.023, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'jewelry', 'Model': '_jewelry_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'jewelry'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.046, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'jewelry'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.076, ('FINALIZE_TRAINING', {'Signals': ['jewelry'], 'Transformations': [('jewelry', [('jewelry', 'None', 'CumSum_', 'T+S+R'), ('jewelry', 'None', 'Diff_', 'T+S+R'), ('jewelry', 'None', 'RelDiff_', 'T+S+R'), ('jewelry', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1998.07692307692 TimeMax=1999.92307692308 TimeDelta=0.019230769230835183 Horizon=2
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='jewelry' Length=124  Min=46 Max=426  Mean=124.7258064516129 StdDev=64.43367917049599
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_jewelry' Min=46 Max=426  Mean=124.7258064516129 StdDev=64.43367917049599
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_jewelry' Min=0.0 Max=1.0  Mean=0.20717317487266548 StdDev=0.1695623136065684
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_jewelry_ConstantTrend_residue_zeroCycle_residue_NoAR' [ConstantTrend + NoCycle + NoAR]
+INFO:pyaf.std:BEST_DECOMPOSITION  '_jewelry_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [ConstantTrend + Cycle_None + NoAR]
 INFO:pyaf.std:TREND_DETAIL '_jewelry_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_jewelry_ConstantTrend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_jewelry_ConstantTrend_residue_zeroCycle_residue_NoAR' [NoAR]
+INFO:pyaf.std:CYCLE_DETAIL '_jewelry_ConstantTrend_residue_bestCycle_byMAPE' [Cycle_None]
+INFO:pyaf.std:AUTOREG_DETAIL '_jewelry_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [NoAR]
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.3414 MAPE_Forecast=0.1974 MAPE_Test=0.1677
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.3056 SMAPE_Forecast=0.253 SMAPE_Test=0.1866
 INFO:pyaf.std:MODEL_MASE MASE_Fit=1.1904 MASE_Forecast=1.1915 MASE_Test=0.9796
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=5.72842932416953 CRPS_Forecast=5.850969072164948 CRPS_Test=12.24484536082474
-INFO:pyaf.std:MODEL_L1 L1_Fit=37.745987883940906 L1_Forecast=46.71793814432989 L1_Test=24.48969072164948
-INFO:pyaf.std:MODEL_L2 L2_Fit=58.03260634224021 L2_Forecast=88.5534243960142 L2_Test=27.49536236607993
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=5.728429324169525 CRPS_Forecast=5.8509690721649505 CRPS_Test=12.244845360824755
+INFO:pyaf.std:MODEL_L1 L1_Fit=37.7459878839409 L1_Forecast=46.7179381443299 L1_Test=24.48969072164951
+INFO:pyaf.std:MODEL_L2 L2_Fit=58.03260634224021 L2_Forecast=88.5534243960142 L2_Test=27.49536236607996
 INFO:pyaf.std:MODEL_LnQ LnQ_Fit=15.666045935962007 LnQ_Forecast=4.803451882776427 LnQ_Test=0.08626842648666055
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=27.98969072164948 MedAE_Forecast=10.989690721649481 MedAE_Test=24.48969072164948
-INFO:pyaf.std:MODEL_COMPLEXITY 0
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=27.98969072164951 MedAE_Forecast=10.98969072164951 MedAE_Test=24.48969072164951
+INFO:pyaf.std:MODEL_COMPLEXITY 0.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND ConstantTrend 116.01030927835052
+INFO:pyaf.std:CONSTANT_TREND _jewelry_ConstantTrend 0.1842376559956592
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _jewelry_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _jewelry_ConstantTrend_residue_bestCycle_byMAPE None -0.03686923494302763 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_TRAINING 'jewelry'
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['jewelry'], 'Transformations': [('jewelry', 'None', '_', 'T+S+R'), ('jewelry', 'None', 'Diff_', 'T+S+R'), ('jewelry', 'None', 'RelDiff_', 'T+S+R'), ('jewelry', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 PERFORMANCE MAPE_FORECAST jewelry 0.1974
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['jewelry']' 1.4239580631256104
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'jewelry', 'Transformation': 'Diff_jewelry'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'jewelry', 'Transformation': '_jewelry'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'jewelry', 'Transformation': 'RelDiff_jewelry'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'jewelry', 'Transformation': 'CumSum_jewelry'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.257, ('TRAINING', {'Signal': 'jewelry', 'Transformation': '_jewelry'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.258, ('TRAINING', {'Signal': 'jewelry', 'Transformation': 'CumSum_jewelry'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.336, ('TRAINING', {'Signal': 'jewelry', 'Transformation': 'Diff_jewelry'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.437, ('TRAINING', {'Signal': 'jewelry', 'Transformation': 'RelDiff_jewelry'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.568, ('SIGNAL_TRAINING', {'Signals': ['jewelry'], 'Transformations': [('jewelry', 'None', '_', 'T+S+R'), ('jewelry', 'None', 'Diff_', 'T+S+R'), ('jewelry', 'None', 'RelDiff_', 'T+S+R'), ('jewelry', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['jewelry'], 'Transformations': [('jewelry', [('jewelry', 'None', 'CumSum_', 'T+S+R'), ('jewelry', 'None', 'Diff_', 'T+S+R'), ('jewelry', 'None', 'RelDiff_', 'T+S+R'), ('jewelry', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'jewelry', 'Transformations': [('jewelry', 'None', 'CumSum_', 'T+S+R'), ('jewelry', 'None', 'Diff_', 'T+S+R'), ('jewelry', 'None', 'RelDiff_', 'T+S+R'), ('jewelry', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.012, ('MODEL_SELECTION', {'Signal': 'jewelry', 'Transformations': [('jewelry', 'None', 'CumSum_', 'T+S+R'), ('jewelry', 'None', 'Diff_', 'T+S+R'), ('jewelry', 'None', 'RelDiff_', 'T+S+R'), ('jewelry', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'jewelry', 'Model': '_jewelry_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.054, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'jewelry', 'Model': '_jewelry_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'jewelry'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.168, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'jewelry'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.236, ('FINALIZE_TRAINING', {'Signals': ['jewelry'], 'Transformations': [('jewelry', [('jewelry', 'None', 'CumSum_', 'T+S+R'), ('jewelry', 'None', 'Diff_', 'T+S+R'), ('jewelry', 'None', 'RelDiff_', 'T+S+R'), ('jewelry', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1998.07692307692 TimeMax=1999.90384615385 TimeDelta=0.01923076923084361 Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='jewelry' Length=124  Min=46 Max=426  Mean=124.7258064516129 StdDev=64.43367917049599
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_jewelry' Min=46 Max=426  Mean=124.7258064516129 StdDev=64.43367917049599
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_jewelry' Min=0.0 Max=1.0  Mean=0.20717317487266548 StdDev=0.1695623136065684
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_jewelry_ConstantTrend_residue_zeroCycle_residue_NoAR' [ConstantTrend + NoCycle + NoAR]
+INFO:pyaf.std:BEST_DECOMPOSITION  '_jewelry_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [ConstantTrend + Cycle_None + NoAR]
 INFO:pyaf.std:TREND_DETAIL '_jewelry_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_jewelry_ConstantTrend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_jewelry_ConstantTrend_residue_zeroCycle_residue_NoAR' [NoAR]
+INFO:pyaf.std:CYCLE_DETAIL '_jewelry_ConstantTrend_residue_bestCycle_byMAPE' [Cycle_None]
+INFO:pyaf.std:AUTOREG_DETAIL '_jewelry_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [NoAR]
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.3201 MAPE_Forecast=0.2299 MAPE_Test=0.1537
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.2891 SMAPE_Forecast=0.309 SMAPE_Test=0.1724
 INFO:pyaf.std:MODEL_MASE MASE_Fit=1.1221 MASE_Forecast=1.4999 MASE_Test=1.0415
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=5.0270416666666655 CRPS_Forecast=6.369791666666667 CRPS_Test=11.859375
-INFO:pyaf.std:MODEL_L1 L1_Fit=33.992838541666664 L1_Forecast=61.364583333333336 L1_Test=22.21875
-INFO:pyaf.std:MODEL_L2 L2_Fit=48.902582397089894 L2_Forecast=111.80954061436722 L2_Test=26.87327392712879
-INFO:pyaf.std:MODEL_LnQ LnQ_Fit=13.499619786751813 LnQ_Forecast=6.833972299151272 LnQ_Test=0.17229910248028554
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=26.78125 MedAE_Forecast=13.5 MedAE_Test=23.71875
-INFO:pyaf.std:MODEL_COMPLEXITY 0
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=5.027041666666662 CRPS_Forecast=6.369791666666671 CRPS_Test=11.859375000000014
+INFO:pyaf.std:MODEL_L1 L1_Fit=33.99283854166666 L1_Forecast=61.364583333333336 L1_Test=22.21875000000003
+INFO:pyaf.std:MODEL_L2 L2_Fit=48.902582397089894 L2_Forecast=111.80954061436722 L2_Test=26.873273927128814
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=13.4996197867518 LnQ_Forecast=6.833972299151284 LnQ_Test=0.1722991024802868
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=26.78124999999997 MedAE_Forecast=13.5 MedAE_Test=23.71875000000003
+INFO:pyaf.std:MODEL_COMPLEXITY 0.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND ConstantTrend 112.78125
+INFO:pyaf.std:CONSTANT_TREND _jewelry_ConstantTrend 0.1757401315789473
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _jewelry_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _jewelry_ConstantTrend_residue_bestCycle_byMAPE None -0.029687499999999936 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_TRAINING 'jewelry'
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['jewelry'], 'Transformations': [('jewelry', 'None', '_', 'T+S+R'), ('jewelry', 'None', 'Diff_', 'T+S+R'), ('jewelry', 'None', 'RelDiff_', 'T+S+R'), ('jewelry', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 PERFORMANCE MAPE_FORECAST jewelry 0.2299
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['jewelry']' 1.740544080734253
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'jewelry', 'Transformation': '_jewelry'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'jewelry', 'Transformation': 'Diff_jewelry'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'jewelry', 'Transformation': 'RelDiff_jewelry'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'jewelry', 'Transformation': 'CumSum_jewelry'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.487, ('TRAINING', {'Signal': 'jewelry', 'Transformation': 'CumSum_jewelry'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.549, ('TRAINING', {'Signal': 'jewelry', 'Transformation': '_jewelry'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.577, ('TRAINING', {'Signal': 'jewelry', 'Transformation': 'Diff_jewelry'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.764, ('TRAINING', {'Signal': 'jewelry', 'Transformation': 'RelDiff_jewelry'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.891, ('SIGNAL_TRAINING', {'Signals': ['jewelry'], 'Transformations': [('jewelry', 'None', '_', 'T+S+R'), ('jewelry', 'None', 'Diff_', 'T+S+R'), ('jewelry', 'None', 'RelDiff_', 'T+S+R'), ('jewelry', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['jewelry'], 'Transformations': [('jewelry', [('jewelry', 'None', 'CumSum_', 'T+S+R'), ('jewelry', 'None', 'Diff_', 'T+S+R'), ('jewelry', 'None', 'RelDiff_', 'T+S+R'), ('jewelry', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'jewelry', 'Transformations': [('jewelry', 'None', 'CumSum_', 'T+S+R'), ('jewelry', 'None', 'Diff_', 'T+S+R'), ('jewelry', 'None', 'RelDiff_', 'T+S+R'), ('jewelry', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.011, ('MODEL_SELECTION', {'Signal': 'jewelry', 'Transformations': [('jewelry', 'None', 'CumSum_', 'T+S+R'), ('jewelry', 'None', 'Diff_', 'T+S+R'), ('jewelry', 'None', 'RelDiff_', 'T+S+R'), ('jewelry', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'jewelry', 'Model': 'RelDiff_jewelry_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.062, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'jewelry', 'Model': 'RelDiff_jewelry_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'jewelry'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.363, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'jewelry'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.437, ('FINALIZE_TRAINING', {'Signals': ['jewelry'], 'Transformations': [('jewelry', [('jewelry', 'None', 'CumSum_', 'T+S+R'), ('jewelry', 'None', 'Diff_', 'T+S+R'), ('jewelry', 'None', 'RelDiff_', 'T+S+R'), ('jewelry', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1998.07692307692 TimeMax=1999.82692307692 TimeDelta=0.019230769230769232 Horizon=8
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='jewelry' Length=124  Min=46 Max=426  Mean=124.7258064516129 StdDev=64.43367917049599
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_jewelry' Min=46 Max=426  Mean=124.7258064516129 StdDev=64.43367917049599
-INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_jewelry_Lag1Trend_residue_zeroCycle_residue_NoAR' [Lag1Trend + NoCycle + NoAR]
-INFO:pyaf.std:TREND_DETAIL '_jewelry_Lag1Trend' [Lag1Trend]
-INFO:pyaf.std:CYCLE_DETAIL '_jewelry_Lag1Trend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_jewelry_Lag1Trend_residue_zeroCycle_residue_NoAR' [NoAR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.2598 MAPE_Forecast=0.2313 MAPE_Test=0.3267
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.2441 SMAPE_Forecast=0.2166 SMAPE_Test=0.3046
-INFO:pyaf.std:MODEL_MASE MASE_Fit=0.9891 MASE_Forecast=1.0198 MASE_Test=0.9427
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=11.05521352657005 CRPS_Forecast=30.104166666666668 CRPS_Test=14.375
-INFO:pyaf.std:MODEL_L1 L1_Fit=29.07608695652174 L1_Forecast=40.791666666666664 L1_Test=50.5
-INFO:pyaf.std:MODEL_L2 L2_Fit=43.77176477256027 L2_Forecast=64.54617210441943 L2_Test=71.5122367151245
-INFO:pyaf.std:MODEL_LnQ LnQ_Fit=9.786295336514588 LnQ_Forecast=2.623252696834948 LnQ_Test=1.3563978872228268
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=20.0 MedAE_Forecast=18.0 MedAE_Test=28.5
-INFO:pyaf.std:MODEL_COMPLEXITY 32
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='RelDiff_jewelry' Min=-0.8099999999999999 Max=13.210526315789473  Mean=0.2658769792810943 StdDev=1.3646356841469665
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
+INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'RelDiff_'
+INFO:pyaf.std:BEST_DECOMPOSITION  'RelDiff_jewelry_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR' [Lag1Trend + Cycle_None + NoAR]
+INFO:pyaf.std:TREND_DETAIL 'RelDiff_jewelry_Lag1Trend' [Lag1Trend]
+INFO:pyaf.std:CYCLE_DETAIL 'RelDiff_jewelry_Lag1Trend_residue_bestCycle_byMAPE' [Cycle_None]
+INFO:pyaf.std:AUTOREG_DETAIL 'RelDiff_jewelry_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR' [NoAR]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.3436 MAPE_Forecast=0.2191 MAPE_Test=0.3267
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.2809 SMAPE_Forecast=0.2001 SMAPE_Test=0.3046
+INFO:pyaf.std:MODEL_MASE MASE_Fit=1.1242 MASE_Forecast=0.9783 MASE_Test=0.9427
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=9.409007331128443 CRPS_Forecast=29.247592670914752 CRPS_Test=14.375000000000007
+INFO:pyaf.std:MODEL_L1 L1_Fit=33.04566162325738 L1_Forecast=39.13044453843105 L1_Test=50.50000000000001
+INFO:pyaf.std:MODEL_L2 L2_Fit=45.194654203850966 L2_Forecast=63.530650261790825 L2_Test=71.51223671512452
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=11.678447840320437 LnQ_Forecast=2.338305862081617 LnQ_Test=1.356397887222827
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=25.811555179609215 MedAE_Forecast=18.000000000000007 MedAE_Test=28.499999999999993
+INFO:pyaf.std:MODEL_COMPLEXITY 3.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
-INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:REALTIVE_DIFFERENCING_TRANSFORMATION RelativeDifference 0.1631578947368421
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:LAG1_TREND Lag1Trend 108
+INFO:pyaf.std:LAG1_TREND Lag1Trend 0.0
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _jewelry_Lag1Trend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES RelDiff_jewelry_Lag1Trend_residue_bestCycle_byMAPE None 0.01747967479674803 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_TRAINING 'jewelry'
-PERFORMANCE MAPE_FORECAST jewelry 0.2313
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['jewelry']' 2.0693013668060303
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['jewelry'], 'Transformations': [('jewelry', 'None', '_', 'T+S+R'), ('jewelry', 'None', 'Diff_', 'T+S+R'), ('jewelry', 'None', 'RelDiff_', 'T+S+R'), ('jewelry', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+PERFORMANCE MAPE_FORECAST jewelry 0.2191
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'jewelry', 'Transformation': '_jewelry'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'jewelry', 'Transformation': 'Diff_jewelry'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'jewelry', 'Transformation': 'RelDiff_jewelry'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'jewelry', 'Transformation': 'CumSum_jewelry'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.077, ('TRAINING', {'Signal': 'jewelry', 'Transformation': 'Diff_jewelry'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.128, ('TRAINING', {'Signal': 'jewelry', 'Transformation': 'CumSum_jewelry'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.167, ('TRAINING', {'Signal': 'jewelry', 'Transformation': '_jewelry'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.253, ('TRAINING', {'Signal': 'jewelry', 'Transformation': 'RelDiff_jewelry'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.389, ('SIGNAL_TRAINING', {'Signals': ['jewelry'], 'Transformations': [('jewelry', 'None', '_', 'T+S+R'), ('jewelry', 'None', 'Diff_', 'T+S+R'), ('jewelry', 'None', 'RelDiff_', 'T+S+R'), ('jewelry', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['jewelry'], 'Transformations': [('jewelry', [('jewelry', 'None', 'CumSum_', 'T+S+R'), ('jewelry', 'None', 'Diff_', 'T+S+R'), ('jewelry', 'None', 'RelDiff_', 'T+S+R'), ('jewelry', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'jewelry', 'Transformations': [('jewelry', 'None', 'CumSum_', 'T+S+R'), ('jewelry', 'None', 'Diff_', 'T+S+R'), ('jewelry', 'None', 'RelDiff_', 'T+S+R'), ('jewelry', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.01, ('MODEL_SELECTION', {'Signal': 'jewelry', 'Transformations': [('jewelry', 'None', 'CumSum_', 'T+S+R'), ('jewelry', 'None', 'Diff_', 'T+S+R'), ('jewelry', 'None', 'RelDiff_', 'T+S+R'), ('jewelry', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'jewelry', 'Model': 'RelDiff_jewelry_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.05, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'jewelry', 'Model': 'RelDiff_jewelry_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'jewelry'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.515, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'jewelry'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.576, ('FINALIZE_TRAINING', {'Signals': ['jewelry'], 'Transformations': [('jewelry', [('jewelry', 'None', 'CumSum_', 'T+S+R'), ('jewelry', 'None', 'Diff_', 'T+S+R'), ('jewelry', 'None', 'RelDiff_', 'T+S+R'), ('jewelry', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1998.07692307692 TimeMax=1999.76923076923 TimeDelta=0.01923076923079686 Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='jewelry' Length=124  Min=46 Max=426  Mean=124.7258064516129 StdDev=64.43367917049599
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_jewelry' Min=46 Max=426  Mean=124.7258064516129 StdDev=64.43367917049599
-INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_jewelry_Lag1Trend_residue_zeroCycle_residue_NoAR' [Lag1Trend + NoCycle + NoAR]
-INFO:pyaf.std:TREND_DETAIL '_jewelry_Lag1Trend' [Lag1Trend]
-INFO:pyaf.std:CYCLE_DETAIL '_jewelry_Lag1Trend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_jewelry_Lag1Trend_residue_zeroCycle_residue_NoAR' [NoAR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.2617 MAPE_Forecast=0.2457 MAPE_Test=0.2601
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.2462 SMAPE_Forecast=0.2289 SMAPE_Test=0.2429
-INFO:pyaf.std:MODEL_MASE MASE_Fit=0.9888 MASE_Forecast=0.9715 MASE_Test=0.9684
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=11.156286641697879 CRPS_Forecast=31.028985507246375 CRPS_Test=9.04518888888889
-INFO:pyaf.std:MODEL_L1 L1_Fit=29.39325842696629 L1_Forecast=42.34782608695652 L1_Test=39.0
-INFO:pyaf.std:MODEL_L2 L2_Fit=44.351507074453295 L2_Forecast=65.89715306907193 L2_Test=59.31975500061791
-INFO:pyaf.std:MODEL_LnQ LnQ_Fit=9.675706781410218 LnQ_Forecast=2.66118759346878 LnQ_Test=1.4290515456933623
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=20.0 MedAE_Forecast=20.0 MedAE_Test=25.0
-INFO:pyaf.std:MODEL_COMPLEXITY 32
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='RelDiff_jewelry' Min=-0.8099999999999999 Max=13.210526315789473  Mean=0.2658769792810943 StdDev=1.3646356841469665
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
+INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'RelDiff_'
+INFO:pyaf.std:BEST_DECOMPOSITION  'RelDiff_jewelry_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR' [Lag1Trend + Cycle_None + NoAR]
+INFO:pyaf.std:TREND_DETAIL 'RelDiff_jewelry_Lag1Trend' [Lag1Trend]
+INFO:pyaf.std:CYCLE_DETAIL 'RelDiff_jewelry_Lag1Trend_residue_bestCycle_byMAPE' [Cycle_None]
+INFO:pyaf.std:AUTOREG_DETAIL 'RelDiff_jewelry_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR' [NoAR]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.3479 MAPE_Forecast=0.2349 MAPE_Test=0.2601
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.2839 SMAPE_Forecast=0.2132 SMAPE_Test=0.2429
+INFO:pyaf.std:MODEL_MASE MASE_Fit=1.1254 MASE_Forecast=0.9353 MASE_Test=0.9684
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=9.466368458025606 CRPS_Forecast=30.067111143802105 CRPS_Test=9.045188888888894
+INFO:pyaf.std:MODEL_L1 L1_Fit=33.45592987618495 L1_Forecast=40.7719034470245 L1_Test=39.00000000000002
+INFO:pyaf.std:MODEL_L2 L2_Fit=45.78002931530464 L2_Forecast=64.92185294657395 L2_Test=59.31975500061793
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=11.549101227347766 LnQ_Forecast=2.3949988165837524 LnQ_Test=1.4290515456933626
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=26.623110359218416 MedAE_Forecast=20.00000000000003 MedAE_Test=25.00000000000007
+INFO:pyaf.std:MODEL_COMPLEXITY 3.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
-INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:REALTIVE_DIFFERENCING_TRANSFORMATION RelativeDifference 0.1631578947368421
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:LAG1_TREND Lag1Trend 108
+INFO:pyaf.std:LAG1_TREND Lag1Trend 0.0
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _jewelry_Lag1Trend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES RelDiff_jewelry_Lag1Trend_residue_bestCycle_byMAPE None 0.07070707070707066 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-PERFORMANCE MAPE_FORECAST jewelry 0.2457
+PERFORMANCE MAPE_FORECAST jewelry 0.2349

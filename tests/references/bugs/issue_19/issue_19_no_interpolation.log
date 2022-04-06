@@ -1,4 +1,4 @@
-INFO:pyaf.std:START_TRAINING 'number'
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['number'], 'Transformations': [('number', 'None', '_', 'T+S+R'), ('number', 'None', 'Diff_', 'T+S+R'), ('number', 'None', 'RelDiff_', 'T+S+R'), ('number', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
          date     number
 0  1890-01-01      328.0
 1  1900-01-01     6043.0
@@ -14,15 +14,32 @@ INFO:pyaf.std:START_TRAINING 'number'
 11 1979-01-01   554711.0
 12 2010-01-01  1089170.0
 13 2012-01-01  1113000.0
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['number']' 1.0900685787200928
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'number', 'Transformation': '_number'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'number', 'Transformation': 'Diff_number'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'number', 'Transformation': 'RelDiff_number'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'number', 'Transformation': 'CumSum_number'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.822, ('TRAINING', {'Signal': 'number', 'Transformation': '_number'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.967, ('TRAINING', {'Signal': 'number', 'Transformation': 'RelDiff_number'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.077, ('TRAINING', {'Signal': 'number', 'Transformation': 'CumSum_number'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.135, ('TRAINING', {'Signal': 'number', 'Transformation': 'Diff_number'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.267, ('SIGNAL_TRAINING', {'Signals': ['number'], 'Transformations': [('number', 'None', '_', 'T+S+R'), ('number', 'None', 'Diff_', 'T+S+R'), ('number', 'None', 'RelDiff_', 'T+S+R'), ('number', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['number'], 'Transformations': [('number', [('number', 'None', 'CumSum_', 'T+S+R'), ('number', 'None', 'Diff_', 'T+S+R'), ('number', 'None', 'RelDiff_', 'T+S+R'), ('number', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'number', 'Transformations': [('number', 'None', 'CumSum_', 'T+S+R'), ('number', 'None', 'Diff_', 'T+S+R'), ('number', 'None', 'RelDiff_', 'T+S+R'), ('number', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.009, ('MODEL_SELECTION', {'Signal': 'number', 'Transformations': [('number', 'None', 'CumSum_', 'T+S+R'), ('number', 'None', 'Diff_', 'T+S+R'), ('number', 'None', 'RelDiff_', 'T+S+R'), ('number', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'number', 'Model': '_number_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.036, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'number', 'Model': '_number_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'number'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.182, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'number'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.228, ('FINALIZE_TRAINING', {'Signals': ['number'], 'Transformations': [('number', [('number', 'None', 'CumSum_', 'T+S+R'), ('number', 'None', 'Diff_', 'T+S+R'), ('number', 'None', 'RelDiff_', 'T+S+R'), ('number', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='date' TimeMin=1890-01-01T00:00:00.000000 TimeMax=2012-01-01T00:00:00.000000 TimeDelta=<DateOffset: months=9> Horizon=7
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='number' Length=14  Min=328.0 Max=1113000.0  Mean=336235.5714285714 StdDev=366246.1043413908
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_number' Min=328.0 Max=1113000.0  Mean=336235.5714285714 StdDev=366246.1043413908
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_number' Min=0.0 Max=1.0  Mean=0.30189271539912166 StdDev=0.3291590912159116
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_number_Lag1Trend_residue_zeroCycle_residue_NoAR' [Lag1Trend + NoCycle + NoAR]
+INFO:pyaf.std:BEST_DECOMPOSITION  '_number_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR' [Lag1Trend + Cycle_None + NoAR]
 INFO:pyaf.std:TREND_DETAIL '_number_Lag1Trend' [Lag1Trend]
-INFO:pyaf.std:CYCLE_DETAIL '_number_Lag1Trend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_number_Lag1Trend_residue_zeroCycle_residue_NoAR' [NoAR]
+INFO:pyaf.std:CYCLE_DETAIL '_number_Lag1Trend_residue_bestCycle_byMAPE' [Cycle_None]
+INFO:pyaf.std:AUTOREG_DETAIL '_number_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR' [NoAR]
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.3142 MAPE_Forecast=0.3142 MAPE_Test=0.3142
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.466 SMAPE_Forecast=0.466 SMAPE_Test=0.466
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.9286 MASE_Forecast=0.9286 MASE_Test=0.9286
@@ -31,27 +48,27 @@ INFO:pyaf.std:MODEL_L1 L1_Fit=80286.14285714286 L1_Forecast=80286.14285714286 L1
 INFO:pyaf.std:MODEL_L2 L2_Fit=161993.1535475673 L2_Forecast=161993.1535475673 L2_Test=161993.1535475673
 INFO:pyaf.std:MODEL_LnQ LnQ_Fit=13.880384090231592 LnQ_Forecast=13.880384090231592 LnQ_Test=13.880384090231592
 INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=29074.5 MedAE_Forecast=29074.5 MedAE_Test=29074.5
-INFO:pyaf.std:MODEL_COMPLEXITY 32
+INFO:pyaf.std:MODEL_COMPLEXITY 2.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:LAG1_TREND Lag1Trend 328.0
+INFO:pyaf.std:LAG1_TREND Lag1Trend 0.0
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _number_Lag1Trend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _number_Lag1Trend_residue_bestCycle_byMAPE None 0.026130342095424357 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING '['number']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['number']' 0.11867213249206543
+INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['number'], 'Horizon': 7}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.113, ('FORECASTING', {'Signals': ['number'], 'Horizon': 7}))
 None
 Index(['date', 'number', 'row_number', 'date_Normalized', '_number',
        '_number_Lag1Trend', '_number_Lag1Trend_residue',
-       '_number_Lag1Trend_residue_zeroCycle',
-       '_number_Lag1Trend_residue_zeroCycle_residue',
-       '_number_Lag1Trend_residue_zeroCycle_residue_NoAR',
-       '_number_Lag1Trend_residue_zeroCycle_residue_NoAR_residue',
+       '_number_Lag1Trend_residue_bestCycle_byMAPE',
+       '_number_Lag1Trend_residue_bestCycle_byMAPE_residue',
+       '_number_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR',
+       '_number_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR_residue',
        '_number_Trend', '_number_Trend_residue', '_number_Cycle',
        '_number_Cycle_residue', '_number_AR', '_number_AR_residue',
        '_number_TransformedForecast', 'number_Forecast',

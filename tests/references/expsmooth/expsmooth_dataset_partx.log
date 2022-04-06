@@ -1,44 +1,78 @@
-INFO:pyaf.std:START_TRAINING 'partx'
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['partx']' 1.2569022178649902
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['partx'], 'Transformations': [('partx', 'None', '_', 'T+S+R'), ('partx', 'None', 'Diff_', 'T+S+R'), ('partx', 'None', 'RelDiff_', 'T+S+R'), ('partx', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'partx', 'Transformation': '_partx'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'partx', 'Transformation': 'Diff_partx'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'partx', 'Transformation': 'RelDiff_partx'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'partx', 'Transformation': 'CumSum_partx'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.136, ('TRAINING', {'Signal': 'partx', 'Transformation': 'CumSum_partx'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.175, ('TRAINING', {'Signal': 'partx', 'Transformation': 'Diff_partx'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.291, ('TRAINING', {'Signal': 'partx', 'Transformation': '_partx'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.321, ('TRAINING', {'Signal': 'partx', 'Transformation': 'RelDiff_partx'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.489, ('SIGNAL_TRAINING', {'Signals': ['partx'], 'Transformations': [('partx', 'None', '_', 'T+S+R'), ('partx', 'None', 'Diff_', 'T+S+R'), ('partx', 'None', 'RelDiff_', 'T+S+R'), ('partx', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['partx'], 'Transformations': [('partx', [('partx', 'None', 'CumSum_', 'T+S+R'), ('partx', 'None', 'Diff_', 'T+S+R'), ('partx', 'None', 'RelDiff_', 'T+S+R'), ('partx', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'partx', 'Transformations': [('partx', 'None', 'CumSum_', 'T+S+R'), ('partx', 'None', 'Diff_', 'T+S+R'), ('partx', 'None', 'RelDiff_', 'T+S+R'), ('partx', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.01, ('MODEL_SELECTION', {'Signal': 'partx', 'Transformations': [('partx', 'None', 'CumSum_', 'T+S+R'), ('partx', 'None', 'Diff_', 'T+S+R'), ('partx', 'None', 'RelDiff_', 'T+S+R'), ('partx', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'partx', 'Model': 'CumSum_partx_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.032, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'partx', 'Model': 'CumSum_partx_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'partx'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.06, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'partx'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.104, ('FINALIZE_TRAINING', {'Signals': ['partx'], 'Transformations': [('partx', [('partx', 'None', 'CumSum_', 'T+S+R'), ('partx', 'None', 'Diff_', 'T+S+R'), ('partx', 'None', 'RelDiff_', 'T+S+R'), ('partx', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1.0 TimeMax=4.16666666666667 TimeDelta=0.08333333333333341 Horizon=2
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='partx' Length=51  Min=0 Max=5  Mean=0.6274509803921569 StdDev=1.1195374449898194
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='CumSum_partx' Min=0 Max=32  Mean=11.882352941176471 StdDev=11.47486094379161
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='CumSum_partx' Min=0.0 Max=6.400000000000001  Mean=2.376470588235294 StdDev=2.2949721887583223
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'CumSum_'
-INFO:pyaf.std:BEST_DECOMPOSITION  'CumSum_partx_ConstantTrend_residue_zeroCycle_residue_NoAR' [ConstantTrend + NoCycle + NoAR]
+INFO:pyaf.std:BEST_DECOMPOSITION  'CumSum_partx_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [ConstantTrend + Cycle_None + NoAR]
 INFO:pyaf.std:TREND_DETAIL 'CumSum_partx_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL 'CumSum_partx_ConstantTrend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL 'CumSum_partx_ConstantTrend_residue_zeroCycle_residue_NoAR' [NoAR]
+INFO:pyaf.std:CYCLE_DETAIL 'CumSum_partx_ConstantTrend_residue_bestCycle_byMAPE' [Cycle_None]
+INFO:pyaf.std:AUTOREG_DETAIL 'CumSum_partx_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [NoAR]
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=1663379355.9947 MAPE_Forecast=0.5 MAPE_Test=0.0
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.6667 SMAPE_Forecast=1.0 SMAPE_Test=0.0
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.8292 MASE_Forecast=0.5727 MASE_Test=0.0
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=0.10180340001878464 CRPS_Forecast=0.16663333333333336 CRPS_Test=0.0
-INFO:pyaf.std:MODEL_L1 L1_Fit=0.8073635765943459 L1_Forecast=0.7 L1_Test=0.0
-INFO:pyaf.std:MODEL_L2 L2_Fit=1.71780642546125 L2_Forecast=1.0488088481701516 L2_Test=0.0
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=0.10180340001878463 CRPS_Forecast=0.16663333333333336 CRPS_Test=0.0
+INFO:pyaf.std:MODEL_L1 L1_Fit=0.8073635765943458 L1_Forecast=0.7 L1_Test=0.0
+INFO:pyaf.std:MODEL_L2 L2_Fit=1.7178064254612497 L2_Forecast=1.0488088481701516 L2_Test=0.0
 INFO:pyaf.std:MODEL_LnQ LnQ_Fit=inf LnQ_Forecast=inf LnQ_Test=inf
 INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.0 MedAE_Forecast=0.5 MedAE_Test=0.0
-INFO:pyaf.std:MODEL_COMPLEXITY 32
+INFO:pyaf.std:MODEL_COMPLEXITY 1.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES Integration None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND ConstantTrend 6.487179487179487
+INFO:pyaf.std:CONSTANT_TREND CumSum_partx_ConstantTrend 1.2974358974358973
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES CumSum_partx_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES CumSum_partx_ConstantTrend_residue_bestCycle_byMAPE None -0.8974358974358972 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_TRAINING 'partx'
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['partx'], 'Transformations': [('partx', 'None', '_', 'T+S+R'), ('partx', 'None', 'Diff_', 'T+S+R'), ('partx', 'None', 'RelDiff_', 'T+S+R'), ('partx', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 PERFORMANCE MAPE_FORECAST partx 0.5
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['partx']' 1.390427589416504
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'partx', 'Transformation': '_partx'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'partx', 'Transformation': 'Diff_partx'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'partx', 'Transformation': 'RelDiff_partx'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'partx', 'Transformation': 'CumSum_partx'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.974, ('TRAINING', {'Signal': 'partx', 'Transformation': 'CumSum_partx'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.104, ('TRAINING', {'Signal': 'partx', 'Transformation': 'Diff_partx'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.111, ('TRAINING', {'Signal': 'partx', 'Transformation': '_partx'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.197, ('TRAINING', {'Signal': 'partx', 'Transformation': 'RelDiff_partx'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.297, ('SIGNAL_TRAINING', {'Signals': ['partx'], 'Transformations': [('partx', 'None', '_', 'T+S+R'), ('partx', 'None', 'Diff_', 'T+S+R'), ('partx', 'None', 'RelDiff_', 'T+S+R'), ('partx', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['partx'], 'Transformations': [('partx', [('partx', 'None', 'CumSum_', 'T+S+R'), ('partx', 'None', 'Diff_', 'T+S+R'), ('partx', 'None', 'RelDiff_', 'T+S+R'), ('partx', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'partx', 'Transformations': [('partx', 'None', 'CumSum_', 'T+S+R'), ('partx', 'None', 'Diff_', 'T+S+R'), ('partx', 'None', 'RelDiff_', 'T+S+R'), ('partx', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.007, ('MODEL_SELECTION', {'Signal': 'partx', 'Transformations': [('partx', 'None', 'CumSum_', 'T+S+R'), ('partx', 'None', 'Diff_', 'T+S+R'), ('partx', 'None', 'RelDiff_', 'T+S+R'), ('partx', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'partx', 'Model': 'CumSum_partx_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.028, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'partx', 'Model': 'CumSum_partx_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'partx'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.107, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'partx'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.143, ('FINALIZE_TRAINING', {'Signals': ['partx'], 'Transformations': [('partx', [('partx', 'None', 'CumSum_', 'T+S+R'), ('partx', 'None', 'Diff_', 'T+S+R'), ('partx', 'None', 'RelDiff_', 'T+S+R'), ('partx', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1.0 TimeMax=4.0 TimeDelta=0.08333333333333333 Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='partx' Length=51  Min=0 Max=5  Mean=0.6274509803921569 StdDev=1.1195374449898194
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='CumSum_partx' Min=0 Max=32  Mean=11.882352941176471 StdDev=11.47486094379161
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='CumSum_partx' Min=0.0 Max=6.400000000000001  Mean=2.376470588235294 StdDev=2.2949721887583223
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'CumSum_'
-INFO:pyaf.std:BEST_DECOMPOSITION  'CumSum_partx_ConstantTrend_residue_zeroCycle_residue_NoAR' [ConstantTrend + NoCycle + NoAR]
+INFO:pyaf.std:BEST_DECOMPOSITION  'CumSum_partx_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [ConstantTrend + Cycle_None + NoAR]
 INFO:pyaf.std:TREND_DETAIL 'CumSum_partx_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL 'CumSum_partx_ConstantTrend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL 'CumSum_partx_ConstantTrend_residue_zeroCycle_residue_NoAR' [NoAR]
+INFO:pyaf.std:CYCLE_DETAIL 'CumSum_partx_ConstantTrend_residue_bestCycle_byMAPE' [Cycle_None]
+INFO:pyaf.std:AUTOREG_DETAIL 'CumSum_partx_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [NoAR]
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=1490138787.7064 MAPE_Forecast=0.6 MAPE_Test=0.25
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.5946 SMAPE_Forecast=1.2 SMAPE_Test=0.5
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.8275 MASE_Forecast=0.8182 MASE_Test=0.75
@@ -47,29 +81,46 @@ INFO:pyaf.std:MODEL_L1 L1_Fit=0.689554419284149 L1_Forecast=1.0 L1_Test=0.5
 INFO:pyaf.std:MODEL_L2 L2_Fit=1.5281045604497954 L2_Forecast=1.5491933384829668 L2_Test=1.0
 INFO:pyaf.std:MODEL_LnQ LnQ_Fit=inf LnQ_Forecast=inf LnQ_Test=inf
 INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.0 MedAE_Forecast=1.0 MedAE_Test=0.0
-INFO:pyaf.std:MODEL_COMPLEXITY 32
+INFO:pyaf.std:MODEL_COMPLEXITY 1.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES Integration None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND ConstantTrend 5.513513513513513
+INFO:pyaf.std:CONSTANT_TREND CumSum_partx_ConstantTrend 1.1027027027027025
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES CumSum_partx_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES CumSum_partx_ConstantTrend_residue_bestCycle_byMAPE None -0.7027027027027025 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_TRAINING 'partx'
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['partx'], 'Transformations': [('partx', 'None', '_', 'T+S+R'), ('partx', 'None', 'Diff_', 'T+S+R'), ('partx', 'None', 'RelDiff_', 'T+S+R'), ('partx', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 PERFORMANCE MAPE_FORECAST partx 0.6
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['partx']' 1.7089266777038574
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'partx', 'Transformation': '_partx'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'partx', 'Transformation': 'Diff_partx'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'partx', 'Transformation': 'RelDiff_partx'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'partx', 'Transformation': 'CumSum_partx'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.126, ('TRAINING', {'Signal': 'partx', 'Transformation': 'Diff_partx'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.19, ('TRAINING', {'Signal': 'partx', 'Transformation': '_partx'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.217, ('TRAINING', {'Signal': 'partx', 'Transformation': 'CumSum_partx'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.288, ('TRAINING', {'Signal': 'partx', 'Transformation': 'RelDiff_partx'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.385, ('SIGNAL_TRAINING', {'Signals': ['partx'], 'Transformations': [('partx', 'None', '_', 'T+S+R'), ('partx', 'None', 'Diff_', 'T+S+R'), ('partx', 'None', 'RelDiff_', 'T+S+R'), ('partx', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['partx'], 'Transformations': [('partx', [('partx', 'None', 'CumSum_', 'T+S+R'), ('partx', 'None', 'Diff_', 'T+S+R'), ('partx', 'None', 'RelDiff_', 'T+S+R'), ('partx', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'partx', 'Transformations': [('partx', 'None', 'CumSum_', 'T+S+R'), ('partx', 'None', 'Diff_', 'T+S+R'), ('partx', 'None', 'RelDiff_', 'T+S+R'), ('partx', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.007, ('MODEL_SELECTION', {'Signal': 'partx', 'Transformations': [('partx', 'None', 'CumSum_', 'T+S+R'), ('partx', 'None', 'Diff_', 'T+S+R'), ('partx', 'None', 'RelDiff_', 'T+S+R'), ('partx', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'partx', 'Model': 'CumSum_partx_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.024, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'partx', 'Model': 'CumSum_partx_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'partx'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.192, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'partx'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.224, ('FINALIZE_TRAINING', {'Signals': ['partx'], 'Transformations': [('partx', [('partx', 'None', 'CumSum_', 'T+S+R'), ('partx', 'None', 'Diff_', 'T+S+R'), ('partx', 'None', 'RelDiff_', 'T+S+R'), ('partx', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1.0 TimeMax=3.75 TimeDelta=0.08333333333333333 Horizon=8
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='partx' Length=51  Min=0 Max=5  Mean=0.6274509803921569 StdDev=1.1195374449898194
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='CumSum_partx' Min=0 Max=32  Mean=11.882352941176471 StdDev=11.47486094379161
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='CumSum_partx' Min=0.0 Max=6.400000000000001  Mean=2.376470588235294 StdDev=2.2949721887583223
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'CumSum_'
-INFO:pyaf.std:BEST_DECOMPOSITION  'CumSum_partx_ConstantTrend_residue_zeroCycle_residue_NoAR' [ConstantTrend + NoCycle + NoAR]
+INFO:pyaf.std:BEST_DECOMPOSITION  'CumSum_partx_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [ConstantTrend + Cycle_None + NoAR]
 INFO:pyaf.std:TREND_DETAIL 'CumSum_partx_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL 'CumSum_partx_ConstantTrend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL 'CumSum_partx_ConstantTrend_residue_zeroCycle_residue_NoAR' [NoAR]
+INFO:pyaf.std:CYCLE_DETAIL 'CumSum_partx_ConstantTrend_residue_bestCycle_byMAPE' [Cycle_None]
+INFO:pyaf.std:AUTOREG_DETAIL 'CumSum_partx_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [NoAR]
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=1271626297.8131 MAPE_Forecast=0.6667 MAPE_Test=0.375
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.5294 SMAPE_Forecast=1.3333 SMAPE_Test=0.75
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7922 MASE_Forecast=0.8366 MASE_Test=0.7
@@ -78,46 +129,63 @@ INFO:pyaf.std:MODEL_L1 L1_Fit=0.48010380622837373 L1_Forecast=1.7777777777777777
 INFO:pyaf.std:MODEL_L2 L2_Fit=1.0940064868932646 L2_Forecast=2.494438257849294 L2_Test=0.8660254037844386
 INFO:pyaf.std:MODEL_LnQ LnQ_Fit=inf LnQ_Forecast=inf LnQ_Test=inf
 INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.0 MedAE_Forecast=1.0 MedAE_Test=0.0
-INFO:pyaf.std:MODEL_COMPLEXITY 32
+INFO:pyaf.std:MODEL_COMPLEXITY 1.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES Integration None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND ConstantTrend 4.323529411764706
+INFO:pyaf.std:CONSTANT_TREND CumSum_partx_ConstantTrend 0.8647058823529411
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES CumSum_partx_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES CumSum_partx_ConstantTrend_residue_bestCycle_byMAPE None -0.4647058823529411 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_TRAINING 'partx'
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['partx'], 'Transformations': [('partx', 'None', '_', 'T+S+R'), ('partx', 'None', 'Diff_', 'T+S+R'), ('partx', 'None', 'RelDiff_', 'T+S+R'), ('partx', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 PERFORMANCE MAPE_FORECAST partx 0.6667
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['partx']' 1.565553903579712
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'partx', 'Transformation': 'Diff_partx'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'partx', 'Transformation': '_partx'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'partx', 'Transformation': 'RelDiff_partx'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'partx', 'Transformation': 'CumSum_partx'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.848, ('TRAINING', {'Signal': 'partx', 'Transformation': '_partx'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.947, ('TRAINING', {'Signal': 'partx', 'Transformation': 'CumSum_partx'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.063, ('TRAINING', {'Signal': 'partx', 'Transformation': 'Diff_partx'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.183, ('TRAINING', {'Signal': 'partx', 'Transformation': 'RelDiff_partx'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.278, ('SIGNAL_TRAINING', {'Signals': ['partx'], 'Transformations': [('partx', 'None', '_', 'T+S+R'), ('partx', 'None', 'Diff_', 'T+S+R'), ('partx', 'None', 'RelDiff_', 'T+S+R'), ('partx', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['partx'], 'Transformations': [('partx', [('partx', 'None', 'CumSum_', 'T+S+R'), ('partx', 'None', 'Diff_', 'T+S+R'), ('partx', 'None', 'RelDiff_', 'T+S+R'), ('partx', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'partx', 'Transformations': [('partx', 'None', 'CumSum_', 'T+S+R'), ('partx', 'None', 'Diff_', 'T+S+R'), ('partx', 'None', 'RelDiff_', 'T+S+R'), ('partx', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.01, ('MODEL_SELECTION', {'Signal': 'partx', 'Transformations': [('partx', 'None', 'CumSum_', 'T+S+R'), ('partx', 'None', 'Diff_', 'T+S+R'), ('partx', 'None', 'RelDiff_', 'T+S+R'), ('partx', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'partx', 'Model': 'Diff_partx_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.035, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'partx', 'Model': 'Diff_partx_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'partx'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.377, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'partx'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.424, ('FINALIZE_TRAINING', {'Signals': ['partx'], 'Transformations': [('partx', [('partx', 'None', 'CumSum_', 'T+S+R'), ('partx', 'None', 'Diff_', 'T+S+R'), ('partx', 'None', 'RelDiff_', 'T+S+R'), ('partx', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1.0 TimeMax=5.16666666666667 TimeDelta=0.0833333333333334 Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='partx' Length=51  Min=0 Max=5  Mean=0.6274509803921569 StdDev=1.1195374449898194
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='Diff_partx' Min=-3.0 Max=5.0  Mean=0.0 StdDev=1.495090003192804
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='Diff_partx' Min=-0.6000000000000001 Max=1.0  Mean=-1.0884539457109378e-18 StdDev=0.2990180006385609
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'Diff_'
-INFO:pyaf.std:BEST_DECOMPOSITION  'Diff_partx_ConstantTrend_residue_zeroCycle_residue_NoAR' [ConstantTrend + NoCycle + NoAR]
+INFO:pyaf.std:BEST_DECOMPOSITION  'Diff_partx_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [ConstantTrend + Cycle_None + NoAR]
 INFO:pyaf.std:TREND_DETAIL 'Diff_partx_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL 'Diff_partx_ConstantTrend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL 'Diff_partx_ConstantTrend_residue_zeroCycle_residue_NoAR' [NoAR]
+INFO:pyaf.std:CYCLE_DETAIL 'Diff_partx_ConstantTrend_residue_bestCycle_byMAPE' [Cycle_None]
+INFO:pyaf.std:AUTOREG_DETAIL 'Diff_partx_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [NoAR]
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.3333 MAPE_Forecast=0.3333 MAPE_Test=0.3333
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.6667 SMAPE_Forecast=0.6667 SMAPE_Test=0.6667
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.6536 MASE_Forecast=0.6536 MASE_Test=0.6536
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=0.05428571428571427 CRPS_Forecast=0.05428571428571427 CRPS_Test=0.05428571428571427
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=0.05428571428571433 CRPS_Forecast=0.05428571428571433 CRPS_Test=0.05428571428571433
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.6274509803921569 L1_Forecast=0.6274509803921569 L1_Test=0.6274509803921569
 INFO:pyaf.std:MODEL_L2 L2_Fit=1.2833778958394957 L2_Forecast=1.2833778958394957 L2_Test=1.2833778958394957
 INFO:pyaf.std:MODEL_LnQ LnQ_Fit=inf LnQ_Forecast=inf LnQ_Test=inf
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.0 MedAE_Forecast=0.0 MedAE_Test=0.0
-INFO:pyaf.std:MODEL_COMPLEXITY 32
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=1.8503717077085946e-16 MedAE_Forecast=1.8503717077085946e-16 MedAE_Test=1.8503717077085946e-16
+INFO:pyaf.std:MODEL_COMPLEXITY 1.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
-INFO:pyaf.std:DIFFERENCING_TRANSFORMATION Difference 0
+INFO:pyaf.std:DIFFERENCING_TRANSFORMATION Difference 0.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND ConstantTrend 0.0
+INFO:pyaf.std:CONSTANT_TREND Diff_partx_ConstantTrend -1.0884539457109378e-18
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES Diff_partx_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES Diff_partx_ConstantTrend_residue_bestCycle_byMAPE None 1.0884539457109378e-18 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END

@@ -1,153 +1,221 @@
-INFO:pyaf.std:START_TRAINING 'usnetelec'
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['usnetelec']' 1.6261539459228516
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['usnetelec'], 'Transformations': [('usnetelec', 'None', '_', 'T+S+R'), ('usnetelec', 'None', 'Diff_', 'T+S+R'), ('usnetelec', 'None', 'RelDiff_', 'T+S+R'), ('usnetelec', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'usnetelec', 'Transformation': 'Diff_usnetelec'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'usnetelec', 'Transformation': 'RelDiff_usnetelec'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'usnetelec', 'Transformation': '_usnetelec'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'usnetelec', 'Transformation': 'CumSum_usnetelec'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.163, ('TRAINING', {'Signal': 'usnetelec', 'Transformation': 'Diff_usnetelec'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.272, ('TRAINING', {'Signal': 'usnetelec', 'Transformation': '_usnetelec'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.324, ('TRAINING', {'Signal': 'usnetelec', 'Transformation': 'CumSum_usnetelec'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.419, ('TRAINING', {'Signal': 'usnetelec', 'Transformation': 'RelDiff_usnetelec'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.524, ('SIGNAL_TRAINING', {'Signals': ['usnetelec'], 'Transformations': [('usnetelec', 'None', '_', 'T+S+R'), ('usnetelec', 'None', 'Diff_', 'T+S+R'), ('usnetelec', 'None', 'RelDiff_', 'T+S+R'), ('usnetelec', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['usnetelec'], 'Transformations': [('usnetelec', [('usnetelec', 'None', 'CumSum_', 'T+S+R'), ('usnetelec', 'None', 'Diff_', 'T+S+R'), ('usnetelec', 'None', 'RelDiff_', 'T+S+R'), ('usnetelec', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'usnetelec', 'Transformations': [('usnetelec', 'None', 'CumSum_', 'T+S+R'), ('usnetelec', 'None', 'Diff_', 'T+S+R'), ('usnetelec', 'None', 'RelDiff_', 'T+S+R'), ('usnetelec', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.017, ('MODEL_SELECTION', {'Signal': 'usnetelec', 'Transformations': [('usnetelec', 'None', 'CumSum_', 'T+S+R'), ('usnetelec', 'None', 'Diff_', 'T+S+R'), ('usnetelec', 'None', 'RelDiff_', 'T+S+R'), ('usnetelec', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'usnetelec', 'Model': 'Diff_usnetelec_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.068, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'usnetelec', 'Model': 'Diff_usnetelec_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'usnetelec'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.099, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'usnetelec'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.186, ('FINALIZE_TRAINING', {'Signals': ['usnetelec'], 'Transformations': [('usnetelec', [('usnetelec', 'None', 'CumSum_', 'T+S+R'), ('usnetelec', 'None', 'Diff_', 'T+S+R'), ('usnetelec', 'None', 'RelDiff_', 'T+S+R'), ('usnetelec', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1949 TimeMax=1990 TimeDelta=1 Horizon=2
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='usnetelec' Length=55  Min=296.1 Max=3858.5  Mean=1972.06 StdDev=1119.355557062756
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='Diff_usnetelec' Min=-65.5 Max=259.9000000000001  Mean=64.58 StdDev=50.66391723002584
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='Diff_usnetelec' Min=-0.018386481024028845 Max=0.07295643386481032  Mean=0.018128228160790478 StdDev=0.014221849660348604
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'Diff_'
-INFO:pyaf.std:BEST_DECOMPOSITION  'Diff_usnetelec_ConstantTrend_residue_zeroCycle_residue_NoAR' [ConstantTrend + NoCycle + NoAR]
+INFO:pyaf.std:BEST_DECOMPOSITION  'Diff_usnetelec_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [ConstantTrend + Cycle_None + NoAR]
 INFO:pyaf.std:TREND_DETAIL 'Diff_usnetelec_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL 'Diff_usnetelec_ConstantTrend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL 'Diff_usnetelec_ConstantTrend_residue_zeroCycle_residue_NoAR' [NoAR]
+INFO:pyaf.std:CYCLE_DETAIL 'Diff_usnetelec_ConstantTrend_residue_bestCycle_byMAPE' [Cycle_None]
+INFO:pyaf.std:AUTOREG_DETAIL 'Diff_usnetelec_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [NoAR]
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.207 MAPE_Forecast=0.013 MAPE_Test=0.0098
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.1789 SMAPE_Forecast=0.013 SMAPE_Test=0.0098
 INFO:pyaf.std:MODEL_MASE MASE_Fit=2.87 MASE_Forecast=0.562 MASE_Test=3.6087
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=209.87401192743755 CRPS_Forecast=64.02201313131314 CRPS_Test=16.320833333333326
-INFO:pyaf.std:MODEL_L1 L1_Fit=199.43690476190446 L1_Forecast=44.60909090909069 L1_Test=37.89166666666665
-INFO:pyaf.std:MODEL_L2 L2_Fit=224.76160988134717 L2_Forecast=55.22255843037311 L2_Test=37.899935869192255
-INFO:pyaf.std:MODEL_LnQ LnQ_Fit=2.031753930587925 LnQ_Forecast=0.0027793209102869496 LnQ_Test=0.00019340061941492304
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=207.14166666666662 MedAE_Forecast=36.64999999999918 MedAE_Test=37.89166666666665
-INFO:pyaf.std:MODEL_COMPLEXITY 32
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=209.87401192743775 CRPS_Forecast=64.02201313131322 CRPS_Test=16.320833333333326
+INFO:pyaf.std:MODEL_L1 L1_Fit=199.436904761905 L1_Forecast=44.60909090909151 L1_Test=37.89166666666665
+INFO:pyaf.std:MODEL_L2 L2_Fit=224.76160988134765 L2_Forecast=55.22255843037252 L2_Test=37.89993586919237
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=2.0317539305879264 LnQ_Forecast=0.0027793209102869617 LnQ_Test=0.00019340061941492426
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=207.14166666666662 MedAE_Forecast=36.65000000000282 MedAE_Test=37.89166666666665
+INFO:pyaf.std:MODEL_COMPLEXITY 1.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
-INFO:pyaf.std:DIFFERENCING_TRANSFORMATION Difference 296.1
+INFO:pyaf.std:DIFFERENCING_TRANSFORMATION Difference 0.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND ConstantTrend 65.28333333333333
+INFO:pyaf.std:CONSTANT_TREND Diff_usnetelec_ConstantTrend 0.018325660603338574
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES Diff_usnetelec_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES Diff_usnetelec_ConstantTrend_residue_bestCycle_byMAPE None -0.0005005988472191053 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_TRAINING 'usnetelec'
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['usnetelec'], 'Transformations': [('usnetelec', 'None', '_', 'T+S+R'), ('usnetelec', 'None', 'Diff_', 'T+S+R'), ('usnetelec', 'None', 'RelDiff_', 'T+S+R'), ('usnetelec', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 PERFORMANCE MAPE_FORECAST usnetelec 0.013
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['usnetelec']' 1.484194278717041
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'usnetelec', 'Transformation': '_usnetelec'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'usnetelec', 'Transformation': 'RelDiff_usnetelec'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'usnetelec', 'Transformation': 'CumSum_usnetelec'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'usnetelec', 'Transformation': 'Diff_usnetelec'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.775, ('TRAINING', {'Signal': 'usnetelec', 'Transformation': '_usnetelec'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.098, ('TRAINING', {'Signal': 'usnetelec', 'Transformation': 'CumSum_usnetelec'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.256, ('TRAINING', {'Signal': 'usnetelec', 'Transformation': 'RelDiff_usnetelec'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.454, ('TRAINING', {'Signal': 'usnetelec', 'Transformation': 'Diff_usnetelec'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.556, ('SIGNAL_TRAINING', {'Signals': ['usnetelec'], 'Transformations': [('usnetelec', 'None', '_', 'T+S+R'), ('usnetelec', 'None', 'Diff_', 'T+S+R'), ('usnetelec', 'None', 'RelDiff_', 'T+S+R'), ('usnetelec', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['usnetelec'], 'Transformations': [('usnetelec', [('usnetelec', 'None', 'CumSum_', 'T+S+R'), ('usnetelec', 'None', 'Diff_', 'T+S+R'), ('usnetelec', 'None', 'RelDiff_', 'T+S+R'), ('usnetelec', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'usnetelec', 'Transformations': [('usnetelec', 'None', 'CumSum_', 'T+S+R'), ('usnetelec', 'None', 'Diff_', 'T+S+R'), ('usnetelec', 'None', 'RelDiff_', 'T+S+R'), ('usnetelec', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.01, ('MODEL_SELECTION', {'Signal': 'usnetelec', 'Transformations': [('usnetelec', 'None', 'CumSum_', 'T+S+R'), ('usnetelec', 'None', 'Diff_', 'T+S+R'), ('usnetelec', 'None', 'RelDiff_', 'T+S+R'), ('usnetelec', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'usnetelec', 'Model': '_usnetelec_Lag1Trend_residue_bestCycle_byMAPE_residue_AR(13)'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.034, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'usnetelec', 'Model': '_usnetelec_Lag1Trend_residue_bestCycle_byMAPE_residue_AR(13)'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'usnetelec'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.145, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'usnetelec'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.191, ('FINALIZE_TRAINING', {'Signals': ['usnetelec'], 'Transformations': [('usnetelec', [('usnetelec', 'None', 'CumSum_', 'T+S+R'), ('usnetelec', 'None', 'Diff_', 'T+S+R'), ('usnetelec', 'None', 'RelDiff_', 'T+S+R'), ('usnetelec', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1949 TimeMax=1988 TimeDelta=1 Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='usnetelec' Length=55  Min=296.1 Max=3858.5  Mean=1972.06 StdDev=1119.355557062756
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_usnetelec' Min=296.1 Max=3858.5  Mean=1972.06 StdDev=1119.355557062756
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_usnetelec' Min=0.0 Max=1.0  Mean=0.47045811812261407 StdDev=0.31421388868817535
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_usnetelec_ConstantTrend_residue_zeroCycle_residue_AR(13)' [ConstantTrend + NoCycle + AR]
-INFO:pyaf.std:TREND_DETAIL '_usnetelec_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_usnetelec_ConstantTrend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_usnetelec_ConstantTrend_residue_zeroCycle_residue_AR(13)' [AR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0218 MAPE_Forecast=0.0254 MAPE_Test=0.035
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0217 SMAPE_Forecast=0.0255 SMAPE_Test=0.0345
-INFO:pyaf.std:MODEL_MASE MASE_Fit=0.3604 MASE_Forecast=1.1188 MASE_Test=2.0214
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=195.0930128392567 CRPS_Forecast=74.92421056681873 CRPS_Test=57.17100152165915
-INFO:pyaf.std:MODEL_L1 L1_Fit=23.272334556948806 L1_Forecast=81.38946316296332 L1_Test=133.3420030433183
-INFO:pyaf.std:MODEL_L2 L2_Fit=29.203836234960864 L2_Forecast=93.32726337765848 L2_Test=152.04476042279035
-INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.03302841740659746 LnQ_Forecast=0.009981286831852476 LnQ_Test=0.006167561643404383
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=17.524326091874286 MedAE_Forecast=69.50612649268396 MedAE_Test=159.60553956304307
-INFO:pyaf.std:MODEL_COMPLEXITY 10
+INFO:pyaf.std:BEST_DECOMPOSITION  '_usnetelec_Lag1Trend_residue_bestCycle_byMAPE_residue_AR(13)' [Lag1Trend + Cycle_None + AR]
+INFO:pyaf.std:TREND_DETAIL '_usnetelec_Lag1Trend' [Lag1Trend]
+INFO:pyaf.std:CYCLE_DETAIL '_usnetelec_Lag1Trend_residue_bestCycle_byMAPE' [Cycle_None]
+INFO:pyaf.std:AUTOREG_DETAIL '_usnetelec_Lag1Trend_residue_bestCycle_byMAPE_residue_AR(13)' [AR]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0298 MAPE_Forecast=0.0148 MAPE_Test=0.0201
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.029 SMAPE_Forecast=0.0151 SMAPE_Test=0.02
+INFO:pyaf.std:MODEL_MASE MASE_Fit=0.4786 MASE_Forecast=0.6469 MASE_Test=1.1582
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=193.00005756990308 CRPS_Forecast=76.54636523542304 CRPS_Test=28.70183208413846
+INFO:pyaf.std:MODEL_L1 L1_Fit=30.904263198599672 L1_Forecast=47.064994558951184 L1_Test=76.40366416827692
+INFO:pyaf.std:MODEL_L2 L2_Fit=39.04577117753812 L2_Forecast=69.99214561188371 L2_Test=82.13702569444555
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.07334191607373346 LnQ_Forecast=0.0061202926578670215 LnQ_Test=0.0018521531166060048
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=23.353630944693236 MedAE_Forecast=29.89288634873401 MedAE_Test=66.36867439083494
+INFO:pyaf.std:MODEL_COMPLEXITY 12.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND ConstantTrend 1425.135
+INFO:pyaf.std:LAG1_TREND Lag1Trend 0.0
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _usnetelec_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _usnetelec_Lag1Trend_residue_bestCycle_byMAPE None 0.017249607006512457 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
-INFO:pyaf.std:AR_MODEL_COEFF 1 _usnetelec_ConstantTrend_residue_zeroCycle_residue_Lag1 1.5703263921377677
-INFO:pyaf.std:AR_MODEL_COEFF 2 _usnetelec_ConstantTrend_residue_zeroCycle_residue_Lag2 -0.8831504235369863
-INFO:pyaf.std:AR_MODEL_COEFF 3 _usnetelec_ConstantTrend_residue_zeroCycle_residue_Lag3 0.6165874457902463
-INFO:pyaf.std:AR_MODEL_COEFF 4 _usnetelec_ConstantTrend_residue_zeroCycle_residue_Lag7 0.4354090268980063
-INFO:pyaf.std:AR_MODEL_COEFF 5 _usnetelec_ConstantTrend_residue_zeroCycle_residue_Lag10 0.30487724947887396
-INFO:pyaf.std:AR_MODEL_COEFF 6 _usnetelec_ConstantTrend_residue_zeroCycle_residue_Lag9 -0.29438627440621523
-INFO:pyaf.std:AR_MODEL_COEFF 7 _usnetelec_ConstantTrend_residue_zeroCycle_residue_Lag8 -0.2643236272012017
-INFO:pyaf.std:AR_MODEL_COEFF 8 _usnetelec_ConstantTrend_residue_zeroCycle_residue_Lag6 -0.22439990675060054
-INFO:pyaf.std:AR_MODEL_COEFF 9 _usnetelec_ConstantTrend_residue_zeroCycle_residue_Lag4 -0.1965576912912429
-INFO:pyaf.std:AR_MODEL_COEFF 10 _usnetelec_ConstantTrend_residue_zeroCycle_residue_Lag5 -0.055822638389784296
+INFO:pyaf.std:AR_MODEL_COEFF 1 _usnetelec_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag4 0.002068264795116599
+INFO:pyaf.std:AR_MODEL_COEFF 2 _usnetelec_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag1 0.0020547238703532526
+INFO:pyaf.std:AR_MODEL_COEFF 3 _usnetelec_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag3 0.0012980877743745047
+INFO:pyaf.std:AR_MODEL_COEFF 4 _usnetelec_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag8 0.001251618743534365
+INFO:pyaf.std:AR_MODEL_COEFF 5 _usnetelec_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag7 0.0012495806718928193
+INFO:pyaf.std:AR_MODEL_COEFF 6 _usnetelec_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag12 0.0010736386413259763
+INFO:pyaf.std:AR_MODEL_COEFF 7 _usnetelec_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag11 0.0009704090079340492
+INFO:pyaf.std:AR_MODEL_COEFF 8 _usnetelec_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag5 0.0009378112813215382
+INFO:pyaf.std:AR_MODEL_COEFF 9 _usnetelec_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag13 0.00017655438855609278
+INFO:pyaf.std:AR_MODEL_COEFF 10 _usnetelec_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag9 0.000148038580691628
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_TRAINING 'usnetelec'
-PERFORMANCE MAPE_FORECAST usnetelec 0.0254
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['usnetelec']' 1.3198816776275635
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['usnetelec'], 'Transformations': [('usnetelec', 'None', '_', 'T+S+R'), ('usnetelec', 'None', 'Diff_', 'T+S+R'), ('usnetelec', 'None', 'RelDiff_', 'T+S+R'), ('usnetelec', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+PERFORMANCE MAPE_FORECAST usnetelec 0.0148
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'usnetelec', 'Transformation': '_usnetelec'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'usnetelec', 'Transformation': 'Diff_usnetelec'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'usnetelec', 'Transformation': 'RelDiff_usnetelec'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'usnetelec', 'Transformation': 'CumSum_usnetelec'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.11, ('TRAINING', {'Signal': 'usnetelec', 'Transformation': 'Diff_usnetelec'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.189, ('TRAINING', {'Signal': 'usnetelec', 'Transformation': '_usnetelec'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.268, ('TRAINING', {'Signal': 'usnetelec', 'Transformation': 'RelDiff_usnetelec'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.577, ('TRAINING', {'Signal': 'usnetelec', 'Transformation': 'CumSum_usnetelec'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.691, ('SIGNAL_TRAINING', {'Signals': ['usnetelec'], 'Transformations': [('usnetelec', 'None', '_', 'T+S+R'), ('usnetelec', 'None', 'Diff_', 'T+S+R'), ('usnetelec', 'None', 'RelDiff_', 'T+S+R'), ('usnetelec', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['usnetelec'], 'Transformations': [('usnetelec', [('usnetelec', 'None', 'CumSum_', 'T+S+R'), ('usnetelec', 'None', 'Diff_', 'T+S+R'), ('usnetelec', 'None', 'RelDiff_', 'T+S+R'), ('usnetelec', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'usnetelec', 'Transformations': [('usnetelec', 'None', 'CumSum_', 'T+S+R'), ('usnetelec', 'None', 'Diff_', 'T+S+R'), ('usnetelec', 'None', 'RelDiff_', 'T+S+R'), ('usnetelec', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.01, ('MODEL_SELECTION', {'Signal': 'usnetelec', 'Transformations': [('usnetelec', 'None', 'CumSum_', 'T+S+R'), ('usnetelec', 'None', 'Diff_', 'T+S+R'), ('usnetelec', 'None', 'RelDiff_', 'T+S+R'), ('usnetelec', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'usnetelec', 'Model': '_usnetelec_Lag1Trend_residue_bestCycle_byMAPE_residue_AR(13)'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.031, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'usnetelec', 'Model': '_usnetelec_Lag1Trend_residue_bestCycle_byMAPE_residue_AR(13)'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'usnetelec'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.203, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'usnetelec'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.245, ('FINALIZE_TRAINING', {'Signals': ['usnetelec'], 'Transformations': [('usnetelec', [('usnetelec', 'None', 'CumSum_', 'T+S+R'), ('usnetelec', 'None', 'Diff_', 'T+S+R'), ('usnetelec', 'None', 'RelDiff_', 'T+S+R'), ('usnetelec', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1949 TimeMax=1985 TimeDelta=1 Horizon=8
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='usnetelec' Length=55  Min=296.1 Max=3858.5  Mean=1972.06 StdDev=1119.355557062756
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_usnetelec' Min=296.1 Max=3858.5  Mean=1972.06 StdDev=1119.355557062756
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_usnetelec' Min=0.0 Max=1.0  Mean=0.47045811812261407 StdDev=0.31421388868817535
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_usnetelec_ConstantTrend_residue_zeroCycle_residue_AR(13)' [ConstantTrend + NoCycle + AR]
-INFO:pyaf.std:TREND_DETAIL '_usnetelec_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_usnetelec_ConstantTrend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_usnetelec_ConstantTrend_residue_zeroCycle_residue_AR(13)' [AR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0221 MAPE_Forecast=0.0292 MAPE_Test=0.0269
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.022 SMAPE_Forecast=0.03 SMAPE_Test=0.027
-INFO:pyaf.std:MODEL_MASE MASE_Fit=0.3554 MASE_Forecast=0.9049 MASE_Test=1.2626
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=182.67039314609195 CRPS_Forecast=90.53808207138529 CRPS_Test=76.05572430150005
-INFO:pyaf.std:MODEL_L1 L1_Fit=22.550551563484145 L1_Forecast=86.77156013355011 L1_Test=100.25164281576701
-INFO:pyaf.std:MODEL_L2 L2_Fit=28.79765105925134 L2_Forecast=113.70170986023749 L2_Test=110.9202187938972
-INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.03386901139196871 LnQ_Forecast=0.015787756518690237 LnQ_Test=0.007097766668727621
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=17.211005809841936 MedAE_Forecast=76.21285695518395 MedAE_Test=101.9875727353824
-INFO:pyaf.std:MODEL_COMPLEXITY 9
+INFO:pyaf.std:BEST_DECOMPOSITION  '_usnetelec_Lag1Trend_residue_bestCycle_byMAPE_residue_AR(13)' [Lag1Trend + Cycle_None + AR]
+INFO:pyaf.std:TREND_DETAIL '_usnetelec_Lag1Trend' [Lag1Trend]
+INFO:pyaf.std:CYCLE_DETAIL '_usnetelec_Lag1Trend_residue_bestCycle_byMAPE' [Cycle_None]
+INFO:pyaf.std:AUTOREG_DETAIL '_usnetelec_Lag1Trend_residue_bestCycle_byMAPE_residue_AR(13)' [AR]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0303 MAPE_Forecast=0.0182 MAPE_Test=0.0145
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0296 SMAPE_Forecast=0.0185 SMAPE_Test=0.0145
+INFO:pyaf.std:MODEL_MASE MASE_Fit=0.4683 MASE_Forecast=0.5584 MASE_Test=0.6814
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=181.16070037762077 CRPS_Forecast=84.49046587398722 CRPS_Test=73.85308278823862
+INFO:pyaf.std:MODEL_L1 L1_Fit=29.709353410677277 L1_Forecast=53.546543356209625 L1_Test=54.103561158691605
+INFO:pyaf.std:MODEL_L2 L2_Fit=37.98479908307409 L2_Forecast=75.14889269353797 L2_Test=64.09146878686673
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.06892441146669982 LnQ_Forecast=0.006867208134689002 LnQ_Test=0.0023192246134452416
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=21.70091751023483 MedAE_Forecast=44.01311932441968 MedAE_Test=55.59552216757265
+INFO:pyaf.std:MODEL_COMPLEXITY 11.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND ConstantTrend 1330.6
+INFO:pyaf.std:LAG1_TREND Lag1Trend 0.0
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _usnetelec_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _usnetelec_Lag1Trend_residue_bestCycle_byMAPE None 0.01706714574444193 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
-INFO:pyaf.std:AR_MODEL_COEFF 1 _usnetelec_ConstantTrend_residue_zeroCycle_residue_Lag1 1.4784549975293635
-INFO:pyaf.std:AR_MODEL_COEFF 2 _usnetelec_ConstantTrend_residue_zeroCycle_residue_Lag2 -0.8657777279232222
-INFO:pyaf.std:AR_MODEL_COEFF 3 _usnetelec_ConstantTrend_residue_zeroCycle_residue_Lag3 0.5869673968600042
-INFO:pyaf.std:AR_MODEL_COEFF 4 _usnetelec_ConstantTrend_residue_zeroCycle_residue_Lag7 0.534814688845805
-INFO:pyaf.std:AR_MODEL_COEFF 5 _usnetelec_ConstantTrend_residue_zeroCycle_residue_Lag8 -0.35874760349096724
-INFO:pyaf.std:AR_MODEL_COEFF 6 _usnetelec_ConstantTrend_residue_zeroCycle_residue_Lag4 -0.26807474093690664
-INFO:pyaf.std:AR_MODEL_COEFF 7 _usnetelec_ConstantTrend_residue_zeroCycle_residue_Lag5 0.22230234499108642
-INFO:pyaf.std:AR_MODEL_COEFF 8 _usnetelec_ConstantTrend_residue_zeroCycle_residue_Lag6 -0.21657293266086663
-INFO:pyaf.std:AR_MODEL_COEFF 9 _usnetelec_ConstantTrend_residue_zeroCycle_residue_Lag9 -0.14324140680271746
+INFO:pyaf.std:AR_MODEL_COEFF 1 _usnetelec_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag1 0.001965175671674969
+INFO:pyaf.std:AR_MODEL_COEFF 2 _usnetelec_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag7 0.0014853379133965715
+INFO:pyaf.std:AR_MODEL_COEFF 3 _usnetelec_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag8 0.0014392947240394192
+INFO:pyaf.std:AR_MODEL_COEFF 4 _usnetelec_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag4 0.0013881893833747247
+INFO:pyaf.std:AR_MODEL_COEFF 5 _usnetelec_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag3 0.0012460538912455591
+INFO:pyaf.std:AR_MODEL_COEFF 6 _usnetelec_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag5 0.0009098781766721949
+INFO:pyaf.std:AR_MODEL_COEFF 7 _usnetelec_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag6 0.0007637586815155876
+INFO:pyaf.std:AR_MODEL_COEFF 8 _usnetelec_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag11 0.0006019463979868968
+INFO:pyaf.std:AR_MODEL_COEFF 9 _usnetelec_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag12 0.0005015183139710609
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_TRAINING 'usnetelec'
-PERFORMANCE MAPE_FORECAST usnetelec 0.0292
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['usnetelec']' 1.5550251007080078
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['usnetelec'], 'Transformations': [('usnetelec', 'None', '_', 'T+S+R'), ('usnetelec', 'None', 'Diff_', 'T+S+R'), ('usnetelec', 'None', 'RelDiff_', 'T+S+R'), ('usnetelec', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+PERFORMANCE MAPE_FORECAST usnetelec 0.0182
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'usnetelec', 'Transformation': 'Diff_usnetelec'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'usnetelec', 'Transformation': '_usnetelec'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'usnetelec', 'Transformation': 'RelDiff_usnetelec'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'usnetelec', 'Transformation': 'CumSum_usnetelec'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.991, ('TRAINING', {'Signal': 'usnetelec', 'Transformation': '_usnetelec'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.042, ('TRAINING', {'Signal': 'usnetelec', 'Transformation': 'Diff_usnetelec'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.293, ('TRAINING', {'Signal': 'usnetelec', 'Transformation': 'RelDiff_usnetelec'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.305, ('TRAINING', {'Signal': 'usnetelec', 'Transformation': 'CumSum_usnetelec'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.404, ('SIGNAL_TRAINING', {'Signals': ['usnetelec'], 'Transformations': [('usnetelec', 'None', '_', 'T+S+R'), ('usnetelec', 'None', 'Diff_', 'T+S+R'), ('usnetelec', 'None', 'RelDiff_', 'T+S+R'), ('usnetelec', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['usnetelec'], 'Transformations': [('usnetelec', [('usnetelec', 'None', 'CumSum_', 'T+S+R'), ('usnetelec', 'None', 'Diff_', 'T+S+R'), ('usnetelec', 'None', 'RelDiff_', 'T+S+R'), ('usnetelec', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'usnetelec', 'Transformations': [('usnetelec', 'None', 'CumSum_', 'T+S+R'), ('usnetelec', 'None', 'Diff_', 'T+S+R'), ('usnetelec', 'None', 'RelDiff_', 'T+S+R'), ('usnetelec', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.007, ('MODEL_SELECTION', {'Signal': 'usnetelec', 'Transformations': [('usnetelec', 'None', 'CumSum_', 'T+S+R'), ('usnetelec', 'None', 'Diff_', 'T+S+R'), ('usnetelec', 'None', 'RelDiff_', 'T+S+R'), ('usnetelec', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'usnetelec', 'Model': '_usnetelec_Lag1Trend_residue_bestCycle_byMAPE_residue_AR(13)'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.025, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'usnetelec', 'Model': '_usnetelec_Lag1Trend_residue_bestCycle_byMAPE_residue_AR(13)'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'usnetelec'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.295, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'usnetelec'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.328, ('FINALIZE_TRAINING', {'Signals': ['usnetelec'], 'Transformations': [('usnetelec', [('usnetelec', 'None', 'CumSum_', 'T+S+R'), ('usnetelec', 'None', 'Diff_', 'T+S+R'), ('usnetelec', 'None', 'RelDiff_', 'T+S+R'), ('usnetelec', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1949 TimeMax=2003 TimeDelta=1 Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='usnetelec' Length=55  Min=296.1 Max=3858.5  Mean=1972.06 StdDev=1119.355557062756
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_usnetelec' Min=296.1 Max=3858.5  Mean=1972.06 StdDev=1119.355557062756
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_usnetelec' Min=0.0 Max=1.0  Mean=0.47045811812261407 StdDev=0.31421388868817535
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_usnetelec_ConstantTrend_residue_zeroCycle_residue_AR(13)' [ConstantTrend + NoCycle + AR]
-INFO:pyaf.std:TREND_DETAIL '_usnetelec_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_usnetelec_ConstantTrend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_usnetelec_ConstantTrend_residue_zeroCycle_residue_AR(13)' [AR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0204 MAPE_Forecast=0.0204 MAPE_Test=0.0204
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0202 SMAPE_Forecast=0.0202 SMAPE_Test=0.0202
-INFO:pyaf.std:MODEL_MASE MASE_Fit=0.4375 MASE_Forecast=0.4375 MASE_Test=0.4375
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=330.99483390571294 CRPS_Forecast=330.99483390571294 CRPS_Test=330.99483390571294
-INFO:pyaf.std:MODEL_L1 L1_Fit=30.875553307613824 L1_Forecast=30.875553307613824 L1_Test=30.875553307613824
-INFO:pyaf.std:MODEL_L2 L2_Fit=41.28204332769424 L2_Forecast=41.28204332769424 L2_Test=41.28204332769424
-INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.045907290232235914 LnQ_Forecast=0.045907290232235914 LnQ_Test=0.045907290232235914
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=24.079590466679292 MedAE_Forecast=24.079590466679292 MedAE_Test=24.079590466679292
-INFO:pyaf.std:MODEL_COMPLEXITY 13
+INFO:pyaf.std:BEST_DECOMPOSITION  '_usnetelec_Lag1Trend_residue_bestCycle_byMAPE_residue_AR(13)' [Lag1Trend + Cycle_None + AR]
+INFO:pyaf.std:TREND_DETAIL '_usnetelec_Lag1Trend' [Lag1Trend]
+INFO:pyaf.std:CYCLE_DETAIL '_usnetelec_Lag1Trend_residue_bestCycle_byMAPE' [Cycle_None]
+INFO:pyaf.std:AUTOREG_DETAIL '_usnetelec_Lag1Trend_residue_bestCycle_byMAPE_residue_AR(13)' [AR]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.027 MAPE_Forecast=0.027 MAPE_Test=0.027
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0264 SMAPE_Forecast=0.0264 SMAPE_Test=0.0264
+INFO:pyaf.std:MODEL_MASE MASE_Fit=0.5274 MASE_Forecast=0.5274 MASE_Test=0.5274
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=328.95965594137607 CRPS_Forecast=328.95965594137607 CRPS_Test=328.95965594137607
+INFO:pyaf.std:MODEL_L1 L1_Fit=37.223538344304785 L1_Forecast=37.223538344304785 L1_Test=37.223538344304785
+INFO:pyaf.std:MODEL_L2 L2_Fit=50.54029653056707 L2_Forecast=50.54029653056707 L2_Test=50.54029653056707
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.09217882517008069 LnQ_Forecast=0.09217882517008069 LnQ_Test=0.09217882517008069
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=26.22263318915975 MedAE_Forecast=26.22263318915975 MedAE_Test=26.22263318915975
+INFO:pyaf.std:MODEL_COMPLEXITY 15.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND ConstantTrend 1972.06
+INFO:pyaf.std:LAG1_TREND Lag1Trend 0.0
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _usnetelec_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _usnetelec_Lag1Trend_residue_bestCycle_byMAPE None 0.018218055243655953 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
-INFO:pyaf.std:AR_MODEL_COEFF 1 _usnetelec_ConstantTrend_residue_zeroCycle_residue_Lag1 1.331061585361157
-INFO:pyaf.std:AR_MODEL_COEFF 2 _usnetelec_ConstantTrend_residue_zeroCycle_residue_Lag11 0.904680564059076
-INFO:pyaf.std:AR_MODEL_COEFF 3 _usnetelec_ConstantTrend_residue_zeroCycle_residue_Lag10 -0.8015727042472642
-INFO:pyaf.std:AR_MODEL_COEFF 4 _usnetelec_ConstantTrend_residue_zeroCycle_residue_Lag12 -0.7575792956206827
-INFO:pyaf.std:AR_MODEL_COEFF 5 _usnetelec_ConstantTrend_residue_zeroCycle_residue_Lag4 0.7533458911950704
-INFO:pyaf.std:AR_MODEL_COEFF 6 _usnetelec_ConstantTrend_residue_zeroCycle_residue_Lag5 -0.6922492428119983
-INFO:pyaf.std:AR_MODEL_COEFF 7 _usnetelec_ConstantTrend_residue_zeroCycle_residue_Lag9 0.5963063826033083
-INFO:pyaf.std:AR_MODEL_COEFF 8 _usnetelec_ConstantTrend_residue_zeroCycle_residue_Lag6 0.32824811835832934
-INFO:pyaf.std:AR_MODEL_COEFF 9 _usnetelec_ConstantTrend_residue_zeroCycle_residue_Lag2 -0.32455768564064325
-INFO:pyaf.std:AR_MODEL_COEFF 10 _usnetelec_ConstantTrend_residue_zeroCycle_residue_Lag3 -0.28723561828666566
+INFO:pyaf.std:AR_MODEL_COEFF 1 _usnetelec_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag4 0.0026047585530463873
+INFO:pyaf.std:AR_MODEL_COEFF 2 _usnetelec_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag11 0.002414825626980278
+INFO:pyaf.std:AR_MODEL_COEFF 3 _usnetelec_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag9 0.0018886747896844074
+INFO:pyaf.std:AR_MODEL_COEFF 4 _usnetelec_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag1 0.001765464730277072
+INFO:pyaf.std:AR_MODEL_COEFF 5 _usnetelec_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag5 0.0014847044869414003
+INFO:pyaf.std:AR_MODEL_COEFF 6 _usnetelec_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag2 0.0013132030883976846
+INFO:pyaf.std:AR_MODEL_COEFF 7 _usnetelec_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag13 0.001072290654315271
+INFO:pyaf.std:AR_MODEL_COEFF 8 _usnetelec_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag3 -0.0009559866358732306
+INFO:pyaf.std:AR_MODEL_COEFF 9 _usnetelec_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag6 0.000833738878988936
+INFO:pyaf.std:AR_MODEL_COEFF 10 _usnetelec_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag8 -0.0006775353716802956
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-PERFORMANCE MAPE_FORECAST usnetelec 0.0204
+PERFORMANCE MAPE_FORECAST usnetelec 0.027

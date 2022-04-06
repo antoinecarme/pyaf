@@ -1,133 +1,191 @@
-INFO:pyaf.std:START_TRAINING 'bonds'
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['bonds']' 1.5406782627105713
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['bonds'], 'Transformations': [('bonds', 'None', '_', 'T+S+R'), ('bonds', 'None', 'Diff_', 'T+S+R'), ('bonds', 'None', 'RelDiff_', 'T+S+R'), ('bonds', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'bonds', 'Transformation': '_bonds'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'bonds', 'Transformation': 'CumSum_bonds'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'bonds', 'Transformation': 'RelDiff_bonds'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'bonds', 'Transformation': 'Diff_bonds'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.38, ('TRAINING', {'Signal': 'bonds', 'Transformation': 'Diff_bonds'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.448, ('TRAINING', {'Signal': 'bonds', 'Transformation': 'CumSum_bonds'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.508, ('TRAINING', {'Signal': 'bonds', 'Transformation': '_bonds'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.635, ('TRAINING', {'Signal': 'bonds', 'Transformation': 'RelDiff_bonds'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.731, ('SIGNAL_TRAINING', {'Signals': ['bonds'], 'Transformations': [('bonds', 'None', '_', 'T+S+R'), ('bonds', 'None', 'Diff_', 'T+S+R'), ('bonds', 'None', 'RelDiff_', 'T+S+R'), ('bonds', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['bonds'], 'Transformations': [('bonds', [('bonds', 'None', 'CumSum_', 'T+S+R'), ('bonds', 'None', 'Diff_', 'T+S+R'), ('bonds', 'None', 'RelDiff_', 'T+S+R'), ('bonds', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'bonds', 'Transformations': [('bonds', 'None', 'CumSum_', 'T+S+R'), ('bonds', 'None', 'Diff_', 'T+S+R'), ('bonds', 'None', 'RelDiff_', 'T+S+R'), ('bonds', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.011, ('MODEL_SELECTION', {'Signal': 'bonds', 'Transformations': [('bonds', 'None', 'CumSum_', 'T+S+R'), ('bonds', 'None', 'Diff_', 'T+S+R'), ('bonds', 'None', 'RelDiff_', 'T+S+R'), ('bonds', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'bonds', 'Model': '_bonds_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.04, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'bonds', 'Model': '_bonds_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'bonds'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.074, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'bonds'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.127, ('FINALIZE_TRAINING', {'Signals': ['bonds'], 'Transformations': [('bonds', [('bonds', 'None', 'CumSum_', 'T+S+R'), ('bonds', 'None', 'Diff_', 'T+S+R'), ('bonds', 'None', 'RelDiff_', 'T+S+R'), ('bonds', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1994.0 TimeMax=2002.08333333333 TimeDelta=0.08333333333329973 Horizon=2
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='bonds' Length=125  Min=3.32 Max=8.12  Mean=5.683039999999998 StdDev=1.092533367179236
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_bonds' Min=3.32 Max=8.12  Mean=5.683039999999998 StdDev=1.092533367179236
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_bonds' Min=0.0 Max=1.0  Mean=0.4923000000000003 StdDev=0.22761111816234095
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_bonds_Lag1Trend_residue_zeroCycle_residue_NoAR' [Lag1Trend + NoCycle + NoAR]
+INFO:pyaf.std:BEST_DECOMPOSITION  '_bonds_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR' [Lag1Trend + Cycle_None + NoAR]
 INFO:pyaf.std:TREND_DETAIL '_bonds_Lag1Trend' [Lag1Trend]
-INFO:pyaf.std:CYCLE_DETAIL '_bonds_Lag1Trend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_bonds_Lag1Trend_residue_zeroCycle_residue_NoAR' [NoAR]
+INFO:pyaf.std:CYCLE_DETAIL '_bonds_Lag1Trend_residue_bestCycle_byMAPE' [Cycle_None]
+INFO:pyaf.std:AUTOREG_DETAIL '_bonds_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR' [NoAR]
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0332 MAPE_Forecast=0.0459 MAPE_Test=0.0995
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0332 SMAPE_Forecast=0.046 SMAPE_Test=0.1049
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.9898 MASE_Forecast=1.0435 MASE_Test=1.1711
 INFO:pyaf.std:MODEL_CRPS CRPS_Fit=0.24301863945578234 CRPS_Forecast=0.14007200000000003 CRPS_Test=0.2224999999999998
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.2003061224489796 L1_Forecast=0.19000000000000006 L1_Test=0.44500000000000006
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.2399085710202526 L2_Forecast=0.25119713374160946 L2_Test=0.44972213643537723
-INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.15810957367816608 LnQ_Forecast=0.09651624216438628 LnQ_Test=0.022889633621877514
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.15810957367816605 LnQ_Forecast=0.09651624216438628 LnQ_Test=0.022889633621877514
 INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.20999999999999996 MedAE_Forecast=0.1299999999999999 MedAE_Test=0.44500000000000006
-INFO:pyaf.std:MODEL_COMPLEXITY 32
+INFO:pyaf.std:MODEL_COMPLEXITY 2.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:LAG1_TREND Lag1Trend 5.83
+INFO:pyaf.std:LAG1_TREND Lag1Trend 0.5229166666666668
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _bonds_Lag1Trend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _bonds_Lag1Trend_residue_bestCycle_byMAPE None -0.008333333333333331 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_TRAINING 'bonds'
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['bonds'], 'Transformations': [('bonds', 'None', '_', 'T+S+R'), ('bonds', 'None', 'Diff_', 'T+S+R'), ('bonds', 'None', 'RelDiff_', 'T+S+R'), ('bonds', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 PERFORMANCE MAPE_FORECAST bonds 0.0459
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['bonds']' 1.6216578483581543
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'bonds', 'Transformation': '_bonds'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'bonds', 'Transformation': 'RelDiff_bonds'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'bonds', 'Transformation': 'CumSum_bonds'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'bonds', 'Transformation': 'Diff_bonds'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.119, ('TRAINING', {'Signal': 'bonds', 'Transformation': 'CumSum_bonds'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.131, ('TRAINING', {'Signal': 'bonds', 'Transformation': '_bonds'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.244, ('TRAINING', {'Signal': 'bonds', 'Transformation': 'Diff_bonds'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.267, ('TRAINING', {'Signal': 'bonds', 'Transformation': 'RelDiff_bonds'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.378, ('SIGNAL_TRAINING', {'Signals': ['bonds'], 'Transformations': [('bonds', 'None', '_', 'T+S+R'), ('bonds', 'None', 'Diff_', 'T+S+R'), ('bonds', 'None', 'RelDiff_', 'T+S+R'), ('bonds', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['bonds'], 'Transformations': [('bonds', [('bonds', 'None', 'CumSum_', 'T+S+R'), ('bonds', 'None', 'Diff_', 'T+S+R'), ('bonds', 'None', 'RelDiff_', 'T+S+R'), ('bonds', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'bonds', 'Transformations': [('bonds', 'None', 'CumSum_', 'T+S+R'), ('bonds', 'None', 'Diff_', 'T+S+R'), ('bonds', 'None', 'RelDiff_', 'T+S+R'), ('bonds', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.032, ('MODEL_SELECTION', {'Signal': 'bonds', 'Transformations': [('bonds', 'None', 'CumSum_', 'T+S+R'), ('bonds', 'None', 'Diff_', 'T+S+R'), ('bonds', 'None', 'RelDiff_', 'T+S+R'), ('bonds', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'bonds', 'Model': '_bonds_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.048, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'bonds', 'Model': '_bonds_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'bonds'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.144, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'bonds'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.227, ('FINALIZE_TRAINING', {'Signals': ['bonds'], 'Transformations': [('bonds', [('bonds', 'None', 'CumSum_', 'T+S+R'), ('bonds', 'None', 'Diff_', 'T+S+R'), ('bonds', 'None', 'RelDiff_', 'T+S+R'), ('bonds', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1994.0 TimeMax=2001.91666666667 TimeDelta=0.08333333333336763 Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='bonds' Length=125  Min=3.32 Max=8.12  Mean=5.683039999999998 StdDev=1.092533367179236
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_bonds' Min=3.32 Max=8.12  Mean=5.683039999999998 StdDev=1.092533367179236
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_bonds' Min=0.0 Max=1.0  Mean=0.4923000000000003 StdDev=0.22761111816234095
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_bonds_Lag1Trend_residue_zeroCycle_residue_NoAR' [Lag1Trend + NoCycle + NoAR]
+INFO:pyaf.std:BEST_DECOMPOSITION  '_bonds_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR' [Lag1Trend + Cycle_None + NoAR]
 INFO:pyaf.std:TREND_DETAIL '_bonds_Lag1Trend' [Lag1Trend]
-INFO:pyaf.std:CYCLE_DETAIL '_bonds_Lag1Trend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_bonds_Lag1Trend_residue_zeroCycle_residue_NoAR' [NoAR]
+INFO:pyaf.std:CYCLE_DETAIL '_bonds_Lag1Trend_residue_bestCycle_byMAPE' [Cycle_None]
+INFO:pyaf.std:AUTOREG_DETAIL '_bonds_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR' [NoAR]
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0336 MAPE_Forecast=0.044 MAPE_Test=0.0704
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0335 SMAPE_Forecast=0.0441 SMAPE_Test=0.0726
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.9896 MASE_Forecast=0.9748 MASE_Test=0.7961
 INFO:pyaf.std:MODEL_CRPS CRPS_Fit=0.24106287037037039 CRPS_Forecast=0.15584800000000004 CRPS_Test=0.08749999999999997
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.20270833333333335 L1_Forecast=0.18400000000000008 L1_Test=0.3025
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.24207436873820407 L2_Forecast=0.24698178070456947 L2_Test=0.3434748899119119
-INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.15750813352307075 LnQ_Forecast=0.09278637914650728 LnQ_Test=0.02722093679485183
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.15750813352307072 LnQ_Forecast=0.09278637914650728 LnQ_Test=0.02722093679485183
 INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.20999999999999996 MedAE_Forecast=0.1299999999999999 MedAE_Test=0.3149999999999997
-INFO:pyaf.std:MODEL_COMPLEXITY 32
+INFO:pyaf.std:MODEL_COMPLEXITY 2.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:LAG1_TREND Lag1Trend 5.83
+INFO:pyaf.std:LAG1_TREND Lag1Trend 0.5229166666666668
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _bonds_Lag1Trend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _bonds_Lag1Trend_residue_bestCycle_byMAPE None -0.007291666666666752 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_TRAINING 'bonds'
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['bonds'], 'Transformations': [('bonds', 'None', '_', 'T+S+R'), ('bonds', 'None', 'Diff_', 'T+S+R'), ('bonds', 'None', 'RelDiff_', 'T+S+R'), ('bonds', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 PERFORMANCE MAPE_FORECAST bonds 0.044
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['bonds']' 1.495854377746582
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'bonds', 'Transformation': 'RelDiff_bonds'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'bonds', 'Transformation': '_bonds'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'bonds', 'Transformation': 'Diff_bonds'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'bonds', 'Transformation': 'CumSum_bonds'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.262, ('TRAINING', {'Signal': 'bonds', 'Transformation': '_bonds'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.281, ('TRAINING', {'Signal': 'bonds', 'Transformation': 'CumSum_bonds'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.359, ('TRAINING', {'Signal': 'bonds', 'Transformation': 'Diff_bonds'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.471, ('TRAINING', {'Signal': 'bonds', 'Transformation': 'RelDiff_bonds'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.573, ('SIGNAL_TRAINING', {'Signals': ['bonds'], 'Transformations': [('bonds', 'None', '_', 'T+S+R'), ('bonds', 'None', 'Diff_', 'T+S+R'), ('bonds', 'None', 'RelDiff_', 'T+S+R'), ('bonds', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['bonds'], 'Transformations': [('bonds', [('bonds', 'None', 'CumSum_', 'T+S+R'), ('bonds', 'None', 'Diff_', 'T+S+R'), ('bonds', 'None', 'RelDiff_', 'T+S+R'), ('bonds', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'bonds', 'Transformations': [('bonds', 'None', 'CumSum_', 'T+S+R'), ('bonds', 'None', 'Diff_', 'T+S+R'), ('bonds', 'None', 'RelDiff_', 'T+S+R'), ('bonds', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.011, ('MODEL_SELECTION', {'Signal': 'bonds', 'Transformations': [('bonds', 'None', 'CumSum_', 'T+S+R'), ('bonds', 'None', 'Diff_', 'T+S+R'), ('bonds', 'None', 'RelDiff_', 'T+S+R'), ('bonds', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'bonds', 'Model': '_bonds_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.041, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'bonds', 'Model': '_bonds_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'bonds'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.235, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'bonds'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.288, ('FINALIZE_TRAINING', {'Signals': ['bonds'], 'Transformations': [('bonds', [('bonds', 'None', 'CumSum_', 'T+S+R'), ('bonds', 'None', 'Diff_', 'T+S+R'), ('bonds', 'None', 'RelDiff_', 'T+S+R'), ('bonds', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1994.0 TimeMax=2001.66666666667 TimeDelta=0.08333333333336876 Horizon=8
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='bonds' Length=125  Min=3.32 Max=8.12  Mean=5.683039999999998 StdDev=1.092533367179236
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_bonds' Min=3.32 Max=8.12  Mean=5.683039999999998 StdDev=1.092533367179236
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_bonds' Min=0.0 Max=1.0  Mean=0.4923000000000003 StdDev=0.22761111816234095
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_bonds_ConstantTrend_residue_zeroCycle_residue_AR(31)' [ConstantTrend + NoCycle + AR]
-INFO:pyaf.std:TREND_DETAIL '_bonds_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_bonds_ConstantTrend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_bonds_ConstantTrend_residue_zeroCycle_residue_AR(31)' [AR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0282 MAPE_Forecast=0.0558 MAPE_Test=0.0677
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0281 SMAPE_Forecast=0.0546 SMAPE_Test=0.0663
-INFO:pyaf.std:MODEL_MASE MASE_Fit=0.8406 MASE_Forecast=1.1002 MASE_Test=1.4227
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=0.22316351246344698 CRPS_Forecast=0.19914357875687363 CRPS_Test=0.09198909623573831
-INFO:pyaf.std:MODEL_L1 L1_Fit=0.1711370441438956 L1_Forecast=0.23535004906294374 L1_Test=0.2824994439164545
-INFO:pyaf.std:MODEL_L2 L2_Fit=0.21364945997935753 L2_Forecast=0.2778191370797826 L2_Test=0.2994453650538942
-INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.11698475847653286 LnQ_Forecast=0.103878898850905 LnQ_Test=0.04028869583634048
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.15359834598378885 MedAE_Forecast=0.22018263762203372 MedAE_Test=0.30305231672092203
-INFO:pyaf.std:MODEL_COMPLEXITY 23
+INFO:pyaf.std:BEST_DECOMPOSITION  '_bonds_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR' [Lag1Trend + Cycle_None + NoAR]
+INFO:pyaf.std:TREND_DETAIL '_bonds_Lag1Trend' [Lag1Trend]
+INFO:pyaf.std:CYCLE_DETAIL '_bonds_Lag1Trend_residue_bestCycle_byMAPE' [Cycle_None]
+INFO:pyaf.std:AUTOREG_DETAIL '_bonds_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR' [NoAR]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.033 MAPE_Forecast=0.0501 MAPE_Test=0.0412
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.033 SMAPE_Forecast=0.0504 SMAPE_Test=0.0422
+INFO:pyaf.std:MODEL_MASE MASE_Fit=0.9892 MASE_Forecast=0.9992 MASE_Test=0.8876
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=0.2319483201911589 CRPS_Forecast=0.19743055555555555 CRPS_Test=0.05687500000000004
+INFO:pyaf.std:MODEL_L1 L1_Fit=0.2013978494623656 L1_Forecast=0.21375000000000008 L1_Test=0.17625000000000013
+INFO:pyaf.std:MODEL_L2 L2_Fit=0.24021271935023422 L2_Forecast=0.27123943911852744 L2_Test=0.24761361028828766
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.1462541782197275 LnQ_Forecast=0.10298692725535546 LnQ_Test=0.028274343989346907
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.20999999999999996 MedAE_Forecast=0.15000000000000013 MedAE_Test=0.10000000000000009
+INFO:pyaf.std:MODEL_COMPLEXITY 2.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND ConstantTrend 6.150107526881721
+INFO:pyaf.std:LAG1_TREND Lag1Trend 0.5229166666666668
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _bonds_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _bonds_Lag1Trend_residue_bestCycle_byMAPE None -0.008333333333333304 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
-INFO:pyaf.std:AR_MODEL_COEFF 1 _bonds_ConstantTrend_residue_zeroCycle_residue_Lag1 0.9930055455795113
-INFO:pyaf.std:AR_MODEL_COEFF 2 _bonds_ConstantTrend_residue_zeroCycle_residue_Lag5 -0.1994645678431422
-INFO:pyaf.std:AR_MODEL_COEFF 3 _bonds_ConstantTrend_residue_zeroCycle_residue_Lag27 -0.1958183904999319
-INFO:pyaf.std:AR_MODEL_COEFF 4 _bonds_ConstantTrend_residue_zeroCycle_residue_Lag6 0.12705258447027643
-INFO:pyaf.std:AR_MODEL_COEFF 5 _bonds_ConstantTrend_residue_zeroCycle_residue_Lag26 0.1232156573120113
-INFO:pyaf.std:AR_MODEL_COEFF 6 _bonds_ConstantTrend_residue_zeroCycle_residue_Lag7 0.1016665595238968
-INFO:pyaf.std:AR_MODEL_COEFF 7 _bonds_ConstantTrend_residue_zeroCycle_residue_Lag10 -0.08586958532707324
-INFO:pyaf.std:AR_MODEL_COEFF 8 _bonds_ConstantTrend_residue_zeroCycle_residue_Lag16 0.07109092581297041
-INFO:pyaf.std:AR_MODEL_COEFF 9 _bonds_ConstantTrend_residue_zeroCycle_residue_Lag23 0.06952565340269379
-INFO:pyaf.std:AR_MODEL_COEFF 10 _bonds_ConstantTrend_residue_zeroCycle_residue_Lag29 0.06826595095093414
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_TRAINING 'bonds'
-PERFORMANCE MAPE_FORECAST bonds 0.0558
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['bonds']' 1.7716867923736572
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['bonds'], 'Transformations': [('bonds', 'None', '_', 'T+S+R'), ('bonds', 'None', 'Diff_', 'T+S+R'), ('bonds', 'None', 'RelDiff_', 'T+S+R'), ('bonds', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+PERFORMANCE MAPE_FORECAST bonds 0.0501
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'bonds', 'Transformation': '_bonds'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'bonds', 'Transformation': 'Diff_bonds'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'bonds', 'Transformation': 'RelDiff_bonds'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'bonds', 'Transformation': 'CumSum_bonds'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.055, ('TRAINING', {'Signal': 'bonds', 'Transformation': '_bonds'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.114, ('TRAINING', {'Signal': 'bonds', 'Transformation': 'CumSum_bonds'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.154, ('TRAINING', {'Signal': 'bonds', 'Transformation': 'Diff_bonds'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.181, ('TRAINING', {'Signal': 'bonds', 'Transformation': 'RelDiff_bonds'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.284, ('SIGNAL_TRAINING', {'Signals': ['bonds'], 'Transformations': [('bonds', 'None', '_', 'T+S+R'), ('bonds', 'None', 'Diff_', 'T+S+R'), ('bonds', 'None', 'RelDiff_', 'T+S+R'), ('bonds', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['bonds'], 'Transformations': [('bonds', [('bonds', 'None', 'CumSum_', 'T+S+R'), ('bonds', 'None', 'Diff_', 'T+S+R'), ('bonds', 'None', 'RelDiff_', 'T+S+R'), ('bonds', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'bonds', 'Transformations': [('bonds', 'None', 'CumSum_', 'T+S+R'), ('bonds', 'None', 'Diff_', 'T+S+R'), ('bonds', 'None', 'RelDiff_', 'T+S+R'), ('bonds', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.007, ('MODEL_SELECTION', {'Signal': 'bonds', 'Transformations': [('bonds', 'None', 'CumSum_', 'T+S+R'), ('bonds', 'None', 'Diff_', 'T+S+R'), ('bonds', 'None', 'RelDiff_', 'T+S+R'), ('bonds', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'bonds', 'Model': '_bonds_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.026, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'bonds', 'Model': '_bonds_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'bonds'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.262, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'bonds'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.295, ('FINALIZE_TRAINING', {'Signals': ['bonds'], 'Transformations': [('bonds', [('bonds', 'None', 'CumSum_', 'T+S+R'), ('bonds', 'None', 'Diff_', 'T+S+R'), ('bonds', 'None', 'RelDiff_', 'T+S+R'), ('bonds', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1994.0 TimeMax=2001.41666666667 TimeDelta=0.08333333333336995 Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='bonds' Length=125  Min=3.32 Max=8.12  Mean=5.683039999999998 StdDev=1.092533367179236
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_bonds' Min=3.32 Max=8.12  Mean=5.683039999999998 StdDev=1.092533367179236
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_bonds' Min=0.0 Max=1.0  Mean=0.4923000000000003 StdDev=0.22761111816234095
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_bonds_Lag1Trend_residue_zeroCycle_residue_NoAR' [Lag1Trend + NoCycle + NoAR]
+INFO:pyaf.std:BEST_DECOMPOSITION  '_bonds_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR' [Lag1Trend + Cycle_None + NoAR]
 INFO:pyaf.std:TREND_DETAIL '_bonds_Lag1Trend' [Lag1Trend]
-INFO:pyaf.std:CYCLE_DETAIL '_bonds_Lag1Trend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_bonds_Lag1Trend_residue_zeroCycle_residue_NoAR' [NoAR]
+INFO:pyaf.std:CYCLE_DETAIL '_bonds_Lag1Trend_residue_bestCycle_byMAPE' [Cycle_None]
+INFO:pyaf.std:AUTOREG_DETAIL '_bonds_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR' [NoAR]
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.033 MAPE_Forecast=0.0403 MAPE_Test=0.0589
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.033 SMAPE_Forecast=0.0398 SMAPE_Test=0.061
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.9889 MASE_Forecast=0.9635 MASE_Test=0.9988
 INFO:pyaf.std:MODEL_CRPS CRPS_Fit=0.22904154320987655 CRPS_Forecast=0.18809782608695655 CRPS_Test=0.09866244444444448
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.20255555555555552 L1_Forecast=0.17913043478260873 L1_Test=0.2433333333333335
-INFO:pyaf.std:MODEL_L2 L2_Fit=0.24160803886552376 L2_Forecast=0.22515695009018277 L2_Test=0.3165964834506748
+INFO:pyaf.std:MODEL_L2 L2_Fit=0.24160803886552373 L2_Forecast=0.22515695009018277 L2_Test=0.3165964834506748
 INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.14175749952521413 LnQ_Forecast=0.05809223930954579 LnQ_Test=0.07766571062966997
 INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.20999999999999996 MedAE_Forecast=0.1299999999999999 MedAE_Test=0.19500000000000028
-INFO:pyaf.std:MODEL_COMPLEXITY 32
+INFO:pyaf.std:MODEL_COMPLEXITY 2.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:LAG1_TREND Lag1Trend 5.83
+INFO:pyaf.std:LAG1_TREND Lag1Trend 0.5229166666666668
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _bonds_Lag1Trend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _bonds_Lag1Trend_residue_bestCycle_byMAPE None -0.007291666666666752 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END

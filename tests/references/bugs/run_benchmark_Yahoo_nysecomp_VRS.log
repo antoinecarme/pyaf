@@ -1552,7 +1552,8 @@ BENCH_TYPE YAHOO_STOCKS_nysecomp OneDataFramePerSignal
 BENCH_DATA YAHOO_STOCKS_nysecomp
 TIME :  Date N= 5 H= 1 HEAD= ['2016-07-20T00:00:00.000000000' '2016-07-21T00:00:00.000000000'
  '2016-07-22T00:00:00.000000000' '2016-07-25T00:00:00.000000000'
- '2016-07-26T00:00:00.000000000'] TAIL= ['2016-07-20T00:00:00.000000000' '2016-07-21T00:00:00.000000000'
+ '2016-07-26T00:00:00.000000000'] TAIL= INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['VRS'], 'Transformations': [('VRS', 'None', '_', 'T+S+R'), ('VRS', 'None', 'Diff_', 'T+S+R'), ('VRS', 'None', 'RelDiff_', 'T+S+R'), ('VRS', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+['2016-07-20T00:00:00.000000000' '2016-07-21T00:00:00.000000000'
  '2016-07-22T00:00:00.000000000' '2016-07-25T00:00:00.000000000'
  '2016-07-26T00:00:00.000000000']
 SIGNAL :  VRS N= 5 H= 1 HEAD= [11.8  11.75 11.6  11.54 11.53] TAIL= [11.8  11.75 11.6  11.54 11.53]
@@ -1561,8 +1562,7 @@ SIGNAL :  VRS N= 5 H= 1 HEAD= [11.8  11.75 11.6  11.54 11.53] TAIL= [11.8  11.75
 1  11.75 2016-07-21
 2  11.60 2016-07-22
 3  11.54 2016-07-25
-4  11.53 2016-07-26INFO:pyaf.std:START_TRAINING 'VRS'
-
+4  11.53 2016-07-26
 <class 'pandas.core.frame.DataFrame'>
 Int64Index: 5 entries, 0 to 4
 Data columns (total 2 columns):
@@ -1573,15 +1573,64 @@ Data columns (total 2 columns):
 dtypes: datetime64[ns](1), float64(1)
 memory usage: 120.0 bytes
 None
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['VRS']' 0.9380636215209961
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'VRS', 'Transformation': '_VRS'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'VRS', 'Transformation': 'RelDiff_VRS'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'VRS', 'Transformation': 'Diff_VRS'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'VRS', 'Transformation': 'CumSum_VRS'}))
+INFO:pyaf.std:SKIPPING_AR_MODELS_WITH_LOW_VARIANCE_CYCLE_RESIDUE '_VRS_ConstantTrend_residue_zeroCycle[0.0]_residue'
+INFO:pyaf.std:SKIPPING_AR_MODELS_WITH_LOW_VARIANCE_CYCLE_RESIDUE '_VRS_ConstantTrend_residue_bestCycle_byMAPE_residue'
+INFO:pyaf.std:SKIPPING_AR_MODELS_WITH_LOW_VARIANCE_CYCLE_RESIDUE '_VRS_Lag1Trend_residue_zeroCycle[0.0]_residue'
+INFO:pyaf.std:SKIPPING_AR_MODELS_WITH_LOW_VARIANCE_CYCLE_RESIDUE '_VRS_Lag1Trend_residue_bestCycle_byMAPE_residue'
+INFO:pyaf.std:SKIPPING_AR_MODELS_WITH_LOW_VARIANCE_CYCLE_RESIDUE '_VRS_LinearTrend_residue_zeroCycle[0.0]_residue'
+INFO:pyaf.std:SKIPPING_AR_MODELS_WITH_LOW_VARIANCE_CYCLE_RESIDUE '_VRS_LinearTrend_residue_bestCycle_byMAPE_residue'
+INFO:pyaf.std:SKIPPING_AR_MODELS_WITH_LOW_VARIANCE_CYCLE_RESIDUE '_VRS_PolyTrend_residue_zeroCycle[0.0]_residue'
+INFO:pyaf.std:SKIPPING_AR_MODELS_WITH_LOW_VARIANCE_CYCLE_RESIDUE '_VRS_PolyTrend_residue_bestCycle_byMAPE_residue'
+INFO:pyaf.std:SKIPPING_AR_MODELS_WITH_LOW_VARIANCE_CYCLE_RESIDUE 'Diff_VRS_ConstantTrend_residue_zeroCycle[0.0]_residue'
+INFO:pyaf.std:SKIPPING_AR_MODELS_WITH_LOW_VARIANCE_CYCLE_RESIDUE 'Diff_VRS_ConstantTrend_residue_bestCycle_byMAPE_residue'
+INFO:pyaf.std:SKIPPING_AR_MODELS_WITH_LOW_VARIANCE_CYCLE_RESIDUE 'Diff_VRS_Lag1Trend_residue_zeroCycle[0.0]_residue'
+INFO:pyaf.std:SKIPPING_AR_MODELS_WITH_LOW_VARIANCE_CYCLE_RESIDUE 'Diff_VRS_Lag1Trend_residue_bestCycle_byMAPE_residue'
+INFO:pyaf.std:SKIPPING_AR_MODELS_WITH_LOW_VARIANCE_CYCLE_RESIDUE 'Diff_VRS_LinearTrend_residue_zeroCycle[0.0]_residue'
+INFO:pyaf.std:SKIPPING_AR_MODELS_WITH_LOW_VARIANCE_CYCLE_RESIDUE 'Diff_VRS_LinearTrend_residue_bestCycle_byMAPE_residue'
+INFO:pyaf.std:SKIPPING_AR_MODELS_WITH_LOW_VARIANCE_CYCLE_RESIDUE 'Diff_VRS_PolyTrend_residue_zeroCycle[0.0]_residue'
+INFO:pyaf.std:SKIPPING_AR_MODELS_WITH_LOW_VARIANCE_CYCLE_RESIDUE 'Diff_VRS_PolyTrend_residue_bestCycle_byMAPE_residue'
+INFO:pyaf.std:SKIPPING_AR_MODELS_WITH_LOW_VARIANCE_CYCLE_RESIDUE 'RelDiff_VRS_ConstantTrend_residue_zeroCycle[0.0]_residue'
+INFO:pyaf.std:SKIPPING_AR_MODELS_WITH_LOW_VARIANCE_CYCLE_RESIDUE 'RelDiff_VRS_ConstantTrend_residue_bestCycle_byMAPE_residue'
+INFO:pyaf.std:SKIPPING_AR_MODELS_WITH_LOW_VARIANCE_CYCLE_RESIDUE 'RelDiff_VRS_Lag1Trend_residue_zeroCycle[0.0]_residue'
+INFO:pyaf.std:SKIPPING_AR_MODELS_WITH_LOW_VARIANCE_CYCLE_RESIDUE 'RelDiff_VRS_Lag1Trend_residue_bestCycle_byMAPE_residue'
+INFO:pyaf.std:SKIPPING_AR_MODELS_WITH_LOW_VARIANCE_CYCLE_RESIDUE 'RelDiff_VRS_LinearTrend_residue_zeroCycle[0.0]_residue'
+INFO:pyaf.std:SKIPPING_AR_MODELS_WITH_LOW_VARIANCE_CYCLE_RESIDUE 'RelDiff_VRS_LinearTrend_residue_bestCycle_byMAPE_residue'
+INFO:pyaf.std:SKIPPING_AR_MODELS_WITH_LOW_VARIANCE_CYCLE_RESIDUE 'RelDiff_VRS_PolyTrend_residue_zeroCycle[0.0]_residue'
+INFO:pyaf.std:SKIPPING_AR_MODELS_WITH_LOW_VARIANCE_CYCLE_RESIDUE 'RelDiff_VRS_PolyTrend_residue_bestCycle_byMAPE_residue'
+INFO:pyaf.std:SKIPPING_AR_MODELS_WITH_LOW_VARIANCE_CYCLE_RESIDUE 'CumSum_VRS_ConstantTrend_residue_zeroCycle[0.0]_residue'
+INFO:pyaf.std:SKIPPING_AR_MODELS_WITH_LOW_VARIANCE_CYCLE_RESIDUE 'CumSum_VRS_ConstantTrend_residue_bestCycle_byMAPE_residue'
+INFO:pyaf.std:SKIPPING_AR_MODELS_WITH_LOW_VARIANCE_CYCLE_RESIDUE 'CumSum_VRS_Lag1Trend_residue_zeroCycle[0.0]_residue'
+INFO:pyaf.std:SKIPPING_AR_MODELS_WITH_LOW_VARIANCE_CYCLE_RESIDUE 'CumSum_VRS_Lag1Trend_residue_bestCycle_byMAPE_residue'
+INFO:pyaf.std:SKIPPING_AR_MODELS_WITH_LOW_VARIANCE_CYCLE_RESIDUE 'CumSum_VRS_LinearTrend_residue_zeroCycle[0.0]_residue'
+INFO:pyaf.std:SKIPPING_AR_MODELS_WITH_LOW_VARIANCE_CYCLE_RESIDUE 'CumSum_VRS_LinearTrend_residue_bestCycle_byMAPE_residue'
+INFO:pyaf.std:SKIPPING_AR_MODELS_WITH_LOW_VARIANCE_CYCLE_RESIDUE 'CumSum_VRS_PolyTrend_residue_zeroCycle[0.0]_residue'
+INFO:pyaf.std:SKIPPING_AR_MODELS_WITH_LOW_VARIANCE_CYCLE_RESIDUE 'CumSum_VRS_PolyTrend_residue_bestCycle_byMAPE_residue'
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.674, ('TRAINING', {'Signal': 'VRS', 'Transformation': '_VRS'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.86, ('TRAINING', {'Signal': 'VRS', 'Transformation': 'CumSum_VRS'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.928, ('TRAINING', {'Signal': 'VRS', 'Transformation': 'Diff_VRS'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.053, ('TRAINING', {'Signal': 'VRS', 'Transformation': 'RelDiff_VRS'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.141, ('SIGNAL_TRAINING', {'Signals': ['VRS'], 'Transformations': [('VRS', 'None', '_', 'T+S+R'), ('VRS', 'None', 'Diff_', 'T+S+R'), ('VRS', 'None', 'RelDiff_', 'T+S+R'), ('VRS', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['VRS'], 'Transformations': [('VRS', [('VRS', 'None', 'CumSum_', 'T+S+R'), ('VRS', 'None', 'Diff_', 'T+S+R'), ('VRS', 'None', 'RelDiff_', 'T+S+R'), ('VRS', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'VRS', 'Transformations': [('VRS', 'None', 'CumSum_', 'T+S+R'), ('VRS', 'None', 'Diff_', 'T+S+R'), ('VRS', 'None', 'RelDiff_', 'T+S+R'), ('VRS', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.009, ('MODEL_SELECTION', {'Signal': 'VRS', 'Transformations': [('VRS', 'None', 'CumSum_', 'T+S+R'), ('VRS', 'None', 'Diff_', 'T+S+R'), ('VRS', 'None', 'RelDiff_', 'T+S+R'), ('VRS', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'VRS', 'Model': '_VRS_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.035, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'VRS', 'Model': '_VRS_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'VRS'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.037, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'VRS'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.082, ('FINALIZE_TRAINING', {'Signals': ['VRS'], 'Transformations': [('VRS', [('VRS', 'None', 'CumSum_', 'T+S+R'), ('VRS', 'None', 'Diff_', 'T+S+R'), ('VRS', 'None', 'RelDiff_', 'T+S+R'), ('VRS', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2016-07-20T00:00:00.000000 TimeMax=2016-07-26T00:00:00.000000 TimeDelta=<DateOffset: days=2> Horizon=1
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='VRS' Length=5  Min=11.53 Max=11.8  Mean=11.644 StdDev=0.11074294559925753
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_VRS' Min=11.53 Max=11.8  Mean=11.644 StdDev=0.11074294559925753
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_VRS' Min=0.0 Max=1.0  Mean=0.4222222222222216 StdDev=0.41015905777502587
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_VRS_ConstantTrend_residue_zeroCycle_residue_NoAR' [ConstantTrend + NoCycle + NoAR]
+INFO:pyaf.std:BEST_DECOMPOSITION  '_VRS_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR' [ConstantTrend + NoCycle + NoAR]
 INFO:pyaf.std:TREND_DETAIL '_VRS_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_VRS_ConstantTrend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_VRS_ConstantTrend_residue_zeroCycle_residue_NoAR' [NoAR]
+INFO:pyaf.std:CYCLE_DETAIL '_VRS_ConstantTrend_residue_zeroCycle[0.0]' [NoCycle]
+INFO:pyaf.std:AUTOREG_DETAIL '_VRS_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR' [NoAR]
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.009 MAPE_Forecast=0.009 MAPE_Test=0.009
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.009 SMAPE_Forecast=0.009 SMAPE_Test=0.009
 INFO:pyaf.std:MODEL_MASE MASE_Fit=1.5526 MASE_Forecast=1.5526 MASE_Test=1.5526
@@ -1590,63 +1639,63 @@ INFO:pyaf.std:MODEL_L1 L1_Fit=0.10480000000000053 L1_Forecast=0.1048000000000005
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.11074294559925753 L2_Forecast=0.11074294559925753 L2_Test=0.11074294559925753
 INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.0004508657216071944 LnQ_Forecast=0.0004508657216071944 LnQ_Test=0.0004508657216071944
 INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.10599999999999987 MedAE_Forecast=0.10599999999999987 MedAE_Test=0.10599999999999987
-INFO:pyaf.std:MODEL_COMPLEXITY 0
+INFO:pyaf.std:MODEL_COMPLEXITY 0.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND ConstantTrend 11.644
+INFO:pyaf.std:CONSTANT_TREND _VRS_ConstantTrend 0.4222222222222216
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _VRS_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _VRS_ConstantTrend_residue_zeroCycle[0.0] 0.0 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING '['VRS']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['VRS']' 0.03837227821350098
-   Split Transformation  ... ForecastMAPE TestMAPE
-0   None       Diff_VRS  ...       0.0030   0.0030
-1   None       Diff_VRS  ...       0.0030   0.0030
-2   None       Diff_VRS  ...       0.0033   0.0033
-3   None       Diff_VRS  ...       0.0033   0.0033
-4   None       Diff_VRS  ...       0.0033   0.0033
-5   None    RelDiff_VRS  ...       0.0033   0.0033
-6   None       Diff_VRS  ...       0.0033   0.0033
-7   None    RelDiff_VRS  ...       0.0033   0.0033
-8   None    RelDiff_VRS  ...       0.0042   0.0042
-9   None    RelDiff_VRS  ...       0.0042   0.0042
-10  None           _VRS  ...       0.0047   0.0047
-11  None           _VRS  ...       0.0047   0.0047
-12  None       Diff_VRS  ...       0.0047   0.0047
-13  None    RelDiff_VRS  ...       0.0047   0.0047
-14  None       Diff_VRS  ...       0.0047   0.0047
-15  None    RelDiff_VRS  ...       0.0047   0.0047
-16  None           _VRS  ...       0.0048   0.0048
-17  None           _VRS  ...       0.0048   0.0048
-18  None           _VRS  ...       0.0060   0.0060
-19  None           _VRS  ...       0.0060   0.0060
-20  None    RelDiff_VRS  ...       0.0062   0.0062
-21  None    RelDiff_VRS  ...       0.0062   0.0062
-22  None           _VRS  ...       0.0090   0.0090
-23  None           _VRS  ...       0.0090   0.0090
-24  None     CumSum_VRS  ...       0.2038   0.2038
-25  None     CumSum_VRS  ...       0.2038   0.2038
-26  None     CumSum_VRS  ...       0.6507   0.6507
-27  None     CumSum_VRS  ...       0.6507   0.6507
-28  None     CumSum_VRS  ...       0.7485   0.7485
-29  None     CumSum_VRS  ...       0.7485   0.7485
-30  None     CumSum_VRS  ...       1.1946   1.1946
-31  None     CumSum_VRS  ...       1.1946   1.1946
+INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['VRS'], 'Horizon': 1}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.035, ('FORECASTING', {'Signals': ['VRS'], 'Horizon': 1}))
+   Split Transformation DecompositionType  ... FitMAPE ForecastMAPE TestMAPE
+0   None       Diff_VRS             T+S+R  ...  0.0030       0.0030   0.0030
+1   None       Diff_VRS             T+S+R  ...  0.0030       0.0030   0.0030
+2   None       Diff_VRS             T+S+R  ...  0.0033       0.0033   0.0033
+3   None       Diff_VRS             T+S+R  ...  0.0033       0.0033   0.0033
+4   None       Diff_VRS             T+S+R  ...  0.0033       0.0033   0.0033
+5   None       Diff_VRS             T+S+R  ...  0.0033       0.0033   0.0033
+6   None           _VRS             T+S+R  ...  0.0047       0.0047   0.0047
+7   None           _VRS             T+S+R  ...  0.0047       0.0047   0.0047
+8   None       Diff_VRS             T+S+R  ...  0.0047       0.0047   0.0047
+9   None       Diff_VRS             T+S+R  ...  0.0047       0.0047   0.0047
+10  None           _VRS             T+S+R  ...  0.0048       0.0048   0.0048
+11  None           _VRS             T+S+R  ...  0.0048       0.0048   0.0048
+12  None           _VRS             T+S+R  ...  0.0060       0.0060   0.0060
+13  None           _VRS             T+S+R  ...  0.0060       0.0060   0.0060
+14  None     CumSum_VRS             T+S+R  ...  0.0075       0.0075   0.0075
+15  None     CumSum_VRS             T+S+R  ...  0.0075       0.0075   0.0075
+16  None     CumSum_VRS             T+S+R  ...  0.0083       0.0083   0.0083
+17  None     CumSum_VRS             T+S+R  ...  0.0083       0.0083   0.0083
+18  None     CumSum_VRS             T+S+R  ...  0.0089       0.0089   0.0089
+19  None     CumSum_VRS             T+S+R  ...  0.0089       0.0089   0.0089
+20  None     CumSum_VRS             T+S+R  ...  0.0089       0.0089   0.0089
+21  None     CumSum_VRS             T+S+R  ...  0.0089       0.0089   0.0089
+22  None           _VRS             T+S+R  ...  0.0090       0.0090   0.0090
+23  None           _VRS             T+S+R  ...  0.0090       0.0090   0.0090
+24  None    RelDiff_VRS             T+S+R  ...  0.0137       0.0137   0.0137
+25  None    RelDiff_VRS             T+S+R  ...  0.0137       0.0137   0.0137
+26  None    RelDiff_VRS             T+S+R  ...  0.0137       0.0137   0.0137
+27  None    RelDiff_VRS             T+S+R  ...  0.0137       0.0137   0.0137
+28  None    RelDiff_VRS             T+S+R  ...  0.0137       0.0137   0.0137
+29  None    RelDiff_VRS             T+S+R  ...  0.0137       0.0137   0.0137
+30  None    RelDiff_VRS             T+S+R  ...  0.0137       0.0137   0.0137
+31  None    RelDiff_VRS             T+S+R  ...  0.0137       0.0137   0.0137
 
-[32 rows x 8 columns]
-  Split Transformation  ... ForecastMAPE TestMAPE
-0  None       Diff_VRS  ...       0.0030   0.0030
-1  None       Diff_VRS  ...       0.0030   0.0030
-2  None       Diff_VRS  ...       0.0033   0.0033
-3  None       Diff_VRS  ...       0.0033   0.0033
-4  None       Diff_VRS  ...       0.0033   0.0033
+[32 rows x 10 columns]
+  Split Transformation DecompositionType  ... FitMAPE ForecastMAPE TestMAPE
+0  None       Diff_VRS             T+S+R  ...  0.0030       0.0030   0.0030
+1  None       Diff_VRS             T+S+R  ...  0.0030       0.0030   0.0030
+2  None       Diff_VRS             T+S+R  ...  0.0033       0.0033   0.0033
+3  None       Diff_VRS             T+S+R  ...  0.0033       0.0033   0.0033
+4  None       Diff_VRS             T+S+R  ...  0.0033       0.0033   0.0033
 
-[5 rows x 8 columns]
+[5 rows x 10 columns]
 1 0    11.55
 Name: VRS, dtype: float64
 1 0    11.644
@@ -1654,7 +1703,7 @@ Name: VRS_Forecast, dtype: float64
 FORECAST_DETAIL_ACTUAL Yahoo_Stock_Price_VRS VRS [11.55]
 FORECAST_DETAIL_PREDICTED Yahoo_Stock_Price_VRS VRS [11.644]
 BENCHMARK_PERF_DETAIL_SIGNAL_HORIZON Yahoo_Stock_Price_VRS VRS 5 1
-BENCHMARK_PERF_DETAIL_BENCH_TIME_IN_SECONDS PYAF_SYSTEM_DEPENDENT_ Yahoo_Stock_Price_VRS VRS 1.0672624111175537
+BENCHMARK_PERF_DETAIL_BENCH_TIME_IN_SECONDS PYAF_SYSTEM_DEPENDENT_ Yahoo_Stock_Price_VRS VRS 1.368393898010254
 BENCHMARK_PERF_DETAIL_BEST_MODEL Yahoo_Stock_Price_VRS VRS ConstantTrend + NoCycle + NoAR
 BENCHMARK_PERF_DETAIL_PERF_COUNT Yahoo_Stock_Price_VRS VRS 1
 BENCHMARK_PERF_DETAIL_PERF_MAPE_SMAPE_MASE Yahoo_Stock_Price_VRS VRS 0.0081 0.0081 None

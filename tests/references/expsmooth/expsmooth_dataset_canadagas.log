@@ -1,164 +1,232 @@
-INFO:pyaf.std:START_TRAINING 'canadagas'
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['canadagas']' 1.9068593978881836
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['canadagas'], 'Transformations': [('canadagas', 'None', '_', 'T+S+R'), ('canadagas', 'None', 'Diff_', 'T+S+R'), ('canadagas', 'None', 'RelDiff_', 'T+S+R'), ('canadagas', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'canadagas', 'Transformation': 'Diff_canadagas'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'canadagas', 'Transformation': '_canadagas'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'canadagas', 'Transformation': 'RelDiff_canadagas'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'canadagas', 'Transformation': 'CumSum_canadagas'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.584, ('TRAINING', {'Signal': 'canadagas', 'Transformation': 'CumSum_canadagas'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.596, ('TRAINING', {'Signal': 'canadagas', 'Transformation': 'Diff_canadagas'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.717, ('TRAINING', {'Signal': 'canadagas', 'Transformation': '_canadagas'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.719, ('TRAINING', {'Signal': 'canadagas', 'Transformation': 'RelDiff_canadagas'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.996, ('SIGNAL_TRAINING', {'Signals': ['canadagas'], 'Transformations': [('canadagas', 'None', '_', 'T+S+R'), ('canadagas', 'None', 'Diff_', 'T+S+R'), ('canadagas', 'None', 'RelDiff_', 'T+S+R'), ('canadagas', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['canadagas'], 'Transformations': [('canadagas', [('canadagas', 'None', 'CumSum_', 'T+S+R'), ('canadagas', 'None', 'Diff_', 'T+S+R'), ('canadagas', 'None', 'RelDiff_', 'T+S+R'), ('canadagas', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'canadagas', 'Transformations': [('canadagas', 'None', 'CumSum_', 'T+S+R'), ('canadagas', 'None', 'Diff_', 'T+S+R'), ('canadagas', 'None', 'RelDiff_', 'T+S+R'), ('canadagas', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.01, ('MODEL_SELECTION', {'Signal': 'canadagas', 'Transformations': [('canadagas', 'None', 'CumSum_', 'T+S+R'), ('canadagas', 'None', 'Diff_', 'T+S+R'), ('canadagas', 'None', 'RelDiff_', 'T+S+R'), ('canadagas', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'canadagas', 'Model': '_canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_AR(64)'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.041, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'canadagas', 'Model': '_canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_AR(64)'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'canadagas'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.068, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'canadagas'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.12, ('FINALIZE_TRAINING', {'Signals': ['canadagas'], 'Transformations': [('canadagas', [('canadagas', 'None', 'CumSum_', 'T+S+R'), ('canadagas', 'None', 'Diff_', 'T+S+R'), ('canadagas', 'None', 'RelDiff_', 'T+S+R'), ('canadagas', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1960.0 TimeMax=1995.91666666667 TimeDelta=0.08333333333334089 Horizon=2
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='canadagas' Length=542  Min=0.966 Max=19.5284  Mean=9.776504981549811 StdDev=5.135749933391727
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_canadagas' Min=0.966 Max=19.5284  Mean=9.776504981549811 StdDev=5.135749933391727
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_canadagas' Min=0.0 Max=1.0  Mean=0.47464255600298566 StdDev=0.27667488758952097
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_canadagas_ConstantTrend_residue_zeroCycle_residue_AR(64)' [ConstantTrend + NoCycle + AR]
+INFO:pyaf.std:BEST_DECOMPOSITION  '_canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_AR(64)' [ConstantTrend + NoCycle + AR]
 INFO:pyaf.std:TREND_DETAIL '_canadagas_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_canadagas_ConstantTrend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_canadagas_ConstantTrend_residue_zeroCycle_residue_AR(64)' [AR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0285 MAPE_Forecast=0.0165 MAPE_Test=0.0199
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0284 SMAPE_Forecast=0.0165 SMAPE_Test=0.0195
-INFO:pyaf.std:MODEL_MASE MASE_Fit=0.3794 MASE_Forecast=0.3887 MASE_Test=0.1314
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=1.1070583472710138 CRPS_Forecast=0.3081364421961302 CRPS_Test=0.4763105692444718
-INFO:pyaf.std:MODEL_L1 L1_Fit=0.18478320913421786 L1_Forecast=0.28723515942392186 L1_Test=0.33952886151105766
-INFO:pyaf.std:MODEL_L2 L2_Fit=0.24291483739064057 L2_Forecast=0.34733237153138524 L2_Test=0.4520671724574004
-INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.6814569295138821 LnQ_Forecast=0.04311546035432497 LnQ_Test=0.0013705921775295994
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.14248420860516053 MedAE_Forecast=0.2749201690250853 MedAE_Test=0.33952886151105766
-INFO:pyaf.std:MODEL_COMPLEXITY 64
+INFO:pyaf.std:CYCLE_DETAIL '_canadagas_ConstantTrend_residue_zeroCycle[0.0]' [NoCycle]
+INFO:pyaf.std:AUTOREG_DETAIL '_canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_AR(64)' [AR]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0477 MAPE_Forecast=0.0228 MAPE_Test=0.0589
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0469 SMAPE_Forecast=0.0225 SMAPE_Test=0.0572
+INFO:pyaf.std:MODEL_MASE MASE_Fit=0.6205 MASE_Forecast=0.5322 MASE_Test=0.4006
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=1.0935484983169221 CRPS_Forecast=0.27129683142327865 CRPS_Test=0.22959691438875485
+INFO:pyaf.std:MODEL_L1 L1_Fit=0.3022205158631265 L1_Forecast=0.39332878535411386 L1_Test=1.0353165822743762
+INFO:pyaf.std:MODEL_L2 L2_Fit=0.39467658718300713 L2_Forecast=0.4950269605015712 L2_Test=1.1325808571221934
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=2.0434114463813513 LnQ_Forecast=0.08823069873572378 LnQ_Test=0.008041588203601522
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.2548201832812199 MedAE_Forecast=0.33748628330232755 MedAE_Test=1.0353165822743762
+INFO:pyaf.std:MODEL_COMPLEXITY 64.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND ConstantTrend 7.81760300925926
+INFO:pyaf.std:CONSTANT_TREND _canadagas_ConstantTrend 0.3691119149064382
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _canadagas_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _canadagas_ConstantTrend_residue_zeroCycle[0.0] 0.0 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
-INFO:pyaf.std:AR_MODEL_COEFF 1 _canadagas_ConstantTrend_residue_zeroCycle_residue_Lag1 0.6940200838464883
-INFO:pyaf.std:AR_MODEL_COEFF 2 _canadagas_ConstantTrend_residue_zeroCycle_residue_Lag48 0.33691320289844406
-INFO:pyaf.std:AR_MODEL_COEFF 3 _canadagas_ConstantTrend_residue_zeroCycle_residue_Lag24 0.2326523695782892
-INFO:pyaf.std:AR_MODEL_COEFF 4 _canadagas_ConstantTrend_residue_zeroCycle_residue_Lag25 -0.22408004588918448
-INFO:pyaf.std:AR_MODEL_COEFF 5 _canadagas_ConstantTrend_residue_zeroCycle_residue_Lag12 0.20284220779042095
-INFO:pyaf.std:AR_MODEL_COEFF 6 _canadagas_ConstantTrend_residue_zeroCycle_residue_Lag36 0.20156865470770136
-INFO:pyaf.std:AR_MODEL_COEFF 7 _canadagas_ConstantTrend_residue_zeroCycle_residue_Lag13 -0.1932883761469883
-INFO:pyaf.std:AR_MODEL_COEFF 8 _canadagas_ConstantTrend_residue_zeroCycle_residue_Lag52 0.18825678700564175
-INFO:pyaf.std:AR_MODEL_COEFF 9 _canadagas_ConstantTrend_residue_zeroCycle_residue_Lag28 -0.17213702629570815
-INFO:pyaf.std:AR_MODEL_COEFF 10 _canadagas_ConstantTrend_residue_zeroCycle_residue_Lag15 -0.16931349990716116
+INFO:pyaf.std:AR_MODEL_COEFF 1 _canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_Lag1 0.1730386401694145
+INFO:pyaf.std:AR_MODEL_COEFF 2 _canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_Lag12 0.14245205057614968
+INFO:pyaf.std:AR_MODEL_COEFF 3 _canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_Lag2 0.12351711381075439
+INFO:pyaf.std:AR_MODEL_COEFF 4 _canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_Lag24 0.09808046648306745
+INFO:pyaf.std:AR_MODEL_COEFF 5 _canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_Lag3 0.09307575798900702
+INFO:pyaf.std:AR_MODEL_COEFF 6 _canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_Lag36 0.08408904859065863
+INFO:pyaf.std:AR_MODEL_COEFF 7 _canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_Lag11 0.08127722841911579
+INFO:pyaf.std:AR_MODEL_COEFF 8 _canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_Lag48 0.07309889300588954
+INFO:pyaf.std:AR_MODEL_COEFF 9 _canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_Lag10 0.07110245359558656
+INFO:pyaf.std:AR_MODEL_COEFF 10 _canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_Lag4 0.060784005538330556
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_TRAINING 'canadagas'
-PERFORMANCE MAPE_FORECAST canadagas 0.0165
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['canadagas']' 2.2445249557495117
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['canadagas'], 'Transformations': [('canadagas', 'None', '_', 'T+S+R'), ('canadagas', 'None', 'Diff_', 'T+S+R'), ('canadagas', 'None', 'RelDiff_', 'T+S+R'), ('canadagas', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+PERFORMANCE MAPE_FORECAST canadagas 0.0228
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'canadagas', 'Transformation': '_canadagas'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'canadagas', 'Transformation': 'Diff_canadagas'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'canadagas', 'Transformation': 'RelDiff_canadagas'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'canadagas', 'Transformation': 'CumSum_canadagas'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.239, ('TRAINING', {'Signal': 'canadagas', 'Transformation': 'CumSum_canadagas'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.26, ('TRAINING', {'Signal': 'canadagas', 'Transformation': '_canadagas'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.412, ('TRAINING', {'Signal': 'canadagas', 'Transformation': 'RelDiff_canadagas'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.472, ('TRAINING', {'Signal': 'canadagas', 'Transformation': 'Diff_canadagas'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.582, ('SIGNAL_TRAINING', {'Signals': ['canadagas'], 'Transformations': [('canadagas', 'None', '_', 'T+S+R'), ('canadagas', 'None', 'Diff_', 'T+S+R'), ('canadagas', 'None', 'RelDiff_', 'T+S+R'), ('canadagas', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['canadagas'], 'Transformations': [('canadagas', [('canadagas', 'None', 'CumSum_', 'T+S+R'), ('canadagas', 'None', 'Diff_', 'T+S+R'), ('canadagas', 'None', 'RelDiff_', 'T+S+R'), ('canadagas', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'canadagas', 'Transformations': [('canadagas', 'None', 'CumSum_', 'T+S+R'), ('canadagas', 'None', 'Diff_', 'T+S+R'), ('canadagas', 'None', 'RelDiff_', 'T+S+R'), ('canadagas', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.01, ('MODEL_SELECTION', {'Signal': 'canadagas', 'Transformations': [('canadagas', 'None', 'CumSum_', 'T+S+R'), ('canadagas', 'None', 'Diff_', 'T+S+R'), ('canadagas', 'None', 'RelDiff_', 'T+S+R'), ('canadagas', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'canadagas', 'Model': '_canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_AR(64)'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.051, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'canadagas', 'Model': '_canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_AR(64)'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'canadagas'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.197, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'canadagas'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.259, ('FINALIZE_TRAINING', {'Signals': ['canadagas'], 'Transformations': [('canadagas', [('canadagas', 'None', 'CumSum_', 'T+S+R'), ('canadagas', 'None', 'Diff_', 'T+S+R'), ('canadagas', 'None', 'RelDiff_', 'T+S+R'), ('canadagas', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1960.0 TimeMax=1995.75 TimeDelta=0.08333333333333333 Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='canadagas' Length=542  Min=0.966 Max=19.5284  Mean=9.776504981549811 StdDev=5.135749933391727
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_canadagas' Min=0.966 Max=19.5284  Mean=9.776504981549811 StdDev=5.135749933391727
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_canadagas' Min=0.0 Max=1.0  Mean=0.47464255600298566 StdDev=0.27667488758952097
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_canadagas_ConstantTrend_residue_zeroCycle_residue_AR(64)' [ConstantTrend + NoCycle + AR]
+INFO:pyaf.std:BEST_DECOMPOSITION  '_canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_AR(64)' [ConstantTrend + NoCycle + AR]
 INFO:pyaf.std:TREND_DETAIL '_canadagas_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_canadagas_ConstantTrend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_canadagas_ConstantTrend_residue_zeroCycle_residue_AR(64)' [AR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0286 MAPE_Forecast=0.0165 MAPE_Test=0.0128
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0285 SMAPE_Forecast=0.0164 SMAPE_Test=0.0127
-INFO:pyaf.std:MODEL_MASE MASE_Fit=0.3804 MASE_Forecast=0.3906 MASE_Test=0.1576
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=1.0960154708658643 CRPS_Forecast=0.3056242917064554 CRPS_Test=0.41315171193301303
-INFO:pyaf.std:MODEL_L1 L1_Fit=0.18543509122274968 L1_Forecast=0.28620753796112103 L1_Test=0.22487157613397457
-INFO:pyaf.std:MODEL_L2 L2_Fit=0.24345226373220502 L2_Forecast=0.34693284998091506 L2_Test=0.3320688217375444
-INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.6808749477085712 LnQ_Forecast=0.043031287216560764 LnQ_Test=0.0014579128801136293
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.14227148774899812 MedAE_Forecast=0.2766060159014039 MedAE_Test=0.11013811854747502
-INFO:pyaf.std:MODEL_COMPLEXITY 64
+INFO:pyaf.std:CYCLE_DETAIL '_canadagas_ConstantTrend_residue_zeroCycle[0.0]' [NoCycle]
+INFO:pyaf.std:AUTOREG_DETAIL '_canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_AR(64)' [AR]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0479 MAPE_Forecast=0.0226 MAPE_Test=0.0438
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0471 SMAPE_Forecast=0.0223 SMAPE_Test=0.0431
+INFO:pyaf.std:MODEL_MASE MASE_Fit=0.6209 MASE_Forecast=0.531 MASE_Test=0.5524
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=1.0824618593751953 CRPS_Forecast=0.2705192583039525 CRPS_Test=0.1314766649435084
+INFO:pyaf.std:MODEL_L1 L1_Fit=0.30266956747717766 L1_Forecast=0.38909068349667786 L1_Test=0.7882216701129838
+INFO:pyaf.std:MODEL_L2 L2_Fit=0.3952161185005818 L2_Forecast=0.4929839405038841 L2_Test=0.8921518579950519
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=2.0401646519144485 LnQ_Forecast=0.08787166465372429 LnQ_Test=0.009794434726173962
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.2530208821878249 MedAE_Forecast=0.3386314070294496 MedAE_Test=0.6177077709769314
+INFO:pyaf.std:MODEL_COMPLEXITY 64.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND ConstantTrend 7.776982325581396
+INFO:pyaf.std:CONSTANT_TREND _canadagas_ConstantTrend 0.36692358345803366
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _canadagas_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _canadagas_ConstantTrend_residue_zeroCycle[0.0] 0.0 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
-INFO:pyaf.std:AR_MODEL_COEFF 1 _canadagas_ConstantTrend_residue_zeroCycle_residue_Lag1 0.6939721478974877
-INFO:pyaf.std:AR_MODEL_COEFF 2 _canadagas_ConstantTrend_residue_zeroCycle_residue_Lag48 0.33850125607285664
-INFO:pyaf.std:AR_MODEL_COEFF 3 _canadagas_ConstantTrend_residue_zeroCycle_residue_Lag24 0.23051832973607644
-INFO:pyaf.std:AR_MODEL_COEFF 4 _canadagas_ConstantTrend_residue_zeroCycle_residue_Lag25 -0.22452699512785979
-INFO:pyaf.std:AR_MODEL_COEFF 5 _canadagas_ConstantTrend_residue_zeroCycle_residue_Lag12 0.20206700713456058
-INFO:pyaf.std:AR_MODEL_COEFF 6 _canadagas_ConstantTrend_residue_zeroCycle_residue_Lag36 0.20204338014570578
-INFO:pyaf.std:AR_MODEL_COEFF 7 _canadagas_ConstantTrend_residue_zeroCycle_residue_Lag13 -0.19326404137551095
-INFO:pyaf.std:AR_MODEL_COEFF 8 _canadagas_ConstantTrend_residue_zeroCycle_residue_Lag52 0.18505923891661932
-INFO:pyaf.std:AR_MODEL_COEFF 9 _canadagas_ConstantTrend_residue_zeroCycle_residue_Lag28 -0.17129539532758575
-INFO:pyaf.std:AR_MODEL_COEFF 10 _canadagas_ConstantTrend_residue_zeroCycle_residue_Lag15 -0.16873117987825464
+INFO:pyaf.std:AR_MODEL_COEFF 1 _canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_Lag1 0.17309595949483125
+INFO:pyaf.std:AR_MODEL_COEFF 2 _canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_Lag12 0.14243957153789943
+INFO:pyaf.std:AR_MODEL_COEFF 3 _canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_Lag2 0.12328280106494209
+INFO:pyaf.std:AR_MODEL_COEFF 4 _canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_Lag24 0.09775858582352616
+INFO:pyaf.std:AR_MODEL_COEFF 5 _canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_Lag3 0.09307905589488914
+INFO:pyaf.std:AR_MODEL_COEFF 6 _canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_Lag36 0.08438840057522681
+INFO:pyaf.std:AR_MODEL_COEFF 7 _canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_Lag11 0.08150890844910538
+INFO:pyaf.std:AR_MODEL_COEFF 8 _canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_Lag48 0.0733500921983958
+INFO:pyaf.std:AR_MODEL_COEFF 9 _canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_Lag10 0.07136158561370053
+INFO:pyaf.std:AR_MODEL_COEFF 10 _canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_Lag4 0.060917042976618915
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_TRAINING 'canadagas'
-PERFORMANCE MAPE_FORECAST canadagas 0.0165
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['canadagas']' 2.613166570663452
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['canadagas'], 'Transformations': [('canadagas', 'None', '_', 'T+S+R'), ('canadagas', 'None', 'Diff_', 'T+S+R'), ('canadagas', 'None', 'RelDiff_', 'T+S+R'), ('canadagas', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+PERFORMANCE MAPE_FORECAST canadagas 0.0226
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'canadagas', 'Transformation': '_canadagas'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'canadagas', 'Transformation': 'RelDiff_canadagas'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'canadagas', 'Transformation': 'Diff_canadagas'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'canadagas', 'Transformation': 'CumSum_canadagas'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.361, ('TRAINING', {'Signal': 'canadagas', 'Transformation': '_canadagas'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.359, ('TRAINING', {'Signal': 'canadagas', 'Transformation': 'Diff_canadagas'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.525, ('TRAINING', {'Signal': 'canadagas', 'Transformation': 'CumSum_canadagas'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.632, ('TRAINING', {'Signal': 'canadagas', 'Transformation': 'RelDiff_canadagas'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.766, ('SIGNAL_TRAINING', {'Signals': ['canadagas'], 'Transformations': [('canadagas', 'None', '_', 'T+S+R'), ('canadagas', 'None', 'Diff_', 'T+S+R'), ('canadagas', 'None', 'RelDiff_', 'T+S+R'), ('canadagas', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['canadagas'], 'Transformations': [('canadagas', [('canadagas', 'None', 'CumSum_', 'T+S+R'), ('canadagas', 'None', 'Diff_', 'T+S+R'), ('canadagas', 'None', 'RelDiff_', 'T+S+R'), ('canadagas', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'canadagas', 'Transformations': [('canadagas', 'None', 'CumSum_', 'T+S+R'), ('canadagas', 'None', 'Diff_', 'T+S+R'), ('canadagas', 'None', 'RelDiff_', 'T+S+R'), ('canadagas', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.02, ('MODEL_SELECTION', {'Signal': 'canadagas', 'Transformations': [('canadagas', 'None', 'CumSum_', 'T+S+R'), ('canadagas', 'None', 'Diff_', 'T+S+R'), ('canadagas', 'None', 'RelDiff_', 'T+S+R'), ('canadagas', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'canadagas', 'Model': '_canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_AR(64)'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.065, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'canadagas', 'Model': '_canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_AR(64)'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'canadagas'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.295, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'canadagas'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.381, ('FINALIZE_TRAINING', {'Signals': ['canadagas'], 'Transformations': [('canadagas', [('canadagas', 'None', 'CumSum_', 'T+S+R'), ('canadagas', 'None', 'Diff_', 'T+S+R'), ('canadagas', 'None', 'RelDiff_', 'T+S+R'), ('canadagas', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1960.0 TimeMax=1995.5 TimeDelta=0.08333333333333333 Horizon=8
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='canadagas' Length=542  Min=0.966 Max=19.5284  Mean=9.776504981549811 StdDev=5.135749933391727
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_canadagas' Min=0.966 Max=19.5284  Mean=9.776504981549811 StdDev=5.135749933391727
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_canadagas' Min=0.0 Max=1.0  Mean=0.47464255600298566 StdDev=0.27667488758952097
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_canadagas_ConstantTrend_residue_zeroCycle_residue_AR(64)' [ConstantTrend + NoCycle + AR]
+INFO:pyaf.std:BEST_DECOMPOSITION  '_canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_AR(64)' [ConstantTrend + NoCycle + AR]
 INFO:pyaf.std:TREND_DETAIL '_canadagas_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_canadagas_ConstantTrend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_canadagas_ConstantTrend_residue_zeroCycle_residue_AR(64)' [AR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0288 MAPE_Forecast=0.0164 MAPE_Test=0.0114
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0287 SMAPE_Forecast=0.0164 SMAPE_Test=0.0113
-INFO:pyaf.std:MODEL_MASE MASE_Fit=0.3818 MASE_Forecast=0.3898 MASE_Test=0.2268
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=1.082109890485696 CRPS_Forecast=0.3226560362038946 CRPS_Test=0.2863651633439217
-INFO:pyaf.std:MODEL_L1 L1_Fit=0.1858288543015844 L1_Forecast=0.28493363430705887 L1_Test=0.20015195804316166
-INFO:pyaf.std:MODEL_L2 L2_Fit=0.24399098525795415 L2_Forecast=0.34766849598234556 L2_Test=0.2717464335171284
-INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.6817703852564805 LnQ_Forecast=0.042940473763167654 LnQ_Test=0.0019319663602146942
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.1413121606599841 MedAE_Forecast=0.2716240334590836 MedAE_Test=0.1369837920980892
-INFO:pyaf.std:MODEL_COMPLEXITY 64
+INFO:pyaf.std:CYCLE_DETAIL '_canadagas_ConstantTrend_residue_zeroCycle[0.0]' [NoCycle]
+INFO:pyaf.std:AUTOREG_DETAIL '_canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_AR(64)' [AR]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0482 MAPE_Forecast=0.0223 MAPE_Test=0.0342
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0474 SMAPE_Forecast=0.022 SMAPE_Test=0.0336
+INFO:pyaf.std:MODEL_MASE MASE_Fit=0.6245 MASE_Forecast=0.5238 MASE_Test=0.6882
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=1.0684063574838323 CRPS_Forecast=0.2886552485996049 CRPS_Test=0.24571338275229349
+INFO:pyaf.std:MODEL_L1 L1_Fit=0.30395721012992755 L1_Forecast=0.38290219158705807 L1_Test=0.6073205169465097
+INFO:pyaf.std:MODEL_L2 L2_Fit=0.39652011855633007 L2_Forecast=0.4897819534532245 L2_Test=0.7193610221691599
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=2.038862132379308 LnQ_Forecast=0.08613357104199611 LnQ_Test=0.012914632451224255
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.2527297567875557 MedAE_Forecast=0.32306131853004416 MedAE_Test=0.49735661582527335
+INFO:pyaf.std:MODEL_COMPLEXITY 64.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND ConstantTrend 7.721799531615925
+INFO:pyaf.std:CONSTANT_TREND _canadagas_ConstantTrend 0.36395075699348867
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _canadagas_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _canadagas_ConstantTrend_residue_zeroCycle[0.0] 0.0 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
-INFO:pyaf.std:AR_MODEL_COEFF 1 _canadagas_ConstantTrend_residue_zeroCycle_residue_Lag1 0.6947775676605465
-INFO:pyaf.std:AR_MODEL_COEFF 2 _canadagas_ConstantTrend_residue_zeroCycle_residue_Lag48 0.3453274963937939
-INFO:pyaf.std:AR_MODEL_COEFF 3 _canadagas_ConstantTrend_residue_zeroCycle_residue_Lag25 -0.23108921093899876
-INFO:pyaf.std:AR_MODEL_COEFF 4 _canadagas_ConstantTrend_residue_zeroCycle_residue_Lag24 0.2296129962852501
-INFO:pyaf.std:AR_MODEL_COEFF 5 _canadagas_ConstantTrend_residue_zeroCycle_residue_Lag12 0.20054953235642317
-INFO:pyaf.std:AR_MODEL_COEFF 6 _canadagas_ConstantTrend_residue_zeroCycle_residue_Lag36 0.19697576939610623
-INFO:pyaf.std:AR_MODEL_COEFF 7 _canadagas_ConstantTrend_residue_zeroCycle_residue_Lag13 -0.19376817942880462
-INFO:pyaf.std:AR_MODEL_COEFF 8 _canadagas_ConstantTrend_residue_zeroCycle_residue_Lag52 0.1851149086578671
-INFO:pyaf.std:AR_MODEL_COEFF 9 _canadagas_ConstantTrend_residue_zeroCycle_residue_Lag28 -0.17324734082713988
-INFO:pyaf.std:AR_MODEL_COEFF 10 _canadagas_ConstantTrend_residue_zeroCycle_residue_Lag15 -0.171103261665622
+INFO:pyaf.std:AR_MODEL_COEFF 1 _canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_Lag1 0.17319928827307995
+INFO:pyaf.std:AR_MODEL_COEFF 2 _canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_Lag12 0.14211476288426864
+INFO:pyaf.std:AR_MODEL_COEFF 3 _canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_Lag2 0.12337012877746559
+INFO:pyaf.std:AR_MODEL_COEFF 4 _canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_Lag24 0.09753612675380666
+INFO:pyaf.std:AR_MODEL_COEFF 5 _canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_Lag3 0.09292026578253383
+INFO:pyaf.std:AR_MODEL_COEFF 6 _canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_Lag36 0.08423600198796564
+INFO:pyaf.std:AR_MODEL_COEFF 7 _canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_Lag11 0.0816029930704434
+INFO:pyaf.std:AR_MODEL_COEFF 8 _canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_Lag48 0.07268105753301345
+INFO:pyaf.std:AR_MODEL_COEFF 9 _canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_Lag10 0.07123938239816759
+INFO:pyaf.std:AR_MODEL_COEFF 10 _canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_Lag4 0.06113637324938048
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_TRAINING 'canadagas'
-PERFORMANCE MAPE_FORECAST canadagas 0.0164
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['canadagas']' 2.401413917541504
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['canadagas'], 'Transformations': [('canadagas', 'None', '_', 'T+S+R'), ('canadagas', 'None', 'Diff_', 'T+S+R'), ('canadagas', 'None', 'RelDiff_', 'T+S+R'), ('canadagas', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+PERFORMANCE MAPE_FORECAST canadagas 0.0223
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'canadagas', 'Transformation': 'Diff_canadagas'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'canadagas', 'Transformation': '_canadagas'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'canadagas', 'Transformation': 'CumSum_canadagas'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'canadagas', 'Transformation': 'RelDiff_canadagas'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.333, ('TRAINING', {'Signal': 'canadagas', 'Transformation': 'CumSum_canadagas'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.344, ('TRAINING', {'Signal': 'canadagas', 'Transformation': '_canadagas'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.394, ('TRAINING', {'Signal': 'canadagas', 'Transformation': 'RelDiff_canadagas'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.42, ('TRAINING', {'Signal': 'canadagas', 'Transformation': 'Diff_canadagas'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.518, ('SIGNAL_TRAINING', {'Signals': ['canadagas'], 'Transformations': [('canadagas', 'None', '_', 'T+S+R'), ('canadagas', 'None', 'Diff_', 'T+S+R'), ('canadagas', 'None', 'RelDiff_', 'T+S+R'), ('canadagas', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['canadagas'], 'Transformations': [('canadagas', [('canadagas', 'None', 'CumSum_', 'T+S+R'), ('canadagas', 'None', 'Diff_', 'T+S+R'), ('canadagas', 'None', 'RelDiff_', 'T+S+R'), ('canadagas', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'canadagas', 'Transformations': [('canadagas', 'None', 'CumSum_', 'T+S+R'), ('canadagas', 'None', 'Diff_', 'T+S+R'), ('canadagas', 'None', 'RelDiff_', 'T+S+R'), ('canadagas', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.006, ('MODEL_SELECTION', {'Signal': 'canadagas', 'Transformations': [('canadagas', 'None', 'CumSum_', 'T+S+R'), ('canadagas', 'None', 'Diff_', 'T+S+R'), ('canadagas', 'None', 'RelDiff_', 'T+S+R'), ('canadagas', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'canadagas', 'Model': '_canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_AR(64)'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.029, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'canadagas', 'Model': '_canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_AR(64)'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'canadagas'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.331, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'canadagas'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.367, ('FINALIZE_TRAINING', {'Signals': ['canadagas'], 'Transformations': [('canadagas', [('canadagas', 'None', 'CumSum_', 'T+S+R'), ('canadagas', 'None', 'Diff_', 'T+S+R'), ('canadagas', 'None', 'RelDiff_', 'T+S+R'), ('canadagas', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1960.0 TimeMax=1995.25 TimeDelta=0.08333333333333333 Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='canadagas' Length=542  Min=0.966 Max=19.5284  Mean=9.776504981549811 StdDev=5.135749933391727
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_canadagas' Min=0.966 Max=19.5284  Mean=9.776504981549811 StdDev=5.135749933391727
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_canadagas' Min=0.0 Max=1.0  Mean=0.47464255600298566 StdDev=0.27667488758952097
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_canadagas_ConstantTrend_residue_zeroCycle_residue_AR(64)' [ConstantTrend + NoCycle + AR]
+INFO:pyaf.std:BEST_DECOMPOSITION  '_canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_AR(64)' [ConstantTrend + NoCycle + AR]
 INFO:pyaf.std:TREND_DETAIL '_canadagas_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_canadagas_ConstantTrend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_canadagas_ConstantTrend_residue_zeroCycle_residue_AR(64)' [AR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0289 MAPE_Forecast=0.0164 MAPE_Test=0.014
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0288 SMAPE_Forecast=0.0164 SMAPE_Test=0.0138
-INFO:pyaf.std:MODEL_MASE MASE_Fit=0.3812 MASE_Forecast=0.3891 MASE_Test=0.3188
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=1.0690833188521571 CRPS_Forecast=0.33261021299380983 CRPS_Test=0.2456993246794501
-INFO:pyaf.std:MODEL_L1 L1_Fit=0.185705481580183 L1_Forecast=0.28330667002002374 L1_Test=0.24779805638105165
-INFO:pyaf.std:MODEL_L2 L2_Fit=0.2441385607929863 L2_Forecast=0.3415784405899552 L2_Test=0.34505328810651376
-INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.679953273404024 LnQ_Forecast=0.04148952150079446 LnQ_Test=0.004416036501889039
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.14485524887658352 MedAE_Forecast=0.2623491765955679 MedAE_Test=0.16923085153039352
-INFO:pyaf.std:MODEL_COMPLEXITY 64
+INFO:pyaf.std:CYCLE_DETAIL '_canadagas_ConstantTrend_residue_zeroCycle[0.0]' [NoCycle]
+INFO:pyaf.std:AUTOREG_DETAIL '_canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_AR(64)' [AR]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0485 MAPE_Forecast=0.0223 MAPE_Test=0.0273
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0477 SMAPE_Forecast=0.022 SMAPE_Test=0.0269
+INFO:pyaf.std:MODEL_MASE MASE_Fit=0.6265 MASE_Forecast=0.5247 MASE_Test=0.6233
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=1.0551912753485895 CRPS_Forecast=0.30994437549822007 CRPS_Test=0.17094823013568936
+INFO:pyaf.std:MODEL_L1 L1_Fit=0.305227926347336 L1_Forecast=0.38203522704857173 L1_Test=0.4844650264685004
+INFO:pyaf.std:MODEL_L2 L2_Fit=0.39795261896809736 L2_Forecast=0.4889387778067732 L2_Test=0.608516564174664
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=2.043538296356233 LnQ_Forecast=0.08517471725489781 LnQ_Test=0.01389241201972992
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.2536836372934662 MedAE_Forecast=0.31915996698371796 MedAE_Test=0.40920701176914953
+INFO:pyaf.std:MODEL_COMPLEXITY 64.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND ConstantTrend 7.667915094339621
+INFO:pyaf.std:CONSTANT_TREND _canadagas_ConstantTrend 0.3610478760472585
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _canadagas_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _canadagas_ConstantTrend_residue_zeroCycle[0.0] 0.0 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
-INFO:pyaf.std:AR_MODEL_COEFF 1 _canadagas_ConstantTrend_residue_zeroCycle_residue_Lag1 0.6896921945528501
-INFO:pyaf.std:AR_MODEL_COEFF 2 _canadagas_ConstantTrend_residue_zeroCycle_residue_Lag48 0.3462684321864076
-INFO:pyaf.std:AR_MODEL_COEFF 3 _canadagas_ConstantTrend_residue_zeroCycle_residue_Lag25 -0.23547264195225295
-INFO:pyaf.std:AR_MODEL_COEFF 4 _canadagas_ConstantTrend_residue_zeroCycle_residue_Lag24 0.2300458097416081
-INFO:pyaf.std:AR_MODEL_COEFF 5 _canadagas_ConstantTrend_residue_zeroCycle_residue_Lag12 0.20378361266612266
-INFO:pyaf.std:AR_MODEL_COEFF 6 _canadagas_ConstantTrend_residue_zeroCycle_residue_Lag36 0.19200675545162071
-INFO:pyaf.std:AR_MODEL_COEFF 7 _canadagas_ConstantTrend_residue_zeroCycle_residue_Lag13 -0.19080807941898378
-INFO:pyaf.std:AR_MODEL_COEFF 8 _canadagas_ConstantTrend_residue_zeroCycle_residue_Lag52 0.1821367328109506
-INFO:pyaf.std:AR_MODEL_COEFF 9 _canadagas_ConstantTrend_residue_zeroCycle_residue_Lag28 -0.17538590703998067
-INFO:pyaf.std:AR_MODEL_COEFF 10 _canadagas_ConstantTrend_residue_zeroCycle_residue_Lag15 -0.17488759775826862
+INFO:pyaf.std:AR_MODEL_COEFF 1 _canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_Lag1 0.1731116879428684
+INFO:pyaf.std:AR_MODEL_COEFF 2 _canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_Lag12 0.14173674715896045
+INFO:pyaf.std:AR_MODEL_COEFF 3 _canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_Lag2 0.12298683543588124
+INFO:pyaf.std:AR_MODEL_COEFF 4 _canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_Lag24 0.09739573555184812
+INFO:pyaf.std:AR_MODEL_COEFF 5 _canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_Lag3 0.09368763594959378
+INFO:pyaf.std:AR_MODEL_COEFF 6 _canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_Lag36 0.08394239341450455
+INFO:pyaf.std:AR_MODEL_COEFF 7 _canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_Lag11 0.08142203206557933
+INFO:pyaf.std:AR_MODEL_COEFF 8 _canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_Lag48 0.07286893153507931
+INFO:pyaf.std:AR_MODEL_COEFF 9 _canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_Lag10 0.07108541821814597
+INFO:pyaf.std:AR_MODEL_COEFF 10 _canadagas_ConstantTrend_residue_zeroCycle[0.0]_residue_Lag4 0.060328295525071934
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-PERFORMANCE MAPE_FORECAST canadagas 0.0164
+PERFORMANCE MAPE_FORECAST canadagas 0.0223

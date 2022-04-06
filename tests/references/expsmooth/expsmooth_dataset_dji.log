@@ -1,123 +1,191 @@
-INFO:pyaf.std:START_TRAINING 'dji'
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['dji']' 1.9817359447479248
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['dji'], 'Transformations': [('dji', 'None', '_', 'T+S+R'), ('dji', 'None', 'Diff_', 'T+S+R'), ('dji', 'None', 'RelDiff_', 'T+S+R'), ('dji', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'dji', 'Transformation': '_dji'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'dji', 'Transformation': 'Diff_dji'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'dji', 'Transformation': 'RelDiff_dji'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'dji', 'Transformation': 'CumSum_dji'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.304, ('TRAINING', {'Signal': 'dji', 'Transformation': 'Diff_dji'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.317, ('TRAINING', {'Signal': 'dji', 'Transformation': 'CumSum_dji'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.411, ('TRAINING', {'Signal': 'dji', 'Transformation': '_dji'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.535, ('TRAINING', {'Signal': 'dji', 'Transformation': 'RelDiff_dji'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.641, ('SIGNAL_TRAINING', {'Signals': ['dji'], 'Transformations': [('dji', 'None', '_', 'T+S+R'), ('dji', 'None', 'Diff_', 'T+S+R'), ('dji', 'None', 'RelDiff_', 'T+S+R'), ('dji', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['dji'], 'Transformations': [('dji', [('dji', 'None', 'CumSum_', 'T+S+R'), ('dji', 'None', 'Diff_', 'T+S+R'), ('dji', 'None', 'RelDiff_', 'T+S+R'), ('dji', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'dji', 'Transformations': [('dji', 'None', 'CumSum_', 'T+S+R'), ('dji', 'None', 'Diff_', 'T+S+R'), ('dji', 'None', 'RelDiff_', 'T+S+R'), ('dji', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.011, ('MODEL_SELECTION', {'Signal': 'dji', 'Transformations': [('dji', 'None', 'CumSum_', 'T+S+R'), ('dji', 'None', 'Diff_', 'T+S+R'), ('dji', 'None', 'RelDiff_', 'T+S+R'), ('dji', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'dji', 'Model': '_dji_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.041, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'dji', 'Model': '_dji_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'dji'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.07, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'dji'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.123, ('FINALIZE_TRAINING', {'Signals': ['dji'], 'Transformations': [('dji', [('dji', 'None', 'CumSum_', 'T+S+R'), ('dji', 'None', 'Diff_', 'T+S+R'), ('dji', 'None', 'RelDiff_', 'T+S+R'), ('dji', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1990.0 TimeMax=2003.58333333333 TimeDelta=0.08333333333331334 Horizon=2
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='dji' Length=207  Min=2442.33 Max=12621.7  Mean=7394.091352657005 StdDev=3206.5512711844176
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_dji' Min=2442.33 Max=12621.7  Mean=7394.091352657005 StdDev=3206.5512711844176
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_dji' Min=0.0 Max=1.0  Mean=0.4864506696049956 StdDev=0.3150048845050742
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_dji_Lag1Trend_residue_zeroCycle_residue_NoAR' [Lag1Trend + NoCycle + NoAR]
+INFO:pyaf.std:BEST_DECOMPOSITION  '_dji_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR' [Lag1Trend + Cycle_None + NoAR]
 INFO:pyaf.std:TREND_DETAIL '_dji_Lag1Trend' [Lag1Trend]
-INFO:pyaf.std:CYCLE_DETAIL '_dji_Lag1Trend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_dji_Lag1Trend_residue_zeroCycle_residue_NoAR' [NoAR]
+INFO:pyaf.std:CYCLE_DETAIL '_dji_Lag1Trend_residue_bestCycle_byMAPE' [Cycle_None]
+INFO:pyaf.std:AUTOREG_DETAIL '_dji_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR' [NoAR]
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0345 MAPE_Forecast=0.0194 MAPE_Test=0.0179
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0346 SMAPE_Forecast=0.0195 SMAPE_Test=0.0177
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.9939 MASE_Forecast=0.992 MASE_Test=2.5577
 INFO:pyaf.std:MODEL_CRPS CRPS_Fit=819.5082643602253 CRPS_Forecast=160.52209059233454 CRPS_Test=88.27500000000009
 INFO:pyaf.std:MODEL_L1 L1_Fit=241.33902439024394 L1_Forecast=207.43707317073176 L1_Test=219.44999999999982
-INFO:pyaf.std:MODEL_L2 L2_Fit=347.29614893435564 L2_Forecast=251.44449372454014 L2_Test=256.94478978955783
+INFO:pyaf.std:MODEL_L2 L2_Fit=347.29614893435564 L2_Forecast=251.4444937245402 L2_Test=256.94478978955783
 INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.3237664652365744 LnQ_Forecast=0.023597519228571694 LnQ_Test=0.0008536753563908748
 INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=146.92499999999973 MedAE_Forecast=192.5 MedAE_Test=219.44999999999982
-INFO:pyaf.std:MODEL_COMPLEXITY 32
+INFO:pyaf.std:MODEL_COMPLEXITY 2.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:LAG1_TREND Lag1Trend 2590.54
+INFO:pyaf.std:LAG1_TREND Lag1Trend 0.014559840147278272
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _dji_Lag1Trend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _dji_Lag1Trend_residue_bestCycle_byMAPE None 0.006362378025359133 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_TRAINING 'dji'
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['dji'], 'Transformations': [('dji', 'None', '_', 'T+S+R'), ('dji', 'None', 'Diff_', 'T+S+R'), ('dji', 'None', 'RelDiff_', 'T+S+R'), ('dji', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 PERFORMANCE MAPE_FORECAST dji 0.0194
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['dji']' 1.578061580657959
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'dji', 'Transformation': '_dji'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'dji', 'Transformation': 'Diff_dji'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'dji', 'Transformation': 'RelDiff_dji'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'dji', 'Transformation': 'CumSum_dji'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.447, ('TRAINING', {'Signal': 'dji', 'Transformation': '_dji'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.477, ('TRAINING', {'Signal': 'dji', 'Transformation': 'RelDiff_dji'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.665, ('TRAINING', {'Signal': 'dji', 'Transformation': 'Diff_dji'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.705, ('TRAINING', {'Signal': 'dji', 'Transformation': 'CumSum_dji'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.865, ('SIGNAL_TRAINING', {'Signals': ['dji'], 'Transformations': [('dji', 'None', '_', 'T+S+R'), ('dji', 'None', 'Diff_', 'T+S+R'), ('dji', 'None', 'RelDiff_', 'T+S+R'), ('dji', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['dji'], 'Transformations': [('dji', [('dji', 'None', 'CumSum_', 'T+S+R'), ('dji', 'None', 'Diff_', 'T+S+R'), ('dji', 'None', 'RelDiff_', 'T+S+R'), ('dji', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'dji', 'Transformations': [('dji', 'None', 'CumSum_', 'T+S+R'), ('dji', 'None', 'Diff_', 'T+S+R'), ('dji', 'None', 'RelDiff_', 'T+S+R'), ('dji', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.012, ('MODEL_SELECTION', {'Signal': 'dji', 'Transformations': [('dji', 'None', 'CumSum_', 'T+S+R'), ('dji', 'None', 'Diff_', 'T+S+R'), ('dji', 'None', 'RelDiff_', 'T+S+R'), ('dji', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'dji', 'Model': '_dji_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.051, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'dji', 'Model': '_dji_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'dji'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.158, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'dji'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.222, ('FINALIZE_TRAINING', {'Signals': ['dji'], 'Transformations': [('dji', [('dji', 'None', 'CumSum_', 'T+S+R'), ('dji', 'None', 'Diff_', 'T+S+R'), ('dji', 'None', 'RelDiff_', 'T+S+R'), ('dji', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1990.0 TimeMax=2003.41666666667 TimeDelta=0.08333333333335358 Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='dji' Length=207  Min=2442.33 Max=12621.7  Mean=7394.091352657005 StdDev=3206.5512711844176
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_dji' Min=2442.33 Max=12621.7  Mean=7394.091352657005 StdDev=3206.5512711844176
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_dji' Min=0.0 Max=1.0  Mean=0.4864506696049956 StdDev=0.3150048845050742
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_dji_Lag1Trend_residue_zeroCycle_residue_NoAR' [Lag1Trend + NoCycle + NoAR]
+INFO:pyaf.std:BEST_DECOMPOSITION  '_dji_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR' [Lag1Trend + Cycle_None + NoAR]
 INFO:pyaf.std:TREND_DETAIL '_dji_Lag1Trend' [Lag1Trend]
-INFO:pyaf.std:CYCLE_DETAIL '_dji_Lag1Trend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_dji_Lag1Trend_residue_zeroCycle_residue_NoAR' [NoAR]
+INFO:pyaf.std:CYCLE_DETAIL '_dji_Lag1Trend_residue_bestCycle_byMAPE' [Cycle_None]
+INFO:pyaf.std:AUTOREG_DETAIL '_dji_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR' [NoAR]
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0347 MAPE_Forecast=0.0197 MAPE_Test=0.0169
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0347 SMAPE_Forecast=0.0199 SMAPE_Test=0.0169
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.9938 MASE_Forecast=1.0048 MASE_Test=1.0529
 INFO:pyaf.std:MODEL_CRPS CRPS_Fit=819.9351227692308 CRPS_Forecast=154.5716747038328 CRPS_Test=74.30000000000018
 INFO:pyaf.std:MODEL_L1 L1_Fit=241.66185185185185 L1_Forecast=208.1829268292683 L1_Test=209.67500000000018
-INFO:pyaf.std:MODEL_L2 L2_Fit=348.5949124222364 L2_Forecast=251.99998550135464 L2_Test=232.0502046971736
+INFO:pyaf.std:MODEL_L2 L2_Fit=348.5949124222364 L2_Forecast=251.9999855013547 L2_Test=232.0502046971736
 INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.32264202207691084 LnQ_Forecast=0.024180025413410786 LnQ_Test=0.0013956123312153631
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=146.48999999999978 MedAE_Forecast=192.5 MedAE_Test=199.90000000000055
-INFO:pyaf.std:MODEL_COMPLEXITY 32
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=146.48999999999955 MedAE_Forecast=192.5 MedAE_Test=199.90000000000055
+INFO:pyaf.std:MODEL_COMPLEXITY 2.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:LAG1_TREND Lag1Trend 2590.54
+INFO:pyaf.std:LAG1_TREND Lag1Trend 0.014559840147278272
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _dji_Lag1Trend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _dji_Lag1Trend_residue_bestCycle_byMAPE None 0.006333889032425398 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_TRAINING 'dji'
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['dji'], 'Transformations': [('dji', 'None', '_', 'T+S+R'), ('dji', 'None', 'Diff_', 'T+S+R'), ('dji', 'None', 'RelDiff_', 'T+S+R'), ('dji', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 PERFORMANCE MAPE_FORECAST dji 0.0197
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['dji']' 1.930445909500122
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'dji', 'Transformation': '_dji'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'dji', 'Transformation': 'Diff_dji'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'dji', 'Transformation': 'CumSum_dji'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'dji', 'Transformation': 'RelDiff_dji'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.117, ('TRAINING', {'Signal': 'dji', 'Transformation': 'Diff_dji'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.241, ('TRAINING', {'Signal': 'dji', 'Transformation': '_dji'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.263, ('TRAINING', {'Signal': 'dji', 'Transformation': 'CumSum_dji'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.448, ('TRAINING', {'Signal': 'dji', 'Transformation': 'RelDiff_dji'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.555, ('SIGNAL_TRAINING', {'Signals': ['dji'], 'Transformations': [('dji', 'None', '_', 'T+S+R'), ('dji', 'None', 'Diff_', 'T+S+R'), ('dji', 'None', 'RelDiff_', 'T+S+R'), ('dji', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['dji'], 'Transformations': [('dji', [('dji', 'None', 'CumSum_', 'T+S+R'), ('dji', 'None', 'Diff_', 'T+S+R'), ('dji', 'None', 'RelDiff_', 'T+S+R'), ('dji', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'dji', 'Transformations': [('dji', 'None', 'CumSum_', 'T+S+R'), ('dji', 'None', 'Diff_', 'T+S+R'), ('dji', 'None', 'RelDiff_', 'T+S+R'), ('dji', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.012, ('MODEL_SELECTION', {'Signal': 'dji', 'Transformations': [('dji', 'None', 'CumSum_', 'T+S+R'), ('dji', 'None', 'Diff_', 'T+S+R'), ('dji', 'None', 'RelDiff_', 'T+S+R'), ('dji', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'dji', 'Model': '_dji_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.048, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'dji', 'Model': '_dji_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'dji'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.324, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'dji'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.385, ('FINALIZE_TRAINING', {'Signals': ['dji'], 'Transformations': [('dji', [('dji', 'None', 'CumSum_', 'T+S+R'), ('dji', 'None', 'Diff_', 'T+S+R'), ('dji', 'None', 'RelDiff_', 'T+S+R'), ('dji', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1990.0 TimeMax=2003.16666666667 TimeDelta=0.08333333333335396 Horizon=8
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='dji' Length=207  Min=2442.33 Max=12621.7  Mean=7394.091352657005 StdDev=3206.5512711844176
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_dji' Min=2442.33 Max=12621.7  Mean=7394.091352657005 StdDev=3206.5512711844176
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_dji' Min=0.0 Max=1.0  Mean=0.4864506696049956 StdDev=0.3150048845050742
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_dji_Lag1Trend_residue_zeroCycle_residue_NoAR' [Lag1Trend + NoCycle + NoAR]
+INFO:pyaf.std:BEST_DECOMPOSITION  '_dji_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR' [Lag1Trend + Cycle_None + NoAR]
 INFO:pyaf.std:TREND_DETAIL '_dji_Lag1Trend' [Lag1Trend]
-INFO:pyaf.std:CYCLE_DETAIL '_dji_Lag1Trend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_dji_Lag1Trend_residue_zeroCycle_residue_NoAR' [NoAR]
+INFO:pyaf.std:CYCLE_DETAIL '_dji_Lag1Trend_residue_bestCycle_byMAPE' [Cycle_None]
+INFO:pyaf.std:AUTOREG_DETAIL '_dji_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR' [NoAR]
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0346 MAPE_Forecast=0.0209 MAPE_Test=0.0194
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0346 SMAPE_Forecast=0.0211 SMAPE_Test=0.0195
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.9937 MASE_Forecast=1.0344 MASE_Test=0.9769
 INFO:pyaf.std:MODEL_CRPS CRPS_Fit=822.550860686986 CRPS_Forecast=172.85247714285717 CRPS_Test=205.96249999999998
-INFO:pyaf.std:MODEL_L1 L1_Fit=239.97427672955973 L1_Forecast=212.31525000000002 L1_Test=234.36249999999995
-INFO:pyaf.std:MODEL_L2 L2_Fit=348.3345684221732 L2_Forecast=259.27222485738815 L2_Test=255.82558755918075
+INFO:pyaf.std:MODEL_L1 L1_Fit=239.97427672955976 L1_Forecast=212.31525000000002 L1_Test=234.36249999999995
+INFO:pyaf.std:MODEL_L2 L2_Fit=348.33456842217316 L2_Forecast=259.2722248573882 L2_Test=255.82558755918075
 INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.31707455284269315 LnQ_Forecast=0.027501648883582745 LnQ_Test=0.003641458095261065
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=146.34000000000015 MedAE_Forecast=187.26000000000022 MedAE_Test=218.40000000000055
-INFO:pyaf.std:MODEL_COMPLEXITY 32
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=146.3399999999997 MedAE_Forecast=187.26000000000022 MedAE_Test=218.40000000000055
+INFO:pyaf.std:MODEL_COMPLEXITY 2.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:LAG1_TREND Lag1Trend 2590.54
+INFO:pyaf.std:LAG1_TREND Lag1Trend 0.014559840147278272
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _dji_Lag1Trend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _dji_Lag1Trend_residue_bestCycle_byMAPE None 0.0059708999672867386 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_TRAINING 'dji'
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['dji'], 'Transformations': [('dji', 'None', '_', 'T+S+R'), ('dji', 'None', 'Diff_', 'T+S+R'), ('dji', 'None', 'RelDiff_', 'T+S+R'), ('dji', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 PERFORMANCE MAPE_FORECAST dji 0.0209
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['dji']' 1.8537635803222656
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'dji', 'Transformation': '_dji'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'dji', 'Transformation': 'Diff_dji'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'dji', 'Transformation': 'CumSum_dji'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'dji', 'Transformation': 'RelDiff_dji'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.248, ('TRAINING', {'Signal': 'dji', 'Transformation': 'CumSum_dji'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.357, ('TRAINING', {'Signal': 'dji', 'Transformation': '_dji'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.459, ('TRAINING', {'Signal': 'dji', 'Transformation': 'RelDiff_dji'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.526, ('TRAINING', {'Signal': 'dji', 'Transformation': 'Diff_dji'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.683, ('SIGNAL_TRAINING', {'Signals': ['dji'], 'Transformations': [('dji', 'None', '_', 'T+S+R'), ('dji', 'None', 'Diff_', 'T+S+R'), ('dji', 'None', 'RelDiff_', 'T+S+R'), ('dji', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['dji'], 'Transformations': [('dji', [('dji', 'None', 'CumSum_', 'T+S+R'), ('dji', 'None', 'Diff_', 'T+S+R'), ('dji', 'None', 'RelDiff_', 'T+S+R'), ('dji', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'dji', 'Transformations': [('dji', 'None', 'CumSum_', 'T+S+R'), ('dji', 'None', 'Diff_', 'T+S+R'), ('dji', 'None', 'RelDiff_', 'T+S+R'), ('dji', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.011, ('MODEL_SELECTION', {'Signal': 'dji', 'Transformations': [('dji', 'None', 'CumSum_', 'T+S+R'), ('dji', 'None', 'Diff_', 'T+S+R'), ('dji', 'None', 'RelDiff_', 'T+S+R'), ('dji', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'dji', 'Model': '_dji_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.039, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'dji', 'Model': '_dji_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'dji'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.58, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'dji'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.631, ('FINALIZE_TRAINING', {'Signals': ['dji'], 'Transformations': [('dji', [('dji', 'None', 'CumSum_', 'T+S+R'), ('dji', 'None', 'Diff_', 'T+S+R'), ('dji', 'None', 'RelDiff_', 'T+S+R'), ('dji', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1990.0 TimeMax=2002.91666666667 TimeDelta=0.08333333333335435 Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='dji' Length=207  Min=2442.33 Max=12621.7  Mean=7394.091352657005 StdDev=3206.5512711844176
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_dji' Min=2442.33 Max=12621.7  Mean=7394.091352657005 StdDev=3206.5512711844176
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_dji' Min=0.0 Max=1.0  Mean=0.4864506696049956 StdDev=0.3150048845050742
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_dji_Lag1Trend_residue_zeroCycle_residue_NoAR' [Lag1Trend + NoCycle + NoAR]
+INFO:pyaf.std:BEST_DECOMPOSITION  '_dji_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR' [Lag1Trend + Cycle_None + NoAR]
 INFO:pyaf.std:TREND_DETAIL '_dji_Lag1Trend' [Lag1Trend]
-INFO:pyaf.std:CYCLE_DETAIL '_dji_Lag1Trend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_dji_Lag1Trend_residue_zeroCycle_residue_NoAR' [NoAR]
+INFO:pyaf.std:CYCLE_DETAIL '_dji_Lag1Trend_residue_bestCycle_byMAPE' [Cycle_None]
+INFO:pyaf.std:AUTOREG_DETAIL '_dji_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR' [NoAR]
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0348 MAPE_Forecast=0.022 MAPE_Test=0.0167
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0349 SMAPE_Forecast=0.0222 SMAPE_Test=0.0168
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.9936 MASE_Forecast=1.0084 MASE_Test=1.0278
 INFO:pyaf.std:MODEL_CRPS CRPS_Fit=826.0246783037476 CRPS_Forecast=198.9914018754579 CRPS_Test=168.7622844444446
-INFO:pyaf.std:MODEL_L1 L1_Fit=241.05326923076922 L1_Forecast=218.82076923076923 L1_Test=198.75833333333335
-INFO:pyaf.std:MODEL_L2 L2_Fit=350.57686865036084 L2_Forecast=263.1586160620479 L2_Test=229.33672296429134
+INFO:pyaf.std:MODEL_L1 L1_Fit=241.05326923076927 L1_Forecast=218.82076923076923 L1_Test=198.75833333333335
+INFO:pyaf.std:MODEL_L2 L2_Fit=350.5768686503608 L2_Forecast=263.15861606204794 L2_Test=229.33672296429134
 INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.31526303580378645 LnQ_Forecast=0.028462854527079848 LnQ_Test=0.00449176949067066
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=146.06500000000005 MedAE_Forecast=182.02000000000044 MedAE_Test=197.15000000000055
-INFO:pyaf.std:MODEL_COMPLEXITY 32
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=146.06499999999983 MedAE_Forecast=182.02000000000044 MedAE_Test=197.15000000000055
+INFO:pyaf.std:MODEL_COMPLEXITY 2.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:LAG1_TREND Lag1Trend 2590.54
+INFO:pyaf.std:LAG1_TREND Lag1Trend 0.014559840147278272
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _dji_Lag1Trend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _dji_Lag1Trend_residue_bestCycle_byMAPE None 0.0061437986830226166 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END

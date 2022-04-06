@@ -1,6 +1,6 @@
 /home/antoine/dev/python/packages/timeseries/pyaf/tests/perf/test_ozone_ar_speed_many.py:25: FutureWarning: Treating datetime data as categorical rather than numeric in `.describe` is deprecated and will be removed in a future version of pandas. Specify `datetime_is_numeric=True` to silence this warning and adopt the future behavior now.
   print(Time1.shape, Ozone1.shape, Time1.describe(), Ozone1.describe())
-INFO:pyaf.std:START_TRAINING 'Ozone'
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['Ozone'], 'Transformations': [('Ozone', 'None', '_', 'T+S+R'), ('Ozone', 'None', 'Diff_', 'T+S+R'), ('Ozone', 'None', 'RelDiff_', 'T+S+R'), ('Ozone', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
      Month  Ozone       Time
 0  1955-01    2.7 1955-01-01
 1  1955-02    2.0 1955-02-01
@@ -9,7 +9,7 @@ INFO:pyaf.std:START_TRAINING 'Ozone'
 4  1955-05    6.5 1955-05-01
 (10200,) (10200,) count                   10200
 unique                  10200
-top       1966-07-30 00:00:00
+top       1955-01-01 00:00:00
 freq                        1
 first     1955-01-01 00:00:00
 last      2150-06-20 00:00:00
@@ -31,32 +31,49 @@ min          1.200000
 75%          4.825000
 max          8.700000
 Name: Ozone, dtype: float64
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Ozone']' 6.4702653884887695
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Ozone', 'Transformation': '_Ozone'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Ozone', 'Transformation': 'Diff_Ozone'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Ozone', 'Transformation': 'RelDiff_Ozone'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Ozone', 'Transformation': 'CumSum_Ozone'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 9.325, ('TRAINING', {'Signal': 'Ozone', 'Transformation': 'Diff_Ozone'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 9.391, ('TRAINING', {'Signal': 'Ozone', 'Transformation': '_Ozone'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 9.409, ('TRAINING', {'Signal': 'Ozone', 'Transformation': 'CumSum_Ozone'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 11.738, ('TRAINING', {'Signal': 'Ozone', 'Transformation': 'RelDiff_Ozone'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 16.947, ('SIGNAL_TRAINING', {'Signals': ['Ozone'], 'Transformations': [('Ozone', 'None', '_', 'T+S+R'), ('Ozone', 'None', 'Diff_', 'T+S+R'), ('Ozone', 'None', 'RelDiff_', 'T+S+R'), ('Ozone', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['Ozone'], 'Transformations': [('Ozone', [('Ozone', 'None', 'CumSum_', 'T+S+R'), ('Ozone', 'None', 'Diff_', 'T+S+R'), ('Ozone', 'None', 'RelDiff_', 'T+S+R'), ('Ozone', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'Ozone', 'Transformations': [('Ozone', 'None', 'CumSum_', 'T+S+R'), ('Ozone', 'None', 'Diff_', 'T+S+R'), ('Ozone', 'None', 'RelDiff_', 'T+S+R'), ('Ozone', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.016, ('MODEL_SELECTION', {'Signal': 'Ozone', 'Transformations': [('Ozone', 'None', 'CumSum_', 'T+S+R'), ('Ozone', 'None', 'Diff_', 'T+S+R'), ('Ozone', 'None', 'RelDiff_', 'T+S+R'), ('Ozone', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Ozone', 'Model': '_Ozone_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.14, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Ozone', 'Model': '_Ozone_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Ozone'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.78, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Ozone'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.938, ('FINALIZE_TRAINING', {'Signals': ['Ozone'], 'Transformations': [('Ozone', [('Ozone', 'None', 'CumSum_', 'T+S+R'), ('Ozone', 'None', 'Diff_', 'T+S+R'), ('Ozone', 'None', 'RelDiff_', 'T+S+R'), ('Ozone', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1993-06-26T00:00:00.000000 TimeMax=2118-11-19T00:00:00.000000 TimeDelta=<DateOffset: days=7> Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Length=8192  Min=1.2 Max=8.7  Mean=3.832238769531294 StdDev=1.4911578475105347
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='CumSum_Ozone' Min=4.4 Max=31393.70000000036  Mean=15725.102136230418 StdDev=9071.036701847821
-INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'CumSum_'
-INFO:pyaf.std:BEST_DECOMPOSITION  'CumSum_Ozone_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR' [Lag1Trend + Cycle + NoAR]
-INFO:pyaf.std:TREND_DETAIL 'CumSum_Ozone_Lag1Trend' [Lag1Trend]
-INFO:pyaf.std:CYCLE_DETAIL 'CumSum_Ozone_Lag1Trend_residue_bestCycle_byMAPE' [Cycle]
-INFO:pyaf.std:AUTOREG_DETAIL 'CumSum_Ozone_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR' [NoAR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.2168 MAPE_Forecast=0.2168 MAPE_Test=0.1912
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.2149 SMAPE_Forecast=0.2148 SMAPE_Test=0.2239
-INFO:pyaf.std:MODEL_MASE MASE_Fit=0.9148 MASE_Forecast=0.9132 MASE_Test=0.899
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=0.45528583837341435 CRPS_Forecast=0.4555922661175846 CRPS_Test=0.33850222222235354
-INFO:pyaf.std:MODEL_L1 L1_Fit=0.7712561124694427 L1_Forecast=0.7704156479217894 L1_Test=0.42500000000018195
-INFO:pyaf.std:MODEL_L2 L2_Fit=1.0177557228978513 L2_Forecast=1.0163636701615695 L2_Test=0.5074445782548141
-INFO:pyaf.std:MODEL_LnQ LnQ_Fit=531.1498140295142 LnQ_Forecast=132.0978615978496 LnQ_Test=1.706774399701382
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.6000000000003638 MedAE_Forecast=0.6000000000007275 MedAE_Test=0.3499999999989085
-INFO:pyaf.std:MODEL_COMPLEXITY 72
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Ozone' Min=0.0 Max=1.0  Mean=0.35096516927082855 StdDev=0.1988210463347375
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
+INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
+INFO:pyaf.std:BEST_DECOMPOSITION  '_Ozone_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR' [Lag1Trend + Cycle_None + NoAR]
+INFO:pyaf.std:TREND_DETAIL '_Ozone_Lag1Trend' [Lag1Trend]
+INFO:pyaf.std:CYCLE_DETAIL '_Ozone_Lag1Trend_residue_bestCycle_byMAPE' [Cycle_None]
+INFO:pyaf.std:AUTOREG_DETAIL '_Ozone_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR' [NoAR]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.2469 MAPE_Forecast=0.2473 MAPE_Test=0.2132
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.2334 SMAPE_Forecast=0.2336 SMAPE_Test=0.2072
+INFO:pyaf.std:MODEL_MASE MASE_Fit=0.9998 MASE_Forecast=0.9995 MASE_Test=1.0048
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=0.4397947497104619 CRPS_Forecast=0.4399346930896925 CRPS_Test=0.21561333333333335
+INFO:pyaf.std:MODEL_L1 L1_Fit=0.8429248166259168 L1_Forecast=0.8431540342298289 L1_Test=0.4750000000000001
+INFO:pyaf.std:MODEL_L2 L2_Fit=1.1076190625729863 L2_Forecast=1.1080115010921896 L2_Test=0.5737304826019501
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=603.7439468556315 LnQ_Forecast=151.17970660624022 LnQ_Test=0.7460117553311504
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.6999999999999993 MedAE_Forecast=0.6499999999999999 MedAE_Test=0.45000000000000007
+INFO:pyaf.std:MODEL_COMPLEXITY 2.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
-INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES Integration None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:LAG1_TREND Lag1Trend 4.4
+INFO:pyaf.std:LAG1_TREND Lag1Trend 0.42666666666666675
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES CumSum_Ozone_Lag1Trend_residue_bestCycle_byMAPE 12 3.7000000000007276 {0: 3.7999999999992724, 1: 4.299999999999272, 2: 4.900000000001455, 3: 5.0, 4: 4.799999999999272, 5: 4.799999999999272, 6: 2.7999999999992724, 7: 2.1999999999999993, 8: 2.099999999998545, 9: 2.399999999999636, 10: 2.7000000000007276, 11: 3.7999999999992724}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _Ozone_Lag1Trend_residue_bestCycle_byMAPE None 0.013333333333333378 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END

@@ -1,148 +1,216 @@
-INFO:pyaf.std:START_TRAINING 'frexport'
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['frexport']' 1.1588995456695557
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['frexport'], 'Transformations': [('frexport', 'None', '_', 'T+S+R'), ('frexport', 'None', 'Diff_', 'T+S+R'), ('frexport', 'None', 'RelDiff_', 'T+S+R'), ('frexport', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'frexport', 'Transformation': '_frexport'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'frexport', 'Transformation': 'CumSum_frexport'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'frexport', 'Transformation': 'RelDiff_frexport'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'frexport', 'Transformation': 'Diff_frexport'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.502, ('TRAINING', {'Signal': 'frexport', 'Transformation': 'Diff_frexport'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.577, ('TRAINING', {'Signal': 'frexport', 'Transformation': 'RelDiff_frexport'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.642, ('TRAINING', {'Signal': 'frexport', 'Transformation': '_frexport'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.802, ('TRAINING', {'Signal': 'frexport', 'Transformation': 'CumSum_frexport'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.911, ('SIGNAL_TRAINING', {'Signals': ['frexport'], 'Transformations': [('frexport', 'None', '_', 'T+S+R'), ('frexport', 'None', 'Diff_', 'T+S+R'), ('frexport', 'None', 'RelDiff_', 'T+S+R'), ('frexport', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['frexport'], 'Transformations': [('frexport', [('frexport', 'None', 'CumSum_', 'T+S+R'), ('frexport', 'None', 'Diff_', 'T+S+R'), ('frexport', 'None', 'RelDiff_', 'T+S+R'), ('frexport', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'frexport', 'Transformations': [('frexport', 'None', 'CumSum_', 'T+S+R'), ('frexport', 'None', 'Diff_', 'T+S+R'), ('frexport', 'None', 'RelDiff_', 'T+S+R'), ('frexport', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.01, ('MODEL_SELECTION', {'Signal': 'frexport', 'Transformations': [('frexport', 'None', 'CumSum_', 'T+S+R'), ('frexport', 'None', 'Diff_', 'T+S+R'), ('frexport', 'None', 'RelDiff_', 'T+S+R'), ('frexport', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'frexport', 'Model': 'Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE_residue_AR(6)'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.041, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'frexport', 'Model': 'Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE_residue_AR(6)'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'frexport'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.084, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'frexport'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.137, ('FINALIZE_TRAINING', {'Signals': ['frexport'], 'Transformations': [('frexport', [('frexport', 'None', 'CumSum_', 'T+S+R'), ('frexport', 'None', 'Diff_', 'T+S+R'), ('frexport', 'None', 'RelDiff_', 'T+S+R'), ('frexport', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1.0 TimeMax=6.75 TimeDelta=0.25 Horizon=2
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='frexport' Length=24  Min=341 Max=854  Mean=548.7083333333334 StdDev=137.44649842959097
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_frexport' Min=341 Max=854  Mean=548.7083333333334 StdDev=137.44649842959097
-INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_frexport_ConstantTrend_residue_zeroCycle_residue_AR(6)' [ConstantTrend + NoCycle + AR]
-INFO:pyaf.std:TREND_DETAIL '_frexport_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_frexport_ConstantTrend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_frexport_ConstantTrend_residue_zeroCycle_residue_AR(6)' [AR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0459 MAPE_Forecast=0.0459 MAPE_Test=0.0459
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.045 SMAPE_Forecast=0.045 SMAPE_Test=0.045
-INFO:pyaf.std:MODEL_MASE MASE_Fit=0.2777 MASE_Forecast=0.2777 MASE_Test=0.2777
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=47.31593552178155 CRPS_Forecast=47.31593552178155 CRPS_Test=47.31593552178155
-INFO:pyaf.std:MODEL_L1 L1_Fit=23.12176009545192 L1_Forecast=23.12176009545192 L1_Test=23.12176009545192
-INFO:pyaf.std:MODEL_L2 L2_Fit=28.88318526770828 L2_Forecast=28.88318526770828 L2_Test=28.88318526770828
-INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.09399956532079326 LnQ_Forecast=0.09399956532079326 LnQ_Test=0.09399956532079326
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=19.356842897236703 MedAE_Forecast=19.356842897236703 MedAE_Test=19.356842897236703
-INFO:pyaf.std:MODEL_COMPLEXITY 6
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='Diff_frexport' Min=-0.3762183235867447 Max=0.2514619883040936  Mean=0.02428525016244314 StdDev=0.177950200204136
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
+INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'Diff_'
+INFO:pyaf.std:BEST_DECOMPOSITION  'Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE_residue_AR(6)' [ConstantTrend + Cycle_None + AR]
+INFO:pyaf.std:TREND_DETAIL 'Diff_frexport_ConstantTrend' [ConstantTrend]
+INFO:pyaf.std:CYCLE_DETAIL 'Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE' [Cycle_None]
+INFO:pyaf.std:AUTOREG_DETAIL 'Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE_residue_AR(6)' [AR]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0692 MAPE_Forecast=0.0692 MAPE_Test=0.0692
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0679 SMAPE_Forecast=0.0679 SMAPE_Test=0.0679
+INFO:pyaf.std:MODEL_MASE MASE_Fit=0.4387 MASE_Forecast=0.4387 MASE_Test=0.4387
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=36.25357598893774 CRPS_Forecast=36.25357598893774 CRPS_Test=36.25357598893774
+INFO:pyaf.std:MODEL_L1 L1_Fit=36.52298427180566 L1_Forecast=36.52298427180566 L1_Test=36.52298427180566
+INFO:pyaf.std:MODEL_L2 L2_Fit=49.67228688924965 L2_Forecast=49.67228688924965 L2_Test=49.67228688924965
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.19980206117355437 LnQ_Forecast=0.19980206117355437 LnQ_Test=0.19980206117355437
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=23.85450728678495 MedAE_Forecast=23.85450728678495 MedAE_Test=23.85450728678495
+INFO:pyaf.std:MODEL_COMPLEXITY 7.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
-INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:DIFFERENCING_TRANSFORMATION Difference 0.04093567251461988
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND ConstantTrend 548.7083333333334
+INFO:pyaf.std:CONSTANT_TREND Diff_frexport_ConstantTrend 0.02428525016244314
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _frexport_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE None 0.05466211825860949 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
-INFO:pyaf.std:AR_MODEL_COEFF 1 _frexport_ConstantTrend_residue_zeroCycle_residue_Lag4 1.153876506666612
-INFO:pyaf.std:AR_MODEL_COEFF 2 _frexport_ConstantTrend_residue_zeroCycle_residue_Lag1 0.5257406340934825
-INFO:pyaf.std:AR_MODEL_COEFF 3 _frexport_ConstantTrend_residue_zeroCycle_residue_Lag5 -0.5135022261523631
-INFO:pyaf.std:AR_MODEL_COEFF 4 _frexport_ConstantTrend_residue_zeroCycle_residue_Lag6 -0.1714632391891056
-INFO:pyaf.std:AR_MODEL_COEFF 5 _frexport_ConstantTrend_residue_zeroCycle_residue_Lag3 -0.03585851627319697
-INFO:pyaf.std:AR_MODEL_COEFF 6 _frexport_ConstantTrend_residue_zeroCycle_residue_Lag2 0.03546879238986876
+INFO:pyaf.std:AR_MODEL_COEFF 1 Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag4 0.3230868357574003
+INFO:pyaf.std:AR_MODEL_COEFF 2 Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag3 -0.15989238642077833
+INFO:pyaf.std:AR_MODEL_COEFF 3 Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag1 -0.1194624377850477
+INFO:pyaf.std:AR_MODEL_COEFF 4 Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag2 -0.10648705652665501
+INFO:pyaf.std:AR_MODEL_COEFF 5 Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag5 -0.07526831365541312
+INFO:pyaf.std:AR_MODEL_COEFF 6 Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag6 -0.06160453401533302
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_TRAINING 'frexport'
-PERFORMANCE MAPE_FORECAST frexport 0.0459
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['frexport']' 1.5268268585205078
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['frexport'], 'Transformations': [('frexport', 'None', '_', 'T+S+R'), ('frexport', 'None', 'Diff_', 'T+S+R'), ('frexport', 'None', 'RelDiff_', 'T+S+R'), ('frexport', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+PERFORMANCE MAPE_FORECAST frexport 0.0692
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'frexport', 'Transformation': 'Diff_frexport'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'frexport', 'Transformation': '_frexport'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'frexport', 'Transformation': 'RelDiff_frexport'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'frexport', 'Transformation': 'CumSum_frexport'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.98, ('TRAINING', {'Signal': 'frexport', 'Transformation': 'CumSum_frexport'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.044, ('TRAINING', {'Signal': 'frexport', 'Transformation': '_frexport'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.085, ('TRAINING', {'Signal': 'frexport', 'Transformation': 'Diff_frexport'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.244, ('TRAINING', {'Signal': 'frexport', 'Transformation': 'RelDiff_frexport'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.341, ('SIGNAL_TRAINING', {'Signals': ['frexport'], 'Transformations': [('frexport', 'None', '_', 'T+S+R'), ('frexport', 'None', 'Diff_', 'T+S+R'), ('frexport', 'None', 'RelDiff_', 'T+S+R'), ('frexport', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['frexport'], 'Transformations': [('frexport', [('frexport', 'None', 'CumSum_', 'T+S+R'), ('frexport', 'None', 'Diff_', 'T+S+R'), ('frexport', 'None', 'RelDiff_', 'T+S+R'), ('frexport', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'frexport', 'Transformations': [('frexport', 'None', 'CumSum_', 'T+S+R'), ('frexport', 'None', 'Diff_', 'T+S+R'), ('frexport', 'None', 'RelDiff_', 'T+S+R'), ('frexport', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.007, ('MODEL_SELECTION', {'Signal': 'frexport', 'Transformations': [('frexport', 'None', 'CumSum_', 'T+S+R'), ('frexport', 'None', 'Diff_', 'T+S+R'), ('frexport', 'None', 'RelDiff_', 'T+S+R'), ('frexport', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'frexport', 'Model': 'Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE_residue_AR(6)'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.025, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'frexport', 'Model': 'Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE_residue_AR(6)'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'frexport'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.115, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'frexport'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.148, ('FINALIZE_TRAINING', {'Signals': ['frexport'], 'Transformations': [('frexport', [('frexport', 'None', 'CumSum_', 'T+S+R'), ('frexport', 'None', 'Diff_', 'T+S+R'), ('frexport', 'None', 'RelDiff_', 'T+S+R'), ('frexport', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1.0 TimeMax=6.75 TimeDelta=0.25 Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='frexport' Length=24  Min=341 Max=854  Mean=548.7083333333334 StdDev=137.44649842959097
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_frexport' Min=341 Max=854  Mean=548.7083333333334 StdDev=137.44649842959097
-INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_frexport_ConstantTrend_residue_zeroCycle_residue_AR(6)' [ConstantTrend + NoCycle + AR]
-INFO:pyaf.std:TREND_DETAIL '_frexport_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_frexport_ConstantTrend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_frexport_ConstantTrend_residue_zeroCycle_residue_AR(6)' [AR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0459 MAPE_Forecast=0.0459 MAPE_Test=0.0459
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.045 SMAPE_Forecast=0.045 SMAPE_Test=0.045
-INFO:pyaf.std:MODEL_MASE MASE_Fit=0.2777 MASE_Forecast=0.2777 MASE_Test=0.2777
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=47.31593552178155 CRPS_Forecast=47.31593552178155 CRPS_Test=47.31593552178155
-INFO:pyaf.std:MODEL_L1 L1_Fit=23.12176009545192 L1_Forecast=23.12176009545192 L1_Test=23.12176009545192
-INFO:pyaf.std:MODEL_L2 L2_Fit=28.88318526770828 L2_Forecast=28.88318526770828 L2_Test=28.88318526770828
-INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.09399956532079326 LnQ_Forecast=0.09399956532079326 LnQ_Test=0.09399956532079326
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=19.356842897236703 MedAE_Forecast=19.356842897236703 MedAE_Test=19.356842897236703
-INFO:pyaf.std:MODEL_COMPLEXITY 6
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='Diff_frexport' Min=-0.3762183235867447 Max=0.2514619883040936  Mean=0.02428525016244314 StdDev=0.177950200204136
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
+INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'Diff_'
+INFO:pyaf.std:BEST_DECOMPOSITION  'Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE_residue_AR(6)' [ConstantTrend + Cycle_None + AR]
+INFO:pyaf.std:TREND_DETAIL 'Diff_frexport_ConstantTrend' [ConstantTrend]
+INFO:pyaf.std:CYCLE_DETAIL 'Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE' [Cycle_None]
+INFO:pyaf.std:AUTOREG_DETAIL 'Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE_residue_AR(6)' [AR]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0692 MAPE_Forecast=0.0692 MAPE_Test=0.0692
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0679 SMAPE_Forecast=0.0679 SMAPE_Test=0.0679
+INFO:pyaf.std:MODEL_MASE MASE_Fit=0.4387 MASE_Forecast=0.4387 MASE_Test=0.4387
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=36.25357598893774 CRPS_Forecast=36.25357598893774 CRPS_Test=36.25357598893774
+INFO:pyaf.std:MODEL_L1 L1_Fit=36.52298427180566 L1_Forecast=36.52298427180566 L1_Test=36.52298427180566
+INFO:pyaf.std:MODEL_L2 L2_Fit=49.67228688924965 L2_Forecast=49.67228688924965 L2_Test=49.67228688924965
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.19980206117355437 LnQ_Forecast=0.19980206117355437 LnQ_Test=0.19980206117355437
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=23.85450728678495 MedAE_Forecast=23.85450728678495 MedAE_Test=23.85450728678495
+INFO:pyaf.std:MODEL_COMPLEXITY 7.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
-INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:DIFFERENCING_TRANSFORMATION Difference 0.04093567251461988
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND ConstantTrend 548.7083333333334
+INFO:pyaf.std:CONSTANT_TREND Diff_frexport_ConstantTrend 0.02428525016244314
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _frexport_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE None 0.05466211825860949 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
-INFO:pyaf.std:AR_MODEL_COEFF 1 _frexport_ConstantTrend_residue_zeroCycle_residue_Lag4 1.153876506666612
-INFO:pyaf.std:AR_MODEL_COEFF 2 _frexport_ConstantTrend_residue_zeroCycle_residue_Lag1 0.5257406340934825
-INFO:pyaf.std:AR_MODEL_COEFF 3 _frexport_ConstantTrend_residue_zeroCycle_residue_Lag5 -0.5135022261523631
-INFO:pyaf.std:AR_MODEL_COEFF 4 _frexport_ConstantTrend_residue_zeroCycle_residue_Lag6 -0.1714632391891056
-INFO:pyaf.std:AR_MODEL_COEFF 5 _frexport_ConstantTrend_residue_zeroCycle_residue_Lag3 -0.03585851627319697
-INFO:pyaf.std:AR_MODEL_COEFF 6 _frexport_ConstantTrend_residue_zeroCycle_residue_Lag2 0.03546879238986876
+INFO:pyaf.std:AR_MODEL_COEFF 1 Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag4 0.3230868357574003
+INFO:pyaf.std:AR_MODEL_COEFF 2 Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag3 -0.15989238642077833
+INFO:pyaf.std:AR_MODEL_COEFF 3 Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag1 -0.1194624377850477
+INFO:pyaf.std:AR_MODEL_COEFF 4 Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag2 -0.10648705652665501
+INFO:pyaf.std:AR_MODEL_COEFF 5 Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag5 -0.07526831365541312
+INFO:pyaf.std:AR_MODEL_COEFF 6 Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag6 -0.06160453401533302
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_TRAINING 'frexport'
-PERFORMANCE MAPE_FORECAST frexport 0.0459
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['frexport']' 1.146535873413086
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['frexport'], 'Transformations': [('frexport', 'None', '_', 'T+S+R'), ('frexport', 'None', 'Diff_', 'T+S+R'), ('frexport', 'None', 'RelDiff_', 'T+S+R'), ('frexport', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+PERFORMANCE MAPE_FORECAST frexport 0.0692
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'frexport', 'Transformation': '_frexport'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'frexport', 'Transformation': 'CumSum_frexport'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'frexport', 'Transformation': 'Diff_frexport'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'frexport', 'Transformation': 'RelDiff_frexport'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.969, ('TRAINING', {'Signal': 'frexport', 'Transformation': 'CumSum_frexport'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.99, ('TRAINING', {'Signal': 'frexport', 'Transformation': '_frexport'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.991, ('TRAINING', {'Signal': 'frexport', 'Transformation': 'Diff_frexport'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.141, ('TRAINING', {'Signal': 'frexport', 'Transformation': 'RelDiff_frexport'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.233, ('SIGNAL_TRAINING', {'Signals': ['frexport'], 'Transformations': [('frexport', 'None', '_', 'T+S+R'), ('frexport', 'None', 'Diff_', 'T+S+R'), ('frexport', 'None', 'RelDiff_', 'T+S+R'), ('frexport', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['frexport'], 'Transformations': [('frexport', [('frexport', 'None', 'CumSum_', 'T+S+R'), ('frexport', 'None', 'Diff_', 'T+S+R'), ('frexport', 'None', 'RelDiff_', 'T+S+R'), ('frexport', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'frexport', 'Transformations': [('frexport', 'None', 'CumSum_', 'T+S+R'), ('frexport', 'None', 'Diff_', 'T+S+R'), ('frexport', 'None', 'RelDiff_', 'T+S+R'), ('frexport', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.01, ('MODEL_SELECTION', {'Signal': 'frexport', 'Transformations': [('frexport', 'None', 'CumSum_', 'T+S+R'), ('frexport', 'None', 'Diff_', 'T+S+R'), ('frexport', 'None', 'RelDiff_', 'T+S+R'), ('frexport', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'frexport', 'Model': 'Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE_residue_AR(6)'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.038, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'frexport', 'Model': 'Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE_residue_AR(6)'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'frexport'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.257, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'frexport'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.307, ('FINALIZE_TRAINING', {'Signals': ['frexport'], 'Transformations': [('frexport', [('frexport', 'None', 'CumSum_', 'T+S+R'), ('frexport', 'None', 'Diff_', 'T+S+R'), ('frexport', 'None', 'RelDiff_', 'T+S+R'), ('frexport', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1.0 TimeMax=6.75 TimeDelta=0.25 Horizon=8
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='frexport' Length=24  Min=341 Max=854  Mean=548.7083333333334 StdDev=137.44649842959097
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_frexport' Min=341 Max=854  Mean=548.7083333333334 StdDev=137.44649842959097
-INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_frexport_ConstantTrend_residue_zeroCycle_residue_AR(6)' [ConstantTrend + NoCycle + AR]
-INFO:pyaf.std:TREND_DETAIL '_frexport_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_frexport_ConstantTrend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_frexport_ConstantTrend_residue_zeroCycle_residue_AR(6)' [AR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0459 MAPE_Forecast=0.0459 MAPE_Test=0.0459
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.045 SMAPE_Forecast=0.045 SMAPE_Test=0.045
-INFO:pyaf.std:MODEL_MASE MASE_Fit=0.2777 MASE_Forecast=0.2777 MASE_Test=0.2777
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=47.31593552178155 CRPS_Forecast=47.31593552178155 CRPS_Test=47.31593552178155
-INFO:pyaf.std:MODEL_L1 L1_Fit=23.12176009545192 L1_Forecast=23.12176009545192 L1_Test=23.12176009545192
-INFO:pyaf.std:MODEL_L2 L2_Fit=28.88318526770828 L2_Forecast=28.88318526770828 L2_Test=28.88318526770828
-INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.09399956532079326 LnQ_Forecast=0.09399956532079326 LnQ_Test=0.09399956532079326
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=19.356842897236703 MedAE_Forecast=19.356842897236703 MedAE_Test=19.356842897236703
-INFO:pyaf.std:MODEL_COMPLEXITY 6
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='Diff_frexport' Min=-0.3762183235867447 Max=0.2514619883040936  Mean=0.02428525016244314 StdDev=0.177950200204136
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
+INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'Diff_'
+INFO:pyaf.std:BEST_DECOMPOSITION  'Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE_residue_AR(6)' [ConstantTrend + Cycle_None + AR]
+INFO:pyaf.std:TREND_DETAIL 'Diff_frexport_ConstantTrend' [ConstantTrend]
+INFO:pyaf.std:CYCLE_DETAIL 'Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE' [Cycle_None]
+INFO:pyaf.std:AUTOREG_DETAIL 'Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE_residue_AR(6)' [AR]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0692 MAPE_Forecast=0.0692 MAPE_Test=0.0692
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0679 SMAPE_Forecast=0.0679 SMAPE_Test=0.0679
+INFO:pyaf.std:MODEL_MASE MASE_Fit=0.4387 MASE_Forecast=0.4387 MASE_Test=0.4387
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=36.25357598893774 CRPS_Forecast=36.25357598893774 CRPS_Test=36.25357598893774
+INFO:pyaf.std:MODEL_L1 L1_Fit=36.52298427180566 L1_Forecast=36.52298427180566 L1_Test=36.52298427180566
+INFO:pyaf.std:MODEL_L2 L2_Fit=49.67228688924965 L2_Forecast=49.67228688924965 L2_Test=49.67228688924965
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.19980206117355437 LnQ_Forecast=0.19980206117355437 LnQ_Test=0.19980206117355437
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=23.85450728678495 MedAE_Forecast=23.85450728678495 MedAE_Test=23.85450728678495
+INFO:pyaf.std:MODEL_COMPLEXITY 7.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
-INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:DIFFERENCING_TRANSFORMATION Difference 0.04093567251461988
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND ConstantTrend 548.7083333333334
+INFO:pyaf.std:CONSTANT_TREND Diff_frexport_ConstantTrend 0.02428525016244314
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _frexport_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE None 0.05466211825860949 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
-INFO:pyaf.std:AR_MODEL_COEFF 1 _frexport_ConstantTrend_residue_zeroCycle_residue_Lag4 1.153876506666612
-INFO:pyaf.std:AR_MODEL_COEFF 2 _frexport_ConstantTrend_residue_zeroCycle_residue_Lag1 0.5257406340934825
-INFO:pyaf.std:AR_MODEL_COEFF 3 _frexport_ConstantTrend_residue_zeroCycle_residue_Lag5 -0.5135022261523631
-INFO:pyaf.std:AR_MODEL_COEFF 4 _frexport_ConstantTrend_residue_zeroCycle_residue_Lag6 -0.1714632391891056
-INFO:pyaf.std:AR_MODEL_COEFF 5 _frexport_ConstantTrend_residue_zeroCycle_residue_Lag3 -0.03585851627319697
-INFO:pyaf.std:AR_MODEL_COEFF 6 _frexport_ConstantTrend_residue_zeroCycle_residue_Lag2 0.03546879238986876
+INFO:pyaf.std:AR_MODEL_COEFF 1 Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag4 0.3230868357574003
+INFO:pyaf.std:AR_MODEL_COEFF 2 Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag3 -0.15989238642077833
+INFO:pyaf.std:AR_MODEL_COEFF 3 Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag1 -0.1194624377850477
+INFO:pyaf.std:AR_MODEL_COEFF 4 Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag2 -0.10648705652665501
+INFO:pyaf.std:AR_MODEL_COEFF 5 Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag5 -0.07526831365541312
+INFO:pyaf.std:AR_MODEL_COEFF 6 Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag6 -0.06160453401533302
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_TRAINING 'frexport'
-PERFORMANCE MAPE_FORECAST frexport 0.0459
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['frexport']' 1.597461223602295
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['frexport'], 'Transformations': [('frexport', 'None', '_', 'T+S+R'), ('frexport', 'None', 'Diff_', 'T+S+R'), ('frexport', 'None', 'RelDiff_', 'T+S+R'), ('frexport', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+PERFORMANCE MAPE_FORECAST frexport 0.0692
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'frexport', 'Transformation': 'RelDiff_frexport'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'frexport', 'Transformation': '_frexport'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'frexport', 'Transformation': 'Diff_frexport'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'frexport', 'Transformation': 'CumSum_frexport'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.777, ('TRAINING', {'Signal': 'frexport', 'Transformation': '_frexport'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.789, ('TRAINING', {'Signal': 'frexport', 'Transformation': 'Diff_frexport'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.843, ('TRAINING', {'Signal': 'frexport', 'Transformation': 'RelDiff_frexport'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.848, ('TRAINING', {'Signal': 'frexport', 'Transformation': 'CumSum_frexport'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.944, ('SIGNAL_TRAINING', {'Signals': ['frexport'], 'Transformations': [('frexport', 'None', '_', 'T+S+R'), ('frexport', 'None', 'Diff_', 'T+S+R'), ('frexport', 'None', 'RelDiff_', 'T+S+R'), ('frexport', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['frexport'], 'Transformations': [('frexport', [('frexport', 'None', 'CumSum_', 'T+S+R'), ('frexport', 'None', 'Diff_', 'T+S+R'), ('frexport', 'None', 'RelDiff_', 'T+S+R'), ('frexport', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'frexport', 'Transformations': [('frexport', 'None', 'CumSum_', 'T+S+R'), ('frexport', 'None', 'Diff_', 'T+S+R'), ('frexport', 'None', 'RelDiff_', 'T+S+R'), ('frexport', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.01, ('MODEL_SELECTION', {'Signal': 'frexport', 'Transformations': [('frexport', 'None', 'CumSum_', 'T+S+R'), ('frexport', 'None', 'Diff_', 'T+S+R'), ('frexport', 'None', 'RelDiff_', 'T+S+R'), ('frexport', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'frexport', 'Model': 'Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE_residue_AR(6)'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.035, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'frexport', 'Model': 'Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE_residue_AR(6)'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'frexport'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.284, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'frexport'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.33, ('FINALIZE_TRAINING', {'Signals': ['frexport'], 'Transformations': [('frexport', [('frexport', 'None', 'CumSum_', 'T+S+R'), ('frexport', 'None', 'Diff_', 'T+S+R'), ('frexport', 'None', 'RelDiff_', 'T+S+R'), ('frexport', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1.0 TimeMax=6.75 TimeDelta=0.25 Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='frexport' Length=24  Min=341 Max=854  Mean=548.7083333333334 StdDev=137.44649842959097
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_frexport' Min=341 Max=854  Mean=548.7083333333334 StdDev=137.44649842959097
-INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_frexport_ConstantTrend_residue_zeroCycle_residue_AR(6)' [ConstantTrend + NoCycle + AR]
-INFO:pyaf.std:TREND_DETAIL '_frexport_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_frexport_ConstantTrend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_frexport_ConstantTrend_residue_zeroCycle_residue_AR(6)' [AR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0459 MAPE_Forecast=0.0459 MAPE_Test=0.0459
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.045 SMAPE_Forecast=0.045 SMAPE_Test=0.045
-INFO:pyaf.std:MODEL_MASE MASE_Fit=0.2777 MASE_Forecast=0.2777 MASE_Test=0.2777
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=47.31593552178155 CRPS_Forecast=47.31593552178155 CRPS_Test=47.31593552178155
-INFO:pyaf.std:MODEL_L1 L1_Fit=23.12176009545192 L1_Forecast=23.12176009545192 L1_Test=23.12176009545192
-INFO:pyaf.std:MODEL_L2 L2_Fit=28.88318526770828 L2_Forecast=28.88318526770828 L2_Test=28.88318526770828
-INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.09399956532079326 LnQ_Forecast=0.09399956532079326 LnQ_Test=0.09399956532079326
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=19.356842897236703 MedAE_Forecast=19.356842897236703 MedAE_Test=19.356842897236703
-INFO:pyaf.std:MODEL_COMPLEXITY 6
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='Diff_frexport' Min=-0.3762183235867447 Max=0.2514619883040936  Mean=0.02428525016244314 StdDev=0.177950200204136
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
+INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'Diff_'
+INFO:pyaf.std:BEST_DECOMPOSITION  'Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE_residue_AR(6)' [ConstantTrend + Cycle_None + AR]
+INFO:pyaf.std:TREND_DETAIL 'Diff_frexport_ConstantTrend' [ConstantTrend]
+INFO:pyaf.std:CYCLE_DETAIL 'Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE' [Cycle_None]
+INFO:pyaf.std:AUTOREG_DETAIL 'Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE_residue_AR(6)' [AR]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0692 MAPE_Forecast=0.0692 MAPE_Test=0.0692
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0679 SMAPE_Forecast=0.0679 SMAPE_Test=0.0679
+INFO:pyaf.std:MODEL_MASE MASE_Fit=0.4387 MASE_Forecast=0.4387 MASE_Test=0.4387
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=36.25357598893774 CRPS_Forecast=36.25357598893774 CRPS_Test=36.25357598893774
+INFO:pyaf.std:MODEL_L1 L1_Fit=36.52298427180566 L1_Forecast=36.52298427180566 L1_Test=36.52298427180566
+INFO:pyaf.std:MODEL_L2 L2_Fit=49.67228688924965 L2_Forecast=49.67228688924965 L2_Test=49.67228688924965
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.19980206117355437 LnQ_Forecast=0.19980206117355437 LnQ_Test=0.19980206117355437
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=23.85450728678495 MedAE_Forecast=23.85450728678495 MedAE_Test=23.85450728678495
+INFO:pyaf.std:MODEL_COMPLEXITY 7.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
-INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:DIFFERENCING_TRANSFORMATION Difference 0.04093567251461988
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND ConstantTrend 548.7083333333334
+INFO:pyaf.std:CONSTANT_TREND Diff_frexport_ConstantTrend 0.02428525016244314
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _frexport_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE None 0.05466211825860949 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
-INFO:pyaf.std:AR_MODEL_COEFF 1 _frexport_ConstantTrend_residue_zeroCycle_residue_Lag4 1.153876506666612
-INFO:pyaf.std:AR_MODEL_COEFF 2 _frexport_ConstantTrend_residue_zeroCycle_residue_Lag1 0.5257406340934825
-INFO:pyaf.std:AR_MODEL_COEFF 3 _frexport_ConstantTrend_residue_zeroCycle_residue_Lag5 -0.5135022261523631
-INFO:pyaf.std:AR_MODEL_COEFF 4 _frexport_ConstantTrend_residue_zeroCycle_residue_Lag6 -0.1714632391891056
-INFO:pyaf.std:AR_MODEL_COEFF 5 _frexport_ConstantTrend_residue_zeroCycle_residue_Lag3 -0.03585851627319697
-INFO:pyaf.std:AR_MODEL_COEFF 6 _frexport_ConstantTrend_residue_zeroCycle_residue_Lag2 0.03546879238986876
+INFO:pyaf.std:AR_MODEL_COEFF 1 Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag4 0.3230868357574003
+INFO:pyaf.std:AR_MODEL_COEFF 2 Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag3 -0.15989238642077833
+INFO:pyaf.std:AR_MODEL_COEFF 3 Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag1 -0.1194624377850477
+INFO:pyaf.std:AR_MODEL_COEFF 4 Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag2 -0.10648705652665501
+INFO:pyaf.std:AR_MODEL_COEFF 5 Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag5 -0.07526831365541312
+INFO:pyaf.std:AR_MODEL_COEFF 6 Diff_frexport_ConstantTrend_residue_bestCycle_byMAPE_residue_Lag6 -0.06160453401533302
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-PERFORMANCE MAPE_FORECAST frexport 0.0459
+PERFORMANCE MAPE_FORECAST frexport 0.0692

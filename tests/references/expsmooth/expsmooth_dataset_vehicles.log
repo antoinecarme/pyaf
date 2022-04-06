@@ -1,143 +1,210 @@
-INFO:pyaf.std:START_TRAINING 'vehicles'
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['vehicles']' 2.630612850189209
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['vehicles'], 'Transformations': [('vehicles', 'None', '_', 'T+S+R'), ('vehicles', 'None', 'Diff_', 'T+S+R'), ('vehicles', 'None', 'RelDiff_', 'T+S+R'), ('vehicles', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'vehicles', 'Transformation': '_vehicles'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'vehicles', 'Transformation': 'Diff_vehicles'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'vehicles', 'Transformation': 'RelDiff_vehicles'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'vehicles', 'Transformation': 'CumSum_vehicles'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.537, ('TRAINING', {'Signal': 'vehicles', 'Transformation': 'Diff_vehicles'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.854, ('TRAINING', {'Signal': 'vehicles', 'Transformation': 'CumSum_vehicles'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.899, ('TRAINING', {'Signal': 'vehicles', 'Transformation': '_vehicles'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.154, ('SIGNAL_TRAINING', {'Signals': ['vehicles'], 'Transformations': [('vehicles', 'None', '_', 'T+S+R'), ('vehicles', 'None', 'Diff_', 'T+S+R'), ('vehicles', 'None', 'RelDiff_', 'T+S+R'), ('vehicles', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['vehicles'], 'Transformations': [('vehicles', [('vehicles', 'None', 'CumSum_', 'T+S+R'), ('vehicles', 'None', 'Diff_', 'T+S+R'), ('vehicles', 'None', 'RelDiff_', 'T+S+R'), ('vehicles', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'vehicles', 'Transformations': [('vehicles', 'None', 'CumSum_', 'T+S+R'), ('vehicles', 'None', 'Diff_', 'T+S+R'), ('vehicles', 'None', 'RelDiff_', 'T+S+R'), ('vehicles', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.011, ('MODEL_SELECTION', {'Signal': 'vehicles', 'Transformations': [('vehicles', 'None', 'CumSum_', 'T+S+R'), ('vehicles', 'None', 'Diff_', 'T+S+R'), ('vehicles', 'None', 'RelDiff_', 'T+S+R'), ('vehicles', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'vehicles', 'Model': '_vehicles_PolyTrend_residue_bestCycle_byMAPE_residue_AR(64)'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.071, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'vehicles', 'Model': '_vehicles_PolyTrend_residue_bestCycle_byMAPE_residue_AR(64)'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'vehicles'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.124, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'vehicles'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.208, ('FINALIZE_TRAINING', {'Signals': ['vehicles'], 'Transformations': [('vehicles', [('vehicles', 'None', 'CumSum_', 'T+S+R'), ('vehicles', 'None', 'Diff_', 'T+S+R'), ('vehicles', 'None', 'RelDiff_', 'T+S+R'), ('vehicles', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1.0 TimeMax=57.1666666666667 TimeDelta=0.04166666666666669 Horizon=2
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='vehicles' Length=1689  Min=154 Max=5549  Mean=2060.4179988158676 StdDev=1339.1492330503795
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_vehicles' Min=154 Max=5549  Mean=2060.4179988158676 StdDev=1339.1492330503795
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_vehicles' Min=0.0 Max=1.0  Mean=0.3533675623384371 StdDev=0.24822043244678008
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_vehicles_ConstantTrend_residue_zeroCycle_residue_AR(64)' [ConstantTrend + NoCycle + AR]
-INFO:pyaf.std:TREND_DETAIL '_vehicles_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_vehicles_ConstantTrend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_vehicles_ConstantTrend_residue_zeroCycle_residue_AR(64)' [AR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.1841 MAPE_Forecast=0.1981 MAPE_Test=0.1187
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.1623 SMAPE_Forecast=0.1785 SMAPE_Test=0.1274
-INFO:pyaf.std:MODEL_MASE MASE_Fit=0.4592 MASE_Forecast=0.5055 MASE_Test=0.4824
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=383.65981681659883 CRPS_Forecast=396.4514286384254 CRPS_Test=521.1388813518515
-INFO:pyaf.std:MODEL_L1 L1_Fit=205.5488610035114 L1_Forecast=229.00281872770046 L1_Test=511.77776270370305
-INFO:pyaf.std:MODEL_L2 L2_Fit=320.4412106849622 L2_Forecast=352.30763950715175 L2_Test=565.7302836233372
-INFO:pyaf.std:MODEL_LnQ LnQ_Fit=inf LnQ_Forecast=inf LnQ_Test=0.044340237403723747
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=134.5344845169252 MedAE_Forecast=151.4780039054716 MedAE_Test=511.77776270370305
-INFO:pyaf.std:MODEL_COMPLEXITY 64
+INFO:pyaf.std:BEST_DECOMPOSITION  '_vehicles_PolyTrend_residue_bestCycle_byMAPE_residue_AR(64)' [PolyTrend + Cycle_None + AR]
+INFO:pyaf.std:TREND_DETAIL '_vehicles_PolyTrend' [PolyTrend]
+INFO:pyaf.std:CYCLE_DETAIL '_vehicles_PolyTrend_residue_bestCycle_byMAPE' [Cycle_None]
+INFO:pyaf.std:AUTOREG_DETAIL '_vehicles_PolyTrend_residue_bestCycle_byMAPE_residue_AR(64)' [AR]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.1796 MAPE_Forecast=0.1713 MAPE_Test=0.1259
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.1561 SMAPE_Forecast=0.1763 SMAPE_Test=0.1435
+INFO:pyaf.std:MODEL_MASE MASE_Fit=0.4652 MASE_Forecast=0.4815 MASE_Test=0.4853
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=375.39919811464887 CRPS_Forecast=388.4047131647737 CRPS_Test=513.8611002434864
+INFO:pyaf.std:MODEL_L1 L1_Fit=208.2455139768186 L1_Forecast=218.15601641542497 L1_Test=514.9392891906773
+INFO:pyaf.std:MODEL_L2 L2_Fit=337.5940056841208 L2_Forecast=366.7185644481673 L2_Test=715.8158898832208
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=inf LnQ_Forecast=inf LnQ_Test=0.08149225162190113
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=131.13464232642582 MedAE_Forecast=139.15104819017688 MedAE_Test=514.9392891906773
+INFO:pyaf.std:MODEL_COMPLEXITY 67.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND ConstantTrend 2062.677538917717
+INFO:pyaf.std:POLYNOMIAL_RIDGE_TREND PolyTrend (0.32927986667407927, array([ 0.05748176,  0.07045123, -0.11082504]))
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _vehicles_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _vehicles_PolyTrend_residue_bestCycle_byMAPE None 0.04944658715623573 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
-INFO:pyaf.std:AR_MODEL_COEFF 1 _vehicles_ConstantTrend_residue_zeroCycle_residue_Lag1 1.3016572791972298
-INFO:pyaf.std:AR_MODEL_COEFF 2 _vehicles_ConstantTrend_residue_zeroCycle_residue_Lag2 -0.6774669483377799
-INFO:pyaf.std:AR_MODEL_COEFF 3 _vehicles_ConstantTrend_residue_zeroCycle_residue_Lag25 -0.400235936594725
-INFO:pyaf.std:AR_MODEL_COEFF 4 _vehicles_ConstantTrend_residue_zeroCycle_residue_Lag49 -0.3361282321872072
-INFO:pyaf.std:AR_MODEL_COEFF 5 _vehicles_ConstantTrend_residue_zeroCycle_residue_Lag50 0.2727426802543331
-INFO:pyaf.std:AR_MODEL_COEFF 6 _vehicles_ConstantTrend_residue_zeroCycle_residue_Lag13 0.26763989610573063
-INFO:pyaf.std:AR_MODEL_COEFF 7 _vehicles_ConstantTrend_residue_zeroCycle_residue_Lag23 0.26239198734067326
-INFO:pyaf.std:AR_MODEL_COEFF 8 _vehicles_ConstantTrend_residue_zeroCycle_residue_Lag48 0.25481113573511704
-INFO:pyaf.std:AR_MODEL_COEFF 9 _vehicles_ConstantTrend_residue_zeroCycle_residue_Lag12 -0.24509175878279332
-INFO:pyaf.std:AR_MODEL_COEFF 10 _vehicles_ConstantTrend_residue_zeroCycle_residue_Lag24 0.23988339138445428
+INFO:pyaf.std:AR_MODEL_COEFF 1 _vehicles_PolyTrend_residue_bestCycle_byMAPE_residue_Lag1 1.0002008270027196
+INFO:pyaf.std:AR_MODEL_COEFF 2 _vehicles_PolyTrend_residue_bestCycle_byMAPE_residue_Lag2 -0.2712953232410561
+INFO:pyaf.std:AR_MODEL_COEFF 3 _vehicles_PolyTrend_residue_bestCycle_byMAPE_residue_Lag24 0.25740597882525745
+INFO:pyaf.std:AR_MODEL_COEFF 4 _vehicles_PolyTrend_residue_bestCycle_byMAPE_residue_Lag25 -0.24126844227265365
+INFO:pyaf.std:AR_MODEL_COEFF 5 _vehicles_PolyTrend_residue_bestCycle_byMAPE_residue_Lag23 0.2087911695092801
+INFO:pyaf.std:AR_MODEL_COEFF 6 _vehicles_PolyTrend_residue_bestCycle_byMAPE_residue_Lag12 -0.18676760352194563
+INFO:pyaf.std:AR_MODEL_COEFF 7 _vehicles_PolyTrend_residue_bestCycle_byMAPE_residue_Lag49 -0.16929482558542086
+INFO:pyaf.std:AR_MODEL_COEFF 8 _vehicles_PolyTrend_residue_bestCycle_byMAPE_residue_Lag48 0.137267309060898
+INFO:pyaf.std:AR_MODEL_COEFF 9 _vehicles_PolyTrend_residue_bestCycle_byMAPE_residue_Lag38 -0.12822869873333
+INFO:pyaf.std:AR_MODEL_COEFF 10 _vehicles_PolyTrend_residue_bestCycle_byMAPE_residue_Lag13 0.11884246909961446
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_TRAINING 'vehicles'
-PERFORMANCE MAPE_FORECAST vehicles 0.1981
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['vehicles']' 2.1874613761901855
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['vehicles'], 'Transformations': [('vehicles', 'None', '_', 'T+S+R'), ('vehicles', 'None', 'Diff_', 'T+S+R'), ('vehicles', 'None', 'RelDiff_', 'T+S+R'), ('vehicles', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+PERFORMANCE MAPE_FORECAST vehicles 0.1713
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'vehicles', 'Transformation': 'Diff_vehicles'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'vehicles', 'Transformation': '_vehicles'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'vehicles', 'Transformation': 'RelDiff_vehicles'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'vehicles', 'Transformation': 'CumSum_vehicles'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.448, ('TRAINING', {'Signal': 'vehicles', 'Transformation': 'CumSum_vehicles'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.498, ('TRAINING', {'Signal': 'vehicles', 'Transformation': 'Diff_vehicles'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.616, ('TRAINING', {'Signal': 'vehicles', 'Transformation': '_vehicles'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.84, ('TRAINING', {'Signal': 'vehicles', 'Transformation': 'RelDiff_vehicles'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.991, ('SIGNAL_TRAINING', {'Signals': ['vehicles'], 'Transformations': [('vehicles', 'None', '_', 'T+S+R'), ('vehicles', 'None', 'Diff_', 'T+S+R'), ('vehicles', 'None', 'RelDiff_', 'T+S+R'), ('vehicles', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['vehicles'], 'Transformations': [('vehicles', [('vehicles', 'None', 'CumSum_', 'T+S+R'), ('vehicles', 'None', 'Diff_', 'T+S+R'), ('vehicles', 'None', 'RelDiff_', 'T+S+R'), ('vehicles', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'vehicles', 'Transformations': [('vehicles', 'None', 'CumSum_', 'T+S+R'), ('vehicles', 'None', 'Diff_', 'T+S+R'), ('vehicles', 'None', 'RelDiff_', 'T+S+R'), ('vehicles', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.01, ('MODEL_SELECTION', {'Signal': 'vehicles', 'Transformations': [('vehicles', 'None', 'CumSum_', 'T+S+R'), ('vehicles', 'None', 'Diff_', 'T+S+R'), ('vehicles', 'None', 'RelDiff_', 'T+S+R'), ('vehicles', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'vehicles', 'Model': '_vehicles_Lag1Trend_residue_bestCycle_byMAPE_residue_AR(64)'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.066, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'vehicles', 'Model': '_vehicles_Lag1Trend_residue_bestCycle_byMAPE_residue_AR(64)'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'vehicles'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.245, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'vehicles'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.322, ('FINALIZE_TRAINING', {'Signals': ['vehicles'], 'Transformations': [('vehicles', [('vehicles', 'None', 'CumSum_', 'T+S+R'), ('vehicles', 'None', 'Diff_', 'T+S+R'), ('vehicles', 'None', 'RelDiff_', 'T+S+R'), ('vehicles', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1.0 TimeMax=57.125 TimeDelta=0.041666666666666664 Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='vehicles' Length=1689  Min=154 Max=5549  Mean=2060.4179988158676 StdDev=1339.1492330503795
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_vehicles' Min=154 Max=5549  Mean=2060.4179988158676 StdDev=1339.1492330503795
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_vehicles' Min=0.0 Max=1.0  Mean=0.3533675623384371 StdDev=0.24822043244678008
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_vehicles_ConstantTrend_residue_zeroCycle_residue_AR(64)' [ConstantTrend + NoCycle + AR]
-INFO:pyaf.std:TREND_DETAIL '_vehicles_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_vehicles_ConstantTrend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_vehicles_ConstantTrend_residue_zeroCycle_residue_AR(64)' [AR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.1841 MAPE_Forecast=0.1995 MAPE_Test=0.0937
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.1622 SMAPE_Forecast=0.1796 SMAPE_Test=0.0969
-INFO:pyaf.std:MODEL_MASE MASE_Fit=0.4591 MASE_Forecast=0.5086 MASE_Test=0.1779
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=383.47796167059516 CRPS_Forecast=397.06079679643386 CRPS_Test=879.1682521830494
-INFO:pyaf.std:MODEL_L1 L1_Fit=205.67077824936305 L1_Forecast=229.5570001465326 L1_Test=282.5557553832545
-INFO:pyaf.std:MODEL_L2 L2_Fit=320.55622199911505 L2_Forecast=352.80938880136324 L2_Test=402.2302596479245
-INFO:pyaf.std:MODEL_LnQ LnQ_Fit=inf LnQ_Forecast=inf LnQ_Test=0.053157262499421126
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=135.05572613690924 MedAE_Forecast=153.91348325531044 MedAE_Test=175.34333769722207
-INFO:pyaf.std:MODEL_COMPLEXITY 64
+INFO:pyaf.std:BEST_DECOMPOSITION  '_vehicles_Lag1Trend_residue_bestCycle_byMAPE_residue_AR(64)' [Lag1Trend + Cycle_None + AR]
+INFO:pyaf.std:TREND_DETAIL '_vehicles_Lag1Trend' [Lag1Trend]
+INFO:pyaf.std:CYCLE_DETAIL '_vehicles_Lag1Trend_residue_bestCycle_byMAPE' [Cycle_None]
+INFO:pyaf.std:AUTOREG_DETAIL '_vehicles_Lag1Trend_residue_bestCycle_byMAPE_residue_AR(64)' [AR]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.1711 MAPE_Forecast=0.1832 MAPE_Test=0.1128
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.1572 SMAPE_Forecast=0.1733 SMAPE_Test=0.1237
+INFO:pyaf.std:MODEL_MASE MASE_Fit=0.4553 MASE_Forecast=0.4956 MASE_Test=0.2011
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=387.6145959499394 CRPS_Forecast=403.2038415398444 CRPS_Test=867.084759093886
+INFO:pyaf.std:MODEL_L1 L1_Fit=203.9246794216572 L1_Forecast=223.67299471161942 L1_Test=319.40812800088975
+INFO:pyaf.std:MODEL_L2 L2_Fit=332.39003374555824 L2_Forecast=362.3271279282593 L2_Test=503.08660128126024
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=inf LnQ_Forecast=inf LnQ_Test=0.10265322945728748
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=125.95993987108955 MedAE_Forecast=141.7100975183364 MedAE_Test=133.46428001185222
+INFO:pyaf.std:MODEL_COMPLEXITY 66.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND ConstantTrend 2064.091988130564
+INFO:pyaf.std:LAG1_TREND Lag1Trend 0.1010194624652456
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _vehicles_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _vehicles_Lag1Trend_residue_bestCycle_byMAPE None -0.017238183503243715 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
-INFO:pyaf.std:AR_MODEL_COEFF 1 _vehicles_ConstantTrend_residue_zeroCycle_residue_Lag1 1.3015371813323808
-INFO:pyaf.std:AR_MODEL_COEFF 2 _vehicles_ConstantTrend_residue_zeroCycle_residue_Lag2 -0.6773475107077775
-INFO:pyaf.std:AR_MODEL_COEFF 3 _vehicles_ConstantTrend_residue_zeroCycle_residue_Lag25 -0.4002163373301534
-INFO:pyaf.std:AR_MODEL_COEFF 4 _vehicles_ConstantTrend_residue_zeroCycle_residue_Lag49 -0.33624058222780584
-INFO:pyaf.std:AR_MODEL_COEFF 5 _vehicles_ConstantTrend_residue_zeroCycle_residue_Lag50 0.27280348944803695
-INFO:pyaf.std:AR_MODEL_COEFF 6 _vehicles_ConstantTrend_residue_zeroCycle_residue_Lag13 0.26755296002263906
-INFO:pyaf.std:AR_MODEL_COEFF 7 _vehicles_ConstantTrend_residue_zeroCycle_residue_Lag23 0.2624610615991503
-INFO:pyaf.std:AR_MODEL_COEFF 8 _vehicles_ConstantTrend_residue_zeroCycle_residue_Lag48 0.2548986453958557
-INFO:pyaf.std:AR_MODEL_COEFF 9 _vehicles_ConstantTrend_residue_zeroCycle_residue_Lag12 -0.24511828807186897
-INFO:pyaf.std:AR_MODEL_COEFF 10 _vehicles_ConstantTrend_residue_zeroCycle_residue_Lag24 0.23991640129599892
+INFO:pyaf.std:AR_MODEL_COEFF 1 _vehicles_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag24 0.3503681777946185
+INFO:pyaf.std:AR_MODEL_COEFF 2 _vehicles_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag1 0.31015552782269934
+INFO:pyaf.std:AR_MODEL_COEFF 3 _vehicles_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag2 -0.25498716917843034
+INFO:pyaf.std:AR_MODEL_COEFF 4 _vehicles_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag12 -0.2445436474721849
+INFO:pyaf.std:AR_MODEL_COEFF 5 _vehicles_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag48 0.15344675315746537
+INFO:pyaf.std:AR_MODEL_COEFF 6 _vehicles_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag6 -0.15165640725195617
+INFO:pyaf.std:AR_MODEL_COEFF 7 _vehicles_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag3 -0.15020000181931545
+INFO:pyaf.std:AR_MODEL_COEFF 8 _vehicles_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag7 -0.13122481922384574
+INFO:pyaf.std:AR_MODEL_COEFF 9 _vehicles_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag16 -0.12345554066722725
+INFO:pyaf.std:AR_MODEL_COEFF 10 _vehicles_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag5 -0.12126008634857913
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_TRAINING 'vehicles'
-PERFORMANCE MAPE_FORECAST vehicles 0.1995
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['vehicles']' 2.527113437652588
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['vehicles'], 'Transformations': [('vehicles', 'None', '_', 'T+S+R'), ('vehicles', 'None', 'Diff_', 'T+S+R'), ('vehicles', 'None', 'RelDiff_', 'T+S+R'), ('vehicles', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+PERFORMANCE MAPE_FORECAST vehicles 0.1832
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'vehicles', 'Transformation': '_vehicles'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'vehicles', 'Transformation': 'Diff_vehicles'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'vehicles', 'Transformation': 'CumSum_vehicles'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'vehicles', 'Transformation': 'RelDiff_vehicles'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.491, ('TRAINING', {'Signal': 'vehicles', 'Transformation': 'Diff_vehicles'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.515, ('TRAINING', {'Signal': 'vehicles', 'Transformation': '_vehicles'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.742, ('TRAINING', {'Signal': 'vehicles', 'Transformation': 'RelDiff_vehicles'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.85, ('TRAINING', {'Signal': 'vehicles', 'Transformation': 'CumSum_vehicles'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.985, ('SIGNAL_TRAINING', {'Signals': ['vehicles'], 'Transformations': [('vehicles', 'None', '_', 'T+S+R'), ('vehicles', 'None', 'Diff_', 'T+S+R'), ('vehicles', 'None', 'RelDiff_', 'T+S+R'), ('vehicles', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['vehicles'], 'Transformations': [('vehicles', [('vehicles', 'None', 'CumSum_', 'T+S+R'), ('vehicles', 'None', 'Diff_', 'T+S+R'), ('vehicles', 'None', 'RelDiff_', 'T+S+R'), ('vehicles', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'vehicles', 'Transformations': [('vehicles', 'None', 'CumSum_', 'T+S+R'), ('vehicles', 'None', 'Diff_', 'T+S+R'), ('vehicles', 'None', 'RelDiff_', 'T+S+R'), ('vehicles', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.007, ('MODEL_SELECTION', {'Signal': 'vehicles', 'Transformations': [('vehicles', 'None', 'CumSum_', 'T+S+R'), ('vehicles', 'None', 'Diff_', 'T+S+R'), ('vehicles', 'None', 'RelDiff_', 'T+S+R'), ('vehicles', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'vehicles', 'Model': 'CumSum_vehicles_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.038, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'vehicles', 'Model': 'CumSum_vehicles_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'vehicles'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.288, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'vehicles'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.334, ('FINALIZE_TRAINING', {'Signals': ['vehicles'], 'Transformations': [('vehicles', [('vehicles', 'None', 'CumSum_', 'T+S+R'), ('vehicles', 'None', 'Diff_', 'T+S+R'), ('vehicles', 'None', 'RelDiff_', 'T+S+R'), ('vehicles', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1.0 TimeMax=56.9583333333333 TimeDelta=0.041666666666666644 Horizon=8
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='vehicles' Length=1689  Min=154 Max=5549  Mean=2060.4179988158676 StdDev=1339.1492330503795
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='CumSum_vehicles' Min=699 Max=3480046  Mean=1731871.9982238011 StdDev=1018880.8500892683
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='CumSum_vehicles' Min=0.1010194624652456 Max=596.8378127896202  Mean=296.89379021757196 StdDev=174.94050493031884
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'CumSum_'
-INFO:pyaf.std:BEST_DECOMPOSITION  'CumSum_vehicles_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR' [Lag1Trend + Cycle + NoAR]
+INFO:pyaf.std:BEST_DECOMPOSITION  'CumSum_vehicles_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR' [Lag1Trend + Cycle_24 + NoAR]
 INFO:pyaf.std:TREND_DETAIL 'CumSum_vehicles_Lag1Trend' [Lag1Trend]
-INFO:pyaf.std:CYCLE_DETAIL 'CumSum_vehicles_Lag1Trend_residue_bestCycle_byMAPE' [Cycle]
+INFO:pyaf.std:CYCLE_DETAIL 'CumSum_vehicles_Lag1Trend_residue_bestCycle_byMAPE' [Cycle_24]
 INFO:pyaf.std:AUTOREG_DETAIL 'CumSum_vehicles_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR' [NoAR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.1705 MAPE_Forecast=0.1898 MAPE_Test=0.2112
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.1532 SMAPE_Forecast=0.1723 SMAPE_Test=0.2832
-INFO:pyaf.std:MODEL_MASE MASE_Fit=0.5023 MASE_Forecast=0.5431 MASE_Test=0.1565
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=398.5018898809524 CRPS_Forecast=412.2697313759175 CRPS_Test=637.34375
-INFO:pyaf.std:MODEL_L1 L1_Fit=225.24479166666666 L1_Forecast=245.86943620178042 L1_Test=112.4375
-INFO:pyaf.std:MODEL_L2 L2_Fit=414.9845522081859 L2_Forecast=421.4470022050884 L2_Test=144.00922279493074
-INFO:pyaf.std:MODEL_LnQ LnQ_Fit=inf LnQ_Forecast=35.3488021347504 LnQ_Test=2.1320607701437746
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=105.75 MedAE_Forecast=131.0 MedAE_Test=75.0
-INFO:pyaf.std:MODEL_COMPLEXITY 72
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.17 MAPE_Forecast=0.1898 MAPE_Test=0.2112
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.1531 SMAPE_Forecast=0.1723 SMAPE_Test=0.2832
+INFO:pyaf.std:MODEL_MASE MASE_Fit=0.5018 MASE_Forecast=0.5431 MASE_Test=0.1565
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=398.45967496867144 CRPS_Forecast=412.26973137591966 CRPS_Test=637.343750000054
+INFO:pyaf.std:MODEL_L1 L1_Fit=225.01562500000497 L1_Forecast=245.86943620180045 L1_Test=112.43749999989106
+INFO:pyaf.std:MODEL_L2 L2_Fit=414.6025097263964 L2_Forecast=421.4470022050913 L2_Test=144.0092227948141
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=inf LnQ_Forecast=35.34880213476666 LnQ_Test=2.1320607701507703
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=105.74999999994822 MedAE_Forecast=130.99999999972897 MedAE_Test=74.9999999999377
+INFO:pyaf.std:MODEL_COMPLEXITY 27.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES Integration None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:LAG1_TREND Lag1Trend 699
+INFO:pyaf.std:LAG1_TREND Lag1Trend 0.1010194624652456
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES CumSum_vehicles_Lag1Trend_residue_bestCycle_byMAPE 24 2330.5 {0: 793.0, 1: 395.0, 2: 245.5, 3: 213.0, 4: 211.0, 5: 361.0, 6: 1134.5, 7: 3741.0, 8: 5038.5, 9: 4378.0, 10: 3328.5, 11: 2944.0, 12: 2811.5, 13: 2765.0, 14: 2682.0, 15: 2551.5, 16: 2691.5, 17: 3003.0, 18: 3743.5, 19: 3049.0, 20: 2312.5, 21: 1598.5, 22: 1390.5, 23: 1159.0}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES CumSum_vehicles_Lag1Trend_residue_bestCycle_byMAPE 24 0.40342910101946927 {0: 0.11844300278036002, 1: 0.044670991658932735, 2: 0.016960148285448895, 3: 0.010936051899911092, 4: 0.01056533827618722, 5: 0.038368860055618015, 6: 0.1817423540315115, 7: 0.6648748841519918, 8: 0.905375347544016, 9: 0.7829471733086057, 10: 0.5884151992585629, 11: 0.5171455050973108, 12: 0.4925857275254941, 13: 0.4839666357738679, 14: 0.4685820203892632, 15: 0.44439295644114907, 16: 0.47034291010193385, 17: 0.5280815569972077, 18: 0.6653382761816431, 19: 0.5366079703429136, 20: 0.4000926784059331, 21: 0.2677479147358497, 22: 0.22919369786839816, 23: 0.1862835959221485}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_TRAINING 'vehicles'
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['vehicles'], 'Transformations': [('vehicles', 'None', '_', 'T+S+R'), ('vehicles', 'None', 'Diff_', 'T+S+R'), ('vehicles', 'None', 'RelDiff_', 'T+S+R'), ('vehicles', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 PERFORMANCE MAPE_FORECAST vehicles 0.1898
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['vehicles']' 2.7859580516815186
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'vehicles', 'Transformation': 'Diff_vehicles'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'vehicles', 'Transformation': '_vehicles'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'vehicles', 'Transformation': 'RelDiff_vehicles'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'vehicles', 'Transformation': 'CumSum_vehicles'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.696, ('TRAINING', {'Signal': 'vehicles', 'Transformation': 'CumSum_vehicles'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.698, ('TRAINING', {'Signal': 'vehicles', 'Transformation': '_vehicles'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.762, ('TRAINING', {'Signal': 'vehicles', 'Transformation': 'RelDiff_vehicles'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.02, ('TRAINING', {'Signal': 'vehicles', 'Transformation': 'Diff_vehicles'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.16, ('SIGNAL_TRAINING', {'Signals': ['vehicles'], 'Transformations': [('vehicles', 'None', '_', 'T+S+R'), ('vehicles', 'None', 'Diff_', 'T+S+R'), ('vehicles', 'None', 'RelDiff_', 'T+S+R'), ('vehicles', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['vehicles'], 'Transformations': [('vehicles', [('vehicles', 'None', 'CumSum_', 'T+S+R'), ('vehicles', 'None', 'Diff_', 'T+S+R'), ('vehicles', 'None', 'RelDiff_', 'T+S+R'), ('vehicles', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'vehicles', 'Transformations': [('vehicles', 'None', 'CumSum_', 'T+S+R'), ('vehicles', 'None', 'Diff_', 'T+S+R'), ('vehicles', 'None', 'RelDiff_', 'T+S+R'), ('vehicles', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.01, ('MODEL_SELECTION', {'Signal': 'vehicles', 'Transformations': [('vehicles', 'None', 'CumSum_', 'T+S+R'), ('vehicles', 'None', 'Diff_', 'T+S+R'), ('vehicles', 'None', 'RelDiff_', 'T+S+R'), ('vehicles', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'vehicles', 'Model': 'CumSum_vehicles_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.061, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'vehicles', 'Model': 'CumSum_vehicles_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'vehicles'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.046, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'vehicles'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.119, ('FINALIZE_TRAINING', {'Signals': ['vehicles'], 'Transformations': [('vehicles', [('vehicles', 'None', 'CumSum_', 'T+S+R'), ('vehicles', 'None', 'Diff_', 'T+S+R'), ('vehicles', 'None', 'RelDiff_', 'T+S+R'), ('vehicles', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1.0 TimeMax=56.8333333333333 TimeDelta=0.041666666666666644 Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='vehicles' Length=1689  Min=154 Max=5549  Mean=2060.4179988158676 StdDev=1339.1492330503795
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='CumSum_vehicles' Min=699 Max=3480046  Mean=1731871.9982238011 StdDev=1018880.8500892683
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='CumSum_vehicles' Min=0.1010194624652456 Max=596.8378127896202  Mean=296.89379021757196 StdDev=174.94050493031884
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'CumSum_'
-INFO:pyaf.std:BEST_DECOMPOSITION  'CumSum_vehicles_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR' [Lag1Trend + Cycle + NoAR]
+INFO:pyaf.std:BEST_DECOMPOSITION  'CumSum_vehicles_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR' [Lag1Trend + Cycle_24 + NoAR]
 INFO:pyaf.std:TREND_DETAIL 'CumSum_vehicles_Lag1Trend' [Lag1Trend]
-INFO:pyaf.std:CYCLE_DETAIL 'CumSum_vehicles_Lag1Trend_residue_bestCycle_byMAPE' [Cycle]
+INFO:pyaf.std:CYCLE_DETAIL 'CumSum_vehicles_Lag1Trend_residue_bestCycle_byMAPE' [Cycle_24]
 INFO:pyaf.std:AUTOREG_DETAIL 'CumSum_vehicles_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR' [NoAR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.1704 MAPE_Forecast=0.1904 MAPE_Test=0.1559
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.1699 MAPE_Forecast=0.1904 MAPE_Test=0.1559
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.1529 SMAPE_Forecast=0.1729 SMAPE_Test=0.2044
-INFO:pyaf.std:MODEL_MASE MASE_Fit=0.5014 MASE_Forecast=0.5465 MASE_Test=0.1588
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=398.7601240237057 CRPS_Forecast=411.34244987468674 CRPS_Test=420.0141444444445
-INFO:pyaf.std:MODEL_L1 L1_Fit=225.03765846383297 L1_Forecast=247.23214285714286 L1_Test=85.91666666666667
-INFO:pyaf.std:MODEL_L2 L2_Fit=415.211373310598 L2_Forecast=422.38771049379557 L2_Test=119.2701764901855
-INFO:pyaf.std:MODEL_LnQ LnQ_Fit=inf LnQ_Forecast=35.36568538939708 LnQ_Test=2.144745274922587
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=105.5 MedAE_Forecast=131.5 MedAE_Test=41.0
-INFO:pyaf.std:MODEL_COMPLEXITY 72
+INFO:pyaf.std:MODEL_MASE MASE_Fit=0.5009 MASE_Forecast=0.5465 MASE_Test=0.1588
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=398.7178146709052 CRPS_Forecast=411.3424498746892 CRPS_Test=420.01414444445555
+INFO:pyaf.std:MODEL_L1 L1_Fit=224.80797912006466 L1_Forecast=247.23214285716352 L1_Test=85.91666666661503
+INFO:pyaf.std:MODEL_L2 L2_Fit=414.82868511475186 L2_Forecast=422.3877104938027 L2_Test=119.27017649009508
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=inf LnQ_Forecast=35.36568538941445 LnQ_Test=2.1447452749295857
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=105.50000000014643 MedAE_Forecast=131.49999999995202 MedAE_Test=41.00000000014518
+INFO:pyaf.std:MODEL_COMPLEXITY 27.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES Integration None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:LAG1_TREND Lag1Trend 699
+INFO:pyaf.std:LAG1_TREND Lag1Trend 0.1010194624652456
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES CumSum_vehicles_Lag1Trend_residue_bestCycle_byMAPE 24 2336.0 {0: 793.0, 1: 395.0, 2: 245.5, 3: 213.0, 4: 211.0, 5: 361.0, 6: 1134.5, 7: 3741.0, 8: 5038.5, 9: 4378.0, 10: 3328.5, 11: 2944.0, 12: 2811.5, 13: 2765.0, 14: 2682.0, 15: 2551.5, 16: 2691.5, 17: 3003.0, 18: 3743.5, 19: 3049.0, 20: 2312.5, 21: 1597.0, 22: 1375.0, 23: 1157.0}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES CumSum_vehicles_Lag1Trend_residue_bestCycle_byMAPE 24 0.40444856348470637 {0: 0.11844300278036002, 1: 0.044670991658932735, 2: 0.016960148285448895, 3: 0.010936051899911092, 4: 0.01056533827618722, 5: 0.038368860055618015, 6: 0.1817423540315115, 7: 0.6648748841519918, 8: 0.905375347544016, 9: 0.7829471733086057, 10: 0.5884151992585629, 11: 0.5171455050973108, 12: 0.4925857275254941, 13: 0.4839666357738679, 14: 0.4685820203892632, 15: 0.44439295644114907, 16: 0.47034291010193385, 17: 0.5280815569972077, 18: 0.6653382761816431, 19: 0.5366079703429136, 20: 0.4000926784059331, 21: 0.2674698795180461, 22: 0.22632066728452216, 23: 0.18591288229842462}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END

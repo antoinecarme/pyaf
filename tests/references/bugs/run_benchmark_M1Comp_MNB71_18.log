@@ -1,4 +1,4 @@
-INFO:pyaf.std:START_TRAINING 'MNB71'
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['MNB71'], 'Transformations': [('MNB71', 'None', '_', 'T+S+R'), ('MNB71', 'None', 'Diff_', 'T+S+R'), ('MNB71', 'None', 'RelDiff_', 'T+S+R'), ('MNB71', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 BENCH_TYPE M1_COMP OneDataFrameForAllSignals
 BENCH_DATA M1_COMP
 TIME :  Date N= 121 H= 18 HEAD= [0 1 2 3 4] TAIL= [116 117 118 119 120]
@@ -19,59 +19,76 @@ Data columns (total 2 columns):
 dtypes: float64(1), int64(1)
 memory usage: 2.8+ KB
 None
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['MNB71']' 1.498718500137329
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'MNB71', 'Transformation': '_MNB71'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'MNB71', 'Transformation': 'Diff_MNB71'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'MNB71', 'Transformation': 'RelDiff_MNB71'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'MNB71', 'Transformation': 'CumSum_MNB71'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.803, ('TRAINING', {'Signal': 'MNB71', 'Transformation': '_MNB71'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.965, ('TRAINING', {'Signal': 'MNB71', 'Transformation': 'Diff_MNB71'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.061, ('TRAINING', {'Signal': 'MNB71', 'Transformation': 'CumSum_MNB71'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.116, ('TRAINING', {'Signal': 'MNB71', 'Transformation': 'RelDiff_MNB71'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.192, ('SIGNAL_TRAINING', {'Signals': ['MNB71'], 'Transformations': [('MNB71', 'None', '_', 'T+S+R'), ('MNB71', 'None', 'Diff_', 'T+S+R'), ('MNB71', 'None', 'RelDiff_', 'T+S+R'), ('MNB71', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['MNB71'], 'Transformations': [('MNB71', [('MNB71', 'None', 'CumSum_', 'T+S+R'), ('MNB71', 'None', 'Diff_', 'T+S+R'), ('MNB71', 'None', 'RelDiff_', 'T+S+R'), ('MNB71', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'MNB71', 'Transformations': [('MNB71', 'None', 'CumSum_', 'T+S+R'), ('MNB71', 'None', 'Diff_', 'T+S+R'), ('MNB71', 'None', 'RelDiff_', 'T+S+R'), ('MNB71', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.007, ('MODEL_SELECTION', {'Signal': 'MNB71', 'Transformations': [('MNB71', 'None', 'CumSum_', 'T+S+R'), ('MNB71', 'None', 'Diff_', 'T+S+R'), ('MNB71', 'None', 'RelDiff_', 'T+S+R'), ('MNB71', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'MNB71', 'Model': '_MNB71_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.03, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'MNB71', 'Model': '_MNB71_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'MNB71'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.415, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'MNB71'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.452, ('FINALIZE_TRAINING', {'Signals': ['MNB71'], 'Transformations': [('MNB71', [('MNB71', 'None', 'CumSum_', 'T+S+R'), ('MNB71', 'None', 'Diff_', 'T+S+R'), ('MNB71', 'None', 'RelDiff_', 'T+S+R'), ('MNB71', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=0 TimeMax=81 TimeDelta=1 Horizon=18
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='MNB71' Length=121  Min=772.85 Max=881.66  Mean=843.0081818181822 StdDev=19.67635800809717
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_MNB71' Min=772.85 Max=881.66  Mean=843.0081818181822 StdDev=19.67635800809717
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_MNB71' Min=0.0 Max=1.0  Mean=0.6447769673576128 StdDev=0.18083225813893197
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_MNB71_ConstantTrend_residue_zeroCycle_residue_NoAR' [ConstantTrend + NoCycle + NoAR]
+INFO:pyaf.std:BEST_DECOMPOSITION  '_MNB71_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR' [ConstantTrend + NoCycle + NoAR]
 INFO:pyaf.std:TREND_DETAIL '_MNB71_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_MNB71_ConstantTrend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_MNB71_ConstantTrend_residue_zeroCycle_residue_NoAR' [NoAR]
+INFO:pyaf.std:CYCLE_DETAIL '_MNB71_ConstantTrend_residue_zeroCycle[0.0]' [NoCycle]
+INFO:pyaf.std:AUTOREG_DETAIL '_MNB71_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR' [NoAR]
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0148 MAPE_Forecast=0.0285 MAPE_Test=0.0213
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0147 SMAPE_Forecast=0.0281 SMAPE_Test=0.0211
 INFO:pyaf.std:MODEL_MASE MASE_Fit=1.1353 MASE_Forecast=1.2722 MASE_Test=1.5664
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=1.8984834471544627 CRPS_Forecast=3.6391463414633733 CRPS_Test=3.493770325203286
-INFO:pyaf.std:MODEL_L1 L1_Fit=12.435963712076125 L1_Forecast=23.429959349593407 L1_Test=17.640013550135524
-INFO:pyaf.std:MODEL_L2 L2_Fit=15.528034324573348 L2_Forecast=30.011824402454604 L2_Test=21.625765190371318
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=1.8984834471544763 CRPS_Forecast=3.639146341463411 CRPS_Test=3.4937703252032484
+INFO:pyaf.std:MODEL_L1 L1_Fit=12.435963712076148 L1_Forecast=23.429959349593485 L1_Test=17.6400135501355
+INFO:pyaf.std:MODEL_L2 L2_Fit=15.528034324573348 L2_Forecast=30.011824402454586 L2_Test=21.625765190371244
 INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.027795570942129057 LnQ_Forecast=0.027799585670544073 LnQ_Test=0.012141895262777399
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=11.450000000000045 MedAE_Forecast=19.059878048780206 MedAE_Test=13.649999999999977
-INFO:pyaf.std:MODEL_COMPLEXITY 0
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=11.450000000000045 MedAE_Forecast=19.059878048780433 MedAE_Test=13.649999999999977
+INFO:pyaf.std:MODEL_COMPLEXITY 0.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND ConstantTrend 844.4701219512198
+INFO:pyaf.std:CONSTANT_TREND _MNB71_ConstantTrend 0.6582126822095352
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _MNB71_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _MNB71_ConstantTrend_residue_zeroCycle[0.0] 0.0 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING '['MNB71']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['MNB71']' 0.32483386993408203
-   Split Transformation  ...  ForecastMAPE      TestMAPE
-0   None         _MNB71  ...  2.080000e-02  1.640000e-02
-1   None         _MNB71  ...  2.080000e-02  1.810000e-02
-2   None   CumSum_MNB71  ...  2.220000e-02  1.330000e-02
-3   None         _MNB71  ...  2.230000e-02  1.350000e-02
-4   None         _MNB71  ...  2.250000e-02  1.300000e-02
-..   ...            ...  ...           ...           ...
-59  None  RelDiff_MNB71  ...  1.304037e+06  8.405692e+06
-60  None  RelDiff_MNB71  ...  1.306489e+06  8.405692e+06
-61  None  RelDiff_MNB71  ...  1.318573e+06  8.405692e+06
-62  None  RelDiff_MNB71  ...  1.328310e+06  8.405692e+06
-63  None  RelDiff_MNB71  ...  1.343878e+06  8.405692e+06
+INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['MNB71'], 'Horizon': 18}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.277, ('FORECASTING', {'Signals': ['MNB71'], 'Horizon': 18}))
+   Split Transformation DecompositionType  ... FitMAPE ForecastMAPE TestMAPE
+0   None         _MNB71             T+S+R  ...  0.0113       0.0218   0.0149
+1   None         _MNB71             T+S+R  ...  0.0113       0.0222   0.0136
+2   None         _MNB71             T+S+R  ...  0.0126       0.0223   0.0135
+3   None         _MNB71             T+S+R  ...  0.0128       0.0225   0.0130
+4   None   CumSum_MNB71             T+S+R  ...  0.0138       0.0225   0.0130
+..   ...            ...               ...  ...     ...          ...      ...
+59  None  RelDiff_MNB71             T+S+R  ...  0.2736       0.9871   1.4564
+60  None  RelDiff_MNB71             T+S+R  ...  0.2706       1.0620   2.0060
+61  None  RelDiff_MNB71             T+S+R  ...  0.2461       1.0891   1.9502
+62  None  RelDiff_MNB71             T+S+R  ...  0.1525       1.5525   7.4377
+63  None  RelDiff_MNB71             T+S+R  ...  0.1525       1.5525   7.4377
 
-[64 rows x 8 columns]
-  Split Transformation  ... ForecastMAPE TestMAPE
-0  None         _MNB71  ...       0.0208   0.0164
-1  None         _MNB71  ...       0.0208   0.0181
-2  None   CumSum_MNB71  ...       0.0222   0.0133
-3  None         _MNB71  ...       0.0223   0.0135
-4  None         _MNB71  ...       0.0225   0.0130
+[64 rows x 10 columns]
+  Split Transformation DecompositionType  ... FitMAPE ForecastMAPE TestMAPE
+0  None         _MNB71             T+S+R  ...  0.0113       0.0218   0.0149
+1  None         _MNB71             T+S+R  ...  0.0113       0.0222   0.0136
+2  None         _MNB71             T+S+R  ...  0.0126       0.0223   0.0135
+3  None         _MNB71             T+S+R  ...  0.0128       0.0225   0.0130
+4  None   CumSum_MNB71             T+S+R  ...  0.0138       0.0225   0.0130
 
-[5 rows x 8 columns]
+[5 rows x 10 columns]
 18 0     823.89
 1     862.06
 2     854.67
@@ -111,10 +128,10 @@ Name: MNB71, dtype: float64
 17    844.470122
 Name: MNB71_Forecast, dtype: float64
 FORECAST_DETAIL_ACTUAL M1_COMP MNB71 [823.89, 862.06, 854.67, 849.02, 840.59, 855.8, 837.77, 834.7, 846.68, 831.63, 848.74, 833.83, 855.49, 862.28, 874.14, 846.93, 891.1, 888.38]
-FORECAST_DETAIL_PREDICTED M1_COMP MNB71 [844.4701219512198, 844.4701219512198, 844.4701219512198, 844.4701219512198, 844.4701219512198, 844.4701219512198, 844.4701219512198, 844.4701219512198, 844.4701219512198, 844.4701219512198, 844.4701219512198, 844.4701219512198, 844.4701219512198, 844.4701219512198, 844.4701219512198, 844.4701219512198, 844.4701219512198, 844.4701219512198]
+FORECAST_DETAIL_PREDICTED M1_COMP MNB71 [844.4701219512195, 844.4701219512195, 844.4701219512195, 844.4701219512195, 844.4701219512195, 844.4701219512195, 844.4701219512195, 844.4701219512195, 844.4701219512195, 844.4701219512195, 844.4701219512195, 844.4701219512195, 844.4701219512195, 844.4701219512195, 844.4701219512195, 844.4701219512195, 844.4701219512195, 844.4701219512195]
 BENCHMARK_PERF_DETAIL_SIGNAL_HORIZON M1_COMP MNB71 121 18
-BENCHMARK_PERF_DETAIL_BENCH_TIME_IN_SECONDS PYAF_SYSTEM_DEPENDENT_ M1_COMP MNB71 1.8906755447387695
+BENCHMARK_PERF_DETAIL_BENCH_TIME_IN_SECONDS PYAF_SYSTEM_DEPENDENT_ M1_COMP MNB71 1.993544101715088
 BENCHMARK_PERF_DETAIL_BEST_MODEL M1_COMP MNB71 ConstantTrend + NoCycle + NoAR
 BENCHMARK_PERF_DETAIL_PERF_COUNT M1_COMP MNB71 18
 BENCHMARK_PERF_DETAIL_PERF_MAPE_SMAPE_MASE M1_COMP MNB71 0.0171 0.0173 0.9327
-BENCHMARK_PERF_DETAIL_PERF_L1_L2_R2 M1_COMP MNB71 14.781070460704504 19.536367692498366 -0.17966992281636518
+BENCHMARK_PERF_DETAIL_PERF_L1_L2_R2 M1_COMP MNB71 14.781070460704578 19.536367692498455 -0.17966992281637562

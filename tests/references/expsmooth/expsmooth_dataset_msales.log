@@ -1,13 +1,30 @@
-INFO:pyaf.std:START_TRAINING 'msales'
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['msales']' 1.2558939456939697
-INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1.0 TimeMax=3.1666666666666696 TimeDelta=0.08333333333333345 Horizon=2
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['msales'], 'Transformations': [('msales', 'None', '_', 'T+S+R'), ('msales', 'None', 'Diff_', 'T+S+R'), ('msales', 'None', 'RelDiff_', 'T+S+R'), ('msales', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'msales', 'Transformation': '_msales'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'msales', 'Transformation': 'RelDiff_msales'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'msales', 'Transformation': 'CumSum_msales'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'msales', 'Transformation': 'Diff_msales'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.15, ('TRAINING', {'Signal': 'msales', 'Transformation': 'CumSum_msales'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.231, ('TRAINING', {'Signal': 'msales', 'Transformation': '_msales'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.267, ('TRAINING', {'Signal': 'msales', 'Transformation': 'RelDiff_msales'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.3, ('TRAINING', {'Signal': 'msales', 'Transformation': 'Diff_msales'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.446, ('SIGNAL_TRAINING', {'Signals': ['msales'], 'Transformations': [('msales', 'None', '_', 'T+S+R'), ('msales', 'None', 'Diff_', 'T+S+R'), ('msales', 'None', 'RelDiff_', 'T+S+R'), ('msales', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['msales'], 'Transformations': [('msales', [('msales', 'None', 'CumSum_', 'T+S+R'), ('msales', 'None', 'Diff_', 'T+S+R'), ('msales', 'None', 'RelDiff_', 'T+S+R'), ('msales', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'msales', 'Transformations': [('msales', 'None', 'CumSum_', 'T+S+R'), ('msales', 'None', 'Diff_', 'T+S+R'), ('msales', 'None', 'RelDiff_', 'T+S+R'), ('msales', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.01, ('MODEL_SELECTION', {'Signal': 'msales', 'Transformations': [('msales', 'None', 'CumSum_', 'T+S+R'), ('msales', 'None', 'Diff_', 'T+S+R'), ('msales', 'None', 'RelDiff_', 'T+S+R'), ('msales', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'msales', 'Model': 'CumSum_msales_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.032, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'msales', 'Model': 'CumSum_msales_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'msales'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.061, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'msales'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.104, ('FINALIZE_TRAINING', {'Signals': ['msales'], 'Transformations': [('msales', [('msales', 'None', 'CumSum_', 'T+S+R'), ('msales', 'None', 'Diff_', 'T+S+R'), ('msales', 'None', 'RelDiff_', 'T+S+R'), ('msales', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1.0 TimeMax=3.16666666666667 TimeDelta=0.08333333333333347 Horizon=2
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='msales' Length=36  Min=0 Max=1  Mean=0.4722222222222222 StdDev=0.499227798766984
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='CumSum_msales' Min=1 Max=17  Mean=5.972222222222222 StdDev=5.008249367632872
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='CumSum_msales' Min=1.0 Max=17.0  Mean=5.972222222222222 StdDev=5.008249367632872
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'CumSum_'
-INFO:pyaf.std:BEST_DECOMPOSITION  'CumSum_msales_ConstantTrend_residue_zeroCycle_residue_NoAR' [ConstantTrend + NoCycle + NoAR]
+INFO:pyaf.std:BEST_DECOMPOSITION  'CumSum_msales_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [ConstantTrend + Cycle_None + NoAR]
 INFO:pyaf.std:TREND_DETAIL 'CumSum_msales_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL 'CumSum_msales_ConstantTrend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL 'CumSum_msales_ConstantTrend_residue_zeroCycle_residue_NoAR' [NoAR]
+INFO:pyaf.std:CYCLE_DETAIL 'CumSum_msales_ConstantTrend_residue_bestCycle_byMAPE' [Cycle_None]
+INFO:pyaf.std:AUTOREG_DETAIL 'CumSum_msales_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [NoAR]
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.3896 MAPE_Forecast=0.8571 MAPE_Test=1.0
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.6339 SMAPE_Forecast=1.7143 SMAPE_Test=2.0
 INFO:pyaf.std:MODEL_MASE MASE_Fit=1.1254 MASE_Forecast=2.5714 MASE_Test=10000000000.0
@@ -16,29 +33,46 @@ INFO:pyaf.std:MODEL_L1 L1_Fit=0.38957475994513036 L1_Forecast=0.8571428571428571
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.7288482931137599 L2_Forecast=0.9258200997725514 L2_Test=1.0
 INFO:pyaf.std:MODEL_LnQ LnQ_Fit=inf LnQ_Forecast=inf LnQ_Test=inf
 INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.0 MedAE_Forecast=1.0 MedAE_Test=1.0
-INFO:pyaf.std:MODEL_COMPLEXITY 32
+INFO:pyaf.std:MODEL_COMPLEXITY 1.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES Integration None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND ConstantTrend 3.5185185185185186
+INFO:pyaf.std:CONSTANT_TREND CumSum_msales_ConstantTrend 3.5185185185185186
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES CumSum_msales_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES CumSum_msales_ConstantTrend_residue_bestCycle_byMAPE None -1.5185185185185186 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_TRAINING 'msales'
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['msales'], 'Transformations': [('msales', 'None', '_', 'T+S+R'), ('msales', 'None', 'Diff_', 'T+S+R'), ('msales', 'None', 'RelDiff_', 'T+S+R'), ('msales', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 PERFORMANCE MAPE_FORECAST msales 0.8571
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['msales']' 1.22456955909729
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'msales', 'Transformation': '_msales'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'msales', 'Transformation': 'Diff_msales'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'msales', 'Transformation': 'RelDiff_msales'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'msales', 'Transformation': 'CumSum_msales'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.932, ('TRAINING', {'Signal': 'msales', 'Transformation': '_msales'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.02, ('TRAINING', {'Signal': 'msales', 'Transformation': 'CumSum_msales'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.05, ('TRAINING', {'Signal': 'msales', 'Transformation': 'Diff_msales'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.104, ('TRAINING', {'Signal': 'msales', 'Transformation': 'RelDiff_msales'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.193, ('SIGNAL_TRAINING', {'Signals': ['msales'], 'Transformations': [('msales', 'None', '_', 'T+S+R'), ('msales', 'None', 'Diff_', 'T+S+R'), ('msales', 'None', 'RelDiff_', 'T+S+R'), ('msales', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['msales'], 'Transformations': [('msales', [('msales', 'None', 'CumSum_', 'T+S+R'), ('msales', 'None', 'Diff_', 'T+S+R'), ('msales', 'None', 'RelDiff_', 'T+S+R'), ('msales', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'msales', 'Transformations': [('msales', 'None', 'CumSum_', 'T+S+R'), ('msales', 'None', 'Diff_', 'T+S+R'), ('msales', 'None', 'RelDiff_', 'T+S+R'), ('msales', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.015, ('MODEL_SELECTION', {'Signal': 'msales', 'Transformations': [('msales', 'None', 'CumSum_', 'T+S+R'), ('msales', 'None', 'Diff_', 'T+S+R'), ('msales', 'None', 'RelDiff_', 'T+S+R'), ('msales', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'msales', 'Model': 'CumSum_msales_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.03, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'msales', 'Model': 'CumSum_msales_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'msales'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.115, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'msales'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.162, ('FINALIZE_TRAINING', {'Signals': ['msales'], 'Transformations': [('msales', [('msales', 'None', 'CumSum_', 'T+S+R'), ('msales', 'None', 'Diff_', 'T+S+R'), ('msales', 'None', 'RelDiff_', 'T+S+R'), ('msales', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1.0 TimeMax=3.0 TimeDelta=0.08333333333333333 Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='msales' Length=36  Min=0 Max=1  Mean=0.4722222222222222 StdDev=0.499227798766984
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='CumSum_msales' Min=1 Max=17  Mean=5.972222222222222 StdDev=5.008249367632872
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='CumSum_msales' Min=1.0 Max=17.0  Mean=5.972222222222222 StdDev=5.008249367632872
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'CumSum_'
-INFO:pyaf.std:BEST_DECOMPOSITION  'CumSum_msales_ConstantTrend_residue_zeroCycle_residue_NoAR' [ConstantTrend + NoCycle + NoAR]
+INFO:pyaf.std:BEST_DECOMPOSITION  'CumSum_msales_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [ConstantTrend + Cycle_None + NoAR]
 INFO:pyaf.std:TREND_DETAIL 'CumSum_msales_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL 'CumSum_msales_ConstantTrend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL 'CumSum_msales_ConstantTrend_residue_zeroCycle_residue_NoAR' [NoAR]
+INFO:pyaf.std:CYCLE_DETAIL 'CumSum_msales_ConstantTrend_residue_bestCycle_byMAPE' [Cycle_None]
+INFO:pyaf.std:AUTOREG_DETAIL 'CumSum_msales_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [NoAR]
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.4032 MAPE_Forecast=0.5714 MAPE_Test=1.0
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.6808 SMAPE_Forecast=1.1429 SMAPE_Test=2.0
 INFO:pyaf.std:MODEL_MASE MASE_Fit=1.2096 MASE_Forecast=1.1429 MASE_Test=10000000000.0
@@ -47,29 +81,44 @@ INFO:pyaf.std:MODEL_L1 L1_Fit=0.4032 L1_Forecast=0.5714285714285714 L1_Test=1.0
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.7021794642397341 L2_Forecast=0.7559289460184544 L2_Test=1.0
 INFO:pyaf.std:MODEL_LnQ LnQ_Fit=inf LnQ_Forecast=inf LnQ_Test=inf
 INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.0 MedAE_Forecast=1.0 MedAE_Test=1.0
-INFO:pyaf.std:MODEL_COMPLEXITY 32
+INFO:pyaf.std:MODEL_COMPLEXITY 1.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES Integration None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND ConstantTrend 3.08
+INFO:pyaf.std:CONSTANT_TREND CumSum_msales_ConstantTrend 3.08
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES CumSum_msales_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES CumSum_msales_ConstantTrend_residue_bestCycle_byMAPE None -1.08 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_TRAINING 'msales'
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['msales'], 'Transformations': [('msales', 'None', '_', 'T+S+R'), ('msales', 'None', 'Diff_', 'T+S+R'), ('msales', 'None', 'RelDiff_', 'T+S+R'), ('msales', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 PERFORMANCE MAPE_FORECAST msales 0.5714
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['msales']' 1.6207594871520996
-INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1.0 TimeMax=3.9166666666666696 TimeDelta=0.08333333333333341 Horizon=8
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'msales', 'Transformation': 'Diff_msales'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'msales', 'Transformation': '_msales'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'msales', 'Transformation': 'CumSum_msales'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'msales', 'Transformation': 'RelDiff_msales'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.053, ('TRAINING', {'Signal': 'msales', 'Transformation': '_msales'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.067, ('TRAINING', {'Signal': 'msales', 'Transformation': 'Diff_msales'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.386, ('SIGNAL_TRAINING', {'Signals': ['msales'], 'Transformations': [('msales', 'None', '_', 'T+S+R'), ('msales', 'None', 'Diff_', 'T+S+R'), ('msales', 'None', 'RelDiff_', 'T+S+R'), ('msales', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['msales'], 'Transformations': [('msales', [('msales', 'None', 'CumSum_', 'T+S+R'), ('msales', 'None', 'Diff_', 'T+S+R'), ('msales', 'None', 'RelDiff_', 'T+S+R'), ('msales', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'msales', 'Transformations': [('msales', 'None', 'CumSum_', 'T+S+R'), ('msales', 'None', 'Diff_', 'T+S+R'), ('msales', 'None', 'RelDiff_', 'T+S+R'), ('msales', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.011, ('MODEL_SELECTION', {'Signal': 'msales', 'Transformations': [('msales', 'None', 'CumSum_', 'T+S+R'), ('msales', 'None', 'Diff_', 'T+S+R'), ('msales', 'None', 'RelDiff_', 'T+S+R'), ('msales', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'msales', 'Model': 'CumSum_msales_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.038, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'msales', 'Model': 'CumSum_msales_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'msales'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.192, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'msales'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.242, ('FINALIZE_TRAINING', {'Signals': ['msales'], 'Transformations': [('msales', [('msales', 'None', 'CumSum_', 'T+S+R'), ('msales', 'None', 'Diff_', 'T+S+R'), ('msales', 'None', 'RelDiff_', 'T+S+R'), ('msales', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1.0 TimeMax=3.91666666666667 TimeDelta=0.08333333333333343 Horizon=8
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='msales' Length=36  Min=0 Max=1  Mean=0.4722222222222222 StdDev=0.499227798766984
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='CumSum_msales' Min=1 Max=17  Mean=5.972222222222222 StdDev=5.008249367632872
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='CumSum_msales' Min=1.0 Max=17.0  Mean=5.972222222222222 StdDev=5.008249367632872
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'CumSum_'
-INFO:pyaf.std:BEST_DECOMPOSITION  'CumSum_msales_ConstantTrend_residue_zeroCycle_residue_NoAR' [ConstantTrend + NoCycle + NoAR]
+INFO:pyaf.std:BEST_DECOMPOSITION  'CumSum_msales_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [ConstantTrend + Cycle_None + NoAR]
 INFO:pyaf.std:TREND_DETAIL 'CumSum_msales_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL 'CumSum_msales_ConstantTrend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL 'CumSum_msales_ConstantTrend_residue_zeroCycle_residue_NoAR' [NoAR]
+INFO:pyaf.std:CYCLE_DETAIL 'CumSum_msales_ConstantTrend_residue_bestCycle_byMAPE' [Cycle_None]
+INFO:pyaf.std:AUTOREG_DETAIL 'CumSum_msales_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [NoAR]
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.5826 MAPE_Forecast=0.5826 MAPE_Test=0.5826
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.9285 SMAPE_Forecast=0.9285 SMAPE_Test=0.9285
 INFO:pyaf.std:MODEL_MASE MASE_Fit=1.6991 MASE_Forecast=1.6991 MASE_Test=1.6991
@@ -78,29 +127,46 @@ INFO:pyaf.std:MODEL_L1 L1_Fit=0.5825617283950617 L1_Forecast=0.5825617283950617 
 INFO:pyaf.std:MODEL_L2 L2_Fit=1.0635761716852632 L2_Forecast=1.0635761716852632 L2_Test=1.0635761716852632
 INFO:pyaf.std:MODEL_LnQ LnQ_Fit=inf LnQ_Forecast=inf LnQ_Test=inf
 INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.0 MedAE_Forecast=0.0 MedAE_Test=0.0
-INFO:pyaf.std:MODEL_COMPLEXITY 32
+INFO:pyaf.std:MODEL_COMPLEXITY 1.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES Integration None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND ConstantTrend 5.972222222222222
+INFO:pyaf.std:CONSTANT_TREND CumSum_msales_ConstantTrend 5.972222222222222
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES CumSum_msales_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES CumSum_msales_ConstantTrend_residue_bestCycle_byMAPE None -1.4722222222222223 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_TRAINING 'msales'
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['msales'], 'Transformations': [('msales', 'None', '_', 'T+S+R'), ('msales', 'None', 'Diff_', 'T+S+R'), ('msales', 'None', 'RelDiff_', 'T+S+R'), ('msales', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 PERFORMANCE MAPE_FORECAST msales 0.5826
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['msales']' 1.178328037261963
-INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1.0 TimeMax=3.9166666666666696 TimeDelta=0.08333333333333341 Horizon=12
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'msales', 'Transformation': '_msales'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'msales', 'Transformation': 'Diff_msales'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'msales', 'Transformation': 'RelDiff_msales'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'msales', 'Transformation': 'CumSum_msales'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.936, ('TRAINING', {'Signal': 'msales', 'Transformation': 'Diff_msales'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.013, ('TRAINING', {'Signal': 'msales', 'Transformation': 'CumSum_msales'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.074, ('TRAINING', {'Signal': 'msales', 'Transformation': '_msales'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.211, ('TRAINING', {'Signal': 'msales', 'Transformation': 'RelDiff_msales'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.292, ('SIGNAL_TRAINING', {'Signals': ['msales'], 'Transformations': [('msales', 'None', '_', 'T+S+R'), ('msales', 'None', 'Diff_', 'T+S+R'), ('msales', 'None', 'RelDiff_', 'T+S+R'), ('msales', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['msales'], 'Transformations': [('msales', [('msales', 'None', 'CumSum_', 'T+S+R'), ('msales', 'None', 'Diff_', 'T+S+R'), ('msales', 'None', 'RelDiff_', 'T+S+R'), ('msales', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'msales', 'Transformations': [('msales', 'None', 'CumSum_', 'T+S+R'), ('msales', 'None', 'Diff_', 'T+S+R'), ('msales', 'None', 'RelDiff_', 'T+S+R'), ('msales', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.007, ('MODEL_SELECTION', {'Signal': 'msales', 'Transformations': [('msales', 'None', 'CumSum_', 'T+S+R'), ('msales', 'None', 'Diff_', 'T+S+R'), ('msales', 'None', 'RelDiff_', 'T+S+R'), ('msales', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'msales', 'Model': 'CumSum_msales_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.025, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'msales', 'Model': 'CumSum_msales_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'msales'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.292, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'msales'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.327, ('FINALIZE_TRAINING', {'Signals': ['msales'], 'Transformations': [('msales', [('msales', 'None', 'CumSum_', 'T+S+R'), ('msales', 'None', 'Diff_', 'T+S+R'), ('msales', 'None', 'RelDiff_', 'T+S+R'), ('msales', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1.0 TimeMax=3.91666666666667 TimeDelta=0.08333333333333343 Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='msales' Length=36  Min=0 Max=1  Mean=0.4722222222222222 StdDev=0.499227798766984
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='CumSum_msales' Min=1 Max=17  Mean=5.972222222222222 StdDev=5.008249367632872
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='CumSum_msales' Min=1.0 Max=17.0  Mean=5.972222222222222 StdDev=5.008249367632872
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'CumSum_'
-INFO:pyaf.std:BEST_DECOMPOSITION  'CumSum_msales_ConstantTrend_residue_zeroCycle_residue_NoAR' [ConstantTrend + NoCycle + NoAR]
+INFO:pyaf.std:BEST_DECOMPOSITION  'CumSum_msales_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [ConstantTrend + Cycle_None + NoAR]
 INFO:pyaf.std:TREND_DETAIL 'CumSum_msales_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL 'CumSum_msales_ConstantTrend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL 'CumSum_msales_ConstantTrend_residue_zeroCycle_residue_NoAR' [NoAR]
+INFO:pyaf.std:CYCLE_DETAIL 'CumSum_msales_ConstantTrend_residue_bestCycle_byMAPE' [Cycle_None]
+INFO:pyaf.std:AUTOREG_DETAIL 'CumSum_msales_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [NoAR]
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.5826 MAPE_Forecast=0.5826 MAPE_Test=0.5826
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.9285 SMAPE_Forecast=0.9285 SMAPE_Test=0.9285
 INFO:pyaf.std:MODEL_MASE MASE_Fit=1.6991 MASE_Forecast=1.6991 MASE_Test=1.6991
@@ -109,15 +175,15 @@ INFO:pyaf.std:MODEL_L1 L1_Fit=0.5825617283950617 L1_Forecast=0.5825617283950617 
 INFO:pyaf.std:MODEL_L2 L2_Fit=1.0635761716852632 L2_Forecast=1.0635761716852632 L2_Test=1.0635761716852632
 INFO:pyaf.std:MODEL_LnQ LnQ_Fit=inf LnQ_Forecast=inf LnQ_Test=inf
 INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.0 MedAE_Forecast=0.0 MedAE_Test=0.0
-INFO:pyaf.std:MODEL_COMPLEXITY 32
+INFO:pyaf.std:MODEL_COMPLEXITY 1.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES Integration None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND ConstantTrend 5.972222222222222
+INFO:pyaf.std:CONSTANT_TREND CumSum_msales_ConstantTrend 5.972222222222222
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES CumSum_msales_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES CumSum_msales_ConstantTrend_residue_bestCycle_byMAPE None -1.4722222222222223 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END

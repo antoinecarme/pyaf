@@ -1,164 +1,232 @@
-INFO:pyaf.std:START_TRAINING 'visitors'
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['visitors']' 2.048328399658203
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['visitors'], 'Transformations': [('visitors', 'None', '_', 'T+S+R'), ('visitors', 'None', 'Diff_', 'T+S+R'), ('visitors', 'None', 'RelDiff_', 'T+S+R'), ('visitors', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'visitors', 'Transformation': '_visitors'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'visitors', 'Transformation': 'Diff_visitors'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'visitors', 'Transformation': 'RelDiff_visitors'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'visitors', 'Transformation': 'CumSum_visitors'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.139, ('TRAINING', {'Signal': 'visitors', 'Transformation': 'RelDiff_visitors'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.189, ('TRAINING', {'Signal': 'visitors', 'Transformation': '_visitors'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.196, ('TRAINING', {'Signal': 'visitors', 'Transformation': 'CumSum_visitors'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.282, ('TRAINING', {'Signal': 'visitors', 'Transformation': 'Diff_visitors'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.406, ('SIGNAL_TRAINING', {'Signals': ['visitors'], 'Transformations': [('visitors', 'None', '_', 'T+S+R'), ('visitors', 'None', 'Diff_', 'T+S+R'), ('visitors', 'None', 'RelDiff_', 'T+S+R'), ('visitors', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['visitors'], 'Transformations': [('visitors', [('visitors', 'None', 'CumSum_', 'T+S+R'), ('visitors', 'None', 'Diff_', 'T+S+R'), ('visitors', 'None', 'RelDiff_', 'T+S+R'), ('visitors', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'visitors', 'Transformations': [('visitors', 'None', 'CumSum_', 'T+S+R'), ('visitors', 'None', 'Diff_', 'T+S+R'), ('visitors', 'None', 'RelDiff_', 'T+S+R'), ('visitors', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.009, ('MODEL_SELECTION', {'Signal': 'visitors', 'Transformations': [('visitors', 'None', 'CumSum_', 'T+S+R'), ('visitors', 'None', 'Diff_', 'T+S+R'), ('visitors', 'None', 'RelDiff_', 'T+S+R'), ('visitors', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'visitors', 'Model': '_visitors_Lag1Trend_residue_zeroCycle[0.0]_residue_AR(60)'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.044, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'visitors', 'Model': '_visitors_Lag1Trend_residue_zeroCycle[0.0]_residue_AR(60)'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'visitors'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.087, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'visitors'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.141, ('FINALIZE_TRAINING', {'Signals': ['visitors'], 'Transformations': [('visitors', [('visitors', 'None', 'CumSum_', 'T+S+R'), ('visitors', 'None', 'Diff_', 'T+S+R'), ('visitors', 'None', 'RelDiff_', 'T+S+R'), ('visitors', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1985.33333333333 TimeMax=2001.08333333333 TimeDelta=0.08333333333333333 Horizon=2
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='visitors' Length=240  Min=75.4 Max=593.1  Mean=288.1858333333334 StdDev=115.11710544472626
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_visitors' Min=75.4 Max=593.1  Mean=288.1858333333334 StdDev=115.11710544472626
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_visitors' Min=0.0 Max=1.0  Mean=0.4110215053763441 StdDev=0.22236257570934176
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_visitors_LinearTrend_residue_zeroCycle_residue_AR(60)' [LinearTrend + NoCycle + AR]
-INFO:pyaf.std:TREND_DETAIL '_visitors_LinearTrend' [LinearTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_visitors_LinearTrend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_visitors_LinearTrend_residue_zeroCycle_residue_AR(60)' [AR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0484 MAPE_Forecast=0.049 MAPE_Test=0.109
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0482 SMAPE_Forecast=0.0476 SMAPE_Test=0.105
-INFO:pyaf.std:MODEL_MASE MASE_Fit=0.3219 MASE_Forecast=0.3313 MASE_Test=0.5032
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=27.248018483382605 CRPS_Forecast=15.753552576902953 CRPS_Test=6.717503679072749
-INFO:pyaf.std:MODEL_L1 L1_Fit=10.580619018762086 L1_Forecast=19.20269373091321 L1_Test=47.90683850436852
-INFO:pyaf.std:MODEL_L2 L2_Fit=13.448033155022076 L2_Forecast=25.356935789214877 L2_Test=49.75504595713957
-INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.82701964155932 LnQ_Forecast=0.20016302967057675 LnQ_Test=0.02448908795568413
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=9.001535294557733 MedAE_Forecast=16.443275350035634 MedAE_Test=47.90683850436852
-INFO:pyaf.std:MODEL_COMPLEXITY 63
+INFO:pyaf.std:BEST_DECOMPOSITION  '_visitors_Lag1Trend_residue_zeroCycle[0.0]_residue_AR(60)' [Lag1Trend + NoCycle + AR]
+INFO:pyaf.std:TREND_DETAIL '_visitors_Lag1Trend' [Lag1Trend]
+INFO:pyaf.std:CYCLE_DETAIL '_visitors_Lag1Trend_residue_zeroCycle[0.0]' [NoCycle]
+INFO:pyaf.std:AUTOREG_DETAIL '_visitors_Lag1Trend_residue_zeroCycle[0.0]_residue_AR(60)' [AR]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0604 MAPE_Forecast=0.0521 MAPE_Test=0.1119
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0598 SMAPE_Forecast=0.0519 SMAPE_Test=0.1049
+INFO:pyaf.std:MODEL_MASE MASE_Fit=0.4183 MASE_Forecast=0.3653 MASE_Test=0.5031
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=27.59539485958244 CRPS_Forecast=14.949128677402387 CRPS_Test=13.009221554364501
+INFO:pyaf.std:MODEL_L1 L1_Fit=13.750977300573483 L1_Forecast=21.17598035174967 L1_Test=47.89629632260639
+INFO:pyaf.std:MODEL_L2 L2_Fit=18.02807121569767 L2_Forecast=27.559447670220358 L2_Test=54.507014073650076
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=1.2851887280515188 LnQ_Forecast=0.22129333937860857 LnQ_Test=0.02949933143270414
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=9.90955865906271 MedAE_Forecast=17.483443706158937 MedAE_Test=47.89629632260639
+INFO:pyaf.std:MODEL_COMPLEXITY 49.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:LINEAR_RIDGE_TREND LinearTrend (102.19139631061628, array([305.87404948]))
+INFO:pyaf.std:LAG1_TREND Lag1Trend 0.000579486188912492
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _visitors_LinearTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _visitors_Lag1Trend_residue_zeroCycle[0.0] 0.0 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
-INFO:pyaf.std:AR_MODEL_COEFF 1 _visitors_LinearTrend_residue_zeroCycle_residue_Lag1 0.5537119625353656
-INFO:pyaf.std:AR_MODEL_COEFF 2 _visitors_LinearTrend_residue_zeroCycle_residue_Lag25 -0.42759405866945044
-INFO:pyaf.std:AR_MODEL_COEFF 3 _visitors_LinearTrend_residue_zeroCycle_residue_Lag24 0.34940849707920557
-INFO:pyaf.std:AR_MODEL_COEFF 4 _visitors_LinearTrend_residue_zeroCycle_residue_Lag12 0.2905769042089232
-INFO:pyaf.std:AR_MODEL_COEFF 5 _visitors_LinearTrend_residue_zeroCycle_residue_Lag59 -0.27507325021833573
-INFO:pyaf.std:AR_MODEL_COEFF 6 _visitors_LinearTrend_residue_zeroCycle_residue_Lag60 0.2573493761015786
-INFO:pyaf.std:AR_MODEL_COEFF 7 _visitors_LinearTrend_residue_zeroCycle_residue_Lag35 0.2425342576819951
-INFO:pyaf.std:AR_MODEL_COEFF 8 _visitors_LinearTrend_residue_zeroCycle_residue_Lag37 -0.2389669049818122
-INFO:pyaf.std:AR_MODEL_COEFF 9 _visitors_LinearTrend_residue_zeroCycle_residue_Lag36 0.22022836269877177
-INFO:pyaf.std:AR_MODEL_COEFF 10 _visitors_LinearTrend_residue_zeroCycle_residue_Lag49 0.20280442265867915
+INFO:pyaf.std:AR_MODEL_COEFF 1 _visitors_Lag1Trend_residue_zeroCycle[0.0]_residue_Lag24 0.1797327202725415
+INFO:pyaf.std:AR_MODEL_COEFF 2 _visitors_Lag1Trend_residue_zeroCycle[0.0]_residue_Lag12 0.1768861198147923
+INFO:pyaf.std:AR_MODEL_COEFF 3 _visitors_Lag1Trend_residue_zeroCycle[0.0]_residue_Lag36 0.1525185723235249
+INFO:pyaf.std:AR_MODEL_COEFF 4 _visitors_Lag1Trend_residue_zeroCycle[0.0]_residue_Lag48 0.11576616078480771
+INFO:pyaf.std:AR_MODEL_COEFF 5 _visitors_Lag1Trend_residue_zeroCycle[0.0]_residue_Lag60 0.10569025893933771
+INFO:pyaf.std:AR_MODEL_COEFF 6 _visitors_Lag1Trend_residue_zeroCycle[0.0]_residue_Lag6 -0.06726264123595171
+INFO:pyaf.std:AR_MODEL_COEFF 7 _visitors_Lag1Trend_residue_zeroCycle[0.0]_residue_Lag1 -0.06714978016527784
+INFO:pyaf.std:AR_MODEL_COEFF 8 _visitors_Lag1Trend_residue_zeroCycle[0.0]_residue_Lag18 -0.06048232379935645
+INFO:pyaf.std:AR_MODEL_COEFF 9 _visitors_Lag1Trend_residue_zeroCycle[0.0]_residue_Lag30 -0.03948366327670529
+INFO:pyaf.std:AR_MODEL_COEFF 10 _visitors_Lag1Trend_residue_zeroCycle[0.0]_residue_Lag34 -0.03780097306591095
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_TRAINING 'visitors'
-PERFORMANCE MAPE_FORECAST visitors 0.049
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['visitors']' 2.06264591217041
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['visitors'], 'Transformations': [('visitors', 'None', '_', 'T+S+R'), ('visitors', 'None', 'Diff_', 'T+S+R'), ('visitors', 'None', 'RelDiff_', 'T+S+R'), ('visitors', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+PERFORMANCE MAPE_FORECAST visitors 0.0521
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'visitors', 'Transformation': '_visitors'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'visitors', 'Transformation': 'Diff_visitors'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'visitors', 'Transformation': 'RelDiff_visitors'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'visitors', 'Transformation': 'CumSum_visitors'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.972, ('TRAINING', {'Signal': 'visitors', 'Transformation': 'Diff_visitors'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.146, ('TRAINING', {'Signal': 'visitors', 'Transformation': 'CumSum_visitors'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.298, ('TRAINING', {'Signal': 'visitors', 'Transformation': '_visitors'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.393, ('TRAINING', {'Signal': 'visitors', 'Transformation': 'RelDiff_visitors'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.493, ('SIGNAL_TRAINING', {'Signals': ['visitors'], 'Transformations': [('visitors', 'None', '_', 'T+S+R'), ('visitors', 'None', 'Diff_', 'T+S+R'), ('visitors', 'None', 'RelDiff_', 'T+S+R'), ('visitors', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['visitors'], 'Transformations': [('visitors', [('visitors', 'None', 'CumSum_', 'T+S+R'), ('visitors', 'None', 'Diff_', 'T+S+R'), ('visitors', 'None', 'RelDiff_', 'T+S+R'), ('visitors', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'visitors', 'Transformations': [('visitors', 'None', 'CumSum_', 'T+S+R'), ('visitors', 'None', 'Diff_', 'T+S+R'), ('visitors', 'None', 'RelDiff_', 'T+S+R'), ('visitors', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.011, ('MODEL_SELECTION', {'Signal': 'visitors', 'Transformations': [('visitors', 'None', 'CumSum_', 'T+S+R'), ('visitors', 'None', 'Diff_', 'T+S+R'), ('visitors', 'None', 'RelDiff_', 'T+S+R'), ('visitors', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'visitors', 'Model': '_visitors_Lag1Trend_residue_zeroCycle[0.0]_residue_AR(60)'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.059, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'visitors', 'Model': '_visitors_Lag1Trend_residue_zeroCycle[0.0]_residue_AR(60)'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'visitors'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.223, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'visitors'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.294, ('FINALIZE_TRAINING', {'Signals': ['visitors'], 'Transformations': [('visitors', [('visitors', 'None', 'CumSum_', 'T+S+R'), ('visitors', 'None', 'Diff_', 'T+S+R'), ('visitors', 'None', 'RelDiff_', 'T+S+R'), ('visitors', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1985.33333333333 TimeMax=2000.91666666667 TimeDelta=0.08333333333336819 Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='visitors' Length=240  Min=75.4 Max=593.1  Mean=288.1858333333334 StdDev=115.11710544472626
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_visitors' Min=75.4 Max=593.1  Mean=288.1858333333334 StdDev=115.11710544472626
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_visitors' Min=0.0 Max=1.0  Mean=0.4110215053763441 StdDev=0.22236257570934176
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_visitors_LinearTrend_residue_zeroCycle_residue_AR(60)' [LinearTrend + NoCycle + AR]
-INFO:pyaf.std:TREND_DETAIL '_visitors_LinearTrend' [LinearTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_visitors_LinearTrend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_visitors_LinearTrend_residue_zeroCycle_residue_AR(60)' [AR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0474 MAPE_Forecast=0.0499 MAPE_Test=0.0755
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0473 SMAPE_Forecast=0.0485 SMAPE_Test=0.0733
-INFO:pyaf.std:MODEL_MASE MASE_Fit=0.319 MASE_Forecast=0.3588 MASE_Test=0.737
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=27.019636106321514 CRPS_Forecast=15.683827573944253 CRPS_Test=11.442736341346958
-INFO:pyaf.std:MODEL_L1 L1_Fit=10.332958086953694 L1_Forecast=19.603986670362286 L1_Test=33.77956686383341
-INFO:pyaf.std:MODEL_L2 L2_Fit=13.273778049966388 L2_Forecast=25.504837789214232 L2_Test=39.66884570228653
-INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.8149663410962009 LnQ_Forecast=0.19779891990829768 LnQ_Test=0.030725449701815073
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=8.366199775141013 MedAE_Forecast=14.21476241721058 MedAE_Test=27.973183050258427
-INFO:pyaf.std:MODEL_COMPLEXITY 63
+INFO:pyaf.std:BEST_DECOMPOSITION  '_visitors_Lag1Trend_residue_zeroCycle[0.0]_residue_AR(60)' [Lag1Trend + NoCycle + AR]
+INFO:pyaf.std:TREND_DETAIL '_visitors_Lag1Trend' [Lag1Trend]
+INFO:pyaf.std:CYCLE_DETAIL '_visitors_Lag1Trend_residue_zeroCycle[0.0]' [NoCycle]
+INFO:pyaf.std:AUTOREG_DETAIL '_visitors_Lag1Trend_residue_zeroCycle[0.0]_residue_AR(60)' [AR]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0602 MAPE_Forecast=0.0564 MAPE_Test=0.0727
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0595 SMAPE_Forecast=0.0559 SMAPE_Test=0.0688
+INFO:pyaf.std:MODEL_MASE MASE_Fit=0.4163 MASE_Forecast=0.4183 MASE_Test=0.7033
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=27.107948460953665 CRPS_Forecast=14.67958478197321 CRPS_Test=9.63170959103499
+INFO:pyaf.std:MODEL_L1 L1_Fit=13.484110573551707 L1_Forecast=22.85391521644614 L1_Test=32.23388920815641
+INFO:pyaf.std:MODEL_L2 L2_Fit=17.639431008633363 L2_Forecast=29.25956874518547 L2_Test=41.185800702208425
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=1.2687658440840712 LnQ_Forecast=0.24473224812297742 LnQ_Test=0.03270266756711595
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=9.866842911172625 MedAE_Forecast=17.4411385398636 MedAE_Test=24.747466643198237
+INFO:pyaf.std:MODEL_COMPLEXITY 49.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:LINEAR_RIDGE_TREND LinearTrend (102.30463989288131, array([302.07795426]))
+INFO:pyaf.std:LAG1_TREND Lag1Trend 0.000579486188912492
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _visitors_LinearTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _visitors_Lag1Trend_residue_zeroCycle[0.0] 0.0 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
-INFO:pyaf.std:AR_MODEL_COEFF 1 _visitors_LinearTrend_residue_zeroCycle_residue_Lag1 0.5313390320601286
-INFO:pyaf.std:AR_MODEL_COEFF 2 _visitors_LinearTrend_residue_zeroCycle_residue_Lag25 -0.39871874544798874
-INFO:pyaf.std:AR_MODEL_COEFF 3 _visitors_LinearTrend_residue_zeroCycle_residue_Lag24 0.32683958622624004
-INFO:pyaf.std:AR_MODEL_COEFF 4 _visitors_LinearTrend_residue_zeroCycle_residue_Lag12 0.3159371681862832
-INFO:pyaf.std:AR_MODEL_COEFF 5 _visitors_LinearTrend_residue_zeroCycle_residue_Lag60 0.30393486494800875
-INFO:pyaf.std:AR_MODEL_COEFF 6 _visitors_LinearTrend_residue_zeroCycle_residue_Lag59 -0.2948779878394094
-INFO:pyaf.std:AR_MODEL_COEFF 7 _visitors_LinearTrend_residue_zeroCycle_residue_Lag35 0.2141741520920206
-INFO:pyaf.std:AR_MODEL_COEFF 8 _visitors_LinearTrend_residue_zeroCycle_residue_Lag49 0.18698026841066492
-INFO:pyaf.std:AR_MODEL_COEFF 9 _visitors_LinearTrend_residue_zeroCycle_residue_Lag37 -0.18327218174713483
-INFO:pyaf.std:AR_MODEL_COEFF 10 _visitors_LinearTrend_residue_zeroCycle_residue_Lag8 0.1638093463512954
+INFO:pyaf.std:AR_MODEL_COEFF 1 _visitors_Lag1Trend_residue_zeroCycle[0.0]_residue_Lag12 0.17897186466507575
+INFO:pyaf.std:AR_MODEL_COEFF 2 _visitors_Lag1Trend_residue_zeroCycle[0.0]_residue_Lag24 0.1769487761814772
+INFO:pyaf.std:AR_MODEL_COEFF 3 _visitors_Lag1Trend_residue_zeroCycle[0.0]_residue_Lag36 0.14213124244433012
+INFO:pyaf.std:AR_MODEL_COEFF 4 _visitors_Lag1Trend_residue_zeroCycle[0.0]_residue_Lag48 0.1149203179504246
+INFO:pyaf.std:AR_MODEL_COEFF 5 _visitors_Lag1Trend_residue_zeroCycle[0.0]_residue_Lag60 0.10924589427546644
+INFO:pyaf.std:AR_MODEL_COEFF 6 _visitors_Lag1Trend_residue_zeroCycle[0.0]_residue_Lag1 -0.07048113666280528
+INFO:pyaf.std:AR_MODEL_COEFF 7 _visitors_Lag1Trend_residue_zeroCycle[0.0]_residue_Lag6 -0.06679717746138922
+INFO:pyaf.std:AR_MODEL_COEFF 8 _visitors_Lag1Trend_residue_zeroCycle[0.0]_residue_Lag18 -0.05761279490795636
+INFO:pyaf.std:AR_MODEL_COEFF 9 _visitors_Lag1Trend_residue_zeroCycle[0.0]_residue_Lag30 -0.039148889523815705
+INFO:pyaf.std:AR_MODEL_COEFF 10 _visitors_Lag1Trend_residue_zeroCycle[0.0]_residue_Lag42 -0.03842545636756063
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_TRAINING 'visitors'
-PERFORMANCE MAPE_FORECAST visitors 0.0499
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['visitors']' 2.500291347503662
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['visitors'], 'Transformations': [('visitors', 'None', '_', 'T+S+R'), ('visitors', 'None', 'Diff_', 'T+S+R'), ('visitors', 'None', 'RelDiff_', 'T+S+R'), ('visitors', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+PERFORMANCE MAPE_FORECAST visitors 0.0564
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'visitors', 'Transformation': '_visitors'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'visitors', 'Transformation': 'Diff_visitors'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'visitors', 'Transformation': 'CumSum_visitors'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'visitors', 'Transformation': 'RelDiff_visitors'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.055, ('TRAINING', {'Signal': 'visitors', 'Transformation': '_visitors'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.086, ('TRAINING', {'Signal': 'visitors', 'Transformation': 'CumSum_visitors'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.143, ('TRAINING', {'Signal': 'visitors', 'Transformation': 'RelDiff_visitors'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.343, ('TRAINING', {'Signal': 'visitors', 'Transformation': 'Diff_visitors'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.437, ('SIGNAL_TRAINING', {'Signals': ['visitors'], 'Transformations': [('visitors', 'None', '_', 'T+S+R'), ('visitors', 'None', 'Diff_', 'T+S+R'), ('visitors', 'None', 'RelDiff_', 'T+S+R'), ('visitors', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['visitors'], 'Transformations': [('visitors', [('visitors', 'None', 'CumSum_', 'T+S+R'), ('visitors', 'None', 'Diff_', 'T+S+R'), ('visitors', 'None', 'RelDiff_', 'T+S+R'), ('visitors', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'visitors', 'Transformations': [('visitors', 'None', 'CumSum_', 'T+S+R'), ('visitors', 'None', 'Diff_', 'T+S+R'), ('visitors', 'None', 'RelDiff_', 'T+S+R'), ('visitors', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.013, ('MODEL_SELECTION', {'Signal': 'visitors', 'Transformations': [('visitors', 'None', 'CumSum_', 'T+S+R'), ('visitors', 'None', 'Diff_', 'T+S+R'), ('visitors', 'None', 'RelDiff_', 'T+S+R'), ('visitors', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'visitors', 'Model': '_visitors_Lag1Trend_residue_zeroCycle[0.0]_residue_AR(60)'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.049, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'visitors', 'Model': '_visitors_Lag1Trend_residue_zeroCycle[0.0]_residue_AR(60)'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'visitors'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.38, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'visitors'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.444, ('FINALIZE_TRAINING', {'Signals': ['visitors'], 'Transformations': [('visitors', [('visitors', 'None', 'CumSum_', 'T+S+R'), ('visitors', 'None', 'Diff_', 'T+S+R'), ('visitors', 'None', 'RelDiff_', 'T+S+R'), ('visitors', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1985.33333333333 TimeMax=2000.66666666667 TimeDelta=0.08333333333336876 Horizon=8
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='visitors' Length=240  Min=75.4 Max=593.1  Mean=288.1858333333334 StdDev=115.11710544472626
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_visitors' Min=75.4 Max=593.1  Mean=288.1858333333334 StdDev=115.11710544472626
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_visitors' Min=0.0 Max=1.0  Mean=0.4110215053763441 StdDev=0.22236257570934176
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_visitors_ConstantTrend_residue_zeroCycle_residue_AR(60)' [ConstantTrend + NoCycle + AR]
-INFO:pyaf.std:TREND_DETAIL '_visitors_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_visitors_ConstantTrend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_visitors_ConstantTrend_residue_zeroCycle_residue_AR(60)' [AR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0479 MAPE_Forecast=0.0603 MAPE_Test=0.0544
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0476 SMAPE_Forecast=0.0583 SMAPE_Test=0.0535
-INFO:pyaf.std:MODEL_MASE MASE_Fit=0.3093 MASE_Forecast=0.4178 MASE_Test=0.3711
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=26.281793379895802 CRPS_Forecast=15.151187230031828 CRPS_Test=22.311867143610815
-INFO:pyaf.std:MODEL_L1 L1_Fit=9.918185451187123 L1_Forecast=23.947595522779785 L1_Test=24.68770815662414
-INFO:pyaf.std:MODEL_L2 L2_Fit=12.67474299205094 L2_Forecast=30.408832815945964 L2_Test=27.38825533764307
-INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.8180848523270183 LnQ_Forecast=0.26557384150267904 LnQ_Test=0.029547282678550623
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=8.423550201799287 MedAE_Forecast=19.59520089429668 MedAE_Test=27.495203396329998
-INFO:pyaf.std:MODEL_COMPLEXITY 46
+INFO:pyaf.std:BEST_DECOMPOSITION  '_visitors_Lag1Trend_residue_zeroCycle[0.0]_residue_AR(60)' [Lag1Trend + NoCycle + AR]
+INFO:pyaf.std:TREND_DETAIL '_visitors_Lag1Trend' [Lag1Trend]
+INFO:pyaf.std:CYCLE_DETAIL '_visitors_Lag1Trend_residue_zeroCycle[0.0]' [NoCycle]
+INFO:pyaf.std:AUTOREG_DETAIL '_visitors_Lag1Trend_residue_zeroCycle[0.0]_residue_AR(60)' [AR]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.061 MAPE_Forecast=0.0577 MAPE_Test=0.0579
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0604 SMAPE_Forecast=0.0573 SMAPE_Test=0.0563
+INFO:pyaf.std:MODEL_MASE MASE_Fit=0.4222 MASE_Forecast=0.4087 MASE_Test=0.4055
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=26.292014185957004 CRPS_Forecast=14.19965474754334 CRPS_Test=17.518379826447358
+INFO:pyaf.std:MODEL_L1 L1_Fit=13.537786544638175 L1_Forecast=23.425446525073742 L1_Test=26.976616375133624
+INFO:pyaf.std:MODEL_L2 L2_Fit=17.703537458169286 L2_Forecast=30.123622021940168 L2_Test=34.67536966949462
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=1.277964223048882 LnQ_Forecast=0.25102295377095973 LnQ_Test=0.04304806508170295
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=10.584411472756756 MedAE_Forecast=16.916547068671605 MedAE_Test=17.792316434290314
+INFO:pyaf.std:MODEL_COMPLEXITY 48.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND ConstantTrend 249.6340540540541
+INFO:pyaf.std:LAG1_TREND Lag1Trend 0.000579486188912492
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _visitors_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _visitors_Lag1Trend_residue_zeroCycle[0.0] 0.0 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
-INFO:pyaf.std:AR_MODEL_COEFF 1 _visitors_ConstantTrend_residue_zeroCycle_residue_Lag1 0.5342267881675185
-INFO:pyaf.std:AR_MODEL_COEFF 2 _visitors_ConstantTrend_residue_zeroCycle_residue_Lag24 0.42941136215775766
-INFO:pyaf.std:AR_MODEL_COEFF 3 _visitors_ConstantTrend_residue_zeroCycle_residue_Lag12 0.3180407094435759
-INFO:pyaf.std:AR_MODEL_COEFF 4 _visitors_ConstantTrend_residue_zeroCycle_residue_Lag25 -0.30734114635370063
-INFO:pyaf.std:AR_MODEL_COEFF 5 _visitors_ConstantTrend_residue_zeroCycle_residue_Lag34 -0.29883277949473736
-INFO:pyaf.std:AR_MODEL_COEFF 6 _visitors_ConstantTrend_residue_zeroCycle_residue_Lag37 -0.24599893005814027
-INFO:pyaf.std:AR_MODEL_COEFF 7 _visitors_ConstantTrend_residue_zeroCycle_residue_Lag59 -0.23103573079831996
-INFO:pyaf.std:AR_MODEL_COEFF 8 _visitors_ConstantTrend_residue_zeroCycle_residue_Lag36 0.21618254400674544
-INFO:pyaf.std:AR_MODEL_COEFF 9 _visitors_ConstantTrend_residue_zeroCycle_residue_Lag35 0.21611960133977737
-INFO:pyaf.std:AR_MODEL_COEFF 10 _visitors_ConstantTrend_residue_zeroCycle_residue_Lag50 0.21414996852520146
+INFO:pyaf.std:AR_MODEL_COEFF 1 _visitors_Lag1Trend_residue_zeroCycle[0.0]_residue_Lag12 0.18212165493604307
+INFO:pyaf.std:AR_MODEL_COEFF 2 _visitors_Lag1Trend_residue_zeroCycle[0.0]_residue_Lag24 0.1726075011615471
+INFO:pyaf.std:AR_MODEL_COEFF 3 _visitors_Lag1Trend_residue_zeroCycle[0.0]_residue_Lag36 0.14033864512577554
+INFO:pyaf.std:AR_MODEL_COEFF 4 _visitors_Lag1Trend_residue_zeroCycle[0.0]_residue_Lag48 0.10888220729765687
+INFO:pyaf.std:AR_MODEL_COEFF 5 _visitors_Lag1Trend_residue_zeroCycle[0.0]_residue_Lag60 0.10412701222489076
+INFO:pyaf.std:AR_MODEL_COEFF 6 _visitors_Lag1Trend_residue_zeroCycle[0.0]_residue_Lag1 -0.07257935709116656
+INFO:pyaf.std:AR_MODEL_COEFF 7 _visitors_Lag1Trend_residue_zeroCycle[0.0]_residue_Lag6 -0.06429219958270406
+INFO:pyaf.std:AR_MODEL_COEFF 8 _visitors_Lag1Trend_residue_zeroCycle[0.0]_residue_Lag18 -0.0569075251000474
+INFO:pyaf.std:AR_MODEL_COEFF 9 _visitors_Lag1Trend_residue_zeroCycle[0.0]_residue_Lag42 -0.03991583724794768
+INFO:pyaf.std:AR_MODEL_COEFF 10 _visitors_Lag1Trend_residue_zeroCycle[0.0]_residue_Lag5 -0.039136423668451686
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_TRAINING 'visitors'
-PERFORMANCE MAPE_FORECAST visitors 0.0603
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['visitors']' 2.52736496925354
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['visitors'], 'Transformations': [('visitors', 'None', '_', 'T+S+R'), ('visitors', 'None', 'Diff_', 'T+S+R'), ('visitors', 'None', 'RelDiff_', 'T+S+R'), ('visitors', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+PERFORMANCE MAPE_FORECAST visitors 0.0577
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'visitors', 'Transformation': '_visitors'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'visitors', 'Transformation': 'Diff_visitors'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'visitors', 'Transformation': 'RelDiff_visitors'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'visitors', 'Transformation': 'CumSum_visitors'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.287, ('TRAINING', {'Signal': 'visitors', 'Transformation': 'Diff_visitors'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.349, ('TRAINING', {'Signal': 'visitors', 'Transformation': '_visitors'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.359, ('TRAINING', {'Signal': 'visitors', 'Transformation': 'CumSum_visitors'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.445, ('TRAINING', {'Signal': 'visitors', 'Transformation': 'RelDiff_visitors'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.557, ('SIGNAL_TRAINING', {'Signals': ['visitors'], 'Transformations': [('visitors', 'None', '_', 'T+S+R'), ('visitors', 'None', 'Diff_', 'T+S+R'), ('visitors', 'None', 'RelDiff_', 'T+S+R'), ('visitors', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['visitors'], 'Transformations': [('visitors', [('visitors', 'None', 'CumSum_', 'T+S+R'), ('visitors', 'None', 'Diff_', 'T+S+R'), ('visitors', 'None', 'RelDiff_', 'T+S+R'), ('visitors', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'visitors', 'Transformations': [('visitors', 'None', 'CumSum_', 'T+S+R'), ('visitors', 'None', 'Diff_', 'T+S+R'), ('visitors', 'None', 'RelDiff_', 'T+S+R'), ('visitors', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.023, ('MODEL_SELECTION', {'Signal': 'visitors', 'Transformations': [('visitors', 'None', 'CumSum_', 'T+S+R'), ('visitors', 'None', 'Diff_', 'T+S+R'), ('visitors', 'None', 'RelDiff_', 'T+S+R'), ('visitors', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'visitors', 'Model': '_visitors_Lag1Trend_residue_bestCycle_byMAPE_residue_AR(60)'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.079, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'visitors', 'Model': '_visitors_Lag1Trend_residue_bestCycle_byMAPE_residue_AR(60)'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'visitors'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.843, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'visitors'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.947, ('FINALIZE_TRAINING', {'Signals': ['visitors'], 'Transformations': [('visitors', [('visitors', 'None', 'CumSum_', 'T+S+R'), ('visitors', 'None', 'Diff_', 'T+S+R'), ('visitors', 'None', 'RelDiff_', 'T+S+R'), ('visitors', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=1985.33333333333 TimeMax=2000.41666666667 TimeDelta=0.08333333333336934 Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='visitors' Length=240  Min=75.4 Max=593.1  Mean=288.1858333333334 StdDev=115.11710544472626
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_visitors' Min=75.4 Max=593.1  Mean=288.1858333333334 StdDev=115.11710544472626
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_visitors' Min=0.0 Max=1.0  Mean=0.4110215053763441 StdDev=0.22236257570934176
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_visitors_ConstantTrend_residue_zeroCycle_residue_AR(60)' [ConstantTrend + NoCycle + AR]
-INFO:pyaf.std:TREND_DETAIL '_visitors_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_visitors_ConstantTrend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_visitors_ConstantTrend_residue_zeroCycle_residue_AR(60)' [AR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0481 MAPE_Forecast=0.0599 MAPE_Test=0.0482
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0478 SMAPE_Forecast=0.0583 SMAPE_Test=0.0475
-INFO:pyaf.std:MODEL_MASE MASE_Fit=0.3104 MASE_Forecast=0.4317 MASE_Test=0.3497
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=25.912404317427466 CRPS_Forecast=14.408562185072316 CRPS_Test=20.85659835196442
-INFO:pyaf.std:MODEL_L1 L1_Fit=9.831714423116054 L1_Forecast=23.86836917391137 L1_Test=21.387784633596738
-INFO:pyaf.std:MODEL_L2 L2_Fit=12.523346245652961 L2_Forecast=29.698925996347107 L2_Test=26.392335246321416
-INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.808976907260679 LnQ_Forecast=0.24685348068064272 LnQ_Test=0.04102286704635715
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=8.894092438697356 MedAE_Forecast=20.706898498221875 MedAE_Test=18.510613902273036
-INFO:pyaf.std:MODEL_COMPLEXITY 45
+INFO:pyaf.std:BEST_DECOMPOSITION  '_visitors_Lag1Trend_residue_bestCycle_byMAPE_residue_AR(60)' [Lag1Trend + Cycle_None + AR]
+INFO:pyaf.std:TREND_DETAIL '_visitors_Lag1Trend' [Lag1Trend]
+INFO:pyaf.std:CYCLE_DETAIL '_visitors_Lag1Trend_residue_bestCycle_byMAPE' [Cycle_None]
+INFO:pyaf.std:AUTOREG_DETAIL '_visitors_Lag1Trend_residue_bestCycle_byMAPE_residue_AR(60)' [AR]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0616 MAPE_Forecast=0.0597 MAPE_Test=0.0473
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.061 SMAPE_Forecast=0.0594 SMAPE_Test=0.0463
+INFO:pyaf.std:MODEL_MASE MASE_Fit=0.4287 MASE_Forecast=0.4376 MASE_Test=0.3483
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=26.03194187022575 CRPS_Forecast=13.966123234004003 CRPS_Test=18.618916640772813
+INFO:pyaf.std:MODEL_L1 L1_Fit=13.578260194993286 L1_Forecast=24.197123534459084 L1_Test=21.301300371513662
+INFO:pyaf.std:MODEL_L2 L2_Fit=17.828311188239297 L2_Forecast=30.876857381740955 L2_Test=28.860097382152432
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=1.2907231559806132 LnQ_Forecast=0.2610668929125561 LnQ_Test=0.046170739735520314
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=10.529509895950596 MedAE_Forecast=18.573128330481723 MedAE_Test=15.215800166389528
+INFO:pyaf.std:MODEL_COMPLEXITY 47.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND ConstantTrend 247.1285714285715
+INFO:pyaf.std:LAG1_TREND Lag1Trend 0.000579486188912492
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _visitors_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _visitors_Lag1Trend_residue_bestCycle_byMAPE None 0.004056403322387506 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
-INFO:pyaf.std:AR_MODEL_COEFF 1 _visitors_ConstantTrend_residue_zeroCycle_residue_Lag1 0.5488352336842588
-INFO:pyaf.std:AR_MODEL_COEFF 2 _visitors_ConstantTrend_residue_zeroCycle_residue_Lag24 0.4466000704836234
-INFO:pyaf.std:AR_MODEL_COEFF 3 _visitors_ConstantTrend_residue_zeroCycle_residue_Lag25 -0.34658187917795724
-INFO:pyaf.std:AR_MODEL_COEFF 4 _visitors_ConstantTrend_residue_zeroCycle_residue_Lag12 0.3464239798205952
-INFO:pyaf.std:AR_MODEL_COEFF 5 _visitors_ConstantTrend_residue_zeroCycle_residue_Lag34 -0.328805924149294
-INFO:pyaf.std:AR_MODEL_COEFF 6 _visitors_ConstantTrend_residue_zeroCycle_residue_Lag57 -0.31121086942332254
-INFO:pyaf.std:AR_MODEL_COEFF 7 _visitors_ConstantTrend_residue_zeroCycle_residue_Lag33 0.25666040819168046
-INFO:pyaf.std:AR_MODEL_COEFF 8 _visitors_ConstantTrend_residue_zeroCycle_residue_Lag58 0.24495773734224394
-INFO:pyaf.std:AR_MODEL_COEFF 9 _visitors_ConstantTrend_residue_zeroCycle_residue_Lag35 0.24032403193630156
-INFO:pyaf.std:AR_MODEL_COEFF 10 _visitors_ConstantTrend_residue_zeroCycle_residue_Lag59 -0.23788011139040327
+INFO:pyaf.std:AR_MODEL_COEFF 1 _visitors_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag12 0.18247914836576123
+INFO:pyaf.std:AR_MODEL_COEFF 2 _visitors_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag24 0.17098396242179523
+INFO:pyaf.std:AR_MODEL_COEFF 3 _visitors_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag36 0.13722995903312443
+INFO:pyaf.std:AR_MODEL_COEFF 4 _visitors_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag48 0.10919734742314878
+INFO:pyaf.std:AR_MODEL_COEFF 5 _visitors_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag60 0.10650349221207212
+INFO:pyaf.std:AR_MODEL_COEFF 6 _visitors_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag1 -0.07255822894285233
+INFO:pyaf.std:AR_MODEL_COEFF 7 _visitors_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag6 -0.059825173609567954
+INFO:pyaf.std:AR_MODEL_COEFF 8 _visitors_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag18 -0.05575540658803798
+INFO:pyaf.std:AR_MODEL_COEFF 9 _visitors_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag42 -0.03625535236964358
+INFO:pyaf.std:AR_MODEL_COEFF 10 _visitors_Lag1Trend_residue_bestCycle_byMAPE_residue_Lag30 -0.03603922445048219
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-PERFORMANCE MAPE_FORECAST visitors 0.0599
+PERFORMANCE MAPE_FORECAST visitors 0.0597
