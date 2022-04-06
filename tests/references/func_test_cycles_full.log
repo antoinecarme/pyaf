@@ -1,45 +1,62 @@
-INFO:pyaf.std:START_TRAINING 'Signal'
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', 'None', '_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 TEST_CYCLES_START 2
 GENERATING_RANDOM_DATASET Signal_320_D_0_constant_2_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 10.638385534286499
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Transformation': '_Signal'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Transformation': 'Diff_Signal'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Transformation': 'RelDiff_Signal'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Transformation': 'CumSum_Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.914, ('TRAINING', {'Signal': 'Signal', 'Transformation': 'CumSum_Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.926, ('TRAINING', {'Signal': 'Signal', 'Transformation': '_Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.945, ('TRAINING', {'Signal': 'Signal', 'Transformation': 'Diff_Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.054, ('TRAINING', {'Signal': 'Signal', 'Transformation': 'RelDiff_Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.111, ('SIGNAL_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', 'None', '_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', [('Signal', 'None', 'CumSum_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'Signal', 'Transformations': [('Signal', 'None', 'CumSum_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.005, ('MODEL_SELECTION', {'Signal': 'Signal', 'Transformations': [('Signal', 'None', 'CumSum_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal', 'Model': '_Signal_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.014, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal', 'Model': '_Signal_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.128, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.148, ('FINALIZE_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', [('Signal', 'None', 'CumSum_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2000-08-27T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=10
-INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=310  Min=1.0 Max=1.5155737531290594  Mean=1.277121765684618 StdDev=0.09903880513569467
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=1.5155737531290594  Mean=1.277121765684618 StdDev=0.09903880513569467
+INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=310  Min=1.5155737531290594 Max=1.7813900480446438  Mean=1.6584504619368294 StdDev=0.051061808469227664
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=0.0 Max=1.0  Mean=0.5375016939918745 StdDev=0.192094350293474
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR' [ConstantTrend + NoCycle + NoAR]
+INFO:pyaf.std:BEST_DECOMPOSITION  '_Signal_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR' [ConstantTrend + NoCycle + NoAR]
 INFO:pyaf.std:TREND_DETAIL '_Signal_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_Signal_ConstantTrend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR' [NoAR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0629 MAPE_Forecast=0.0667 MAPE_Test=0.0638
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0625 SMAPE_Forecast=0.0657 SMAPE_Test=0.0623
+INFO:pyaf.std:CYCLE_DETAIL '_Signal_ConstantTrend_residue_zeroCycle[0.0]' [NoCycle]
+INFO:pyaf.std:AUTOREG_DETAIL '_Signal_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR' [NoAR]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0248 MAPE_Forecast=0.0261 MAPE_Test=0.0247
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0248 SMAPE_Forecast=0.026 SMAPE_Test=0.0244
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7158 MASE_Forecast=0.6273 MASE_Test=0.8035
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=0.011767368043391933 CRPS_Forecast=0.012365848511240228 CRPS_Test=0.01627507937181256
-INFO:pyaf.std:MODEL_L1 L1_Fit=0.0799357250181376 L1_Forecast=0.08333241474043424 L1_Test=0.07806944180288174
-INFO:pyaf.std:MODEL_L2 L2_Fit=0.09805551186912044 L2_Forecast=0.10455424282182894 L2_Test=0.08861711664115131
-INFO:pyaf.std:MODEL_LnQ LnQ_Fit=1.4144948444238254 LnQ_Forecast=0.41621269729191246 LnQ_Test=0.050918445261487894
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.06925390081078464 MedAE_Forecast=0.06589528620881824 MedAE_Test=0.07122254527774752
-INFO:pyaf.std:MODEL_COMPLEXITY 0
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=0.00606694610658253 CRPS_Forecast=0.006375506927565492 CRPS_Test=0.008391003754198724
+INFO:pyaf.std:MODEL_L1 L1_Fit=0.04121276175669365 L1_Forecast=0.04296400582503303 L1_Test=0.040250555115002376
+INFO:pyaf.std:MODEL_L2 L2_Fit=0.05055484826935344 L2_Forecast=0.05390542337721735 L2_Test=0.04568865941815397
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.22225566126254795 LnQ_Forecast=0.06397397802693183 LnQ_Test=0.007748280850840249
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.03570549355984376 MedAE_Forecast=0.03397388002419399 MedAE_Test=0.03672047497625264
+INFO:pyaf.std:MODEL_COMPLEXITY 0.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND ConstantTrend 1.2791735210317834
+INFO:pyaf.std:CONSTANT_TREND _Signal_ConstantTrend 0.5414812513970233
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_ConstantTrend_residue_zeroCycle[0.0] 0.0 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING '['Signal']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 0.32031869888305664
-INFO:pyaf.std:START_TRAINING 'Signal'
+INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['Signal'], 'Horizon': 10}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.09, ('FORECASTING', {'Signals': ['Signal'], 'Horizon': 10}))
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', 'None', '_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
-       '_Signal_ConstantTrend_residue_zeroCycle',
-       '_Signal_ConstantTrend_residue_zeroCycle_residue',
-       '_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR',
-       '_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR_residue',
+       '_Signal_ConstantTrend_residue_zeroCycle[0.0]',
+       '_Signal_ConstantTrend_residue_zeroCycle[0.0]_residue',
+       '_Signal_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR',
+       '_Signal_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR_residue',
        '_Signal_Trend', '_Signal_Trend_residue', '_Signal_Cycle',
        '_Signal_Cycle_residue', '_Signal_AR', '_Signal_AR_residue',
        '_Signal_TransformedForecast', 'Signal_Forecast',
@@ -62,16 +79,16 @@ dtypes: datetime64[ns](1), float64(2)
 memory usage: 7.6 KB
 None
 Forecasts
- [[Timestamp('2000-11-06 00:00:00') nan 1.2791735210317834]
- [Timestamp('2000-11-07 00:00:00') nan 1.2791735210317834]
- [Timestamp('2000-11-08 00:00:00') nan 1.2791735210317834]
- [Timestamp('2000-11-09 00:00:00') nan 1.2791735210317834]
- [Timestamp('2000-11-10 00:00:00') nan 1.2791735210317834]
- [Timestamp('2000-11-11 00:00:00') nan 1.2791735210317834]
- [Timestamp('2000-11-12 00:00:00') nan 1.2791735210317834]
- [Timestamp('2000-11-13 00:00:00') nan 1.2791735210317834]
- [Timestamp('2000-11-14 00:00:00') nan 1.2791735210317834]
- [Timestamp('2000-11-15 00:00:00') nan 1.2791735210317834]]
+ [[Timestamp('2000-11-06 00:00:00') nan 1.6595082931416703]
+ [Timestamp('2000-11-07 00:00:00') nan 1.6595082931416703]
+ [Timestamp('2000-11-08 00:00:00') nan 1.6595082931416703]
+ [Timestamp('2000-11-09 00:00:00') nan 1.6595082931416703]
+ [Timestamp('2000-11-10 00:00:00') nan 1.6595082931416703]
+ [Timestamp('2000-11-11 00:00:00') nan 1.6595082931416703]
+ [Timestamp('2000-11-12 00:00:00') nan 1.6595082931416703]
+ [Timestamp('2000-11-13 00:00:00') nan 1.6595082931416703]
+ [Timestamp('2000-11-14 00:00:00') nan 1.6595082931416703]
+ [Timestamp('2000-11-15 00:00:00') nan 1.6595082931416703]]
 
 
 <ModelInfo>
@@ -91,20 +108,21 @@ Forecasts
         },
         "Model": {
             "AR_Model": "NoAR",
-            "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle_residue_NoAR",
+            "Best_Decomposition": "_Signal_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR",
             "Cycle": "NoCycle",
+            "Signal_Decomposition_Type": "T+S+R",
             "Signal_Transoformation": "NoTransf",
             "Trend": "ConstantTrend"
         },
         "Model_Performance": {
-            "COMPLEXITY": "0",
-            "CRPS": "0.012365848511240228",
-            "LnQ": "0.41621269729191246",
-            "MAE": "0.08333241474043424",
-            "MAPE": "0.0667",
-            "MASE": "0.6273",
-            "MedAE": "0.06589528620881824",
-            "RMSE": "0.10455424282182894"
+            "COMPLEXITY": 0.0,
+            "CRPS": 0.006375506927565492,
+            "LnQ": 0.06397397802693183,
+            "MAE": 0.04296400582503303,
+            "MAPE": 0.0261,
+            "MASE": 0.6273,
+            "MedAE": 0.03397388002419399,
+            "RMSE": 0.05390542337721735
         }
     }
 }
@@ -114,7 +132,7 @@ Forecasts
 
 
 <Forecast>
-{"Date":{"310":"2000-11-06T00:00:00.000Z","311":"2000-11-07T00:00:00.000Z","312":"2000-11-08T00:00:00.000Z","313":"2000-11-09T00:00:00.000Z","314":"2000-11-10T00:00:00.000Z","315":"2000-11-11T00:00:00.000Z","316":"2000-11-12T00:00:00.000Z","317":"2000-11-13T00:00:00.000Z","318":"2000-11-14T00:00:00.000Z","319":"2000-11-15T00:00:00.000Z"},"Signal":{"310":null,"311":null,"312":null,"313":null,"314":null,"315":null,"316":null,"317":null,"318":null,"319":null},"Signal_Forecast":{"310":1.279173521,"311":1.279173521,"312":1.279173521,"313":1.279173521,"314":1.279173521,"315":1.279173521,"316":1.279173521,"317":1.279173521,"318":1.279173521,"319":1.279173521}}
+{"Date":{"310":"2000-11-06T00:00:00.000Z","311":"2000-11-07T00:00:00.000Z","312":"2000-11-08T00:00:00.000Z","313":"2000-11-09T00:00:00.000Z","314":"2000-11-10T00:00:00.000Z","315":"2000-11-11T00:00:00.000Z","316":"2000-11-12T00:00:00.000Z","317":"2000-11-13T00:00:00.000Z","318":"2000-11-14T00:00:00.000Z","319":"2000-11-15T00:00:00.000Z"},"Signal":{"310":null,"311":null,"312":null,"313":null,"314":null,"315":null,"316":null,"317":null,"318":null,"319":null},"Signal_Forecast":{"310":1.6595082931,"311":1.6595082931,"312":1.6595082931,"313":1.6595082931,"314":1.6595082931,"315":1.6595082931,"316":1.6595082931,"317":1.6595082931,"318":1.6595082931,"319":1.6595082931}}
 </Forecast>
 
 
@@ -122,38 +140,55 @@ TEST_CYCLES_END 2
 TEST_CYCLES_START 6
 GENERATING_RANDOM_DATASET Signal_320_D_0_constant_6_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 10.17105770111084
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Transformation': '_Signal'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Transformation': 'Diff_Signal'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Transformation': 'RelDiff_Signal'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Transformation': 'CumSum_Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.848, ('TRAINING', {'Signal': 'Signal', 'Transformation': 'RelDiff_Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.861, ('TRAINING', {'Signal': 'Signal', 'Transformation': 'CumSum_Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.883, ('TRAINING', {'Signal': 'Signal', 'Transformation': '_Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.895, ('TRAINING', {'Signal': 'Signal', 'Transformation': 'Diff_Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.952, ('SIGNAL_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', 'None', '_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', [('Signal', 'None', 'CumSum_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'Signal', 'Transformations': [('Signal', 'None', 'CumSum_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.005, ('MODEL_SELECTION', {'Signal': 'Signal', 'Transformations': [('Signal', 'None', 'CumSum_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal', 'Model': '_Signal_LinearTrend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.016, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal', 'Model': '_Signal_LinearTrend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.142, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.163, ('FINALIZE_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', [('Signal', 'None', 'CumSum_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2000-08-27T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=10
-INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=310  Min=1.0 Max=8.17904746208633  Mean=4.63612900761778 StdDev=2.153499462270964
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=8.17904746208633  Mean=4.63612900761778 StdDev=2.153499462270964
+INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=310  Min=8.17904746208633 Max=59.71776992497452  Mean=34.282990186043236 StdDev=15.460074849220641
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=0.0 Max=1.0  Mean=0.5064918468391166 StdDev=0.2999700828896773
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_Signal_LinearTrend_residue_bestCycle_byMAPE_residue_NoAR' [LinearTrend + Cycle + NoAR]
+INFO:pyaf.std:BEST_DECOMPOSITION  '_Signal_LinearTrend_residue_bestCycle_byMAPE_residue_NoAR' [LinearTrend + Cycle_6 + NoAR]
 INFO:pyaf.std:TREND_DETAIL '_Signal_LinearTrend' [LinearTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_Signal_LinearTrend_residue_bestCycle_byMAPE' [Cycle]
+INFO:pyaf.std:CYCLE_DETAIL '_Signal_LinearTrend_residue_bestCycle_byMAPE' [Cycle_6]
 INFO:pyaf.std:AUTOREG_DETAIL '_Signal_LinearTrend_residue_bestCycle_byMAPE_residue_NoAR' [NoAR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0243 MAPE_Forecast=0.0336 MAPE_Test=0.0162
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0241 SMAPE_Forecast=0.0316 SMAPE_Test=0.016
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0228 MAPE_Forecast=0.0311 MAPE_Test=0.0152
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0226 SMAPE_Forecast=0.0295 SMAPE_Test=0.015
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.0233 MASE_Forecast=0.0279 MASE_Test=0.015
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=0.5896906859813893 CRPS_Forecast=0.6187688161291552 CRPS_Test=0.6715607411867053
-INFO:pyaf.std:MODEL_L1 L1_Fit=0.07759076917067258 L1_Forecast=0.09382992272111208 L1_Test=0.05009431155921362
-INFO:pyaf.std:MODEL_L2 L2_Fit=0.10077341388574505 L2_Forecast=0.12698320839296065 L2_Test=0.0678856361696582
-INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.3725823592141665 LnQ_Forecast=0.22151353294004644 LnQ_Test=0.004736649754422216
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.06355439905253113 MedAE_Forecast=0.0744144335740391 MedAE_Test=0.048301668222234806
-INFO:pyaf.std:MODEL_COMPLEXITY 7
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=4.23341742261064 CRPS_Forecast=4.442170699050175 CRPS_Test=4.8211664346532315
+INFO:pyaf.std:MODEL_L1 L1_Fit=0.5570278144960433 L1_Forecast=0.6736094685787559 L1_Test=0.35962944026413446
+INFO:pyaf.std:MODEL_L2 L2_Fit=0.7234571212022332 L2_Forecast=0.9116184799410638 L2_Test=0.48735420405589835
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.3145466218618871 LnQ_Forecast=0.18196927310226307 LnQ_Test=0.004125709903909107
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.4562600472224947 MedAE_Forecast=0.534224750492295 MedAE_Test=0.3467599686653724
+INFO:pyaf.std:MODEL_COMPLEXITY 7.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:LINEAR_RIDGE_TREND LinearTrend (4.61355619351623, array([0.05523248]))
+INFO:pyaf.std:LINEAR_RIDGE_TREND LinearTrend (0.5033475837288977, array([0.00769357]))
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _Signal_LinearTrend_residue_bestCycle_byMAPE 6 0.014447892706562104 {0: 0.011894532801747015, 1: -3.3229074865899944, 2: 0.025430489824191493, 3: 3.2923193219436424, 4: -1.6823623914839123, 5: 1.659994821547138}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _Signal_LinearTrend_residue_bestCycle_byMAPE 6 0.0020125083143500144 {0: 0.0016568399727908134, 1: -0.46286189137748246, 2: 0.003542320894031281, 3: 0.4586011360603052, 4: -0.2343434000636896, 5: 0.23122772628455646}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING '['Signal']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 0.3870127201080322
-INFO:pyaf.std:START_TRAINING 'Signal'
+INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['Signal'], 'Horizon': 10}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.103, ('FORECASTING', {'Signals': ['Signal'], 'Horizon': 10}))
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', 'None', '_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_LinearTrend', '_Signal_LinearTrend_residue', 'cycle_internal',
        '_Signal_LinearTrend_residue_bestCycle_byMAPE',
@@ -182,16 +217,16 @@ dtypes: datetime64[ns](1), float64(2)
 memory usage: 7.6 KB
 None
 Forecasts
- [[Timestamp('2000-11-06 00:00:00') nan 3.002834251964692]
- [Timestamp('2000-11-07 00:00:00') nan 6.345422563221331]
- [Timestamp('2000-11-08 00:00:00') nan 4.6975533727015275]
- [Timestamp('2000-11-09 00:00:00') nan 1.3629824515353754]
- [Timestamp('2000-11-10 00:00:00') nan 4.71155152617515]
- [Timestamp('2000-11-11 00:00:00') nan 7.978671456520188]
- [Timestamp('2000-11-12 00:00:00') nan 3.0042208413182223]
- [Timestamp('2000-11-13 00:00:00') nan 6.346809152574861]
- [Timestamp('2000-11-14 00:00:00') nan 4.698939962055057]
- [Timestamp('2000-11-15 00:00:00') nan 1.364369040888905]]
+ [[Timestamp('2000-11-06 00:00:00') nan 22.557489615633024]
+ [Timestamp('2000-11-07 00:00:00') nan 46.55408974835943]
+ [Timestamp('2000-11-08 00:00:00') nan 34.72395861830799]
+ [Timestamp('2000-11-09 00:00:00') nan 10.784915709563242]
+ [Timestamp('2000-11-10 00:00:00') nan 34.82445202647668]
+ [Timestamp('2000-11-11 00:00:00') nan 58.27926107075191]
+ [Timestamp('2000-11-12 00:00:00') nan 22.567444006412444]
+ [Timestamp('2000-11-13 00:00:00') nan 46.56404413913885]
+ [Timestamp('2000-11-14 00:00:00') nan 34.7339130090874]
+ [Timestamp('2000-11-15 00:00:00') nan 10.794870100342651]]
 
 
 <ModelInfo>
@@ -212,19 +247,20 @@ Forecasts
         "Model": {
             "AR_Model": "NoAR",
             "Best_Decomposition": "_Signal_LinearTrend_residue_bestCycle_byMAPE_residue_NoAR",
-            "Cycle": "Cycle",
+            "Cycle": "Cycle_6",
+            "Signal_Decomposition_Type": "T+S+R",
             "Signal_Transoformation": "NoTransf",
             "Trend": "LinearTrend"
         },
         "Model_Performance": {
-            "COMPLEXITY": "7",
-            "CRPS": "0.6187688161291552",
-            "LnQ": "0.22151353294004644",
-            "MAE": "0.09382992272111208",
-            "MAPE": "0.0336",
-            "MASE": "0.0279",
-            "MedAE": "0.0744144335740391",
-            "RMSE": "0.12698320839296065"
+            "COMPLEXITY": 7.0,
+            "CRPS": 4.442170699050175,
+            "LnQ": 0.18196927310226307,
+            "MAE": 0.6736094685787559,
+            "MAPE": 0.0311,
+            "MASE": 0.0279,
+            "MedAE": 0.534224750492295,
+            "RMSE": 0.9116184799410638
         }
     }
 }
@@ -234,7 +270,7 @@ Forecasts
 
 
 <Forecast>
-{"Date":{"310":"2000-11-06T00:00:00.000Z","311":"2000-11-07T00:00:00.000Z","312":"2000-11-08T00:00:00.000Z","313":"2000-11-09T00:00:00.000Z","314":"2000-11-10T00:00:00.000Z","315":"2000-11-11T00:00:00.000Z","316":"2000-11-12T00:00:00.000Z","317":"2000-11-13T00:00:00.000Z","318":"2000-11-14T00:00:00.000Z","319":"2000-11-15T00:00:00.000Z"},"Signal":{"310":null,"311":null,"312":null,"313":null,"314":null,"315":null,"316":null,"317":null,"318":null,"319":null},"Signal_Forecast":{"310":3.002834252,"311":6.3454225632,"312":4.6975533727,"313":1.3629824515,"314":4.7115515262,"315":7.9786714565,"316":3.0042208413,"317":6.3468091526,"318":4.6989399621,"319":1.3643690409}}
+{"Date":{"310":"2000-11-06T00:00:00.000Z","311":"2000-11-07T00:00:00.000Z","312":"2000-11-08T00:00:00.000Z","313":"2000-11-09T00:00:00.000Z","314":"2000-11-10T00:00:00.000Z","315":"2000-11-11T00:00:00.000Z","316":"2000-11-12T00:00:00.000Z","317":"2000-11-13T00:00:00.000Z","318":"2000-11-14T00:00:00.000Z","319":"2000-11-15T00:00:00.000Z"},"Signal":{"310":null,"311":null,"312":null,"313":null,"314":null,"315":null,"316":null,"317":null,"318":null,"319":null},"Signal_Forecast":{"310":22.5574896156,"311":46.5540897484,"312":34.7239586183,"313":10.7849157096,"314":34.8244520265,"315":58.2792610708,"316":22.5674440064,"317":46.5640441391,"318":34.7339130091,"319":10.7948701003}}
 </Forecast>
 
 
@@ -242,38 +278,55 @@ TEST_CYCLES_END 6
 TEST_CYCLES_START 10
 GENERATING_RANDOM_DATASET Signal_320_D_0_constant_10_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 10.06778883934021
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Transformation': '_Signal'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Transformation': 'Diff_Signal'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Transformation': 'RelDiff_Signal'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Transformation': 'CumSum_Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.821, ('TRAINING', {'Signal': 'Signal', 'Transformation': 'Diff_Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.91, ('TRAINING', {'Signal': 'Signal', 'Transformation': 'CumSum_Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.93, ('TRAINING', {'Signal': 'Signal', 'Transformation': '_Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.042, ('TRAINING', {'Signal': 'Signal', 'Transformation': 'RelDiff_Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.1, ('SIGNAL_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', 'None', '_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', [('Signal', 'None', 'CumSum_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'Signal', 'Transformations': [('Signal', 'None', 'CumSum_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.005, ('MODEL_SELECTION', {'Signal': 'Signal', 'Transformations': [('Signal', 'None', 'CumSum_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal', 'Model': '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.015, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal', 'Model': '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.134, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.155, ('FINALIZE_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', [('Signal', 'None', 'CumSum_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2000-08-27T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=10
-INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=310  Min=1.0 Max=8.410655384928068  Mean=4.621458096173091 StdDev=2.2468706968183425
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=8.410655384928068  Mean=4.621458096173091 StdDev=2.2468706968183425
+INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=310  Min=8.410655384928068 Max=63.328468619091446  Mean=35.24803332662454 StdDev=16.65078442861393
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=0.0 Max=1.0  Mean=0.4886825669344281 StdDev=0.3031946002222787
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [ConstantTrend + Cycle + NoAR]
+INFO:pyaf.std:BEST_DECOMPOSITION  '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [ConstantTrend + Cycle_10 + NoAR]
 INFO:pyaf.std:TREND_DETAIL '_Signal_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_Signal_ConstantTrend_residue_bestCycle_byMAPE' [Cycle]
+INFO:pyaf.std:CYCLE_DETAIL '_Signal_ConstantTrend_residue_bestCycle_byMAPE' [Cycle_10]
 INFO:pyaf.std:AUTOREG_DETAIL '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [NoAR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0253 MAPE_Forecast=0.0262 MAPE_Test=0.0158
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0252 SMAPE_Forecast=0.0259 SMAPE_Test=0.0158
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0238 MAPE_Forecast=0.0247 MAPE_Test=0.0148
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0237 SMAPE_Forecast=0.0245 SMAPE_Test=0.0148
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.0262 MASE_Forecast=0.0275 MASE_Test=0.0151
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=0.6280835206686266 CRPS_Forecast=0.6605705477565512 CRPS_Test=0.6898808668437119
-INFO:pyaf.std:MODEL_L1 L1_Fit=0.07819246381198065 L1_Forecast=0.08261352724752732 L1_Test=0.04133542213223018
-INFO:pyaf.std:MODEL_L2 L2_Fit=0.09741181379174488 L2_Forecast=0.10413973384371474 L2_Test=0.052249586233302524
-INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.37821273433415215 LnQ_Forecast=0.09178033171302666 LnQ_Test=0.005286498429216252
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.06622014231619744 MedAE_Forecast=0.06900856608641992 MedAE_Test=0.027618391231964523
-INFO:pyaf.std:MODEL_COMPLEXITY 10
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=4.654510524627538 CRPS_Forecast=4.89526068685697 CRPS_Test=5.112469360834197
+INFO:pyaf.std:MODEL_L1 L1_Fit=0.5794574030090475 L1_Forecast=0.61222038056479 L1_Test=0.30632256861248647
+INFO:pyaf.std:MODEL_L2 L2_Fit=0.7218853824314044 L2_Forecast=0.7717436793939007 L2_Test=0.3872036775800866
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.3206790147252816 LnQ_Forecast=0.08017749910769705 LnQ_Test=0.004523370905533681
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.49073465424623386 MedAE_Forecast=0.5113987018744925 MedAE_Test=0.2046703797062044
+INFO:pyaf.std:MODEL_COMPLEXITY 10.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND ConstantTrend 4.623653694804037
+INFO:pyaf.std:CONSTANT_TREND _Signal_ConstantTrend 0.48897884283944604
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _Signal_ConstantTrend_residue_bestCycle_byMAPE 10 0.07414673729726795 {0: -2.4001287175360915, 1: 1.6040921573196996, 2: 3.5536261505351314, 3: -2.3695160861748787, 4: -0.4099215493723172, 5: -3.4146113956379636, 6: -1.4196361743504353, 7: 1.6096671685836208, 8: 0.6014995473195186, 9: 2.593544369726912}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _Signal_ConstantTrend_residue_bestCycle_byMAPE 10 0.01000542238788621 {0: -0.32387536498020375, 1: 0.21645752959746767, 2: 0.4795292677841375, 3: -0.3197444710482752, 4: -0.055315154744076, 5: -0.46077050116008145, 6: -0.1915668858705422, 7: 0.2172098262533424, 8: 0.08116684909446215, 9: 0.349975033922332}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING '['Signal']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 0.2405409812927246
-INFO:pyaf.std:START_TRAINING 'Signal'
+INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['Signal'], 'Horizon': 10}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.096, ('FORECASTING', {'Signals': ['Signal'], 'Horizon': 10}))
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', 'None', '_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
        'cycle_internal', '_Signal_ConstantTrend_residue_bestCycle_byMAPE',
@@ -302,16 +355,16 @@ dtypes: datetime64[ns](1), float64(2)
 memory usage: 7.6 KB
 None
 Forecasts
- [[Timestamp('2000-11-06 00:00:00') nan 2.223524977267946]
- [Timestamp('2000-11-07 00:00:00') nan 6.227745852123737]
- [Timestamp('2000-11-08 00:00:00') nan 8.177279845339168]
- [Timestamp('2000-11-09 00:00:00') nan 2.2541376086291587]
- [Timestamp('2000-11-10 00:00:00') nan 4.21373214543172]
- [Timestamp('2000-11-11 00:00:00') nan 1.2090422991660739]
- [Timestamp('2000-11-12 00:00:00') nan 3.2040175204536023]
- [Timestamp('2000-11-13 00:00:00') nan 6.233320863387658]
- [Timestamp('2000-11-14 00:00:00') nan 5.225153242123556]
- [Timestamp('2000-11-15 00:00:00') nan 7.217198064530949]]
+ [[Timestamp('2000-11-06 00:00:00') nan 17.477777346312763]
+ [Timestamp('2000-11-07 00:00:00') nan 47.15167833500421]
+ [Timestamp('2000-11-08 00:00:00') nan 61.59900291992648]
+ [Timestamp('2000-11-09 00:00:00') nan 17.704637007756556]
+ [Timestamp('2000-11-10 00:00:00') nan 32.22651681418808]
+ [Timestamp('2000-11-11 00:00:00') nan 9.95979582492088]
+ [Timestamp('2000-11-12 00:00:00') nan 24.743869691353368]
+ [Timestamp('2000-11-13 00:00:00') nan 47.19299282224823]
+ [Timestamp('2000-11-14 00:00:00') nan 39.721810010817286]
+ [Timestamp('2000-11-15 00:00:00') nan 54.484167701008715]]
 
 
 <ModelInfo>
@@ -332,19 +385,20 @@ Forecasts
         "Model": {
             "AR_Model": "NoAR",
             "Best_Decomposition": "_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR",
-            "Cycle": "Cycle",
+            "Cycle": "Cycle_10",
+            "Signal_Decomposition_Type": "T+S+R",
             "Signal_Transoformation": "NoTransf",
             "Trend": "ConstantTrend"
         },
         "Model_Performance": {
-            "COMPLEXITY": "10",
-            "CRPS": "0.6605705477565512",
-            "LnQ": "0.09178033171302666",
-            "MAE": "0.08261352724752732",
-            "MAPE": "0.0262",
-            "MASE": "0.0275",
-            "MedAE": "0.06900856608641992",
-            "RMSE": "0.10413973384371474"
+            "COMPLEXITY": 10.0,
+            "CRPS": 4.89526068685697,
+            "LnQ": 0.08017749910769705,
+            "MAE": 0.61222038056479,
+            "MAPE": 0.0247,
+            "MASE": 0.0275,
+            "MedAE": 0.5113987018744925,
+            "RMSE": 0.7717436793939007
         }
     }
 }
@@ -354,7 +408,7 @@ Forecasts
 
 
 <Forecast>
-{"Date":{"310":"2000-11-06T00:00:00.000Z","311":"2000-11-07T00:00:00.000Z","312":"2000-11-08T00:00:00.000Z","313":"2000-11-09T00:00:00.000Z","314":"2000-11-10T00:00:00.000Z","315":"2000-11-11T00:00:00.000Z","316":"2000-11-12T00:00:00.000Z","317":"2000-11-13T00:00:00.000Z","318":"2000-11-14T00:00:00.000Z","319":"2000-11-15T00:00:00.000Z"},"Signal":{"310":null,"311":null,"312":null,"313":null,"314":null,"315":null,"316":null,"317":null,"318":null,"319":null},"Signal_Forecast":{"310":2.2235249773,"311":6.2277458521,"312":8.1772798453,"313":2.2541376086,"314":4.2137321454,"315":1.2090422992,"316":3.2040175205,"317":6.2333208634,"318":5.2251532421,"319":7.2171980645}}
+{"Date":{"310":"2000-11-06T00:00:00.000Z","311":"2000-11-07T00:00:00.000Z","312":"2000-11-08T00:00:00.000Z","313":"2000-11-09T00:00:00.000Z","314":"2000-11-10T00:00:00.000Z","315":"2000-11-11T00:00:00.000Z","316":"2000-11-12T00:00:00.000Z","317":"2000-11-13T00:00:00.000Z","318":"2000-11-14T00:00:00.000Z","319":"2000-11-15T00:00:00.000Z"},"Signal":{"310":null,"311":null,"312":null,"313":null,"314":null,"315":null,"316":null,"317":null,"318":null,"319":null},"Signal_Forecast":{"310":17.4777773463,"311":47.151678335,"312":61.5990029199,"313":17.7046370078,"314":32.2265168142,"315":9.9597958249,"316":24.7438696914,"317":47.1929928222,"318":39.7218100108,"319":54.484167701}}
 </Forecast>
 
 
@@ -362,38 +416,55 @@ TEST_CYCLES_END 10
 TEST_CYCLES_START 14
 GENERATING_RANDOM_DATASET Signal_320_D_0_constant_14_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 10.264519929885864
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Transformation': '_Signal'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Transformation': 'CumSum_Signal'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Transformation': 'RelDiff_Signal'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Transformation': 'Diff_Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.911, ('TRAINING', {'Signal': 'Signal', 'Transformation': 'CumSum_Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.925, ('TRAINING', {'Signal': 'Signal', 'Transformation': '_Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.934, ('TRAINING', {'Signal': 'Signal', 'Transformation': 'Diff_Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.038, ('TRAINING', {'Signal': 'Signal', 'Transformation': 'RelDiff_Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.128, ('SIGNAL_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', 'None', '_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', [('Signal', 'None', 'CumSum_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'Signal', 'Transformations': [('Signal', 'None', 'CumSum_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.004, ('MODEL_SELECTION', {'Signal': 'Signal', 'Transformations': [('Signal', 'None', 'CumSum_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal', 'Model': '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.015, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal', 'Model': '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.138, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.158, ('FINALIZE_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', [('Signal', 'None', 'CumSum_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2000-08-27T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=10
-INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=310  Min=1.0 Max=9.213200580138869  Mean=4.778171257303403 StdDev=2.2152438020438554
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=9.213200580138869  Mean=4.778171257303403 StdDev=2.2152438020438554
+INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=310  Min=9.213200580138869 Max=76.66986434973232  Mean=40.24407894248718 StdDev=18.19424168009563
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=0.0 Max=1.0  Mean=0.46001205260221734 StdDev=0.2697174847282739
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [ConstantTrend + Cycle + NoAR]
+INFO:pyaf.std:BEST_DECOMPOSITION  '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [ConstantTrend + Cycle_14 + NoAR]
 INFO:pyaf.std:TREND_DETAIL '_Signal_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_Signal_ConstantTrend_residue_bestCycle_byMAPE' [Cycle]
+INFO:pyaf.std:CYCLE_DETAIL '_Signal_ConstantTrend_residue_bestCycle_byMAPE' [Cycle_14]
 INFO:pyaf.std:AUTOREG_DETAIL '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [NoAR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0206 MAPE_Forecast=0.0218 MAPE_Test=0.0123
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0206 SMAPE_Forecast=0.0219 SMAPE_Test=0.0123
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0197 MAPE_Forecast=0.0209 MAPE_Test=0.0118
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0196 SMAPE_Forecast=0.0209 SMAPE_Test=0.0118
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.0337 MASE_Forecast=0.0368 MASE_Test=0.0228
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=0.6206959112973768 CRPS_Forecast=0.6536143149585627 CRPS_Test=0.6807079718273267
-INFO:pyaf.std:MODEL_L1 L1_Fit=0.07279065761672214 L1_Forecast=0.0808774175221037 L1_Test=0.05024756437027176
-INFO:pyaf.std:MODEL_L2 L2_Fit=0.09359175039929718 L2_Forecast=0.10167283346839702 L2_Test=0.05912781094102186
-INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.2370655200395187 LnQ_Forecast=0.051415084413285066 LnQ_Test=0.002343815592745183
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.058857880299414855 MedAE_Forecast=0.06595169214675334 MedAE_Test=0.04045242740954169
-INFO:pyaf.std:MODEL_COMPLEXITY 14
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=5.097900018757439 CRPS_Forecast=5.368265470804737 CRPS_Test=5.590791109117354
+INFO:pyaf.std:MODEL_L1 L1_Fit=0.5978442713663521 L1_Forecast=0.6642624525126749 L1_Test=0.41269332483647736
+INFO:pyaf.std:MODEL_L2 L2_Fit=0.7686878186757192 L2_Forecast=0.8350593748270007 L2_Test=0.4856285711231387
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.20903549321454346 LnQ_Forecast=0.045732773840189776 LnQ_Test=0.0021022931489793877
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.48341157662089884 MedAE_Forecast=0.5416744762008534 MedAE_Test=0.33224390026807527
+INFO:pyaf.std:MODEL_COMPLEXITY 14.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND ConstantTrend 4.778002425818626
+INFO:pyaf.std:CONSTANT_TREND _Signal_ConstantTrend 0.4599914964885404
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _Signal_ConstantTrend_residue_bestCycle_byMAPE 14 0.3513189631467455 {0: -2.2105138139527436, 1: 0.6934205350542846, 2: 2.099028894970254, 3: -2.2048900259383393, 4: -0.7464727549743229, 5: -2.8618221707573586, 6: -1.4062202028291568, 7: 0.6488916379501628, 8: -0.11212429473656638, 9: 1.3597552608548638, 10: 1.3097368789733252, 11: 4.306197895299349, 12: 2.8300072214092618, 13: -3.6106902871645685}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _Signal_ConstantTrend_residue_bestCycle_byMAPE 14 0.04277491578572967 {0: -0.26914158401271726, 1: 0.08442756612216584, 2: 0.2555677137663141, 3: -0.2684568584956023, 4: -0.0908869505487836, 5: -0.3484417728306558, 6: -0.17121464270940534, 7: 0.07900594069494798, 8: -0.013651717578614109, 9: 0.1655572937233531, 10: 0.1594672948984744, 11: 0.524302049278156, 12: 0.34456813684214355, 13: -0.4396203711249822}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING '['Signal']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 0.2610130310058594
-INFO:pyaf.std:START_TRAINING 'Signal'
+INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['Signal'], 'Horizon': 10}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.096, ('FORECASTING', {'Signals': ['Signal'], 'Horizon': 10}))
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', 'None', '_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
        'cycle_internal', '_Signal_ConstantTrend_residue_bestCycle_byMAPE',
@@ -422,16 +493,16 @@ dtypes: datetime64[ns](1), float64(2)
 memory usage: 7.6 KB
 None
 Forecasts
- [[Timestamp('2000-11-06 00:00:00') nan 6.8770313207888805]
- [Timestamp('2000-11-07 00:00:00') nan 2.573112399880287]
- [Timestamp('2000-11-08 00:00:00') nan 4.031529670844304]
- [Timestamp('2000-11-09 00:00:00') nan 1.9161802550612679]
- [Timestamp('2000-11-10 00:00:00') nan 3.3717822229894696]
- [Timestamp('2000-11-11 00:00:00') nan 5.426894063768789]
- [Timestamp('2000-11-12 00:00:00') nan 4.66587813108206]
- [Timestamp('2000-11-13 00:00:00') nan 6.13775768667349]
- [Timestamp('2000-11-14 00:00:00') nan 6.087739304791952]
- [Timestamp('2000-11-15 00:00:00') nan 9.084200321117976]]
+ [[Timestamp('2000-11-06 00:00:00') nan 57.48243763353641]
+ [Timestamp('2000-11-07 00:00:00') nan 22.13348825545929]
+ [Timestamp('2000-11-08 00:00:00') nan 34.1117618314255]
+ [Timestamp('2000-11-09 00:00:00') nan 16.737972782519854]
+ [Timestamp('2000-11-10 00:00:00') nan 28.693123709959032]
+ [Timestamp('2000-11-11 00:00:00') nan 45.572169472898004]
+ [Timestamp('2000-11-12 00:00:00') nan 39.32179297306044]
+ [Timestamp('2000-11-13 00:00:00') nan 51.41063499293851]
+ [Timestamp('2000-11-14 00:00:00') nan 50.99982398985145]
+ [Timestamp('2000-11-15 00:00:00') nan 75.61035934750385]]
 
 
 <ModelInfo>
@@ -452,19 +523,20 @@ Forecasts
         "Model": {
             "AR_Model": "NoAR",
             "Best_Decomposition": "_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR",
-            "Cycle": "Cycle",
+            "Cycle": "Cycle_14",
+            "Signal_Decomposition_Type": "T+S+R",
             "Signal_Transoformation": "NoTransf",
             "Trend": "ConstantTrend"
         },
         "Model_Performance": {
-            "COMPLEXITY": "14",
-            "CRPS": "0.6536143149585627",
-            "LnQ": "0.051415084413285066",
-            "MAE": "0.0808774175221037",
-            "MAPE": "0.0218",
-            "MASE": "0.0368",
-            "MedAE": "0.06595169214675334",
-            "RMSE": "0.10167283346839702"
+            "COMPLEXITY": 14.0,
+            "CRPS": 5.368265470804737,
+            "LnQ": 0.045732773840189776,
+            "MAE": 0.6642624525126749,
+            "MAPE": 0.0209,
+            "MASE": 0.0368,
+            "MedAE": 0.5416744762008534,
+            "RMSE": 0.8350593748270007
         }
     }
 }
@@ -474,7 +546,7 @@ Forecasts
 
 
 <Forecast>
-{"Date":{"310":"2000-11-06T00:00:00.000Z","311":"2000-11-07T00:00:00.000Z","312":"2000-11-08T00:00:00.000Z","313":"2000-11-09T00:00:00.000Z","314":"2000-11-10T00:00:00.000Z","315":"2000-11-11T00:00:00.000Z","316":"2000-11-12T00:00:00.000Z","317":"2000-11-13T00:00:00.000Z","318":"2000-11-14T00:00:00.000Z","319":"2000-11-15T00:00:00.000Z"},"Signal":{"310":null,"311":null,"312":null,"313":null,"314":null,"315":null,"316":null,"317":null,"318":null,"319":null},"Signal_Forecast":{"310":6.8770313208,"311":2.5731123999,"312":4.0315296708,"313":1.9161802551,"314":3.371782223,"315":5.4268940638,"316":4.6658781311,"317":6.1377576867,"318":6.0877393048,"319":9.0842003211}}
+{"Date":{"310":"2000-11-06T00:00:00.000Z","311":"2000-11-07T00:00:00.000Z","312":"2000-11-08T00:00:00.000Z","313":"2000-11-09T00:00:00.000Z","314":"2000-11-10T00:00:00.000Z","315":"2000-11-11T00:00:00.000Z","316":"2000-11-12T00:00:00.000Z","317":"2000-11-13T00:00:00.000Z","318":"2000-11-14T00:00:00.000Z","319":"2000-11-15T00:00:00.000Z"},"Signal":{"310":null,"311":null,"312":null,"313":null,"314":null,"315":null,"316":null,"317":null,"318":null,"319":null},"Signal_Forecast":{"310":57.4824376335,"311":22.1334882555,"312":34.1117618314,"313":16.7379727825,"314":28.69312371,"315":45.5721694729,"316":39.3217929731,"317":51.4106349929,"318":50.9998239899,"319":75.6103593475}}
 </Forecast>
 
 
@@ -482,38 +554,55 @@ TEST_CYCLES_END 14
 TEST_CYCLES_START 18
 GENERATING_RANDOM_DATASET Signal_320_D_0_constant_18_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 10.471107006072998
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Transformation': '_Signal'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Transformation': 'Diff_Signal'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Transformation': 'RelDiff_Signal'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Transformation': 'CumSum_Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.859, ('TRAINING', {'Signal': 'Signal', 'Transformation': 'Diff_Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.861, ('TRAINING', {'Signal': 'Signal', 'Transformation': 'CumSum_Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.875, ('TRAINING', {'Signal': 'Signal', 'Transformation': '_Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.003, ('TRAINING', {'Signal': 'Signal', 'Transformation': 'RelDiff_Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.059, ('SIGNAL_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', 'None', '_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', [('Signal', 'None', 'CumSum_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'Signal', 'Transformations': [('Signal', 'None', 'CumSum_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.005, ('MODEL_SELECTION', {'Signal': 'Signal', 'Transformations': [('Signal', 'None', 'CumSum_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal', 'Model': '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.015, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal', 'Model': '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.134, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.155, ('FINALIZE_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', [('Signal', 'None', 'CumSum_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2000-08-27T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=10
-INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=310  Min=1.0 Max=10.178704413589598  Mean=5.374294452910538 StdDev=2.552622094143388
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=10.178704413589598  Mean=5.374294452910538 StdDev=2.552622094143388
+INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=310  Min=10.178704413589598 Max=94.42731912563876  Mean=50.32906021486005 StdDev=23.42976368174024
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=0.0 Max=1.0  Mean=0.47656992270435733 StdDev=0.2781026579703433
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [ConstantTrend + Cycle + NoAR]
+INFO:pyaf.std:BEST_DECOMPOSITION  '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [ConstantTrend + Cycle_18 + NoAR]
 INFO:pyaf.std:TREND_DETAIL '_Signal_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_Signal_ConstantTrend_residue_bestCycle_byMAPE' [Cycle]
+INFO:pyaf.std:CYCLE_DETAIL '_Signal_ConstantTrend_residue_bestCycle_byMAPE' [Cycle_18]
 INFO:pyaf.std:AUTOREG_DETAIL '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [NoAR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0175 MAPE_Forecast=0.0202 MAPE_Test=0.021
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0175 SMAPE_Forecast=0.0205 SMAPE_Test=0.0206
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0169 MAPE_Forecast=0.0194 MAPE_Test=0.0204
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0169 SMAPE_Forecast=0.0197 SMAPE_Test=0.02
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.0212 MASE_Forecast=0.0238 MASE_Test=0.0255
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=0.7075622197411017 CRPS_Forecast=0.7611774189395476 CRPS_Test=0.7139007907188993
-INFO:pyaf.std:MODEL_L1 L1_Fit=0.07255174774102938 L1_Forecast=0.08152884487923115 L1_Test=0.08891853642140965
-INFO:pyaf.std:MODEL_L2 L2_Fit=0.09216479906453168 L2_Forecast=0.10076162390840163 L2_Test=0.11697172526860175
-INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.14897336355610458 LnQ_Forecast=0.05844994501014255 LnQ_Test=0.008909910555679816
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.06317988711697398 MedAE_Forecast=0.0694935165882068 MedAE_Test=0.05696850959159816
-INFO:pyaf.std:MODEL_COMPLEXITY 18
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=6.494504469226903 CRPS_Forecast=6.986622534745163 CRPS_Test=6.552684338636664
+INFO:pyaf.std:MODEL_L1 L1_Fit=0.665931047204225 L1_Forecast=0.7483291683278602 L1_Test=0.8161569627011179
+INFO:pyaf.std:MODEL_L2 L2_Fit=0.8459534479512149 L2_Forecast=0.9248611620885006 L2_Test=1.0736488909881037
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.13590076865533018 LnQ_Forecast=0.05160194927520556 LnQ_Test=0.008355120069309446
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.5799095087306547 MedAE_Forecast=0.6378604474240426 MedAE_Test=0.5228971104240259
+INFO:pyaf.std:MODEL_COMPLEXITY 18.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND ConstantTrend 5.369001684524017
+INFO:pyaf.std:CONSTANT_TREND _Signal_ConstantTrend 0.475993287032477
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _Signal_ConstantTrend_residue_bestCycle_byMAPE 18 -0.7571932257836971 {0: -3.1696866252864746, 1: -0.8921032026678506, 2: 0.1532455553959844, 3: -2.5853450189816014, 4: -1.483653172848384, 5: 1.780329701901087, 6: -4.257077732125591, 7: -1.48392878637135, 8: -0.9623131222353898, 9: 2.943450309345552, 10: 4.6710066037594, 11: -2.04099652110121, 12: 2.4310981044331816, 13: -0.35080445884408906, 14: 0.21818155906240388, 15: 4.134022079343451, 16: -1.9933356500051786, 17: 3.437352331361849}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _Signal_ConstantTrend_residue_bestCycle_byMAPE 18 -0.0824945647735022 {0: -0.3453305044439139, 1: -0.09719271505758928, 2: 0.016695771918430607, 3: -0.2816677498791496, 4: -0.16164080528094474, 5: 0.19396307165804433, 6: -0.46379941441656447, 7: -0.16167083277835032, 8: -0.1048419339891401, 9: 0.320682546982078, 10: 0.5088960699991283, 11: -0.22236215800558928, 12: 0.2648628820461634, 13: -0.038219387294431584, 14: 0.023770409115623503, 15: 0.4503927671124036, 16: -0.21716960915027733, 17: 0.374492104383779}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING '['Signal']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 0.25876402854919434
-INFO:pyaf.std:START_TRAINING 'Signal'
+INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['Signal'], 'Horizon': 10}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.096, ('FORECASTING', {'Signals': ['Signal'], 'Horizon': 10}))
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', 'None', '_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
        'cycle_internal', '_Signal_ConstantTrend_residue_bestCycle_byMAPE',
@@ -542,16 +631,16 @@ dtypes: datetime64[ns](1), float64(2)
 memory usage: 7.6 KB
 None
 Forecasts
- [[Timestamp('2000-11-06 00:00:00') nan 3.885348511675633]
- [Timestamp('2000-11-07 00:00:00') nan 7.149331386425104]
- [Timestamp('2000-11-08 00:00:00') nan 1.111923952398426]
- [Timestamp('2000-11-09 00:00:00') nan 3.885072898152667]
- [Timestamp('2000-11-10 00:00:00') nan 4.406688562288627]
- [Timestamp('2000-11-11 00:00:00') nan 8.31245199386957]
- [Timestamp('2000-11-12 00:00:00') nan 10.040008288283417]
- [Timestamp('2000-11-13 00:00:00') nan 3.328005163422807]
- [Timestamp('2000-11-14 00:00:00') nan 7.800099788957199]
- [Timestamp('2000-11-15 00:00:00') nan 5.018197225679928]]
+ [[Timestamp('2000-11-06 00:00:00') nan 36.66246553245091]
+ [Timestamp('2000-11-07 00:00:00') nan 66.62159955079473]
+ [Timestamp('2000-11-08 00:00:00') nan 11.206021289455421]
+ [Timestamp('2000-11-09 00:00:00') nan 36.65993575739122]
+ [Timestamp('2000-11-10 00:00:00') nan 41.447691755993425]
+ [Timestamp('2000-11-11 00:00:00') nan 77.29753980388227]
+ [Timestamp('2000-11-12 00:00:00') nan 93.15426838814314]
+ [Timestamp('2000-11-13 00:00:00') nan 31.54677568195789]
+ [Timestamp('2000-11-14 00:00:00') nan 72.59481035934071]
+ [Timestamp('2000-11-15 00:00:00') nan 47.06054902361143]]
 
 
 <ModelInfo>
@@ -572,19 +661,20 @@ Forecasts
         "Model": {
             "AR_Model": "NoAR",
             "Best_Decomposition": "_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR",
-            "Cycle": "Cycle",
+            "Cycle": "Cycle_18",
+            "Signal_Decomposition_Type": "T+S+R",
             "Signal_Transoformation": "NoTransf",
             "Trend": "ConstantTrend"
         },
         "Model_Performance": {
-            "COMPLEXITY": "18",
-            "CRPS": "0.7611774189395476",
-            "LnQ": "0.05844994501014255",
-            "MAE": "0.08152884487923115",
-            "MAPE": "0.0202",
-            "MASE": "0.0238",
-            "MedAE": "0.0694935165882068",
-            "RMSE": "0.10076162390840163"
+            "COMPLEXITY": 18.0,
+            "CRPS": 6.986622534745163,
+            "LnQ": 0.05160194927520556,
+            "MAE": 0.7483291683278602,
+            "MAPE": 0.0194,
+            "MASE": 0.0238,
+            "MedAE": 0.6378604474240426,
+            "RMSE": 0.9248611620885006
         }
     }
 }
@@ -594,7 +684,7 @@ Forecasts
 
 
 <Forecast>
-{"Date":{"310":"2000-11-06T00:00:00.000Z","311":"2000-11-07T00:00:00.000Z","312":"2000-11-08T00:00:00.000Z","313":"2000-11-09T00:00:00.000Z","314":"2000-11-10T00:00:00.000Z","315":"2000-11-11T00:00:00.000Z","316":"2000-11-12T00:00:00.000Z","317":"2000-11-13T00:00:00.000Z","318":"2000-11-14T00:00:00.000Z","319":"2000-11-15T00:00:00.000Z"},"Signal":{"310":null,"311":null,"312":null,"313":null,"314":null,"315":null,"316":null,"317":null,"318":null,"319":null},"Signal_Forecast":{"310":3.8853485117,"311":7.1493313864,"312":1.1119239524,"313":3.8850728982,"314":4.4066885623,"315":8.3124519939,"316":10.0400082883,"317":3.3280051634,"318":7.800099789,"319":5.0181972257}}
+{"Date":{"310":"2000-11-06T00:00:00.000Z","311":"2000-11-07T00:00:00.000Z","312":"2000-11-08T00:00:00.000Z","313":"2000-11-09T00:00:00.000Z","314":"2000-11-10T00:00:00.000Z","315":"2000-11-11T00:00:00.000Z","316":"2000-11-12T00:00:00.000Z","317":"2000-11-13T00:00:00.000Z","318":"2000-11-14T00:00:00.000Z","319":"2000-11-15T00:00:00.000Z"},"Signal":{"310":null,"311":null,"312":null,"313":null,"314":null,"315":null,"316":null,"317":null,"318":null,"319":null},"Signal_Forecast":{"310":36.6624655325,"311":66.6215995508,"312":11.2060212895,"313":36.6599357574,"314":41.447691756,"315":77.2975398039,"316":93.1542683881,"317":31.546775682,"318":72.5948103593,"319":47.0605490236}}
 </Forecast>
 
 
@@ -602,37 +692,54 @@ TEST_CYCLES_END 18
 TEST_CYCLES_START 22
 GENERATING_RANDOM_DATASET Signal_320_D_0_constant_22_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 10.466518878936768
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Transformation': '_Signal'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Transformation': 'RelDiff_Signal'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Transformation': 'Diff_Signal'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Transformation': 'CumSum_Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.801, ('TRAINING', {'Signal': 'Signal', 'Transformation': 'Diff_Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.878, ('TRAINING', {'Signal': 'Signal', 'Transformation': '_Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.888, ('TRAINING', {'Signal': 'Signal', 'Transformation': 'CumSum_Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.999, ('TRAINING', {'Signal': 'Signal', 'Transformation': 'RelDiff_Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.053, ('SIGNAL_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', 'None', '_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', [('Signal', 'None', 'CumSum_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'Signal', 'Transformations': [('Signal', 'None', 'CumSum_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.005, ('MODEL_SELECTION', {'Signal': 'Signal', 'Transformations': [('Signal', 'None', 'CumSum_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal', 'Model': '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.015, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal', 'Model': '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.134, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.154, ('FINALIZE_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', [('Signal', 'None', 'CumSum_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2000-08-27T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=10
-INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=310  Min=1.0 Max=10.378765998816458  Mean=5.8595090592225825 StdDev=2.8217253313077646
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=1.0 Max=10.378765998816458  Mean=5.8595090592225825 StdDev=2.8217253313077646
+INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=310  Min=10.378765998816458 Max=98.34001765937214  Mean=55.954964334393765 StdDev=26.464301595268363
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=0.0 Max=1.0  Mean=0.5181394929605687 StdDev=0.3008631766336689
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [ConstantTrend + Cycle + NoAR]
+INFO:pyaf.std:BEST_DECOMPOSITION  '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [ConstantTrend + Cycle_22 + NoAR]
 INFO:pyaf.std:TREND_DETAIL '_Signal_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_Signal_ConstantTrend_residue_bestCycle_byMAPE' [Cycle]
+INFO:pyaf.std:CYCLE_DETAIL '_Signal_ConstantTrend_residue_bestCycle_byMAPE' [Cycle_22]
 INFO:pyaf.std:AUTOREG_DETAIL '_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [NoAR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0161 MAPE_Forecast=0.0209 MAPE_Test=0.018
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0161 SMAPE_Forecast=0.0206 SMAPE_Test=0.0182
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0156 MAPE_Forecast=0.0201 MAPE_Test=0.0176
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0156 SMAPE_Forecast=0.0199 SMAPE_Test=0.0178
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.0276 MASE_Forecast=0.0335 MASE_Test=0.039
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=0.7907333762510502 CRPS_Forecast=0.8378529122670546 CRPS_Test=0.8426923540800626
-INFO:pyaf.std:MODEL_L1 L1_Fit=0.07435150746275114 L1_Forecast=0.09129673016047941 L1_Test=0.10522296030029006
-INFO:pyaf.std:MODEL_L2 L2_Fit=0.10080402671419517 L2_Forecast=0.11670563497370497 L2_Test=0.12743832318380283
-INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.14269779948693723 LnQ_Forecast=0.0595781976658989 LnQ_Test=0.004681522134343632
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.05824978962900107 MedAE_Forecast=0.0843333299382587 MedAE_Test=0.08994737053034285
-INFO:pyaf.std:MODEL_COMPLEXITY 22
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=7.416103303312691 CRPS_Forecast=7.858026405579601 CRPS_Test=7.903414397908693
+INFO:pyaf.std:MODEL_L1 L1_Fit=0.6973253901523985 L1_Forecast=0.8562506686322255 L1_Test=0.9868615223591757
+INFO:pyaf.std:MODEL_L2 L2_Fit=0.9454173782908792 L2_Forecast=1.0945548411616688 L2_Test=1.195214212422434
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.13044299065178006 LnQ_Forecast=0.05388944722650539 LnQ_Test=0.004426671830991387
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.5463111464106882 MedAE_Forecast=0.7909425673919088 MedAE_Test=0.8435953404129215
+INFO:pyaf.std:MODEL_COMPLEXITY 22.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND ConstantTrend 5.8541445163941965
+INFO:pyaf.std:CONSTANT_TREND _Signal_ConstantTrend 0.5175675048302473
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _Signal_ConstantTrend_residue_bestCycle_byMAPE 22 -0.947483931094192 {0: -3.8811409623753406, 1: -2.0292149183215136, 2: -1.0795041980711684, 3: 3.418583220589225, 4: 4.399739540628675, 5: 2.9519205226982983, 6: -3.3824647901132288, 7: -2.4533594368950578, 8: 0.21456722796897765, 9: -4.738860993731085, 10: -2.4835746624043695, 11: -1.967923972138887, 12: 1.082040018954153, 13: 2.56769565991846, 14: -2.974362081003149, 15: 0.7991781640762134, 16: -1.5763558580771493, 17: -1.1578244539142677, 18: 3.9446634338010114, 19: 3.467844183802642, 20: 1.9718911033555182, 21: 3.467906215909485}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _Signal_ConstantTrend_residue_bestCycle_byMAPE 22 -0.10102437049967533 {0: -0.4138221342621317, 1: -0.21636267698517986, 2: -0.11510087768554988, 3: 0.36450245384314206, 4: 0.46911710359165526, 5: 0.31474508726103323, 6: -0.3606513682653, 7: -0.261586592223823, 8: 0.02287798074885916, 9: -0.5052755335114555, 10: -0.2648082554482946, 11: -0.2098276012417013, 12: 0.11537125663341008, 13: 0.2737775588219694, 14: -0.31713789227479333, 15: 0.08521144084169119, 16: -0.1680771071883097, 17: -0.12345168373540583, 18: 0.42059514378531293, 19: 0.36975484666535685, 20: 0.21025059198665996, 21: 0.36976146076649247}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING '['Signal']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 0.2483232021331787
+INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['Signal'], 'Horizon': 10}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.096, ('FORECASTING', {'Signals': ['Signal'], 'Horizon': 10}))
 Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
        'cycle_internal', '_Signal_ConstantTrend_residue_bestCycle_byMAPE',
@@ -661,16 +768,16 @@ dtypes: datetime64[ns](1), float64(2)
 memory usage: 7.6 KB
 None
 Forecasts
- [[Timestamp('2000-11-06 00:00:00') nan 4.774640318323028]
- [Timestamp('2000-11-07 00:00:00') nan 9.272727736983422]
- [Timestamp('2000-11-08 00:00:00') nan 10.253884057022871]
- [Timestamp('2000-11-09 00:00:00') nan 8.806065039092495]
- [Timestamp('2000-11-10 00:00:00') nan 2.4716797262809678]
- [Timestamp('2000-11-11 00:00:00') nan 3.4007850794991388]
- [Timestamp('2000-11-12 00:00:00') nan 6.068711744363174]
- [Timestamp('2000-11-13 00:00:00') nan 1.1152835226631117]
- [Timestamp('2000-11-14 00:00:00') nan 3.370569853989827]
- [Timestamp('2000-11-15 00:00:00') nan 3.8862205442553095]]
+ [[Timestamp('2000-11-06 00:00:00') nan 45.78023427406622]
+ [Timestamp('2000-11-07 00:00:00') nan 87.9667436159024]
+ [Timestamp('2000-11-08 00:00:00') nan 97.16877914981227]
+ [Timestamp('2000-11-09 00:00:00') nan 83.59002337200701]
+ [Timestamp('2000-11-10 00:00:00') nan 24.18130577680791]
+ [Timestamp('2000-11-11 00:00:00') nan 32.89516747288885]
+ [Timestamp('2000-11-12 00:00:00') nan 57.917027364651446]
+ [Timestamp('2000-11-13 00:00:00') nan 11.459983181393035]
+ [Timestamp('2000-11-14 00:00:00') nan 32.611785943235546]
+ [Timestamp('2000-11-15 00:00:00') nan 37.44795310436369]]
 
 
 <ModelInfo>
@@ -691,19 +798,20 @@ Forecasts
         "Model": {
             "AR_Model": "NoAR",
             "Best_Decomposition": "_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR",
-            "Cycle": "Cycle",
+            "Cycle": "Cycle_22",
+            "Signal_Decomposition_Type": "T+S+R",
             "Signal_Transoformation": "NoTransf",
             "Trend": "ConstantTrend"
         },
         "Model_Performance": {
-            "COMPLEXITY": "22",
-            "CRPS": "0.8378529122670546",
-            "LnQ": "0.0595781976658989",
-            "MAE": "0.09129673016047941",
-            "MAPE": "0.0209",
-            "MASE": "0.0335",
-            "MedAE": "0.0843333299382587",
-            "RMSE": "0.11670563497370497"
+            "COMPLEXITY": 22.0,
+            "CRPS": 7.858026405579601,
+            "LnQ": 0.05388944722650539,
+            "MAE": 0.8562506686322255,
+            "MAPE": 0.0201,
+            "MASE": 0.0335,
+            "MedAE": 0.7909425673919088,
+            "RMSE": 1.0945548411616688
         }
     }
 }
@@ -713,7 +821,7 @@ Forecasts
 
 
 <Forecast>
-{"Date":{"310":"2000-11-06T00:00:00.000Z","311":"2000-11-07T00:00:00.000Z","312":"2000-11-08T00:00:00.000Z","313":"2000-11-09T00:00:00.000Z","314":"2000-11-10T00:00:00.000Z","315":"2000-11-11T00:00:00.000Z","316":"2000-11-12T00:00:00.000Z","317":"2000-11-13T00:00:00.000Z","318":"2000-11-14T00:00:00.000Z","319":"2000-11-15T00:00:00.000Z"},"Signal":{"310":null,"311":null,"312":null,"313":null,"314":null,"315":null,"316":null,"317":null,"318":null,"319":null},"Signal_Forecast":{"310":4.7746403183,"311":9.272727737,"312":10.253884057,"313":8.8060650391,"314":2.4716797263,"315":3.4007850795,"316":6.0687117444,"317":1.1152835227,"318":3.370569854,"319":3.8862205443}}
+{"Date":{"310":"2000-11-06T00:00:00.000Z","311":"2000-11-07T00:00:00.000Z","312":"2000-11-08T00:00:00.000Z","313":"2000-11-09T00:00:00.000Z","314":"2000-11-10T00:00:00.000Z","315":"2000-11-11T00:00:00.000Z","316":"2000-11-12T00:00:00.000Z","317":"2000-11-13T00:00:00.000Z","318":"2000-11-14T00:00:00.000Z","319":"2000-11-15T00:00:00.000Z"},"Signal":{"310":null,"311":null,"312":null,"313":null,"314":null,"315":null,"316":null,"317":null,"318":null,"319":null},"Signal_Forecast":{"310":45.7802342741,"311":87.9667436159,"312":97.1687791498,"313":83.590023372,"314":24.1813057768,"315":32.8951674729,"316":57.9170273647,"317":11.4599831814,"318":32.6117859432,"319":37.4479531044}}
 </Forecast>
 
 

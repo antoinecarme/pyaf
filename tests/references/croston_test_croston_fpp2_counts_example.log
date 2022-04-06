@@ -1,13 +1,24 @@
-INFO:pyaf.std:START_TRAINING 'Signal'
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 0.8183193206787109
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', 'None', '_', 'T+S+R')], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Transformation': '_Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.288, ('TRAINING', {'Signal': 'Signal', 'Transformation': '_Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.291, ('SIGNAL_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', 'None', '_', 'T+S+R')], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', [('Signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'Signal', 'Transformations': [('Signal', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.003, ('MODEL_SELECTION', {'Signal': 'Signal', 'Transformations': [('Signal', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal', 'Model': '_Signal_ConstantTrend_residue_zeroCycle[0.0]_residue_CROSTON(0.1)'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.019, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal', 'Model': '_Signal_ConstantTrend_residue_zeroCycle[0.0]_residue_CROSTON(0.1)'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.135, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.157, ('FINALIZE_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', [('Signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-31T00:00:00.000000 TimeMax=2002-12-31T00:00:00.000000 TimeDelta=<DateOffset: days=30> Horizon=7
-INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=36  Min=0.0 Max=11.0  Mean=1.0555555555555556 StdDev=2.332671863913003
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=0.0 Max=11.0  Mean=1.0555555555555556 StdDev=2.332671863913003
+INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=36  Min=0.0 Max=11.0  Mean=1.0555555555555556 StdDev=2.332671863913002
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=0.0 Max=1.0  Mean=0.09595959595959597 StdDev=0.21206107853754563
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_Signal_ConstantTrend_residue_zeroCycle_residue_CROSTON(0.1)' [ConstantTrend + NoCycle + CROSTON]
+INFO:pyaf.std:BEST_DECOMPOSITION  '_Signal_ConstantTrend_residue_zeroCycle[0.0]_residue_CROSTON(0.1)' [ConstantTrend + NoCycle + CROSTON]
 INFO:pyaf.std:TREND_DETAIL '_Signal_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_Signal_ConstantTrend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_Signal_ConstantTrend_residue_zeroCycle_residue_CROSTON(0.1)' [CROSTON]
+INFO:pyaf.std:CYCLE_DETAIL '_Signal_ConstantTrend_residue_zeroCycle[0.0]' [NoCycle]
+INFO:pyaf.std:AUTOREG_DETAIL '_Signal_ConstantTrend_residue_zeroCycle[0.0]_residue_CROSTON(0.1)' [CROSTON]
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=8127243135.1186 MAPE_Forecast=8127243135.1186 MAPE_Test=8127243135.1186
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=1.5304 SMAPE_Forecast=1.5304 SMAPE_Test=1.5304
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7837 MASE_Forecast=0.7837 MASE_Test=0.7837
@@ -16,30 +27,30 @@ INFO:pyaf.std:MODEL_L1 L1_Fit=1.5226085026768486 L1_Forecast=1.5226085026768486 
 INFO:pyaf.std:MODEL_L2 L2_Fit=2.348998971825967 L2_Forecast=2.348998971825967 L2_Test=2.348998971825967
 INFO:pyaf.std:MODEL_LnQ LnQ_Fit=inf LnQ_Forecast=inf LnQ_Test=inf
 INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=1.2259919231571335 MedAE_Forecast=1.2259919231571335 MedAE_Test=1.2259919231571335
-INFO:pyaf.std:MODEL_COMPLEXITY 2
+INFO:pyaf.std:MODEL_COMPLEXITY 2.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND ConstantTrend 1.0555555555555556
+INFO:pyaf.std:CONSTANT_TREND _Signal_ConstantTrend 0.09595959595959597
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_ConstantTrend_residue_zeroCycle[0.0] 0.0 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:CROSTON_ALPHA 0.1
 INFO:pyaf.std:CROSTON_METHOD None
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_PLOTTING
-INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 4.9810121059417725
-INFO:pyaf.std:START_FORECASTING '['Signal']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 0.31324076652526855
+INFO:pyaf.timing:('OPERATION_START', ('PLOTTING', {'Signals': ['Signal']}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.174, ('PLOTTING', {'Signals': ['Signal']}))
+INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['Signal'], 'Horizon': 7}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.118, ('FORECASTING', {'Signals': ['Signal'], 'Horizon': 7}))
 Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
-       '_Signal_ConstantTrend_residue_zeroCycle',
-       '_Signal_ConstantTrend_residue_zeroCycle_residue',
-       '_Signal_ConstantTrend_residue_zeroCycle_residue_CROSTON(0.1)',
-       '_Signal_ConstantTrend_residue_zeroCycle_residue_CROSTON(0.1)_residue',
+       '_Signal_ConstantTrend_residue_zeroCycle[0.0]',
+       '_Signal_ConstantTrend_residue_zeroCycle[0.0]_residue',
+       '_Signal_ConstantTrend_residue_zeroCycle[0.0]_residue_CROSTON(0.1)',
+       '_Signal_ConstantTrend_residue_zeroCycle[0.0]_residue_CROSTON(0.1)_residue',
        '_Signal_Trend', '_Signal_Trend_residue', '_Signal_Cycle',
        '_Signal_Cycle_residue', '_Signal_AR', '_Signal_AR_residue',
        '_Signal_TransformedForecast', 'Signal_Forecast',
@@ -50,19 +61,19 @@ Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        'Signal_Forecast_Quantile_66', 'Signal_Forecast_Quantile_82',
        'Signal_Forecast_Quantile_98'],
       dtype='object')
-         Date  Signal  _Signal  _Signal_TransformedForecast  Signal_Forecast
-31 2002-08-31     1.0      1.0                      1.10200          1.10200
-32 2002-09-30     0.0      0.0                      1.10200          1.10200
-33 2002-10-31     1.0      1.0                      1.02197          1.02197
-34 2002-11-30     0.0      0.0                      1.02197          1.02197
-35 2002-12-31     0.0      0.0                      1.02197          1.02197
-36 2003-01-30     NaN      NaN                      1.02197          1.02197
-37 2003-03-01     NaN      NaN                      1.02197          1.02197
-38 2003-03-31     NaN      NaN                      1.02197          1.02197
-39 2003-04-30     NaN      NaN                      1.02197          1.02197
-40 2003-05-30     NaN      NaN                      1.02197          1.02197
-41 2003-06-29     NaN      NaN                      1.02197          1.02197
-42 2003-07-29     NaN      NaN                      1.02197          1.02197
+         Date  Signal   _Signal  _Signal_TransformedForecast  Signal_Forecast
+31 2002-08-31     1.0  0.090909                     0.100182          1.10200
+32 2002-09-30     0.0  0.000000                     0.100182          1.10200
+33 2002-10-31     1.0  0.090909                     0.092906          1.02197
+34 2002-11-30     0.0  0.000000                     0.092906          1.02197
+35 2002-12-31     0.0  0.000000                     0.092906          1.02197
+36 2003-01-30     NaN       NaN                     0.092906          1.02197
+37 2003-03-01     NaN       NaN                     0.092906          1.02197
+38 2003-03-31     NaN       NaN                     0.092906          1.02197
+39 2003-04-30     NaN       NaN                     0.092906          1.02197
+40 2003-05-30     NaN       NaN                     0.092906          1.02197
+41 2003-06-29     NaN       NaN                     0.092906          1.02197
+42 2003-07-29     NaN       NaN                     0.092906          1.02197
 count    36.000000
 mean      1.055556
 std       2.365761

@@ -1,8 +1,21 @@
-INFO:pyaf.std:START_TRAINING 'Ozone'
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Ozone']' 6.243674278259277
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['Ozone'], 'Transformations': [('Ozone', 'None', '_', 'T+S+R'), ('Ozone', 'None', 'Diff_', 'T+S+R'), ('Ozone', 'None', 'Anscombe_', 'T+S+R')], 'Cores': 3}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Ozone', 'Transformation': '_Ozone'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.543, ('TRAINING', {'Signal': 'Ozone', 'Transformation': '_Ozone'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Ozone', 'Transformation': 'Diff_Ozone'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.409, ('TRAINING', {'Signal': 'Ozone', 'Transformation': 'Diff_Ozone'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Ozone', 'Transformation': 'Anscombe_Ozone'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.428, ('TRAINING', {'Signal': 'Ozone', 'Transformation': 'Anscombe_Ozone'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.383, ('SIGNAL_TRAINING', {'Signals': ['Ozone'], 'Transformations': [('Ozone', 'None', '_', 'T+S+R'), ('Ozone', 'None', 'Diff_', 'T+S+R'), ('Ozone', 'None', 'Anscombe_', 'T+S+R')], 'Cores': 3}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['Ozone'], 'Transformations': [('Ozone', [('Ozone', 'None', 'Anscombe_', 'T+S+R'), ('Ozone', 'None', 'Diff_', 'T+S+R'), ('Ozone', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'Ozone', 'Transformations': [('Ozone', 'None', 'Anscombe_', 'T+S+R'), ('Ozone', 'None', 'Diff_', 'T+S+R'), ('Ozone', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.003, ('MODEL_SELECTION', {'Signal': 'Ozone', 'Transformations': [('Ozone', 'None', 'Anscombe_', 'T+S+R'), ('Ozone', 'None', 'Diff_', 'T+S+R'), ('Ozone', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Ozone', 'Model': 'Anscombe_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.015, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Ozone', 'Model': 'Anscombe_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.019, ('FINALIZE_TRAINING', {'Signals': ['Ozone'], 'Transformations': [('Ozone', [('Ozone', 'None', 'Anscombe_', 'T+S+R'), ('Ozone', 'None', 'Diff_', 'T+S+R'), ('Ozone', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01T00:00:00.000000 TimeMax=1967-09-01T00:00:00.000000 TimeDelta=<DateOffset: months=1> Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Length=204  Min=1.2 Max=8.7  Mean=3.8357843137254903 StdDev=1.4915592159401185
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='Anscombe_Ozone' Min=1.224744871391589 Max=2.345207879911715  Mean=1.6888656389128833 StdDev=0.23126713490313816
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'Anscombe_'
 INFO:pyaf.std:BEST_DECOMPOSITION  'Anscombe_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_residue_NoAR' [LinearTrend + Seasonal_MonthOfYear + NoAR]
 INFO:pyaf.std:TREND_DETAIL 'Anscombe_Ozone_LinearTrend' [LinearTrend]
@@ -16,7 +29,7 @@ INFO:pyaf.std:MODEL_L1 L1_Fit=0.681476429825786 L1_Forecast=0.5035179972671759 L
 INFO:pyaf.std:MODEL_L2 L2_Fit=0.91735651790531 L2_Forecast=0.6130274976434766 L2_Test=0.5391782564913219
 INFO:pyaf.std:MODEL_LnQ LnQ_Fit=7.451032590943641 LnQ_Forecast=1.5493989541412267 LnQ_Test=0.5737896883378822
 INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.5339191660545173 MedAE_Forecast=0.5114747439481651 MedAE_Test=0.43672976690896137
-INFO:pyaf.std:MODEL_COMPLEXITY 14
+INFO:pyaf.std:MODEL_COMPLEXITY 14.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:ANSCOMBE_TRANSFORMATION Anscombe 0.375
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
@@ -28,28 +41,28 @@ INFO:pyaf.std:SEASONAL_MODEL_VALUES Anscombe_Ozone_LinearTrend_residue_Seasonal_
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_FORECASTING '['Ozone']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Ozone']' 0.5306377410888672
+INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['Ozone'], 'Horizon': 12}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.129, ('FORECASTING', {'Signals': ['Ozone'], 'Horizon': 12}))
      Month  Ozone       Time
 0  1955-01    2.7 1955-01-01
 1  1955-02    2.0 1955-02-01
 2  1955-03    3.6 1955-03-01
 3  1955-04    5.0 1955-04-01
 4  1955-05    6.5 1955-05-01
-   Split  Transformation  ... ForecastMAPE TestMAPE
-0   None  Anscombe_Ozone  ...       0.1585   0.2047
-1   None  Anscombe_Ozone  ...       0.1645   0.1595
-2   None  Anscombe_Ozone  ...       0.1662   0.1136
-3   None  Anscombe_Ozone  ...       0.1662   0.1136
-4   None          _Ozone  ...       0.1709   0.1910
-..   ...             ...  ...          ...      ...
-67  None      Diff_Ozone  ...       2.0497   3.1413
-68  None      Diff_Ozone  ...       2.0668   2.8451
-69  None      Diff_Ozone  ...       3.1135   5.5115
-70  None      Diff_Ozone  ...       6.2325   9.1050
-71  None      Diff_Ozone  ...       6.5775  10.4500
+   Split  Transformation DecompositionType  ... FitMAPE ForecastMAPE TestMAPE
+0   None  Anscombe_Ozone             T+S+R  ...  0.1759       0.1585   0.2047
+1   None          _Ozone             T+S+R  ...  0.1651       0.1637   0.2016
+2   None  Anscombe_Ozone             T+S+R  ...  0.1627       0.1645   0.1575
+3   None          _Ozone             T+S+R  ...  0.1856       0.1659   0.1046
+4   None          _Ozone             T+S+R  ...  0.1856       0.1659   0.1046
+..   ...             ...               ...  ...     ...          ...      ...
+67  None      Diff_Ozone             T+S+R  ...  0.7679       2.0497   3.1413
+68  None      Diff_Ozone             T+S+R  ...  0.9191       2.0668   2.8451
+69  None      Diff_Ozone             T+S+R  ...  1.1834       3.1135   5.5115
+70  None      Diff_Ozone             T+S+R  ...  2.2298       6.2325   9.1050
+71  None      Diff_Ozone             T+S+R  ...  2.4006       6.5775  10.4500
 
-[72 rows x 8 columns]
+[72 rows x 10 columns]
 Forecast Columns  Index(['Time', 'Ozone', 'row_number', 'Time_Normalized', 'Anscombe_Ozone',
        'Anscombe_Ozone_LinearTrend', 'Anscombe_Ozone_LinearTrend_residue',
        'Anscombe_Ozone_LinearTrend_residue_Seasonal_MonthOfYear',

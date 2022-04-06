@@ -1,49 +1,60 @@
-INFO:pyaf.std:START_TRAINING 'Signal'
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Signal']' 1.7666125297546387
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', 'None', '_', 'T+S+R')], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Transformation': '_Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.3, ('TRAINING', {'Signal': 'Signal', 'Transformation': '_Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.303, ('SIGNAL_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', 'None', '_', 'T+S+R')], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', [('Signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'Signal', 'Transformations': [('Signal', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.003, ('MODEL_SELECTION', {'Signal': 'Signal', 'Transformations': [('Signal', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal', 'Model': '_Signal_ConstantTrend_residue_zeroCycle[0.0]_residue_CROSTON(0.1)'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.02, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal', 'Model': '_Signal_ConstantTrend_residue_zeroCycle[0.0]_residue_CROSTON(0.1)'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.141, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.163, ('FINALIZE_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', [('Signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2016-01-25T00:00:00.000000 TimeMax=2016-11-05T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=7
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=365  Min=0.0 Max=97.0  Mean=1.0520547945205478 StdDev=8.398631812727873
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=0.0 Max=97.0  Mean=1.0520547945205478 StdDev=8.398631812727873
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=0.0 Max=1.0  Mean=0.01084592571670668 StdDev=0.08658383312090591
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_Signal_ConstantTrend_residue_zeroCycle_residue_CROSTON(0.1)' [ConstantTrend + NoCycle + CROSTON]
+INFO:pyaf.std:BEST_DECOMPOSITION  '_Signal_ConstantTrend_residue_zeroCycle[0.0]_residue_CROSTON(0.1)' [ConstantTrend + NoCycle + CROSTON]
 INFO:pyaf.std:TREND_DETAIL '_Signal_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_Signal_ConstantTrend_residue_zeroCycle' [NoCycle]
-INFO:pyaf.std:AUTOREG_DETAIL '_Signal_ConstantTrend_residue_zeroCycle_residue_CROSTON(0.1)' [CROSTON]
+INFO:pyaf.std:CYCLE_DETAIL '_Signal_ConstantTrend_residue_zeroCycle[0.0]' [NoCycle]
+INFO:pyaf.std:AUTOREG_DETAIL '_Signal_ConstantTrend_residue_zeroCycle[0.0]_residue_CROSTON(0.1)' [CROSTON]
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=167032986506.7801 MAPE_Forecast=23662561884.8095 MAPE_Test=20334641162.0859
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=1.9795 SMAPE_Forecast=1.9986 SMAPE_Test=2.0
 INFO:pyaf.std:MODEL_MASE MASE_Fit=8.7611 MASE_Forecast=1.5852 MASE_Test=20334641162.0859
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=8.317065544623828 CRPS_Forecast=1.1972493728245808 CRPS_Test=1.016732058104293
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=8.317065544623828 CRPS_Forecast=1.197249372824581 CRPS_Test=1.016732058104293
 INFO:pyaf.std:MODEL_L1 L1_Fit=17.33774338462863 L1_Forecast=3.39356918686559 L1_Test=2.033464116208586
 INFO:pyaf.std:MODEL_L2 L2_Fit=24.512509780850973 L2_Forecast=9.041345322032308 L2_Test=2.033464116208586
 INFO:pyaf.std:MODEL_LnQ LnQ_Fit=inf LnQ_Forecast=inf LnQ_Test=inf
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=13.00769230769231 MedAE_Forecast=2.624248055293165 MedAE_Test=2.033464116208586
-INFO:pyaf.std:MODEL_COMPLEXITY 2
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=13.007692307692308 MedAE_Forecast=2.6242480552931653 MedAE_Test=2.033464116208586
+INFO:pyaf.std:MODEL_COMPLEXITY 2.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND ConstantTrend 1.0769230769230769
+INFO:pyaf.std:CONSTANT_TREND _Signal_ConstantTrend 0.011102299762093577
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_ConstantTrend_residue_zeroCycle 0.0 {}
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_ConstantTrend_residue_zeroCycle[0.0] 0.0 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:CROSTON_ALPHA 0.1
 INFO:pyaf.std:CROSTON_METHOD SBA
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_PLOTTING
-/home/circleci/.pyenv/versions/3.9.5/lib/python3.9/site-packages/numpy/lib/histograms.py:906: RuntimeWarning: divide by zero encountered in true_divide
+INFO:pyaf.timing:('OPERATION_START', ('PLOTTING', {'Signals': ['Signal']}))
+/home/circleci/.pyenv/versions/3.10.2/lib/python3.10/site-packages/numpy/lib/histograms.py:906: RuntimeWarning: divide by zero encountered in true_divide
   return n/db/n.sum(), bin_edges
-/home/circleci/.pyenv/versions/3.9.5/lib/python3.9/site-packages/numpy/lib/histograms.py:906: RuntimeWarning: invalid value encountered in true_divide
+/home/circleci/.pyenv/versions/3.10.2/lib/python3.10/site-packages/numpy/lib/histograms.py:906: RuntimeWarning: invalid value encountered in true_divide
   return n/db/n.sum(), bin_edges
-INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 3.6052350997924805
-INFO:pyaf.std:START_FORECASTING '['Signal']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Signal']' 0.1843433380126953
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.572, ('PLOTTING', {'Signals': ['Signal']}))
+INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['Signal'], 'Horizon': 7}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.125, ('FORECASTING', {'Signals': ['Signal'], 'Horizon': 7}))
 Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
-       '_Signal_ConstantTrend_residue_zeroCycle',
-       '_Signal_ConstantTrend_residue_zeroCycle_residue',
-       '_Signal_ConstantTrend_residue_zeroCycle_residue_CROSTON(0.1)',
-       '_Signal_ConstantTrend_residue_zeroCycle_residue_CROSTON(0.1)_residue',
+       '_Signal_ConstantTrend_residue_zeroCycle[0.0]',
+       '_Signal_ConstantTrend_residue_zeroCycle[0.0]_residue',
+       '_Signal_ConstantTrend_residue_zeroCycle[0.0]_residue_CROSTON(0.1)',
+       '_Signal_ConstantTrend_residue_zeroCycle[0.0]_residue_CROSTON(0.1)_residue',
        '_Signal_Trend', '_Signal_Trend_residue', '_Signal_Cycle',
        '_Signal_Cycle_residue', '_Signal_AR', '_Signal_AR_residue',
        '_Signal_TransformedForecast', 'Signal_Forecast',
@@ -56,18 +67,18 @@ Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        'Signal_Forecast_Quantile_98'],
       dtype='object')
           Date  Signal  _Signal  _Signal_TransformedForecast  Signal_Forecast
-360 2017-01-19     0.0      0.0                     2.033464         2.033464
-361 2017-01-20     0.0      0.0                     2.033464         2.033464
-362 2017-01-21     0.0      0.0                     2.033464         2.033464
-363 2017-01-22     0.0      0.0                     2.033464         2.033464
-364 2017-01-23     0.0      0.0                     2.033464         2.033464
-365 2017-01-24     NaN      NaN                     2.033464         2.033464
-366 2017-01-25     NaN      NaN                     2.033464         2.033464
-367 2017-01-26     NaN      NaN                     2.033464         2.033464
-368 2017-01-27     NaN      NaN                     2.033464         2.033464
-369 2017-01-28     NaN      NaN                     2.033464         2.033464
-370 2017-01-29     NaN      NaN                     2.033464         2.033464
-371 2017-01-30     NaN      NaN                     2.033464         2.033464
+360 2017-01-19     0.0      0.0                     0.020964         2.033464
+361 2017-01-20     0.0      0.0                     0.020964         2.033464
+362 2017-01-21     0.0      0.0                     0.020964         2.033464
+363 2017-01-22     0.0      0.0                     0.020964         2.033464
+364 2017-01-23     0.0      0.0                     0.020964         2.033464
+365 2017-01-24     NaN      NaN                     0.020964         2.033464
+366 2017-01-25     NaN      NaN                     0.020964         2.033464
+367 2017-01-26     NaN      NaN                     0.020964         2.033464
+368 2017-01-27     NaN      NaN                     0.020964         2.033464
+369 2017-01-28     NaN      NaN                     0.020964         2.033464
+370 2017-01-29     NaN      NaN                     0.020964         2.033464
+371 2017-01-30     NaN      NaN                     0.020964         2.033464
 count    365.000000
 mean       1.052055
 std        8.410160

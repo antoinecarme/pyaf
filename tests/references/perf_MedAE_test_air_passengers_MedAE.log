@@ -1,67 +1,84 @@
-INFO:pyaf.std:START_TRAINING 'AirPassengers'
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['AirPassengers']' 4.586654901504517
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['AirPassengers'], 'Transformations': [('AirPassengers', 'None', '_', 'T+S+R'), ('AirPassengers', 'None', 'Diff_', 'T+S+R'), ('AirPassengers', 'None', 'RelDiff_', 'T+S+R'), ('AirPassengers', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'AirPassengers', 'Transformation': '_AirPassengers'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'AirPassengers', 'Transformation': 'RelDiff_AirPassengers'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'AirPassengers', 'Transformation': 'Diff_AirPassengers'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'AirPassengers', 'Transformation': 'CumSum_AirPassengers'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.426, ('TRAINING', {'Signal': 'AirPassengers', 'Transformation': '_AirPassengers'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.431, ('TRAINING', {'Signal': 'AirPassengers', 'Transformation': 'CumSum_AirPassengers'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.441, ('TRAINING', {'Signal': 'AirPassengers', 'Transformation': 'Diff_AirPassengers'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.489, ('TRAINING', {'Signal': 'AirPassengers', 'Transformation': 'RelDiff_AirPassengers'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.548, ('SIGNAL_TRAINING', {'Signals': ['AirPassengers'], 'Transformations': [('AirPassengers', 'None', '_', 'T+S+R'), ('AirPassengers', 'None', 'Diff_', 'T+S+R'), ('AirPassengers', 'None', 'RelDiff_', 'T+S+R'), ('AirPassengers', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['AirPassengers'], 'Transformations': [('AirPassengers', [('AirPassengers', 'None', 'CumSum_', 'T+S+R'), ('AirPassengers', 'None', 'Diff_', 'T+S+R'), ('AirPassengers', 'None', 'RelDiff_', 'T+S+R'), ('AirPassengers', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'AirPassengers', 'Transformations': [('AirPassengers', 'None', 'CumSum_', 'T+S+R'), ('AirPassengers', 'None', 'Diff_', 'T+S+R'), ('AirPassengers', 'None', 'RelDiff_', 'T+S+R'), ('AirPassengers', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.005, ('MODEL_SELECTION', {'Signal': 'AirPassengers', 'Transformations': [('AirPassengers', 'None', 'CumSum_', 'T+S+R'), ('AirPassengers', 'None', 'Diff_', 'T+S+R'), ('AirPassengers', 'None', 'RelDiff_', 'T+S+R'), ('AirPassengers', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'AirPassengers', 'Model': 'Diff_AirPassengers_Lag1Trend_residue_zeroCycle[0.0]_residue_AR(33)'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.017, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'AirPassengers', 'Model': 'Diff_AirPassengers_Lag1Trend_residue_zeroCycle[0.0]_residue_AR(33)'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'AirPassengers'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.178, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'AirPassengers'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.2, ('FINALIZE_TRAINING', {'Signals': ['AirPassengers'], 'Transformations': [('AirPassengers', [('AirPassengers', 'None', 'CumSum_', 'T+S+R'), ('AirPassengers', 'None', 'Diff_', 'T+S+R'), ('AirPassengers', 'None', 'RelDiff_', 'T+S+R'), ('AirPassengers', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='time' TimeMin=1949.0 TimeMax=1956.91666666667 TimeDelta=0.08333333333336763 Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='AirPassengers' Length=132  Min=104 Max=559  Mean=262.49242424242425 StdDev=106.22114554451818
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_AirPassengers' Min=104 Max=559  Mean=262.49242424242425 StdDev=106.22114554451818
-INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_AirPassengers_LinearTrend_residue_bestCycle_byMAPE_residue_AR(33)' [LinearTrend + Cycle_None + AR]
-INFO:pyaf.std:TREND_DETAIL '_AirPassengers_LinearTrend' [LinearTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_AirPassengers_LinearTrend_residue_bestCycle_byMAPE' [Cycle_None]
-INFO:pyaf.std:AUTOREG_DETAIL '_AirPassengers_LinearTrend_residue_bestCycle_byMAPE_residue_AR(33)' [AR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0349 MAPE_Forecast=0.0217 MAPE_Test=0.0541
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0346 SMAPE_Forecast=0.022 SMAPE_Test=0.0558
-INFO:pyaf.std:MODEL_MASE MASE_Fit=0.3563 MASE_Forecast=0.2287 MASE_Test=0.495
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=20.081983713281158 CRPS_Forecast=19.804993024098497 CRPS_Test=22.92104605058621
-INFO:pyaf.std:MODEL_L1 L1_Fit=6.661608657426704 L1_Forecast=8.471185219450987 L1_Test=22.27708217077779
-INFO:pyaf.std:MODEL_L2 L2_Fit=8.553917012084728 L2_Forecast=11.971762904662388 L2_Test=23.5912315980211
-INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.21707299565598645 LnQ_Forecast=0.022572182527746724 LnQ_Test=0.043844207125542045
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=5.876278580989791 MedAE_Forecast=4.912484110765746 MedAE_Test=19.789555964306658
-INFO:pyaf.std:MODEL_COMPLEXITY 25
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='Diff_AirPassengers' Min=-0.22197802197802197 Max=0.167032967032967  Mean=0.004878454878454879 StdDev=0.06842680214767692
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
+INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'Diff_'
+INFO:pyaf.std:BEST_DECOMPOSITION  'Diff_AirPassengers_Lag1Trend_residue_zeroCycle[0.0]_residue_AR(33)' [Lag1Trend + NoCycle + AR]
+INFO:pyaf.std:TREND_DETAIL 'Diff_AirPassengers_Lag1Trend' [Lag1Trend]
+INFO:pyaf.std:CYCLE_DETAIL 'Diff_AirPassengers_Lag1Trend_residue_zeroCycle[0.0]' [NoCycle]
+INFO:pyaf.std:AUTOREG_DETAIL 'Diff_AirPassengers_Lag1Trend_residue_zeroCycle[0.0]_residue_AR(33)' [AR]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.0676 MAPE_Forecast=0.0754 MAPE_Test=0.0661
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.0663 SMAPE_Forecast=0.0723 SMAPE_Test=0.0638
+INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7502 MASE_Forecast=0.7466 MASE_Test=0.6218
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=21.29513106618203 CRPS_Forecast=19.29614565133268 CRPS_Test=20.247150650896202
+INFO:pyaf.std:MODEL_L1 L1_Fit=14.02559609749405 L1_Forecast=27.65602866334903 L1_Test=27.97997485929886
+INFO:pyaf.std:MODEL_L2 L2_Fit=18.35404789028103 L2_Forecast=35.842692837697676 L2_Test=37.99916412409668
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.6547555370256037 LnQ_Forecast=0.20023695218386167 LnQ_Test=0.08571709592033773
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=11.023237161954654 MedAE_Forecast=18.649828427036113 MedAE_Test=15.32073525367528
+INFO:pyaf.std:MODEL_COMPLEXITY 27.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
-INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:DIFFERENCING_TRANSFORMATION Difference 0.017582417582417582
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:LINEAR_RIDGE_TREND LinearTrend (114.90523344816313, array([197.60619977]))
+INFO:pyaf.std:LAG1_TREND Lag1Trend 0.0
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _AirPassengers_LinearTrend_residue_bestCycle_byMAPE None -2.6282680725725527 {}
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES Diff_AirPassengers_Lag1Trend_residue_zeroCycle[0.0] 0.0 {}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
-INFO:pyaf.std:AR_MODEL_COEFF 1 _AirPassengers_LinearTrend_residue_bestCycle_byMAPE_residue_Lag1 0.7786311442771687
-INFO:pyaf.std:AR_MODEL_COEFF 2 _AirPassengers_LinearTrend_residue_bestCycle_byMAPE_residue_Lag12 0.7393757053683521
-INFO:pyaf.std:AR_MODEL_COEFF 3 _AirPassengers_LinearTrend_residue_bestCycle_byMAPE_residue_Lag13 -0.5331389013991997
-INFO:pyaf.std:AR_MODEL_COEFF 4 _AirPassengers_LinearTrend_residue_bestCycle_byMAPE_residue_Lag25 -0.28768918871524407
-INFO:pyaf.std:AR_MODEL_COEFF 5 _AirPassengers_LinearTrend_residue_bestCycle_byMAPE_residue_Lag24 0.2430278567579709
-INFO:pyaf.std:AR_MODEL_COEFF 6 _AirPassengers_LinearTrend_residue_bestCycle_byMAPE_residue_Lag33 -0.18406731004060684
-INFO:pyaf.std:AR_MODEL_COEFF 7 _AirPassengers_LinearTrend_residue_bestCycle_byMAPE_residue_Lag5 0.17161844385149339
-INFO:pyaf.std:AR_MODEL_COEFF 8 _AirPassengers_LinearTrend_residue_bestCycle_byMAPE_residue_Lag29 -0.16896686902776942
-INFO:pyaf.std:AR_MODEL_COEFF 9 _AirPassengers_LinearTrend_residue_bestCycle_byMAPE_residue_Lag7 -0.16816626466286244
-INFO:pyaf.std:AR_MODEL_COEFF 10 _AirPassengers_LinearTrend_residue_bestCycle_byMAPE_residue_Lag16 -0.16495284212980588
+INFO:pyaf.std:AR_MODEL_COEFF 1 Diff_AirPassengers_Lag1Trend_residue_zeroCycle[0.0]_residue_Lag12 0.16198623980555238
+INFO:pyaf.std:AR_MODEL_COEFF 2 Diff_AirPassengers_Lag1Trend_residue_zeroCycle[0.0]_residue_Lag24 0.12060618981207342
+INFO:pyaf.std:AR_MODEL_COEFF 3 Diff_AirPassengers_Lag1Trend_residue_zeroCycle[0.0]_residue_Lag10 -0.05469705196763587
+INFO:pyaf.std:AR_MODEL_COEFF 4 Diff_AirPassengers_Lag1Trend_residue_zeroCycle[0.0]_residue_Lag14 -0.05367797044044979
+INFO:pyaf.std:AR_MODEL_COEFF 5 Diff_AirPassengers_Lag1Trend_residue_zeroCycle[0.0]_residue_Lag1 -0.047982123888236416
+INFO:pyaf.std:AR_MODEL_COEFF 6 Diff_AirPassengers_Lag1Trend_residue_zeroCycle[0.0]_residue_Lag26 -0.047841007866660096
+INFO:pyaf.std:AR_MODEL_COEFF 7 Diff_AirPassengers_Lag1Trend_residue_zeroCycle[0.0]_residue_Lag2 -0.04674478936329034
+INFO:pyaf.std:AR_MODEL_COEFF 8 Diff_AirPassengers_Lag1Trend_residue_zeroCycle[0.0]_residue_Lag4 -0.04592895643488448
+INFO:pyaf.std:AR_MODEL_COEFF 9 Diff_AirPassengers_Lag1Trend_residue_zeroCycle[0.0]_residue_Lag20 -0.04568000826545818
+INFO:pyaf.std:AR_MODEL_COEFF 10 Diff_AirPassengers_Lag1Trend_residue_zeroCycle[0.0]_residue_Lag8 -0.04204788122749125
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:START_PLOTTING
-INFO:pyaf.std:END_PLOTTING_TIME_IN_SECONDS 7.744261741638184
-INFO:pyaf.std:START_FORECASTING '['AirPassengers']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['AirPassengers']' 0.4249536991119385
-  Split        Transformation  ... ForecastMedAE  TestMedAE
-0  None        _AirPassengers  ...      4.912484  19.789556
-1  None        _AirPassengers  ...      4.912484  19.789556
-2  None    Diff_AirPassengers  ...      7.268318  12.237549
-3  None  CumSum_AirPassengers  ...      7.276067   7.470913
-4  None  CumSum_AirPassengers  ...      7.276067   7.470913
+INFO:pyaf.timing:('OPERATION_START', ('PLOTTING', {'Signals': ['AirPassengers']}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.628, ('PLOTTING', {'Signals': ['AirPassengers']}))
+INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['AirPassengers'], 'Horizon': 12}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.131, ('FORECASTING', {'Signals': ['AirPassengers'], 'Horizon': 12}))
+  Split      Transformation  ... ForecastMedAE  TestMedAE
+0  None  Diff_AirPassengers  ...     18.649828  15.320735
+1  None      _AirPassengers  ...     19.903329  24.054133
+2  None  Diff_AirPassengers  ...     20.131507  16.907683
+3  None      _AirPassengers  ...     21.079190  23.117394
+4  None  Diff_AirPassengers  ...     22.708962  42.673945
 
-[5 rows x 8 columns]
+[5 rows x 10 columns]
 Forecast Columns  Index(['time', 'AirPassengers', 'row_number', 'time_Normalized',
-       '_AirPassengers', '_AirPassengers_LinearTrend',
-       '_AirPassengers_LinearTrend_residue',
-       '_AirPassengers_LinearTrend_residue_bestCycle_byMAPE',
-       '_AirPassengers_LinearTrend_residue_bestCycle_byMAPE_residue',
-       '_AirPassengers_LinearTrend_residue_bestCycle_byMAPE_residue_AR(33)',
-       '_AirPassengers_LinearTrend_residue_bestCycle_byMAPE_residue_AR(33)_residue',
-       '_AirPassengers_Trend', '_AirPassengers_Trend_residue',
-       '_AirPassengers_Cycle', '_AirPassengers_Cycle_residue',
-       '_AirPassengers_AR', '_AirPassengers_AR_residue',
-       '_AirPassengers_TransformedForecast', 'AirPassengers_Forecast',
-       '_AirPassengers_TransformedResidue', 'AirPassengers_Residue',
+       'Diff_AirPassengers', 'Diff_AirPassengers_Lag1Trend',
+       'Diff_AirPassengers_Lag1Trend_residue',
+       'Diff_AirPassengers_Lag1Trend_residue_zeroCycle[0.0]',
+       'Diff_AirPassengers_Lag1Trend_residue_zeroCycle[0.0]_residue',
+       'Diff_AirPassengers_Lag1Trend_residue_zeroCycle[0.0]_residue_AR(33)',
+       'Diff_AirPassengers_Lag1Trend_residue_zeroCycle[0.0]_residue_AR(33)_residue',
+       'Diff_AirPassengers_Trend', 'Diff_AirPassengers_Trend_residue',
+       'Diff_AirPassengers_Cycle', 'Diff_AirPassengers_Cycle_residue',
+       'Diff_AirPassengers_AR', 'Diff_AirPassengers_AR_residue',
+       'Diff_AirPassengers_TransformedForecast', 'AirPassengers_Forecast',
+       'Diff_AirPassengers_TransformedResidue', 'AirPassengers_Residue',
        'AirPassengers_Forecast_Lower_Bound',
        'AirPassengers_Forecast_Upper_Bound',
        'AirPassengers_Forecast_Quantile_25',
@@ -95,18 +112,18 @@ Forecasts
 129  1959.750000  ...                                 NaN
 130  1959.833333  ...                                 NaN
 131  1959.916667  ...                                 NaN
-132  1960.000000  ...                          427.657421
-133  1960.083333  ...                          399.424006
-134  1960.166667  ...                          456.765653
-135  1960.250000  ...                          512.347708
-136  1960.333333  ...                          753.238798
-137  1960.416667  ...                         1208.760036
-138  1960.500000  ...                         2050.507020
-139  1960.583333  ...                         3376.269807
-140  1960.666667  ...                         4967.708813
-141  1960.750000  ...                         5799.430189
-142  1960.833333  ...                         5352.171549
-143  1960.916667  ...                         7721.072427
+132  1960.000000  ...                          505.547963
+133  1960.083333  ...                          554.911969
+134  1960.166667  ...                          618.829190
+135  1960.250000  ...                          650.286959
+136  1960.333333  ...                          686.632679
+137  1960.416667  ...                          737.169466
+138  1960.500000  ...                          789.667598
+139  1960.583333  ...                          813.512039
+140  1960.666667  ...                          799.408870
+141  1960.750000  ...                          803.181076
+142  1960.833333  ...                          827.787479
+143  1960.916667  ...                          909.184463
 
 [24 rows x 5 columns]
 
@@ -128,20 +145,21 @@ Forecasts
         },
         "Model": {
             "AR_Model": "AR",
-            "Best_Decomposition": "_AirPassengers_LinearTrend_residue_bestCycle_byMAPE_residue_AR(33)",
-            "Cycle": "Cycle_None",
-            "Signal_Transoformation": "NoTransf",
-            "Trend": "LinearTrend"
+            "Best_Decomposition": "Diff_AirPassengers_Lag1Trend_residue_zeroCycle[0.0]_residue_AR(33)",
+            "Cycle": "NoCycle",
+            "Signal_Decomposition_Type": "T+S+R",
+            "Signal_Transoformation": "Difference",
+            "Trend": "Lag1Trend"
         },
         "Model_Performance": {
-            "COMPLEXITY": "25",
-            "CRPS": "19.804993024098497",
-            "LnQ": "0.022572182527746724",
-            "MAE": "8.471185219450987",
-            "MAPE": "0.0217",
-            "MASE": "0.2287",
-            "MedAE": "4.912484110765746",
-            "RMSE": "11.971762904662388"
+            "COMPLEXITY": 27.0,
+            "CRPS": 19.29614565133268,
+            "LnQ": 0.20023695218386167,
+            "MAE": 27.65602866334903,
+            "MAPE": 0.0754,
+            "MASE": 0.7466,
+            "MedAE": 18.649828427036113,
+            "RMSE": 35.842692837697676
         }
     }
 }
@@ -151,7 +169,7 @@ Forecasts
 
 
 <Forecast>
-{"time":{"120":1959.0,"121":1959.0833333333,"122":1959.1666666667,"123":1959.25,"124":1959.3333333333,"125":1959.4166666667,"126":1959.5,"127":1959.5833333333,"128":1959.6666666667,"129":1959.75,"130":1959.8333333333,"131":1959.9166666667,"132":1960.0,"133":1960.0833333333,"134":1960.1666666667,"135":1960.25,"136":1960.3333333333,"137":1960.4166666667,"138":1960.5,"139":1960.5833333333,"140":1960.6666666667,"141":1960.75,"142":1960.8333333333,"143":1960.9166666667},"AirPassengers":{"120":360.0,"121":342.0,"122":406.0,"123":396.0,"124":420.0,"125":472.0,"126":548.0,"127":559.0,"128":463.0,"129":407.0,"130":362.0,"131":405.0,"132":null,"133":null,"134":null,"135":null,"136":null,"137":null,"138":null,"139":null,"140":null,"141":null,"142":null,"143":null},"AirPassengers_Forecast":{"120":336.76433931,"121":322.8158768976,"122":370.1970011391,"123":378.032857026,"124":398.9335945668,"125":490.9916896704,"126":527.6050111738,"127":547.2692898967,"128":447.2569355178,"129":389.1498397716,"130":336.5874463251,"131":365.0545119965,"132":404.1927658782,"133":362.2723575753,"134":407.3659989041,"135":392.3773701384,"136":426.0082038065,"137":494.6325800918,"138":561.1241745773,"139":558.3950905274,"140":437.9865222534,"141":374.1309595368,"142":319.9068836751,"143":355.980727},"AirPassengers_Forecast_Lower_Bound":{"120":null,"121":null,"122":null,"123":null,"124":null,"125":null,"126":null,"127":null,"128":null,"129":null,"130":null,"131":null,"132":380.728110585,"133":325.1207093518,"134":357.9663450975,"135":272.4070322436,"136":98.7776096736,"137":-219.4948761308,"138":-928.2586710996,"139":-2259.4796258239,"140":-4091.7357686507,"141":-5051.1682697072,"142":-4712.3577817431,"143":-7009.1109734852},"AirPassengers_Forecast_Upper_Bound":{"120":null,"121":null,"122":null,"123":null,"124":null,"125":null,"126":null,"127":null,"128":null,"129":null,"130":null,"131":null,"132":427.6574211713,"133":399.4240057988,"134":456.7656527106,"135":512.3477080331,"136":753.2387979395,"137":1208.7600363145,"138":2050.5070202542,"139":3376.2698068788,"140":4967.7088131576,"141":5799.4301887809,"142":5352.1715490932,"143":7721.0724274852}}
+{"time":{"120":1959.0,"121":1959.0833333333,"122":1959.1666666667,"123":1959.25,"124":1959.3333333333,"125":1959.4166666667,"126":1959.5,"127":1959.5833333333,"128":1959.6666666667,"129":1959.75,"130":1959.8333333333,"131":1959.9166666667,"132":1960.0,"133":1960.0833333333,"134":1960.1666666667,"135":1960.25,"136":1960.3333333333,"137":1960.4166666667,"138":1960.5,"139":1960.5833333333,"140":1960.6666666667,"141":1960.75,"142":1960.8333333333,"143":1960.9166666667},"AirPassengers":{"120":360.0,"121":342.0,"122":406.0,"123":396.0,"124":420.0,"125":472.0,"126":548.0,"127":559.0,"128":463.0,"129":407.0,"130":362.0,"131":405.0,"132":null,"133":null,"134":null,"135":null,"136":null,"137":null,"138":null,"139":null,"140":null,"141":null,"142":null,"143":null},"AirPassengers_Forecast":{"120":362.7760546831,"121":361.0035483927,"122":367.6534418791,"123":406.5280792952,"124":408.3620778854,"125":460.8573272685,"126":502.990361287,"127":557.9214384121,"128":546.5721211931,"129":465.295163738,"130":413.9821277727,"131":402.6127500313,"132":435.2962852294,"133":436.1483661028,"134":461.2761886876,"135":463.6597067773,"136":480.3922561513,"137":518.7196340492,"138":559.279544531,"139":574.8413526819,"140":558.3461242833,"141":558.1084518237,"142":561.5574311244,"143":598.4971116962},"AirPassengers_Forecast_Lower_Bound":{"120":null,"121":null,"122":null,"123":null,"124":null,"125":null,"126":null,"127":null,"128":null,"129":null,"130":null,"131":null,"132":365.0446072675,"133":317.3847631288,"134":303.7231871302,"135":277.0324541186,"136":274.1518331509,"137":300.2698025548,"138":328.8914910118,"139":336.1706663352,"140":317.2833785071,"141":313.0358271885,"142":295.3273830522,"143":287.809760547},"AirPassengers_Forecast_Upper_Bound":{"120":null,"121":null,"122":null,"123":null,"124":null,"125":null,"126":null,"127":null,"128":null,"129":null,"130":null,"131":null,"132":505.5479631913,"133":554.9119690768,"134":618.8291902451,"135":650.286959436,"136":686.6326791517,"137":737.1694655436,"138":789.6675980502,"139":813.5120390286,"140":799.4088700595,"141":803.1810764589,"142":827.7874791965,"143":909.1844628455}}
 </Forecast>
 
 

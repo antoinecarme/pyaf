@@ -1,4 +1,4 @@
-INFO:pyaf.std:START_TRAINING 'Close'
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['Close'], 'Transformations': [('Close', 'None', '_', 'T+S+R'), ('Close', 'None', 'Diff_', 'T+S+R'), ('Close', 'None', 'RelDiff_', 'T+S+R'), ('Close', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 REQUEST_DETAILS [('CSVFile', 'https://raw.githubusercontent.com/antoinecarme/TimeSeriesData/a5fa96af431caabc817180d52bc1d01b8c61da41/YahooFinance/nasdaq/yahoo_GOOG.csv'), ('DateFormat', '%Y-%m-%d'), ('Horizon', 21), ('Name', 'PYAF_MODEL_DJOQFD_GOOG'), ('Present', '2016-01-01'), ('SignalVar', 'Close'), ('TimeVar', 'Date')]
 None
 DATASET_DETECTED_COLUMNS Index(['Unnamed: 0', 'Symbol', 'Date', 'Close', 'Low', 'Volume', 'Open',
@@ -10,19 +10,35 @@ DATASET_FINAL_COLUMNS Index(['Unnamed: 0', 'Symbol', 'Date', 'Close', 'Low', 'Vo
 TRAIN_PARAMS (857, 9) Index(['Unnamed: 0', 'Symbol', 'Date', 'Close', 'Low', 'Volume', 'Open',
        'Adj_Close', 'High'],
       dtype='object') Date Close 21
-INFO:pyaf.std:END_TRAINING_TIME_IN_SECONDS '['Close']' 15.44494080543518
-INFO:pyaf.std:START_FORECASTING '['Close']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Close']' 0.5875444412231445
-INFO:pyaf.std:START_FORECASTING '['Close']'
-INFO:pyaf.std:END_FORECAST_TIME_IN_SECONDS  '['Close']' 0.5761303901672363
-  Split Transformation  ... ForecastMAPE TestMAPE
-0  None         _Close  ...       0.0121   0.0102
-1  None         _Close  ...       0.0121   0.0102
-2  None   CumSum_Close  ...       0.0121   0.0102
-3  None     Diff_Close  ...       0.0121   0.0102
-4  None     Diff_Close  ...       0.0121   0.0102
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Close', 'Transformation': '_Close'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Close', 'Transformation': 'Diff_Close'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Close', 'Transformation': 'RelDiff_Close'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Close', 'Transformation': 'CumSum_Close'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.368, ('TRAINING', {'Signal': 'Close', 'Transformation': '_Close'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.373, ('TRAINING', {'Signal': 'Close', 'Transformation': 'CumSum_Close'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.54, ('TRAINING', {'Signal': 'Close', 'Transformation': 'Diff_Close'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.721, ('TRAINING', {'Signal': 'Close', 'Transformation': 'RelDiff_Close'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.813, ('SIGNAL_TRAINING', {'Signals': ['Close'], 'Transformations': [('Close', 'None', '_', 'T+S+R'), ('Close', 'None', 'Diff_', 'T+S+R'), ('Close', 'None', 'RelDiff_', 'T+S+R'), ('Close', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['Close'], 'Transformations': [('Close', [('Close', 'None', 'CumSum_', 'T+S+R'), ('Close', 'None', 'Diff_', 'T+S+R'), ('Close', 'None', 'RelDiff_', 'T+S+R'), ('Close', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'Close', 'Transformations': [('Close', 'None', 'CumSum_', 'T+S+R'), ('Close', 'None', 'Diff_', 'T+S+R'), ('Close', 'None', 'RelDiff_', 'T+S+R'), ('Close', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.006, ('MODEL_SELECTION', {'Signal': 'Close', 'Transformations': [('Close', 'None', 'CumSum_', 'T+S+R'), ('Close', 'None', 'Diff_', 'T+S+R'), ('Close', 'None', 'RelDiff_', 'T+S+R'), ('Close', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Close', 'Model': '_Close_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.016, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Close', 'Model': '_Close_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Close'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.301, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Close'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.323, ('FINALIZE_TRAINING', {'Signals': ['Close'], 'Transformations': [('Close', [('Close', 'None', 'CumSum_', 'T+S+R'), ('Close', 'None', 'Diff_', 'T+S+R'), ('Close', 'None', 'RelDiff_', 'T+S+R'), ('Close', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['Close'], 'Horizon': 21}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.214, ('FORECASTING', {'Signals': ['Close'], 'Horizon': 21}))
+INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['Close'], 'Horizon': 21}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.202, ('FORECASTING', {'Signals': ['Close'], 'Horizon': 21}))
+  Split Transformation DecompositionType  ... FitMAPE ForecastMAPE TestMAPE
+0  None         _Close             T+S+R  ...  0.0109       0.0121   0.0102
+1  None         _Close             T+S+R  ...  0.0109       0.0121   0.0102
+2  None   CumSum_Close             T+S+R  ...  0.0113       0.0121   0.0102
+3  None   CumSum_Close             T+S+R  ...  0.0113       0.0121   0.0102
+4  None     Diff_Close             T+S+R  ...  0.0109       0.0121   0.0102
 
-[5 rows x 8 columns]
+[5 rows x 10 columns]
 Forecast Columns  Index(['Date', 'Close', 'row_number', 'Date_Normalized', '_Close',
        '_Close_Lag1Trend', '_Close_Lag1Trend_residue',
        '_Close_Lag1Trend_residue_bestCycle_byMAPE',
@@ -97,18 +113,19 @@ Forecasts
             "AR_Model": "NoAR",
             "Best_Decomposition": "_Close_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR",
             "Cycle": "Cycle_None",
+            "Signal_Decomposition_Type": "T+S+R",
             "Signal_Transoformation": "NoTransf",
             "Trend": "Lag1Trend"
         },
         "Model_Performance": {
-            "COMPLEXITY": "2",
-            "CRPS": "19.116303379394875",
-            "LnQ": "0.06762097969376782",
-            "MAE": "7.5009137321428545",
-            "MAPE": "0.0121",
-            "MASE": "0.995",
-            "MedAE": "4.595008999999948",
-            "RMSE": "12.51238590052718"
+            "COMPLEXITY": 2.0,
+            "CRPS": 19.116303379394875,
+            "LnQ": 0.06762097969376782,
+            "MAE": 7.5009137321428545,
+            "MAPE": 0.0121,
+            "MASE": 0.995,
+            "MedAE": 4.595008999999948,
+            "RMSE": 12.51238590052718
         }
     }
 }
