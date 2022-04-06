@@ -16,7 +16,7 @@ lEngine
 H = b1.mHorizon;
 # lEngine.mOptions.enable_slow_mode();
 lEngine.mOptions.mDebugPerformance = True;
-# lEngine.mOptions.mModelSelection_Criterion = "CRPS"
+lEngine.mOptions.mModelSelection_Criterion = "CRPS"
 lEngine.mOptions.mParallelMode = True;
 lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H);
 lEngine.getModelInfo();
