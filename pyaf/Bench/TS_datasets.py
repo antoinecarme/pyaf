@@ -13,7 +13,6 @@ from datetime import date
 # from memory_profiler import profile
 
 import os.path
-from . import stocks_symbol_list as symlist
 
 
 class cTimeSeriesDatasetSpec:
@@ -671,60 +670,28 @@ def load_M4_comp(iType = None) :
 
 def get_stock_web_link():
     YAHOO_LINKS_DATA = {}
-    lines = []
-    with open('data/yahoo_list.txt') as data_file:
-        lines = data_file.readlines()
-        lines = [line.rstrip('\n') for line in lines]
-    import re
-    for line in lines:
-        csv = line.replace('.csv', '')
-        csv = re.sub(r"^(.*)yahoo_", "", csv);
-        # print("YAHOO_LINKS_DATA" , csv, line)
-        YAHOO_LINKS_DATA[csv] = line;
+    with open("pyaf/Bench/yahoo_data.json", "r") as read_file:
+        import json
+        YAHOO_LINKS_DATA = json.load(read_file)
+
     print("ACQUIRED_YAHOO_LINKS" , len(YAHOO_LINKS_DATA));
     return YAHOO_LINKS_DATA;
 
-def load_yahoo_stock_price( stock , iLocal = True, YAHOO_LINKS_DATA = None) :
-    filename = YAHOO_LINKS_DATA.get(stock);
+def load_yahoo_stock_price(symbol_list_key, stock , iLocal = True, YAHOO_LINKS_DATA = None) :
+    filename = YAHOO_LINKS_DATA.get(symbol_list_key).get(stock);
     if(filename is None):
-        raise Exception("MISSING " + stock)
+        raise Exception("MISSING " + symbol_list_key + "." + stock)
         
     # print("YAHOO_DATA_LINK" , stock, filename);
 
     tsspec = cTimeSeriesDatasetSpec();
-    tsspec.mName = "Yahoo_Stock_Price_" + stock 
+    tsspec.mName = "Yahoo_Stock_Price_" + symbol_list_key + "." + stock 
     tsspec.mDescription = "Yahoo Stock Price using yahoo-finance package"
     df_train = pd.DataFrame();
-    if(iLocal):
-        filename = "data/yahoo/" + filename
-    else:
-        base_uri = "https://raw.githubusercontent.com/antoinecarme/TimeSeriesData/master/YahooFinance/";
-        filename =  base_uri + filename;
-    print("YAHOO_DATA_LINK_URI" , stock, filename);
-    if(os.path.isfile(filename)):
-        # print("already downloaded " + stock , "reloading " , filename);
-        df_train = pd.read_csv(filename);
-    else:
-        # return None;
-        from yahoo_finance import Share
-        stock_obj = Share(stock)
-        today = date.today()
-        today
-        before = date(today.year - 5, today.month, today.day)
-        # print(today, before)
-        lst = stock_obj.get_historical(before.isoformat(), today.isoformat())
-        # print(stock , len(lst));
-        if(len(lst) > 0):
-            for k in lst[0].keys():
-                for i in range(0, len(lst)):
-                    lst_k = [];
-                    for line1 in lst:
-                        lst_k = lst_k + [line1[k]];
-                df_train[k] = lst_k;
-            # df_train.to_csv(filename);
-        else:
-            # df_train.to_csv(filename);
-            return None            
+    assert(iLocal)
+    print("YAHOO_DATA_LINK_URI" , symbol_list_key, stock, filename);
+    assert(os.path.isfile(filename))
+    df_train = pd.read_csv(filename);
 
     tsspec.mFullDataset = pd.DataFrame();
     tsspec.mFullDataset[stock] = df_train['Close'].apply(float);
@@ -749,16 +716,19 @@ def load_yahoo_stock_price( stock , iLocal = True, YAHOO_LINKS_DATA = None) :
 
 
 # @profile    
-def load_yahoo_stock_prices(symbol_list_key) :
+def load_yahoo_stock_prices(symbol_list_key, stock = None) :
     tsspecs = {}
 
     YAHOO_LINKS_DATA = get_stock_web_link();
 
-    stocks = symlist.SYMBOL_LIST[symbol_list_key]
+    stocks = YAHOO_LINKS_DATA[symbol_list_key]
+    if(stock is not None):
+        assert(stock in stocks)
+        stocks = [stock]
     for stock in sorted(stocks):
         tsspec1 = None
         try:
-            tsspec1 = load_yahoo_stock_price(stock , True, YAHOO_LINKS_DATA)
+            tsspec1 = load_yahoo_stock_price(symbol_list_key, stock , True, YAHOO_LINKS_DATA)
         except:
             # raise
             pass
@@ -769,45 +739,6 @@ def load_yahoo_stock_prices(symbol_list_key) :
 
     print("load_yahoo_stock_prices" , symbol_list_key, len(tsspecs.keys()));
     return tsspecs
-
-
-
-class cYahoo_download_Arg_Arg:
-    def __init__(self , stocks):
-        self.mList = stocks;
-
-def download_Yahoo_list(arg):
-    YAHOO_LINKS_DATA = get_stock_web_link();
-    for k in arg.mList:
-        try:
-            load_yahoo_stock_price(k, False, YAHOO_LINKS_DATA)
-        except:
-            pass
-
-def download_yahoo_stock_prices() :
-    import multiprocessing as mp
-    pool = mp.Pool()
-    args = []
-    for k in symlist.SYMBOL_LIST.keys():
-        lst = symlist.SYMBOL_LIST[k]
-        n = 0;
-        N = len(lst);
-        while(n <= N):
-            end1 = n + 50
-            if(end1 > N):
-                end1 = N;
-            lst1 = lst[n : end1]
-            arg = cYahoo_download_Arg_Arg(lst1)
-            args = args + [arg];
-            n = n + 50;
-                
-    asyncResult = pool.map_async(download_Yahoo_list, args);
-
-    resultList = asyncResult.get()
-
-
-def get_yahoo_symbol_lists():
-    return symlist.SYMBOL_LIST;
 
 
 
