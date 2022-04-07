@@ -5,13 +5,13 @@ import warnings
 
 
 H = 2;
+lSignal = "Signal_100_D_0_linear_12_exp_4_40"
 
 
 with warnings.catch_warnings():
     warnings.simplefilter("error")
-    tester1 = art.cArtificial_Tester(tsds.load_artificial_datsets("S") , "ARTIFICIAL_S");
+    tester1 = art.cArtificial_Tester(tsds.load_artificial_datsets("S", iName = lSignal) , "ARTIFICIAL_S");
     # lSignal = list(tester1.mTSSpecPerSignal.keys())[0];
-    lSignal = "Signal_100_D_0_linear_12_exp_4_40"
     tester1.testSignals(lSignal , H);
     # tester1.run_multiprocessed(18);
     del tester1;
