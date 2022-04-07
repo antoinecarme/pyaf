@@ -278,9 +278,14 @@ def apply_transform(signal , transform):
         # print(transformed.head())
     return transformed
 
+def generate_random_TS_name(N , FREQ, seed, trendtype, cycle_length, transform, sigma = 1.0, exog_count = 20, ar_order = 0) :
+    lName = "Signal_" + str(N) + "_" + str(FREQ) +  "_" + str(seed)  + "_" + str(trendtype) +  "_" + str(cycle_length)   + "_" + str(transform)   + "_" + str(sigma) + "_" + str(exog_count) ;
+    return lName
+    
 def generate_random_TS(N , FREQ, seed, trendtype, cycle_length, transform, sigma = 1.0, exog_count = 20, ar_order = 0) :
     tsspec = cTimeSeriesDatasetSpec();
-    tsspec.mName = "Signal_" + str(N) + "_" + str(FREQ) +  "_" + str(seed)  + "_" + str(trendtype) +  "_" + str(cycle_length)   + "_" + str(transform)   + "_" + str(sigma) + "_" + str(exog_count) ;
+    lName = generate_random_TS_name(N , FREQ, seed, trendtype, cycle_length, transform, sigma, exog_count, ar_order)
+    tsspec.mName = lName
     print("GENERATING_RANDOM_DATASET" , tsspec.mName);
     tsspec.mDescription = "Random generated dataset";
 
@@ -808,7 +813,7 @@ def get_yahoo_symbol_lists():
 
 
 # @profile    
-def generate_datasets(ds_type = "S"):
+def generate_datasets(ds_type = "S", iName=None):
     datasets = {};
     lRange_N = range(20, 101, 20)
     if(ds_type == "M"):
@@ -817,6 +822,8 @@ def generate_datasets(ds_type = "S"):
         lRange_N = range(600, 2001, 100)
     if(ds_type == "XL"):
         lRange_N = range(2500, 8000, 500)
+
+    lNames = {}
     
     for N in lRange_N:
         for trend in ["constant" , "linear" , "poly"]:
@@ -825,18 +832,24 @@ def generate_datasets(ds_type = "S"):
                     for sigma in range(0, 5, 2):
                         for exogc in range(0, 51, 20):
                             for seed in range(0, 1):
-                                ds = generate_random_TS(N , 'D', seed, trend,
-                                                        cycle_length, transf,
-                                                        sigma, exog_count = exogc);
-                                ds.mCategory = "ARTIFICIAL_" + ds_type;
-                                datasets[ds.mName] = ds
+                                lName = generate_random_TS_name(N , 'D', seed, trend,
+                                                                cycle_length, transf,
+                                                                sigma, exog_count = exogc);
+                                if((iName is None) or (lName == iName)):
+                                    lNames[lName] = (N , 'D', seed, trend,
+                                                     cycle_length, transf,
+                                                     sigma, exogc)
+    for (lName, args) in lNames.items():
+        ds = generate_random_TS(*args)
+        ds.mCategory = "ARTIFICIAL_" + ds_type;
+        datasets[ds.mName] = ds
     return datasets;
 
 
 # @profile    
-def load_artificial_datsets(ds_type = "S") :
+def load_artificial_datsets(ds_type = "S", iName= None) :
 
-    tsspecs = generate_datasets(ds_type);
+    tsspecs = generate_datasets(ds_type, iName);
     print("ARTIFICIAL_DATASETS_TESTED" , len(tsspecs))
 
     return tsspecs
