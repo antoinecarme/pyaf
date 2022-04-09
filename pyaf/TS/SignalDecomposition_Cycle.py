@@ -281,7 +281,7 @@ class cBestCycleForTrend(cAbstractCycle):
         assert(len(lData_smallest) > 0)
         self.mBestCycleLength = lData_smallest[0][0]
 
-        self.transformDataset(self.mCycleFrame);
+        # self.transformDataset(self.mCycleFrame);
         pass
 
 
@@ -345,7 +345,10 @@ class cBestCycleForTrend(cAbstractCycle):
             lDict = self.mBestCycleValueDict[self.mBestCycleLength];
             df[self.getCycleName()] = lValueCol.map(lDict).fillna(self.mDefaultValue)
         else:
-            df[self.getCycleName()] = np.zeros_like(df[self.mTimeInfo.mRowNumberColumn]);            
+            df[self.getCycleName()] = np.zeros_like(df[self.mTimeInfo.mRowNumberColumn]);
+            if(self.mDecompositionType in ['TS+R', 'TSR']):
+                # multiplicative models
+                df[self.getCycleName()] = 1.0
 
         target = df[self.mTrend_residue_name]
         self.compute_cycle_residue(df)
