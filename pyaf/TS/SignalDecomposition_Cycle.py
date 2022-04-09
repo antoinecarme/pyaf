@@ -220,7 +220,7 @@ class cSeasonalPeriodic(cAbstractCycle):
         self.mDefaultValue = self.compute_target_means_default_value()
         self.mEncodedValueDict = self.compute_target_means_by_cycle_value(self.mCycleFrame, self.getCycleName())
 
-        self.mCycleFrame[lName + '_enc'] = self.mCycleFrame[lName].apply(lambda x : self.mEncodedValueDict.get(x , self.mDefaultValue))
+        self.mCycleFrame[lName + '_enc'] = self.mCycleFrame[lName].map(self.mEncodedValueDict).fillna(self.mDefaultValue)
         self.mCycleFrame[lName + '_enc'].fillna(self.mDefaultValue, inplace=True);
         self.mCycleFrame[lName + '_NotEncoded'] = self.mCycleFrame[lName];
         self.mCycleFrame[lName] = self.mCycleFrame[lName + '_enc'];
@@ -234,7 +234,7 @@ class cSeasonalPeriodic(cAbstractCycle):
     def transformDataset(self, df):
         target = df[self.mTrend_residue_name]
         lDateParts = self.compute_date_parts(df[self.mTime])
-        df[self.getCycleName()] = lDateParts.apply(lambda x : self.mEncodedValueDict.get(x , self.mDefaultValue))
+        df[self.getCycleName()] = lDateParts.map(self.mEncodedValueDict).fillna(self.mDefaultValue)
         self.compute_cycle_residue(df)
         return df;
 
@@ -301,8 +301,7 @@ class cBestCycleForTrend(cAbstractCycle):
                 name_length = self.mTrend_residue_name + '_Cycle';
                 lCycleFrame[name_length] = self.mCycleFrame[self.mTimeInfo.mRowNumberColumn] % lLength
                 lEncodedValueDict = self.compute_target_means_by_cycle_value(lCycleFrame, name_length)
-                lCycleFrame[name_length + '_enc'] = lCycleFrame[name_length].apply(
-                    lambda x : lEncodedValueDict.get(x , self.mDefaultValue))
+                lCycleFrame[name_length + '_enc'] = lCycleFrame[name_length].map(lEncodedValueDict).fillna(self.mDefaultValue)
 
                 self.mBestCycleValueDict[lLength] = lEncodedValueDict;
                 
@@ -339,12 +338,12 @@ class cBestCycleForTrend(cAbstractCycle):
 
     def transformDataset(self, df):
         if(self.mBestCycleLength is not None):
-            lValueCol = df[self.mTimeInfo.mRowNumberColumn].apply(lambda x : x % self.mBestCycleLength);
+            lValueCol = df[self.mTimeInfo.mRowNumberColumn].mod(self.mBestCycleLength);
             df['cycle_internal'] = lValueCol;
             # print("BEST_CYCLE" , self.mBestCycleLength)
             # print(self.mBestCycleValueDict);
             lDict = self.mBestCycleValueDict[self.mBestCycleLength];
-            df[self.getCycleName()] = lValueCol.apply(lambda x : lDict.get(x , self.mDefaultValue));
+            df[self.getCycleName()] = lValueCol.map(lDict).fillna(self.mDefaultValue)
         else:
             df[self.getCycleName()] = np.zeros_like(df[self.mTimeInfo.mRowNumberColumn]);            
 
