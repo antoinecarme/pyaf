@@ -68,14 +68,16 @@ class cAbstractSignalTransform:
             pass
 
     def scale_value(self, x):
-        if(np.fabs(self.mInputValueRange) < 1e-10):
-            return 0.0
         return (x - self.mMinInputValue) / self.mInputValueRange;
 
     def scale_signal(self, sig):
         if(self.mScaling is not None):
             # print("SCALE_START", sig.values[1:5]);
-            sig1 = sig.apply(self.scale_value);
+            sig1 = None
+            if(np.fabs(self.mInputValueRange) < 1e-10):
+                sig1 = 0.0
+            else:
+                sig1 = self.scale_value(sig)
             # print("SCALE_END", sig1.values[1:5]);
             return sig1;
         else:
@@ -91,7 +93,7 @@ class cAbstractSignalTransform:
     def rescale_signal(self, sig1):
         if(self.mScaling is not None):
             # print("RESCALE_START", sig1.values[1:5]);
-            sig = sig1.apply(self.rescale_value);
+            sig = self.rescale_value(sig1);
             # print("RESCALE_END", sig.values[1:5]);
             return sig;
         else:
@@ -134,12 +136,12 @@ class cAbstractSignalTransform:
         # testTransform(tr1);
         pass
 
-    def dump_apply_invert(self, df_before_apply, df_after_apply):
-        df = pd.DataFrame(index = None);
-        df['before_apply'] = df_before_apply;
-        df['after_apply'] = df_after_apply;
-        print("dump_apply_invert_head", df.head());
-        print("dump_apply_invert_tail", df.tail());
+    def dump_apply_invert(self, sig_before_apply, sig_after_apply):
+        sig = pd.Series(index = None);
+        sig['before_apply'] = sig_before_apply;
+        sig['after_apply'] = sig_after_apply;
+        print("dump_apply_invert_head", sig.head());
+        print("dump_apply_invert_tail", sig.tail());
         
     def check_not_nan(self, sig , name):
         if(np.isnan(sig).any()):
@@ -163,11 +165,11 @@ class cSignalTransform_None(cAbstractSignalTransform):
     def specific_fit(self , sig):
         pass
     
-    def specific_apply(self, df):
-        return df;
+    def specific_apply(self, sig):
+        return sig;
     
-    def specific_invert(self, df):
-        return df;
+    def specific_invert(self, sig):
+        return sig;
 
     def dump_values(self):
         logger = tsutil.get_pyaf_logger();
@@ -192,10 +194,10 @@ class cSignalTransform_Accumulate(cAbstractSignalTransform):
     def specific_apply(self, sig):
         return sig.cumsum(axis = 0)
     
-    def specific_invert(self, df):
-        df_orig = df - df.shift(1);
-        df_orig.iloc[0] = df.iloc[0];
-        return df_orig;
+    def specific_invert(self, sig):
+        sig_orig = sig - sig.shift(1);
+        sig_orig.iloc[0] = sig.iloc[0];
+        return sig_orig;
 
     def dump_values(self):
         logger = tsutil.get_pyaf_logger();
@@ -231,8 +233,8 @@ class cSignalTransform_Quantize(cAbstractSignalTransform):
         curve = self.mCurve;
         return min(curve.keys(), key=lambda y:abs(float(curve[y])-x))
     
-    def specific_apply(self, df):
-        lSignal_Q = df.apply(self.signal2quant);
+    def specific_apply(self, sig):
+        lSignal_Q = sig.apply(self.signal2quant);
         return lSignal_Q;
 
     def quant2signal(self, x):
@@ -245,8 +247,8 @@ class cSignalTransform_Quantize(cAbstractSignalTransform):
          val = curve[key]
          return val;
 
-    def specific_invert(self, df):
-        lSignal = df.apply(self.quant2signal);
+    def specific_invert(self, sig):
+        lSignal = sig.apply(self.quant2signal);
         return lSignal;
 
     def dump_values(self):
@@ -273,29 +275,30 @@ class cSignalTransform_BoxCox(cAbstractSignalTransform):
         pass
     
 
-    def specific_apply(self, df):
+    def specific_apply(self, sig):
         lEps = 1e-3
-        assert(df.min() > -lEps)
-        log_df = df.apply(lambda x : np.log(max(x , lEps)));
+        assert(sig.min() > -lEps)
+        log_sig = np.log(sig.clip(lEps, None))
         if(abs(self.mLambda) <= 0.001):
-            return log_df;
+            return log_sig;
         lLimit = 5.0 / abs(self.mLambda)
-        log_df = log_df.clip(-lLimit , lLimit)
-        df1 = (np.exp(log_df * self.mLambda) - 1) / self.mLambda
-        return df1;
+        log_sig = log_sig.clip(-lLimit , lLimit)
+        sig1 = (np.exp(log_sig * self.mLambda) - 1) / self.mLambda
+        return sig1;
 
     def invert_value(self, y):
         x = y;
         lEps = 1e-5
-        x1 = np.log(max(self.mLambda * x + 1, lEps)) / self.mLambda;
+        x0 = self.mLambda * x + 1
+        x1 = np.log(x0.clip(lEps, None)) / self.mLambda;
         return np.exp(x1).clip(0, 1) ;        
     
-    def specific_invert(self, df):
+    def specific_invert(self, sig):
         if(abs(self.mLambda) <= 0.001):
-            df_orig = np.exp(df).clip(0, 1);
-            return df_orig;
-        df_pos = df.apply(self.invert_value);
-        return df_pos;
+            sig_orig = np.exp(sig).clip(0, 1);
+            return sig_orig;
+        sig_pos = self.invert_value(sig)
+        return sig_pos;
 
     def dump_values(self):
         logger = tsutil.get_pyaf_logger();
@@ -321,16 +324,16 @@ class cSignalTransform_Differencing(cAbstractSignalTransform):
         pass
     
 
-    def specific_apply(self, df):
-        df_shifted = df.shift(1)
-        df_shifted.iloc[0] = self.mFirstValue;
-        lResult = df - df_shifted
+    def specific_apply(self, sig):
+        sig_shifted = sig.shift(1)
+        sig_shifted.iloc[0] = self.mFirstValue;
+        lResult = sig - sig_shifted
         return lResult
     
-    def specific_invert(self, df):
-        df_cumsum = df.cumsum();
-        df_orig = df_cumsum + self.mFirstValue;
-        return df_orig;
+    def specific_invert(self, sig):
+        sig_cumsum = sig.cumsum();
+        sig_orig = sig_cumsum + self.mFirstValue;
+        return sig_orig;
 
     def dump_values(self):
         logger = tsutil.get_pyaf_logger();
@@ -354,16 +357,17 @@ class cSignalTransform_RelativeDifferencing(cAbstractSignalTransform):
         self.mFirstValue = sig.iloc[0];
         pass
 
-    def specific_apply(self, df):
+    def specific_apply(self, sig):
         lEps = 1e-2
-        # print("RelDiff_apply_DEBUG_START" , self.mFirstValue, df.values[0:10]);
-        df1 = df.apply(lambda x : x if (abs(x) > lEps) else lEps)
-        df_shifted = df1.shift(1)
-        # df_shifted[df_shifted <= lEps] = lEps
-        rate = (df1 - df_shifted) / df_shifted
+        # print("RelDiff_apply_DEBUG_START" , self.mFirstValue, sig.values[0:10]);
+        sig1 = sig
+        sig1[sig1.abs() <= lEps] = lEps
+        sig_shifted = sig1.shift(1)
+        # sig_shifted[sig_shifted <= lEps] = lEps
+        rate = (sig1 - sig_shifted) / sig_shifted
         rate.iloc[0] = 0.0;
-        # print(df1)
-        # print(df_shifted)
+        # print(sig1)
+        # print(sig_shifted)
         rate = rate.clip(-1.0e+2 , +1.0e+2)
         # print("RelDiff_apply_DEBUG_END" , rate[0:10]);
         return rate;
@@ -377,17 +381,17 @@ class cSignalTransform_RelativeDifferencing(cAbstractSignalTransform):
         lResult = np.exp(lCumSum)
         return lResult
         
-    def specific_invert(self, df):
-        # print("RelDiff_invert_DEBUG_START" , self.mFirstValue, df.values[0:10]);
-        rate = df + 1;
+    def specific_invert(self, sig):
+        # print("RelDiff_invert_DEBUG_START" , self.mFirstValue, sig.values[0:10]);
+        rate = sig + 1;
         rate = rate.clip(-1.0e+8 , +1.0e+8)
         rate_cum = self.cumprod_no_overflow(rate);
-        df_orig = rate_cum.clip(-1.0e+8 , +1.0e+8)
-        df_orig = self.mFirstValue * df_orig;
+        sig_orig = rate_cum.clip(-1.0e+8 , +1.0e+8)
+        sig_orig = self.mFirstValue * sig_orig;
         # print("rate" , rate)
         # print("rate_cum", rate_cum)
-        # print("RelDiff_invert_DEBUG_START" , df_orig[0:10])
-        return df_orig;
+        # print("RelDiff_invert_DEBUG_START" , sig_orig[0:10])
+        return sig_orig;
 
     def dump_values(self):
         logger = tsutil.get_pyaf_logger();
@@ -424,15 +428,15 @@ class cSignalTransform_Logit(cAbstractSignalTransform):
         p = x / (1 + x);
         return p;
 
-    def specific_apply(self, df):
+    def specific_apply(self, sig):
         # logit
-        df1 = df.apply(self.logit);
-        return df1;
+        sig1 = self.logit(sig)
+        return sig1;
     
-    def specific_invert(self, df):
+    def specific_invert(self, sig):
         # logit
-        df1 = df.apply(self.inv_logit);
-        return df1;
+        sig1 = self.inv_logit(sig)
+        return sig1;
 
     def dump_values(self):
         logger = tsutil.get_pyaf_logger();
@@ -461,12 +465,12 @@ class cSignalTransform_Anscombe(cAbstractSignalTransform):
         pass
     
     def specific_apply(self, sig):
-        y = sig.apply(lambda x : 2 * np.sqrt(x + self.mConstant));
+        y = 2 * np.sqrt(sig + self.mConstant)
         return y;
     
     def specific_invert(self, sig):
         y1 = sig.clip(1.22, 2.34)
-        x = y1.apply(lambda x : ((x/2 * x/2) - self.mConstant))
+        x = (y1/2 * y1/2) - self.mConstant
         return x;
 
     def dump_values(self):
@@ -494,11 +498,11 @@ class cSignalTransform_Fisher(cAbstractSignalTransform):
     
     def specific_apply(self, sig):
         eps = 1.0e-2;
-        y = sig.apply(lambda x : np.arctanh(np.clip(x , -1 + eps , 1.0 - eps)));
+        y = np.arctanh(np.clip(sig.values , -1 + eps , 1.0 - eps))
         return y;
     
     def specific_invert(self, sig):
-        x = sig.apply(np.tanh);
+        x = np.tanh(sig.values);
         return x;
 
     def dump_values(self):
