@@ -174,10 +174,8 @@ class cTimeInfo:
     def compute_normalized_date_column(self, idate_column):
         if(self.mEstimCount == 1):
             return 0.0;
-        vf = np.vectorize(self.normalizeTime)
-        return vf(idate_column)
+        return self.normalizeTime(idate_column)
 
-    @tsutil.cMemoize
     def normalizeTime(self , iTime):
         if(self.mEstimCount == 1):
             return 0.0;
