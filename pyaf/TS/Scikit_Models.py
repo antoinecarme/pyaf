@@ -100,7 +100,10 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
             self.mARFrame[self.mOutName] = lPredicted
         else:
             # issue_34 failure SVD does not converge
-            self.mARFrame[self.mOutName] = self.mDefaultValues[series]
+            self.mARFrame[self.mOutName] = 0.0
+            if(self.mDecompositionType in ['TSR']):
+                self.mARFrame[self.mOutName] = 1.0
+                
 
         self.compute_ar_residue(self.mARFrame)
 
@@ -118,7 +121,10 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
             pred = self.mScikitModel.predict(inputs_after_feat_selection)
             df[self.mOutName] = pred;
         else:
-            df[self.mOutName] = self.mDefaultValues[series];
+            df[self.mOutName] = 0.0
+            if(self.mDecompositionType in ['TSR']):
+                df[self.mOutName] = 1.0
+
             
         self.compute_ar_residue(df)
         return df;
