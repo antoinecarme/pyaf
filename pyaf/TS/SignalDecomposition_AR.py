@@ -275,7 +275,7 @@ class cAutoRegressiveEstimator:
         if(self.mOptions.mActiveAutoRegressions[model_type_str]):
             lNewModel = model_class(cycle_residue, iLags);
             self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lNewModel];
-        if(self.mOptions.mActiveAutoRegressions[model_type_str + 'X'] and (self.mExogenousInfo is not None)):
+        if(iAddExogenous and (self.mExogenousInfo is not None) and self.mOptions.mActiveAutoRegressions[model_type_str + 'X']):
             lNewModelX = model_class(cycle_residue, iLags, self.mExogenousInfo);
             self.mARList[cycle_residue] = self.mARList[cycle_residue] + [lNewModelX];
                 
