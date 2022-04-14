@@ -17,21 +17,21 @@ class cAbstract_RNN_Model(tsar.cAbstractAR):
         # print(self.mModel.__dict__);
         pass
 
-    def build_RNN_Architecture(self):
+    def build_RNN_Architecture(self, iARInputs, iARTarget):
         assert(0);
 
     # def reshape_inputs(self, iInputs):
         # return iInputs;
 
     def reshape_inputs(self, iInputs):
-        lInputs = np.reshape(iInputs, (iInputs.shape[0], 1, iInputs.shape[1]))
+        lNewShape = (iInputs.shape[0], 1, iInputs.shape[1])
+        lInputs = np.reshape(iInputs, lNewShape)
         return lInputs;
 
     def fit(self):
         # print("ESTIMATE_RNN_MODEL_START" , self.mCycleResidueName);
-        from keras import callbacks
+        import tensorflow as tf
 
-        self.build_RNN_Architecture();
 
         # print("ESTIMATE_RNN_MODEL_STEP1" , self.mOutName);
 
@@ -45,6 +45,9 @@ class cAbstract_RNN_Model(tsar.cAbstractAR):
         # print("mAREstimFrame columns :" , self.mAREstimFrame.columns);
         lARInputs = lAREstimFrame[self.mInputNames].values
         lARTarget = lAREstimFrame[series].values
+
+        self.build_RNN_Architecture(lARInputs, lARTarget);
+
         # print(len(self.mInputNames), lARInputs.shape , lARTarget.shape)
         assert(lARInputs.shape[1] > 0);
         assert(lARTarget.shape[0] > 0);
@@ -65,7 +68,7 @@ class cAbstract_RNN_Model(tsar.cAbstractAR):
 
         # print("ESTIMATE_RNN_MODEL_STEP4" , self.mOutName);
 
-        lStopCallback = callbacks.EarlyStopping(monitor='val_loss', patience=5, verbose=0, mode='auto')
+        lStopCallback = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5, verbose=0, mode='auto')
         lHistory = self.mModel.fit(estimX, estimY,
                                    epochs=self.mNbEpochs,
                                    batch_size=1,
@@ -122,20 +125,23 @@ class cMLP_Model(cAbstract_RNN_Model):
         super().__init__(cycle_residue_name, P, iExogenousInfo)
 
 
-    def build_RNN_Architecture(self):
+    def build_RNN_Architecture(self, iARInputs, iARTarget):
         lModel = None;
-        if(self.mNbLags not in cMLP_Model.gTemplateModels.keys()):
-            lModel = self.build_RNN_Architecture_template();
-            cMLP_Model.gTemplateModels[self.mNbLags] = lModel;
+        lNbLags = iARInputs.shape[1]
+        if(lNbLags not in cMLP_Model.gTemplateModels.keys()):
+            lModel = self.build_RNN_Architecture_template(iARInputs, iARTarget);
+            cMLP_Model.gTemplateModels[lNbLags] = lModel;
 
         import copy;
-        self.mModel = copy.copy(cMLP_Model.gTemplateModels[self.mNbLags]);
+        self.mModel = copy.copy(cMLP_Model.gTemplateModels[lNbLags]);
         self.mModel.reset_states();
         # print(cMLP_Model.gTemplateModels[self.mNbLags].__dict__);
         # print(self.mModel.__dict__);
-        
-        self.mFormula = "MLP(" + str(self.mNbLags) + ")";
-        self.mOutName = self.mCycleResidueName +  '_MLP(' + str(self.mNbLags) + ")";
+
+        lName = "MLP" if(self.mExogenousInfo is None) else "MLPX"
+
+        self.mFormula = lName + "(" + str(self.mNbLags) + ")";
+        self.mOutName = self.mCycleResidueName +  '_' + lName + '(' + str(self.mNbLags) + ")";
 
     def __getstate__(self):
         dict_out = self.__dict__.copy();
@@ -145,23 +151,20 @@ class cMLP_Model(cAbstract_RNN_Model):
 
     def __setstate__(self, istate):
         # print("LSTM_SET_STATE" , istate);
-        from keras.models import model_from_json
+        import tensorflow as tf
         self.__dict__ = istate.copy();
-        self.mModel = model_from_json(istate["mModel"]);
+        self.mModel = tf.keras.models.model_from_json(istate["mModel"]);
 
-    def build_RNN_Architecture_template(self):
-        from keras.models import Sequential
-        from keras.layers import Dense, Dropout
-        from keras.layers import LSTM
-
-
+    def build_RNN_Architecture_template(self, iARInputs, iARTarget):
+        import tensorflow as tf
         # import theano
         # print(theano.config)
+        lNbLags = iARInputs.shape[1]
 
-        lModel = Sequential()
-        lModel.add(Dense(self.mHiddenUnits, input_shape=(1, self.mNbLags)))
-        lModel.add(Dropout(0.1))
-        lModel.add(Dense(1))
+        lModel = tf.keras.Sequential()
+        lModel.add(tf.keras.layers.Dense(self.mHiddenUnits, input_shape=(1, lNbLags)))
+        lModel.add(tf.keras.layers.Dropout(0.1))
+        lModel.add(tf.keras.layers.Dense(1))
         lModel.compile(loss='mse', optimizer='adam')
         return lModel;
 
@@ -176,35 +179,36 @@ class cLSTM_Model(cAbstract_RNN_Model):
         super().__init__(cycle_residue_name, P, iExogenousInfo)
 
 
-    def build_RNN_Architecture(self):
+    def build_RNN_Architecture(self, iARInputs, iARTarget):
         lModel = None;
-        if(self.mNbLags not in cLSTM_Model.gTemplateModels.keys()):
-            lModel = self.build_RNN_Architecture_template();
-            cLSTM_Model.gTemplateModels[self.mNbLags] = lModel;
+        lNbLags = iARInputs.shape[1]
+        if(lNbLags not in cLSTM_Model.gTemplateModels.keys()):
+            lModel = self.build_RNN_Architecture_template(iARInputs, iARTarget);
+            cLSTM_Model.gTemplateModels[lNbLags] = lModel;
 
         import copy;
-        self.mModel = copy.copy(cLSTM_Model.gTemplateModels[self.mNbLags]);
+        self.mModel = copy.copy(cLSTM_Model.gTemplateModels[lNbLags]);
         self.mModel.reset_states();
         # print(cLSTM_Model.gTemplateModels[self.mNbLags].__dict__);
         # print(self.mModel.__dict__);
 
-        self.mFormula = "LSTM(" + str(self.mNbLags) + ")";
-        self.mOutName = self.mCycleResidueName +  '_LSTM(' + str(self.mNbLags) + ")";
+        lName = "LSTM" if(self.mExogenousInfo is None) else "LSTMX"
+
+        self.mFormula = lName + "(" + str(self.mNbLags) + ")";
+        self.mOutName = self.mCycleResidueName +  '_' + lName + '(' + str(self.mNbLags) + ")";
 
 
-    def build_RNN_Architecture_template(self):
-        from keras.models import Sequential
-        from keras.layers import Dense, Dropout
-        from keras.layers import LSTM
-
+    def build_RNN_Architecture_template(self, iARInputs, iARTarget):
+        lNbLags = iARInputs.shape[1]
+        import tensorflow as tf
         # import theano
         # theano.config.reoptimize_unpickled_function = False
         # theano.config.cxx = ""
 
-        lModel = Sequential()
-        lModel.add(LSTM(self.mHiddenUnits, input_shape=(1, self.mNbLags)))
-        lModel.add(Dropout(0.1))
-        lModel.add(Dense(1))
+        lModel = tf.keras.Sequential()
+        lModel.add(tf.keras.layers.LSTM(self.mHiddenUnits, input_shape=(1, lNbLags)))
+        lModel.add(tf.keras.layers.Dropout(0.1))
+        lModel.add(tf.keras.layers.Dense(1))
         lModel.compile(loss='mse', optimizer='adam')
         return lModel;
 
@@ -244,9 +248,9 @@ class cLSTM_Model(cAbstract_RNN_Model):
 
     def __setstate__(self, istate):
         # print("LSTM_SET_STATE" , istate);
-        from keras.models import model_from_json
+        import tensorflow as tf
         self.__dict__ = istate.copy();
-        self.mModel = model_from_json(istate["mModel"]);
+        self.mModel = tf.keras.models.model_from_json(istate["mModel"]);
 
 
     def reshape_target(self, iTarget):
