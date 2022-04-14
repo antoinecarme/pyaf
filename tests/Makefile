@@ -591,6 +591,36 @@ exog/test_ozone_exogenous.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/exog/test_ozone_exogenous.log logs/exog_test_ozone_exogenous.log  >  logs/exog_test_ozone_exogenous.log.diff
 	 tail -10  logs/exog_test_ozone_exogenous.log.diff 
 
+exog/test_ozone_exogenous_ARX.py  :  
+	 -$(PYTHON)  tests/exog/test_ozone_exogenous_ARX.py  >  logs/exog_test_ozone_exogenous_ARX.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/exog/test_ozone_exogenous_ARX.log logs/exog_test_ozone_exogenous_ARX.log  >  logs/exog_test_ozone_exogenous_ARX.log.diff
+	 tail -10  logs/exog_test_ozone_exogenous_ARX.log.diff 
+
+exog/test_ozone_exogenous_LGBX.py  :  
+	 -$(PYTHON)  tests/exog/test_ozone_exogenous_LGBX.py  >  logs/exog_test_ozone_exogenous_LGBX.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/exog/test_ozone_exogenous_LGBX.log logs/exog_test_ozone_exogenous_LGBX.log  >  logs/exog_test_ozone_exogenous_LGBX.log.diff
+	 tail -10  logs/exog_test_ozone_exogenous_LGBX.log.diff 
+
+exog/test_ozone_exogenous_LSTMX.py  :  
+	 -$(PYTHON)  tests/exog/test_ozone_exogenous_LSTMX.py  >  logs/exog_test_ozone_exogenous_LSTMX.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/exog/test_ozone_exogenous_LSTMX.log logs/exog_test_ozone_exogenous_LSTMX.log  >  logs/exog_test_ozone_exogenous_LSTMX.log.diff
+	 tail -10  logs/exog_test_ozone_exogenous_LSTMX.log.diff 
+
+exog/test_ozone_exogenous_MLPX.py  :  
+	 -$(PYTHON)  tests/exog/test_ozone_exogenous_MLPX.py  >  logs/exog_test_ozone_exogenous_MLPX.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/exog/test_ozone_exogenous_MLPX.log logs/exog_test_ozone_exogenous_MLPX.log  >  logs/exog_test_ozone_exogenous_MLPX.log.diff
+	 tail -10  logs/exog_test_ozone_exogenous_MLPX.log.diff 
+
+exog/test_ozone_exogenous_SVRX.py  :  
+	 -$(PYTHON)  tests/exog/test_ozone_exogenous_SVRX.py  >  logs/exog_test_ozone_exogenous_SVRX.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/exog/test_ozone_exogenous_SVRX.log logs/exog_test_ozone_exogenous_SVRX.log  >  logs/exog_test_ozone_exogenous_SVRX.log.diff
+	 tail -10  logs/exog_test_ozone_exogenous_SVRX.log.diff 
+
+exog/test_ozone_exogenous_XGBX.py  :  
+	 -$(PYTHON)  tests/exog/test_ozone_exogenous_XGBX.py  >  logs/exog_test_ozone_exogenous_XGBX.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/exog/test_ozone_exogenous_XGBX.log logs/exog_test_ozone_exogenous_XGBX.log  >  logs/exog_test_ozone_exogenous_XGBX.log.diff
+	 tail -10  logs/exog_test_ozone_exogenous_XGBX.log.diff 
+
 exog/test_ozone_exogenous_profile.py  :  
 	 -$(PYTHON)  tests/exog/test_ozone_exogenous_profile.py  >  logs/exog_test_ozone_exogenous_profile.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/exog/test_ozone_exogenous_profile.log logs/exog_test_ozone_exogenous_profile.log  >  logs/exog_test_ozone_exogenous_profile.log.diff
@@ -608,7 +638,7 @@ exog/test_random_exogenous.py  :
 
 
 
- exog :  exog/test_random_exogenous.py exog/test_ozone_exogenous_with_categorical.py exog/test_ozone_exogenous_profile.py exog/test_ozone_exogenous.py  
+ exog :  exog/test_random_exogenous.py exog/test_ozone_exogenous_with_categorical.py exog/test_ozone_exogenous_profile.py exog/test_ozone_exogenous_XGBX.py exog/test_ozone_exogenous_SVRX.py exog/test_ozone_exogenous_MLPX.py exog/test_ozone_exogenous_LSTMX.py exog/test_ozone_exogenous_LGBX.py exog/test_ozone_exogenous_ARX.py exog/test_ozone_exogenous.py  
  
 
 expsmooth/expsmooth_dataset_ausgdp.py  :  
