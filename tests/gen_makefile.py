@@ -38,7 +38,7 @@ str1 = str1 + " plots"
 str1 = str1 + " multiplicative_seasonal"
 subdirs = str1.split();
 
-print("PYTHON=timeout 480 python3\n\n");
+print("PYTHON=timeout 480 python\n\n");
 
 
 for subdir1 in sorted(subdirs):
