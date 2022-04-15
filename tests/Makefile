@@ -1,4 +1,4 @@
-PYTHON=timeout 600 python3
+PYTHON=timeout 480 python3
 
 
 HeartRateTimeSeries/HeartRateTimeSeries_series1.py  :  
