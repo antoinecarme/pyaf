@@ -2,34 +2,95 @@ INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['Signal'],
 INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Transformation': '_Signal'}))
 /home/circleci/.pyenv/versions/3.10.2/lib/python3.10/site-packages/xgboost/compat.py:36: FutureWarning: pandas.Int64Index is deprecated and will be removed from pandas in a future version. Use pandas.Index with the appropriate dtype instead.
   from pandas import MultiIndex, Int64Index
-Traceback (most recent call last):
-  File "/home/circleci/project/pyaf/ForecastEngine.py", line 25, in train
-    self.mSignalDecomposition.train(iInputDS, iTime, iSignal, iHorizon, iExogenousData);
-  File "/home/circleci/project/pyaf/TS/SignalDecomposition.py", line 666, in train
-    lTrainer.train(iInputDS, lSplits , self.mDateColumns, self.mSignals, self.mHorizons)
-  File "/home/circleci/project/pyaf/TS/SignalDecomposition.py", line 416, in train
-    self.train_all_transformations(iInputDS, iSplits, iTime, iSignals, iHorizon);
-  File "/home/circleci/project/pyaf/TS/SignalDecomposition.py", line 512, in train_all_transformations
-    res = run_transform_thread(arg)
-  File "/home/circleci/project/pyaf/TS/SignalDecomposition.py", line 380, in run_transform_thread
-    arg.mSigDec.train(arg.mInputDS, arg.mSplit, arg.mTime, arg.mSignal, arg.mHorizon, arg.mTransformation, arg.mDecompositionType);
-  File "/home/circleci/project/pyaf/TS/SignalDecomposition.py", line 194, in train
-    lAREstimator.estimate();
-  File "/home/circleci/project/pyaf/TS/SignalDecomposition_AR.py", line 323, in estimate
-    self.add_model_if_activated(cycle_residue, 'CROSTON', interm.cCroston_Model, lLags, False)
-  File "/home/circleci/project/pyaf/TS/SignalDecomposition_AR.py", line 278, in add_model_if_activated
-    if(self.mOptions.mActiveAutoRegressions[model_type_str + 'X'] and (self.mExogenousInfo is not None)):
-KeyError: 'CROSTONX'
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/home/circleci/project/tests/croston/test_croston_fpp2_counts_example_optimize.py", line 50, in <module>
-    create_model(None)
-  File "/home/circleci/project/tests/croston/test_croston_fpp2_counts_example_optimize.py", line 29, in create_model
-    lEngine.train(iInputDS = df_train, iTime = 'Date', iSignal = 'Signal', iHorizon = 7);
-  File "/home/circleci/project/pyaf/ForecastEngine.py", line 30, in train
-    raise tsutil.PyAF_Error("TRAIN_FAILED");
-pyaf.TS.Utils.PyAF_Error: TRAIN_FAILED
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.28, ('TRAINING', {'Signal': 'Signal', 'Transformation': '_Signal'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.284, ('SIGNAL_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', 'None', '_', 'T+S+R')], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.04, ('TRAINING', {'Signal': 'Signal', 'Transformation': '_Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.043, ('SIGNAL_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', 'None', '_', 'T+S+R')], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', [('Signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'Signal', 'Transformations': [('Signal', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.003, ('MODEL_SELECTION', {'Signal': 'Signal', 'Transformations': [('Signal', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal', 'Model': '_Signal_ConstantTrend_residue_zeroCycle[0.0]_residue_CROSTON(None)'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.019, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal', 'Model': '_Signal_ConstantTrend_residue_zeroCycle[0.0]_residue_CROSTON(None)'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.135, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.157, ('FINALIZE_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', [('Signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-31T00:00:00.000000 TimeMax=2002-12-31T00:00:00.000000 TimeDelta=<DateOffset: days=30> Horizon=7
+INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=36  Min=0.0 Max=11.0  Mean=1.0555555555555556 StdDev=2.332671863913002
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=0.0 Max=1.0  Mean=0.09595959595959597 StdDev=0.21206107853754563
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
+INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
+INFO:pyaf.std:BEST_DECOMPOSITION  '_Signal_ConstantTrend_residue_zeroCycle[0.0]_residue_CROSTON(None)' [ConstantTrend + NoCycle + CROSTON]
+INFO:pyaf.std:TREND_DETAIL '_Signal_ConstantTrend' [ConstantTrend]
+INFO:pyaf.std:CYCLE_DETAIL '_Signal_ConstantTrend_residue_zeroCycle[0.0]' [NoCycle]
+INFO:pyaf.std:AUTOREG_DETAIL '_Signal_ConstantTrend_residue_zeroCycle[0.0]_residue_CROSTON(None)' [CROSTON]
+INFO:pyaf.std:MODEL_MAPE MAPE_Fit=7541083280.6766 MAPE_Forecast=7541083280.6766 MAPE_Test=7541083280.6766
+INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=1.5428 SMAPE_Forecast=1.5428 SMAPE_Test=1.5428
+INFO:pyaf.std:MODEL_MASE MASE_Fit=0.764 MASE_Forecast=0.764 MASE_Test=0.764
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=0.30130574680101146 CRPS_Forecast=0.30130574680101146 CRPS_Test=0.30130574680101146
+INFO:pyaf.std:MODEL_L1 L1_Fit=1.4844056359753492 L1_Forecast=1.4844056359753492 L1_Test=1.4844056359753492
+INFO:pyaf.std:MODEL_L2 L2_Fit=2.337045808399457 L2_Forecast=2.337045808399457 L2_Test=2.337045808399457
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=inf LnQ_Forecast=inf LnQ_Test=inf
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=1.1465938676269922 MedAE_Forecast=1.1465938676269922 MedAE_Test=1.1465938676269922
+INFO:pyaf.std:MODEL_COMPLEXITY 2.0
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:CONSTANT_TREND _Signal_ConstantTrend 0.09595959595959597
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_ConstantTrend_residue_zeroCycle[0.0] 0.0 {}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
+INFO:pyaf.std:AR_MODEL_DETAIL_START
+INFO:pyaf.std:CROSTON_ALPHA 0.05
+INFO:pyaf.std:CROSTON_METHOD None
+INFO:pyaf.std:AR_MODEL_DETAIL_END
+INFO:pyaf.timing:('OPERATION_START', ('PLOTTING', {'Signals': ['Signal']}))
+INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['Signal'], 'Horizon': 7}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.849, ('PLOTTING', {'Signals': ['Signal']}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.119, ('FORECASTING', {'Signals': ['Signal'], 'Horizon': 7}))
+Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
+       '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
+       '_Signal_ConstantTrend_residue_zeroCycle[0.0]',
+       '_Signal_ConstantTrend_residue_zeroCycle[0.0]_residue',
+       '_Signal_ConstantTrend_residue_zeroCycle[0.0]_residue_CROSTON(None)',
+       '_Signal_ConstantTrend_residue_zeroCycle[0.0]_residue_CROSTON(None)_residue',
+       '_Signal_Trend', '_Signal_Trend_residue', '_Signal_Cycle',
+       '_Signal_Cycle_residue', '_Signal_AR', '_Signal_AR_residue',
+       '_Signal_TransformedForecast', 'Signal_Forecast',
+       '_Signal_TransformedResidue', 'Signal_Residue',
+       'Signal_Forecast_Lower_Bound', 'Signal_Forecast_Upper_Bound',
+       'Signal_Forecast_Quantile_2', 'Signal_Forecast_Quantile_18',
+       'Signal_Forecast_Quantile_34', 'Signal_Forecast_Quantile_50',
+       'Signal_Forecast_Quantile_66', 'Signal_Forecast_Quantile_82',
+       'Signal_Forecast_Quantile_98'],
+      dtype='object')
+         Date  Signal   _Signal  _Signal_TransformedForecast  Signal_Forecast
+31 2002-08-31     1.0  0.090909                     0.099532         1.094857
+32 2002-09-30     0.0  0.000000                     0.099532         1.094857
+33 2002-10-31     1.0  0.090909                     0.095402         1.049425
+34 2002-11-30     0.0  0.000000                     0.095402         1.049425
+35 2002-12-31     0.0  0.000000                     0.095402         1.049425
+36 2003-01-30     NaN       NaN                     0.095402         1.049425
+37 2003-03-01     NaN       NaN                     0.095402         1.049425
+38 2003-03-31     NaN       NaN                     0.095402         1.049425
+39 2003-04-30     NaN       NaN                     0.095402         1.049425
+40 2003-05-30     NaN       NaN                     0.095402         1.049425
+41 2003-06-29     NaN       NaN                     0.095402         1.049425
+42 2003-07-29     NaN       NaN                     0.095402         1.049425
+count    36.000000
+mean      1.055556
+std       2.365761
+min       0.000000
+25%       0.000000
+50%       0.000000
+75%       1.000000
+max      11.000000
+Name: Signal, dtype: float64
+count    43.000000
+mean      1.085706
+std       0.194825
+min       0.000000
+25%       1.049425
+50%       1.094857
+75%       1.198818
+max       1.239630
+Name: Signal_Forecast, dtype: float64
