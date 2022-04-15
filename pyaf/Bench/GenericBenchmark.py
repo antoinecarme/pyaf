@@ -138,11 +138,14 @@ class cGeneric_OneSignal_Tester:
         df = self.mTrainDataset[iSignal  + "_" + str(iHorizon)];
         lAutoF1 = autof.cForecastEngine();
         lAutoF1.mOptions.mParallelMode = self.mParallelMode;
+        lAutoF1.mOptions.mNbCores = 21
+        lAutoF1.mOptions.enable_slow_mode()
         # lAutoF1.mOptions.mCycleLengths = range(2, df.shape[0]//10);
         self.mAutoForecastBySignal[iSignal  + "_" + str(iHorizon)] = lAutoF1
         lAutoF1.train(df , self.mTSSpec.mTimeVar , iSignal, iHorizon)
         self.reportModelInfo(lAutoF1);
         print(lAutoF1.mSignalDecomposition.mTrPerfDetails.head());
+        lEngine.standardPlots("outputs/my_bench_" + iSignal);
 
     def computeModelPerfOnTraining(self, iModel):
         lPerfData = pd.DataFrame()

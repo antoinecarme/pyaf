@@ -47,7 +47,14 @@ class cModelControl:
         # "AutoRegression" becomes a little bit confusing as croston does not use lags (???)
         # rather use wikipedia terminology :  https://en.wikipedia.org/wiki/Decomposition_of_time_series
         # AutoRegression => "irregular component"
-        self.mKnownAutoRegressions = ['NoAR' , 'AR' , 'ARX' , 'SVR', 'SVRX', 'MLP' , 'LSTM' , 'XGB' , 'XGBX' , 'CROSTON', 'LGB', 'LGBX'];
+        self.mKnownAutoRegressions = ['NoAR' ,
+                                      'AR' , 'ARX' ,
+                                      'SVR', 'SVRX',
+                                      'MLP' , 'MLPX' ,
+                                      'LSTM' , 'LSTMX' ,
+                                      'XGB' , 'XGBX' ,
+                                      'CROSTON', # No CROSTONX for the moment
+                                      'LGB', 'LGBX'];
         # now , set he default models
         self.set_active_transformations(self.mKnownTransformations[0:4]);
         self.set_active_trends(self.mKnownTrends[0:4]);
@@ -233,18 +240,9 @@ class cSignalDecomposition_Options(cModelControl):
     '''
     def  canBuildKerasModel(self, iModel):
         try:
-            import keras
-            import keras
-            from keras import callbacks
-            from keras.models import Sequential
-            from keras.layers import Dense, Dropout
-            from keras.layers import LSTM
-            lBackEnd = keras.backend.backend()
-            if((lBackEnd == "tensorflow") and (self.mParallelMode)):
-                return False;
-            else:
-                return True;
-        except:
+            from tensorflow import keras
+            return True;
+        except Exception as e:
             return False;
 
     def  canBuildXGBoostModel(self, iModel):

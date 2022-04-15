@@ -1,16 +1,20 @@
 INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', 'None', '_', 'T+S+R')], 'Cores': 1}))
 INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Transformation': '_Signal'}))
+/home/circleci/.pyenv/versions/3.10.2/lib/python3.10/site-packages/xgboost/compat.py:36: FutureWarning: pandas.Int64Index is deprecated and will be removed from pandas in a future version. Use pandas.Index with the appropriate dtype instead.
+  from pandas import MultiIndex, Int64Index
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.363, ('TRAINING', {'Signal': 'Signal', 'Transformation': '_Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.366, ('SIGNAL_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', 'None', '_', 'T+S+R')], 'Cores': 1}))
 INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', [('Signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'Signal', 'Transformations': [('Signal', 'None', '_', 'T+S+R')]}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.005, ('MODEL_SELECTION', {'Signal': 'Signal', 'Transformations': [('Signal', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.003, ('MODEL_SELECTION', {'Signal': 'Signal', 'Transformations': [('Signal', 'None', '_', 'T+S+R')]}))
 INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal', 'Model': '_Signal_LinearTrend_residue_zeroCycle[0.0]_residue_CROSTON(0.1)'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.039, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal', 'Model': '_Signal_LinearTrend_residue_zeroCycle[0.0]_residue_CROSTON(0.1)'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.023, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal', 'Model': '_Signal_LinearTrend_residue_zeroCycle[0.0]_residue_CROSTON(0.1)'}))
 INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.336, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.381, ('FINALIZE_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', [('Signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.151, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.177, ('FINALIZE_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', [('Signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2016-01-25T00:00:00.000000 TimeMax=2016-11-05T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=7
-INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=365  Min=0.0027397260273972603 Max=1.1839455211826702  Mean=0.504012344452938 StdDev=0.2901181557641455
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=0.0 Max=1.0  Mean=0.42437365316146874 StdDev=0.2456118628557936
+INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=365  Min=0.0027397260273972603 Max=1.1839455211826702  Mean=0.5040123444529377 StdDev=0.2901181557641455
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=0.0 Max=1.0  Mean=0.42437365316146863 StdDev=0.2456118628557936
 INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
 INFO:pyaf.std:BEST_DECOMPOSITION  '_Signal_LinearTrend_residue_zeroCycle[0.0]_residue_CROSTON(0.1)' [LinearTrend + NoCycle + CROSTON]
@@ -20,17 +24,17 @@ INFO:pyaf.std:AUTOREG_DETAIL '_Signal_LinearTrend_residue_zeroCycle[0.0]_residue
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.9721 MAPE_Forecast=0.005 MAPE_Test=0.0027
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.1255 SMAPE_Forecast=0.0051 SMAPE_Test=0.0027
 INFO:pyaf.std:MODEL_MASE MASE_Fit=1.4113 MASE_Forecast=0.6825 MASE_Test=0.9865
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=0.06019951933545067 CRPS_Forecast=0.015183732642669466 CRPS_Test=0.0024875402199208457
-INFO:pyaf.std:MODEL_L1 L1_Fit=0.020182073431876158 L1_Forecast=0.004729179937757521 L1_Test=0.002702794889798965
-INFO:pyaf.std:MODEL_L2 L2_Fit=0.060234076226929556 L2_Forecast=0.018511141374359313 L2_Test=0.002706593669540677
-INFO:pyaf.std:MODEL_LnQ LnQ_Fit=99.57830857079455 LnQ_Forecast=0.026060306653165458 LnQ_Test=5.251009871504038e-05
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.002645894389054604 MedAE_Forecast=0.00234688942724115 MedAE_Test=0.0027164592183331893
+INFO:pyaf.std:MODEL_CRPS CRPS_Fit=0.06019951933545067 CRPS_Forecast=0.015183732642669466 CRPS_Test=0.0024875402199208536
+INFO:pyaf.std:MODEL_L1 L1_Fit=0.020182073431876158 L1_Forecast=0.004729179937757532 L1_Test=0.002702794889799013
+INFO:pyaf.std:MODEL_L2 L2_Fit=0.060234076226929556 L2_Forecast=0.018511141374359323 L2_Test=0.0027065936695407256
+INFO:pyaf.std:MODEL_LnQ LnQ_Fit=99.57830857079455 LnQ_Forecast=0.0260603066531655 LnQ_Test=5.251009871504224e-05
+INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.0026458943890546593 MedAE_Forecast=0.0023468894272412055 MedAE_Test=0.0027164592183334113
 INFO:pyaf.std:MODEL_COMPLEXITY 3.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:LINEAR_RIDGE_TREND LinearTrend (0.017173598403840973, array([0.63278555]))
+INFO:pyaf.std:LINEAR_RIDGE_TREND LinearTrend (0.017173598403841084, array([0.63278555]))
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
 INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Signal_LinearTrend_residue_zeroCycle[0.0] 0.0 {}
@@ -40,11 +44,9 @@ INFO:pyaf.std:CROSTON_ALPHA 0.1
 INFO:pyaf.std:CROSTON_METHOD SBJ
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.timing:('OPERATION_START', ('PLOTTING', {'Signals': ['Signal']}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.571, ('SIGNAL_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', 'None', '_', 'T+S+R')], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.567, ('TRAINING', {'Signal': 'Signal', 'Transformation': '_Signal'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 6.968, ('PLOTTING', {'Signals': ['Signal']}))
 INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['Signal'], 'Horizon': 7}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.265, ('FORECASTING', {'Signals': ['Signal'], 'Horizon': 7}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.323, ('PLOTTING', {'Signals': ['Signal']}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.14, ('FORECASTING', {'Signals': ['Signal'], 'Horizon': 7}))
 Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_LinearTrend', '_Signal_LinearTrend_residue',
        '_Signal_LinearTrend_residue_zeroCycle[0.0]',
