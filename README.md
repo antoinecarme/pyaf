@@ -20,8 +20,7 @@ PyAF is distributed under the [3-Clause BSD license](https://tldrlegal.com/licen
 Demo 
 ----
 ```Python
-import numpy as np
-import pandas as pd
+import numpy as np, pandas as pd
 import pyaf.ForecastEngine as autof
 
 if __name__ == '__main__':
