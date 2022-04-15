@@ -75,7 +75,7 @@ class cAbstractSignalTransform:
             # print("SCALE_START", sig.values[1:5]);
             sig1 = None
             if(np.fabs(self.mInputValueRange) < 1e-10):
-                sig1 = 0.0
+                sig1 = sig * 0.0
             else:
                 sig1 = self.scale_value(sig)
             # print("SCALE_END", sig1.values[1:5]);
