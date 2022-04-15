@@ -89,3 +89,30 @@ class cTimer:
         logger = get_pyaf_timing_logger();
         logger.info(("OPERATION_END_ELAPSED" , round(lDelta.total_seconds(), 3), self.mMessage))
 
+def get_module_version_when_available(module_name):
+    try:
+        import importlib
+        mod = importlib.import_module(module_name)
+        return mod.__version__
+    except:
+        return "NOT_INSTALLED"
+
+        
+def getVersions():
+        
+    import os, platform
+    lVersionDict = {};
+    lVersionDict["system_platform"] = platform.platform();
+    lVersionDict["system_uname"] = platform.uname();
+    lVersionDict["system_processor"] = platform.processor();
+    lVersionDict["python_implementation"] = platform.python_implementation();
+    lVersionDict["python_version"] = platform.python_version();
+
+    lModules = ["pyaf", "sklearn", "pandas", "numpy" , "scipy" , "matplotlib", "pydot", "sqlalchemy" ,
+                "xgboost" , "keras", "pip" , "setuptools", "Cython", "dill" , "pathos", "lightgbm"]
+
+    for module_name in lModules:
+        lVersionDict[module_name + "_version"] = get_module_version_when_available(module_name)
+    
+    # print([(k, lVersionDict[k]) for k in sorted(lVersionDict)]);
+    return lVersionDict;
