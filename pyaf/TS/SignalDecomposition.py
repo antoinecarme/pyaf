@@ -535,7 +535,7 @@ def forecast_one_signal(arg):
     lInputDS = iInputDS[[lBestModel.mTime, lSignal]].copy()
     lInputDS = lMissingImputer.apply(lInputDS, lBestModel.mTime, lBestModel.mOriginalSignal)
     lForecastFrame_i = lBestModel.forecast(lInputDS, iHorizon);
-    return (lSignal, lBestModel.mTime, lForecastFrame_i)
+    return (lBestModel.mTimeInfo, lForecastFrame_i)
 
 
 class cSignalDecompositionForecaster:
@@ -543,11 +543,13 @@ class cSignalDecompositionForecaster:
     def __init__(self):
         pass
 
-    def merge_frames(self, iFullFrame, iOneSignalFrame, iTime):
+    def merge_frames(self, iFullFrame, iOneSignalFrame, iTimeInfo):
         if(iFullFrame is None):
             return iOneSignalFrame
         lTime = iFullFrame.columns[0]
-        lForecastFrame = iFullFrame.merge(iOneSignalFrame, how='left', left_on=lTime, right_on=iTime);
+        lOneSignalCommonColumns = [iTimeInfo.mRowNumberColumn, iTimeInfo.mNormalizedTimeColumn]
+        lOneSignalFrame = iOneSignalFrame.drop(lOneSignalCommonColumns, axis = 1)
+        lForecastFrame = iFullFrame.merge(lOneSignalFrame, how='left', left_on=lTime, right_on=iTimeInfo.mTime, suffixes = None);
         return lForecastFrame
     
     def forecast(self, iDecomsposition, iInputDS, iHorizons):
@@ -569,17 +571,16 @@ class cSignalDecompositionForecaster:
             pool = Pool(NCores)
         
             for res in pool.imap(forecast_one_signal, args):
-                (lSignal, lTime, lForecastFrame_i) = res
-                # print((lSignal, lTime, lForecastFrame_i.columns))
-                lForecastFrame = self.merge_frames(lForecastFrame, lForecastFrame_i, lTime)
+                (lTimeInfo, lForecastFrame_i) = res
+                lForecastFrame = self.merge_frames(lForecastFrame, lForecastFrame_i, lTimeInfo)
                 del lForecastFrame_i
             pool.close()
             pool.join()
         else:
             for arg in args:
                 res = forecast_one_signal(arg)
-                (lSignal, lTime, lForecastFrame_i) = res
-                lForecastFrame = self.merge_frames(lForecastFrame, lForecastFrame_i, lTime)
+                (lTimeInfo, lForecastFrame_i) = res
+                lForecastFrame = self.merge_frames(lForecastFrame, lForecastFrame_i, lTimeInfo)
                 del lForecastFrame_i
                 
         return lForecastFrame;
