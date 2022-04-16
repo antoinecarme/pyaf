@@ -76,8 +76,7 @@ class cExogenousInfo:
         df2 = df.merge(lCompleteEncoded,
                        how='left',
                        left_on=self.mDateVariable,
-                       right_on=lExogDate,
-                       suffixes=('_x', ''));
+                       right_on=lExogDate);
         assert(df2.shape[0] == N)
         # df1 = df1.drop([lExogDate] , axis = 1);
         # print(df2.columns);
