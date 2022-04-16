@@ -547,7 +547,8 @@ class cSignalDecompositionForecaster:
         if(iFullFrame is None):
             return iOneSignalFrame
         lTime = iFullFrame.columns[0]
-        lOneSignalCommonColumns = [iTimeInfo.mRowNumberColumn, iTimeInfo.mNormalizedTimeColumn]
+        lOneSignalCommonColumns = [col for col in iOneSignalFrame.columns if col in iFullFrame.columns]
+        lOneSignalCommonColumns = [col for col in lOneSignalCommonColumns if col not in [lTime , iTimeInfo.mTime]]
         lOneSignalFrame = iOneSignalFrame.drop(lOneSignalCommonColumns, axis = 1)
         lForecastFrame = iFullFrame.merge(lOneSignalFrame, how='left', left_on=lTime, right_on=iTimeInfo.mTime);
         return lForecastFrame
