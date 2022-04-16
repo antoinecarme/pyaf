@@ -80,14 +80,13 @@ class cTimer:
     def __init__(self, iMess = "PYAF_UNKNOWN_OP", iDebug = False):
         self.mMessage = iMess
         self.mStart = datetime.now();
-        logger = get_pyaf_timing_logger();
-        logger.info(("OPERATION_START", self.mMessage))
+        self.logger = get_pyaf_timing_logger();
+        self.logger.info(("OPERATION_START", self.mMessage))
 
     def __del__(self):
         self.mEnd = datetime.now();
         lDelta = self.mEnd - self.mStart
-        logger = get_pyaf_timing_logger();
-        logger.info(("OPERATION_END_ELAPSED" , round(lDelta.total_seconds(), 3), self.mMessage))
+        self.logger.info(("OPERATION_END_ELAPSED" , round(lDelta.total_seconds(), 3), self.mMessage))
 
 def get_module_version_when_available(module_name):
     try:
