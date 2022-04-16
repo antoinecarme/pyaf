@@ -549,7 +549,7 @@ class cSignalDecompositionForecaster:
         lTime = iFullFrame.columns[0]
         lOneSignalCommonColumns = [iTimeInfo.mRowNumberColumn, iTimeInfo.mNormalizedTimeColumn]
         lOneSignalFrame = iOneSignalFrame.drop(lOneSignalCommonColumns, axis = 1)
-        lForecastFrame = iFullFrame.merge(lOneSignalFrame, how='left', left_on=lTime, right_on=iTimeInfo.mTime, suffixes = None);
+        lForecastFrame = iFullFrame.merge(lOneSignalFrame, how='left', left_on=lTime, right_on=iTimeInfo.mTime);
         return lForecastFrame
     
     def forecast(self, iDecomsposition, iInputDS, iHorizons):
