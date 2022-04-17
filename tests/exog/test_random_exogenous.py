@@ -10,16 +10,11 @@ import warnings
 def test_random_exogenous(n , nbex):
 
     with warnings.catch_warnings():
-        warnings.simplefilter("error")
+        # warnings.simplefilter("error")
 
-        b1 = tsds.generate_random_TS(N = 600 , FREQ = 'D', seed = 0, trendtype = "constant", cycle_length = 12, transform = "", sigma = 0.0, exog_count = 2000);
+        b1 = tsds.generate_random_TS(N = 600 , FREQ = 'D', seed = 0, trendtype = "LinearTrend", cycle_length = 12, transform = "", sigma = 0.0, exog_count = 2000, ar_order = 12);
         df = b1.mPastData
-
-        # this script works on mysql with N = 600, exog_count = 20 when thread_stack = 1920K in
-        # /etc/mysql/mysql.conf.d/mysqld.cnf
-
-        # #df.to_csv("outputs/rand_exogenous.csv")
-
+        print(df.head())
         print(b1)
         H = b1.mHorizon[b1.mSignalVar];
     
@@ -29,8 +24,12 @@ def test_random_exogenous(n , nbex):
         # lEngine.mOptions.mEnableSeasonals = False;
         # lEngine.mOptions.mDebugCycles = False;
         lEngine.mOptions.mDebugProfile = True;
+        lEngine.mOptions.mNbCores = 1
+        lEngine.mOptions.set_active_autoregressions(['ARX']);
         lEngine
         lExogenousData = (b1.mExogenousDataFrame , b1.mExogenousVariables[0:nbex]) 
+        lExogenousData[0].info()
+        df1.info()
         lEngine.train(df1 , b1.mTimeVar , b1.mSignalVar, H, lExogenousData);
         lEngine.getModelInfo();
         lEngine.standardPlots(name = "outputs/my_exog_" + str(nbex) + "_" + str(n));
