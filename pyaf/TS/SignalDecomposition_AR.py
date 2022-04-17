@@ -188,6 +188,24 @@ class cAutoRegressiveEstimator:
         lag_df = pd.DataFrame(lDict, index = df.index, dtype = lSeries.dtype)
         return (lag_df, lags)
 
+    def preselect_exog_vars(self, df, cycle_residue):
+        P = self.get_nb_lags();
+        lMaxFeatures = self.mOptions.mMaxFeatureForAutoreg;
+        lExogCount = len(self.mExogenousInfo.mEncodedExogenous);
+        lNbVars = P * lExogCount;
+        if(lNbVars <= lMaxFeatures):
+            return self.mExogenousInfo.mEncodedExogenous
+        from sklearn.feature_selection import SelectKBest
+        from sklearn.feature_selection import f_regression
+        lPreselectionFeatureSelector =  SelectKBest(f_regression, k= max(1, lMaxFeatures // P))
+        df_Estim = self.mSplit.getEstimPart(df)
+        lARInputs = df_Estim[self.mExogenousInfo.mEncodedExogenous].values
+        lARTarget = df_Estim[cycle_residue].values
+        lPreselectionFeatureSelector.fit(lARInputs, lARTarget)
+        lSupport = lPreselectionFeatureSelector.get_support(indices=True);
+        lPreselected = [self.mExogenousInfo.mEncodedExogenous[k] for k in lSupport];
+        return lPreselected
+
     def addLagsForTraining(self, df, cycle_residue):
         P = self.get_nb_lags();
         lag_df, lags = self.generateLagsForTraining(df, cycle_residue, (1, P));
@@ -204,12 +222,9 @@ class cAutoRegressiveEstimator:
                 lUseExog = True
         if(lUseExog):
             P1 = P;
-            lExogCount = len(self.mExogenousInfo.mEncodedExogenous);
-            lNbVars = P * lExogCount;
-            if(lNbVars >= self.mOptions.mMaxFeatureForAutoreg):
-                P1 = self.mOptions.mMaxFeatureForAutoreg // lExogCount;
             autoreg.mNbExogenousLags = P1;
-            for ex in self.mExogenousInfo.mEncodedExogenous:
+            lEncodedExogenous = self.preselect_exog_vars(df, cycle_residue)
+            for ex in lEncodedExogenous:
                 (lag_df, lags_ex) = self.generateLagsForTraining(df, ex, (1, P1));
                 lag_dfs = lag_dfs + [lag_df]        
                 for autoreg in self.mARList[cycle_residue]:
@@ -303,6 +318,7 @@ class cAutoRegressiveEstimator:
                     self.mARList[cycle_residue] = [ cZeroAR(cycle_residue)];
                 lLags = self.get_nb_lags()
                 lKeep = (self.mCycleFrame[cycle_residue].shape[0] > 12) and (self.mCycleFrame[cycle_residue].std() > 0.00001)
+                lKeep = lKeep or not self.mOptions.mActiveAutoRegressions['NoAR']
                 if(not lKeep):
                     logger.info("SKIPPING_AR_MODELS_WITH_LOW_VARIANCE_CYCLE_RESIDUE '" + cycle_residue + "'");
                     
@@ -332,7 +348,7 @@ class cAutoRegressiveEstimator:
 
         if(lNeedExogenous):
             if(self.mOptions.mDebugProfile):
-                logger.info("AR_MODEL_ADD_EXOGENOUS '" + str(self.mCycleFrame.shape[0]) +
+                logger.info("AR_MODEL_ADD_EXOGENOUS " + str(self.mCycleFrame.shape[0]) +
                       " " + str(len(self.mExogenousInfo.mEncodedExogenous)));
             self.mCycleFrame = self.mExogenousInfo.transformDataset(self.mCycleFrame);
         
