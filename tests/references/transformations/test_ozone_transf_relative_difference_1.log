@@ -1,9 +1,7 @@
 INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['signal2'], 'Transformations': [('signal2', 'None', 'RelDiff_', 'T+S+R')], 'Cores': 1}))
 INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal2', 'Transformation': 'RelDiff_signal2'}))
-/home/circleci/.pyenv/versions/3.10.2/lib/python3.10/site-packages/xgboost/compat.py:36: FutureWarning: pandas.Int64Index is deprecated and will be removed from pandas in a future version. Use pandas.Index with the appropriate dtype instead.
-  from pandas import MultiIndex, Int64Index
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.583, ('TRAINING', {'Signal': 'signal2', 'Transformation': 'RelDiff_signal2'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.586, ('SIGNAL_TRAINING', {'Signals': ['signal2'], 'Transformations': [('signal2', 'None', 'RelDiff_', 'T+S+R')], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.677, ('TRAINING', {'Signal': 'signal2', 'Transformation': 'RelDiff_signal2'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.68, ('SIGNAL_TRAINING', {'Signals': ['signal2'], 'Transformations': [('signal2', 'None', 'RelDiff_', 'T+S+R')], 'Cores': 1}))
 INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['signal2'], 'Transformations': [('signal2', [('signal2', 'None', 'RelDiff_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'signal2', 'Transformations': [('signal2', 'None', 'RelDiff_', 'T+S+R')]}))
 INFO:pyaf.std:collectPerformanceIndices : ('MAPE', ('RelDiff_signal2', 'T+S+R', None, 'RelDiff_signal2_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR'), 6.0, 0.9937)
@@ -18,8 +16,8 @@ INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.004, ('MODEL_SELECTION', {'Signal':
 INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'signal2', 'Model': 'RelDiff_signal2_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR'}))
 INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.019, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'signal2', 'Model': 'RelDiff_signal2_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR'}))
 INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'signal2'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.235, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'signal2'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.259, ('FINALIZE_TRAINING', {'Signals': ['signal2'], 'Transformations': [('signal2', [('signal2', 'None', 'RelDiff_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.222, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'signal2'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.245, ('FINALIZE_TRAINING', {'Signals': ['signal2'], 'Transformations': [('signal2', [('signal2', 'None', 'RelDiff_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='time' TimeMin=0 TimeMax=949 TimeDelta=1 Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='signal2' Length=1200  Min=1.0 Max=8.675889481882477e+94  Mean=4.337944740941239e+92 StdDev=4.510021374694525e+93
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='RelDiff_signal2' Min=0.0 Max=0.20000000000000015  Mean=0.0042068830008663415 StdDev=0.02859329104867271
@@ -51,8 +49,8 @@ INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.timing:('OPERATION_START', ('PLOTTING', {'Signals': ['signal2']}))
 INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['signal2'], 'Horizon': 12}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.49, ('PLOTTING', {'Signals': ['signal2']}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.183, ('FORECASTING', {'Signals': ['signal2'], 'Horizon': 12}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.397, ('PLOTTING', {'Signals': ['signal2']}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.157, ('FORECASTING', {'Signals': ['signal2'], 'Horizon': 12}))
 INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['signal2'], 'Transformations': [('signal2', 'None', '_', 'T+S+R'), ('signal2', 'None', 'Diff_', 'T+S+R'), ('signal2', 'None', 'RelDiff_', 'T+S+R'), ('signal2', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 1200 entries, 0 to 1199
@@ -218,11 +216,11 @@ INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal2', 'Transfo
   f_statistic = corr_coef_squared / (1 - corr_coef_squared) * deg_of_freedom
 /home/circleci/.pyenv/versions/3.10.2/lib/python3.10/site-packages/sklearn/feature_selection/_univariate_selection.py:358: RuntimeWarning: divide by zero encountered in true_divide
   f_statistic = corr_coef_squared / (1 - corr_coef_squared) * deg_of_freedom
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.38, ('TRAINING', {'Signal': 'signal2', 'Transformation': 'RelDiff_signal2'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.559, ('TRAINING', {'Signal': 'signal2', 'Transformation': 'Diff_signal2'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.573, ('TRAINING', {'Signal': 'signal2', 'Transformation': 'CumSum_signal2'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.575, ('TRAINING', {'Signal': 'signal2', 'Transformation': '_signal2'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.668, ('SIGNAL_TRAINING', {'Signals': ['signal2'], 'Transformations': [('signal2', 'None', '_', 'T+S+R'), ('signal2', 'None', 'Diff_', 'T+S+R'), ('signal2', 'None', 'RelDiff_', 'T+S+R'), ('signal2', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.363, ('TRAINING', {'Signal': 'signal2', 'Transformation': 'RelDiff_signal2'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.529, ('TRAINING', {'Signal': 'signal2', 'Transformation': 'Diff_signal2'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.529, ('TRAINING', {'Signal': 'signal2', 'Transformation': '_signal2'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.534, ('TRAINING', {'Signal': 'signal2', 'Transformation': 'CumSum_signal2'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.662, ('SIGNAL_TRAINING', {'Signals': ['signal2'], 'Transformations': [('signal2', 'None', '_', 'T+S+R'), ('signal2', 'None', 'Diff_', 'T+S+R'), ('signal2', 'None', 'RelDiff_', 'T+S+R'), ('signal2', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['signal2'], 'Transformations': [('signal2', [('signal2', 'None', 'CumSum_', 'T+S+R'), ('signal2', 'None', 'Diff_', 'T+S+R'), ('signal2', 'None', 'RelDiff_', 'T+S+R'), ('signal2', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'signal2', 'Transformations': [('signal2', 'None', 'CumSum_', 'T+S+R'), ('signal2', 'None', 'Diff_', 'T+S+R'), ('signal2', 'None', 'RelDiff_', 'T+S+R'), ('signal2', 'None', '_', 'T+S+R')]}))
 INFO:pyaf.std:collectPerformanceIndices : ('MAPE', ('_signal2', 'T+S+R', None, '_signal2_ConstantTrend_residue_bestCycle_byMAPE_residue_AR(64)'), 69.0, 5.544441293375916e+70)
@@ -283,10 +281,10 @@ INFO:pyaf.std:collectPerformanceIndices : ('MAPE', ('CumSum_signal2', 'T+S+R', N
 INFO:pyaf.std:collectPerformanceIndices : ('MAPE', ('CumSum_signal2', 'T+S+R', None, 'CumSum_signal2_PolyTrend_residue_zeroCycle[0.0]_residue_NoAR'), 4.0, 8.935606700356986e+70)
 INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.007, ('MODEL_SELECTION', {'Signal': 'signal2', 'Transformations': [('signal2', 'None', 'CumSum_', 'T+S+R'), ('signal2', 'None', 'Diff_', 'T+S+R'), ('signal2', 'None', 'RelDiff_', 'T+S+R'), ('signal2', 'None', '_', 'T+S+R')]}))
 INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'signal2', 'Model': '_signal2_Lag1Trend_residue_zeroCycle[0.0]_residue_NoAR'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.017, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'signal2', 'Model': '_signal2_Lag1Trend_residue_zeroCycle[0.0]_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.015, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'signal2', 'Model': '_signal2_Lag1Trend_residue_zeroCycle[0.0]_residue_NoAR'}))
 INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'signal2'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.187, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'signal2'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.212, ('FINALIZE_TRAINING', {'Signals': ['signal2'], 'Transformations': [('signal2', [('signal2', 'None', 'CumSum_', 'T+S+R'), ('signal2', 'None', 'Diff_', 'T+S+R'), ('signal2', 'None', 'RelDiff_', 'T+S+R'), ('signal2', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.163, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'signal2'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.185, ('FINALIZE_TRAINING', {'Signals': ['signal2'], 'Transformations': [('signal2', [('signal2', 'None', 'CumSum_', 'T+S+R'), ('signal2', 'None', 'Diff_', 'T+S+R'), ('signal2', 'None', 'RelDiff_', 'T+S+R'), ('signal2', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='time' TimeMin=0 TimeMax=949 TimeDelta=1 Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='signal2' Length=1200  Min=1.0 Max=8.675889481882477e+94  Mean=4.337944740941239e+92 StdDev=4.510021374694525e+93
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_signal2' Min=0.0 Max=1.0  Mean=0.005 StdDev=0.05198338895524923
@@ -366,8 +364,8 @@ INFO:pyaf.timing:('OPERATION_START', ('PLOTTING', {'Signals': ['signal2']}))
 /home/circleci/.pyenv/versions/3.10.2/lib/python3.10/site-packages/numpy/lib/histograms.py:906: RuntimeWarning: invalid value encountered in true_divide
   return n/db/n.sum(), bin_edges
 INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['signal2'], 'Horizon': 12}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.743, ('PLOTTING', {'Signals': ['signal2']}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.133, ('FORECASTING', {'Signals': ['signal2'], 'Horizon': 12}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.704, ('PLOTTING', {'Signals': ['signal2']}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.107, ('FORECASTING', {'Signals': ['signal2'], 'Horizon': 12}))
    Split   Transformation  ... ForecastMAPE TestMAPE
 0   None     Diff_signal2  ...       0.1631   0.1667
 1   None     Diff_signal2  ...       0.1631   0.1667
