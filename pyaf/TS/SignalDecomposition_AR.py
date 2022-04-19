@@ -297,7 +297,6 @@ class cAutoRegressiveEstimator:
         
     # @profile
     def estimate(self):
-        from . import Keras_Models as tskeras
         from . import Scikit_Models as tsscikit
         from . import Intermittent_Models as interm
 
@@ -325,10 +324,12 @@ class cAutoRegressiveEstimator:
                 if(lKeep):
                     self.add_model_if_activated(cycle_residue, 'AR', tsscikit.cAutoRegressiveModel, lLags, True)
                     self.add_model_if_activated(cycle_residue, 'SVR', tsscikit.cSVR_Model, lLags, True)
-                    if(self.mOptions.canBuildKerasModel('LSTM')):
-                        self.add_model_if_activated(cycle_residue, 'LSTM', tskeras.cLSTM_Model, lLags, True)
-                    if(self.mOptions.canBuildKerasModel('MLP')):
-                        self.add_model_if_activated(cycle_residue, 'MLP', tskeras.cMLP_Model, lLags, True)
+                    lLSTMClass = self.mOptions.getPytorchOrKerasClass('LSTM')
+                    if(lLSTMClass is not None):
+                        self.add_model_if_activated(cycle_residue, 'LSTM', lLSTMClass, lLags, True)
+                    lMLPClass = self.mOptions.getPytorchOrKerasClass('MLP')
+                    if(lMLPClass is not None):                    
+                        self.add_model_if_activated(cycle_residue, 'MLP', lMLPClass, lLags, True)
                     if(self.mOptions.canBuildXGBoostModel('XGB')):
                         self.add_model_if_activated(cycle_residue, 'XGB', tsscikit.cXGBoost_Model, lLags, True)
                     if(self.mOptions.canBuildLightGBMModel('LGB')):
