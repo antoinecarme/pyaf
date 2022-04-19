@@ -1866,6 +1866,46 @@ probabilistic_forecasting/test_ozone.py  :
  probabilistic_forecasting :  probabilistic_forecasting/test_ozone.py probabilistic_forecasting/test_air_passengers.py  
  
 
+pytorch/test_ozone_exogenous_LSTMX_keras.py  :  
+	 -$(PYTHON)  tests/pytorch/test_ozone_exogenous_LSTMX_keras.py  >  logs/pytorch_test_ozone_exogenous_LSTMX_keras.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/pytorch/test_ozone_exogenous_LSTMX_keras.log logs/pytorch_test_ozone_exogenous_LSTMX_keras.log  >  logs/pytorch_test_ozone_exogenous_LSTMX_keras.log.diff
+	 tail -10  logs/pytorch_test_ozone_exogenous_LSTMX_keras.log.diff 
+
+pytorch/test_ozone_exogenous_LSTMX_pytorch.py  :  
+	 -$(PYTHON)  tests/pytorch/test_ozone_exogenous_LSTMX_pytorch.py  >  logs/pytorch_test_ozone_exogenous_LSTMX_pytorch.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/pytorch/test_ozone_exogenous_LSTMX_pytorch.log logs/pytorch_test_ozone_exogenous_LSTMX_pytorch.log  >  logs/pytorch_test_ozone_exogenous_LSTMX_pytorch.log.diff
+	 tail -10  logs/pytorch_test_ozone_exogenous_LSTMX_pytorch.log.diff 
+
+pytorch/test_ozone_exogenous_LSTMX_pytorch_or_keras.py  :  
+	 -$(PYTHON)  tests/pytorch/test_ozone_exogenous_LSTMX_pytorch_or_keras.py  >  logs/pytorch_test_ozone_exogenous_LSTMX_pytorch_or_keras.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/pytorch/test_ozone_exogenous_LSTMX_pytorch_or_keras.log logs/pytorch_test_ozone_exogenous_LSTMX_pytorch_or_keras.log  >  logs/pytorch_test_ozone_exogenous_LSTMX_pytorch_or_keras.log.diff
+	 tail -10  logs/pytorch_test_ozone_exogenous_LSTMX_pytorch_or_keras.log.diff 
+
+pytorch/test_ozone_exogenous_MLPX_keras.py  :  
+	 -$(PYTHON)  tests/pytorch/test_ozone_exogenous_MLPX_keras.py  >  logs/pytorch_test_ozone_exogenous_MLPX_keras.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/pytorch/test_ozone_exogenous_MLPX_keras.log logs/pytorch_test_ozone_exogenous_MLPX_keras.log  >  logs/pytorch_test_ozone_exogenous_MLPX_keras.log.diff
+	 tail -10  logs/pytorch_test_ozone_exogenous_MLPX_keras.log.diff 
+
+pytorch/test_ozone_exogenous_MLPX_pytorch.py  :  
+	 -$(PYTHON)  tests/pytorch/test_ozone_exogenous_MLPX_pytorch.py  >  logs/pytorch_test_ozone_exogenous_MLPX_pytorch.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/pytorch/test_ozone_exogenous_MLPX_pytorch.log logs/pytorch_test_ozone_exogenous_MLPX_pytorch.log  >  logs/pytorch_test_ozone_exogenous_MLPX_pytorch.log.diff
+	 tail -10  logs/pytorch_test_ozone_exogenous_MLPX_pytorch.log.diff 
+
+pytorch/test_ozone_exogenous_MLPX_pytorch_or_keras.py  :  
+	 -$(PYTHON)  tests/pytorch/test_ozone_exogenous_MLPX_pytorch_or_keras.py  >  logs/pytorch_test_ozone_exogenous_MLPX_pytorch_or_keras.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/pytorch/test_ozone_exogenous_MLPX_pytorch_or_keras.log logs/pytorch_test_ozone_exogenous_MLPX_pytorch_or_keras.log  >  logs/pytorch_test_ozone_exogenous_MLPX_pytorch_or_keras.log.diff
+	 tail -10  logs/pytorch_test_ozone_exogenous_MLPX_pytorch_or_keras.log.diff 
+
+pytorch/test_ozone_exogenous_gen.py  :  
+	 -$(PYTHON)  tests/pytorch/test_ozone_exogenous_gen.py  >  logs/pytorch_test_ozone_exogenous_gen.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/pytorch/test_ozone_exogenous_gen.log logs/pytorch_test_ozone_exogenous_gen.log  >  logs/pytorch_test_ozone_exogenous_gen.log.diff
+	 tail -10  logs/pytorch_test_ozone_exogenous_gen.log.diff 
+
+
+
+ pytorch :  pytorch/test_ozone_exogenous_gen.py pytorch/test_ozone_exogenous_MLPX_pytorch_or_keras.py pytorch/test_ozone_exogenous_MLPX_pytorch.py pytorch/test_ozone_exogenous_MLPX_keras.py pytorch/test_ozone_exogenous_LSTMX_pytorch_or_keras.py pytorch/test_ozone_exogenous_LSTMX_pytorch.py pytorch/test_ozone_exogenous_LSTMX_keras.py  
+ 
+
 real-life/test_sof_example.py  :  
 	 -$(PYTHON)  tests/real-life/test_sof_example.py  >  logs/real-life_test_sof_example.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/real-life/test_sof_example.log logs/real-life_test_sof_example.log  >  logs/real-life_test_sof_example.log.diff
@@ -2164,7 +2204,7 @@ xgb/test_ozone_xgbx_exogenous.py  :
 
 # ********************************************** 
 
-all:  artificial basic_checks bugs cross_validation croston exog expsmooth func HeartRateTimeSeries heroku hierarchical  HourOfWeek model_control perf svr transformations  neuralnet real-life  time_res perfs demos xgb xeon-phi-parallel sampling temporal_hierarchy WeekOfMonth missing_data  probabilistic_forecasting lgbm perf_MedAE perf_LnQ plots multiplicative_seasonal 
+all:  artificial basic_checks bugs cross_validation croston exog expsmooth func HeartRateTimeSeries heroku hierarchical  HourOfWeek model_control perf svr transformations  neuralnet real-life  time_res perfs demos xgb xeon-phi-parallel sampling temporal_hierarchy WeekOfMonth missing_data  probabilistic_forecasting lgbm perf_MedAE perf_LnQ plots multiplicative_seasonal pytorch 
 	
 
 build-test :  demos basic_checks cross_validation croston exog heroku hierarchical model_control perfs svr transformations func real-life  time_res xgb sampling HourOfWeek WeekOfMonth missing_data lgbm perf_MedAE perf_LnQ multiplicative_seasonal 

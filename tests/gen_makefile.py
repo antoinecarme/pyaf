@@ -36,6 +36,7 @@ str1 = str1 + " perf_MedAE"
 str1 = str1 + " perf_LnQ"
 str1 = str1 + " plots"
 str1 = str1 + " multiplicative_seasonal"
+str1 = str1 + " pytorch"
 subdirs = str1.split();
 
 print("PYTHON=timeout 480 python\n\n");
