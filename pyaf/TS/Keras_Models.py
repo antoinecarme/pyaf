@@ -10,7 +10,7 @@ class cAbstract_RNN_Model(tsar.cAbstractAR):
         self.mNbExogenousLags = P;
         self.mComplexity = P;
         self.mHiddenUnits = P;
-        self.mNbEpochs = 50;
+        self.mNbEpochs = 10;
         sys.setrecursionlimit(1000000);
 
     def dumpCoefficients(self, iMax=10):
