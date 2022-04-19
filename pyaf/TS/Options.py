@@ -186,6 +186,7 @@ class cSignalDecomposition_Options(cModelControl):
         self.mCrossValidationOptions = cCrossValidationOptions()
         self.mCrostonOptions = cCrostonOptions()
         self.mMissingDataOptions = cMissingDataOptions()
+        self.mDL_Backends = ("PyTorch", "Keras") # Pytorch and Keras if Pytorch is not installed
         self.disableDebuggingOptions();
 
     def disableDebuggingOptions(self):
@@ -238,24 +239,45 @@ class cSignalDecomposition_Options(cModelControl):
     (tensorflow backend). theano seems OK.
     Possible solution : increase developer knowledge of keras !!
     '''
-    def  canBuildKerasModel(self, iModel):
+
+    def has_module_installed(self, module_name):
         try:
-            from tensorflow import keras
-            return True;
-        except Exception as e:
-            return False;
+            import importlib
+            mod = importlib.import_module(module_name)
+            return True
+        except:
+            pass
+        return False
+
+    def get_available_DL_Backend(self):
+        lBackend = self.mDL_Backends
+        # pick the first available backend
+        for lBackend in self.mDL_Backends:
+            if(lBackend == "PyTorch"):
+                if(self.has_module_installed("torch")):
+                    return lBackend
+            if(lBackend == "Keras"):
+                if(self.has_module_installed("tensorflow")):
+                    return lBackend
+        return None        
+    
+    def getPytorchOrKerasClass(self, iModel):
+        lBackend = self.get_available_DL_Backend()
+        if(lBackend == "PyTorch"):
+            from . import Pytorch_Models as tspytorch
+            lDict = {"LSTM" : tspytorch.cLSTM_Model, "MLP" : tspytorch.cMLP_Model}
+            return lDict.get(iModel)
+        if(lBackend == "Keras"):
+            from . import Keras_Models as tskeras
+            lDict = {"LSTM" : tskeras.cLSTM_Model, "MLP" : tskeras.cMLP_Model}
+            return lDict.get(iModel)
+        return None
+    
+    def hasPytorchOrKerasInstalled(self, iModel):
+        return self.has_module_installed('torch') or self.has_module_installed('tensorflow')
 
     def  canBuildXGBoostModel(self, iModel):
-        try:
-            import xgboost
-            return True;
-        except:
-            return False;
+        return self.has_module_installed('xgboost')
 
     def  canBuildLightGBMModel(self, iModel):
-        try:
-            import lightgbm
-            return True;
-        except:
-            return False;
-
+        return self.has_module_installed('lightgbm')
