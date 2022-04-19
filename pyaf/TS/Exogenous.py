@@ -56,15 +56,7 @@ class cExogenousInfo:
     def addVars(self, df):
         lExogDate = self.mDateVariable;
         N = df.shape[0]
-        # print(df[self.mDateVariable].dtype ,
-        #       self.mEncodedExogenousDataFrame[self.mDateVariable].dtype);
-        # print(df.info());
-        # print(self.mEncodedExogenousDataFrame.info());
-        # print(df.head());
-        # print(self.mEncodedExogenousDataFrame.head());
-
         df1 = df[[self.mDateVariable]];
-        # df1.info()
         lCompleteEncoded = df1.merge(self.mEncodedExogenousDataFrame,
                                      how='left',
                                      left_on=self.mDateVariable,
@@ -72,51 +64,46 @@ class cExogenousInfo:
         lCompleteEncoded.fillna(0.0, inplace=True);
         assert(lCompleteEncoded.shape[0] == N)
         
-        # print("EXOG_COLUMNS", self.mEncodedExogenousDataFrame.columns);
         df2 = df.merge(lCompleteEncoded,
                        how='left',
                        left_on=self.mDateVariable,
                        right_on=lExogDate);
-        assert(df2.shape[0] == N)
-        # df1 = df1.drop([lExogDate] , axis = 1);
-        # print(df2.columns);
-        # print(df2[['Month']].describe());
         return df2;
 
     def transformDataset(self, df):
-        # print("BEFORE_EXOG_TRANSFORM_DATASET" , df.shape, df.columns);
         df1 = self.addVars(df);
-        # print("AFTER_EXOG_TRANSFORM_DATASET" , df.shape, df.columns);
         return df1;
         
     def createEncodedExogenous(self):
-        self.mExogDummiesDataFrame = pd.DataFrame(index = self.mExogenousDataFrame.index);
         self.mEncodedExogenous = [];
-        self.mEncodedExogenousDataFrame = pd.DataFrame(index = self.mExogenousDataFrame.index);
-        self.mEncodedExogenousDataFrame[self.mDateVariable] = self.mExogenousDataFrame[self.mDateVariable];
+        lEncodedVars = {self.mDateVariable : self.mExogenousDataFrame[self.mDateVariable]}
         for exog in self.mExogenousVariables:
             if(exog not in self.mExcluded):
+                lSeries = self.mExogenousDataFrame[exog]
                 lList = self.mExogenousVariableCategories[exog];
                 if(lList is not None):
                     for lCat in lList:
                         lDummyName = exog + "=" + str(lCat);
-                        self.mEncodedExogenousDataFrame[lDummyName] = np.where(
-                            self.mExogenousDataFrame[exog] == lCat , np.int8(1), np.int8(0));
+                        lEncodedVars[lDummyName] = np.where(lSeries == lCat , np.int8(1), np.int8(0));
                         self.mEncodedExogenous = self.mEncodedExogenous + [lDummyName];
                 else:
                     lExogStats = self.mContExogenousStats[exog];
-                    # signle precision here ...
-                    self.mEncodedExogenousDataFrame[exog] = np.float32((self.mExogenousDataFrame[exog] - lExogStats[0])/ lExogStats[1]);
-                    self.mEncodedExogenousDataFrame[exog].fillna(np.float32(0.0), inplace=True);
-                    # self.mEncodedExogenousDataFrame[exog] = self.mEncodedExogenousDataFrame[exog].astype(np.float32);
+                    # single precision here ...
+                    lStandardized = (lSeries - lExogStats[0])/ lExogStats[1];
+                    lStandardized = lStandardized.astype(np.float32);
+                    lStandardized.fillna(np.float32(0.0), inplace=True);
+                    lEncodedVars[exog] = lStandardized
                     self.mEncodedExogenous = self.mEncodedExogenous + [exog];
             else:
                 # print("EXCLUDED" , exog);
                 pass
-
+        self.mEncodedExogenousDataFrame = pd.DataFrame(lEncodedVars,
+                                                       index = self.mExogenousDataFrame.index);
+        # self.mEncodedExogenousDataFrame.info()
 
     def updateExogenousVariableInfo(self):
-        # print(self.mExogenousDataFrame.info());
+        # self.mExogenousDataFrame.info()
+        # print(self.mExogenousDataFrame.describe());
         self.mExogenousVariableCategories = {};
         self.mContExogenousStats = {};
         # Compute these stats only on the estimation part.
@@ -146,7 +133,7 @@ class cExogenousInfo:
                 lList = sorted(lList);
                 # lListlVC.index[0:NCat].tolist();
                 # print("most_frequent_categories_for" , exog, lList);
-                if(len(lList) == 0):
+                if(len(lList) <= 1):
                     self.mExcluded.append(exog);
                 else:
                     self.mExogenousVariableCategories[exog] = lList;

@@ -193,8 +193,10 @@ def add_some_noise(x , p , min_sig, max_sig, e , f):
     if(max_sig > min_sig):
         delta = (x - min_sig) / (max_sig - min_sig);
         if( (delta >= e) and (delta <= f) ):
-            if(np.random.random() < p):
-                return "A";
+            lRand = np.random.random()
+            if(lRand < p):
+                k = int(67 + delta * 12)
+                return "A" + chr(k);
     return "0";
 
 
@@ -229,7 +231,7 @@ def gen_cycle(N , cycle_length):
 def gen_ar(N , ar_order):
     lAR = pd.Series(dtype='float64');
     if(ar_order > 0):
-        lSig = pd.Series(np.arange(0, N) / N);
+        lSig = pd.Series(np.arange(0, N) / N * 10.0);
         lAR = 0;
         a_p = 1;
         for p in range(1 , ar_order+1):
@@ -240,7 +242,7 @@ def gen_ar(N , ar_order):
     return lAR;
 
 def apply_old_transform(signal , transform):
-    transformed = None
+    transformed = signal
     if(transform == "exp"):
         transformed = np.exp(-signal)
     if(transform == "log"):
@@ -261,7 +263,7 @@ def apply_old_transform(signal , transform):
     
 def apply_transform(signal , transform):
     import pyaf.TS.Signal_Transformation as tstransf
-    arg = None
+    arg = signal
     if(transform == "Quantization"):
         arg = 10
     if(transform == "BoxCox"):
@@ -275,13 +277,14 @@ def apply_transform(signal , transform):
         transformed = tr.invert(signal)
         # print(signal.head())
         # print(transformed.head())
+    transformed = transformed.astype(np.float64)
     return transformed
 
 def generate_random_TS_name(N , FREQ, seed, trendtype, cycle_length, transform, sigma = 1.0, exog_count = 20, ar_order = 0) :
     lName = "Signal_" + str(N) + "_" + str(FREQ) +  "_" + str(seed)  + "_" + str(trendtype) +  "_" + str(cycle_length)   + "_" + str(transform)   + "_" + str(sigma) + "_" + str(exog_count) ;
     return lName
     
-def generate_random_TS(N , FREQ, seed, trendtype, cycle_length, transform, sigma = 1.0, exog_count = 20, ar_order = 0) :
+def generate_random_TS(N , FREQ, seed, trendtype, cycle_length, transform, sigma = 1.0, exog_count = 20, ar_order = 12) :
     tsspec = cTimeSeriesDatasetSpec();
     lName = generate_random_TS_name(N , FREQ, seed, trendtype, cycle_length, transform, sigma, exog_count, ar_order)
     tsspec.mName = lName
@@ -310,24 +313,25 @@ def generate_random_TS(N , FREQ, seed, trendtype, cycle_length, transform, sigma
     df_train['GeneratedAR'] = gen_ar(N , ar_order);
 
     df_train['Noise'] = np.random.randn(N, 1) * sigma;
-    df_train['Signal'] = 100 * df_train['GeneratedTrend'] +  10 * df_train['GeneratedCycle'] + 1 * df_train['GeneratedAR'] + df_train['Noise']
+    df_train['Signal'] = df_train['GeneratedTrend'] +  df_train['GeneratedCycle'] + 1 * df_train['GeneratedAR'] + df_train['Noise']
 
     min_sig = df_train['Signal'].min();
     max_sig = df_train['Signal'].max();
     # print(df_train.info())
     tsspec.mExogenousVariables = [];
-    tsspec.mExogenousDataFrame = pd.DataFrame();
-    tsspec.mExogenousDataFrame['Date'] = df_train['Date']
+    lExogVars = {}
     for e in range(exog_count):
         label = "exog_" + str(e+1);
-        tsspec.mExogenousDataFrame[label] = df_train['Signal'].apply(
-            lambda x : add_some_noise(x , 0.1 , 
+        lExogVars[label] = df_train['Signal'].apply(
+            lambda x : add_some_noise(x , 0.5, 
                                       min_sig, 
                                       max_sig, 
                                       e/exog_count ,
-                                      (e+3)/exog_count ));
-        tsspec.mExogenousVariables = tsspec.mExogenousVariables + [ label ];
+                                      (e+exog_count / 4)/exog_count ));
 
+    tsspec.mExogenousVariables = list(lExogVars.keys());
+    lExogVars['Date'] = df_train['Date']
+    tsspec.mExogenousDataFrame = pd.DataFrame(lExogVars, index = df_train.index);
     # print(tsspec.mExogenousDataFrame.info())
 
     # this is the full dataset . must contain future exogenius data
