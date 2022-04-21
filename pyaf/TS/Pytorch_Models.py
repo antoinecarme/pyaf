@@ -124,7 +124,7 @@ class cMLP_Model(cAbstract_RNN_Model):
                                                     criterion=lOptions.get("criterion", nn.MSELoss),
                                                     max_epochs=lOptions.get("epochs", 100),
                                                     device='cpu',
-                                                    verbose=2)
+                                                    verbose=0)
 
         lName = "MLP" if(self.mExogenousInfo is None) else "MLPX"
 
