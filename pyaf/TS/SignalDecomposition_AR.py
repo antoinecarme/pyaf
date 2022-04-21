@@ -298,7 +298,6 @@ class cAutoRegressiveEstimator:
     # @profile
     def estimate(self):
         from . import Scikit_Models as tsscikit
-        from . import Intermittent_Models as interm
 
         lTimer = None
         if(self.mOptions.mDebugProfile):
@@ -324,20 +323,26 @@ class cAutoRegressiveEstimator:
                 if(lKeep):
                     self.add_model_if_activated(cycle_residue, 'AR', tsscikit.cAutoRegressiveModel, lLags, True)
                     self.add_model_if_activated(cycle_residue, 'SVR', tsscikit.cSVR_Model, lLags, True)
-                    lLSTMClass = self.mOptions.getPytorchOrKerasClass('LSTM')
-                    if(lLSTMClass is not None):
-                        self.add_model_if_activated(cycle_residue, 'LSTM', lLSTMClass, lLags, True)
-                    lMLPClass = self.mOptions.getPytorchOrKerasClass('MLP')
-                    if(lMLPClass is not None):                    
-                        self.add_model_if_activated(cycle_residue, 'MLP', lMLPClass, lLags, True)
-                    if(self.mOptions.canBuildXGBoostModel('XGB')):
-                        self.add_model_if_activated(cycle_residue, 'XGB', tsscikit.cXGBoost_Model, lLags, True)
-                    if(self.mOptions.canBuildLightGBMModel('LGB')):
-                        self.add_model_if_activated(cycle_residue, 'LGB', tsscikit.cLightGBM_Model, lLags, True)
-                    lIsSignalIntermittent = interm.is_signal_intermittent(self.mCycleFrame[cycle_residue] , self.mOptions)
-                    if(lIsSignalIntermittent):
-                        # TODO : need to define/design how to deal with exogenous variables in croston-based models.
-                        self.add_model_if_activated(cycle_residue, 'CROSTON', interm.cCroston_Model, lLags, False)
+                    if(self.mOptions.mActiveAutoRegressions['LSTM'] or self.mOptions.mActiveAutoRegressions['LSTMX']):
+                        lLSTMClass = self.mOptions.getPytorchOrKerasClass('LSTM')
+                        if(lLSTMClass is not None):
+                            self.add_model_if_activated(cycle_residue, 'LSTM', lLSTMClass, lLags, True)
+                    if(self.mOptions.mActiveAutoRegressions['MLP'] or self.mOptions.mActiveAutoRegressions['MLPX']):
+                        lMLPClass = self.mOptions.getPytorchOrKerasClass('MLP')
+                        if(lMLPClass is not None):                    
+                            self.add_model_if_activated(cycle_residue, 'MLP', lMLPClass, lLags, True)
+                    if(self.mOptions.mActiveAutoRegressions['XGB'] or self.mOptions.mActiveAutoRegressions['XGBX']):
+                        if(self.mOptions.canBuildXGBoostModel('XGB')):
+                            self.add_model_if_activated(cycle_residue, 'XGB', tsscikit.cXGBoost_Model, lLags, True)
+                    if(self.mOptions.mActiveAutoRegressions['LGB'] or self.mOptions.mActiveAutoRegressions['LGBX']):
+                        if(self.mOptions.canBuildLightGBMModel('LGB')):
+                            self.add_model_if_activated(cycle_residue, 'LGB', tsscikit.cLightGBM_Model, lLags, True)
+                    if(self.mOptions.mActiveAutoRegressions['CROSTON']):
+                        from . import Intermittent_Models as interm
+                        lIsSignalIntermittent = interm.is_signal_intermittent(self.mCycleFrame[cycle_residue] , self.mOptions)
+                        if(lIsSignalIntermittent):
+                            # TODO : need to define/design how to deal with exogenous variables in croston-based models.
+                            self.add_model_if_activated(cycle_residue, 'CROSTON', interm.cCroston_Model, lLags, False)
                         
                 if(len(self.mARList[cycle_residue]) == 0):
                     self.mARList[cycle_residue] = [ cZeroAR(cycle_residue)];
