@@ -187,6 +187,8 @@ class cSignalDecomposition_Options(cModelControl):
         self.mCrostonOptions = cCrostonOptions()
         self.mMissingDataOptions = cMissingDataOptions()
         self.mDL_Backends = ("PyTorch", "Keras") # Pytorch and Keras if Pytorch is not installed
+        self.mPytorch_Options = None
+        self.mKeras_Options = None
         self.disableDebuggingOptions();
 
     def disableDebuggingOptions(self):
@@ -241,13 +243,9 @@ class cSignalDecomposition_Options(cModelControl):
     '''
 
     def has_module_installed(self, module_name):
-        try:
-            import importlib
-            mod = importlib.import_module(module_name)
-            return True
-        except:
-            pass
-        return False
+        import importlib
+        spec = importlib.util.find_spec(module_name)
+        return spec is not None
 
     def get_available_DL_Backend(self):
         lBackend = self.mDL_Backends
