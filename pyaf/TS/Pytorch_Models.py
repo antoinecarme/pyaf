@@ -149,10 +149,11 @@ class cLSTM_Model(cAbstract_RNN_Model):
 
     def create_model(self, iNbInputs, iHidden):
         from torch import nn
-        lLSTM = nn.LSTM(iNbInputs, iHidden, dropout = 0.1)
+        lLSTM = nn.LSTM(iNbInputs, iHidden)
         lLSTMWithOneOutput = cLSTMWithOneOutput(lLSTM)
         model = nn.Sequential(
             lLSTMWithOneOutput,
+            nn.Dropout(p=0.1),
             nn.Linear(iHidden, 1))
         return model.double()
     
@@ -165,7 +166,7 @@ class cLSTM_Model(cAbstract_RNN_Model):
                                                     criterion=lOptions.get("criterion", nn.MSELoss),
                                                     max_epochs=lOptions.get("epochs", 100),
                                                     device='cpu',
-                                                    verbose=2)
+                                                    verbose=0)
 
 
         lName = "LSTM" if(self.mExogenousInfo is None) else "LSTMX"
