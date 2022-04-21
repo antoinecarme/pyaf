@@ -19,7 +19,6 @@ class cAbstract_RNN_Model(tsar.cAbstractAR):
         super().__init__(cycle_residue_name, iExogenousInfo)
         self.mNbLags = P;
         self.mNbExogenousLags = P;
-        self.mComplexity = P;
         self.mHiddenUnits = P;
         sys.setrecursionlimit(1000000);
 
@@ -80,6 +79,7 @@ class cAbstract_RNN_Model(tsar.cAbstractAR):
             
         self.mARFrame[self.mOutName] = lPredicted
         self.compute_ar_residue(self.mARFrame)
+        self.mComplexity = lFullARInputs.shape[1]
 
     def transformDataset(self, df, horizon_index = 1):
         series = self.mCycleResidueName; 
@@ -120,11 +120,13 @@ class cMLP_Model(cAbstract_RNN_Model):
         lNbLags = iARInputs.shape[1]
         lOptions = self.get_pytorch_options()
         from skorch import NeuralNetRegressor
+        from skorch.callbacks import EarlyStopping
         self.mModel = NeuralNetRegressor(self.create_model(lNbLags, self.mHiddenUnits),
-                                                    criterion=lOptions.get("criterion", nn.MSELoss),
-                                                    max_epochs=lOptions.get("epochs", 100),
-                                                    device='cpu',
-                                                    verbose=0)
+                                         criterion=lOptions.get("criterion", nn.MSELoss),
+                                         max_epochs=lOptions.get("epochs", 20),
+                                         callbacks=[EarlyStopping(patience=3)],
+                                         device='cpu',
+                                         verbose=0)
 
         lName = "MLP" if(self.mExogenousInfo is None) else "MLPX"
 
@@ -162,11 +164,13 @@ class cLSTM_Model(cAbstract_RNN_Model):
         lNbLags = iARInputs.shape[1]
         lOptions = self.get_pytorch_options()
         from skorch import NeuralNetRegressor
+        from skorch.callbacks import EarlyStopping
         self.mModel = NeuralNetRegressor(self.create_model(lNbLags, self.mHiddenUnits),
-                                                    criterion=lOptions.get("criterion", nn.MSELoss),
-                                                    max_epochs=lOptions.get("epochs", 100),
-                                                    device='cpu',
-                                                    verbose=0)
+                                         criterion=lOptions.get("criterion", nn.MSELoss),
+                                         max_epochs=lOptions.get("epochs", 20),
+                                         callbacks=[EarlyStopping(patience=3)],
+                                         device='cpu',
+                                         verbose=0)
 
 
         lName = "LSTM" if(self.mExogenousInfo is None) else "LSTMX"

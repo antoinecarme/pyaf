@@ -11,7 +11,6 @@ class cAbstract_RNN_Model(tsar.cAbstractAR):
         self.mNbExogenousLags = P;
         self.mComplexity = P;
         self.mHiddenUnits = P;
-        self.mNbEpochs = 100;
         sys.setrecursionlimit(1000000);
 
     def dumpCoefficients(self, iMax=10):
@@ -39,10 +38,17 @@ class cAbstract_RNN_Model(tsar.cAbstractAR):
             return self.get_default_keras_options()
         return self.mOptions.mKeras_Options
 
+    def fit_keras_model(self, iARInputs, iARTarget):
+        lOptions = self.get_keras_options()
+        import tensorflow as tf
+        lStopCallback = tf.keras.callbacks.EarlyStopping(monitor='loss', patience=3, verbose=0, mode='auto')
+        lHistory = self.mModel.fit(iARInputs, iARTarget,
+                                   epochs=lOptions.get("epochs", 20),
+                                   verbose=0, 
+                                   callbacks=[lStopCallback])
+
 
     def fit(self):
-        import tensorflow as tf
-        lOptions = self.get_keras_options()
 
         series = self.mCycleResidueName; 
         self.mTime = self.mTimeInfo.mTime;
@@ -61,11 +67,7 @@ class cAbstract_RNN_Model(tsar.cAbstractAR):
 
         lARInputs = self.reshape_inputs(lARInputs)
 
-        lStopCallback = tf.keras.callbacks.EarlyStopping(monitor='loss', patience=5, verbose=0, mode='auto')
-        lHistory = self.mModel.fit(lARInputs, lARTarget,
-                                   epochs=lOptions.get("epochs", 100),
-                                   verbose=0, 
-                                   callbacks=[lStopCallback])
+        self.fit_keras_model(lARInputs, lARTarget)
 
         lFullARInputs = self.mARFrame[self.mInputNames].values;
         lFullARInputs = self.mStandardScaler_Input.transform(lFullARInputs)
@@ -78,6 +80,7 @@ class cAbstract_RNN_Model(tsar.cAbstractAR):
             
         self.mARFrame[self.mOutName] = lPredicted
         self.compute_ar_residue(self.mARFrame)
+        self.mComplexity = lFullARInputs.shape[1]
 
     def transformDataset(self, df, horizon_index = 1):
         series = self.mCycleResidueName; 
