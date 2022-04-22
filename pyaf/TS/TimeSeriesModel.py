@@ -13,6 +13,9 @@ from . import Plots as tsplot
 from . import Perf as tsperf
 from . import Utils as tsutil
 
+def to_str(x):
+    return str(np.round(x, 6))
+
 class cTimeSeriesModel:
     
     def __init__(self, transf, iDecompType, trend, cycle, autoreg):
@@ -31,16 +34,17 @@ class cTimeSeriesModel:
         self.mSignal = self.mTimeInfo.mSignal;
         self.mTrainingVersionInfo = self.getVersions();
 
+        
     def signal_info(self):
         lSignal = self.mTrend.mSignalFrame[self.mOriginalSignal];
         lStr1 = "SignalVariable='" + self.mOriginalSignal +"'";
         lStr1 += " Length=" + str(lSignal.shape[0]) + " ";
-        lStr1 += " Min=" + str(np.min(lSignal)) + " Max="  + str(np.max(lSignal)) + " ";
-        lStr1 += " Mean=" + str(np.mean(lSignal)) + " StdDev="  + str(np.std(lSignal));
+        lStr1 += " Min=" + to_str(np.min(lSignal)) + " Max="  + to_str(np.max(lSignal)) + " ";
+        lStr1 += " Mean=" + to_str(np.mean(lSignal)) + " StdDev="  + to_str(np.std(lSignal));
         lSignal = self.mTrend.mSignalFrame[self.mSignal];
         lStr2 = "TransformedSignalVariable='" + self.mSignal +"'";
-        lStr2 += " Min=" + str(np.min(lSignal)) + " Max="  + str(np.max(lSignal)) + " ";
-        lStr2 += " Mean=" + str(np.mean(lSignal)) + " StdDev="  + str(np.std(lSignal));
+        lStr2 += " Min=" + to_str(np.min(lSignal)) + " Max="  + to_str(np.max(lSignal)) + " ";
+        lStr2 += " Mean=" + to_str(np.mean(lSignal)) + " StdDev="  + to_str(np.std(lSignal));
         return (lStr1 , lStr2);
 
     def get_model_category(self):

@@ -96,7 +96,7 @@ class cConstantTrend(cAbstractTrend):
 
     def dump_values(self):
         logger = tsutil.get_pyaf_logger();
-        logger.info("CONSTANT_TREND " + self.mOutName + " " + str(self.mMean));
+        logger.info("CONSTANT_TREND " + self.mOutName + " " + str(round(self.mMean, 6)));
 
 class cLag1Trend(cAbstractTrend):
     def __init__(self):
@@ -144,7 +144,7 @@ class cLag1Trend(cAbstractTrend):
 
     def dump_values(self):
         logger = tsutil.get_pyaf_logger();
-        logger.info("LAG1_TREND " + self.mFormula + " " + str(self.mDefaultValue));
+        logger.info("LAG1_TREND " + self.mFormula + " " + str(round(self.mDefaultValue, 6)));
 
 class cMovingAverageTrend(cAbstractTrend):
     def __init__(self, iWindow):
@@ -267,7 +267,7 @@ class cLinearTrend(cAbstractTrend):
 
     def dump_values(self):
         logger = tsutil.get_pyaf_logger();
-        logger.info("LINEAR_RIDGE_TREND " + self.mFormula + " " + str((self.mTrendRidge.intercept_ , self.mTrendRidge.coef_)));
+        logger.info("LINEAR_RIDGE_TREND " + self.mFormula + " " + str((self.mTrendRidge.intercept_.round(6) , self.mTrendRidge.coef_.round(6))));
 
 class cPolyTrend(cAbstractTrend):
     def __init__(self):
@@ -328,7 +328,7 @@ class cPolyTrend(cAbstractTrend):
 
     def dump_values(self):
         logger = tsutil.get_pyaf_logger();
-        logger.info("POLYNOMIAL_RIDGE_TREND " + self.mFormula + " " + str((self.mTrendRidge.intercept_ , self.mTrendRidge.coef_)));
+        logger.info("POLYNOMIAL_RIDGE_TREND " + self.mFormula + " " + str((self.mTrendRidge.intercept_.round(6) , self.mTrendRidge.coef_.round(6))));
 
 class cTrendEstimator:
     

@@ -13,7 +13,6 @@ from . import Perf as tsperf
 from . import Plots as tsplot
 from . import Utils as tsutil
 
-
 class cAbstractCycle:
     def __init__(self , trend):
         self.mTimeInfo = tsti.cTimeInfo()
@@ -121,7 +120,6 @@ class cZeroCycle(cAbstractCycle):
 
     def dump_values(self):
         logger = tsutil.get_pyaf_logger();
-        lDict = {}
         logger.info("ZERO_CYCLE_MODEL_VALUES " + self.getCycleName() + " " + str(self.mConstantValue) + " {}");        
     
     def fit(self):
@@ -152,14 +150,14 @@ class cSeasonalPeriodic(cAbstractCycle):
         self.mEncodedValueDict = {}
         self.mFormula = "Seasonal_" + self.mDatePart.name;
         
-        
+
     def getCycleName(self):
         return self.mTrend_residue_name + "_Seasonal_" + self.mDatePart.name;
 
     def dump_values(self):
         logger = tsutil.get_pyaf_logger();
-        lDict = {}
-        logger.info("SEASONAL_MODEL_VALUES " + self.getCycleName() + " " + str(self.mDefaultValue) + " " + str(self.mEncodedValueDict));
+        lDict = dict([(k, round(v, 6)) for (k, v) in self.mEncodedValueDict.items()])
+        logger.info("SEASONAL_MODEL_VALUES " + self.getCycleName() + " " + str(self.mDefaultValue) + " " + str(lDict));
 
 
     def hasEnoughData(self, iTimeMin, iTimeMax):
@@ -251,7 +249,8 @@ class cBestCycleForTrend(cAbstractCycle):
     def dump_values(self):
         logger = tsutil.get_pyaf_logger();
         lDict = {} if(self.mBestCycleLength is None) else self.mBestCycleValueDict[self.mBestCycleLength]
-        logger.info("BEST_CYCLE_LENGTH_VALUES " + self.getCycleName() + " " + str(self.mBestCycleLength) + " " + str(self.mDefaultValue) + " " + str(lDict));
+        lDict = dict([(k, round(v, 6)) for (k, v) in lDict.items()])
+        logger.info("BEST_CYCLE_LENGTH_VALUES " + self.getCycleName() + " " + str(self.mBestCycleLength) + " " + str(round(self.mDefaultValue, 6)) + " " + str(lDict));
 
     
     def dumpCyclePerfs(self):

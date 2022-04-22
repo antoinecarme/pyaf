@@ -135,8 +135,8 @@ class cAutoRegressiveModel(cAbstract_Scikit_Model):
 
     def dumpCoefficients(self, iMax=10):
         logger = tsutil.get_pyaf_logger();
-        lDict = dict(zip(self.mInputNamesAfterSelection , self.mScikitModel.coef_));
-        lDict1 = dict(zip(self.mInputNamesAfterSelection , abs(self.mScikitModel.coef_)));
+        lDict = dict(zip(self.mInputNamesAfterSelection , self.mScikitModel.coef_.round(6)));
+        lDict1 = dict(zip(self.mInputNamesAfterSelection , abs(self.mScikitModel.coef_.round(6))));
         i = 1;
         lOrderedVariables = sorted(lDict1.keys(), key=lDict1.get, reverse=True);
         for k in lOrderedVariables[0:iMax]:
