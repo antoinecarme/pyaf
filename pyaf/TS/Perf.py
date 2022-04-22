@@ -75,6 +75,7 @@ class cPerf:
         if(min_signal > 0.0 and min_estimator > 0.0):
             log_diff = np.log(estimator) - np.log(signal)
             self.mLnQ = np.sum(log_diff * log_diff)
+        self.mLnQ = round( self.mLnQ , 4 )
         return self.mLnQ
 
     def dump_perf_data(self, signal , estimator):
@@ -133,7 +134,9 @@ class cPerf:
         self.mErrorStdDev = np.std(myerror)        
         
         self.mL1 = np.mean(abs_error)
+        self.mL1 = round(self.mL1, 4)
         self.mL2 = np.sqrt(np.mean(abs_error ** 2))
+        self.mL2 = round(self.mL2, 4)
         self.mCount = signal.shape[0];
         self.mR2 = self.compute_R2(signal, estimator)
         self.mLnQ = self.compute_LnQ(signal, estimator)
@@ -142,6 +145,8 @@ class cPerf:
         self.mSignalQuantiles = self.compute_signal_quantiles(signal , estimator);
         self.mCRPS = self.compute_CRPS(signal , estimator);
         self.mMedAE = np.median(abs_error)
+        self.mMedAE = round(self.mMedAE, 4)
+
 
     def compute_signal_quantiles(self, signal , estimator):
         myerror = (estimator.values - signal.values);
@@ -167,6 +172,7 @@ class cPerf:
             lLossValue_a = lPinballLoss_a.mean()
             lLossValues.append(lLossValue_a)
         lCRPS = np.mean(lLossValues)
+        lCRPS = round( lCRPS , 4 )
         # print("CRPS" , (self.mName , lCRPS))
         return lCRPS
 
