@@ -236,12 +236,6 @@ class cSignalDecomposition_Options(cModelControl):
         self.mParallelMode = False;
         self.mFilterSeasonals = True
         
-    '''
-    Cannot yet build keras models in parallel/multiprocessing in some cases
-    (tensorflow backend). theano seems OK.
-    Possible solution : increase developer knowledge of keras !!
-    '''
-
     def has_module_installed(self, module_name):
         import importlib
         spec = importlib.util.find_spec(module_name)
