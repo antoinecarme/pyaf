@@ -14,10 +14,6 @@ from . import Perf as tsperf
 from . import Plots as tsplot
 from . import Utils as tsutil
 
-
-# for timing
-import time
-
 class cAbstractAR:
     def __init__(self , cycle_residue_name, iExogenousInfo = None):
         self.mTimeInfo = tsti.cTimeInfo()

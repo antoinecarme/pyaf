@@ -12,7 +12,6 @@ from . import PredictionIntervals as predint
 from . import Plots as tsplot
 from . import Perf as tsperf
 from . import Utils as tsutil
-import time
 
 class cTimeSeriesModel:
     

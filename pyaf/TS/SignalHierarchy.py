@@ -13,8 +13,7 @@ from . import Perf as tsperf
 from . import Utils as tsutil
 from . import Plots as tsplot
 
-# for timing
-import time, copy
+import copy
 
 class cSignalHierarchy:
 

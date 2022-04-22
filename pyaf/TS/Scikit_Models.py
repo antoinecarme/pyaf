@@ -3,9 +3,6 @@ import pandas as pd
 from . import SignalDecomposition_AR as tsar
 from . import Utils as tsutil
 
-import sys
-
-
 class cAbstract_Scikit_Model(tsar.cAbstractAR):
     def __init__(self , cycle_residue_name, P , iExogenousInfo = None):
         super().__init__(cycle_residue_name, iExogenousInfo)

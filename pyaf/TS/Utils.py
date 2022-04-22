@@ -4,7 +4,7 @@
 # This file is part of the Python Automatic Forecasting (PyAF) library and is made available under
 # the terms of the 3 Clause BSD license
 
-import sys, os
+import os
 
 from datetime import datetime
 
@@ -99,7 +99,7 @@ def get_module_version_when_available(module_name):
         
 def getVersions():
         
-    import os, platform
+    import platform
     lVersionDict = {};
     lVersionDict["system_platform"] = platform.platform();
     lVersionDict["system_uname"] = platform.uname();

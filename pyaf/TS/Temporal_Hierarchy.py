@@ -6,7 +6,6 @@
 
 import pandas as pd
 import numpy as np
-import itertools
 
 from . import DateTime_Functions as dtfunc
 from . import SignalHierarchy as sighier

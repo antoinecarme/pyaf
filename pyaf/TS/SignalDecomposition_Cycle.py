@@ -13,9 +13,6 @@ from . import Perf as tsperf
 from . import Plots as tsplot
 from . import Utils as tsutil
 
-# for timing
-import time
-
 
 class cAbstractCycle:
     def __init__(self , trend):

@@ -4,8 +4,6 @@ from . import SignalDecomposition_AR as tsar
 from . import Utils as tsutil
 from . import Perf as tsperf
 
-import sys
-
 
 def is_signal_intermittent(iSeries, iOptions):
     series = iSeries - iSeries.min()
