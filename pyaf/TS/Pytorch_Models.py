@@ -6,6 +6,10 @@ import sys, os
 import torch
 
 def make_pytorch_reproducible(iSeed):
+    torch.set_num_threads(1)
+    # This ia workaround for pytorch leaking file descriptors. https://github.com/pytorch/pytorch/issues/65198
+    # TODO : to be removed.
+    torch.multiprocessing.set_sharing_strategy('file_system')
     torch.manual_seed(iSeed)
     torch.cuda.manual_seed(iSeed)
     torch.backends.cudnn.deterministic = True
