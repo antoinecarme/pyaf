@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 from . import SignalDecomposition_AR as tsar
 import sys, os
+from . import Utils as tsutil
 
 import torch
 
@@ -27,8 +28,10 @@ class cAbstract_RNN_Model(tsar.cAbstractAR):
         sys.setrecursionlimit(1000000);
 
     def dumpCoefficients(self, iMax=10):
-        # print(self.mModel.__dict__);
-        pass
+        logger = tsutil.get_pyaf_logger();
+        logger.info("MODEL_TYPE PYTORCH")
+        lSummary = [module for module in self.mModel.module.modules()][:1]
+        logger.info("PYTORCH_MODEL_ARCHITECTURE " + str(lSummary))
 
     def build_RNN_Architecture(self, iARInputs, iARTarget):
         assert(0);
@@ -51,6 +54,21 @@ class cAbstract_RNN_Model(tsar.cAbstractAR):
             return self.get_default_pytorch_options()
         return self.mOptions.mPytorch_Options
 
+    def fit_pytorch_model(self, iARInputs, iARTarget):
+        lTimer = tsutil.cTimer(("TRAINING_PYTORCH_MODEL", self.mOutName))
+        lOptions = self.get_pytorch_options()
+        lHistory = self.mModel.fit(iARInputs, iARTarget)
+
+    def predict_pytorch_model(self, iARInputs):
+        lTimer = tsutil.cTimer(("PREDICTING_PYTORCH_MODEL", self.mOutName))
+        lARInputs = self.mStandardScaler_Input.transform(iARInputs)
+        lARInputs = self.reshape_inputs(lARInputs)
+        lPredicted = self.mModel.predict(lARInputs);
+        lPredicted = np.reshape(lPredicted, (-1, 1))
+        lPredicted = self.mStandardScaler_Target.inverse_transform(lPredicted)
+        return lPredicted
+
+
     def fit(self):
         make_pytorch_reproducible(self.mOptions.mSeed)
 
@@ -71,17 +89,12 @@ class cAbstract_RNN_Model(tsar.cAbstractAR):
 
         lARInputs = self.reshape_inputs(lARInputs)
 
-        lHistory = self.mModel.fit(lARInputs, lARTarget)
+        self.fit_pytorch_model(lARInputs, lARTarget)
         
         lFullARInputs = self.mARFrame[self.mInputNames].values;
-        lFullARInputs = self.mStandardScaler_Input.transform(lFullARInputs)        
-        lFullARInputs = self.reshape_inputs(lFullARInputs)
-
-        lPredicted = self.mModel.predict(lFullARInputs);
-        lPredicted = np.reshape(lPredicted, (-1, 1))
-        lPredicted = self.mStandardScaler_Target.inverse_transform(lPredicted)
-            
+        lPredicted = self.predict_pytorch_model(lFullARInputs)
         self.mARFrame[self.mOutName] = lPredicted
+        
         self.compute_ar_residue(self.mARFrame)
         self.mComplexity = lFullARInputs.shape[1]
 
@@ -91,13 +104,8 @@ class cAbstract_RNN_Model(tsar.cAbstractAR):
             df = self.mExogenousInfo.transformDataset(df);
         lag_df = self.generateLagsForForecast(df);
         inputs = lag_df[self.mInputNames].values
-        inputs = self.mStandardScaler_Input.transform(inputs)
-                
-        inputs = self.reshape_inputs(inputs)
-        
-        lPredicted = self.mModel.predict(inputs)
-        lPredicted = np.reshape(lPredicted, (-1, 1))
-        lPredicted = self.mStandardScaler_Target.inverse_transform(lPredicted)
+
+        lPredicted = self.predict_pytorch_model(inputs)
 
         df[self.mOutName] = lPredicted;
         self.compute_ar_residue(df)
@@ -151,7 +159,7 @@ class cLSTM_Model(cAbstract_RNN_Model):
         super().__init__(cycle_residue_name, P, iExogenousInfo)
 
     def reshape_inputs(self, iInputs):
-        return iInputs;
+        return iInputs.reshape(iInputs.shape[0], 1, iInputs.shape[1]);
 
     def create_model(self, iNbInputs, iHidden):
         from torch import nn
