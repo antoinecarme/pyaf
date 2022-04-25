@@ -73,6 +73,10 @@ jobs:
           name: Upload logs
           command: |
             python scripts/upload_to_chunk.io.py
+	    mkdir /tmp/artifacts
+	    tar cvfz /tmp/artifacts/last_logs.tar.gz ./logs ./outputs
+      - store_artifacts:
+            path: /tmp/artifacts
       - run:
           name: Jupyter Notebooks
           command: |
