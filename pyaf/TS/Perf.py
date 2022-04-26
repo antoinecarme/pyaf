@@ -131,7 +131,9 @@ class cPerf:
         myerror = (estimator.values - signal.values);
         abs_error = abs(myerror)
         self.mErrorMean = np.mean(myerror)
+        self.mErrorMean = round(self.mErrorMean, 4)
         self.mErrorStdDev = np.std(myerror)        
+        self.mErrorStdDev = round(self.mErrorStdDev, 4)
         
         self.mL1 = np.mean(abs_error)
         self.mL1 = round(self.mL1, 4)
@@ -139,9 +141,11 @@ class cPerf:
         self.mL2 = round(self.mL2, 4)
         self.mCount = signal.shape[0];
         self.mR2 = self.compute_R2(signal, estimator)
+        self.mR2 = round(self.mR2, 4)
         self.mLnQ = self.compute_LnQ(signal, estimator)
         
         self.mPearsonR = self.compute_pearson_r(signal , estimator);
+        self.mPearsonR = round(self.mPearsonR, 4)
         self.mSignalQuantiles = self.compute_signal_quantiles(signal , estimator);
         self.mCRPS = self.compute_CRPS(signal , estimator);
         self.mMedAE = np.median(abs_error)

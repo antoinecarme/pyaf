@@ -157,7 +157,7 @@ class cSeasonalPeriodic(cAbstractCycle):
     def dump_values(self):
         logger = tsutil.get_pyaf_logger();
         lDict = dict([(k, round(v, 6)) for (k, v) in self.mEncodedValueDict.items()])
-        logger.info("SEASONAL_MODEL_VALUES " + self.getCycleName() + " " + str(self.mDefaultValue) + " " + str(lDict));
+        logger.info("SEASONAL_MODEL_VALUES " + self.getCycleName() + " " + str(round(self.mDefaultValue, 6)) + " " + str(lDict));
 
 
     def hasEnoughData(self, iTimeMin, iTimeMax):
