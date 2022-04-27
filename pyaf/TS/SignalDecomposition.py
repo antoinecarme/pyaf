@@ -221,7 +221,8 @@ class cModelSelector_OneSignal:
     def dump_all_model_perfs_as_json(self):
         logger = tsutil.get_pyaf_logger();
         lColumns = ['Model', 'DetailedFormula' , 'Category', 'Complexity', 'Forecast' + self.mOptions.mModelSelection_Criterion]
-        lDict = self.mTrPerfDetails[lColumns].to_dict('records')
+        lPerf_df = self.mTrPerfDetails[lColumns].head(10)
+        lDict = lPerf_df.to_dict('records')
         import json
         lPerfDump = json.dumps(lDict, default = lambda o: o.__dict__, indent=4, sort_keys=True);
         logger.info("PERF_DUMP_START")
