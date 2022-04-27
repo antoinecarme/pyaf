@@ -218,6 +218,17 @@ class cModelSelector_OneSignal:
         self.mOptions = None
         pass
 
+    def dump_all_model_perfs_as_json(self):
+        logger = tsutil.get_pyaf_logger();
+        lColumns = ['Model', 'DetailedFormula' , 'Category', 'Complexity', 'Forecast' + self.mOptions.mModelSelection_Criterion]
+        lDict = self.mTrPerfDetails[lColumns].to_dict('records')
+        import json
+        lPerfDump = json.dumps(lDict, default = lambda o: o.__dict__, indent=4, sort_keys=True);
+        logger.info("PERF_DUMP_START")
+        logger.info(lPerfDump)
+        logger.info("PERF_DUMP_END")
+        
+
     def collectPerformanceIndices_ModelSelection(self, iSignal, iSigDecs) :
         logger = tsutil.get_pyaf_logger();
         lTimer = tsutil.cTimer(("MODEL_SELECTION", {"Signal" : iSignal, "Transformations" : sorted(list(iSigDecs.keys()))}))
@@ -241,10 +252,6 @@ class cModelSelector_OneSignal:
                        lForecastPerf.getCriterionValue(self.mOptions.mModelSelection_Criterion),
                        lTestPerf.getCriterionValue(self.mOptions.mModelSelection_Criterion)]
                 rows_list.append(row);
-                if(self.mOptions.mDebugPerformance):
-                    logger.info("collectPerformanceIndices : " +
-                                str((self.mOptions.mModelSelection_Criterion,
-                                     lModelFormula, lComplexity, round(row[7], 4))))
 
         self.mTrPerfDetails =  pd.DataFrame(rows_list, columns=
                                             ('Split', 'Transformation', 'DecompositionType',
@@ -261,6 +268,8 @@ class cModelSelector_OneSignal:
                                         ascending=[True, True, True],
                                         inplace=True);
         self.mTrPerfDetails = self.mTrPerfDetails.reset_index(drop=True);
+        if(self.mOptions.mDebugPerformance):
+            self.dump_all_model_perfs_as_json()
                 
         lInterestingModels = self.mTrPerfDetails[self.mTrPerfDetails[lIndicator] <= (lBestPerf + 0.01)].reset_index(drop=True);
         lInterestingModels.sort_values(by=['Complexity'] , ascending=True, inplace=True)
@@ -301,11 +310,6 @@ class cModelSelector_OneSignal:
                        lForecastPerf.mCount, lForecastPerf.mL1, lForecastPerf.mL2, lForecastPerf.mMAPE, lForecastPerf.mMASE, lForecastPerf.mCRPS,
                        lTestPerf.mCount, lTestPerf.mL1, lTestPerf.mL2, lTestPerf.mMAPE, lTestPerf.mMASE, lTestPerf.mCRPS]
                 rows_list.append(row);
-                if(self.mOptions.mDebugPerformance):
-                    lIndicatorValue = lForecastPerf.getCriterionValue(self.mOptions.mModelSelection_Criterion)
-                    logger.info("collectPerformanceIndices : " +
-                                str((self.mOptions.mModelSelection_Criterion, lModelFormula, lModelCategory,
-                                     lComplexity, round(lIndicatorValue, 4))))
 
         self.mTrPerfDetails =  pd.DataFrame(rows_list, columns=
                                             ('Split', 'Transformation', 'DecompositionType', 'Model',
@@ -322,6 +326,8 @@ class cModelSelector_OneSignal:
                                         ascending=[True, True, True],
                                         inplace=True);
         self.mTrPerfDetails = self.mTrPerfDetails.reset_index(drop=True);
+        if(self.mOptions.mDebugPerformance):
+            self.dump_all_model_perfs_as_json()
                 
         lInterestingModels = self.mTrPerfDetails[self.mTrPerfDetails[lIndicator] <= (lBestPerf + 0.01)].reset_index(drop=True);
         lInterestingModels.sort_values(by=['Complexity'] , ascending=True, inplace=True)
