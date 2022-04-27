@@ -90,10 +90,10 @@ class cPerf:
         try:
             # self.dump_perf_data(signal, estimator);
             return self.real_compute(signal, estimator, name);
-        except:
+        except Exception as exc:
             self.dump_perf_data(signal, estimator);
             logger = tsutil.get_pyaf_logger();
-            logger.error("Failure when computing perf ['" + self.mName + "'] '" + name + "'");
+            logger.error("Failure when computing perf ['" + self.mName + "'] '" + name + "'" + str(exc));
             raise tsutil.Internal_PyAF_Error("Failure when computing perf ['" + self.mName + "'] '" + name + "'");
         pass
 
@@ -101,18 +101,16 @@ class cPerf:
         from scipy.stats import pearsonr
         signal_std = np.std(signal);
         estimator_std = np.std(estimator);
-        # print("PEARSONR_DETAIL1" , signal_std, estimator_std)
         # print("PEARSONR_DETAIL2" , signal)
         # print("PEARSONR_DETAIL3" , estimator)
-        lEps = 1e-8
+        lEps = 1e-4
         r = 0.0;
-        if((signal_std > lEps) and (estimator_std > lEps) and (signal.shape[0] > 30)):
-            # this is a temporary work-around for the issue
-            # scipy.stats.pearsonr overflows with high values of x and y #8980
-            # https://github.com/scipy/scipy/issues/8980
-            sig_z = (signal.values - np.mean(signal.values))/signal_std
-            est_z = (estimator.values - np.mean(estimator.values))/estimator_std
-            (r , pval) = pearsonr(sig_z , est_z)
+        if(signal_std < lEps):
+            return r
+        if(estimator_std < lEps):
+            return r
+        (r , pval) = pearsonr(signal , estimator)
+        #  print("PEARSONR_DETAIL1" , signal_std, estimator_std, r)
         return r;
         
             
