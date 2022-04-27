@@ -42,7 +42,8 @@ class cAbstract_RNN_Model(tsar.cAbstractAR):
         self.mStandardScaler_Input = StandardScaler()
         self.mStandardScaler_Target = StandardScaler()
         lARInputs = self.mStandardScaler_Input.fit_transform(iARInputs)
-        lARTarget = self.mStandardScaler_Target.fit_transform(iARTarget.reshape(-1, 1))
+        lARTarget = self.mStandardScaler_Target.fit_transform(iARTarget.reshape(iARTarget.shape[0], 1))
+        lARTarget = lARTarget.reshape((lARTarget.shape[0], 1))
         return (lARInputs, lARTarget)
 
     def get_default_pytorch_options(self):
@@ -55,12 +56,16 @@ class cAbstract_RNN_Model(tsar.cAbstractAR):
         return self.mOptions.mPytorch_Options
 
     def fit_pytorch_model(self, iARInputs, iARTarget):
-        lTimer = tsutil.cTimer(("TRAINING_PYTORCH_MODEL", self.mOutName))
+        lTimer = None
+        if(self.mOptions.mDebug):
+            lTimer = tsutil.cTimer(("TRAINING_PYTORCH_MODEL", self.mOutName))
         lOptions = self.get_pytorch_options()
         lHistory = self.mModel.fit(iARInputs, iARTarget)
 
     def predict_pytorch_model(self, iARInputs):
-        lTimer = tsutil.cTimer(("PREDICTING_PYTORCH_MODEL", self.mOutName))
+        lTimer = None
+        if(self.mOptions.mDebug):
+            lTimer = tsutil.cTimer(("PREDICTING_PYTORCH_MODEL", self.mOutName))
         lARInputs = self.mStandardScaler_Input.transform(iARInputs)
         lARInputs = self.reshape_inputs(lARInputs)
         lPredicted = self.mModel.predict(lARInputs);
@@ -159,7 +164,7 @@ class cLSTM_Model(cAbstract_RNN_Model):
         super().__init__(cycle_residue_name, P, iExogenousInfo)
 
     def reshape_inputs(self, iInputs):
-        return iInputs.reshape(iInputs.shape[0], 1, iInputs.shape[1]);
+        return iInputs.reshape(iInputs.shape[0], iInputs.shape[1]);
 
     def create_model(self, iNbInputs, iHidden):
         from torch import nn
