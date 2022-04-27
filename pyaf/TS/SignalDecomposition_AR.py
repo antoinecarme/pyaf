@@ -300,7 +300,7 @@ class cAutoRegressiveEstimator:
             lTimer = tsutil.cTimer(("TRAINING_AR_MODELS", {"Signal" : self.mTimeInfo.mSignal}))
             
         logger = tsutil.get_pyaf_logger();
-        mARList = {}
+        self.mSkippedARList = []
         lNeedExogenous = False;
         for trend in self.mTrendList:
             for cycle in self.mCycleList[trend]:
@@ -314,7 +314,7 @@ class cAutoRegressiveEstimator:
                 lKeep = (self.mCycleFrame[cycle_residue].shape[0] > 12) and (self.mCycleFrame[cycle_residue].std() > 0.00001)
                 lKeep = lKeep or not self.mOptions.mActiveAutoRegressions['NoAR']
                 if(not lKeep):
-                    logger.info("SKIPPING_AR_MODELS_WITH_LOW_VARIANCE_CYCLE_RESIDUE '" + cycle_residue + "'");
+                    self.mSkippedARList = self.mSkippedARList + [cycle_residue]
                     
                 if(lKeep):
                     self.add_model_if_activated(cycle_residue, 'AR', tsscikit.cAutoRegressiveModel, lLags, True)
@@ -348,6 +348,10 @@ class cAutoRegressiveEstimator:
                     if(lAR.mExogenousInfo is not None):
                         lNeedExogenous = True
 
+        lTenFirst = sorted(self.mSkippedARList[:10])
+        lSkipInfo = (self.mDecompositionType, len(self.mSkippedARList), 10, lTenFirst)
+        logger.info("SKIPPING_AR_MODELS_WITH_LOW_VARIANCE_FOR_CYCLE_RESIDUES " + str(lSkipInfo));
+                        
         if(lNeedExogenous):
             if(self.mOptions.mDebugProfile):
                 logger.info("AR_MODEL_ADD_EXOGENOUS " + str(self.mCycleFrame.shape[0]) +
