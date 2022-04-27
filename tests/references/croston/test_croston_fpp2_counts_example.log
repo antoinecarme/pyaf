@@ -1,13 +1,16 @@
 INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', 'None', '_', 'T+S+R')], 'Cores': 1}))
 INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Transformation': '_Signal'}))
+INFO:pyaf.std:SKIPPING_AR_MODELS_WITH_LOW_VARIANCE_FOR_CYCLE_RESIDUES ('T+S+R', 0, 10, [])
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.082, ('TRAINING', {'Signal': 'Signal', 'Transformation': '_Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.085, ('SIGNAL_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', 'None', '_', 'T+S+R')], 'Cores': 1}))
 INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', [('Signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'Signal', 'Transformations': [('Signal', 'None', '_', 'T+S+R')]}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.004, ('MODEL_SELECTION', {'Signal': 'Signal', 'Transformations': [('Signal', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.003, ('MODEL_SELECTION', {'Signal': 'Signal', 'Transformations': [('Signal', 'None', '_', 'T+S+R')]}))
 INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal', 'Model': '_Signal_ConstantTrend_residue_zeroCycle[0.0]_residue_CROSTON(0.1)'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.032, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal', 'Model': '_Signal_ConstantTrend_residue_zeroCycle[0.0]_residue_CROSTON(0.1)'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.021, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal', 'Model': '_Signal_ConstantTrend_residue_zeroCycle[0.0]_residue_CROSTON(0.1)'}))
 INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.241, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.279, ('FINALIZE_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', [('Signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.159, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.183, ('FINALIZE_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', [('Signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-31T00:00:00.000000 TimeMax=2002-12-31T00:00:00.000000 TimeDelta=<DateOffset: days=30> Horizon=7
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=36  Min=0.0 Max=11.0  Mean=1.055556 StdDev=2.332672
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=0.0 Max=1.0  Mean=0.09596 StdDev=0.212061
@@ -40,9 +43,9 @@ INFO:pyaf.std:CROSTON_ALPHA 0.1
 INFO:pyaf.std:CROSTON_METHOD None
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.timing:('OPERATION_START', ('PLOTTING', {'Signals': ['Signal']}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.497, ('PLOTTING', {'Signals': ['Signal']}))
 INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['Signal'], 'Horizon': 7}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 5.262, ('PLOTTING', {'Signals': ['Signal']}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.219, ('FORECASTING', {'Signals': ['Signal'], 'Horizon': 7}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.133, ('FORECASTING', {'Signals': ['Signal'], 'Horizon': 7}))
 Index(['Date', 'Signal', 'row_number', 'Date_Normalized', '_Signal',
        '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
        '_Signal_ConstantTrend_residue_zeroCycle[0.0]',
@@ -90,5 +93,3 @@ min       0.000000
 75%       1.354417
 max       1.423467
 Name: Signal_Forecast, dtype: float64
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 8.566, ('TRAINING', {'Signal': 'Signal', 'Transformation': '_Signal'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 8.57, ('SIGNAL_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', 'None', '_', 'T+S+R')], 'Cores': 1}))
