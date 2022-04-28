@@ -60,7 +60,9 @@ class cAbstract_RNN_Model(tsar.cAbstractAR):
         if(self.mOptions.mDebug):
             lTimer = tsutil.cTimer(("TRAINING_PYTORCH_MODEL", self.mOutName))
         lOptions = self.get_pytorch_options()
-        lHistory = self.mModel.fit(iARInputs, iARTarget)
+        lARInputs = iARInputs.astype(np.float32)
+        lARTarget = iARTarget.astype(np.float32)        
+        lHistory = self.mModel.fit(lARInputs, lARTarget)
 
     def predict_pytorch_model(self, iARInputs):
         lTimer = None
@@ -68,6 +70,7 @@ class cAbstract_RNN_Model(tsar.cAbstractAR):
             lTimer = tsutil.cTimer(("PREDICTING_PYTORCH_MODEL", self.mOutName))
         lARInputs = self.mStandardScaler_Input.transform(iARInputs)
         lARInputs = self.reshape_inputs(lARInputs)
+        lARInputs = lARInputs.astype(np.float32)
         lPredicted = self.mModel.predict(lARInputs);
         lPredicted = np.reshape(lPredicted, (-1, 1))
         lPredicted = self.mStandardScaler_Target.inverse_transform(lPredicted)
@@ -130,7 +133,7 @@ class cMLP_Model(cAbstract_RNN_Model):
             nn.Linear(iNbInputs, iHidden),
             nn.Dropout(),
             nn.Linear(iHidden, 1))
-        return model.double()
+        return model.float()
 
     def build_RNN_Architecture(self, iARInputs, iARTarget):
         from torch import nn
@@ -174,7 +177,7 @@ class cLSTM_Model(cAbstract_RNN_Model):
             lLSTMWithOneOutput,
             nn.Dropout(p=0.1),
             nn.Linear(iHidden, 1))
-        return model.double()
+        return model.float()
     
     def build_RNN_Architecture(self, iARInputs, iARTarget):
         from torch import nn
