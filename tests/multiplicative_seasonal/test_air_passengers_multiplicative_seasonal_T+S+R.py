@@ -15,7 +15,7 @@ lEngine.mOptions.set_active_decomposition_types(['T+S+R']);
 lEngine
 
 H = b1.mHorizon;
-# lEngine.mOptions.enable_slow_mode();
+# # lEngine.mOptions.enable_slow_mode();
 # lEngine.mOptions.mDebugPerformance = True;
 lEngine.mOptions.mParallelMode = True;
 lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H);

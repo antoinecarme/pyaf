@@ -22,7 +22,8 @@ import pyaf.ForecastEngine as autof
 # create a forecast engine. This is the main object handling all the operations
 lEngine = autof.cForecastEngine()
 lSignal = 'Signal_One'
-lEngine.mOptions.enable_slow_mode();
+# lEngine.mOptions.enable_slow_mode();
+lEngine.mOptions.set_active_decomposition_types(['T+S+R', 'TS+R', 'TSR']);
 lEngine.mOptions.mDebugPerformance = True;
 
 # get the best time series model for predicting one week
