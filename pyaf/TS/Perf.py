@@ -30,7 +30,7 @@ class cPerf:
 
     def to_dict(self):
         lDict = {"Signal" : self.mName , "Length" : self.mCount, "MAPE" : self.mMAPE,
-                 "RMSE" : self.mL2,  "MAE" : self.mL1,  "SMAPE" : self.mSMAPE,
+                 "RMSE" : self.mL2,  "MAE" : self.mL1,  "SMAPE" : self.mSMAPE, 'MASE' : self.mMASE,
                  "ErrorMean" : self.mErrorMean, "ErrorStdDev" : self.mErrorStdDev, 
                  "R2" : self.mR2, "Pearson" : self.mPearsonR, "MedAE": self.mMedAE, "LnQ" : self.mLnQ}
         return lDict
