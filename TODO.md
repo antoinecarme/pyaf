@@ -1,17 +1,17 @@
 # TODO
 
-## ~~save / reload the model
+## ~~save / reload the model~~
 self.serialize() => to_dict every where + json
 
-## ~~forecast future values => update datasets + forecast
+## ~~forecast future values => update datasets + forecast~~
 
-## ~~signal transformation => almost done
-- cumulative (integrated) tranformation
+## ~~signal transformation~~ almost done
+- ~~cumulative (integrated) tranformation~~ OK
 
-## ~~Cutting into Estim/Valid (NE*H , NV*H) => cross-validation
-1. ~~ratio_E = 0.5
-2. ~~N_train = N_Estim + N_Valid + N_test (=H)
-3. ~~N_Estim = ratio_E * (N_train - H) 
+## ~~Cutting into Estim/Valid (NE*H , NV*H)~~  => cross-validation
+1. ~~ratio_E = 0.5~~
+2. ~~N_train = N_Estim + N_Valid + N_test (=H)~~
+3. ~~N_Estim = ratio_E * (N_train - H) ~~
 
 ## ~~prediction intervals
 1. ~~improve plotting ... shaded area around prediction intervals
