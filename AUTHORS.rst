@@ -9,4 +9,4 @@ People
 ------
 
 .. hlist::
-* `Antoine Carme <antoine.carme@laposte.net>`_
+* `Antoine Carme <antoine.carme@outlook.com>`_
