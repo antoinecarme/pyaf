@@ -23,6 +23,19 @@ from . import Utils as tsutil
 
 import copy
 
+# nogil stuff here. Experimental. May crash. see issue_177
+def create_multiprocessing_pool(iThreads):
+    import sys
+    lHasNoGil = hasattr(sys.flags, 'nogil')
+    if(lHasNoGil):
+        lHasNoGil = getattr(sys.flags, 'nogil')
+    if(lHasNoGil):
+        from multiprocessing.pool import ThreadPool as Pool
+        return Pool(iThreads)
+    # By default : use preocesses
+    from multiprocessing import Pool
+    return Pool(iThreads)    
+
 def sample_signal_if_needed(iInputDS, iOptions):
     logger = tsutil.get_pyaf_logger();
     lInputDS = iInputDS
@@ -433,7 +446,7 @@ class cSignalDecompositionTrainer:
                                  "Transformations" : [(lSignal, sorted(list(lSigDecs.keys()))) for (lSignal , lSigDecs) in self.mSigDecBySplitAndTransform.items()],
                                  "Cores" : NCores}))
         if(self.mOptions.mParallelMode and NCores > 1):
-            from multiprocessing import Pool
+            from multiprocessing.pool import ThreadPool as Pool
             pool = Pool(NCores)
         
             for res in pool.imap(run_finalize_training, args):
@@ -500,8 +513,7 @@ class cSignalDecompositionTrainer:
                                                    "Cores" : NCores}))
         
         if(self.mOptions.mParallelMode and NCores > 1):
-            from multiprocessing import Pool
-            pool = Pool(NCores)
+            pool = create_multiprocessing_pool(NCores)
             for res in pool.imap(run_transform_thread, args):
                 lSignal = res.mName[0]
                 self.mSigDecBySplitAndTransform[lSignal][res.mName] = res.mSigDec;
@@ -568,8 +580,7 @@ class cSignalDecompositionForecaster:
 
         NCores = min(len(args) , iDecomsposition.mOptions.mNbCores) 
         if(iDecomsposition.mOptions.mParallelMode and  NCores > 1):
-            from multiprocessing import Pool
-            pool = Pool(NCores)
+            pool = create_multiprocessing_pool(NCores)
         
             for res in pool.imap(forecast_one_signal, args):
                 (lTimeInfo, lForecastFrame_i) = res
