@@ -446,8 +446,7 @@ class cSignalDecompositionTrainer:
                                  "Transformations" : [(lSignal, sorted(list(lSigDecs.keys()))) for (lSignal , lSigDecs) in self.mSigDecBySplitAndTransform.items()],
                                  "Cores" : NCores}))
         if(self.mOptions.mParallelMode and NCores > 1):
-            from multiprocessing.pool import ThreadPool as Pool
-            pool = Pool(NCores)
+            pool = create_multiprocessing_pool(NCores)
         
             for res in pool.imap(run_finalize_training, args):
                 (lSignal, lPerfsByModel, lBestModel, lPerfDetails, lModelShortList) = res
