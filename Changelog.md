@@ -13,6 +13,8 @@ RELEASE 4.0 (expected on 2022-07-14)
 10. Release Process : Profiling and Warning Hunts #195 
 11. Release Process : Review Existing Docs #196, #35
 
+-----------------
+
 RELEASE 3.0 (released on 2021-07-14)
 
 1. Python 3.9 support #149
@@ -29,6 +31,8 @@ RELEASE 3.0 (released on 2021-07-14)
 12. Plot Functions Improvement #169
 13. Model Complexity Improvement (#171)
 14. Documentation review/corrections (#174)
+
+---------------
 
 RELEASE 2.0 (released on 2020-07-14)
 
