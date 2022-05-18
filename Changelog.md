@@ -1,5 +1,19 @@
 
-RELEASE 3.0 (expected 2021-07-14)
+RELEASE 4.0 (expected on 2022-07-14)
+
+1. Python 3.10 support #186 
+2. Add Multiplicative Models/Seasonals #178 
+3. Speed Performance Improvements : #190 , #191 
+4. Exogenous data support improvements :  #193, #197 
+5. PyAF support for ARM64 Architecture #187 
+6. PyTorch support : #199  
+7. Improved Logging : #185 
+8. Bug Fixes : #156,  #179,  #182, #184
+9. Release Process : Pre-release Benchmarks #194 
+10. Release Process : Profiling and Warning Hunts #195 
+11. Release Process : Review Existing Docs #196, #35
+
+RELEASE 3.0 (relaased on 2021-07-14)
 
 1. Python 3.9 support #149
 2. Probabilistic Forecasting  : Forecast quantiles (#140), CRPS (#74), Plots and Docs (#158).
