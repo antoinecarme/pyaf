@@ -13,7 +13,7 @@ RELEASE 4.0 (expected on 2022-07-14)
 10. Release Process : Profiling and Warning Hunts #195 
 11. Release Process : Review Existing Docs #196, #35
 
-RELEASE 3.0 (relaased on 2021-07-14)
+RELEASE 3.0 (released on 2021-07-14)
 
 1. Python 3.9 support #149
 2. Probabilistic Forecasting  : Forecast quantiles (#140), CRPS (#74), Plots and Docs (#158).
