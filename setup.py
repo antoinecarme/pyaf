@@ -21,7 +21,7 @@ setup(name='pyaf',
       install_requires=[
           'scipy',
           'pandas',
-          'sklearn',
+          'scikit-learn',
           'matplotlib',
           'pydot',
           'dill',
