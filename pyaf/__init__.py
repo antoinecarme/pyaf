@@ -1,4 +1,4 @@
-# Copyright (C) 2016 Antoine Carme <Antoine.Carme@Laposte.net>
+# Copyright (C) 2016 Antoine Carme <Antoine.Carme@outlook.com>
 # All rights reserved.
 
 # This file is part of the Python Automatic Forecasting (PyAF) library and is made available under
@@ -14,5 +14,5 @@ check_python_version_for_pyaf()
 
 from . import ForecastEngine, HierarchicalForecastEngine
 
-__version__ = '3.0'
+__version__ = '4.0-rc1'
 

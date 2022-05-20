@@ -5,12 +5,12 @@ with open("README.md", "r") as fh:
     pyaf_long_description = fh.read()
     
 setup(name='pyaf',
-      version='3.0',
+      version='4.0-rc1',
       description='Python Automatic Forecasting',
       long_description=pyaf_long_description,
       long_description_content_type="text/markdown",
       author='Antoine CARME',
-      author_email='antoine.carme@laposte.net',
+      author_email='antoine.carme@outlook.com',
       url='https://github.com/antoinecarme/pyaf',
       license='BSD 3-clause',
       packages=find_packages(include=['pyaf', 'pyaf.*']),
