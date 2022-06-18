@@ -119,19 +119,13 @@ class cExogenousInfo:
             if((lType == object) or (lType.name == 'category')):
                 # use nan as a category
                 lVC = lEstimFrame[exog].value_counts(dropna = False, sort=False);
+                lVC = lVC[lVC > 5]
                 lVC = lVC.reset_index().sort_values(by=[exog, 'index'], ascending=[False, True]);
                 NCat = self.mOptions.mMaxExogenousCategories;
-                NCat = min(NCat , lVC.shape[0]);
-                # print("EXOGENOUS_DATA", lVC.head(NCat));
-                lList = [];
-                # print(lVC.head())
-                for row in lVC.itertuples():
-                    # print(row)
-                    lCount = row[2]
-                    if(lCount > 5 and (len(lList) < NCat)):
-                        lList.append(row[1]);
-                lList = sorted(lList);
-                # lListlVC.index[0:NCat].tolist();
+                lVC = lVC.head(NCat)
+                # print("EXOGENOUS_DATA", exog, lVC.columns, lVC.head(NCat));
+                lList = lVC['index'].values
+                lList = sorted(lList.tolist());
                 # print("most_frequent_categories_for" , exog, lList);
                 if(len(lList) <= 1):
                     self.mExcluded.append(exog);
