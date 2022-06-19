@@ -4,7 +4,7 @@ RELEASE 4.0 (expected on 2022-07-14)
 1. Python 3.10 support #186 
 2. Add Multiplicative Models/Seasonals #178 
 3. Speed Performance Improvements : #190 , #191 
-4. Exogenous data support improvements :  #193, #197 
+4. Exogenous data support improvements :  #193, #197, #198 
 5. PyAF support for ARM64 Architecture #187 
 6. PyTorch support : #199  
 7. Improved Logging : #185 
