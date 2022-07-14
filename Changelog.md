@@ -1,5 +1,5 @@
 
-RELEASE 4.0 (expected on 2022-07-14)
+RELEASE 4.0 (released on 2022-07-14)
 
 1. Python 3.10 support #186 
 2. Add Multiplicative Models/Seasonals #178 
