@@ -124,11 +124,7 @@ def prediction_interval_plot_internal(df, time, signal, estimator, lower, upper,
                   ax=axs, grid = True, legend=False)
     add_patched_legend(axs , [signal, estimator, lower, upper])
 
-    x = df1[time];
-    type1 = x.dtype
-    if(type1.kind == 'M'):
-        x = x.apply(lambda t : t.date());
-    axs.fill_between(x.values, df1[lower], df1[upper], color=SHADED_COLOR, alpha=.2)
+    axs.fill_between(df1[time].values, df1[lower], df1[upper], color=SHADED_COLOR, alpha=.2)
 
     return fig
 
