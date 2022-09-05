@@ -294,6 +294,7 @@ class cAutoRegressiveEstimator:
     # @profile
     def estimate(self):
         from . import Scikit_Models as tsscikit
+        from . import Caret_Models as caret
 
         lTimer = None
         if(self.mOptions.mDebugProfile):
@@ -327,6 +328,10 @@ class cAutoRegressiveEstimator:
                         lMLPClass = self.mOptions.getPytorchOrKerasClass('MLP')
                         if(lMLPClass is not None):                    
                             self.add_model_if_activated(cycle_residue, 'MLP', lMLPClass, lLags, True)
+                    if(self.mOptions.mActiveAutoRegressions['MARS'] or self.mOptions.mActiveAutoRegressions['MARSX']):
+                        self.add_model_if_activated(cycle_residue, 'MARS', caret.cMARS_Model, lLags, True)
+                    if(self.mOptions.mActiveAutoRegressions['TAR'] or self.mOptions.mActiveAutoRegressions['TARX']):
+                        self.add_model_if_activated(cycle_residue, 'TAR', caret.cTAR_Model, lLags, True)
                     if(self.mOptions.mActiveAutoRegressions['XGB'] or self.mOptions.mActiveAutoRegressions['XGBX']):
                         if(self.mOptions.canBuildXGBoostModel('XGB')):
                             self.add_model_if_activated(cycle_residue, 'XGB', tsscikit.cXGBoost_Model, lLags, True)

@@ -54,7 +54,9 @@ class cModelControl:
                                       'LSTM' , 'LSTMX' ,
                                       'XGB' , 'XGBX' ,
                                       'CROSTON', # No CROSTONX for the moment
-                                      'LGB', 'LGBX'];
+                                      'LGB', 'LGBX',
+                                      'TAR', 'TARX',
+                                      'MARS', 'MARSX'];
         # now , set he default models
         self.set_active_transformations(self.mKnownTransformations[0:4]);
         self.set_active_trends(self.mKnownTrends[0:4]);
