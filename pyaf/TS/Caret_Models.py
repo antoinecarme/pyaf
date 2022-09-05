@@ -256,3 +256,38 @@ class cCaret_Model(cR_Model):
         lScript = lScript + 'predicted = predict(reloaded_model, newdata=df, type=\"' + pred_type + '");\n'
         return lScript
 
+
+class cTAR_Model(cR_Model):
+    def __init__(self , cycle_residue_name, P , iExogenousInfo = None):
+        super().__init__(cycle_residue_name, P, iExogenousInfo)
+        self.mCommonModelName = "TAR";
+
+    def is_autoregressive_model(self):
+        return True
+        
+    def set_name(self):
+        lCommonName = self.mCommonModelName + ("" if(self.mExogenousInfo is None) else "X")
+        self.mOutName = self.mCycleResidueName +  '_' + lCommonName + '(' + str(self.mNbLags) + ")";
+        self.mFormula = self.mCommonModelName
+        lPrefix = self.generate_temp_name()
+        self.mModelName = self.mDirName + "/threshold_ar_" + lPrefix;        
+        
+    def dumpCoefficients(self, iMax=10):
+        logger = tsutil.get_pyaf_logger();
+        logger.info("PYAF_USING_NTS_TAR_MODEL " + str(self.mCommonModelName))
+        
+    def add_specific_train_code(self):
+        lScript = self.add_needed_library("NTS")
+        lScript = lScript + 'thresholds.est = uTAR(y=df$TGT, p1=2, p2=2, d=2, thrQ=c(0,1), Trim=c(0.1,0.9), include.mean=TRUE, method="NeSS", k0=50);\n'
+        lScript = lScript + 'model = uTAR.est(y=df$TGT, , arorder=c(2,2), thr=thresholds.est$thr, d=2);\n'
+        return lScript
+
+    def add_specific_predict_code(self, X):
+        lScript = self.add_needed_library("NTS")
+        lScript = lScript + 'predicted = uTAR.pred(mode=reloaded_model, orig=0 , h=' + str(X.shape[0]) + ' - sum(reloaded_model$nobs),iterations=100,ci=0.95,output=TRUE)\n'
+        lScript = lScript + "nempty = length(reloaded_model$data) -  length(reloaded_model$residuals)\n" # empty residues at the beginning (AR)
+        lScript = lScript + 'residuals = rbind(matrix(0, nempty) , matrix(reloaded_model$residuals))\n'
+        lScript = lScript + 'data = reloaded_model$data\n'
+        lScript = lScript + 'fitted = data + residuals\n'
+        lScript = lScript + 'predicted = rbind(fitted, predicted$pred)\n'
+        return lScript
