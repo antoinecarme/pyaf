@@ -224,3 +224,35 @@ class cR_Model(tsar.cAbstractAR):
         self.compute_ar_residue(df)
         return df;
 
+class cCaret_Model(cR_Model):
+    def __init__(self , cycle_residue_name, P , iExogenousInfo = None):
+        super().__init__(cycle_residue_name, P, iExogenousInfo)
+        self.mMethod = "earth";
+        self.mCommonModelName = "MARS";
+        self.mCaretParams = None
+
+    def set_name(self):
+        lCommonName = self.mCommonModelName + ("" if(self.mExogenousInfo is None) else "X")
+        self.mOutName = self.mCycleResidueName +  '_' + lCommonName + '(' + str(self.mNbLags) + ")";
+        self.mFormula = self.mCommonModelName
+        lPrefix = self.generate_temp_name()
+        self.mModelName = self.mDirName + "/caret_" + self.get_method_as_string() + "_" + lPrefix;        
+        
+    def dumpCoefficients(self, iMax=10):
+        logger = tsutil.get_pyaf_logger();
+        logger.info("PYAF_USING_CARET_METHOD " + str((self.mCommonModelName, self.mMethod)));
+        
+    def get_method_as_string(self):
+        return str(self.mMethod)
+
+    def add_specific_train_code(self):
+        lScript = self.add_needed_library("caret")
+        lScript = lScript + 'model = train( TGT ~ ., data=df, method="' +self.mMethod + '");\n'
+        return lScript
+
+    def add_specific_predict_code(self, X):
+        pred_type = "raw"
+        lScript = self.add_needed_library("caret")
+        lScript = lScript + 'predicted = predict(reloaded_model, newdata=df, type=\"' + pred_type + '");\n'
+        return lScript
+
