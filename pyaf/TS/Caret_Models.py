@@ -291,3 +291,9 @@ class cTAR_Model(cR_Model):
         lScript = lScript + 'fitted = data + residuals\n'
         lScript = lScript + 'predicted = rbind(fitted, predicted$pred)\n'
         return lScript
+
+class cMARS_Model(cCaret_Model):
+    def __init__(self , cycle_residue_name, P , iExogenousInfo = None):
+        super().__init__(cycle_residue_name, P, iExogenousInfo)
+        self.mMethod = "earth"
+        self.mCommonModelName = "MARS"
