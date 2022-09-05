@@ -240,7 +240,7 @@ class cCaret_Model(cR_Model):
         
     def dumpCoefficients(self, iMax=10):
         logger = tsutil.get_pyaf_logger();
-        logger.info("PYAF_USING_CARET_METHOD " + str((self.mCommonModelName, self.mMethod)));
+        logger.info("PYAF_USING_EXPERIMENTAL_CARET_METHOD " + str((self.mCommonModelName, self.mMethod)));
         
     def get_method_as_string(self):
         return str(self.mMethod)
@@ -274,7 +274,7 @@ class cTAR_Model(cR_Model):
         
     def dumpCoefficients(self, iMax=10):
         logger = tsutil.get_pyaf_logger();
-        logger.info("PYAF_USING_NTS_TAR_MODEL " + str(self.mCommonModelName))
+        logger.info("PYAF_USING__EXPERIMENTAL_NTS_TAR_MODEL " + str(self.mCommonModelName))
         
     def add_specific_train_code(self):
         lScript = self.add_needed_library("NTS")
