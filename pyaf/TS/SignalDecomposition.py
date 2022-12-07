@@ -263,16 +263,22 @@ class cModelSelector_OneSignal:
         # print(self.mTrPerfDetails.head(self.mTrPerfDetails.shape[0]));
         lIndicator = 'Forecast' + self.mOptions.mModelSelection_Criterion;
         lBestPerf = self.mTrPerfDetails[ lIndicator ].min();
+        lHigherIsBetter = tsperf.cPerf.higher_values_are_better(self.mOptions.mModelSelection_Criterion)
+        if(lHigherIsBetter):
+            lBestPerf = self.mTrPerfDetails[ lIndicator ].max();
         # allow a loss of one point (0.01 of MAPE) if complexity is reduced.
         assert(not np.isnan(lBestPerf))
         self.mTrPerfDetails.sort_values(by=[lIndicator, 'Complexity', 'Model'] ,
-                                        ascending=[True, True, True],
+                                        ascending=[not lHigherIsBetter, True, True],
                                         inplace=True);
         self.mTrPerfDetails = self.mTrPerfDetails.reset_index(drop=True);
         if(self.mOptions.mDebugPerformance):
             self.dump_all_model_perfs_as_json()
-                
-        lInterestingModels = self.mTrPerfDetails[self.mTrPerfDetails[lIndicator] <= (lBestPerf + 0.01)].reset_index(drop=True);
+        if(lHigherIsBetter):
+            lInterestingModels = self.mTrPerfDetails[self.mTrPerfDetails[lIndicator] >= (lBestPerf - 0.01)].reset_index(drop=True);
+        else:
+            lInterestingModels = self.mTrPerfDetails[self.mTrPerfDetails[lIndicator] <= (lBestPerf + 0.01)].reset_index(drop=True);
+            
         lInterestingModels.sort_values(by=['Complexity'] , ascending=True, inplace=True)
         # print(self.mTransformList);
         # print(lInterestingModels.head());
@@ -321,6 +327,9 @@ class cModelSelector_OneSignal:
         # print(self.mTrPerfDetails.head(self.mTrPerfDetails.shape[0]));
         lIndicator = 'Forecast' + self.mOptions.mModelSelection_Criterion;
         lBestPerf = self.mTrPerfDetails[ lIndicator ].min();
+        lHigherIsBetter = tsperf.cPerf.higher_values_are_better(self.mOptions.mModelSelection_Criterion)
+        if(lHigherIsBetter):
+            lBestPerf = self.mTrPerfDetails[ lIndicator ].max();
         # allow a loss of one point (0.01 of MAPE) if complexity is reduced.
         assert(not np.isnan(lBestPerf))
         self.mTrPerfDetails.sort_values(by=[lIndicator, 'Complexity', 'Model'] ,
@@ -330,7 +339,11 @@ class cModelSelector_OneSignal:
         if(self.mOptions.mDebugPerformance):
             self.dump_all_model_perfs_as_json()
                 
-        lInterestingModels = self.mTrPerfDetails[self.mTrPerfDetails[lIndicator] <= (lBestPerf + 0.01)].reset_index(drop=True);
+        if(lHigherIsBetter):
+            lInterestingModels = self.mTrPerfDetails[self.mTrPerfDetails[lIndicator] >= (lBestPerf - 0.01)].reset_index(drop=True);
+        else:
+            lInterestingModels = self.mTrPerfDetails[self.mTrPerfDetails[lIndicator] <= (lBestPerf + 0.01)].reset_index(drop=True);
+            
         lInterestingModels.sort_values(by=['Complexity'] , ascending=True, inplace=True)
         # print(self.mTransformList);
         # print(lInterestingModels.head());
@@ -355,12 +368,19 @@ class cModelSelector_OneSignal:
         print("CROSS_VAL_PERF", lPerfByCategory_df)
         # lPerfByCategory_df.to_csv("perf_time_series_cross_val_by_category.csv")
         lBestPerf = lPerfByCategory_df[ lIndicator ].min();
+        lHigherIsBetter = tsperf.cPerf.higher_values_are_better(self.mOptions.mModelSelection_Criterion)
+        if(lHigherIsBetter):
+            lBestPerf = lPerfByCategory_df[ lIndicator ].max();
         lPerfByCategory_df.sort_values(by=[lIndicator, 'Category'] ,
-                                ascending=[True, True],
+                                ascending=[not lHigherIsBetter, True],
                                 inplace=True);
         lPerfByCategory_df = lPerfByCategory_df.reset_index(drop=True);
                 
-        lInterestingCategories_df = lPerfByCategory_df[lPerfByCategory_df[lIndicator] <= (lBestPerf + 0.01)].reset_index(drop=True);
+        if(lHigherIsBetter):
+            lInterestingCategories_df = lPerfByCategory_df[lPerfByCategory_df[lIndicator] >= (lBestPerf - 0.01)].reset_index(drop=True);
+        else:
+            lInterestingCategories_df = lPerfByCategory_df[lPerfByCategory_df[lIndicator] <= (lBestPerf + 0.01)].reset_index(drop=True);
+            
         # print(lPerfByCategory_df.head());
         # print(lInterestingCategories_df.head());
         # print(self.mPerfsByModel);

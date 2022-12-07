@@ -151,6 +151,10 @@ class cTimeSeriesModel:
         logger.info("MODEL_L2 L2_Fit=" + str(self.mFitPerf.mL2) + " L2_Forecast=" + str(self.mForecastPerf.mL2)  + " L2_Test=" + str(self.mTestPerf.mL2) );
         logger.info("MODEL_LnQ LnQ_Fit=" + str(self.mFitPerf.mLnQ) + " LnQ_Forecast=" + str(self.mForecastPerf.mLnQ)  + " LnQ_Test=" + str(self.mTestPerf.mLnQ) );
         logger.info("MODEL_MEDIAN_AE MedAE_Fit=" + str(self.mFitPerf.mMedAE) + " MedAE_Forecast=" + str(self.mForecastPerf.mMedAE)  + " MedAE_Test=" + str(self.mTestPerf.mMedAE) );
+        logger.info("MODEL_KENDALL_TAU KENDALL_TAU_Fit=" + str(self.mFitPerf.mKendallTau) + " KENDALL_TAU_Forecast=" + str(self.mForecastPerf.mKendallTau)  + " KENDALL_TAU_Test=" + str(self.mTestPerf.mKendallTau) );
+        logger.info("MODEL_KOLOMOGOROV_SMIRNOV KS_Fit=" + str(self.mFitPerf.mKS) + " KS_Forecast=" + str(self.mForecastPerf.mKS)  + " KS_Test=" + str(self.mTestPerf.mKS) );
+        logger.info("MODEL_MANN_WHITNEY_U MWU_Fit=" + str(self.mFitPerf.mMWU) + " MWU_Forecast=" + str(self.mForecastPerf.mMWU)  + " MWU_Test=" + str(self.mTestPerf.mMWU) );
+        logger.info("MODEL_AUC AUC_Fit=" + str(self.mFitPerf.mAUC) + " AUC_Forecast=" + str(self.mForecastPerf.mAUC)  + " AUC_Test=" + str(self.mTestPerf.mAUC) );
         logger.info("MODEL_COMPLEXITY " + str(self.getComplexity()) );
         logger.info("SIGNAL_TRANSFORMATION_DETAIL_START");
         self.mTransformation.dump_values();
@@ -341,6 +345,10 @@ class cTimeSeriesModel:
               "RMSE" : self.mForecastPerf.mL2,
               "MedAE" : self.mForecastPerf.mMedAE,
               "LnQ" : self.mForecastPerf.mLnQ,
+              "KS" : self.mForecastPerf.mKS,
+              "KendallTau" : self.mForecastPerf.mKendallTau,
+              "MannWhitneyU" : self.mForecastPerf.mMWU,
+              "AUC" : self.mForecastPerf.mAUC,
               "COMPLEXITY" : self.getComplexity()};
         dict1["Model_Performance"] = d3;
         if(iWithOptions):
