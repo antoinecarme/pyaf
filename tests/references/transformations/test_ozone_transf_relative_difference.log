@@ -1,7 +1,7 @@
 INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['Ozone'], 'Transformations': [('Ozone', 'None', 'RelDiff_', 'T+S+R')], 'Cores': 1}))
 INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Ozone', 'Transformation': 'RelDiff_Ozone'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.08, ('TRAINING', {'Signal': 'Ozone', 'Transformation': 'RelDiff_Ozone'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.083, ('SIGNAL_TRAINING', {'Signals': ['Ozone'], 'Transformations': [('Ozone', 'None', 'RelDiff_', 'T+S+R')], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 9.415, ('TRAINING', {'Signal': 'Ozone', 'Transformation': 'RelDiff_Ozone'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 9.488, ('SIGNAL_TRAINING', {'Signals': ['Ozone'], 'Transformations': [('Ozone', 'None', 'RelDiff_', 'T+S+R')], 'Cores': 1}))
 INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['Ozone'], 'Transformations': [('Ozone', [('Ozone', 'None', 'RelDiff_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'Ozone', 'Transformations': [('Ozone', 'None', 'RelDiff_', 'T+S+R')]}))
 INFO:pyaf.std:PERF_DUMP_START
@@ -128,12 +128,12 @@ INFO:pyaf.std:[
     }
 ]
 INFO:pyaf.std:PERF_DUMP_END
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.006, ('MODEL_SELECTION', {'Signal': 'Ozone', 'Transformations': [('Ozone', 'None', 'RelDiff_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.008, ('MODEL_SELECTION', {'Signal': 'Ozone', 'Transformations': [('Ozone', 'None', 'RelDiff_', 'T+S+R')]}))
 INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Ozone', 'Model': 'RelDiff_Ozone_Lag1Trend_residue_zeroCycle[0.0]_residue_NoAR'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.023, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Ozone', 'Model': 'RelDiff_Ozone_Lag1Trend_residue_zeroCycle[0.0]_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.102, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Ozone', 'Model': 'RelDiff_Ozone_Lag1Trend_residue_zeroCycle[0.0]_residue_NoAR'}))
 INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Ozone'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.498, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Ozone'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.527, ('FINALIZE_TRAINING', {'Signals': ['Ozone'], 'Transformations': [('Ozone', [('Ozone', 'None', 'RelDiff_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.377, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Ozone'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.488, ('FINALIZE_TRAINING', {'Signals': ['Ozone'], 'Transformations': [('Ozone', [('Ozone', 'None', 'RelDiff_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01T00:00:00.000000 TimeMax=1967-09-01T00:00:00.000000 TimeDelta=<DateOffset: months=1> Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Length=204  Min=1.2 Max=8.7  Mean=3.835784 StdDev=1.491559
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='RelDiff_Ozone' Min=-0.9 Max=10.0  Mean=0.202189 StdDev=1.025121
@@ -151,6 +151,10 @@ INFO:pyaf.std:MODEL_L1 L1_Fit=0.8639 L1_Forecast=0.8254 L1_Test=0.6217
 INFO:pyaf.std:MODEL_L2 L2_Fit=1.138 L2_Forecast=0.9986 L2_Test=0.7448
 INFO:pyaf.std:MODEL_LnQ LnQ_Fit=12.3649 LnQ_Forecast=4.1659 LnQ_Test=1.4277
 INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.7 MedAE_Forecast=0.7 MedAE_Test=0.6
+INFO:pyaf.std:MODEL_KENDALL_TAU KENDALL_TAU_Fit=0.5456 KENDALL_TAU_Forecast=0.4656 KENDALL_TAU_Test=0.4894
+INFO:pyaf.std:MODEL_KOLOMOGOROV_SMIRNOV KS_Fit=0.2418 KS_Forecast=0.3333 KS_Test=0.6667
+INFO:pyaf.std:MODEL_MANN_WHITNEY_U MWU_Fit=11255.0 MWU_Forecast=688.0 MWU_Test=43.0
+INFO:pyaf.std:MODEL_AUC AUC_Fit=0.4808 AUC_Forecast=0.4523 AUC_Test=0.2986
 INFO:pyaf.std:MODEL_COMPLEXITY 3.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:REALTIVE_DIFFERENCING_TRANSFORMATION RelativeDifference 0.20000000000000007
@@ -164,9 +168,9 @@ INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.timing:('OPERATION_START', ('PLOTTING', {'Signals': ['Ozone']}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 11.094, ('PLOTTING', {'Signals': ['Ozone']}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 9.111, ('PLOTTING', {'Signals': ['Ozone']}))
 INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['Ozone'], 'Horizon': 12}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.279, ('FORECASTING', {'Signals': ['Ozone'], 'Horizon': 12}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.301, ('FORECASTING', {'Signals': ['Ozone'], 'Horizon': 12}))
      Month  Ozone       Time
 0  1955-01    2.7 1955-01-01
 1  1955-02    2.0 1955-02-01
@@ -249,12 +253,16 @@ Forecasts
             "Trend": "Lag1Trend"
         },
         "Model_Performance": {
+            "AUC": 0.4523,
             "COMPLEXITY": 3.0,
             "CRPS": 0.2105,
+            "KS": 0.3333,
+            "KendallTau": 0.4656,
             "LnQ": 4.1659,
             "MAE": 0.8254,
             "MAPE": 0.3097,
             "MASE": 1.0632,
+            "MannWhitneyU": 688.0,
             "MedAE": 0.7,
             "RMSE": 0.9986
         }
@@ -266,7 +274,7 @@ Forecasts
 
 
 <Forecast>
-{"Time":{"192":"1971-01-01T00:00:00.000Z","193":"1971-02-01T00:00:00.000Z","194":"1971-03-01T00:00:00.000Z","195":"1971-04-01T00:00:00.000Z","196":"1971-05-01T00:00:00.000Z","197":"1971-06-01T00:00:00.000Z","198":"1971-07-01T00:00:00.000Z","199":"1971-08-01T00:00:00.000Z","200":"1971-09-01T00:00:00.000Z","201":"1971-10-01T00:00:00.000Z","202":"1971-11-01T00:00:00.000Z","203":"1971-12-01T00:00:00.000Z","204":"1972-01-01T00:00:00.000Z","205":"1972-02-01T00:00:00.000Z","206":"1972-03-01T00:00:00.000Z","207":"1972-04-01T00:00:00.000Z","208":"1972-05-01T00:00:00.000Z","209":"1972-06-01T00:00:00.000Z","210":"1972-07-01T00:00:00.000Z","211":"1972-08-01T00:00:00.000Z","212":"1972-09-01T00:00:00.000Z","213":"1972-10-01T00:00:00.000Z","214":"1972-11-01T00:00:00.000Z","215":"1972-12-01T00:00:00.000Z"},"Ozone":{"192":1.8,"193":2.0,"194":2.2,"195":3.0,"196":2.4,"197":3.5,"198":3.5,"199":3.3,"200":2.7,"201":2.5,"202":1.6,"203":1.2,"204":null,"205":null,"206":null,"207":null,"208":null,"209":null,"210":null,"211":null,"212":null,"213":null,"214":null,"215":null},"Ozone_Forecast":{"192":2.7150752506,"193":2.7150752506,"194":2.7150752506,"195":2.7150752506,"196":3.0,"197":2.7150752506,"198":3.5,"199":3.5,"200":3.3,"201":2.7150752506,"202":2.7150752506,"203":2.7150752506,"204":2.7150752506,"205":2.7150752506,"206":2.7150752506,"207":2.7150752506,"208":2.7150752506,"209":2.7150752506,"210":2.7150752506,"211":2.7150752506,"212":2.7150752506,"213":2.7150752506,"214":2.7150752506,"215":2.7150752506}}
+{"Time":{"192":"1971-01-01T00:00:00.000","193":"1971-02-01T00:00:00.000","194":"1971-03-01T00:00:00.000","195":"1971-04-01T00:00:00.000","196":"1971-05-01T00:00:00.000","197":"1971-06-01T00:00:00.000","198":"1971-07-01T00:00:00.000","199":"1971-08-01T00:00:00.000","200":"1971-09-01T00:00:00.000","201":"1971-10-01T00:00:00.000","202":"1971-11-01T00:00:00.000","203":"1971-12-01T00:00:00.000","204":"1972-01-01T00:00:00.000","205":"1972-02-01T00:00:00.000","206":"1972-03-01T00:00:00.000","207":"1972-04-01T00:00:00.000","208":"1972-05-01T00:00:00.000","209":"1972-06-01T00:00:00.000","210":"1972-07-01T00:00:00.000","211":"1972-08-01T00:00:00.000","212":"1972-09-01T00:00:00.000","213":"1972-10-01T00:00:00.000","214":"1972-11-01T00:00:00.000","215":"1972-12-01T00:00:00.000"},"Ozone":{"192":1.8,"193":2.0,"194":2.2,"195":3.0,"196":2.4,"197":3.5,"198":3.5,"199":3.3,"200":2.7,"201":2.5,"202":1.6,"203":1.2,"204":null,"205":null,"206":null,"207":null,"208":null,"209":null,"210":null,"211":null,"212":null,"213":null,"214":null,"215":null},"Ozone_Forecast":{"192":2.7150752506,"193":2.7150752506,"194":2.7150752506,"195":2.7150752506,"196":3.0,"197":2.7150752506,"198":3.5,"199":3.5,"200":3.3,"201":2.7150752506,"202":2.7150752506,"203":2.7150752506,"204":2.7150752506,"205":2.7150752506,"206":2.7150752506,"207":2.7150752506,"208":2.7150752506,"209":2.7150752506,"210":2.7150752506,"211":2.7150752506,"212":2.7150752506,"213":2.7150752506,"214":2.7150752506,"215":2.7150752506}}
 </Forecast>
 
 

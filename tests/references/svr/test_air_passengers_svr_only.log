@@ -1,13 +1,21 @@
 INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['AirPassengers'], 'Transformations': [('AirPassengers', 'None', '_', 'T+S+R'), ('AirPassengers', 'None', 'Diff_', 'T+S+R'), ('AirPassengers', 'None', 'RelDiff_', 'T+S+R'), ('AirPassengers', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'AirPassengers', 'Transformation': '_AirPassengers'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'AirPassengers', 'Transformation': 'Diff_AirPassengers'}))
 INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'AirPassengers', 'Transformation': 'RelDiff_AirPassengers'}))
 INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'AirPassengers', 'Transformation': 'CumSum_AirPassengers'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'AirPassengers', 'Transformation': 'Diff_AirPassengers'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 8.307, ('TRAINING', {'Signal': 'AirPassengers', 'Transformation': 'CumSum_AirPassengers'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 8.309, ('TRAINING', {'Signal': 'AirPassengers', 'Transformation': 'RelDiff_AirPassengers'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 8.5, ('TRAINING', {'Signal': 'AirPassengers', 'Transformation': '_AirPassengers'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 9.206, ('TRAINING', {'Signal': 'AirPassengers', 'Transformation': 'Diff_AirPassengers'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 12.229, ('SIGNAL_TRAINING', {'Signals': ['AirPassengers'], 'Transformations': [('AirPassengers', 'None', '_', 'T+S+R'), ('AirPassengers', 'None', 'Diff_', 'T+S+R'), ('AirPassengers', 'None', 'RelDiff_', 'T+S+R'), ('AirPassengers', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+/home/circleci/project/pyaf/TS/Time.py:133: FutureWarning: The behavior of `series[i:j]` with an integer-dtype index is deprecated. In a future version, this will be treated as *label-based* indexing, consistent with e.g. `series[i]` lookups. To retain the old behavior, use `series.iloc[i:j]`. To get the future behavior, use `series.loc[i:j]`.
+  lDiffs = lEstim[self.mTime][1:N] - lTimeBefore[1:N]
+/home/circleci/project/pyaf/TS/Time.py:133: FutureWarning: The behavior of `series[i:j]` with an integer-dtype index is deprecated. In a future version, this will be treated as *label-based* indexing, consistent with e.g. `series[i]` lookups. To retain the old behavior, use `series.iloc[i:j]`. To get the future behavior, use `series.loc[i:j]`.
+  lDiffs = lEstim[self.mTime][1:N] - lTimeBefore[1:N]
+/home/circleci/project/pyaf/TS/Time.py:133: FutureWarning: The behavior of `series[i:j]` with an integer-dtype index is deprecated. In a future version, this will be treated as *label-based* indexing, consistent with e.g. `series[i]` lookups. To retain the old behavior, use `series.iloc[i:j]`. To get the future behavior, use `series.loc[i:j]`.
+  lDiffs = lEstim[self.mTime][1:N] - lTimeBefore[1:N]
+/home/circleci/project/pyaf/TS/Time.py:133: FutureWarning: The behavior of `series[i:j]` with an integer-dtype index is deprecated. In a future version, this will be treated as *label-based* indexing, consistent with e.g. `series[i]` lookups. To retain the old behavior, use `series.iloc[i:j]`. To get the future behavior, use `series.loc[i:j]`.
+  lDiffs = lEstim[self.mTime][1:N] - lTimeBefore[1:N]
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 13.003, ('TRAINING', {'Signal': 'AirPassengers', 'Transformation': 'Diff_AirPassengers'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 13.811, ('TRAINING', {'Signal': 'AirPassengers', 'Transformation': 'RelDiff_AirPassengers'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 13.907, ('TRAINING', {'Signal': 'AirPassengers', 'Transformation': 'CumSum_AirPassengers'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 13.995, ('TRAINING', {'Signal': 'AirPassengers', 'Transformation': '_AirPassengers'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 20.204, ('SIGNAL_TRAINING', {'Signals': ['AirPassengers'], 'Transformations': [('AirPassengers', 'None', '_', 'T+S+R'), ('AirPassengers', 'None', 'Diff_', 'T+S+R'), ('AirPassengers', 'None', 'RelDiff_', 'T+S+R'), ('AirPassengers', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['AirPassengers'], 'Transformations': [('AirPassengers', [('AirPassengers', 'None', 'CumSum_', 'T+S+R'), ('AirPassengers', 'None', 'Diff_', 'T+S+R'), ('AirPassengers', 'None', 'RelDiff_', 'T+S+R'), ('AirPassengers', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'AirPassengers', 'Transformations': [('AirPassengers', 'None', 'CumSum_', 'T+S+R'), ('AirPassengers', 'None', 'Diff_', 'T+S+R'), ('AirPassengers', 'None', 'RelDiff_', 'T+S+R'), ('AirPassengers', 'None', '_', 'T+S+R')]}))
 INFO:pyaf.std:PERF_DUMP_START
@@ -134,12 +142,12 @@ INFO:pyaf.std:[
     }
 ]
 INFO:pyaf.std:PERF_DUMP_END
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.006, ('MODEL_SELECTION', {'Signal': 'AirPassengers', 'Transformations': [('AirPassengers', 'None', 'CumSum_', 'T+S+R'), ('AirPassengers', 'None', 'Diff_', 'T+S+R'), ('AirPassengers', 'None', 'RelDiff_', 'T+S+R'), ('AirPassengers', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.008, ('MODEL_SELECTION', {'Signal': 'AirPassengers', 'Transformations': [('AirPassengers', 'None', 'CumSum_', 'T+S+R'), ('AirPassengers', 'None', 'Diff_', 'T+S+R'), ('AirPassengers', 'None', 'RelDiff_', 'T+S+R'), ('AirPassengers', 'None', '_', 'T+S+R')]}))
 INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'AirPassengers', 'Model': '_AirPassengers_Lag1Trend_residue_zeroCycle[0.0]_residue_SVR(33)'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.067, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'AirPassengers', 'Model': '_AirPassengers_Lag1Trend_residue_zeroCycle[0.0]_residue_SVR(33)'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.099, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'AirPassengers', 'Model': '_AirPassengers_Lag1Trend_residue_zeroCycle[0.0]_residue_SVR(33)'}))
 INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'AirPassengers'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.507, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'AirPassengers'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.58, ('FINALIZE_TRAINING', {'Signals': ['AirPassengers'], 'Transformations': [('AirPassengers', [('AirPassengers', 'None', 'CumSum_', 'T+S+R'), ('AirPassengers', 'None', 'Diff_', 'T+S+R'), ('AirPassengers', 'None', 'RelDiff_', 'T+S+R'), ('AirPassengers', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.289, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'AirPassengers'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.396, ('FINALIZE_TRAINING', {'Signals': ['AirPassengers'], 'Transformations': [('AirPassengers', [('AirPassengers', 'None', 'CumSum_', 'T+S+R'), ('AirPassengers', 'None', 'Diff_', 'T+S+R'), ('AirPassengers', 'None', 'RelDiff_', 'T+S+R'), ('AirPassengers', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='time' TimeMin=1949.0 TimeMax=1956.91666666667 TimeDelta=0.08333333333336763 Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='AirPassengers' Length=132  Min=104 Max=559  Mean=262.492424 StdDev=106.221146
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_AirPassengers' Min=0.0 Max=1.0  Mean=0.348335 StdDev=0.233453
@@ -157,6 +165,10 @@ INFO:pyaf.std:MODEL_L1 L1_Fit=17.5617 L1_Forecast=34.4582 L1_Test=42.5512
 INFO:pyaf.std:MODEL_L2 L2_Fit=21.8674 L2_Forecast=42.2341 L2_Test=49.7426
 INFO:pyaf.std:MODEL_LnQ LnQ_Fit=0.9314 LnQ_Forecast=0.2834 LnQ_Test=0.1509
 INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=14.1423 MedAE_Forecast=35.0603 MedAE_Test=43.9937
+INFO:pyaf.std:MODEL_KENDALL_TAU KENDALL_TAU_Fit=0.8196 KENDALL_TAU_Forecast=0.5164 KENDALL_TAU_Test=0.5455
+INFO:pyaf.std:MODEL_KOLOMOGOROV_SMIRNOV KS_Fit=0.0312 KS_Forecast=0.125 KS_Test=0.1667
+INFO:pyaf.std:MODEL_MANN_WHITNEY_U MWU_Fit=4587.0 MWU_Forecast=278.0 MWU_Test=70.0
+INFO:pyaf.std:MODEL_AUC AUC_Fit=0.4977 AUC_Forecast=0.4826 AUC_Test=0.4861
 INFO:pyaf.std:MODEL_COMPLEXITY 26.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
@@ -170,9 +182,9 @@ INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.timing:('OPERATION_START', ('PLOTTING', {'Signals': ['AirPassengers']}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 9.372, ('PLOTTING', {'Signals': ['AirPassengers']}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 11.498, ('PLOTTING', {'Signals': ['AirPassengers']}))
 INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['AirPassengers'], 'Horizon': 12}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.394, ('FORECASTING', {'Signals': ['AirPassengers'], 'Horizon': 12}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.416, ('FORECASTING', {'Signals': ['AirPassengers'], 'Horizon': 12}))
   Split        Transformation  ... ForecastMAPE TestMAPE
 0  None  CumSum_AirPassengers  ...       0.0868   0.0981
 1  None  CumSum_AirPassengers  ...       0.0898   0.0931
@@ -266,12 +278,16 @@ Forecasts
             "Trend": "Lag1Trend"
         },
         "Model_Performance": {
+            "AUC": 0.4826,
             "COMPLEXITY": 26.0,
             "CRPS": 20.5078,
+            "KS": 0.125,
+            "KendallTau": 0.5164,
             "LnQ": 0.2834,
             "MAE": 34.4582,
             "MAPE": 0.0918,
             "MASE": 0.9302,
+            "MannWhitneyU": 278.0,
             "MedAE": 35.0603,
             "RMSE": 42.2341
         }
