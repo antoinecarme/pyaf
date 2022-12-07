@@ -186,7 +186,7 @@ class cSignalDecomposition_Options(cModelControl):
         self.mCrossValidationOptions = cCrossValidationOptions()
         self.mCrostonOptions = cCrostonOptions()
         self.mMissingDataOptions = cMissingDataOptions()
-        self.mDL_Backends = ("PyTorch", "Keras") # Pytorch and Keras if Pytorch is not installed
+        self.mDL_Backends = ("PyTorch", ) # Pytorch is the only supported backend for now
         self.mPytorch_Options = None
         self.mKeras_Options = None
         self.disableDebuggingOptions();
@@ -242,7 +242,6 @@ class cSignalDecomposition_Options(cModelControl):
         return spec is not None
 
     def get_available_DL_Backend(self):
-        lBackend = self.mDL_Backends
         # pick the first available backend
         for lBackend in self.mDL_Backends:
             if(lBackend == "PyTorch"):
@@ -252,7 +251,7 @@ class cSignalDecomposition_Options(cModelControl):
                 if(self.has_module_installed("tensorflow")):
                     return lBackend
         return None        
-    
+
     def getPytorchOrKerasClass(self, iModel):
         lBackend = self.get_available_DL_Backend()
         if(lBackend == "PyTorch"):
