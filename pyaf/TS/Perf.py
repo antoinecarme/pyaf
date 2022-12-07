@@ -10,6 +10,10 @@ import numpy as np
 from . import Utils as tsutil
 
 class cPerf:
+
+    def higher_values_are_better(criterion):
+        return criterion in ["KendallTau", "KS", "MWU" , "AUC"]
+
     def __init__(self):
         self.mErrorStdDev = None;
         self.mErrorMean = None;
@@ -26,13 +30,18 @@ class cPerf:
         self.mSignalQuantiles = None
         self.mCRPS = None # Continuous Ranked Probability Score ( issue #47 )
         self.mLnQ = None
+        self.mKendallTau = None
+        self.mMWU = None
+        self.mKS = None
+        self.mAUC = None
         self.mDebug = False;
 
     def to_dict(self):
         lDict = {"Signal" : self.mName , "Length" : self.mCount, "MAPE" : self.mMAPE,
                  "RMSE" : self.mL2,  "MAE" : self.mL1,  "SMAPE" : self.mSMAPE, 'MASE' : self.mMASE,
                  "ErrorMean" : self.mErrorMean, "ErrorStdDev" : self.mErrorStdDev, 
-                 "R2" : self.mR2, "Pearson" : self.mPearsonR, "MedAE": self.mMedAE, "LnQ" : self.mLnQ}
+                 "R2" : self.mR2, "Pearson" : self.mPearsonR, "MedAE": self.mMedAE, "LnQ" : self.mLnQ,
+                 "KS" : self.mKS, "KendallTau" : self.mKendallTau, "MannWhitneyU" : self.mMWU, "AUC" : self.mAUC}
         return lDict
     
     def check_not_nan(self, sig , name):
@@ -78,6 +87,20 @@ class cPerf:
         self.mLnQ = round( self.mLnQ , 4 )
         return self.mLnQ
 
+    def compute_KS_Kendall_MWU_AUC(self, signal , estimator):
+        from scipy.stats import mannwhitneyu, kendalltau, kstest
+        lKSTest = kstest(signal, estimator)
+        self.mKS = lKSTest.statistic
+        self.mKS = round( self.mKS , 4 )
+        lKendallTau_Result = kendalltau(signal, estimator)
+        self.mKendallTau = lKendallTau_Result.correlation
+        self.mKendallTau = round( self.mKendallTau , 4 )
+        lMWU_Result = mannwhitneyu(signal, estimator)
+        self.mMWU = lMWU_Result.statistic
+        self.mMWU = round( self.mMWU, 4 )
+        self.mAUC = self.mMWU / signal.shape[0] / estimator.shape[0]
+        self.mAUC = round( self.mAUC , 4 )
+        
     def dump_perf_data(self, signal , estimator):
         logger = tsutil.get_pyaf_logger();
         df = pd.DataFrame(index = signal.index);
@@ -148,6 +171,8 @@ class cPerf:
         self.mCRPS = self.compute_CRPS(signal , estimator);
         self.mMedAE = np.median(abs_error)
         self.mMedAE = round(self.mMedAE, 4)
+
+        self.compute_KS_Kendall_MWU_AUC(signal, estimator);
 
 
     def compute_signal_quantiles(self, signal , estimator):
@@ -220,6 +245,22 @@ class cPerf:
             self.compute_MAPE_SMAPE_MASE(signal , estimator);
             return self.mMASE;
         
+        if(criterion == "KS"):
+            self.compute_KS_Kendall_MWU_AUC(signal , estimator);
+            return self.mKS;
+        
+        if(criterion == "KendallTau"):
+            self.compute_KS_Kendall_MWU_AUC(signal , estimator);
+            return self.mKendallTau;
+        
+        if(criterion == "MWU"):
+            self.compute_KS_Kendall_MWU_AUC(signal , estimator);
+            return self.mMWU;
+        
+        if(criterion == "AUC"):
+            self.compute_KS_Kendall_MWU_AUC(signal , estimator);
+            return self.mAUC;
+        
         if(criterion == "CRPS"):
             self.mSignalQuantiles = self.compute_signal_quantiles(signal , estimator);
             self.mCRPS = self.compute_CRPS(signal , estimator);
@@ -249,6 +290,14 @@ class cPerf:
             return self.mMASE;
         if(criterion == "CRPS"):
             return self.mCRPS;
+        if(criterion == "KendallTau"):
+            return self.mKendallTau;
+        if(criterion == "KS"):
+            return self.mKS;
+        if(criterion == "MWU"):
+            return self.mMWU;
+        if(criterion == "AUC"):
+            return self.mAUC;
         raise tsutil.Internal_PyAF_Error("Unknown Performance Measure ['" + self.mName + "'] '" + criterion + "'");
         return 0.0;
 
