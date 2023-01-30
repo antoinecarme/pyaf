@@ -173,7 +173,10 @@ class cTimeSeriesModel:
         if(self.mDecompositionType in ['TS+R']):
             return iTrendValue * iCycleValue + iARValue
         if(self.mDecompositionType in ['TSR']):
-            return iTrendValue * iCycleValue * iARValue
+            lTrendValue = iTrendValue.clip(-100, 100)
+            lCycleValue = iCycleValue.clip(-100, 100)
+            lARValue = iARValue.clip(-100, 100)
+            return lTrendValue * lCycleValue * lARValue
         return iTrendValue + iCycleValue + iARValue
 
     def forecastOneStepAhead(self , df , horizon_index = 1, perf_mode = False):
