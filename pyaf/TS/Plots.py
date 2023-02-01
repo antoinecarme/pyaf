@@ -90,8 +90,7 @@ def decomp_plot_as_png_base64(df, time, signal, estimator, residue, name = None,
     plt.close(fig)
     return png_b64
     
-def prediction_interval_plot_internal(df, time, signal, estimator, lower, upper, name = None, format='png', max_length = 1000, horizon =
- 1) :
+def prediction_interval_plot_internal(df, time, signal, estimator, lower, upper, name = None, format='png', max_length = 1000, horizon = 1, title = None) :
     assert(df.shape[0] > 0)
     assert(df.shape[1] > 0)
     assert(time in df.columns)
@@ -119,6 +118,11 @@ def prediction_interval_plot_internal(df, time, signal, estimator, lower, upper,
     if(name is not None):
         plt.switch_backend('Agg')
     fig, axs = plt.subplots(ncols=1, figsize=(16, 8))
+    if(title is not None):
+        axs.set_title(title + "\n")
+    else:
+        axs.set_title("Prediction Intervals\n")
+        
     df1.plot.line(time, [signal, estimator, lower, upper],
                   color=[SIGNAL_COLOR, FORECAST_COLOR, LOWER_COLOR, UPPER_COLOR],
                   ax=axs, grid = True, legend=False)
@@ -128,8 +132,8 @@ def prediction_interval_plot_internal(df, time, signal, estimator, lower, upper,
 
     return fig
 
-def prediction_interval_plot(df, time, signal, estimator, lower, upper, name = None, format='png', max_length = 1000, horizon = 1) :
-    fig = prediction_interval_plot_internal(df, time, signal, estimator, lower, upper, name, format, max_length, horizon)
+def prediction_interval_plot(df, time, signal, estimator, lower, upper, name = None, format='png', max_length = 1000, horizon = 1, title = None) :
+    fig = prediction_interval_plot_internal(df, time, signal, estimator, lower, upper, name, format, max_length, horizon, title)
     if(name is not None):
         import matplotlib
         import matplotlib.pyplot as plt
@@ -137,8 +141,8 @@ def prediction_interval_plot(df, time, signal, estimator, lower, upper, name = N
         fig.savefig(name + '_prediction_intervals_output.' + format)
         plt.close(fig)
     
-def prediction_interval_plot_as_png_base64(df, time, signal, estimator, lower, upper, name = None, max_length = 1000, horizon = 1) :
-    fig = prediction_interval_plot_internal(df, time, signal, estimator, lower, upper, name, format, max_length, horizon)
+def prediction_interval_plot_as_png_base64(df, time, signal, estimator, lower, upper, name = None, max_length = 1000, horizon = 1, title = None) :
+    fig = prediction_interval_plot_internal(df, time, signal, estimator, lower, upper, name, format, max_length, horizon, title)
 
     import matplotlib
     import matplotlib.pyplot as plt
