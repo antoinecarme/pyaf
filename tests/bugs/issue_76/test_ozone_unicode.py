@@ -8,7 +8,7 @@ import pyaf.ForecastEngine as autof
 import pyaf.Bench.TS_datasets as tsds
 
 
-b1 = tsds.load_ozone()
+b1 = tsds.load_ozone() 
 df = b1.mPastData
 
 lTimeVar = u"月"
