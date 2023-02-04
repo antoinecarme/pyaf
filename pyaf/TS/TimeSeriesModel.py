@@ -394,13 +394,17 @@ class cTimeSeriesModel:
         lOutput.set_index(lTime, inplace=True, drop=False);
         # print(lOutput[lTime].dtype);
 
+        # Add more informative title for this plot.  Investigate Model Esthetics for PyAF #212 
+        lTitle = "Prediction Intervals\n\nModel = " + self.mOutName + " [ "
+        lTitle = lTitle + "MAPE = " + str(self.mForecastPerf.mMAPE) + " ]"
         tsplot.prediction_interval_plot(lOutput,
                                         lTime, self.mOriginalSignal,
                                         lForecastColumn,
                                         lForecastColumn + '_Lower_Bound',
                                         lForecastColumn + '_Upper_Bound',
                                         name = name,
-                                        format= format, horizon = self.mTimeInfo.mHorizon);
+                                        format= format, horizon = self.mTimeInfo.mHorizon,
+                                        title = lTitle);
         
         if(self.mTimeInfo.mOptions.mAddPredictionIntervals):
             lQuantiles = self.mPredictionIntervalsEstimator.mForecastPerformances[lForecastColumn + "_1"].mErrorQuantiles.keys()
@@ -412,6 +416,8 @@ class cTimeSeriesModel:
                                   name = name,
                                   format= format, horizon = self.mTimeInfo.mHorizon);
         #lOutput.plot()
+
+    
         
     def getPlotsAsDict(self):
         lDict = {};
@@ -425,30 +431,43 @@ class cTimeSeriesModel:
         lDict["AR"] = tsplot.decomp_plot_as_png_base64(df, lTime, lPrefix + 'Cycle_residue' , lPrefix + 'AR' , lPrefix + 'AR_residue', name = "AR", horizon = self.mTimeInfo.mHorizon);
         lDict["Forecast"] = tsplot.decomp_plot_as_png_base64(df, lTime, lSignalColumn, lPrefix2 + 'Forecast' , lPrefix2 + 'Residue', name = "forecast", horizon = self.mTimeInfo.mHorizon);
 
-        lOutput = df;
+        lDict["Prediction_Intervals"] = self.getPredictionIntervalPlot(df)
+        if(self.mTimeInfo.mOptions.mAddPredictionIntervals):            
+            lDict["Forecast_Quantiles"] = self.getForecastQuantilesPlot(df)
+        return lDict;
+
+    def getPredictionIntervalPlot(self, df = None):        
+        lOutput = df if df is not None else self.getForecastDatasetForPlots();
         # print(lOutput.columns)
         lPrefix = str(self.mOriginalSignal) + "_";
         lForecastColumn = lPrefix + 'Forecast';
         lTime = self.mTimeInfo.mTime;
         lOutput.set_index(lTime, inplace=True, drop=False);
-        lDict["Prediction_Intervals"] = tsplot.prediction_interval_plot_as_png_base64(lOutput,
-                                                                                      lTime, self.mOriginalSignal,
-                                                                                      lForecastColumn  ,
-                                                                                      lForecastColumn + '_Lower_Bound',
-                                                                                      lForecastColumn + '_Upper_Bound',
-                                                                                      name = "prediction_intervals",
-                                                                                      horizon = self.mTimeInfo.mHorizon);
-        if(self.mTimeInfo.mOptions.mAddPredictionIntervals):
-            lQuantiles = self.mPredictionIntervalsEstimator.mForecastPerformances[lForecastColumn + "_1"].mErrorQuantiles.keys()
-            lQuantiles = sorted(lQuantiles)
-            lDict["Forecast_Quantiles"] = tsplot.quantiles_plot_as_png_base64(lOutput,
-                                                                              lTime, self.mOriginalSignal,
-                                                                              lForecastColumn  ,
-                                                                              lQuantiles,
-                                                                              name = "Forecast_Quantiles",
-                                                                              format= format, horizon = self.mTimeInfo.mHorizon);
-            
-        return lDict;
+        # Add more informative title for this plot.  Investigate Model Esthetics for PyAF #212 
+        lTitle = "Prediction Intervals\n\nModel = " + self.mOutName + " [ "
+        lTitle = lTitle + "MAPE = " + str(self.mForecastPerf.mMAPE) + " ]"
+        return tsplot.prediction_interval_plot_as_png_base64(lOutput,
+                                                             lTime, self.mOriginalSignal,
+                                                             lForecastColumn  ,
+                                                             lForecastColumn + '_Lower_Bound',
+                                                             lForecastColumn + '_Upper_Bound',
+                                                             name = "prediction_intervals",
+                                                             horizon = self.mTimeInfo.mHorizon,
+                                                             title = lTitle);
+    
+    def getForecastQuantilesPlot(self, df = None):
+        lOutput = df if df is not None else self.getForecastDatasetForPlots();
+        lPrefix = self.mOriginalSignal + "_";
+        lTime = self.mTime;
+        lForecastColumn = lPrefix + 'Forecast';
+        lQuantiles = self.mPredictionIntervalsEstimator.mForecastPerformances[lForecastColumn + "_1"].mErrorQuantiles.keys()
+        lQuantiles = sorted(lQuantiles)
+        return tsplot.quantiles_plot_as_png_base64(lOutput,
+                                                   lTime, self.mOriginalSignal,
+                                                   lForecastColumn  ,
+                                                   lQuantiles,
+                                                   name = "Forecast_Quantiles [" + self.mOutName + "]",
+                                                   format= format, horizon = self.mTimeInfo.mHorizon);
 
     def getVersions(self):
         lVersionDict = tsutil.getVersions();
