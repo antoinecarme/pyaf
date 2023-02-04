@@ -97,7 +97,7 @@ class cModelEstheticsVisualizer:
         images = sorted(images, key = lambda x : -x[1])
 
         import imageio as iio
-        writer = iio.get_writer(lSignal + "_models.mp4", fps=20)
+        writer = iio.get_writer(lSignal + "_models_H_" + str(self.mDataset.mHorizon)+ ".mp4", fps=20)
         for im in images:
             writer.append_data(im[0])
         writer.close()
