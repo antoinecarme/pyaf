@@ -83,10 +83,15 @@ class cTimer:
         self.logger = get_pyaf_timing_logger();
         self.logger.info(("OPERATION_START", self.mMessage))
 
+    def get_elapsed_time(self):
+        lDelta = datetime.now() - self.mStart
+        lDelta = round(lDelta.total_seconds(), 3)
+        return lDelta
+
     def __del__(self):
         self.mEnd = datetime.now();
-        lDelta = self.mEnd - self.mStart
-        self.logger.info(("OPERATION_END_ELAPSED" , round(lDelta.total_seconds(), 3), self.mMessage))
+        lDelta = self.get_elapsed_time()
+        self.logger.info(("OPERATION_END_ELAPSED" , lDelta, self.mMessage))
 
 def get_module_version_when_available(module_name):
     try:

@@ -674,6 +674,7 @@ class cSignalDecomposition:
     def train(self , iInputDS, iTimes, iSignals, iHorizons, iExogenousData = None):
         self.reinterpret_by_signal_args(iTimes, iSignals, iHorizons, iExogenousData)
         # print(iInputDS.shape, iInputDS.columns, self.mSignals, self.mDateColumns, self.mHorizons)
+        lTimer = tsutil.cTimer(("TRAINING", {"Signals" : self.mSignals, "Horizons" : self.mHorizons}))
 
         for sig in self.mSignals:
             self.checkData(iInputDS, self.mDateColumns[sig], sig, self.mHorizons[sig], self.mExogenousData[sig]);
@@ -694,6 +695,7 @@ class cSignalDecomposition:
         self.mTrPerfDetails = lTrainer.mTrPerfDetails[lFirstSignal]
         self.mModelShortList = lTrainer.mModelShortList[lFirstSignal]
         self.mBestModel = self.mBestModels[lFirstSignal]
+        self.mTrainingTime = lTimer.get_elapsed_time()
 
 
     def forecast(self , iInputDS, iHorizon):
