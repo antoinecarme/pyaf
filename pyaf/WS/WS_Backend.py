@@ -99,22 +99,6 @@ class cWSModel:
                                              lForecastName + "_Lower_Bound",
                                              lForecastName + "_Upper_Bound"]]
 
-    def generateCode(self):
-        logger = logging.getLogger(__name__)
-        self.mSQL = {};
-        lDialects = ['Default', 'postgresql', 'mssql', 'oracle', 'mysql', 'sybase', 'sqlite'];
-        try:            
-            self.mSQL["Default"] = self.mForecastEngine.generateCode(iDSN = None, iDialect = None);
-            self.mSQL["postgresql"] = self.mForecastEngine.generateCode(iDSN = None, iDialect = "postgresql");
-            self.mSQL["mssql"] = self.mForecastEngine.generateCode(iDSN = None, iDialect = "mssql");
-            self.mSQL["oracle"] = self.mForecastEngine.generateCode(iDSN = None, iDialect = "oracle");
-            self.mSQL["mysql"] = self.mForecastEngine.generateCode(iDSN = None, iDialect = "mysql");
-            self.mSQL["sybase"] = self.mForecastEngine.generateCode(iDSN = None, iDialect = "sybase");
-            self.mSQL["sqlite"] = self.mForecastEngine.generateCode(iDSN = None, iDialect = "sqlite");
-        except Exception as e:
-            # logger.error("FAILED_TO_GENERATE_CODE_FOR " + self.mName + " " + str(e));
-            raise
-            pass
 
     def generatePlots(self):
         logger = logging.getLogger(__name__)
@@ -222,10 +206,6 @@ class cWSModel:
             "Name" : "Name used to identify the model in the API"
         }
 
-        lSQLLinks = {};
-        lDialects = ['Default', 'postgresql', 'mssql', 'oracle', 'mysql', 'sybase', 'sqlite'];
-        for k in lDialects:
-            lSQLLinks[k] = self.mURI + "model/" + self.mName + "/SQL/" + k;
 
         lMetaData = {
             "Name" : self.mName,
@@ -241,7 +221,6 @@ class cWSModel:
             "CSVFileInfo" : [ self.get_dataset_info() ],
             "ModelInfo" : [lModelInfo],
             "ForecastData" : [lForecastData],
-            "SQL" : [ lSQLLinks ],
             "Plots" : [ lPlotLinks ]
         }
         return obj_d
