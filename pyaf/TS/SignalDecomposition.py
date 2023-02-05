@@ -716,9 +716,12 @@ class cSignalDecomposition:
     def getModelInfo(self):
         for lSignal in self.mSignals:
             self.mBestModels[lSignal].getInfo()
+        logger = tsutil.get_pyaf_logger();
+        logger.info("TRAINING_TIME_IN_SECONDS " + str(self.mTrainingTime));
 
     def to_dict(self, iWithOptions = False):
         dict1 = {}
+        dict1["Training_Time"] = self.mTrainingTime
         for lSignal in self.mSignals:
             dict1[lSignal] = self.mBestModels[lSignal].to_dict(iWithOptions);
         return dict1
