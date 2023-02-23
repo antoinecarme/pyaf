@@ -95,8 +95,9 @@ class cTimer:
 
 def get_module_version_when_available(module_name):
     try:
-        import importlib
-        mod = importlib.import_module(module_name)
+        import sys # importlib
+        # mod = importlib.import_module(module_name)
+        mod = sys.modules[module_name]
         return mod.__version__
     except:
         return "NOT_INSTALLED"
@@ -115,6 +116,9 @@ def getVersions():
     lModules = ["pyaf", "sklearn", "pandas", "numpy" , "scipy" , "matplotlib", "pydot",
                 "xgboost", "pip" , "setuptools", "Cython", "dill" , "pathos", "lightgbm",
                 "torch", "skorch"]
+    import sys
+    # Limit this list to the already imported/used modules only.
+    lModules = [x for x in lModules if x in sys.modules.keys()]
 
     for module_name in lModules:
         lVersionDict[module_name + "_version"] = get_module_version_when_available(module_name)
