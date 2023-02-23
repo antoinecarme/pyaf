@@ -86,6 +86,8 @@ class cAbstractAR:
         # lDict[self.mCycleResidueName] = df[self.mCycleResidueName]
         series = self.mCycleResidueName
         lSeries = df[self.mCycleResidueName]
+        #  Investigate Large Horizon Models #213 : The model can produce overflows in its inputs when iterated. 
+        lSeries = lSeries.clip(-1e+10, +1e10)
         for p in self.mLagsForSeries[self.mCycleResidueName]:
             name = series +'_Lag' + str(p);
             lShiftedSeries = self.shift_series(lSeries, p , self.mDefaultValues[series]); 

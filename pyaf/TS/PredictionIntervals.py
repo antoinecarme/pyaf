@@ -21,7 +21,23 @@ class cPredictionIntervalsEstimator:
         self.mFitPerformances = {}
         self.mForecastPerformances = {}
         self.mTestPerformances = {}
+        self.mComputeAllPerfs = True
 
+    def compute_one_perf(self, signal, estimator, iHorizonName):
+        # Investigate Large Horizon Models #213 : generate all prediction intervals for all models.
+        # Don't compute all the perf indicators for the model selection (AUC is not relevant here, speed issues).
+        # Compute all the perf indicators for the selected model at the end of training.
+        lPerf = tsperf.cPerf();
+        if(self.mComputeAllPerfs):
+            lPerf.compute(signal, estimator, iHorizonName);
+        else:
+            lPerf.computeCriterion(signal,
+                                   estimator,
+                                   self.mModel.mTimeInfo.mOptions.mModelSelection_Criterion,
+                                   iHorizonName);
+            
+        return lPerf
+        
     def computePerformances(self):
         self.mTime = self.mModel.mTime;
         self.mSignal = self.mModel.mOriginalSignal;
@@ -39,13 +55,11 @@ class cPredictionIntervalsEstimator:
             df2 = df2.head(N);
             lHorizonName = lForecastColumn + "_" + str(h + 1);
             (lFrameFit, lFrameForecast, lFrameTest) = self.mModel.mTimeInfo.mSplit.cutFrame(df2);
-            self.mFitPerformances[lHorizonName] = tsperf.cPerf();
-            self.mFitPerformances[lHorizonName].compute(lOriginalFit[lSignalColumn], lFrameFit[lForecastColumn], lHorizonName);
-            self.mForecastPerformances[lHorizonName] = tsperf.cPerf();
-            self.mForecastPerformances[lHorizonName].compute(lOriginalForecast[lSignalColumn], lFrameForecast[lForecastColumn], lHorizonName);
-            self.mTestPerformances[lHorizonName] = tsperf.cPerf();
+            self.mFitPerformances[lHorizonName] = self.compute_one_perf(lOriginalFit[lSignalColumn], lFrameFit[lForecastColumn], lHorizonName);
+            
+            self.mForecastPerformances[lHorizonName] = self.compute_one_perf(lOriginalForecast[lSignalColumn], lFrameForecast[lForecastColumn], lHorizonName);
             if(lOriginalTest.shape[0] > 0):
-                self.mTestPerformances[lHorizonName].compute(lOriginalTest[lSignalColumn], lFrameTest[lForecastColumn], lHorizonName);
+                self.mTestPerformances[lHorizonName] = self.compute_one_perf(lOriginalTest[lSignalColumn], lFrameTest[lForecastColumn], lHorizonName);
             df1 = df2[[lTimeColumn , lForecastColumn,
                        self.mModel.mTimeInfo.mRowNumberColumn,
                        self.mModel.mTimeInfo.mNormalizedTimeColumn]];

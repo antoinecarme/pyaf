@@ -70,55 +70,31 @@ class cTimeSeriesModel:
         self.updatePerfs(compute_all_indicators = True)
 
     def updatePerfs(self, compute_all_indicators = False):
-        self.mModelFrame = pd.DataFrame(index = self.mTrend.mSignalFrame.index);
-        lSignal = self.mTrend.mSignalFrame[self.mSignal]
-        N = lSignal.shape[0];
-        self.mTrend.mTimeInfo.addVars(self.mModelFrame);
-        df = self.forecastOneStepAhead(self.mModelFrame , perf_mode = True);
-        self.mModelFrame = df.head(N);
-        # print(self.mModelFrame.columns);
-        lPrefix = self.mSignal + "_";
-        lForecastColumnName = str(self.mOriginalSignal) + "_Forecast";
-        lFitPerf = tsperf.cPerf();
-        lForecastPerf = tsperf.cPerf();
-        lTestPerf = tsperf.cPerf();
-        # self.mModelFrame.to_csv(self.mOutName + "_model_perf.csv");
-        (lFrameFit, lFrameForecast, lFrameTest) = self.mTrend.mSplit.cutFrame(self.mModelFrame);
+        # Investigate Large Horizon Models #213 : generate all prediction intervals for all models.
+        # Keep the model that holds the best perf at the horizon H.
+        # Consider perfs a horizon H instead of looking at horizon 1 (WIP ...).
+        # Don't compute all the perf indicators for the model selection (AUC is not relevant here, speed issues).
+        # Compute all the perf indicators for the selected model at the end of training.
 
-
-        if(compute_all_indicators):
-            lFitPerf.compute(lFrameFit[self.mOriginalSignal] , lFrameFit[lForecastColumnName] ,
-                             self.mOutName + '_Fit')
-            lForecastPerf.compute(lFrameForecast[self.mOriginalSignal] ,
-                                  lFrameForecast[lForecastColumnName],
-                                  self.mOutName + '_Forecast')
-            if(lFrameTest.shape[0] > 0):
-                lTestPerf.compute(lFrameTest[self.mOriginalSignal] , lFrameTest[lForecastColumnName],
-                                  self.mOutName + '_Test')            
-            pass
-        else:
-            lFitPerf.computeCriterion(lFrameFit[self.mOriginalSignal] , lFrameFit[lForecastColumnName] ,
-                                      self.mTimeInfo.mOptions.mModelSelection_Criterion,
-                                      self.mOutName + '_Fit')
-            lForecastPerf.computeCriterion(lFrameForecast[self.mOriginalSignal] , lFrameForecast[lForecastColumnName],
-                                           self.mTimeInfo.mOptions.mModelSelection_Criterion,
-                                           self.mOutName + '_Forecast')
-            if(lFrameTest.shape[0] > 0):
-                lTestPerf.computeCriterion(lFrameTest[self.mOriginalSignal] , lFrameTest[lForecastColumnName],
-                                           self.mTimeInfo.mOptions.mModelSelection_Criterion,
-                                           self.mOutName + '_Test')
-            
-        self.mFitPerf = lFitPerf
-        self.mForecastPerf = lForecastPerf;
-        self.mTestPerf = lTestPerf;
-        # print("PERF_COMPUTATION" , self.mOutName, self.mFitPerf.mMAPE);
+        # lTimer = tsutil.cTimer(("UPDATE_MODEL_PERFS", {"Signal" : self.mOriginalSignal, "Model" : self.mOutName}))
+        lPredictionIntervalsEstimator = predint.cPredictionIntervalsEstimator();
+        lPredictionIntervalsEstimator.mModel = self;
+        lPredictionIntervalsEstimator.mComputeAllPerfs = compute_all_indicators
+        lPredictionIntervalsEstimator.computePerformances();
+        lForecastColumn = str(self.mOriginalSignal) + "_Forecast";
+        lHorizonName = lForecastColumn + "_" + str(self.mTimeInfo.mHorizon);            
+        self.mFitPerf = lPredictionIntervalsEstimator.mFitPerformances[lHorizonName]
+        self.mForecastPerf = lPredictionIntervalsEstimator.mForecastPerformances[lHorizonName]
+        self.mTestPerf = lPredictionIntervalsEstimator.mTestPerformances[lHorizonName];
+        
         
     def computePredictionIntervals(self):
         # prediction intervals
         if(self.mTimeInfo.mOptions.mAddPredictionIntervals):
             lTimer = tsutil.cTimer(("COMPUTE_PREDICTION_INTERVALS", {"Signal" : self.mOriginalSignal}))
             self.mPredictionIntervalsEstimator = predint.cPredictionIntervalsEstimator();
-            self.mPredictionIntervalsEstimator.mModel = self;        
+            self.mPredictionIntervalsEstimator.mModel = self;
+            self.mPredictionIntervalsEstimator.mComputeAllPerfs = True;            
             self.mPredictionIntervalsEstimator.computePerformances();
 
     def getFormula(self):
@@ -233,7 +209,7 @@ class cTimeSeriesModel:
         return df2;
 
 
-    def forecast(self , df , iHorizon):
+    def forecast_all_horizons(self , df , iHorizon):
         N0 = df.shape[0];
         df1 = self.forecastOneStepAhead(df, 1)
         lForecastColumnName = str(self.mOriginalSignal) + "_Forecast";
@@ -256,6 +232,11 @@ class cTimeSeriesModel:
                            self.mAR.mOutName + '_residue',  lPrefix + 'AR_residue',
                            lPrefix + 'TransformedResidue', str(self.mOriginalSignal) + '_Residue']
         df1.loc[N1 -iHorizon : N1, lFieldsToErase] = np.nan
+        return df1
+
+    
+    def forecast(self , df , iHorizon):
+        df1 = self.forecast_all_horizons(df, iHorizon)
         # print(df.head())
         # print(df1.head())
         if(self.mTimeInfo.mOptions.mAddPredictionIntervals):
@@ -330,7 +311,7 @@ class cTimeSeriesModel:
         dict1 = {};
         d1 = { "Time" : self.mTimeInfo.to_dict(),
                "Signal" : self.mOriginalSignal,
-               "Training_Signal_Length" : self.mModelFrame.shape[0]};
+               "Training_Signal_Length" : self.mTimeInfo.mSignalFrame.shape[0]};
         dict1["Dataset"] = d1;
         lTransformation = self.mTransformation.mFormula;
         d2 = { "Best_Decomposition" : self.mOutName,
