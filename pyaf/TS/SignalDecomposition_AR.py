@@ -65,10 +65,16 @@ class cAbstractAR:
         self.mARFitPerf= tsperf.cPerf();
         self.mARForecastPerf= tsperf.cPerf();
         (lFrameFit, lFrameForecast, lFrameTest) = self.mSplit.cutFrame(self.mARFrame);
-        self.mARFitPerf.compute(
-            lFrameFit[self.mCycleResidueName], lFrameFit[self.mOutName], self.mOutName)
-        self.mARForecastPerf.compute(
-            lFrameForecast[self.mCycleResidueName], lFrameForecast[self.mOutName], self.mOutName)
+        self.mARFitPerf.computeCriterion(
+            lFrameFit[self.mCycleResidueName],
+            lFrameFit[self.mOutName],
+            self.mTimeInfo.mOptions.mModelSelection_Criterion,
+            self.mOutName)
+        self.mARForecastPerf.computeCriterion(
+            lFrameForecast[self.mCycleResidueName],
+            lFrameForecast[self.mOutName],
+            self.mTimeInfo.mOptions.mModelSelection_Criterion,
+            self.mOutName)
 
     def shift_series(self, series, p, idefault):
         N = series.shape[0];
