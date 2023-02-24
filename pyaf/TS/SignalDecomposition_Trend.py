@@ -42,10 +42,14 @@ class cAbstractTrend:
         self.mTrendFitPerf = tsperf.cPerf();
         self.mTrendForecastPerf = tsperf.cPerf();
         (lFrameFit, lFrameForecast, lFrameTest) = self.mSplit.cutFrame(self.mTrendFrame);
-        self.mTrendFitPerf.compute(lFrameFit[self.mSignal] ,
-                                   lFrameFit[self.mOutName], self.mOutName)
-        self.mTrendForecastPerf.compute(lFrameForecast[self.mSignal] ,
-                                        lFrameForecast[self.mOutName], self.mOutName)
+        self.mTrendFitPerf.computeCriterion(lFrameFit[self.mSignal] ,
+                                            lFrameFit[self.mOutName],
+                                            self.mTimeInfo.mOptions.mModelSelection_Criterion,
+                                            self.mOutName)
+        self.mTrendForecastPerf.computeCriterion(lFrameForecast[self.mSignal] ,
+                                                 lFrameForecast[self.mOutName],
+                                                 self.mTimeInfo.mOptions.mModelSelection_Criterion,
+                                                 self.mOutName)
 
     def compute_trend_residue(self, df):
         target = df[self.mSignal]
