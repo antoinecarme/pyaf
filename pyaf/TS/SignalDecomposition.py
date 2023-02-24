@@ -20,6 +20,8 @@ from . import Options as tsopts
 from . import TimeSeriesModel as tsmodel
 from . import TimeSeries_Cutting as tscut
 from . import Utils as tsutil
+from . import ModelSelection_Voting as tsvote
+
 
 import copy
 
@@ -101,10 +103,9 @@ class cSignalDecompositionOneTransform:
         for (name, model) in iModels.items():
             # print(name, model.__dict__);
             lComplexity = model.getComplexity();
-            lFitPerf = model.mFitPerf;
-            lForecastPerf = model.mForecastPerf;
-            lTestPerf = model.mTestPerf;
+            (lFitPerf, lForecastPerf, lTestPerf) = model.get_aggregated_criterion_values_for_model_selection();
             lSplit = model.mTimeInfo.mOptions.mCustomSplit
+            
             self.mPerfsByModel[(self.mSignal, self.mDecompositionType, lSplit, model.mOutName)] = [(self.mSignal, self.mDecompositionType, model), lComplexity, lFitPerf , lForecastPerf, lTestPerf];
         return iModels;
 
@@ -249,9 +250,9 @@ class cModelSelector_OneSignal:
                 lForecastPerf = value[3];
                 lTestPerf = value[4];
                 row = [lSplit, lTranformName, lDecompType, lModelFormula[3], lModelFormula, lModelCategory, lComplexity,
-                       lFitPerf.getCriterionValue(self.mOptions.mModelSelection_Criterion),
-                       lForecastPerf.getCriterionValue(self.mOptions.mModelSelection_Criterion),
-                       lTestPerf.getCriterionValue(self.mOptions.mModelSelection_Criterion)]
+                       lFitPerf,
+                       lForecastPerf,
+                       lTestPerf]
                 rows_list.append(row);
 
         self.mTrPerfDetails =  pd.DataFrame(rows_list, columns=
@@ -403,7 +404,7 @@ def run_transform_thread(arg):
 def run_finalize_training(arg):
     (lSignal , sigdecs, lOptions) = arg
     
-    lModelSelector = cModelSelector_OneSignal()
+    lModelSelector = tsvote.create_model_selector(lOptions.mVotingMethod)
     lModelSelector.mOptions = lOptions
     lModelSelector.collectPerformanceIndices_ModelSelection(lSignal, sigdecs)
     if(lOptions.mCrossValidationOptions.mMethod is not None):
