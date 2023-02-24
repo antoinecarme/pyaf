@@ -82,11 +82,35 @@ class cTimeSeriesModel:
         lPredictionIntervalsEstimator.mComputeAllPerfs = compute_all_indicators
         lPredictionIntervalsEstimator.computePerformances();
         lForecastColumn = str(self.mOriginalSignal) + "_Forecast";
-        lHorizonName = lForecastColumn + "_" + str(self.mTimeInfo.mHorizon);            
+                    
+        self.mFitPerfs = lPredictionIntervalsEstimator.mFitPerformances
+        self.mForecastPerfs = lPredictionIntervalsEstimator.mForecastPerformances
+        self.mTestPerfs = lPredictionIntervalsEstimator.mTestPerformances
+        lForecastColumn = str(self.mOriginalSignal) + "_Forecast";
+        lHorizonName = lForecastColumn + "_" + str(self.mTimeInfo.mHorizon);         
         self.mFitPerf = lPredictionIntervalsEstimator.mFitPerformances[lHorizonName]
         self.mForecastPerf = lPredictionIntervalsEstimator.mForecastPerformances[lHorizonName]
         self.mTestPerf = lPredictionIntervalsEstimator.mTestPerformances[lHorizonName];
+
+
+    def aggregate_criteria(self, criteria):
+        lAggregated = criteria[0]
+        return lAggregated
         
+    def get_aggregated_criterion_values_for_model_selection(self):
+        lCriterion = self.mTimeInfo.mOptions.mModelSelection_Criterion
+        lForecastColumn = str(self.mOriginalSignal) + "_Forecast";
+        (lFitCritData, lForecastCritData, lTestCritData) = ([], [], [])
+        for h in range(self.mTimeInfo.mHorizon):
+            lHorizonName = lForecastColumn + "_" + str(h + 1);
+            lFitCritData.append(self.mFitPerfs[lHorizonName].getCriterionValue(lCriterion))
+            lForecastCritData.append(self.mForecastPerfs[lHorizonName].getCriterionValue(lCriterion))
+            lTestCritData.append(self.mTestPerfs[lHorizonName].getCriterionValue(lCriterion))
+        lAggFitCrit = self.aggregate_criteria(lFitCritData)
+        lAggForecastCrit = self.aggregate_criteria(lForecastCritData)
+        lAggTestCrit = self.aggregate_criteria(lTestCritData)
+            
+        return (lAggFitCrit, lAggForecastCrit, lAggTestCrit)
         
     def computePredictionIntervals(self):
         # prediction intervals
