@@ -19,6 +19,7 @@ class cPerf:
         self.mErrorMean = None;
         self.mMAPE = None;
         self.mSMAPE = None;
+        self.mDiffSMAPE = None;
         self.mMASE = None;
         self.mL1 = None;
         self.mL2 = None;
@@ -38,7 +39,9 @@ class cPerf:
 
     def to_dict(self):
         lDict = {"Signal" : self.mName , "Length" : self.mCount, "MAPE" : self.mMAPE,
-                 "RMSE" : self.mL2,  "MAE" : self.mL1,  "SMAPE" : self.mSMAPE, 'MASE' : self.mMASE,
+                 "RMSE" : self.mL2,  "MAE" : self.mL1,
+                 "SMAPE" : self.mSMAPE, "DiffSMAPE" : self.mDiffSMAPE,
+                 'MASE' : self.mMASE,
                  "ErrorMean" : self.mErrorMean, "ErrorStdDev" : self.mErrorStdDev, 
                  "R2" : self.mR2, "Pearson" : self.mPearsonR, "MedAE": self.mMedAE, "LnQ" : self.mLnQ,
                  "KS" : self.mKS, "KendallTau" : self.mKendallTau, "MannWhitneyU" : self.mMWU, "AUC" : self.mAUC}
@@ -55,6 +58,7 @@ class cPerf:
     def compute_MAPE_SMAPE_MASE(self, signal , estimator):
         self.mMAPE = None;
         self.mSMAPE = None;
+        self.mDiffSMAPE = None;
         self.mMASE = None;
         if(signal.shape[0] > 0):
             lEps = 1.0e-10;
@@ -64,12 +68,16 @@ class cPerf:
             signal_diff = signal - signal.shift(1)
             self.mMAPE = np.mean(abs_rel_error)
             self.mSMAPE = np.mean(2.0 * abs_error / sum_abs)
+            lEps2 = 0.1 # for DiffSMAPE
+            max_sum_eps = np.maximum(np.abs(signal.values) + np.abs(estimator.values) + lEps2,  0.5 + lEps2)
+            self.mDiffSMAPE = np.mean(2.0 * abs_error / max_sum_eps)
             if(signal_diff.shape[0] > 1):
                 mean_dev_signal = np.mean(abs(signal_diff.values[1:])) + lEps;
                 self.mMASE = np.mean(abs_error / mean_dev_signal)
                 self.mMASE = round( self.mMASE , 4 )
             self.mMAPE = round( self.mMAPE , 4 )
             self.mSMAPE = round( self.mSMAPE , 4 )
+            self.mDiffSMAPE = round( self.mDiffSMAPE , 4 )
 
     def compute_R2(self, signal , estimator):
         SST = np.sum((signal.values - np.mean(signal.values))**2) + 1.0e-10;
@@ -241,6 +249,10 @@ class cPerf:
             self.compute_MAPE_SMAPE_MASE(signal , estimator);
             return self.mSMAPE;
 
+        if(criterion == "DiffSMAPE"):
+            self.compute_MAPE_SMAPE_MASE(signal , estimator);
+            return self.mDiffSMAPE;
+
         if(criterion == "MASE"):
             self.compute_MAPE_SMAPE_MASE(signal , estimator);
             return self.mMASE;
@@ -284,6 +296,8 @@ class cPerf:
             return self.mPearsonR;
         if(criterion == "SMAPE"):
             return self.mSMAPE;
+        if(criterion == "DiffSMAPE"):
+            return self.mDiffSMAPE;
         if(criterion == "MAPE"):
             return self.mMAPE;
         if(criterion == "MASE"):
@@ -304,7 +318,7 @@ class cPerf:
 
     def is_acceptable_criterion_value(self, criterion, iRefValue = None):
         # percentages are bad when the mean error is above 1.0
-        if(criterion in ['MAPE' , 'SMAPE' , 'MASE', 'CRPS']):
+        if(criterion in ['MAPE' , 'SMAPE' , 'DiffSMAPE', 'MASE', 'CRPS']):
             lCritValue = iRefValue
             if(iRefValue is None):
                 lCritValue = self.getCriterionValue(criterion)
@@ -318,7 +332,7 @@ class cPerf:
         lCritValue = iRefValue
         if(iRefValue is None):
             lCritValue = self.getCriterionValue(criterion)
-        if(criterion in ['MAPE' , 'SMAPE' , 'MASE', 'CRPS']):
+        if(criterion in ['MAPE' , 'SMAPE', 'DiffSMAPE' , 'MASE', 'CRPS']):
             return (value <= (lCritValue + iTolerance))
         # otherwise, multiplicative
         return (value <= (lCritValue * (1.0 + iTolerance)))
