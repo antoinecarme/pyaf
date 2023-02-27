@@ -10,6 +10,7 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
         self.mNbExogenousLags = P;
         self.mScikitModel = None;
         self.mFeatureSelector = None
+        self.set_name();
 
     def dumpCoefficients(self, iMax=10):
         # print(self.mScikitModel.__dict__);
@@ -26,7 +27,6 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
         #  print("ESTIMATE_SCIKIT_MODEL_START" , self.mCycleResidueName);
 
         self.build_Scikit_Model();
-        self.set_name();
         
         series = self.mCycleResidueName; 
         self.mTime = self.mTimeInfo.mTime;
