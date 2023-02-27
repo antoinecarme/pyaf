@@ -280,6 +280,17 @@ class cBestCycleForTrend(cAbstractCycle):
         # self.transformDataset(self.mCycleFrame);
         pass
 
+    def get_tested_cycles(self, signal_length):
+        if(self.mOptions.mCycleLengths is None):
+            lAbsMax = 366
+            N = min(signal_length, lAbsMax)
+            lCycleLengths0 = [x for x in range(3, 60)]
+            lCycleLengths1 = [5, 7, 12, 24, 30, 60]
+            lCycleLengths2 = [x*k for x in lCycleLengths1 for k in range(2, N // 2) if((x*k) <= N)]
+            lCycleLengths3 = lCycleLengths0 + lCycleLengths1 + lCycleLengths2
+            lCycleLengths4 = list(set(lCycleLengths3))
+            return lCycleLengths4
+        return [x for x in self.mOptions.mCycleLengths if (x < signal_length)]
 
     def generate_cycles(self):
         self.mTimeInfo.addVars(self.mCycleFrame);
@@ -287,13 +298,12 @@ class cBestCycleForTrend(cAbstractCycle):
         self.mCycleFrame[self.mTrend.mOutName] = self.mTrendFrame[self.mTrend.mOutName]
         self.mDefaultValue = self.compute_target_means_default_value();
         self.mCyclePerfByLength = {}
-        lMaxRobustCycleLength = self.mTrendFrame.shape[0]//12;
-        # print("MAX_ROBUST_CYCLE_LENGTH", self.mTrendFrame.shape[0], lMaxRobustCycleLength);
-        lCycleLengths = self.mOptions.mCycleLengths or range(2,lMaxRobustCycleLength + 1)
+        lCycleLengths = self.get_tested_cycles(self.mTrendFrame.shape[0])
+        lTimer = tsutil.cTimer(("SELECTING_BEST_CYCLE_FOR_MODEL", self.mTrend_residue_name, len(lCycleLengths), lCycleLengths))
         lCycleFrame = pd.DataFrame(index = self.mTrendFrame.index);
         lCycleFrame[self.mTrend_residue_name ] = self.mTrendFrame[self.mTrend_residue_name]
         for lLength in lCycleLengths:
-            if ((lLength > 1) and (lLength <= lMaxRobustCycleLength)):
+            if (lLength > 1):
                 name_length = self.mTrend_residue_name + '_Cycle';
                 lCycleFrame[name_length] = self.mCycleFrame[self.mTimeInfo.mRowNumberColumn] % lLength
                 lEncodedValueDict = self.compute_target_means_by_cycle_value(lCycleFrame, name_length)
