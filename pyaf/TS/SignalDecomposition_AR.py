@@ -270,6 +270,7 @@ class cAutoRegressiveEstimator:
             autoreg.mSplit = self.mSplit;
             autoreg.mDefaultValues = self.mDefaultValues;
             autoreg.mDecompositionType = self.mDecompositionType
+            lTimer = tsutil.cTimer(("TRAINING_AR_MODEL", autoreg.mFormula, autoreg.mCycleResidueName))
             autoreg.fit();
             if(self.mOptions.mDebugPerformance):
                 autoreg.computePerf();
