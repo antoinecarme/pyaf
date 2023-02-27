@@ -112,7 +112,7 @@ class cSignalDecompositionOneTransform:
 
     def train(self , iInputDS, iSplit, iTime, iSignal,
               iHorizon, iTransformation, iDecomspositionType):
-        lTimer = tsutil.cTimer(("TRAINING", {"Signal" : iSignal, "Transformation" : iTransformation.get_name(iSignal)}))
+        lTimer = tsutil.cTimer(("TRAINING", {"Signal" : iSignal, "Transformation" : iTransformation.get_name(iSignal), "DecompositionType" : iDecomspositionType}))
         lInputDS = iInputDS[[iTime, iSignal]].copy()
         lInputDS = sample_signal_if_needed(lInputDS, self.mOptions)
         
