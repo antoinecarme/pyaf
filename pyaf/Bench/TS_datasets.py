@@ -453,7 +453,7 @@ def load_MWH_dataset(name):
     # print(df_train.head())
     # df_train.to_csv("mwh-" + name + ".csv");
     # print(df_train.info())
-    if(df_train[lSignal].dtype == np.object):
+    if(df_train[lSignal].dtype == object):
         df_train[lSignal] = df_train[lSignal].astype(np.float64); ## apply(lambda x : float(str(x).replace(" ", "")));
     
     # df_train[lSignal] = df_train[lSignal].apply(float)
@@ -903,7 +903,7 @@ def load_fpp2_dataset(name):
     df_train = df_train[[df_train.columns[0] , df_train.columns[1]]].dropna();
     # rename the first two columns (as date and signal)
     df_train.columns = [lTime , lSignal];
-    if(df_train[lSignal].dtype == np.object):
+    if(df_train[lSignal].dtype == object):
         df_train[lSignal] = df_train[lSignal].astype(np.float64); 
 
     print(df_train.head(5));
