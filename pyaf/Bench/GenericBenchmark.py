@@ -42,9 +42,19 @@ def set_pyaf_logger(log_filename):
     pyaf_logger.addHandler(handler)
     pass
 
+def set_process_name(name):
+    lParentName =  sys.argv
+    lParentName = " ".join(lParentName)
+    if(len(lParentName) > 24):
+        lParentName = lParentName[:12] + "..." + lParentName[-12:]
+    # print("set_process_name" , lParentName)
+    import setproctitle
+    setproctitle.setproctitle("PYAF_BENCH [" + lParentName +  "] " + str(name))
+
+
 def run_bench_process(a):
     try:
-        print("STARTING_BENCH_FOR_SIGNAL" , a.mBenchName, a.mSignal, a.mHorizon);
+        print("STARTING_BENCH_FOR_SIGNAL" , a.mBenchName, a.mSignal, a.mHorizon, file=sys.__stdout__);
 
         createDirIfNeeded("logs");
         createDirIfNeeded("logs/" + a.mBenchName);
@@ -53,7 +63,8 @@ def run_bench_process(a):
     
         sys.stdout = logfile    
         sys.stderr = logfile
-        set_pyaf_logger(logfilename)
+        # set_pyaf_logger(logfilename)
+        set_process_name(a.getName())
         tester = cGeneric_OneSignal_Tester(a.mTSSpec , a.mBenchName);
         a.mResult = tester;
         tester.mTestCodeGeneration = False;
@@ -67,8 +78,8 @@ def run_bench_process(a):
     except:
         print("BENCHMARK_FAILURE '" + a.getName() + "'");
         # raise
-    sys.stdout = sys.__stdout__
-    sys.stderr = sys.__stderr__
+    # sys.stdout = sys.__stdout__
+    # sys.stderr = sys.__stderr__
     logfile.close();
     return a;
 
@@ -140,12 +151,13 @@ class cGeneric_OneSignal_Tester:
         lAutoF1.mOptions.mParallelMode = self.mParallelMode;
         lAutoF1.mOptions.mNbCores = 21
         lAutoF1.mOptions.enable_slow_mode()
+        lAutoF1.mOptions.set_active_transformations(['T+S+R'])
         # lAutoF1.mOptions.mCycleLengths = range(2, df.shape[0]//10);
         self.mAutoForecastBySignal[iSignal  + "_" + str(iHorizon)] = lAutoF1
         lAutoF1.train(df , self.mTSSpec.mTimeVar , iSignal, iHorizon)
         self.reportModelInfo(lAutoF1);
         print(lAutoF1.mSignalDecomposition.mTrPerfDetails.head());
-        lEngine.standardPlots("outputs/my_bench_" + iSignal);
+        # lEngine.standardPlots("outputs/my_bench_" + iSignal);
 
     def computeModelPerfOnTraining(self, iModel):
         lPerfData = pd.DataFrame()
@@ -416,7 +428,7 @@ class cGeneric_Tester:
 
     def run_multiprocessed(self, nbprocesses = None):
         if(nbprocesses is None):
-            nbprocesses = (mp.cpu_count() * 2) // 4;
+            nbprocesses = (mp.cpu_count() * 3) // 4;
         series = list(self.mTSSpecPerSignal.keys())
         nb_series = len(series)
         lNbRuns = nb_series // 100 + 1
@@ -427,7 +439,7 @@ class cGeneric_Tester:
             print("BENCH_RUN" , nbprocesses, run , lNbRuns)
             series_run = series[(run * 100) : ((1 + run) * 100)]
             print(series_run)
-            pool = mp.Pool(processes=nbprocesses, maxtasksperchild=10)
+            pool = mp.Pool(processes=nbprocesses, maxtasksperchild=1)
             args = []
             for sig in series_run:
                 lSpec = self.mTSSpecPerSignal[sig]
@@ -437,7 +449,7 @@ class cGeneric_Tester:
                 args = args + [a];
 
             i = 1;
-            for res in pool.imap(run_bench_process, args):
+            for res in pool.imap_unordered(run_bench_process, args):
                 print("FINISHED_BENCH_FOR_SIGNAL" , self.mBenchName, res.mSignal , i , "/" , len(args));
                 lResults[res.mSignal] = res.mResult.summary();
                 if(res.mResult.mPlot is not None):
