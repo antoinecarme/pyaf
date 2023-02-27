@@ -24,8 +24,8 @@ class cAbstract_RNN_Model(tsar.cAbstractAR):
         super().__init__(cycle_residue_name, iExogenousInfo)
         self.mNbLags = P;
         self.mNbExogenousLags = P;
-        self.mHiddenUnits = P;
         sys.setrecursionlimit(1000000);
+        self.set_name();
 
     def dumpCoefficients(self, iMax=10):
         logger = tsutil.get_pyaf_logger();
@@ -61,7 +61,7 @@ class cAbstract_RNN_Model(tsar.cAbstractAR):
             lTimer = tsutil.cTimer(("TRAINING_PYTORCH_MODEL", self.mOutName))
         lOptions = self.get_pytorch_options()
         lARInputs = iARInputs.astype(np.float32)
-        lARTarget = iARTarget.astype(np.float32)        
+        lARTarget = iARTarget.astype(np.float32)
         lHistory = self.mModel.fit(lARInputs, lARTarget)
 
     def predict_pytorch_model(self, iARInputs):
@@ -123,6 +123,7 @@ class cAbstract_RNN_Model(tsar.cAbstractAR):
 class cMLP_Model(cAbstract_RNN_Model):
     def __init__(self , cycle_residue_name, P , iExogenousInfo = None):
         super().__init__(cycle_residue_name, P, iExogenousInfo)
+        self.mHiddenUnits = P;
 
     def reshape_inputs(self, iInputs):
         return iInputs;
@@ -148,6 +149,7 @@ class cMLP_Model(cAbstract_RNN_Model):
                                          device='cpu',
                                          verbose=0)
 
+    def set_name(self):
         lName = "MLP" if(self.mExogenousInfo is None) else "MLPX"
 
         self.mFormula = lName + "(" + str(self.mNbLags) + ")";
@@ -165,6 +167,7 @@ class cLSTM_Model(cAbstract_RNN_Model):
     
     def __init__(self , cycle_residue_name, P , iExogenousInfo = None):
         super().__init__(cycle_residue_name, P, iExogenousInfo)
+        self.mHiddenUnits = P;
 
     def reshape_inputs(self, iInputs):
         return iInputs.reshape(iInputs.shape[0], iInputs.shape[1]);
@@ -178,6 +181,17 @@ class cLSTM_Model(cAbstract_RNN_Model):
             nn.Dropout(p=0.1),
             nn.Linear(iHidden, 1))
         return model.float()
+
+    def fit_pytorch_model(self, iARInputs, iARTarget):
+        # Force some sampling for LSTM. Too slow to train.
+        lTimer = None
+        if(self.mOptions.mDebug):
+            lTimer = tsutil.cTimer(("TRAINING_PYTORCH_MODEL", self.mOutName))
+        lOptions = self.get_pytorch_options()
+        lARInputs = iARInputs.astype(np.float32)
+        lARTarget = iARTarget.astype(np.float32)
+        lMaxSize = 1024 # Keep the last 1024 rows.
+        lHistory = self.mModel.fit(lARInputs[-lMaxSize:, :], lARTarget[-lMaxSize:])        
     
     def build_RNN_Architecture(self, iARInputs, iARTarget):
         from torch import nn
@@ -187,12 +201,13 @@ class cLSTM_Model(cAbstract_RNN_Model):
         from skorch.callbacks import EarlyStopping
         self.mModel = NeuralNetRegressor(self.create_model(lNbLags, self.mHiddenUnits),
                                          criterion=lOptions.get("criterion", nn.MSELoss),
-                                         max_epochs=lOptions.get("epochs", 20),
+                                         max_epochs=lOptions.get("epochs", 10),
                                          callbacks=[EarlyStopping(patience=3)],
                                          device='cpu',
                                          verbose=0)
 
 
+    def set_name(self):
         lName = "LSTM" if(self.mExogenousInfo is None) else "LSTMX"
 
         self.mFormula = lName + "(" + str(self.mNbLags) + ")";
