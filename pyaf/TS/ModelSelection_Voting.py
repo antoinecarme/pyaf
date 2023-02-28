@@ -73,82 +73,19 @@ class cModelSelector_Voting:
         # allow a loss of one point (0.01 of MAPE) if complexity is reduced.
         assert(not np.isnan(lBestPerf))
         self.mTrPerfDetails.sort_values(by=[lIndicator, 'Complexity', 'Model'] ,
-                                        ascending=[False, True, True],
+                                        ascending=[False, False, True],
                                         inplace=True);
         self.mTrPerfDetails = self.mTrPerfDetails.reset_index(drop=True);
         if(self.mOptions.mDebugPerformance):
             self.dump_all_model_perfs_as_json()
         lInterestingModels = self.mTrPerfDetails[self.mTrPerfDetails[lIndicator] >= (lBestPerf * 0.95)].reset_index(drop=True);
-        lInterestingModels.sort_values(by=['Voting', 'Complexity'] , ascending=False, inplace=True)
+        lInterestingModels.sort_values(by=['Complexity'] , ascending=[False], inplace=True)
         # print(self.mTransformList);
         print(lInterestingModels.head());
         # print(self.mPerfsByModel);
         lBestName = lInterestingModels['DetailedFormula'].iloc[0]
         lBestModel = lPerfsByModel[lBestName][0][2];
         # print("BEST_MODEL", lBestName, lBestModel)
-        self.mBestModel = lBestModel
-        self.mPerfsByModel = lPerfsByModel
-        self.mModelShortList = lInterestingModels[['Transformation', 'DecompositionType', 'Model', lIndicator, 'Complexity']] 
-        return (iSignal, lPerfsByModel, lBestModel, self.mModelShortList)
-
-    def collectPerformanceIndices(self, iSignal, iSigDecs) :
-        logger = tsutil.get_pyaf_logger();
-        lTimer = None
-        if(self.mOptions.mDebugProfile):
-            lTimer = tsutil.cTimer(("MODEL_SELECTION", {"Signal" : iSignal}))
-
-        rows_list = []
-        lPerfsByModel = {}
-        for (lName, sigdec) in iSigDecs.items():
-            for (model , value) in sorted(sigdec.mPerfsByModel.items()):
-                lPerfsByModel[model] = value;
-                lTranformName = sigdec.mSignal;
-                lDecompType = model[1];
-                lModelFormula = model
-                lModelCategory = value[0][2].get_model_category()
-                lSplit = value[0][2].mTimeInfo.mOptions.mCustomSplit
-                #  value format : self.mPerfsByModel[lModel.mOutName] = [lModel, lComplexity, lFitPerf , lForecastPerf, lTestPerf];
-                lComplexity = value[1];
-                lFitPerf = value[2];
-                lForecastPerf = value[3];
-                lTestPerf = value[4];
-                row = [lSplit, lTranformName, lDecompType, lModelFormula[3], lModelFormula , lModelCategory, lComplexity,
-                       lFitPerf.mCount, lFitPerf.mL1, lFitPerf.mL2, lFitPerf.mMAPE,  lFitPerf.mMASE, lFitPerf.mCRPS, 
-                       lForecastPerf.mCount, lForecastPerf.mL1, lForecastPerf.mL2, lForecastPerf.mMAPE, lForecastPerf.mMASE, lForecastPerf.mCRPS,
-                       lTestPerf.mCount, lTestPerf.mL1, lTestPerf.mL2, lTestPerf.mMAPE, lTestPerf.mMASE, lTestPerf.mCRPS]
-                rows_list.append(row);
-
-        self.mTrPerfDetails =  pd.DataFrame(rows_list, columns=
-                                            ('Split', 'Transformation', 'DecompositionType', 'Model',
-                                             'DetailedFormula', 'Category', 'Complexity',
-                                             'FitCount', 'FitL1', 'FitL2', 'FitMAPE', 'FitMASE', 'FitCRPS',
-                                             'ForecastCount', 'ForecastL1', 'ForecastL2', 'ForecastMAPE', 'ForecastMASE', 'ForecastCRPS',
-                                             'TestCount', 'TestL1', 'TestL2', 'TestMAPE', 'TestMASE', 'TestCRPS')) 
-        # print(self.mTrPerfDetails.head(self.mTrPerfDetails.shape[0]));
-        lIndicator = 'Forecast' + self.mOptions.mModelSelection_Criterion;
-        lBestPerf = self.mTrPerfDetails[ lIndicator ].min();
-        lHigherIsBetter = tsperf.cPerf.higher_values_are_better(self.mOptions.mModelSelection_Criterion)
-        if(lHigherIsBetter):
-            lBestPerf = self.mTrPerfDetails[ lIndicator ].max();
-        # allow a loss of one point (0.01 of MAPE) if complexity is reduced.
-        assert(not np.isnan(lBestPerf))
-        self.mTrPerfDetails.sort_values(by=[lIndicator, 'Complexity', 'Model'] ,
-                                        ascending=[True, True, True],
-                                        inplace=True);
-        self.mTrPerfDetails = self.mTrPerfDetails.reset_index(drop=True);
-        if(self.mOptions.mDebugPerformance):
-            self.dump_all_model_perfs_as_json()
-                
-        if(lHigherIsBetter):
-            lInterestingModels = self.mTrPerfDetails[self.mTrPerfDetails[lIndicator] >= (lBestPerf - 0.01)].reset_index(drop=True);
-        else:
-            lInterestingModels = self.mTrPerfDetails[self.mTrPerfDetails[lIndicator] <= (lBestPerf + 0.01)].reset_index(drop=True);
-            
-        lInterestingModels.sort_values(by=['Complexity'] , ascending=True, inplace=True)
-        # print(self.mTransformList);
-        # print(lInterestingModels.head());
-        lBestName = lInterestingModels['DetailedFormula'].iloc[0];
-        lBestModel = lPerfsByModel[lBestName][0][2];
         self.mBestModel = lBestModel
         self.mPerfsByModel = lPerfsByModel
         self.mModelShortList = lInterestingModels[['Transformation', 'DecompositionType', 'Model', lIndicator, 'Complexity']] 

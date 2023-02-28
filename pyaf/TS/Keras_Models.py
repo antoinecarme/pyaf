@@ -3,6 +3,7 @@ import pandas as pd
 from . import SignalDecomposition_AR as tsar
 import sys
 from . import Utils as tsutil
+from . import Complexity as tscomplex
 
 
 def make_tf_reproducible(iSeed):
@@ -19,6 +20,7 @@ class cAbstract_RNN_Model(tsar.cAbstractAR):
         self.mNbExogenousLags = P;
         self.mHiddenUnits = P;
         sys.setrecursionlimit(1000000);
+        self.mComplexity = tscomplex.eModelComplexity.High;
 
     def dumpCoefficients(self, iMax=10):
         logger = tsutil.get_pyaf_logger();
@@ -94,7 +96,6 @@ class cAbstract_RNN_Model(tsar.cAbstractAR):
 
         self.mARFrame[self.mOutName] = lPredicted
         self.compute_ar_residue(self.mARFrame)
-        self.mComplexity = lFullARInputs.shape[1]
 
     def transformDataset(self, df, horizon_index = 1):
         series = self.mCycleResidueName; 

@@ -195,6 +195,7 @@ class cSignalDecomposition_Options(cModelControl):
     def disableDebuggingOptions(self):
         self.mDebug = False;
         self.mDebugCycles = False;
+        self.mDebugAR = False;
         self.mDebugProfile = False;
         self.mDebugPerformance = False;
         

@@ -12,6 +12,7 @@ from . import Time as tsti
 from . import Perf as tsperf
 from . import Plots as tsplot
 from . import Utils as tsutil
+from . import Complexity as tscomplex
 
 import sklearn.linear_model as linear_model
 
@@ -23,7 +24,7 @@ class cAbstractTrend:
         self.mTrendPerf = tsperf.cPerf();
         self.mOutName = ""
         self.mFormula = None;
-        self.mComplexity = None;
+        self.mComplexity = tscomplex.eModelComplexity.High;
 
     def check_not_nan(self, sig , name):
         #print("check_not_nan");
@@ -71,7 +72,7 @@ class cConstantTrend(cAbstractTrend):
         self.mMean = 0.0
         self.mOutName = "ConstantTrend"
         self.mFormula = self.mOutName;    
-        self.mComplexity = 0;
+        self.mComplexity = tscomplex.eModelComplexity.Low;
         
     def addTrendInputVariables(self):
         self.mTime = self.mTimeInfo.mTime;
@@ -108,7 +109,7 @@ class cLag1Trend(cAbstractTrend):
         self.mDefaultValue = None
         self.mOutName = "Lag1Trend"
         self.mFormula = self.mOutName;
-        self.mComplexity = 2;
+        self.mComplexity = tscomplex.eModelComplexity.Low;
         
     def addTrendInputVariables(self):
         self.mTime = self.mTimeInfo.mTime;
@@ -156,7 +157,7 @@ class cMovingAverageTrend(cAbstractTrend):
         self.mOutName = "MovingAverage";
         self.mWindow = iWindow;
         self.mFormula = self.mOutName;
-        self.mComplexity = iWindow;
+        self.mComplexity = tscomplex.eModelComplexity.Medium;
         
     def addTrendInputVariables(self):
         self.mTime = self.mTimeInfo.mTime;
@@ -195,7 +196,7 @@ class cMovingMedianTrend(cAbstractTrend):
         self.mOutName = "MovingMedian";
         self.mWindow = iWindow;
         self.mFormula = self.mOutName;
-        self.mComplexity = iWindow;
+        self.mComplexity = tscomplex.eModelComplexity.High;
         
     def addTrendInputVariables(self):
         self.mTime = self.mTimeInfo.mTime;
@@ -234,7 +235,7 @@ class cLinearTrend(cAbstractTrend):
         self.mTrendRidge = linear_model.Ridge()
         self.mOutName = "LinearTrend"
         self.mFormula = self.mOutName;
-        self.mComplexity = 1;
+        self.mComplexity = tscomplex.eModelComplexity.Low;
 
     def addTrendInputVariables(self):
         self.mTime = self.mTimeInfo.mTime;
@@ -279,7 +280,7 @@ class cPolyTrend(cAbstractTrend):
         self.mTrendRidge = linear_model.Ridge()
         self.mOutName = "PolyTrend"
         self.mFormula = self.mOutName
-        self.mComplexity = 3;
+        self.mComplexity = tscomplex.eModelComplexity.Medium;
 
     def addTrendInputVariables(self):
         self.mTime = self.mTimeInfo.mTime;

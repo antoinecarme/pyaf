@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 from . import SignalDecomposition_AR as tsar
 from . import Utils as tsutil
+from . import Complexity as tscomplex
 
 class cAbstract_Scikit_Model(tsar.cAbstractAR):
     def __init__(self , cycle_residue_name, P , iExogenousInfo = None):
@@ -10,6 +11,7 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
         self.mNbExogenousLags = P;
         self.mScikitModel = None;
         self.mFeatureSelector = None
+        self.mComplexity = tscomplex.eModelComplexity.High;
         self.set_name();
 
     def dumpCoefficients(self, iMax=10):
@@ -69,7 +71,6 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
             lARInputsAfterSelection = lARInputs;
             self.mInputNamesAfterSelection = self.mInputNames;
 
-        self.mComplexity = len(self.mInputNamesAfterSelection)
         assert(len(self.mInputNamesAfterSelection) == lARInputsAfterSelection.shape[1]);
         # print("FEATURE_SELECTION" , self.mOutName, lARInputs.shape[1] , lARInputsAfterSelection.shape[1]);
         del lARInputs;
@@ -131,7 +132,7 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
 class cAutoRegressiveModel(cAbstract_Scikit_Model):
     def __init__(self , cycle_residue_name, P , iExogenousInfo = None):
         super().__init__(cycle_residue_name, P, iExogenousInfo)
-        self.mComplexity = P;
+        self.mComplexity = tscomplex.eModelComplexity.High;
 
     def dumpCoefficients(self, iMax=10):
         logger = tsutil.get_pyaf_logger();
@@ -161,7 +162,7 @@ class cAutoRegressiveModel(cAbstract_Scikit_Model):
 class cSVR_Model(cAbstract_Scikit_Model):
     def __init__(self , cycle_residue_name, P , iExogenousInfo = None):
         super().__init__(cycle_residue_name, P, iExogenousInfo)
-        self.mComplexity = 2*P;
+        self.mComplexity = tscomplex.eModelComplexity.High;
 
     def dumpCoefficients(self, iMax=10):
         pass
@@ -182,7 +183,7 @@ class cSVR_Model(cAbstract_Scikit_Model):
 class cXGBoost_Model(cAbstract_Scikit_Model):
     def __init__(self , cycle_residue_name, P , iExogenousInfo = None):
         super().__init__(cycle_residue_name, P, iExogenousInfo)
-        self.mComplexity = 2*P;
+        self.mComplexity = tscomplex.eModelComplexity.High;
 
     def dumpCoefficients(self, iMax=10):
         pass
@@ -217,7 +218,7 @@ class cXGBoost_Model(cAbstract_Scikit_Model):
 class cLightGBM_Model(cAbstract_Scikit_Model):
     def __init__(self , cycle_residue_name, P , iExogenousInfo = None):
         super().__init__(cycle_residue_name, P, iExogenousInfo)
-        self.mComplexity = 2*P;
+        self.mComplexity = tscomplex.eModelComplexity.High;
 
     def dumpCoefficients(self, iMax=10):
         pass

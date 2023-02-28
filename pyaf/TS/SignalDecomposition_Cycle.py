@@ -12,6 +12,7 @@ from . import DateTime_Functions as dtfunc
 from . import Perf as tsperf
 from . import Plots as tsplot
 from . import Utils as tsutil
+from . import Complexity as tscomplex
 
 class cAbstractCycle:
     def __init__(self , trend):
@@ -21,7 +22,7 @@ class cAbstractCycle:
         self.mTrend = trend;
         self.mTrend_residue_name = self.mTrend.mOutName + '_residue'
         self.mFormula = None;
-        self.mComplexity = None;
+        self.mComplexity = tscomplex.eModelComplexity.High;
     
 
     def getCycleResidueName(self):
@@ -111,7 +112,7 @@ class cZeroCycle(cAbstractCycle):
     def __init__(self , trend):
         super().__init__(trend);
         self.mFormula = "NoCycle"
-        self.mComplexity = 0;
+        self.mComplexity = tscomplex.eModelComplexity.Low;
         self.mConstantValue = 0.0
 
     def getCycleName(self):
@@ -223,7 +224,9 @@ class cSeasonalPeriodic(cAbstractCycle):
         self.mOutName = self.getCycleName()
         #print("encoding '" + lName + "' " + str(self.mEncodedValueDict));
         # The longer the seasonal, the more complex it is.
-        self.mComplexity = len(self.mEncodedValueDict.keys())
+        self.mComplexity = tscomplex.eModelComplexity.Low;
+        if(len(self.mEncodedValueDict.keys()) > 12):
+            self.mComplexity = tscomplex.eModelComplexity.High;
         self.compute_cycle_residue(self.mCycleFrame)
 
     def transformDataset(self, df):
@@ -299,7 +302,9 @@ class cBestCycleForTrend(cAbstractCycle):
         self.mDefaultValue = self.compute_target_means_default_value();
         self.mCyclePerfByLength = {}
         lCycleLengths = self.get_tested_cycles(self.mTrendFrame.shape[0])
-        lTimer = tsutil.cTimer(("SELECTING_BEST_CYCLE_FOR_MODEL", self.mTrend_residue_name, len(lCycleLengths), lCycleLengths))
+        lTimer = None
+        if(self.mOptions.mDebugCycles):
+            lTimer = tsutil.cTimer(("SELECTING_BEST_CYCLE_FOR_MODEL", self.mTrend_residue_name, len(lCycleLengths), lCycleLengths))
         lCycleFrame = pd.DataFrame(index = self.mTrendFrame.index);
         lCycleFrame[self.mTrend_residue_name ] = self.mTrendFrame[self.mTrend_residue_name]
         for lLength in lCycleLengths:
@@ -336,11 +341,13 @@ class cBestCycleForTrend(cAbstractCycle):
         self.mFormula = "Cycle_None"
         if(self.mBestCycleLength is not None):
             self.mFormula = "Cycle_" + str(self.mBestCycleLength);
+            
         self.transformDataset(self.mCycleFrame);
-        self.mComplexity = 0
+        self.mComplexity = tscomplex.eModelComplexity.Low;
         if(self.mBestCycleLength is not None):
             lDict = self.mBestCycleValueDict[self.mBestCycleLength];
-            self.mComplexity = len(lDict.keys())
+            if(len(lDict.keys()) > 12):
+                self.mComplexity = tscomplex.eModelComplexity.High;
 
     def transformDataset(self, df):
         if(self.mBestCycleLength is not None):

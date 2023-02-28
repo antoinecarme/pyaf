@@ -13,6 +13,7 @@ from . import Time as tsti
 from . import Perf as tsperf
 from . import Plots as tsplot
 from . import Utils as tsutil
+from . import Complexity as tscomplex
 
 class cAbstractAR:
     def __init__(self , cycle_residue_name, iExogenousInfo = None):
@@ -22,7 +23,7 @@ class cAbstractAR:
         self.mCycleResidueName = cycle_residue_name
         self.mCycle = None
         self.mTrend = None
-        self.mComplexity = None;
+        self.mComplexity = tscomplex.eModelComplexity.High;
         self.mFormula = None;
         self.mTargetName = self.mCycleResidueName;
         self.mInputNames = [];
@@ -116,7 +117,7 @@ class cZeroAR(cAbstractAR):
         self.mOutName = self.mCycleResidueName +  '_NoAR'
         self.mNbLags = 0;
         self.mFormula = "NoAR";
-        self.mComplexity = 0;
+        self.mComplexity = tscomplex.eModelComplexity.Low;
         self.mConstantValue = 0.0
         
     def fit(self):
@@ -270,9 +271,11 @@ class cAutoRegressiveEstimator:
             autoreg.mSplit = self.mSplit;
             autoreg.mDefaultValues = self.mDefaultValues;
             autoreg.mDecompositionType = self.mDecompositionType
-            lTimer = tsutil.cTimer(("TRAINING_AR_MODEL", autoreg.mFormula, autoreg.mCycleResidueName))
+            lTimer = None
+            if(self.mOptions.mDebugAR):
+                lTimer = tsutil.cTimer(("TRAINING_AR_MODEL", autoreg.mFormula, autoreg.mCycleResidueName))
             autoreg.fit();
-            if(self.mOptions.mDebugPerformance):
+            if(self.mOptions.mDebugAR):
                 autoreg.computePerf();
 
     def check_not_nan(self, sig , name):
@@ -305,7 +308,7 @@ class cAutoRegressiveEstimator:
         from . import Scikit_Models as tsscikit
 
         lTimer = None
-        if(self.mOptions.mDebugProfile):
+        if(self.mOptions.mDebugAR):
             lTimer = tsutil.cTimer(("TRAINING_AR_MODELS", {"Signal" : self.mTimeInfo.mSignal}))
             
         logger = tsutil.get_pyaf_logger();
@@ -314,7 +317,7 @@ class cAutoRegressiveEstimator:
         for trend in self.mTrendList:
             for cycle in self.mCycleList[trend]:
                 cycle_residue = cycle.getCycleResidueName();
-                if(self.mOptions.mDebug):
+                if(self.mOptions.mDebugAR):
                     self.check_not_nan(self.mCycleFrame[cycle_residue], cycle_residue)
                 self.mARList[cycle_residue] = [];
                 if(self.mOptions.mActiveAutoRegressions['NoAR']):
@@ -363,7 +366,7 @@ class cAutoRegressiveEstimator:
             logger.info("SKIPPING_AR_MODELS_WITH_LOW_VARIANCE_FOR_CYCLE_RESIDUES " + str(lSkipInfo));
                         
         if(lNeedExogenous):
-            if(self.mOptions.mDebugProfile):
+            if(self.mOptions.mDebugAR):
                 logger.info("AR_MODEL_ADD_EXOGENOUS " + str(self.mCycleFrame.shape[0]) +
                       " " + str(len(self.mExogenousInfo.mEncodedExogenous)));
             self.mCycleFrame = self.mExogenousInfo.transformDataset(self.mCycleFrame);

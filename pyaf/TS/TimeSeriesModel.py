@@ -12,6 +12,7 @@ from . import PredictionIntervals as predint
 from . import Plots as tsplot
 from . import Perf as tsperf
 from . import Utils as tsutil
+from . import Complexity as tscomplex
 
 def to_str(x):
     return str(np.round(x, 6))
@@ -58,12 +59,22 @@ class cTimeSeriesModel:
     def getComplexity(self):
         # This is just a way to give priority to additive decompositions (default = 0 for additive).
         lModelTypeComplexity = {
-            "TS+R" : 1,
-            "TSR" : 2,
+            "T+S+R" : tscomplex.eModelComplexity.Low,
+            "TS+R" : tscomplex.eModelComplexity.High,
+            "TSR" : tscomplex.eModelComplexity.High,
         }
-        lComplexity = self.mTransformation.mComplexity +  self.mTrend.mComplexity + self.mCycle.mComplexity + self.mAR.mComplexity;
-        lComplexity = lComplexity + lModelTypeComplexity.get(self.mDecompositionType, 0.0)
+        lComplexity = {'Decomposition' : lModelTypeComplexity.get(self.mDecompositionType).value,
+                       'Transformation' : self.mTransformation.mComplexity.value,
+                       'Trend' : self.mTrend.mComplexity.value,
+                       'Cycle' : self.mCycle.mComplexity.value,
+                       'AR' : self.mAR.mComplexity.value}
         return lComplexity;     
+
+    def getComplexity_as_ordering_string(self):
+        lComplexity = self.getComplexity()
+        lValues = [str(v) for (k,v) in lComplexity.items()]
+        lStr = "".join(sorted(lValues))
+        return lStr;     
 
     def updateAllPerfs(self):
         lTimer = tsutil.cTimer(("UPDATE_BEST_MODEL_PERFS", {"Signal" : self.mOriginalSignal, "Model" : self.mOutName}))
@@ -156,7 +167,8 @@ class cTimeSeriesModel:
         logger.info("MODEL_KOLOMOGOROV_SMIRNOV KS_Fit=" + str(self.mFitPerf.mKS) + " KS_Forecast=" + str(self.mForecastPerf.mKS)  + " KS_Test=" + str(self.mTestPerf.mKS) );
         logger.info("MODEL_MANN_WHITNEY_U MWU_Fit=" + str(self.mFitPerf.mMWU) + " MWU_Forecast=" + str(self.mForecastPerf.mMWU)  + " MWU_Test=" + str(self.mTestPerf.mMWU) );
         logger.info("MODEL_AUC AUC_Fit=" + str(self.mFitPerf.mAUC) + " AUC_Forecast=" + str(self.mForecastPerf.mAUC)  + " AUC_Test=" + str(self.mTestPerf.mAUC) );
-        logger.info("MODEL_COMPLEXITY " + str(self.getComplexity()) );
+        lComplexityStr = self.getComplexity_as_ordering_string()
+        logger.info("MODEL_COMPLEXITY " + str(self.getComplexity()) + " [" + lComplexityStr + "]");
         logger.info("SIGNAL_TRANSFORMATION_DETAIL_START");
         self.mTransformation.dump_values();
         logger.info("SIGNAL_TRANSFORMATION_DETAIL_END");

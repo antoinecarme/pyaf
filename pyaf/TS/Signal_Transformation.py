@@ -8,6 +8,7 @@ import pandas as pd
 import numpy as np
 
 from . import Utils as tsutil
+from . import Complexity as tscomplex
 
 def testTransform_one_seed(tr1 , seed_value):
     df = pd.DataFrame(index = None);
@@ -41,7 +42,7 @@ def testTransform(tr1):
 class cAbstractSignalTransform:
     def __init__(self):
         self.mOriginalSignal = None;
-        self.mComplexity = None;
+        self.mComplexity = tscomplex.eModelComplexity.High;
         self.mScaling = None;
         self.mDebug = False;
         pass
@@ -155,7 +156,7 @@ class cSignalTransform_None(cAbstractSignalTransform):
     def __init__(self):
         cAbstractSignalTransform.__init__(self);
         self.mFormula = "NoTransf";
-        self.mComplexity = 0;
+        self.mComplexity = tscomplex.eModelComplexity.Low;
         self.mScaling = True;
         pass
 
@@ -181,7 +182,7 @@ class cSignalTransform_Accumulate(cAbstractSignalTransform):
     def __init__(self):
         cAbstractSignalTransform.__init__(self);
         self.mFormula = "Integration";
-        self.mComplexity = 1;
+        self.mComplexity = tscomplex.eModelComplexity.Medium;
         self.mScaling = True;
         pass
 
@@ -209,7 +210,7 @@ class cSignalTransform_Quantize(cAbstractSignalTransform):
         cAbstractSignalTransform.__init__(self);
         self.mQuantiles = iQuantiles;
         self.mFormula = "Quantization";
-        self.mComplexity = 2;
+        self.mComplexity = tscomplex.eModelComplexity.High;
         self.mScaling = True;
         pass
 
@@ -263,7 +264,7 @@ class cSignalTransform_BoxCox(cAbstractSignalTransform):
         cAbstractSignalTransform.__init__(self);
         self.mFormula = "BoxCox";
         self.mLambda = iLambda;
-        self.mComplexity = 2 + abs(self.mLambda);
+        self.mComplexity = tscomplex.eModelComplexity.High;
         self.mScaling = True;
         pass
 
@@ -311,7 +312,7 @@ class cSignalTransform_Differencing(cAbstractSignalTransform):
         cAbstractSignalTransform.__init__(self);
         self.mFirstValue = None;
         self.mFormula = "Difference";
-        self.mComplexity = 1;
+        self.mComplexity = tscomplex.eModelComplexity.Medium;
         self.mScaling = True;
         pass
 
@@ -346,7 +347,7 @@ class cSignalTransform_RelativeDifferencing(cAbstractSignalTransform):
         cAbstractSignalTransform.__init__(self);
         self.mFirstValue = None;
         self.mFormula = "RelativeDifference";
-        self.mComplexity = 1;
+        self.mComplexity = tscomplex.eModelComplexity.Medium;
         self.mScaling = True;
         pass
 
@@ -402,7 +403,7 @@ class cSignalTransform_Logit(cAbstractSignalTransform):
     def __init__(self):
         cAbstractSignalTransform.__init__(self);
         self.mFormula = "Logit";
-        self.mComplexity = 1;
+        self.mComplexity = tscomplex.eModelComplexity.Medium;
         self.mScaling = True;
         pass
 
@@ -452,7 +453,7 @@ class cSignalTransform_Anscombe(cAbstractSignalTransform):
 
     def __init__(self):
         cAbstractSignalTransform.__init__(self);
-        self.mComplexity = 1;
+        self.mComplexity = tscomplex.eModelComplexity.High;
         self.mFormula = "Anscombe";
         self.mConstant = 3.0/ 8.0;
         self.mScaling = True;
@@ -486,7 +487,7 @@ class cSignalTransform_Fisher(cAbstractSignalTransform):
     def __init__(self):
         cAbstractSignalTransform.__init__(self);
         self.mFormula = "Fisher";
-        self.mComplexity = 1;
+        self.mComplexity = tscomplex.eModelComplexity.High;
         self.mScaling = True;
         pass
 

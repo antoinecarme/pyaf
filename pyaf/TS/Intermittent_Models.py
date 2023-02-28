@@ -3,6 +3,7 @@ import pandas as pd
 from . import SignalDecomposition_AR as tsar
 from . import Utils as tsutil
 from . import Perf as tsperf
+from . import Complexity as tscomplex
 
 
 def is_signal_intermittent(iSeries, iOptions):
@@ -19,7 +20,7 @@ class cCroston_Model(tsar.cAbstractAR):
         super().__init__(cycle_residue_name, iExogenousInfo)
         self.mNbLags = 1
         self.mAlpha = None
-        
+        self.mComplexity = tscomplex.eModelComplexity.High;        
 
     def dumpCoefficients(self, iMax=10):
         logger = tsutil.get_pyaf_logger();
@@ -129,7 +130,6 @@ class cCroston_Model(tsar.cAbstractAR):
         self.estimate_alpha(lAREstimFrame)
         self.mFeatureSelector =  None;
         self.mInputNamesAfterSelection = self.mInputNames;
-        self.mComplexity = 2
 
         lPredicted = self.croston(self.mARFrame);
         self.mARFrame[self.mOutName] = lPredicted['forecast']
