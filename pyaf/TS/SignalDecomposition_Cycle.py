@@ -225,7 +225,7 @@ class cSeasonalPeriodic(cAbstractCycle):
         #print("encoding '" + lName + "' " + str(self.mEncodedValueDict));
         # The longer the seasonal, the more complex it is.
         self.mComplexity = tscomplex.eModelComplexity.Low;
-        if(len(self.mEncodedValueDict.keys()) > 12):
+        if(len(self.mEncodedValueDict.keys()) > 31):
             self.mComplexity = tscomplex.eModelComplexity.High;
         self.compute_cycle_residue(self.mCycleFrame)
 
@@ -346,7 +346,7 @@ class cBestCycleForTrend(cAbstractCycle):
         self.mComplexity = tscomplex.eModelComplexity.Low;
         if(self.mBestCycleLength is not None):
             lDict = self.mBestCycleValueDict[self.mBestCycleLength];
-            if(len(lDict.keys()) > 12):
+            if(len(lDict.keys()) > 31):
                 self.mComplexity = tscomplex.eModelComplexity.High;
 
     def transformDataset(self, df):
