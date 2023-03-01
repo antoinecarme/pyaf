@@ -96,8 +96,10 @@ class cSignalDecompositionOneTransform:
 
 
     def updatePerfsForAllModels(self , iModels):
+        # lTimer = tsutil.cTimer(("UPDATE_PERFS_FOR_ALL_MODELS", {"Signal" : self.mOriginalSignal, "Transformation" : self.mSignal, "DecompositionType" : self.mDecompositionType}, len(iModels)))
         self.mPerfsByModel = {}
         for model in iModels.keys():
+            # lTimer2 = tsutil.cTimer(("UPDATE_PERFS_FOR_MODEL", model))
             iModels[model].updatePerfs();
             
         for (name, model) in iModels.items():
