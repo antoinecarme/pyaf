@@ -375,20 +375,21 @@ class cSignalTransform_RelativeDifferencing(cAbstractSignalTransform):
 
 
     def cumprod_no_overflow(self, rate):
-        lEps = 1e-2
-        lLogRate = np.log(rate.clip(lEps, +1.0e+2))
+        lLogRate = np.log(rate)
         lCumSum = lLogRate.cumsum()
-        lCumSum = lCumSum.clip(lEps , +1.0e+2)
+        lCumSum = lCumSum.clip(-10 , +10)
         lResult = np.exp(lCumSum)
         return lResult
         
     def specific_invert(self, sig):
         # print("RelDiff_invert_DEBUG_START" , self.mFirstValue, sig.values[0:10]);
         rate = sig + 1;
-        rate = rate.clip(-1.0e+8 , +1.0e+8)
+        # Avoid unnecessary clipping.
+        # np.exp(10) == 22026.465794806718 and np.exp(-10) == 4.5399929762484854e-05
+        lEps = 1e-5
+        rate = rate.clip(lEps , +10)
         rate_cum = self.cumprod_no_overflow(rate);
-        sig_orig = rate_cum.clip(-1.0e+8 , +1.0e+8)
-        sig_orig = self.mFirstValue * sig_orig;
+        sig_orig = self.mFirstValue * rate_cum;
         # print("rate" , rate)
         # print("rate_cum", rate_cum)
         # print("RelDiff_invert_DEBUG_START" , sig_orig[0:10])
