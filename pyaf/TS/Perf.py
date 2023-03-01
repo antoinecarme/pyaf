@@ -55,29 +55,50 @@ class cPerf:
             raise tsutil.Internal_PyAF_Error("INVALID_COLUMN _FOR_PERF ['" + self.mName + "'] '" + name + "'");
         pass
 
-    def compute_MAPE_SMAPE_MASE(self, signal , estimator):
+    def compute_MAPE(self, signal , estimator):
         self.mMAPE = None;
+        if(signal.shape[0] > 0):
+            lEps = 1.0e-10;
+            abs_error = np.abs(estimator.values - signal.values);
+            abs_rel_error = abs_error / (np.abs(signal) + lEps)
+            self.mMAPE = np.mean(abs_rel_error)
+            self.mMAPE = round( self.mMAPE , 4 )
+            
+    def compute_SMAPE(self, signal , estimator):
         self.mSMAPE = None;
-        self.mDiffSMAPE = None;
-        self.mMASE = None;
         if(signal.shape[0] > 0):
             lEps = 1.0e-10;
             abs_error = np.abs(estimator.values - signal.values);
             sum_abs = np.abs(signal.values) + np.abs(estimator.values) + lEps
-            abs_rel_error = abs_error / (np.abs(signal) + lEps)
-            signal_diff = signal - signal.shift(1)
-            self.mMAPE = np.mean(abs_rel_error)
             self.mSMAPE = np.mean(2.0 * abs_error / sum_abs)
-            lEps2 = 0.1 # for DiffSMAPE
-            max_sum_eps = np.maximum(np.abs(signal.values) + np.abs(estimator.values) + lEps2,  0.5 + lEps2)
-            self.mDiffSMAPE = np.mean(2.0 * abs_error / max_sum_eps)
+            self.mSMAPE = round( self.mSMAPE , 4 )
+            
+    def compute_MASE(self, signal , estimator):
+        self.mMASE = None;
+        if(signal.shape[0] > 0):
+            lEps = 1.0e-10;
+            abs_error = np.abs(estimator.values - signal.values);
+            signal_diff = signal - signal.shift(1)
             if(signal_diff.shape[0] > 1):
                 mean_dev_signal = np.mean(abs(signal_diff.values[1:])) + lEps;
                 self.mMASE = np.mean(abs_error / mean_dev_signal)
                 self.mMASE = round( self.mMASE , 4 )
-            self.mMAPE = round( self.mMAPE , 4 )
-            self.mSMAPE = round( self.mSMAPE , 4 )
+                
+    def compute_DiffSMAPE(self, signal , estimator):
+        self.mDiffSMAPE = None;
+        if(signal.shape[0] > 0):
+            abs_error = np.abs(estimator.values - signal.values);
+            lEps2 = 0.1 # for DiffSMAPE
+            max_sum_eps = np.maximum(np.abs(signal.values) + np.abs(estimator.values) + lEps2,  0.5 + lEps2)
+            self.mDiffSMAPE = np.mean(2.0 * abs_error / max_sum_eps)
             self.mDiffSMAPE = round( self.mDiffSMAPE , 4 )
+
+    def compute_MAPE_SMAPE_MASE(self, signal, estimator):
+        self.compute_MAPE(signal, estimator);
+        self.compute_SMAPE(signal, estimator);
+        self.compute_MASE(signal, estimator);
+        self.compute_DiffSMAPE(signal, estimator);
+
 
     def compute_R2(self, signal , estimator):
         SST = np.sum((signal.values - np.mean(signal.values))**2) + 1.0e-10;
@@ -242,19 +263,19 @@ class cPerf:
             return self.mPearsonR;
         
         if(criterion == "MAPE"):
-            self.compute_MAPE_SMAPE_MASE(signal , estimator);
+            self.compute_MAPE(signal , estimator);
             return self.mMAPE;
 
         if(criterion == "SMAPE"):
-            self.compute_MAPE_SMAPE_MASE(signal , estimator);
+            self.compute_SMAPE(signal , estimator);
             return self.mSMAPE;
 
         if(criterion == "DiffSMAPE"):
-            self.compute_MAPE_SMAPE_MASE(signal , estimator);
+            self.compute_DiffSMAPE(signal , estimator);
             return self.mDiffSMAPE;
 
         if(criterion == "MASE"):
-            self.compute_MAPE_SMAPE_MASE(signal , estimator);
+            self.compute_MASE(signal , estimator);
             return self.mMASE;
         
         if(criterion == "KS"):
