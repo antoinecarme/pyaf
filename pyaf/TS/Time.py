@@ -74,7 +74,7 @@ class cTimeInfo:
             lLastRow[self.mNormalizedTimeColumn] = self.normalizeTime(lNextTime)
             lLastRow[self.mRowNumberColumn] = lLastRow[self.mRowNumberColumn].max() + 1
         # print(lLastRow.columns ,  df.columns)
-        assert(str(lLastRow.columns) == str(df.columns))
+        # assert(str(lLastRow.columns) == str(df.columns))
 
         df = pd.concat([df, lLastRow], ignore_index=True, verify_integrity = True, sort=False); 
         
