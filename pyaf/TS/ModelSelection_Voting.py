@@ -78,10 +78,10 @@ class cModelSelector_Voting:
         self.mTrPerfDetails = self.mTrPerfDetails.reset_index(drop=True);
         if(self.mOptions.mDebugPerformance):
             self.dump_all_model_perfs_as_json()
-        lInterestingModels = self.mTrPerfDetails[self.mTrPerfDetails[lIndicator] >= (lBestPerf * 0.95)].reset_index(drop=True);
+        lTol = 0.99
+        lInterestingModels = self.mTrPerfDetails[self.mTrPerfDetails[lIndicator] >= (lBestPerf * lTol)].reset_index(drop=True);
         lInterestingModels.sort_values(by=['Complexity'] , ascending=[False], inplace=True)
         # print(self.mTransformList);
-        print(lInterestingModels.head());
         # print(self.mPerfsByModel);
         lBestName = lInterestingModels['DetailedFormula'].iloc[0]
         lBestModel = lPerfsByModel[lBestName][0][2];
@@ -89,6 +89,7 @@ class cModelSelector_Voting:
         self.mBestModel = lBestModel
         self.mPerfsByModel = lPerfsByModel
         self.mModelShortList = lInterestingModels[['Transformation', 'DecompositionType', 'Model', lIndicator, 'Complexity']] 
+        print(self.mModelShortList.head());
         return (iSignal, lPerfsByModel, lBestModel, self.mModelShortList)
 
 
@@ -139,40 +140,65 @@ class cModelSelector_Condorcet(cModelSelector_Voting):
     def __init__(self):
         cModelSelector_Voting.__init__(self);
         self.mCondorcetScores = None
-    
-    def isBetter(self, iModel1, iModel2, iHorizon):
-        lPerfs1 = iModel1.mForecastPerfs
-        lPerfs2 = iModel2.mForecastPerfs
+        self.mCriteriaValues = None
+
+    def get_criterion_values(self, iModel):
         lCriterion = self.mOptions.mModelSelection_Criterion
-        lForecastColumn = str(iModel1.mOriginalSignal) + "_Forecast";
-        lHorizonName = lForecastColumn + "_" + str(iHorizon);
-        lCriterionValue1 = lPerfs1[lHorizonName].getCriterionValue(lCriterion)
-        lCriterionValue2 = lPerfs2[lHorizonName].getCriterionValue(lCriterion)
-        if(lCriterionValue1 < (lCriterionValue2 + 0.01)):
-            return 1
-        return 0            
+        lPerfs1 = iModel.mForecastPerfs
+        self.mHorizon = iModel.mTimeInfo.mHorizon
+        lForecastColumn = str(iModel.mOriginalSignal) + "_Forecast";
+        lCriterionValues = {}
+        for h in range(self.mHorizon):
+            lHorizonName = lForecastColumn + "_" + str(h + 1);
+            lCriterionValues[h + 1] = lPerfs1[lHorizonName].getCriterionValue(lCriterion)
+        return lCriterionValues
         
-    def compute_condorcet_score(self, iModel, iAllModels):
+        
+    def isBetter(self, iCrit1, iCrit2):
+        if(iCrit1 < (iCrit2 + 0.01)):
+            return 1
+        return 0
+
+    def filter_worst_criteria_values(self):
+        # Condorecet method will give the same result and run faster if we remove the worst models.
+        lBestModels = []
+        for h in range(self.mHorizon):
+            lValues = [(k, v[h + 1]) for (k,v) in self.mCriteriaValues.items()]
+            lValues = sorted(lValues, key = lambda x : x[1])
+            lBestModels = lBestModels + [k[0] for k in lValues[:32]] # 32 best for each horizon
+        lBestModels = set(lBestModels)
+        lDiscrededModels = [x for x in self.mCriteriaValues.keys() if x not in lBestModels]
+        print("KEPT_DISCARDED_MODELS", len(self.mCriteriaValues.keys()) , len(lBestModels), len(lDiscrededModels))
+        for model_name in lDiscrededModels:
+            self.mCriteriaValues.pop(model_name)
+        
+        
+    def compute_condorcet_score(self, model_name):
+        lCrit1 = self.mCriteriaValues.get(model_name)            
+        if(lCrit1 is None):
+            return 0
         lScore = 0
-        H = iModel.mTimeInfo.mHorizon
-        for h in range(H):
-            lCoeff = (h + 1) / H
-            for (model_name, ts_model) in iAllModels.items():
-                if(iModel.mOutName != ts_model.mOutName):
-                    lScore = lScore + self.isBetter(iModel, ts_model, h + 1) * lCoeff
+        for h in range(len(lCrit1)):
+            lCoeff = (h + 1) / self.mHorizon
+            for (model_name_2, lCrit2) in self.mCriteriaValues.items():
+                if(model_name_2 != model_name):
+                    lScore = lScore + self.isBetter(lCrit1[h + 1], lCrit2[h + 1]) * lCoeff
         lScore = round(lScore , 4)
         return lScore
         
     def compute_voting_scores(self, iSigDecs):
         self.mCondorcetScores = {}
+        self.mCriteriaValues = {}
         lModels = {}
         for (lName, sigdec) in iSigDecs.items():
             for (model , value) in sorted(sigdec.mPerfsByModel.items()):
                 ts_model = value[0][2]
                 model_name = ts_model.mOutName
                 lModels[model_name] = ts_model
+                self.mCriteriaValues[model_name] = self.get_criterion_values(ts_model)
+        # self.filter_worst_criteria_values()
         for (model_name, ts_model) in lModels.items():
-            self.mCondorcetScores[model_name] = self.compute_condorcet_score(ts_model, lModels)
+            self.mCondorcetScores[model_name] = self.compute_condorcet_score(model_name)
         return self.mCondorcetScores
 
 
