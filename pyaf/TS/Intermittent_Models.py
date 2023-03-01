@@ -78,13 +78,15 @@ class cCroston_Model(tsar.cAbstractAR):
         lSES = SimpleExpSmoothing(x).fit(smoothing_level=alpha, optimized=False)
         y = lSES.fittedvalues
         return y
-    
+
     def compute_forecast(self, df, alpha, method, horizon_index = 1):
         # print(df.shape)
         # print(df.columns)
         # print(df[['Date', 'Signal', '_Signal', 'row_number', '_Signal_ConstantTrend_residue_zeroCycle_residue']].tail(12))
         lCounts_df = df[[self.mTime, self.mCycleResidueName]].copy()
         lCounts_df['index'] = np.arange(lCounts_df.shape[0])
+        df1 = lCounts_df.reset_index()
+
         counts = lCounts_df[self.mCycleResidueName] - self.mOffset
         counts = counts[:-(horizon_index)]
         # print(list(counts.unique()))
@@ -92,7 +94,11 @@ class cCroston_Model(tsar.cAbstractAR):
         # assert(not np.isnan(counts[:-1]).any())
         #  q is often called the “demand” and a the “inter-arrival time”.
         q = counts[abs(counts) > 1e-8]
-        demand_times = pd.Series(list(q.index)) + 1
+        if(q.shape[0] == 0):
+            df1['forecast'] = self.mOffset
+            return df1
+        assert(q.shape[0] > 0)
+        demand_times = pd.Series(list(q.index), dtype=np.float64) + 1
         a = demand_times - demand_times.shift(1).fillna(0.0)
         df2 = pd.DataFrame({'demand_time' : list(demand_times), 'q' : list(q) , 'a' : list(a) })
         
@@ -105,7 +111,6 @@ class cCroston_Model(tsar.cAbstractAR):
 
         for h in range(horizon_index):
             lCounts_df.loc[-(h+1), self.mCycleResidueName] = None
-        df1 = lCounts_df.reset_index()
         df3 = df1.merge(df2 , how='left', on=('index' , 'index'))
         df4 = df3.fillna(method='ffill')
         # fill first empty fit data with zero counts (when signal starts with zeros)
