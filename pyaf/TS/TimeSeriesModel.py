@@ -164,7 +164,7 @@ class cTimeSeriesModel:
         logger.info("MODEL_LnQ LnQ_Fit=" + str(self.mFitPerf.mLnQ) + " LnQ_Forecast=" + str(self.mForecastPerf.mLnQ)  + " LnQ_Test=" + str(self.mTestPerf.mLnQ) );
         logger.info("MODEL_MEDIAN_AE MedAE_Fit=" + str(self.mFitPerf.mMedAE) + " MedAE_Forecast=" + str(self.mForecastPerf.mMedAE)  + " MedAE_Test=" + str(self.mTestPerf.mMedAE) );
         logger.info("MODEL_KENDALL_TAU KENDALL_TAU_Fit=" + str(self.mFitPerf.mKendallTau) + " KENDALL_TAU_Forecast=" + str(self.mForecastPerf.mKendallTau)  + " KENDALL_TAU_Test=" + str(self.mTestPerf.mKendallTau) );
-        logger.info("MODEL_KOLOMOGOROV_SMIRNOV KS_Fit=" + str(self.mFitPerf.mKS) + " KS_Forecast=" + str(self.mForecastPerf.mKS)  + " KS_Test=" + str(self.mTestPerf.mKS) );
+        logger.info("MODEL_KOLMOGOROV_SMIRNOV KS_Fit=" + str(self.mFitPerf.mKS) + " KS_Forecast=" + str(self.mForecastPerf.mKS)  + " KS_Test=" + str(self.mTestPerf.mKS) );
         logger.info("MODEL_MANN_WHITNEY_U MWU_Fit=" + str(self.mFitPerf.mMWU) + " MWU_Forecast=" + str(self.mForecastPerf.mMWU)  + " MWU_Test=" + str(self.mTestPerf.mMWU) );
         logger.info("MODEL_AUC AUC_Fit=" + str(self.mFitPerf.mAUC) + " AUC_Forecast=" + str(self.mForecastPerf.mAUC)  + " AUC_Test=" + str(self.mTestPerf.mAUC) );
         lComplexityStr = self.getComplexity_as_ordering_string()
@@ -226,6 +226,7 @@ class cTimeSeriesModel:
         lARColumn = df2[self.mAR.mOutName]
         lSignal = df2[self.mSignal]
         if(not perf_mode):
+            df2[self.mOriginalSignal + '_Transformed'] =  lSignal;
             df2[lPrefix + 'Trend'] =  lTrendColumn;
             df2[lPrefix + 'Trend_residue'] = df2[self.mCycle.mTrend_residue_name]
             df2[lPrefix + 'Cycle'] =  lCycleColumn;
@@ -263,7 +264,7 @@ class cTimeSeriesModel:
         assert((N0 + iHorizon) == df1.shape[0])
         N1 = df1.shape[0];
         lPrefix = self.mSignal + "_";
-        lFieldsToErase = [ self.mOriginalSignal, self.mSignal,
+        lFieldsToErase = [ self.mOriginalSignal, self.mSignal, self.mOriginalSignal + "_Transformed", 
                            self.mTrend.mOutName + '_residue', lPrefix + 'Trend_residue',
                            self.mCycle.mOutName + '_residue', lPrefix + 'Cycle_residue',
                            self.mAR.mOutName + '_residue',  lPrefix + 'AR_residue',
