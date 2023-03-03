@@ -167,9 +167,15 @@ def quantiles_plot_internal(df, time, signal, estimator, iQuantiles, name = None
     if(name is not None):
         plt.switch_backend('Agg')
     lMin, lMax = df1[lQuantileNames].values.min(), df1[lQuantileNames].values.max()
+
+    #  Forecast Quantiles Plots can be improved #225 
+    # Use a more meaningful color map (gradient, Blue = Low, Green = Normal, Red = High) for synchronized histograms.
+    cm = matplotlib.colors.ListedColormap(['darkblue', 'blue', 'cyan', 'lightgreen', 'yellow', 'orange', 'red']).with_extremes(over='red', under='darkblue')
+    # cm = plt.cm.get_cmap('RdGrBu_r')
     
-    cm = plt.cm.get_cmap('RdYlBu_r')
-    fig, axs = plt.subplots(horizon, 1, figsize=(12, 12), squeeze = True)
+    #  Forecast Quantiles Plots can be improved #225
+    # Better separate histograms (original issue solution). Assign a fixed height (1 cm) to each histogram.
+    fig, axs = plt.subplots(horizon, 1, figsize=(12, horizon / 2.54), squeeze = True)
     # plt.subplots_adjust(hspace=1)
     # print(axs)
     if (horizon == 1):
@@ -186,7 +192,14 @@ def quantiles_plot_internal(df, time, signal, estimator, iQuantiles, name = None
             axs[h].set_title('Forecast Quantiles')
         axs[h].set_xlim((lMin,lMax))
         # axs[h].set_ylim((0, 1.0))
-        axs[h].set_ylabel('H_' + str(h + 1))
+
+        # Remove some unnecessary borders and yticks.
+        axs[h].spines['top'].set_visible(False)
+        axs[h].spines['right'].set_visible(False)
+        axs[h].spines['left'].set_visible(False)
+        
+        axs[h].set_ylabel('H=' + str(h + 1), rotation=0, horizontalalignment='left')
+        axs[h].set_yticks([])
         axs[h].set_yticklabels([])
         if(h < (horizon - 1)):
             axs[h].set_xlabel('')
