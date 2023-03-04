@@ -170,8 +170,10 @@ def quantiles_plot_internal(df, time, signal, estimator, iQuantiles, name = None
 
     #  Forecast Quantiles Plots can be improved #225 
     # Use a more meaningful color map (gradient, Blue = Low, Green = Normal, Red = High) for synchronized histograms.
-    cm = matplotlib.colors.ListedColormap(['darkblue', 'blue', 'cyan', 'lightgreen', 'yellow', 'orange', 'red']).with_extremes(over='red', under='darkblue')
-    # cm = plt.cm.get_cmap('RdGrBu_r')
+    # Blue/Red for lower/higher quartile, decreasing alpha towards ther median.
+    # Green for the 2nd and 3rd quartiles (inter-quartile range, not outliers)
+    # pre-defined matplotlib colormap 'turbo' is the closest to this behavior. Don't reinvent the wheel.
+    cm = matplotlib.colormaps.get('turbo')
     
     #  Forecast Quantiles Plots can be improved #225
     # Better separate histograms (original issue solution). Assign a fixed height (1 cm) to each histogram.
