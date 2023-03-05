@@ -155,8 +155,14 @@ class cModelSelector_Condorcet(cModelSelector_Voting):
         
         
     def isBetter(self, iCrit1, iCrit2):
-        if(iCrit1 < (iCrit2 + 0.01)):
-            return 1
+        # Adapt the condocrcet score for R2 (higher values are better).
+        lHigherIsBetter = tsperf.cPerf.higher_values_are_better(self.mOptions.mModelSelection_Criterion)
+        if(lHigherIsBetter):
+            if(iCrit2 < (iCrit1 + 0.01)):
+                return 1
+        else:
+            if(iCrit1 < (iCrit2 + 0.01)):
+                return 1
         return 0
 
     def filter_worst_criteria_values(self):

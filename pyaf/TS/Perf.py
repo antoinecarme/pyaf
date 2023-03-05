@@ -12,7 +12,7 @@ from . import Utils as tsutil
 class cPerf:
 
     def higher_values_are_better(criterion):
-        return criterion in ["KendallTau", "KS", "MWU" , "AUC"]
+        return criterion in ["R2", "PEARSONR", "KendallTau", "KS", "MWU" , "AUC"]
 
     def __init__(self):
         self.mErrorStdDev = None;
@@ -338,7 +338,7 @@ class cPerf:
 
 
     def is_acceptable_criterion_value(self, criterion, iRefValue = None):
-        # percentages are bad when the mean error is above 1.0
+        # percentages are bad when above 1.0
         if(criterion in ['MAPE' , 'SMAPE' , 'DiffSMAPE', 'MASE', 'CRPS']):
             lCritValue = iRefValue
             if(iRefValue is None):

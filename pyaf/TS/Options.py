@@ -189,7 +189,7 @@ class cSignalDecomposition_Options(cModelControl):
         self.mDL_Backends = ("PyTorch", ) # Pytorch is the only supported backend for now
         self.mPytorch_Options = None
         self.mKeras_Options = None
-        self.mVotingMethod = "Condorcet"
+        self.mVotingMethod = "Condorcet" # Or None for Legacy Method (backward compatibility with PyAF 4.0). 
         self.disableDebuggingOptions();
 
     def disableDebuggingOptions(self):
