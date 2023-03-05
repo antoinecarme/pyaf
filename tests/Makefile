@@ -261,10 +261,20 @@ bugs/issue_21/test_ozone_max_autoreg_5.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/bugs/issue_21/test_ozone_max_autoreg_5.log logs/bugs_issue_21_test_ozone_max_autoreg_5.log  >  logs/bugs_issue_21_test_ozone_max_autoreg_5.log.diff
 	 tail -10  logs/bugs_issue_21_test_ozone_max_autoreg_5.log.diff 
 
+bugs/issue_216/issue_216_prediction_interval_shaded_area.py  :  
+	 -$(PYTHON)  tests/bugs/issue_216/issue_216_prediction_interval_shaded_area.py  >  logs/bugs_issue_216_issue_216_prediction_interval_shaded_area.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs/issue_216/issue_216_prediction_interval_shaded_area.log logs/bugs_issue_216_issue_216_prediction_interval_shaded_area.log  >  logs/bugs_issue_216_issue_216_prediction_interval_shaded_area.log.diff
+	 tail -10  logs/bugs_issue_216_issue_216_prediction_interval_shaded_area.log.diff 
+
 bugs/issue_22/test_artificial_1024_cumsum_constant_5__20.py  :  
 	 -$(PYTHON)  tests/bugs/issue_22/test_artificial_1024_cumsum_constant_5__20.py  >  logs/bugs_issue_22_test_artificial_1024_cumsum_constant_5__20.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/bugs/issue_22/test_artificial_1024_cumsum_constant_5__20.log logs/bugs_issue_22_test_artificial_1024_cumsum_constant_5__20.log  >  logs/bugs_issue_22_test_artificial_1024_cumsum_constant_5__20.log.diff
 	 tail -10  logs/bugs_issue_22_test_artificial_1024_cumsum_constant_5__20.log.diff 
+
+bugs/issue_220/test_ozone_Lag1Trend_bug.py  :  
+	 -$(PYTHON)  tests/bugs/issue_220/test_ozone_Lag1Trend_bug.py  >  logs/bugs_issue_220_test_ozone_Lag1Trend_bug.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs/issue_220/test_ozone_Lag1Trend_bug.log logs/bugs_issue_220_test_ozone_Lag1Trend_bug.log  >  logs/bugs_issue_220_test_ozone_Lag1Trend_bug.log.diff
+	 tail -10  logs/bugs_issue_220_test_ozone_Lag1Trend_bug.log.diff 
 
 bugs/issue_29/test_mem_1.py  :  
 	 -$(PYTHON)  tests/bugs/issue_29/test_mem_1.py  >  logs/bugs_issue_29_test_mem_1.log  2>&1
@@ -496,9 +506,24 @@ bugs/issue_94/issue_94.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/bugs/issue_94/issue_94.log logs/bugs_issue_94_issue_94.log  >  logs/bugs_issue_94_issue_94.log.diff
 	 tail -10  logs/bugs_issue_94_issue_94.log.diff 
 
+bugs/model_viz_issues/air_passengers_bad_models.py  :  
+	 -$(PYTHON)  tests/bugs/model_viz_issues/air_passengers_bad_models.py  >  logs/bugs_model_viz_issues_air_passengers_bad_models.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs/model_viz_issues/air_passengers_bad_models.log logs/bugs_model_viz_issues_air_passengers_bad_models.log  >  logs/bugs_model_viz_issues_air_passengers_bad_models.log.diff
+	 tail -10  logs/bugs_model_viz_issues_air_passengers_bad_models.log.diff 
+
+bugs/model_viz_issues/model_esthetics_visualizer.py  :  
+	 -$(PYTHON)  tests/bugs/model_viz_issues/model_esthetics_visualizer.py  >  logs/bugs_model_viz_issues_model_esthetics_visualizer.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs/model_viz_issues/model_esthetics_visualizer.log logs/bugs_model_viz_issues_model_esthetics_visualizer.log  >  logs/bugs_model_viz_issues_model_esthetics_visualizer.log.diff
+	 tail -10  logs/bugs_model_viz_issues_model_esthetics_visualizer.log.diff 
+
+bugs/model_viz_issues/ozone_bad_models.py  :  
+	 -$(PYTHON)  tests/bugs/model_viz_issues/ozone_bad_models.py  >  logs/bugs_model_viz_issues_ozone_bad_models.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/bugs/model_viz_issues/ozone_bad_models.log logs/bugs_model_viz_issues_ozone_bad_models.log  >  logs/bugs_model_viz_issues_ozone_bad_models.log.diff
+	 tail -10  logs/bugs_model_viz_issues_ozone_bad_models.log.diff 
 
 
- bugs :  bugs/test_random_exogenous.py bugs/test_artificial_bug_2.py bugs/test_artificial_bug_1.py bugs/run_benchmark_Yahoo_nysecomp_VRS.py bugs/run_benchmark_M4Comp_ECONOMICS_ECON1151_18.py bugs/run_benchmark_M1Comp_MNB71_18.py bugs/issue_106/submitted_script.py bugs/issue_106/insurance_exog_xgbx.py bugs/issue_106/insurance_exog_svrx.py bugs/issue_106/insurance_exog.py bugs/issue_179/issue_179_cumprod_overflow.py bugs/issue_19/issue_19_no_interpolation.py bugs/issue_193/test_ozone_exogenous_issue_193_with_exog_arx_enabled.py bugs/issue_193/test_ozone_exogenous_issue_193_with_exog_arx_disabled.py bugs/issue_193/test_ozone_exogenous_issue_193_no_exog.py bugs/issue_21/test_ozone_max_autoreg_5.py bugs/issue_21/test_artificial_1024__poly_7__20.py bugs/issue_22/test_artificial_1024_cumsum_constant_5__20.py bugs/issue_29/test_mem_1.py bugs/issue_32/bug_test_ozone_heroku_1_ws.py bugs/issue_32/bug_test_ozone_heroku_1.py bugs/issue_34/test_artificial_1024_sqrt_linear_30_12_20.py bugs/issue_34/test_artificial_1024_sqrt_constant_7_12_100.py bugs/issue_34/test_artificial_1024_sqr_poly_5_12_20.py bugs/issue_34/test_artificial_1024_log_linear_5_12_100.py bugs/issue_34/test_artificial_1024_log_linear_30_12_20.py bugs/issue_34/test_artificial_1024_inv_linear_7_12_100.py bugs/issue_34/test_artificial_1024_inv_constant_30__20.py bugs/issue_34/test_artificial_1024_diff_poly_0__100.py bugs/issue_34/test_artificial_1024_diff_poly_0__0.py bugs/issue_34/test_artificial_1024__poly_7_12_100.py bugs/issue_34/issue_34_1.py bugs/issue_34/issue_34.py bugs/issue_36/issue_36_version_info.py bugs/issue_36/display_version_info.py bugs/issue_4/issue_4.py bugs/issue_46/issue_46_one_or_two_rows.py bugs/issue_55/grouping_issue_55_notebook.py bugs/issue_56/issue_56_order2.py bugs/issue_56/issue_56_order1.py bugs/issue_58/issue_58_1_categorical_exogenous.py bugs/issue_69/issue_69_example_1_with_rectifier.py bugs/issue_69/issue_69_example_1_no_rectifier.py bugs/issue_70/test_ozone_keep_all_seasonals.py bugs/issue_70/test_ozone_filter_seasonals.py bugs/issue_70/test_artificial_keep_all_seasonals_second.py bugs/issue_70/test_artificial_keep_all_seasonals_minute.py bugs/issue_70/test_artificial_keep_all_seasonals_hour.py bugs/issue_70/test_artificial_keep_all_seasonals_day.py bugs/issue_70/test_artificial_filter_seasonals_second.py bugs/issue_70/test_artificial_filter_seasonals_min.py bugs/issue_70/test_artificial_filter_seasonals_hour.py bugs/issue_70/test_artificial_filter_seasonals_day.py bugs/issue_72/test_artificial_32_sqrt_poly_7__20.py bugs/issue_72/test_artificial_32_exp_linear_0__100.py bugs/issue_73/issue_73_1_fast_mode_2.py bugs/issue_73/issue_73_1_fast_mode.py bugs/issue_75/issue_75_residues_Are_empty.py bugs/issue_75/issue_75_plot.py bugs/issue_76/test_ozone_unicode.py bugs/issue_79/test_ozone_missing_signal.py bugs/issue_80/test_ozone_missing_time.py bugs/issue_82/issue_82_long_cycles.py bugs/issue_94/issue_94.py  
+
+ bugs :  bugs/test_random_exogenous.py bugs/test_artificial_bug_2.py bugs/test_artificial_bug_1.py bugs/run_benchmark_Yahoo_nysecomp_VRS.py bugs/run_benchmark_M4Comp_ECONOMICS_ECON1151_18.py bugs/run_benchmark_M1Comp_MNB71_18.py bugs/issue_106/submitted_script.py bugs/issue_106/insurance_exog_xgbx.py bugs/issue_106/insurance_exog_svrx.py bugs/issue_106/insurance_exog.py bugs/issue_179/issue_179_cumprod_overflow.py bugs/issue_19/issue_19_no_interpolation.py bugs/issue_193/test_ozone_exogenous_issue_193_with_exog_arx_enabled.py bugs/issue_193/test_ozone_exogenous_issue_193_with_exog_arx_disabled.py bugs/issue_193/test_ozone_exogenous_issue_193_no_exog.py bugs/issue_21/test_ozone_max_autoreg_5.py bugs/issue_21/test_artificial_1024__poly_7__20.py bugs/issue_216/issue_216_prediction_interval_shaded_area.py bugs/issue_22/test_artificial_1024_cumsum_constant_5__20.py bugs/issue_220/test_ozone_Lag1Trend_bug.py bugs/issue_29/test_mem_1.py bugs/issue_32/bug_test_ozone_heroku_1_ws.py bugs/issue_32/bug_test_ozone_heroku_1.py bugs/issue_34/test_artificial_1024_sqrt_linear_30_12_20.py bugs/issue_34/test_artificial_1024_sqrt_constant_7_12_100.py bugs/issue_34/test_artificial_1024_sqr_poly_5_12_20.py bugs/issue_34/test_artificial_1024_log_linear_5_12_100.py bugs/issue_34/test_artificial_1024_log_linear_30_12_20.py bugs/issue_34/test_artificial_1024_inv_linear_7_12_100.py bugs/issue_34/test_artificial_1024_inv_constant_30__20.py bugs/issue_34/test_artificial_1024_diff_poly_0__100.py bugs/issue_34/test_artificial_1024_diff_poly_0__0.py bugs/issue_34/test_artificial_1024__poly_7_12_100.py bugs/issue_34/issue_34_1.py bugs/issue_34/issue_34.py bugs/issue_36/issue_36_version_info.py bugs/issue_36/display_version_info.py bugs/issue_4/issue_4.py bugs/issue_46/issue_46_one_or_two_rows.py bugs/issue_55/grouping_issue_55_notebook.py bugs/issue_56/issue_56_order2.py bugs/issue_56/issue_56_order1.py bugs/issue_58/issue_58_1_categorical_exogenous.py bugs/issue_69/issue_69_example_1_with_rectifier.py bugs/issue_69/issue_69_example_1_no_rectifier.py bugs/issue_70/test_ozone_keep_all_seasonals.py bugs/issue_70/test_ozone_filter_seasonals.py bugs/issue_70/test_artificial_keep_all_seasonals_second.py bugs/issue_70/test_artificial_keep_all_seasonals_minute.py bugs/issue_70/test_artificial_keep_all_seasonals_hour.py bugs/issue_70/test_artificial_keep_all_seasonals_day.py bugs/issue_70/test_artificial_filter_seasonals_second.py bugs/issue_70/test_artificial_filter_seasonals_min.py bugs/issue_70/test_artificial_filter_seasonals_hour.py bugs/issue_70/test_artificial_filter_seasonals_day.py bugs/issue_72/test_artificial_32_sqrt_poly_7__20.py bugs/issue_72/test_artificial_32_exp_linear_0__100.py bugs/issue_73/issue_73_1_fast_mode_2.py bugs/issue_73/issue_73_1_fast_mode.py bugs/issue_75/issue_75_residues_Are_empty.py bugs/issue_75/issue_75_plot.py bugs/issue_76/test_ozone_unicode.py bugs/issue_79/test_ozone_missing_signal.py bugs/issue_80/test_ozone_missing_time.py bugs/issue_82/issue_82_long_cycles.py bugs/issue_94/issue_94.py bugs/model_viz_issues/ozone_bad_models.py bugs/model_viz_issues/model_esthetics_visualizer.py bugs/model_viz_issues/air_passengers_bad_models.py  
  
 
 cross_validation/test_air_passengers_cross_valid.py  :  
@@ -561,6 +586,11 @@ croston/croston_tests.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/croston/croston_tests.log logs/croston_croston_tests.log  >  logs/croston_croston_tests.log.diff
 	 tail -10  logs/croston_croston_tests.log.diff 
 
+croston/test_air_passengers_croston_only.py  :  
+	 -$(PYTHON)  tests/croston/test_air_passengers_croston_only.py  >  logs/croston_test_air_passengers_croston_only.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/croston/test_air_passengers_croston_only.log logs/croston_test_air_passengers_croston_only.log  >  logs/croston_test_air_passengers_croston_only.log.diff
+	 tail -10  logs/croston_test_air_passengers_croston_only.log.diff 
+
 croston/test_croston_fpp2_counts_example.py  :  
 	 -$(PYTHON)  tests/croston/test_croston_fpp2_counts_example.py  >  logs/croston_test_croston_fpp2_counts_example.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/croston/test_croston_fpp2_counts_example.log logs/croston_test_croston_fpp2_counts_example.log  >  logs/croston_test_croston_fpp2_counts_example.log.diff
@@ -571,9 +601,19 @@ croston/test_croston_fpp2_counts_example_optimize.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/croston/test_croston_fpp2_counts_example_optimize.log logs/croston_test_croston_fpp2_counts_example_optimize.log  >  logs/croston_test_croston_fpp2_counts_example_optimize.log.diff
 	 tail -10  logs/croston_test_croston_fpp2_counts_example_optimize.log.diff 
 
+croston/test_ozone_croston_only.py  :  
+	 -$(PYTHON)  tests/croston/test_ozone_croston_only.py  >  logs/croston_test_ozone_croston_only.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/croston/test_ozone_croston_only.log logs/croston_test_ozone_croston_only.log  >  logs/croston_test_ozone_croston_only.log.diff
+	 tail -10  logs/croston_test_ozone_croston_only.log.diff 
+
+croston/test_ozone_croston_only_2.py  :  
+	 -$(PYTHON)  tests/croston/test_ozone_croston_only_2.py  >  logs/croston_test_ozone_croston_only_2.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/croston/test_ozone_croston_only_2.log logs/croston_test_ozone_croston_only_2.log  >  logs/croston_test_ozone_croston_only_2.log.diff
+	 tail -10  logs/croston_test_ozone_croston_only_2.log.diff 
 
 
- croston :  croston/test_croston_fpp2_counts_example_optimize.py croston/test_croston_fpp2_counts_example.py croston/croston_tests.py croston/croston_test_1_legacy_linear_trend.py croston/croston_test_1_SBJ_linear_trend.py croston/croston_test_1_SBJ.py croston/croston_test_1_SBA_linear_trend.py croston/croston_test_1_SBA.py croston/croston_test_1_None.py croston/__init__.py  
+
+ croston :  croston/test_ozone_croston_only_2.py croston/test_ozone_croston_only.py croston/test_croston_fpp2_counts_example_optimize.py croston/test_croston_fpp2_counts_example.py croston/test_air_passengers_croston_only.py croston/croston_tests.py croston/croston_test_1_legacy_linear_trend.py croston/croston_test_1_SBJ_linear_trend.py croston/croston_test_1_SBJ.py croston/croston_test_1_SBA_linear_trend.py croston/croston_test_1_SBA.py croston/croston_test_1_None.py croston/__init__.py  
  
 
 demos/demo1.py  :  
@@ -776,6 +816,11 @@ func/test_air_passengers.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/func/test_air_passengers.log logs/func_test_air_passengers.log  >  logs/func_test_air_passengers.log.diff
 	 tail -10  logs/func_test_air_passengers.log.diff 
 
+func/test_air_passengers_no_vote.py  :  
+	 -$(PYTHON)  tests/func/test_air_passengers_no_vote.py  >  logs/func_test_air_passengers_no_vote.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/func/test_air_passengers_no_vote.log logs/func_test_air_passengers_no_vote.log  >  logs/func_test_air_passengers_no_vote.log.diff
+	 tail -10  logs/func_test_air_passengers_no_vote.log.diff 
+
 func/test_ar.py  :  
 	 -$(PYTHON)  tests/func/test_ar.py  >  logs/func_test_ar.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/func/test_ar.log logs/func_test_ar.log  >  logs/func_test_ar.log.diff
@@ -806,10 +851,25 @@ func/test_ozone_bench_mode.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/func/test_ozone_bench_mode.log logs/func_test_ozone_bench_mode.log  >  logs/func_test_ozone_bench_mode.log.diff
 	 tail -10  logs/func_test_ozone_bench_mode.log.diff 
 
+func/test_ozone_bfloat.py  :  
+	 -$(PYTHON)  tests/func/test_ozone_bfloat.py  >  logs/func_test_ozone_bfloat.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/func/test_ozone_bfloat.log logs/func_test_ozone_bfloat.log  >  logs/func_test_ozone_bfloat.log.diff
+	 tail -10  logs/func_test_ozone_bfloat.log.diff 
+
+func/test_ozone_disable_seasonal.py  :  
+	 -$(PYTHON)  tests/func/test_ozone_disable_seasonal.py  >  logs/func_test_ozone_disable_seasonal.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/func/test_ozone_disable_seasonal.log logs/func_test_ozone_disable_seasonal.log  >  logs/func_test_ozone_disable_seasonal.log.diff
+	 tail -10  logs/func_test_ozone_disable_seasonal.log.diff 
+
 func/test_ozone_horizon_one.py  :  
 	 -$(PYTHON)  tests/func/test_ozone_horizon_one.py  >  logs/func_test_ozone_horizon_one.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/func/test_ozone_horizon_one.log logs/func_test_ozone_horizon_one.log  >  logs/func_test_ozone_horizon_one.log.diff
 	 tail -10  logs/func_test_ozone_horizon_one.log.diff 
+
+func/test_ozone_no_vote.py  :  
+	 -$(PYTHON)  tests/func/test_ozone_no_vote.py  >  logs/func_test_ozone_no_vote.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/func/test_ozone_no_vote.log logs/func_test_ozone_no_vote.log  >  logs/func_test_ozone_no_vote.log.diff
+	 tail -10  logs/func_test_ozone_no_vote.log.diff 
 
 func/test_ozone_with_logging.py  :  
 	 -$(PYTHON)  tests/func/test_ozone_with_logging.py  >  logs/func_test_ozone_with_logging.log  2>&1
@@ -823,7 +883,7 @@ func/test_version.py  :
 
 
 
- func :  func/test_version.py func/test_ozone_with_logging.py func/test_ozone_horizon_one.py func/test_ozone_bench_mode.py func/test_ozone.py func/test_cycles_full.py func/test_cycle.py func/test_const_signal.py func/test_ar.py func/test_air_passengers.py  
+ func :  func/test_version.py func/test_ozone_with_logging.py func/test_ozone_no_vote.py func/test_ozone_horizon_one.py func/test_ozone_disable_seasonal.py func/test_ozone_bfloat.py func/test_ozone_bench_mode.py func/test_ozone.py func/test_cycles_full.py func/test_cycle.py func/test_const_signal.py func/test_ar.py func/test_air_passengers_no_vote.py func/test_air_passengers.py  
  
 
 heroku/build_generic_heroku_model.py  :  
@@ -1901,9 +1961,19 @@ pytorch/test_ozone_exogenous_gen.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/pytorch/test_ozone_exogenous_gen.log logs/pytorch_test_ozone_exogenous_gen.log  >  logs/pytorch_test_ozone_exogenous_gen.log.diff
 	 tail -10  logs/pytorch_test_ozone_exogenous_gen.log.diff 
 
+pytorch/test_ozone_exogenous_keras_256_threads.py  :  
+	 -$(PYTHON)  tests/pytorch/test_ozone_exogenous_keras_256_threads.py  >  logs/pytorch_test_ozone_exogenous_keras_256_threads.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/pytorch/test_ozone_exogenous_keras_256_threads.log logs/pytorch_test_ozone_exogenous_keras_256_threads.log  >  logs/pytorch_test_ozone_exogenous_keras_256_threads.log.diff
+	 tail -10  logs/pytorch_test_ozone_exogenous_keras_256_threads.log.diff 
+
+pytorch/test_ozone_exogenous_pytorch_256_threads.py  :  
+	 -$(PYTHON)  tests/pytorch/test_ozone_exogenous_pytorch_256_threads.py  >  logs/pytorch_test_ozone_exogenous_pytorch_256_threads.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/pytorch/test_ozone_exogenous_pytorch_256_threads.log logs/pytorch_test_ozone_exogenous_pytorch_256_threads.log  >  logs/pytorch_test_ozone_exogenous_pytorch_256_threads.log.diff
+	 tail -10  logs/pytorch_test_ozone_exogenous_pytorch_256_threads.log.diff 
 
 
- pytorch :  pytorch/test_ozone_exogenous_gen.py pytorch/test_ozone_exogenous_MLPX_pytorch_or_keras.py pytorch/test_ozone_exogenous_MLPX_pytorch.py pytorch/test_ozone_exogenous_MLPX_keras.py pytorch/test_ozone_exogenous_LSTMX_pytorch_or_keras.py pytorch/test_ozone_exogenous_LSTMX_pytorch.py pytorch/test_ozone_exogenous_LSTMX_keras.py  
+
+ pytorch :  pytorch/test_ozone_exogenous_pytorch_256_threads.py pytorch/test_ozone_exogenous_keras_256_threads.py pytorch/test_ozone_exogenous_gen.py pytorch/test_ozone_exogenous_MLPX_pytorch_or_keras.py pytorch/test_ozone_exogenous_MLPX_pytorch.py pytorch/test_ozone_exogenous_MLPX_keras.py pytorch/test_ozone_exogenous_LSTMX_pytorch_or_keras.py pytorch/test_ozone_exogenous_LSTMX_pytorch.py pytorch/test_ozone_exogenous_LSTMX_keras.py  
  
 
 real-life/test_sof_example.py  :  
