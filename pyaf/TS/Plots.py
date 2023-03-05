@@ -173,8 +173,9 @@ def quantiles_plot_internal(df, time, signal, estimator, iQuantiles, name = None
     # Blue/Red for lower/higher quartile, decreasing alpha towards ther median.
     # Green for the 2nd and 3rd quartiles (inter-quartile range, not outliers)
     # pre-defined matplotlib colormap 'turbo' is the closest to this behavior. Don't reinvent the wheel.
-    cm = matplotlib.colormaps.get('turbo')
-    
+    cm_turbo = matplotlib.colormaps.get('turbo')
+    # quantize the colors (keep only 16)
+    cm = matplotlib.colors.ListedColormap(cm_turbo.colors[0:256:16])
     #  Forecast Quantiles Plots can be improved #225
     # Better separate histograms (original issue solution). Assign a fixed height (1 cm) to each histogram.
     fig, axs = plt.subplots(horizon, 1, figsize=(12, horizon / 2.54), squeeze = True)
