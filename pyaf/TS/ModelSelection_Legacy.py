@@ -68,7 +68,7 @@ class cModelSelector_OneSignal:
         # allow a loss of one point (0.01 of MAPE) if complexity is reduced.
         assert(not np.isnan(lBestPerf))
         self.mTrPerfDetails.sort_values(by=[lIndicator, 'Complexity', 'Model'] ,
-                                        ascending=[not lHigherIsBetter, True, True],
+                                        ascending=[not lHigherIsBetter, False, True],
                                         inplace=True);
         self.mTrPerfDetails = self.mTrPerfDetails.reset_index(drop=True);
         if(self.mOptions.mDebugPerformance):
@@ -78,7 +78,7 @@ class cModelSelector_OneSignal:
         else:
             lInterestingModels = self.mTrPerfDetails[self.mTrPerfDetails[lIndicator] <= (lBestPerf + 0.01)].reset_index(drop=True);
             
-        lInterestingModels.sort_values(by=['Complexity'] , ascending=True, inplace=True)
+        lInterestingModels.sort_values(by=['Complexity'] , ascending=False, inplace=True)
         # print(self.mTransformList);
         # print(lInterestingModels.head());
         # print(self.mPerfsByModel);
@@ -123,7 +123,7 @@ class cModelSelector_OneSignal:
         lInterestingCategories = list(lInterestingCategories_df['Category'].unique())
         self.mTrPerfDetails['IC'] = self.mTrPerfDetails['Category'].apply(lambda x :1 if x in lInterestingCategories else 0) 
         lInterestingModels = self.mTrPerfDetails[self.mTrPerfDetails['IC'] == 1].copy()
-        lInterestingModels.sort_values(by=['Complexity'] , ascending=True, inplace=True)
+        lInterestingModels.sort_values(by=['Complexity'] , ascending=False, inplace=True)
         # print(self.mTransformList);
         # print(lInterestingModels.head());
         lBestName = lInterestingModels['DetailedFormula'].iloc[0];

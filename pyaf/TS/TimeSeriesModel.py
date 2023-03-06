@@ -98,7 +98,10 @@ class cTimeSeriesModel:
         self.mForecastPerfs = lPredictionIntervalsEstimator.mForecastPerformances
         self.mTestPerfs = lPredictionIntervalsEstimator.mTestPerformances
         lForecastColumn = str(self.mOriginalSignal) + "_Forecast";
-        lHorizonName = lForecastColumn + "_" + str(self.mTimeInfo.mHorizon);         
+        
+        lHorizonName = lForecastColumn + "_" + str(1);         
+        if(self.mTimeInfo.mOptions.mVotingMethod is not None):
+            lHorizonName = lForecastColumn + "_" + str(self.mTimeInfo.mHorizon);         
         self.mFitPerf = lPredictionIntervalsEstimator.mFitPerformances[lHorizonName]
         self.mForecastPerf = lPredictionIntervalsEstimator.mForecastPerformances[lHorizonName]
         self.mTestPerf = lPredictionIntervalsEstimator.mTestPerformances[lHorizonName];
