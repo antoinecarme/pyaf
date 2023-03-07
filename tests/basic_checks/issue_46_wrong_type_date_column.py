@@ -10,7 +10,7 @@ for ty in [np.int32 , np.float32, np.int64 , np.float64]:
     lEngine = autof.cForecastEngine()
     lEngine.train(df , 'date' , 'signal', 1);
 
-for ty in [np.object , np.bool]:
+for ty in [object , bool]:
     try:
         df['date'] = df['date'].astype(ty)
         lEngine = autof.cForecastEngine()
