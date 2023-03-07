@@ -1,3 +1,4 @@
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signals': ['Ozone'], 'Horizons': {'Ozone': 12}}))
 INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['Ozone'], 'Transformations': [('Ozone', 'None', '_', 'T+S+R'), ('Ozone', 'None', 'Diff_', 'T+S+R'), ('Ozone', 'None', 'RelDiff_', 'T+S+R'), ('Ozone', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 [('CSVFile', 'https://raw.githubusercontent.com/antoinecarme/TimeSeriesData/master/ozone-la.csv'), ('DateFormat', '%Y-%m'), ('ExogenousData', 'https://raw.githubusercontent.com/antoinecarme/pyaf/master/data/ozone-la-exogenous-3.csv'), ('Horizon', 12), ('Name', 'model_ozone_exog'), ('Present', ''), ('SignalVar', 'Ozone'), ('TimeVar', 'Month')]
 REQUEST_DETAILS [('CSVFile', 'https://raw.githubusercontent.com/antoinecarme/TimeSeriesData/master/ozone-la.csv'), ('DateFormat', '%Y-%m'), ('ExogenousData', 'https://raw.githubusercontent.com/antoinecarme/pyaf/master/data/ozone-la-exogenous-3.csv'), ('Horizon', 12), ('Name', 'model_ozone_exog'), ('Present', ''), ('SignalVar', 'Ozone'), ('TimeVar', 'Month')]
@@ -6,35 +7,44 @@ DATASET_DETECTED_COLUMNS Index(['Month', 'Ozone'], dtype='object')
 DATASET_FINAL_COLUMNS Index(['Month', 'Ozone'], dtype='object')
 https://raw.githubusercontent.com/antoinecarme/pyaf/master/data/ozone-la-exogenous-3.csv
 TRAIN_PARAMS (216, 2) Index(['Month', 'Ozone'], dtype='object') Month Ozone 12
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Ozone', 'Transformation': '_Ozone'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Ozone', 'Transformation': 'Diff_Ozone'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Ozone', 'Transformation': 'CumSum_Ozone'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Ozone', 'Transformation': 'RelDiff_Ozone'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 17.395, ('TRAINING', {'Signal': 'Ozone', 'Transformation': 'Diff_Ozone'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 17.493, ('TRAINING', {'Signal': 'Ozone', 'Transformation': '_Ozone'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 20.295, ('TRAINING', {'Signal': 'Ozone', 'Transformation': 'CumSum_Ozone'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 23.084, ('TRAINING', {'Signal': 'Ozone', 'Transformation': 'RelDiff_Ozone'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 26.468, ('SIGNAL_TRAINING', {'Signals': ['Ozone'], 'Transformations': [('Ozone', 'None', '_', 'T+S+R'), ('Ozone', 'None', 'Diff_', 'T+S+R'), ('Ozone', 'None', 'RelDiff_', 'T+S+R'), ('Ozone', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Ozone', 'Transformation': '_Ozone', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Ozone', 'Transformation': 'RelDiff_Ozone', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Ozone', 'Transformation': 'Diff_Ozone', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Ozone', 'Transformation': 'CumSum_Ozone', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 81.382, ('TRAINING', {'Signal': 'Ozone', 'Transformation': '_Ozone', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 82.503, ('TRAINING', {'Signal': 'Ozone', 'Transformation': 'Diff_Ozone', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 87.804, ('TRAINING', {'Signal': 'Ozone', 'Transformation': 'CumSum_Ozone', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 101.191, ('TRAINING', {'Signal': 'Ozone', 'Transformation': 'RelDiff_Ozone', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 101.602, ('SIGNAL_TRAINING', {'Signals': ['Ozone'], 'Transformations': [('Ozone', 'None', '_', 'T+S+R'), ('Ozone', 'None', 'Diff_', 'T+S+R'), ('Ozone', 'None', 'RelDiff_', 'T+S+R'), ('Ozone', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['Ozone'], 'Transformations': [('Ozone', [('Ozone', 'None', 'CumSum_', 'T+S+R'), ('Ozone', 'None', 'Diff_', 'T+S+R'), ('Ozone', 'None', 'RelDiff_', 'T+S+R'), ('Ozone', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'Ozone', 'Transformations': [('Ozone', 'None', 'CumSum_', 'T+S+R'), ('Ozone', 'None', 'Diff_', 'T+S+R'), ('Ozone', 'None', 'RelDiff_', 'T+S+R'), ('Ozone', 'None', '_', 'T+S+R')]}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.087, ('MODEL_SELECTION', {'Signal': 'Ozone', 'Transformations': [('Ozone', 'None', 'CumSum_', 'T+S+R'), ('Ozone', 'None', 'Diff_', 'T+S+R'), ('Ozone', 'None', 'RelDiff_', 'T+S+R'), ('Ozone', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.309, ('MODEL_SELECTION', {'Signal': 'Ozone', 'Transformations': [('Ozone', 'None', 'CumSum_', 'T+S+R'), ('Ozone', 'None', 'Diff_', 'T+S+R'), ('Ozone', 'None', 'RelDiff_', 'T+S+R'), ('Ozone', 'None', '_', 'T+S+R')]}))
 INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Ozone', 'Model': '_Ozone_ConstantTrend_residue_zeroCycle[0.0]_residue_ARX(54)'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.304, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Ozone', 'Model': '_Ozone_ConstantTrend_residue_zeroCycle[0.0]_residue_ARX(54)'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 8.097, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Ozone', 'Model': '_Ozone_ConstantTrend_residue_zeroCycle[0.0]_residue_ARX(54)'}))
 INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Ozone'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.313, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Ozone'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.706, ('FINALIZE_TRAINING', {'Signals': ['Ozone'], 'Transformations': [('Ozone', [('Ozone', 'None', 'CumSum_', 'T+S+R'), ('Ozone', 'None', 'Diff_', 'T+S+R'), ('Ozone', 'None', 'RelDiff_', 'T+S+R'), ('Ozone', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 7.293, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Ozone'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 17.699, ('FINALIZE_TRAINING', {'Signals': ['Ozone'], 'Transformations': [('Ozone', [('Ozone', 'None', 'CumSum_', 'T+S+R'), ('Ozone', 'None', 'Diff_', 'T+S+R'), ('Ozone', 'None', 'RelDiff_', 'T+S+R'), ('Ozone', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 119.379, ('TRAINING', {'Signals': ['Ozone'], 'Horizons': {'Ozone': 12}}))
 INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['Ozone'], 'Horizon': 12}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.516, ('FORECASTING', {'Signals': ['Ozone'], 'Horizon': 12}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 5.499, ('FORECASTING', {'Signals': ['Ozone'], 'Horizon': 12}))
 INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['Ozone'], 'Horizon': 12}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 8.799, ('FORECASTING', {'Signals': ['Ozone'], 'Horizon': 12}))
-  Split Transformation DecompositionType  ... FitMAPE ForecastMAPE TestMAPE
-0  None         _Ozone             T+S+R  ...  0.0682       0.0924   0.0687
-1  None         _Ozone             T+S+R  ...  0.0593       0.0956   0.1268
-2  None         _Ozone             T+S+R  ...  0.0899       0.1050   0.1277
-3  None         _Ozone             T+S+R  ...  0.0899       0.1050   0.1277
-4  None         _Ozone             T+S+R  ...  0.0657       0.1084   0.1311
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 5.614, ('FORECASTING', {'Signals': ['Ozone'], 'Horizon': 12}))
+  Transformation DecompositionType  ...    Voting  Complexity
+0         _Ozone             T+S+R  ...  929.5000       LSSSS
+1         _Ozone             T+S+R  ...  923.2500       LSSSS
+2         _Ozone             T+S+R  ...  922.5833       LSSSS
+3         _Ozone             T+S+R  ...  921.7500       LMSSS
+4         _Ozone             T+S+R  ...  921.7500       LMSSS
 
-[5 rows x 10 columns]
+[5 rows x 5 columns]
+  Split Transformation DecompositionType  ... ForecastMAPE TestMAPE    Voting
+0  None         _Ozone             T+S+R  ...       0.0956   0.1268  929.5000
+1  None         _Ozone             T+S+R  ...       0.0924   0.0687  923.2500
+2  None         _Ozone             T+S+R  ...       0.1084   0.1311  922.5833
+3  None         _Ozone             T+S+R  ...       0.1096   0.2182  921.7500
+4  None         _Ozone             T+S+R  ...       0.1096   0.2182  921.7500
+
+[5 rows x 11 columns]
 Forecast Columns  Index(['Month', 'Ozone', 'row_number', 'Month_Normalized', '_Ozone',
        '_Ozone_ConstantTrend', '_Ozone_ConstantTrend_residue',
        '_Ozone_ConstantTrend_residue_zeroCycle[0.0]',
@@ -43,9 +53,9 @@ Forecast Columns  Index(['Month', 'Ozone', 'row_number', 'Month_Normalized', '_O
        'Exog5=L', 'Exog5=M', 'Exog5=N',
        '_Ozone_ConstantTrend_residue_zeroCycle[0.0]_residue_ARX(54)',
        '_Ozone_ConstantTrend_residue_zeroCycle[0.0]_residue_ARX(54)_residue',
-       '_Ozone_Trend', '_Ozone_Trend_residue', '_Ozone_Cycle',
-       '_Ozone_Cycle_residue', '_Ozone_AR', '_Ozone_AR_residue',
-       '_Ozone_TransformedForecast', 'Ozone_Forecast',
+       'Ozone_Transformed', '_Ozone_Trend', '_Ozone_Trend_residue',
+       '_Ozone_Cycle', '_Ozone_Cycle_residue', '_Ozone_AR',
+       '_Ozone_AR_residue', '_Ozone_TransformedForecast', 'Ozone_Forecast',
        '_Ozone_TransformedResidue', 'Ozone_Residue',
        'Ozone_Forecast_Lower_Bound', 'Ozone_Forecast_Upper_Bound',
        'Ozone_Forecast_Quantile_2', 'Ozone_Forecast_Quantile_18',
@@ -105,19 +115,26 @@ Forecasts
         },
         "Model_Performance": {
             "AUC": 0.4682,
-            "COMPLEXITY": 40.0,
-            "CRPS": 0.2375,
+            "COMPLEXITY": {
+                "AR": "L",
+                "Cycle": "S",
+                "Decomposition": "S",
+                "Transformation": "S",
+                "Trend": "S"
+            },
+            "CRPS": 0.2377,
             "KS": 0.1707,
-            "KendallTau": 0.8375,
-            "LnQ": 0.6325,
-            "MAE": 0.2213,
+            "KendallTau": 0.8424,
+            "LnQ": 0.638,
+            "MAE": 0.2215,
             "MAPE": 0.0956,
-            "MASE": 0.3185,
+            "MASE": 0.3187,
             "MannWhitneyU": 787.0,
-            "MedAE": 0.199,
-            "RMSE": 0.2663
+            "MedAE": 0.2148,
+            "RMSE": 0.2673
         }
-    }
+    },
+    "Training_Time": 119.379
 }
 </ModelInfo>
 

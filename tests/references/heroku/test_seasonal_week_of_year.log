@@ -1,3 +1,4 @@
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signals': ['Close'], 'Horizons': {'Close': 21}}))
 INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['Close'], 'Transformations': [('Close', 'None', '_', 'T+S+R'), ('Close', 'None', 'Diff_', 'T+S+R'), ('Close', 'None', 'RelDiff_', 'T+S+R'), ('Close', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 REQUEST_DETAILS [('CSVFile', 'https://raw.githubusercontent.com/antoinecarme/TimeSeriesData/a5fa96af431caabc817180d52bc1d01b8c61da41/YahooFinance/nasdaq/yahoo_GOOG.csv'), ('DateFormat', '%Y-%m-%d'), ('Horizon', 21), ('Name', 'PYAF_MODEL_DJOQFD_GOOG'), ('Present', '2016-01-01'), ('SignalVar', 'Close'), ('TimeVar', 'Date')]
 None
@@ -10,65 +11,55 @@ DATASET_FINAL_COLUMNS Index(['Unnamed: 0', 'Symbol', 'Date', 'Close', 'Low', 'Vo
 TRAIN_PARAMS (857, 9) Index(['Unnamed: 0', 'Symbol', 'Date', 'Close', 'Low', 'Volume', 'Open',
        'Adj_Close', 'High'],
       dtype='object') Date Close 21
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Close', 'Transformation': '_Close'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Close', 'Transformation': 'Diff_Close'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Close', 'Transformation': 'RelDiff_Close'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Close', 'Transformation': 'CumSum_Close'}))
-/home/circleci/project/pyaf/TS/Time.py:133: FutureWarning: The behavior of `series[i:j]` with an integer-dtype index is deprecated. In a future version, this will be treated as *label-based* indexing, consistent with e.g. `series[i]` lookups. To retain the old behavior, use `series.iloc[i:j]`. To get the future behavior, use `series.loc[i:j]`.
-  lDiffs = lEstim[self.mTime][1:N] - lTimeBefore[1:N]
-/home/circleci/project/pyaf/TS/Time.py:133: FutureWarning: The behavior of `series[i:j]` with an integer-dtype index is deprecated. In a future version, this will be treated as *label-based* indexing, consistent with e.g. `series[i]` lookups. To retain the old behavior, use `series.iloc[i:j]`. To get the future behavior, use `series.loc[i:j]`.
-  lDiffs = lEstim[self.mTime][1:N] - lTimeBefore[1:N]
-/home/circleci/project/pyaf/TS/Time.py:133: FutureWarning: The behavior of `series[i:j]` with an integer-dtype index is deprecated. In a future version, this will be treated as *label-based* indexing, consistent with e.g. `series[i]` lookups. To retain the old behavior, use `series.iloc[i:j]`. To get the future behavior, use `series.loc[i:j]`.
-  lDiffs = lEstim[self.mTime][1:N] - lTimeBefore[1:N]
-/home/circleci/project/pyaf/TS/Time.py:133: FutureWarning: The behavior of `series[i:j]` with an integer-dtype index is deprecated. In a future version, this will be treated as *label-based* indexing, consistent with e.g. `series[i]` lookups. To retain the old behavior, use `series.iloc[i:j]`. To get the future behavior, use `series.loc[i:j]`.
-  lDiffs = lEstim[self.mTime][1:N] - lTimeBefore[1:N]
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 7.189, ('TRAINING', {'Signal': 'Close', 'Transformation': '_Close'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 7.397, ('TRAINING', {'Signal': 'Close', 'Transformation': 'CumSum_Close'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 7.704, ('TRAINING', {'Signal': 'Close', 'Transformation': 'Diff_Close'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 7.901, ('TRAINING', {'Signal': 'Close', 'Transformation': 'RelDiff_Close'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 10.155, ('SIGNAL_TRAINING', {'Signals': ['Close'], 'Transformations': [('Close', 'None', '_', 'T+S+R'), ('Close', 'None', 'Diff_', 'T+S+R'), ('Close', 'None', 'RelDiff_', 'T+S+R'), ('Close', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Close', 'Transformation': '_Close', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Close', 'Transformation': 'Diff_Close', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Close', 'Transformation': 'RelDiff_Close', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Close', 'Transformation': 'CumSum_Close', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 125.869, ('TRAINING', {'Signal': 'Close', 'Transformation': '_Close', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 144.576, ('TRAINING', {'Signal': 'Close', 'Transformation': 'CumSum_Close', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 157.773, ('TRAINING', {'Signal': 'Close', 'Transformation': 'Diff_Close', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 224.782, ('TRAINING', {'Signal': 'Close', 'Transformation': 'RelDiff_Close', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 226.091, ('SIGNAL_TRAINING', {'Signals': ['Close'], 'Transformations': [('Close', 'None', '_', 'T+S+R'), ('Close', 'None', 'Diff_', 'T+S+R'), ('Close', 'None', 'RelDiff_', 'T+S+R'), ('Close', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['Close'], 'Transformations': [('Close', [('Close', 'None', 'CumSum_', 'T+S+R'), ('Close', 'None', 'Diff_', 'T+S+R'), ('Close', 'None', 'RelDiff_', 'T+S+R'), ('Close', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'Close', 'Transformations': [('Close', 'None', 'CumSum_', 'T+S+R'), ('Close', 'None', 'Diff_', 'T+S+R'), ('Close', 'None', 'RelDiff_', 'T+S+R'), ('Close', 'None', '_', 'T+S+R')]}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.006, ('MODEL_SELECTION', {'Signal': 'Close', 'Transformations': [('Close', 'None', 'CumSum_', 'T+S+R'), ('Close', 'None', 'Diff_', 'T+S+R'), ('Close', 'None', 'RelDiff_', 'T+S+R'), ('Close', 'None', '_', 'T+S+R')]}))
-INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Close', 'Model': '_Close_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR'}))
-/home/circleci/.pyenv/versions/3.10.2/lib/python3.10/site-packages/scipy/stats/_stats_py.py:8057: RuntimeWarning: ks_2samp: Exact calculation unsuccessful. Switching to method=asymp.
-  return ks_2samp(xvals, yvals, alternative=alternative, method=method)
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.026, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Close', 'Model': '_Close_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 7.504, ('MODEL_SELECTION', {'Signal': 'Close', 'Transformations': [('Close', 'None', 'CumSum_', 'T+S+R'), ('Close', 'None', 'Diff_', 'T+S+R'), ('Close', 'None', 'RelDiff_', 'T+S+R'), ('Close', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Close', 'Model': 'Diff_Close_PolyTrend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 8.109, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Close', 'Model': 'Diff_Close_PolyTrend_residue_bestCycle_byMAPE_residue_NoAR'}))
 INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Close'}))
-/home/circleci/.pyenv/versions/3.10.2/lib/python3.10/site-packages/scipy/stats/_stats_py.py:8057: RuntimeWarning: ks_2samp: Exact calculation unsuccessful. Switching to method=asymp.
-  return ks_2samp(xvals, yvals, alternative=alternative, method=method)
-/home/circleci/.pyenv/versions/3.10.2/lib/python3.10/site-packages/scipy/stats/_stats_py.py:8057: RuntimeWarning: ks_2samp: Exact calculation unsuccessful. Switching to method=asymp.
-  return ks_2samp(xvals, yvals, alternative=alternative, method=method)
-/home/circleci/.pyenv/versions/3.10.2/lib/python3.10/site-packages/scipy/stats/_stats_py.py:8057: RuntimeWarning: ks_2samp: Exact calculation unsuccessful. Switching to method=asymp.
-  return ks_2samp(xvals, yvals, alternative=alternative, method=method)
-/home/circleci/.pyenv/versions/3.10.2/lib/python3.10/site-packages/scipy/stats/_stats_py.py:8057: RuntimeWarning: ks_2samp: Exact calculation unsuccessful. Switching to method=asymp.
-  return ks_2samp(xvals, yvals, alternative=alternative, method=method)
-/home/circleci/.pyenv/versions/3.10.2/lib/python3.10/site-packages/scipy/stats/_stats_py.py:8057: RuntimeWarning: ks_2samp: Exact calculation unsuccessful. Switching to method=asymp.
-  return ks_2samp(xvals, yvals, alternative=alternative, method=method)
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.781, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Close'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.814, ('FINALIZE_TRAINING', {'Signals': ['Close'], 'Transformations': [('Close', [('Close', 'None', 'CumSum_', 'T+S+R'), ('Close', 'None', 'Diff_', 'T+S+R'), ('Close', 'None', 'RelDiff_', 'T+S+R'), ('Close', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 8.199, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Close'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 23.812, ('FINALIZE_TRAINING', {'Signals': ['Close'], 'Transformations': [('Close', [('Close', 'None', 'CumSum_', 'T+S+R'), ('Close', 'None', 'Diff_', 'T+S+R'), ('Close', 'None', 'RelDiff_', 'T+S+R'), ('Close', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 249.907, ('TRAINING', {'Signals': ['Close'], 'Horizons': {'Close': 21}}))
 INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['Close'], 'Horizon': 21}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.317, ('FORECASTING', {'Signals': ['Close'], 'Horizon': 21}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.496, ('FORECASTING', {'Signals': ['Close'], 'Horizon': 21}))
 INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['Close'], 'Horizon': 21}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.356, ('FORECASTING', {'Signals': ['Close'], 'Horizon': 21}))
-  Split Transformation DecompositionType  ... FitMAPE ForecastMAPE TestMAPE
-0  None         _Close             T+S+R  ...  0.0109       0.0121   0.0102
-1  None         _Close             T+S+R  ...  0.0109       0.0121   0.0102
-2  None   CumSum_Close             T+S+R  ...  0.0113       0.0121   0.0102
-3  None   CumSum_Close             T+S+R  ...  0.0113       0.0121   0.0102
-4  None     Diff_Close             T+S+R  ...  0.0109       0.0121   0.0102
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.3, ('FORECASTING', {'Signals': ['Close'], 'Horizon': 21}))
+  Transformation DecompositionType  ...     Voting  Complexity
+0     Diff_Close             T+S+R  ...  2269.6667       MMSSS
+1     Diff_Close             T+S+R  ...  2269.6667       MMSSS
+2     Diff_Close             T+S+R  ...  2269.6667       LMMSS
+3     Diff_Close             T+S+R  ...  2269.5238       LMMSS
+4     Diff_Close             T+S+R  ...  2267.7619       LMMSS
 
-[5 rows x 10 columns]
-Forecast Columns  Index(['Date', 'Close', 'row_number', 'Date_Normalized', '_Close',
-       '_Close_Lag1Trend', '_Close_Lag1Trend_residue',
-       '_Close_Lag1Trend_residue_bestCycle_byMAPE',
-       '_Close_Lag1Trend_residue_bestCycle_byMAPE_residue',
-       '_Close_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR',
-       '_Close_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR_residue',
-       '_Close_Trend', '_Close_Trend_residue', '_Close_Cycle',
-       '_Close_Cycle_residue', '_Close_AR', '_Close_AR_residue',
-       '_Close_TransformedForecast', 'Close_Forecast',
-       '_Close_TransformedResidue', 'Close_Residue',
+[5 rows x 5 columns]
+  Split Transformation DecompositionType  ... ForecastMAPE TestMAPE     Voting
+0  None     Diff_Close             T+S+R  ...       0.0355   0.0377  2269.6667
+1  None     Diff_Close             T+S+R  ...       0.0355   0.0377  2269.6667
+2  None     Diff_Close             T+S+R  ...       0.0343   0.0526  2269.6667
+3  None     Diff_Close             T+S+R  ...       0.0355   0.0317  2269.5238
+4  None     Diff_Close             T+S+R  ...       0.0359   0.0309  2267.7619
+
+[5 rows x 11 columns]
+Forecast Columns  Index(['Date', 'Close', 'row_number', 'Date_Normalized', 'Diff_Close',
+       'Date_Normalized_^2', 'Date_Normalized_^3', 'Diff_Close_PolyTrend',
+       'Diff_Close_PolyTrend_residue',
+       'Diff_Close_PolyTrend_residue_bestCycle_byMAPE',
+       'Diff_Close_PolyTrend_residue_bestCycle_byMAPE_residue',
+       'Diff_Close_PolyTrend_residue_bestCycle_byMAPE_residue_NoAR',
+       'Diff_Close_PolyTrend_residue_bestCycle_byMAPE_residue_NoAR_residue',
+       'Close_Transformed', 'Diff_Close_Trend', 'Diff_Close_Trend_residue',
+       'Diff_Close_Cycle', 'Diff_Close_Cycle_residue', 'Diff_Close_AR',
+       'Diff_Close_AR_residue', 'Diff_Close_TransformedForecast',
+       'Close_Forecast', 'Diff_Close_TransformedResidue', 'Close_Residue',
        'Close_Forecast_Lower_Bound', 'Close_Forecast_Upper_Bound',
        'Close_Forecast_Quantile_2', 'Close_Forecast_Quantile_10',
        'Close_Forecast_Quantile_18', 'Close_Forecast_Quantile_26',
@@ -91,27 +82,27 @@ memory usage: 20.7 KB
 None
 Forecasts
            Date  Close  Close_Forecast
-857 2016-01-01    NaN      758.880005
-858 2016-01-02    NaN      758.880005
-859 2016-01-03    NaN      758.880005
-860 2016-01-04    NaN      758.880005
-861 2016-01-05    NaN      758.880005
-862 2016-01-06    NaN      758.880005
-863 2016-01-07    NaN      758.880005
-864 2016-01-08    NaN      758.880005
-865 2016-01-09    NaN      758.880005
-866 2016-01-10    NaN      758.880005
-867 2016-01-11    NaN      758.880005
-868 2016-01-12    NaN      758.880005
-869 2016-01-13    NaN      758.880005
-870 2016-01-14    NaN      758.880005
-871 2016-01-15    NaN      758.880005
-872 2016-01-16    NaN      758.880005
-873 2016-01-17    NaN      758.880005
-874 2016-01-18    NaN      758.880005
-875 2016-01-19    NaN      758.880005
-876 2016-01-20    NaN      758.880005
-877 2016-01-21    NaN      758.880005
+857 2016-01-01    NaN      816.893979
+858 2016-01-02    NaN      820.510779
+859 2016-01-03    NaN      824.147381
+860 2016-01-04    NaN      827.803834
+861 2016-01-05    NaN      831.480188
+862 2016-01-06    NaN      835.176490
+863 2016-01-07    NaN      838.892789
+864 2016-01-08    NaN      842.629136
+865 2016-01-09    NaN      846.385577
+866 2016-01-10    NaN      850.162163
+867 2016-01-11    NaN      853.958943
+868 2016-01-12    NaN      857.775964
+869 2016-01-13    NaN      861.613278
+870 2016-01-14    NaN      865.470932
+871 2016-01-15    NaN      869.348977
+872 2016-01-16    NaN      873.247460
+873 2016-01-17    NaN      877.166432
+874 2016-01-18    NaN      881.105942
+875 2016-01-19    NaN      885.066039
+876 2016-01-20    NaN      889.046773
+877 2016-01-21    NaN      893.048193
 
 
 <ModelInfo>
@@ -131,27 +122,34 @@ Forecasts
         },
         "Model": {
             "AR_Model": "NoAR",
-            "Best_Decomposition": "_Close_Lag1Trend_residue_bestCycle_byMAPE_residue_NoAR",
+            "Best_Decomposition": "Diff_Close_PolyTrend_residue_bestCycle_byMAPE_residue_NoAR",
             "Cycle": "Cycle_None",
             "Signal_Decomposition_Type": "T+S+R",
-            "Signal_Transoformation": "NoTransf",
-            "Trend": "Lag1Trend"
+            "Signal_Transoformation": "Difference",
+            "Trend": "PolyTrend"
         },
         "Model_Performance": {
-            "AUC": 0.5047,
-            "COMPLEXITY": 2.0,
-            "CRPS": 19.1163,
-            "KS": 0.006,
-            "KendallTau": 0.837,
-            "LnQ": 0.0676,
-            "MAE": 7.5009,
-            "MAPE": 0.0121,
-            "MASE": 0.995,
-            "MannWhitneyU": 14244.5,
-            "MedAE": 4.595,
-            "RMSE": 12.5124
+            "AUC": 0.5083,
+            "COMPLEXITY": {
+                "AR": "S",
+                "Cycle": "S",
+                "Decomposition": "S",
+                "Transformation": "M",
+                "Trend": "M"
+            },
+            "CRPS": 17.0928,
+            "KS": 0.1964,
+            "KendallTau": 0.6058,
+            "LnQ": 0.4659,
+            "MAE": 22.2693,
+            "MAPE": 0.0355,
+            "MASE": 2.9541,
+            "MannWhitneyU": 14345.0,
+            "MedAE": 13.6707,
+            "RMSE": 32.2541
         }
-    }
+    },
+    "Training_Time": 249.907
 }
 </ModelInfo>
 
@@ -159,7 +157,7 @@ Forecasts
 
 
 <Forecast>
-{"Date":{"836":"2015-12-02T00:00:00.000","837":"2015-12-03T00:00:00.000","838":"2015-12-04T00:00:00.000","839":"2015-12-07T00:00:00.000","840":"2015-12-08T00:00:00.000","841":"2015-12-09T00:00:00.000","842":"2015-12-10T00:00:00.000","843":"2015-12-11T00:00:00.000","844":"2015-12-14T00:00:00.000","845":"2015-12-15T00:00:00.000","846":"2015-12-16T00:00:00.000","847":"2015-12-17T00:00:00.000","848":"2015-12-18T00:00:00.000","849":"2015-12-21T00:00:00.000","850":"2015-12-22T00:00:00.000","851":"2015-12-23T00:00:00.000","852":"2015-12-24T00:00:00.000","853":"2015-12-28T00:00:00.000","854":"2015-12-29T00:00:00.000","855":"2015-12-30T00:00:00.000","856":"2015-12-31T00:00:00.000","857":"2016-01-01T00:00:00.000","858":"2016-01-02T00:00:00.000","859":"2016-01-03T00:00:00.000","860":"2016-01-04T00:00:00.000","861":"2016-01-05T00:00:00.000","862":"2016-01-06T00:00:00.000","863":"2016-01-07T00:00:00.000","864":"2016-01-08T00:00:00.000","865":"2016-01-09T00:00:00.000","866":"2016-01-10T00:00:00.000","867":"2016-01-11T00:00:00.000","868":"2016-01-12T00:00:00.000","869":"2016-01-13T00:00:00.000","870":"2016-01-14T00:00:00.000","871":"2016-01-15T00:00:00.000","872":"2016-01-16T00:00:00.000","873":"2016-01-17T00:00:00.000","874":"2016-01-18T00:00:00.000","875":"2016-01-19T00:00:00.000","876":"2016-01-20T00:00:00.000","877":"2016-01-21T00:00:00.000"},"Close":{"836":762.380005,"837":752.539978,"838":766.809998,"839":763.25,"840":762.369995,"841":751.609985,"842":749.460022,"843":738.869995,"844":747.77002,"845":743.400024,"846":758.090027,"847":749.429993,"848":739.309998,"849":747.77002,"850":750.0,"851":750.309998,"852":748.400024,"853":762.51001,"854":776.599976,"855":771.0,"856":758.880005,"857":null,"858":null,"859":null,"860":null,"861":null,"862":null,"863":null,"864":null,"865":null,"866":null,"867":null,"868":null,"869":null,"870":null,"871":null,"872":null,"873":null,"874":null,"875":null,"876":null,"877":null},"Close_Forecast":{"836":767.039978,"837":762.380005,"838":752.539978,"839":766.809998,"840":763.25,"841":762.369995,"842":751.609985,"843":749.460022,"844":738.869995,"845":747.77002,"846":743.400024,"847":758.090027,"848":749.429993,"849":739.309998,"850":747.77002,"851":750.0,"852":750.309998,"853":748.400024,"854":762.51001,"855":776.599976,"856":771.0,"857":758.880005,"858":758.880005,"859":758.880005,"860":758.880005,"861":758.880005,"862":758.880005,"863":758.880005,"864":758.880005,"865":758.880005,"866":758.880005,"867":758.880005,"868":758.880005,"869":758.880005,"870":758.880005,"871":758.880005,"872":758.880005,"873":758.880005,"874":758.880005,"875":758.880005,"876":758.880005,"877":758.880005}}
+{"Date":{"836":"2015-12-02T00:00:00.000","837":"2015-12-03T00:00:00.000","838":"2015-12-04T00:00:00.000","839":"2015-12-07T00:00:00.000","840":"2015-12-08T00:00:00.000","841":"2015-12-09T00:00:00.000","842":"2015-12-10T00:00:00.000","843":"2015-12-11T00:00:00.000","844":"2015-12-14T00:00:00.000","845":"2015-12-15T00:00:00.000","846":"2015-12-16T00:00:00.000","847":"2015-12-17T00:00:00.000","848":"2015-12-18T00:00:00.000","849":"2015-12-21T00:00:00.000","850":"2015-12-22T00:00:00.000","851":"2015-12-23T00:00:00.000","852":"2015-12-24T00:00:00.000","853":"2015-12-28T00:00:00.000","854":"2015-12-29T00:00:00.000","855":"2015-12-30T00:00:00.000","856":"2015-12-31T00:00:00.000","857":"2016-01-01T00:00:00.000","858":"2016-01-02T00:00:00.000","859":"2016-01-03T00:00:00.000","860":"2016-01-04T00:00:00.000","861":"2016-01-05T00:00:00.000","862":"2016-01-06T00:00:00.000","863":"2016-01-07T00:00:00.000","864":"2016-01-08T00:00:00.000","865":"2016-01-09T00:00:00.000","866":"2016-01-10T00:00:00.000","867":"2016-01-11T00:00:00.000","868":"2016-01-12T00:00:00.000","869":"2016-01-13T00:00:00.000","870":"2016-01-14T00:00:00.000","871":"2016-01-15T00:00:00.000","872":"2016-01-16T00:00:00.000","873":"2016-01-17T00:00:00.000","874":"2016-01-18T00:00:00.000","875":"2016-01-19T00:00:00.000","876":"2016-01-20T00:00:00.000","877":"2016-01-21T00:00:00.000"},"Close":{"836":762.380005,"837":752.539978,"838":766.809998,"839":763.25,"840":762.369995,"841":751.609985,"842":749.460022,"843":738.869995,"844":747.77002,"845":743.400024,"846":758.090027,"847":749.429993,"848":739.309998,"849":747.77002,"850":750.0,"851":750.309998,"852":748.400024,"853":762.51001,"854":776.599976,"855":771.0,"856":758.880005,"857":null,"858":null,"859":null,"860":null,"861":null,"862":null,"863":null,"864":null,"865":null,"866":null,"867":null,"868":null,"869":null,"870":null,"871":null,"872":null,"873":null,"874":null,"875":null,"876":null,"877":null},"Close_Forecast":{"836":747.1308710551,"837":750.1760169258,"838":753.2395253807,"839":756.3584057808,"840":759.4958383792,"841":762.6518706938,"842":765.8265502879,"843":769.0199247707,"844":772.2696700312,"845":775.5383010737,"846":778.8258657358,"847":782.1324119007,"848":785.4579874973,"849":788.8409394193,"850":792.2431129454,"851":795.664556233,"852":799.1053174851,"853":802.6238335385,"854":806.1619092566,"855":809.7195931164,"856":813.2969336407,"857":816.893979398,"858":820.5107790023,"859":824.1473811136,"860":827.8038344373,"861":831.4801877245,"862":835.1764897722,"863":838.8927894228,"864":842.6291355647,"865":846.3855771316,"866":850.1621631032,"867":853.9589425048,"868":857.7759644073,"869":861.6132779273,"870":865.4709322272,"871":869.3489765149,"872":873.2474600441,"873":877.1664321142,"874":881.1059420702,"875":885.0660393029,"876":889.0467732486,"877":893.0481933895}}
 </Forecast>
 
 
