@@ -363,7 +363,8 @@ class cAutoRegressiveEstimator:
         if(len(self.mSkippedARList) > 0):
             lTenFirst = sorted(self.mSkippedARList[:10])
             lSkipInfo = (self.mDecompositionType, len(self.mSkippedARList), 10, lTenFirst)
-            logger.info("SKIPPING_AR_MODELS_WITH_LOW_VARIANCE_FOR_CYCLE_RESIDUES " + str(lSkipInfo));
+            if(self.mOptions.mDebugAR):
+                logger.info("SKIPPING_AR_MODELS_WITH_LOW_VARIANCE_FOR_CYCLE_RESIDUES " + str(lSkipInfo));
                         
         if(lNeedExogenous):
             if(self.mOptions.mDebugAR):
