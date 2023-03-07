@@ -30,7 +30,7 @@ lEngine.getModelInfo();
 print(lEngine.mSignalDecomposition.mTrPerfDetails.columns);
 lColumns = ['Split', 'Transformation', 'Model', 'Category', 'Complexity',
             'FitCRPS', 'ForecastCRPS', 'TestCRPS']
-print(lEngine.mSignalDecomposition.mTrPerfDetails[lColumns].head(10));
+print(lEngine.mSignalDecomposition.mModelShortList.head(10));
 
 lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
 
