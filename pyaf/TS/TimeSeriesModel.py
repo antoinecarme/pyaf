@@ -36,17 +36,6 @@ class cTimeSeriesModel:
         self.mTrainingVersionInfo = self.getVersions();
 
         
-    def signal_info(self):
-        lSignal = self.mTrend.mSignalFrame[self.mOriginalSignal];
-        lStr1 = "SignalVariable='" + self.mOriginalSignal +"'";
-        lStr1 += " Length=" + str(lSignal.shape[0]) + " ";
-        lStr1 += " Min=" + to_str(np.min(lSignal)) + " Max="  + to_str(np.max(lSignal)) + " ";
-        lStr1 += " Mean=" + to_str(np.mean(lSignal)) + " StdDev="  + to_str(np.std(lSignal));
-        lSignal = self.mTrend.mSignalFrame[self.mSignal];
-        lStr2 = "TransformedSignalVariable='" + self.mSignal +"'";
-        lStr2 += " Min=" + to_str(np.min(lSignal)) + " Max="  + to_str(np.max(lSignal)) + " ";
-        lStr2 += " Mean=" + to_str(np.mean(lSignal)) + " StdDev="  + to_str(np.std(lSignal));
-        return (lStr1 , lStr2);
 
     def get_model_category(self):
         lModelCategory = (self.mTransformation.__class__.__name__,
@@ -143,20 +132,25 @@ class cTimeSeriesModel:
         return self.mTrend.mFormula + " + " + self.mCycle.mFormula + " + " + self.mAR.mFormula
 
 
-    def getInfo(self):
+    def signal_info(self):
         logger = tsutil.get_pyaf_logger();
-        logger.info("TIME_DETAIL " + self.mTrend.mTimeInfo.info());
-        sig_info = self.signal_info()
-        logger.info("SIGNAL_DETAIL_ORIG " + sig_info[0]);
-        logger.info("SIGNAL_DETAIL_TRANSFORMED " + sig_info[1]);
+        lSignal = self.mTrend.mSignalFrame[self.mOriginalSignal];
+        lStr1 = "SignalVariable='" + self.mOriginalSignal +"'";
+        lStr1 += " Length=" + str(lSignal.shape[0]) + " ";
+        lStr1 += " Min=" + to_str(np.min(lSignal)) + " Max="  + to_str(np.max(lSignal)) + " ";
+        lStr1 += " Mean=" + to_str(np.mean(lSignal)) + " StdDev="  + to_str(np.std(lSignal));
+        lSignal = self.mTrend.mSignalFrame[self.mSignal];
+        lStr2 = "TransformedSignalVariable='" + self.mSignal +"'";
+        lStr2 += " Min=" + to_str(np.min(lSignal)) + " Max="  + to_str(np.max(lSignal)) + " ";
+        lStr2 += " Mean=" + to_str(np.mean(lSignal)) + " StdDev="  + to_str(np.std(lSignal));
+        logger.info("SIGNAL_DETAIL_ORIG " + lStr1);
+        logger.info("SIGNAL_DETAIL_TRANSFORMED " + lStr2);
         if(self.mAR.mExogenousInfo):
             logger.info("EXOGENOUS_DATA " + str(self.mAR.mExogenousInfo.mExogenousVariables));        
-        logger.info("DECOMPOSITION_TYPE '" + self.mDecompositionType + "'");
-        logger.info("BEST_TRANSOFORMATION_TYPE '" + self.mTransformation.get_name("") + "'");
-        logger.info("BEST_DECOMPOSITION  '" + self.mOutName + "' [" + self.getFormula() + "]");
-        logger.info("TREND_DETAIL '" + self.mTrend.mOutName + "' [" + self.mTrend.mFormula + "]");
-        logger.info("CYCLE_DETAIL '"+ self.mCycle.mOutName + "' [" + self.mCycle.mFormula + "]");
-        logger.info("AUTOREG_DETAIL '" + self.mAR.mOutName + "' [" + self.mAR.mFormula + "]");
+        return (lStr1 , lStr2);
+
+    def perf_info(self):
+        logger = tsutil.get_pyaf_logger();
         logger.info("MODEL_MAPE MAPE_Fit=" + str(self.mFitPerf.mMAPE) + " MAPE_Forecast=" + str(self.mForecastPerf.mMAPE)  + " MAPE_Test=" + str(self.mTestPerf.mMAPE) );
         logger.info("MODEL_SMAPE SMAPE_Fit=" + str(self.mFitPerf.mSMAPE) + " SMAPE_Forecast=" + str(self.mForecastPerf.mSMAPE)  + " SMAPE_Test=" + str(self.mTestPerf.mSMAPE) );
         logger.info("MODEL_DiffSMAPE DiffSMAPE_Fit=" + str(self.mFitPerf.mDiffSMAPE) + " DiffSMAPE_Forecast=" + str(self.mForecastPerf.mDiffSMAPE)  + " DiffSMAPE_Test=" + str(self.mTestPerf.mDiffSMAPE) );
@@ -170,6 +164,18 @@ class cTimeSeriesModel:
         logger.info("MODEL_KOLMOGOROV_SMIRNOV KS_Fit=" + str(self.mFitPerf.mKS) + " KS_Forecast=" + str(self.mForecastPerf.mKS)  + " KS_Test=" + str(self.mTestPerf.mKS) );
         logger.info("MODEL_MANN_WHITNEY_U MWU_Fit=" + str(self.mFitPerf.mMWU) + " MWU_Forecast=" + str(self.mForecastPerf.mMWU)  + " MWU_Test=" + str(self.mTestPerf.mMWU) );
         logger.info("MODEL_AUC AUC_Fit=" + str(self.mFitPerf.mAUC) + " AUC_Forecast=" + str(self.mForecastPerf.mAUC)  + " AUC_Test=" + str(self.mTestPerf.mAUC) );
+
+    def decomposition_info(self):
+        logger = tsutil.get_pyaf_logger();
+        logger.info("DECOMPOSITION_TYPE '" + self.mDecompositionType + "'");
+        logger.info("BEST_TRANSOFORMATION_TYPE '" + self.mTransformation.get_name("") + "'");
+        logger.info("BEST_DECOMPOSITION  '" + self.mOutName + "' [" + self.getFormula() + "]");
+        logger.info("TREND_DETAIL '" + self.mTrend.mOutName + "' [" + self.mTrend.mFormula + "]");
+        logger.info("CYCLE_DETAIL '"+ self.mCycle.mOutName + "' [" + self.mCycle.mFormula + "]");
+        logger.info("AUTOREG_DETAIL '" + self.mAR.mOutName + "' [" + self.mAR.mFormula + "]");
+
+    def decomposition_detail_info(self):
+        logger = tsutil.get_pyaf_logger();
         lComplexityStr = self.getComplexity_as_ordering_string()
         logger.info("MODEL_COMPLEXITY " + str(self.getComplexity()) + " [" + lComplexityStr + "]");
         logger.info("SIGNAL_TRANSFORMATION_DETAIL_START");
@@ -184,6 +190,15 @@ class cTimeSeriesModel:
         logger.info("AR_MODEL_DETAIL_START");
         self.mAR.dumpCoefficients();
         logger.info("AR_MODEL_DETAIL_END");
+        
+    
+    def getInfo(self):
+        logger = tsutil.get_pyaf_logger();
+        logger.info("TIME_DETAIL " + self.mTrend.mTimeInfo.info());
+        self.signal_info()
+        self.decomposition_info()
+        self.perf_info()
+        self.decomposition_detail_info()
 
     def compute_model_forecast(self, iTrendValue, iCycleValue, iARValue):
         if(self.mDecompositionType in ['TS+R']):
@@ -364,6 +379,8 @@ class cTimeSeriesModel:
                };
         dict1["Model"] = d2;
         d3 = {"MAPE" : self.mForecastPerf.mMAPE,
+              "SMAPE" : self.mForecastPerf.mSMAPE,
+              "DiffSMAPE" : self.mForecastPerf.mDiffSMAPE,
               "MASE" : self.mForecastPerf.mMASE,
               "CRPS" : self.mForecastPerf.mCRPS,
               "MAE" : self.mForecastPerf.mL1,
