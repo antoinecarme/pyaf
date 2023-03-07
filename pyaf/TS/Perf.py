@@ -37,6 +37,16 @@ class cPerf:
         self.mAUC = None
         self.mDebug = False;
 
+    def to_dict_summary(self, criterion):
+        lDict = {"MAPE" : self.mMAPE,
+                 "RMSE" : self.mL2,
+                 "MAE" : self.mL1,
+                 'MASE' : self.mMASE
+                 }
+        lCriterionValue = self.getCriterionValue(criterion)
+        lDict[criterion] = lCriterionValue
+        return lDict
+    
     def to_dict(self):
         lDict = {"Signal" : self.mName , "Length" : self.mCount, "MAPE" : self.mMAPE,
                  "RMSE" : self.mL2,  "MAE" : self.mL1,

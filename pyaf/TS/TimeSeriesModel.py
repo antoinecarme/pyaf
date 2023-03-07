@@ -151,19 +151,16 @@ class cTimeSeriesModel:
 
     def perf_info(self):
         logger = tsutil.get_pyaf_logger();
-        logger.info("MODEL_MAPE MAPE_Fit=" + str(self.mFitPerf.mMAPE) + " MAPE_Forecast=" + str(self.mForecastPerf.mMAPE)  + " MAPE_Test=" + str(self.mTestPerf.mMAPE) );
-        logger.info("MODEL_SMAPE SMAPE_Fit=" + str(self.mFitPerf.mSMAPE) + " SMAPE_Forecast=" + str(self.mForecastPerf.mSMAPE)  + " SMAPE_Test=" + str(self.mTestPerf.mSMAPE) );
-        logger.info("MODEL_DiffSMAPE DiffSMAPE_Fit=" + str(self.mFitPerf.mDiffSMAPE) + " DiffSMAPE_Forecast=" + str(self.mForecastPerf.mDiffSMAPE)  + " DiffSMAPE_Test=" + str(self.mTestPerf.mDiffSMAPE) );
-        logger.info("MODEL_MASE MASE_Fit=" + str(self.mFitPerf.mMASE) + " MASE_Forecast=" + str(self.mForecastPerf.mMASE)  + " MASE_Test=" + str(self.mTestPerf.mMASE) );
-        logger.info("MODEL_CRPS CRPS_Fit=" + str(self.mFitPerf.mCRPS) + " CRPS_Forecast=" + str(self.mForecastPerf.mCRPS)  + " CRPS_Test=" + str(self.mTestPerf.mCRPS) );
-        logger.info("MODEL_L1 L1_Fit=" + str(self.mFitPerf.mL1) + " L1_Forecast=" + str(self.mForecastPerf.mL1)  + " L1_Test=" + str(self.mTestPerf.mL1) );
-        logger.info("MODEL_L2 L2_Fit=" + str(self.mFitPerf.mL2) + " L2_Forecast=" + str(self.mForecastPerf.mL2)  + " L2_Test=" + str(self.mTestPerf.mL2) );
-        logger.info("MODEL_LnQ LnQ_Fit=" + str(self.mFitPerf.mLnQ) + " LnQ_Forecast=" + str(self.mForecastPerf.mLnQ)  + " LnQ_Test=" + str(self.mTestPerf.mLnQ) );
-        logger.info("MODEL_MEDIAN_AE MedAE_Fit=" + str(self.mFitPerf.mMedAE) + " MedAE_Forecast=" + str(self.mForecastPerf.mMedAE)  + " MedAE_Test=" + str(self.mTestPerf.mMedAE) );
-        logger.info("MODEL_KENDALL_TAU KENDALL_TAU_Fit=" + str(self.mFitPerf.mKendallTau) + " KENDALL_TAU_Forecast=" + str(self.mForecastPerf.mKendallTau)  + " KENDALL_TAU_Test=" + str(self.mTestPerf.mKendallTau) );
-        logger.info("MODEL_KOLMOGOROV_SMIRNOV KS_Fit=" + str(self.mFitPerf.mKS) + " KS_Forecast=" + str(self.mForecastPerf.mKS)  + " KS_Test=" + str(self.mTestPerf.mKS) );
-        logger.info("MODEL_MANN_WHITNEY_U MWU_Fit=" + str(self.mFitPerf.mMWU) + " MWU_Forecast=" + str(self.mForecastPerf.mMWU)  + " MWU_Test=" + str(self.mTestPerf.mMWU) );
-        logger.info("MODEL_AUC AUC_Fit=" + str(self.mFitPerf.mAUC) + " AUC_Forecast=" + str(self.mForecastPerf.mAUC)  + " AUC_Test=" + str(self.mTestPerf.mAUC) );
+        lForecastColumn = str(self.mOriginalSignal) + "_Forecast";
+        lCriterion = self.mTimeInfo.mOptions.mModelSelection_Criterion
+        for h in [1, self.mTimeInfo.mHorizon]:
+            lHorizonName = lForecastColumn + "_" + str(h);
+            lDict_Fit_H = self.mFitPerfs[lHorizonName].to_dict_summary(lCriterion)
+            logger.info("MODEL_PERFS Fit STEP=" + str(h) + " " + str(lDict_Fit_H));
+            lDict_Forecast_H = self.mForecastPerfs[lHorizonName].to_dict_summary(lCriterion)
+            logger.info("MODEL_PERFS Forecast STEP=" + str(h) + " " + str(lDict_Forecast_H));
+            lDict_Test_H = self.mTestPerfs[lHorizonName].to_dict_summary(lCriterion)
+            logger.info("MODEL_PERFS Test STEP=" + str(h) + " " + str(lDict_Test_H));
 
     def decomposition_info(self):
         logger = tsutil.get_pyaf_logger();
@@ -378,21 +375,15 @@ class cTimeSeriesModel:
                "AR_Model" : self.mAR.mFormula,
                };
         dict1["Model"] = d2;
-        d3 = {"MAPE" : self.mForecastPerf.mMAPE,
-              "SMAPE" : self.mForecastPerf.mSMAPE,
-              "DiffSMAPE" : self.mForecastPerf.mDiffSMAPE,
-              "MASE" : self.mForecastPerf.mMASE,
-              "CRPS" : self.mForecastPerf.mCRPS,
-              "MAE" : self.mForecastPerf.mL1,
-              "RMSE" : self.mForecastPerf.mL2,
-              "MedAE" : self.mForecastPerf.mMedAE,
-              "LnQ" : self.mForecastPerf.mLnQ,
-              "KS" : self.mForecastPerf.mKS,
-              "KendallTau" : self.mForecastPerf.mKendallTau,
-              "MannWhitneyU" : self.mForecastPerf.mMWU,
-              "AUC" : self.mForecastPerf.mAUC,
-              "COMPLEXITY" : self.getComplexity()};
-        dict1["Model_Performance"] = d3;
+        dict1["Complexity"] = self.getComplexity()
+        lCriterion = self.mTimeInfo.mOptions.mModelSelection_Criterion
+        dict1["Model_Selection_Criterion"] = lCriterion
+        lPerfs = {}
+        lForecastColumn = str(self.mOriginalSignal) + "_Forecast";
+        for h in [1, self.mTimeInfo.mHorizon]:
+            lHorizonName = lForecastColumn + "_" + str(h);
+            lPerfs[h] = self.mForecastPerfs[lHorizonName].to_dict()
+        dict1["Model_Performance"] = lPerfs;
         if(iWithOptions):
             dict1["Options"] = self.mTimeInfo.mOptions.__dict__
         return dict1;

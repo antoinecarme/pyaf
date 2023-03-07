@@ -37,8 +37,9 @@ class cTimeInfo:
     def to_dict(self):
         dict1 = {};
         dict1["TimeVariable"] =  self.mTime;
-        dict1["TimeMinMax"] =  [str(self.mSignalFrame[self.mTime].min()) ,
-                                str(self.mSignalFrame[self.mTime].max())];
+        dict1["TimeMin"] =  str(self.mSignalFrame[self.mTime].min())
+        dict1["TimeMax"] =  str(self.mSignalFrame[self.mTime].max())
+        dict1["TimeDelta"] =  str(self.mTimeDelta)
         dict1["Horizon"] =  self.mHorizon;
         return dict1;
 
