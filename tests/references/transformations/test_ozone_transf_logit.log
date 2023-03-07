@@ -1,14 +1,15 @@
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signals': ['Ozone'], 'Horizons': {'Ozone': 12}}))
 INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['Ozone'], 'Transformations': [('Ozone', 'None', 'Logit_', 'T+S+R')], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Ozone', 'Transformation': 'Logit_Ozone'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.413, ('TRAINING', {'Signal': 'Ozone', 'Transformation': 'Logit_Ozone'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.417, ('SIGNAL_TRAINING', {'Signals': ['Ozone'], 'Transformations': [('Ozone', 'None', 'Logit_', 'T+S+R')], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Ozone', 'Transformation': 'Logit_Ozone', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 16.379, ('TRAINING', {'Signal': 'Ozone', 'Transformation': 'Logit_Ozone', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 16.379, ('SIGNAL_TRAINING', {'Signals': ['Ozone'], 'Transformations': [('Ozone', 'None', 'Logit_', 'T+S+R')], 'Cores': 1}))
 INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['Ozone'], 'Transformations': [('Ozone', [('Ozone', 'None', 'Logit_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'Ozone', 'Transformations': [('Ozone', 'None', 'Logit_', 'T+S+R')]}))
 INFO:pyaf.std:PERF_DUMP_START
 INFO:pyaf.std:[
     {
         "Category": "Logit_LinearTrend_Seasonal_MonthOfYear_NoAR",
-        "Complexity": 14.0,
+        "Complexity": "MSSSS",
         "DetailedFormula": [
             "Logit_Ozone",
             "T+S+R",
@@ -16,71 +17,12 @@ INFO:pyaf.std:[
             "Logit_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_residue_NoAR"
         ],
         "ForecastMAPE": 0.1661,
-        "Model": "Logit_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_residue_NoAR"
-    },
-    {
-        "Category": "Logit_LinearTrend_NoCycle_AR",
-        "Complexity": 40.0,
-        "DetailedFormula": [
-            "Logit_Ozone",
-            "T+S+R",
-            null,
-            "Logit_Ozone_LinearTrend_residue_zeroCycle[0.0]_residue_AR(51)"
-        ],
-        "ForecastMAPE": 0.1667,
-        "Model": "Logit_Ozone_LinearTrend_residue_zeroCycle[0.0]_residue_AR(51)"
-    },
-    {
-        "Category": "Logit_LinearTrend_Cycle_5_AR",
-        "Complexity": 45.0,
-        "DetailedFormula": [
-            "Logit_Ozone",
-            "T+S+R",
-            null,
-            "Logit_Ozone_LinearTrend_residue_bestCycle_byMAPE_residue_AR(51)"
-        ],
-        "ForecastMAPE": 0.1667,
-        "Model": "Logit_Ozone_LinearTrend_residue_bestCycle_byMAPE_residue_AR(51)"
-    },
-    {
-        "Category": "Logit_PolyTrend_Cycle_None_AR",
-        "Complexity": 42.0,
-        "DetailedFormula": [
-            "Logit_Ozone",
-            "T+S+R",
-            null,
-            "Logit_Ozone_PolyTrend_residue_bestCycle_byMAPE_residue_AR(51)"
-        ],
-        "ForecastMAPE": 0.1694,
-        "Model": "Logit_Ozone_PolyTrend_residue_bestCycle_byMAPE_residue_AR(51)"
-    },
-    {
-        "Category": "Logit_PolyTrend_NoCycle_AR",
-        "Complexity": 42.0,
-        "DetailedFormula": [
-            "Logit_Ozone",
-            "T+S+R",
-            null,
-            "Logit_Ozone_PolyTrend_residue_zeroCycle[0.0]_residue_AR(51)"
-        ],
-        "ForecastMAPE": 0.1694,
-        "Model": "Logit_Ozone_PolyTrend_residue_zeroCycle[0.0]_residue_AR(51)"
-    },
-    {
-        "Category": "Logit_PolyTrend_Seasonal_MonthOfYear_NoAR",
-        "Complexity": 16.0,
-        "DetailedFormula": [
-            "Logit_Ozone",
-            "T+S+R",
-            null,
-            "Logit_Ozone_PolyTrend_residue_Seasonal_MonthOfYear_residue_NoAR"
-        ],
-        "ForecastMAPE": 0.1823,
-        "Model": "Logit_Ozone_PolyTrend_residue_Seasonal_MonthOfYear_residue_NoAR"
+        "Model": "Logit_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_residue_NoAR",
+        "Voting": 149.1667
     },
     {
         "Category": "Logit_LinearTrend_Seasonal_MonthOfYear_AR",
-        "Complexity": 52.0,
+        "Complexity": "LMSSS",
         "DetailedFormula": [
             "Logit_Ozone",
             "T+S+R",
@@ -88,23 +30,25 @@ INFO:pyaf.std:[
             "Logit_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_residue_AR(51)"
         ],
         "ForecastMAPE": 0.1834,
-        "Model": "Logit_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_residue_AR(51)"
+        "Model": "Logit_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_residue_AR(51)",
+        "Voting": 148.1667
     },
     {
-        "Category": "Logit_Lag1Trend_Seasonal_MonthOfYear_AR",
-        "Complexity": 53.0,
+        "Category": "Logit_PolyTrend_Seasonal_MonthOfYear_NoAR",
+        "Complexity": "MMSSS",
         "DetailedFormula": [
             "Logit_Ozone",
             "T+S+R",
             null,
-            "Logit_Ozone_Lag1Trend_residue_Seasonal_MonthOfYear_residue_AR(51)"
+            "Logit_Ozone_PolyTrend_residue_Seasonal_MonthOfYear_residue_NoAR"
         ],
-        "ForecastMAPE": 0.1934,
-        "Model": "Logit_Ozone_Lag1Trend_residue_Seasonal_MonthOfYear_residue_AR(51)"
+        "ForecastMAPE": 0.1823,
+        "Model": "Logit_Ozone_PolyTrend_residue_Seasonal_MonthOfYear_residue_NoAR",
+        "Voting": 137.3333
     },
     {
         "Category": "Logit_PolyTrend_Seasonal_MonthOfYear_AR",
-        "Complexity": 54.0,
+        "Complexity": "LMMSS",
         "DetailedFormula": [
             "Logit_Ozone",
             "T+S+R",
@@ -112,28 +56,96 @@ INFO:pyaf.std:[
             "Logit_Ozone_PolyTrend_residue_Seasonal_MonthOfYear_residue_AR(51)"
         ],
         "ForecastMAPE": 0.1978,
-        "Model": "Logit_Ozone_PolyTrend_residue_Seasonal_MonthOfYear_residue_AR(51)"
+        "Model": "Logit_Ozone_PolyTrend_residue_Seasonal_MonthOfYear_residue_AR(51)",
+        "Voting": 137.3333
     },
     {
-        "Category": "Logit_ConstantTrend_NoCycle_AR",
-        "Complexity": 39.0,
+        "Category": "Logit_Lag1Trend_Seasonal_MonthOfYear_AR",
+        "Complexity": "LMSSS",
         "DetailedFormula": [
             "Logit_Ozone",
             "T+S+R",
             null,
-            "Logit_Ozone_ConstantTrend_residue_zeroCycle[0.0]_residue_AR(51)"
+            "Logit_Ozone_Lag1Trend_residue_Seasonal_MonthOfYear_residue_AR(51)"
         ],
-        "ForecastMAPE": 0.1994,
-        "Model": "Logit_Ozone_ConstantTrend_residue_zeroCycle[0.0]_residue_AR(51)"
+        "ForecastMAPE": 0.1934,
+        "Model": "Logit_Ozone_Lag1Trend_residue_Seasonal_MonthOfYear_residue_AR(51)",
+        "Voting": 112.6667
+    },
+    {
+        "Category": "Logit_Lag1Trend_Seasonal_MonthOfYear_NoAR",
+        "Complexity": "MSSSS",
+        "DetailedFormula": [
+            "Logit_Ozone",
+            "T+S+R",
+            null,
+            "Logit_Ozone_Lag1Trend_residue_Seasonal_MonthOfYear_residue_NoAR"
+        ],
+        "ForecastMAPE": 0.2179,
+        "Model": "Logit_Ozone_Lag1Trend_residue_Seasonal_MonthOfYear_residue_NoAR",
+        "Voting": 110.0
+    },
+    {
+        "Category": "Logit_LinearTrend_NoCycle_AR",
+        "Complexity": "LMSSS",
+        "DetailedFormula": [
+            "Logit_Ozone",
+            "T+S+R",
+            null,
+            "Logit_Ozone_LinearTrend_residue_zeroCycle[0.0]_residue_AR(51)"
+        ],
+        "ForecastMAPE": 0.1667,
+        "Model": "Logit_Ozone_LinearTrend_residue_zeroCycle[0.0]_residue_AR(51)",
+        "Voting": 104.5833
+    },
+    {
+        "Category": "Logit_LinearTrend_Cycle_5_AR",
+        "Complexity": "LMSSS",
+        "DetailedFormula": [
+            "Logit_Ozone",
+            "T+S+R",
+            null,
+            "Logit_Ozone_LinearTrend_residue_bestCycle_byMAPE_residue_AR(51)"
+        ],
+        "ForecastMAPE": 0.1667,
+        "Model": "Logit_Ozone_LinearTrend_residue_bestCycle_byMAPE_residue_AR(51)",
+        "Voting": 103.5833
+    },
+    {
+        "Category": "Logit_ConstantTrend_Seasonal_MonthOfYear_NoAR",
+        "Complexity": "MSSSS",
+        "DetailedFormula": [
+            "Logit_Ozone",
+            "T+S+R",
+            null,
+            "Logit_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_NoAR"
+        ],
+        "ForecastMAPE": 0.2675,
+        "Model": "Logit_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_NoAR",
+        "Voting": 95.9167
+    },
+    {
+        "Category": "Logit_PolyTrend_Cycle_None_AR",
+        "Complexity": "LMMSS",
+        "DetailedFormula": [
+            "Logit_Ozone",
+            "T+S+R",
+            null,
+            "Logit_Ozone_PolyTrend_residue_bestCycle_byMAPE_residue_AR(51)"
+        ],
+        "ForecastMAPE": 0.1694,
+        "Model": "Logit_Ozone_PolyTrend_residue_bestCycle_byMAPE_residue_AR(51)",
+        "Voting": 84.25
     }
 ]
 INFO:pyaf.std:PERF_DUMP_END
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.005, ('MODEL_SELECTION', {'Signal': 'Ozone', 'Transformations': [('Ozone', 'None', 'Logit_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.015, ('MODEL_SELECTION', {'Signal': 'Ozone', 'Transformations': [('Ozone', 'None', 'Logit_', 'T+S+R')]}))
 INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Ozone', 'Model': 'Logit_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_residue_NoAR'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.063, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Ozone', 'Model': 'Logit_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.098, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Ozone', 'Model': 'Logit_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_residue_NoAR'}))
 INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Ozone'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.488, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Ozone'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.556, ('FINALIZE_TRAINING', {'Signals': ['Ozone'], 'Transformations': [('Ozone', [('Ozone', 'None', 'Logit_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.098, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Ozone'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.211, ('FINALIZE_TRAINING', {'Signals': ['Ozone'], 'Transformations': [('Ozone', [('Ozone', 'None', 'Logit_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 18.594, ('TRAINING', {'Signals': ['Ozone'], 'Horizons': {'Ozone': 12}}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01T00:00:00.000000 TimeMax=1967-09-01T00:00:00.000000 TimeDelta=<DateOffset: months=1> Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Length=204  Min=1.2 Max=8.7  Mean=3.835784 StdDev=1.491559
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='Logit_Ozone' Min=-4.59512 Max=4.59512  Mean=-0.757799 StdDev=1.159447
@@ -145,6 +157,7 @@ INFO:pyaf.std:CYCLE_DETAIL 'Logit_Ozone_LinearTrend_residue_Seasonal_MonthOfYear
 INFO:pyaf.std:AUTOREG_DETAIL 'Logit_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_residue_NoAR' [NoAR]
 INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.1755 MAPE_Forecast=0.1661 MAPE_Test=0.1671
 INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.1724 SMAPE_Forecast=0.1791 SMAPE_Test=0.1561
+INFO:pyaf.std:MODEL_DiffSMAPE DiffSMAPE_Fit=0.17 DiffSMAPE_Forecast=0.1758 DiffSMAPE_Test=0.1525
 INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7784 MASE_Forecast=0.6855 MASE_Test=0.7642
 INFO:pyaf.std:MODEL_CRPS CRPS_Fit=0.3538 CRPS_Forecast=0.2302 CRPS_Test=0.2104
 INFO:pyaf.std:MODEL_L1 L1_Fit=0.6842 L1_Forecast=0.5322 L1_Test=0.3613
@@ -152,10 +165,10 @@ INFO:pyaf.std:MODEL_L2 L2_Fit=0.9144 L2_Forecast=0.6957 L2_Test=0.4252
 INFO:pyaf.std:MODEL_LnQ LnQ_Fit=7.4472 LnQ_Forecast=1.846 LnQ_Test=0.435
 INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.5871 MedAE_Forecast=0.4701 MedAE_Test=0.4064
 INFO:pyaf.std:MODEL_KENDALL_TAU KENDALL_TAU_Fit=0.6272 KENDALL_TAU_Forecast=0.7487 KENDALL_TAU_Test=0.687
-INFO:pyaf.std:MODEL_KOLOMOGOROV_SMIRNOV KS_Fit=0.0719 KS_Forecast=0.2564 KS_Test=0.1667
+INFO:pyaf.std:MODEL_KOLMOGOROV_SMIRNOV KS_Fit=0.0719 KS_Forecast=0.2564 KS_Test=0.1667
 INFO:pyaf.std:MODEL_MANN_WHITNEY_U MWU_Fit=11883.0 MWU_Forecast=914.0 MWU_Test=70.0
 INFO:pyaf.std:MODEL_AUC AUC_Fit=0.5076 AUC_Forecast=0.6009 AUC_Test=0.4861
-INFO:pyaf.std:MODEL_COMPLEXITY 14.0
+INFO:pyaf.std:MODEL_COMPLEXITY {'Decomposition': 'S', 'Transformation': 'M', 'Trend': 'S', 'Cycle': 'S', 'AR': 'S'} [MSSSS]
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:LOGIT_TRANSFORMATION Logit
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
@@ -167,34 +180,40 @@ INFO:pyaf.std:SEASONAL_MODEL_VALUES Logit_Ozone_LinearTrend_residue_Seasonal_Mon
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
+INFO:pyaf.std:TRAINING_TIME_IN_SECONDS 18.594
 INFO:pyaf.timing:('OPERATION_START', ('PLOTTING', {'Signals': ['Ozone']}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 5.173, ('PLOTTING', {'Signals': ['Ozone']}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 20.099, ('PLOTTING', {'Signals': ['Ozone']}))
 INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['Ozone'], 'Horizon': 12}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.293, ('FORECASTING', {'Signals': ['Ozone'], 'Horizon': 12}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.591, ('FORECASTING', {'Signals': ['Ozone'], 'Horizon': 12}))
      Month  Ozone       Time
 0  1955-01    2.7 1955-01-01
 1  1955-02    2.0 1955-02-01
 2  1955-03    3.6 1955-03-01
 3  1955-04    5.0 1955-04-01
 4  1955-05    6.5 1955-05-01
-  Split Transformation DecompositionType  ... FitMAPE ForecastMAPE TestMAPE
-0  None    Logit_Ozone             T+S+R  ...  0.1755       0.1661   0.1671
-1  None    Logit_Ozone             T+S+R  ...  0.1651       0.1667   0.1921
-2  None    Logit_Ozone             T+S+R  ...  0.1676       0.1667   0.2028
-3  None    Logit_Ozone             T+S+R  ...  0.1632       0.1694   0.3033
-4  None    Logit_Ozone             T+S+R  ...  0.1632       0.1694   0.3033
+  Transformation DecompositionType  ...    Voting  Complexity
+0    Logit_Ozone             T+S+R  ...  149.1667       MSSSS
+1    Logit_Ozone             T+S+R  ...  148.1667       LMSSS
 
-[5 rows x 10 columns]
+[2 rows x 5 columns]
+  Split Transformation DecompositionType  ... ForecastMAPE TestMAPE    Voting
+0  None    Logit_Ozone             T+S+R  ...       0.1661   0.1671  149.1667
+1  None    Logit_Ozone             T+S+R  ...       0.1834   0.1462  148.1667
+2  None    Logit_Ozone             T+S+R  ...       0.1823   0.4353  137.3333
+3  None    Logit_Ozone             T+S+R  ...       0.1978   0.3267  137.3333
+4  None    Logit_Ozone             T+S+R  ...       0.1934   0.1710  112.6667
+
+[5 rows x 11 columns]
 Forecast Columns  Index(['Time', 'Ozone', 'row_number', 'Time_Normalized', 'Logit_Ozone',
        'Logit_Ozone_LinearTrend', 'Logit_Ozone_LinearTrend_residue',
        'Logit_Ozone_LinearTrend_residue_Seasonal_MonthOfYear',
        'Logit_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_residue',
        'Logit_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_residue_NoAR',
        'Logit_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_residue_NoAR_residue',
-       'Logit_Ozone_Trend', 'Logit_Ozone_Trend_residue', 'Logit_Ozone_Cycle',
-       'Logit_Ozone_Cycle_residue', 'Logit_Ozone_AR', 'Logit_Ozone_AR_residue',
-       'Logit_Ozone_TransformedForecast', 'Ozone_Forecast',
-       'Logit_Ozone_TransformedResidue', 'Ozone_Residue',
+       'Ozone_Transformed', 'Logit_Ozone_Trend', 'Logit_Ozone_Trend_residue',
+       'Logit_Ozone_Cycle', 'Logit_Ozone_Cycle_residue', 'Logit_Ozone_AR',
+       'Logit_Ozone_AR_residue', 'Logit_Ozone_TransformedForecast',
+       'Ozone_Forecast', 'Logit_Ozone_TransformedResidue', 'Ozone_Residue',
        'Ozone_Forecast_Lower_Bound', 'Ozone_Forecast_Upper_Bound',
        'Ozone_Forecast_Quantile_2', 'Ozone_Forecast_Quantile_18',
        'Ozone_Forecast_Quantile_34', 'Ozone_Forecast_Quantile_50',
@@ -253,7 +272,13 @@ Forecasts
         },
         "Model_Performance": {
             "AUC": 0.6009,
-            "COMPLEXITY": 14.0,
+            "COMPLEXITY": {
+                "AR": "S",
+                "Cycle": "S",
+                "Decomposition": "S",
+                "Transformation": "M",
+                "Trend": "S"
+            },
             "CRPS": 0.2302,
             "KS": 0.2564,
             "KendallTau": 0.7487,
@@ -265,7 +290,8 @@ Forecasts
             "MedAE": 0.4701,
             "RMSE": 0.6957
         }
-    }
+    },
+    "Training_Time": 18.594
 }
 </ModelInfo>
 
