@@ -413,7 +413,19 @@ class cTimeSeriesModel:
             tsplot.decomp_plot(df, lTime, lPrefix + 'Cycle_residue' , lPrefix + 'AR' , lPrefix + 'AR_residue', horizon = self.mTimeInfo.mHorizon);
             tsplot.decomp_plot(df, lTime, self.mSignal, lPrefix + 'TransformedForecast' , lPrefix + 'TransformedResidue', horizon = self.mTimeInfo.mHorizon);
             tsplot.decomp_plot(df, lTime, self.mOriginalSignal, lPrefix2 + 'Forecast' , lPrefix2 + 'Residue', horizon = self.mTimeInfo.mHorizon);
-        
+
+    def get_title_details_for_plots(self, iPrefix):
+        lTitle = "Prediction Intervals\nModel = " + self.mOutName + "\n"
+        lCriterion = self.mTimeInfo.mOptions.mModelSelection_Criterion
+        lForecastColumn = str(self.mOriginalSignal) + "_Forecast";
+        for h in [1, self.mTimeInfo.mHorizon]:
+            lHorizonName = lForecastColumn + "_" + str(h);
+            lPerf = self.mForecastPerfs[lHorizonName]
+            lTitle = lTitle + "MAPE_" + str(h) + " = " + str(lPerf.mMAPE) + " "
+            if(lCriterion != "MAPE"):
+                lTitle = lTitle + lCriterion + "_" + str(h) + " = " + str(lPerf.getCriterionValue(lCriterion)) + " "
+        return lTitle
+            
     def standardPlots(self, name = None, format = 'png'):
         lOutput =  self.getForecastDatasetForPlots();
         self.plotResidues(name = name, format=format, iOutputDF = lOutput);
@@ -425,8 +437,7 @@ class cTimeSeriesModel:
         # print(lOutput[lTime].dtype);
 
         # Add more informative title for this plot.  Investigate Model Esthetics for PyAF #212 
-        lTitle = "Prediction Intervals\n\nModel = " + self.mOutName + " [ "
-        lTitle = lTitle + "MAPE = " + str(self.mForecastPerf.mMAPE) + " ]"
+        lTitle = self.get_title_details_for_plots("Prediction Intervals")
         tsplot.prediction_interval_plot(lOutput,
                                         lTime, self.mOriginalSignal,
                                         lForecastColumn,
@@ -474,8 +485,7 @@ class cTimeSeriesModel:
         lTime = self.mTimeInfo.mTime;
         lOutput.set_index(lTime, inplace=True, drop=False);
         # Add more informative title for this plot.  Investigate Model Esthetics for PyAF #212 
-        lTitle = "Prediction Intervals\n\nModel = " + self.mOutName + " [ "
-        lTitle = lTitle + "MAPE = " + str(self.mForecastPerf.mMAPE) + " ]"
+        lTitle = self.get_title_details_for_plots("Prediction Intervals")
         return tsplot.prediction_interval_plot_as_png_base64(lOutput,
                                                              lTime, self.mOriginalSignal,
                                                              lForecastColumn  ,
