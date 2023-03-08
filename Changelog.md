@@ -5,7 +5,7 @@ RELEASE 5.0 (released on 2023-07-14)
 	2. Better support for long temr models.
 	3. Improved Model Selection Procedure.
 	4. Improved Model Complexity Definition #223
-	5. Improved Plots (titles + details)
+	5. Improved Plots (titles + model formula/details)
 	6. Improved Quantile Plots color maps #225
 	7. New Platforms : RISC-V Hardware Platform Validation #208
 	8. New Perf Measures : Outlier-resistant forecasting Performance Measures #209 + Add Differentiable Variant of SMAPE Performance Measure #221
