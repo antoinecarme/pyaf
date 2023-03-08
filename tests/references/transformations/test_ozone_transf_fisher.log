@@ -1,8 +1,8 @@
 INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signals': ['Ozone'], 'Horizons': {'Ozone': 12}}))
 INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['Ozone'], 'Transformations': [('Ozone', 'None', 'Fisher_', 'T+S+R')], 'Cores': 1}))
 INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Ozone', 'Transformation': 'Fisher_Ozone', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 13.398, ('TRAINING', {'Signal': 'Ozone', 'Transformation': 'Fisher_Ozone', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 13.399, ('SIGNAL_TRAINING', {'Signals': ['Ozone'], 'Transformations': [('Ozone', 'None', 'Fisher_', 'T+S+R')], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 14.203, ('TRAINING', {'Signal': 'Ozone', 'Transformation': 'Fisher_Ozone', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 14.203, ('SIGNAL_TRAINING', {'Signals': ['Ozone'], 'Transformations': [('Ozone', 'None', 'Fisher_', 'T+S+R')], 'Cores': 1}))
 INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['Ozone'], 'Transformations': [('Ozone', [('Ozone', 'None', 'Fisher_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'Ozone', 'Transformations': [('Ozone', 'None', 'Fisher_', 'T+S+R')]}))
 INFO:pyaf.std:PERF_DUMP_START
@@ -40,10 +40,10 @@ INFO:pyaf.std:[
             "Fisher_Ozone",
             "T+S+R",
             null,
-            "Fisher_Ozone_LinearTrend_residue_bestCycle_byMAPE_residue_AR(51)"
+            "Fisher_Ozone_LinearTrend_residue_Cycle_None_residue_AR(51)"
         ],
         "ForecastMAPE": 0.188,
-        "Model": "Fisher_Ozone_LinearTrend_residue_bestCycle_byMAPE_residue_AR(51)",
+        "Model": "Fisher_Ozone_LinearTrend_residue_Cycle_None_residue_AR(51)",
         "Voting": 133.1667
     },
     {
@@ -131,21 +131,21 @@ INFO:pyaf.std:[
             "Fisher_Ozone",
             "T+S+R",
             null,
-            "Fisher_Ozone_LinearTrend_residue_bestCycle_byMAPE_residue_NoAR"
+            "Fisher_Ozone_LinearTrend_residue_Cycle_None_residue_NoAR"
         ],
         "ForecastMAPE": 0.3125,
-        "Model": "Fisher_Ozone_LinearTrend_residue_bestCycle_byMAPE_residue_NoAR",
+        "Model": "Fisher_Ozone_LinearTrend_residue_Cycle_None_residue_NoAR",
         "Voting": 89.8333
     }
 ]
 INFO:pyaf.std:PERF_DUMP_END
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.09, ('MODEL_SELECTION', {'Signal': 'Ozone', 'Transformations': [('Ozone', 'None', 'Fisher_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.1, ('MODEL_SELECTION', {'Signal': 'Ozone', 'Transformations': [('Ozone', 'None', 'Fisher_', 'T+S+R')]}))
 INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Ozone', 'Model': 'Fisher_Ozone_PolyTrend_residue_Seasonal_MonthOfYear_residue_NoAR'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.301, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Ozone', 'Model': 'Fisher_Ozone_PolyTrend_residue_Seasonal_MonthOfYear_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.289, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Ozone', 'Model': 'Fisher_Ozone_PolyTrend_residue_Seasonal_MonthOfYear_residue_NoAR'}))
 INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Ozone'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.899, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Ozone'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.292, ('FINALIZE_TRAINING', {'Signals': ['Ozone'], 'Transformations': [('Ozone', [('Ozone', 'None', 'Fisher_', 'T+S+R')])], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 16.694, ('TRAINING', {'Signals': ['Ozone'], 'Horizons': {'Ozone': 12}}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.216, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Ozone'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.606, ('FINALIZE_TRAINING', {'Signals': ['Ozone'], 'Transformations': [('Ozone', [('Ozone', 'None', 'Fisher_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 18.814, ('TRAINING', {'Signals': ['Ozone'], 'Horizons': {'Ozone': 12}}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01T00:00:00.000000 TimeMax=1967-09-01T00:00:00.000000 TimeDelta=<DateOffset: months=1> Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Length=204  Min=1.2 Max=8.7  Mean=3.835784 StdDev=1.491559
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='Fisher_Ozone' Min=0.0 Max=2.646652  Mean=0.40011 StdDev=0.306895
@@ -155,19 +155,12 @@ INFO:pyaf.std:BEST_DECOMPOSITION  'Fisher_Ozone_PolyTrend_residue_Seasonal_Month
 INFO:pyaf.std:TREND_DETAIL 'Fisher_Ozone_PolyTrend' [PolyTrend]
 INFO:pyaf.std:CYCLE_DETAIL 'Fisher_Ozone_PolyTrend_residue_Seasonal_MonthOfYear' [Seasonal_MonthOfYear]
 INFO:pyaf.std:AUTOREG_DETAIL 'Fisher_Ozone_PolyTrend_residue_Seasonal_MonthOfYear_residue_NoAR' [NoAR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=0.171 MAPE_Forecast=0.2046 MAPE_Test=0.5519
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=0.1675 SMAPE_Forecast=0.1854 SMAPE_Test=0.3997
-INFO:pyaf.std:MODEL_DiffSMAPE DiffSMAPE_Fit=0.1651 DiffSMAPE_Forecast=0.1821 DiffSMAPE_Test=0.393
-INFO:pyaf.std:MODEL_MASE MASE_Fit=0.7457 MASE_Forecast=0.7461 MASE_Test=2.6969
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=0.3525 CRPS_Forecast=0.3119 CRPS_Test=0.5682
-INFO:pyaf.std:MODEL_L1 L1_Fit=0.6554 L1_Forecast=0.5792 L1_Test=1.2749
-INFO:pyaf.std:MODEL_L2 L2_Fit=0.8785 L2_Forecast=0.728 L2_Test=1.4836
-INFO:pyaf.std:MODEL_LnQ LnQ_Fit=7.188 LnQ_Forecast=2.2437 LnQ_Test=2.7106
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.4779 MedAE_Forecast=0.4594 MedAE_Test=1.2658
-INFO:pyaf.std:MODEL_KENDALL_TAU KENDALL_TAU_Fit=0.6475 KENDALL_TAU_Forecast=0.6508 KENDALL_TAU_Test=0.5954
-INFO:pyaf.std:MODEL_KOLMOGOROV_SMIRNOV KS_Fit=0.0719 KS_Forecast=0.2051 KS_Test=0.5833
-INFO:pyaf.std:MODEL_MANN_WHITNEY_U MWU_Fit=11796.5 MWU_Forecast=711.0 MWU_Test=27.0
-INFO:pyaf.std:MODEL_AUC AUC_Fit=0.5039 AUC_Forecast=0.4675 AUC_Test=0.1875
+INFO:pyaf.std:MODEL_PERFS Fit STEP=1 {'MAPE': 0.171, 'RMSE': 0.8785, 'MAE': 0.6554, 'MASE': 0.7457}
+INFO:pyaf.std:MODEL_PERFS Forecast STEP=1 {'MAPE': 0.2046, 'RMSE': 0.728, 'MAE': 0.5792, 'MASE': 0.7461}
+INFO:pyaf.std:MODEL_PERFS Test STEP=1 {'MAPE': 0.5519, 'RMSE': 1.4836, 'MAE': 1.2749, 'MASE': 2.6969}
+INFO:pyaf.std:MODEL_PERFS Fit STEP=12 {'MAPE': 0.171, 'RMSE': 0.8785, 'MAE': 0.6554, 'MASE': 0.7457}
+INFO:pyaf.std:MODEL_PERFS Forecast STEP=12 {'MAPE': 0.2046, 'RMSE': 0.728, 'MAE': 0.5792, 'MASE': 0.7461}
+INFO:pyaf.std:MODEL_PERFS Test STEP=12 {'MAPE': 0.5519, 'RMSE': 1.4836, 'MAE': 1.2749, 'MASE': 2.6969}
 INFO:pyaf.std:MODEL_COMPLEXITY {'Decomposition': 'S', 'Transformation': 'L', 'Trend': 'M', 'Cycle': 'S', 'AR': 'S'} [LMSSS]
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:FISCHER_TRANSFORMATION Fisher
@@ -180,11 +173,11 @@ INFO:pyaf.std:SEASONAL_MODEL_VALUES Fisher_Ozone_PolyTrend_residue_Seasonal_Mont
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:TRAINING_TIME_IN_SECONDS 16.694
+INFO:pyaf.std:TRAINING_TIME_IN_SECONDS 18.814
 INFO:pyaf.timing:('OPERATION_START', ('PLOTTING', {'Signals': ['Ozone']}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 14.215, ('PLOTTING', {'Signals': ['Ozone']}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 24.101, ('PLOTTING', {'Signals': ['Ozone']}))
 INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['Ozone'], 'Horizon': 12}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.695, ('FORECASTING', {'Signals': ['Ozone'], 'Horizon': 12}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.21, ('FORECASTING', {'Signals': ['Ozone'], 'Horizon': 12}))
      Month  Ozone       Time
 0  1955-01    2.7 1955-01-01
 1  1955-02    2.0 1955-02-01
@@ -251,14 +244,20 @@ Forecasts
 <ModelInfo>
 {
     "Ozone": {
+        "Complexity": {
+            "AR": "S",
+            "Cycle": "S",
+            "Decomposition": "S",
+            "Transformation": "L",
+            "Trend": "M"
+        },
         "Dataset": {
             "Signal": "Ozone",
             "Time": {
                 "Horizon": 12,
-                "TimeMinMax": [
-                    "1955-01-01 00:00:00",
-                    "1971-12-01 00:00:00"
-                ],
+                "TimeDelta": "<DateOffset: months=1>",
+                "TimeMax": "1971-12-01 00:00:00",
+                "TimeMin": "1955-01-01 00:00:00",
                 "TimeVariable": "Time"
             },
             "Training_Signal_Length": 204
@@ -272,27 +271,50 @@ Forecasts
             "Trend": "PolyTrend"
         },
         "Model_Performance": {
-            "AUC": 0.4675,
-            "COMPLEXITY": {
-                "AR": "S",
-                "Cycle": "S",
-                "Decomposition": "S",
-                "Transformation": "L",
-                "Trend": "M"
+            "1": {
+                "AUC": 0.4675,
+                "DiffSMAPE": 0.1821,
+                "ErrorMean": 0.1641,
+                "ErrorStdDev": 0.7093,
+                "KS": 0.2051,
+                "KendallTau": 0.6508,
+                "Length": 39,
+                "LnQ": 2.2437,
+                "MAE": 0.5792,
+                "MAPE": 0.2046,
+                "MASE": 0.7461,
+                "MannWhitneyU": 711.0,
+                "MedAE": 0.4594,
+                "Pearson": 0.8066,
+                "R2": 0.5492,
+                "RMSE": 0.728,
+                "SMAPE": 0.1854,
+                "Signal": "Ozone_Forecast_1"
             },
-            "CRPS": 0.3119,
-            "KS": 0.2051,
-            "KendallTau": 0.6508,
-            "LnQ": 2.2437,
-            "MAE": 0.5792,
-            "MAPE": 0.2046,
-            "MASE": 0.7461,
-            "MannWhitneyU": 711.0,
-            "MedAE": 0.4594,
-            "RMSE": 0.728
-        }
+            "12": {
+                "AUC": 0.4675,
+                "DiffSMAPE": 0.1821,
+                "ErrorMean": 0.1641,
+                "ErrorStdDev": 0.7093,
+                "KS": 0.2051,
+                "KendallTau": 0.6508,
+                "Length": 39,
+                "LnQ": 2.2437,
+                "MAE": 0.5792,
+                "MAPE": 0.2046,
+                "MASE": 0.7461,
+                "MannWhitneyU": 711.0,
+                "MedAE": 0.4594,
+                "Pearson": 0.8066,
+                "R2": 0.5492,
+                "RMSE": 0.728,
+                "SMAPE": 0.1854,
+                "Signal": "Ozone_Forecast_12"
+            }
+        },
+        "Model_Selection_Criterion": "MAPE"
     },
-    "Training_Time": 16.694
+    "Training_Time": 18.814
 }
 </ModelInfo>
 
