@@ -1,5 +1,6 @@
 
 RELEASE 5.0 (released on 2023-07-14)
+(all coming fixes will go in the 5.0-FIXES branch)
 
 	1. Python 3.11 support
 	2. Better support for long temr models.
