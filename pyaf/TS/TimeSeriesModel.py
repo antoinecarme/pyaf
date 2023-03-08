@@ -86,14 +86,6 @@ class cTimeSeriesModel:
         self.mFitPerfs = lPredictionIntervalsEstimator.mFitPerformances
         self.mForecastPerfs = lPredictionIntervalsEstimator.mForecastPerformances
         self.mTestPerfs = lPredictionIntervalsEstimator.mTestPerformances
-        lForecastColumn = str(self.mOriginalSignal) + "_Forecast";
-        
-        lHorizonName = lForecastColumn + "_" + str(1);         
-        if(self.mTimeInfo.mOptions.mVotingMethod is not None):
-            lHorizonName = lForecastColumn + "_" + str(self.mTimeInfo.mHorizon);         
-        self.mFitPerf = lPredictionIntervalsEstimator.mFitPerformances[lHorizonName]
-        self.mForecastPerf = lPredictionIntervalsEstimator.mForecastPerformances[lHorizonName]
-        self.mTestPerf = lPredictionIntervalsEstimator.mTestPerformances[lHorizonName];
 
 
     def aggregate_criteria(self, criteria):
@@ -358,7 +350,7 @@ class cTimeSeriesModel:
         lTime = self.mTimeInfo.mNormalizedTimeColumn;            
         tsplot.decomp_plot(df,
                            lTime, lPrefix + 'Signal',
-                           lPrefix + 'Forecast' , lPrefix + 'Residue', horizon = self.mTimeInfo.mHorizon);
+                           lPrefix + 'Forecast' , lPrefix + 'Residue', horizon = self.mTimeInfo.mHorizon, title = self.mOriginalSignal + " Forecasts");
 
     def to_dict(self, iWithOptions = False):
         dict1 = {};
@@ -402,20 +394,20 @@ class cTimeSeriesModel:
         lPrefix = self.mSignal + "_";
         lPrefix2 = str(self.mOriginalSignal) + "_";
         if(name is not None):
-            tsplot.decomp_plot(df, lTime, self.mSignal, lPrefix + 'Trend' , lPrefix + 'Trend_residue', name = name + "_trend" , format=format, horizon = self.mTimeInfo.mHorizon);
-            tsplot.decomp_plot(df, lTime, lPrefix + 'Trend_residue' , lPrefix + 'Cycle', lPrefix + 'Cycle_residue', name = name + "_cycle" , format=format, horizon = self.mTimeInfo.mHorizon);
-            tsplot.decomp_plot(df, lTime, lPrefix + 'Cycle_residue' , lPrefix + 'AR' , lPrefix + 'AR_residue', name = name + "_AR" , format=format, horizon = self.mTimeInfo.mHorizon);
-            tsplot.decomp_plot(df, lTime, self.mSignal, lPrefix + 'TransformedForecast' , lPrefix + 'TransformedResidue', name = name + "_transformed_forecast" , format=format, horizon = self.mTimeInfo.mHorizon);
-            tsplot.decomp_plot(df, lTime, self.mOriginalSignal, lPrefix2 + 'Forecast' , lPrefix2 + 'Residue', name = name + "_forecast" , format=format, horizon = self.mTimeInfo.mHorizon);
+            tsplot.decomp_plot(df, lTime, self.mSignal, lPrefix + 'Trend' , lPrefix + 'Trend_residue', name = name + "_trend" , format=format, horizon = self.mTimeInfo.mHorizon, title = "Trend\n" + self.mTrend.mOutName);
+            tsplot.decomp_plot(df, lTime, lPrefix + 'Trend_residue' , lPrefix + 'Cycle', lPrefix + 'Cycle_residue', name = name + "_cycle" , format=format, horizon = self.mTimeInfo.mHorizon, title = "Cycle\n" + self.mCycle.mOutName);
+            tsplot.decomp_plot(df, lTime, lPrefix + 'Cycle_residue' , lPrefix + 'AR' , lPrefix + 'AR_residue', name = name + "_AR" , format=format, horizon = self.mTimeInfo.mHorizon, title = "AR\n" + self.mAR.mOutName);
+            tsplot.decomp_plot(df, lTime, self.mSignal, lPrefix + 'TransformedForecast' , lPrefix + 'TransformedResidue', name = name + "_transformed_forecast" , format=format, horizon = self.mTimeInfo.mHorizon, title = "Transformed Signal Forecast\n" + self.getFormula());
+            tsplot.decomp_plot(df, lTime, self.mOriginalSignal, lPrefix2 + 'Forecast' , lPrefix2 + 'Residue', name = name + "_forecast" , format=format, horizon = self.mTimeInfo.mHorizon, title = "Signal Forecast\n" + self.mOutName);
         else:
-            tsplot.decomp_plot(df, lTime, self.mSignal, lPrefix + 'Trend' , lPrefix + 'Trend_residue', horizon = self.mTimeInfo.mHorizon);
-            tsplot.decomp_plot(df, lTime, lPrefix + 'Trend_residue' , lPrefix + 'Cycle', lPrefix + 'Cycle_residue', horizon = self.mTimeInfo.mHorizon);
-            tsplot.decomp_plot(df, lTime, lPrefix + 'Cycle_residue' , lPrefix + 'AR' , lPrefix + 'AR_residue', horizon = self.mTimeInfo.mHorizon);
-            tsplot.decomp_plot(df, lTime, self.mSignal, lPrefix + 'TransformedForecast' , lPrefix + 'TransformedResidue', horizon = self.mTimeInfo.mHorizon);
-            tsplot.decomp_plot(df, lTime, self.mOriginalSignal, lPrefix2 + 'Forecast' , lPrefix2 + 'Residue', horizon = self.mTimeInfo.mHorizon);
+            tsplot.decomp_plot(df, lTime, self.mSignal, lPrefix + 'Trend' , lPrefix + 'Trend_residue', horizon = self.mTimeInfo.mHorizon, title = "Trend\n" + self.mTrend.mOutName);
+            tsplot.decomp_plot(df, lTime, lPrefix + 'Trend_residue' , lPrefix + 'Cycle', lPrefix + 'Cycle_residue', horizon = self.mTimeInfo.mHorizon, title = "Cycle\n" + self.mCycle.mOutName);
+            tsplot.decomp_plot(df, lTime, lPrefix + 'Cycle_residue' , lPrefix + 'AR' , lPrefix + 'AR_residue', horizon = self.mTimeInfo.mHorizon, title = "AR\n" + self.mAR.mOutName);
+            tsplot.decomp_plot(df, lTime, self.mSignal, lPrefix + 'TransformedForecast' , lPrefix + 'TransformedResidue', horizon = self.mTimeInfo.mHorizon, title = "Transformed Signal Forecast\n" + self.getFormula());
+            tsplot.decomp_plot(df, lTime, self.mOriginalSignal, lPrefix2 + 'Forecast' , lPrefix2 + 'Residue', horizon = self.mTimeInfo.mHorizon, title = "Signal Forecast\n" + self.mOutName);
 
     def get_title_details_for_plots(self, iPrefix):
-        lTitle = "Prediction Intervals\nModel = " + self.mOutName + "\n"
+        lTitle = iPrefix + "\nModel = " + self.mOutName + "\n"
         lCriterion = self.mTimeInfo.mOptions.mModelSelection_Criterion
         lForecastColumn = str(self.mOriginalSignal) + "_Forecast";
         for h in [1, self.mTimeInfo.mHorizon]:
@@ -455,7 +447,9 @@ class cTimeSeriesModel:
                                   lForecastColumn  ,
                                   lQuantiles,
                                   name = name,
-                                  format= format, horizon = self.mTimeInfo.mHorizon);
+                                  format= format,
+                                  horizon = self.mTimeInfo.mHorizon,
+                                  title = "Forecast_Quantiles\n" + self.mOutName);
         #lOutput.plot()
 
     
@@ -467,10 +461,12 @@ class cTimeSeriesModel:
         lSignalColumn = self.mOriginalSignal;
         lPrefix = self.mSignal + "_";
         lPrefix2 = str(self.mOriginalSignal) + "_";
-        lDict["Trend"] = tsplot.decomp_plot_as_png_base64(df, lTime, self.mSignal, lPrefix + 'Trend' , lPrefix + 'Trend_residue', name = "trend", horizon = self.mTimeInfo.mHorizon);
-        lDict["Cycle"] = tsplot.decomp_plot_as_png_base64(df, lTime, lPrefix + 'Trend_residue' , lPrefix + 'Cycle', lPrefix + 'Cycle_residue', name = "cycle", horizon = self.mTimeInfo.mHorizon);
-        lDict["AR"] = tsplot.decomp_plot_as_png_base64(df, lTime, lPrefix + 'Cycle_residue' , lPrefix + 'AR' , lPrefix + 'AR_residue', name = "AR", horizon = self.mTimeInfo.mHorizon);
-        lDict["Forecast"] = tsplot.decomp_plot_as_png_base64(df, lTime, lSignalColumn, lPrefix2 + 'Forecast' , lPrefix2 + 'Residue', name = "forecast", horizon = self.mTimeInfo.mHorizon);
+        lDict["Trend"] = tsplot.decomp_plot_as_png_base64(df, lTime, self.mSignal, lPrefix + 'Trend' , lPrefix + 'Trend_residue', name = "trend", horizon = self.mTimeInfo.mHorizon, title = "Trend\n" + self.mTrend.mOutName);
+        lDict["Cycle"] = tsplot.decomp_plot_as_png_base64(df, lTime, lPrefix + 'Trend_residue' , lPrefix + 'Cycle', lPrefix + 'Cycle_residue', name = "cycle", horizon = self.mTimeInfo.mHorizon, title = "Cycle\n" + self.mCycle.mOutName);
+        lDict["AR"] = tsplot.decomp_plot_as_png_base64(df, lTime, lPrefix + 'Cycle_residue' , lPrefix + 'AR' , lPrefix + 'AR_residue', name = "AR", horizon = self.mTimeInfo.mHorizon, title = "AR\n" + self.mAR.mOutName);
+        lDict["TransformedForecast"] = tsplot.decomp_plot_as_png_base64(df, lTime, self.mSignal, lPrefix + 'TransformedForecast' , lPrefix + 'TransformedResidue', name = "transformed_forecast", horizon = self.mTimeInfo.mHorizon, title = "Transformed Signal Forecast\n" + self.getFormula());
+        
+        lDict["Forecast"] = tsplot.decomp_plot_as_png_base64(df, lTime, lSignalColumn, lPrefix2 + 'Forecast' , lPrefix2 + 'Residue', name = "forecast", horizon = self.mTimeInfo.mHorizon, title = "Signal Forecast\n" + self.mOutName);
 
         lDict["Prediction_Intervals"] = self.getPredictionIntervalPlot(df)
         if(self.mTimeInfo.mOptions.mAddPredictionIntervals):            
@@ -507,7 +503,9 @@ class cTimeSeriesModel:
                                                    lForecastColumn  ,
                                                    lQuantiles,
                                                    name = "Forecast_Quantiles [" + self.mOutName + "]",
-                                                   format= format, horizon = self.mTimeInfo.mHorizon);
+                                                   format= format,
+                                                   horizon = self.mTimeInfo.mHorizon,
+                                                   title = "Forecast_Quantiles\n" + self.mOutName);
 
     def getVersions(self):
         lVersionDict = tsutil.getVersions();

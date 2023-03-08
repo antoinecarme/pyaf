@@ -39,7 +39,7 @@ def fig_to_png_base64(fig):
 
 
     
-def decomp_plot_internal(df, time, signal, estimator, residue, name = None, format='png', max_length = 1000, horizon = 1) :
+def decomp_plot_internal(df, time, signal, estimator, residue, name = None, format='png', max_length = 1000, horizon = 1, title = None) :
     assert(df.shape[0] > 0)
     assert(df.shape[1] > 0)
     assert(time in df.columns)
@@ -56,6 +56,7 @@ def decomp_plot_internal(df, time, signal, estimator, residue, name = None, form
     if(name is not None):
         plt.switch_backend('Agg')
     fig, axs = plt.subplots(ncols=2, figsize=(32, 16))
+
     lColor = COMPONENT_COLOR;
     if(name is not None and name.endswith("Forecast")):
         lColor = FORECAST_COLOR;
@@ -63,6 +64,10 @@ def decomp_plot_internal(df, time, signal, estimator, residue, name = None, form
                   color=[SIGNAL_COLOR, lColor, RESIDUE_COLOR],
                   ax=axs[0] , grid = True, legend=False)
     add_patched_legend(axs[0] , [signal, estimator, residue])
+    if(title is not None):
+        axs[0].set_title(title + "\n")
+    else:
+        axs[0].set_title(estimator + "\n")
     residues =  df1[residue].values
 
     import scipy.stats as scistats
@@ -71,8 +76,8 @@ def decomp_plot_internal(df, time, signal, estimator, residue, name = None, form
 
     return fig
 
-def decomp_plot(df, time, signal, estimator, residue, name = None, format='png', max_length = 1000, horizon = 1) :
-    fig = decomp_plot_internal(df, time, signal, estimator, residue, name, format, max_length, horizon)
+def decomp_plot(df, time, signal, estimator, residue, name = None, format='png', max_length = 1000, horizon = 1, title = None) :
+    fig = decomp_plot_internal(df, time, signal, estimator, residue, name, format, max_length, horizon, title)
     if(name is not None):
         import matplotlib
         import matplotlib.pyplot as plt
@@ -151,7 +156,7 @@ def prediction_interval_plot_as_png_base64(df, time, signal, estimator, lower, u
     return png_b64
 
 
-def quantiles_plot_internal(df, time, signal, estimator, iQuantiles, name = None, format='png', horizon = 1) :
+def quantiles_plot_internal(df, time, signal, estimator, iQuantiles, name = None, format='png', horizon = 1, title = None) :
     assert(df.shape[0] > 0)
     assert(df.shape[1] > 0)
     assert(time in df.columns)
@@ -192,7 +197,10 @@ def quantiles_plot_internal(df, time, signal, estimator, iQuantiles, name = None
             j = (bins1[i] - lMin) / (lMax - lMin)
             plt.setp(p, 'facecolor', cm(j))
         if(h == 0):
-            axs[h].set_title('Forecast Quantiles')
+            if(title is not None):
+                axs[h].set_title(title)
+            else:
+                axs[h].set_title('Forecast Quantiles')
         axs[h].set_xlim((lMin,lMax))
         # axs[h].set_ylim((0, 1.0))
 
@@ -210,8 +218,8 @@ def quantiles_plot_internal(df, time, signal, estimator, iQuantiles, name = None
 
     return fig
 
-def quantiles_plot(df, time, signal, estimator, iQuantiles, name = None, format='png', horizon = 1) :
-    fig = quantiles_plot_internal(df, time, signal, estimator, iQuantiles, name, format, horizon)
+def quantiles_plot(df, time, signal, estimator, iQuantiles, name = None, format='png', horizon = 1, title = None) :
+    fig = quantiles_plot_internal(df, time, signal, estimator, iQuantiles, name, format, horizon, title)
     import matplotlib
     import matplotlib.pyplot as plt
     if(name is not None):
@@ -220,8 +228,8 @@ def quantiles_plot(df, time, signal, estimator, iQuantiles, name = None, format=
         plt.close(fig)
     
 
-def quantiles_plot_as_png_base64(df, time, signal, estimator, iQuantiles, name = None, format='png', horizon = 1) :
-    fig = quantiles_plot_internal(df, time, signal, estimator, iQuantiles, name, format, horizon)
+def quantiles_plot_as_png_base64(df, time, signal, estimator, iQuantiles, name = None, format='png', horizon = 1, title = None) :
+    fig = quantiles_plot_internal(df, time, signal, estimator, iQuantiles, name, format, horizon, title)
     import matplotlib
     import matplotlib.pyplot as plt
     

@@ -247,9 +247,7 @@ class cBestCycleForTrend(cAbstractCycle):
         self.mFormula = "BestCycle"
         
     def getCycleName(self):
-        if(self.mBestCycleLength is not None):
-            return self.mTrend_residue_name + "_Cycle_" + str(self.mBestCycleLength)            
-        return self.mTrend_residue_name + "_bestCycle_by" + self.mCriterion;
+        return self.mTrend_residue_name + "_Cycle_" + str(self.mBestCycleLength)            
 
     def dump_values(self):
         logger = tsutil.get_pyaf_logger();
