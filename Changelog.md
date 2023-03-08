@@ -1,4 +1,21 @@
 
+RELEASE 5.0 (released on 2023-07-14)
+
+	1. Python 3.11 support
+	2. Better support for long temr models.
+	3. Improved Model Selection Procedure.
+	4. Improved Model Complexity Definition #223
+	5. Improved Plots (titles + details)
+	6. Improved Quantile Plots color maps #225
+	7. New Platforms : RISC-V Hardware Platform Validation #208
+	8. New Perf Measures : Outlier-resistant forecasting Performance Measures #209 + Add Differentiable Variant of SMAPE Performance Measure #221
+	9. Use PyTorch as the reference deep learning framework/architecture for future projects #211
+	10. Experimentations : Investigate Model Esthetics for PyAF #212, Automate Prototyping Activities - R-based Models #217
+	11. Bugs fixed : Failure to build a multiplicative ozone model with Lag1 trend #220, Bad plot for shaded area around prediction intervals in hourly data #216
+	12. Run some Sanity Checks for PyAF 5.0 #224
+
+-------------------
+
 RELEASE 4.0 (released on 2022-07-14)
 
 1. Python 3.10 support #186 
