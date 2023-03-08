@@ -13,8 +13,8 @@ def test_fake_model_1_row(iHorizon_train , iHorizon_apply):
     lEngine.train(df , 'date' , 'signal', iHorizon_train);
     # print(lEngine.mSignalDecomposition.mBestModel.mTimeInfo.info())
     print(lEngine.mSignalDecomposition.mBestModel.getFormula())
-    print("PERFS_MAPE_MASE", lEngine.mSignalDecomposition.mBestModel.mForecastPerf.mMAPE, 
-             lEngine.mSignalDecomposition.mBestModel.mForecastPerf.mMASE, )
+    lPerf_H = lEngine.mSignalDecomposition.mBestModel.mForecastPerfs["signal_Forecast_" + str(iHorizon_train)]
+    print("PERFS_MAPE_MASE", lPerf_H.mMAPE, lPerf_H.mMASE, )
     
     # print(df.head())
     df1 = lEngine.forecast(df , iHorizon_apply)
@@ -33,8 +33,8 @@ def test_fake_model_2_rows(iHorizon_train , iHorizon_apply):
     lEngine.train(df , 'date' , 'signal', iHorizon_train);
     # print(lEngine.mSignalDecomposition.mBestModel.mTimeInfo.info())
     print(lEngine.mSignalDecomposition.mBestModel.getFormula())
-    print("PERFS_MAPE_MASE", lEngine.mSignalDecomposition.mBestModel.mForecastPerf.mMAPE, 
-             lEngine.mSignalDecomposition.mBestModel.mForecastPerf.mMASE, )
+    lPerf_H = lEngine.mSignalDecomposition.mBestModel.mForecastPerfs["signal_Forecast_" + str(iHorizon_train)]
+    print("PERFS_MAPE_MASE", lPerf_H.mMAPE, lPerf_H.mMASE, )
     # print(df.head())
     df1 = lEngine.forecast(df , iHorizon_apply)
     # print(df1.columns)
