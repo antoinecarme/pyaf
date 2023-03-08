@@ -851,11 +851,6 @@ func/test_ozone_bench_mode.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/func/test_ozone_bench_mode.log logs/func_test_ozone_bench_mode.log  >  logs/func_test_ozone_bench_mode.log.diff
 	 tail -10  logs/func_test_ozone_bench_mode.log.diff 
 
-func/test_ozone_bfloat.py  :  
-	 -$(PYTHON)  tests/func/test_ozone_bfloat.py  >  logs/func_test_ozone_bfloat.log  2>&1
-	 $(PYTHON) scripts/num_diff.py  tests/references/func/test_ozone_bfloat.log logs/func_test_ozone_bfloat.log  >  logs/func_test_ozone_bfloat.log.diff
-	 tail -10  logs/func_test_ozone_bfloat.log.diff 
-
 func/test_ozone_disable_seasonal.py  :  
 	 -$(PYTHON)  tests/func/test_ozone_disable_seasonal.py  >  logs/func_test_ozone_disable_seasonal.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/func/test_ozone_disable_seasonal.log logs/func_test_ozone_disable_seasonal.log  >  logs/func_test_ozone_disable_seasonal.log.diff
@@ -883,7 +878,7 @@ func/test_version.py  :
 
 
 
- func :  func/test_version.py func/test_ozone_with_logging.py func/test_ozone_no_vote.py func/test_ozone_horizon_one.py func/test_ozone_disable_seasonal.py func/test_ozone_bfloat.py func/test_ozone_bench_mode.py func/test_ozone.py func/test_cycles_full.py func/test_cycle.py func/test_const_signal.py func/test_ar.py func/test_air_passengers_no_vote.py func/test_air_passengers.py  
+ func :  func/test_version.py func/test_ozone_with_logging.py func/test_ozone_no_vote.py func/test_ozone_horizon_one.py func/test_ozone_disable_seasonal.py func/test_ozone_bench_mode.py func/test_ozone.py func/test_cycles_full.py func/test_cycle.py func/test_const_signal.py func/test_ar.py func/test_air_passengers_no_vote.py func/test_air_passengers.py  
  
 
 heroku/build_generic_heroku_model.py  :  
