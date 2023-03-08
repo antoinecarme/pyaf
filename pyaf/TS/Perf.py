@@ -128,7 +128,7 @@ class cPerf:
 
     def compute_KS_Kendall_MWU_AUC(self, signal , estimator):
         from scipy.stats import mannwhitneyu, kendalltau, kstest
-        lKSTest = kstest(signal, estimator)
+        lKSTest = kstest(signal, estimator, method='asymp')
         self.mKS = lKSTest.statistic
         self.mKS = round( self.mKS , 4 )
         lKendallTau_Result = kendalltau(signal, estimator)

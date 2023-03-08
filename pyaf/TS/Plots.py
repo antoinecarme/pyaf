@@ -172,7 +172,11 @@ def quantiles_plot_internal(df, time, signal, estimator, iQuantiles, name = None
     if(name is not None):
         plt.switch_backend('Agg')
     lMin, lMax = df1[lQuantileNames].values.min(), df1[lQuantileNames].values.max()
-
+    # Avoid a warning from matplotlib.
+    lEps = 0.01
+    if((lMax - lMin) < lEps):
+        lMin, lMax = lMin - lEps, lMax + lEps
+        
     #  Forecast Quantiles Plots can be improved #225 
     # Use a more meaningful color map (gradient, Blue = Low, Green = Normal, Red = High) for synchronized histograms.
     # Blue/Red for lower/higher quartile, decreasing alpha towards ther median.
@@ -192,7 +196,10 @@ def quantiles_plot_internal(df, time, signal, estimator, iQuantiles, name = None
         lIdx = df1.index[h]
         lTime = df1.loc[lIdx, time]
         q_values = df1.loc[lIdx, lQuantileNames].tolist()
-        _, bins1, patches = axs[h].hist(q_values, bins = q_values, weights=[1]*len(lQuantileNames), density = True)
+        if((max(q_values) - min(q_values)) < lEps):
+            # Avoid a warning from matplotlib for a constant signal.
+            q_values = [min(q_values) - lEps] + [max(q_values) + lEps]
+        _, bins1, patches = axs[h].hist(q_values, bins = q_values, weights=[1]*len(q_values), density = True)
         for i, p in enumerate(patches):
             j = (bins1[i] - lMin) / (lMax - lMin)
             plt.setp(p, 'facecolor', cm(j))
