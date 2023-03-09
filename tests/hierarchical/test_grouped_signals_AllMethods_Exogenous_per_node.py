@@ -14,7 +14,7 @@ def create_exog_data(b1):
     # fake exog data based on date variable
     lDate1 = b1.mPastData['Index']
     lDate2 = b1.mFutureData['Index'] # not needed. exogenous data are missing when not available.
-    lDate = lDate1.append(lDate2)
+    lDate = pd.concat((lDate1, lDate2), axis = 0)
     lExogenousDataFrame = pd.DataFrame()
     lExogenousDataFrame['Index'] = lDate
     lExogenousDataFrame['Index_ex1'] = lDate * lDate

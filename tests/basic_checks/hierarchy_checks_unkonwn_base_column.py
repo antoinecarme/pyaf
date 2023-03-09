@@ -34,6 +34,6 @@ b1 = tsds.load_AU_hierarchical_dataset();
 df1 = b1.mHierarchy['Data']
 print(df1.tail())
 cols = df1.columns
-b1.mHierarchy['Data'] = df1.append(pd.DataFrame([['Unknown' , 'Other_State' , 'Australia']], columns=cols)).reset_index(drop=True);
+b1.mHierarchy['Data'] = pd.concat((df1, pd.DataFrame([['Unknown' , 'Other_State' , 'Australia']], columns=cols))).reset_index(drop=True);
 print(b1.mHierarchy['Data'].tail())
 train_and_force_fail(b1 , "PYAF_ERROR_HIERARCHY_BASE_COLUMN_NOT_FOUND Unknown")    
