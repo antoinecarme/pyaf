@@ -196,9 +196,12 @@ def quantiles_plot_internal(df, time, signal, estimator, iQuantiles, name = None
         lIdx = df1.index[h]
         lTime = df1.loc[lIdx, time]
         q_values = df1.loc[lIdx, lQuantileNames].tolist()
+        q_values = [max(x , -1e10) for x in q_values]
+        q_values = [min(x , +1e10) for x in q_values]
         if((max(q_values) - min(q_values)) < lEps):
             # Avoid a warning from matplotlib for a constant signal.
             q_values = [min(q_values) - lEps] + [max(q_values) + lEps]
+        # print(h, horizon, lIdx, lTime, q_values)
         _, bins1, patches = axs[h].hist(q_values, bins = q_values, weights=[1]*len(q_values), density = True)
         for i, p in enumerate(patches):
             j = (bins1[i] - lMin) / (lMax - lMin)
