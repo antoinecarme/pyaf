@@ -25,7 +25,7 @@ class cModelSelector_Voting:
 
     def dump_all_model_perfs_as_json(self):
         logger = tsutil.get_pyaf_logger();
-        lColumns = ['Model', 'DetailedFormula' , 'Category', 'Complexity', 'Forecast' + self.mOptions.mModelSelection_Criterion, 'Voting']
+        lColumns = ['Model', 'DetailedFormula' , 'Category', 'Complexity', 'Voting'] + [x for x in self.mTrPerfDetails.columns if x.startswith('Forecast_')]
         lPerf_df = self.mTrPerfDetails[lColumns].head(10)
         lDict = lPerf_df.to_dict('records')
         import json
@@ -111,7 +111,7 @@ class cModelSelector_Voting:
         if(self.mOptions.mDebugProfile):
             lTimer = tsutil.cTimer(("MODEL_SELECTION_FOR_CROSS_VALIDATION"))
         # self.mTrPerfDetails.to_csv("perf_time_series_cross_val.csv")
-        lIndicator = 'Forecast' + self.mOptions.mModelSelection_Criterion;
+        lIndicator = [x for x in self.mTrPerfDetails.columns if x.startswith('Forecast_')][-1]
         lColumns = ['Category', 'Complexity', lIndicator]
         lPerfByCategory = self.mTrPerfDetails[lColumns].groupby(by=['Category'] , sort=False)[lIndicator].mean()
         lPerfByCategory_df = pd.DataFrame(lPerfByCategory).reset_index()
