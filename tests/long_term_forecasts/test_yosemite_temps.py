@@ -36,7 +36,7 @@ def buildModel(H):
     
     lEngine.train(df_train , lTimeVar , lSignalVar, H);
     lEngine.getModelInfo();
-    print(lEngine.mSignalDecomposition.mTrPerfDetails.head());
+    
     
     lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
     

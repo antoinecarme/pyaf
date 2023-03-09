@@ -24,8 +24,6 @@ lEngine.mOptions.set_active_autoregressions(['NoAR' , 'AR' , 'ARX' , 'SVR']);
 # lEngine.mOptions.mDebugPerformance = True;
 lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H);
 lEngine.getModelInfo();
-lPerf_DF = lEngine.mSignalDecomposition.mTrPerfDetails;
-print(lPerf_DF.head(lPerf_DF.shape[0]));
 
 lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
 

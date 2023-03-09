@@ -37,8 +37,6 @@ def test_transformation(itransformation):
     lTimeVar = 'time'
     lEngine.train(df , lTimeVar , lSignalVar, H);
     lEngine.getModelInfo();
-    N = lEngine.mSignalDecomposition.mTrPerfDetails.shape[0]
-    print(lEngine.mSignalDecomposition.mTrPerfDetails.head(N));
 
     lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
     

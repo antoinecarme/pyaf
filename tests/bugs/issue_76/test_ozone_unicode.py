@@ -23,7 +23,7 @@ lEngine
 H = b1.mHorizon;
 lEngine.train(df , lTimeVar , lSignalVar, H);
 lEngine.getModelInfo();
-print(lEngine.mSignalDecomposition.mTrPerfDetails.head());
+
 
 
 lEngine.standardPlots("outputs/issue_76_unicode__ozone");

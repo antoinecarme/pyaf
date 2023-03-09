@@ -35,7 +35,7 @@ lEngine.mOptions.mXGBOptions = dict(n_estimators=5,
 
 lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H);
 lEngine.getModelInfo();
-print(lEngine.mSignalDecomposition.mTrPerfDetails.head());
+
 
 lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
 

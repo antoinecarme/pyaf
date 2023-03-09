@@ -33,7 +33,7 @@ def test_ozone_missing_data(iTimeMissingDataImputation, iSignalMissingDataImputa
     lEngine.mOptions.mMissingDataOptions.mSignalMissingDataImputation = iSignalMissingDataImputation
     lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H);
     lEngine.getModelInfo();
-    print(lEngine.mSignalDecomposition.mTrPerfDetails.head());
+    
 
     dfapp_in = df.copy();
     dfapp_in.tail()

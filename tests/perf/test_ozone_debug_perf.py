@@ -30,7 +30,7 @@ def test_ozone_debug_perf():
     lEngine.mOptions.mEnableARModels = False;
     lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H);
     lEngine.getModelInfo();
-    print(lEngine.mSignalDecomposition.mTrPerfDetails.head());
+    
     
     lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
     

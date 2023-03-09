@@ -21,7 +21,7 @@ lEngine.mOptions.mCycle_Criterion = "DiffSMAPE";
 lEngine.mOptions.mParallelMode = True;
 lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H);
 lEngine.getModelInfo();
-print(lEngine.mSignalDecomposition.mTrPerfDetails.head());
+
 
 lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
 

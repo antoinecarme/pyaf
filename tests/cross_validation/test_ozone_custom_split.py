@@ -22,7 +22,7 @@ def test_ozone_custom(folds, start_validation_at_fold):
     lEngine.mOptions.mDebugPerformance = True;
     lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H);
     lEngine.getModelInfo();
-    print(lEngine.mSignalDecomposition.mTrPerfDetails.head());
+    
 
     print(lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution)
 

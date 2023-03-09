@@ -47,7 +47,7 @@ def buildModel(iParallel = True):
 
     lEngine2 = pickleModel(lEngine)
     lEngine2.getModelInfo();
-    print(lEngine2.mSignalDecomposition.mTrPerfDetails.head());
+    
     
     lEngine2.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
     

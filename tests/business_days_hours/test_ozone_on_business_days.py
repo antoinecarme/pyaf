@@ -31,7 +31,7 @@ lEngine.mOptions.set_active_autoregressions([]);
 
 lEngine.train(df , timevar , b1.mSignalVar, H);
 lEngine.getModelInfo();
-print(lEngine.mSignalDecomposition.mTrPerfDetails.head());
+
 
 lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
 

@@ -47,7 +47,7 @@ for k in [1]:
 
         lEngine.train(df , timevar , lSignalVar, H);
         lEngine.getModelInfo();
-        print(lEngine.mSignalDecomposition.mTrPerfDetails.head());
+        
 
         lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
         

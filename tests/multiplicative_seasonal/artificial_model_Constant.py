@@ -29,7 +29,7 @@ lEngine.mOptions.set_active_decomposition_types(['T+S+R', 'TS+R', 'TSR']);
 # get the best time series model for predicting one week
 lEngine.train(iInputDS = df_train, iTime = 'Date', iSignal = lSignal, iHorizon = 7);
 lEngine.getModelInfo() # => relative error 7% (MAPE)
-print(lEngine.mSignalDecomposition.mTrPerfDetails.head());
+
 
 # predict one week
 df_forecast = lEngine.forecast(iInputDS = df_train, iHorizon = 7)

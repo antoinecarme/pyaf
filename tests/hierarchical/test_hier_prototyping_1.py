@@ -35,7 +35,7 @@ for signal in lBottomColumns:
     lEngine.mOptions.set_active_autoregressions([]);
     lEngine.train(df , lDateColumn , signal, H);
     lEngine.getModelInfo();
-    print(lEngine.mSignalDecomposition.mTrPerfDetails.head());
+    
 
     lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
 

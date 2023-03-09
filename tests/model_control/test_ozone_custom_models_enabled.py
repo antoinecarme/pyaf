@@ -32,7 +32,7 @@ def build_model(transformations, trends, periodics, autoregs):
     lExogenousData = (b1.mExogenousDataFrame , b1.mExogenousVariables) 
     lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H);
     lEngine.getModelInfo();
-    print(lEngine.mSignalDecomposition.mTrPerfDetails.head());
+    
 
     lEngine2 = pickleModel(lEngine)
     

@@ -29,7 +29,7 @@ H = 120
 # lEngine.mOptions.mDebugPerformance = True;
 lEngine.train(df , lTimeVar , lSignalVar, H);
 lEngine.getModelInfo();
-print(lEngine.mSignalDecomposition.mTrPerfDetails.head());
+
 
 lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
 

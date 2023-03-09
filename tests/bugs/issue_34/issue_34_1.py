@@ -52,7 +52,7 @@ def process_dataset_with_noise(idataset , sigma):
         lEngine.getModelInfo();
         # lEngine.standardPlots(name = "outputs/my_exog_" + str(nbex) + "_" + str(n));
         # lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
-        print(lEngine.mSignalDecomposition.mTrPerfDetails.head());
+        
         dfapp_in = training_ds.copy();
         dfapp_in.tail()
 

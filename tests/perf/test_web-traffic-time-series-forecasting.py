@@ -32,7 +32,7 @@ H = 60;
 for signal in df.columns[-1:]:
     lEngine.train(df , "Date" , signal, H);
     lEngine.getModelInfo();
-    print(lEngine.mSignalDecomposition.mTrPerfDetails.head());
+    
 
     lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
 

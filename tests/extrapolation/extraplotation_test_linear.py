@@ -32,7 +32,7 @@ lEngine.mOptions.mDebug = True;
 # get the best time series model for predicting one week
 lEngine.train(iInputDS = df_train, iTime = 'Date', iSignal = lSignal, iHorizon = 7);
 lEngine.getModelInfo() # => relative error 7% (MAPE)
-print(lEngine.mSignalDecomposition.mTrPerfDetails.head());
+
 
 # predict one week
 df_forecast = lEngine.forecast(iInputDS = df_train, iHorizon = 7)

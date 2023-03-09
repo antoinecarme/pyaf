@@ -30,7 +30,7 @@ def test_transformation(itransformation):
     lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H);
     lEngine2 = pickleModel(lEngine)
     lEngine2.getModelInfo();
-    print(lEngine2.mSignalDecomposition.mTrPerfDetails.head());
+    
 
     lEngine2.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
     

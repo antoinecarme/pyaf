@@ -25,8 +25,6 @@ H = b1.mHorizon;
 # lEngine.mOptions.mDebugPerformance = True;
 lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H);
 lEngine.getModelInfo();
-perfs = lEngine.mSignalDecomposition.mTrPerfDetails 
-print(perfs.head(perfs.shape[0]));
 
 dfapp_in = df;
 # dfapp_in.tail()

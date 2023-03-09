@@ -19,7 +19,7 @@ def build_model(iPerf):
     lEngine.mOptions.mModelSelection_Criterion = iPerf;
     lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H);
     lEngine.getModelInfo();
-    print(lEngine.mSignalDecomposition.mTrPerfDetails.head());
+    
 
     lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
 

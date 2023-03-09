@@ -94,7 +94,7 @@ for signal in lAllLevelColumns:
 
     lEngine.train(df1 , lDateColumn , signal, H);
     lEngine.getModelInfo();
-    print(lEngine.mSignalDecomposition.mTrPerfDetails.head());
+    
 
     lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
 

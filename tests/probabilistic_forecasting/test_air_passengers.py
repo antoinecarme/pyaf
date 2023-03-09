@@ -21,11 +21,6 @@ lEngine.mOptions.mParallelMode = True;
 lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H);
 lEngine.getModelInfo();
 
-print(lEngine.mSignalDecomposition.mTrPerfDetails.columns);
-lColumns = ['Split', 'Transformation', 'Model', 'Category', 'Complexity',
-            'FitCRPS', 'ForecastCRPS', 'TestCRPS']
-print(lEngine.mSignalDecomposition.mTrPerfDetails[lColumns].head(10));
-
 lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
 
 lEngine.standardPlots(name = "outputs/my_airline_passengers")

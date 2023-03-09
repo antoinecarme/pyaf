@@ -9,7 +9,7 @@ def build_model(iDict):
     lEngine = lModel.mForecastEngine
     df = lModel.mTrainDataFrame.copy();
     H = lModel.mHorizon
-    print(lEngine.mSignalDecomposition.mTrPerfDetails.head());
+    
 
     dfapp_in = df.copy();
     dfapp_in.tail()
