@@ -87,7 +87,17 @@ class cTimeSeriesModel:
         self.mForecastPerfs = lPredictionIntervalsEstimator.mForecastPerformances
         self.mTestPerfs = lPredictionIntervalsEstimator.mTestPerformances
 
-
+    def get_perfs_summary(self):
+        output = {"Fit" : {}, "Forecast" : {}, "Test" : {}}
+        lForecastColumn = str(self.mOriginalSignal) + "_Forecast";
+        lCriterion = self.mTimeInfo.mOptions.mModelSelection_Criterion
+        for h in [1, self.mTimeInfo.mHorizon]:
+            lHorizonName = lForecastColumn + "_" + str(h);
+            output["Fit"][h] = self.mFitPerfs[lHorizonName]
+            output["Forecast"][h] = self.mForecastPerfs[lHorizonName]
+            output["Test"][h] = self.mTestPerfs[lHorizonName]
+        return output
+        
     def aggregate_criteria(self, criteria):
         lAggregated = criteria[0]
         return lAggregated

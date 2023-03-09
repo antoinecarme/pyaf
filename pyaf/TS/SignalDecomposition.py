@@ -96,8 +96,6 @@ class cSignalDecomposition:
         self.mModelShortListBySignal = lTrainer.mModelShortList
         # some backward compatibility
         lFirstSignal = self.mSignals[0] 
-        self.mTrPerfDetails = lTrainer.mTrPerfDetails[lFirstSignal]
-        self.mModelShortList = lTrainer.mModelShortList[lFirstSignal]
         self.mBestModel = self.mBestModels[lFirstSignal]
         self.mTrainingTime = lTimer.get_elapsed_time()
 
@@ -116,12 +114,22 @@ class cSignalDecomposition:
             lFormula[lSignal] = self.mBestModel.getFormula();
         return lFormula;
 
+    def get_competition_details(self):
+        logger = tsutil.get_pyaf_logger();
+        for lSignal in self.mSignals:
+            logger.info("COMPETITION_DETAIL_START '" + lSignal + "'");
+            lShortList_Dict = self.mModelShortListBySignal[lSignal].to_dict(orient = 'index')
+            # print(lShortList_Dict)
+            for (k, v) in lShortList_Dict.items():
+                logger.info("COMPETITION_DETAIL_SHORT_LIST '" + lSignal + "' " + str(k) + " " + str(v));
+            logger.info("COMPETITION_DETAIL_END '" + lSignal + "'");
 
     def getModelInfo(self):
         for lSignal in self.mSignals:
             self.mBestModels[lSignal].getInfo()
         logger = tsutil.get_pyaf_logger();
         logger.info("TRAINING_TIME_IN_SECONDS " + str(self.mTrainingTime));
+        self.get_competition_details()
 
     def to_dict(self, iWithOptions = False):
         dict1 = {}

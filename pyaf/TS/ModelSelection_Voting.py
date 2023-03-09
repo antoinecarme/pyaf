@@ -39,6 +39,7 @@ class cModelSelector_Voting:
         logger = tsutil.get_pyaf_logger();
         lTimer = tsutil.cTimer(("MODEL_SELECTION", {"Signal" : iSignal, "Transformations" : sorted(list(iSigDecs.keys()))}))
         lVotingScores = self.compute_voting_scores(iSigDecs)
+        lCriterion = self.mOptions.mModelSelection_Criterion
         rows_list = []
         lPerfsByModel = {}
         for (lName, sigdec) in iSigDecs.items():
@@ -47,26 +48,38 @@ class cModelSelector_Voting:
                 lTranformName = sigdec.mSignal;
                 lDecompType = model[1];
                 lModelFormula = model
-                lModelCategory = value[0][2].get_model_category()
+                tsmodel = value[0][2]
+                lModelCategory = tsmodel.get_model_category()
                 lSplit = value[0][2].mTimeInfo.mOptions.mCustomSplit
                 #  value format : self.mPerfsByModel[lModel.mOutName] = [lModel, lComplexity, lFitPerf , lForecastPerf, lTestPerf];
                 lComplexity = value[1];
-                lFitPerf = value[2];
-                lForecastPerf = value[3];
-                lTestPerf = value[4];
+                model_perfs = tsmodel.get_perfs_summary()
+                lFitPerf = model_perfs["Fit"];
+                lForecastPerf = model_perfs["Forecast"]
+                lTestPerf = model_perfs["Test"]
+                H = tsmodel.mTimeInfo.mHorizon
+
                 lVoting = lVotingScores[ lModelFormula[3] ]
                 row = [lSplit, lTranformName, lDecompType, lModelFormula[3], lModelFormula, lModelCategory, lComplexity,
-                       lFitPerf,
-                       lForecastPerf,
-                       lTestPerf, lVoting]
+                       lFitPerf[1].getCriterionValue(lCriterion),
+                       lFitPerf[H].getCriterionValue(lCriterion), 
+                       lForecastPerf[1].getCriterionValue(lCriterion),
+                       lForecastPerf[H].getCriterionValue(lCriterion),
+                       lTestPerf[1].getCriterionValue(lCriterion),
+                       lTestPerf[H].getCriterionValue(lCriterion),
+                       lVoting]
                 rows_list.append(row);
 
         self.mTrPerfDetails =  pd.DataFrame(rows_list, columns=
                                             ('Split', 'Transformation', 'DecompositionType',
                                              'Model', 'DetailedFormula', 'Category', 'Complexity',
-                                             'Fit' + self.mOptions.mModelSelection_Criterion,
-                                             'Forecast' + self.mOptions.mModelSelection_Criterion,
-                                             'Test' + self.mOptions.mModelSelection_Criterion, "Voting")) 
+                                             'Fit_' + self.mOptions.mModelSelection_Criterion + "_1",
+                                             'Fit_' + self.mOptions.mModelSelection_Criterion + "_H",
+                                             'Forecast_' + self.mOptions.mModelSelection_Criterion + "_1",
+                                             'Forecast_' + self.mOptions.mModelSelection_Criterion + "_H",
+                                             'Test_' + self.mOptions.mModelSelection_Criterion + "_1",
+                                             'Test_' + self.mOptions.mModelSelection_Criterion + "_H",
+                                             "Voting")) 
         # print(self.mTrPerfDetails.head(self.mTrPerfDetails.shape[0]));
         lIndicator = 'Voting';
         lBestPerf = self.mTrPerfDetails[ lIndicator ].max();
@@ -88,8 +101,8 @@ class cModelSelector_Voting:
         # print("BEST_MODEL", lBestName, lBestModel)
         self.mBestModel = lBestModel
         self.mPerfsByModel = lPerfsByModel
-        self.mModelShortList = lInterestingModels[['Transformation', 'DecompositionType', 'Model', lIndicator, 'Complexity']] 
-        print(self.mModelShortList.head());
+        self.mModelShortList = lInterestingModels[['Transformation', 'DecompositionType', 'Model', lIndicator, 'Complexity', 'Forecast_' + self.mOptions.mModelSelection_Criterion + "_1",  'Forecast_' + self.mOptions.mModelSelection_Criterion + "_H"]] 
+        # print(self.mModelShortList.head());
         return (iSignal, lPerfsByModel, lBestModel, self.mModelShortList)
 
 
