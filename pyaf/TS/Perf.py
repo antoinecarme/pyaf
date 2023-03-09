@@ -127,6 +127,10 @@ class cPerf:
         return self.mLnQ
 
     def compute_KS_Kendall_MWU_AUC(self, signal , estimator):
+        min_signal , max_signal = signal.min(), signal.max()
+        self.mKS, self.mMWU, self.mAUC = 0.0, 0.0, 0.0
+        if((max_signal - min_signal) < 0.001):
+            return 
         from scipy.stats import mannwhitneyu, kendalltau, kstest
         lKSTest = kstest(signal, estimator, method='asymp')
         self.mKS = lKSTest.statistic
