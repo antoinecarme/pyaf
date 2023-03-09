@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
     pyaf_long_description = fh.read()
     
 setup(name='pyaf',
-      version='4.0',
+      version='5.0-rc1',
       description='Python Automatic Forecasting',
       long_description=pyaf_long_description,
       long_description_content_type="text/markdown",
@@ -25,5 +25,4 @@ setup(name='pyaf',
           'matplotlib',
           'pydot',
           'dill',
-          'sqlalchemy'
       ])
