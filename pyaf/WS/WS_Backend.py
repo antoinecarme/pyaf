@@ -29,7 +29,7 @@ class cWSModel:
         self.mMaxHistoryForDisplay = 1000; # max length of data frames returned in json
         self.mForecastData = None;
         self.mPlots = {};
-        self.mURI = os.environ.get("PYAF_URL", "http://0.0.0.0:8081/");
+        self.mURI = os.environ.get("PYAF_URL", "http://127.0.0.1:8081/");
         
     def convert_string_to_date(self, iString):
         if(self.mDateFormat is not None and self.mDateFormat != ""):

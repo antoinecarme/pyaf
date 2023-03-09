@@ -86,8 +86,8 @@ def decomp_plot(df, time, signal, estimator, residue, name = None, format='png',
         plt.close(fig)
 
 
-def decomp_plot_as_png_base64(df, time, signal, estimator, residue, name = None, max_length = 1000, horizon = 1) :
-    fig = decomp_plot_internal(df, time, signal, estimator, residue, name, format, max_length, horizon)
+def decomp_plot_as_png_base64(df, time, signal, estimator, residue, name = None, max_length = 1000, horizon = 1, title = None) :
+    fig = decomp_plot_internal(df, time, signal, estimator, residue, name, format, max_length, horizon, title)
  
     import matplotlib
     import matplotlib.pyplot as plt
