@@ -63,8 +63,18 @@ class cModelControl:
         # Add Multiplicative Models/Seasonals #178.
         # Only additive models are activated by default        
         self.set_active_decomposition_types(['T+S+R']);
+
+    def check_model_type_validity(self, category, allowed_values, value):
+        from . import Utils as tsutil
+        
+        if(value not in allowed_values):
+            raise tsutil.PyAF_Error("INVALID_MODEL_TYPE Invalid '" + category + "' Type '" + value + "'. Allowed '" + category + "' Values : " + str(allowed_values));
+        
         
     def set_active_decomposition_types(self, iDecompTypes):
+        for dec_type in iDecompTypes:
+            self.check_model_type_validity('DecompositionType', self.mKnownDecompositionTypes, dec_type)
+            
         self.mActiveDecompositionTypes = {};
         for decomp_type in self.mKnownDecompositionTypes:
             if(decomp_type in iDecompTypes):
@@ -76,6 +86,9 @@ class cModelControl:
             self.mActiveTransformations['T+S+R'] = True;
             
     def set_active_transformations(self, transformations):
+        for transformation in transformations:
+            self.check_model_type_validity('Transformation', self.mKnownTransformations, transformation)
+            
         self.mActiveTransformations = {};
         for transformation in self.mKnownTransformations:
             if(transformation in transformations):
@@ -87,6 +100,9 @@ class cModelControl:
             self.mActiveTransformations['None'] = True;
     
     def set_active_trends(self, trends):
+        for trend in trends:
+            self.check_model_type_validity('Trend', self.mKnownTrends, trend)
+            
         self.mActiveTrends = {};
         for trend in self.mKnownTrends:
             if(trend in trends):
@@ -98,6 +114,9 @@ class cModelControl:
             self.mActiveTrends['ConstantTrend'] = True;                
     
     def set_active_periodics(self, periodics):
+        for period in periodics:
+            self.check_model_type_validity('Periodic', self.mKnownPeriodics, period)
+            
         self.mActivePeriodics = {};
         for period in self.mKnownPeriodics:
             if(period in periodics):
@@ -109,6 +128,9 @@ class cModelControl:
             self.mActivePeriodics['NoCycle'] = True;
                     
     def set_active_autoregressions(self, autoregs):
+        for autoreg in autoregs:
+            self.check_model_type_validity('AutoRegression', self.mKnownAutoRegressions, autoreg)
+            
         self.mActiveAutoRegressions = {};
         for autoreg in self.mKnownAutoRegressions:
             if(autoreg in autoregs):
