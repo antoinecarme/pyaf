@@ -114,7 +114,7 @@ def getVersions():
     lVersionDict["python_version"] = platform.python_version();
 
     lModules = ["pyaf", "sklearn", "pandas", "numpy" , "scipy" , "matplotlib", "pydot",
-                "xgboost", "pip" , "setuptools", "Cython", "dill" , "pathos", "lightgbm",
+                "xgboost", "pip" , "setuptools", "Cython", "lightgbm",
                 "torch", "skorch"]
     import sys
     # Limit this list to the already imported/used modules only.
