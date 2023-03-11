@@ -120,7 +120,8 @@ class cSignalDecomposition:
             logger.info("COMPETITION_DETAIL_START '" + lSignal + "'");
             lShortList_Dict = self.mModelShortListBySignal[lSignal].to_dict(orient = 'index')
             # print(lShortList_Dict)
-            for (k, v) in lShortList_Dict.items():
+            for k in sorted(lShortList_Dict.keys()):
+                v = lShortList_Dict[k]
                 logger.info("COMPETITION_DETAIL_SHORT_LIST '" + lSignal + "' " + str(k) + " " + str(v));
             logger.info("COMPETITION_DETAIL_END '" + lSignal + "'");
 
