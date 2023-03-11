@@ -14,6 +14,12 @@ from datetime import date
 
 import os.path
 
+def createDirIfNeeded(dirname):
+    try:
+        os.mkdir(dirname);
+    except:
+        pass
+
 
 class cTimeSeriesDatasetSpec:
 
@@ -44,6 +50,17 @@ class cTimeSeriesDatasetSpec:
     def getHorizon(self):
         return self.mHorizon;
 
+    def save_dataset(self, iFileNamePrefix):
+        self.mFullDataset.to_csv(iFileNamePrefix + "_training.csv")
+        if(self.mExogenousDataFrame is not None):
+            self.mExogenousDataFrame.to_csv(iFileNamePrefix + "_exogenous.csv")
+        
+    def load_dataset_if_possible(self, iFileNamePrefix):
+        self.mFullDataset = pd.read_csv(iFileNamePrefix + "_training.csv")
+        if(os.path.isfile(iFileNamePrefix + "_exogenous.csv")):
+            self.mExogenousDataFrame = pd.read_csv(iFileNamePrefix + "_exogenous.csv")
+            self.mExogenousVariables = [x for x in self.mExogenousDataFrame.columns if x.startswith('exog_')]
+        
     
 # @profile    
 def load_airline_passengers() :
@@ -283,8 +300,36 @@ def apply_transform(signal , transform):
 def generate_random_TS_name(N , FREQ, seed, trendtype, cycle_length, transform, sigma = 1.0, exog_count = 20, ar_order = 0) :
     lName = "Signal_" + str(N) + "_" + str(FREQ) +  "_" + str(seed)  + "_" + str(trendtype) +  "_" + str(cycle_length)   + "_" + str(transform)   + "_" + str(sigma) + "_" + str(exog_count) ;
     return lName
-    
+
+ARTIFICIAL_DATASETS_URI = "data/ARTIFICIAL_DATA"
+
 def generate_random_TS(N , FREQ, seed, trendtype, cycle_length, transform, sigma = 1.0, exog_count = 20, ar_order = 12) :
+    tsspec = cTimeSeriesDatasetSpec();
+    lName = generate_random_TS_name(N , FREQ, seed, trendtype, cycle_length, transform, sigma, exog_count, ar_order)
+    tsspec.mName = lName
+    lFileName = ARTIFICIAL_DATASETS_URI + "/" + str(N) + "/" + tsspec.mName
+    createDirIfNeeded(ARTIFICIAL_DATASETS_URI + "/" + str(N))
+    print("TRYING_TO_LOAD_RANDOM_DATASET" , tsspec.mName, lFileName);
+    if(os.path.isfile(lFileName + "_training.csv")):
+        tsspec.load_dataset_if_possible(lFileName)
+        tsspec.mTimeVar = "Date";
+        tsspec.mSignalVar = "Signal";
+        N = tsspec.mFullDataset.shape[0]
+        lHorizon = min(12, max(1, N // 30));
+        tsspec.mHorizon = {}
+        tsspec.mHorizon[tsspec.mSignalVar] = lHorizon
+        tsspec.mHorizon[tsspec.mName] = lHorizon
+        # tsspec.mFullDataset = df_train;
+        tsspec.mFullDataset[tsspec.mName] = tsspec.mFullDataset['Signal'];
+        tsspec.mPastData = tsspec.mFullDataset[:-lHorizon];
+        tsspec.mFutureData = tsspec.mFullDataset.tail(lHorizon);
+        return tsspec
+    print("LAOD_FAILED_TRYING_TO_GENERATE_RANDOM_DATASET" , tsspec.mName);
+    tsspec = generate_random_TS_real(N , FREQ, seed, trendtype, cycle_length, transform, sigma, exog_count, ar_order)
+    tsspec.save_dataset(lFileName)
+    return tsspec
+    
+def generate_random_TS_real(N , FREQ, seed, trendtype, cycle_length, transform, sigma = 1.0, exog_count = 20, ar_order = 12) :
     tsspec = cTimeSeriesDatasetSpec();
     lName = generate_random_TS_name(N , FREQ, seed, trendtype, cycle_length, transform, sigma, exog_count, ar_order)
     tsspec.mName = lName
@@ -329,10 +374,11 @@ def generate_random_TS(N , FREQ, seed, trendtype, cycle_length, transform, sigma
                                       e/exog_count ,
                                       (e+exog_count / 4)/exog_count ));
 
-    tsspec.mExogenousVariables = list(lExogVars.keys());
-    lExogVars['Date'] = df_train['Date']
-    tsspec.mExogenousDataFrame = pd.DataFrame(lExogVars, index = df_train.index);
-    # print(tsspec.mExogenousDataFrame.info())
+    if(exog_count > 0):
+        tsspec.mExogenousVariables = list(lExogVars.keys());
+        lExogVars['Date'] = df_train['Date']
+        tsspec.mExogenousDataFrame = pd.DataFrame(lExogVars, index = df_train.index);
+        # print(tsspec.mExogenousDataFrame.info())
 
     # this is the full dataset . must contain future exogenius data
     pos_signal = df_train['Signal'] - min_sig + 1.0;
@@ -750,30 +796,32 @@ def load_yahoo_stock_prices(symbol_list_key, stock = None) :
 # @profile    
 def generate_datasets(ds_type = "S", iName=None):
     datasets = {};
-    lRange_N = range(20, 101, 20)
+    lRange_N = [20, 50, 100]
     if(ds_type == "M"):
-        lRange_N = range(150, 501, 50)
+        lRange_N = [250, 500]
     if(ds_type == "L"):
-        lRange_N = range(600, 2001, 100)
+        lRange_N = [1000, 2000]
     if(ds_type == "XL"):
-        lRange_N = range(2500, 8000, 500)
+        lRange_N = [4000]
 
     lNames = {}
     
     for N in lRange_N:
         for trend in ["constant" , "linear" , "poly"]:
-            for cycle_length in range(0, N // 4 ,  max(N // 16 , 1)):
+            for cycle_length in [0, 7, 24]:
                 for transf in ["" , "exp"]:            
-                    for sigma in range(0, 5, 2):
-                        for exogc in range(0, 51, 20):
+                    for sigma in [1.0]:
+                        for exogc in [0, 10]:
                             for seed in range(0, 1):
-                                lName = generate_random_TS_name(N , 'D', seed, trend,
-                                                                cycle_length, transf,
-                                                                sigma, exog_count = exogc);
-                                if((iName is None) or (lName == iName)):
-                                    lNames[lName] = (N , 'D', seed, trend,
-                                                     cycle_length, transf,
-                                                     sigma, exogc)
+                                for freq in ['D' , 'H']:
+                                    lName = generate_random_TS_name(N , freq, seed, trend,
+                                                                    cycle_length, transf,
+                                                                    sigma, exog_count = exogc);
+                                    print(lName)
+                                    if((iName is None) or (lName == iName)):
+                                        lNames[lName] = (N , freq, seed, trend,
+                                                         cycle_length, transf,
+                                                         sigma, exogc)
     for (lName, args) in lNames.items():
         ds = generate_random_TS(*args)
         ds.mCategory = "ARTIFICIAL_" + ds_type;
@@ -783,7 +831,7 @@ def generate_datasets(ds_type = "S", iName=None):
 
 # @profile    
 def load_artificial_datsets(ds_type = "S", iName= None) :
-
+        
     tsspecs = generate_datasets(ds_type, iName);
     print("ARTIFICIAL_DATASETS_TESTED" , len(tsspecs))
 
