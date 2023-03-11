@@ -320,7 +320,7 @@ def generate_random_TS(N , FREQ, seed, trendtype, cycle_length, transform, sigma
         tsspec.mHorizon[tsspec.mSignalVar] = lHorizon
         tsspec.mHorizon[tsspec.mName] = lHorizon
         # tsspec.mFullDataset = df_train;
-        tsspec.mFullDataset[tsspec.mName] = tsspec.mFullDataset['Signal'];
+        # tsspec.mFullDataset[tsspec.mName] = tsspec.mFullDataset['Signal'];
         tsspec.mPastData = tsspec.mFullDataset[:-lHorizon];
         tsspec.mFutureData = tsspec.mFullDataset.tail(lHorizon);
         return tsspec
@@ -393,10 +393,9 @@ def generate_random_TS_real(N , FREQ, seed, trendtype, cycle_length, transform, 
     tsspec.mHorizon = {}
     tsspec.mHorizon[tsspec.mSignalVar] = lHorizon
     tsspec.mHorizon[tsspec.mName] = lHorizon
-    tsspec.mFullDataset = df_train;
-    tsspec.mFullDataset[tsspec.mName] = tsspec.mFullDataset['Signal'];
-    tsspec.mPastData = df_train[:-lHorizon];
-    tsspec.mFutureData = df_train.tail(lHorizon);
+    tsspec.mFullDataset = df_train.rename(columns = {'Signal' : tsspec.mName});
+    tsspec.mPastData = tsspec.mFullDataset[:-lHorizon];
+    tsspec.mFutureData = tsspec.mFullDataset.tail(lHorizon);
     
     return tsspec
 
@@ -807,7 +806,7 @@ def generate_datasets(ds_type = "S", iName=None):
     lNames = {}
     
     for N in lRange_N:
-        for trend in ["constant" , "linear" , "poly"]:
+        for trend in ["ConstantTrend" , "LinearTrend" , "PolyTrend"]:
             for cycle_length in [0, 7, 24]:
                 for transf in ["" , "exp"]:            
                     for sigma in [1.0]:
