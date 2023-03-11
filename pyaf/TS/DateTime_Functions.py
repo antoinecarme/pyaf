@@ -44,6 +44,9 @@ class cDateTime_Helper:
     def __init__(self):
         pass
 
+    def get_week_of_year(self, series):
+        return series.dt.isocalendar().week
+    
     def get_week_of_month(self, series):
         lFirstDayOfMonth = series - pd.to_timedelta(series.dt.day - 1, unit='D')
         return series.dt.isocalendar().week - lFirstDayOfMonth.dt.isocalendar().week + 1
@@ -51,7 +54,6 @@ class cDateTime_Helper:
     def apply_date_time_computer(self, iDatePart, series):
         lOut = None
         # Future Warning regarding DateTime_Functions - series.dt.weekofyear #153
-        lIsoDate = series.dt.isocalendar()
         if(iDatePart == eDatePart.Second):
             lOut = series.dt.second
         elif(iDatePart == eDatePart.Minute):
@@ -81,7 +83,7 @@ class cDateTime_Helper:
         elif(iDatePart == eDatePart.MonthOfYear):
             lOut = series.dt.month
         elif(iDatePart == eDatePart.WeekOfYear):
-            lOut = lIsoDate.week
+            lOut = self.get_week_of_year(series)
         elif(iDatePart == eDatePart.WeekOfMonth):
             lOut = self.get_week_of_month(series)
         elif(iDatePart == eDatePart.DayOfNthWeekOfMonth):
@@ -112,6 +114,7 @@ class cDateTime_Helper:
 
     
     def get_lags_for_time_resolution(self):
+        # self.mOptions.mMaxAROrder is set to 64 by default, Which covers all these resolutions.
         if(not self.isPhysicalTime()):
             return None;
         lARORder = {}
