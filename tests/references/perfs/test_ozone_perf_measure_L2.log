@@ -6,33 +6,19 @@ INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['Ozone'], 
 2  1955-03    3.6 1955-03-01
 3  1955-04    5.0 1955-04-01
 4  1955-05    6.5 1955-05-01
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Ozone', 'Transformation': '_Ozone', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Ozone', 'Transformation': 'Diff_Ozone', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Ozone', 'Transformation': 'RelDiff_Ozone', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Ozone', 'Transformation': 'CumSum_Ozone', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 7.838, ('TRAINING', {'Signal': 'Ozone', 'Transformation': '_Ozone', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 8.25, ('TRAINING', {'Signal': 'Ozone', 'Transformation': 'CumSum_Ozone', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 8.493, ('TRAINING', {'Signal': 'Ozone', 'Transformation': 'Diff_Ozone', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 9.897, ('TRAINING', {'Signal': 'Ozone', 'Transformation': 'RelDiff_Ozone', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 10.015, ('SIGNAL_TRAINING', {'Signals': ['Ozone'], 'Transformations': [('Ozone', 'None', '_', 'T+S+R'), ('Ozone', 'None', 'Diff_', 'T+S+R'), ('Ozone', 'None', 'RelDiff_', 'T+S+R'), ('Ozone', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Ozone', 'Horizon': 12, 'Transformation': '_Ozone', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Ozone', 'Horizon': 12, 'Transformation': 'Diff_Ozone', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Ozone', 'Horizon': 12, 'Transformation': 'CumSum_Ozone', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Ozone', 'Horizon': 12, 'Transformation': 'RelDiff_Ozone', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.423, ('TRAINING', {'Signal': 'Ozone', 'Horizon': 12, 'Transformation': 'Diff_Ozone', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.718, ('TRAINING', {'Signal': 'Ozone', 'Horizon': 12, 'Transformation': 'RelDiff_Ozone', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 5.226, ('TRAINING', {'Signal': 'Ozone', 'Horizon': 12, 'Transformation': 'CumSum_Ozone', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 5.314, ('TRAINING', {'Signal': 'Ozone', 'Horizon': 12, 'Transformation': '_Ozone', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 5.396, ('SIGNAL_TRAINING', {'Signals': ['Ozone'], 'Transformations': [('Ozone', 'None', '_', 'T+S+R'), ('Ozone', 'None', 'Diff_', 'T+S+R'), ('Ozone', 'None', 'RelDiff_', 'T+S+R'), ('Ozone', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['Ozone'], 'Transformations': [('Ozone', [('Ozone', 'None', 'CumSum_', 'T+S+R'), ('Ozone', 'None', 'Diff_', 'T+S+R'), ('Ozone', 'None', 'RelDiff_', 'T+S+R'), ('Ozone', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'Ozone', 'Transformations': [('Ozone', 'None', 'CumSum_', 'T+S+R'), ('Ozone', 'None', 'Diff_', 'T+S+R'), ('Ozone', 'None', 'RelDiff_', 'T+S+R'), ('Ozone', 'None', '_', 'T+S+R')]}))
 INFO:pyaf.std:PERF_DUMP_START
 INFO:pyaf.std:[
-    {
-        "Category": "Difference_ConstantTrend_Seasonal_MonthOfYear_AR",
-        "Complexity": "LMSSS",
-        "DetailedFormula": [
-            "Diff_Ozone",
-            "T+S+R",
-            null,
-            "Diff_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_AR(51)"
-        ],
-        "Forecast_L2_1": 0.7110822693156892,
-        "Forecast_L2_H": 0.643502705652855,
-        "Model": "Diff_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_AR(51)",
-        "Voting": 616.6667
-    },
     {
         "Category": "NoTransf_LinearTrend_Seasonal_MonthOfYear_NoAR",
         "Complexity": "SSSSS",
@@ -45,7 +31,7 @@ INFO:pyaf.std:[
         "Forecast_L2_1": 0.6629532247218342,
         "Forecast_L2_H": 0.6629532247218342,
         "Model": "_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_residue_NoAR",
-        "Voting": 611.0
+        "Voting": 461.1667
     },
     {
         "Category": "NoTransf_LinearTrend_Seasonal_MonthOfYear_AR",
@@ -56,10 +42,10 @@ INFO:pyaf.std:[
             null,
             "_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_residue_AR(51)"
         ],
-        "Forecast_L2_1": 0.6805100073586583,
+        "Forecast_L2_1": 0.6805100073586582,
         "Forecast_L2_H": 0.6954079928059945,
         "Model": "_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_residue_AR(51)",
-        "Voting": 594.25
+        "Voting": 450.6667
     },
     {
         "Category": "NoTransf_PolyTrend_Seasonal_MonthOfYear_AR",
@@ -73,7 +59,7 @@ INFO:pyaf.std:[
         "Forecast_L2_1": 0.6503160699807584,
         "Forecast_L2_H": 0.7251244635661779,
         "Model": "_Ozone_PolyTrend_residue_Seasonal_MonthOfYear_residue_AR(51)",
-        "Voting": 591.8333
+        "Voting": 448.25
     },
     {
         "Category": "NoTransf_PolyTrend_Seasonal_MonthOfYear_NoAR",
@@ -87,7 +73,7 @@ INFO:pyaf.std:[
         "Forecast_L2_1": 0.7284840017128622,
         "Forecast_L2_H": 0.7284840017128622,
         "Model": "_Ozone_PolyTrend_residue_Seasonal_MonthOfYear_residue_NoAR",
-        "Voting": 585.5833
+        "Voting": 442.0833
     },
     {
         "Category": "NoTransf_ConstantTrend_Seasonal_MonthOfYear_AR",
@@ -98,38 +84,10 @@ INFO:pyaf.std:[
             null,
             "_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_AR(51)"
         ],
-        "Forecast_L2_1": 0.6388289426482164,
-        "Forecast_L2_H": 0.8125296430171608,
+        "Forecast_L2_1": 0.6388289426482163,
+        "Forecast_L2_H": 0.8125296430171609,
         "Model": "_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_AR(51)",
-        "Voting": 581.25
-    },
-    {
-        "Category": "Integration_Lag1Trend_Cycle_12_NoAR",
-        "Complexity": "MSSSS",
-        "DetailedFormula": [
-            "CumSum_Ozone",
-            "T+S+R",
-            null,
-            "CumSum_Ozone_Lag1Trend_residue_Cycle_12_residue_NoAR"
-        ],
-        "Forecast_L2_1": 0.9164801675082245,
-        "Forecast_L2_H": 0.680309130337438,
-        "Model": "CumSum_Ozone_Lag1Trend_residue_Cycle_12_residue_NoAR",
-        "Voting": 552.8333
-    },
-    {
-        "Category": "Integration_Lag1Trend_Seasonal_MonthOfYear_NoAR",
-        "Complexity": "MSSSS",
-        "DetailedFormula": [
-            "CumSum_Ozone",
-            "T+S+R",
-            null,
-            "CumSum_Ozone_Lag1Trend_residue_Seasonal_MonthOfYear_residue_NoAR"
-        ],
-        "Forecast_L2_1": 0.9164801675082245,
-        "Forecast_L2_H": 0.680309130337438,
-        "Model": "CumSum_Ozone_Lag1Trend_residue_Seasonal_MonthOfYear_residue_NoAR",
-        "Voting": 552.8333
+        "Voting": 437.6667
     },
     {
         "Category": "NoTransf_Lag1Trend_Seasonal_MonthOfYear_NoAR",
@@ -143,7 +101,7 @@ INFO:pyaf.std:[
         "Forecast_L2_1": 0.8588901604351442,
         "Forecast_L2_H": 0.8028395120142513,
         "Model": "_Ozone_Lag1Trend_residue_Seasonal_MonthOfYear_residue_NoAR",
-        "Voting": 552.5833
+        "Voting": 413.0833
     },
     {
         "Category": "NoTransf_ConstantTrend_Seasonal_MonthOfYear_NoAR",
@@ -157,17 +115,59 @@ INFO:pyaf.std:[
         "Forecast_L2_1": 0.9097759656598472,
         "Forecast_L2_H": 0.9097759656598472,
         "Model": "_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_NoAR",
-        "Voting": 543.9167
+        "Voting": 405.5
+    },
+    {
+        "Category": "NoTransf_LinearTrend_Cycle_None_NoAR",
+        "Complexity": "SSSSS",
+        "DetailedFormula": [
+            "_Ozone",
+            "T+S+R",
+            null,
+            "_Ozone_LinearTrend_residue_Cycle_None_residue_NoAR"
+        ],
+        "Forecast_L2_1": 1.1010807964604634,
+        "Forecast_L2_H": 1.1010807964604634,
+        "Model": "_Ozone_LinearTrend_residue_Cycle_None_residue_NoAR",
+        "Voting": 386.8333
+    },
+    {
+        "Category": "NoTransf_LinearTrend_NoCycle_NoAR",
+        "Complexity": "SSSSS",
+        "DetailedFormula": [
+            "_Ozone",
+            "T+S+R",
+            null,
+            "_Ozone_LinearTrend_residue_zeroCycle[0.0]_residue_NoAR"
+        ],
+        "Forecast_L2_1": 1.1010807964604634,
+        "Forecast_L2_H": 1.1010807964604634,
+        "Model": "_Ozone_LinearTrend_residue_zeroCycle[0.0]_residue_NoAR",
+        "Voting": 386.8333
+    },
+    {
+        "Category": "NoTransf_PolyTrend_Cycle_None_NoAR",
+        "Complexity": "MSSSS",
+        "DetailedFormula": [
+            "_Ozone",
+            "T+S+R",
+            null,
+            "_Ozone_PolyTrend_residue_Cycle_None_residue_NoAR"
+        ],
+        "Forecast_L2_1": 1.175977579347063,
+        "Forecast_L2_H": 1.175977579347063,
+        "Model": "_Ozone_PolyTrend_residue_Cycle_None_residue_NoAR",
+        "Voting": 372.1667
     }
 ]
 INFO:pyaf.std:PERF_DUMP_END
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.086, ('MODEL_SELECTION', {'Signal': 'Ozone', 'Transformations': [('Ozone', 'None', 'CumSum_', 'T+S+R'), ('Ozone', 'None', 'Diff_', 'T+S+R'), ('Ozone', 'None', 'RelDiff_', 'T+S+R'), ('Ozone', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.088, ('MODEL_SELECTION', {'Signal': 'Ozone', 'Transformations': [('Ozone', 'None', 'CumSum_', 'T+S+R'), ('Ozone', 'None', 'Diff_', 'T+S+R'), ('Ozone', 'None', 'RelDiff_', 'T+S+R'), ('Ozone', 'None', '_', 'T+S+R')]}))
 INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Ozone', 'Model': '_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_residue_NoAR'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.741, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Ozone', 'Model': '_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.566, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Ozone', 'Model': '_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_residue_NoAR'}))
 INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Ozone'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.702, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Ozone'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.53, ('FINALIZE_TRAINING', {'Signals': ['Ozone'], 'Transformations': [('Ozone', [('Ozone', 'None', 'CumSum_', 'T+S+R'), ('Ozone', 'None', 'Diff_', 'T+S+R'), ('Ozone', 'None', 'RelDiff_', 'T+S+R'), ('Ozone', 'None', '_', 'T+S+R')])], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 11.555, ('TRAINING', {'Signals': ['Ozone'], 'Horizons': {'Ozone': 12}}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.431, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Ozone'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.085, ('FINALIZE_TRAINING', {'Signals': ['Ozone'], 'Transformations': [('Ozone', [('Ozone', 'None', 'CumSum_', 'T+S+R'), ('Ozone', 'None', 'Diff_', 'T+S+R'), ('Ozone', 'None', 'RelDiff_', 'T+S+R'), ('Ozone', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 6.49, ('TRAINING', {'Signals': ['Ozone'], 'Horizons': {'Ozone': 12}}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01T00:00:00.000000 TimeMax=1967-09-01T00:00:00.000000 TimeDelta=<DateOffset: months=1> Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Length=204  Min=1.2 Max=8.7  Mean=3.835784 StdDev=1.491559
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Ozone' Min=0.0 Max=1.0  Mean=0.351438 StdDev=0.198875
@@ -195,15 +195,14 @@ INFO:pyaf.std:SEASONAL_MODEL_VALUES _Ozone_LinearTrend_residue_Seasonal_MonthOfY
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:TRAINING_TIME_IN_SECONDS 11.555
+INFO:pyaf.std:TRAINING_TIME_IN_SECONDS 6.49
 INFO:pyaf.std:COMPETITION_DETAIL_START 'Ozone'
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Ozone' 1 {'Transformation': '_Ozone', 'DecompositionType': 'T+S+R', 'Model': '_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_residue_NoAR', 'Voting': 611.0, 'Complexity': 'SSSSS', 'Forecast_L2_1': 0.6629532247218342, 'Forecast_L2_H': 0.6629532247218342}
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Ozone' 0 {'Transformation': 'Diff_Ozone', 'DecompositionType': 'T+S+R', 'Model': 'Diff_Ozone_ConstantTrend_residue_Seasonal_MonthOfYear_residue_AR(51)', 'Voting': 616.6667, 'Complexity': 'LMSSS', 'Forecast_L2_1': 0.7110822693156892, 'Forecast_L2_H': 0.643502705652855}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Ozone' 0 {'Transformation': '_Ozone', 'DecompositionType': 'T+S+R', 'Model': '_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_residue_NoAR', 'Voting': 461.1667, 'Complexity': 'SSSSS', 'Forecast_L2_1': 0.6629532247218342, 'Forecast_L2_H': 0.6629532247218342}
 INFO:pyaf.std:COMPETITION_DETAIL_END 'Ozone'
 INFO:pyaf.timing:('OPERATION_START', ('PLOTTING', {'Signals': ['Ozone']}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 6.115, ('PLOTTING', {'Signals': ['Ozone']}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 7.259, ('PLOTTING', {'Signals': ['Ozone']}))
 INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['Ozone'], 'Horizon': 12}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.301, ('FORECASTING', {'Signals': ['Ozone'], 'Horizon': 12}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.269, ('FORECASTING', {'Signals': ['Ozone'], 'Horizon': 12}))
 Forecast Columns  Index(['Time', 'Ozone', 'row_number', 'Time_Normalized', '_Ozone',
        '_Ozone_LinearTrend', '_Ozone_LinearTrend_residue',
        '_Ozone_LinearTrend_residue_Seasonal_MonthOfYear',
@@ -320,7 +319,7 @@ Forecasts
         },
         "Model_Selection_Criterion": "L2"
     },
-    "Training_Time": 11.555
+    "Training_Time": 6.49
 }
 </ModelInfo>
 

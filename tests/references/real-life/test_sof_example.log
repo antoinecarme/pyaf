@@ -6,33 +6,19 @@ INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['Used'], '
 2 2011-11-03   600
 3 2011-11-04   599
 4 2011-11-05   678
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Used', 'Transformation': 'CumSum_Used', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Used', 'Transformation': 'RelDiff_Used', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Used', 'Transformation': 'Diff_Used', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Used', 'Transformation': '_Used', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.812, ('TRAINING', {'Signal': 'Used', 'Transformation': '_Used', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.389, ('TRAINING', {'Signal': 'Used', 'Transformation': 'Diff_Used', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.866, ('TRAINING', {'Signal': 'Used', 'Transformation': 'CumSum_Used', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.341, ('TRAINING', {'Signal': 'Used', 'Transformation': 'RelDiff_Used', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.407, ('SIGNAL_TRAINING', {'Signals': ['Used'], 'Transformations': [('Used', 'None', '_', 'T+S+R'), ('Used', 'None', 'Diff_', 'T+S+R'), ('Used', 'None', 'RelDiff_', 'T+S+R'), ('Used', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Used', 'Horizon': 10, 'Transformation': 'Diff_Used', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Used', 'Horizon': 10, 'Transformation': '_Used', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Used', 'Horizon': 10, 'Transformation': 'RelDiff_Used', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Used', 'Horizon': 10, 'Transformation': 'CumSum_Used', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.754, ('TRAINING', {'Signal': 'Used', 'Horizon': 10, 'Transformation': 'Diff_Used', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.836, ('TRAINING', {'Signal': 'Used', 'Horizon': 10, 'Transformation': 'RelDiff_Used', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.667, ('TRAINING', {'Signal': 'Used', 'Horizon': 10, 'Transformation': '_Used', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.91, ('TRAINING', {'Signal': 'Used', 'Horizon': 10, 'Transformation': 'CumSum_Used', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.001, ('SIGNAL_TRAINING', {'Signals': ['Used'], 'Transformations': [('Used', 'None', '_', 'T+S+R'), ('Used', 'None', 'Diff_', 'T+S+R'), ('Used', 'None', 'RelDiff_', 'T+S+R'), ('Used', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['Used'], 'Transformations': [('Used', [('Used', 'None', 'CumSum_', 'T+S+R'), ('Used', 'None', 'Diff_', 'T+S+R'), ('Used', 'None', 'RelDiff_', 'T+S+R'), ('Used', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'Used', 'Transformations': [('Used', 'None', 'CumSum_', 'T+S+R'), ('Used', 'None', 'Diff_', 'T+S+R'), ('Used', 'None', 'RelDiff_', 'T+S+R'), ('Used', 'None', '_', 'T+S+R')]}))
 INFO:pyaf.std:PERF_DUMP_START
 INFO:pyaf.std:[
-    {
-        "Category": "Difference_ConstantTrend_Cycle_60_NoAR",
-        "Complexity": "LMSSS",
-        "DetailedFormula": [
-            "Diff_Used",
-            "T+S+R",
-            null,
-            "Diff_Used_ConstantTrend_residue_Cycle_60_residue_NoAR"
-        ],
-        "Forecast_MAPE_1": 0.0381,
-        "Forecast_MAPE_H": 0.0381,
-        "Model": "Diff_Used_ConstantTrend_residue_Cycle_60_residue_NoAR",
-        "Voting": 323.0
-    },
     {
         "Category": "NoTransf_ConstantTrend_Cycle_None_AR",
         "Complexity": "LSSSS",
@@ -45,7 +31,7 @@ INFO:pyaf.std:[
         "Forecast_MAPE_1": 0.0271,
         "Forecast_MAPE_H": 0.04,
         "Model": "_Used_ConstantTrend_residue_Cycle_None_residue_AR(15)",
-        "Voting": 322.9
+        "Voting": 253.0
     },
     {
         "Category": "NoTransf_ConstantTrend_NoCycle_AR",
@@ -59,7 +45,7 @@ INFO:pyaf.std:[
         "Forecast_MAPE_1": 0.0271,
         "Forecast_MAPE_H": 0.04,
         "Model": "_Used_ConstantTrend_residue_zeroCycle[0.0]_residue_AR(15)",
-        "Voting": 322.9
+        "Voting": 253.0
     },
     {
         "Category": "NoTransf_LinearTrend_Cycle_None_AR",
@@ -73,7 +59,7 @@ INFO:pyaf.std:[
         "Forecast_MAPE_1": 0.0259,
         "Forecast_MAPE_H": 0.0399,
         "Model": "_Used_LinearTrend_residue_Cycle_None_residue_AR(15)",
-        "Voting": 322.9
+        "Voting": 253.0
     },
     {
         "Category": "NoTransf_LinearTrend_NoCycle_AR",
@@ -87,7 +73,7 @@ INFO:pyaf.std:[
         "Forecast_MAPE_1": 0.0259,
         "Forecast_MAPE_H": 0.0399,
         "Model": "_Used_LinearTrend_residue_zeroCycle[0.0]_residue_AR(15)",
-        "Voting": 322.9
+        "Voting": 253.0
     },
     {
         "Category": "NoTransf_LinearTrend_Cycle_None_NoAR",
@@ -101,7 +87,7 @@ INFO:pyaf.std:[
         "Forecast_MAPE_1": 0.0393,
         "Forecast_MAPE_H": 0.0393,
         "Model": "_Used_LinearTrend_residue_Cycle_None_residue_NoAR",
-        "Voting": 322.2
+        "Voting": 252.5
     },
     {
         "Category": "NoTransf_LinearTrend_NoCycle_NoAR",
@@ -115,7 +101,7 @@ INFO:pyaf.std:[
         "Forecast_MAPE_1": 0.0393,
         "Forecast_MAPE_H": 0.0393,
         "Model": "_Used_LinearTrend_residue_zeroCycle[0.0]_residue_NoAR",
-        "Voting": 322.2
+        "Voting": 252.5
     },
     {
         "Category": "NoTransf_ConstantTrend_Cycle_None_NoAR",
@@ -129,7 +115,7 @@ INFO:pyaf.std:[
         "Forecast_MAPE_1": 0.0408,
         "Forecast_MAPE_H": 0.0408,
         "Model": "_Used_ConstantTrend_residue_Cycle_None_residue_NoAR",
-        "Voting": 322.0
+        "Voting": 252.3
     },
     {
         "Category": "NoTransf_ConstantTrend_NoCycle_NoAR",
@@ -143,31 +129,45 @@ INFO:pyaf.std:[
         "Forecast_MAPE_1": 0.0408,
         "Forecast_MAPE_H": 0.0408,
         "Model": "_Used_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR",
-        "Voting": 322.0
+        "Voting": 252.3
     },
     {
-        "Category": "Difference_ConstantTrend_NoCycle_NoAR",
-        "Complexity": "MSSSS",
+        "Category": "NoTransf_PolyTrend_Cycle_5_AR",
+        "Complexity": "LMSSS",
         "DetailedFormula": [
-            "Diff_Used",
+            "_Used",
             "T+S+R",
             null,
-            "Diff_Used_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR"
+            "_Used_PolyTrend_residue_Cycle_5_residue_AR(15)"
         ],
-        "Forecast_MAPE_1": 0.0406,
-        "Forecast_MAPE_H": 0.0406,
-        "Model": "Diff_Used_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR",
-        "Voting": 322.0
+        "Forecast_MAPE_1": 0.0366,
+        "Forecast_MAPE_H": 0.0442,
+        "Model": "_Used_PolyTrend_residue_Cycle_5_residue_AR(15)",
+        "Voting": 251.6
+    },
+    {
+        "Category": "NoTransf_PolyTrend_NoCycle_AR",
+        "Complexity": "LMSSS",
+        "DetailedFormula": [
+            "_Used",
+            "T+S+R",
+            null,
+            "_Used_PolyTrend_residue_zeroCycle[0.0]_residue_AR(15)"
+        ],
+        "Forecast_MAPE_1": 0.0343,
+        "Forecast_MAPE_H": 0.0447,
+        "Model": "_Used_PolyTrend_residue_zeroCycle[0.0]_residue_AR(15)",
+        "Voting": 250.9
     }
 ]
 INFO:pyaf.std:PERF_DUMP_END
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.061, ('MODEL_SELECTION', {'Signal': 'Used', 'Transformations': [('Used', 'None', 'CumSum_', 'T+S+R'), ('Used', 'None', 'Diff_', 'T+S+R'), ('Used', 'None', 'RelDiff_', 'T+S+R'), ('Used', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.043, ('MODEL_SELECTION', {'Signal': 'Used', 'Transformations': [('Used', 'None', 'CumSum_', 'T+S+R'), ('Used', 'None', 'Diff_', 'T+S+R'), ('Used', 'None', 'RelDiff_', 'T+S+R'), ('Used', 'None', '_', 'T+S+R')]}))
 INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Used', 'Model': '_Used_LinearTrend_residue_Cycle_None_residue_NoAR'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.525, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Used', 'Model': '_Used_LinearTrend_residue_Cycle_None_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.523, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Used', 'Model': '_Used_LinearTrend_residue_Cycle_None_residue_NoAR'}))
 INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Used'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.507, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Used'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.093, ('FINALIZE_TRAINING', {'Signals': ['Used'], 'Transformations': [('Used', [('Used', 'None', 'CumSum_', 'T+S+R'), ('Used', 'None', 'Diff_', 'T+S+R'), ('Used', 'None', 'RelDiff_', 'T+S+R'), ('Used', 'None', '_', 'T+S+R')])], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 5.508, ('TRAINING', {'Signals': ['Used'], 'Horizons': {'Used': 10}}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.547, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Used'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.115, ('FINALIZE_TRAINING', {'Signals': ['Used'], 'Transformations': [('Used', [('Used', 'None', 'CumSum_', 'T+S+R'), ('Used', 'None', 'Diff_', 'T+S+R'), ('Used', 'None', 'RelDiff_', 'T+S+R'), ('Used', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.123, ('TRAINING', {'Signals': ['Used'], 'Horizons': {'Used': 10}}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2011-11-01T00:00:00.000000 TimeMax=2011-12-10T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=10
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Used' Length=61  Min=550 Max=800  Mean=627.885246 StdDev=51.324458
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Used' Min=0.0 Max=1.0  Mean=0.311541 StdDev=0.205298
@@ -195,25 +195,23 @@ INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _Used_LinearTrend_residue_Cycle_None None
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:TRAINING_TIME_IN_SECONDS 5.508
+INFO:pyaf.std:TRAINING_TIME_IN_SECONDS 4.123
 INFO:pyaf.std:COMPETITION_DETAIL_START 'Used'
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Used' 5 {'Transformation': '_Used', 'DecompositionType': 'T+S+R', 'Model': '_Used_LinearTrend_residue_Cycle_None_residue_NoAR', 'Voting': 322.2, 'Complexity': 'SSSSS', 'Forecast_MAPE_1': 0.0393, 'Forecast_MAPE_H': 0.0393}
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Used' 6 {'Transformation': '_Used', 'DecompositionType': 'T+S+R', 'Model': '_Used_LinearTrend_residue_zeroCycle[0.0]_residue_NoAR', 'Voting': 322.2, 'Complexity': 'SSSSS', 'Forecast_MAPE_1': 0.0393, 'Forecast_MAPE_H': 0.0393}
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Used' 7 {'Transformation': '_Used', 'DecompositionType': 'T+S+R', 'Model': '_Used_ConstantTrend_residue_Cycle_None_residue_NoAR', 'Voting': 322.0, 'Complexity': 'SSSSS', 'Forecast_MAPE_1': 0.0408, 'Forecast_MAPE_H': 0.0408}
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Used' 8 {'Transformation': '_Used', 'DecompositionType': 'T+S+R', 'Model': '_Used_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR', 'Voting': 322.0, 'Complexity': 'SSSSS', 'Forecast_MAPE_1': 0.0408, 'Forecast_MAPE_H': 0.0408}
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Used' 9 {'Transformation': 'Diff_Used', 'DecompositionType': 'T+S+R', 'Model': 'Diff_Used_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR', 'Voting': 322.0, 'Complexity': 'MSSSS', 'Forecast_MAPE_1': 0.0406, 'Forecast_MAPE_H': 0.0406}
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Used' 1 {'Transformation': '_Used', 'DecompositionType': 'T+S+R', 'Model': '_Used_ConstantTrend_residue_Cycle_None_residue_AR(15)', 'Voting': 322.9, 'Complexity': 'LSSSS', 'Forecast_MAPE_1': 0.0271, 'Forecast_MAPE_H': 0.04}
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Used' 2 {'Transformation': '_Used', 'DecompositionType': 'T+S+R', 'Model': '_Used_ConstantTrend_residue_zeroCycle[0.0]_residue_AR(15)', 'Voting': 322.9, 'Complexity': 'LSSSS', 'Forecast_MAPE_1': 0.0271, 'Forecast_MAPE_H': 0.04}
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Used' 3 {'Transformation': '_Used', 'DecompositionType': 'T+S+R', 'Model': '_Used_LinearTrend_residue_Cycle_None_residue_AR(15)', 'Voting': 322.9, 'Complexity': 'LSSSS', 'Forecast_MAPE_1': 0.0259, 'Forecast_MAPE_H': 0.0399}
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Used' 4 {'Transformation': '_Used', 'DecompositionType': 'T+S+R', 'Model': '_Used_LinearTrend_residue_zeroCycle[0.0]_residue_AR(15)', 'Voting': 322.9, 'Complexity': 'LSSSS', 'Forecast_MAPE_1': 0.0259, 'Forecast_MAPE_H': 0.0399}
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Used' 0 {'Transformation': 'Diff_Used', 'DecompositionType': 'T+S+R', 'Model': 'Diff_Used_ConstantTrend_residue_Cycle_60_residue_NoAR', 'Voting': 323.0, 'Complexity': 'LMSSS', 'Forecast_MAPE_1': 0.0381, 'Forecast_MAPE_H': 0.0381}
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Used' 10 {'Transformation': '_Used', 'DecompositionType': 'T+S+R', 'Model': '_Used_PolyTrend_residue_Cycle_5_residue_AR(15)', 'Voting': 320.8, 'Complexity': 'LMSSS', 'Forecast_MAPE_1': 0.0366, 'Forecast_MAPE_H': 0.0442}
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Used' 11 {'Transformation': '_Used', 'DecompositionType': 'T+S+R', 'Model': '_Used_PolyTrend_residue_zeroCycle[0.0]_residue_AR(15)', 'Voting': 320.3, 'Complexity': 'LMSSS', 'Forecast_MAPE_1': 0.0343, 'Forecast_MAPE_H': 0.0447}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Used' 0 {'Transformation': '_Used', 'DecompositionType': 'T+S+R', 'Model': '_Used_ConstantTrend_residue_Cycle_None_residue_AR(15)', 'Voting': 253.0, 'Complexity': 'LSSSS', 'Forecast_MAPE_1': 0.0271, 'Forecast_MAPE_H': 0.04}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Used' 1 {'Transformation': '_Used', 'DecompositionType': 'T+S+R', 'Model': '_Used_ConstantTrend_residue_zeroCycle[0.0]_residue_AR(15)', 'Voting': 253.0, 'Complexity': 'LSSSS', 'Forecast_MAPE_1': 0.0271, 'Forecast_MAPE_H': 0.04}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Used' 2 {'Transformation': '_Used', 'DecompositionType': 'T+S+R', 'Model': '_Used_LinearTrend_residue_Cycle_None_residue_AR(15)', 'Voting': 253.0, 'Complexity': 'LSSSS', 'Forecast_MAPE_1': 0.0259, 'Forecast_MAPE_H': 0.0399}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Used' 3 {'Transformation': '_Used', 'DecompositionType': 'T+S+R', 'Model': '_Used_LinearTrend_residue_zeroCycle[0.0]_residue_AR(15)', 'Voting': 253.0, 'Complexity': 'LSSSS', 'Forecast_MAPE_1': 0.0259, 'Forecast_MAPE_H': 0.0399}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Used' 4 {'Transformation': '_Used', 'DecompositionType': 'T+S+R', 'Model': '_Used_LinearTrend_residue_Cycle_None_residue_NoAR', 'Voting': 252.5, 'Complexity': 'SSSSS', 'Forecast_MAPE_1': 0.0393, 'Forecast_MAPE_H': 0.0393}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Used' 5 {'Transformation': '_Used', 'DecompositionType': 'T+S+R', 'Model': '_Used_LinearTrend_residue_zeroCycle[0.0]_residue_NoAR', 'Voting': 252.5, 'Complexity': 'SSSSS', 'Forecast_MAPE_1': 0.0393, 'Forecast_MAPE_H': 0.0393}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Used' 6 {'Transformation': '_Used', 'DecompositionType': 'T+S+R', 'Model': '_Used_ConstantTrend_residue_Cycle_None_residue_NoAR', 'Voting': 252.3, 'Complexity': 'SSSSS', 'Forecast_MAPE_1': 0.0408, 'Forecast_MAPE_H': 0.0408}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Used' 7 {'Transformation': '_Used', 'DecompositionType': 'T+S+R', 'Model': '_Used_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR', 'Voting': 252.3, 'Complexity': 'SSSSS', 'Forecast_MAPE_1': 0.0408, 'Forecast_MAPE_H': 0.0408}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Used' 8 {'Transformation': '_Used', 'DecompositionType': 'T+S+R', 'Model': '_Used_PolyTrend_residue_Cycle_5_residue_AR(15)', 'Voting': 251.6, 'Complexity': 'LMSSS', 'Forecast_MAPE_1': 0.0366, 'Forecast_MAPE_H': 0.0442}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Used' 9 {'Transformation': '_Used', 'DecompositionType': 'T+S+R', 'Model': '_Used_PolyTrend_residue_zeroCycle[0.0]_residue_AR(15)', 'Voting': 250.9, 'Complexity': 'LMSSS', 'Forecast_MAPE_1': 0.0343, 'Forecast_MAPE_H': 0.0447}
 INFO:pyaf.std:COMPETITION_DETAIL_END 'Used'
 INFO:pyaf.timing:('OPERATION_START', ('PLOTTING', {'Signals': ['Used']}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 7.347, ('PLOTTING', {'Signals': ['Used']}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 8.105, ('PLOTTING', {'Signals': ['Used']}))
 INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['Used'], 'Horizon': 10}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.213, ('FORECASTING', {'Signals': ['Used'], 'Horizon': 10}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.135, ('FORECASTING', {'Signals': ['Used'], 'Horizon': 10}))
 Forecast Columns  Index(['Date', 'Used', 'row_number', 'Date_Normalized', '_Used',
        '_Used_LinearTrend', '_Used_LinearTrend_residue',
        '_Used_LinearTrend_residue_Cycle_None',
@@ -268,7 +266,7 @@ Forecasts
 
 <ModelInfo>
 {
-    "Training_Time": 5.508,
+    "Training_Time": 4.123,
     "Used": {
         "Complexity": {
             "AR": "S",

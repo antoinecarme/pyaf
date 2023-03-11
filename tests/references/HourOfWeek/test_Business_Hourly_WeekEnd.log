@@ -18,15 +18,15 @@ Data columns (total 4 columns):
 dtypes: datetime64[ns](1), float64(1), int64(2)
 memory usage: 312.6 KB
 None
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Transformation': '_Signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Transformation': 'Diff_Signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Transformation': 'RelDiff_Signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Transformation': 'CumSum_Signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 33.776, ('TRAINING', {'Signal': 'Signal', 'Transformation': '_Signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 34.425, ('TRAINING', {'Signal': 'Signal', 'Transformation': 'CumSum_Signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 52.02, ('TRAINING', {'Signal': 'Signal', 'Transformation': 'Diff_Signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 54.793, ('TRAINING', {'Signal': 'Signal', 'Transformation': 'RelDiff_Signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 55.488, ('SIGNAL_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', 'None', '_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Horizon': 24, 'Transformation': '_Signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Horizon': 24, 'Transformation': 'Diff_Signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Horizon': 24, 'Transformation': 'CumSum_Signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Horizon': 24, 'Transformation': 'RelDiff_Signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 7.543, ('TRAINING', {'Signal': 'Signal', 'Horizon': 24, 'Transformation': 'Diff_Signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 9.13, ('TRAINING', {'Signal': 'Signal', 'Horizon': 24, 'Transformation': 'RelDiff_Signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 19.952, ('TRAINING', {'Signal': 'Signal', 'Horizon': 24, 'Transformation': 'CumSum_Signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 27.493, ('TRAINING', {'Signal': 'Signal', 'Horizon': 24, 'Transformation': '_Signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 28.118, ('SIGNAL_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', 'None', '_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', [('Signal', 'None', 'CumSum_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'Signal', 'Transformations': [('Signal', 'None', 'CumSum_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', '_', 'T+S+R')]}))
 INFO:pyaf.std:PERF_DUMP_START
@@ -43,7 +43,7 @@ INFO:pyaf.std:[
         "Forecast_MAPE_1": 0.0336,
         "Forecast_MAPE_H": 0.0336,
         "Model": "_Signal_ConstantTrend_residue_Seasonal_DayOfWeek_residue_NoAR",
-        "Voting": 2537.5
+        "Voting": 1337.5
     },
     {
         "Category": "NoTransf_LinearTrend_Seasonal_DayOfWeek_NoAR",
@@ -57,7 +57,7 @@ INFO:pyaf.std:[
         "Forecast_MAPE_1": 0.0479,
         "Forecast_MAPE_H": 0.0479,
         "Model": "_Signal_LinearTrend_residue_Seasonal_DayOfWeek_residue_NoAR",
-        "Voting": 2525.0
+        "Voting": 1325.0
     },
     {
         "Category": "NoTransf_LinearTrend_Seasonal_EightHourOfWeek_NoAR",
@@ -71,7 +71,7 @@ INFO:pyaf.std:[
         "Forecast_MAPE_1": 0.0477,
         "Forecast_MAPE_H": 0.0477,
         "Model": "_Signal_LinearTrend_residue_Seasonal_EightHourOfWeek_residue_NoAR",
-        "Voting": 2525.0
+        "Voting": 1325.0
     },
     {
         "Category": "NoTransf_LinearTrend_Seasonal_SixHourOfWeek_NoAR",
@@ -85,7 +85,7 @@ INFO:pyaf.std:[
         "Forecast_MAPE_1": 0.0478,
         "Forecast_MAPE_H": 0.0478,
         "Model": "_Signal_LinearTrend_residue_Seasonal_SixHourOfWeek_residue_NoAR",
-        "Voting": 2525.0
+        "Voting": 1325.0
     },
     {
         "Category": "NoTransf_LinearTrend_Seasonal_TwelveHourOfWeek_NoAR",
@@ -99,21 +99,7 @@ INFO:pyaf.std:[
         "Forecast_MAPE_1": 0.0478,
         "Forecast_MAPE_H": 0.0478,
         "Model": "_Signal_LinearTrend_residue_Seasonal_TwelveHourOfWeek_residue_NoAR",
-        "Voting": 2525.0
-    },
-    {
-        "Category": "Integration_Lag1Trend_Seasonal_DayOfWeek_NoAR",
-        "Complexity": "MSSSS",
-        "DetailedFormula": [
-            "CumSum_Signal",
-            "T+S+R",
-            null,
-            "CumSum_Signal_Lag1Trend_residue_Seasonal_DayOfWeek_residue_NoAR"
-        ],
-        "Forecast_MAPE_1": 0.0469,
-        "Forecast_MAPE_H": 0.0457,
-        "Model": "CumSum_Signal_Lag1Trend_residue_Seasonal_DayOfWeek_residue_NoAR",
-        "Voting": 2525.0
+        "Voting": 1325.0
     },
     {
         "Category": "NoTransf_Lag1Trend_Seasonal_HourOfWeek_NoAR",
@@ -127,7 +113,7 @@ INFO:pyaf.std:[
         "Forecast_MAPE_1": 0.0473,
         "Forecast_MAPE_H": 0.0513,
         "Model": "_Signal_Lag1Trend_residue_Seasonal_HourOfWeek_residue_NoAR",
-        "Voting": 2525.0
+        "Voting": 1325.0
     },
     {
         "Category": "NoTransf_LinearTrend_Seasonal_DayOfNthWeekOfMonth_NoAR",
@@ -141,7 +127,7 @@ INFO:pyaf.std:[
         "Forecast_MAPE_1": 0.047,
         "Forecast_MAPE_H": 0.047,
         "Model": "_Signal_LinearTrend_residue_Seasonal_DayOfNthWeekOfMonth_residue_NoAR",
-        "Voting": 2525.0
+        "Voting": 1325.0
     },
     {
         "Category": "NoTransf_LinearTrend_Seasonal_FourHourOfWeek_NoAR",
@@ -155,7 +141,7 @@ INFO:pyaf.std:[
         "Forecast_MAPE_1": 0.0478,
         "Forecast_MAPE_H": 0.0478,
         "Model": "_Signal_LinearTrend_residue_Seasonal_FourHourOfWeek_residue_NoAR",
-        "Voting": 2525.0
+        "Voting": 1325.0
     },
     {
         "Category": "NoTransf_LinearTrend_Seasonal_HourOfWeek_NoAR",
@@ -169,17 +155,31 @@ INFO:pyaf.std:[
         "Forecast_MAPE_1": 0.0479,
         "Forecast_MAPE_H": 0.0479,
         "Model": "_Signal_LinearTrend_residue_Seasonal_HourOfWeek_residue_NoAR",
-        "Voting": 2525.0
+        "Voting": 1325.0
+    },
+    {
+        "Category": "NoTransf_LinearTrend_Seasonal_ThreeHourOfWeek_NoAR",
+        "Complexity": "LSSSS",
+        "DetailedFormula": [
+            "_Signal",
+            "T+S+R",
+            null,
+            "_Signal_LinearTrend_residue_Seasonal_ThreeHourOfWeek_residue_NoAR"
+        ],
+        "Forecast_MAPE_1": 0.0478,
+        "Forecast_MAPE_H": 0.0478,
+        "Model": "_Signal_LinearTrend_residue_Seasonal_ThreeHourOfWeek_residue_NoAR",
+        "Voting": 1325.0
     }
 ]
 INFO:pyaf.std:PERF_DUMP_END
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.654, ('MODEL_SELECTION', {'Signal': 'Signal', 'Transformations': [('Signal', 'None', 'CumSum_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.194, ('MODEL_SELECTION', {'Signal': 'Signal', 'Transformations': [('Signal', 'None', 'CumSum_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', '_', 'T+S+R')]}))
 INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal', 'Model': '_Signal_ConstantTrend_residue_Seasonal_DayOfWeek_residue_NoAR'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.859, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal', 'Model': '_Signal_ConstantTrend_residue_Seasonal_DayOfWeek_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.657, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal', 'Model': '_Signal_ConstantTrend_residue_Seasonal_DayOfWeek_residue_NoAR'}))
 INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.794, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.309, ('FINALIZE_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', [('Signal', 'None', 'CumSum_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 59.802, ('TRAINING', {'Signals': ['Signal'], 'Horizons': {'Signal': 24}}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.926, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.778, ('FINALIZE_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', [('Signal', 'None', 'CumSum_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 31.903, ('TRAINING', {'Signals': ['Signal'], 'Horizons': {'Signal': 24}}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time_Hourly' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2000-11-28T11:00:00.000000 TimeDelta=<DateOffset: hours=1> Horizon=24
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=10000  Min=4.046089 Max=240.07062  Mean=87.419571 StdDev=95.876863
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=0.0 Max=1.0  Mean=0.353241 StdDev=0.406216
@@ -207,24 +207,22 @@ INFO:pyaf.std:SEASONAL_MODEL_VALUES _Signal_ConstantTrend_residue_Seasonal_DayOf
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:TRAINING_TIME_IN_SECONDS 59.802
+INFO:pyaf.std:TRAINING_TIME_IN_SECONDS 31.903
 INFO:pyaf.std:COMPETITION_DETAIL_START 'Signal'
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 0 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_ConstantTrend_residue_Seasonal_DayOfWeek_residue_NoAR', 'Voting': 2537.5, 'Complexity': 'SSSSS', 'Forecast_MAPE_1': 0.0336, 'Forecast_MAPE_H': 0.0336}
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 1 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_LinearTrend_residue_Seasonal_DayOfWeek_residue_NoAR', 'Voting': 2525.0, 'Complexity': 'SSSSS', 'Forecast_MAPE_1': 0.0479, 'Forecast_MAPE_H': 0.0479}
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 2 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_LinearTrend_residue_Seasonal_EightHourOfWeek_residue_NoAR', 'Voting': 2525.0, 'Complexity': 'SSSSS', 'Forecast_MAPE_1': 0.0477, 'Forecast_MAPE_H': 0.0477}
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 3 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_LinearTrend_residue_Seasonal_SixHourOfWeek_residue_NoAR', 'Voting': 2525.0, 'Complexity': 'SSSSS', 'Forecast_MAPE_1': 0.0478, 'Forecast_MAPE_H': 0.0478}
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 4 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_LinearTrend_residue_Seasonal_TwelveHourOfWeek_residue_NoAR', 'Voting': 2525.0, 'Complexity': 'SSSSS', 'Forecast_MAPE_1': 0.0478, 'Forecast_MAPE_H': 0.0478}
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 5 {'Transformation': 'CumSum_Signal', 'DecompositionType': 'T+S+R', 'Model': 'CumSum_Signal_Lag1Trend_residue_Seasonal_DayOfWeek_residue_NoAR', 'Voting': 2525.0, 'Complexity': 'MSSSS', 'Forecast_MAPE_1': 0.0469, 'Forecast_MAPE_H': 0.0457}
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 6 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_Lag1Trend_residue_Seasonal_HourOfWeek_residue_NoAR', 'Voting': 2525.0, 'Complexity': 'LSSSS', 'Forecast_MAPE_1': 0.0473, 'Forecast_MAPE_H': 0.0513}
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 7 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_LinearTrend_residue_Seasonal_DayOfNthWeekOfMonth_residue_NoAR', 'Voting': 2525.0, 'Complexity': 'LSSSS', 'Forecast_MAPE_1': 0.047, 'Forecast_MAPE_H': 0.047}
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 8 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_LinearTrend_residue_Seasonal_FourHourOfWeek_residue_NoAR', 'Voting': 2525.0, 'Complexity': 'LSSSS', 'Forecast_MAPE_1': 0.0478, 'Forecast_MAPE_H': 0.0478}
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 9 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_LinearTrend_residue_Seasonal_HourOfWeek_residue_NoAR', 'Voting': 2525.0, 'Complexity': 'LSSSS', 'Forecast_MAPE_1': 0.0479, 'Forecast_MAPE_H': 0.0479}
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 10 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_LinearTrend_residue_Seasonal_ThreeHourOfWeek_residue_NoAR', 'Voting': 2525.0, 'Complexity': 'LSSSS', 'Forecast_MAPE_1': 0.0478, 'Forecast_MAPE_H': 0.0478}
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 11 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_LinearTrend_residue_Seasonal_TwoHourOfWeek_residue_NoAR', 'Voting': 2525.0, 'Complexity': 'LSSSS', 'Forecast_MAPE_1': 0.0475, 'Forecast_MAPE_H': 0.0475}
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 12 {'Transformation': 'CumSum_Signal', 'DecompositionType': 'T+S+R', 'Model': 'CumSum_Signal_LinearTrend_residue_Seasonal_HourOfWeek_residue_NoAR', 'Voting': 2525.0, 'Complexity': 'LMSSS', 'Forecast_MAPE_1': 0.0469, 'Forecast_MAPE_H': 0.0469}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 0 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_ConstantTrend_residue_Seasonal_DayOfWeek_residue_NoAR', 'Voting': 1337.5, 'Complexity': 'SSSSS', 'Forecast_MAPE_1': 0.0336, 'Forecast_MAPE_H': 0.0336}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 1 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_LinearTrend_residue_Seasonal_DayOfWeek_residue_NoAR', 'Voting': 1325.0, 'Complexity': 'SSSSS', 'Forecast_MAPE_1': 0.0479, 'Forecast_MAPE_H': 0.0479}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 2 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_LinearTrend_residue_Seasonal_EightHourOfWeek_residue_NoAR', 'Voting': 1325.0, 'Complexity': 'SSSSS', 'Forecast_MAPE_1': 0.0477, 'Forecast_MAPE_H': 0.0477}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 3 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_LinearTrend_residue_Seasonal_SixHourOfWeek_residue_NoAR', 'Voting': 1325.0, 'Complexity': 'SSSSS', 'Forecast_MAPE_1': 0.0478, 'Forecast_MAPE_H': 0.0478}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 4 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_LinearTrend_residue_Seasonal_TwelveHourOfWeek_residue_NoAR', 'Voting': 1325.0, 'Complexity': 'SSSSS', 'Forecast_MAPE_1': 0.0478, 'Forecast_MAPE_H': 0.0478}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 5 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_Lag1Trend_residue_Seasonal_HourOfWeek_residue_NoAR', 'Voting': 1325.0, 'Complexity': 'LSSSS', 'Forecast_MAPE_1': 0.0473, 'Forecast_MAPE_H': 0.0513}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 6 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_LinearTrend_residue_Seasonal_DayOfNthWeekOfMonth_residue_NoAR', 'Voting': 1325.0, 'Complexity': 'LSSSS', 'Forecast_MAPE_1': 0.047, 'Forecast_MAPE_H': 0.047}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 7 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_LinearTrend_residue_Seasonal_FourHourOfWeek_residue_NoAR', 'Voting': 1325.0, 'Complexity': 'LSSSS', 'Forecast_MAPE_1': 0.0478, 'Forecast_MAPE_H': 0.0478}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 8 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_LinearTrend_residue_Seasonal_HourOfWeek_residue_NoAR', 'Voting': 1325.0, 'Complexity': 'LSSSS', 'Forecast_MAPE_1': 0.0479, 'Forecast_MAPE_H': 0.0479}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 9 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_LinearTrend_residue_Seasonal_ThreeHourOfWeek_residue_NoAR', 'Voting': 1325.0, 'Complexity': 'LSSSS', 'Forecast_MAPE_1': 0.0478, 'Forecast_MAPE_H': 0.0478}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 10 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_LinearTrend_residue_Seasonal_TwoHourOfWeek_residue_NoAR', 'Voting': 1325.0, 'Complexity': 'LSSSS', 'Forecast_MAPE_1': 0.0475, 'Forecast_MAPE_H': 0.0475}
 INFO:pyaf.std:COMPETITION_DETAIL_END 'Signal'
 INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['Signal'], 'Horizon': 24}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.504, ('FORECASTING', {'Signals': ['Signal'], 'Horizon': 24}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.48, ('FORECASTING', {'Signals': ['Signal'], 'Horizon': 24}))
 Forecast Columns  Index(['Time_Hourly', 'Signal', 'row_number', 'Time_Hourly_Normalized',
        '_Signal', '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
        '_Signal_ConstantTrend_residue_Seasonal_DayOfWeek',
@@ -359,7 +357,7 @@ Forecasts
         },
         "Model_Selection_Criterion": "MAPE"
     },
-    "Training_Time": 59.802
+    "Training_Time": 31.903
 }
 </ModelInfo>
 
@@ -368,7 +366,7 @@ Forecasts
 
 <Forecast>
 INFO:pyaf.timing:('OPERATION_START', ('PLOTTING', {'Signals': ['Signal']}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 7.461, ('PLOTTING', {'Signals': ['Signal']}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 7.048, ('PLOTTING', {'Signals': ['Signal']}))
 {"Time_Hourly":{"9976":"2001-02-19T16:00:00.000","9977":"2001-02-19T17:00:00.000","9978":"2001-02-19T18:00:00.000","9979":"2001-02-19T19:00:00.000","9980":"2001-02-19T20:00:00.000","9981":"2001-02-19T21:00:00.000","9982":"2001-02-19T22:00:00.000","9983":"2001-02-19T23:00:00.000","9984":"2001-02-20T00:00:00.000","9985":"2001-02-20T01:00:00.000","9986":"2001-02-20T02:00:00.000","9987":"2001-02-20T03:00:00.000","9988":"2001-02-20T04:00:00.000","9989":"2001-02-20T05:00:00.000","9990":"2001-02-20T06:00:00.000","9991":"2001-02-20T07:00:00.000","9992":"2001-02-20T08:00:00.000","9993":"2001-02-20T09:00:00.000","9994":"2001-02-20T10:00:00.000","9995":"2001-02-20T11:00:00.000","9996":"2001-02-20T12:00:00.000","9997":"2001-02-20T13:00:00.000","9998":"2001-02-20T14:00:00.000","9999":"2001-02-20T15:00:00.000","10000":"2001-02-20T16:00:00.000","10001":"2001-02-20T17:00:00.000","10002":"2001-02-20T18:00:00.000","10003":"2001-02-20T19:00:00.000","10004":"2001-02-20T20:00:00.000","10005":"2001-02-20T21:00:00.000","10006":"2001-02-20T22:00:00.000","10007":"2001-02-20T23:00:00.000","10008":"2001-02-21T00:00:00.000","10009":"2001-02-21T01:00:00.000","10010":"2001-02-21T02:00:00.000","10011":"2001-02-21T03:00:00.000","10012":"2001-02-21T04:00:00.000","10013":"2001-02-21T05:00:00.000","10014":"2001-02-21T06:00:00.000","10015":"2001-02-21T07:00:00.000","10016":"2001-02-21T08:00:00.000","10017":"2001-02-21T09:00:00.000","10018":"2001-02-21T10:00:00.000","10019":"2001-02-21T11:00:00.000","10020":"2001-02-21T12:00:00.000","10021":"2001-02-21T13:00:00.000","10022":"2001-02-21T14:00:00.000","10023":"2001-02-21T15:00:00.000"},"Signal":{"9976":8.1828044847,"9977":6.8593202407,"9978":6.4581210597,"9979":6.6720669544,"9980":7.377316142,"9981":6.6057202027,"9982":5.948168777,"9983":6.488278897,"9984":17.2411256911,"9985":17.8410141926,"9986":17.3992971332,"9987":18.5652340139,"9988":17.1510918179,"9989":16.8075931922,"9990":17.8816710308,"9991":17.5407126867,"9992":16.9860840606,"9993":16.7994054131,"9994":17.9182146446,"9995":18.3021914065,"9996":16.9340494532,"9997":17.2337239728,"9998":16.2087054952,"9999":17.519654915,"10000":null,"10001":null,"10002":null,"10003":null,"10004":null,"10005":null,"10006":null,"10007":null,"10008":null,"10009":null,"10010":null,"10011":null,"10012":null,"10013":null,"10014":null,"10015":null,"10016":null,"10017":null,"10018":null,"10019":null,"10020":null,"10021":null,"10022":null,"10023":null},"Signal_Forecast":{"9976":7.0274354457,"9977":7.0274354457,"9978":7.0274354457,"9979":7.0274354457,"9980":7.0274354457,"9981":7.0274354457,"9982":7.0274354457,"9983":7.0274354457,"9984":16.9874581722,"9985":16.9874581722,"9986":16.9874581722,"9987":16.9874581722,"9988":16.9874581722,"9989":16.9874581722,"9990":16.9874581722,"9991":16.9874581722,"9992":16.9874581722,"9993":16.9874581722,"9994":16.9874581722,"9995":16.9874581722,"9996":16.9874581722,"9997":16.9874581722,"9998":16.9874581722,"9999":16.9874581722,"10000":16.9874581722,"10001":16.9874581722,"10002":16.9874581722,"10003":16.9874581722,"10004":16.9874581722,"10005":16.9874581722,"10006":16.9874581722,"10007":16.9874581722,"10008":26.980297049,"10009":26.980297049,"10010":26.980297049,"10011":26.980297049,"10012":26.980297049,"10013":26.980297049,"10014":26.980297049,"10015":26.980297049,"10016":26.980297049,"10017":26.980297049,"10018":26.980297049,"10019":26.980297049,"10020":26.980297049,"10021":26.980297049,"10022":26.980297049,"10023":26.980297049}}
 </Forecast>
 
