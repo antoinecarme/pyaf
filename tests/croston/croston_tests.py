@@ -35,7 +35,7 @@ def create_model(N = 365 , croston_type=None, iTrend = False):
     lEngine = autof.cForecastEngine()
 
     lEngine.mOptions.set_active_trends(['ConstantTrend', 'LinearTrend'])
-    lEngine.mOptions.set_active_periodics(['None'])
+    lEngine.mOptions.set_active_periodics(['NoCycle'])
     lEngine.mOptions.set_active_transformations(['None'])
     lEngine.mOptions.set_active_autoregressions(['CROSTON'])
     lEngine.mOptions.mModelSelection_Criterion = "L2";
