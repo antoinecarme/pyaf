@@ -660,7 +660,7 @@ def load_M4_comp(iType = None) :
         tsspec.mPastData = pd.Series(df_full['PAST'][i].split(",")).apply(float);
         tsspec.mFutureData = pd.Series(df_full['FUTURE'][i].split(",")).apply(float);
         tsspec.mFullDataset = pd.DataFrame();
-        tsspec.mFullDataset[series_name] = tsspec.mPastData.append(tsspec.mFutureData).reindex();
+        tsspec.mFullDataset[series_name] = pd.concat((tsspec.mPastData, tsspec.mFutureData), axis = 0).reindex();
         tsspec.mFullDataset['Date'] = range(0 , tsspec.mFullDataset.shape[0])
         tsspec.mTimeVar = "Date";
         tsspec.mSignalVar = series_name;
