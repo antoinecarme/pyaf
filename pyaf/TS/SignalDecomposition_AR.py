@@ -44,7 +44,6 @@ class cAbstractAR:
             df[self.mOutName + '_residue'] = lSignal - (lTrend * lCycle * lAR)
         # df_detail = df[[self.mSignal, self.mTrend.mOutName, self.mCycle.mOutName, self.mOutName, self.mOutName + '_residue']]
         # print("compute_ar_residue_detail ", (self.mOutName, self.mDecompositionType, df_detail.describe(include='all').to_dict()))
-        df[self.mOutName + '_residue'] = df[self.mOutName + '_residue'].astype(target.dtype)
         
     def plot(self):
         tsplot.decomp_plot(self.mARFrame, self.mTimeInfo.mNormalizedTimeColumn,
@@ -81,7 +80,7 @@ class cAbstractAR:
         N = series.shape[0];
         lType = series.dtype
         first_values = np.full((p), idefault, dtype=lType)
-        new_values = np.hstack((first_values, series.values[0:N-p]));
+        new_values = np.hstack((first_values, series[0:N-p]));
         new_values = new_values.astype(lType)
         return new_values
     
@@ -94,7 +93,7 @@ class cAbstractAR:
         series = self.mCycleResidueName
         lSeries = df[self.mCycleResidueName]
         #  Investigate Large Horizon Models #213 : The model can produce overflows in its inputs when iterated. 
-        lSeries = lSeries.clip(-1e+10, +1e10)
+        lSeries = lSeries.values.clip(-1e+10, +1e10)
         for p in self.mLagsForSeries[self.mCycleResidueName]:
             name = series +'_Lag' + str(p);
             lShiftedSeries = self.shift_series(lSeries, p , self.mDefaultValues[series]); 
@@ -107,7 +106,9 @@ class cAbstractAR:
                         name = ex +'_Lag' + str(p);
                         lShiftedSeries = self.shift_series(df[ex], p , self.mDefaultValues[ex]); 
                         lDict[name] = lShiftedSeries
-        lag_df = pd.DataFrame(lDict, index = df.index, dtype = lSeries.dtype)
+        cols = lDict.keys()
+        lArray = np.concatenate([lDict[k].reshape(-1, 1) for k in lDict.keys()], axis = 1, dtype = lSeries.dtype)
+        lag_df = pd.DataFrame(data = lArray, columns= cols, index = df.index, dtype = lSeries.dtype)
         return lag_df;
 
 
