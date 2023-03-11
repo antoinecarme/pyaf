@@ -103,8 +103,8 @@ class cAbstractSignalTransform:
     def fit(self , sig):
         # print("FIT_START", self.mOriginalSignal, sig.values[1:5]);
         self.checkSignalType(sig)
-        self.fit_scaling_params(sig);
-        sig1 = self.scale_signal(sig);
+        self.fit_scaling_params(sig.values);
+        sig1 = self.scale_signal(sig.values);
         self.specific_fit(sig1);
         # print("FIT_END", self.mOriginalSignal, sig1.values[1:5]);
         pass
@@ -112,7 +112,7 @@ class cAbstractSignalTransform:
     def apply(self, sig):
         # print("APPLY_START", self.mOriginalSignal, sig.values[1:5]);
         self.checkSignalType(sig)
-        sig1 = self.scale_signal(sig);
+        sig1 = self.scale_signal(sig.values);
         sig2 = self.specific_apply(sig1);
         # print("APPLY_END", self.mOriginalSignal, sig2.values[1:5]);
         if(self.mDebug):
@@ -121,12 +121,17 @@ class cAbstractSignalTransform:
 
     def invert(self, sig1):
         # print("INVERT_START", self.mOriginalSignal, sig1.values[1:5]);
-        sig2 = self.specific_invert(sig1);
+        sig2 = self.specific_invert(sig1.values);
         rescaled_sig = self.rescale_signal(sig2);
         # print("INVERT_END", self.mOriginalSignal, rescaled_sig.values[1:5]);
         return rescaled_sig;
 
-
+    def shift_signal(self, sig, p, initial_value):
+        sig_shifted = np.zeros(sig.shape[0])
+        sig_shifted[0:p] = initial_value;
+        sig_shifted[p:] = sig[p:];
+        return sig_shifted
+    
     def transformDataset(self, df, isig):
         df[self.get_name(isig)] = self.apply(df[isig])
         return df;
@@ -196,8 +201,9 @@ class cSignalTransform_Accumulate(cAbstractSignalTransform):
         return sig.cumsum(axis = 0)
     
     def specific_invert(self, sig):
-        sig_orig = sig - sig.shift(1);
-        sig_orig.iloc[0] = sig.iloc[0];
+        sig_shifted = self.shift_signal(sig, 1, sig[0])
+        sig_orig = sig - sig_shifted;
+        sig_orig[0] = sig[0];
         return sig_orig;
 
     def dump_values(self):
@@ -225,7 +231,7 @@ class cSignalTransform_Quantize(cAbstractSignalTransform):
     
     def specific_fit(self , sig):
         Q = self.mQuantiles;
-        q = pd.Series(range(0,Q)).apply(lambda x : sig.quantile(x/Q))
+        q = pd.Series(range(0,Q)).apply(lambda x : np.quantile(sig, x/Q))
         self.mCurve = q.to_dict()
         (self.mMin, self.mMax) = (min(self.mCurve.keys()), max(self.mCurve.keys()))
         pass
@@ -235,7 +241,7 @@ class cSignalTransform_Quantize(cAbstractSignalTransform):
         return min(curve.keys(), key=lambda y:abs(float(curve[y])-x))
     
     def specific_apply(self, sig):
-        lSignal_Q = sig.apply(self.signal2quant);
+        lSignal_Q = np.array([self.signal2quant(x) for x in sig]);
         return lSignal_Q;
 
     def quant2signal(self, x):
@@ -249,7 +255,7 @@ class cSignalTransform_Quantize(cAbstractSignalTransform):
          return val;
 
     def specific_invert(self, sig):
-        lSignal = sig.apply(self.quant2signal);
+        lSignal = np.array([self.quant2signal(x) for x in sig])
         return lSignal;
 
     def dump_values(self):
@@ -296,7 +302,8 @@ class cSignalTransform_BoxCox(cAbstractSignalTransform):
     
     def specific_invert(self, sig):
         if(abs(self.mLambda) <= 0.001):
-            sig_orig = np.exp(sig).clip(0, 1);
+            sig1 = sig.clip(-1.e2 , 1.e2)
+            sig_orig = np.exp(sig1).clip(0, 1);
             return sig_orig;
         sig_pos = self.invert_value(sig)
         return sig_pos;
@@ -321,13 +328,12 @@ class cSignalTransform_Differencing(cAbstractSignalTransform):
 
     def specific_fit(self, sig):
         # print(sig.head());
-        self.mFirstValue = sig.iloc[0];
+        self.mFirstValue = sig[0];
         pass
     
 
     def specific_apply(self, sig):
-        sig_shifted = sig.shift(1)
-        sig_shifted.iloc[0] = self.mFirstValue;
+        sig_shifted = self.shift_signal(sig, 1, self.mFirstValue)
         lResult = sig - sig_shifted
         return lResult
     
@@ -355,18 +361,16 @@ class cSignalTransform_RelativeDifferencing(cAbstractSignalTransform):
         return "RelDiff_" + str(iSig);
     
     def specific_fit(self, sig):
-        self.mFirstValue = sig.iloc[0];
+        self.mFirstValue = sig[0];
         pass
 
     def specific_apply(self, sig):
         lEps = 1e-2
         # print("RelDiff_apply_DEBUG_START" , self.mFirstValue, sig.values[0:10]);
         sig1 = sig
-        sig1[sig1.abs() <= lEps] = lEps
-        sig_shifted = sig1.shift(1)
-        # sig_shifted[sig_shifted <= lEps] = lEps
-        rate = (sig1 - sig_shifted) / sig_shifted
-        rate.iloc[0] = 0.0;
+        sig_shifted = self.shift_signal(sig1, 1, self.mFirstValue)
+        rate = np.divide(sig1 - sig_shifted, sig_shifted, out=np.zeros_like(sig1), where=sig_shifted!=0)
+        rate[0] = 0.0;
         # print(sig1)
         # print(sig_shifted)
         rate = rate.clip(-1.0e+2 , +1.0e+2)
@@ -500,11 +504,11 @@ class cSignalTransform_Fisher(cAbstractSignalTransform):
     
     def specific_apply(self, sig):
         eps = 1.0e-2;
-        y = np.arctanh(np.clip(sig.values , -1 + eps , 1.0 - eps))
+        y = np.arctanh(np.clip(sig , -1 + eps , 1.0 - eps))
         return y;
     
     def specific_invert(self, sig):
-        x = np.tanh(sig.values);
+        x = np.tanh(sig);
         return x;
 
     def dump_values(self):
