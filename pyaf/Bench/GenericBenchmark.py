@@ -16,8 +16,6 @@ import sys,os
 import time
 
 import multiprocessing as mp
-import threading
-from multiprocessing.dummy import Pool as ThreadPool
 
 
 
@@ -68,18 +66,21 @@ def run_bench_process(a):
         tester = cGeneric_OneSignal_Tester(a.mTSSpec , a.mBenchName);
         a.mResult = tester;
         tester.mTestCodeGeneration = False;
-        tester.mParallelMode = False;
+        tester.mParallelMode = a.mParallelMode
         tester.testSignal(a.mSignal, a.mHorizon)
         print("BENCHMARK_SUCCESS '" + a.getName() + "'");
     except cBenchmarkError as error:
         print("BENCHMARKING_ERROR '" + a.getName() + "' : " + str(error));
     except MemoryError:
         print("BENCHMARK_MEMORY_FAILURE '" + a.getName() + "'");
-    except:
-        print("BENCHMARK_FAILURE '" + a.getName() + "'");
+    except Exception as exc:
+        print("BENCHMARK_FAILURE_EXCEPTION '" + a.getName() + "' " + str(exc));
         # raise
-    # sys.stdout = sys.__stdout__
-    # sys.stderr = sys.__stderr__
+    except:
+        print("BENCHMARK_FAILURE '" + a.getName());
+        # raise
+    sys.stdout = sys.__stdout__
+    sys.stderr = sys.__stderr__
     logfile.close();
     return a;
 
@@ -90,6 +91,7 @@ class cGeneric_Tester_Arg:
         self.mTSSpec = tsspec;
         self.mHorizon = horizon
         self.mResult = None;
+        self.mParallelMode = True
         
     def getName(self):
         return self.mBenchName + "_" + self.mSignal + "_" + str(self.mHorizon);
@@ -143,30 +145,33 @@ class cGeneric_OneSignal_Tester:
 
     def reportModelInfo(self, iModel):
         iModel.getModelInfo();
-        print(iModel.mSignalDecomposition.mTrPerfDetails)
+        print(iModel.mSignalDecomposition.mTrPerfDetailsBySignal[self.mSignal])
         
     def trainModel(self, iSignal, iHorizon):
         df = self.mTrainDataset[iSignal  + "_" + str(iHorizon)];
         lAutoF1 = autof.cForecastEngine();
         lAutoF1.mOptions.mParallelMode = self.mParallelMode;
-        lAutoF1.mOptions.mNbCores = 21
-        lAutoF1.mOptions.enable_slow_mode()
-        lAutoF1.mOptions.set_active_transformations(['T+S+R'])
+        lAutoF1.mOptions.mNbCores = 1
+        # lAutoF1.mOptions.enable_slow_mode()
+        lAutoF1.mOptions.set_active_autoregressions(['NoAR', 'AR'])
+        # lAutoF1.mOptions.set_active_decomposition_types(['T+S+R'])
         # lAutoF1.mOptions.mCycleLengths = range(2, df.shape[0]//10);
         self.mAutoForecastBySignal[iSignal  + "_" + str(iHorizon)] = lAutoF1
         lAutoF1.train(df , self.mTSSpec.mTimeVar , iSignal, iHorizon)
         self.reportModelInfo(lAutoF1);
-        print(lAutoF1.mSignalDecomposition.mTrPerfDetails.head());
+        print(lAutoF1.mSignalDecomposition.mTrPerfDetailsBySignal[self.mSignal].head());
         # lEngine.standardPlots("outputs/my_bench_" + iSignal);
 
     def computeModelPerfOnTraining(self, iModel):
         lPerfData = pd.DataFrame()
-        lPerfData = lPerfData.append(iModel.mSignalDecomposition.mTrPerfDetails)
+        lPerfData = lPerfData.append(iModel.mSignalDecomposition.mTrPerfDetailsBySignal[self.mSignal])
         lPerfData.reset_index(inplace = True)
         #lPerfData.plot.line('level_0', 'ForecastMAPE')
         self.mTrainPerfData[iSignal] = lPerfData;
 
     def trainSignal(self, iSignal, iHorizon):
+        self.mSignal = iSignal
+        self.mHorizon = iHorizon
         self.getTrainingDataset(iSignal, iHorizon);
         self.trainModel(iSignal, iHorizon);
         
@@ -395,18 +400,18 @@ class cGeneric_Tester:
         file.close();
         
 
-    def testAllSignals(self, iHorizon):
+    def testAllSignals(self):
         for sig in self.mTSSpecPerSignal.keys():
             lSpec = self.mTSSpecPerSignal[sig]
             # print(lSpec.__dict__)
             lHorizon = lSpec.mHorizon[sig]
-            tester = cGeneric_OneSignal_Tester(lSpec, self.mBenchName);
-            tester.mParallelMode = False;
-            tester.testSignal(sig, lHorizon);
+            tester = cGeneric_Tester_Arg(self.mBenchName, lSpec, sig , lHorizon);
+            tester.mParallelMode = True;
+            tester = run_bench_process(tester);
             del tester;
         pass
     
-    def testSignals(self, iSignals, iHorizon = 2):
+    def testSignals(self, iSignals):
         sigs = iSignals.split(" ");
         lPlots = []
         for sig in sigs:
@@ -414,10 +419,10 @@ class cGeneric_Tester:
                 lSpec = self.mTSSpecPerSignal[sig]
                 # print(lSpec.__dict__)
                 lHorizon = lSpec.mHorizon[sig]
-                tester = cGeneric_OneSignal_Tester(lSpec, self.mBenchName);
+                tester = cGeneric_Tester_Arg(self.mBenchName, lSpec, sig , lHorizon);
                 tester.mParallelMode = True;
-                tester.testSignal(sig, lHorizon);
-                lPlots = lPlots + [tester.mPlot];
+                tester = run_bench_process(tester);
+                lPlots = lPlots + [tester.mResult.mPlot];
                 del tester;
             else:
                 raise cBenchmarkError("UNKNOWN_SIGNAL '" + sig + "'");
@@ -439,13 +444,14 @@ class cGeneric_Tester:
             print("BENCH_RUN" , nbprocesses, run , lNbRuns)
             series_run = series[(run * 100) : ((1 + run) * 100)]
             print(series_run)
-            pool = mp.Pool(processes=nbprocesses, maxtasksperchild=1)
+            pool = mp.Pool(processes=nbprocesses)
             args = []
             for sig in series_run:
                 lSpec = self.mTSSpecPerSignal[sig]
                 # print(lSpec.__dict__)
                 lHorizon = lSpec.mHorizon[sig]
                 a = cGeneric_Tester_Arg(self.mBenchName, lSpec, sig , lHorizon);
+                a.mParallelMode = False
                 args = args + [a];
 
             i = 1;
