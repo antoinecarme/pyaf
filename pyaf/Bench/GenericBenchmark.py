@@ -33,11 +33,13 @@ class cBenchmarkError(Exception):
 def set_pyaf_logger(log_filename):
     import logging
     import logging.config
-    pyaf_logger = logging.getLogger('pyaf.std')
-    pyaf_logger.setLevel(logging.DEBUG)
-    pyaf_logger.handlers = []
-    handler = logging.FileHandler(log_filename)    
-    pyaf_logger.addHandler(handler)
+    logging.raiseExceptions = False
+    for tag in ['pyaf.std', 'pyaf.timing']:
+        pyaf_logger = logging.getLogger(tag)
+        pyaf_logger.setLevel(logging.DEBUG)
+        pyaf_logger.handlers = []
+        handler = logging.StreamHandler(sys.stdout) # logging.Handler(log_filename)    
+        pyaf_logger.addHandler(handler)
     pass
 
 def set_process_name(name):
@@ -61,7 +63,7 @@ def run_bench_process(a):
     
         sys.stdout = logfile    
         sys.stderr = logfile
-        # set_pyaf_logger(logfilename)
+        set_pyaf_logger(logfilename)
         set_process_name(a.getName())
         tester = cGeneric_OneSignal_Tester(a.mTSSpec , a.mBenchName);
         a.mResult = tester;
