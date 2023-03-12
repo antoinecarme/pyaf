@@ -317,6 +317,7 @@ def generate_random_TS(N , FREQ, seed, trendtype, cycle_length, transform, sigma
         N = tsspec.mFullDataset.shape[0]
         lHorizon = min(12, max(1, N // 30));
         tsspec.mHorizon = {}
+        tsspec.mFullDataset['Date'] = pd.to_datetime(tsspec.mFullDataset['Date'])
         tsspec.mHorizon[tsspec.mSignalVar] = lHorizon
         tsspec.mHorizon[tsspec.mName] = lHorizon
         # tsspec.mFullDataset = df_train;
