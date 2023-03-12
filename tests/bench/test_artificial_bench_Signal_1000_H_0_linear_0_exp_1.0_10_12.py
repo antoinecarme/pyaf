@@ -4,7 +4,7 @@ import pyaf.Bench.Artificial as art
 import warnings
 
 
-lSignal = "Signal_1000_H_0_linear_0_exp_1.0_10"
+lSignal = "Signal_1000_H_0_LinearTrend_0_exp_1.0_10"
 
 
 with warnings.catch_warnings():
