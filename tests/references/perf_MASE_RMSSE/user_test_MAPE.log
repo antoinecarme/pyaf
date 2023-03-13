@@ -1,0 +1,262 @@
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signals': ['y'], 'Horizons': {'y': 48}}))
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['y'], 'Transformations': [('y', 'None', '_', 'T+S+R'), ('y', 'None', 'Diff_', 'T+S+R'), ('y', 'None', 'RelDiff_', 'T+S+R'), ('y', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'y', 'Horizon': 48, 'Transformation': '_y', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'y', 'Horizon': 48, 'Transformation': 'Diff_y', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'y', 'Horizon': 48, 'Transformation': 'RelDiff_y', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'y', 'Horizon': 48, 'Transformation': 'CumSum_y', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 6.679, ('TRAINING', {'Signal': 'y', 'Horizon': 48, 'Transformation': 'Diff_y', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 6.975, ('TRAINING', {'Signal': 'y', 'Horizon': 48, 'Transformation': 'RelDiff_y', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 14.125, ('TRAINING', {'Signal': 'y', 'Horizon': 48, 'Transformation': 'CumSum_y', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 14.57, ('TRAINING', {'Signal': 'y', 'Horizon': 48, 'Transformation': '_y', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 14.883, ('SIGNAL_TRAINING', {'Signals': ['y'], 'Transformations': [('y', 'None', '_', 'T+S+R'), ('y', 'None', 'Diff_', 'T+S+R'), ('y', 'None', 'RelDiff_', 'T+S+R'), ('y', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['y'], 'Transformations': [('y', [('y', 'None', 'CumSum_', 'T+S+R'), ('y', 'None', 'Diff_', 'T+S+R'), ('y', 'None', 'RelDiff_', 'T+S+R'), ('y', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'y', 'Transformations': [('y', 'None', 'CumSum_', 'T+S+R'), ('y', 'None', 'Diff_', 'T+S+R'), ('y', 'None', 'RelDiff_', 'T+S+R'), ('y', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.2, ('MODEL_SELECTION', {'Signal': 'y', 'Transformations': [('y', 'None', 'CumSum_', 'T+S+R'), ('y', 'None', 'Diff_', 'T+S+R'), ('y', 'None', 'RelDiff_', 'T+S+R'), ('y', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'y', 'Model': 'CumSum_y_ConstantTrend_residue_Cycle_5_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.508, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'y', 'Model': 'CumSum_y_ConstantTrend_residue_Cycle_5_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'y'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.386, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'y'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.095, ('FINALIZE_TRAINING', {'Signals': ['y'], 'Transformations': [('y', [('y', 'None', 'CumSum_', 'T+S+R'), ('y', 'None', 'Diff_', 'T+S+R'), ('y', 'None', 'RelDiff_', 'T+S+R'), ('y', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 17.985, ('TRAINING', {'Signals': ['y'], 'Horizons': {'y': 48}}))
+INFO:pyaf.std:TIME_DETAIL TimeVariable='ds' TimeMin=2020-07-10T18:00:00.000000 TimeMax=2020-07-24T01:00:00.000000 TimeDelta=<DateOffset: hours=1> Horizon=48
+INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='y' Length=449  Min=0.0 Max=19.0  Mean=8.290376 StdDev=5.017777
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='CumSum_y' Min=0.105263 Max=195.914673  Mean=93.987441 StdDev=54.297915
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
+INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'CumSum_'
+INFO:pyaf.std:BEST_DECOMPOSITION  'CumSum_y_ConstantTrend_residue_Cycle_5_residue_NoAR' [ConstantTrend + Cycle_5 + NoAR]
+INFO:pyaf.std:TREND_DETAIL 'CumSum_y_ConstantTrend' [ConstantTrend]
+INFO:pyaf.std:CYCLE_DETAIL 'CumSum_y_ConstantTrend_residue_Cycle_5' [Cycle_5]
+INFO:pyaf.std:AUTOREG_DETAIL 'CumSum_y_ConstantTrend_residue_Cycle_5_residue_NoAR' [NoAR]
+INFO:pyaf.std:MODEL_PERFS Fit STEP=1 {'MAPE': 3.0606, 'RMSE': 74.4117, 'MAE': 12.1327, 'MASE': 6.9443}
+INFO:pyaf.std:MODEL_PERFS Forecast STEP=1 {'MAPE': 0.9753, 'RMSE': 9.1867, 'MAE': 7.6903, 'MASE': 4.7204}
+INFO:pyaf.std:MODEL_PERFS Test STEP=1 {'MAPE': 1.0, 'RMSE': 12.7833, 'MAE': 11.1615, 'MASE': 6.202}
+INFO:pyaf.std:MODEL_PERFS Fit STEP=48 {'MAPE': 3.0606, 'RMSE': 74.4117, 'MAE': 12.1327, 'MASE': 6.9443}
+INFO:pyaf.std:MODEL_PERFS Forecast STEP=48 {'MAPE': 0.9753, 'RMSE': 9.1867, 'MAE': 7.6903, 'MASE': 4.7204}
+INFO:pyaf.std:MODEL_PERFS Test STEP=48 {'MAPE': 1.0, 'RMSE': 12.7833, 'MAE': 11.1615, 'MASE': 6.202}
+INFO:pyaf.std:MODEL_COMPLEXITY {'Decomposition': 'S', 'Transformation': 'M', 'Trend': 'S', 'Cycle': 'S', 'AR': 'S'} [MSSSS]
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES Integration None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:CONSTANT_TREND CumSum_y_ConstantTrend 67.050424
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES CumSum_y_ConstantTrend_residue_Cycle_5 5 3.344513 {0: 2.568197, 1: 2.927846, 2: 3.245828, 3: 3.412495, 4: 3.537495}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
+INFO:pyaf.std:AR_MODEL_DETAIL_START
+INFO:pyaf.std:AR_MODEL_DETAIL_END
+INFO:pyaf.std:TRAINING_TIME_IN_SECONDS 17.985
+INFO:pyaf.std:COMPETITION_DETAIL_START 'y'
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'y' 0 {'Transformation': 'CumSum_y', 'DecompositionType': 'T+S+R', 'Model': 'CumSum_y_ConstantTrend_residue_Cycle_5_residue_NoAR', 'Voting': 1739.5, 'Complexity': 'MSSSS', 'Forecast_MAPE_1': 0.9753, 'Forecast_MAPE_H': 0.9753}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'y' 1 {'Transformation': 'CumSum_y', 'DecompositionType': 'T+S+R', 'Model': 'CumSum_y_ConstantTrend_residue_Seasonal_Hour_residue_NoAR', 'Voting': 1739.5, 'Complexity': 'MSSSS', 'Forecast_MAPE_1': 0.9753, 'Forecast_MAPE_H': 0.9753}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'y' 2 {'Transformation': 'CumSum_y', 'DecompositionType': 'T+S+R', 'Model': 'CumSum_y_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR', 'Voting': 1739.5, 'Complexity': 'MSSSS', 'Forecast_MAPE_1': 0.9753, 'Forecast_MAPE_H': 0.9753}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'y' 3 {'Transformation': 'CumSum_y', 'DecompositionType': 'T+S+R', 'Model': 'CumSum_y_Lag1Trend_residue_Cycle_5_residue_NoAR', 'Voting': 1739.5, 'Complexity': 'MSSSS', 'Forecast_MAPE_1': 0.9753, 'Forecast_MAPE_H': 0.9753}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'y' 4 {'Transformation': 'CumSum_y', 'DecompositionType': 'T+S+R', 'Model': 'CumSum_y_Lag1Trend_residue_Seasonal_Hour_residue_NoAR', 'Voting': 1739.5, 'Complexity': 'MSSSS', 'Forecast_MAPE_1': 0.9753, 'Forecast_MAPE_H': 0.9753}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'y' 5 {'Transformation': 'CumSum_y', 'DecompositionType': 'T+S+R', 'Model': 'CumSum_y_Lag1Trend_residue_zeroCycle[0.0]_residue_NoAR', 'Voting': 1739.5, 'Complexity': 'MSSSS', 'Forecast_MAPE_1': 0.9753, 'Forecast_MAPE_H': 0.9753}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'y' 6 {'Transformation': 'CumSum_y', 'DecompositionType': 'T+S+R', 'Model': 'CumSum_y_LinearTrend_residue_Cycle_7_residue_NoAR', 'Voting': 1739.5, 'Complexity': 'MSSSS', 'Forecast_MAPE_1': 0.9753, 'Forecast_MAPE_H': 0.9753}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'y' 7 {'Transformation': 'CumSum_y', 'DecompositionType': 'T+S+R', 'Model': 'CumSum_y_LinearTrend_residue_Seasonal_Hour_residue_NoAR', 'Voting': 1739.5, 'Complexity': 'MSSSS', 'Forecast_MAPE_1': 0.9753, 'Forecast_MAPE_H': 0.9753}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'y' 8 {'Transformation': 'CumSum_y', 'DecompositionType': 'T+S+R', 'Model': 'CumSum_y_LinearTrend_residue_zeroCycle[0.0]_residue_NoAR', 'Voting': 1739.5, 'Complexity': 'MSSSS', 'Forecast_MAPE_1': 0.9753, 'Forecast_MAPE_H': 0.9753}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'y' 9 {'Transformation': 'CumSum_y', 'DecompositionType': 'T+S+R', 'Model': 'CumSum_y_PolyTrend_residue_Cycle_5_residue_NoAR', 'Voting': 1739.5, 'Complexity': 'MMSSS', 'Forecast_MAPE_1': 0.9753, 'Forecast_MAPE_H': 0.9753}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'y' 10 {'Transformation': 'CumSum_y', 'DecompositionType': 'T+S+R', 'Model': 'CumSum_y_PolyTrend_residue_Seasonal_Hour_residue_NoAR', 'Voting': 1739.5, 'Complexity': 'MMSSS', 'Forecast_MAPE_1': 0.9753, 'Forecast_MAPE_H': 0.9753}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'y' 11 {'Transformation': 'CumSum_y', 'DecompositionType': 'T+S+R', 'Model': 'CumSum_y_PolyTrend_residue_zeroCycle[0.0]_residue_NoAR', 'Voting': 1739.5, 'Complexity': 'MMSSS', 'Forecast_MAPE_1': 0.9753, 'Forecast_MAPE_H': 0.9753}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'y' 12 {'Transformation': 'CumSum_y', 'DecompositionType': 'T+S+R', 'Model': 'CumSum_y_ConstantTrend_residue_Cycle_5_residue_AR(64)', 'Voting': 1739.5, 'Complexity': 'LMSSS', 'Forecast_MAPE_1': 0.9753, 'Forecast_MAPE_H': 0.9753}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'y' 13 {'Transformation': 'CumSum_y', 'DecompositionType': 'T+S+R', 'Model': 'CumSum_y_ConstantTrend_residue_Seasonal_Hour_residue_AR(64)', 'Voting': 1739.5, 'Complexity': 'LMSSS', 'Forecast_MAPE_1': 0.9753, 'Forecast_MAPE_H': 0.9753}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'y' 14 {'Transformation': 'CumSum_y', 'DecompositionType': 'T+S+R', 'Model': 'CumSum_y_ConstantTrend_residue_zeroCycle[0.0]_residue_AR(64)', 'Voting': 1739.5, 'Complexity': 'LMSSS', 'Forecast_MAPE_1': 0.9753, 'Forecast_MAPE_H': 0.9753}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'y' 15 {'Transformation': 'CumSum_y', 'DecompositionType': 'T+S+R', 'Model': 'CumSum_y_Lag1Trend_residue_Cycle_5_residue_AR(64)', 'Voting': 1739.5, 'Complexity': 'LMSSS', 'Forecast_MAPE_1': 0.9753, 'Forecast_MAPE_H': 0.9753}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'y' 16 {'Transformation': 'CumSum_y', 'DecompositionType': 'T+S+R', 'Model': 'CumSum_y_Lag1Trend_residue_Seasonal_Hour_residue_AR(64)', 'Voting': 1739.5, 'Complexity': 'LMSSS', 'Forecast_MAPE_1': 0.9753, 'Forecast_MAPE_H': 0.9753}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'y' 17 {'Transformation': 'CumSum_y', 'DecompositionType': 'T+S+R', 'Model': 'CumSum_y_Lag1Trend_residue_zeroCycle[0.0]_residue_AR(64)', 'Voting': 1739.5, 'Complexity': 'LMSSS', 'Forecast_MAPE_1': 0.9753, 'Forecast_MAPE_H': 0.9753}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'y' 18 {'Transformation': 'CumSum_y', 'DecompositionType': 'T+S+R', 'Model': 'CumSum_y_LinearTrend_residue_Cycle_7_residue_AR(64)', 'Voting': 1739.5, 'Complexity': 'LMSSS', 'Forecast_MAPE_1': 0.9753, 'Forecast_MAPE_H': 0.9753}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'y' 19 {'Transformation': 'CumSum_y', 'DecompositionType': 'T+S+R', 'Model': 'CumSum_y_LinearTrend_residue_Seasonal_Hour_residue_AR(64)', 'Voting': 1739.5, 'Complexity': 'LMSSS', 'Forecast_MAPE_1': 0.9753, 'Forecast_MAPE_H': 0.9753}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'y' 20 {'Transformation': 'CumSum_y', 'DecompositionType': 'T+S+R', 'Model': 'CumSum_y_LinearTrend_residue_zeroCycle[0.0]_residue_AR(64)', 'Voting': 1739.5, 'Complexity': 'LMSSS', 'Forecast_MAPE_1': 0.9753, 'Forecast_MAPE_H': 0.9753}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'y' 21 {'Transformation': 'CumSum_y', 'DecompositionType': 'T+S+R', 'Model': 'CumSum_y_PolyTrend_residue_Cycle_5_residue_AR(64)', 'Voting': 1739.5, 'Complexity': 'LMMSS', 'Forecast_MAPE_1': 0.9753, 'Forecast_MAPE_H': 0.9753}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'y' 22 {'Transformation': 'CumSum_y', 'DecompositionType': 'T+S+R', 'Model': 'CumSum_y_PolyTrend_residue_Seasonal_Hour_residue_AR(64)', 'Voting': 1739.5, 'Complexity': 'LMMSS', 'Forecast_MAPE_1': 0.9753, 'Forecast_MAPE_H': 0.9753}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'y' 23 {'Transformation': 'CumSum_y', 'DecompositionType': 'T+S+R', 'Model': 'CumSum_y_PolyTrend_residue_zeroCycle[0.0]_residue_AR(64)', 'Voting': 1739.5, 'Complexity': 'LMMSS', 'Forecast_MAPE_1': 0.9753, 'Forecast_MAPE_H': 0.9753}
+INFO:pyaf.std:COMPETITION_DETAIL_END 'y'
+INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['y'], 'Horizon': 48}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.575, ('FORECASTING', {'Signals': ['y'], 'Horizon': 48}))
+
+
+<ModelInfo>
+{
+    "Training_Time": 17.985,
+    "y": {
+        "Complexity": {
+            "AR": "S",
+            "Cycle": "S",
+            "Decomposition": "S",
+            "Transformation": "M",
+            "Trend": "S"
+        },
+        "Dataset": {
+            "Signal": "y",
+            "Time": {
+                "Horizon": 48,
+                "TimeDelta": "<DateOffset: hours=1>",
+                "TimeMax": "2020-07-29 10:00:00",
+                "TimeMin": "2020-07-10 18:00:00",
+                "TimeVariable": "ds"
+            },
+            "Training_Signal_Length": 449
+        },
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "CumSum_y_ConstantTrend_residue_Cycle_5_residue_NoAR",
+            "Cycle": "Cycle_5",
+            "Signal_Decomposition_Type": "T+S+R",
+            "Signal_Transoformation": "Integration",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "1": {
+                "AUC": 0.9877,
+                "DiffSMAPE": 1.8946,
+                "ErrorMean": -7.6903,
+                "ErrorStdDev": 5.0253,
+                "KS": 0.9753,
+                "KendallTau": NaN,
+                "Length": 81,
+                "LnQ": Infinity,
+                "MAE": 7.6903,
+                "MAPE": 0.9753,
+                "MASE": 4.7204,
+                "MannWhitneyU": 6480.0,
+                "MedAE": 8.75,
+                "Pearson": 0.0,
+                "R2": -2.3419,
+                "RMSE": 9.1867,
+                "RMSSE": 3.9802,
+                "SMAPE": 1.9506,
+                "Signal": "y_Forecast_1"
+            },
+            "48": {
+                "AUC": 0.9877,
+                "DiffSMAPE": 1.8946,
+                "ErrorMean": -7.6903,
+                "ErrorStdDev": 5.0253,
+                "KS": 0.9753,
+                "KendallTau": NaN,
+                "Length": 81,
+                "LnQ": Infinity,
+                "MAE": 7.6903,
+                "MAPE": 0.9753,
+                "MASE": 4.7204,
+                "MannWhitneyU": 6480.0,
+                "MedAE": 8.75,
+                "Pearson": 0.0,
+                "R2": -2.3419,
+                "RMSE": 9.1867,
+                "RMSSE": 3.9802,
+                "SMAPE": 1.9506,
+                "Signal": "y_Forecast_48"
+            }
+        },
+        "Model_Selection_Criterion": "MAPE"
+    }
+}
+</ModelInfo>
+
+
+                    ds  ...  y_Forecast_Quantile_94
+0  2020-07-10 18:00:00  ...                     NaN
+1  2020-07-10 19:00:00  ...                     NaN
+2  2020-07-10 20:00:00  ...                     NaN
+3  2020-07-10 21:00:00  ...                     NaN
+4  2020-07-10 22:00:00  ...                     NaN
+5  2020-07-10 23:00:00  ...                     NaN
+6  2020-07-11 00:00:00  ...                     NaN
+7  2020-07-11 01:00:00  ...                     NaN
+8  2020-07-11 02:00:00  ...                     NaN
+9  2020-07-11 03:00:00  ...                     NaN
+10 2020-07-11 04:00:00  ...                     NaN
+11 2020-07-11 05:00:00  ...                     NaN
+12 2020-07-11 06:00:00  ...                     NaN
+13 2020-07-11 07:00:00  ...                     NaN
+14 2020-07-11 08:00:00  ...                     NaN
+15 2020-07-11 09:00:00  ...                     NaN
+16 2020-07-11 10:00:00  ...                     NaN
+17 2020-07-11 11:00:00  ...                     NaN
+18 2020-07-11 12:00:00  ...                     NaN
+19 2020-07-11 13:00:00  ...                     NaN
+20 2020-07-11 14:00:00  ...                     NaN
+21 2020-07-11 15:00:00  ...                     NaN
+22 2020-07-11 16:00:00  ...                     NaN
+23 2020-07-11 17:00:00  ...                     NaN
+24 2020-07-11 18:00:00  ...                     NaN
+25 2020-07-11 19:00:00  ...                     NaN
+26 2020-07-11 20:00:00  ...                     NaN
+27 2020-07-11 21:00:00  ...                     NaN
+28 2020-07-11 22:00:00  ...                     NaN
+29 2020-07-11 23:00:00  ...                     NaN
+30 2020-07-12 00:00:00  ...                     NaN
+31 2020-07-12 01:00:00  ...                     NaN
+32 2020-07-12 02:00:00  ...                     NaN
+33 2020-07-12 03:00:00  ...                     NaN
+34 2020-07-12 04:00:00  ...                     NaN
+35 2020-07-12 05:00:00  ...                     NaN
+36 2020-07-12 06:00:00  ...                     NaN
+37 2020-07-12 07:00:00  ...                     NaN
+38 2020-07-12 08:00:00  ...                     NaN
+39 2020-07-12 09:00:00  ...                     NaN
+40 2020-07-12 10:00:00  ...                     NaN
+41 2020-07-12 11:00:00  ...                     NaN
+42 2020-07-12 12:00:00  ...                     NaN
+43 2020-07-12 13:00:00  ...                     NaN
+44 2020-07-12 14:00:00  ...                     NaN
+45 2020-07-12 15:00:00  ...                     NaN
+46 2020-07-12 16:00:00  ...                     NaN
+47 2020-07-12 17:00:00  ...                     NaN
+
+[48 rows x 34 columns]
+INFO:pyaf.timing:('OPERATION_START', ('PLOTTING', {'Signals': ['y']}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 6.891, ('PLOTTING', {'Signals': ['y']}))
+                     ds   y  ...  y_Forecast_Quantile_83  y_Forecast_Quantile_94
+449 2020-07-29 11:00:00 NaN  ...                   -2.15                    -1.0
+450 2020-07-29 12:00:00 NaN  ...                   -2.15                    -1.0
+451 2020-07-29 13:00:00 NaN  ...                   -2.15                    -1.0
+452 2020-07-29 14:00:00 NaN  ...                   -2.15                    -1.0
+453 2020-07-29 15:00:00 NaN  ...                   -2.15                    -1.0
+454 2020-07-29 16:00:00 NaN  ...                   -2.15                    -1.0
+455 2020-07-29 17:00:00 NaN  ...                   -2.15                    -1.0
+456 2020-07-29 18:00:00 NaN  ...                   -2.15                    -1.0
+457 2020-07-29 19:00:00 NaN  ...                   -2.15                    -1.0
+458 2020-07-29 20:00:00 NaN  ...                   -2.15                    -1.0
+459 2020-07-29 21:00:00 NaN  ...                   -2.15                    -1.0
+460 2020-07-29 22:00:00 NaN  ...                   -2.15                    -1.0
+461 2020-07-29 23:00:00 NaN  ...                   -2.15                    -1.0
+462 2020-07-30 00:00:00 NaN  ...                   -2.15                    -1.0
+463 2020-07-30 01:00:00 NaN  ...                   -2.15                    -1.0
+464 2020-07-30 02:00:00 NaN  ...                   -2.15                    -1.0
+465 2020-07-30 03:00:00 NaN  ...                   -2.15                    -1.0
+466 2020-07-30 04:00:00 NaN  ...                   -2.15                    -1.0
+467 2020-07-30 05:00:00 NaN  ...                   -2.15                    -1.0
+468 2020-07-30 06:00:00 NaN  ...                   -2.15                    -1.0
+469 2020-07-30 07:00:00 NaN  ...                   -2.15                    -1.0
+470 2020-07-30 08:00:00 NaN  ...                   -2.15                    -1.0
+471 2020-07-30 09:00:00 NaN  ...                   -2.15                    -1.0
+472 2020-07-30 10:00:00 NaN  ...                   -2.15                    -1.0
+473 2020-07-30 11:00:00 NaN  ...                   -2.15                    -1.0
+474 2020-07-30 12:00:00 NaN  ...                   -2.15                    -1.0
+475 2020-07-30 13:00:00 NaN  ...                   -2.15                    -1.0
+476 2020-07-30 14:00:00 NaN  ...                   -2.15                    -1.0
+477 2020-07-30 15:00:00 NaN  ...                   -2.15                    -1.0
+478 2020-07-30 16:00:00 NaN  ...                   -2.15                    -1.0
+479 2020-07-30 17:00:00 NaN  ...                   -2.15                    -1.0
+480 2020-07-30 18:00:00 NaN  ...                   -2.15                    -1.0
+481 2020-07-30 19:00:00 NaN  ...                   -2.15                    -1.0
+482 2020-07-30 20:00:00 NaN  ...                   -2.15                    -1.0
+483 2020-07-30 21:00:00 NaN  ...                   -2.15                    -1.0
+484 2020-07-30 22:00:00 NaN  ...                   -2.15                    -1.0
+485 2020-07-30 23:00:00 NaN  ...                   -2.15                    -1.0
+486 2020-07-31 00:00:00 NaN  ...                   -2.15                    -1.0
+487 2020-07-31 01:00:00 NaN  ...                   -2.15                    -1.0
+488 2020-07-31 02:00:00 NaN  ...                   -2.15                    -1.0
+489 2020-07-31 03:00:00 NaN  ...                   -2.15                    -1.0
+490 2020-07-31 04:00:00 NaN  ...                   -2.15                    -1.0
+491 2020-07-31 05:00:00 NaN  ...                   -2.15                    -1.0
+492 2020-07-31 06:00:00 NaN  ...                   -2.15                    -1.0
+493 2020-07-31 07:00:00 NaN  ...                   -2.15                    -1.0
+494 2020-07-31 08:00:00 NaN  ...                   -2.15                    -1.0
+495 2020-07-31 09:00:00 NaN  ...                   -2.15                    -1.0
+496 2020-07-31 10:00:00 NaN  ...                   -2.15                    -1.0
+
+[48 rows x 34 columns]
