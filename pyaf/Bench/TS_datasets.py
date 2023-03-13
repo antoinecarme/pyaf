@@ -308,6 +308,7 @@ def generate_random_TS(N , FREQ, seed, trendtype, cycle_length, transform, sigma
     lName = generate_random_TS_name(N , FREQ, seed, trendtype, cycle_length, transform, sigma, exog_count, ar_order)
     tsspec.mName = lName
     lFileName = ARTIFICIAL_DATASETS_URI + "/" + str(N) + "/" + tsspec.mName
+    createDirIfNeeded(ARTIFICIAL_DATASETS_URI)
     createDirIfNeeded(ARTIFICIAL_DATASETS_URI + "/" + str(N))
     print("TRYING_TO_LOAD_RANDOM_DATASET" , tsspec.mName, lFileName);
     if(os.path.isfile(lFileName + "_training.csv")):
