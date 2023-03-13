@@ -52,8 +52,10 @@ class cSignalHierarchy:
         lDict = {};
         lDict['Structure'] = self.mStructure;
         lDict['Models'] = self.mModels.to_dict(iWithOptions = False)
+        lDict['Models'].pop('Training_Time')
         if(iWithOptions):
             lDict["Options"] = self.mTimeInfo.mOptions.__dict__
+        lDict["Training_Time"] = self.mTrainingTime
         return lDict;
 
     def discard_nans_in_aggregate_signals(self):
@@ -208,6 +210,7 @@ class cSignalHierarchy:
         self.computeTopDownHistoricalProportions(lAllLevelsDataset);
         lForecast_DF = self.internal_forecast(self.mTrainingDataset , self.mHorizon)
         self.computePerfOnCombinedForecasts(lForecast_DF.head(lForecast_DF.shape[0] - self.mHorizon));
+        self.mTrainingTime = lTimer.get_elapsed_time()
 
 
     def getModelInfo(self):
