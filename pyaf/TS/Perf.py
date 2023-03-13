@@ -75,17 +75,26 @@ class cPerf:
         self.mCachedValues['abs_error'] = abs_error
         return abs_error
 
+    def pre_compute_naive_abs_error_if_needed(self, signal , estimator):
+        cached_result = self.mCachedValues.get('naive_error')
+        if(cached_result is not None):
+            return cached_result
+        naive_error = signal - signal.shift(1)
+        naive_error = naive_error[1:]
+        naive_abs_error = np.abs(naive_error)
+        self.mCachedValues['naive_error'] = naive_abs_error
+        return naive_abs_error
+
     def pre_compute_naive_mean_abs_error_ratio_if_needed(self, signal , estimator):
         # Used for scaled errors : MASE and RMSSE
         cached_result = self.mCachedValues.get('naive_scaled_error')
         if(cached_result is not None):
             return cached_result
-        abs_error = self.pre_compute_abs_error_if_needed(signal , estimator);
-        naive_error = signal - signal.shift(1)
-        naive_error = naive_error[1:]
+        abs_error = self.pre_compute_abs_error_if_needed(signal , estimator)
+        naive_abs_error= self.pre_compute_naive_abs_error_if_needed(signal , estimator)
         lEps = 1.0e-10;
-        naive_mean_abs_error = np.mean(abs(naive_error)) + lEps
-        naive_mean_abs_error_2 = np.mean(abs(naive_error * naive_error)) + lEps
+        naive_mean_abs_error = np.mean(naive_abs_error) + lEps
+        naive_mean_abs_error_2 = np.mean(naive_abs_error * naive_abs_error) + lEps
         q1 = np.abs(abs_error / naive_mean_abs_error)
         q2 = np.abs(abs_error * abs_error / naive_mean_abs_error_2)
         self.mCachedValues['naive_scaled_error'] = (q1, q2)
