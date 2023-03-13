@@ -37,6 +37,7 @@ str1 = str1 + " perf_LnQ"
 str1 = str1 + " plots"
 str1 = str1 + " multiplicative_seasonal"
 str1 = str1 + " pytorch"
+str1 = str1 + " perf_MASE_RMSSE"
 subdirs = str1.split();
 
 print("PYTHON=timeout 480 python\n\n");
@@ -55,6 +56,6 @@ print("\n# ********************************************** \n");
 
 print("all: " , str1 , "\n\t\n");
 
-str2 = "demos basic_checks cross_validation croston exog heroku hierarchical model_control perfs svr transformations func real-life  time_res xgb sampling HourOfWeek WeekOfMonth missing_data lgbm perf_MedAE perf_LnQ multiplicative_seasonal";
+str2 = "demos basic_checks cross_validation croston exog heroku hierarchical model_control perfs svr transformations func real-life  time_res xgb sampling HourOfWeek WeekOfMonth missing_data lgbm perf_MedAE perf_LnQ multiplicative_seasonal perf_MASE_RMSSE";
 
 print("build-test : " , str2 , "\n\t\n");

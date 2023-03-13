@@ -1836,6 +1836,31 @@ perf_LnQ/test_ozone_LnQ.py  :
  perf_LnQ :  perf_LnQ/test_ozone_LnQ.py perf_LnQ/test_air_passengers_LnQ.py  
  
 
+perf_MASE_RMSSE/user_test_MAPE.py  :  
+	 -$(PYTHON)  tests/perf_MASE_RMSSE/user_test_MAPE.py  >  logs/perf_MASE_RMSSE_user_test_MAPE.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_MASE_RMSSE/user_test_MAPE.log logs/perf_MASE_RMSSE_user_test_MAPE.log  >  logs/perf_MASE_RMSSE_user_test_MAPE.log.diff
+	 tail -10  logs/perf_MASE_RMSSE_user_test_MAPE.log.diff 
+
+perf_MASE_RMSSE/user_test_MASE.py  :  
+	 -$(PYTHON)  tests/perf_MASE_RMSSE/user_test_MASE.py  >  logs/perf_MASE_RMSSE_user_test_MASE.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_MASE_RMSSE/user_test_MASE.log logs/perf_MASE_RMSSE_user_test_MASE.log  >  logs/perf_MASE_RMSSE_user_test_MASE.log.diff
+	 tail -10  logs/perf_MASE_RMSSE_user_test_MASE.log.diff 
+
+perf_MASE_RMSSE/user_test_RMSE.py  :  
+	 -$(PYTHON)  tests/perf_MASE_RMSSE/user_test_RMSE.py  >  logs/perf_MASE_RMSSE_user_test_RMSE.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_MASE_RMSSE/user_test_RMSE.log logs/perf_MASE_RMSSE_user_test_RMSE.log  >  logs/perf_MASE_RMSSE_user_test_RMSE.log.diff
+	 tail -10  logs/perf_MASE_RMSSE_user_test_RMSE.log.diff 
+
+perf_MASE_RMSSE/user_test_RMSSE.py  :  
+	 -$(PYTHON)  tests/perf_MASE_RMSSE/user_test_RMSSE.py  >  logs/perf_MASE_RMSSE_user_test_RMSSE.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/perf_MASE_RMSSE/user_test_RMSSE.log logs/perf_MASE_RMSSE_user_test_RMSSE.log  >  logs/perf_MASE_RMSSE_user_test_RMSSE.log.diff
+	 tail -10  logs/perf_MASE_RMSSE_user_test_RMSSE.log.diff 
+
+
+
+ perf_MASE_RMSSE :  perf_MASE_RMSSE/user_test_RMSSE.py perf_MASE_RMSSE/user_test_RMSE.py perf_MASE_RMSSE/user_test_MASE.py perf_MASE_RMSSE/user_test_MAPE.py  
+ 
+
 perf_MedAE/test_air_passengers_MedAE.py  :  
 	 -$(PYTHON)  tests/perf_MedAE/test_air_passengers_MedAE.py  >  logs/perf_MedAE_test_air_passengers_MedAE.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/perf_MedAE/test_air_passengers_MedAE.log logs/perf_MedAE_test_air_passengers_MedAE.log  >  logs/perf_MedAE_test_air_passengers_MedAE.log.diff
@@ -2269,9 +2294,9 @@ xgb/test_ozone_xgbx_exogenous.py  :
 
 # ********************************************** 
 
-all:  artificial basic_checks bugs cross_validation croston exog expsmooth func HeartRateTimeSeries heroku hierarchical  HourOfWeek model_control perf svr transformations  neuralnet real-life  time_res perfs demos xgb xeon-phi-parallel sampling temporal_hierarchy WeekOfMonth missing_data  probabilistic_forecasting lgbm perf_MedAE perf_LnQ plots multiplicative_seasonal pytorch 
+all:  artificial basic_checks bugs cross_validation croston exog expsmooth func HeartRateTimeSeries heroku hierarchical  HourOfWeek model_control perf svr transformations  neuralnet real-life  time_res perfs demos xgb xeon-phi-parallel sampling temporal_hierarchy WeekOfMonth missing_data  probabilistic_forecasting lgbm perf_MedAE perf_LnQ plots multiplicative_seasonal pytorch perf_MASE_RMSSE 
 	
 
-build-test :  demos basic_checks cross_validation croston exog heroku hierarchical model_control perfs svr transformations func real-life  time_res xgb sampling HourOfWeek WeekOfMonth missing_data lgbm perf_MedAE perf_LnQ multiplicative_seasonal 
+build-test :  demos basic_checks cross_validation croston exog heroku hierarchical model_control perfs svr transformations func real-life  time_res xgb sampling HourOfWeek WeekOfMonth missing_data lgbm perf_MedAE perf_LnQ multiplicative_seasonal perf_MASE_RMSSE 
 	
 
