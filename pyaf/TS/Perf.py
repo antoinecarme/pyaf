@@ -157,18 +157,32 @@ class cPerf:
         self.mLnQ = round( self.mLnQ , 4 )
         return self.mLnQ
 
-    def compute_KS_Kendall_MWU_AUC(self, signal , estimator):
+    def compute_KS(self, signal , estimator):
         min_signal , max_signal = signal.min(), signal.max()
-        self.mKS, self.mMWU, self.mAUC = 0.0, 0.0, 0.0
+        self.mKS = 0.0
         if((max_signal - min_signal) < 0.001):
             return 
-        from scipy.stats import mannwhitneyu, kendalltau, kstest
+        from scipy.stats import kstest
         lKSTest = kstest(signal, estimator, method='asymp')
         self.mKS = lKSTest.statistic
-        self.mKS = round( self.mKS , 4 )
+        self.mKS = round( self.mKS , 4 )        
+    
+    def compute_Kendall(self, signal , estimator):
+        min_signal , max_signal = signal.min(), signal.max()
+        self.mKendallTau = 0.0
+        if((max_signal - min_signal) < 0.001):
+            return 
+        from scipy.stats import kendalltau
         lKendallTau_Result = kendalltau(signal, estimator)
         self.mKendallTau = lKendallTau_Result.correlation
         self.mKendallTau = round( self.mKendallTau , 4 )
+        
+    def compute_MWU_AUC(self, signal , estimator):
+        min_signal , max_signal = signal.min(), signal.max()
+        self.mMWU, self.mAUC = 0.0, 0.0
+        if((max_signal - min_signal) < 0.001):
+            return 
+        from scipy.stats import mannwhitneyu
         lMWU_Result = mannwhitneyu(signal, estimator)
         self.mMWU = lMWU_Result.statistic
         self.mMWU = round( self.mMWU, 4 )
@@ -208,6 +222,7 @@ class cPerf:
             return r
         (r , pval) = pearsonr(signal , estimator)
         #  print("PEARSONR_DETAIL1" , signal_std, estimator_std, r)
+        r = round(r, 4)
         return r;
 
     def compute_ErrorMean_ErrorStd(self, signal , estimator):
@@ -238,11 +253,12 @@ class cPerf:
         self.mLnQ = self.compute_LnQ(signal, estimator)
         
         self.mPearsonR = self.compute_pearson_r(signal , estimator);
-        self.mPearsonR = round(self.mPearsonR, 4)
         self.mSignalQuantiles = self.compute_signal_quantiles(signal , estimator);
         self.mCRPS = self.compute_CRPS(signal , estimator);
 
-        self.compute_KS_Kendall_MWU_AUC(signal, estimator);
+        self.compute_KS(signal, estimator);
+        self.compute_Kendall(signal, estimator);
+        self.compute_MWU_AUC(signal, estimator);
 
 
     def compute_signal_quantiles(self, signal , estimator):
@@ -336,19 +352,19 @@ class cPerf:
             return self.mRMSSE;
         
         if(criterion == "KS"):
-            self.compute_KS_Kendall_MWU_AUC(signal , estimator);
+            self.compute_KS(signal , estimator);
             return self.mKS;
         
         if(criterion == "KendallTau"):
-            self.compute_KS_Kendall_MWU_AUC(signal , estimator);
+            self.compute_Kendall(signal , estimator);
             return self.mKendallTau;
         
         if(criterion == "MWU"):
-            self.compute_KS_Kendall_MWU_AUC(signal , estimator);
+            self.compute_MWU_AUC(signal , estimator);
             return self.mMWU;
         
         if(criterion == "AUC"):
-            self.compute_KS_Kendall_MWU_AUC(signal , estimator);
+            self.compute_MWU_AUC(signal , estimator);
             return self.mAUC;
         
         if(criterion == "CRPS"):
