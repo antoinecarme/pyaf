@@ -9,6 +9,8 @@ import pyaf.Bench.TS_datasets as tsds
 b1 = tsds.generate_random_TS(N = 320 , FREQ = 'D', seed = 0, trendtype = "constant", cycle_length = 0, transform = "None", sigma = 0.0);
 df = b1.mPastData
 
+df['Signal'] = df[b1.mName]
+
 #df.tail(10)
 #df[:-10].tail()
 #df[:-10:-1]

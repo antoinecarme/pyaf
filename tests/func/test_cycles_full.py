@@ -14,6 +14,8 @@ for cyc in lValues:
     b1 = tsds.generate_random_TS(N = 320 , FREQ = 'D', seed = 0, trendtype = "constant", cycle_length = cyc, transform = "None", sigma = 0.1, exog_count = 0);
     df = b1.mPastData
 
+    df['Signal'] = df[b1.mName]
+
     # df.tail(10)
     # df[:-10].tail()
     # df[:-10:-1]
