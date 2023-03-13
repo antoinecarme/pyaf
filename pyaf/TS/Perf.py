@@ -82,11 +82,14 @@ class cPerf:
             return cached_result
         abs_error = self.pre_compute_abs_error_if_needed(signal , estimator);
         naive_error = signal - signal.shift(1)
+        naive_error = naive_error[1:]
         lEps = 1.0e-10;
-        naive_mean_abs_error = np.mean(abs(naive_error.values[1:])) + lEps
-        q = np.abs(abs_error / naive_mean_abs_error)
-        self.mCachedValues['naive_scaled_error'] = q
-        return q
+        naive_mean_abs_error = np.mean(abs(naive_error)) + lEps
+        naive_mean_abs_error_2 = np.mean(abs(naive_error * naive_error)) + lEps
+        q1 = np.abs(abs_error / naive_mean_abs_error)
+        q2 = np.abs(abs_error * abs_error / naive_mean_abs_error_2)
+        self.mCachedValues['naive_scaled_error'] = (q1, q2)
+        return (q1, q2)
 
     def compute_MAPE(self, signal , estimator):
         lEps = 1.0e-10;
@@ -103,13 +106,13 @@ class cPerf:
         self.mSMAPE = round( self.mSMAPE , 4 )
             
     def compute_MASE(self, signal , estimator):
-        q = self.pre_compute_naive_mean_abs_error_ratio_if_needed(signal , estimator)
-        self.mMASE = np.mean(q)
+        (q1, q2) = self.pre_compute_naive_mean_abs_error_ratio_if_needed(signal , estimator)
+        self.mMASE = np.mean(q1)
         self.mMASE = round( self.mMASE , 4 )
                 
     def compute_RMSSE(self, signal , estimator):
-        q = self.pre_compute_naive_mean_abs_error_ratio_if_needed(signal , estimator)
-        self.mRMSSE = np.sqrt(np.mean(q * q))
+        (q1, q2) = self.pre_compute_naive_mean_abs_error_ratio_if_needed(signal , estimator)
+        self.mRMSSE = np.sqrt(np.mean(q2))
         self.mRMSSE = round( self.mRMSSE , 4 )
                 
     def compute_DiffSMAPE(self, signal , estimator):
