@@ -21,6 +21,7 @@ class cPerf:
         self.mSMAPE = None;
         self.mDiffSMAPE = None;
         self.mMASE = None;
+        self.mRMSSE = None;
         self.mL1 = None;
         self.mL2 = None;
         self.mR2 = None;
@@ -35,6 +36,7 @@ class cPerf:
         self.mMWU = None
         self.mKS = None
         self.mAUC = None
+        self.mCachedValues = {}
         self.mDebug = False;
 
     def to_dict_summary(self, criterion):
@@ -51,7 +53,7 @@ class cPerf:
         lDict = {"Signal" : self.mName , "Length" : self.mCount, "MAPE" : self.mMAPE,
                  "RMSE" : self.mL2,  "MAE" : self.mL1,
                  "SMAPE" : self.mSMAPE, "DiffSMAPE" : self.mDiffSMAPE,
-                 'MASE' : self.mMASE,
+                 'MASE' : self.mMASE, 'RMSSE' : self.mRMSSE,
                  "ErrorMean" : self.mErrorMean, "ErrorStdDev" : self.mErrorStdDev, 
                  "R2" : self.mR2, "Pearson" : self.mPearsonR, "MedAE": self.mMedAE, "LnQ" : self.mLnQ,
                  "KS" : self.mKS, "KendallTau" : self.mKendallTau, "MannWhitneyU" : self.mMWU, "AUC" : self.mAUC}
@@ -65,56 +67,73 @@ class cPerf:
             raise tsutil.Internal_PyAF_Error("INVALID_COLUMN _FOR_PERF ['" + self.mName + "'] '" + name + "'");
         pass
 
+    def pre_compute_abs_error_if_needed(self, signal , estimator):
+        cached_result = self.mCachedValues.get('abs_error')
+        if(cached_result is not None):
+            return cached_result
+        abs_error = np.abs(estimator.values - signal.values);
+        self.mCachedValues['abs_error'] = abs_error
+        return abs_error
+
+    def pre_compute_naive_mean_abs_error_ratio_if_needed(self, signal , estimator):
+        # Used for scaled errors : MASE and RMSSE
+        cached_result = self.mCachedValues.get('naive_scaled_error')
+        if(cached_result is not None):
+            return cached_result
+        abs_error = self.pre_compute_abs_error_if_needed(signal , estimator);
+        naive_error = signal - signal.shift(1)
+        lEps = 1.0e-10;
+        naive_mean_abs_error = np.mean(abs(naive_error.values[1:])) + lEps
+        q = np.abs(abs_error / naive_mean_abs_error)
+        self.mCachedValues['naive_scaled_error'] = q
+        return q
+
     def compute_MAPE(self, signal , estimator):
-        self.mMAPE = None;
-        if(signal.shape[0] > 0):
-            lEps = 1.0e-10;
-            abs_error = np.abs(estimator.values - signal.values);
-            abs_rel_error = abs_error / (np.abs(signal) + lEps)
-            self.mMAPE = np.mean(abs_rel_error)
-            self.mMAPE = round( self.mMAPE , 4 )
+        lEps = 1.0e-10;
+        abs_error = self.pre_compute_abs_error_if_needed(signal , estimator);
+        abs_rel_error = abs_error / (np.abs(signal) + lEps)
+        self.mMAPE = np.mean(abs_rel_error)
+        self.mMAPE = round( self.mMAPE , 4 )
             
     def compute_SMAPE(self, signal , estimator):
-        self.mSMAPE = None;
-        if(signal.shape[0] > 0):
-            lEps = 1.0e-10;
-            abs_error = np.abs(estimator.values - signal.values);
-            sum_abs = np.abs(signal.values) + np.abs(estimator.values) + lEps
-            self.mSMAPE = np.mean(2.0 * abs_error / sum_abs)
-            self.mSMAPE = round( self.mSMAPE , 4 )
+        lEps = 1.0e-10;
+        abs_error = self.pre_compute_abs_error_if_needed(signal , estimator);
+        sum_abs = np.abs(signal.values) + np.abs(estimator.values) + lEps
+        self.mSMAPE = np.mean(2.0 * abs_error / sum_abs)
+        self.mSMAPE = round( self.mSMAPE , 4 )
             
     def compute_MASE(self, signal , estimator):
-        self.mMASE = None;
-        if(signal.shape[0] > 0):
-            lEps = 1.0e-10;
-            abs_error = np.abs(estimator.values - signal.values);
-            signal_diff = signal - signal.shift(1)
-            if(signal_diff.shape[0] > 1):
-                mean_dev_signal = np.mean(abs(signal_diff.values[1:])) + lEps;
-                self.mMASE = np.mean(abs_error / mean_dev_signal)
-                self.mMASE = round( self.mMASE , 4 )
+        q = self.pre_compute_naive_mean_abs_error_ratio_if_needed(signal , estimator)
+        self.mMASE = np.mean(q)
+        self.mMASE = round( self.mMASE , 4 )
+                
+    def compute_RMSSE(self, signal , estimator):
+        q = self.pre_compute_naive_mean_abs_error_ratio_if_needed(signal , estimator)
+        self.mRMSSE = np.sqrt(np.mean(q * q))
+        self.mRMSSE = round( self.mRMSSE , 4 )
                 
     def compute_DiffSMAPE(self, signal , estimator):
-        self.mDiffSMAPE = None;
-        if(signal.shape[0] > 0):
-            abs_error = np.abs(estimator.values - signal.values);
-            lEps2 = 0.1 # for DiffSMAPE
-            max_sum_eps = np.maximum(np.abs(signal.values) + np.abs(estimator.values) + lEps2,  0.5 + lEps2)
-            self.mDiffSMAPE = np.mean(2.0 * abs_error / max_sum_eps)
-            self.mDiffSMAPE = round( self.mDiffSMAPE , 4 )
+        abs_error = self.pre_compute_abs_error_if_needed(signal , estimator);
+        lEps2 = 0.1 # for DiffSMAPE
+        max_sum_eps = np.maximum(np.abs(signal.values) + np.abs(estimator.values) + lEps2,  0.5 + lEps2)
+        self.mDiffSMAPE = np.mean(2.0 * abs_error / max_sum_eps)
+        self.mDiffSMAPE = round( self.mDiffSMAPE , 4 )
 
-    def compute_MAPE_SMAPE_MASE(self, signal, estimator):
+    def compute_MAPE_SMAPE(self, signal, estimator):
         self.compute_MAPE(signal, estimator);
         self.compute_SMAPE(signal, estimator);
-        self.compute_MASE(signal, estimator);
         self.compute_DiffSMAPE(signal, estimator);
 
+    def compute_MASE_RMSSE(self, signal, estimator):
+        self.compute_MASE(signal, estimator);
+        self.compute_RMSSE(signal, estimator);
 
     def compute_R2(self, signal , estimator):
         SST = np.sum((signal.values - np.mean(signal.values))**2) + 1.0e-10;
         SSRes = np.sum((signal.values - estimator.values)**2)
-        R2 = 1 - SSRes/SST
-        return R2
+        self.mR2 = 1 - SSRes/SST
+        self.mR2 = round(self.mR2, 4)
+        return self.mR2
 
     def compute_LnQ(self, signal , estimator):
         min_signal , min_estimator = signal.min() , estimator.min()
@@ -178,8 +197,14 @@ class cPerf:
         (r , pval) = pearsonr(signal , estimator)
         #  print("PEARSONR_DETAIL1" , signal_std, estimator_std, r)
         return r;
-        
-            
+
+    def compute_ErrorMean_ErrorStd(self, signal , estimator):
+        myerror = estimator - signal 
+        self.mErrorMean = np.mean(myerror)
+        self.mErrorMean = round(self.mErrorMean, 4)
+        self.mErrorStdDev = np.std(myerror)        
+        self.mErrorStdDev = round(self.mErrorStdDev, 4)
+                    
     def real_compute(self, signal , estimator, name):
         self.mName = name;
         assert(signal.shape[0] > 0)
@@ -187,33 +212,23 @@ class cPerf:
             self.check_not_nan(signal.values , "signal")
             self.check_not_nan(estimator.values , "estimator")
 
-        signal_std = np.std(signal);
-        estimator_std = np.std(estimator);
-
-        self.compute_MAPE_SMAPE_MASE(signal, estimator);
-
-        myerror = (estimator.values - signal.values);
-        abs_error = abs(myerror)
-        self.mErrorMean = np.mean(myerror)
-        self.mErrorMean = round(self.mErrorMean, 4)
-        self.mErrorStdDev = np.std(myerror)        
-        self.mErrorStdDev = round(self.mErrorStdDev, 4)
-        
-        self.mL1 = np.mean(abs_error)
-        self.mL1 = round(self.mL1, 4)
-        self.mL2 = np.sqrt(np.mean(abs_error ** 2))
-        self.mL2 = round(self.mL2, 4)
         self.mCount = signal.shape[0];
+        self.compute_ErrorMean_ErrorStd(signal, estimator)
+
+        self.compute_L1(signal, estimator)
+        self.compute_L2(signal, estimator)
+        self.compute_MedAE(signal, estimator)        
+        self.compute_MAPE_SMAPE(signal, estimator);
+        self.compute_MASE_RMSSE(signal, estimator);
+
+        
         self.mR2 = self.compute_R2(signal, estimator)
-        self.mR2 = round(self.mR2, 4)
         self.mLnQ = self.compute_LnQ(signal, estimator)
         
         self.mPearsonR = self.compute_pearson_r(signal , estimator);
         self.mPearsonR = round(self.mPearsonR, 4)
         self.mSignalQuantiles = self.compute_signal_quantiles(signal , estimator);
         self.mCRPS = self.compute_CRPS(signal , estimator);
-        self.mMedAE = np.median(abs_error)
-        self.mMedAE = round(self.mMedAE, 4)
 
         self.compute_KS_Kendall_MWU_AUC(signal, estimator);
 
@@ -246,6 +261,23 @@ class cPerf:
         # print("CRPS" , (self.mName , lCRPS))
         return lCRPS
 
+    def compute_L1(self, signal , estimator):
+        abs_error = self.pre_compute_abs_error_if_needed(signal , estimator);
+        self.mL1 = np.mean(abs_error)
+        self.mL1 = round(self.mL1, 4)
+        return self.mL1
+            
+    def compute_MedAE(self, signal , estimator):
+        abs_error = self.pre_compute_abs_error_if_needed(signal , estimator);
+        self.mMedAE = np.median(abs_error)
+        self.mMedAE = round(self.mMedAE, 4)
+        return self.mMedAE
+            
+    def compute_L2(self, signal , estimator):
+        abs_error = self.pre_compute_abs_error_if_needed(signal , estimator);
+        self.mL2 = np.sqrt(np.mean(abs_error ** 2))            
+        self.mL2 = round(self.mL2, 4)
+        return self.mL2
             
     def computeCriterion(self, signal , estimator, criterion, name):
         self.mName = name;
@@ -253,18 +285,13 @@ class cPerf:
         
         self.mCount = signal.shape[0];
         if(criterion == "L1" or criterion == "MAE"):
-            myerror = (estimator.values - signal.values);
-            abs_error = abs(myerror)
-            self.mL1 = np.mean(abs_error)
+            self.mL1 = self.compute_L1(signal, estimator)
             return self.mL1;
         if(criterion == "MedAE"):
-            myerror = (estimator.values - signal.values);
-            abs_error = abs(myerror)
-            self.mMedAE = np.median(abs_error)
+            self.mMedAE = self.compute_MedAE(signal, estimator)
             return self.mMedAE;
         if(criterion == "L2" or criterion == "RMSE"):
-            myerror = (estimator.values - signal.values);
-            self.mL2 = np.sqrt(np.mean(myerror ** 2))
+            self.mL2 = self.compute_L2(signal, estimator)
             return self.mL2;
         if(criterion == "R2"):
             self.mR2 = self.compute_R2(signal, estimator)
@@ -291,6 +318,10 @@ class cPerf:
         if(criterion == "MASE"):
             self.compute_MASE(signal , estimator);
             return self.mMASE;
+        
+        if(criterion == "RMSSE"):
+            self.compute_RMSSE(signal , estimator);
+            return self.mRMSSE;
         
         if(criterion == "KS"):
             self.compute_KS_Kendall_MWU_AUC(signal , estimator);
@@ -337,6 +368,8 @@ class cPerf:
             return self.mMAPE;
         if(criterion == "MASE"):
             return self.mMASE;
+        if(criterion == "RMSSE"):
+            return self.mRMSSE;
         if(criterion == "CRPS"):
             return self.mCRPS;
         if(criterion == "KendallTau"):
