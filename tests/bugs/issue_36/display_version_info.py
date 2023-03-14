@@ -28,8 +28,14 @@ def getVersions():
     import pydot
     lVersionDict["pydot_version"] = pydot.__version__
 
-    import sqlalchemy
-    lVersionDict["sqlalchemy_version"] = sqlalchemy.__version__
+    import xgboost
+    lVersionDict["xgboost_version"] = xgboost.__version__
+    
+    import lightgbm
+    lVersionDict["lightgbm_version"] = lightgbm.__version__
+    
+    import torch
+    lVersionDict["torch_version"] = torch.__version__
     
     print([(k, lVersionDict[k]) for k in sorted(lVersionDict)]);
     return lVersionDict;
