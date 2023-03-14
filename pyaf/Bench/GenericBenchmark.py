@@ -56,14 +56,15 @@ def run_bench_process(a):
     try:
         print("STARTING_BENCH_FOR_SIGNAL" , a.mBenchName, a.mSignal, a.mHorizon, file=sys.__stdout__);
 
-        createDirIfNeeded("logs");
-        createDirIfNeeded("logs/" + a.mBenchName);
-        logfilename = "logs/" + a.mBenchName + "/PyAF_" + a.getName()+ ".log";
-        logfile = open(logfilename, 'w');    
-    
-        sys.stdout = logfile    
-        sys.stderr = logfile
-        set_pyaf_logger(logfilename)
+        if(not a.mLogToStdout ):
+            createDirIfNeeded("logs");
+            createDirIfNeeded("logs/" + a.mBenchName);
+            logfilename = "logs/" + a.mBenchName + "/PyAF_" + a.getName()+ ".log";
+            logfile = open(logfilename, 'w');    
+            
+            sys.stdout = logfile    
+            sys.stderr = logfile
+            set_pyaf_logger(logfilename)
         set_process_name(a.getName())
         tester = cGeneric_OneSignal_Tester(a.mTSSpec , a.mBenchName);
         a.mResult = tester;
@@ -81,9 +82,10 @@ def run_bench_process(a):
     except:
         print("BENCHMARK_FAILURE '" + a.getName());
         # raise
-    sys.stdout = sys.__stdout__
-    sys.stderr = sys.__stderr__
-    logfile.close();
+    if(not a.mLogToStdout ):
+        sys.stdout = sys.__stdout__
+        sys.stderr = sys.__stderr__
+        logfile.close();
     return a;
 
 class cGeneric_Tester_Arg:
@@ -94,6 +96,7 @@ class cGeneric_Tester_Arg:
         self.mHorizon = horizon
         self.mResult = None;
         self.mParallelMode = True
+        self.mLogToStdout = False
         
     def getName(self):
         return self.mBenchName + "_" + self.mSignal + "_" + str(self.mHorizon);
@@ -409,6 +412,8 @@ class cGeneric_Tester:
             lHorizon = lSpec.mHorizon[sig]
             tester = cGeneric_Tester_Arg(self.mBenchName, lSpec, sig , lHorizon);
             tester.mParallelMode = True;
+            tester.mLogToStdout = True
+
             tester = run_bench_process(tester);
             del tester;
         pass
@@ -423,6 +428,7 @@ class cGeneric_Tester:
                 lHorizon = lSpec.mHorizon[sig]
                 tester = cGeneric_Tester_Arg(self.mBenchName, lSpec, sig , lHorizon);
                 tester.mParallelMode = True;
+                tester.mLogToStdout = True
                 tester = run_bench_process(tester);
                 lPlots = lPlots + [tester.mResult.mPlot];
                 del tester;
