@@ -19,6 +19,15 @@ def forecast_one_signal(arg):
     lForecastFrame_i = lBestModel.forecast(lInputDS, iHorizon);
     return (lBestModel.mTimeInfo, lForecastFrame_i)
 
+def sample_signal_if_needed(iInputDS, iOptions):
+    logger = tsutil.get_pyaf_logger();
+    lInputDS = iInputDS
+    if(iOptions.mActivateSampling):
+        if(iOptions.mDebugProfile):
+            logger.info("PYAF_MODEL_SAMPLING_ACTIVATED " +
+                        str((iOptions.mSamplingThreshold, iOptions.mSeed)));
+        lInputDS = iInputDS.tail(iOptions.mSamplingThreshold);
+    return lInputDS
 
 class cSignalDecompositionForecaster:
 
@@ -44,11 +53,7 @@ class cSignalDecompositionForecaster:
             else:
                 lHorizons[sig] = int(iHorizons)
         
-        if(lOptions.mActivateSampling):
-            if(lOptions.mDebugProfile):
-                logger.info("PYAF_MODEL_SAMPLING_ACTIVATED " +
-                            str((lOptions.mSamplingThreshold, lOptions.mSeed)));
-                lInputDS = iInputDS.tail(lOptions.mSamplingThreshold);
+        lInputDS = sample_signal_if_needed(iInputDS, lOptions)
         
         lForecastFrame = None
         args = [];
