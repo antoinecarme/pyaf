@@ -325,6 +325,9 @@ def generate_random_TS(N , FREQ, seed, trendtype, cycle_length, transform, sigma
         # tsspec.mFullDataset[tsspec.mName] = tsspec.mFullDataset['Signal'];
         tsspec.mPastData = tsspec.mFullDataset[:-lHorizon];
         tsspec.mFutureData = tsspec.mFullDataset.tail(lHorizon);
+        if(tsspec.mExogenousDataFrame is not None):
+            tsspec.mExogenousDataFrame['Date'] = pd.to_datetime(tsspec.mExogenousDataFrame['Date'])
+
         return tsspec
     print("LAOD_FAILED_TRYING_TO_GENERATE_RANDOM_DATASET" , tsspec.mName);
     tsspec = generate_random_TS_real(N , FREQ, seed, trendtype, cycle_length, transform, sigma, exog_count, ar_order)
@@ -740,7 +743,7 @@ def load_yahoo_stock_price(symbol_list_key, stock , iLocal = True, YAHOO_LINKS_D
     tsspec.mDescription = "Yahoo Stock Price using yahoo-finance package"
     df_train = pd.DataFrame();
     assert(iLocal)
-    print("YAHOO_DATA_LINK_URI" , symbol_list_key, stock, filename);
+    # print("YAHOO_DATA_LINK_URI" , symbol_list_key, stock, filename);
     assert(os.path.isfile(filename))
     df_train = pd.read_csv(filename);
 
