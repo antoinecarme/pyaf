@@ -244,6 +244,7 @@ class cAutoRegressiveEstimator:
 
     # @profile
     def estimate_ar_models_for_cycle(self, cycle_residue):
+        logger = tsutil.get_pyaf_logger();
         self.mARFrame = pd.DataFrame(index = self.mCycleFrame.index);
         self.mTimeInfo.addVars(self.mARFrame);
         self.mCycleFrame[cycle_residue] = self.mCycleFrame[cycle_residue]            
@@ -262,6 +263,17 @@ class cAutoRegressiveEstimator:
             self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]            
             if((autoreg.mFormula == "NoAR") or (len(autoreg.mInputNames) > 0)):
                 lCleanListOfArModels.append(autoreg);
+            else:
+                if(self.mOptions.mDebugAR):
+                    logger.info("SKIPPING_AR_MODEL_NO_VALID_INPUTS " + autoreg.mOutName);
+                
+        if(len(lCleanListOfArModels) == 0):
+            lZeroAR = cZeroAR(cycle_residue)
+            cycle = self.mARList[cycle_residue][0].mCycle
+            lZeroAR.mCycle = cycle
+            lZeroAR.mTrend = cycle.mTrend
+            lCleanListOfArModels = [ lZeroAR ]
+            
         self.mARList[cycle_residue] = lCleanListOfArModels;
         
         for autoreg in self.mARList[cycle_residue]:
@@ -325,6 +337,7 @@ class cAutoRegressiveEstimator:
                     self.mARList[cycle_residue] = [ cZeroAR(cycle_residue)];
                 lLags = self.get_nb_lags()
                 lKeep = (self.mCycleFrame[cycle_residue].shape[0] > 12) and (self.mCycleFrame[cycle_residue].std() > 0.00001)
+                
                 lKeep = lKeep or not self.mOptions.mActiveAutoRegressions['NoAR']
                 if(not lKeep):
                     self.mSkippedARList = self.mSkippedARList + [cycle_residue]
