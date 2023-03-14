@@ -1,3 +1,4 @@
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signals': ['Signal'], 'Horizons': {'Signal': 120}}))
 INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', 'None', '_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 1000 entries, 0 to 999
@@ -9,80 +10,109 @@ Data columns (total 2 columns):
 dtypes: datetime64[ns](1), float64(1)
 memory usage: 15.8 KB
                  Time    Signal
-0 2018-01-01 00:00:00  0.265416
-1 2018-01-01 01:00:00  0.524854
-2 2018-01-01 02:00:00  0.832899
-3 2018-01-01 03:00:00  0.005938
-4 2018-01-01 04:00:00  0.832109
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Transformation': '_Signal'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Transformation': 'Diff_Signal'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Transformation': 'RelDiff_Signal'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Transformation': 'CumSum_Signal'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.365, ('TRAINING', {'Signal': 'Signal', 'Transformation': '_Signal'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.429, ('TRAINING', {'Signal': 'Signal', 'Transformation': 'Diff_Signal'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.488, ('TRAINING', {'Signal': 'Signal', 'Transformation': 'CumSum_Signal'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.932, ('TRAINING', {'Signal': 'Signal', 'Transformation': 'RelDiff_Signal'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.026, ('SIGNAL_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', 'None', '_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+0 2018-01-01 00:00:00  0.561993
+1 2018-01-01 01:00:00  0.696126
+2 2018-01-01 02:00:00  0.494999
+3 2018-01-01 03:00:00  0.140787
+4 2018-01-01 04:00:00  0.064838
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Horizon': 120, 'Transformation': '_Signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Horizon': 120, 'Transformation': 'Diff_Signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Horizon': 120, 'Transformation': 'CumSum_Signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Horizon': 120, 'Transformation': 'RelDiff_Signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 20.138, ('TRAINING', {'Signal': 'Signal', 'Horizon': 120, 'Transformation': 'RelDiff_Signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 20.272, ('TRAINING', {'Signal': 'Signal', 'Horizon': 120, 'Transformation': 'Diff_Signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 41.959, ('TRAINING', {'Signal': 'Signal', 'Horizon': 120, 'Transformation': '_Signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 42.166, ('TRAINING', {'Signal': 'Signal', 'Horizon': 120, 'Transformation': 'CumSum_Signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 47.714, ('SIGNAL_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', 'None', '_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', [('Signal', 'None', 'CumSum_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'Signal', 'Transformations': [('Signal', 'None', 'CumSum_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', '_', 'T+S+R')]}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.007, ('MODEL_SELECTION', {'Signal': 'Signal', 'Transformations': [('Signal', 'None', 'CumSum_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', '_', 'T+S+R')]}))
-INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal', 'Model': 'CumSum_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.029, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal', 'Model': 'CumSum_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.412, ('MODEL_SELECTION', {'Signal': 'Signal', 'Transformations': [('Signal', 'None', 'CumSum_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal', 'Model': '_Signal_LinearTrend_residue_Cycle_5_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.621, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal', 'Model': '_Signal_LinearTrend_residue_Cycle_5_residue_NoAR'}))
 INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.32, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.356, ('FINALIZE_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', [('Signal', 'None', 'CumSum_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.552, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 9.586, ('FINALIZE_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', [('Signal', 'None', 'CumSum_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 57.305, ('TRAINING', {'Signals': ['Signal'], 'Horizons': {'Signal': 120}}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=2018-01-01T00:00:00.000000 TimeMax=2018-01-30T07:00:00.000000 TimeDelta=<DateOffset: hours=1> Horizon=120
-INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=1000  Min=0.00039733778355099947 Max=0.9989521488965121  Mean=0.49191636144215617 StdDev=0.2873535313380364
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='CumSum_Signal' Min=0.2654018025124248 Max=492.23038954744226  Mean=244.53487181286306 StdDev=145.0317924920991
+INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=1000  Min=0.002695 Max=0.999241  Mean=0.510621 StdDev=0.286511
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=0.0 Max=1.0  Mean=0.509686 StdDev=0.287504
 INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
-INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'CumSum_'
-INFO:pyaf.std:BEST_DECOMPOSITION  'CumSum_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [ConstantTrend + Cycle_None + NoAR]
-INFO:pyaf.std:TREND_DETAIL 'CumSum_Signal_ConstantTrend' [ConstantTrend]
-INFO:pyaf.std:CYCLE_DETAIL 'CumSum_Signal_ConstantTrend_residue_bestCycle_byMAPE' [Cycle_None]
-INFO:pyaf.std:AUTOREG_DETAIL 'CumSum_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR' [NoAR]
-INFO:pyaf.std:MODEL_MAPE MAPE_Fit=1.9032 MAPE_Forecast=0.9914 MAPE_Test=0.9974
-INFO:pyaf.std:MODEL_SMAPE SMAPE_Fit=1.9881 SMAPE_Forecast=1.9772 SMAPE_Test=1.9898
-INFO:pyaf.std:MODEL_MASE MASE_Fit=2.2885 MASE_Forecast=1.4582 MASE_Test=1.4368
-INFO:pyaf.std:MODEL_CRPS CRPS_Fit=0.2942598680091154 CRPS_Forecast=0.14872692379908514 CRPS_Test=0.17420680644250794
-INFO:pyaf.std:MODEL_L1 L1_Fit=0.7368435896884645 L1_Forecast=0.48244911515146394 L1_Test=0.47681557412238057
-INFO:pyaf.std:MODEL_L2 L2_Fit=6.418143578623377 L2_Forecast=0.5665711395724691 L2_Test=0.551734315829854
-INFO:pyaf.std:MODEL_LnQ LnQ_Fit=33478.56586936042 LnQ_Forecast=8219.900765207272 LnQ_Test=5613.124272664021
-INFO:pyaf.std:MODEL_MEDIAN_AE MedAE_Fit=0.5015276845443035 MedAE_Forecast=0.4567289991487551 MedAE_Test=0.5031626203477023
-INFO:pyaf.std:MODEL_COMPLEXITY 1.0
+INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
+INFO:pyaf.std:BEST_DECOMPOSITION  '_Signal_LinearTrend_residue_Cycle_5_residue_NoAR' [LinearTrend + Cycle_5 + NoAR]
+INFO:pyaf.std:TREND_DETAIL '_Signal_LinearTrend' [LinearTrend]
+INFO:pyaf.std:CYCLE_DETAIL '_Signal_LinearTrend_residue_Cycle_5' [Cycle_5]
+INFO:pyaf.std:AUTOREG_DETAIL '_Signal_LinearTrend_residue_Cycle_5_residue_NoAR' [NoAR]
+INFO:pyaf.std:MODEL_PERFS Fit STEP=1 {'MAPE': 2.2109, 'RMSE': 0.2889, 'MAE': 0.2484, 'MASE': 0.7511}
+INFO:pyaf.std:MODEL_PERFS Forecast STEP=1 {'MAPE': 1.5398, 'RMSE': 0.2817, 'MAE': 0.2407, 'MASE': 0.7339}
+INFO:pyaf.std:MODEL_PERFS Test STEP=1 {'MAPE': 1.6994, 'RMSE': 0.2757, 'MAE': 0.2318, 'MASE': 0.7413}
+INFO:pyaf.std:MODEL_PERFS Fit STEP=120 {'MAPE': 2.2109, 'RMSE': 0.2889, 'MAE': 0.2484, 'MASE': 0.7511}
+INFO:pyaf.std:MODEL_PERFS Forecast STEP=120 {'MAPE': 1.5398, 'RMSE': 0.2817, 'MAE': 0.2407, 'MASE': 0.7339}
+INFO:pyaf.std:MODEL_PERFS Test STEP=120 {'MAPE': 1.6994, 'RMSE': 0.2757, 'MAE': 0.2318, 'MASE': 0.7413}
+INFO:pyaf.std:MODEL_COMPLEXITY {'Decomposition': 'S', 'Transformation': 'S', 'Trend': 'S', 'Cycle': 'S', 'AR': 'S'} [SSSSS]
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
-INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES Integration None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:CONSTANT_TREND CumSum_Signal_ConstantTrend 170.12367398002925
+INFO:pyaf.std:LINEAR_RIDGE_TREND LinearTrend (0.473619, array([0.062412]))
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES CumSum_Signal_ConstantTrend_residue_bestCycle_byMAPE None -6.07100174075525 {}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _Signal_LinearTrend_residue_Cycle_5 5 -0.010592 {0: -0.025658, 1: 0.008038, 2: -0.010839, 3: 0.011, 4: -0.024819}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
+INFO:pyaf.std:TRAINING_TIME_IN_SECONDS 57.305
+INFO:pyaf.std:COMPETITION_DETAIL_START 'Signal'
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 0 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_LinearTrend_residue_Cycle_5_residue_NoAR', 'Voting': 4295.5, 'Complexity': 'SSSSS', 'Forecast_MASE_1': 0.7339, 'Forecast_MASE_H': 0.7339}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 1 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_LinearTrend_residue_zeroCycle[0.0]_residue_NoAR', 'Voting': 4295.5, 'Complexity': 'SSSSS', 'Forecast_MASE_1': 0.7329, 'Forecast_MASE_H': 0.7329}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 2 {'Transformation': 'Diff_Signal', 'DecompositionType': 'T+S+R', 'Model': 'Diff_Signal_ConstantTrend_residue_Cycle_5_residue_NoAR', 'Voting': 4295.5, 'Complexity': 'MSSSS', 'Forecast_MASE_1': 0.733, 'Forecast_MASE_H': 0.733}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 3 {'Transformation': 'Diff_Signal', 'DecompositionType': 'T+S+R', 'Model': 'Diff_Signal_ConstantTrend_residue_Seasonal_Hour_residue_NoAR', 'Voting': 4295.5, 'Complexity': 'MSSSS', 'Forecast_MASE_1': 0.733, 'Forecast_MASE_H': 0.733}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 4 {'Transformation': 'Diff_Signal', 'DecompositionType': 'T+S+R', 'Model': 'Diff_Signal_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR', 'Voting': 4295.5, 'Complexity': 'MSSSS', 'Forecast_MASE_1': 0.733, 'Forecast_MASE_H': 0.733}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 5 {'Transformation': 'Diff_Signal', 'DecompositionType': 'T+S+R', 'Model': 'Diff_Signal_Lag1Trend_residue_Cycle_5_residue_NoAR', 'Voting': 4295.5, 'Complexity': 'MSSSS', 'Forecast_MASE_1': 0.733, 'Forecast_MASE_H': 0.733}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 6 {'Transformation': 'Diff_Signal', 'DecompositionType': 'T+S+R', 'Model': 'Diff_Signal_Lag1Trend_residue_Seasonal_Hour_residue_NoAR', 'Voting': 4295.5, 'Complexity': 'MSSSS', 'Forecast_MASE_1': 0.733, 'Forecast_MASE_H': 0.733}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 7 {'Transformation': 'Diff_Signal', 'DecompositionType': 'T+S+R', 'Model': 'Diff_Signal_Lag1Trend_residue_zeroCycle[0.0]_residue_NoAR', 'Voting': 4295.5, 'Complexity': 'MSSSS', 'Forecast_MASE_1': 0.733, 'Forecast_MASE_H': 0.733}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 8 {'Transformation': 'Diff_Signal', 'DecompositionType': 'T+S+R', 'Model': 'Diff_Signal_LinearTrend_residue_Cycle_5_residue_NoAR', 'Voting': 4295.5, 'Complexity': 'MSSSS', 'Forecast_MASE_1': 0.733, 'Forecast_MASE_H': 0.733}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 9 {'Transformation': 'Diff_Signal', 'DecompositionType': 'T+S+R', 'Model': 'Diff_Signal_LinearTrend_residue_Seasonal_Hour_residue_NoAR', 'Voting': 4295.5, 'Complexity': 'MSSSS', 'Forecast_MASE_1': 0.733, 'Forecast_MASE_H': 0.733}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 10 {'Transformation': 'Diff_Signal', 'DecompositionType': 'T+S+R', 'Model': 'Diff_Signal_LinearTrend_residue_zeroCycle[0.0]_residue_NoAR', 'Voting': 4295.5, 'Complexity': 'MSSSS', 'Forecast_MASE_1': 0.733, 'Forecast_MASE_H': 0.733}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 11 {'Transformation': 'RelDiff_Signal', 'DecompositionType': 'T+S+R', 'Model': 'RelDiff_Signal_ConstantTrend_residue_Cycle_5_residue_NoAR', 'Voting': 4295.5, 'Complexity': 'MSSSS', 'Forecast_MASE_1': 0.733, 'Forecast_MASE_H': 0.733}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 12 {'Transformation': 'RelDiff_Signal', 'DecompositionType': 'T+S+R', 'Model': 'RelDiff_Signal_ConstantTrend_residue_Seasonal_Hour_residue_NoAR', 'Voting': 4295.5, 'Complexity': 'MSSSS', 'Forecast_MASE_1': 0.733, 'Forecast_MASE_H': 0.733}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 13 {'Transformation': 'RelDiff_Signal', 'DecompositionType': 'T+S+R', 'Model': 'RelDiff_Signal_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR', 'Voting': 4295.5, 'Complexity': 'MSSSS', 'Forecast_MASE_1': 0.733, 'Forecast_MASE_H': 0.733}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 14 {'Transformation': 'RelDiff_Signal', 'DecompositionType': 'T+S+R', 'Model': 'RelDiff_Signal_Lag1Trend_residue_Cycle_5_residue_NoAR', 'Voting': 4295.5, 'Complexity': 'MSSSS', 'Forecast_MASE_1': 0.733, 'Forecast_MASE_H': 0.733}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 15 {'Transformation': 'RelDiff_Signal', 'DecompositionType': 'T+S+R', 'Model': 'RelDiff_Signal_Lag1Trend_residue_Seasonal_Hour_residue_NoAR', 'Voting': 4295.5, 'Complexity': 'MSSSS', 'Forecast_MASE_1': 0.733, 'Forecast_MASE_H': 0.733}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 16 {'Transformation': 'RelDiff_Signal', 'DecompositionType': 'T+S+R', 'Model': 'RelDiff_Signal_Lag1Trend_residue_zeroCycle[0.0]_residue_NoAR', 'Voting': 4295.5, 'Complexity': 'MSSSS', 'Forecast_MASE_1': 0.733, 'Forecast_MASE_H': 0.733}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 17 {'Transformation': 'RelDiff_Signal', 'DecompositionType': 'T+S+R', 'Model': 'RelDiff_Signal_LinearTrend_residue_Cycle_5_residue_NoAR', 'Voting': 4295.5, 'Complexity': 'MSSSS', 'Forecast_MASE_1': 0.733, 'Forecast_MASE_H': 0.733}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 18 {'Transformation': 'RelDiff_Signal', 'DecompositionType': 'T+S+R', 'Model': 'RelDiff_Signal_LinearTrend_residue_Seasonal_Hour_residue_NoAR', 'Voting': 4295.5, 'Complexity': 'MSSSS', 'Forecast_MASE_1': 0.733, 'Forecast_MASE_H': 0.733}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 19 {'Transformation': 'RelDiff_Signal', 'DecompositionType': 'T+S+R', 'Model': 'RelDiff_Signal_LinearTrend_residue_zeroCycle[0.0]_residue_NoAR', 'Voting': 4295.5, 'Complexity': 'MSSSS', 'Forecast_MASE_1': 0.733, 'Forecast_MASE_H': 0.733}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 20 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_PolyTrend_residue_Cycle_5_residue_NoAR', 'Voting': 4295.5, 'Complexity': 'MSSSS', 'Forecast_MASE_1': 0.7341, 'Forecast_MASE_H': 0.7341}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 21 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_PolyTrend_residue_zeroCycle[0.0]_residue_NoAR', 'Voting': 4295.5, 'Complexity': 'MSSSS', 'Forecast_MASE_1': 0.7332, 'Forecast_MASE_H': 0.7332}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 22 {'Transformation': 'Diff_Signal', 'DecompositionType': 'T+S+R', 'Model': 'Diff_Signal_PolyTrend_residue_Cycle_5_residue_NoAR', 'Voting': 4295.5, 'Complexity': 'MMSSS', 'Forecast_MASE_1': 0.733, 'Forecast_MASE_H': 0.733}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 23 {'Transformation': 'Diff_Signal', 'DecompositionType': 'T+S+R', 'Model': 'Diff_Signal_PolyTrend_residue_Seasonal_Hour_residue_NoAR', 'Voting': 4295.5, 'Complexity': 'MMSSS', 'Forecast_MASE_1': 0.733, 'Forecast_MASE_H': 0.733}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 24 {'Transformation': 'Diff_Signal', 'DecompositionType': 'T+S+R', 'Model': 'Diff_Signal_PolyTrend_residue_zeroCycle[0.0]_residue_NoAR', 'Voting': 4295.5, 'Complexity': 'MMSSS', 'Forecast_MASE_1': 0.733, 'Forecast_MASE_H': 0.733}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 25 {'Transformation': 'RelDiff_Signal', 'DecompositionType': 'T+S+R', 'Model': 'RelDiff_Signal_PolyTrend_residue_Cycle_5_residue_NoAR', 'Voting': 4295.5, 'Complexity': 'MMSSS', 'Forecast_MASE_1': 0.733, 'Forecast_MASE_H': 0.733}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 26 {'Transformation': 'RelDiff_Signal', 'DecompositionType': 'T+S+R', 'Model': 'RelDiff_Signal_PolyTrend_residue_Seasonal_Hour_residue_NoAR', 'Voting': 4295.5, 'Complexity': 'MMSSS', 'Forecast_MASE_1': 0.733, 'Forecast_MASE_H': 0.733}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 27 {'Transformation': 'RelDiff_Signal', 'DecompositionType': 'T+S+R', 'Model': 'RelDiff_Signal_PolyTrend_residue_zeroCycle[0.0]_residue_NoAR', 'Voting': 4295.5, 'Complexity': 'MMSSS', 'Forecast_MASE_1': 0.733, 'Forecast_MASE_H': 0.733}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 28 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_ConstantTrend_residue_Cycle_5_residue_AR(64)', 'Voting': 4295.5, 'Complexity': 'LSSSS', 'Forecast_MASE_1': 0.7277, 'Forecast_MASE_H': 0.7375}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 29 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_ConstantTrend_residue_zeroCycle[0.0]_residue_AR(64)', 'Voting': 4295.5, 'Complexity': 'LSSSS', 'Forecast_MASE_1': 0.7322, 'Forecast_MASE_H': 0.7421}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 30 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_LinearTrend_residue_Cycle_5_residue_AR(64)', 'Voting': 4295.5, 'Complexity': 'LSSSS', 'Forecast_MASE_1': 0.7279, 'Forecast_MASE_H': 0.7333}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 31 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_LinearTrend_residue_zeroCycle[0.0]_residue_AR(64)', 'Voting': 4295.5, 'Complexity': 'LSSSS', 'Forecast_MASE_1': 0.7269, 'Forecast_MASE_H': 0.7328}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 32 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_PolyTrend_residue_Cycle_5_residue_AR(64)', 'Voting': 4295.5, 'Complexity': 'LMSSS', 'Forecast_MASE_1': 0.7275, 'Forecast_MASE_H': 0.7332}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 33 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_PolyTrend_residue_zeroCycle[0.0]_residue_AR(64)', 'Voting': 4295.5, 'Complexity': 'LMSSS', 'Forecast_MASE_1': 0.7266, 'Forecast_MASE_H': 0.7331}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 34 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_ConstantTrend_residue_Cycle_5_residue_NoAR', 'Voting': 4295.4083, 'Complexity': 'SSSSS', 'Forecast_MASE_1': 0.7407, 'Forecast_MASE_H': 0.7407}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 35 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR', 'Voting': 4295.325, 'Complexity': 'SSSSS', 'Forecast_MASE_1': 0.7421, 'Forecast_MASE_H': 0.7421}
+INFO:pyaf.std:COMPETITION_DETAIL_END 'Signal'
 INFO:pyaf.timing:('OPERATION_START', ('PLOTTING', {'Signals': ['Signal']}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 17.058, ('PLOTTING', {'Signals': ['Signal']}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 14.886, ('PLOTTING', {'Signals': ['Signal']}))
 INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['Signal'], 'Horizon': 120}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.861, ('FORECASTING', {'Signals': ['Signal'], 'Horizon': 120}))
-  Split  Transformation DecompositionType  ...       FitMAPE ForecastMAPE TestMAPE
-0  None   CumSum_Signal             T+S+R  ...  1.903200e+00       0.9914   0.9974
-1  None   CumSum_Signal             T+S+R  ...  1.903200e+00       0.9914   0.9974
-2  None  RelDiff_Signal             T+S+R  ...  2.676451e+06       5.5280   1.4917
-3  None  RelDiff_Signal             T+S+R  ...  1.884700e+00       5.5280   1.4917
-4  None   CumSum_Signal             T+S+R  ...  3.296500e+00       7.4690   2.8205
-
-[5 rows x 10 columns]
-Forecast Columns  Index(['Time', 'Signal', 'row_number', 'Time_Normalized', 'CumSum_Signal',
-       'CumSum_Signal_ConstantTrend', 'CumSum_Signal_ConstantTrend_residue',
-       'CumSum_Signal_ConstantTrend_residue_bestCycle_byMAPE',
-       'CumSum_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue',
-       'CumSum_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR',
-       'CumSum_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR_residue',
-       'CumSum_Signal_Trend', 'CumSum_Signal_Trend_residue',
-       'CumSum_Signal_Cycle', 'CumSum_Signal_Cycle_residue',
-       'CumSum_Signal_AR', 'CumSum_Signal_AR_residue',
-       'CumSum_Signal_TransformedForecast', 'Signal_Forecast',
-       'CumSum_Signal_TransformedResidue', 'Signal_Residue',
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.649, ('FORECASTING', {'Signals': ['Signal'], 'Horizon': 120}))
+Forecast Columns  Index(['Time', 'Signal', 'row_number', 'Time_Normalized', '_Signal',
+       '_Signal_LinearTrend', '_Signal_LinearTrend_residue', 'cycle_internal',
+       '_Signal_LinearTrend_residue_Cycle_5',
+       '_Signal_LinearTrend_residue_Cycle_5_residue',
+       '_Signal_LinearTrend_residue_Cycle_5_residue_NoAR',
+       '_Signal_LinearTrend_residue_Cycle_5_residue_NoAR_residue',
+       'Signal_Transformed', '_Signal_Trend', '_Signal_Trend_residue',
+       '_Signal_Cycle', '_Signal_Cycle_residue', '_Signal_AR',
+       '_Signal_AR_residue', '_Signal_TransformedForecast', 'Signal_Forecast',
+       '_Signal_TransformedResidue', 'Signal_Residue',
        'Signal_Forecast_Lower_Bound', 'Signal_Forecast_Upper_Bound',
        'Signal_Forecast_Quantile_1', 'Signal_Forecast_Quantile_8',
        'Signal_Forecast_Quantile_15', 'Signal_Forecast_Quantile_22',
@@ -106,17 +136,17 @@ memory usage: 26.4 KB
 None
 Forecasts
                      Time  Signal  Signal_Forecast
-1000 2018-02-11 16:00:00     NaN         0.000397
-1001 2018-02-11 17:00:00     NaN         0.000397
-1002 2018-02-11 18:00:00     NaN         0.000397
-1003 2018-02-11 19:00:00     NaN         0.000397
-1004 2018-02-11 20:00:00     NaN         0.000397
+1000 2018-02-11 16:00:00     NaN         0.537582
+1001 2018-02-11 17:00:00     NaN         0.571249
+1002 2018-02-11 18:00:00     NaN         0.552526
+1003 2018-02-11 19:00:00     NaN         0.574378
+1004 2018-02-11 20:00:00     NaN         0.538772
 ...                  ...     ...              ...
-1115 2018-02-16 11:00:00     NaN         0.000397
-1116 2018-02-16 12:00:00     NaN         0.000397
-1117 2018-02-16 13:00:00     NaN         0.000397
-1118 2018-02-16 14:00:00     NaN         0.000397
-1119 2018-02-16 15:00:00     NaN         0.000397
+1115 2018-02-16 11:00:00     NaN         0.547756
+1116 2018-02-16 12:00:00     NaN         0.581424
+1117 2018-02-16 13:00:00     NaN         0.562701
+1118 2018-02-16 14:00:00     NaN         0.584552
+1119 2018-02-16 15:00:00     NaN         0.548946
 
 [120 rows x 3 columns]
 
@@ -124,37 +154,79 @@ Forecasts
 <ModelInfo>
 {
     "Signal": {
+        "Complexity": {
+            "AR": "S",
+            "Cycle": "S",
+            "Decomposition": "S",
+            "Transformation": "S",
+            "Trend": "S"
+        },
         "Dataset": {
             "Signal": "Signal",
             "Time": {
                 "Horizon": 120,
-                "TimeMinMax": [
-                    "2018-01-01 00:00:00",
-                    "2018-02-11 15:00:00"
-                ],
+                "TimeDelta": "<DateOffset: hours=1>",
+                "TimeMax": "2018-02-11 15:00:00",
+                "TimeMin": "2018-01-01 00:00:00",
                 "TimeVariable": "Time"
             },
             "Training_Signal_Length": 1000
         },
         "Model": {
             "AR_Model": "NoAR",
-            "Best_Decomposition": "CumSum_Signal_ConstantTrend_residue_bestCycle_byMAPE_residue_NoAR",
-            "Cycle": "Cycle_None",
+            "Best_Decomposition": "_Signal_LinearTrend_residue_Cycle_5_residue_NoAR",
+            "Cycle": "Cycle_5",
             "Signal_Decomposition_Type": "T+S+R",
-            "Signal_Transoformation": "Integration",
-            "Trend": "ConstantTrend"
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "LinearTrend"
         },
         "Model_Performance": {
-            "COMPLEXITY": 1.0,
-            "CRPS": 0.14872692379908514,
-            "LnQ": 8219.900765207272,
-            "MAE": 0.48244911515146394,
-            "MAPE": 0.9914,
-            "MASE": 1.4582,
-            "MedAE": 0.4567289991487551,
-            "RMSE": 0.5665711395724691
-        }
-    }
+            "1": {
+                "AUC": 0.5235,
+                "DiffSMAPE": 0.4658,
+                "ErrorMean": 0.0077,
+                "ErrorStdDev": 0.2815,
+                "KS": 0.4716,
+                "KendallTau": 0.0683,
+                "Length": 176,
+                "LnQ": 140.7374,
+                "MAE": 0.2407,
+                "MAPE": 1.5398,
+                "MASE": 0.7339,
+                "MannWhitneyU": 16215.0,
+                "MedAE": 0.2465,
+                "Pearson": 0.1091,
+                "R2": 0.0085,
+                "RMSE": 0.2817,
+                "RMSSE": 0.6899,
+                "SMAPE": 0.5223,
+                "Signal": "Signal_Forecast_1"
+            },
+            "120": {
+                "AUC": 0.5235,
+                "DiffSMAPE": 0.4658,
+                "ErrorMean": 0.0077,
+                "ErrorStdDev": 0.2815,
+                "KS": 0.4716,
+                "KendallTau": 0.0683,
+                "Length": 176,
+                "LnQ": 140.7374,
+                "MAE": 0.2407,
+                "MAPE": 1.5398,
+                "MASE": 0.7339,
+                "MannWhitneyU": 16215.0,
+                "MedAE": 0.2465,
+                "Pearson": 0.1091,
+                "R2": 0.0085,
+                "RMSE": 0.2817,
+                "RMSSE": 0.6899,
+                "SMAPE": 0.5223,
+                "Signal": "Signal_Forecast_120"
+            }
+        },
+        "Model_Selection_Criterion": "MASE"
+    },
+    "Training_Time": 57.305
 }
 </ModelInfo>
 
@@ -162,7 +234,7 @@ Forecasts
 
 
 <Forecast>
-{"Time":{"880":"2018-02-06T16:00:00.000Z","881":"2018-02-06T17:00:00.000Z","882":"2018-02-06T18:00:00.000Z","883":"2018-02-06T19:00:00.000Z","884":"2018-02-06T20:00:00.000Z","885":"2018-02-06T21:00:00.000Z","886":"2018-02-06T22:00:00.000Z","887":"2018-02-06T23:00:00.000Z","888":"2018-02-07T00:00:00.000Z","889":"2018-02-07T01:00:00.000Z","890":"2018-02-07T02:00:00.000Z","891":"2018-02-07T03:00:00.000Z","892":"2018-02-07T04:00:00.000Z","893":"2018-02-07T05:00:00.000Z","894":"2018-02-07T06:00:00.000Z","895":"2018-02-07T07:00:00.000Z","896":"2018-02-07T08:00:00.000Z","897":"2018-02-07T09:00:00.000Z","898":"2018-02-07T10:00:00.000Z","899":"2018-02-07T11:00:00.000Z","900":"2018-02-07T12:00:00.000Z","901":"2018-02-07T13:00:00.000Z","902":"2018-02-07T14:00:00.000Z","903":"2018-02-07T15:00:00.000Z","904":"2018-02-07T16:00:00.000Z","905":"2018-02-07T17:00:00.000Z","906":"2018-02-07T18:00:00.000Z","907":"2018-02-07T19:00:00.000Z","908":"2018-02-07T20:00:00.000Z","909":"2018-02-07T21:00:00.000Z","910":"2018-02-07T22:00:00.000Z","911":"2018-02-07T23:00:00.000Z","912":"2018-02-08T00:00:00.000Z","913":"2018-02-08T01:00:00.000Z","914":"2018-02-08T02:00:00.000Z","915":"2018-02-08T03:00:00.000Z","916":"2018-02-08T04:00:00.000Z","917":"2018-02-08T05:00:00.000Z","918":"2018-02-08T06:00:00.000Z","919":"2018-02-08T07:00:00.000Z","920":"2018-02-08T08:00:00.000Z","921":"2018-02-08T09:00:00.000Z","922":"2018-02-08T10:00:00.000Z","923":"2018-02-08T11:00:00.000Z","924":"2018-02-08T12:00:00.000Z","925":"2018-02-08T13:00:00.000Z","926":"2018-02-08T14:00:00.000Z","927":"2018-02-08T15:00:00.000Z","928":"2018-02-08T16:00:00.000Z","929":"2018-02-08T17:00:00.000Z","930":"2018-02-08T18:00:00.000Z","931":"2018-02-08T19:00:00.000Z","932":"2018-02-08T20:00:00.000Z","933":"2018-02-08T21:00:00.000Z","934":"2018-02-08T22:00:00.000Z","935":"2018-02-08T23:00:00.000Z","936":"2018-02-09T00:00:00.000Z","937":"2018-02-09T01:00:00.000Z","938":"2018-02-09T02:00:00.000Z","939":"2018-02-09T03:00:00.000Z","940":"2018-02-09T04:00:00.000Z","941":"2018-02-09T05:00:00.000Z","942":"2018-02-09T06:00:00.000Z","943":"2018-02-09T07:00:00.000Z","944":"2018-02-09T08:00:00.000Z","945":"2018-02-09T09:00:00.000Z","946":"2018-02-09T10:00:00.000Z","947":"2018-02-09T11:00:00.000Z","948":"2018-02-09T12:00:00.000Z","949":"2018-02-09T13:00:00.000Z","950":"2018-02-09T14:00:00.000Z","951":"2018-02-09T15:00:00.000Z","952":"2018-02-09T16:00:00.000Z","953":"2018-02-09T17:00:00.000Z","954":"2018-02-09T18:00:00.000Z","955":"2018-02-09T19:00:00.000Z","956":"2018-02-09T20:00:00.000Z","957":"2018-02-09T21:00:00.000Z","958":"2018-02-09T22:00:00.000Z","959":"2018-02-09T23:00:00.000Z","960":"2018-02-10T00:00:00.000Z","961":"2018-02-10T01:00:00.000Z","962":"2018-02-10T02:00:00.000Z","963":"2018-02-10T03:00:00.000Z","964":"2018-02-10T04:00:00.000Z","965":"2018-02-10T05:00:00.000Z","966":"2018-02-10T06:00:00.000Z","967":"2018-02-10T07:00:00.000Z","968":"2018-02-10T08:00:00.000Z","969":"2018-02-10T09:00:00.000Z","970":"2018-02-10T10:00:00.000Z","971":"2018-02-10T11:00:00.000Z","972":"2018-02-10T12:00:00.000Z","973":"2018-02-10T13:00:00.000Z","974":"2018-02-10T14:00:00.000Z","975":"2018-02-10T15:00:00.000Z","976":"2018-02-10T16:00:00.000Z","977":"2018-02-10T17:00:00.000Z","978":"2018-02-10T18:00:00.000Z","979":"2018-02-10T19:00:00.000Z","980":"2018-02-10T20:00:00.000Z","981":"2018-02-10T21:00:00.000Z","982":"2018-02-10T22:00:00.000Z","983":"2018-02-10T23:00:00.000Z","984":"2018-02-11T00:00:00.000Z","985":"2018-02-11T01:00:00.000Z","986":"2018-02-11T02:00:00.000Z","987":"2018-02-11T03:00:00.000Z","988":"2018-02-11T04:00:00.000Z","989":"2018-02-11T05:00:00.000Z","990":"2018-02-11T06:00:00.000Z","991":"2018-02-11T07:00:00.000Z","992":"2018-02-11T08:00:00.000Z","993":"2018-02-11T09:00:00.000Z","994":"2018-02-11T10:00:00.000Z","995":"2018-02-11T11:00:00.000Z","996":"2018-02-11T12:00:00.000Z","997":"2018-02-11T13:00:00.000Z","998":"2018-02-11T14:00:00.000Z","999":"2018-02-11T15:00:00.000Z","1000":"2018-02-11T16:00:00.000Z","1001":"2018-02-11T17:00:00.000Z","1002":"2018-02-11T18:00:00.000Z","1003":"2018-02-11T19:00:00.000Z","1004":"2018-02-11T20:00:00.000Z","1005":"2018-02-11T21:00:00.000Z","1006":"2018-02-11T22:00:00.000Z","1007":"2018-02-11T23:00:00.000Z","1008":"2018-02-12T00:00:00.000Z","1009":"2018-02-12T01:00:00.000Z","1010":"2018-02-12T02:00:00.000Z","1011":"2018-02-12T03:00:00.000Z","1012":"2018-02-12T04:00:00.000Z","1013":"2018-02-12T05:00:00.000Z","1014":"2018-02-12T06:00:00.000Z","1015":"2018-02-12T07:00:00.000Z","1016":"2018-02-12T08:00:00.000Z","1017":"2018-02-12T09:00:00.000Z","1018":"2018-02-12T10:00:00.000Z","1019":"2018-02-12T11:00:00.000Z","1020":"2018-02-12T12:00:00.000Z","1021":"2018-02-12T13:00:00.000Z","1022":"2018-02-12T14:00:00.000Z","1023":"2018-02-12T15:00:00.000Z","1024":"2018-02-12T16:00:00.000Z","1025":"2018-02-12T17:00:00.000Z","1026":"2018-02-12T18:00:00.000Z","1027":"2018-02-12T19:00:00.000Z","1028":"2018-02-12T20:00:00.000Z","1029":"2018-02-12T21:00:00.000Z","1030":"2018-02-12T22:00:00.000Z","1031":"2018-02-12T23:00:00.000Z","1032":"2018-02-13T00:00:00.000Z","1033":"2018-02-13T01:00:00.000Z","1034":"2018-02-13T02:00:00.000Z","1035":"2018-02-13T03:00:00.000Z","1036":"2018-02-13T04:00:00.000Z","1037":"2018-02-13T05:00:00.000Z","1038":"2018-02-13T06:00:00.000Z","1039":"2018-02-13T07:00:00.000Z","1040":"2018-02-13T08:00:00.000Z","1041":"2018-02-13T09:00:00.000Z","1042":"2018-02-13T10:00:00.000Z","1043":"2018-02-13T11:00:00.000Z","1044":"2018-02-13T12:00:00.000Z","1045":"2018-02-13T13:00:00.000Z","1046":"2018-02-13T14:00:00.000Z","1047":"2018-02-13T15:00:00.000Z","1048":"2018-02-13T16:00:00.000Z","1049":"2018-02-13T17:00:00.000Z","1050":"2018-02-13T18:00:00.000Z","1051":"2018-02-13T19:00:00.000Z","1052":"2018-02-13T20:00:00.000Z","1053":"2018-02-13T21:00:00.000Z","1054":"2018-02-13T22:00:00.000Z","1055":"2018-02-13T23:00:00.000Z","1056":"2018-02-14T00:00:00.000Z","1057":"2018-02-14T01:00:00.000Z","1058":"2018-02-14T02:00:00.000Z","1059":"2018-02-14T03:00:00.000Z","1060":"2018-02-14T04:00:00.000Z","1061":"2018-02-14T05:00:00.000Z","1062":"2018-02-14T06:00:00.000Z","1063":"2018-02-14T07:00:00.000Z","1064":"2018-02-14T08:00:00.000Z","1065":"2018-02-14T09:00:00.000Z","1066":"2018-02-14T10:00:00.000Z","1067":"2018-02-14T11:00:00.000Z","1068":"2018-02-14T12:00:00.000Z","1069":"2018-02-14T13:00:00.000Z","1070":"2018-02-14T14:00:00.000Z","1071":"2018-02-14T15:00:00.000Z","1072":"2018-02-14T16:00:00.000Z","1073":"2018-02-14T17:00:00.000Z","1074":"2018-02-14T18:00:00.000Z","1075":"2018-02-14T19:00:00.000Z","1076":"2018-02-14T20:00:00.000Z","1077":"2018-02-14T21:00:00.000Z","1078":"2018-02-14T22:00:00.000Z","1079":"2018-02-14T23:00:00.000Z","1080":"2018-02-15T00:00:00.000Z","1081":"2018-02-15T01:00:00.000Z","1082":"2018-02-15T02:00:00.000Z","1083":"2018-02-15T03:00:00.000Z","1084":"2018-02-15T04:00:00.000Z","1085":"2018-02-15T05:00:00.000Z","1086":"2018-02-15T06:00:00.000Z","1087":"2018-02-15T07:00:00.000Z","1088":"2018-02-15T08:00:00.000Z","1089":"2018-02-15T09:00:00.000Z","1090":"2018-02-15T10:00:00.000Z","1091":"2018-02-15T11:00:00.000Z","1092":"2018-02-15T12:00:00.000Z","1093":"2018-02-15T13:00:00.000Z","1094":"2018-02-15T14:00:00.000Z","1095":"2018-02-15T15:00:00.000Z","1096":"2018-02-15T16:00:00.000Z","1097":"2018-02-15T17:00:00.000Z","1098":"2018-02-15T18:00:00.000Z","1099":"2018-02-15T19:00:00.000Z","1100":"2018-02-15T20:00:00.000Z","1101":"2018-02-15T21:00:00.000Z","1102":"2018-02-15T22:00:00.000Z","1103":"2018-02-15T23:00:00.000Z","1104":"2018-02-16T00:00:00.000Z","1105":"2018-02-16T01:00:00.000Z","1106":"2018-02-16T02:00:00.000Z","1107":"2018-02-16T03:00:00.000Z","1108":"2018-02-16T04:00:00.000Z","1109":"2018-02-16T05:00:00.000Z","1110":"2018-02-16T06:00:00.000Z","1111":"2018-02-16T07:00:00.000Z","1112":"2018-02-16T08:00:00.000Z","1113":"2018-02-16T09:00:00.000Z","1114":"2018-02-16T10:00:00.000Z","1115":"2018-02-16T11:00:00.000Z","1116":"2018-02-16T12:00:00.000Z","1117":"2018-02-16T13:00:00.000Z","1118":"2018-02-16T14:00:00.000Z","1119":"2018-02-16T15:00:00.000Z"},"Signal":{"880":0.4382667115,"881":0.0325603683,"882":0.9073955688,"883":0.6655731856,"884":0.8969159919,"885":0.0086984604,"886":0.0853449712,"887":0.0528391536,"888":0.5340742434,"889":0.3012993666,"890":0.6060632323,"891":0.6857970225,"892":0.6267619251,"893":0.6804331051,"894":0.7660690614,"895":0.2617538893,"896":0.6919776573,"897":0.3624530609,"898":0.3804807621,"899":0.4831300378,"900":0.3275227497,"901":0.4539469473,"902":0.1969640677,"903":0.9116005635,"904":0.6075795465,"905":0.0831872194,"906":0.1176965479,"907":0.3353207706,"908":0.9245675032,"909":0.5673428925,"910":0.7491467193,"911":0.1662137711,"912":0.6620867068,"913":0.7732102489,"914":0.5259633599,"915":0.2241388355,"916":0.3547745491,"917":0.5350028884,"918":0.6174296582,"919":0.0348138334,"920":0.2632101843,"921":0.7436399,"922":0.4728312275,"923":0.6748464787,"924":0.344528678,"925":0.0259793089,"926":0.8105033923,"927":0.6802156603,"928":0.7670395077,"929":0.2308579119,"930":0.7637990823,"931":0.6267727028,"932":0.1901221333,"933":0.7320258322,"934":0.126481102,"935":0.4947594362,"936":0.3495415221,"937":0.3796794595,"938":0.5973793443,"939":0.5911613193,"940":0.2016359219,"941":0.0431953419,"942":0.8428327378,"943":0.8688122243,"944":0.4426493702,"945":0.515798318,"946":0.1269952455,"947":0.83977044,"948":0.8267858287,"949":0.4170920425,"950":0.2114816909,"951":0.6539726142,"952":0.9136044466,"953":0.2888231047,"954":0.6806607349,"955":0.0224601426,"956":0.1511039545,"957":0.5842431366,"958":0.3451070132,"959":0.7413989824,"960":0.8408371393,"961":0.3866007033,"962":0.6644415167,"963":0.101024766,"964":0.6990780941,"965":0.6191684883,"966":0.1189861939,"967":0.779553643,"968":0.8151256771,"969":0.2214511991,"970":0.7037671657,"971":0.8431219001,"972":0.0846251734,"973":0.8520730458,"974":0.6381753678,"975":0.0143044259,"976":0.3874616782,"977":0.9172228668,"978":0.4668316381,"979":0.9263830874,"980":0.8634766979,"981":0.4787552512,"982":0.094954957,"983":0.636755824,"984":0.6502149205,"985":0.1102924882,"986":0.1429658384,"987":0.6535386609,"988":0.7204606213,"989":0.7649692334,"990":0.151045398,"991":0.4336161277,"992":0.3744131283,"993":0.7432980665,"994":0.0715948356,"995":0.1852533485,"996":0.51236048,"997":0.2117407894,"998":0.0140485608,"999":0.151365802,"1000":null,"1001":null,"1002":null,"1003":null,"1004":null,"1005":null,"1006":null,"1007":null,"1008":null,"1009":null,"1010":null,"1011":null,"1012":null,"1013":null,"1014":null,"1015":null,"1016":null,"1017":null,"1018":null,"1019":null,"1020":null,"1021":null,"1022":null,"1023":null,"1024":null,"1025":null,"1026":null,"1027":null,"1028":null,"1029":null,"1030":null,"1031":null,"1032":null,"1033":null,"1034":null,"1035":null,"1036":null,"1037":null,"1038":null,"1039":null,"1040":null,"1041":null,"1042":null,"1043":null,"1044":null,"1045":null,"1046":null,"1047":null,"1048":null,"1049":null,"1050":null,"1051":null,"1052":null,"1053":null,"1054":null,"1055":null,"1056":null,"1057":null,"1058":null,"1059":null,"1060":null,"1061":null,"1062":null,"1063":null,"1064":null,"1065":null,"1066":null,"1067":null,"1068":null,"1069":null,"1070":null,"1071":null,"1072":null,"1073":null,"1074":null,"1075":null,"1076":null,"1077":null,"1078":null,"1079":null,"1080":null,"1081":null,"1082":null,"1083":null,"1084":null,"1085":null,"1086":null,"1087":null,"1088":null,"1089":null,"1090":null,"1091":null,"1092":null,"1093":null,"1094":null,"1095":null,"1096":null,"1097":null,"1098":null,"1099":null,"1100":null,"1101":null,"1102":null,"1103":null,"1104":null,"1105":null,"1106":null,"1107":null,"1108":null,"1109":null,"1110":null,"1111":null,"1112":null,"1113":null,"1114":null,"1115":null,"1116":null,"1117":null,"1118":null,"1119":null},"Signal_Forecast":{"880":0.0003973378,"881":0.0003973378,"882":0.0003973378,"883":0.0003973378,"884":0.0003973378,"885":0.0003973378,"886":0.0003973378,"887":0.0003973378,"888":0.0003973378,"889":0.0003973378,"890":0.0003973378,"891":0.0003973378,"892":0.0003973378,"893":0.0003973378,"894":0.0003973378,"895":0.0003973378,"896":0.0003973378,"897":0.0003973378,"898":0.0003973378,"899":0.0003973378,"900":0.0003973378,"901":0.0003973378,"902":0.0003973378,"903":0.0003973378,"904":0.0003973378,"905":0.0003973378,"906":0.0003973378,"907":0.0003973378,"908":0.0003973378,"909":0.0003973378,"910":0.0003973378,"911":0.0003973378,"912":0.0003973378,"913":0.0003973378,"914":0.0003973378,"915":0.0003973378,"916":0.0003973378,"917":0.0003973378,"918":0.0003973378,"919":0.0003973378,"920":0.0003973378,"921":0.0003973378,"922":0.0003973378,"923":0.0003973378,"924":0.0003973378,"925":0.0003973378,"926":0.0003973378,"927":0.0003973378,"928":0.0003973378,"929":0.0003973378,"930":0.0003973378,"931":0.0003973378,"932":0.0003973378,"933":0.0003973378,"934":0.0003973378,"935":0.0003973378,"936":0.0003973378,"937":0.0003973378,"938":0.0003973378,"939":0.0003973378,"940":0.0003973378,"941":0.0003973378,"942":0.0003973378,"943":0.0003973378,"944":0.0003973378,"945":0.0003973378,"946":0.0003973378,"947":0.0003973378,"948":0.0003973378,"949":0.0003973378,"950":0.0003973378,"951":0.0003973378,"952":0.0003973378,"953":0.0003973378,"954":0.0003973378,"955":0.0003973378,"956":0.0003973378,"957":0.0003973378,"958":0.0003973378,"959":0.0003973378,"960":0.0003973378,"961":0.0003973378,"962":0.0003973378,"963":0.0003973378,"964":0.0003973378,"965":0.0003973378,"966":0.0003973378,"967":0.0003973378,"968":0.0003973378,"969":0.0003973378,"970":0.0003973378,"971":0.0003973378,"972":0.0003973378,"973":0.0003973378,"974":0.0003973378,"975":0.0003973378,"976":0.0003973378,"977":0.0003973378,"978":0.0003973378,"979":0.0003973378,"980":0.0003973378,"981":0.0003973378,"982":0.0003973378,"983":0.0003973378,"984":0.0003973378,"985":0.0003973378,"986":0.0003973378,"987":0.0003973378,"988":0.0003973378,"989":0.0003973378,"990":0.0003973378,"991":0.0003973378,"992":0.0003973378,"993":0.0003973378,"994":0.0003973378,"995":0.0003973378,"996":0.0003973378,"997":0.0003973378,"998":0.0003973378,"999":0.0003973378,"1000":0.0003973378,"1001":0.0003973378,"1002":0.0003973378,"1003":0.0003973378,"1004":0.0003973378,"1005":0.0003973378,"1006":0.0003973378,"1007":0.0003973378,"1008":0.0003973378,"1009":0.0003973378,"1010":0.0003973378,"1011":0.0003973378,"1012":0.0003973378,"1013":0.0003973378,"1014":0.0003973378,"1015":0.0003973378,"1016":0.0003973378,"1017":0.0003973378,"1018":0.0003973378,"1019":0.0003973378,"1020":0.0003973378,"1021":0.0003973378,"1022":0.0003973378,"1023":0.0003973378,"1024":0.0003973378,"1025":0.0003973378,"1026":0.0003973378,"1027":0.0003973378,"1028":0.0003973378,"1029":0.0003973378,"1030":0.0003973378,"1031":0.0003973378,"1032":0.0003973378,"1033":0.0003973378,"1034":0.0003973378,"1035":0.0003973378,"1036":0.0003973378,"1037":0.0003973378,"1038":0.0003973378,"1039":0.0003973378,"1040":0.0003973378,"1041":0.0003973378,"1042":0.0003973378,"1043":0.0003973378,"1044":0.0003973378,"1045":0.0003973378,"1046":0.0003973378,"1047":0.0003973378,"1048":0.0003973378,"1049":0.0003973378,"1050":0.0003973378,"1051":0.0003973378,"1052":0.0003973378,"1053":0.0003973378,"1054":0.0003973378,"1055":0.0003973378,"1056":0.0003973378,"1057":0.0003973378,"1058":0.0003973378,"1059":0.0003973378,"1060":0.0003973378,"1061":0.0003973378,"1062":0.0003973378,"1063":0.0003973378,"1064":0.0003973378,"1065":0.0003973378,"1066":0.0003973378,"1067":0.0003973378,"1068":0.0003973378,"1069":0.0003973378,"1070":0.0003973378,"1071":0.0003973378,"1072":0.0003973378,"1073":0.0003973378,"1074":0.0003973378,"1075":0.0003973378,"1076":0.0003973378,"1077":0.0003973378,"1078":0.0003973378,"1079":0.0003973378,"1080":0.0003973378,"1081":0.0003973378,"1082":0.0003973378,"1083":0.0003973378,"1084":0.0003973378,"1085":0.0003973378,"1086":0.0003973378,"1087":0.0003973378,"1088":0.0003973378,"1089":0.0003973378,"1090":0.0003973378,"1091":0.0003973378,"1092":0.0003973378,"1093":0.0003973378,"1094":0.0003973378,"1095":0.0003973378,"1096":0.0003973378,"1097":0.0003973378,"1098":0.0003973378,"1099":0.0003973378,"1100":0.0003973378,"1101":0.0003973378,"1102":0.0003973378,"1103":0.0003973378,"1104":0.0003973378,"1105":0.0003973378,"1106":0.0003973378,"1107":0.0003973378,"1108":0.0003973378,"1109":0.0003973378,"1110":0.0003973378,"1111":0.0003973378,"1112":0.0003973378,"1113":0.0003973378,"1114":0.0003973378,"1115":0.0003973378,"1116":0.0003973378,"1117":0.0003973378,"1118":0.0003973378,"1119":0.0003973378}}
+{"Time":{"880":"2018-02-06T16:00:00.000","881":"2018-02-06T17:00:00.000","882":"2018-02-06T18:00:00.000","883":"2018-02-06T19:00:00.000","884":"2018-02-06T20:00:00.000","885":"2018-02-06T21:00:00.000","886":"2018-02-06T22:00:00.000","887":"2018-02-06T23:00:00.000","888":"2018-02-07T00:00:00.000","889":"2018-02-07T01:00:00.000","890":"2018-02-07T02:00:00.000","891":"2018-02-07T03:00:00.000","892":"2018-02-07T04:00:00.000","893":"2018-02-07T05:00:00.000","894":"2018-02-07T06:00:00.000","895":"2018-02-07T07:00:00.000","896":"2018-02-07T08:00:00.000","897":"2018-02-07T09:00:00.000","898":"2018-02-07T10:00:00.000","899":"2018-02-07T11:00:00.000","900":"2018-02-07T12:00:00.000","901":"2018-02-07T13:00:00.000","902":"2018-02-07T14:00:00.000","903":"2018-02-07T15:00:00.000","904":"2018-02-07T16:00:00.000","905":"2018-02-07T17:00:00.000","906":"2018-02-07T18:00:00.000","907":"2018-02-07T19:00:00.000","908":"2018-02-07T20:00:00.000","909":"2018-02-07T21:00:00.000","910":"2018-02-07T22:00:00.000","911":"2018-02-07T23:00:00.000","912":"2018-02-08T00:00:00.000","913":"2018-02-08T01:00:00.000","914":"2018-02-08T02:00:00.000","915":"2018-02-08T03:00:00.000","916":"2018-02-08T04:00:00.000","917":"2018-02-08T05:00:00.000","918":"2018-02-08T06:00:00.000","919":"2018-02-08T07:00:00.000","920":"2018-02-08T08:00:00.000","921":"2018-02-08T09:00:00.000","922":"2018-02-08T10:00:00.000","923":"2018-02-08T11:00:00.000","924":"2018-02-08T12:00:00.000","925":"2018-02-08T13:00:00.000","926":"2018-02-08T14:00:00.000","927":"2018-02-08T15:00:00.000","928":"2018-02-08T16:00:00.000","929":"2018-02-08T17:00:00.000","930":"2018-02-08T18:00:00.000","931":"2018-02-08T19:00:00.000","932":"2018-02-08T20:00:00.000","933":"2018-02-08T21:00:00.000","934":"2018-02-08T22:00:00.000","935":"2018-02-08T23:00:00.000","936":"2018-02-09T00:00:00.000","937":"2018-02-09T01:00:00.000","938":"2018-02-09T02:00:00.000","939":"2018-02-09T03:00:00.000","940":"2018-02-09T04:00:00.000","941":"2018-02-09T05:00:00.000","942":"2018-02-09T06:00:00.000","943":"2018-02-09T07:00:00.000","944":"2018-02-09T08:00:00.000","945":"2018-02-09T09:00:00.000","946":"2018-02-09T10:00:00.000","947":"2018-02-09T11:00:00.000","948":"2018-02-09T12:00:00.000","949":"2018-02-09T13:00:00.000","950":"2018-02-09T14:00:00.000","951":"2018-02-09T15:00:00.000","952":"2018-02-09T16:00:00.000","953":"2018-02-09T17:00:00.000","954":"2018-02-09T18:00:00.000","955":"2018-02-09T19:00:00.000","956":"2018-02-09T20:00:00.000","957":"2018-02-09T21:00:00.000","958":"2018-02-09T22:00:00.000","959":"2018-02-09T23:00:00.000","960":"2018-02-10T00:00:00.000","961":"2018-02-10T01:00:00.000","962":"2018-02-10T02:00:00.000","963":"2018-02-10T03:00:00.000","964":"2018-02-10T04:00:00.000","965":"2018-02-10T05:00:00.000","966":"2018-02-10T06:00:00.000","967":"2018-02-10T07:00:00.000","968":"2018-02-10T08:00:00.000","969":"2018-02-10T09:00:00.000","970":"2018-02-10T10:00:00.000","971":"2018-02-10T11:00:00.000","972":"2018-02-10T12:00:00.000","973":"2018-02-10T13:00:00.000","974":"2018-02-10T14:00:00.000","975":"2018-02-10T15:00:00.000","976":"2018-02-10T16:00:00.000","977":"2018-02-10T17:00:00.000","978":"2018-02-10T18:00:00.000","979":"2018-02-10T19:00:00.000","980":"2018-02-10T20:00:00.000","981":"2018-02-10T21:00:00.000","982":"2018-02-10T22:00:00.000","983":"2018-02-10T23:00:00.000","984":"2018-02-11T00:00:00.000","985":"2018-02-11T01:00:00.000","986":"2018-02-11T02:00:00.000","987":"2018-02-11T03:00:00.000","988":"2018-02-11T04:00:00.000","989":"2018-02-11T05:00:00.000","990":"2018-02-11T06:00:00.000","991":"2018-02-11T07:00:00.000","992":"2018-02-11T08:00:00.000","993":"2018-02-11T09:00:00.000","994":"2018-02-11T10:00:00.000","995":"2018-02-11T11:00:00.000","996":"2018-02-11T12:00:00.000","997":"2018-02-11T13:00:00.000","998":"2018-02-11T14:00:00.000","999":"2018-02-11T15:00:00.000","1000":"2018-02-11T16:00:00.000","1001":"2018-02-11T17:00:00.000","1002":"2018-02-11T18:00:00.000","1003":"2018-02-11T19:00:00.000","1004":"2018-02-11T20:00:00.000","1005":"2018-02-11T21:00:00.000","1006":"2018-02-11T22:00:00.000","1007":"2018-02-11T23:00:00.000","1008":"2018-02-12T00:00:00.000","1009":"2018-02-12T01:00:00.000","1010":"2018-02-12T02:00:00.000","1011":"2018-02-12T03:00:00.000","1012":"2018-02-12T04:00:00.000","1013":"2018-02-12T05:00:00.000","1014":"2018-02-12T06:00:00.000","1015":"2018-02-12T07:00:00.000","1016":"2018-02-12T08:00:00.000","1017":"2018-02-12T09:00:00.000","1018":"2018-02-12T10:00:00.000","1019":"2018-02-12T11:00:00.000","1020":"2018-02-12T12:00:00.000","1021":"2018-02-12T13:00:00.000","1022":"2018-02-12T14:00:00.000","1023":"2018-02-12T15:00:00.000","1024":"2018-02-12T16:00:00.000","1025":"2018-02-12T17:00:00.000","1026":"2018-02-12T18:00:00.000","1027":"2018-02-12T19:00:00.000","1028":"2018-02-12T20:00:00.000","1029":"2018-02-12T21:00:00.000","1030":"2018-02-12T22:00:00.000","1031":"2018-02-12T23:00:00.000","1032":"2018-02-13T00:00:00.000","1033":"2018-02-13T01:00:00.000","1034":"2018-02-13T02:00:00.000","1035":"2018-02-13T03:00:00.000","1036":"2018-02-13T04:00:00.000","1037":"2018-02-13T05:00:00.000","1038":"2018-02-13T06:00:00.000","1039":"2018-02-13T07:00:00.000","1040":"2018-02-13T08:00:00.000","1041":"2018-02-13T09:00:00.000","1042":"2018-02-13T10:00:00.000","1043":"2018-02-13T11:00:00.000","1044":"2018-02-13T12:00:00.000","1045":"2018-02-13T13:00:00.000","1046":"2018-02-13T14:00:00.000","1047":"2018-02-13T15:00:00.000","1048":"2018-02-13T16:00:00.000","1049":"2018-02-13T17:00:00.000","1050":"2018-02-13T18:00:00.000","1051":"2018-02-13T19:00:00.000","1052":"2018-02-13T20:00:00.000","1053":"2018-02-13T21:00:00.000","1054":"2018-02-13T22:00:00.000","1055":"2018-02-13T23:00:00.000","1056":"2018-02-14T00:00:00.000","1057":"2018-02-14T01:00:00.000","1058":"2018-02-14T02:00:00.000","1059":"2018-02-14T03:00:00.000","1060":"2018-02-14T04:00:00.000","1061":"2018-02-14T05:00:00.000","1062":"2018-02-14T06:00:00.000","1063":"2018-02-14T07:00:00.000","1064":"2018-02-14T08:00:00.000","1065":"2018-02-14T09:00:00.000","1066":"2018-02-14T10:00:00.000","1067":"2018-02-14T11:00:00.000","1068":"2018-02-14T12:00:00.000","1069":"2018-02-14T13:00:00.000","1070":"2018-02-14T14:00:00.000","1071":"2018-02-14T15:00:00.000","1072":"2018-02-14T16:00:00.000","1073":"2018-02-14T17:00:00.000","1074":"2018-02-14T18:00:00.000","1075":"2018-02-14T19:00:00.000","1076":"2018-02-14T20:00:00.000","1077":"2018-02-14T21:00:00.000","1078":"2018-02-14T22:00:00.000","1079":"2018-02-14T23:00:00.000","1080":"2018-02-15T00:00:00.000","1081":"2018-02-15T01:00:00.000","1082":"2018-02-15T02:00:00.000","1083":"2018-02-15T03:00:00.000","1084":"2018-02-15T04:00:00.000","1085":"2018-02-15T05:00:00.000","1086":"2018-02-15T06:00:00.000","1087":"2018-02-15T07:00:00.000","1088":"2018-02-15T08:00:00.000","1089":"2018-02-15T09:00:00.000","1090":"2018-02-15T10:00:00.000","1091":"2018-02-15T11:00:00.000","1092":"2018-02-15T12:00:00.000","1093":"2018-02-15T13:00:00.000","1094":"2018-02-15T14:00:00.000","1095":"2018-02-15T15:00:00.000","1096":"2018-02-15T16:00:00.000","1097":"2018-02-15T17:00:00.000","1098":"2018-02-15T18:00:00.000","1099":"2018-02-15T19:00:00.000","1100":"2018-02-15T20:00:00.000","1101":"2018-02-15T21:00:00.000","1102":"2018-02-15T22:00:00.000","1103":"2018-02-15T23:00:00.000","1104":"2018-02-16T00:00:00.000","1105":"2018-02-16T01:00:00.000","1106":"2018-02-16T02:00:00.000","1107":"2018-02-16T03:00:00.000","1108":"2018-02-16T04:00:00.000","1109":"2018-02-16T05:00:00.000","1110":"2018-02-16T06:00:00.000","1111":"2018-02-16T07:00:00.000","1112":"2018-02-16T08:00:00.000","1113":"2018-02-16T09:00:00.000","1114":"2018-02-16T10:00:00.000","1115":"2018-02-16T11:00:00.000","1116":"2018-02-16T12:00:00.000","1117":"2018-02-16T13:00:00.000","1118":"2018-02-16T14:00:00.000","1119":"2018-02-16T15:00:00.000"},"Signal":{"880":0.3778212418,"881":0.3441804009,"882":0.6166687867,"883":0.5176119215,"884":0.7000429597,"885":0.1350176496,"886":0.2592825913,"887":0.556181868,"888":0.1506787245,"889":0.6228662505,"890":0.6075040428,"891":0.8310854273,"892":0.6474432951,"893":0.9418699544,"894":0.4925270946,"895":0.2756628397,"896":0.2770043817,"897":0.2588175247,"898":0.9731295203,"899":0.4807377431,"900":0.8921960572,"901":0.1551522347,"902":0.0301212368,"903":0.3672684982,"904":0.7361789606,"905":0.5299699889,"906":0.1480001909,"907":0.1303532099,"908":0.871362983,"909":0.8345095264,"910":0.7166666844,"911":0.6776297559,"912":0.4302543393,"913":0.722518929,"914":0.8502478714,"915":0.0782249278,"916":0.9567785373,"917":0.4414083564,"918":0.6025532142,"919":0.0550051628,"920":0.3349836134,"921":0.6153072428,"922":0.5722534908,"923":0.2917953682,"924":0.4127586871,"925":0.0878326047,"926":0.4668421049,"927":0.4161748206,"928":0.4948394209,"929":0.4610947407,"930":0.2703557057,"931":0.861201774,"932":0.6988158944,"933":0.4994089722,"934":0.5040602122,"935":0.721581324,"936":0.0992013604,"937":0.8513303095,"938":0.4651696866,"939":0.657072435,"940":0.5190351251,"941":0.7755380231,"942":0.198169252,"943":0.3290023361,"944":0.9133704313,"945":0.2997342923,"946":0.6621477877,"947":0.8522111116,"948":0.8608918352,"949":0.0409298399,"950":0.8443170026,"951":0.847112905,"952":0.0806790792,"953":0.0789178903,"954":0.2795175115,"955":0.1751056465,"956":0.7943150338,"957":0.2322594439,"958":0.7650745855,"959":0.4674199123,"960":0.0377537973,"961":0.8354585153,"962":0.6020645968,"963":0.1832289469,"964":0.1669334518,"965":0.4042509306,"966":0.3591206013,"967":0.3975090915,"968":0.5365546825,"969":0.9822123447,"970":0.803964055,"971":0.9726653316,"972":0.3668729669,"973":0.8138097487,"974":0.7386210889,"975":0.5204390299,"976":0.1266866062,"977":0.569510521,"978":0.1258832016,"979":0.5309713044,"980":0.7894611379,"981":0.6057989877,"982":0.7249024725,"983":0.6165271762,"984":0.3753988554,"985":0.7481450671,"986":0.5235775161,"987":0.5375687966,"988":0.8183863709,"989":0.8000749927,"990":0.8500672782,"991":0.012214645,"992":0.4406650592,"993":0.4267428552,"994":0.0324959421,"995":0.4084589604,"996":0.5733781116,"997":0.9934969281,"998":0.1524588494,"999":0.9421427659,"1000":null,"1001":null,"1002":null,"1003":null,"1004":null,"1005":null,"1006":null,"1007":null,"1008":null,"1009":null,"1010":null,"1011":null,"1012":null,"1013":null,"1014":null,"1015":null,"1016":null,"1017":null,"1018":null,"1019":null,"1020":null,"1021":null,"1022":null,"1023":null,"1024":null,"1025":null,"1026":null,"1027":null,"1028":null,"1029":null,"1030":null,"1031":null,"1032":null,"1033":null,"1034":null,"1035":null,"1036":null,"1037":null,"1038":null,"1039":null,"1040":null,"1041":null,"1042":null,"1043":null,"1044":null,"1045":null,"1046":null,"1047":null,"1048":null,"1049":null,"1050":null,"1051":null,"1052":null,"1053":null,"1054":null,"1055":null,"1056":null,"1057":null,"1058":null,"1059":null,"1060":null,"1061":null,"1062":null,"1063":null,"1064":null,"1065":null,"1066":null,"1067":null,"1068":null,"1069":null,"1070":null,"1071":null,"1072":null,"1073":null,"1074":null,"1075":null,"1076":null,"1077":null,"1078":null,"1079":null,"1080":null,"1081":null,"1082":null,"1083":null,"1084":null,"1085":null,"1086":null,"1087":null,"1088":null,"1089":null,"1090":null,"1091":null,"1092":null,"1093":null,"1094":null,"1095":null,"1096":null,"1097":null,"1098":null,"1099":null,"1100":null,"1101":null,"1102":null,"1103":null,"1104":null,"1105":null,"1106":null,"1107":null,"1108":null,"1109":null,"1110":null,"1111":null,"1112":null,"1113":null,"1114":null,"1115":null,"1116":null,"1117":null,"1118":null,"1119":null},"Signal_Forecast":{"880":0.5269649229,"881":0.5606327037,"882":0.5419097236,"883":0.5637613756,"884":0.5281552704,"885":0.5274072871,"886":0.5610750679,"887":0.5423520878,"888":0.5642037398,"889":0.5285976346,"890":0.5278496513,"891":0.5615174321,"892":0.5427944521,"893":0.5646461041,"894":0.5290399988,"895":0.5282920155,"896":0.5619597964,"897":0.5432368163,"898":0.5650884683,"899":0.529482363,"900":0.5287343798,"901":0.5624021606,"902":0.5436791805,"903":0.5655308325,"904":0.5299247273,"905":0.529176744,"906":0.5628445248,"907":0.5441215447,"908":0.5659731967,"909":0.5303670915,"910":0.5296191082,"911":0.563286889,"912":0.5445639089,"913":0.5664155609,"914":0.5308094557,"915":0.5300614724,"916":0.5637292532,"917":0.5450062732,"918":0.5668579252,"919":0.5312518199,"920":0.5305038366,"921":0.5641716175,"922":0.5454486374,"923":0.5673002894,"924":0.5316941841,"925":0.5309462009,"926":0.5646139817,"927":0.5458910016,"928":0.5677426536,"929":0.5321365484,"930":0.5313885651,"931":0.5650563459,"932":0.5463333658,"933":0.5681850178,"934":0.5325789126,"935":0.5318309293,"936":0.5654987101,"937":0.54677573,"938":0.568627382,"939":0.5330212768,"940":0.5322732935,"941":0.5659410743,"942":0.5472180943,"943":0.5690697463,"944":0.533463641,"945":0.5327156577,"946":0.5663834386,"947":0.5476604585,"948":0.5695121105,"949":0.5339060052,"950":0.533158022,"951":0.5668258028,"952":0.5481028227,"953":0.5699544747,"954":0.5343483695,"955":0.5336003862,"956":0.567268167,"957":0.5485451869,"958":0.5703968389,"959":0.5347907337,"960":0.5340427504,"961":0.5677105312,"962":0.5489875511,"963":0.5708392031,"964":0.5352330979,"965":0.5344851146,"966":0.5681528955,"967":0.5494299154,"968":0.5712815674,"969":0.5356754621,"970":0.5349274788,"971":0.5685952597,"972":0.5498722796,"973":0.5717239316,"974":0.5361178263,"975":0.5353698431,"976":0.5690376239,"977":0.5503146438,"978":0.5721662958,"979":0.5365601906,"980":0.5358122073,"981":0.5694799881,"982":0.550757008,"983":0.57260866,"984":0.5370025548,"985":0.5362545715,"986":0.5699223523,"987":0.5511993722,"988":0.5730510243,"989":0.537444919,"990":0.5366969357,"991":0.5703647166,"992":0.5516417365,"993":0.5734933885,"994":0.5378872832,"995":0.5371392999,"996":0.5708070808,"997":0.5520841007,"998":0.5739357527,"999":0.5383296474,"1000":0.5375816642,"1001":0.571249445,"1002":0.5525264649,"1003":0.5743781169,"1004":0.5387720117,"1005":0.5380240284,"1006":0.5716918092,"1007":0.5529688291,"1008":0.5748204811,"1009":0.5392143759,"1010":0.5384663926,"1011":0.5721341734,"1012":0.5534111933,"1013":0.5752628454,"1014":0.5396567401,"1015":0.5389087568,"1016":0.5725765377,"1017":0.5538535576,"1018":0.5757052096,"1019":0.5400991043,"1020":0.539351121,"1021":0.5730189019,"1022":0.5542959218,"1023":0.5761475738,"1024":0.5405414685,"1025":0.5397934853,"1026":0.5734612661,"1027":0.554738286,"1028":0.576589938,"1029":0.5409838328,"1030":0.5402358495,"1031":0.5739036303,"1032":0.5551806502,"1033":0.5770323022,"1034":0.541426197,"1035":0.5406782137,"1036":0.5743459945,"1037":0.5556230144,"1038":0.5774746665,"1039":0.5418685612,"1040":0.5411205779,"1041":0.5747883588,"1042":0.5560653787,"1043":0.5779170307,"1044":0.5423109254,"1045":0.5415629421,"1046":0.575230723,"1047":0.5565077429,"1048":0.5783593949,"1049":0.5427532896,"1050":0.5420053064,"1051":0.5756730872,"1052":0.5569501071,"1053":0.5788017591,"1054":0.5431956539,"1055":0.5424476706,"1056":0.5761154514,"1057":0.5573924713,"1058":0.5792441233,"1059":0.5436380181,"1060":0.5428900348,"1061":0.5765578156,"1062":0.5578348355,"1063":0.5796864876,"1064":0.5440803823,"1065":0.543332399,"1066":0.5770001799,"1067":0.5582771998,"1068":0.5801288518,"1069":0.5445227465,"1070":0.5437747632,"1071":0.5774425441,"1072":0.558719564,"1073":0.580571216,"1074":0.5449651107,"1075":0.5442171275,"1076":0.5778849083,"1077":0.5591619282,"1078":0.5810135802,"1079":0.545407475,"1080":0.5446594917,"1081":0.5783272725,"1082":0.5596042924,"1083":0.5814559444,"1084":0.5458498392,"1085":0.5451018559,"1086":0.5787696367,"1087":0.5600466566,"1088":0.5818983087,"1089":0.5462922034,"1090":0.5455442201,"1091":0.579212001,"1092":0.5604890209,"1093":0.5823406729,"1094":0.5467345676,"1095":0.5459865843,"1096":0.5796543652,"1097":0.5609313851,"1098":0.5827830371,"1099":0.5471769318,"1100":0.5464289486,"1101":0.5800967294,"1102":0.5613737493,"1103":0.5832254013,"1104":0.5476192961,"1105":0.5468713128,"1106":0.5805390936,"1107":0.5618161135,"1108":0.5836677655,"1109":0.5480616603,"1110":0.547313677,"1111":0.5809814578,"1112":0.5622584778,"1113":0.5841101298,"1114":0.5485040245,"1115":0.5477560412,"1116":0.5814238221,"1117":0.562700842,"1118":0.584552494,"1119":0.5489463887}}
 </Forecast>
 
 
