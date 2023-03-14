@@ -121,11 +121,7 @@ class cSignalDecompositionOneTransform:
                                              "Transformation" : iTransformation.get_name(iSignal),
                                              "DecompositionType" : iDecomspositionType}))
         lInputDS = iInputDS[[iTime, iSignal]].copy()
-        if(self.mOptions.mActivateSampling):
-            if(self.mOptions.mDebugProfile):
-                logger.info("PYAF_MODEL_SAMPLING_ACTIVATED " +
-                            str((self.mOptions.mSamplingThreshold, self.mOptions.mSeed)));
-                lInputDS = iInputDS.tail(self.mOptions.mSamplingThreshold);
+        lInputDS = sample_signal_if_needed(lInputDS, self.mOptions)
         
         self.setParams(lInputDS, iTime, iSignal, iHorizon, iTransformation, iDecomspositionType, self.mExogenousData);
 
@@ -197,6 +193,7 @@ class cSignalDecompositionOneTransform:
         lAREstimator.mExogenousInfo = self.mExogenousInfo;
         lAREstimator.mOptions = self.mOptions;
         lAREstimator.estimate();
+
 
         # forecast perfs
         lModels = {};
