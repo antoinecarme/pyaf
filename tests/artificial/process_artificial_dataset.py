@@ -19,7 +19,22 @@ def pickleModel(iModel):
     assert(iModel.to_json() == lReloadedObject.to_json())
     return lReloadedObject;
 
+def get_transform_real_name(tranf):
+    lDict = {
+        "" : "None",
+        "diff" : "Difference" ,
+        "cumsum" : "Integration"
+    }
+    return lDict.get(tranf , "None")
 
+def get_trend_real_name(trend):
+    lDict = {
+        "constant" : 'ConstantTrend',
+        "linear" : 'LinearTrend',
+        "poly" : 'PolyTrend'
+    }
+    return lDict.get(trend, 'ConstantTrend')
+    
 def process_dataset(N, FREQ, seed, trendtype ,
                     cycle_length, transform,
                     sigma, exog_count, ar_order):
@@ -27,7 +42,10 @@ def process_dataset(N, FREQ, seed, trendtype ,
     dataset = tsds.generate_random_TS(N, FREQ, seed,
                                       trendtype, cycle_length,
                                       transform, sigma, exog_count, ar_order);
-    model_type = (transform, trendtype, "BestCycle" , ["AR", "ARX"])
+    dataset.mFullDataset['Signal'] = dataset.mFullDataset[dataset.mName]
+    transform1 = get_transform_real_name(transform)
+    trend = get_trend_real_name(trendtype)
+    model_type = (transform1, trend, "BestCycle" , ["AR", "ARX"])
     return process_dataset_1(dataset , model_type, debug = True)
 
 
@@ -57,7 +75,8 @@ def process_dataset_with_noise(idataset , model_type, sigma, debug=False):
         # N = df.shape[0];
         # df1 = df;
         lEngine = autof.cForecastEngine()
-        # lEngine.mOptions.mDebugProfile = True;
+        lEngine.mOptions.mDebugProfile = True;
+        lEngine.mOptions.mDebugAR = True;
         lEngine.mOptions.mDebug = debug;
         lEngine.mOptions.set_active_transformations([model_type[0]])
         lEngine.mOptions.set_active_trends([model_type[1]])
@@ -66,7 +85,10 @@ def process_dataset_with_noise(idataset , model_type, sigma, debug=False):
         # lEngine.mOptions.enable_slow_mode();
         # mDebugProfile = True;
         # lEngine
-        lExogenousData = (idataset.mExogenousDataFrame , idataset.mExogenousVariables) 
+        lExogenousData = None
+        if(idataset.mExogenousDataFrame is not None):
+            lExogenousData = (idataset.mExogenousDataFrame , idataset.mExogenousVariables)
+            
         lEngine.train(training_ds , idataset.mTimeVar , lSignalVar, H, lExogenousData);
         lEngine.getModelInfo();
         # lEngine.standardPlots(name = "outputs/my_artificial_" + idataset.mName + "_" + str(sigma));

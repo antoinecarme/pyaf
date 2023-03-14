@@ -125,7 +125,7 @@ print(lInfo['Models']['BORDEAUX_ROUGE_CN'])
 
 perfs = [];
 for model in sorted(lInfo['Models'].keys()):
-    lPerf = lInfo['Models'][model]['Model_Performance']
+    lPerf = lInfo['Models'][model]['Model_Performance'][1]
     perfs.append([model , lPerf['RMSE'] , lPerf['MAPE']])
 df_perf = pd.DataFrame(perfs , columns=['Model' , 'RMSE' , 'MAPE']);
 df_perf = df_perf.sort_values(by = ['MAPE'])

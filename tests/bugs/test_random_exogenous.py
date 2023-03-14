@@ -10,6 +10,7 @@ with warnings.catch_warnings():
 
     b1 = tsds.generate_random_TS(N = 160 , FREQ = 'D', seed = 0, trendtype = "constant", cycle_length = 12, transform = "None", sigma = 0.10, exog_count = 1280);
     df = b1.mPastData
+    df[b1.mSignalVar] = df[b1.mName]
 
     df.info()
     # df.to_csv("outputs/rand_exogenous.csv")

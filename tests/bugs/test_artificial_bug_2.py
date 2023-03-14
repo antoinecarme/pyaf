@@ -14,6 +14,7 @@ def process_dataset(idataset):
         warnings.simplefilter("error")
         N = idataset.mFullDataset.shape[0];
         lSignalVar = idataset.mSignalVar;
+        idataset.mFullDataset[idataset.mSignalVar] = idataset.mFullDataset[idataset.mName] 
 
         H = 2;
 
@@ -31,7 +32,7 @@ def process_dataset(idataset):
         # lEngine.mOptions.enable_slow_mode();
         # mDebugProfile = True;
         # lEngine
-        lExogenousData = (idataset.mExogenousDataFrame , idataset.mExogenousVariables) 
+        lExogenousData = None
         lEngine.train(training_ds , idataset.mTimeVar , lSignalVar, H, lExogenousData);
         lEngine.getModelInfo();
         # lEngine.standardPlots(name = "outputs/my_exog_" + str(nbex) + "_" + str(n));
