@@ -219,7 +219,7 @@ class cTimeSeriesModel:
         # df1.to_csv("before.csv");
         # add new line with new time value, row_number and nromalized time
         # add signal tranformed column
-        df1 = self.mTransformation.transformDataset(df1, self.mOriginalSignal);
+        df1 = self.mTransformation.transformDataset(df1);
         # df1.to_csv("after_transformation.csv");
         #print("Transformation update : " , df1.columns);
 
@@ -524,7 +524,7 @@ class cTimeSeriesModel:
         return lVersionDict;
 
     def clean_dataframes(self):
-        self.mTrend.mSignalFrame = self.mTrend.mSignalFrame[[self.mTime, self.mOriginalSignal, self.mSignal]]
+        self.mTrend.mSignalFrame = self.mTrend.mSignalFrame[[self.mTime, self.mOriginalSignal, self.mSignal]].copy()
         # print(self.mTrend.mSignalFrame.columns)
         gc.collect()
         

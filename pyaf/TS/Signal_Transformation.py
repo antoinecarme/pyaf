@@ -132,8 +132,8 @@ class cAbstractSignalTransform:
         sig_shifted[p:] = sig[p:];
         return sig_shifted
     
-    def transformDataset(self, df, isig):
-        df[self.get_name(isig)] = self.apply(df[isig])
+    def transformDataset(self, df):
+        df[self.get_name(self.mOriginalSignal)] = self.apply(df[self.mOriginalSignal])
         return df;
 
     def test(self):
