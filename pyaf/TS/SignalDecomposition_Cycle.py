@@ -271,14 +271,14 @@ class cBestCycleForTrend(cAbstractCycle):
         lPerf = tsperf.cPerf();
         # less MAPE is better, less categories is better, the last is the length to have a total order.
         lSortingMethod_By_MAPE = lambda x : (x[1][0], x[0])
-        lData = sorted(lData, key = lSortingMethod_By_MAPE)
+        lData = sorted(lData, key = lSortingMethod_By_MAPE) # MAPE => MASE
         assert(len(lData) > 0)
         lBestCriterion = lData[0][1]
         lData_smallest = [x for x in lData if lPerf.is_close_criterion_value(self.mOptions.mCycle_Criterion,
                                                                              x[1][0],
                                                                              iTolerance = 0.05, iRefValue = lBestCriterion[0])]
-        lSortingMethod_By_Complexity = lambda x : (x[1][1], x[0])
-        lData_smallest = sorted(lData_smallest, key = lSortingMethod_By_Complexity)
+        lSortingMethod_By_Length = lambda x : (x[1][1], x[0])
+        lData_smallest = sorted(lData_smallest, key = lSortingMethod_By_Length)
         assert(len(lData_smallest) > 0)
         self.mBestCycleLength = lData_smallest[0][0]
 
@@ -509,16 +509,16 @@ class cCycleEstimator:
                 return
             lData = lPerfs.items()
             # less MAPE is better, less categories is better, the last is the name of the seasonal to have a total order.
-            lSortingMethod_By_MAPE = lambda x : (x[1][0], x[0])
-            lData = sorted(lData, key = lSortingMethod_By_MAPE)
+            lSortingMethod_By_MAPE = lambda x : (x[1][0], x[0]) 
+            lData = sorted(lData, key = lSortingMethod_By_MAPE) # MAPE => MASE
             assert(len(lData) > 0)
             lBestPerf = lSeasonals[ lData[0][0] ].mCycleForecastPerf
             lBestCriterion = lData[0][1]
             lData_smallest = [x for x in lData if lBestPerf.is_close_criterion_value(self.mOptions.mCycle_Criterion,
                                                                                      x[1][0],
                                                                                      iTolerance = 0.05)]
-            lSortingMethod_By_Complexity = lambda x : (x[1][1], x[0])
-            lData_smallest = sorted(lData_smallest, key = lSortingMethod_By_Complexity)
+            lSortingMethod_By_Length = lambda x : (x[1][1], x[0])
+            lData_smallest = sorted(lData_smallest, key = lSortingMethod_By_Length)
             assert(len(lData_smallest) > 0)
             lBestSeasonal = lSeasonals[ lData_smallest[0][0] ]
             lBestCriterion = lData_smallest[0][1]
