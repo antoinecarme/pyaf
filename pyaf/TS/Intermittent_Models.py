@@ -54,10 +54,11 @@ class cCroston_Model(tsar.cAbstractAR):
             for alpha in np.arange(0.05 , 1.0, 0.05):
                 forecast_df = self.compute_forecast(df, alpha, method, 1)
                 lPerf = tsperf.cPerf();
-                lPerf.computeCriterion(forecast_df[self.mCycleResidueName] ,  forecast_df[lForecastColumnName] ,
-                                       self.mOptions.mCrostonOptions.mAlphaCriterion,
-                                       "CROSTON_SEL_" + '_Fit_' + str(alpha))
-                lPerfs[alpha] = lPerf.mL2
+                lDict = lPerf.computeCriterionValues(forecast_df[self.mCycleResidueName] ,
+                                                     forecast_df[lForecastColumnName] ,
+                                                     [self.mOptions.mCrostonOptions.mAlphaCriterion],
+                                                     "CROSTON_SEL_" + '_Fit_' + str(alpha))
+                lPerfs[alpha] = lDict[self.mOptions.mCrostonOptions.mAlphaCriterion]
             self.mAlpha = min(lPerfs, key=lPerfs.get)
             # print(lPerfs)
             # print("CROSTON_OPTIMIZED_ALPHA" , self.mAlpha)
