@@ -31,14 +31,14 @@ class cPredictionIntervalsEstimator:
         if(self.mComputeAllPerfs):
             lPerf.compute(signal, estimator, iHorizonName);
         else:
-            lPerf.computeCriterion(signal,
-                                   estimator,
-                                   self.mModel.mTimeInfo.mOptions.mModelSelection_Criterion,
-                                   iHorizonName);
-            
+            lCriterions = [ self.mModel.mTimeInfo.mOptions.mModelSelection_Criterion ]
+            lDict = lPerf.computeCriterionValues(signal, estimator, lCriterions, iHorizonName);
+            return lDict
         return lPerf
         
     def computePerformances(self):
+        # lTimer = tsutil.cTimer(("cPredictionIntervalsEstimator::computePerformances",
+        #                        {"Model" : self.mModel.mOutName, "Horizon" : self.mModel.mTimeInfo.mHorizon}))
         self.mTime = self.mModel.mTime;
         self.mSignal = self.mModel.mOriginalSignal;
         self.mHorizon = self.mModel.mTimeInfo.mHorizon;
