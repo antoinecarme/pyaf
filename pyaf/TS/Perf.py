@@ -185,18 +185,29 @@ class cPerf:
         del lKendallTau_Result
         self.mKendallTau = round( self.mKendallTau , 4 )
         return self.mKendallTau
-        
-    def compute_MWU_AUC(self, signal , estimator):
+
+    def pre_compute_MWU_if_needed(self, signal , estimator):
+        cached_result = self.mCachedValues.get('MWU')
+        if(cached_result is not None):
+            return cached_result
         min_signal , max_signal = signal.min(), signal.max()
-        self.mMWU, self.mAUC = 0.0, 0.0
-        if((max_signal - min_signal) < 0.001):
-            return 
-        from scipy.stats import mannwhitneyu
-        lMWU_Result = mannwhitneyu(signal, estimator)
-        self.mMWU = lMWU_Result.statistic
-        del lMWU_Result
-        self.mMWU = round( self.mMWU, 4 )
-        self.mAUC = self.mMWU / signal.shape[0] / estimator.shape[0]
+        lMWU = 0.0
+        if((max_signal - min_signal) > 0.001):
+            from scipy.stats import mannwhitneyu
+            lMWU_Result = mannwhitneyu(signal, estimator)
+            lMWU = lMWU_Result.statistic
+            del lMWU_Result
+            lMWU = round( lMWU, 4 )
+        self.mCachedValues['MWU'] = lMWU
+        return lMWU
+        
+    def compute_MWU(self, signal , estimator):
+        self.mMWU = self.pre_compute_MWU_if_needed(signal, estimator)
+        return self.mAUC
+        
+    def compute_AUC(self, signal , estimator):
+        lMWU = self.pre_compute_MWU_if_needed(signal, estimator)
+        self.mAUC = lMWU / signal.shape[0] / estimator.shape[0]
         self.mAUC = round( self.mAUC , 4 )
         return self.mAUC
         
@@ -270,7 +281,8 @@ class cPerf:
 
         self.compute_KS(signal, estimator);
         self.compute_Kendall(signal, estimator);
-        self.compute_MWU_AUC(signal, estimator);
+        self.compute_MWU(signal, estimator);
+        self.compute_AUC(signal, estimator);
 
         self.mCachedValues = {}
 
@@ -339,8 +351,8 @@ class cPerf:
             "RMSSE": self.compute_RMSSE,
             "KS": self.compute_KS,
             "Kendalltau": self.compute_Kendall,
-            "MWU": self.compute_MWU_AUC,
-            "AUC": self.compute_MWU_AUC,
+            "MWU": self.compute_MWU,
+            "AUC": self.compute_AUC,
             "CRPS": self.compute_CRPS
         }
         return lMethods
