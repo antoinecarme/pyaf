@@ -14,6 +14,8 @@ from . import Perf as tsperf
 from . import Utils as tsutil
 from . import Complexity as tscomplex
 
+import gc
+
 def to_str(x):
     return str(np.round(x, 6))
 
@@ -108,9 +110,9 @@ class cTimeSeriesModel:
         (lFitCritData, lForecastCritData, lTestCritData) = ([], [], [])
         for h in range(self.mTimeInfo.mHorizon):
             lHorizonName = lForecastColumn + "_" + str(h + 1);
-            lFitCritData.append(self.mFitPerfs[lHorizonName].getCriterionValue(lCriterion))
-            lForecastCritData.append(self.mForecastPerfs[lHorizonName].getCriterionValue(lCriterion))
-            lTestCritData.append(self.mTestPerfs[lHorizonName].getCriterionValue(lCriterion))
+            lFitCritData.append(self.mFitPerfs[lHorizonName].get(lCriterion))
+            lForecastCritData.append(self.mForecastPerfs[lHorizonName].get(lCriterion))
+            lTestCritData.append(self.mTestPerfs[lHorizonName].get(lCriterion))
         lAggFitCrit = self.aggregate_criteria(lFitCritData)
         lAggForecastCrit = self.aggregate_criteria(lForecastCritData)
         lAggTestCrit = self.aggregate_criteria(lTestCritData)
@@ -520,3 +522,9 @@ class cTimeSeriesModel:
     def getVersions(self):
         lVersionDict = tsutil.getVersions();
         return lVersionDict;
+
+    def clean_dataframes(self):
+        self.mTrend.mSignalFrame = self.mTrend.mSignalFrame[[self.mTime, self.mOriginalSignal, self.mSignal]]
+        # print(self.mTrend.mSignalFrame.columns)
+        gc.collect()
+        
