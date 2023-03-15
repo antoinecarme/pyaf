@@ -106,6 +106,7 @@ class cPerf:
         abs_rel_error = abs_error / (np.abs(signal) + lEps)
         self.mMAPE = np.mean(abs_rel_error)
         self.mMAPE = round( self.mMAPE , 4 )
+        return self.mMAPE
             
     def compute_SMAPE(self, signal , estimator):
         lEps = 1.0e-10;
@@ -113,16 +114,19 @@ class cPerf:
         sum_abs = np.abs(signal.values) + np.abs(estimator.values) + lEps
         self.mSMAPE = np.mean(2.0 * abs_error / sum_abs)
         self.mSMAPE = round( self.mSMAPE , 4 )
+        return self.mSMAPE
             
     def compute_MASE(self, signal , estimator):
         (q1, q2) = self.pre_compute_naive_mean_abs_error_ratio_if_needed(signal , estimator)
         self.mMASE = np.mean(q1)
         self.mMASE = round( self.mMASE , 4 )
+        return self.mMASE
                 
     def compute_RMSSE(self, signal , estimator):
         (q1, q2) = self.pre_compute_naive_mean_abs_error_ratio_if_needed(signal , estimator)
         self.mRMSSE = np.sqrt(np.mean(q2))
         self.mRMSSE = round( self.mRMSSE , 4 )
+        return self.mRMSSE
                 
     def compute_DiffSMAPE(self, signal , estimator):
         abs_error = self.pre_compute_abs_error_if_needed(signal , estimator);
@@ -130,6 +134,7 @@ class cPerf:
         max_sum_eps = np.maximum(np.abs(signal.values) + np.abs(estimator.values) + lEps2,  0.5 + lEps2)
         self.mDiffSMAPE = np.mean(2.0 * abs_error / max_sum_eps)
         self.mDiffSMAPE = round( self.mDiffSMAPE , 4 )
+        return self.mDiffSMAPE
 
     def compute_MAPE_SMAPE(self, signal, estimator):
         self.compute_MAPE(signal, estimator);
@@ -165,7 +170,9 @@ class cPerf:
         from scipy.stats import kstest
         lKSTest = kstest(signal, estimator, method='asymp')
         self.mKS = lKSTest.statistic
+        del lKSTest
         self.mKS = round( self.mKS , 4 )        
+        return self.mKS
     
     def compute_Kendall(self, signal , estimator):
         min_signal , max_signal = signal.min(), signal.max()
@@ -175,7 +182,9 @@ class cPerf:
         from scipy.stats import kendalltau
         lKendallTau_Result = kendalltau(signal, estimator)
         self.mKendallTau = lKendallTau_Result.correlation
+        del lKendallTau_Result
         self.mKendallTau = round( self.mKendallTau , 4 )
+        return self.mKendallTau
         
     def compute_MWU_AUC(self, signal , estimator):
         min_signal , max_signal = signal.min(), signal.max()
@@ -185,9 +194,11 @@ class cPerf:
         from scipy.stats import mannwhitneyu
         lMWU_Result = mannwhitneyu(signal, estimator)
         self.mMWU = lMWU_Result.statistic
+        del lMWU_Result
         self.mMWU = round( self.mMWU, 4 )
         self.mAUC = self.mMWU / signal.shape[0] / estimator.shape[0]
         self.mAUC = round( self.mAUC , 4 )
+        return self.mAUC
         
     def dump_perf_data(self, signal , estimator):
         logger = tsutil.get_pyaf_logger();
@@ -208,6 +219,7 @@ class cPerf:
             raise tsutil.Internal_PyAF_Error("Failure when computing perf ['" + self.mName + "'] '" + name + "'");
         pass
 
+
     def compute_pearson_r(self, signal , estimator):
         from scipy.stats import pearsonr
         signal_std = np.std(signal);
@@ -222,8 +234,8 @@ class cPerf:
             return r
         (r , pval) = pearsonr(signal , estimator)
         #  print("PEARSONR_DETAIL1" , signal_std, estimator_std, r)
-        r = round(r, 4)
-        return r;
+        self.mPearsonR = round(r, 4)
+        return self.mPearsonR;
 
     def compute_ErrorMean_ErrorStd(self, signal , estimator):
         myerror = estimator - signal 
@@ -233,6 +245,7 @@ class cPerf:
         self.mErrorStdDev = round(self.mErrorStdDev, 4)
                     
     def real_compute(self, signal , estimator, name):
+        self.mCachedValues = {}
         self.mName = name;
         assert(signal.shape[0] > 0)
         if(self.mDebug):
@@ -253,12 +266,13 @@ class cPerf:
         self.mLnQ = self.compute_LnQ(signal, estimator)
         
         self.mPearsonR = self.compute_pearson_r(signal , estimator);
-        self.mSignalQuantiles = self.compute_signal_quantiles(signal , estimator);
         self.mCRPS = self.compute_CRPS(signal , estimator);
 
         self.compute_KS(signal, estimator);
         self.compute_Kendall(signal, estimator);
         self.compute_MWU_AUC(signal, estimator);
+
+        self.mCachedValues = {}
 
 
     def compute_signal_quantiles(self, signal , estimator):
@@ -279,15 +293,16 @@ class cPerf:
     def compute_CRPS(self, signal , estimator):
         lLossValues = []
         # some normalization
+        self.mSignalQuantiles = self.compute_signal_quantiles(signal , estimator);
         for (a, q) in self.mSignalQuantiles.items():
             lDiff_q = q - estimator.values
             lPinballLoss_a = (1.0 - a / 100) * np.maximum(lDiff_q, 0.0) +  a / 100 * np.maximum(-lDiff_q, 0)
             lLossValue_a = lPinballLoss_a.mean()
             lLossValues.append(lLossValue_a)
         lCRPS = np.mean(lLossValues)
-        lCRPS = round( lCRPS , 4 )
+        self.mCRPS = round( lCRPS , 4 )
         # print("CRPS" , (self.mName , lCRPS))
-        return lCRPS
+        return self.mCRPS
 
     def compute_L1(self, signal , estimator):
         abs_error = self.pre_compute_abs_error_if_needed(signal , estimator);
@@ -306,111 +321,61 @@ class cPerf:
         self.mL2 = np.sqrt(np.mean(abs_error ** 2))            
         self.mL2 = round(self.mL2, 4)
         return self.mL2
-            
-    def computeCriterion(self, signal , estimator, criterion, name):
+
+    def get_compute_methods(self):
+        lMethods = {
+            "MASE": self.compute_MASE,
+            "MAPE": self.compute_MAPE,
+            "SMAPE": self.compute_SMAPE,
+            "DiffSMAPE": self.compute_DiffSMAPE,
+            "MedAE": self.compute_MedAE,
+            "MAE": self.compute_L1,
+            "L1": self.compute_L1,
+            "RMSE": self.compute_L2,
+            "L2": self.compute_L2,
+            "R2": self.compute_R2,
+            "PEARSONR": self.compute_pearson_r,
+            "LnQ": self.compute_LnQ,
+            "RMSSE": self.compute_RMSSE,
+            "KS": self.compute_KS,
+            "Kendalltau": self.compute_Kendall,
+            "MWU": self.compute_MWU_AUC,
+            "AUC": self.compute_MWU_AUC,
+            "CRPS": self.compute_CRPS
+        }
+        return lMethods
+    
+    def computeCriterionValues(self, signal , estimator, criterions, name):
+        self.mCachedValues = {}
         self.mName = name;
-        assert(signal.shape[0] > 0)
-        
         self.mCount = signal.shape[0];
-        if(criterion == "L1" or criterion == "MAE"):
-            self.mL1 = self.compute_L1(signal, estimator)
-            return self.mL1;
-        if(criterion == "MedAE"):
-            self.mMedAE = self.compute_MedAE(signal, estimator)
-            return self.mMedAE;
-        if(criterion == "L2" or criterion == "RMSE"):
-            self.mL2 = self.compute_L2(signal, estimator)
-            return self.mL2;
-        if(criterion == "R2"):
-            self.mR2 = self.compute_R2(signal, estimator)
-            return self.mR2;
-        if(criterion == "LnQ"):
-            self.mLnQ = self.compute_LnQ(signal, estimator)
-            return self.mLnQ;
-        if(criterion == "PEARSONR"):
-            self.mPearsonR = self.compute_pearson_r(signal , estimator)
-            return self.mPearsonR;
-        
-        if(criterion == "MAPE"):
-            self.compute_MAPE(signal , estimator);
-            return self.mMAPE;
+        assert(signal.shape[0] > 0)
 
-        if(criterion == "SMAPE"):
-            self.compute_SMAPE(signal , estimator);
-            return self.mSMAPE;
 
-        if(criterion == "DiffSMAPE"):
-            self.compute_DiffSMAPE(signal , estimator);
-            return self.mDiffSMAPE;
+        lMethods = self.get_compute_methods()
+        lOutput = {}
+        for lCriterion in criterions:
+            if(lCriterion not in lMethods.keys()):
+                raise tsutil.Internal_PyAF_Error("Unknown Performance Measure ['" + self.mName + "'] '" + lCriterion + "'");
+            lMethod = lMethods.get(lCriterion)
+            lValue = lMethod(signal, estimator)
+            lOutput[lCriterion] = lValue
 
-        if(criterion == "MASE"):
-            self.compute_MASE(signal , estimator);
-            return self.mMASE;
         
-        if(criterion == "RMSSE"):
-            self.compute_RMSSE(signal , estimator);
-            return self.mRMSSE;
-        
-        if(criterion == "KS"):
-            self.compute_KS(signal , estimator);
-            return self.mKS;
-        
-        if(criterion == "KendallTau"):
-            self.compute_Kendall(signal , estimator);
-            return self.mKendallTau;
-        
-        if(criterion == "MWU"):
-            self.compute_MWU_AUC(signal , estimator);
-            return self.mMWU;
-        
-        if(criterion == "AUC"):
-            self.compute_MWU_AUC(signal , estimator);
-            return self.mAUC;
-        
-        if(criterion == "CRPS"):
-            self.mSignalQuantiles = self.compute_signal_quantiles(signal , estimator);
-            self.mCRPS = self.compute_CRPS(signal , estimator);
-            return self.mCRPS;
-        
-        raise tsutil.Internal_PyAF_Error("Unknown Performance Measure ['" + self.mName + "'] '" + criterion + "'");
-        return 0.0;
+        self.mCachedValues = {}
+        return lOutput
 
     def getCriterionValue(self, criterion):
-        if(criterion == "L1" or criterion == "MAE"):
-            return self.mL1;
-        if(criterion == "MedAE"):
-            return self.mMedAE;
-        if(criterion == "LnQ"):
-            return self.mLnQ;
-        if(criterion == "L2" or criterion == "RMSE"):
-            return self.mL2;
-        if(criterion == "R2"):
-            return self.mR2;
-        if(criterion == "PEARSONR"):
-            return self.mPearsonR;
-        if(criterion == "SMAPE"):
-            return self.mSMAPE;
-        if(criterion == "DiffSMAPE"):
-            return self.mDiffSMAPE;
-        if(criterion == "MAPE"):
-            return self.mMAPE;
-        if(criterion == "MASE"):
-            return self.mMASE;
-        if(criterion == "RMSSE"):
-            return self.mRMSSE;
-        if(criterion == "CRPS"):
-            return self.mCRPS;
-        if(criterion == "KendallTau"):
-            return self.mKendallTau;
-        if(criterion == "KS"):
-            return self.mKS;
-        if(criterion == "MWU"):
-            return self.mMWU;
-        if(criterion == "AUC"):
-            return self.mAUC;
+        lDict = self.__dict__
+        lValue = lDict.get("m" + criterion)
+        if(lValue is not None):
+            return lValue
+        if(criterion == "MAE"):
+            return lDict["mL1"]
+        if(criterion == "RMSE"):
+            return lDict["mL2"]
         raise tsutil.Internal_PyAF_Error("Unknown Performance Measure ['" + self.mName + "'] '" + criterion + "'");
-        return 0.0;
-
+        
 
     def is_acceptable_criterion_value(self, criterion, iRefValue = None):
         # percentages are bad when above 1.0
