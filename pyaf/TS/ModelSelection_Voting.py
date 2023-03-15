@@ -61,12 +61,12 @@ class cModelSelector_Voting:
 
                 lVoting = lVotingScores[ lModelFormula[3] ]
                 row = [lSplit, lTranformName, lDecompType, lModelFormula[3], lModelFormula, lModelCategory, lComplexity,
-                       lFitPerf[1].getCriterionValue(lCriterion),
-                       lFitPerf[H].getCriterionValue(lCriterion), 
-                       lForecastPerf[1].getCriterionValue(lCriterion),
-                       lForecastPerf[H].getCriterionValue(lCriterion),
-                       lTestPerf[1].getCriterionValue(lCriterion),
-                       lTestPerf[H].getCriterionValue(lCriterion),
+                       lFitPerf[1].get(lCriterion),
+                       lFitPerf[H].get(lCriterion), 
+                       lForecastPerf[1].get(lCriterion),
+                       lForecastPerf[H].get(lCriterion),
+                       lTestPerf[1].get(lCriterion),
+                       lTestPerf[H].get(lCriterion),
                        lVoting]
                 rows_list.append(row);
 
@@ -163,7 +163,7 @@ class cModelSelector_Condorcet(cModelSelector_Voting):
         lCriterionValues = {}
         for h in range(self.mHorizon):
             lHorizonName = lForecastColumn + "_" + str(h + 1);
-            lCriterionValues[h + 1] = lPerfs1[lHorizonName].getCriterionValue(lCriterion)
+            lCriterionValues[h + 1] = lPerfs1[lHorizonName].get(lCriterion)
         return lCriterionValues
         
         
