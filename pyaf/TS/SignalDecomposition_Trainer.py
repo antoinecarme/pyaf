@@ -24,7 +24,7 @@ from . import ModelSelection_Voting as tsvote
 from . import ModelSelection_Legacy as tsleg
 
 
-import copy
+import copy, gc
 
 
 def sample_signal_if_needed(iInputDS, iOptions):
@@ -111,6 +111,7 @@ class cSignalDecompositionOneTransform:
             lSplit = model.mTimeInfo.mOptions.mCustomSplit
             
             self.mPerfsByModel[(self.mSignal, self.mDecompositionType, lSplit, model.mOutName)] = [(self.mSignal, self.mDecompositionType, model), lComplexity, lFitPerf , lForecastPerf, lTestPerf];
+            gc.collect()
         return iModels;
 
 
@@ -170,6 +171,7 @@ class cSignalDecompositionOneTransform:
         lCycleEstimator.mTrendList = lTrendEstimator.mTrendList;
 
         del lTrendEstimator;
+        gc.collect()
 
         lCycleEstimator.mTimeInfo = self.mTimeInfo
         lCycleEstimator.mSplit = self.mSplit
@@ -186,6 +188,7 @@ class cSignalDecompositionOneTransform:
         lAREstimator.mCycleList = lCycleEstimator.mCycleList;
 
         del lCycleEstimator;
+        gc.collect()
 
         lAREstimator.mTimeInfo = self.mTimeInfo
         lAREstimator.mSplit = self.mSplit
@@ -206,7 +209,10 @@ class cSignalDecompositionOneTransform:
                     lModels[lModel.mOutName] = lModel;
 
         del lAREstimator;
+        gc.collect()
+
         self.updatePerfsForAllModels(lModels);
+        gc.collect()
         
 
 class cTraining_Arg:
@@ -264,12 +270,16 @@ class cSignalDecompositionTrainer:
 
 
     def train(self, iInputDS, iSplits, iTime, iSignals, iHorizon):
+        gc.collect()
         self.train_all_transformations(iInputDS, iSplits, iTime, iSignals, iHorizon);
+        gc.collect()
         self.finalize_training()
+        gc.collect()
         # self.cleanup_after_model_selection()
     
 
     def finalize_training(self):
+
         args = [];
         for (lSignal , sigdecs) in self.mSigDecBySplitAndTransform.items():
             args = args + [(lSignal, sigdecs, self.mOptions)]

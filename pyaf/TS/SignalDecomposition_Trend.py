@@ -14,6 +14,9 @@ from . import Plots as tsplot
 from . import Utils as tsutil
 from . import Complexity as tscomplex
 
+import gc
+
+
 import sklearn.linear_model as linear_model
 
 class cAbstractTrend:
@@ -43,14 +46,14 @@ class cAbstractTrend:
         self.mTrendFitPerf = tsperf.cPerf();
         self.mTrendForecastPerf = tsperf.cPerf();
         (lFrameFit, lFrameForecast, lFrameTest) = self.mSplit.cutFrame(self.mTrendFrame);
-        self.mTrendFitPerf.computeCriterion(lFrameFit[self.mSignal] ,
-                                            lFrameFit[self.mOutName],
-                                            self.mTimeInfo.mOptions.mModelSelection_Criterion,
-                                            self.mOutName)
-        self.mTrendForecastPerf.computeCriterion(lFrameForecast[self.mSignal] ,
-                                                 lFrameForecast[self.mOutName],
-                                                 self.mTimeInfo.mOptions.mModelSelection_Criterion,
-                                                 self.mOutName)
+        self.mTrendFitPerf.computeCriterionValues(lFrameFit[self.mSignal] ,
+                                                  lFrameFit[self.mOutName],
+                                                  [self.mTimeInfo.mOptions.mModelSelection_Criterion],
+                                                  self.mOutName)
+        self.mTrendForecastPerf.computeCriterionValues(lFrameForecast[self.mSignal] ,
+                                                       lFrameForecast[self.mOutName],
+                                                       [self.mTimeInfo.mOptions.mModelSelection_Criterion],
+                                                       self.mOutName)
 
     def compute_trend_residue(self, df):
         target = df[self.mSignal]
@@ -434,4 +437,6 @@ class cTrendEstimator:
             trend.mSplit = self.mSplit
         self.addTrendInputVariables();
         self.estimateTrends()
-        
+        for trend in self.mTrendList:
+            del trend.mTrendFrame
+        gc.collect()

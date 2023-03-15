@@ -7,7 +7,7 @@
 import pandas as pd
 import numpy as np
 
-# from memory_profiler import profile
+import gc
 
 from . import Time as tsti
 from . import Perf as tsperf
@@ -65,15 +65,15 @@ class cAbstractAR:
         self.mARFitPerf= tsperf.cPerf();
         self.mARForecastPerf= tsperf.cPerf();
         (lFrameFit, lFrameForecast, lFrameTest) = self.mSplit.cutFrame(self.mARFrame);
-        self.mARFitPerf.computeCriterion(
+        self.mARFitPerf.computeCriterionValues(
             lFrameFit[self.mCycleResidueName],
             lFrameFit[self.mOutName],
-            self.mTimeInfo.mOptions.mModelSelection_Criterion,
+            [self.mTimeInfo.mOptions.mModelSelection_Criterion],
             self.mOutName)
-        self.mARForecastPerf.computeCriterion(
+        self.mARForecastPerf.computeCriterionValues(
             lFrameForecast[self.mCycleResidueName],
             lFrameForecast[self.mOutName],
-            self.mTimeInfo.mOptions.mModelSelection_Criterion,
+            [self.mTimeInfo.mOptions.mModelSelection_Criterion],
             self.mOutName)
 
     def shift_series(self, series, p, idefault):
@@ -390,4 +390,6 @@ class cAutoRegressiveEstimator:
             self.estimate_ar_models_for_cycle(cycle_residue);
             for autoreg in self.mARList[cycle_residue]:
                 autoreg.mARFrame = pd.DataFrame(index = self.mCycleFrame.index);
-            del self.mARFrame;
+            del autoreg.mARFrame
+        del self.mARFrame;
+        gc.collect()

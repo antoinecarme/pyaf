@@ -14,6 +14,8 @@ from . import Plots as tsplot
 from . import Utils as tsutil
 from . import Complexity as tscomplex
 
+import gc
+
 class cAbstractCycle:
     def __init__(self , trend):
         self.mTimeInfo = tsti.cTimeInfo()
@@ -99,12 +101,12 @@ class cAbstractCycle:
         # self.mCycleFrame[[self.mTrend_residue_name, self.getCycleName()]].to_csv(self.getCycleName() + ".csv");
         (lFrameFit, lFrameForecast, lFrameTest) = self.mSplit.cutFrame(self.mCycleFrame);
         
-        self.mCycleFitPerf.computeCriterion(
+        self.mCycleFitPerf.computeCriterionValues(
             lFrameFit[self.mTrend_residue_name], lFrameFit[self.getCycleName()],
-            self.mOptions.mCycle_Criterion, self.getCycleName())
-        self.mCycleForecastPerf.computeCriterion(
+            [self.mOptions.mCycle_Criterion], self.getCycleName())
+        self.mCycleForecastPerf.computeCriterionValues(
             lFrameForecast[self.mTrend_residue_name], lFrameForecast[self.getCycleName()],
-            self.mOptions.mCycle_Criterion, self.getCycleName())
+            [self.mOptions.mCycle_Criterion], self.getCycleName())
     
 
 class cZeroCycle(cAbstractCycle):
@@ -319,10 +321,13 @@ class cBestCycleForTrend(cAbstractCycle):
                 lPerf = tsperf.cPerf();
                 # validate the cycles on the validation part
                 lValidFrame = self.mSplit.getValidPart(lCycleFrame);
-                lCritValue = lPerf.computeCriterion(lValidFrame[self.mTrend_residue_name],
+                lCritValues = lPerf.computeCriterionValues(lValidFrame[self.mTrend_residue_name],
                                                     lValidFrame[name_length + "_enc"],
-                                                    self.mCriterion,
+                                                    [self.mCriterion],
                                                     "Validation")
+                lCritValue = lCritValues[self.mCriterion]
+                if(lCritValue is None):
+                    print("CYCFLE_CRITERION_VALUES", lCritValues)
                 if(lPerf.is_acceptable_criterion_value(self.mOptions.mCycle_Criterion, iRefValue = lCritValue)):
                     self.mCyclePerfByLength[lLength] = (round(lCritValue, 3) , len(lEncodedValueDict))
                     if(self.mOptions.mDebugCycles):
@@ -366,7 +371,7 @@ class cBestCycleForTrend(cAbstractCycle):
         target = df[self.mTrend_residue_name]
         self.compute_cycle_residue(df)
         if(self.mOptions.mDebug):
-            self.check_not_nan(self.mCycleFrame[self.getCycleName()].values , self.getCycleName());
+            self.check_not_nan(df[self.getCycleName()].values , self.getCycleName());
 
         return df;
 
@@ -534,3 +539,7 @@ class cCycleEstimator:
         if(self.mOptions.mFilterSeasonals):
             self.filterSeasonals()
         
+        for trend in self.mTrendList:
+            for cycle in self.mCycleList[trend]:
+                del cycle.mCycleFrame
+        gc.collect()
