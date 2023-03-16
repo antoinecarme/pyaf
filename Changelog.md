@@ -14,6 +14,7 @@ RELEASE 5.0 (released on 2023-07-14)
 	10. Experimentations : Investigate Model Esthetics for PyAF #212, Automate Prototyping Activities - R-based Models #217
 	11. Bugs fixed : Failure to build a multiplicative ozone model with Lag1 trend #220, Bad plot for shaded area around prediction intervals in hourly data #216
 	12. Run some Sanity Checks for PyAF 5.0 #224
+	13. Use MASE by default for PyAF Model Selection #229
 
 -------------------
 
