@@ -41,56 +41,49 @@ class eTimeResolution(IntEnum):
     
 class cDateTime_Helper:
 
+    def get_week_of_year(series):
+        return series.dt.isocalendar().week
+    
+    def get_week_of_month(series):
+        lFirstDayOfMonth = series - pd.to_timedelta(series.dt.day - 1, unit='D')
+        return series.dt.isocalendar().week - lFirstDayOfMonth.dt.isocalendar().week + 1
+
+
+
+    gComputers = {
+        eDatePart.Second: lambda series : series.dt.second,
+        eDatePart.Minute: lambda series : series.dt.minute,
+        eDatePart.Hour:   lambda series : series.dt.hour,
+        eDatePart.DayOfWeek: lambda series : series.dt.dayofweek,
+        eDatePart.HourOfWeek: lambda series : series.dt.dayofweek * 24 + series.dt.hour,
+        eDatePart.TwoHourOfWeek: lambda series : series.dt.dayofweek * 12 + series.dt.hour // 2,
+        eDatePart.ThreeHourOfWeek: lambda series : series.dt.dayofweek * 8 + series.dt.hour // 3,
+        eDatePart.FourHourOfWeek: lambda series : series.dt.dayofweek * 6 + series.dt.hour // 4,
+        eDatePart.SixHourOfWeek: lambda series : series.dt.dayofweek * 4 + series.dt.hour // 6,
+        eDatePart.EightHourOfWeek: lambda series : series.dt.dayofweek * 3 + series.dt.hour // 8,
+        eDatePart.TwelveHourOfWeek: lambda series : series.dt.dayofweek * 2 + series.dt.hour // 12,
+        eDatePart.DayOfMonth: lambda series : series.dt.day,
+        eDatePart.DayOfYear: lambda series : series.dt.dayofyear,
+        eDatePart.MonthOfYear: lambda series : series.dt.month,
+        eDatePart.WeekOfYear:  lambda series : cDateTime_Helper.get_week_of_year(series),
+        eDatePart.WeekOfMonth: get_week_of_month,
+        eDatePart.DayOfNthWeekOfMonth: lambda series : cDateTime_Helper.get_week_of_month(series) * 7 + series.dt.dayofweek
+    }
+
+    def get_date_time_computer(iDatePart):
+        lComputer = cDateTime_Helper.gComputers.get(iDatePart)
+        return lComputer    
+    
     def __init__(self):
         pass
 
-    def get_week_of_year(self, series):
-        return series.dt.isocalendar().week
-    
-    def get_week_of_month(self, series):
-        lFirstDayOfMonth = series - pd.to_timedelta(series.dt.day - 1, unit='D')
-        return series.dt.isocalendar().week - lFirstDayOfMonth.dt.isocalendar().week + 1
-    
     def apply_date_time_computer(self, iDatePart, series):
-        lOut = None
         # Future Warning regarding DateTime_Functions - series.dt.weekofyear #153
-        if(iDatePart == eDatePart.Second):
-            lOut = series.dt.second
-        elif(iDatePart == eDatePart.Minute):
-            lOut = series.dt.minute
-        elif(iDatePart == eDatePart.Hour):
-            lOut = series.dt.hour
-        elif(iDatePart == eDatePart.DayOfWeek):
-            lOut = series.dt.dayofweek
-        elif(iDatePart == eDatePart.HourOfWeek):
-            lOut = series.dt.dayofweek * 24 + series.dt.hour
-        elif(iDatePart == eDatePart.TwoHourOfWeek):
-            lOut = series.dt.dayofweek * 12 + series.dt.hour // 2
-        elif(iDatePart == eDatePart.ThreeHourOfWeek):
-            lOut = series.dt.dayofweek * 8 + series.dt.hour // 3
-        elif(iDatePart == eDatePart.FourHourOfWeek):
-            lOut = series.dt.dayofweek * 6 + series.dt.hour // 4
-        elif(iDatePart == eDatePart.SixHourOfWeek):
-            lOut = series.dt.dayofweek * 4 + series.dt.hour // 6
-        elif(iDatePart == eDatePart.EightHourOfWeek):
-            lOut = series.dt.dayofweek * 3 + series.dt.hour // 8
-        elif(iDatePart == eDatePart.TwelveHourOfWeek):
-            lOut = series.dt.dayofweek * 2 + series.dt.hour // 12
-        elif(iDatePart == eDatePart.DayOfMonth):
-            lOut = series.dt.day
-        elif(iDatePart == eDatePart.DayOfYear):
-            lOut = series.dt.dayofyear
-        elif(iDatePart == eDatePart.MonthOfYear):
-            lOut = series.dt.month
-        elif(iDatePart == eDatePart.WeekOfYear):
-            lOut = self.get_week_of_year(series)
-        elif(iDatePart == eDatePart.WeekOfMonth):
-            lOut = self.get_week_of_month(series)
-        elif(iDatePart == eDatePart.DayOfNthWeekOfMonth):
-            lOut = self.get_week_of_month(series) * 7 + series.dt.dayofweek
-        if(lOut is None):
+        lComputer = cDateTime_Helper.get_date_time_computer(iDatePart)
+        if(lComputer is None):
             print("apply_date_time_computer_failures" , iDatePart)
-        assert(lOut is not None)
+        assert(lComputer is not None)
+        lOut = lComputer(series)
         return lOut
 
     def guess_time_resolution(self, iEstimTime):
