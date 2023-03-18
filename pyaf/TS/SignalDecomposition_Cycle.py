@@ -67,10 +67,6 @@ class cAbstractCycle:
         # df_detail = df[[self.mSignal, self.mTrend.mOutName, self.getCycleName(), self.getCycleResidueName()]]
         # print("compute_cycle_residue_detail ", (lOutName, self.mDecompositionType, df_detail.describe(include='all').to_dict()))
         
-        df[self.getCycleResidueName()] = df[self.getCycleResidueName()].astype(target.dtype)
-
-
-
 
     def compute_target_means_by_cycle_value(self , iCycleFrame, iCycleName):
         # we encode only using estimation
@@ -107,7 +103,18 @@ class cAbstractCycle:
         self.mCycleForecastPerf.computeCriterionValues(
             lFrameForecast[self.mTrend_residue_name], lFrameForecast[self.getCycleName()],
             [self.mOptions.mCycle_Criterion], self.getCycleName())
+        self.dumpCyclePerf()
+
     
+    def dumpCyclePerf(self):
+        if(self.mOptions.mDebugCycles):
+            logger = tsutil.get_pyaf_logger();
+            lDict = {
+                "Fit" : self.mCycleFitPerf.getCriterionValue(self.mOptions.mCycle_Criterion),
+                "Forecast" : self.mCycleForecastPerf.getCriterionValue(self.mOptions.mCycle_Criterion),
+            }
+            logger.info("CYCLE_PERF_DETAIL " + self.mOptions.mCycle_Criterion  + " " + self.mOutName +  " " + str(lDict))
+
 
 class cZeroCycle(cAbstractCycle):
 
@@ -188,7 +195,7 @@ class cSeasonalPeriodic(cAbstractCycle):
             dtfunc.eDatePart.TwelveHourOfWeek : (7 * 10 , None), # 10 weeks
             dtfunc.eDatePart.WeekOfMonth : (30 * 10 , None), # 10 months
             dtfunc.eDatePart.DayOfNthWeekOfMonth : (30 * 10 , None) # 10 months
-            }
+        }
 
         lThreshold = lThresholds.get(self.mDatePart)
         if(lThreshold[0] is not None):
@@ -258,11 +265,7 @@ class cBestCycleForTrend(cAbstractCycle):
         logger.info("BEST_CYCLE_LENGTH_VALUES " + self.getCycleName() + " " + str(self.mBestCycleLength) + " " + str(round(self.mDefaultValue, 6)) + " " + str(lDict));
 
     
-    def dumpCyclePerfs(self):
-        print(self.mCyclePerfByLength);
-
     def computeBestCycle(self):
-        # self.dumpCyclePerfs();
         self.mBestCycleLength = None;
         lData = self.mCyclePerfByLength.items()
         if(len(lData) == 0):
@@ -401,13 +404,18 @@ class cCycleEstimator:
     def defineCycles(self):
         for trend in self.mTrendList:
             self.mCycleList[trend] = [];
+            lTrend_residue_name = trend.mOutName + '_residue'
 
             if(self.mOptions.mActivePeriodics['NoCycle']):
                 self.mCycleList[trend] = [cZeroCycle(trend)];
-            if(self.mOptions.mActivePeriodics['BestCycle']):
+            lThreshold = 0.001 # The signal is scaled to be between 0 and 1
+            lEstimResidue = self.mSplit.getEstimPart(self.mTrendFrame[lTrend_residue_name])
+            lTrendRange = lEstimResidue.max() - lEstimResidue.min()
+            lKeep = (lTrendRange >= lThreshold) # Keep this test as simple as possible.
+            if(lKeep and self.mOptions.mActivePeriodics['BestCycle']):
                 self.mCycleList[trend] = self.mCycleList[trend] + [
                     cBestCycleForTrend(trend, self.mOptions.mCycle_Criterion)];
-            if(self.mTimeInfo.isPhysicalTime()):
+            if(lKeep and self.mTimeInfo.isPhysicalTime()):
                 # The order used here is mandatory. see filterSeasonals before changing this order.
                 self.addSeasonal(trend, dtfunc.eDatePart.MonthOfYear, dtfunc.eTimeResolution.MONTH);
                 self.addSeasonal(trend, dtfunc.eDatePart.WeekOfYear, dtfunc.eTimeResolution.DAY);
@@ -447,20 +455,6 @@ class cCycleEstimator:
 
     
 
-    def dumpCyclePerf(self, cycle):
-        if(self.mOptions.mDebugCycles):
-            logger = tsutil.get_pyaf_logger();
-            logger.debug("CYCLE_PERF_DETAIL_COUNT_FIT_FORECAST "  + cycle.mOutName +
-                  " %.3f" % (cycle.mCycleFitPerf.mCount) + " %.3f" % (cycle.mCycleForecastPerf.mCount));
-            logger.debug("CYCLE_PERF_DETAIL_MAPE_FIT_FORECAST " + cycle.mOutName +
-                  " %.3f" % (cycle.mCycleFitPerf.mMAPE)+ " %.3f" % (cycle.mCycleForecastPerf.mMAPE));
-            logger.debug("CYCLE_PERF_DETAIL_L2_FIT_FORECAST " + cycle.mOutName +
-                  " %.3f" % (cycle.mCycleFitPerf.mL2) +  " %.3f" % (cycle.mCycleForecastPerf.mL2));
-            logger.debug("CYCLE_PERF_DETAIL_R2_FIT_FORECAST " + cycle.mOutName +
-                  " %.3f" % (cycle.mCycleFitPerf.mR2) +  " %.3f" % (cycle.mCycleForecastPerf.mR2));
-            logger.debug("CYCLE_PERF_DETAIL_PEARSONR_FIT_FORECAST " + cycle.mOutName +
-                  " %.3f" % (cycle.mCycleFitPerf.mPearsonR) +  " %.3f" % (cycle.mCycleForecastPerf.mPearsonR));
-
 
     def estimateCycles(self):
         self.mTime = self.mTimeInfo.mTime;
@@ -472,9 +466,7 @@ class cCycleEstimator:
             self.mCycleFrame[lTrend_residue_name] = self.mTrendFrame[lTrend_residue_name]
             for cycle in self.mCycleList[trend]:
                 cycle.fit();
-                if(self.mOptions.mDebugPerformance):
-                    cycle.computePerf();
-                self.dumpCyclePerf(cycle)
+                cycle.computePerf();
                 self.mCycleFrame[cycle.getCycleName()] = cycle.mCycleFrame[cycle.getCycleName()]
                 self.mCycleFrame[cycle.getCycleResidueName()] = cycle.mCycleFrame[cycle.getCycleResidueName()]
                 if(self.mOptions.mDebug):
@@ -495,7 +487,6 @@ class cCycleEstimator:
             lSeasonals = {}
             for cycle in self.mCycleList[trend]:
                 if(isinstance(cycle , cSeasonalPeriodic)):
-                    cycle.computePerf();
                     # check that the MAPE is not above 1.0
                     if(cycle.mCycleForecastPerf.is_acceptable_criterion_value(self.mOptions.mCycle_Criterion)):
                         lCritValue = cycle.mCycleForecastPerf.getCriterionValue(self.mOptions.mCycle_Criterion)
