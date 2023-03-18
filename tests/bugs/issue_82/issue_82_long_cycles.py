@@ -23,7 +23,7 @@ for cyc in lValues:
     # df.describe()
 
     lEngine = autof.cForecastEngine()
-    lEngine.mOptions.mCycleLengths = [ k for k in range(2,128) ];
+    lEngine.mOptions.mCycleLengths = [ k for k in range(4,128, 4) ];
     lEngine
 
     H = cyc * 2;
