@@ -10,6 +10,8 @@ import numpy as np
 from io import BytesIO
 import base64
 
+from . import Utils as tsutil
+
 
 SIGNAL_COLOR='green'
 FORECAST_COLOR='blue'
@@ -37,7 +39,9 @@ def fig_to_png_base64(fig):
     figdata_png = base64.b64encode(figfile.getvalue())
     return figdata_png.decode('utf8')
 
-
+def log_saving_plot_message(name, filename):
+    logger = tsutil.get_pyaf_logger();
+    logger.info("SAVING_PLOT " + str((name , filename)));
     
 def decomp_plot_internal(df, time, signal, estimator, residue, name = None, format='png', max_length = 1000, horizon = 1, title = None) :
     assert(df.shape[0] > 0)
@@ -82,6 +86,8 @@ def decomp_plot(df, time, signal, estimator, residue, name = None, format='png',
         import matplotlib
         import matplotlib.pyplot as plt
         plt.switch_backend('Agg')
+        name1 = name.split('_')[-1]
+        log_saving_plot_message(name1, name + '_decomp_output.' + format)
         fig.savefig(name + '_decomp_output.' + format)
         plt.close(fig)
 
@@ -143,6 +149,7 @@ def prediction_interval_plot(df, time, signal, estimator, lower, upper, name = N
         import matplotlib
         import matplotlib.pyplot as plt
         plt.switch_backend('Agg')
+        log_saving_plot_message('PredictionIntervals', name + '_prediction_intervals_output.' + format)
         fig.savefig(name + '_prediction_intervals_output.' + format)
         plt.close(fig)
     
@@ -234,6 +241,7 @@ def quantiles_plot(df, time, signal, estimator, iQuantiles, name = None, format=
     import matplotlib.pyplot as plt
     if(name is not None):
         plt.switch_backend('Agg')
+        log_saving_plot_message('Quantiles', name + '_quantiles_output.' + format)
         fig.savefig(name + '_quantiles_output.' + format)
         plt.close(fig)
     
