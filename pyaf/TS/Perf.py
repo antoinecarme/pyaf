@@ -93,8 +93,8 @@ class cPerf:
         lEps = 1.0e-10;
         naive_mean_abs_error = np.mean(naive_abs_error) + lEps
         naive_mean_abs_error_2 = np.mean(naive_abs_error * naive_abs_error) + lEps
-        q1 = np.abs(abs_error / naive_mean_abs_error)
-        q2 = np.abs(abs_error * abs_error / naive_mean_abs_error_2)
+        q1 = abs_error / naive_mean_abs_error
+        q2 = abs_error * abs_error / naive_mean_abs_error_2
         self.mCachedValues['naive_scaled_error'] = (q1, q2)
         return (q1, q2)
 
