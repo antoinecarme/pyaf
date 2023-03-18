@@ -50,7 +50,6 @@ class cAbstractCycle:
         pass
 
     def compute_cycle_residue(self, df):
-        target = df[self.mTrend_residue_name]
         lSignal = df[self.mSignal]
         lTrend = df[self.mTrend.mOutName]
         lCycle = df[self.getCycleName()]
@@ -148,7 +147,6 @@ class cZeroCycle(cAbstractCycle):
         self.compute_cycle_residue(self.mCycleFrame)
         
     def transformDataset(self, df):
-        target = df[self.mTrend_residue_name]
         df[self.getCycleName()] = self.mConstantValue;
         self.compute_cycle_residue(df)
         return df;
@@ -239,7 +237,6 @@ class cSeasonalPeriodic(cAbstractCycle):
         self.compute_cycle_residue(self.mCycleFrame)
 
     def transformDataset(self, df):
-        target = df[self.mTrend_residue_name]
         lDateParts = self.compute_date_parts(df[self.mTime])
         df[self.getCycleName()] = lDateParts.map(self.mEncodedValueDict).fillna(self.mDefaultValue)
         self.compute_cycle_residue(df)
@@ -371,7 +368,6 @@ class cBestCycleForTrend(cAbstractCycle):
                 # multiplicative models
                 df[self.getCycleName()] = 1.0
 
-        target = df[self.mTrend_residue_name]
         self.compute_cycle_residue(df)
         if(self.mOptions.mDebug):
             self.check_not_nan(df[self.getCycleName()].values , self.getCycleName());

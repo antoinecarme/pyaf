@@ -75,7 +75,6 @@ class cAbstractTrend:
 
     def fit(self):
         self.fit_specific()
-        target = self.mTrendFrame[self.mSignal]
         self.mTrendFrame[self.mOutName] = self.compute(self.mTrendFrame)
         self.compute_trend_residue(self.mTrendFrame)
 
@@ -122,7 +121,6 @@ class cLag1Trend(cAbstractTrend):
         # print(df.head());
         
     def fit_specific(self):
-        target = self.mTrendFrame[self.mSignal].values
         lEstim = self.mSplit.getEstimPart(self.mTrendFrame);
         self.mDefaultValue = lEstim[self.mSignal ].iloc[0]        
 
