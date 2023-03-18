@@ -127,12 +127,14 @@ class cAbstractSignalTransform:
         return rescaled_sig;
 
     def shift_signal(self, sig, p, initial_value):
-        sig_shifted = np.zeros(sig.shape[0])
+        N = sig.shape[0]
+        sig_shifted = np.zeros(N)
         sig_shifted[0:p] = initial_value;
-        sig_shifted[p:] = sig[p:];
+        sig_shifted[p:] = sig[0:N - p];
         return sig_shifted
     
     def transformDataset(self, df):
+        df["scaled_" + self.mOriginalSignal] = self.scale_signal(df[self.mOriginalSignal])
         df[self.get_name(self.mOriginalSignal)] = self.apply(df[self.mOriginalSignal])
         return df;
 
