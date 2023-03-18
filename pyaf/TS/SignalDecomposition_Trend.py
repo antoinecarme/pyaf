@@ -25,7 +25,7 @@ class cAbstractTrend:
         self.mTimeInfo = tsti.cTimeInfo()
         self.mTrendFrame = None
         self.mTrendPerf = tsperf.cPerf();
-        self.mOutName = ""
+        self.mOutName = None
         self.mFormula = None;
         self.mComplexity = tscomplex.eModelComplexity.High;
 
@@ -55,6 +55,7 @@ class cAbstractTrend:
                                                        [self.mTimeInfo.mOptions.mModelSelection_Criterion],
                                                        self.mOutName)
 
+
     def compute_trend_residue(self, df):
         target = df[self.mSignal]
         lTrend = df[self.mOutName]
@@ -64,11 +65,29 @@ class cAbstractTrend:
             # This is questionable. But if only a few values are zero, it is the safest.
             lTrendWithNoZero = lTrend.apply(lambda x : x if(abs(x) > 1e-2) else 1e-2)
             df[self.mOutName + '_residue'] = target / lTrendWithNoZero
-        # df_detail = df[[self.mSignal, self.mOutName, self.mOutName + '_residue']]
-        # print("compute_trend_residue_detail ", (self.mOutName, self.mDecompositionType, df_detail.describe(include='all').to_dict()))
-        df[self.mOutName + '_residue'] = df[self.mOutName + '_residue'].astype(target.dtype)
 
+    def addTrendInputVariables(self):
+        self.mTime = self.mTimeInfo.mTime;
+        self.mSignal = self.mTimeInfo.mSignal;
+        self.mOutName = self.mSignal + "_" + self.mOutName;
+        self.mTrendFrame = pd.DataFrame(index = self.mTimeInfo.mSignalFrame.index)
+        self.mTimeInfo.addVars(self.mTrendFrame);
 
+    def fit(self):
+        self.fit_specific()
+        target = self.mTrendFrame[self.mSignal]
+        self.mTrendFrame[self.mOutName] = self.compute(self.mTrendFrame)
+        self.compute_trend_residue(self.mTrendFrame)
+
+    def transformDataset(self, df):
+        df[self.mOutName] = self.compute(df)
+        self.compute_trend_residue(df)
+        return df;
+
+    def compute(self, df):
+        assert(0)
+
+                
 class cConstantTrend(cAbstractTrend):
     def __init__(self):
         cAbstractTrend.__init__(self);
@@ -77,29 +96,11 @@ class cConstantTrend(cAbstractTrend):
         self.mFormula = self.mOutName;    
         self.mComplexity = tscomplex.eModelComplexity.Low;
         
-    def addTrendInputVariables(self):
-        self.mTime = self.mTimeInfo.mTime;
-        self.mSignal = self.mTimeInfo.mSignal;
-        self.mOutName = self.mSignal + "_" + self.mOutName;
-        self.mTrendFrame = pd.DataFrame(index = self.mTimeInfo.mSignalFrame.index)
-        self.mTimeInfo.addVars(self.mTrendFrame);
-
-    def transformDataset(self, df):
-        target = df[self.mSignal].values
-        df[self.mOutName] = self.mMean * np.ones_like(df[self.mSignal]);
-        self.compute_trend_residue(df)
-        return df;
+    def fit_specific(self):
+        self.mMean = self.mSplit.getEstimPart(self.mTrendFrame)[self.mSignal].mean()
     
-    def fit(self):
-        # real lag1
-        lTrendEstimFrame = self.mSplit.getEstimPart(self.mTrendFrame);
-        self.mMean = lTrendEstimFrame[self.mSignal].mean()
-        target = self.mTrendFrame[self.mSignal]
-        self.mTrendFrame[self.mOutName] = self.mMean * np.ones_like(target);
-        self.compute_trend_residue(self.mTrendFrame)
-
-    def compute(self):
-        Y_pred = self.mMean
+    def compute(self, df):
+        Y_pred = self.mMean * np.ones_like(df[self.mSignal]);
         return Y_pred
 
     def dump_values(self):
@@ -114,40 +115,20 @@ class cLag1Trend(cAbstractTrend):
         self.mFormula = self.mOutName;
         self.mComplexity = tscomplex.eModelComplexity.Low;
         
-    def addTrendInputVariables(self):
-        self.mTime = self.mTimeInfo.mTime;
-        self.mSignal = self.mTimeInfo.mSignal;
-        self.mOutName = self.mSignal + "_" + self.mOutName;
-        self.mTrendFrame = pd.DataFrame(index = self.mTimeInfo.mSignalFrame.index)
-        self.mTimeInfo.addVars(self.mTrendFrame);
-
     def replaceFirstMissingValue(self, df, series):
         # print(self.mDefaultValue, type(self.mDefaultValue));
         # Be explicit here .... some integer index does not work.
         df.loc[df.index[0] , series] = self.mDefaultValue;
         # print(df.head());
         
-    def fit(self):
-        # real lag1
+    def fit_specific(self):
         target = self.mTrendFrame[self.mSignal].values
         lEstim = self.mSplit.getEstimPart(self.mTrendFrame);
         self.mDefaultValue = lEstim[self.mSignal ].iloc[0]        
-        self.mTrendFrame[self.mOutName] = self.mTrendFrame[self.mSignal].shift(1);
-        # print(self.mTrendFrame[self.mSignal].shape , self.mTrendFrame[self.mOutName].shape)
-        self.replaceFirstMissingValue(self.mTrendFrame, self.mOutName);
-        self.compute_trend_residue(self.mTrendFrame)
-        # print("cLag1Trend_FirstValue" , self.mDefaultValue);
 
-
-    def transformDataset(self, df):
-        target = df[self.mSignal].values
-        df[self.mOutName] = df[self.mSignal].shift(1);
-        self.replaceFirstMissingValue(df, self.mOutName);
-        self.compute_trend_residue(df)
-        return df;
-
-    def compute(self):
-        Y_pred = self.mTrendFrame[self.mSignal].shift(1)
+    def compute(self, df):
+        Y_pred = df[self.mSignal].shift(1)
+        Y_pred.loc[df.index[0]] = self.mDefaultValue;
         return Y_pred
 
     def dump_values(self):
@@ -162,31 +143,15 @@ class cMovingAverageTrend(cAbstractTrend):
         self.mFormula = self.mOutName;
         self.mComplexity = tscomplex.eModelComplexity.Medium;
         
-    def addTrendInputVariables(self):
-        self.mTime = self.mTimeInfo.mTime;
-        self.mSignal = self.mTimeInfo.mSignal;
-        self.mOutName = self.mSignal + "_" + self.mOutName;
-        self.mTrendFrame = pd.DataFrame(index = self.mTimeInfo.mSignalFrame.index)
-        self.mTimeInfo.addVars(self.mTrendFrame);
-
-    def fit(self):
+    def fit_specific(self):
         self.mOutName = self.mOutName + "(" + str(self.mWindow) + ")";
         self.mFormula = self.mOutName;
-        # real lag1
-        target = self.mTrendFrame[self.mSignal].values
-        self.mTrendFrame[self.mOutName] = self.mTrendFrame[self.mSignal].shift(1).rolling(self.mWindow).mean().fillna(method='bfill')
-        mean = self.mSplit.getEstimPart(self.mTrendFrame)[self.mSignal].mean()
-        self.mTrendFrame[self.mOutName].fillna(mean , inplace=True)
-        self.compute_trend_residue(self.mTrendFrame)
+        self.mMean = self.mSplit.getEstimPart(self.mTrendFrame)[self.mSignal].mean()
 
-    def transformDataset(self, df):
-        target = df[self.mSignal].values
-        df[self.mOutName] = df[self.mSignal].shift(1).rolling(self.mWindow).mean().fillna(method='bfill');
-        self.compute_trend_residue(df)
-        return df;
 
-    def compute(self):
-        Y_pred = self.mTrendFrame[self.mSignal].shift(1)
+    def compute(self, df):
+        Y_pred = df[self.mSignal].shift(1).rolling(self.mWindow).mean().fillna(method='bfill');
+        Y_pred.fillna(mean , inplace=True)
         return Y_pred
 
     def dump_values(self):
@@ -201,31 +166,15 @@ class cMovingMedianTrend(cAbstractTrend):
         self.mFormula = self.mOutName;
         self.mComplexity = tscomplex.eModelComplexity.High;
         
-    def addTrendInputVariables(self):
-        self.mTime = self.mTimeInfo.mTime;
-        self.mSignal = self.mTimeInfo.mSignal;
-        self.mOutName = self.mSignal + "_" + self.mOutName;
-        self.mTrendFrame = pd.DataFrame(index = self.mTimeInfo.mSignalFrame.index)
-        self.mTimeInfo.addVars(self.mTrendFrame);
-
-    def fit(self):
+    def fit_specific(self):
         self.mOutName = self.mOutName + "(" + str(self.mWindow) + ")";
         self.mFormula = self.mOutName;
-        # real lag1
-        target = self.mTrendFrame[self.mSignal].values
-        self.mTrendFrame[self.mOutName] = self.mTrendFrame[self.mSignal].shift(1).rolling(self.mWindow).median().fillna(method='bfill')
-        mean = self.mSplit.getEstimPart(self.mTrendFrame)[self.mSignal].mean()
-        self.mTrendFrame[self.mOutName].fillna(mean , inplace=True)
-        self.compute_trend_residue(self.mTrendFrame)
+        self.mMean = self.mSplit.getEstimPart(self.mTrendFrame)[self.mSignal].mean()
 
-    def transformDataset(self, df):
-        target = df[self.mSignal].values
-        df[self.mOutName] = df[self.mSignal].shift(1).rolling(self.mWindow).median().fillna(method='bfill');
-        self.compute_trend_residue(df)
-        return df;
 
-    def compute(self):
-        Y_pred = self.mTrendFrame[self.mSignal].shift(1)
+    def compute(self, df):
+        Y_pred = df[self.mSignal].shift(1).rolling(self.mWindow).median().fillna(method='bfill');
+        Y_pred.fillna(mean , inplace=True)
         return Y_pred
 
     def dump_values(self):
@@ -235,42 +184,20 @@ class cMovingMedianTrend(cAbstractTrend):
 class cLinearTrend(cAbstractTrend):
     def __init__(self):
         cAbstractTrend.__init__(self);
-        self.mTrendRidge = linear_model.Ridge()
+        self.mTrendRidge = linear_model.Ridge(solver = 'cholesky', alpha = 0.0)
         self.mOutName = "LinearTrend"
         self.mFormula = self.mOutName;
         self.mComplexity = tscomplex.eModelComplexity.Low;
 
-    def addTrendInputVariables(self):
-        self.mTime = self.mTimeInfo.mTime;
-        self.mSignal = self.mTimeInfo.mSignal;
-        self.mOutName = self.mSignal + "_" + self.mOutName;
-        self.mTrendFrame = pd.DataFrame(index = self.mTimeInfo.mSignalFrame.index)
-        self.mTimeInfo.addVars(self.mTrendFrame);
-
-    def fit(self):
+    def fit_specific(self):
         lTrendEstimFrame = self.mSplit.getEstimPart(self.mTrendFrame);
         est_target = lTrendEstimFrame[self.mSignal].values
         est_inputs = lTrendEstimFrame[[self.mTimeInfo.mNormalizedTimeColumn]].values
         self.mTrendRidge.fit(est_inputs, est_target)
-        self.mTrendRidge.score(est_inputs, est_target)
-        target = self.mTrendFrame[self.mSignal].values
-        inputs = self.mTrendFrame[[self.mTimeInfo.mNormalizedTimeColumn]].values
-        self.mTrendFrame[self.mOutName] = self.mTrendRidge.predict(inputs)
-        self.compute_trend_residue(self.mTrendFrame)
 
-
-    def transformDataset(self, df):
-        target = df[self.mSignal].values
+    def compute(self, df):
         inputs = df[[self.mTimeInfo.mNormalizedTimeColumn]].values
-        df[self.mOutName] = self.mTrendRidge.predict(inputs)
-        self.compute_trend_residue(df)
-        return df;
-
-    def compute(self):
-        lTimeAfterSomeSteps = self.mTimeInfo.nextTime(iSteps)
-        lTimeAfterSomeStepsNormalized = self.mTimeInfo.normalizeTime(lTimeAfterSomeSteps)
-        df = pd.DataFrame([lTimeAfterSomeStepsNormalized , lTimeAfterSomeStepsNormalized ** 2])
-        Y_pred = self.mTrendRidge.predict(df.values)
+        Y_pred = self.mTrendRidge.predict(inputs)
         return Y_pred
 
     def dump_values(self):
@@ -280,21 +207,14 @@ class cLinearTrend(cAbstractTrend):
 class cPolyTrend(cAbstractTrend):
     def __init__(self):
         cAbstractTrend.__init__(self);
-        self.mTrendRidge = linear_model.Ridge()
+        self.mTrendRidge = linear_model.Ridge(solver = 'cholesky', alpha = 0.0)
         self.mOutName = "PolyTrend"
         self.mFormula = self.mOutName
         self.mComplexity = tscomplex.eModelComplexity.Medium;
 
-    def addTrendInputVariables(self):
-        self.mTime = self.mTimeInfo.mTime;
-        self.mSignal = self.mTimeInfo.mSignal;
-        self.mOutName = self.mSignal + "_" + self.mOutName;
-        self.mTrendFrame = pd.DataFrame(index = self.mTimeInfo.mSignalFrame.index)
-        self.mTimeInfo.addVars(self.mTrendFrame);
+    def fit_specific(self):
         self.mTrendFrame[self.mTimeInfo.mNormalizedTimeColumn + "_^2"] = self.mTrendFrame[self.mTimeInfo.mNormalizedTimeColumn] ** 2;    
         self.mTrendFrame[self.mTimeInfo.mNormalizedTimeColumn + "_^3"] = self.mTrendFrame[self.mTimeInfo.mNormalizedTimeColumn] ** 3;    
-
-    def fit(self):
         lTrendEstimFrame = self.mSplit.getEstimPart(self.mTrendFrame);
         est_target = lTrendEstimFrame[self.mSignal].values
         est_inputs = lTrendEstimFrame[
@@ -302,36 +222,15 @@ class cPolyTrend(cAbstractTrend):
              self.mTimeInfo.mNormalizedTimeColumn + "_^2",
              self.mTimeInfo.mNormalizedTimeColumn + "_^3"]].values
         self.mTrendRidge.fit(est_inputs, est_target)
-        self.mTrendRidge.score(est_inputs, est_target)
-        target = self.mTrendFrame[self.mSignal].values
-        inputs = self.mTrendFrame[
-            [self.mTimeInfo.mNormalizedTimeColumn,
-             self.mTimeInfo.mNormalizedTimeColumn + "_^2",
-             self.mTimeInfo.mNormalizedTimeColumn + "_^3"]].values
-        self.mTrendFrame[self.mOutName] = self.mTrendRidge.predict(inputs)
-        self.compute_trend_residue(self.mTrendFrame)
 
-
-    def transformDataset(self, df):
+    def compute(self, df):
         df[self.mTimeInfo.mNormalizedTimeColumn + "_^2"] = df[self.mTimeInfo.mNormalizedTimeColumn] ** 2;    
         df[self.mTimeInfo.mNormalizedTimeColumn + "_^3"] = df[self.mTimeInfo.mNormalizedTimeColumn] ** 3;    
-        target = df[self.mSignal].values
         inputs = df[
             [self.mTimeInfo.mNormalizedTimeColumn,
              self.mTimeInfo.mNormalizedTimeColumn + "_^2",
              self.mTimeInfo.mNormalizedTimeColumn + "_^3"]].values
-        #print(inputs);
-        pred = self.mTrendRidge.predict(inputs)
-        df[self.mOutName] = pred;
-        self.compute_trend_residue(df)
-        return df;
-
-
-    def compute(self):
-        lTimeAfterSomeSteps = self.mTimeInfo.nextTime(iSteps)
-        lTimeAfterSomeStepsNormalized = self.mTimeInfo.normalizeTime(lTimeAfterSomeSteps)
-        df = pd.DataFrame([lTimeAfterSomeStepsNormalized , lTimeAfterSomeStepsNormalized ** 2])
-        Y_pred = self.mTrendRidge.predict(df.values)
+        Y_pred = self.mTrendRidge.predict(inputs)
         return Y_pred
 
     def dump_values(self):
@@ -419,6 +318,7 @@ class cTrendEstimator:
         for trend in self.mTrendList:
             trend.mOptions = self.mOptions
             trend.mDecompositionType = self.mDecompositionType
+            trend.mTrendFrame = self.mTrendFrame.copy()
             trend.fit();
             if(trend.mOptions.mDebugPerformance):
                 trend.computePerf();
