@@ -78,10 +78,7 @@ class cAbstractAR:
 
     def shift_series(self, series, p, idefault):
         N = series.shape[0];
-        lType = series.dtype
-        first_values = np.full((p), idefault, dtype=lType)
-        new_values = np.hstack((first_values, series[0:N-p]));
-        new_values = new_values.astype(lType)
+        new_values = np.append([ idefault ]*p, series[0:N-p])
         return new_values
     
     def getDefaultValue(self, series):
@@ -171,10 +168,7 @@ class cAutoRegressiveEstimator:
 
     def shift_series(self, series, p):
         N = series.shape[0];
-        lType = series.dtype
-        first_values = np.full((p), series.values[0], dtype=lType)
-        new_values = np.hstack((first_values, series.values[0:N-p]));
-        new_values = new_values.astype(lType)
+        new_values = np.append([ series[0] ]*p, series[0:N-p])
         return new_values
 
     def generateLagsForTraining(self, df, series, pMinMax):
@@ -185,7 +179,7 @@ class cAutoRegressiveEstimator:
         lags = []
         for p in range(pmin, pmax+1):
             name = series+'_Lag' + str(p)
-            lShiftedSeries = self.shift_series(lSeries, p)
+            lShiftedSeries = self.shift_series(lSeries.values, p)
             lShiftedEstim = self.mSplit.getEstimPart(lShiftedSeries);
             lAcceptable = self.is_not_constant(lShiftedEstim);
             if(lAcceptable):
