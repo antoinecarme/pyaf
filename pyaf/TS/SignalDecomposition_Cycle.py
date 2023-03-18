@@ -294,7 +294,7 @@ class cBestCycleForTrend(cAbstractCycle):
             lCycleLengths2 = [x*k for x in lCycleLengths1 for k in range(2, N // 2) if((x*k) <= N)]
             lCycleLengths3 = lCycleLengths0 + lCycleLengths1 + lCycleLengths2
             lCycleLengths4 = list(set(lCycleLengths3))
-            return lCycleLengths4
+            return [x for x in lCycleLengths4 if (x < signal_length // 6)]
         return [x for x in self.mOptions.mCycleLengths if (x < signal_length // 6)]
 
     def generate_cycles(self):
