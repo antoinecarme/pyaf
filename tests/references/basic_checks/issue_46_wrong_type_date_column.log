@@ -1,9 +1,9 @@
 INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signals': ['signal'], 'Horizons': {'signal': 1}}))
 INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', 'None', '_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': '_signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'RelDiff_signal', 'DecompositionType': 'T+S+R'}))
 INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'CumSum_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': '_signal', 'DecompositionType': 'T+S+R'}))
 INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'Diff_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'RelDiff_signal', 'DecompositionType': 'T+S+R'}))
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
   return _methods._mean(a, axis=axis, dtype=dtype,
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
@@ -68,11 +68,11 @@ INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon'
   return _methods._mean(a, axis=axis, dtype=dtype,
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
   ret = ret.dtype.type(ret / rcount)
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.485, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'RelDiff_signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.595, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'CumSum_signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.707, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': '_signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.876, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'Diff_signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.19, ('SIGNAL_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', 'None', '_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.808, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'Diff_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.899, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'RelDiff_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.917, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': '_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.92, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'CumSum_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 5.179, ('SIGNAL_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', 'None', '_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'signal', 'Transformations': [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')]}))
 INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.005, ('MODEL_SELECTION', {'Signal': 'signal', 'Transformations': [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')]}))
@@ -81,204 +81,20 @@ INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'sig
   return _methods._mean(a, axis=axis, dtype=dtype,
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
   ret = ret.dtype.type(ret / rcount)
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.073, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'signal', 'Model': '_signal_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.074, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'signal', 'Model': '_signal_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR'}))
 INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'signal'}))
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
   return _methods._mean(a, axis=axis, dtype=dtype,
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
   ret = ret.dtype.type(ret / rcount)
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.022, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'signal'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.101, ('FINALIZE_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 5.17, ('TRAINING', {'Signals': ['signal'], 'Horizons': {'signal': 1}}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.023, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.103, ('FINALIZE_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 6.109, ('TRAINING', {'Signals': ['signal'], 'Horizons': {'signal': 1}}))
 INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signals': ['signal'], 'Horizons': {'signal': 1}}))
 INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', 'None', '_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'Diff_signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'RelDiff_signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'CumSum_signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': '_signal', 'DecompositionType': 'T+S+R'}))
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
-  return _methods._mean(a, axis=axis, dtype=dtype,
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
-  ret = ret.dtype.type(ret / rcount)
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
-  return _methods._mean(a, axis=axis, dtype=dtype,
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
-  ret = ret.dtype.type(ret / rcount)
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
-  return _methods._mean(a, axis=axis, dtype=dtype,
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
-  ret = ret.dtype.type(ret / rcount)
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
-  return _methods._mean(a, axis=axis, dtype=dtype,
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
-  ret = ret.dtype.type(ret / rcount)
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
-  return _methods._mean(a, axis=axis, dtype=dtype,
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
-  ret = ret.dtype.type(ret / rcount)
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
-  return _methods._mean(a, axis=axis, dtype=dtype,
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
-  ret = ret.dtype.type(ret / rcount)
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
-  return _methods._mean(a, axis=axis, dtype=dtype,
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
-  ret = ret.dtype.type(ret / rcount)
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
-  return _methods._mean(a, axis=axis, dtype=dtype,
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
-  ret = ret.dtype.type(ret / rcount)
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
-  return _methods._mean(a, axis=axis, dtype=dtype,
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
-  ret = ret.dtype.type(ret / rcount)
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
-  return _methods._mean(a, axis=axis, dtype=dtype,
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
-  ret = ret.dtype.type(ret / rcount)
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
-  return _methods._mean(a, axis=axis, dtype=dtype,
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
-  ret = ret.dtype.type(ret / rcount)
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
-  return _methods._mean(a, axis=axis, dtype=dtype,
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
-  ret = ret.dtype.type(ret / rcount)
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
-  return _methods._mean(a, axis=axis, dtype=dtype,
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
-  ret = ret.dtype.type(ret / rcount)
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
-  return _methods._mean(a, axis=axis, dtype=dtype,
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
-  ret = ret.dtype.type(ret / rcount)
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
-  return _methods._mean(a, axis=axis, dtype=dtype,
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
-  ret = ret.dtype.type(ret / rcount)
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
-  return _methods._mean(a, axis=axis, dtype=dtype,
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
-  ret = ret.dtype.type(ret / rcount)
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.222, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'RelDiff_signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.532, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'Diff_signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.522, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'CumSum_signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.89, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': '_signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.171, ('SIGNAL_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', 'None', '_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
-INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'signal', 'Transformations': [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')]}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.007, ('MODEL_SELECTION', {'Signal': 'signal', 'Transformations': [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')]}))
-INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'signal', 'Model': '_signal_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR'}))
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
-  return _methods._mean(a, axis=axis, dtype=dtype,
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
-  ret = ret.dtype.type(ret / rcount)
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.082, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'signal', 'Model': '_signal_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR'}))
-INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'signal'}))
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
-  return _methods._mean(a, axis=axis, dtype=dtype,
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
-  ret = ret.dtype.type(ret / rcount)
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.02, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'signal'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.109, ('FINALIZE_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 5.22, ('TRAINING', {'Signals': ['signal'], 'Horizons': {'signal': 1}}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signals': ['signal'], 'Horizons': {'signal': 1}}))
-INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', 'None', '_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'Diff_signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'RelDiff_signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'CumSum_signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': '_signal', 'DecompositionType': 'T+S+R'}))
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
-  return _methods._mean(a, axis=axis, dtype=dtype,
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
-  ret = ret.dtype.type(ret / rcount)
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
-  return _methods._mean(a, axis=axis, dtype=dtype,
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
-  ret = ret.dtype.type(ret / rcount)
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
-  return _methods._mean(a, axis=axis, dtype=dtype,
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
-  ret = ret.dtype.type(ret / rcount)
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
-  return _methods._mean(a, axis=axis, dtype=dtype,
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
-  ret = ret.dtype.type(ret / rcount)
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
-  return _methods._mean(a, axis=axis, dtype=dtype,
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
-  ret = ret.dtype.type(ret / rcount)
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
-  return _methods._mean(a, axis=axis, dtype=dtype,
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
-  ret = ret.dtype.type(ret / rcount)
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
-  return _methods._mean(a, axis=axis, dtype=dtype,
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
-  ret = ret.dtype.type(ret / rcount)
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
-  return _methods._mean(a, axis=axis, dtype=dtype,
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
-  ret = ret.dtype.type(ret / rcount)
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
-  return _methods._mean(a, axis=axis, dtype=dtype,
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
-  ret = ret.dtype.type(ret / rcount)
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
-  return _methods._mean(a, axis=axis, dtype=dtype,
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
-  ret = ret.dtype.type(ret / rcount)
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
-  return _methods._mean(a, axis=axis, dtype=dtype,
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
-  ret = ret.dtype.type(ret / rcount)
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
-  return _methods._mean(a, axis=axis, dtype=dtype,
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
-  ret = ret.dtype.type(ret / rcount)
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
-  return _methods._mean(a, axis=axis, dtype=dtype,
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
-  ret = ret.dtype.type(ret / rcount)
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
-  return _methods._mean(a, axis=axis, dtype=dtype,
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
-  ret = ret.dtype.type(ret / rcount)
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
-  return _methods._mean(a, axis=axis, dtype=dtype,
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
-  ret = ret.dtype.type(ret / rcount)
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
-  return _methods._mean(a, axis=axis, dtype=dtype,
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
-  ret = ret.dtype.type(ret / rcount)
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.287, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'CumSum_signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.231, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': '_signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.492, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'RelDiff_signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.569, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'Diff_signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.713, ('SIGNAL_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', 'None', '_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
-INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'signal', 'Transformations': [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')]}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.062, ('MODEL_SELECTION', {'Signal': 'signal', 'Transformations': [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')]}))
-INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'signal', 'Model': '_signal_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR'}))
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
-  return _methods._mean(a, axis=axis, dtype=dtype,
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
-  ret = ret.dtype.type(ret / rcount)
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.023, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'signal', 'Model': '_signal_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR'}))
-INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'signal'}))
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
-  return _methods._mean(a, axis=axis, dtype=dtype,
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
-  ret = ret.dtype.type(ret / rcount)
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.012, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'signal'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.097, ('FINALIZE_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.873, ('TRAINING', {'Signals': ['signal'], 'Horizons': {'signal': 1}}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signals': ['signal'], 'Horizons': {'signal': 1}}))
-INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', 'None', '_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': '_signal', 'DecompositionType': 'T+S+R'}))
 INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'RelDiff_signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'Diff_signal', 'DecompositionType': 'T+S+R'}))
 INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'CumSum_signal', 'DecompositionType': 'T+S+R'}))
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
   return _methods._mean(a, axis=axis, dtype=dtype,
@@ -298,10 +114,6 @@ INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon'
   ret = ret.dtype.type(ret / rcount)
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
   return _methods._mean(a, axis=axis, dtype=dtype,
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
-  return _methods._mean(a, axis=axis, dtype=dtype,
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
-  ret = ret.dtype.type(ret / rcount)
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
   ret = ret.dtype.type(ret / rcount)
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
@@ -344,28 +156,216 @@ INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon'
   return _methods._mean(a, axis=axis, dtype=dtype,
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
   ret = ret.dtype.type(ret / rcount)
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.905, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': '_signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.095, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'RelDiff_signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.49, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'Diff_signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.599, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'CumSum_signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.891, ('SIGNAL_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', 'None', '_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.523, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'Diff_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.612, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'RelDiff_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.707, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': '_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.71, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'CumSum_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.914, ('SIGNAL_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', 'None', '_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'signal', 'Transformations': [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')]}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.067, ('MODEL_SELECTION', {'Signal': 'signal', 'Transformations': [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.081, ('MODEL_SELECTION', {'Signal': 'signal', 'Transformations': [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')]}))
 INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'signal', 'Model': '_signal_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR'}))
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
   return _methods._mean(a, axis=axis, dtype=dtype,
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
   ret = ret.dtype.type(ret / rcount)
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.027, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'signal', 'Model': '_signal_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.025, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'signal', 'Model': '_signal_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR'}))
 INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'signal'}))
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
   return _methods._mean(a, axis=axis, dtype=dtype,
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
   ret = ret.dtype.type(ret / rcount)
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.081, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'signal'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.176, ('FINALIZE_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 5.226, ('TRAINING', {'Signals': ['signal'], 'Horizons': {'signal': 1}}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.078, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.185, ('FINALIZE_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 6.189, ('TRAINING', {'Signals': ['signal'], 'Horizons': {'signal': 1}}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signals': ['signal'], 'Horizons': {'signal': 1}}))
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', 'None', '_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': '_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'Diff_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'RelDiff_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'CumSum_signal', 'DecompositionType': 'T+S+R'}))
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.378, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'CumSum_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.479, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'Diff_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.566, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'RelDiff_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.566, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': '_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.624, ('SIGNAL_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', 'None', '_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'signal', 'Transformations': [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.013, ('MODEL_SELECTION', {'Signal': 'signal', 'Transformations': [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'signal', 'Model': '_signal_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR'}))
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.013, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'signal', 'Model': '_signal_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'signal'}))
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.09, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.118, ('FINALIZE_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 5.807, ('TRAINING', {'Signals': ['signal'], 'Horizons': {'signal': 1}}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signals': ['signal'], 'Horizons': {'signal': 1}}))
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', 'None', '_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'RelDiff_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': '_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'Diff_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'CumSum_signal', 'DecompositionType': 'T+S+R'}))
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 5.088, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'Diff_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 5.185, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': '_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 5.198, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'CumSum_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 5.311, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'RelDiff_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 5.577, ('SIGNAL_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', 'None', '_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'signal', 'Transformations': [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.073, ('MODEL_SELECTION', {'Signal': 'signal', 'Transformations': [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'signal', 'Model': '_signal_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR'}))
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.024, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'signal', 'Model': '_signal_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'signal'}))
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.088, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.185, ('FINALIZE_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 6.782, ('TRAINING', {'Signals': ['signal'], 'Horizons': {'signal': 1}}))
 INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signals': ['signal'], 'Horizons': {'signal': 1}}))
 INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.0, ('TRAINING', {'Signals': ['signal'], 'Horizons': {'signal': 1}}))
 INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signals': ['signal'], 'Horizons': {'signal': 1}}))
@@ -383,10 +383,10 @@ Data columns (total 2 columns):
  1   signal  1 non-null      float64       
 dtypes: datetime64[ns](1), float64(1)
 memory usage: 148.0 bytes
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'CumSum_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': '_signal', 'DecompositionType': 'T+S+R'}))
 INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'RelDiff_signal', 'DecompositionType': 'T+S+R'}))
 INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'Diff_signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': '_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'CumSum_signal', 'DecompositionType': 'T+S+R'}))
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
   return _methods._mean(a, axis=axis, dtype=dtype,
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
@@ -443,7 +443,6 @@ INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon'
   return _methods._mean(a, axis=axis, dtype=dtype,
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
   ret = ret.dtype.type(ret / rcount)
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.005, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'Diff_signal', 'DecompositionType': 'T+S+R'}))
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
   return _methods._mean(a, axis=axis, dtype=dtype,
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
@@ -452,24 +451,25 @@ INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.005, ('TRAINING', {'Signal': 'signa
   return _methods._mean(a, axis=axis, dtype=dtype,
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
   ret = ret.dtype.type(ret / rcount)
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.186, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'CumSum_signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.205, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': '_signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.612, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'RelDiff_signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.783, ('SIGNAL_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', 'None', '_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.473, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'CumSum_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.675, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'Diff_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.683, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'RelDiff_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.793, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': '_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.905, ('SIGNAL_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', 'None', '_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'signal', 'Transformations': [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')]}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.007, ('MODEL_SELECTION', {'Signal': 'signal', 'Transformations': [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.062, ('MODEL_SELECTION', {'Signal': 'signal', 'Transformations': [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')]}))
 INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'signal', 'Model': '_signal_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR'}))
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
   return _methods._mean(a, axis=axis, dtype=dtype,
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
   ret = ret.dtype.type(ret / rcount)
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.086, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'signal', 'Model': '_signal_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.025, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'signal', 'Model': '_signal_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR'}))
 INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'signal'}))
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
   return _methods._mean(a, axis=axis, dtype=dtype,
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
   ret = ret.dtype.type(ret / rcount)
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.016, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'signal'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.11, ('FINALIZE_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.691, ('TRAINING', {'Signals': ['signal'], 'Horizons': {'signal': 1}}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.011, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.099, ('FINALIZE_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.722, ('TRAINING', {'Signals': ['signal'], 'Horizons': {'signal': 1}}))

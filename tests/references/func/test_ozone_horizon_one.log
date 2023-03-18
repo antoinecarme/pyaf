@@ -6,10 +6,10 @@ INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['Ozone'], 
 2  1955-03    3.6 1955-03-01
 3  1955-04    5.0 1955-04-01
 4  1955-05    6.5 1955-05-01
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Ozone', 'Horizon': 1, 'Transformation': '_Ozone', 'DecompositionType': 'T+S+R'}))
 INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Ozone', 'Horizon': 1, 'Transformation': 'Diff_Ozone', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Ozone', 'Horizon': 1, 'Transformation': 'RelDiff_Ozone', 'DecompositionType': 'T+S+R'}))
 INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Ozone', 'Horizon': 1, 'Transformation': 'CumSum_Ozone', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Ozone', 'Horizon': 1, 'Transformation': '_Ozone', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Ozone', 'Horizon': 1, 'Transformation': 'RelDiff_Ozone', 'DecompositionType': 'T+S+R'}))
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
   return _methods._mean(a, axis=axis, dtype=dtype,
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
@@ -172,10 +172,6 @@ INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Ozone', 'Horizon':
   ret = ret.dtype.type(ret / rcount)
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
   return _methods._mean(a, axis=axis, dtype=dtype,
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
-  return _methods._mean(a, axis=axis, dtype=dtype,
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
-  ret = ret.dtype.type(ret / rcount)
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
   ret = ret.dtype.type(ret / rcount)
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
@@ -276,6 +272,10 @@ INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Ozone', 'Horizon':
   ret = ret.dtype.type(ret / rcount)
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
   return _methods._mean(a, axis=axis, dtype=dtype,
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
   ret = ret.dtype.type(ret / rcount)
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
@@ -394,11 +394,11 @@ INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Ozone', 'Horizon':
   return _methods._mean(a, axis=axis, dtype=dtype,
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
   ret = ret.dtype.type(ret / rcount)
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 5.595, ('TRAINING', {'Signal': 'Ozone', 'Horizon': 1, 'Transformation': '_Ozone', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 5.595, ('TRAINING', {'Signal': 'Ozone', 'Horizon': 1, 'Transformation': 'CumSum_Ozone', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 5.717, ('TRAINING', {'Signal': 'Ozone', 'Horizon': 1, 'Transformation': 'Diff_Ozone', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 7.227, ('TRAINING', {'Signal': 'Ozone', 'Horizon': 1, 'Transformation': 'RelDiff_Ozone', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 7.378, ('SIGNAL_TRAINING', {'Signals': ['Ozone'], 'Transformations': [('Ozone', 'None', '_', 'T+S+R'), ('Ozone', 'None', 'Diff_', 'T+S+R'), ('Ozone', 'None', 'RelDiff_', 'T+S+R'), ('Ozone', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 5.284, ('TRAINING', {'Signal': 'Ozone', 'Horizon': 1, 'Transformation': 'Diff_Ozone', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 5.397, ('TRAINING', {'Signal': 'Ozone', 'Horizon': 1, 'Transformation': '_Ozone', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 5.795, ('TRAINING', {'Signal': 'Ozone', 'Horizon': 1, 'Transformation': 'CumSum_Ozone', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 6.282, ('TRAINING', {'Signal': 'Ozone', 'Horizon': 1, 'Transformation': 'RelDiff_Ozone', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 6.328, ('SIGNAL_TRAINING', {'Signals': ['Ozone'], 'Transformations': [('Ozone', 'None', '_', 'T+S+R'), ('Ozone', 'None', 'Diff_', 'T+S+R'), ('Ozone', 'None', 'RelDiff_', 'T+S+R'), ('Ozone', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['Ozone'], 'Transformations': [('Ozone', [('Ozone', 'None', 'CumSum_', 'T+S+R'), ('Ozone', 'None', 'Diff_', 'T+S+R'), ('Ozone', 'None', 'RelDiff_', 'T+S+R'), ('Ozone', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'Ozone', 'Transformations': [('Ozone', 'None', 'CumSum_', 'T+S+R'), ('Ozone', 'None', 'Diff_', 'T+S+R'), ('Ozone', 'None', 'RelDiff_', 'T+S+R'), ('Ozone', 'None', '_', 'T+S+R')]}))
 INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.009, ('MODEL_SELECTION', {'Signal': 'Ozone', 'Transformations': [('Ozone', 'None', 'CumSum_', 'T+S+R'), ('Ozone', 'None', 'Diff_', 'T+S+R'), ('Ozone', 'None', 'RelDiff_', 'T+S+R'), ('Ozone', 'None', '_', 'T+S+R')]}))
@@ -407,15 +407,15 @@ INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Ozo
   return _methods._mean(a, axis=axis, dtype=dtype,
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
   ret = ret.dtype.type(ret / rcount)
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.078, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Ozone', 'Model': 'Diff_Ozone_LinearTrend_residue_zeroCycle[0.0]_residue_AR(51)'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.083, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Ozone', 'Model': 'Diff_Ozone_LinearTrend_residue_zeroCycle[0.0]_residue_AR(51)'}))
 INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Ozone'}))
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3464: RuntimeWarning: Mean of empty slice.
   return _methods._mean(a, axis=axis, dtype=dtype,
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/_methods.py:192: RuntimeWarning: invalid value encountered in scalar divide
   ret = ret.dtype.type(ret / rcount)
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.083, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Ozone'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.17, ('FINALIZE_TRAINING', {'Signals': ['Ozone'], 'Transformations': [('Ozone', [('Ozone', 'None', 'CumSum_', 'T+S+R'), ('Ozone', 'None', 'Diff_', 'T+S+R'), ('Ozone', 'None', 'RelDiff_', 'T+S+R'), ('Ozone', 'None', '_', 'T+S+R')])], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 8.054, ('TRAINING', {'Signals': ['Ozone'], 'Horizons': {'Ozone': 1}}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.023, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Ozone'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.116, ('FINALIZE_TRAINING', {'Signals': ['Ozone'], 'Transformations': [('Ozone', [('Ozone', 'None', 'CumSum_', 'T+S+R'), ('Ozone', 'None', 'Diff_', 'T+S+R'), ('Ozone', 'None', 'RelDiff_', 'T+S+R'), ('Ozone', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 7.08, ('TRAINING', {'Signals': ['Ozone'], 'Horizons': {'Ozone': 1}}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01T00:00:00.000000 TimeMax=1968-06-01T00:00:00.000000 TimeDelta=<DateOffset: months=1> Horizon=1
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Length=204  Min=1.2 Max=8.7  Mean=3.835784 StdDev=1.491559
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='Diff_Ozone' Min=-0.573333 Max=0.466667  Mean=-0.00098 StdDev=0.147082
@@ -453,7 +453,7 @@ INFO:pyaf.std:AR_MODEL_COEFF 8 Diff_Ozone_LinearTrend_residue_zeroCycle[0.0]_res
 INFO:pyaf.std:AR_MODEL_COEFF 9 Diff_Ozone_LinearTrend_residue_zeroCycle[0.0]_residue_Lag46 -0.12044
 INFO:pyaf.std:AR_MODEL_COEFF 10 Diff_Ozone_LinearTrend_residue_zeroCycle[0.0]_residue_Lag48 0.119461
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:TRAINING_TIME_IN_SECONDS 7.853
+INFO:pyaf.std:TRAINING_TIME_IN_SECONDS 6.815
 INFO:pyaf.std:COMPETITION_DETAIL_START 'Ozone'
 INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Ozone' 0 {'Transformation': 'Diff_Ozone', 'DecompositionType': 'T+S+R', 'Model': 'Diff_Ozone_LinearTrend_residue_zeroCycle[0.0]_residue_AR(51)', 'Voting': 95.0, 'Complexity': 'LMSSS', 'Forecast_MASE_1': 0.6241, 'Forecast_MASE_H': 0.6241}
 INFO:pyaf.std:COMPETITION_DETAIL_END 'Ozone'
@@ -465,9 +465,9 @@ INFO:pyaf.std:SAVING_PLOT ('TransformedForecast', 'outputs/my_ozone_horizon_one_
 INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/my_ozone_horizon_one_Ozone_Forecast_decomp_output.png')
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/my_ozone_horizon_one_Ozone_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/my_ozone_horizon_one_Ozone_quantiles_output.png')
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.609, ('PLOTTING', {'Signals': ['Ozone']}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.823, ('PLOTTING', {'Signals': ['Ozone']}))
 INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['Ozone'], 'Horizon': 1}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.126, ('FORECASTING', {'Signals': ['Ozone'], 'Horizon': 1}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.188, ('FORECASTING', {'Signals': ['Ozone'], 'Horizon': 1}))
 Forecast Columns  Index(['Time', 'Ozone', 'scaled_Ozone', 'Diff_Ozone', 'row_number',
        'Time_Normalized', 'Diff_Ozone_LinearTrend',
        'Diff_Ozone_LinearTrend_residue',
@@ -555,7 +555,7 @@ Forecasts
         },
         "Model_Selection_Criterion": "MASE"
     },
-    "Training_Time": 7.853
+    "Training_Time": 6.815
 }
 </ModelInfo>
 
