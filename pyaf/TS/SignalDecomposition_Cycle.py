@@ -288,14 +288,14 @@ class cBestCycleForTrend(cAbstractCycle):
     def get_tested_cycles(self, signal_length):
         if(self.mOptions.mCycleLengths is None):
             lAbsMax = 366
-            N = min(signal_length, lAbsMax)
+            N = min(signal_length // 6, lAbsMax)
             lCycleLengths0 = [x for x in range(3, 60)]
             lCycleLengths1 = [5, 7, 12, 24, 30, 60]
             lCycleLengths2 = [x*k for x in lCycleLengths1 for k in range(2, N // 2) if((x*k) <= N)]
             lCycleLengths3 = lCycleLengths0 + lCycleLengths1 + lCycleLengths2
             lCycleLengths4 = list(set(lCycleLengths3))
             return lCycleLengths4
-        return [x for x in self.mOptions.mCycleLengths if (x < signal_length)]
+        return [x for x in self.mOptions.mCycleLengths if (x < signal_length // 6)]
 
     def generate_cycles(self):
         self.mTimeInfo.addVars(self.mCycleFrame);
@@ -303,7 +303,8 @@ class cBestCycleForTrend(cAbstractCycle):
         self.mCycleFrame[self.mTrend.mOutName] = self.mTrendFrame[self.mTrend.mOutName]
         self.mDefaultValue = self.compute_target_means_default_value();
         self.mCyclePerfByLength = {}
-        lCycleLengths = self.get_tested_cycles(self.mTrendFrame.shape[0])
+        lEstimResidue = self.mSplit.getEstimPart(self.mTrendFrame[self.mTrend_residue_name])
+        lCycleLengths = self.get_tested_cycles(lEstimResidue.shape[0])
         lTimer = None
         if(self.mOptions.mDebugCycles):
             lTimer = tsutil.cTimer(("SELECTING_BEST_CYCLE_FOR_MODEL", self.mTrend_residue_name, len(lCycleLengths), lCycleLengths))
@@ -407,7 +408,7 @@ class cCycleEstimator:
             lThreshold = 0.001 # The signal is scaled to be between 0 and 1
             lEstimResidue = self.mSplit.getEstimPart(self.mTrendFrame[lTrend_residue_name])
             lTrendRange = lEstimResidue.max() - lEstimResidue.min()
-            lKeep = (lTrendRange >= lThreshold) # Keep this test as simple as possible.
+            lKeep = (lEstimResidue.shape[0] >= 12) and (lTrendRange >= lThreshold) # Keep this test as simple as possible.
             if(lKeep and self.mOptions.mActivePeriodics['BestCycle']):
                 self.mCycleList[trend] = self.mCycleList[trend] + [
                     cBestCycleForTrend(trend, self.mOptions.mCycle_Criterion)];
