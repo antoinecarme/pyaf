@@ -11,7 +11,7 @@ lEngine
 
 H = b1.mHorizon;
 lEngine.mOptions.mFilterSeasonals = True;
-lEngine.mOptions.mParallelMode = False;
+lEngine.mOptions.mParallelMode = True;
 lEngine.mOptions.mDebugPerformance = True;
 lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H);
 lEngine.getModelInfo();

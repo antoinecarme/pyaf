@@ -23,7 +23,7 @@ with warnings.catch_warnings():
             df1 = df.head(n).copy();
             lEngine = autof.cForecastEngine()
             lEngine.mOptions.mMaxFeatureForAutoreg = 10000;
-            lEngine.mOptions.mParallelMode = False;
+            lEngine.mOptions.mParallelMode = True;
             # lEngine.mOptions.mEnableSeasonals = False;
             # lEngine.mOptions.mDebugCycles = False;
             # lEngine.mOptions.mDebugProfile = True;
