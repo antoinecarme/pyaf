@@ -36,6 +36,7 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
         lAREstimFrame = self.mSplit.getEstimPart(self.mARFrame)
 
         lARInputs = lAREstimFrame[self.mInputNames].values
+
         lARTarget = lAREstimFrame[series].values
         # print(len(self.mInputNames), lARInputs.shape , lARTarget.shape)
         assert(lARInputs.shape[1] > 0);
@@ -148,7 +149,7 @@ class cAutoRegressiveModel(cAbstract_Scikit_Model):
     def build_Scikit_Model(self):
         import sklearn.linear_model as linear_model
         # issue_22 : warning about singular matrix => change the solver by default. 
-        self.mScikitModel = linear_model.Ridge(solver='svd')
+        self.mScikitModel = linear_model.Ridge(solver='svd', alpha = 0.0)
 
     def set_name(self):
         self.mOutName = self.mCycleResidueName +  '_AR(' + str(self.mNbLags) + ")";
