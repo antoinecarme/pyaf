@@ -79,9 +79,7 @@ class cPerf:
         cached_result = self.mCachedValues.get('naive_error')
         if(cached_result is not None):
             return cached_result
-        naive_error = signal - signal.shift(1)
-        naive_error = naive_error[1:]
-        naive_abs_error = np.abs(naive_error)
+        naive_abs_error = np.abs(np.diff(signal.values))
         self.mCachedValues['naive_error'] = naive_abs_error
         return naive_abs_error
 
