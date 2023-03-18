@@ -20,7 +20,8 @@ def testTransform_one_seed(tr1 , seed_value):
     tr1.mOriginalSignal = "selfTestSignal";
     tr1.fit(sig)
     sig1 = tr1.apply(sig);
-    sig2 = tr1.invert(sig1)
+    df['A_transformed'] = sig1
+    sig2 = tr1.invert(df['A_transformed'])
     # print(sig)
     # print(sig1)
     # print(sig2)
@@ -28,9 +29,9 @@ def testTransform_one_seed(tr1 , seed_value):
     lEps = 1e-7
     if(n > lEps):
         print("'" + tr1.get_name("Test") + "'" , " : ", n)
-        print(sig.values)
-        print(sig1.values)
-        print(sig2.values)    
+        print("A = " , sig.values.tolist())
+        print("A_TRANSFORMED = " , sig1.tolist())
+        print("A_TRANSFORMED_TR = " , sig2.tolist())    
 
     assert(n <= lEps)    
 
@@ -126,22 +127,15 @@ class cAbstractSignalTransform:
         # print("INVERT_END", self.mOriginalSignal, rescaled_sig.values[1:5]);
         return rescaled_sig;
 
-    def shift_signal(self, sig, p, initial_value):
-        N = sig.shape[0]
-        sig_shifted = np.zeros(N)
-        sig_shifted[0:p] = initial_value;
-        sig_shifted[p:] = sig[0:N - p];
-        return sig_shifted
-    
     def transformDataset(self, df):
         df["scaled_" + self.mOriginalSignal] = self.scale_signal(df[self.mOriginalSignal])
         df[self.get_name(self.mOriginalSignal)] = self.apply(df[self.mOriginalSignal])
         return df;
 
     def test(self):
-        # import copy;
-        # tr1 = copy.deepcopy(self);
-        # testTransform(tr1);
+        import copy;
+        tr1 = copy.deepcopy(self);
+        testTransform(tr1);
         pass
 
     def dump_apply_invert(self, sig_before_apply, sig_after_apply):
@@ -203,9 +197,8 @@ class cSignalTransform_Accumulate(cAbstractSignalTransform):
         return sig.cumsum(axis = 0)
     
     def specific_invert(self, sig):
-        sig_shifted = self.shift_signal(sig, 1, sig[0])
-        sig_orig = sig - sig_shifted;
-        sig_orig[0] = sig[0];
+        sig_diff = np.diff(sig)
+        sig_orig = np.append([ sig[0] ], sig_diff);
         return sig_orig;
 
     def dump_values(self):
@@ -335,8 +328,8 @@ class cSignalTransform_Differencing(cAbstractSignalTransform):
     
 
     def specific_apply(self, sig):
-        sig_shifted = self.shift_signal(sig, 1, self.mFirstValue)
-        lResult = sig - sig_shifted
+        sig_diff = np.diff(sig)
+        lResult = np.append([ sig[0] - self.mFirstValue ], sig_diff);
         return lResult
     
     def specific_invert(self, sig):
@@ -369,9 +362,9 @@ class cSignalTransform_RelativeDifferencing(cAbstractSignalTransform):
     def specific_apply(self, sig):
         lEps = 1e-2
         # print("RelDiff_apply_DEBUG_START" , self.mFirstValue, sig.values[0:10]);
-        sig1 = sig
-        sig_shifted = self.shift_signal(sig1, 1, self.mFirstValue)
-        rate = np.divide(sig1 - sig_shifted, sig_shifted, out=np.zeros_like(sig1), where=sig_shifted!=0)
+        sig_diff = np.append([ sig[0] - self.mFirstValue ], np.diff(sig));
+        sig_shifted = np.append([ self.mFirstValue ], sig[:-1])
+        rate = np.divide(sig_diff, sig_shifted, out=np.zeros_like(sig_diff), where=sig_shifted!=0)
         rate[0] = 0.0;
         # print(sig1)
         # print(sig_shifted)
