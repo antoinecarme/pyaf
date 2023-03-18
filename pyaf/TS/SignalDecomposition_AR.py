@@ -327,6 +327,7 @@ class cAutoRegressiveEstimator:
         logger = tsutil.get_pyaf_logger();
         self.mSkippedARList = []
         lNeedExogenous = False;
+
         for trend in self.mTrendList:
             for cycle in self.mCycleList[trend]:
                 cycle_residue = cycle.getCycleResidueName();
@@ -336,9 +337,10 @@ class cAutoRegressiveEstimator:
                 if(self.mOptions.mActiveAutoRegressions['NoAR']):
                     self.mARList[cycle_residue] = [ cZeroAR(cycle_residue)];
                 lLags = self.get_nb_lags()
-                lKeep = (self.mCycleFrame[cycle_residue].shape[0] > 12) and (self.mCycleFrame[cycle_residue].std() > 0.00001)
-                
-                lKeep = lKeep or not self.mOptions.mActiveAutoRegressions['NoAR']
+                lThreshold = 0.001 # The signal is scaled to be between 0 and 1
+                lEstimResidue = self.mSplit.getEstimPart(self.mCycleFrame[cycle_residue])
+                lCycleRange = lEstimResidue.max() - lEstimResidue.min() 
+                lKeep = (lEstimResidue.shape[0] > 12) and (lCycleRange >= lThreshold) # Keep this test as simple as possible.
                 if(not lKeep):
                     self.mSkippedARList = self.mSkippedARList + [cycle_residue]
                     
