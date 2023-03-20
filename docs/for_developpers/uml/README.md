@@ -1,6 +1,6 @@
 # FOR DEVELOPPERS ONLY !!!
 
-These are some class diagrams which will help you understand the structure of PyAF code. These diagrans are provided as png image files.
+These are some class diagrams which will help you understand the structure of PyAF code. These diagrams are provided as png image files.
 
 This is a set of diagrams generated automatically by the excellent tool umbrello from PyAF python code on 2023-03-20.
 
