@@ -19,6 +19,7 @@
         <packagedElement xmi:type="uml:DataType" xmi:id="upbuU2K5Gdz2o" name="object" stereotype="dataType"/>
         <packagedElement xmi:type="uml:DataType" xmi:id="uukZGhOMJAVRb" name="set" stereotype="dataType"/>
         <packagedElement xmi:type="uml:DataType" xmi:id="uwmjgwH7pXbWk" name="str" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="uWcTyVESCI9Vl" name="undef" stereotype="dataType"/>
       </uml:Package>
       <packagedElement xmi:type="uml:Class" xmi:id="uNxIaexW4WMqv" name="cCroston_Model">
         <generalization xmi:type="uml:Generalization" xmi:id="uIbFjPMNPENrx" general="ubzheFlEc14zf"/>
@@ -27,8 +28,8 @@
         <ownedAttribute xmi:type="uml:Property" xmi:id="u0bKjVFmoACyk" name="mAlpha" type="upbuU2K5Gdz2o" initialValue="None"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="ugxBxBTo1lkNN" name="mComplexity" type="upbuU2K5Gdz2o"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="u2OaNG0504MQK" name="__init__" stereotype="constructor">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="ujtn15NoAHrCt" name="cycle_residue_name" visibility="private" type="ue9cVe4YXIm98" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u3TuBBTVahE3L" name="P" visibility="private" type="uD3ANdxOSeZTX" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="ujtn15NoAHrCt" name="cycle_residue_name" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u3TuBBTVahE3L" name="P" visibility="private" type="uWcTyVESCI9Vl" value=""/>
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uuit6APJHYGrQ" name="iExogenousInfo" visibility="private" type="upbuU2K5Gdz2o" value="None"/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uDWAJnEZ8PqRf" name="dumpCoefficients">
@@ -37,34 +38,34 @@
         <ownedOperation xmi:type="uml:Operation" xmi:id="uJZiDyf97HxZw" name="set_name"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="ue6XhxfyyykNz" name="get_coeff" comment="default : any other value is the legacy croston method">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uKAQLNyQ706eo" type="uwp8qlAa3kKfz" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="ujpRZEJGpph4n" name="alpha" visibility="private" type="ur2YGx9fbhjK1" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="urNo27ltRX9kv" name="croston_type" visibility="private" type="ulX3T67hkHCRJ" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="ujpRZEJGpph4n" name="alpha" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="urNo27ltRX9kv" name="croston_type" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uCFJj3eMw6JDz" name="estimate_alpha" comment="print(&quot;CROSTON_OPTIONS&quot; , self.mOptions.mCrostonOptions.__dict__) choose the best alpha based on L2 print(lPerfs) print(&quot;CROSTON_OPTIMIZED_ALPHA&quot; , self.mAlpha)">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="ucEUbYsqxCt8D" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="umvj7tU427BNm" name="df" visibility="private" type="u2xiNBoh5Y2L4" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="umvj7tU427BNm" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uLRWekACZjyLy" name="croston">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uUe4KtpV2MLTn" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uH4yKo9pYP4Fe" name="df" visibility="private" type="uZ179HOxs5JdB" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uH4yKo9pYP4Fe" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uIYzHkvEcKXU3" name="horizon_index" visibility="private" type="u563QH77qCYxA" value="1"/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uAIqlUMiKTEn3" name="simple_ses" comment="Croston implementation is slow #182. Use statsmodels  Avoid warnings from statsmodels for constant signals ">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uxuyHQDHW1oZF" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="ufEA5ezr27OcQ" name="x" visibility="private" type="uhlCaaxyCy6XM" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="ui3ezt8pBX51L" name="alpha" visibility="private" type="uK1O8b4hzjHHc" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="ufEA5ezr27OcQ" name="x" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="ui3ezt8pBX51L" name="alpha" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uH6OJoIy0kBuO" name="compute_forecast" comment="print(df.shape) print(df.columns) print(df[['Date', 'Signal', '_Signal', 'row_number', '_Signal_ConstantTrend_residue_zeroCycle_residue']].tail(12)) print(list(counts.unique())) print(counts.describe()) assert(not np.isnan(counts[:-1]).any())  q is often called the “demand” and a the “inter-arrival time”. Use statmopdels library to perform SES to avoid recursion and also avoid reinventing the wheel. fill first empty fit data with zero counts (when signal starts with zeros)">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="u1xaZdEbY6UdZ" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uovoHcmXGFl7m" name="df" visibility="private" type="uS94ZAsjJr5nF" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uHoIwGfeFZlnk" name="alpha" visibility="private" type="ub8jebjcExuzs" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="ublA4pAtGQoTk" name="method" visibility="private" type="uFi5EBmyB9i6X" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uovoHcmXGFl7m" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uHoIwGfeFZlnk" name="alpha" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="ublA4pAtGQoTk" name="method" visibility="private" type="uWcTyVESCI9Vl" value=""/>
           <ownedParameter xmi:type="uml:Parameter" xmi:id="ujgTqYWRnlplS" name="horizon_index" visibility="private" type="u563QH77qCYxA" value="1"/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uZykdxePYP3FN" name="fit" comment="print(&quot;ESTIMATE_CROSTON_MODEL_START&quot; , self.mCycleResidueName); print(&quot;OFFSET&quot;, (self.mCycleResidueName, self.mOffset)) print(&quot;ESTIMATE_CROSTON_MODEL_END&quot; , self.mOutName);"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="ubUi1TvBPBFoG" name="transformDataset">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="up9WkSN2tGAVU" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uG8GXmywmxEnK" name="df" visibility="private" type="urqSMES5hg8Pp" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uG8GXmywmxEnK" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uZdG5WguA2crC" name="horizon_index" visibility="private" type="u563QH77qCYxA" value="1"/>
         </ownedOperation>
       </packagedElement>
@@ -81,21 +82,21 @@
         <ownedAttribute xmi:type="uml:Property" xmi:id="umn2QddfsPxEn" name="mHiddenUnits" type="upbuU2K5Gdz2o"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="uz9C4ucWYFhjZ" name="mComplexity" type="upbuU2K5Gdz2o"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uWAUauxdvQlaJ" name="__init__" stereotype="constructor">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uPG0704ssGEI9" name="cycle_residue_name" visibility="private" type="ucWC7vTijsO3f" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uuZ7nKan4T6vV" name="P" visibility="private" type="uWKogIWQzqw4Y" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uPG0704ssGEI9" name="cycle_residue_name" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uuZ7nKan4T6vV" name="P" visibility="private" type="uWcTyVESCI9Vl" value=""/>
           <ownedParameter xmi:type="uml:Parameter" xmi:id="ulI3bi2YPfrz6" name="iExogenousInfo" visibility="private" type="upbuU2K5Gdz2o" value="None"/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uoZFKoMINJJT3" name="dumpCoefficients">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="upaHS0YEkH2wX" name="iMax" visibility="private" type="u563QH77qCYxA" value="10"/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="u4VLpQWZJO5bZ" name="build_RNN_Architecture">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uf9MWDfUCR7aE" name="iARInputs" visibility="private" type="ubSadWT4DbrwU" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uAg6VG4utMZ9y" name="iARTarget" visibility="private" type="u3d4F4XXGNJVI" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uf9MWDfUCR7aE" name="iARInputs" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uAg6VG4utMZ9y" name="iARTarget" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uqzlHK8LSNESs" name="fit_inputs_and_targets_scalers">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uQHjQKOAtQLo8" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="ubNAea1QdTeZ6" name="iARInputs" visibility="private" type="utUKuMPIPbGhH" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="umB2nYVg2qcYr" name="iARTarget" visibility="private" type="uGX0JxJnn3HIG" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="ubNAea1QdTeZ6" name="iARInputs" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="umB2nYVg2qcYr" name="iARTarget" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="u8Fp3oaHctisU" name="get_default_keras_options">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uwCTpOHp1Jay7" type="uwmjgwH7pXbWk" direction="return"/>
@@ -104,32 +105,32 @@
           <ownedParameter xmi:type="uml:Parameter" xmi:id="umzR4aXeKZ2MS" type="uwmjgwH7pXbWk" direction="return"/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="ufkY9EEYfbQxP" name="fit_keras_model">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uJBFbYq3zSQLG" name="iARInputs" visibility="private" type="uKUts43xU93mf" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uu5MFQtJ99sOp" name="iARTarget" visibility="private" type="ugylL2BloUkOc" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uJBFbYq3zSQLG" name="iARInputs" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uu5MFQtJ99sOp" name="iARTarget" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uk3LQfDN7xPp0" name="predict_keras_model">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uE4kkJHV2Eg8F" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uADYkvTdOsYyG" name="iARInputs" visibility="private" type="uifSlAeViybNT" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uADYkvTdOsYyG" name="iARInputs" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="u4TOGunrlGsQr" name="fit"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="ujrUcj6DhaLgu" name="transformDataset">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="unDMdhRHqtIVn" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uoRKSz8VUOncB" name="df" visibility="private" type="uBsU1VoM1tIaH" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uoRKSz8VUOncB" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
           <ownedParameter xmi:type="uml:Parameter" xmi:id="u4ml8QGCp2B3u" name="horizon_index" visibility="private" type="u563QH77qCYxA" value="1"/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="ujGXvWlXSuePQ" name="__init__" stereotype="constructor">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uHNsnJhxrJIrI" name="cycle_residue_name" visibility="private" type="uoD1NPuYNRo0d" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uSQjqPc72vSnX" name="P" visibility="private" type="uytH0331WHOyl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uHNsnJhxrJIrI" name="cycle_residue_name" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uSQjqPc72vSnX" name="P" visibility="private" type="uWcTyVESCI9Vl" value=""/>
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uhG6ykJNEAkpm" name="iExogenousInfo" visibility="private" type="upbuU2K5Gdz2o" value="None"/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uDncmYK3mu6NM" name="build_RNN_Architecture">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uzyJv7YPPVC02" name="iARInputs" visibility="private" type="uYf54W6mg2PKh" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="ul3s4FKOIufgt" name="iARTarget" visibility="private" type="uESESxlqxC8pD" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uzyJv7YPPVC02" name="iARInputs" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="ul3s4FKOIufgt" name="iARTarget" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="u3V0LRu4oJ7M7" name="fit_inputs_and_targets_scalers">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uNOvCSP0DRiw9" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uAs23UAG9ikIz" name="iARInputs" visibility="private" type="u3dUzU03sgegv" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u1IxR138bK8BQ" name="iARTarget" visibility="private" type="uJmAqTVqY4oNh" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uAs23UAG9ikIz" name="iARInputs" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u1IxR138bK8BQ" name="iARTarget" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="u3Cz5NwFDZ0Ph" name="get_default_pytorch_options">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uLNnPGFDCIadw" type="uwmjgwH7pXbWk" direction="return"/>
@@ -138,16 +139,16 @@
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uSegnUKVMGclv" type="uwmjgwH7pXbWk" direction="return"/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uNTxf0tBlPppY" name="fit_pytorch_model">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="ua919AtQoApKl" name="iARInputs" visibility="private" type="uXhE2D4ywYuQT" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uTx3yfpHCvVOu" name="iARTarget" visibility="private" type="uWyy6Xvitejxz" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="ua919AtQoApKl" name="iARInputs" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uTx3yfpHCvVOu" name="iARTarget" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uyIu75RrtdPhP" name="predict_pytorch_model">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="urkljcSG2JASl" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uQuyPx4W2ku4T" name="iARInputs" visibility="private" type="uzIYzZDjOrr9z" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uQuyPx4W2ku4T" name="iARInputs" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uoDH1TacQBw0k" name="transformDataset">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uFGjfIW6T5fou" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u9l0KMaC4Z0Ri" name="df" visibility="private" type="uSdDCc9iaFnjo" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u9l0KMaC4Z0Ri" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uL5GI6yz3pLvN" name="horizon_index" visibility="private" type="u563QH77qCYxA" value="1"/>
         </ownedOperation>
       </packagedElement>
@@ -158,39 +159,39 @@
         <generalization xmi:type="uml:Generalization" xmi:id="uC4ugGMcFqsjf" general="uRJhfuXUbjf9A"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="u1ybBwKpq2Qo9" name="mHiddenUnits" type="upbuU2K5Gdz2o"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uOMFvyee6TN4A" name="__init__" stereotype="constructor">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u02JS0lcpVYo0" name="cycle_residue_name" visibility="private" type="uLS1NhNaKkKA5" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u74lXfKHNOMc5" name="P" visibility="private" type="uoG5J9DGFzYKZ" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u02JS0lcpVYo0" name="cycle_residue_name" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u74lXfKHNOMc5" name="P" visibility="private" type="uWcTyVESCI9Vl" value=""/>
           <ownedParameter xmi:type="uml:Parameter" xmi:id="u7x0FitwStWxA" name="iExogenousInfo" visibility="private" type="upbuU2K5Gdz2o" value="None"/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uoUjf1KrYxzpL" name="reshape_inputs">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uZN6u8Cggxhn8" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uQyZgLCBXodQO" name="iInputs" visibility="private" type="uOkt4fnQHTc96" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uQyZgLCBXodQO" name="iInputs" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uVhB8lFIsRWAg" name="build_RNN_Architecture">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uRVRPq6fzbp0a" name="iARInputs" visibility="private" type="uHznLGaYRQVDK" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uRLcIyUsXnl0T" name="iARTarget" visibility="private" type="u60QB0wmhxhYj" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uRVRPq6fzbp0a" name="iARInputs" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uRLcIyUsXnl0T" name="iARTarget" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uvci3noqHUeTk" name="build_RNN_Architecture_template">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uuJMEd3Wbnltu" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uCAo4lrh3dpUF" name="iARInputs" visibility="private" type="uXAXZU9T6n9pU" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="ucV5tIPIXzKaP" name="iARTarget" visibility="private" type="uSGjne5GXLVmb" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uCAo4lrh3dpUF" name="iARInputs" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="ucV5tIPIXzKaP" name="iARTarget" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uSe4CgJmA8UwM" name="__init__" stereotype="constructor">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uCxznlCO0uV0x" name="cycle_residue_name" visibility="private" type="ukY9OkwpC2ubT" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uYkUT08C1rLvV" name="P" visibility="private" type="u0kAa4Gk1DriD" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uCxznlCO0uV0x" name="cycle_residue_name" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uYkUT08C1rLvV" name="P" visibility="private" type="uWcTyVESCI9Vl" value=""/>
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uUobc6Xd0A2s4" name="iExogenousInfo" visibility="private" type="upbuU2K5Gdz2o" value="None"/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uEgapED2Uc9to" name="reshape_inputs">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="ukCvLdzHdSRU9" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="upxKRLFbDNkkT" name="iInputs" visibility="private" type="uNkdOYTzW6CTa" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="upxKRLFbDNkkT" name="iInputs" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uk2Lu9GMhk5k9" name="create_model">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u1GDEe4dC5LtQ" name="iNbInputs" visibility="private" type="u8K6zcv9gCuns" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u7caSYFhj9Vzr" name="iHidden" visibility="private" type="uclUSlgyQL2Io" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u1GDEe4dC5LtQ" name="iNbInputs" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u7caSYFhj9Vzr" name="iHidden" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uM9bElG4JuG8w" name="build_RNN_Architecture">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uD1A3Lrx6KGn2" name="iARInputs" visibility="private" type="uzVk9IsmHdBAB" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u7JHSM2DSf3fy" name="iARTarget" visibility="private" type="utm6GpDGtIopJ" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uD1A3Lrx6KGn2" name="iARInputs" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u7JHSM2DSf3fy" name="iARTarget" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uQ54gFPUEWpBf" name="set_name"/>
       </packagedElement>
@@ -201,43 +202,43 @@
         <generalization xmi:type="uml:Generalization" xmi:id="uGwaVv8k9PcT0" general="uRJhfuXUbjf9A"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="uAEmWkU2jkKm7" name="mHiddenUnits" type="upbuU2K5Gdz2o"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uGUrZCc92u33v" name="__init__" stereotype="constructor">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="umUHbExPvoogt" name="cycle_residue_name" visibility="private" type="ud1459ZqGwVeB" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="utlq2IVH7MwEB" name="P" visibility="private" type="uRBXKXqM4cOyS" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="umUHbExPvoogt" name="cycle_residue_name" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="utlq2IVH7MwEB" name="P" visibility="private" type="uWcTyVESCI9Vl" value=""/>
           <ownedParameter xmi:type="uml:Parameter" xmi:id="ud8mF4zyjWfDQ" name="iExogenousInfo" visibility="private" type="upbuU2K5Gdz2o" value="None"/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uKsQsprZYa1S8" name="reshape_inputs">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uDFIaaVvmKiaO" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="ub29jY8L8662L" name="iInputs" visibility="private" type="uxsmLN2EJpRJ3" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="ub29jY8L8662L" name="iInputs" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="ux3l3WpPxiyOu" name="build_RNN_Architecture">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="urVtX3PW9kkw9" name="iARInputs" visibility="private" type="ueATjH199utCW" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uRnsEsttW9s8w" name="iARTarget" visibility="private" type="uf9NVYD37sWeV" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="urVtX3PW9kkw9" name="iARInputs" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uRnsEsttW9s8w" name="iARTarget" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="ukSvo3Q5Oevjs" name="build_RNN_Architecture_template">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uwgbVkGdGSR33" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="ujMuBG1abUu0x" name="iARInputs" visibility="private" type="uuT2PYN3oXQQo" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uZ1kkNJeKBEn7" name="iARTarget" visibility="private" type="uzMg21YMY3Mkb" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="ujMuBG1abUu0x" name="iARInputs" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uZ1kkNJeKBEn7" name="iARTarget" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uFoQqBZpHVE5n" name="__init__" stereotype="constructor">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uAA0eXdSTiUtn" name="cycle_residue_name" visibility="private" type="uSf9PFwleEjO2" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="ukfvNcYGqNrAW" name="P" visibility="private" type="uKNy9NrS7i0R2" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uAA0eXdSTiUtn" name="cycle_residue_name" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="ukfvNcYGqNrAW" name="P" visibility="private" type="uWcTyVESCI9Vl" value=""/>
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uEBVCXDGIh41O" name="iExogenousInfo" visibility="private" type="upbuU2K5Gdz2o" value="None"/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uA2HuZINBAPf1" name="reshape_inputs">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="ugZlBE48zCV6X" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uvollelVSbwda" name="iInputs" visibility="private" type="uCgboZ20g0X6z" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uvollelVSbwda" name="iInputs" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="urQ4V4z40oltG" name="create_model">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uGtUWUiPP6u7B" name="iNbInputs" visibility="private" type="uNoFmfAW8wyIo" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u2TkcjF8tjNvn" name="iHidden" visibility="private" type="uX9SlBlwMnHYB" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uGtUWUiPP6u7B" name="iNbInputs" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u2TkcjF8tjNvn" name="iHidden" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="u68yZwkfqyFrZ" name="fit_pytorch_model" comment="Force some sampling for LSTM. Too slow to train. Keep the last 1024 rows.">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uCZpcEkZTnsBp" name="iARInputs" visibility="private" type="uZHqWaNGuKjTN" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="ucbEuKP3UlhET" name="iARTarget" visibility="private" type="uoMQJSeoadePM" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uCZpcEkZTnsBp" name="iARInputs" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="ucbEuKP3UlhET" name="iARTarget" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uMVx55s5oGDoD" name="build_RNN_Architecture">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u9bOM2ZpEcD87" name="iARInputs" visibility="private" type="uOCZKBSrJfDSA" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uY4U9z61XKoPN" name="iARTarget" visibility="private" type="uK2O74PX85jnp" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u9bOM2ZpEcD87" name="iARInputs" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uY4U9z61XKoPN" name="iARTarget" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="ui505TK3CQ4wn" name="set_name"/>
       </packagedElement>
@@ -246,11 +247,11 @@
         <generalization xmi:type="uml:Generalization" xmi:id="u1xv5YR7GK9Uw" general="uvIFbVTys8jtV"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="umhTROms5jQBd" name="mLSTM" type="upbuU2K5Gdz2o"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="u2B8N1c0gEdxr" name="__init__" stereotype="constructor">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="us0k4HAsO6Wkg" name="iLSTM" visibility="private" type="uAcXn1yb9bGcn" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="us0k4HAsO6Wkg" name="iLSTM" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uuHAiUZuw6Hds" name="forward">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uBokq9mlZKePS" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u9V8Qjbv8AjWb" name="X" visibility="private" type="ukG5D7INabE2E" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u9V8Qjbv8AjWb" name="X" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="uvqjjNU8TRZiW" name="torch">
@@ -267,8 +268,8 @@
         <ownedAttribute xmi:type="uml:Property" xmi:id="uzTWaZHW3jpx5" name="mFeatureSelector" type="upbuU2K5Gdz2o" initialValue="None"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="ufCVzL2cgcEWM" name="mComplexity" type="upbuU2K5Gdz2o"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uNCxULBhZIqeX" name="__init__" stereotype="constructor">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uP0mQwIKI2R5I" name="cycle_residue_name" visibility="private" type="uPflxgd882VWm" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uCaLPgp1dP7Ci" name="P" visibility="private" type="udggVUHjd8HGE" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uP0mQwIKI2R5I" name="cycle_residue_name" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uCaLPgp1dP7Ci" name="P" visibility="private" type="uWcTyVESCI9Vl" value=""/>
           <ownedParameter xmi:type="uml:Parameter" xmi:id="u8SBfPk5Mmy3u" name="iExogenousInfo" visibility="private" type="upbuU2K5Gdz2o" value="None"/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="ufDhSkhlDdM10" name="dumpCoefficients" comment="print(self.mScikitModel.__dict__);">
@@ -279,7 +280,7 @@
         <ownedOperation xmi:type="uml:Operation" xmi:id="uwurTBWTmDJjk" name="fit" comment="print(&quot;ESTIMATE_SCIKIT_MODEL_START&quot; , self.mCycleResidueName); print(len(self.mInputNames), lARInputs.shape , lARTarget.shape) df1.to_csv(&quot;SCIKIT_MODEL_FEATURE_SELECTION_FAILURE.csv.gz&quot; , compression='gzip'); issue  #72 : ignore feature selection in case of failure. print(&quot;FEATURE_SELECTION&quot; , self.mOutName, lARInputs.shape[1] , lARInputsAfterSelection.shape[1]); df1.to_csv(&quot;SCIKIT_MODEL_FIT_FAILURE.csv.gz&quot; , compression='gzip'); issue_34 failure SVD does not converge print(&quot;ESTIMATE_SCIKIT_MODEL_END&quot; , self.mOutName);"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="u5cmsiBllNNLU" name="transformDataset" comment="inputs_after_feat_selection = self.mFeatureSelector.transform(inputs) if self.mFeatureSelector else inputs;">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uw4ul8l5ouHZO" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="ubQM2aecqzuGP" name="df" visibility="private" type="uKHNJJiuX3kWf" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="ubQM2aecqzuGP" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uK3rdr70CYZF5" name="horizon_index" visibility="private" type="u563QH77qCYxA" value="1"/>
         </ownedOperation>
       </packagedElement>
@@ -288,8 +289,8 @@
         <generalization xmi:type="uml:Generalization" xmi:id="uJhlKnZ4tYddk" general="uFhJt53X8RjTR"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="uvP8zudxhKimo" name="mComplexity" type="upbuU2K5Gdz2o"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uWvNU1qpUqqaY" name="__init__" stereotype="constructor">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="usAo3kZonKgpr" name="cycle_residue_name" visibility="private" type="ucLYf6gdeKG1d" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="ueJqa4jAI5DcN" name="P" visibility="private" type="u1nFKYqSlr6Ed" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="usAo3kZonKgpr" name="cycle_residue_name" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="ueJqa4jAI5DcN" name="P" visibility="private" type="uWcTyVESCI9Vl" value=""/>
           <ownedParameter xmi:type="uml:Parameter" xmi:id="ulfDU4jjzHO09" name="iExogenousInfo" visibility="private" type="upbuU2K5Gdz2o" value="None"/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uPefd8KfKXGXS" name="dumpCoefficients">
@@ -303,8 +304,8 @@
         <generalization xmi:type="uml:Generalization" xmi:id="ub4ydaSO6Iopx" general="uFhJt53X8RjTR"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="unXtroXy0BRtH" name="mComplexity" type="upbuU2K5Gdz2o"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uxHCniY3J6cup" name="__init__" stereotype="constructor">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uhdQI9Z1nW4Ce" name="cycle_residue_name" visibility="private" type="uBE0EPKp6u7gO" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uZnMlN0qrrtkp" name="P" visibility="private" type="uwNJcq89z5vSG" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uhdQI9Z1nW4Ce" name="cycle_residue_name" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uZnMlN0qrrtkp" name="P" visibility="private" type="uWcTyVESCI9Vl" value=""/>
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uCn5v1YqyGIwC" name="iExogenousInfo" visibility="private" type="upbuU2K5Gdz2o" value="None"/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uSqamE9hSZeST" name="dumpCoefficients">
@@ -318,8 +319,8 @@
         <generalization xmi:type="uml:Generalization" xmi:id="uMfEuAKjthkPG" general="uFhJt53X8RjTR"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="u1CPrgbxPkBj8" name="mComplexity" type="upbuU2K5Gdz2o"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uQhYGSoHAxa74" name="__init__" stereotype="constructor">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uO26lENDmD28Q" name="cycle_residue_name" visibility="private" type="u1xnzzuHicnNX" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uRUlftuto11on" name="P" visibility="private" type="ub8eQiQhTarwQ" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uO26lENDmD28Q" name="cycle_residue_name" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uRUlftuto11on" name="P" visibility="private" type="uWcTyVESCI9Vl" value=""/>
           <ownedParameter xmi:type="uml:Parameter" xmi:id="u14pcDTxnfDRO" name="iExogenousInfo" visibility="private" type="upbuU2K5Gdz2o" value="None"/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uWg64QXNRRoiN" name="dumpCoefficients">
@@ -334,8 +335,8 @@
         <generalization xmi:type="uml:Generalization" xmi:id="uGdWLvsgkfA8k" general="uFhJt53X8RjTR"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="u9JWUNBcQQlIM" name="mComplexity" type="upbuU2K5Gdz2o"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="u52YCibJaT9Xa" name="__init__" stereotype="constructor">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uraRkiEnDOom8" name="cycle_residue_name" visibility="private" type="ueKTJtmBEOM7A" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uQfIpdrgmtlXg" name="P" visibility="private" type="uuzzT9ITzGr5j" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uraRkiEnDOom8" name="cycle_residue_name" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uQfIpdrgmtlXg" name="P" visibility="private" type="uWcTyVESCI9Vl" value=""/>
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uN1UM17Ukf3IC" name="iExogenousInfo" visibility="private" type="upbuU2K5Gdz2o" value="None"/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uPgYJPJcni51I" name="dumpCoefficients">
@@ -352,53 +353,53 @@
         <ownedOperation xmi:type="uml:Operation" xmi:id="u1icDvRcUOnLA" name="__init__" stereotype="constructor"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uFXGu9gvmkzkQ" name="is_applicable">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uap8xBJoOfxbU" type="uZtStkqbUgBcl" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u7wQ13sJWQkAB" name="sig" visibility="private" type="uK8r3bELWW4Bf" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u7wQ13sJWQkAB" name="sig" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="ucDzV5O0eHfTC" name="checkSignalType" comment="print(df.info());">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uEg1VfvreHc99" name="sig" visibility="private" type="uhAovtnlPEiSw" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uEg1VfvreHc99" name="sig" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uWnHrLWM2j0OD" name="fit_scaling_params" comment="self.mMeanValue = np.mean(sig); self.mStdValue = np.std(sig); lEps = 1.0e-10">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uCoKwcK7UpBVX" name="sig" visibility="private" type="u7SxJgKPDqdkc" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uCoKwcK7UpBVX" name="sig" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="u5yO0CgY1gqG0" name="scale_value">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uvKOk8yrERO3C" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uiH46wqSAJUdz" name="x" visibility="private" type="u4dJNp11Dvtej" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uiH46wqSAJUdz" name="x" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="umjVaFMbzfDPM" name="scale_signal" comment="print(&quot;SCALE_START&quot;, sig.values[1:5]); print(&quot;SCALE_END&quot;, sig1.values[1:5]);">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uKCQyaiDrvH30" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="ulYDfiDAhNBfo" name="sig" visibility="private" type="uiojgHeeI6wPn" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="ulYDfiDAhNBfo" name="sig" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uXe6BaYnvyeeX" name="rescale_value">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uQhU1eeOPiZnM" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u4SdFFOdB90II" name="x" visibility="private" type="uSa9TJFFnrxWo" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u4SdFFOdB90II" name="x" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uaCo1Xyow9xKk" name="rescale_signal" comment="print(&quot;RESCALE_START&quot;, sig1.values[1:5]); print(&quot;RESCALE_END&quot;, sig.values[1:5]);">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uiO2rktQPJKgH" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uesq8P6txbj2d" name="sig1" visibility="private" type="uZtqzNDubX2qD" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uesq8P6txbj2d" name="sig1" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="upPVwCyhE8TeJ" name="fit" comment="print(&quot;FIT_START&quot;, self.mOriginalSignal, sig.values[1:5]); print(&quot;FIT_END&quot;, self.mOriginalSignal, sig1.values[1:5]);">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uiNjd95zkWMWX" name="sig" visibility="private" type="uUnZ2hUvqicbN" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uiNjd95zkWMWX" name="sig" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="u4bX6Vb12aOpi" name="apply" comment="print(&quot;APPLY_START&quot;, self.mOriginalSignal, sig.values[1:5]); print(&quot;APPLY_END&quot;, self.mOriginalSignal, sig2.values[1:5]);">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uEh0xu1DPT1SV" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uXyMeMZ39Gdei" name="sig" visibility="private" type="u7oXhb76Bdzn5" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uXyMeMZ39Gdei" name="sig" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uq3UaWZUSxOHP" name="invert" comment="print(&quot;INVERT_START&quot;, self.mOriginalSignal, sig1.values[1:5]); print(&quot;INVERT_END&quot;, self.mOriginalSignal, rescaled_sig.values[1:5]);">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uFD6Gv41NCtkc" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u0z3R1rWNdmm9" name="sig1" visibility="private" type="uOhxyqMNkxAd1" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u0z3R1rWNdmm9" name="sig1" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uVbrRxxmvyX7m" name="transformDataset">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uvAQfAzWO1qth" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uc962uoF9PzDU" name="df" visibility="private" type="u5pcigQGls23e" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uc962uoF9PzDU" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uB8xQ9nctlD7u" name="test"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uMjhetdekbLFg" name="dump_apply_invert">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uWyCzGJexaROQ" name="sig_before_apply" visibility="private" type="u0tvMWRSNqhcv" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="utPuybXzqqRND" name="sig_after_apply" visibility="private" type="uT5XLvdmbrMdy" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uWyCzGJexaROQ" name="sig_before_apply" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="utPuybXzqqRND" name="sig_after_apply" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="ubqPheoiNVYiM" name="check_not_nan">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uJ0ghLrspQLyL" name="sig" visibility="private" type="uzeM4VpNODCbm" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uwcx7eqtnpqhE" name="name" visibility="private" type="ugtZVHkMUFuLT" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uJ0ghLrspQLyL" name="sig" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uwcx7eqtnpqhE" name="name" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="u2nmAygiarpiG" name="cSignalTransform_None">
@@ -410,18 +411,18 @@
         <ownedOperation xmi:type="uml:Operation" xmi:id="ukNXPn67zm2oD" name="__init__" stereotype="constructor"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="u8Jn2fzI1kcA6" name="get_name">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uuNUP0M5z1ukl" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="ula9HlrqnFj5k" name="iSig" visibility="private" type="umOzzmlXyM2DU" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="ula9HlrqnFj5k" name="iSig" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="ud2uuZmn4w9uW" name="specific_fit">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u90dPTHckMFgj" name="sig" visibility="private" type="us5ZDNqyvwCFV" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u90dPTHckMFgj" name="sig" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uEia4qTo4vucC" name="specific_apply">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uHnjDhPQrUA2k" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u3neCpt13GT64" name="sig" visibility="private" type="ubpeK7vkGUb2O" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u3neCpt13GT64" name="sig" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uXB7bcaP3dise" name="specific_invert">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uV4fibSFThkTX" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uCY2CJSDsnWd0" name="sig" visibility="private" type="uJ03OzAILJr5p" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uCY2CJSDsnWd0" name="sig" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="u7EJLx8AbbxbU" name="dump_values"/>
       </packagedElement>
@@ -434,18 +435,18 @@
         <ownedOperation xmi:type="uml:Operation" xmi:id="uSHR4oMMz4DwU" name="__init__" stereotype="constructor"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uLNy1VyGejpNt" name="get_name">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uOcvNUrOqsDEP" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uYR8h74SzaRYt" name="iSig" visibility="private" type="uQsHZjeCeuSka" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uYR8h74SzaRYt" name="iSig" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uESKx6wf7Jh3d" name="specific_fit">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="ua2umVVmLyqpn" name="sig" visibility="private" type="uqwCgakKkC5c7" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="ua2umVVmLyqpn" name="sig" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="utEreRzihmzJv" name="specific_apply">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uvqY5Sj4mVJkh" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uC8vJYqpc8wQq" name="sig" visibility="private" type="uP5CvlBJ1pnIP" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uC8vJYqpc8wQq" name="sig" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="u0si2Ix56N3eM" name="specific_invert">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="ua8cKUoAiOtUR" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uW2ET3A76Sj0d" name="sig" visibility="private" type="uUhkc3ksBIv2E" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uW2ET3A76Sj0d" name="sig" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uEegCfhFea6cp" name="dump_values"/>
       </packagedElement>
@@ -457,34 +458,34 @@
         <ownedAttribute xmi:type="uml:Property" xmi:id="uCZpi2rMRXTgL" name="mComplexity" type="upbuU2K5Gdz2o"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="ueUNkNSMuCom4" name="mScaling" type="uZtStkqbUgBcl" initialValue="True"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="urohSzrLByl5H" name="__init__" stereotype="constructor">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="unVpWekya8rar" name="iQuantiles" visibility="private" type="uSlWVGX2Xjj4w" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="unVpWekya8rar" name="iQuantiles" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="ugIax2neYgmrT" name="get_name">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uOc2x9PwV5FzW" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uIxhPfzxMoQyI" name="iSig" visibility="private" type="uOWlXkhfCeLlz" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uIxhPfzxMoQyI" name="iSig" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="u1zojjz3MTI2d" name="is_applicable">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="umx0uKggGuwpC" type="uZtStkqbUgBcl" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u9clXOYk6bYzD" name="sig" visibility="private" type="u7FlxFNeYxqbA" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u9clXOYk6bYzD" name="sig" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uidOcxFKea3HI" name="specific_fit">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uAnyCLnqKybwk" name="sig" visibility="private" type="uvYt8PJlysWUm" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uAnyCLnqKybwk" name="sig" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uL4H0P3wprSDS" name="signal2quant">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="ux4AmaixP51Y4" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uWzM4433eeOGT" name="x" visibility="private" type="uhJ4hvQeHeR9w" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uWzM4433eeOGT" name="x" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="u9FkUxDEZDbRG" name="specific_apply">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="ueT2dBVl9kcxB" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="um9Cki8JZrbNb" name="sig" visibility="private" type="u0xMi7Km8fmwq" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="um9Cki8JZrbNb" name="sig" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uYOdLaEY4nbtD" name="quant2signal">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uQgjucxRfhxaX" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="un7RN4KQPzaxx" name="x" visibility="private" type="uKlzEYAVBPcLF" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="un7RN4KQPzaxx" name="x" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uvAkSFBX0YKpN" name="specific_invert">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="u1DwpjnWIC7eV" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="ubfVmj8GTmIM5" name="sig" visibility="private" type="u7NR6l7ZGbfka" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="ubfVmj8GTmIM5" name="sig" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="ukY9z4orrHZl2" name="dump_values"/>
       </packagedElement>
@@ -496,26 +497,26 @@
         <ownedAttribute xmi:type="uml:Property" xmi:id="ub3iDhqoW4jhY" name="mComplexity" type="upbuU2K5Gdz2o"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="uBC9gQPYbC4pO" name="mScaling" type="uZtStkqbUgBcl" initialValue="True"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uXgYmvG7VErzJ" name="__init__" stereotype="constructor">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uHsNLcxBSDUb1" name="iLambda" visibility="private" type="utmMQkwXLrcv1" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uHsNLcxBSDUb1" name="iLambda" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uD5DE0SQuzDmg" name="get_name">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uJcum6uN0YxtE" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uTafGSXMJAsKX" name="iSig" visibility="private" type="uiC5iM3BJSwVd" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uTafGSXMJAsKX" name="iSig" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uihHRFWjtgx6o" name="specific_fit">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uSjbkRIzVaSo3" name="sig" visibility="private" type="uESHj3LV9Ccoe" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uSjbkRIzVaSo3" name="sig" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uKxbTM9xFKssp" name="specific_apply">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="u9B6Vy76OGbtw" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uQaaO746OY3xy" name="sig" visibility="private" type="uqDZIWLxzKS1y" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uQaaO746OY3xy" name="sig" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uiRiNHyaOyfhC" name="invert_value">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uQu9fxWvAQKHC" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uSy5DLJQeM3of" name="y" visibility="private" type="uHQ5eXEReb7pj" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uSy5DLJQeM3of" name="y" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="ufKNfNkEufOD7" name="specific_invert">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uDo3f0PlVR8t9" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u0rvvCHWY2t4F" name="sig" visibility="private" type="usO45CG2pAe3m" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u0rvvCHWY2t4F" name="sig" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="ujt1RkK5LP6w3" name="dump_values"/>
       </packagedElement>
@@ -529,18 +530,18 @@
         <ownedOperation xmi:type="uml:Operation" xmi:id="utOGCjnHwlzL4" name="__init__" stereotype="constructor"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uyZRkNApxgsLT" name="get_name">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="u8CCQrO3hW2lm" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uGMzr0Jau78t0" name="iSig" visibility="private" type="uwMAIDaVzBIny" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uGMzr0Jau78t0" name="iSig" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uuvdfeD3MkINC" name="specific_fit" comment="print(sig.head());">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uxtTLJTZOP2PT" name="sig" visibility="private" type="uWWlIbQPZ5Qw7" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uxtTLJTZOP2PT" name="sig" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="ugiSjABu6ZEpd" name="specific_apply">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uGvy2Iv554gd6" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uIp74RhRVFTgr" name="sig" visibility="private" type="uAbxYv4v5Kkrt" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uIp74RhRVFTgr" name="sig" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uQtDSgscC1XVb" name="specific_invert">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uMlMhsiZVsoN2" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u85MIXNZklnda" name="sig" visibility="private" type="uZtuTH65nHLNd" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u85MIXNZklnda" name="sig" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uHZOHyZpAihRO" name="dump_values"/>
       </packagedElement>
@@ -554,22 +555,22 @@
         <ownedOperation xmi:type="uml:Operation" xmi:id="uWtog3KhfmCMl" name="__init__" stereotype="constructor"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="ug84pyVgydnMY" name="get_name">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uEDohc3yv9MuL" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uGZH6NjRqbGZk" name="iSig" visibility="private" type="ui6AObyyb9a7M" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uGZH6NjRqbGZk" name="iSig" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="ucikujpmyHIoS" name="specific_fit">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uOtJ8hm40nbqJ" name="sig" visibility="private" type="ueprusgdv2lHQ" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uOtJ8hm40nbqJ" name="sig" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uq4toFHZpscWW" name="specific_apply" comment="print(&quot;RelDiff_apply_DEBUG_START&quot; , self.mFirstValue, sig.values[0:10]); print(sig1) print(sig_shifted) print(&quot;RelDiff_apply_DEBUG_END&quot; , rate[0:10]);">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uTXHcciWC2w6o" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u2fn0WtN6b14P" name="sig" visibility="private" type="uffvKUeH39Oz0" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u2fn0WtN6b14P" name="sig" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uQ1hSzyRKWUc2" name="cumprod_no_overflow">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uxZdOxZCKJ8So" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uptcQbqE5nEPo" name="rate" visibility="private" type="uu85fxd3nnUTK" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uptcQbqE5nEPo" name="rate" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uNxcAjTW6myD3" name="specific_invert" comment="print(&quot;RelDiff_invert_DEBUG_START&quot; , self.mFirstValue, sig.values[0:10]); Avoid unnecessary clipping. np.exp(10) == 22026.465794806718 and np.exp(-10) == 4.5399929762484854e-05 print(&quot;rate&quot; , rate) print(&quot;rate_cum&quot;, rate_cum) print(&quot;RelDiff_invert_DEBUG_START&quot; , sig_orig[0:10])">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uvGgIDRFxfczt" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uqV3aEfifnuVL" name="sig" visibility="private" type="ugbfGJD8F4OTO" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uqV3aEfifnuVL" name="sig" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="ulmojtXAZ7qEw" name="dump_values"/>
       </packagedElement>
@@ -582,30 +583,30 @@
         <ownedOperation xmi:type="uml:Operation" xmi:id="uhhs8HB6uDaGR" name="__init__" stereotype="constructor"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uTrT2NnnWoJwF" name="get_name">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uLRkzyMoeSCSI" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uXDvbGiKld241" name="iSig" visibility="private" type="uLOGWeaadwWxM" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uXDvbGiKld241" name="iSig" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uPu1p9PPWIzRV" name="is_applicable">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="ucCe6kHVApL0u" type="uZtStkqbUgBcl" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uf91kBgAHxw9D" name="sig" visibility="private" type="uVauNUNMvMaVQ" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uf91kBgAHxw9D" name="sig" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uxQUEA3egbIYU" name="specific_fit">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="ud3RJmGsevsnl" name="sig" visibility="private" type="u6I1rRbk7gGkK" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="ud3RJmGsevsnl" name="sig" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uZrupQycU185r" name="logit">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uWvFBCd5k5CEA" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u9ki2KDHvUgcA" name="x" visibility="private" type="uSKjJd7BX4abX" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u9ki2KDHvUgcA" name="x" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uLRZZETJitJNl" name="inv_logit">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uyMZ0ryiX4KDU" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="ubbiITyI821go" name="y" visibility="private" type="u8qRlS2w58lAe" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="ubbiITyI821go" name="y" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uYXUuc4z5yBSw" name="specific_apply" comment="logit">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="ul5HbtaoUzYal" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u0vl4qjuAVCWF" name="sig" visibility="private" type="uMLlJntH11ZMS" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u0vl4qjuAVCWF" name="sig" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="u0Lko48zgMZlv" name="specific_invert" comment="logit">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uOgruxSX8vqgb" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u0Dt61DNO64Rl" name="sig" visibility="private" type="ue9JYIRaTp9jB" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u0Dt61DNO64Rl" name="sig" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="ugujdz1Tt22oZ" name="dump_values"/>
       </packagedElement>
@@ -628,32 +629,30 @@
         <ownedAttribute xmi:type="uml:Property" xmi:id="uLidRthn36TW3" name="mTransformList" type="uBauWGt00tKhF" initialValue="{}"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uS2JnKUbEf6nC" name="__init__" stereotype="constructor"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uRnCrgRg9sULw" name="validateTransformation" comment="print(&quot;Adding Transformation &quot; , lName);">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uhzoewnuKXaHN" name="transf" visibility="private" type="uevADy8xSEdnQ" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uZGtf9JsdQyNE" name="df" visibility="private" type="u0DSpYV6iYtVb" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uuEbREeAV1PP5" name="iTime" visibility="private" type="uEI83aM9UFNyy" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uWgx1J2mqiUXC" name="iSignal" visibility="private" type="uP6OSmrl47NJQ" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uhzoewnuKXaHN" name="transf" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uZGtf9JsdQyNE" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uuEbREeAV1PP5" name="iTime" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uWgx1J2mqiUXC" name="iSignal" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uved0diTRBFCq" name="defineTransformations">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u0yZFO5jgnKyR" name="df" visibility="private" type="uRwqt0te45Mbn" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="un1HBW2lJGU30" name="iTime" visibility="private" type="u57rOVzlP8YAM" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uDEdLWCFCff1y" name="iSignal" visibility="private" type="uvZb7Sd03AENy" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u0yZFO5jgnKyR" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="un1HBW2lJGU30" name="iTime" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uDEdLWCFCff1y" name="iSignal" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="ursy5L0GNWCEn" name="cSignalDecomposition">
-        <ownedAttribute xmi:type="uml:Property" xmi:id="uLvrGDro1zAQa" name="mOptions" type="uFtXIjW3f16F2" initialValue="()"/>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="uLvrGDro1zAQa" name="mOptions" type="uWcTyVESCI9Vl" initialValue="()"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="urAWRtVyBu0IB" name="mExogenousData" type="upbuU2K5Gdz2o" initialValue="None"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="ujgkx2dvbMWLc" name="__init__" stereotype="constructor"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uJamThE1lYO1t" name="checkData">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u2wv7eJhgSmzs" name="iInputDS" visibility="private" type="uh29EVh8LXUwZ" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uoOlojEN58Mpd" name="iTime" visibility="private" type="uMpUILUWbqQyg" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uCGk8U9WixfoZ" name="iSignal" visibility="private" type="uzQySte8HYgmg" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u4RhaTqcShEcG" name="iHorizon" visibility="private" type="udF4kVLFpOEDE" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uN9BLh9Oqd2OC" name="iExogenousData" visibility="private" type="uhzdQrUkP30oQ" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u2wv7eJhgSmzs" name="iInputDS" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uoOlojEN58Mpd" name="iTime" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uCGk8U9WixfoZ" name="iSignal" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u4RhaTqcShEcG" name="iHorizon" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uN9BLh9Oqd2OC" name="iExogenousData" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
       </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="uySEAvFFgNWP4" name="tsopts" stereotype="class-or-package">
-        <packagedElement xmi:type="uml:Class" xmi:id="uFtXIjW3f16F2" name="cSignalDecomposition_Options"/>
-      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="uySEAvFFgNWP4" name="tsopts" stereotype="class-or-package"/>
       <packagedElement xmi:type="uml:Class" xmi:id="uLedPxQq2ePWJ" name="cAbstractAR">
         <ownedAttribute xmi:type="uml:Property" xmi:id="uXCxvwiL8wAaw" name="mCycleFrame" type="upbuU2K5Gdz2o" initialValue="None"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="u0NI6TBjRzQY3" name="mARFrame" type="upbuU2K5Gdz2o" initialValue="None"/>
@@ -667,32 +666,32 @@
         <ownedAttribute xmi:type="uml:Property" xmi:id="uSxdhXJr39KdM" name="mExogenousInfo" type="upbuU2K5Gdz2o"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="uM1Q4UZRxBf9A" name="mLagsForSeries" type="uBauWGt00tKhF" initialValue="{cycle_residue_name:[]}"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="ua2zwtltKmhLA" name="__init__" stereotype="constructor">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uRHdqXTK55cNV" name="cycle_residue_name" visibility="private" type="uTAkLKECE5qRQ" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uRHdqXTK55cNV" name="cycle_residue_name" visibility="private" type="uWcTyVESCI9Vl" value=""/>
           <ownedParameter xmi:type="uml:Parameter" xmi:id="u2DjjCfnqAYcH" name="iExogenousInfo" visibility="private" type="upbuU2K5Gdz2o" value="None"/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uVokgkuyyXSTc" name="compute_ar_residue" comment="df_detail = df[[self.mSignal, self.mTrend.mOutName, self.mCycle.mOutName, self.mOutName, self.mOutName + '_residue']] print(&quot;compute_ar_residue_detail &quot;, (self.mOutName, self.mDecompositionType, df_detail.describe(include='all').to_dict()))">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uwOBGSJTpbztH" name="df" visibility="private" type="ufv46de2zogZk" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uwOBGSJTpbztH" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="usJIk8ir9nYha" name="plot"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uHJtqOwpyiMci" name="register_lag" comment="print(&quot;register_lag&quot;, (series , p , name))">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uGeexxDHRk0eU" name="series" visibility="private" type="uJr31v6oRemJ3" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uYQtwGYtRNk1g" name="p" visibility="private" type="uGWuIiXCX7n7t" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uGeexxDHRk0eU" name="series" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uYQtwGYtRNk1g" name="p" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="u89hOuFlnjxhx" name="dumpCoefficients"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uhrsWFPC7x1MP" name="computePerf"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uJa4c2tFbIFbm" name="shift_series">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="ufP6wSo7IcIRE" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uIjfEx9TJlDru" name="series" visibility="private" type="uOAfaJ90aqYuv" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u4JkSQzMRnwbx" name="p" visibility="private" type="u3WzTwsIcESwz" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uJfABfKPo7MLM" name="idefault" visibility="private" type="uzs4Iz4tE4EKC" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uIjfEx9TJlDru" name="series" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u4JkSQzMRnwbx" name="p" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uJfABfKPo7MLM" name="idefault" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uONiUNXMnDswq" name="getDefaultValue">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uj3nVggP9tOcf" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uSmGKNpqbSNX7" name="series" visibility="private" type="uKEqfkDBUtQ6x" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uSmGKNpqbSNX7" name="series" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uSqnQNyBK7pAy" name="generateLagsForForecast" comment="lDict[self.mCycleResidueName] = df[self.mCycleResidueName]  Investigate Large Horizon Models #213 : The model can produce overflows in its inputs when iterated.  Exogenous variables lags">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="un2EwwgyoETL2" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="urww3UjwYpXAv" name="df" visibility="private" type="u5rQOGSoDHM98" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="urww3UjwYpXAv" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="ujEyvmqpyFCG9" name="cZeroAR">
@@ -704,12 +703,12 @@
         <ownedAttribute xmi:type="uml:Property" xmi:id="u7kK9oJlneuKZ" name="mComplexity" type="upbuU2K5Gdz2o"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="ui1L6TsNwkZbb" name="mConstantValue" type="uwp8qlAa3kKfz" initialValue="0.0"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uclHge3HQk2d2" name="__init__" stereotype="constructor">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uiGeUHV1nf2oQ" name="cycle_residue_name" visibility="private" type="uBT2vneJ9jQ4m" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uiGeUHV1nf2oQ" name="cycle_residue_name" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uJiV24mQZJame" name="fit" comment="multiplicative models self.mTimeInfo.addVars(self.mARFrame); self.mARFrame[series] = self.mCycleFrame[series]"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="u9QSZ3EdIZEcC" name="transformDataset">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uOKH9v7A3FD8w" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u92XoCvVMLjmM" name="df" visibility="private" type="ucouHUv5RLSr8" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u92XoCvVMLjmM" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uEh8A9ZQ4ajOQ" name="horizon_index" visibility="private" type="u563QH77qCYxA" value="1"/>
         </ownedOperation>
       </packagedElement>
@@ -722,43 +721,43 @@
         <ownedOperation xmi:type="uml:Operation" xmi:id="uuPOwBEFEiJyX" name="plotAR"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uN0jfUDI9QtVB" name="is_not_constant">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uPHUGqvTSDrvc" type="uZtStkqbUgBcl" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uRQ7saVPdk9Cn" name="iSeries" visibility="private" type="umM68ft6VtBl0" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uRQ7saVPdk9Cn" name="iSeries" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uZHmbtbze49o1" name="shift_series">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uxJcCBx0hpGj8" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uyflu2pcU9pRy" name="series" visibility="private" type="uHVPngijUA5rx" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u7PMNQOtDxEmA" name="p" visibility="private" type="uqX9OTaKmXtjn" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uyflu2pcU9pRy" name="series" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u7PMNQOtDxEmA" name="p" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uOQwZFk78ZQtf" name="generateLagsForTraining">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uGEExncikuCfV" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uJAAtQTbQzfRL" name="df" visibility="private" type="uPVJzUlYSMdVg" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uzki2chRqsaSq" name="series" visibility="private" type="uaqxgOx1TVZHz" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uAomLKyVESfxH" name="pMinMax" visibility="private" type="u84fYweGpkWgh" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uJAAtQTbQzfRL" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uzki2chRqsaSq" name="series" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uAomLKyVESfxH" name="pMinMax" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="upDjlBh4kkb6p" name="preselect_exog_vars">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="u5s5iij9kxR3x" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="utFwojBR5wjpS" name="df" visibility="private" type="unKnSy580akwY" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uSES6VlEQSGpi" name="cycle_residue" visibility="private" type="uvFF4hzGk1XSv" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="utFwojBR5wjpS" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uSES6VlEQSGpi" name="cycle_residue" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uvNZu55PrqzGi" name="addLagsForTraining" comment="Exogenous variables lags Exog variables can be configured but not used (&quot;AR&quot; activated and &quot;ARX&quot; disabled). ARX,XGBX, ... only ARX,XGBX, ... only @profile">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uexQzd2DHXpn1" name="df" visibility="private" type="uTVdydnHxJKVV" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="ueMqQpw4bqN5l" name="cycle_residue" visibility="private" type="u3cLo6mwakv3g" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uexQzd2DHXpn1" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="ueMqQpw4bqN5l" name="cycle_residue" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uLLqjtF8ajZm0" name="estimate_ar_models_for_cycle" comment="print(self.mARFrame.info());">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uRYT0hf0SRql7" name="cycle_residue" visibility="private" type="uKbbgAevZLvqO" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uRYT0hf0SRql7" name="cycle_residue" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uY020INbkLyQv" name="check_not_nan" comment="print(&quot;check_not_nan&quot;);">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uNukgl2iBkaV9" name="sig" visibility="private" type="utMpT62fRwKvb" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u5PWbNk48dQyQ" name="name" visibility="private" type="uZlrqkrxdI222" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uNukgl2iBkaV9" name="sig" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u5PWbNk48dQyQ" name="name" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="ukk13n0e4y8KO" name="get_nb_lags">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uPoDtbcTrhdsJ" type="uwmjgwH7pXbWk" direction="return"/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uSN5DFFFSywON" name="add_model_if_activated" comment="@profile">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uEMzl5f5JT0Xh" name="cycle_residue" visibility="private" type="uiRMg7Qwv2vDn" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uhPwKhfS68CoH" name="model_type_str" visibility="private" type="uxYEleOw0nDfF" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uI2TSjDxk8eUK" name="model_class" visibility="private" type="uO19C3iNuAP7n" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uGfTXTFwZtYEB" name="iLags" visibility="private" type="uji08Zs06kgDI" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uEMzl5f5JT0Xh" name="cycle_residue" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uhPwKhfS68CoH" name="model_type_str" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uI2TSjDxk8eUK" name="model_class" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uGfTXTFwZtYEB" name="iLags" visibility="private" type="uWcTyVESCI9Vl" value=""/>
           <ownedParameter xmi:type="uml:Parameter" xmi:id="ubtYBX1gpgT6k" name="iAddExogenous" visibility="private" type="uZtStkqbUgBcl" value="True"/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uZBSGCWt8TX4c" name="estimate" comment="The signal is scaled to be between 0 and 1 Keep this test as simple as possible. TODO : need to define/design how to deal with exogenous variables in croston-based models."/>
@@ -771,23 +770,23 @@
         <ownedAttribute xmi:type="uml:Property" xmi:id="uZ7kcqd5eq5md" name="mFormula" type="upbuU2K5Gdz2o" initialValue="None"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="ucKgA8HVv21sj" name="mComplexity" type="upbuU2K5Gdz2o"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="u2ClXIoPuH75o" name="__init__" stereotype="constructor">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u2oycUnl9plXB" name="trend" visibility="private" type="uPDLr2Gsz6Lop" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u2oycUnl9plXB" name="trend" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uTul1Xhko1E35" name="getCycleResidueName">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="ufF5keLappZa2" type="uwmjgwH7pXbWk" direction="return"/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="u7ZTigsT8rFSD" name="plot"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uL2HfkyPHyBZp" name="check_not_nan" comment="print(&quot;check_not_nan&quot;); print(&quot;check_cycle_residue &quot;, (name, self.mDecompositionType, sig[:-1].min(), sig[:-1].max(), sig[:-1].mean(), sig[:-1].std()))">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uggCXLtwdUPA9" name="sig" visibility="private" type="unfYayH0H2Fnp" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uQNTwVNOcMBv8" name="name" visibility="private" type="uZ0uGTMfSH41N" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uggCXLtwdUPA9" name="sig" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uQNTwVNOcMBv8" name="name" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uQo66JpP86Hlx" name="compute_cycle_residue" comment="This is questionable. But if only a few values are zero, it is the safest. df_detail = df[[self.mSignal, self.mTrend.mOutName, self.getCycleName(), self.getCycleResidueName()]] print(&quot;compute_cycle_residue_detail &quot;, (lOutName, self.mDecompositionType, df_detail.describe(include='all').to_dict()))">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uzmIEdmH4GzNh" name="df" visibility="private" type="u29EAFXM9kpe3" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uzmIEdmH4GzNh" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uA1eF07cxQluq" name="compute_target_means_by_cycle_value" comment="we encode only using estimation">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="u4iJI1BQ5Kp1c" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="umGMeN6Ab8waH" name="iCycleFrame" visibility="private" type="uzihLXXpr30Ve" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="ur5eZ3cT4RBc5" name="iCycleName" visibility="private" type="uu1yaWKm77TzY" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="umGMeN6Ab8waH" name="iCycleFrame" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="ur5eZ3cT4RBc5" name="iCycleName" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uxqDfUTYipMnS" name="compute_target_means_default_value" comment="we encode only using estimation">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uGnyPAp0enPIg" type="uwmjgwH7pXbWk" direction="return"/>
@@ -802,7 +801,7 @@
         <ownedAttribute xmi:type="uml:Property" xmi:id="uYc6Ic1Liw1MF" name="mComplexity" type="upbuU2K5Gdz2o"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="uCcB6rpL42iNp" name="mConstantValue" type="uwp8qlAa3kKfz" initialValue="0.0"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="ueM5SVOlieMuS" name="__init__" stereotype="constructor">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="ul6oQJqZIIsRR" name="trend" visibility="private" type="uKuFQvj8AFNIw" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="ul6oQJqZIIsRR" name="trend" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="u47wBbMdt6Gbx" name="getCycleName">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uF7YCMWDQE2RH" type="uwmjgwH7pXbWk" direction="return"/>
@@ -811,7 +810,7 @@
         <ownedOperation xmi:type="uml:Operation" xmi:id="uS9maMmlLvIbb" name="fit" comment="multiplicative models"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uhF0sT4XoaCbP" name="transformDataset">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uNkHU4hhQ8Ry1" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uDSMQlI8oxczd" name="df" visibility="private" type="u9C2cnpixTXz3" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uDSMQlI8oxczd" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="uZB2FFVdVdEZo" name="cSeasonalPeriodic">
@@ -821,8 +820,8 @@
         <ownedAttribute xmi:type="uml:Property" xmi:id="uetqEnMVmSeCV" name="mEncodedValueDict" type="uBauWGt00tKhF" initialValue="{}"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="uqjaAymOB4IDC" name="mFormula" type="uwmjgwH7pXbWk" initialValue="&quot;Seasonal_&quot;"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="u2bPXSS1sjiMn" name="__init__" stereotype="constructor">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uAl1dwioUyy1k" name="trend" visibility="private" type="uc8BdDif4UCZu" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uiTsYZd0W1LQQ" name="date_part" visibility="private" type="ugDMHpwNmKO9N" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uAl1dwioUyy1k" name="trend" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uiTsYZd0W1LQQ" name="date_part" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="utn2EO1mGzMdg" name="getCycleName">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="urpfaL3SdacWf" type="uwmjgwH7pXbWk" direction="return"/>
@@ -830,17 +829,17 @@
         <ownedOperation xmi:type="uml:Operation" xmi:id="uT2EPWA18JDZe" name="dump_values"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uKFSzxdnAmo5e" name="hasEnoughData" comment="these are just guessses of how much dataa is needed to get valid signal stats/means of each seasonal unit. TODO : add these in the options. (None, None) =&gt; no limit 10 days 10 hours 10 minutes 10 months 10 weeks 10 years 10 years 10 weeks 10 years 10 weeks 10 weeks 10 weeks 10 weeks 10 weeks 10 weeks 10 weeks 10 months 10 months">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uydBOViZmnfgn" type="uZtStkqbUgBcl" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="ugTy0KrAkCGal" name="iTimeMin" visibility="private" type="uqyxl52rfnLod" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u7ZGIZ77uoD1Y" name="iTimeMax" visibility="private" type="uHdtmaiAlPG2t" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="ugTy0KrAkCGal" name="iTimeMin" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u7ZGIZ77uoD1Y" name="iTimeMax" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uuf8OPVjX9Io9" name="compute_date_parts">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uKdaCoca0LQQk" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uxCiKWgtuB1HD" name="iTimeValues" visibility="private" type="uEeFj8AUE4BSk" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uxCiKWgtuB1HD" name="iTimeValues" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="upf5BascrXfR1" name="fit" comment="print(&quot;encoding '&quot; + lName + &quot;' &quot; + str(self.mEncodedValueDict)); The longer the seasonal, the more complex it is."/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uO7ZEhFBCZrZA" name="transformDataset">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="u9VqaispH8pKQ" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uFiUywRMHncMS" name="df" visibility="private" type="u38rDEqnqSYVb" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uFiUywRMHncMS" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="up7UBQL2It8po" name="cBestCycleForTrend">
@@ -853,8 +852,8 @@
         <ownedAttribute xmi:type="uml:Property" xmi:id="u14UZTHAKLUuj" name="mCriterion" type="upbuU2K5Gdz2o"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="usqnDxdPNBiln" name="mFormula" type="uwmjgwH7pXbWk" initialValue="&quot;BestCycle&quot;"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uuSYDhqefKbA6" name="__init__" stereotype="constructor">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uZtZxtv1jghBi" name="trend" visibility="private" type="uwSGmojrPGhsx" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uZ2jN90vbL98C" name="criterion" visibility="private" type="u6P1ejKJHqO6s" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uZtZxtv1jghBi" name="trend" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uZ2jN90vbL98C" name="criterion" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="ukbtOFbSxHKCO" name="getCycleName">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uXNNFWxaHAHKJ" type="uwmjgwH7pXbWk" direction="return"/>
@@ -865,13 +864,13 @@
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uZnCCX6lWeZiQ" name="get_tested_cycles">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uuVxK0gYomuo9" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uXimi7xh7krqO" name="signal_length" visibility="private" type="uDdiT4pqQTw5y" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uXimi7xh7krqO" name="signal_length" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uEFDCnef7pk7P" name="generate_cycles" comment="validate the cycles on the validation part"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uoUtAtCcJHbhb" name="fit" comment="print(&quot;cycle_fit&quot; , self.mTrend_residue_name);"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uqeQQZDWFQ5Zq" name="transformDataset" comment="print(&quot;BEST_CYCLE&quot; , self.mBestCycleLength) print(self.mBestCycleValueDict); multiplicative models">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uTO6To0JRYfTD" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uz7yNkfKg57NG" name="df" visibility="private" type="utsx7iHOGuejf" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uz7yNkfKg57NG" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="uHFph5YxePq0T" name="cCycleEstimator">
@@ -880,9 +879,9 @@
         <ownedAttribute xmi:type="uml:Property" xmi:id="u2T4yWpD4a2nY" name="mCycleList" type="uBauWGt00tKhF" initialValue="{}"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="u7LOo6vI9b2gD" name="__init__" stereotype="constructor"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uU7p9nrrLZ8UH" name="addSeasonal">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uUWP36iSUvxLF" name="trend" visibility="private" type="um1oswg8YdnQf" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="urUyVRFha4h1h" name="seas_type" visibility="private" type="uh4iIAZYvZYOz" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uQvnJ0nldQKD1" name="resolution" visibility="private" type="u4hyRHpYRpOEL" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uUWP36iSUvxLF" name="trend" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="urUyVRFha4h1h" name="seas_type" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uQvnJ0nldQKD1" name="resolution" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uSSPMqdTA7atk" name="defineCycles" comment="The signal is scaled to be between 0 and 1 Keep this test as simple as possible. The order used here is mandatory. see filterSeasonals before changing this order."/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="u2uSaPffTT7Wf" name="plotCycles"/>
@@ -896,70 +895,68 @@
         <ownedOperation xmi:type="uml:Operation" xmi:id="uM6p16A7kpsUD" name="__init__" stereotype="constructor"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uhidD1EZK8hkm" name="merge_frames">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uhO3Y9lOvCBd4" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uncQAMyH4Kg49" name="iFullFrame" visibility="private" type="uZ5sOe8xSgjJi" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uhC7ioEsxKdpp" name="iOneSignalFrame" visibility="private" type="u0Ly3fhwyyk40" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="ufW1t0d7AoQQm" name="iTimeInfo" visibility="private" type="u3mioy8nxCy8M" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uncQAMyH4Kg49" name="iFullFrame" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uhC7ioEsxKdpp" name="iOneSignalFrame" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="ufW1t0d7AoQQm" name="iTimeInfo" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uXLg0s8jpmwlB" name="forecast">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uvyBa6aHHr5wb" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uEgTMlOum5EOU" name="iDecomsposition" visibility="private" type="uOmqiHQQiYKWO" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uMFs11bUJAL5L" name="iInputDS" visibility="private" type="uXIO6pvrlS3HQ" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uAF8MO7Ko7AkX" name="iHorizons" visibility="private" type="uqNzjwvtY1l2R" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uEgTMlOum5EOU" name="iDecomsposition" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uMFs11bUJAL5L" name="iInputDS" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uAF8MO7Ko7AkX" name="iHorizons" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="uw1VMkPYM0Ztk" name="cSignalQuantizer">
         <ownedOperation xmi:type="uml:Operation" xmi:id="ua4uZdveQRjLl" name="__init__" stereotype="constructor"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uovU49Lq1Z8mZ" name="signal2quant">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="ux0IKGIDtUBba" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uBDi2Mj2SGcVd" name="x" visibility="private" type="ueqaCIo1Zl4ur" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uSjoTSAQ5rVI1" name="curve" visibility="private" type="uk4yBihzBtR7o" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uBDi2Mj2SGcVd" name="x" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uSjoTSAQ5rVI1" name="curve" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="ufJpyRWT6wTGx" name="quant2signal">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="ux6Q6nctda1ZN" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uaA69ArTY1aC8" name="series" visibility="private" type="uSX94hhZVwz6k" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uejXPD3lC1EAE" name="iSignal" visibility="private" type="uBKfCQWaE99Wk" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uwVqTxuSSvnX2" name="Q" visibility="private" type="ungo0hCJeuRrI" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uaA69ArTY1aC8" name="series" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uejXPD3lC1EAE" name="iSignal" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uwVqTxuSSvnX2" name="Q" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uz9S3bgjueHcm" name="quantizeSignal" comment="return lSignal_Q">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="ulU9ZQlVFfl4y" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uZw3KZPmyoywl" name="iSignal" visibility="private" type="uTK7FI6jHkEbU" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="ujfXKpLJuRJzK" name="Q" visibility="private" type="uMxCH9qW52Ooy" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uZw3KZPmyoywl" name="iSignal" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="ujfXKpLJuRJzK" name="Q" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="uC4W7FHB6Wm7E" name="cSignalDecompositionOneTransform">
         <ownedAttribute xmi:type="uml:Property" xmi:id="u6aYna44FNngY" name="mTime" type="upbuU2K5Gdz2o" initialValue="None"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="uOwiSzKWeZ1st" name="mSignal" type="upbuU2K5Gdz2o" initialValue="None"/>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="u7bcR7TtCb1op" name="mTimeInfo" type="uWnssn5aMVsrL" initialValue="()"/>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="u7bcR7TtCb1op" name="mTimeInfo" type="uWcTyVESCI9Vl" initialValue="()"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="u42Yj1NmVqrYV" name="mTransformation" type="u2nmAygiarpiG" initialValue="()"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="u8J4rOellYJ9x" name="__init__" stereotype="constructor"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uZRviRzebx5oe" name="setParams" comment="print(&quot;setParams , head&quot;, iInputDS.head()); print(&quot;setParams , tail&quot;, iInputDS.tail()); print(&quot;setParams , columns&quot;, iInputDS.columns);">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u7wIkGjiXorBH" name="iInputDS" visibility="private" type="u2HSammF5xV1l" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uGHWu2z3IDy6i" name="iTime" visibility="private" type="ueDq2RtTLHjMy" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uwQPK6tFBUa45" name="iSignal" visibility="private" type="uucrE7yCFGsSE" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="ulc6W1hXWEcMf" name="iHorizon" visibility="private" type="uxsVHxZezYGtK" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u9DuuKUJeDbUY" name="iTransformation" visibility="private" type="uGs6xJRjc1uGC" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uaqbH6Rcamgm3" name=";" visibility="private" type="u82x9IUFUspm7" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="ubDxUZzXIpfV1" name="iDecomspositionType" visibility="private" type="ufFlzuRQdUO7y" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u7wIkGjiXorBH" name="iInputDS" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uGHWu2z3IDy6i" name="iTime" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uwQPK6tFBUa45" name="iSignal" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="ulc6W1hXWEcMf" name="iHorizon" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u9DuuKUJeDbUY" name="iTransformation" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uaqbH6Rcamgm3" name=";" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="ubDxUZzXIpfV1" name="iDecomspositionType" visibility="private" type="uWcTyVESCI9Vl" value=""/>
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uve0eASayUSck" name="iExogenousData" visibility="private" type="upbuU2K5Gdz2o" value="None"/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uuOYQgltb0OwX" name="updatePerfsForAllModels" comment="lTimer = tsutil.cTimer((&quot;UPDATE_PERFS_FOR_ALL_MODELS&quot;, {&quot;Signal&quot; : self.mOriginalSignal, &quot;Transformation&quot; : self.mSignal, &quot;DecompositionType&quot; : self.mDecompositionType}, len(iModels))) lTimer2 = tsutil.cTimer((&quot;UPDATE_PERFS_FOR_MODEL&quot;, model)) print(name, model.__dict__);">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="umVrVG6hlYm3z" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uw2Kvl8NqMdLe" name="iModels" visibility="private" type="uoGLEHc8ji13C" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uw2Kvl8NqMdLe" name="iModels" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="unpD4QScmjQkv" name="train" comment="estimate time info assert(self.mTimeInfo.mSignalFrame.shape[0] == iInputDS.shape[0]) self.mSignalFrame[self.mSignal] = self.mSignalFrame[self.mSignal].astype(np.float32); estimate the trendlTrendEstimator.plotTrend(); estimate cycles autoregressive forecast perfs">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u9fD9seECGBg6" name="iInputDS" visibility="private" type="uWiDil7mIiSUI" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u7cOSwthx9749" name="iSplit" visibility="private" type="u9bqgerTxUwhB" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uJTqrdCa1UuTj" name="iTime" visibility="private" type="uoPjI8Q4bqC5R" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uzpkdgeCvehXS" name="iSignal" visibility="private" type="uWRulT2uTkZml" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uiUk2OifGFUNj" name=";" visibility="private" type="uBKkdbkeMj4Cg" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uKATS0krkqPAb" name="iHorizon" visibility="private" type="uqb91WhWb7xuQ" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uUikrbVbZNVv6" name="iTransformation" visibility="private" type="uYai3OACAUG1z" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="ukBPsstLvxmA5" name="iDecomspositionType" visibility="private" type="uCJRqoAMGATMP" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u9fD9seECGBg6" name="iInputDS" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u7cOSwthx9749" name="iSplit" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uJTqrdCa1UuTj" name="iTime" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uzpkdgeCvehXS" name="iSignal" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uiUk2OifGFUNj" name=";" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uKATS0krkqPAb" name="iHorizon" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uUikrbVbZNVv6" name="iTransformation" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="ukBPsstLvxmA5" name="iDecomspositionType" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
       </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="uo3enar9YGyDr" name="tsti" stereotype="class-or-package">
-        <packagedElement xmi:type="uml:Class" xmi:id="uWnssn5aMVsrL" name="cTimeInfo" comment="&#10;&#10;"/>
-      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="uo3enar9YGyDr" name="tsti" stereotype="class-or-package"/>
       <packagedElement xmi:type="uml:Class" xmi:id="uOPGVBaYK4jOh" name="tstransf" stereotype="class-or-package"/>
       <packagedElement xmi:type="uml:Class" xmi:id="umhzMnyAUXc8O" name="cTraining_Arg">
         <ownedAttribute xmi:type="uml:Property" xmi:id="uwBxnVLTMkaLm" name="mInputDS" type="upbuU2K5Gdz2o" initialValue="None"/>
@@ -971,11 +968,11 @@
         <ownedAttribute xmi:type="uml:Property" xmi:id="uJs9gac0zeH3I" name="mSplit" type="upbuU2K5Gdz2o" initialValue="None"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="uf7RWAfmeZ84C" name="mResult" type="upbuU2K5Gdz2o" initialValue="None"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uFzKqDdvGIDKk" name="__init__" stereotype="constructor">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uIINtMcY6mcMt" name="name" visibility="private" type="u5s4Va8VQtGhL" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uIINtMcY6mcMt" name="name" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="usRmy5FODn84C" name="cSignalDecompositionTrainer">
-        <ownedAttribute xmi:type="uml:Property" xmi:id="uf6xoXvmjNliF" name="mOptions" type="uFtXIjW3f16F2" initialValue="()"/>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="uf6xoXvmjNliF" name="mOptions" type="uWcTyVESCI9Vl" initialValue="()"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="uJM3nuW2URexX" name="mExogenousData" type="upbuU2K5Gdz2o" initialValue="None"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="uCJqTJ7xJuHdN" name="mTransformList" type="uBauWGt00tKhF" initialValue="{}"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="upxv6fAoMQd6y" name="__init__" stereotype="constructor"/>
@@ -983,57 +980,55 @@
           <ownedParameter xmi:type="uml:Parameter" xmi:id="u0UmEtp4udAPY" type="uwmjgwH7pXbWk" direction="return"/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uKazgNrsKJ2Ov" name="train" comment="self.cleanup_after_model_selection()">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u7pWAQ7krPtZn" name="iInputDS" visibility="private" type="uOG7ZZxZmC4cD" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uBJEgy6BCG21x" name="iSplits" visibility="private" type="ur0K50iVM0iTr" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uGs1VqCUquGCc" name="iTime" visibility="private" type="uSKKT5L1GUQF5" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="usRCKPM2uYEAL" name="iSignals" visibility="private" type="uwVEzqK2zaDeI" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uIvNqkF43o6WW" name="iHorizon" visibility="private" type="uIEgkkQP1RPrD" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u7pWAQ7krPtZn" name="iInputDS" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uBJEgy6BCG21x" name="iSplits" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uGs1VqCUquGCc" name="iTime" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="usRCKPM2uYEAL" name="iSignals" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uIvNqkF43o6WW" name="iHorizon" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uly0FSkFWSMGL" name="finalize_training"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="u3qGpb3xrD2QE" name="defineTransformations">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uulsRJJLpC7ex" name="iInputDS" visibility="private" type="ulGZCvFnH6Rv3" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uujB6TySsbkfb" name="iSplit" visibility="private" type="uQtIjFMQi1sFq" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uMCGpwUUE4nEY" name="iTime" visibility="private" type="uOPMfFlccSibi" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="udCzuBjivD8qR" name="iSignal" visibility="private" type="u64N0C0pGgraB" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uulsRJJLpC7ex" name="iInputDS" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uujB6TySsbkfb" name="iSplit" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uMCGpwUUE4nEY" name="iTime" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="udCzuBjivD8qR" name="iSignal" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uDII39S4dxPbZ" name="train_all_transformations" comment="print([transform1.mFormula for transform1 in self.mTransformList]);">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="ufYeyLdmbHcus" name="iInputDS" visibility="private" type="ungloUfhLJ0ZQ" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="ub595paLUfJfF" name="iSplits" visibility="private" type="u8UJOoRdmB32d" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="ubXss4O30MuTL" name="iTimes" visibility="private" type="uBHGIGJWP6nTb" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uWxmzn2pZlVRN" name="iSignals" visibility="private" type="uwJ0Y0kE0jtzw" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uDAYpImBWmLxg" name="iHorizons" visibility="private" type="uhLbA3lFl4aPd" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="ufYeyLdmbHcus" name="iInputDS" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="ub595paLUfJfF" name="iSplits" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="ubXss4O30MuTL" name="iTimes" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uWxmzn2pZlVRN" name="iSignals" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uDAYpImBWmLxg" name="iHorizons" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uXk6V7xH9K9Hm" name="cleanup_after_model_selection" comment="store only model names here. delete failing transformations"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="ucK8YvIPemJ9d" name="cAbstractTrend">
-        <ownedAttribute xmi:type="uml:Property" xmi:id="uq0OaPhHrTd6A" name="mTimeInfo" type="uWnssn5aMVsrL" initialValue="()"/>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="uq0OaPhHrTd6A" name="mTimeInfo" type="uWcTyVESCI9Vl" initialValue="()"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="uvX0KAuFBhBQt" name="mTrendFrame" type="upbuU2K5Gdz2o" initialValue="None"/>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="uwrJ3fLcbtvJQ" name="mTrendPerf" type="uq4xrt14rCrTt" initialValue="()"/>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="uwrJ3fLcbtvJQ" name="mTrendPerf" type="uWcTyVESCI9Vl" initialValue="()"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="u8YtyRW08BoKl" name="mOutName" type="upbuU2K5Gdz2o" initialValue="None"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="ujoCJ9VUsFIyd" name="mFormula" type="upbuU2K5Gdz2o" initialValue="None"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="upPkaW5OaYkUF" name="mComplexity" type="upbuU2K5Gdz2o"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="ulT2Rs4DPhGlV" name="__init__" stereotype="constructor"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="u25DsZEHz8Eqr" name="check_not_nan" comment="print(&quot;check_not_nan&quot;);">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="ukyvEBGqRtMJa" name="sig" visibility="private" type="uW5hUz0JBHj57" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uWflJdo8yO4Cc" name="name" visibility="private" type="u6KvdoDdIPnaw" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="ukyvEBGqRtMJa" name="sig" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uWflJdo8yO4Cc" name="name" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="upCPUAIRxfJ2Q" name="computePerf" comment="self.mTrendFrame.to_csv(self.mOutName + '_residue' + &quot;.csv&quot;);"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="ur9legDCGO1Tt" name="compute_trend_residue" comment="This is questionable. But if only a few values are zero, it is the safest.">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uCcnFKL1vpdkF" name="df" visibility="private" type="uxFtStqTQ7Dnc" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uCcnFKL1vpdkF" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="utGQslN23GTv3" name="addTrendInputVariables"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="u0H6mHCgeEXq6" name="fit"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uIGhbc3ivxmEk" name="transformDataset">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="ukK5ADDi6HTuB" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uWvINrFidxfO9" name="df" visibility="private" type="uSbYiUgLiXcGb" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uWvINrFidxfO9" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="ut5vcetfNzXKS" name="compute">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uN56PDEInr6vy" name="df" visibility="private" type="uM5pLFjw8yqt9" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uN56PDEInr6vy" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
       </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="u9I1RsPK8VWKb" name="tsperf" stereotype="class-or-package">
-        <packagedElement xmi:type="uml:Class" xmi:id="uq4xrt14rCrTt" name="cPerf"/>
-      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="u9I1RsPK8VWKb" name="tsperf" stereotype="class-or-package"/>
       <packagedElement xmi:type="uml:Class" xmi:id="u0vVb9pxzCNbY" name="cConstantTrend">
         <generalization xmi:type="uml:Generalization" xmi:id="uQ3qZ6pKiXUEw" general="ucK8YvIPemJ9d"/>
         <generalization xmi:type="uml:Generalization" xmi:id="ugLy4cmGBvlx8" general="ucK8YvIPemJ9d"/>
@@ -1045,7 +1040,7 @@
         <ownedOperation xmi:type="uml:Operation" xmi:id="ucmwU0N3crL6M" name="fit_specific"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="ufcYiLPnc053L" name="compute">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="ukHB5YaPqQdlK" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uyfLLWpSLlIgB" name="df" visibility="private" type="uuzcZRXr5Jh9g" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uyfLLWpSLlIgB" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uJMIo5wLn7cJs" name="dump_values"/>
       </packagedElement>
@@ -1058,13 +1053,13 @@
         <ownedAttribute xmi:type="uml:Property" xmi:id="ugAkgYYwV1NRY" name="mComplexity" type="upbuU2K5Gdz2o"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uPYDZs4dttliu" name="__init__" stereotype="constructor"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uLbdpNTDDmklN" name="replaceFirstMissingValue" comment="print(self.mDefaultValue, type(self.mDefaultValue)); Be explicit here .... some integer index does not work. print(df.head());">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="ugXuBDyJMJrxC" name="df" visibility="private" type="uQpRAeAoTRXJq" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="utQSO85hUrN89" name="series" visibility="private" type="u1fzTvVFW4YKc" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="ugXuBDyJMJrxC" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="utQSO85hUrN89" name="series" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uJAdZpwWyLZ2o" name="fit_specific"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uAQqYwsbybXJu" name="compute">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uUbe9mkcd7CHK" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uCSfkE8mZHr1Z" name="df" visibility="private" type="u36Ip0C1j0vbC" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uCSfkE8mZHr1Z" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uu27JwKvKPFvR" name="dump_values"/>
       </packagedElement>
@@ -1076,12 +1071,12 @@
         <ownedAttribute xmi:type="uml:Property" xmi:id="umS1EWii7k95G" name="mFormula" type="upbuU2K5Gdz2o"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="uHVuc1FTMl2ra" name="mComplexity" type="upbuU2K5Gdz2o"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uNy6FIiGA9bIh" name="__init__" stereotype="constructor">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uVaK4CXik0SsY" name="iWindow" visibility="private" type="uFPFaHDbPL3oX" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uVaK4CXik0SsY" name="iWindow" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="upz8oaNeRrKsj" name="fit_specific"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uG24hXbHkW7F9" name="compute">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="ufATlIdvJCUC5" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uKVbRxfugU4hx" name="df" visibility="private" type="utzcFDzJEcn6l" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uKVbRxfugU4hx" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uLkcyzvPMfrg5" name="dump_values"/>
       </packagedElement>
@@ -1093,19 +1088,19 @@
         <ownedAttribute xmi:type="uml:Property" xmi:id="ughTPbPeA8jD6" name="mFormula" type="upbuU2K5Gdz2o"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="uGH8AQv0EMR3P" name="mComplexity" type="upbuU2K5Gdz2o"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="u1j8iPCryNTXA" name="__init__" stereotype="constructor">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uL5ezK96tDZ5G" name="iWindow" visibility="private" type="upm3hkuVWxYKG" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uL5ezK96tDZ5G" name="iWindow" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uE4LcksVMz6gf" name="fit_specific"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uCLlh5kkIGW1R" name="compute">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="unceaphYM6xdk" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="um8T3Ovmyvp8X" name="df" visibility="private" type="uOjm3wY7hrHi9" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="um8T3Ovmyvp8X" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="u1jgoejVi8v2S" name="dump_values"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="uBnYkRCGkPU0h" name="cLinearTrend">
         <generalization xmi:type="uml:Generalization" xmi:id="ub4NumiVHP6ze" general="ucK8YvIPemJ9d"/>
         <generalization xmi:type="uml:Generalization" xmi:id="uY89CuKHruY6w" general="ucK8YvIPemJ9d"/>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="u7bUXzw6EiqXV" name="mTrendRidge" type="ulwOv5Z1ER5fO" initialValue="(solver='cholesky',alpha=0.0)"/>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="u7bUXzw6EiqXV" name="mTrendRidge" type="uWcTyVESCI9Vl" initialValue="(solver='cholesky',alpha=0.0)"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="upbL4JurYVZhn" name="mOutName" type="uwmjgwH7pXbWk" initialValue="&quot;LinearTrend&quot;"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="uqM25tSlzugVJ" name="mFormula" type="upbuU2K5Gdz2o"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="u0Zqw2Bo5sU9C" name="mComplexity" type="upbuU2K5Gdz2o"/>
@@ -1113,17 +1108,15 @@
         <ownedOperation xmi:type="uml:Operation" xmi:id="uvRrGDzo4NAuJ" name="fit_specific"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uHHU026xgk9Pv" name="compute">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uWa0bRkZyvBQI" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uMiiHG9YUSBtO" name="df" visibility="private" type="uMuEHhJD4P1Rc" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uMiiHG9YUSBtO" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="urPtdSZHaFMJo" name="dump_values"/>
       </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="uoJRwOU2H2ccM" name="linear_model" stereotype="class-or-package">
-        <packagedElement xmi:type="uml:Class" xmi:id="ulwOv5Z1ER5fO" name="Ridge"/>
-      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="uoJRwOU2H2ccM" name="linear_model" stereotype="class-or-package"/>
       <packagedElement xmi:type="uml:Class" xmi:id="uAd6ODdfzzU8y" name="cPolyTrend">
         <generalization xmi:type="uml:Generalization" xmi:id="u3CvrY6s1TqMx" general="ucK8YvIPemJ9d"/>
         <generalization xmi:type="uml:Generalization" xmi:id="uji2QvLCKAxSR" general="ucK8YvIPemJ9d"/>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="u7SqSgcVsAUHw" name="mTrendRidge" type="ulwOv5Z1ER5fO" initialValue="(solver='cholesky',alpha=0.0)"/>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="u7SqSgcVsAUHw" name="mTrendRidge" type="uWcTyVESCI9Vl" initialValue="(solver='cholesky',alpha=0.0)"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="uoLasTDksflXp" name="mOutName" type="uwmjgwH7pXbWk" initialValue="&quot;PolyTrend&quot;"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="u4nQa9ihlRbM7" name="mFormula" type="upbuU2K5Gdz2o"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="uGh0wtx8494pg" name="mComplexity" type="upbuU2K5Gdz2o"/>
@@ -1131,26 +1124,26 @@
         <ownedOperation xmi:type="uml:Operation" xmi:id="u9UitEh2RBVLU" name="fit_specific"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uRl1zXmccDMCf" name="compute">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="u9fxIEeNK7nO7" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uGALqrAsNS2GW" name="df" visibility="private" type="uhINHNCFpmf9A" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uGALqrAsNS2GW" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="upng7y0XGpwgO" name="dump_values"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="ukVxTTvT4U7Hy" name="cTrendEstimator">
-        <ownedAttribute xmi:type="uml:Property" xmi:id="uwlQ0LUQPw4Ux" name="mTimeInfo" type="uWnssn5aMVsrL" initialValue="()"/>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="uwlQ0LUQPw4Ux" name="mTimeInfo" type="uWcTyVESCI9Vl" initialValue="()"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="uInW5THhlFDij" name="mTrendFrame" type="upbuU2K5Gdz2o" initialValue="None"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="u57nhdVuVV2DH" name="__init__" stereotype="constructor"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uNUQcrHZgXmco" name="needMovingTrend">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="ufmFf2syNQ18c" type="uZtStkqbUgBcl" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uoHAKmJ8Kc1Y5" name="df" visibility="private" type="uNzVVDBb9W1m6" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u20KmoOYrJ2d2" name="i" visibility="private" type="uJG3qK2SunVNP" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uoHAKmJ8Kc1Y5" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u20KmoOYrJ2d2" name="i" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="ufSH86hzy8S6i" name="defineTrends" comment="logger = tsutil.get_pyaf_logger(); logger.info(&quot;ACTIVE_TRENDS&quot; + str(self.mOptions.mActiveTrends)); logger.info(&quot;TRENDS&quot; + str([tr.mOutName for tr in self.mTrendList]));"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="unsWVYxKygree" name="plotTrend"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="u2kpugbTqw0yz" name="addTrendInputVariables"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="upImEdK3kg6Nw" name="check_residue" comment="print(&quot;check_trend_residue &quot;, (name, trend.mDecompositionType, sig.min(), sig.max(), sig.mean(), sig .std()))">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uFogX5bIIeXnE" name="trend" visibility="private" type="uU1mqQ7QEoYrL" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uhsMO3LBxc67G" name="sig" visibility="private" type="uhAHovNNPPm7e" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u0wk1DMygtcS3" name="name" visibility="private" type="uZEwwLHemjFeo" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uFogX5bIIeXnE" name="trend" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uhsMO3LBxc67G" name="sig" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u0wk1DMygtcS3" name="name" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uWfTnhrVRdf3f" name="estimateTrends"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="utW8fSkMmUsj0" name="estimateTrend"/>
@@ -1168,13 +1161,13 @@
         <ownedAttribute xmi:type="uml:Property" xmi:id="uUKRRsY5aBD0Y" name="mTimeInfo" type="upbuU2K5Gdz2o"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="ucT36pSl0CZ1a" name="mTime" type="upbuU2K5Gdz2o"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="upE23W5JvPtvs" name="mSignal" type="upbuU2K5Gdz2o"/>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="udWtGyMj0zWqE" name="mTrainingVersionInfo" type="uDHUNXiJM88aE" initialValue="()"/>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="udWtGyMj0zWqE" name="mTrainingVersionInfo" type="uWcTyVESCI9Vl" initialValue="()"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uHcAbULe6VFDx" name="__init__" stereotype="constructor">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="ugKVJ7LHHGdOj" name="transf" visibility="private" type="upmYtBIAoC68z" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uALw87x3it0ZX" name="iDecompType" visibility="private" type="ueFAgpuOtK3mH" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u0SRdErMCFvu7" name="trend" visibility="private" type="uXew1U2dlGmLB" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uRUvxtg1KM3vQ" name="cycle" visibility="private" type="u2wmzLG4ggMeN" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uCw8fxbiviB31" name="autoreg" visibility="private" type="uxqNzMW5HdKiX" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="ugKVJ7LHHGdOj" name="transf" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uALw87x3it0ZX" name="iDecompType" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u0SRdErMCFvu7" name="trend" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uRUvxtg1KM3vQ" name="cycle" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uCw8fxbiviB31" name="autoreg" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="u9bNP7KsDbQwg" name="get_model_category">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uOUhdkPG33rkq" type="uwmjgwH7pXbWk" direction="return"/>
@@ -1194,7 +1187,7 @@
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="ubzQtajvfls3w" name="aggregate_criteria">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="ut384ucbbAnIO" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="ulgDLTVm5VMeb" name="criteria" visibility="private" type="umTQPMW8ZPCZP" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="ulgDLTVm5VMeb" name="criteria" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="udRgA85XxuDhv" name="get_aggregated_criterion_values_for_model_selection">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="upbsIjC5ywjED" type="uwmjgwH7pXbWk" direction="return"/>
@@ -1212,44 +1205,44 @@
         <ownedOperation xmi:type="uml:Operation" xmi:id="uiqmtgb32FcDj" name="getInfo"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="ucQfzq2SVeAzl" name="compute_model_forecast">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uJaJZdMCTKMtp" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uWExzKcD6ORqF" name="iTrendValue" visibility="private" type="uPcWnitORSH8G" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uFpPfZeOfLDkS" name="iCycleValue" visibility="private" type="uZutRR3Ptmsg0" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="ujbLffZK2osVO" name="iARValue" visibility="private" type="uUAlHdHxuLN4x" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uWExzKcD6ORqF" name="iTrendValue" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uFpPfZeOfLDkS" name="iCycleValue" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="ujbLffZK2osVO" name="iARValue" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uo6CmSoHIvz3p" name="forecastOneStepAhead" comment="df1.to_csv(&quot;before.csv&quot;); add new line with new time value, row_number and nromalized time add signal tranformed column df1.to_csv(&quot;after_transformation.csv&quot;);print(&quot;Transformation update : &quot; , df1.columns); df1.to_csv(&quot;after_time.csv&quot;); print(&quot;TimeInfo update : &quot; , df1.columns); compute the trend based on the transformed column and compute trend residueprint(&quot;Trend update : &quot; , df1.columns); df1.to_csv(&quot;after_trend.csv&quot;); compute the cycle and its residue based on the trend residue df1.to_csv(&quot;after_cycle.csv&quot;);print(&quot;Cycle update : &quot; , df1.columns); compute the AR componnet and its residue based on the cycle residue df1.to_csv(&quot;after_ar.csv&quot;);print(&quot;AR update : &quot; , df1.columns); compute the forecast and its residue (forecast = trend  + cycle + AR) print(&quot;TimeSeriesModel_forecast_invert&quot;);">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uVh6qlLi1HoHn" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="ukeVs2M7Sy3F2" name="df" visibility="private" type="uqQPm7r6w4km4" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="ukeVs2M7Sy3F2" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uUDp80QeSoOEF" name="horizon_index" visibility="private" type="u563QH77qCYxA" value="1"/>
           <ownedParameter xmi:type="uml:Parameter" xmi:id="usslYUpWdamqO" name="perf_mode" visibility="private" type="uZtStkqbUgBcl" value="False"/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="urd38f7Fue5ID" name="forecast_all_horizons" comment="print(df1.info()); replace the signal with the forecast in the last line  of the dataset">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uWUMmk8BzEtt1" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="ul1uYezsRBhgw" name="df" visibility="private" type="u76YhcF0xS93R" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uVIN1z45BHCx4" name="iHorizon" visibility="private" type="uiFQRM3JCSPmk" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="ul1uYezsRBhgw" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uVIN1z45BHCx4" name="iHorizon" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uXOpPHHTfyHb6" name="forecast" comment="print(df.head()) print(df1.head())">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uo6Y4ZYwUUUzf" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uDbPl8hDaauLl" name="df" visibility="private" type="u1uDvD0UB7WTN" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uqefLkfCexCUJ" name="iHorizon" visibility="private" type="uTWjoJT8fqHFC" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uDbPl8hDaauLl" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uqefLkfCexCUJ" name="iHorizon" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="u6IxRdrZKerRl" name="applyForecastRectifier">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="upRPPPF1S5T4J" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uY3wtZkENAbMk" name="df" visibility="private" type="uHMaz9V0k67er" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uY3wtZkENAbMk" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uGCnpbGf8GRKz" name="addPredictionIntervals" comment="0.95 the prediction intervals are only computed for the training horizon print(lForcastValues.head(lHorizon)) print(iHorizon, self.mTimeInfo.mHorizon, lHorizon, lForcastValues.shape) print(lWidths)">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uEX3OVcSP27jp" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uwaG3TBpdMBNI" name="iInputDS" visibility="private" type="ulZHMEy5BecgZ" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uK8kb3Dx1BJQu" name="iForecastFrame" visibility="private" type="uffDV9iVl8NeF" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u0KEsY7VCUDR3" name="iHorizon" visibility="private" type="ue62HyRFIN2at" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uwaG3TBpdMBNI" name="iInputDS" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uK8kb3Dx1BJQu" name="iForecastFrame" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u0KEsY7VCUDR3" name="iHorizon" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uIO0DTG6QZWhc" name="addForecastQuantiles" comment="the prediction intervals are only computed for the training horizon">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uCJYWwUISB4Go" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uqZmd4GKooz54" name="iInputDS" visibility="private" type="uSOf229IXV7ie" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="ueXKQlsQ5kTlf" name="iForecastFrame" visibility="private" type="urPDxuVFLT8KF" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="ubyZuGyFGb7vs" name="iHorizon" visibility="private" type="udY8x7xVoR022" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uqZmd4GKooz54" name="iInputDS" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="ueXKQlsQ5kTlf" name="iForecastFrame" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="ubyZuGyFGb7vs" name="iHorizon" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="u8IvpcrQgFkFq" name="plotForecasts">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uSlWbvN2xdMAd" name="df" visibility="private" type="ubxbv5Xd6PJTO" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uSlWbvN2xdMAd" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uRVETDQYBXa1X" name="to_dict">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uiyuYmu6W6Nle" type="uwmjgwH7pXbWk" direction="return"/>
@@ -1265,7 +1258,7 @@
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uuWShBKjWbENQ" name="get_title_details_for_plots">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uuGxZ4WHsolNl" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uWwjuAhfJrFhC" name="iPrefix" visibility="private" type="ufMpcjNE8Gp8O" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uWwjuAhfJrFhC" name="iPrefix" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uti49FNHGtSGc" name="standardPlots" comment="print(lOutput.columns) print(lOutput[lTime].dtype); Add more informative title for this plot.  Investigate Model Esthetics for PyAF #212 lOutput.plot()">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="ud20HL7iFCzx1" name="name" visibility="private" type="upbuU2K5Gdz2o" value="None"/>
@@ -1281,65 +1274,63 @@
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uQAHXUByKmR5b" name="clean_dataframes" comment="print(self.mTrend.mSignalFrame.columns)"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uvxoDSR3wldbW" name="__init__" stereotype="constructor">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uuBcZANRipqEE" name="transf" visibility="private" type="uY2Kxs8FkAz5y" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="um57LNLy63HyT" name="iDecompType" visibility="private" type="udnOGJ8b3EoFv" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uSQqpOlqxxf7E" name="trend" visibility="private" type="uPoVfilL0pKMz" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uiDh7xhM8MyaB" name="cycle" visibility="private" type="u2I7hHOsqU09R" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u9C6lrd85rPmW" name="autoreg" visibility="private" type="uZqyEOheSlaLY" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uuBcZANRipqEE" name="transf" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="um57LNLy63HyT" name="iDecompType" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uSQqpOlqxxf7E" name="trend" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uiDh7xhM8MyaB" name="cycle" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u9C6lrd85rPmW" name="autoreg" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uJkcpGDYHv0DL" name="aggregate_criteria">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uJyVPhgCoRiGN" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u1SdanIZu0MfE" name="criteria" visibility="private" type="uBzxTxJ8lU923" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u1SdanIZu0MfE" name="criteria" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="u7RjWzTa9W98c" name="compute_model_forecast">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uf2jyiQISY878" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="umBHh1AKpNSBB" name="iTrendValue" visibility="private" type="uYJmzCcjwfhTJ" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uq0BxDhFfIoxr" name="iCycleValue" visibility="private" type="u4dKSWzymzTOv" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="umQPOUdk9MTeb" name="iARValue" visibility="private" type="uqmWvaOiDPbe6" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="umBHh1AKpNSBB" name="iTrendValue" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uq0BxDhFfIoxr" name="iCycleValue" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="umQPOUdk9MTeb" name="iARValue" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="ufCeJV1iuTol7" name="forecastOneStepAhead" comment="df1.to_csv(&quot;before.csv&quot;); add new line with new time value, row_number and nromalized time add signal tranformed column df1.to_csv(&quot;after_transformation.csv&quot;);print(&quot;Transformation update : &quot; , df1.columns); df1.to_csv(&quot;after_time.csv&quot;); print(&quot;TimeInfo update : &quot; , df1.columns); compute the trend based on the transformed column and compute trend residueprint(&quot;Trend update : &quot; , df1.columns); df1.to_csv(&quot;after_trend.csv&quot;); compute the cycle and its residue based on the trend residue df1.to_csv(&quot;after_cycle.csv&quot;);print(&quot;Cycle update : &quot; , df1.columns); compute the AR componnet and its residue based on the cycle residue df1.to_csv(&quot;after_ar.csv&quot;);print(&quot;AR update : &quot; , df1.columns); compute the forecast and its residue (forecast = trend  + cycle + AR) print(&quot;TimeSeriesModel_forecast_invert&quot;);">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="unQx3eemWefIw" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u4zOFxX7tBnwt" name="df" visibility="private" type="uVF5Ebgq4cvoB" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u4zOFxX7tBnwt" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uKwYADr3DAmkB" name="horizon_index" visibility="private" type="u563QH77qCYxA" value="1"/>
           <ownedParameter xmi:type="uml:Parameter" xmi:id="u67efaCHwD2yD" name="perf_mode" visibility="private" type="uZtStkqbUgBcl" value="False"/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uZj3OJGQCgipA" name="forecast_all_horizons" comment="print(df1.info()); replace the signal with the forecast in the last line  of the dataset">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uwCzjXkJtT6Do" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="ubGgDRixiQ6SM" name="df" visibility="private" type="u3v9SklGdErpD" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uAEvarR5Nn8ht" name="iHorizon" visibility="private" type="uynY5hHIbsWZ1" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="ubGgDRixiQ6SM" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uAEvarR5Nn8ht" name="iHorizon" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="u5ArNtvnLk33w" name="forecast" comment="print(df.head()) print(df1.head())">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uICejwKKbt9VQ" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u9kuslqy5eWQb" name="df" visibility="private" type="uwMudoakRx7v1" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u1yVyYE7l8Ui7" name="iHorizon" visibility="private" type="uSCsdz6I2OriR" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u9kuslqy5eWQb" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u1yVyYE7l8Ui7" name="iHorizon" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uxqr8M629cdTK" name="applyForecastRectifier">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uTmCELaSnMcMG" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uoawhNayYmpBa" name="df" visibility="private" type="uN7QNgaE5KZc7" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uoawhNayYmpBa" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uVI4ZJhTyLfLH" name="addPredictionIntervals" comment="0.95 the prediction intervals are only computed for the training horizon print(lForcastValues.head(lHorizon)) print(iHorizon, self.mTimeInfo.mHorizon, lHorizon, lForcastValues.shape) print(lWidths)">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uyD2wYLV8zg3w" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="unrlHpoGvTDRP" name="iInputDS" visibility="private" type="uAtnpdu4utArh" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uWK6oaalNOqxV" name="iForecastFrame" visibility="private" type="uNET7qRbqfNVa" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uQ9Q1SDMkbvCN" name="iHorizon" visibility="private" type="uA6MAvi7clnY5" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="unrlHpoGvTDRP" name="iInputDS" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uWK6oaalNOqxV" name="iForecastFrame" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uQ9Q1SDMkbvCN" name="iHorizon" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uHHcbPTd6lskp" name="addForecastQuantiles" comment="the prediction intervals are only computed for the training horizon">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="udxANCipJN55N" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uvmvEY6GiI7cy" name="iInputDS" visibility="private" type="uFMd6AmgOMooq" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u63UkKxoxa9dW" name="iForecastFrame" visibility="private" type="urLoQ9MJ2OmIv" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="usknFDnIFMnvy" name="iHorizon" visibility="private" type="uiKN6a8Kn0V8X" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uvmvEY6GiI7cy" name="iInputDS" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u63UkKxoxa9dW" name="iForecastFrame" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="usknFDnIFMnvy" name="iHorizon" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uKbInQg9L1Rfa" name="plotForecasts">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u65a9sanK2P6U" name="df" visibility="private" type="urhLUcxW8Vi9v" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u65a9sanK2P6U" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uRsFj7gD3Ttpv" name="get_title_details_for_plots">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="ucsay3m735lvQ" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uGuI783JbLzN7" name="iPrefix" visibility="private" type="umYlmN5gDiJ4o" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uGuI783JbLzN7" name="iPrefix" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
       </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="uzseHUDIOvDb5" name="self" stereotype="class-or-package">
-        <packagedElement xmi:type="uml:Class" xmi:id="uDHUNXiJM88aE" name="getVersions"/>
-      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="uzseHUDIOvDb5" name="self" stereotype="class-or-package"/>
       <packagedElement xmi:type="uml:Class" xmi:id="udVF2kh3vp3Mg" name="cTimeInfo" comment=" class data">
         <ownedAttribute xmi:type="uml:Property" xmi:id="uk2xuiuutM3kZ" name="mTimeMin" type="upbuU2K5Gdz2o" initialValue="None"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="uBb49EGTUX7Ja" name="mTimeMax" type="upbuU2K5Gdz2o" initialValue="None"/>
@@ -1356,17 +1347,17 @@
           <ownedParameter xmi:type="uml:Parameter" xmi:id="upLHvapGqLbZY" type="uwmjgwH7pXbWk" direction="return"/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uv3QDJEOh7Yu7" name="addVars">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uqqt7mn8KFgSz" name="df" visibility="private" type="uWqj4JFnQtsxl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uqqt7mn8KFgSz" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uh1qTGbjNHihL" name="get_time_dtype" comment="print(self.mTimeMax, type(self.mTimeMax))">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uzNHzSDVmsbMe" type="uwmjgwH7pXbWk" direction="return"/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="ugWnJV1HRwSim" name="checkDateTypesForNewDataset">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uhUcXC3B1oOTk" name="df" visibility="private" type="uQdTXbSFQupMU" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uhUcXC3B1oOTk" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="umuiB83NPw3fH" name="transformDataset" comment="new row print(lLastRow.columns ,  df.columns) assert(str(lLastRow.columns) == str(df.columns)) print(df.tail());">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="ucof5dczRK4wa" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uYhkwI0kX3o68" name="df" visibility="private" type="uT6yCFz9eeZij" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uYhkwI0kX3o68" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="u3KrtWvrU0EGf" name="isPhysicalTime">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="ua0jxA78tQTlF" type="uwmjgwH7pXbWk" direction="return"/>
@@ -1385,20 +1376,20 @@
         <ownedOperation xmi:type="uml:Operation" xmi:id="uGMKDzxN1DzCd" name="dump"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="u4EpaGqjyzmpR" name="compute_normalized_date_column">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uEH0DMvWD4yF3" type="uwp8qlAa3kKfz" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="usGzM1XDMnHs4" name="idate_column" visibility="private" type="u0MksoPT9stbJ" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="usGzM1XDMnHs4" name="idate_column" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uWJyAFhdLyt09" name="normalizeTime">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uWWALBSjBtXZe" type="uwp8qlAa3kKfz" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uQmw8uiUDiZHG" name="iTime" visibility="private" type="uvno2nt4MsBdY" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uQmw8uiUDiZHG" name="iTime" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uqCirZM5kqCwB" name="cast_to_time_dtype">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uyKhVgbmgttia" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="u1A2oeYvG00ye" name="iTimeValue" visibility="private" type="uKJfFObyR7bmV" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u1A2oeYvG00ye" name="iTimeValue" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="ujbJDxYIC5kkC" name="nextTime" comment="print(df.tail(1)[self.mTime]); print(&quot;NEXT_TIME&quot; , lLastTime, iSteps, self.mTimeDelta);">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uLFMTUI5muizf" type="uwmjgwH7pXbWk" direction="return"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uaLWmXqboE5Hf" name="df" visibility="private" type="u2ZO1OJVBdz1Y" value=""/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uOm7DnfdavqJf" name="iSteps" visibility="private" type="ugXxvsW1VUZGN" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uaLWmXqboE5Hf" name="df" visibility="private" type="uWcTyVESCI9Vl" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uOm7DnfdavqJf" name="iSteps" visibility="private" type="uWcTyVESCI9Vl" value=""/>
         </ownedOperation>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="uOFAlAsUQOq0l" name="">
@@ -1417,40 +1408,59 @@
         <ownedEnd xmi:type="uml:AssociationEnd" xmi:id="u81smfjTq83SU" name="" type="u3IKxUZ8tWkQr" aggregation="aggregate" isNavigable="true" changeability="changeable"/>
         <ownedEnd xmi:type="uml:AssociationEnd" xmi:id="u03RRrPdvcqQx" name="" type="uuh7FIbRje6SP" aggregation="none" isNavigable="true" changeability="changeable"/>
       </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="u3J0LvTfumgqB" name="">
+        <ownedEnd xmi:type="uml:AssociationEnd" xmi:id="uBRZR4FLL5DoB" name="" type="uuh7FIbRje6SP" aggregation="aggregate" isNavigable="true" changeability="changeable"/>
+        <ownedEnd xmi:type="uml:AssociationEnd" xmi:id="uNJhWe7iLfDEH" name="" type="u9ivA1vIPDapy" aggregation="none" isNavigable="true" changeability="changeable"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="ufVHY1V1YVScX" name="">
+        <ownedEnd xmi:type="uml:AssociationEnd" xmi:id="uWYpRSyHpMRVt" name="" type="uuh7FIbRje6SP" aggregation="aggregate" isNavigable="true" changeability="changeable"/>
+        <ownedEnd xmi:type="uml:AssociationEnd" xmi:id="u7SW2oBWP8beP" name="" type="u9ivA1vIPDapy" aggregation="none" isNavigable="true" changeability="changeable"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="uh3QjycOQkayL" name="">
+        <ownedEnd xmi:type="uml:AssociationEnd" xmi:id="u4CZUcETu8tso" name="" type="u9ivA1vIPDapy" aggregation="aggregate" isNavigable="true" changeability="changeable"/>
+        <ownedEnd xmi:type="uml:AssociationEnd" xmi:id="uvL0C6iqKyVI5" name="" type="uuh7FIbRje6SP" aggregation="none" isNavigable="true" changeability="changeable"/>
+      </packagedElement>
       <xmi:Extension extender="umbrello">
         <diagrams resolution="96">
-          <diagram xmi.id="uDgojFFyPaZBl" name="class diagram" type="1" documentation="" backgroundcolor="#ffffff" fillcolor="#ffffc0" font="Cantarell,11,-1,5,50,0,0,0,0,0" griddotcolor="#f7f7f7" linecolor="#990000" linewidth="0" textcolor="#000000" usefillcolor="1" showattribassocs="1" showatts="1" showattsig="0" showops="1" showopsig="0" showpackage="1" showpubliconly="0" showscope="1" showstereotype="1" localid="-1" showgrid="0" snapgrid="0" snapcsgrid="0" snapx="25" snapy="25" zoom="65.7516" canvasheight="800" canvaswidth="1100" isopen="1">
+          <diagram xmi.id="uDgojFFyPaZBl" name="class diagram" type="1" documentation="" backgroundcolor="#ffffff" fillcolor="#ffffc0" font="Cantarell,11,-1,5,50,0,0,0,0,0" griddotcolor="#f7f7f7" linecolor="#990000" linewidth="0" textcolor="#000000" usefillcolor="1" showattribassocs="1" showatts="1" showattsig="0" showops="1" showopsig="0" showpackage="1" showpubliconly="0" showscope="1" showstereotype="1" localid="-1" showgrid="0" snapgrid="0" snapcsgrid="0" snapx="25" snapy="25" zoom="46.5239" canvasheight="1016.94" canvaswidth="1206.19" isopen="1">
             <widgets>
-              <classwidget xmi.id="u3IKxUZ8tWkQr" localid="ulL0Ab3aD74vH" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Cantarell,11,-1,5,50,0,0,0,0,0" autoresize="1" x="1375.23" y="356.443" width="297" height="288" isinstance="0" showstereotype="1" showoperations="1" showpubliconly="0" showopsigs="600" showpackage="1" showscope="1" showattributes="1" showattsigs="600"/>
-              <classwidget xmi.id="uuh7FIbRje6SP" localid="uYuhiFiaJ8SRF" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Cantarell,11,-1,5,50,0,0,0,0,0" autoresize="1" x="397" y="17" width="395" height="1044" isinstance="0" showstereotype="1" showoperations="1" showpubliconly="0" showopsigs="600" showpackage="1" showscope="1" showattributes="1" showattsigs="600"/>
-              <classwidget xmi.id="uLedPxQq2ePWJ" localid="uRO0vLCvel792" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Cantarell,11,-1,5,50,0,0,0,0,0" autoresize="1" x="1004.19" y="638.94" width="202" height="378" isinstance="0" showstereotype="1" showoperations="1" showpubliconly="0" showopsigs="600" showpackage="1" showscope="1" showattributes="1" showattsigs="600"/>
-              <classwidget xmi.id="ucK8YvIPemJ9d" localid="uNJLtVWyNv1OZ" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Cantarell,11,-1,5,50,0,0,0,0,0" autoresize="1" x="934" y="92" width="191" height="270" isinstance="0" showstereotype="1" showoperations="1" showpubliconly="0" showopsigs="600" showpackage="1" showscope="1" showattributes="1" showattsigs="600"/>
               <classwidget xmi.id="udVF2kh3vp3Mg" localid="uNIVzwfSYIvTb" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Cantarell,11,-1,5,50,0,0,0,0,0" autoresize="1" x="83" y="328" width="267" height="468" isinstance="0" showstereotype="1" showoperations="1" showpubliconly="0" showopsigs="600" showpackage="1" showscope="1" showattributes="1" showattsigs="600"/>
+              <classwidget xmi.id="uuh7FIbRje6SP" localid="uYuhiFiaJ8SRF" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Cantarell,11,-1,5,50,0,0,0,0,0" autoresize="1" x="397" y="17" width="395" height="1044" isinstance="0" showstereotype="1" showoperations="1" showpubliconly="0" showopsigs="600" showpackage="1" showscope="1" showattributes="1" showattsigs="600"/>
+              <classwidget xmi.id="u3IKxUZ8tWkQr" localid="ulL0Ab3aD74vH" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Cantarell,11,-1,5,50,0,0,0,0,0" autoresize="1" x="1375.23" y="356.443" width="297" height="288" isinstance="0" showstereotype="1" showoperations="1" showpubliconly="0" showopsigs="600" showpackage="1" showscope="1" showattributes="1" showattsigs="600"/>
+              <classwidget xmi.id="uLedPxQq2ePWJ" localid="uRO0vLCvel792" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Cantarell,11,-1,5,50,0,0,0,0,0" autoresize="1" x="1004.19" y="638.94" width="202" height="378" isinstance="0" showstereotype="1" showoperations="1" showpubliconly="0" showopsigs="600" showpackage="1" showscope="1" showattributes="1" showattsigs="600"/>
+              <classwidget xmi.id="ucK8YvIPemJ9d" localid="uNJLtVWyNv1OZ" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Cantarell,11,-1,5,50,0,0,0,0,0" autoresize="1" x="1035.02" y="162.931" width="191" height="270" isinstance="0" showstereotype="1" showoperations="1" showpubliconly="0" showopsigs="600" showpackage="1" showscope="1" showattributes="1" showattsigs="600"/>
+              <classwidget xmi.id="u9ivA1vIPDapy" localid="uZXBDqRXp0h2D" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Cantarell,11,-1,5,50,0,0,0,0,0" autoresize="1" x="1175.74" y="-272.978" width="192" height="342" isinstance="0" showstereotype="1" showoperations="1" showpubliconly="0" showopsigs="600" showpackage="1" showscope="1" showattributes="1" showattsigs="600"/>
             </widgets>
             <messages/>
             <associations>
+              <assocwidget xmi.id="uhptNarprJWLS" localid="uzyJctnnGw5ve" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Cantarell,11,-1,5,50,0,0,0,0,0" autoresize="1" seqnum="" type="501" widgetaid="u3IKxUZ8tWkQr" widgetbid="uuh7FIbRje6SP" indexa="0" totalcounta="0" indexb="0" totalcountb="0">
+                <linepath layout="Direct">
+                  <startpoint startx="1375.23" starty="506.605"/>
+                  <endpoint endx="792" endy="530.805"/>
+                </linepath>
+              </assocwidget>
+              <assocwidget xmi.id="ufMGemk3BUyn8" localid="uaCnvCkcKSufh" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Cantarell,11,-1,5,50,0,0,0,0,0" autoresize="1" seqnum="" type="501" widgetaid="ucK8YvIPemJ9d" widgetbid="uuh7FIbRje6SP" indexa="0" totalcounta="0" indexb="0" totalcountb="0">
+                <linepath layout="Direct">
+                  <startpoint startx="1035.02" starty="340.881"/>
+                  <endpoint endx="792" endy="450.177"/>
+                </linepath>
+              </assocwidget>
+              <assocwidget xmi.id="u3hrsuTxQXZFk" localid="upYFYZTACfSfz" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Cantarell,11,-1,5,50,0,0,0,0,0" autoresize="1" seqnum="" type="501" widgetaid="uLedPxQq2ePWJ" widgetbid="uuh7FIbRje6SP" indexa="0" totalcounta="0" indexb="0" totalcountb="0">
+                <linepath layout="Direct">
+                  <startpoint startx="1004.19" starty="770.796"/>
+                  <endpoint endx="792" endy="650.742"/>
+                </linepath>
+              </assocwidget>
               <assocwidget xmi.id="uOFAlAsUQOq0l" localid="u6x0n3Fw8u0Np" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Cantarell,11,-1,5,50,0,0,0,0,0" autoresize="1" seqnum="" type="501" widgetaid="udVF2kh3vp3Mg" widgetbid="uuh7FIbRje6SP" indexa="0" totalcounta="0" indexb="0" totalcountb="0">
                 <linepath layout="Direct">
                   <startpoint startx="350" starty="553.877"/>
                   <endpoint endx="397" endy="551.017"/>
                 </linepath>
               </assocwidget>
-              <assocwidget xmi.id="u3hrsuTxQXZFk" localid="upYFYZTACfSfz" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Cantarell,11,-1,5,50,0,0,0,0,0" autoresize="1" seqnum="" type="501" widgetaid="uLedPxQq2ePWJ" widgetbid="uuh7FIbRje6SP" indexa="0" totalcounta="0" indexb="0" totalcountb="0">
+              <assocwidget xmi.id="uh3QjycOQkayL" localid="uYfEHgfM8DHx7" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Cantarell,11,-1,5,50,0,0,0,0,0" autoresize="1" seqnum="" type="501" widgetaid="u9ivA1vIPDapy" widgetbid="uuh7FIbRje6SP" indexa="0" totalcounta="0" indexb="0" totalcountb="0">
                 <linepath layout="Direct">
-                  <startpoint startx="1004.19" starty="770.796"/>
-                  <endpoint endx="792" endy="650.743"/>
-                </linepath>
-              </assocwidget>
-              <assocwidget xmi.id="ufMGemk3BUyn8" localid="uaCnvCkcKSufh" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Cantarell,11,-1,5,50,0,0,0,0,0" autoresize="1" seqnum="" type="501" widgetaid="ucK8YvIPemJ9d" widgetbid="uuh7FIbRje6SP" indexa="0" totalcounta="0" indexb="0" totalcountb="0">
-                <linepath layout="Direct">
-                  <startpoint startx="934" starty="295.497"/>
-                  <endpoint endx="792" endy="397.345"/>
-                </linepath>
-              </assocwidget>
-              <assocwidget xmi.id="uhptNarprJWLS" localid="uzyJctnnGw5ve" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Cantarell,11,-1,5,50,0,0,0,0,0" autoresize="1" seqnum="" type="501" widgetaid="u3IKxUZ8tWkQr" widgetbid="uuh7FIbRje6SP" indexa="0" totalcounta="0" indexb="0" totalcountb="0">
-                <linepath layout="Direct">
-                  <startpoint startx="1375.23" starty="506.604"/>
-                  <endpoint endx="792" endy="530.805"/>
+                  <startpoint startx="1175.74" starty="-11.118"/>
+                  <endpoint endx="792" endy="352.075"/>
                 </linepath>
               </assocwidget>
             </associations>
@@ -1464,7 +1474,7 @@
     <packagedElement xmi:type="uml:Model" xmi:id="Entity_Relationship_Model" name="Entity Relationship Model"/>
   </uml:Model>
   <xmi:Extension extender="umbrello">
-    <docsettings viewid="uDgojFFyPaZBl" documentation="" uniqueid="u0dKsZiNG95Cv"/>
+    <docsettings viewid="uDgojFFyPaZBl" documentation="" uniqueid="uvL0C6iqKyVI5"/>
     <listview>
       <listitem id="Views" type="800" open="1">
         <listitem id="Component_View" type="821" open="1"/>
@@ -1472,13 +1482,13 @@
         <listitem id="Entity_Relationship_Model" type="836" open="1"/>
         <listitem id="Logical_View" type="801" open="1">
           <listitem id="uRJhfuXUbjf9A" type="813" open="0">
-            <listitem id="uWAUauxdvQlaJ" type="815" open="0"/>
             <listitem id="ujGXvWlXSuePQ" type="815" open="0"/>
-            <listitem id="u4VLpQWZJO5bZ" type="815" open="0"/>
+            <listitem id="uWAUauxdvQlaJ" type="815" open="0"/>
             <listitem id="uDncmYK3mu6NM" type="815" open="0"/>
+            <listitem id="u4VLpQWZJO5bZ" type="815" open="0"/>
             <listitem id="uoZFKoMINJJT3" type="815" open="0"/>
-            <listitem id="uqzlHK8LSNESs" type="815" open="0"/>
             <listitem id="u3V0LRu4oJ7M7" type="815" open="0"/>
+            <listitem id="uqzlHK8LSNESs" type="815" open="0"/>
             <listitem id="ufkY9EEYfbQxP" type="815" open="0"/>
             <listitem id="uNTxf0tBlPppY" type="815" open="0"/>
             <listitem id="u4TOGunrlGsQr" type="815" open="0"/>
@@ -1492,8 +1502,8 @@
             <listitem id="ugiPOQir5dZi0" type="814" open="0"/>
             <listitem id="uk3LQfDN7xPp0" type="815" open="0"/>
             <listitem id="uyIu75RrtdPhP" type="815" open="0"/>
-            <listitem id="ujrUcj6DhaLgu" type="815" open="0"/>
             <listitem id="uoDH1TacQBw0k" type="815" open="0"/>
+            <listitem id="ujrUcj6DhaLgu" type="815" open="0"/>
           </listitem>
           <listitem id="uFhJt53X8RjTR" type="813" open="0">
             <listitem id="uNCxULBhZIqeX" type="815" open="0"/>
@@ -1692,16 +1702,16 @@
             <listitem id="u7bUXzw6EiqXV" type="814" open="0"/>
           </listitem>
           <listitem id="uiF9x8jq874vj" type="813" open="0">
-            <listitem id="uGUrZCc92u33v" type="815" open="0"/>
             <listitem id="uFoQqBZpHVE5n" type="815" open="0"/>
+            <listitem id="uGUrZCc92u33v" type="815" open="0"/>
             <listitem id="ukSvo3Q5Oevjs" type="815" open="0"/>
-            <listitem id="ux3l3WpPxiyOu" type="815" open="0"/>
             <listitem id="uMVx55s5oGDoD" type="815" open="0"/>
+            <listitem id="ux3l3WpPxiyOu" type="815" open="0"/>
             <listitem id="urQ4V4z40oltG" type="815" open="0"/>
             <listitem id="u68yZwkfqyFrZ" type="815" open="0"/>
             <listitem id="uAEmWkU2jkKm7" type="814" open="0"/>
-            <listitem id="uKsQsprZYa1S8" type="815" open="0"/>
             <listitem id="uA2HuZINBAPf1" type="815" open="0"/>
+            <listitem id="uKsQsprZYa1S8" type="815" open="0"/>
             <listitem id="ui505TK3CQ4wn" type="815" open="0"/>
           </listitem>
           <listitem id="uGNlKILR85n2I" type="813" open="0">
@@ -1710,15 +1720,15 @@
             <listitem id="umhTROms5jQBd" type="814" open="0"/>
           </listitem>
           <listitem id="u0SKuXL1gV2uC" type="813" open="0">
-            <listitem id="uOMFvyee6TN4A" type="815" open="0"/>
             <listitem id="uSe4CgJmA8UwM" type="815" open="0"/>
+            <listitem id="uOMFvyee6TN4A" type="815" open="0"/>
             <listitem id="uvci3noqHUeTk" type="815" open="0"/>
-            <listitem id="uVhB8lFIsRWAg" type="815" open="0"/>
             <listitem id="uM9bElG4JuG8w" type="815" open="0"/>
+            <listitem id="uVhB8lFIsRWAg" type="815" open="0"/>
             <listitem id="uk2Lu9GMhk5k9" type="815" open="0"/>
             <listitem id="u1ybBwKpq2Qo9" type="814" open="0"/>
-            <listitem id="uoUjf1KrYxzpL" type="815" open="0"/>
             <listitem id="uEgapED2Uc9to" type="815" open="0"/>
+            <listitem id="uoUjf1KrYxzpL" type="815" open="0"/>
             <listitem id="uQ54gFPUEWpBf" type="815" open="0"/>
           </listitem>
           <listitem id="u1GTdgGSoUPtj" type="813" open="0">
@@ -1937,33 +1947,33 @@
             <listitem id="umuiB83NPw3fH" type="815" open="0"/>
           </listitem>
           <listitem id="uuh7FIbRje6SP" type="813" open="0">
-            <listitem id="uHcAbULe6VFDx" type="815" open="0"/>
             <listitem id="uvxoDSR3wldbW" type="815" open="0"/>
-            <listitem id="uIO0DTG6QZWhc" type="815" open="0"/>
+            <listitem id="uHcAbULe6VFDx" type="815" open="0"/>
             <listitem id="uHHcbPTd6lskp" type="815" open="0"/>
-            <listitem id="uGCnpbGf8GRKz" type="815" open="0"/>
+            <listitem id="uIO0DTG6QZWhc" type="815" open="0"/>
             <listitem id="uVI4ZJhTyLfLH" type="815" open="0"/>
-            <listitem id="ubzQtajvfls3w" type="815" open="0"/>
+            <listitem id="uGCnpbGf8GRKz" type="815" open="0"/>
             <listitem id="uJkcpGDYHv0DL" type="815" open="0"/>
-            <listitem id="u6IxRdrZKerRl" type="815" open="0"/>
+            <listitem id="ubzQtajvfls3w" type="815" open="0"/>
             <listitem id="uxqr8M629cdTK" type="815" open="0"/>
+            <listitem id="u6IxRdrZKerRl" type="815" open="0"/>
             <listitem id="uQAHXUByKmR5b" type="815" open="0"/>
-            <listitem id="ucQfzq2SVeAzl" type="815" open="0"/>
             <listitem id="u7RjWzTa9W98c" type="815" open="0"/>
+            <listitem id="ucQfzq2SVeAzl" type="815" open="0"/>
             <listitem id="uFCEuSLkxEZTu" type="815" open="0"/>
             <listitem id="utjCmxwttrNgl" type="815" open="0"/>
             <listitem id="uyk1ycK9PIGJO" type="815" open="0"/>
-            <listitem id="urd38f7Fue5ID" type="815" open="0"/>
             <listitem id="uZj3OJGQCgipA" type="815" open="0"/>
-            <listitem id="uXOpPHHTfyHb6" type="815" open="0"/>
+            <listitem id="urd38f7Fue5ID" type="815" open="0"/>
             <listitem id="u5ArNtvnLk33w" type="815" open="0"/>
-            <listitem id="uo6CmSoHIvz3p" type="815" open="0"/>
+            <listitem id="uXOpPHHTfyHb6" type="815" open="0"/>
             <listitem id="ufCeJV1iuTol7" type="815" open="0"/>
+            <listitem id="uo6CmSoHIvz3p" type="815" open="0"/>
             <listitem id="udRgA85XxuDhv" type="815" open="0"/>
             <listitem id="u9bNP7KsDbQwg" type="815" open="0"/>
             <listitem id="uuriLKiF48KTF" type="815" open="0"/>
-            <listitem id="uuWShBKjWbENQ" type="815" open="0"/>
             <listitem id="uRsFj7gD3Ttpv" type="815" open="0"/>
+            <listitem id="uuWShBKjWbENQ" type="815" open="0"/>
             <listitem id="uaKr5vZDRwhsx" type="815" open="0"/>
             <listitem id="uOq4ivgS6eKBZ" type="815" open="0"/>
             <listitem id="u6zVQErGTleu3" type="815" open="0"/>
@@ -1986,8 +1996,8 @@
             <listitem id="udWtGyMj0zWqE" type="814" open="0"/>
             <listitem id="uX1hbJQI0IQbC" type="814" open="0"/>
             <listitem id="uM0p0zMwFMo7M" type="815" open="0"/>
-            <listitem id="u8IvpcrQgFkFq" type="815" open="0"/>
             <listitem id="uKbInQg9L1Rfa" type="815" open="0"/>
+            <listitem id="u8IvpcrQgFkFq" type="815" open="0"/>
             <listitem id="ucODviZU7swxc" type="815" open="0"/>
             <listitem id="u9J2X0FUZvNsJ" type="815" open="0"/>
             <listitem id="uti49FNHGtSGc" type="815" open="0"/>
@@ -2057,19 +2067,13 @@
             <listitem id="uZtStkqbUgBcl" type="829" open="0"/>
             <listitem id="uBauWGt00tKhF" type="829" open="0"/>
             <listitem id="uwp8qlAa3kKfz" type="829" open="0"/>
-            <listitem id="u563QH77qCYxA" type="829" open="0"/>
-            <listitem id="uS9sSDdW5B34Q" type="829" open="0"/>
             <listitem id="upbuU2K5Gdz2o" type="829" open="0"/>
             <listitem id="uukZGhOMJAVRb" type="829" open="0"/>
             <listitem id="uwmjgwH7pXbWk" type="829" open="0"/>
-            <listitem id="udouvyofaLqk1" type="829" open="0"/>
+            <listitem id="uWcTyVESCI9Vl" type="829" open="0"/>
           </listitem>
-          <listitem id="uoJRwOU2H2ccM" type="813" open="0">
-            <listitem id="ulwOv5Z1ER5fO" type="813" open="0"/>
-          </listitem>
-          <listitem id="uzseHUDIOvDb5" type="813" open="1">
-            <listitem id="uDHUNXiJM88aE" type="813" open="0"/>
-          </listitem>
+          <listitem id="uoJRwOU2H2ccM" type="813" open="0"/>
+          <listitem id="uzseHUDIOvDb5" type="813" open="1"/>
           <listitem id="uvqjjNU8TRZiW" type="818" open="0">
             <listitem id="uH0j4UVD68RH9" type="818" open="0">
               <listitem id="uvIFbVTys8jtV" type="813" open="0"/>
@@ -2078,15 +2082,9 @@
           <listitem id="u4PxUh49UhqDQ" type="818" open="0">
             <listitem id="ubzheFlEc14zf" type="813" open="0"/>
           </listitem>
-          <listitem id="uySEAvFFgNWP4" type="813" open="0">
-            <listitem id="uFtXIjW3f16F2" type="813" open="0"/>
-          </listitem>
-          <listitem id="u9I1RsPK8VWKb" type="813" open="1">
-            <listitem id="uq4xrt14rCrTt" type="813" open="0"/>
-          </listitem>
-          <listitem id="uo3enar9YGyDr" type="813" open="1">
-            <listitem id="uWnssn5aMVsrL" type="813" open="0"/>
-          </listitem>
+          <listitem id="uySEAvFFgNWP4" type="813" open="0"/>
+          <listitem id="u9I1RsPK8VWKb" type="813" open="1"/>
+          <listitem id="uo3enar9YGyDr" type="813" open="1"/>
           <listitem id="uOPGVBaYK4jOh" type="813" open="0"/>
         </listitem>
         <listitem id="Use_Case_View" type="802" open="1"/>
