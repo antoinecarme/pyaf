@@ -7,7 +7,6 @@
 import pandas as pd
 import numpy as np
 
-import gc
 
 from . import Time as tsti
 from . import Perf as tsperf
@@ -388,4 +387,3 @@ class cAutoRegressiveEstimator:
                 autoreg.mARFrame = pd.DataFrame(index = self.mCycleFrame.index);
             del autoreg.mARFrame
         del self.mARFrame;
-        gc.collect()

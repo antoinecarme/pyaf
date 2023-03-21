@@ -14,8 +14,6 @@ from . import Plots as tsplot
 from . import Utils as tsutil
 from . import Complexity as tscomplex
 
-import gc
-
 class cAbstractCycle:
     def __init__(self , trend):
         self.mTimeInfo = tsti.cTimeInfo()
@@ -530,4 +528,3 @@ class cCycleEstimator:
         for trend in self.mTrendList:
             for cycle in self.mCycleList[trend]:
                 del cycle.mCycleFrame
-        gc.collect()

@@ -6,7 +6,6 @@
 
 from . import Options as tsopts
 from . import Utils as tsutil
-import gc
         
 class cSignalDecomposition:
         
@@ -101,7 +100,7 @@ class cSignalDecomposition:
         for (lSignal, lBestModel) in self.mBestModels.items():
             lBestModel.clean_dataframes()
         del lTrainer
-        gc.collect()
+        
 
 
     def forecast(self , iInputDS, iHorizon):
@@ -110,7 +109,7 @@ class cSignalDecomposition:
         lForecaster = tsforec.cSignalDecompositionForecaster()
         lForecastFrame = lForecaster.forecast(self, iInputDS, iHorizon)
         del lForecaster
-        gc.collect()
+        
         return lForecastFrame;
 
 
@@ -137,14 +136,14 @@ class cSignalDecomposition:
         logger = tsutil.get_pyaf_logger();
         logger.info("TRAINING_TIME_IN_SECONDS " + str(self.mTrainingTime));
         self.get_competition_details()
-        gc.collect()
+        
 
     def to_dict(self, iWithOptions = False):
         dict1 = {}
         dict1["Training_Time"] = self.mTrainingTime
         for lSignal in self.mSignals:
             dict1[lSignal] = self.mBestModels[lSignal].to_dict(iWithOptions);
-        gc.collect()
+        
         return dict1
         
     def standardPlots(self, name = None, format = 'png'):
@@ -154,11 +153,11 @@ class cSignalDecomposition:
             if(name is not None):
                 lName = str(name) + "_" + str(lSignal)
             self.mBestModels[lSignal].standardPlots(lName, format);
-        gc.collect()
+        
         
     def getPlotsAsDict(self):
         lDict = {}
         for lSignal in self.mSignals:
             lDict[lSignal] = self.mBestModels[lSignal].getPlotsAsDict();
-        gc.collect()
+        
         return lDict;

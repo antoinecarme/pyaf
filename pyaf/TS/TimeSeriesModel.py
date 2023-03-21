@@ -14,7 +14,6 @@ from . import Perf as tsperf
 from . import Utils as tsutil
 from . import Complexity as tscomplex
 
-import gc
 
 def to_str(x):
     return str(np.round(x, 6))
@@ -526,5 +525,4 @@ class cTimeSeriesModel:
     def clean_dataframes(self):
         self.mTrend.mSignalFrame = self.mTrend.mSignalFrame[[self.mTime, self.mOriginalSignal, self.mSignal]].copy()
         # print(self.mTrend.mSignalFrame.columns)
-        gc.collect()
         

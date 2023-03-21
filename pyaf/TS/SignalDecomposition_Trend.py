@@ -14,8 +14,6 @@ from . import Plots as tsplot
 from . import Utils as tsutil
 from . import Complexity as tscomplex
 
-import gc
-
 
 import sklearn.linear_model as linear_model
 
@@ -337,4 +335,3 @@ class cTrendEstimator:
         self.estimateTrends()
         for trend in self.mTrendList:
             del trend.mTrendFrame
-        gc.collect()
