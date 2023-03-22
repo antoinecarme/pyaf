@@ -185,12 +185,14 @@ class cSignalTransform_Accumulate(cAbstractSignalTransform):
         self.mFormula = "Integration";
         self.mComplexity = tscomplex.eModelComplexity.Medium;
         self.mScaling = True;
+        self.mFirstValue = None;        
         pass
 
     def get_name(self, iSig):
         return "CumSum_" + str(iSig);
     
     def specific_fit(self , sig):
+        self.mFirstValue = sig[0]
         pass
     
     def specific_apply(self, sig):
@@ -198,7 +200,8 @@ class cSignalTransform_Accumulate(cAbstractSignalTransform):
     
     def specific_invert(self, sig):
         sig_diff = np.diff(sig)
-        sig_orig = np.append([ sig[0] ], sig_diff);
+        sig_orig = np.append([ 0.0 ], sig_diff);
+        sig_orig = sig_orig + self.mFirstValue 
         return sig_orig;
 
     def dump_values(self):
