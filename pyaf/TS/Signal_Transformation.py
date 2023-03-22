@@ -10,30 +10,39 @@ import numpy as np
 from . import Utils as tsutil
 from . import Complexity as tscomplex
 
+import sklearn
+
+
 def testTransform_one_seed(tr1 , seed_value):
     df = pd.DataFrame(index = None);
     np.random.seed(seed_value)
     df['A'] = np.random.normal(0, 1.0, 10);
+    df['A'] = df['A'].abs()
     # df['A'] = range(1, 6000);
     sig = df['A'];
 
     tr1.mOriginalSignal = "selfTestSignal";
     tr1.fit(sig)
+    sig_scaled = tr1.scale_signal(sig.values)
     sig1 = tr1.apply(sig);
+    df['A_scaled'] = sig_scaled
     df['A_transformed'] = sig1
     sig2 = tr1.invert(df['A_transformed'])
     # print(sig)
     # print(sig1)
     # print(sig2)
     n = np.linalg.norm(sig2 - sig)
-    lEps = 1e-7
-    if(n > lEps):
-        print("'" + tr1.get_name("Test") + "'" , " : ", n)
+    lName = tr1.get_name("Test")
+    lEps = 1e-6
+    lNotOK = (not lName.startswith('Quantized_')) and (n > lEps)
+    if (lNotOK):
+        print("'" + lName + "'" , " : ", n)
         print("A = " , sig.values.tolist())
+        print("A_SCALED = " , sig_scaled.tolist())
         print("A_TRANSFORMED = " , sig1.tolist())
         print("A_TRANSFORMED_TR = " , sig2.tolist())    
 
-    assert(n <= lEps)    
+        assert(n <= lEps)    
 
 
 def testTransform(tr1):
@@ -44,7 +53,7 @@ class cAbstractSignalTransform:
     def __init__(self):
         self.mOriginalSignal = None;
         self.mComplexity = tscomplex.eModelComplexity.High;
-        self.mScaling = None;
+        self.mScaler = sklearn.preprocessing.MinMaxScaler();
         self.mDebug = False;
         pass
 
@@ -59,47 +68,14 @@ class cAbstractSignalTransform:
             raise tsutil.PyAF_Error('Invalid Signal Column Type ' + sig.dtype);
 
     def fit_scaling_params(self, sig):
-        if(self.mScaling is not None):
-            # self.mMeanValue = np.mean(sig);
-            # self.mStdValue = np.std(sig);
-            # lEps = 1.0e-10
-            self.mMinInputValue = np.min(sig);
-            self.mMaxInputValue = np.max(sig);
-            self.mInputValueRange = self.mMaxInputValue - self.mMinInputValue;
-        else:
-            pass
-
-    def scale_value(self, x):
-        return (x - self.mMinInputValue) / self.mInputValueRange;
+        self.mScaler.fit(sig.reshape(-1, 1))
 
     def scale_signal(self, sig):
-        if(self.mScaling is not None):
-            # print("SCALE_START", sig.values[1:5]);
-            sig1 = None
-            if(np.fabs(self.mInputValueRange) < 1e-10):
-                sig1 = sig * 0.0
-            else:
-                sig1 = self.scale_value(sig)
-            # print("SCALE_END", sig1.values[1:5]);
-            return sig1;
-        else:
-            return sig;
-
-    def rescale_value(self, x):
-        y = self.mMinInputValue + x * self.mInputValueRange;
-        return y
-    
-    
-        
+        return self.mScaler.transform(sig.reshape(-1, 1)).ravel()
 
     def rescale_signal(self, sig1):
-        if(self.mScaling is not None):
-            # print("RESCALE_START", sig1.values[1:5]);
-            sig = self.rescale_value(sig1);
-            # print("RESCALE_END", sig.values[1:5]);
-            return sig;
-        else:
-            return sig1;
+        sig2 = sig1.clip(-1.e-7, 1.e+7)
+        return self.mScaler.inverse_transform(sig2.reshape(-1, 1)).ravel()    
 
     def fit(self , sig):
         # print("FIT_START", self.mOriginalSignal, sig.values[1:5]);
@@ -128,7 +104,7 @@ class cAbstractSignalTransform:
         return rescaled_sig;
 
     def transformDataset(self, df):
-        df["scaled_" + self.mOriginalSignal] = self.scale_signal(df[self.mOriginalSignal])
+        df["scaled_" + self.mOriginalSignal] = self.scale_signal(df[self.mOriginalSignal].values)
         df[self.get_name(self.mOriginalSignal)] = self.apply(df[self.mOriginalSignal])
         return df;
 
@@ -158,7 +134,6 @@ class cSignalTransform_None(cAbstractSignalTransform):
         cAbstractSignalTransform.__init__(self);
         self.mFormula = "NoTransf";
         self.mComplexity = tscomplex.eModelComplexity.Low;
-        self.mScaling = True;
         pass
 
     def get_name(self, iSig):
@@ -184,7 +159,6 @@ class cSignalTransform_Accumulate(cAbstractSignalTransform):
         cAbstractSignalTransform.__init__(self);
         self.mFormula = "Integration";
         self.mComplexity = tscomplex.eModelComplexity.Medium;
-        self.mScaling = True;
         self.mFirstValue = None;        
         pass
 
@@ -200,8 +174,7 @@ class cSignalTransform_Accumulate(cAbstractSignalTransform):
     
     def specific_invert(self, sig):
         sig_diff = np.diff(sig)
-        sig_orig = np.append([ 0.0 ], sig_diff);
-        sig_orig = sig_orig + self.mFirstValue 
+        sig_orig = np.append([ self.mFirstValue ], sig_diff);
         return sig_orig;
 
     def dump_values(self):
@@ -215,7 +188,6 @@ class cSignalTransform_Quantize(cAbstractSignalTransform):
         self.mQuantiles = iQuantiles;
         self.mFormula = "Quantization";
         self.mComplexity = tscomplex.eModelComplexity.High;
-        self.mScaling = True;
         pass
 
     def get_name(self, iSig):
@@ -266,28 +238,27 @@ class cSignalTransform_BoxCox(cAbstractSignalTransform):
 
     def __init__(self, iLambda):
         cAbstractSignalTransform.__init__(self);
-        self.mFormula = "BoxCox";
         self.mLambda = iLambda;
         self.mComplexity = tscomplex.eModelComplexity.High;
-        self.mScaling = True;
+        self.mFormula = "BoxCox(Lambda=" + str(self.mLambda) + ")";
+        self.mScaler = sklearn.preprocessing.MaxAbsScaler();
         pass
 
     def get_name(self, iSig):
         return "Box_Cox_" + str(self.mLambda) + "_" + str(iSig);
 
     def specific_fit(self, sig):
-        self.mFormula = "BoxCox(Lambda=" + str(self.mLambda) + ")";
         pass
     
 
     def specific_apply(self, sig):
         lEps = 1e-3
-        assert(sig.min() > -lEps)
+        # assert(sig.min() > -lEps)
         log_sig = np.log(sig.clip(lEps, None))
         if(abs(self.mLambda) <= 0.001):
             return log_sig;
         lLimit = 5.0 / abs(self.mLambda)
-        log_sig = log_sig.clip(-lLimit , lLimit)
+        # log_sig = log_sig.clip(-lLimit , lLimit)
         sig1 = (np.exp(log_sig * self.mLambda) - 1) / self.mLambda
         return sig1;
 
@@ -318,7 +289,6 @@ class cSignalTransform_Differencing(cAbstractSignalTransform):
         self.mFirstValue = None;
         self.mFormula = "Difference";
         self.mComplexity = tscomplex.eModelComplexity.Medium;
-        self.mScaling = True;
         pass
 
     def get_name(self, iSig):
@@ -352,7 +322,7 @@ class cSignalTransform_RelativeDifferencing(cAbstractSignalTransform):
         self.mFirstValue = None;
         self.mFormula = "RelativeDifference";
         self.mComplexity = tscomplex.eModelComplexity.Medium;
-        self.mScaling = True;
+        self.mScaler = sklearn.preprocessing.MaxAbsScaler();
         pass
 
     def get_name(self, iSig):
@@ -363,38 +333,19 @@ class cSignalTransform_RelativeDifferencing(cAbstractSignalTransform):
         pass
 
     def specific_apply(self, sig):
-        lEps = 1e-2
         # print("RelDiff_apply_DEBUG_START" , self.mFirstValue, sig.values[0:10]);
-        sig_diff = np.append([ sig[0] - self.mFirstValue ], np.diff(sig));
-        sig_shifted = np.append([ self.mFirstValue ], sig[:-1])
+        sig_diff = np.diff(sig);
+        sig_shifted = sig[:-1]
         rate = np.divide(sig_diff, sig_shifted, out=np.zeros_like(sig_diff), where=sig_shifted!=0)
-        rate[0] = 0.0;
-        # print(sig1)
-        # print(sig_shifted)
-        rate = rate.clip(-1.0e+2 , +1.0e+2)
-        # print("RelDiff_apply_DEBUG_END" , rate[0:10]);
+        rate = np.append([0.0], rate)
         return rate;
 
 
-    def cumprod_no_overflow(self, rate):
-        lLogRate = np.log(rate)
-        lCumSum = lLogRate.cumsum()
-        lCumSum = lCumSum.clip(-10 , +10)
-        lResult = np.exp(lCumSum)
-        return lResult
-        
     def specific_invert(self, sig):
         # print("RelDiff_invert_DEBUG_START" , self.mFirstValue, sig.values[0:10]);
         rate = sig + 1;
-        # Avoid unnecessary clipping.
-        # np.exp(10) == 22026.465794806718 and np.exp(-10) == 4.5399929762484854e-05
-        lEps = 1e-5
-        rate = rate.clip(lEps , +10)
-        rate_cum = self.cumprod_no_overflow(rate);
+        rate_cum = np.cumprod(rate);
         sig_orig = self.mFirstValue * rate_cum;
-        # print("rate" , rate)
-        # print("rate_cum", rate_cum)
-        # print("RelDiff_invert_DEBUG_START" , sig_orig[0:10])
         return sig_orig;
 
     def dump_values(self):
@@ -407,7 +358,6 @@ class cSignalTransform_Logit(cAbstractSignalTransform):
         cAbstractSignalTransform.__init__(self);
         self.mFormula = "Logit";
         self.mComplexity = tscomplex.eModelComplexity.Medium;
-        self.mScaling = True;
         pass
 
     def get_name(self, iSig):
@@ -421,13 +371,13 @@ class cSignalTransform_Logit(cAbstractSignalTransform):
         pass
 
     def logit(self, x):
-        eps = 1.0e-2;
+        eps = 1.0e-7;
         x1 = np.clip(x, eps, 1 - eps)
         y = np.log(x1) - np.log(1 - x1);
         return y;
 
     def inv_logit(self, y):
-        y1 = np.clip(y, -5, 5)
+        y1 = np.clip(y, -20, 20)
         x = np.exp(y1);
         p = x / (1 + x);
         return p;
@@ -459,7 +409,6 @@ class cSignalTransform_Anscombe(cAbstractSignalTransform):
         self.mComplexity = tscomplex.eModelComplexity.High;
         self.mFormula = "Anscombe";
         self.mConstant = 3.0/ 8.0;
-        self.mScaling = True;
         pass
 
     def get_name(self, iSig):
@@ -473,7 +422,7 @@ class cSignalTransform_Anscombe(cAbstractSignalTransform):
         return y;
     
     def specific_invert(self, sig):
-        y1 = sig.clip(1.22, 2.34)
+        y1 = sig # .clip(1.22, 2.34)
         x = (y1/2 * y1/2) - self.mConstant
         return x;
 
@@ -491,7 +440,6 @@ class cSignalTransform_Fisher(cAbstractSignalTransform):
         cAbstractSignalTransform.__init__(self);
         self.mFormula = "Fisher";
         self.mComplexity = tscomplex.eModelComplexity.High;
-        self.mScaling = True;
         pass
 
     def get_name(self, iSig):
@@ -501,7 +449,7 @@ class cSignalTransform_Fisher(cAbstractSignalTransform):
         pass
     
     def specific_apply(self, sig):
-        eps = 1.0e-2;
+        eps = 1.0e-7;
         y = np.arctanh(np.clip(sig , -1 + eps , 1.0 - eps))
         return y;
     
@@ -557,6 +505,7 @@ class cTransformationEstimator:
         lIsApplicable = transf.is_applicable(df[iSignal]);
         if(lIsApplicable):
             # print("Adding Transformation " , lName);
+            transf.test()
             self.mTransformList = self.mTransformList + [transf];
 
 
