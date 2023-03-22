@@ -996,6 +996,51 @@ hierarchical/test_hierarchy_AU_TD.py  :
  hierarchical :  hierarchical/test_hierarchy_AU_TD.py hierarchical/test_hierarchy_AU_OC.py hierarchical/test_hierarchy_AU_MO.py hierarchical/test_hierarchy_AU_BU.py hierarchical/test_hierarchy_AU_AllMethods_Exogenous_per_node.py hierarchical/test_hierarchy_AU_AllMethods_Exogenous_all_nodes.py hierarchical/test_hierarchy_AU_AllMethods.py hierarchical/test_hierarchy_AU.py hierarchical/test_grouped_signals_TD.py hierarchical/test_grouped_signals_OC.py hierarchical/test_grouped_signals_MO.py hierarchical/test_grouped_signals_BU.py hierarchical/test_grouped_signals_AllMethods_Exogenous_per_node.py hierarchical/test_grouped_signals_AllMethods_Exogenous_all_nodes.py hierarchical/test_grouped_signals_AllMethods_2.py hierarchical/test_grouped_signals_AllMethods.py hierarchical/test_grouped.py  
  
 
+individual_components/test_air_passengers_all_autoreg.py  :  
+	 -$(PYTHON)  tests/individual_components/test_air_passengers_all_autoreg.py  >  logs/individual_components_test_air_passengers_all_autoreg.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/individual_components/test_air_passengers_all_autoreg.log logs/individual_components_test_air_passengers_all_autoreg.log  >  logs/individual_components_test_air_passengers_all_autoreg.log.diff
+	 tail -10  logs/individual_components_test_air_passengers_all_autoreg.log.diff 
+
+individual_components/test_air_passengers_all_decomposition_types.py  :  
+	 -$(PYTHON)  tests/individual_components/test_air_passengers_all_decomposition_types.py  >  logs/individual_components_test_air_passengers_all_decomposition_types.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/individual_components/test_air_passengers_all_decomposition_types.log logs/individual_components_test_air_passengers_all_decomposition_types.log  >  logs/individual_components_test_air_passengers_all_decomposition_types.log.diff
+	 tail -10  logs/individual_components_test_air_passengers_all_decomposition_types.log.diff 
+
+individual_components/test_air_passengers_all_transforms.py  :  
+	 -$(PYTHON)  tests/individual_components/test_air_passengers_all_transforms.py  >  logs/individual_components_test_air_passengers_all_transforms.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/individual_components/test_air_passengers_all_transforms.log logs/individual_components_test_air_passengers_all_transforms.log  >  logs/individual_components_test_air_passengers_all_transforms.log.diff
+	 tail -10  logs/individual_components_test_air_passengers_all_transforms.log.diff 
+
+individual_components/test_air_passengers_all_trends.py  :  
+	 -$(PYTHON)  tests/individual_components/test_air_passengers_all_trends.py  >  logs/individual_components_test_air_passengers_all_trends.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/individual_components/test_air_passengers_all_trends.log logs/individual_components_test_air_passengers_all_trends.log  >  logs/individual_components_test_air_passengers_all_trends.log.diff
+	 tail -10  logs/individual_components_test_air_passengers_all_trends.log.diff 
+
+individual_components/test_ozone_all_autoreg.py  :  
+	 -$(PYTHON)  tests/individual_components/test_ozone_all_autoreg.py  >  logs/individual_components_test_ozone_all_autoreg.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/individual_components/test_ozone_all_autoreg.log logs/individual_components_test_ozone_all_autoreg.log  >  logs/individual_components_test_ozone_all_autoreg.log.diff
+	 tail -10  logs/individual_components_test_ozone_all_autoreg.log.diff 
+
+individual_components/test_ozone_all_decomposition_types.py  :  
+	 -$(PYTHON)  tests/individual_components/test_ozone_all_decomposition_types.py  >  logs/individual_components_test_ozone_all_decomposition_types.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/individual_components/test_ozone_all_decomposition_types.log logs/individual_components_test_ozone_all_decomposition_types.log  >  logs/individual_components_test_ozone_all_decomposition_types.log.diff
+	 tail -10  logs/individual_components_test_ozone_all_decomposition_types.log.diff 
+
+individual_components/test_ozone_all_transforms.py  :  
+	 -$(PYTHON)  tests/individual_components/test_ozone_all_transforms.py  >  logs/individual_components_test_ozone_all_transforms.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/individual_components/test_ozone_all_transforms.log logs/individual_components_test_ozone_all_transforms.log  >  logs/individual_components_test_ozone_all_transforms.log.diff
+	 tail -10  logs/individual_components_test_ozone_all_transforms.log.diff 
+
+individual_components/test_ozone_all_trends.py  :  
+	 -$(PYTHON)  tests/individual_components/test_ozone_all_trends.py  >  logs/individual_components_test_ozone_all_trends.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/individual_components/test_ozone_all_trends.log logs/individual_components_test_ozone_all_trends.log  >  logs/individual_components_test_ozone_all_trends.log.diff
+	 tail -10  logs/individual_components_test_ozone_all_trends.log.diff 
+
+
+
+ individual_components :  individual_components/test_ozone_all_trends.py individual_components/test_ozone_all_transforms.py individual_components/test_ozone_all_decomposition_types.py individual_components/test_ozone_all_autoreg.py individual_components/test_air_passengers_all_trends.py individual_components/test_air_passengers_all_transforms.py individual_components/test_air_passengers_all_decomposition_types.py individual_components/test_air_passengers_all_autoreg.py  
+ 
+
 lgbm/test_air_passengers_lgb.py  :  
 	 -$(PYTHON)  tests/lgbm/test_air_passengers_lgb.py  >  logs/lgbm_test_air_passengers_lgb.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/lgbm/test_air_passengers_lgb.log logs/lgbm_test_air_passengers_lgb.log  >  logs/lgbm_test_air_passengers_lgb.log.diff
@@ -2289,9 +2334,9 @@ xgb/test_ozone_xgbx_exogenous.py  :
 
 # ********************************************** 
 
-all:  artificial basic_checks bugs cross_validation croston exog expsmooth func HeartRateTimeSeries heroku hierarchical  HourOfWeek model_control perf svr transformations  neuralnet real-life  time_res perfs demos xgb xeon-phi-parallel sampling temporal_hierarchy WeekOfMonth missing_data  probabilistic_forecasting lgbm perf_MedAE perf_LnQ plots multiplicative_seasonal pytorch perf_MASE_RMSSE 
+all:  artificial basic_checks bugs cross_validation croston exog expsmooth func HeartRateTimeSeries heroku hierarchical  HourOfWeek model_control perf svr transformations  neuralnet real-life  time_res perfs demos xgb xeon-phi-parallel sampling temporal_hierarchy WeekOfMonth missing_data  probabilistic_forecasting lgbm perf_MedAE perf_LnQ plots multiplicative_seasonal pytorch perf_MASE_RMSSE individual_components 
 	
 
-build-test :  demos basic_checks cross_validation croston exog heroku hierarchical model_control perfs svr transformations func real-life  time_res xgb sampling HourOfWeek WeekOfMonth missing_data lgbm perf_MedAE perf_LnQ multiplicative_seasonal perf_MASE_RMSSE bugs probabilistic_forecasting plots 
+build-test :  demos basic_checks cross_validation croston exog heroku hierarchical model_control perfs svr transformations func real-life  time_res xgb sampling HourOfWeek WeekOfMonth missing_data lgbm perf_MedAE perf_LnQ multiplicative_seasonal perf_MASE_RMSSE bugs probabilistic_forecasting plots individual_components 
 	
 

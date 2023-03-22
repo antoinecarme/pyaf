@@ -1,6 +1,8 @@
 import numpy as np
 import pandas as pd
 
+import pyaf.TS.Options as tsopts
+
 # generate a daily signal covering one year 2016 in a pandas dataframe
 N = 365
 np.random.seed(seed=1960)
@@ -30,7 +32,7 @@ lEngine.mOptions.mDebug = True;
 lEngine.mOptions.set_active_transformations(['None'])
 lEngine.mOptions.set_active_trends(['ConstantTrend'])
 lEngine.mOptions.set_active_periodics(['NoCycle'])
-lEngine.mOptions.set_active_autoregressions(lEngine.mOptions.mKnownAutoRegressions)
+lEngine.mOptions.set_active_autoregressions(tsopts.cModelControl.gKnownAutoRegressions)
 
 # get the best time series model for predicting one week
 lEngine.train(iInputDS = df_train, iTime = 'Date', iSignal = lSignal, iHorizon = 7);

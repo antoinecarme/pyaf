@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 
 import pyaf.ForecastEngine as autof
+import pyaf.TS.Options as tsopts
 
 
 def draw(iEngine, iFormula, iSignal):
@@ -60,18 +61,18 @@ class cModelEstheticsVisualizer:
         lEngine = autof.cForecastEngine()
         lSpecs = []
         lSpec = {}
-        lKnownAutoRegressions = [x for x in lEngine.mOptions.mKnownAutoRegressions if not x.endswith('X')]
+        lKnownAutoRegressions = [x for x in tsopts.cModelControl.gKnownAutoRegressions if not x.endswith('X')]
         lKnownAutoRegressions = [x for x in lKnownAutoRegressions if (x != 'CROSTON')]
         lKnownPeriodics = ['NoCycle', 'BestCycle', 'Seasonal_MonthOfYear'];
-        for tr in lEngine.mOptions.mKnownTransformations:
+        for tr in tsopts.cModelControl.gKnownTransformations:
             lSpec["Transformation"] = tr
-            for tr1 in lEngine.mOptions.mKnownTrends:
+            for tr1 in tsopts.cModelControl.gKnownTrends:
                 lSpec["Trend"] = tr1
                 for per in lKnownPeriodics:
                     lSpec["Periodics"] = per
                     for ar in lKnownAutoRegressions:
                         lSpec["AutoRegression"] = ar
-                        for dec in lEngine.mOptions.mKnownDecompositionTypes:
+                        for dec in tsopts.cModelControl.gKnownDecompositionTypes:
                             lSpec["Decomposition"] = dec
                             lSpecs = lSpecs + [(self.mDataset, lSpec.copy())]
         print("TESTED_MODELS" , len(lSpecs))
