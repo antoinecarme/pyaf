@@ -10,6 +10,45 @@ import numpy as np
 
 class cModelControl:
 
+    gKnownDecompositionTypes = ['T+S+R', 'TS+R', 'TSR']
+    gKnownTransformations = ['None', 'Difference', 'RelativeDifference',
+                             'Integration', 'BoxCox',
+                             'Quantization', 'Logit',
+                             'Fisher', 'Anscombe'];
+    gKnownTrends = ['ConstantTrend', 
+                    'Lag1Trend', 'LinearTrend', 'PolyTrend', 
+                    'MovingAverage', 'MovingMedian'];
+    gKnownPeriodics = ['NoCycle', 'BestCycle',
+                       'Seasonal_MonthOfYear' ,
+                       'Seasonal_Second' ,
+                       'Seasonal_Minute' ,
+                       'Seasonal_Hour' ,
+                       'Seasonal_HourOfWeek' ,
+                       'Seasonal_TwoHourOfWeek' ,
+                       'Seasonal_ThreeHourOfWeek' ,
+                       'Seasonal_FourHourOfWeek' ,
+                       'Seasonal_SixHourOfWeek' ,
+                       'Seasonal_EightHourOfWeek' ,
+                       'Seasonal_TwelveHourOfWeek' ,
+                       'Seasonal_DayOfWeek' ,
+                       'Seasonal_DayOfMonth',
+                       'Seasonal_DayOfYear',
+                       'Seasonal_WeekOfMonth',
+                       'Seasonal_DayOfNthWeekOfMonth',
+                       'Seasonal_WeekOfYear'];
+
+    # "AutoRegression" becomes a little bit confusing as croston does not use lags (???)
+    # rather use wikipedia terminology :  https://en.wikipedia.org/wiki/Decomposition_of_time_series
+    # AutoRegression => "irregular component"
+    gKnownAutoRegressions = ['NoAR' ,
+                             'AR' , 'ARX' ,
+                             'SVR', 'SVRX',
+                             'MLP' , 'MLPX' ,
+                             'LSTM' , 'LSTMX' ,
+                             'XGB' , 'XGBX' ,
+                             'CROSTON', # No CROSTONX for the moment
+                             'LGB', 'LGBX'];
+
     def __init__(self):
         self.mActiveTransformations = {};
         self.mActivePeriodics = {};
@@ -17,49 +56,12 @@ class cModelControl:
         self.mActiveAutoRegressions = {};
         #  Add Multiplicative Models/Seasonals #178 
         self.mActiveDecompositionTypes = {}
-        self.mKnownDecompositionTypes = ['T+S+R', 'TS+R', 'TSR']
-        self.mKnownTransformations = ['None', 'Difference', 'RelativeDifference',
-                                      'Integration', 'BoxCox',
-                                      'Quantization', 'Logit',
-                                      'Fisher', 'Anscombe'];
-        self.mKnownTrends = ['ConstantTrend', 
-                             'Lag1Trend', 'LinearTrend', 'PolyTrend', 
-                             'MovingAverage', 'MovingMedian'];
-        self.mKnownPeriodics = ['NoCycle', 'BestCycle',
-                                'Seasonal_MonthOfYear' ,
-                                'Seasonal_Second' ,
-                                'Seasonal_Minute' ,
-                                'Seasonal_Hour' ,
-                                'Seasonal_HourOfWeek' ,
-                                'Seasonal_TwoHourOfWeek' ,
-                                'Seasonal_ThreeHourOfWeek' ,
-                                'Seasonal_FourHourOfWeek' ,
-                                'Seasonal_SixHourOfWeek' ,
-                                'Seasonal_EightHourOfWeek' ,
-                                'Seasonal_TwelveHourOfWeek' ,
-                                'Seasonal_DayOfWeek' ,
-                                'Seasonal_DayOfMonth',
-                                'Seasonal_DayOfYear',
-                                'Seasonal_WeekOfMonth',
-                                'Seasonal_DayOfNthWeekOfMonth',
-                                'Seasonal_WeekOfYear'];
 
-        # "AutoRegression" becomes a little bit confusing as croston does not use lags (???)
-        # rather use wikipedia terminology :  https://en.wikipedia.org/wiki/Decomposition_of_time_series
-        # AutoRegression => "irregular component"
-        self.mKnownAutoRegressions = ['NoAR' ,
-                                      'AR' , 'ARX' ,
-                                      'SVR', 'SVRX',
-                                      'MLP' , 'MLPX' ,
-                                      'LSTM' , 'LSTMX' ,
-                                      'XGB' , 'XGBX' ,
-                                      'CROSTON', # No CROSTONX for the moment
-                                      'LGB', 'LGBX'];
         # now , set he default models
-        self.set_active_transformations(self.mKnownTransformations[0:4]);
-        self.set_active_trends(self.mKnownTrends[0:4]);
-        self.set_active_periodics(self.mKnownPeriodics);
-        self.set_active_autoregressions(self.mKnownAutoRegressions[0:3]);
+        self.set_active_transformations(cModelControl.gKnownTransformations[0:4]);
+        self.set_active_trends(cModelControl.gKnownTrends[0:4]);
+        self.set_active_periodics(cModelControl.gKnownPeriodics);
+        self.set_active_autoregressions(cModelControl.gKnownAutoRegressions[0:3]);
         # Add Multiplicative Models/Seasonals #178.
         # Only additive models are activated by default        
         self.set_active_decomposition_types(['T+S+R']);
@@ -73,10 +75,10 @@ class cModelControl:
         
     def set_active_decomposition_types(self, iDecompTypes):
         for dec_type in iDecompTypes:
-            self.check_model_type_validity('DecompositionType', self.mKnownDecompositionTypes, dec_type)
+            self.check_model_type_validity('DecompositionType', cModelControl.gKnownDecompositionTypes, dec_type)
             
         self.mActiveDecompositionTypes = {};
-        for decomp_type in self.mKnownDecompositionTypes:
+        for decomp_type in cModelControl.gKnownDecompositionTypes:
             if(decomp_type in iDecompTypes):
                 self.mActiveDecompositionTypes[decomp_type] = True;
             else:
@@ -87,10 +89,10 @@ class cModelControl:
             
     def set_active_transformations(self, transformations):
         for transformation in transformations:
-            self.check_model_type_validity('Transformation', self.mKnownTransformations, transformation)
+            self.check_model_type_validity('Transformation', cModelControl.gKnownTransformations, transformation)
             
         self.mActiveTransformations = {};
-        for transformation in self.mKnownTransformations:
+        for transformation in cModelControl.gKnownTransformations:
             if(transformation in transformations):
                 self.mActiveTransformations[transformation] = True;
             else:
@@ -101,10 +103,10 @@ class cModelControl:
     
     def set_active_trends(self, trends):
         for trend in trends:
-            self.check_model_type_validity('Trend', self.mKnownTrends, trend)
+            self.check_model_type_validity('Trend', cModelControl.gKnownTrends, trend)
             
         self.mActiveTrends = {};
-        for trend in self.mKnownTrends:
+        for trend in cModelControl.gKnownTrends:
             if(trend in trends):
                 self.mActiveTrends[trend] = True;
             else:
@@ -115,10 +117,10 @@ class cModelControl:
     
     def set_active_periodics(self, periodics):
         for period in periodics:
-            self.check_model_type_validity('Periodic', self.mKnownPeriodics, period)
+            self.check_model_type_validity('Periodic', cModelControl.gKnownPeriodics, period)
             
         self.mActivePeriodics = {};
-        for period in self.mKnownPeriodics:
+        for period in cModelControl.gKnownPeriodics:
             if(period in periodics):
                 self.mActivePeriodics[period] = True;
             else:
@@ -129,10 +131,10 @@ class cModelControl:
                     
     def set_active_autoregressions(self, autoregs):
         for autoreg in autoregs:
-            self.check_model_type_validity('AutoRegression', self.mKnownAutoRegressions, autoreg)
+            self.check_model_type_validity('AutoRegression', cModelControl.gKnownAutoRegressions, autoreg)
             
         self.mActiveAutoRegressions = {};
-        for autoreg in self.mKnownAutoRegressions:
+        for autoreg in cModelControl.gKnownAutoRegressions:
             if(autoreg in autoregs):
                 self.mActiveAutoRegressions[autoreg] = True;
             else:
