@@ -232,11 +232,11 @@ class cSignalDecomposition_Options(cModelControl):
         # use unlimited cycle lengths in slow mode
         self.mCycleLengths = None;
 
-        self.set_active_transformations(self.mKnownTransformations);
-        self.set_active_trends(self.mKnownTrends);
-        self.set_active_periodics(self.mKnownPeriodics);
-        self.set_active_autoregressions(self.mKnownAutoRegressions);
-        self.set_active_decomposition_types(self.mKnownDecompositionTypes);
+        self.set_active_transformations(cModelControl.gKnownTransformations);
+        self.set_active_trends(cModelControl.gKnownTrends);
+        self.set_active_periodics(cModelControl.gKnownPeriodics);
+        self.set_active_autoregressions(cModelControl.gKnownAutoRegressions);
+        self.set_active_decomposition_types(cModelControl.gKnownDecompositionTypes);
         
         self.mMaxAROrder = 64;
         self.mFilterSeasonals = False
