@@ -91,10 +91,12 @@ class cPerf:
         abs_error = self.pre_compute_abs_error_if_needed(signal , estimator)
         naive_abs_error= self.pre_compute_naive_abs_error_if_needed(signal , estimator)
         lEps = 1.0e-10;
-        naive_mean_abs_error = np.mean(naive_abs_error) + lEps
-        naive_mean_abs_error_2 = np.mean(naive_abs_error * naive_abs_error) + lEps
-        q1 = abs_error / naive_mean_abs_error
-        q2 = abs_error * abs_error / naive_mean_abs_error_2
+        q1, q2 = None, None
+        if(naive_abs_error.shape[0] > 0):
+            naive_mean_abs_error = np.mean(naive_abs_error) + lEps
+            naive_mean_abs_error_2 = np.mean(naive_abs_error * naive_abs_error) + lEps
+            q1 = abs_error / naive_mean_abs_error
+            q2 = abs_error * abs_error / naive_mean_abs_error_2
         self.mCachedValues['naive_scaled_error'] = (q1, q2)
         return (q1, q2)
 
@@ -116,15 +118,17 @@ class cPerf:
             
     def compute_MASE(self, signal , estimator):
         (q1, q2) = self.pre_compute_naive_mean_abs_error_ratio_if_needed(signal , estimator)
-        self.mMASE = np.mean(q1)
-        self.mMASE = round( self.mMASE , 4 )
-        return self.mMASE
+        if(q1 is not None):
+            self.mMASE = np.mean(q1)
+            self.mMASE = round( self.mMASE , 4 )
+            return self.mMASE
                 
     def compute_RMSSE(self, signal , estimator):
         (q1, q2) = self.pre_compute_naive_mean_abs_error_ratio_if_needed(signal , estimator)
-        self.mRMSSE = np.sqrt(np.mean(q2))
-        self.mRMSSE = round( self.mRMSSE , 4 )
-        return self.mRMSSE
+        if(q2 is not None):
+            self.mRMSSE = np.sqrt(np.mean(q2))
+            self.mRMSSE = round( self.mRMSSE , 4 )
+            return self.mRMSSE
                 
     def compute_DiffSMAPE(self, signal , estimator):
         abs_error = self.pre_compute_abs_error_if_needed(signal , estimator);
@@ -377,14 +381,16 @@ class cPerf:
 
     def getCriterionValue(self, criterion):
         lDict = self.__dict__
-        lValue = lDict.get("m" + criterion)
-        if(lValue is not None):
-            return lValue
+        criterion_normalized = criterion
         if(criterion == "MAE"):
-            return lDict["mL1"]
+            criterion_normalized = "L1"
         if(criterion == "RMSE"):
-            return lDict["mL2"]
-        raise tsutil.Internal_PyAF_Error("Unknown Performance Measure ['" + self.mName + "'] '" + criterion + "'");
+            criterion_normalized = "L2"
+        try:
+            lValue = lDict.get("m" + criterion_normalized)
+            return lValue
+        except:
+            raise tsutil.Internal_PyAF_Error("Unknown Performance Measure ['" + self.mName + "'] '" + criterion + "'");
         
 
     def is_acceptable_criterion_value(self, criterion, iRefValue = None):
