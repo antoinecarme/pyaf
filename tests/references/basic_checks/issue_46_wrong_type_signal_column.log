@@ -1,53 +1,89 @@
 INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signals': ['signal'], 'Horizons': {'signal': 1}}))
 INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', 'None', '_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'Diff_signal', 'DecompositionType': 'T+S+R'}))
 INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': '_signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'CumSum_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'Diff_signal', 'DecompositionType': 'T+S+R'}))
 INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'RelDiff_signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.157, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'CumSum_signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.185, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'Diff_signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.24, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': '_signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.242, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'RelDiff_signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.308, ('SIGNAL_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', 'None', '_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'CumSum_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.081, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': '_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.104, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'CumSum_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.107, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'Diff_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.109, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'RelDiff_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.152, ('SIGNAL_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', 'None', '_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
 INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'signal', 'Transformations': [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')]}))
-Traceback (most recent call last):
-  File "/home/circleci/project/pyaf/ForecastEngine.py", line 25, in train
-    self.mSignalDecomposition.train(iInputDS, iTime, iSignal, iHorizon, iExogenousData);
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/circleci/project/pyaf/TS/SignalDecomposition.py", line 92, in train
-    lTrainer.train(iInputDS, lSplits , self.mDateColumns, self.mSignals, self.mHorizons)
-  File "/home/circleci/project/pyaf/TS/SignalDecomposition_Trainer.py", line 276, in train
-    self.finalize_training()
-  File "/home/circleci/project/pyaf/TS/SignalDecomposition_Trainer.py", line 311, in finalize_training
-    res = run_finalize_training(arg)
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/circleci/project/pyaf/TS/SignalDecomposition_Trainer.py", line 245, in run_finalize_training
-    lModelSelector.collectPerformanceIndices_ModelSelection(lSignal, sigdecs)
-  File "/home/circleci/project/pyaf/TS/ModelSelection_Voting.py", line 41, in collectPerformanceIndices_ModelSelection
-    lVotingScores = self.compute_voting_scores(iSigDecs)
-                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/circleci/project/pyaf/TS/ModelSelection_Voting.py", line 220, in compute_voting_scores
-    self.mCondorcetScores[model_name] = self.compute_condorcet_score(model_name)
-                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/circleci/project/pyaf/TS/ModelSelection_Voting.py", line 204, in compute_condorcet_score
-    lScore = lScore + self.isBetter(lCrit1[h + 1], lCrit2[h + 1]) * lCoeff
-                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/circleci/project/pyaf/TS/ModelSelection_Voting.py", line 177, in isBetter
-    if(iCrit1 < (iCrit2 + 0.01)):
-                 ~~~~~~~^~~~~~
-TypeError: unsupported operand type(s) for +: 'NoneType' and 'float'
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/home/circleci/project/tests/basic_checks/issue_46_wrong_type_signal_column.py", line 11, in <module>
-    lEngine.train(df , 'date' , 'signal', 1);
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/circleci/project/pyaf/ForecastEngine.py", line 30, in train
-    raise tsutil.PyAF_Error("TRAIN_FAILED");
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-pyaf.TS.Utils.PyAF_Error: TRAIN_FAILED
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.189, ('MODEL_SELECTION', {'Signal': 'signal', 'Transformations': [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')]}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.19, ('FINALIZE_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.512, ('TRAINING', {'Signals': ['signal'], 'Horizons': {'signal': 1}}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.007, ('MODEL_SELECTION', {'Signal': 'signal', 'Transformations': [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'signal', 'Model': '_signal_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.019, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'signal', 'Model': '_signal_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.017, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.044, ('FINALIZE_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.203, ('TRAINING', {'Signals': ['signal'], 'Horizons': {'signal': 1}}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signals': ['signal'], 'Horizons': {'signal': 1}}))
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', 'None', '_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': '_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'Diff_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'RelDiff_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'CumSum_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.091, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'CumSum_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.102, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': '_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.102, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'Diff_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.114, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'RelDiff_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.159, ('SIGNAL_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', 'None', '_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'signal', 'Transformations': [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.006, ('MODEL_SELECTION', {'Signal': 'signal', 'Transformations': [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'signal', 'Model': '_signal_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.02, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'signal', 'Model': '_signal_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.018, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.044, ('FINALIZE_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.205, ('TRAINING', {'Signals': ['signal'], 'Horizons': {'signal': 1}}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signals': ['signal'], 'Horizons': {'signal': 1}}))
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', 'None', '_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'Diff_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': '_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'RelDiff_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'CumSum_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.069, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'Diff_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.1, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'RelDiff_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.101, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': '_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.109, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'CumSum_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.15, ('SIGNAL_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', 'None', '_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'signal', 'Transformations': [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.009, ('MODEL_SELECTION', {'Signal': 'signal', 'Transformations': [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'signal', 'Model': '_signal_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.027, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'signal', 'Model': '_signal_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.026, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.064, ('FINALIZE_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.216, ('TRAINING', {'Signals': ['signal'], 'Horizons': {'signal': 1}}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signals': ['signal'], 'Horizons': {'signal': 1}}))
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', 'None', '_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': '_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'Diff_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'RelDiff_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'CumSum_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.098, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'RelDiff_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.103, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'Diff_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.103, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': '_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.112, ('TRAINING', {'Signal': 'signal', 'Horizon': 1, 'Transformation': 'CumSum_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.163, ('SIGNAL_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', 'None', '_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'signal', 'Transformations': [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.009, ('MODEL_SELECTION', {'Signal': 'signal', 'Transformations': [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'signal', 'Model': '_signal_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.03, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'signal', 'Model': '_signal_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.028, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.068, ('FINALIZE_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', [('signal', 'None', 'CumSum_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.234, ('TRAINING', {'Signals': ['signal'], 'Horizons': {'signal': 1}}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signals': ['signal'], 'Horizons': {'signal': 1}}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.0, ('TRAINING', {'Signals': ['signal'], 'Horizons': {'signal': 1}}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signals': ['signal'], 'Horizons': {'signal': 1}}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.0, ('TRAINING', {'Signals': ['signal'], 'Horizons': {'signal': 1}}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signals': ['signal'], 'Horizons': {'signal': 1}}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.0, ('TRAINING', {'Signals': ['signal'], 'Horizons': {'signal': 1}}))
+PYAF_ERROR_SIGNAL_COLUMN_TYPE_NOT_ALLOWED 'signal' 'object'
+PYAF_ERROR_SIGNAL_COLUMN_TYPE_NOT_ALLOWED 'signal' 'bool'
+PYAF_ERROR_SIGNAL_COLUMN_TYPE_NOT_ALLOWED 'signal' 'datetime64[ns]'

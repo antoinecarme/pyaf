@@ -1,27 +1,658 @@
+/home/antoine/dev/python/packages/timeseries/pyaf/tests/bugs/test_random_exogenous.py:13: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  df[b1.mSignalVar] = df[b1.mName]
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signals': ['Signal'], 'Horizons': {'Signal': 5}}))
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', 'None', '_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 TRYING_TO_LOAD_RANDOM_DATASET Signal_160_D_0_constant_12_None_0.1_1280 data/ARTIFICIAL_DATA/160/Signal_160_D_0_constant_12_None_0.1_1280
-LAOD_FAILED_TRYING_TO_GENERATE_RANDOM_DATASET Signal_160_D_0_constant_12_None_0.1_1280
-GENERATING_RANDOM_DATASET Signal_160_D_0_constant_12_None_0.1_1280
-TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-Traceback (most recent call last):
-  File "/home/circleci/project/tests/bugs/test_random_exogenous.py", line 11, in <module>
-    b1 = tsds.generate_random_TS(N = 160 , FREQ = 'D', seed = 0, trendtype = "constant", cycle_length = 12, transform = "None", sigma = 0.10, exog_count = 1280);
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/circleci/project/pyaf/Bench/TS_datasets.py", line 333, in generate_random_TS
-    tsspec = generate_random_TS_real(N , FREQ, seed, trendtype, cycle_length, transform, sigma, exog_count, ar_order)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/circleci/project/pyaf/Bench/TS_datasets.py", line 391, in generate_random_TS_real
-    df_train['Signal'] = apply_transform(pos_signal , transform)
-                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/circleci/project/pyaf/Bench/TS_datasets.py", line 288, in apply_transform
-    tr = tstransf.create_tranformation(transform , arg)
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/circleci/project/pyaf/TS/Signal_Transformation.py", line 466, in create_tranformation
-    return cSignalTransform_None();
-           ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/circleci/project/pyaf/TS/Signal_Transformation.py", line 133, in __init__
-    cAbstractSignalTransform.__init__(self);
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/circleci/project/pyaf/TS/Signal_Transformation.py", line 56, in __init__
-    self.mScaler = sklearn.preprocessing.MinMaxScaler();
-                   ^^^^^^^^^^^^^^^^^^^^^
-AttributeError: module 'sklearn' has no attribute 'preprocessing'
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 155 entries, 0 to 154
+Data columns (total 8 columns):
+ #   Column                                    Non-Null Count  Dtype         
+---  ------                                    --------------  -----         
+ 0   Unnamed: 0                                155 non-null    int64         
+ 1   Date                                      155 non-null    datetime64[ns]
+ 2   GeneratedTrend                            155 non-null    int64         
+ 3   GeneratedCycle                            155 non-null    float64       
+ 4   GeneratedAR                               155 non-null    float64       
+ 5   Noise                                     155 non-null    float64       
+ 6   Signal_160_D_0_constant_12_None_0.1_1280  155 non-null    float64       
+ 7   Signal                                    155 non-null    float64       
+dtypes: datetime64[ns](1), float64(5), int64(2)
+memory usage: 9.8 KB
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Horizon': 5, 'Transformation': '_Signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Horizon': 5, 'Transformation': 'Diff_Signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Horizon': 5, 'Transformation': 'RelDiff_Signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Horizon': 5, 'Transformation': 'CumSum_Signal', 'DecompositionType': 'T+S+R'}))
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:255: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mTrend.mOutName] = autoreg.mCycle.mTrendFrame[autoreg.mTrend.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:256: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[autoreg.mCycle.mOutName] = self.mCycleFrame[autoreg.mCycle.mOutName]
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:131: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  self.mARFrame[self.mOutName] = self.mConstantValue;
+/home/antoine/dev/python/packages/timeseries/pyaf/pyaf/TS/SignalDecomposition_AR.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[self.mOutName + '_residue'] = lSignal - lTrend - lCycle - lAR
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 117.186, ('TRAINING', {'Signal': 'Signal', 'Horizon': 5, 'Transformation': 'Diff_Signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 132.83, ('TRAINING', {'Signal': 'Signal', 'Horizon': 5, 'Transformation': 'RelDiff_Signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 138.585, ('TRAINING', {'Signal': 'Signal', 'Horizon': 5, 'Transformation': 'CumSum_Signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 153.501, ('TRAINING', {'Signal': 'Signal', 'Horizon': 5, 'Transformation': '_Signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 153.755, ('SIGNAL_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', 'None', '_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', [('Signal', 'None', 'CumSum_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'Signal', 'Transformations': [('Signal', 'None', 'CumSum_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.093, ('MODEL_SELECTION', {'Signal': 'Signal', 'Transformations': [('Signal', 'None', 'CumSum_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal', 'Model': '_Signal_LinearTrend_residue_Cycle_12_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.188, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal', 'Model': '_Signal_LinearTrend_residue_Cycle_12_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.181, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.464, ('FINALIZE_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', [('Signal', 'None', 'CumSum_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', '_', 'T+S+R')])], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 154.29, ('TRAINING', {'Signals': ['Signal'], 'Horizons': {'Signal': 5}}))
+INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2000-04-29T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=5
+INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=155  Min=13.412463 Max=163.870207  Mean=87.872339 StdDev=42.768798
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=0.0 Max=1.0  Mean=0.494889 StdDev=0.284258
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
+INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
+INFO:pyaf.std:BEST_DECOMPOSITION  '_Signal_LinearTrend_residue_Cycle_12_residue_NoAR' [LinearTrend + Cycle_12 + NoAR]
+INFO:pyaf.std:TREND_DETAIL '_Signal_LinearTrend' [LinearTrend]
+INFO:pyaf.std:CYCLE_DETAIL '_Signal_LinearTrend_residue_Cycle_12' [Cycle_12]
+INFO:pyaf.std:AUTOREG_DETAIL '_Signal_LinearTrend_residue_Cycle_12_residue_NoAR' [NoAR]
+INFO:pyaf.std:MODEL_PERFS Fit STEP=1 {'MAPE': 0.0205, 'RMSE': 1.2466, 'MAE': 0.9752, 'MASE': 0.2892}
+INFO:pyaf.std:MODEL_PERFS Forecast STEP=1 {'MAPE': 0.0084, 'RMSE': 1.5376, 'MAE': 1.2151, 'MASE': 0.3246}
+INFO:pyaf.std:MODEL_PERFS Test STEP=1 {'MAPE': 0.0083, 'RMSE': 1.4831, 'MAE': 1.3324, 'MASE': 0.3605}
+INFO:pyaf.std:MODEL_PERFS Fit STEP=5 {'MAPE': 0.0205, 'RMSE': 1.2466, 'MAE': 0.9752, 'MASE': 0.2892}
+INFO:pyaf.std:MODEL_PERFS Forecast STEP=5 {'MAPE': 0.0084, 'RMSE': 1.5376, 'MAE': 1.2151, 'MASE': 0.3246}
+INFO:pyaf.std:MODEL_PERFS Test STEP=5 {'MAPE': 0.0083, 'RMSE': 1.4831, 'MAE': 1.3324, 'MASE': 0.3605}
+INFO:pyaf.std:MODEL_COMPLEXITY {'Decomposition': 'S', 'Transformation': 'S', 'Trend': 'S', 'Cycle': 'S', 'AR': 'S'} [SSSSS]
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:LINEAR_RIDGE_TREND LinearTrend (0.008207, array([0.75045]))
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _Signal_LinearTrend_residue_Cycle_12 12 0.000571 {0: -0.021327, 1: 0.009624, 2: 0.017734, 3: -0.019284, 4: -0.003354, 5: -0.027906, 6: -0.011084, 7: 0.005061, 8: -0.003403, 9: 0.0126, 10: 0.012477, 11: 0.022748}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
+INFO:pyaf.std:AR_MODEL_DETAIL_START
+INFO:pyaf.std:AR_MODEL_DETAIL_END
+INFO:pyaf.std:TRAINING_TIME_IN_SECONDS 154.225
+INFO:pyaf.std:COMPETITION_DETAIL_START 'Signal'
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 0 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_LinearTrend_residue_Cycle_12_residue_ARX(38)', 'Voting': 501.0, 'Complexity': 'LSSSS', 'Forecast_MASE_1': 0.3006, 'Forecast_MASE_H': 0.3006}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 1 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_LinearTrend_residue_Cycle_12_residue_NoAR', 'Voting': 497.6, 'Complexity': 'SSSSS', 'Forecast_MASE_1': 0.3246, 'Forecast_MASE_H': 0.3246}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 2 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_PolyTrend_residue_Cycle_12_residue_NoAR', 'Voting': 497.6, 'Complexity': 'MSSSS', 'Forecast_MASE_1': 0.3306, 'Forecast_MASE_H': 0.3306}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 3 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_PolyTrend_residue_Cycle_12_residue_ARX(38)', 'Voting': 497.6, 'Complexity': 'LMSSS', 'Forecast_MASE_1': 0.3223, 'Forecast_MASE_H': 0.3223}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 4 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_LinearTrend_residue_Cycle_12_residue_AR(38)', 'Voting': 497.0, 'Complexity': 'LSSSS', 'Forecast_MASE_1': 0.305, 'Forecast_MASE_H': 0.3286}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 5 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_PolyTrend_residue_Cycle_12_residue_AR(38)', 'Voting': 497.0, 'Complexity': 'LMSSS', 'Forecast_MASE_1': 0.3014, 'Forecast_MASE_H': 0.3247}
+INFO:pyaf.std:COMPETITION_DETAIL_END 'Signal'
+INFO:pyaf.timing:('OPERATION_START', ('PLOTTING', {'Signals': ['Signal']}))
+INFO:pyaf.std:SAVING_PLOT ('Trend', 'outputs/my_exog_1280_155_Signal_Trend_decomp_output.png')
+INFO:pyaf.std:SAVING_PLOT ('Cycle', 'outputs/my_exog_1280_155_Signal_Cycle_decomp_output.png')
+INFO:pyaf.std:SAVING_PLOT ('AR', 'outputs/my_exog_1280_155_Signal_AR_decomp_output.png')
+INFO:pyaf.std:SAVING_PLOT ('TransformedForecast', 'outputs/my_exog_1280_155_Signal_TransformedForecast_decomp_output.png')
+INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/my_exog_1280_155_Signal_Forecast_decomp_output.png')
+INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/my_exog_1280_155_Signal_prediction_intervals_output.png')
+INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/my_exog_1280_155_Signal_quantiles_output.png')
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 5.214, ('PLOTTING', {'Signals': ['Signal']}))
+INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['Signal'], 'Horizon': 5}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.092, ('FORECASTING', {'Signals': ['Signal'], 'Horizon': 5}))
+Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', 'scaled_Signal',
+       '_Signal', '_Signal_LinearTrend', '_Signal_LinearTrend_residue',
+       'cycle_internal', '_Signal_LinearTrend_residue_Cycle_12',
+       '_Signal_LinearTrend_residue_Cycle_12_residue',
+       '_Signal_LinearTrend_residue_Cycle_12_residue_NoAR',
+       '_Signal_LinearTrend_residue_Cycle_12_residue_NoAR_residue',
+       'Signal_Transformed', '_Signal_Trend', '_Signal_Trend_residue',
+       '_Signal_Cycle', '_Signal_Cycle_residue', '_Signal_AR',
+       '_Signal_AR_residue', '_Signal_TransformedForecast', 'Signal_Forecast',
+       '_Signal_TransformedResidue', 'Signal_Residue',
+       'Signal_Forecast_Lower_Bound', 'Signal_Forecast_Upper_Bound',
+       'Signal_Forecast_Quantile_10', 'Signal_Forecast_Quantile_30',
+       'Signal_Forecast_Quantile_50', 'Signal_Forecast_Quantile_70',
+       'Signal_Forecast_Quantile_90'],
+      dtype='object')
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 160 entries, 0 to 159
+Data columns (total 3 columns):
+ #   Column           Non-Null Count  Dtype         
+---  ------           --------------  -----         
+ 0   Date             160 non-null    datetime64[ns]
+ 1   Signal           155 non-null    float64       
+ 2   Signal_Forecast  160 non-null    float64       
+dtypes: datetime64[ns](1), float64(2)
+memory usage: 3.9 KB
+None
+Forecasts
+ [[Timestamp('2000-06-04 00:00:00') nan 165.138847109173]
+ [Timestamp('2000-06-05 00:00:00') nan 159.4562354238138]
+ [Timestamp('2000-06-06 00:00:00') nan 165.06193480224343]
+ [Timestamp('2000-06-07 00:00:00') nan 167.23097554249534]
+ [Timestamp('2000-06-08 00:00:00') nan 162.61015527725624]]
+
+
+<ModelInfo>
+{
+    "Signal": {
+        "Complexity": {
+            "AR": "S",
+            "Cycle": "S",
+            "Decomposition": "S",
+            "Transformation": "S",
+            "Trend": "S"
+        },
+        "Dataset": {
+            "Signal": "Signal",
+            "Time": {
+                "Horizon": 5,
+                "TimeDelta": "<DateOffset: days=1>",
+                "TimeMax": "2000-06-03 00:00:00",
+                "TimeMin": "2000-01-01 00:00:00",
+                "TimeVariable": "Date"
+            },
+            "Training_Signal_Length": 155
+        },
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Signal_LinearTrend_residue_Cycle_12_residue_NoAR",
+            "Cycle": "Cycle_12",
+            "Signal_Decomposition_Type": "T+S+R",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "LinearTrend"
+        },
+        "Model_Performance": {
+            "1": {
+                "AUC": 0.5367,
+                "DiffSMAPE": 0.0085,
+                "ErrorMean": -1.0313,
+                "ErrorStdDev": 1.1405,
+                "KS": 0.1,
+                "KendallTau": 0.9448,
+                "Length": 30,
+                "LnQ": 0.0034,
+                "MAE": 1.2151,
+                "MAPE": 0.0084,
+                "MASE": 0.3246,
+                "MannWhitneyU": 483.0,
+                "MedAE": 0.9614,
+                "Pearson": 0.9918,
+                "R2": 0.9698,
+                "RMSE": 1.5376,
+                "RMSSE": 0.3418,
+                "SMAPE": 0.0085,
+                "Signal": "Signal_Forecast_1"
+            },
+            "5": {
+                "AUC": 0.5367,
+                "DiffSMAPE": 0.0085,
+                "ErrorMean": -1.0313,
+                "ErrorStdDev": 1.1405,
+                "KS": 0.1,
+                "KendallTau": 0.9448,
+                "Length": 30,
+                "LnQ": 0.0034,
+                "MAE": 1.2151,
+                "MAPE": 0.0084,
+                "MASE": 0.3246,
+                "MannWhitneyU": 483.0,
+                "MedAE": 0.9614,
+                "Pearson": 0.9918,
+                "R2": 0.9698,
+                "RMSE": 1.5376,
+                "RMSSE": 0.3418,
+                "SMAPE": 0.0085,
+                "Signal": "Signal_Forecast_5"
+            }
+        },
+        "Model_Selection_Criterion": "MASE"
+    },
+    "Training_Time": 154.225
+}
+</ModelInfo>
+
+
+
+
+<Forecast>
+{"Date":{"150":"2000-05-30T00:00:00.000","151":"2000-05-31T00:00:00.000","152":"2000-06-01T00:00:00.000","153":"2000-06-02T00:00:00.000","154":"2000-06-03T00:00:00.000","155":"2000-06-04T00:00:00.000","156":"2000-06-05T00:00:00.000","157":"2000-06-06T00:00:00.000","158":"2000-06-07T00:00:00.000","159":"2000-06-08T00:00:00.000"},"Signal":{"150":153.7980432208,"151":160.9542402675,"152":158.5988310049,"153":160.2975291229,"154":163.8702071315,"155":null,"156":null,"157":null,"158":null,"159":null},"Signal_Forecast":{"150":155.3043865213,"151":158.6823775165,"152":158.3577039358,"153":161.7144449166,"154":162.644683194,"155":165.1388471092,"156":159.4562354238,"157":165.0619348022,"158":167.2309755425,"159":162.6101552773}}
+</Forecast>
+
+
