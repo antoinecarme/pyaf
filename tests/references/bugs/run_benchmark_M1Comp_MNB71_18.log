@@ -1,12 +1,10 @@
+BENCH_TYPE M1_COMP OneDataFrameForAllSignals
+STARTING_BENCH_FOR_SIGNAL M1_COMP MNB71 18
+BENCHMARK_FAILURE_EXCEPTION 'M1_COMP_MNB71_18' No module named 'setproctitle'
 Traceback (most recent call last):
-  File "/home/circleci/project/tests/bugs/run_benchmark_M1Comp_MNB71_18.py", line 4, in <module>
-    import pyaf.Bench.MComp as mcomp
-  File "/home/circleci/project/pyaf/Bench/MComp.py", line 12, in <module>
-    import pyaf.Bench.GenericBenchmark as ben
-  File "/home/circleci/project/pyaf/Bench/GenericBenchmark.py", line 11, in <module>
-    from  pyaf.CodeGen import TS_CodeGenerator as tscodegen
-  File "/home/circleci/project/pyaf/CodeGen/TS_CodeGenerator.py", line 7, in <module>
-    from . import TS_CodeGen_Objects as tscodegen
-  File "/home/circleci/project/pyaf/CodeGen/TS_CodeGen_Objects.py", line 11, in <module>
-    from sqlalchemy.engine import reflection
-ModuleNotFoundError: No module named 'sqlalchemy'
+  File "/home/circleci/project/tests/bugs/run_benchmark_M1Comp_MNB71_18.py", line 13, in <module>
+    tester1.testSignals('MNB71')
+  File "/home/circleci/project/pyaf/Bench/GenericBenchmark.py", line 433, in testSignals
+    lPlots = lPlots + [tester.mResult.mPlot];
+                       ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'mPlot'

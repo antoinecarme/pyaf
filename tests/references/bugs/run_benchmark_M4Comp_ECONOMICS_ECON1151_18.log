@@ -1,12 +1,14 @@
+loading  500 / 2000 ECON0500
+loading  1000 / 2000 ECON1000
+loading  1500 / 2000 ECON1500
+loading  2000 / 2000 ECON2000
+BENCH_TYPE M4_COMP_ECONOMICS OneDataFramePerSignal
+STARTING_BENCH_FOR_SIGNAL M4_COMP_ECONOMICS ECON1151 18
+BENCHMARK_FAILURE_EXCEPTION 'M4_COMP_ECONOMICS_ECON1151_18' No module named 'setproctitle'
 Traceback (most recent call last):
-  File "/home/circleci/project/tests/bugs/run_benchmark_M4Comp_ECONOMICS_ECON1151_18.py", line 3, in <module>
-    import pyaf.Bench.MComp as mcomp
-  File "/home/circleci/project/pyaf/Bench/MComp.py", line 12, in <module>
-    import pyaf.Bench.GenericBenchmark as ben
-  File "/home/circleci/project/pyaf/Bench/GenericBenchmark.py", line 11, in <module>
-    from  pyaf.CodeGen import TS_CodeGenerator as tscodegen
-  File "/home/circleci/project/pyaf/CodeGen/TS_CodeGenerator.py", line 7, in <module>
-    from . import TS_CodeGen_Objects as tscodegen
-  File "/home/circleci/project/pyaf/CodeGen/TS_CodeGen_Objects.py", line 11, in <module>
-    from sqlalchemy.engine import reflection
-ModuleNotFoundError: No module named 'sqlalchemy'
+  File "/home/circleci/project/tests/bugs/run_benchmark_M4Comp_ECONOMICS_ECON1151_18.py", line 12, in <module>
+    tester.testSignals('ECON1151')
+  File "/home/circleci/project/pyaf/Bench/GenericBenchmark.py", line 433, in testSignals
+    lPlots = lPlots + [tester.mResult.mPlot];
+                       ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'mPlot'

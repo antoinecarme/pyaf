@@ -1,12 +1,11 @@
+ACQUIRED_YAHOO_LINKS 37
+load_yahoo_stock_prices nysecomp 0
+BENCH_TYPE YAHOO_STOCKS_nysecomp OneDataFramePerSignal
 Traceback (most recent call last):
-  File "/home/circleci/project/tests/bugs/run_benchmark_Yahoo_nysecomp_VRS.py", line 4, in <module>
-    import pyaf.Bench.YahooStocks as ys
-  File "/home/circleci/project/pyaf/Bench/YahooStocks.py", line 12, in <module>
-    import pyaf.Bench.GenericBenchmark as ben
-  File "/home/circleci/project/pyaf/Bench/GenericBenchmark.py", line 11, in <module>
-    from  pyaf.CodeGen import TS_CodeGenerator as tscodegen
-  File "/home/circleci/project/pyaf/CodeGen/TS_CodeGenerator.py", line 7, in <module>
-    from . import TS_CodeGen_Objects as tscodegen
-  File "/home/circleci/project/pyaf/CodeGen/TS_CodeGen_Objects.py", line 11, in <module>
-    from sqlalchemy.engine import reflection
-ModuleNotFoundError: No module named 'sqlalchemy'
+  File "/home/circleci/project/tests/bugs/run_benchmark_Yahoo_nysecomp_VRS.py", line 8, in <module>
+    tester.testSignals('VRS');
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/circleci/project/pyaf/Bench/GenericBenchmark.py", line 436, in testSignals
+    raise cBenchmarkError("UNKNOWN_SIGNAL '" + sig + "'");
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pyaf.Bench.GenericBenchmark.cBenchmarkError: UNKNOWN_SIGNAL 'VRS'
