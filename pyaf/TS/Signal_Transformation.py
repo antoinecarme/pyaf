@@ -10,7 +10,7 @@ import numpy as np
 from . import Utils as tsutil
 from . import Complexity as tscomplex
 
-import sklearn
+import sklearn.preprocessing
 
 
 def testTransform_one_seed(tr1 , seed_value):
