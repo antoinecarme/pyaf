@@ -74,8 +74,7 @@ class cAbstractSignalTransform:
         return self.mScaler.transform(sig.reshape(-1, 1)).ravel()
 
     def rescale_signal(self, sig1):
-        sig2 = sig1.clip(-1.e-7, 1.e+7)
-        return self.mScaler.inverse_transform(sig2.reshape(-1, 1)).ravel()    
+        return self.mScaler.inverse_transform(sig1.reshape(-1, 1)).ravel()    
 
     def fit(self , sig):
         # print("FIT_START", self.mOriginalSignal, sig.values[1:5]);
@@ -505,7 +504,7 @@ class cTransformationEstimator:
         lIsApplicable = transf.is_applicable(df[iSignal]);
         if(lIsApplicable):
             # print("Adding Transformation " , lName);
-            transf.test()
+            # transf.test()
             self.mTransformList = self.mTransformList + [transf];
 
 
