@@ -1,226 +1,30 @@
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signals': ['Signal_0.01'], 'Horizons': {'Signal_0.01': 12}}))
-INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['Signal_0.01'], 'Transformations': [('Signal_0.01', 'None', '_', 'T+S+R')], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal_0.01', 'Horizon': 12, 'Transformation': '_Signal_0.01', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.std:PYAF_MODEL_SAMPLING_ACTIVATED (8192, 1960)
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING_EXOGENOUS_DATA', {'Signal': 'Signal_0.01'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING_TRENDS', {'Signal': '_Signal_0.01'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.006, ('TRAINING_TRENDS', {'Signal': '_Signal_0.01'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING_CYCLES', {'Signal': '_Signal_0.01'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.105, ('TRAINING_CYCLES', {'Signal': '_Signal_0.01'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING_AR_MODELS', {'Signal': '_Signal_0.01'}))
-INFO:pyaf.std:AR_MODEL_ADD_EXOGENOUS 1012 356
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING_AR_MODEL', 'AR', '_Signal_0.01_PolyTrend_residue_Cycle_7_residue'))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.014, ('TRAINING_AR_MODEL', 'AR', '_Signal_0.01_PolyTrend_residue_Cycle_7_residue'))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING_AR_MODEL', 'ARX', '_Signal_0.01_PolyTrend_residue_Cycle_7_residue'))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.082, ('TRAINING_AR_MODEL', 'ARX', '_Signal_0.01_PolyTrend_residue_Cycle_7_residue'))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.301, ('TRAINING_AR_MODELS', {'Signal': '_Signal_0.01'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.183, ('TRAINING', {'Signal': 'Signal_0.01', 'Horizon': 12, 'Transformation': '_Signal_0.01', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.177, ('TRAINING_EXOGENOUS_DATA', {'Signal': 'Signal_0.01'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.183, ('SIGNAL_TRAINING', {'Signals': ['Signal_0.01'], 'Transformations': [('Signal_0.01', 'None', '_', 'T+S+R')], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['Signal_0.01'], 'Transformations': [('Signal_0.01', [('Signal_0.01', 'None', '_', 'T+S+R')])], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'Signal_0.01', 'Transformations': [('Signal_0.01', 'None', '_', 'T+S+R')]}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.005, ('MODEL_SELECTION', {'Signal': 'Signal_0.01', 'Transformations': [('Signal_0.01', 'None', '_', 'T+S+R')]}))
-INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal_0.01', 'Model': '_Signal_0.01_PolyTrend_residue_Cycle_7_residue_AR(64)'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.118, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal_0.01', 'Model': '_Signal_0.01_PolyTrend_residue_Cycle_7_residue_AR(64)'}))
-INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal_0.01'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.003, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal_0.01'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.127, ('FINALIZE_TRAINING', {'Signals': ['Signal_0.01'], 'Transformations': [('Signal_0.01', [('Signal_0.01', 'None', '_', 'T+S+R')])], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 6.902, ('TRAINING', {'Signals': ['Signal_0.01'], 'Horizons': {'Signal_0.01': 12}}))
-INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2002-03-10T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=12
-INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal_0.01' Length=1012  Min=2.622319 Max=5.225249  Mean=3.911872 StdDev=0.561438
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal_0.01' Min=0.0 Max=1.0  Mean=0.495423 StdDev=0.215695
-INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
-INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
-INFO:pyaf.std:BEST_DECOMPOSITION  '_Signal_0.01_PolyTrend_residue_Cycle_7_residue_AR(64)' [PolyTrend + Cycle_7 + AR]
-INFO:pyaf.std:TREND_DETAIL '_Signal_0.01_PolyTrend' [PolyTrend]
-INFO:pyaf.std:CYCLE_DETAIL '_Signal_0.01_PolyTrend_residue_Cycle_7' [Cycle_7]
-INFO:pyaf.std:AUTOREG_DETAIL '_Signal_0.01_PolyTrend_residue_Cycle_7_residue_AR(64)' [AR]
-INFO:pyaf.std:MODEL_PERFS Fit STEP=1 {'MAPE': 0.0022, 'RMSE': 0.0098, 'MAE': 0.0079, 'MASE': 0.0149}
-INFO:pyaf.std:MODEL_PERFS Forecast STEP=1 {'MAPE': 0.0019, 'RMSE': 0.0105, 'MAE': 0.0085, 'MASE': 0.016}
-INFO:pyaf.std:MODEL_PERFS Test STEP=1 {'MAPE': 0.0017, 'RMSE': 0.0096, 'MAE': 0.0079, 'MASE': 0.0152}
-INFO:pyaf.std:MODEL_PERFS Fit STEP=12 {'MAPE': 0.0022, 'RMSE': 0.0103, 'MAE': 0.0082, 'MASE': 0.0154}
-INFO:pyaf.std:MODEL_PERFS Forecast STEP=12 {'MAPE': 0.0019, 'RMSE': 0.0103, 'MAE': 0.0083, 'MASE': 0.0156}
-INFO:pyaf.std:MODEL_PERFS Test STEP=12 {'MAPE': 0.0022, 'RMSE': 0.0122, 'MAE': 0.0106, 'MASE': 0.0202}
-INFO:pyaf.std:MODEL_COMPLEXITY {'Decomposition': 'S', 'Transformation': 'S', 'Trend': 'M', 'Cycle': 'S', 'AR': 'L'} [LMSSS]
-INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
-INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
-INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
-INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:POLYNOMIAL_RIDGE_TREND PolyTrend (0.212319, array([ 0.460327, -0.029043,  0.014705]))
-INFO:pyaf.std:TREND_DETAIL_END
-INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _Signal_0.01_PolyTrend_residue_Cycle_7 7 -0.034898 {0: -0.038298, 1: -0.215464, 2: -0.037115, 3: 0.140217, 4: -0.12753, 5: 0.051391, 6: 0.229943}
-INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
-INFO:pyaf.std:AR_MODEL_DETAIL_START
-INFO:pyaf.std:AR_MODEL_COEFF 1 _Signal_0.01_PolyTrend_residue_Cycle_7_residue_Lag15 0.098846
-INFO:pyaf.std:AR_MODEL_COEFF 2 _Signal_0.01_PolyTrend_residue_Cycle_7_residue_Lag40 0.071278
-INFO:pyaf.std:AR_MODEL_COEFF 3 _Signal_0.01_PolyTrend_residue_Cycle_7_residue_Lag48 0.0704
-INFO:pyaf.std:AR_MODEL_COEFF 4 _Signal_0.01_PolyTrend_residue_Cycle_7_residue_Lag61 0.069461
-INFO:pyaf.std:AR_MODEL_COEFF 5 _Signal_0.01_PolyTrend_residue_Cycle_7_residue_Lag56 -0.06051
-INFO:pyaf.std:AR_MODEL_COEFF 6 _Signal_0.01_PolyTrend_residue_Cycle_7_residue_Lag13 0.056806
-INFO:pyaf.std:AR_MODEL_COEFF 7 _Signal_0.01_PolyTrend_residue_Cycle_7_residue_Lag32 0.056693
-INFO:pyaf.std:AR_MODEL_COEFF 8 _Signal_0.01_PolyTrend_residue_Cycle_7_residue_Lag6 0.05252
-INFO:pyaf.std:AR_MODEL_COEFF 9 _Signal_0.01_PolyTrend_residue_Cycle_7_residue_Lag63 -0.051594
-INFO:pyaf.std:AR_MODEL_COEFF 10 _Signal_0.01_PolyTrend_residue_Cycle_7_residue_Lag41 0.0515
-INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:TRAINING_TIME_IN_SECONDS 6.628
-INFO:pyaf.std:COMPETITION_DETAIL_START 'Signal_0.01'
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal_0.01' 0 {'Transformation': '_Signal_0.01', 'DecompositionType': 'T+S+R', 'Model': '_Signal_0.01_PolyTrend_residue_Cycle_7_residue_AR(64)', 'Voting': 6.5, 'Complexity': 'LMSSS', 'Forecast_MASE_1': 0.016, 'Forecast_MASE_H': 0.0156}
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal_0.01' 1 {'Transformation': '_Signal_0.01', 'DecompositionType': 'T+S+R', 'Model': '_Signal_0.01_PolyTrend_residue_Cycle_7_residue_ARX(64)', 'Voting': 6.5, 'Complexity': 'LMSSS', 'Forecast_MASE_1': 0.0222, 'Forecast_MASE_H': 0.024}
-INFO:pyaf.std:COMPETITION_DETAIL_END 'Signal_0.01'
-INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['Signal_0.01'], 'Horizon': 12}))
-INFO:pyaf.std:PYAF_MODEL_SAMPLING_ACTIVATED (8192, 1960)
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.489, ('FORECASTING', {'Signals': ['Signal_0.01'], 'Horizon': 12}))
 TRYING_TO_LOAD_RANDOM_DATASET Signal_1024_D_0_poly_7_None_0.0_100 data/ARTIFICIAL_DATA/1024/Signal_1024_D_0_poly_7_None_0.0_100
 LAOD_FAILED_TRYING_TO_GENERATE_RANDOM_DATASET Signal_1024_D_0_poly_7_None_0.0_100
 GENERATING_RANDOM_DATASET Signal_1024_D_0_poly_7_None_0.0_100
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-Forecast Columns  Index(['Date', 'Signal_0.01', 'row_number', 'Date_Normalized',
-       'scaled_Signal_0.01', '_Signal_0.01', 'Date_Normalized_^2',
-       'Date_Normalized_^3', '_Signal_0.01_PolyTrend',
-       '_Signal_0.01_PolyTrend_residue', 'cycle_internal',
-       '_Signal_0.01_PolyTrend_residue_Cycle_7',
-       '_Signal_0.01_PolyTrend_residue_Cycle_7_residue',
-       '_Signal_0.01_PolyTrend_residue_Cycle_7_residue_AR(64)',
-       '_Signal_0.01_PolyTrend_residue_Cycle_7_residue_AR(64)_residue',
-       'Signal_0.01_Transformed', '_Signal_0.01_Trend',
-       '_Signal_0.01_Trend_residue', '_Signal_0.01_Cycle',
-       '_Signal_0.01_Cycle_residue', '_Signal_0.01_AR',
-       '_Signal_0.01_AR_residue', '_Signal_0.01_TransformedForecast',
-       'Signal_0.01_Forecast', '_Signal_0.01_TransformedResidue',
-       'Signal_0.01_Residue', 'Signal_0.01_Forecast_Lower_Bound',
-       'Signal_0.01_Forecast_Upper_Bound', 'Signal_0.01_Forecast_Quantile_1',
-       'Signal_0.01_Forecast_Quantile_8', 'Signal_0.01_Forecast_Quantile_15',
-       'Signal_0.01_Forecast_Quantile_22', 'Signal_0.01_Forecast_Quantile_29',
-       'Signal_0.01_Forecast_Quantile_36', 'Signal_0.01_Forecast_Quantile_43',
-       'Signal_0.01_Forecast_Quantile_50', 'Signal_0.01_Forecast_Quantile_57',
-       'Signal_0.01_Forecast_Quantile_64', 'Signal_0.01_Forecast_Quantile_71',
-       'Signal_0.01_Forecast_Quantile_78', 'Signal_0.01_Forecast_Quantile_85',
-       'Signal_0.01_Forecast_Quantile_92', 'Signal_0.01_Forecast_Quantile_99'],
-      dtype='object')
-<class 'pandas.core.frame.DataFrame'>
-RangeIndex: 1024 entries, 0 to 1023
-Data columns (total 5 columns):
- #   Column                            Non-Null Count  Dtype         
----  ------                            --------------  -----         
- 0   Date                              1024 non-null   datetime64[ns]
- 1   Signal_0.01                       1012 non-null   float64       
- 2   Signal_0.01_Forecast              1024 non-null   float64       
- 3   Signal_0.01_Forecast_Lower_Bound  12 non-null     float64       
- 4   Signal_0.01_Forecast_Upper_Bound  12 non-null     float64       
-dtypes: datetime64[ns](1), float64(4)
-memory usage: 40.1 KB
-Forecasts
- [[Timestamp('2002-10-09 00:00:00') nan 4.314121095089725
-  4.293541095089725 4.3347010950897245]
- [Timestamp('2002-10-10 00:00:00') nan 4.7803202394828 4.7601322394828
-  4.8005082394828005]
- [Timestamp('2002-10-11 00:00:00') nan 5.24594654117953
-  5.2257585411795295 5.26613454117953]
- [Timestamp('2002-10-12 00:00:00') nan 4.548271076796009
-  4.528083076796009 4.568459076796009]
- [Timestamp('2002-10-13 00:00:00') nan 4.092042488419874
-  4.0718544884198735 4.112230488419874]
- [Timestamp('2002-10-14 00:00:00') nan 4.559951313955066
-  4.539763313955066 4.580139313955066]
- [Timestamp('2002-10-15 00:00:00') nan 5.020288952921254
-  5.000100952921254 5.040476952921254]
- [Timestamp('2002-10-16 00:00:00') nan 4.32395507081293 4.30376707081293
-  4.3441430708129305]
- [Timestamp('2002-10-17 00:00:00') nan 4.791778669342618
-  4.7715906693426176 4.811966669342618]
- [Timestamp('2002-10-18 00:00:00') nan 5.25737270543994 5.23718470543994
-  5.2775607054399405]
- [Timestamp('2002-10-19 00:00:00') nan 4.558697458835523
-  4.538509458835523 4.578885458835523]
- [Timestamp('2002-10-20 00:00:00') nan 4.102467837761964
-  4.082279837761964 4.122655837761964]]
-
-
-<ModelInfo>
-{
-    "Signal_0.01": {
-        "Complexity": {
-            "AR": "L",
-            "Cycle": "S",
-            "Decomposition": "S",
-            "Transformation": "S",
-            "Trend": "M"
-        },
-        "Dataset": {
-            "Signal": "Signal_0.01",
-            "Time": {
-                "Horizon": 12,
-                "TimeDelta": "<DateOffset: days=1>",
-                "TimeMax": "2002-10-08 00:00:00",
-                "TimeMin": "2000-01-01 00:00:00",
-                "TimeVariable": "Date"
-            },
-            "Training_Signal_Length": 1012
-        },
-        "Model": {
-            "AR_Model": "AR",
-            "Best_Decomposition": "_Signal_0.01_PolyTrend_residue_Cycle_7_residue_AR(64)",
-            "Cycle": "Cycle_7",
-            "Signal_Decomposition_Type": "T+S+R",
-            "Signal_Transoformation": "NoTransf",
-            "Trend": "PolyTrend"
-        },
-        "Model_Performance": {
-            "1": {
-                "AUC": 0.4986,
-                "DiffSMAPE": 0.0019,
-                "ErrorMean": 0.0018,
-                "ErrorStdDev": 0.0104,
-                "KS": 0.02,
-                "KendallTau": 0.9866,
-                "Length": 200,
-                "LnQ": 0.0011,
-                "MAE": 0.0085,
-                "MAPE": 0.0019,
-                "MASE": 0.016,
-                "MannWhitneyU": 19944.0,
-                "MedAE": 0.0072,
-                "Pearson": 0.9996,
-                "R2": 0.9992,
-                "RMSE": 0.0105,
-                "RMSSE": 0.0195,
-                "SMAPE": 0.0019,
-                "Signal": "Signal_0.01_Forecast_1"
-            },
-            "12": {
-                "AUC": 0.4979,
-                "DiffSMAPE": 0.0018,
-                "ErrorMean": 0.0027,
-                "ErrorStdDev": 0.0099,
-                "KS": 0.02,
-                "KendallTau": 0.9874,
-                "Length": 200,
-                "LnQ": 0.0011,
-                "MAE": 0.0083,
-                "MAPE": 0.0019,
-                "MASE": 0.0156,
-                "MannWhitneyU": 19916.0,
-                "MedAE": 0.007,
-                "Pearson": 0.9997,
-                "R2": 0.9992,
-                "RMSE": 0.0103,
-                "RMSSE": 0.019,
-                "SMAPE": 0.0019,
-                "Signal": "Signal_0.01_Forecast_12"
-            }
-        },
-        "Model_Selection_Criterion": "MASE"
-    },
-    "Training_Time": 6.628
-}
-</ModelInfo>
-
-
-
-
-<Forecast>
-{"Date":{"1000":"2002-09-27T00:00:00.000","1001":"2002-09-28T00:00:00.000","1002":"2002-09-29T00:00:00.000","1003":"2002-09-30T00:00:00.000","1004":"2002-10-01T00:00:00.000","1005":"2002-10-02T00:00:00.000","1006":"2002-10-03T00:00:00.000","1007":"2002-10-04T00:00:00.000","1008":"2002-10-05T00:00:00.000","1009":"2002-10-06T00:00:00.000","1010":"2002-10-07T00:00:00.000","1011":"2002-10-08T00:00:00.000","1012":"2002-10-09T00:00:00.000","1013":"2002-10-10T00:00:00.000","1014":"2002-10-11T00:00:00.000","1015":"2002-10-12T00:00:00.000","1016":"2002-10-13T00:00:00.000","1017":"2002-10-14T00:00:00.000","1018":"2002-10-15T00:00:00.000","1019":"2002-10-16T00:00:00.000","1020":"2002-10-17T00:00:00.000","1021":"2002-10-18T00:00:00.000","1022":"2002-10-19T00:00:00.000","1023":"2002-10-20T00:00:00.000"},"Signal_0.01":{"1000":5.2168998502,"1001":4.5246177784,"1002":4.0699161145,"1003":4.5281944738,"1004":4.9812754508,"1005":4.3063745544,"1006":4.7608359951,"1007":5.2252494298,"1008":4.5487608251,"1009":4.062579941,"1010":4.5438600597,"1011":5.0004363717,"1012":null,"1013":null,"1014":null,"1015":null,"1016":null,"1017":null,"1018":null,"1019":null,"1020":null,"1021":null,"1022":null,"1023":null},"Signal_0.01_Forecast":{"1000":5.2259382123,"1001":4.5266711767,"1002":4.0701789727,"1003":4.5365658665,"1004":4.9988348505,"1005":4.305117043,"1006":4.7738485862,"1007":5.2357561806,"1008":4.5404260861,"1009":4.0765291291,"1010":4.5452023952,"1011":5.0101422236,"1012":4.3141210951,"1013":4.7803202395,"1014":5.2459465412,"1015":4.5482710768,"1016":4.0920424884,"1017":4.559951314,"1018":5.0202889529,"1019":4.3239550708,"1020":4.7917786693,"1021":5.2573727054,"1022":4.5586974588,"1023":4.1024678378},"Signal_0.01_Forecast_Lower_Bound":{"1000":null,"1001":null,"1002":null,"1003":null,"1004":null,"1005":null,"1006":null,"1007":null,"1008":null,"1009":null,"1010":null,"1011":null,"1012":4.2935410951,"1013":4.7601322395,"1014":5.2257585412,"1015":4.5280830768,"1016":4.0718544884,"1017":4.539763314,"1018":5.0001009529,"1019":4.3037670708,"1020":4.7715906693,"1021":5.2371847054,"1022":4.5385094588,"1023":4.0822798378},"Signal_0.01_Forecast_Upper_Bound":{"1000":null,"1001":null,"1002":null,"1003":null,"1004":null,"1005":null,"1006":null,"1007":null,"1008":null,"1009":null,"1010":null,"1011":null,"1012":4.3347010951,"1013":4.8005082395,"1014":5.2661345412,"1015":4.5684590768,"1016":4.1122304884,"1017":4.580139314,"1018":5.0404769529,"1019":4.3441430708,"1020":4.8119666693,"1021":5.2775607054,"1022":4.5788854588,"1023":4.1226558378}}
-</Forecast>
-
-
+Traceback (most recent call last):
+  File "/home/circleci/project/tests/bugs/issue_34/test_artificial_1024__poly_7_12_100.py", line 4, in <module>
+    art.process_dataset(N = 1024 , FREQ = 'D', seed = 0, trendtype = "poly", cycle_length = 7, transform = "None", sigma = 0.0, exog_count = 100, ar_order = 12);
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/circleci/project/tests/artificial/process_artificial_dataset.py", line 42, in process_dataset
+    dataset = tsds.generate_random_TS(N, FREQ, seed,
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/circleci/project/pyaf/Bench/TS_datasets.py", line 333, in generate_random_TS
+    tsspec = generate_random_TS_real(N , FREQ, seed, trendtype, cycle_length, transform, sigma, exog_count, ar_order)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/circleci/project/pyaf/Bench/TS_datasets.py", line 391, in generate_random_TS_real
+    df_train['Signal'] = apply_transform(pos_signal , transform)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/circleci/project/pyaf/Bench/TS_datasets.py", line 288, in apply_transform
+    tr = tstransf.create_tranformation(transform , arg)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/circleci/project/pyaf/TS/Signal_Transformation.py", line 466, in create_tranformation
+    return cSignalTransform_None();
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/circleci/project/pyaf/TS/Signal_Transformation.py", line 133, in __init__
+    cAbstractSignalTransform.__init__(self);
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/circleci/project/pyaf/TS/Signal_Transformation.py", line 56, in __init__
+    self.mScaler = sklearn.preprocessing.MinMaxScaler();
+                   ^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'sklearn' has no attribute 'preprocessing'
