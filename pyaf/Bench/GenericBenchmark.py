@@ -8,7 +8,6 @@ import pandas as pd
 import numpy as np
 
 import pyaf.ForecastEngine as autof
-from  pyaf.CodeGen import TS_CodeGenerator as tscodegen
 import pyaf.Bench.TS_datasets as tsds
 
 import sys,os
@@ -254,6 +253,7 @@ class cGeneric_OneSignal_Tester:
         return lReloadedObject;
 
     def generateCode(self, iSignal, iHorizon):
+        from  pyaf.CodeGen import TS_CodeGenerator as tscodegen
         lAutoF = self.mAutoForecastBySignal[iSignal  + "_" + str(iHorizon)]
         lCodeGenerator = tscodegen.cTimeSeriesCodeGenerator();
         lSQL = lCodeGenerator.testGeneration(lAutoF);
