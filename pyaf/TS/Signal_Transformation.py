@@ -74,8 +74,12 @@ class cAbstractSignalTransform:
         return self.mScaler.transform(sig.reshape(-1, 1)).ravel()
 
     def rescale_signal(self, sig1):
-        return self.mScaler.inverse_transform(sig1.reshape(-1, 1)).ravel()    
-
+        try:
+            return self.mScaler.inverse_transform(sig1.reshape(-1, 1)).ravel()
+        except:
+            print("FAILED rescale_signal" , self.get_name(""))
+            raise
+        
     def fit(self , sig):
         # print("FIT_START", self.mOriginalSignal, sig.values[1:5]);
         self.checkSignalType(sig)
@@ -343,7 +347,7 @@ class cSignalTransform_RelativeDifferencing(cAbstractSignalTransform):
     def specific_invert(self, sig):
         # print("RelDiff_invert_DEBUG_START" , self.mFirstValue, sig.values[0:10]);
         rate = sig + 1;
-        rate_cum = np.cumprod(rate);
+        rate_cum = np.cumprod(rate).clip(-1e7, 1e7);
         sig_orig = self.mFirstValue * rate_cum;
         return sig_orig;
 
