@@ -91,7 +91,7 @@ class cPerf:
         abs_error = self.pre_compute_abs_error_if_needed(signal , estimator)
         naive_abs_error= self.pre_compute_naive_abs_error_if_needed(signal , estimator)
         lEps = 1.0e-10;
-        q1, q2 = None, None
+        q1, q2 = 0.0, 0.0
         if(naive_abs_error.shape[0] > 0):
             naive_mean_abs_error = np.mean(naive_abs_error) + lEps
             naive_mean_abs_error_2 = np.mean(naive_abs_error * naive_abs_error) + lEps
