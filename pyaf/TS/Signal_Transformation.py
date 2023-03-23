@@ -74,11 +74,7 @@ class cAbstractSignalTransform:
         return self.mScaler.transform(sig.reshape(-1, 1)).ravel()
 
     def rescale_signal(self, sig1):
-        try:
-            return self.mScaler.inverse_transform(sig1.reshape(-1, 1)).ravel()
-        except:
-            print("FAILED rescale_signal" , self.get_name(""))
-            raise
+        return self.mScaler.inverse_transform(sig1.reshape(-1, 1)).ravel()
         
     def fit(self , sig):
         # print("FIT_START", self.mOriginalSignal, sig.values[1:5]);
