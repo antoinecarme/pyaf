@@ -107,10 +107,21 @@ class cSignalDecompositionOneTransform:
         for (name, model) in iModels.items():
             # print(name, model.__dict__);
             lComplexity = model.getComplexity_as_ordering_string();
-            (lFitPerf, lForecastPerf, lTestPerf) = model.get_aggregated_criterion_values_for_model_selection();
             lSplit = model.mTimeInfo.mOptions.mCustomSplit
-            
-            self.mPerfsByModel[(self.mSignal, self.mDecompositionType, lSplit, model.mOutName)] = [(self.mSignal, self.mDecompositionType, model), lComplexity, lFitPerf , lForecastPerf, lTestPerf];
+            model_perfs = model.get_perfs_summary()
+            self.mPerfsByModel[name] = {
+                "OriginalSignal" : self.mOriginalSignal,
+                "Signal" : self.mSignal,
+                "DecompositionType" : self.mDecompositionType,
+                "ModelName" : name,
+                "Complexity" : lComplexity,
+                "FitPerf" : model.mFitPerfs,
+                "ForecastPerf" : model.mForecastPerfs,
+                "TestPerf" : model.mTestPerfs,
+                "ModelCategory" : model.get_model_category(),
+                "Horizon" : model.mTimeInfo.mHorizon,
+                "Split" : lSplit
+            }
             
         return iModels;
 
@@ -199,19 +210,21 @@ class cSignalDecompositionOneTransform:
 
 
         # forecast perfs
-        lModels = {};
+        self.mModelsByName = {};
         for trend in lAREstimator.mTrendList:
             for cycle in lAREstimator.mCycleList[trend]:
                 cycle_residue = cycle.getCycleResidueName();
                 for autoreg in lAREstimator.mARList[cycle_residue]:
                     lModel = tsmodel.cTimeSeriesModel(self.mTransformation, self.mDecompositionType,
                                                       trend, cycle, autoreg);
-                    lModels[lModel.mOutName] = lModel;
+                    lSplit = lModel.mTimeInfo.mOptions.mCustomSplit
+                    lName = (self.mSignal, self.mDecompositionType, lSplit, lModel.mOutName)
+                    self.mModelsByName[lName] = lModel;
 
         del lAREstimator;
         
 
-        self.updatePerfsForAllModels(lModels);
+        self.updatePerfsForAllModels(self.mModelsByName);
         
         
 
@@ -233,8 +246,8 @@ def run_transform_thread(arg):
     arg.mSigDec.train(arg.mInputDS, arg.mSplit, arg.mTime, arg.mSignal, arg.mHorizon, arg.mTransformation, arg.mDecompositionType);
     return arg;
 
-def run_finalize_training(arg):
-    (lSignal , sigdecs, lOptions) = arg
+def run_model_selection_one_signal(arg):
+    (lSignal , lPerfsByModel, lOptions) = arg
     lModelSelector = None
     if(lOptions.mVotingMethod is None):
         lModelSelector = tsleg.create_model_selector()
@@ -242,14 +255,20 @@ def run_finalize_training(arg):
         lModelSelector = tsvote.create_model_selector(lOptions.mVotingMethod)
         
     lModelSelector.mOptions = lOptions
-    lModelSelector.collectPerformanceIndices_ModelSelection(lSignal, sigdecs)
+    lModelSelector.collectPerformanceIndices_ModelSelection(lSignal, lPerfsByModel)
     if(lOptions.mCrossValidationOptions.mMethod is not None):
         lModelSelector.perform_model_selection_cross_validation()
         
+    return (lSignal, lModelSelector.mBestModelName, lModelSelector.mTrPerfDetails, lModelSelector.mModelShortList)
+
+def run_finalize_training_one_signal(arg):
+    (lSignal , lBestModel) = arg
+
     # Prediction Intervals
-    lModelSelector.mBestModel.updateAllPerfs();
-    lModelSelector.mBestModel.computePredictionIntervals();
-    return (lSignal, lModelSelector.mPerfsByModel, lModelSelector.mBestModel, lModelSelector.mTrPerfDetails, lModelSelector.mModelShortList)
+    lBestModel.updateAllPerfs();
+    lBestModel.computePredictionIntervals();
+
+    return (lSignal, lBestModel)
 
 class cSignalDecompositionTrainer:
         
@@ -273,50 +292,83 @@ class cSignalDecompositionTrainer:
         
         self.train_all_transformations(iInputDS, iSplits, iTime, iSignals, iHorizon);
         
+        self.run_model_selection()
+        
         self.finalize_training()
         
         # self.cleanup_after_model_selection()
     
 
-    def finalize_training(self):
+    def run_model_selection(self):
 
         args = [];
+        lModelsByName = {}
         for (lSignal , sigdecs) in self.mSigDecBySplitAndTransform.items():
-            args = args + [(lSignal, sigdecs, self.mOptions)]
+            lPerfsByModel = {}
+            for (lName, sigdec) in sigdecs.items():
+                lModelsByName.update(sigdec.mModelsByName)
+                for (model , value) in sorted(sigdec.mPerfsByModel.items()):
+                    lPerfsByModel[model] = value
+            args = args + [(lSignal, lPerfsByModel, self.mOptions)]
 
         self.mPerfsByModel = {}
         self.mTrPerfDetails = {}
         self.mModelShortList = {}
         self.mBestModels = {}
         NCores = min(len(args) , self.mOptions.mNbCores) 
-        lTimer = tsutil.cTimer(("FINALIZE_TRAINING",
+        lTimer = tsutil.cTimer(("MODEL_SELECTION",
                                 {"Signals" : [lSignal for (lSignal , sigdecs) in self.mSigDecBySplitAndTransform.items()],
-                                 "Transformations" : [(lSignal, sorted(list(lSigDecs.keys()))) for (lSignal , lSigDecs) in self.mSigDecBySplitAndTransform.items()],
                                  "Cores" : NCores}))
         if(self.mOptions.mParallelMode and NCores > 1):
             from multiprocessing import Pool
             pool = Pool(NCores)
         
-            for res in pool.imap(run_finalize_training, args):
-                (lSignal, lPerfsByModel, lBestModel, lPerfDetails, lModelShortList) = res
+            for res in pool.imap(run_model_selection_one_signal, args):
+                (lSignal, lBestModelName, lPerfDetails, lModelShortList) = res
                 assert(self.mPerfsByModel.get(lSignal) is None)
                 self.mPerfsByModel[lSignal] = lPerfsByModel;
-                self.mBestModels[lSignal] = lBestModel
+                self.mBestModels[lSignal] = lModelsByName[lBestModelName]
                 self.mTrPerfDetails[lSignal] = lPerfDetails
                 self.mModelShortList[lSignal] = lModelShortList
             pool.close()
             pool.join()
+            del pool
         else:
             for arg in args:
-                res = run_finalize_training(arg)
-                (lSignal, lPerfsByModel, lBestModel, lPerfDetails, lModelShortList) = res
+                res = run_model_selection_one_signal(arg)
+                (lSignal, lBestModelName, lPerfDetails, lModelShortList) = res
                 assert(self.mPerfsByModel.get(lSignal) is None)
                 self.mPerfsByModel[lSignal] = lPerfsByModel;
-                self.mBestModels[lSignal] = lBestModel
+                self.mBestModels[lSignal] = lModelsByName[lBestModelName]
                 self.mTrPerfDetails[lSignal] = lPerfDetails
                 self.mModelShortList[lSignal] = lModelShortList
                 
         
+    def finalize_training(self):
+
+        args = [];
+        args = [(lSignal, lBestModel) for (lSignal, lBestModel) in self.mBestModels.items()]
+
+        NCores = min(len(args) , self.mOptions.mNbCores) 
+        lTimer = tsutil.cTimer(("FINALIZE_TRAINING",
+                                {"BestModels" : [(lSignal, lBestModel) for (lSignal, lBestModel) in self.mBestModels.items()],
+                                 "Cores" : NCores}))
+        if(self.mOptions.mParallelMode and NCores > 1):
+            from multiprocessing import Pool
+            pool = Pool(NCores)
+        
+            for res in pool.imap(run_finalize_training_one_signal, args):
+                (lSignal, lBestModel) = res
+                self.mBestModels[lSignal] = lBestModel
+            pool.close()
+            pool.join()
+            del pool
+        else:
+            for arg in args:
+                res = run_finalize_training_one_signal(arg)
+                (lSignal, lBestModel) = res
+                self.mBestModels[lSignal] = lBestModel
+                
             
 
     def defineTransformations(self, iInputDS, iSplit, iTime, iSignal):
@@ -368,6 +420,7 @@ class cSignalDecompositionTrainer:
                 self.mSigDecBySplitAndTransform[lSignal][res.mName] = res.mSigDec;
             pool.close()
             pool.join()
+            del pool
         else:
             for arg in args:
                 res = run_transform_thread(arg)

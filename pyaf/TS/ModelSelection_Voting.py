@@ -35,40 +35,38 @@ class cModelSelector_Voting:
         logger.info("PERF_DUMP_END")
 
 
-    def collectPerformanceIndices_ModelSelection(self, iSignal, iSigDecs) :
+    def collectPerformanceIndices_ModelSelection(self, iSignal, iPerfsByModel) :
         logger = tsutil.get_pyaf_logger();
-        lTimer = tsutil.cTimer(("MODEL_SELECTION", {"Signal" : iSignal, "Transformations" : sorted(list(iSigDecs.keys()))}))
-        lVotingScores = self.compute_voting_scores(iSigDecs)
+        lTimer = tsutil.cTimer(("VOTING_MODEL_SELECTION", {"Signal" : iSignal}))
+        lVotingScores = self.compute_voting_scores(iPerfsByModel)
         lCriterion = self.mOptions.mModelSelection_Criterion
         rows_list = []
-        lPerfsByModel = {}
-        for (lName, sigdec) in iSigDecs.items():
-            for (model , value) in sorted(sigdec.mPerfsByModel.items()):
-                lPerfsByModel[model] = value
-                lTranformName = sigdec.mSignal;
-                lDecompType = model[1];
-                lModelFormula = model
-                tsmodel = value[0][2]
-                lModelCategory = tsmodel.get_model_category()
-                lSplit = value[0][2].mTimeInfo.mOptions.mCustomSplit
-                #  value format : self.mPerfsByModel[lModel.mOutName] = [lModel, lComplexity, lFitPerf , lForecastPerf, lTestPerf];
-                lComplexity = value[1];
-                model_perfs = tsmodel.get_perfs_summary()
-                lFitPerf = model_perfs["Fit"];
-                lForecastPerf = model_perfs["Forecast"]
-                lTestPerf = model_perfs["Test"]
-                H = tsmodel.mTimeInfo.mHorizon
+        for (model , value) in sorted(iPerfsByModel.items()):
+            lTranformName = value["Signal"]
+            lDecompType = value["DecompositionType"];
+            lModelFormula = model
+            modelname = value["ModelName"]
+            lModelCategory = value["ModelCategory"]
+            lSplit = value["Split"]
+            #  value format : self.mPerfsByModel[lModel.mOutName] = [lModel, lComplexity, lFitPerf , lForecastPerf, lTestPerf];
+            lComplexity = value["Complexity"];
+            lOriginalSignal = value["OriginalSignal"]
+            lForecastColumn = str(lOriginalSignal) + "_Forecast";
+            lFitPerf = value["FitPerf"];
+            lForecastPerf = value["ForecastPerf"]
+            lTestPerf = value["TestPerf"]
+            H = value["Horizon"]
 
-                lVoting = lVotingScores[ lModelFormula[3] ]
-                row = [lSplit, lTranformName, lDecompType, lModelFormula[3], lModelFormula, lModelCategory, lComplexity,
-                       lFitPerf[1].get(lCriterion),
-                       lFitPerf[H].get(lCriterion), 
-                       lForecastPerf[1].get(lCriterion),
-                       lForecastPerf[H].get(lCriterion),
-                       lTestPerf[1].get(lCriterion),
-                       lTestPerf[H].get(lCriterion),
-                       lVoting]
-                rows_list.append(row);
+            lVoting = lVotingScores[ modelname ]
+            row = [lSplit, lTranformName, lDecompType, lModelFormula[3], lModelFormula, lModelCategory, lComplexity,
+                   lFitPerf[lForecastColumn + "_" + str(1)].get(lCriterion),
+                   lFitPerf[lForecastColumn + "_" + str(H)].get(lCriterion), 
+                   lForecastPerf[lForecastColumn + "_" + str(1)].get(lCriterion),
+                   lForecastPerf[lForecastColumn + "_" + str(H)].get(lCriterion),
+                   lTestPerf[lForecastColumn + "_" + str(1)].get(lCriterion),
+                   lTestPerf[lForecastColumn + "_" + str(H)].get(lCriterion),
+                   lVoting]
+            rows_list.append(row);
 
         self.mTrPerfDetails =  pd.DataFrame(rows_list, columns=
                                             ('Split', 'Transformation', 'DecompositionType',
@@ -96,14 +94,11 @@ class cModelSelector_Voting:
         lInterestingModels.sort_values(by=['Complexity'] , ascending=[False], inplace=True)
         # print(self.mTransformList);
         # print(self.mPerfsByModel);
-        lBestName = lInterestingModels['DetailedFormula'].iloc[0]
-        lBestModel = lPerfsByModel[lBestName][0][2];
+        self.mBestModelName = lInterestingModels['DetailedFormula'].iloc[0]
         # print("BEST_MODEL", lBestName, lBestModel)
-        self.mBestModel = lBestModel
-        self.mPerfsByModel = lPerfsByModel
         self.mModelShortList = lInterestingModels[['Transformation', 'DecompositionType', 'Model', lIndicator, 'Complexity', 'Forecast_' + self.mOptions.mModelSelection_Criterion + "_1",  'Forecast_' + self.mOptions.mModelSelection_Criterion + "_H"]] 
         # print(self.mModelShortList.head());
-        return (iSignal, lPerfsByModel, lBestModel, self.mModelShortList)
+        return (iSignal, self.mBestModelName, self.mModelShortList)
 
 
     def perform_model_selection_cross_validation(self):
@@ -143,7 +138,7 @@ class cModelSelector_Voting:
         # print(lInterestingModels.head());
         lBestName = lInterestingModels['DetailedFormula'].iloc[0];
         lBestSplit = lInterestingModels['Split'].iloc[0];
-        self.mBestModel = self.mPerfsByModel[lBestName][0][2];
+        self.mBestModelName = lBestName
         self.mModelShortList = lInterestingModels[['Model', 'Category', 'Split', lIndicator, 'IC']]
         # print("BEST_MODEL", lBestName, self.mBestModel)
 
@@ -155,11 +150,11 @@ class cModelSelector_Condorcet(cModelSelector_Voting):
         self.mCondorcetScores = None
         self.mCriteriaValues = None
 
-    def get_criterion_values(self, iModel):
+    def get_criterion_values(self, value):
         lCriterion = self.mOptions.mModelSelection_Criterion
-        lPerfs1 = iModel.mForecastPerfs
-        self.mHorizon = iModel.mTimeInfo.mHorizon
-        lForecastColumn = str(iModel.mOriginalSignal) + "_Forecast";
+        lPerfs1 = value["ForecastPerf"]
+        self.mHorizon = value["Horizon"]
+        lForecastColumn = value["OriginalSignal"] + "_Forecast";
         lCriterionValues = {}
         for h in range(self.mHorizon):
             lHorizonName = lForecastColumn + "_" + str(h + 1);
@@ -184,7 +179,7 @@ class cModelSelector_Condorcet(cModelSelector_Voting):
         for h in range(self.mHorizon):
             lValues = [(k, v[h + 1]) for (k,v) in self.mCriteriaValues.items()]
             lValues = sorted(lValues, key = lambda x : x[1])
-            lBestModels = lBestModels + [k[0] for k in lValues[:32]] # 32 best for each horizon
+            lBestModels = lBestModels + [k[0] for k in lValues[:128]] # 128 best for each horizon
         lBestModels = set(lBestModels)
         lDiscrededModels = [x for x in self.mCriteriaValues.keys() if x not in lBestModels]
         print("KEPT_DISCARDED_MODELS", len(self.mCriteriaValues.keys()) , len(lBestModels), len(lDiscrededModels))
@@ -205,17 +200,17 @@ class cModelSelector_Condorcet(cModelSelector_Voting):
         lScore = round(lScore , 4)
         return lScore
         
-    def compute_voting_scores(self, iSigDecs):
+    def compute_voting_scores(self, iPerfsByModel):
+        lTimer = tsutil.cTimer(("MODEL_SELECTION_COMPUTE_VOTING_SCORES", len(iPerfsByModel)))
         self.mCondorcetScores = {}
         self.mCriteriaValues = {}
         lModels = {}
-        for (lName, sigdec) in iSigDecs.items():
-            for (model , value) in sorted(sigdec.mPerfsByModel.items()):
-                ts_model = value[0][2]
-                model_name = ts_model.mOutName
-                lModels[model_name] = ts_model
-                self.mCriteriaValues[model_name] = self.get_criterion_values(ts_model)
-        # self.filter_worst_criteria_values()
+        for (model , value) in sorted(iPerfsByModel.items()):
+            model_name = value["ModelName"]
+            lModels[model_name] = value
+            self.mCriteriaValues[model_name] = self.get_criterion_values(value)
+        if(len(self.mCriteriaValues) > 128):
+            self.filter_worst_criteria_values()
         for (model_name, ts_model) in lModels.items():
             self.mCondorcetScores[model_name] = self.compute_condorcet_score(model_name)
         return self.mCondorcetScores

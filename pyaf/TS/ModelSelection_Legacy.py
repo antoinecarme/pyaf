@@ -29,29 +29,33 @@ class cModelSelector_OneSignal:
         logger.info("PERF_DUMP_END")
         
 
-    def collectPerformanceIndices_ModelSelection(self, iSignal, iSigDecs) :
+    def collectPerformanceIndices_ModelSelection(self, iSignal, iPerfsByModel) :
         logger = tsutil.get_pyaf_logger();
-        lTimer = tsutil.cTimer(("MODEL_SELECTION", {"Signal" : iSignal, "Transformations" : sorted(list(iSigDecs.keys()))}))
+        lTimer = tsutil.cTimer(("LEGACY_MODEL_SELECTION", {"Signal" : iSignal}))
+        lCriterion = self.mOptions.mModelSelection_Criterion
+
         rows_list = []
-        lPerfsByModel = {}
-        for (lName, sigdec) in iSigDecs.items():
-            for (model , value) in sorted(sigdec.mPerfsByModel.items()):
-                lPerfsByModel[model] = value
-                lTranformName = sigdec.mSignal;
-                lDecompType = model[1];
-                lModelFormula = model
-                lModelCategory = value[0][2].get_model_category()
-                lSplit = value[0][2].mTimeInfo.mOptions.mCustomSplit
-                #  value format : self.mPerfsByModel[lModel.mOutName] = [lModel, lComplexity, lFitPerf , lForecastPerf, lTestPerf];
-                lComplexity = value[1];
-                lFitPerf = value[2];
-                lForecastPerf = value[3];
-                lTestPerf = value[4];
-                row = [lSplit, lTranformName, lDecompType, lModelFormula[3], lModelFormula, lModelCategory, lComplexity,
-                       lFitPerf,
-                       lForecastPerf,
-                       lTestPerf]
-                rows_list.append(row);
+        for (model , value) in sorted(iPerfsByModel.items()):
+            lTranformName = value["Signal"]
+            lDecompType = value["DecompositionType"];
+            lModelFormula = model
+            modelname = value["ModelName"]
+            lModelCategory = value["ModelCategory"]
+            lSplit = value["Split"]
+            #  value format : self.mPerfsByModel[lModel.mOutName] = [lModel, lComplexity, lFitPerf , lForecastPerf, lTestPerf];
+            lComplexity = value["Complexity"];
+            lOriginalSignal = value["OriginalSignal"]
+            lForecastColumn = str(lOriginalSignal) + "_Forecast";
+            lFitPerf = value["FitPerf"];
+            lForecastPerf = value["ForecastPerf"]
+            lTestPerf = value["TestPerf"]
+            H = value["Horizon"]
+            
+            row = [lSplit, lTranformName, lDecompType, lModelFormula[3], lModelFormula, lModelCategory, lComplexity,
+                   lFitPerf[lForecastColumn + "_" + str(1)].get(lCriterion),
+                   lForecastPerf[lForecastColumn + "_" + str(1)].get(lCriterion),
+                   lTestPerf[lForecastColumn + "_" + str(1)].get(lCriterion)]
+            rows_list.append(row);
 
         self.mTrPerfDetails =  pd.DataFrame(rows_list, columns=
                                             ('Split', 'Transformation', 'DecompositionType',
@@ -82,13 +86,9 @@ class cModelSelector_OneSignal:
         # print(self.mTransformList);
         # print(lInterestingModels.head());
         # print(self.mPerfsByModel);
-        lBestName = lInterestingModels['DetailedFormula'].iloc[0]
-        lBestModel = lPerfsByModel[lBestName][0][2];
-        # print("BEST_MODEL", lBestName, lBestModel)
-        self.mBestModel = lBestModel
-        self.mPerfsByModel = lPerfsByModel
+        self.mBestModelName = lInterestingModels['DetailedFormula'].iloc[0]
         self.mModelShortList = lInterestingModels[['Transformation', 'DecompositionType', 'Model', lIndicator, 'Complexity']] 
-        return (iSignal, lPerfsByModel, lBestModel, self.mModelShortList)
+        return (iSignal, self.mBestModelName, self.mModelShortList)
 
 
     def perform_model_selection_cross_validation(self):
