@@ -15,7 +15,7 @@ lEngine
 
 H = b1.mHorizon;
 lEngine.mOptions.enable_slow_mode();
-lEngine.mOptions.mCores = 256
+lEngine.mOptions.mNbCores = 256
 lEngine.mOptions.mDebugPerformance = True;
 
 # lEngine.mOptions.mCrossValidationOptions.mMethod = "TSCV";
@@ -27,7 +27,7 @@ lEngine.getModelInfo();
 
 lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
 
-lEngine.standardPlots(name = "outputs/my_airline_passengers_slow_mode")
+lEngine.standardPlots(name = "outputs/my_airline_passengers_many_cores")
 
 dfapp_in = df.copy();
 dfapp_in.tail()

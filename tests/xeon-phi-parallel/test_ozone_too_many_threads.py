@@ -22,7 +22,7 @@ lEngine
 
 H = b1.mHorizon;
 lEngine.mOptions.enable_slow_mode();
-lEngine.mOptions.mCores = 32
+lEngine.mOptions.mNbCores = 32
 lEngine.mOptions.mDebugPerformance = True;
 lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H);
 lEngine.getModelInfo();
@@ -30,7 +30,7 @@ lEngine.getModelInfo();
 
 lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
 
-# lEngine.standardPlots("outputs/my_ozone");
+lEngine.standardPlots("outputs/my_ozone_many_core");
 
 dfapp_in = df.copy();
 dfapp_in.tail()
