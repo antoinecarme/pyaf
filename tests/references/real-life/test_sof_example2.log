@@ -10,13 +10,16 @@ INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'dengue_index', 'Ho
 INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'dengue_index', 'Horizon': 5, 'Transformation': 'Diff_dengue_index', 'DecompositionType': 'T+S+R'}))
 INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'dengue_index', 'Horizon': 5, 'Transformation': 'RelDiff_dengue_index', 'DecompositionType': 'T+S+R'}))
 INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'dengue_index', 'Horizon': 5, 'Transformation': 'CumSum_dengue_index', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 16.31, ('TRAINING', {'Signal': 'dengue_index', 'Horizon': 5, 'Transformation': 'Diff_dengue_index', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 17.511, ('TRAINING', {'Signal': 'dengue_index', 'Horizon': 5, 'Transformation': 'RelDiff_dengue_index', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 28.702, ('TRAINING', {'Signal': 'dengue_index', 'Horizon': 5, 'Transformation': '_dengue_index', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 30.811, ('TRAINING', {'Signal': 'dengue_index', 'Horizon': 5, 'Transformation': 'CumSum_dengue_index', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 31.207, ('SIGNAL_TRAINING', {'Signals': ['dengue_index'], 'Transformations': [('dengue_index', 'None', '_', 'T+S+R'), ('dengue_index', 'None', 'Diff_', 'T+S+R'), ('dengue_index', 'None', 'RelDiff_', 'T+S+R'), ('dengue_index', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
-INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['dengue_index'], 'Transformations': [('dengue_index', [('dengue_index', 'None', 'CumSum_', 'T+S+R'), ('dengue_index', 'None', 'Diff_', 'T+S+R'), ('dengue_index', 'None', 'RelDiff_', 'T+S+R'), ('dengue_index', 'None', '_', 'T+S+R')])], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'dengue_index', 'Transformations': [('dengue_index', 'None', 'CumSum_', 'T+S+R'), ('dengue_index', 'None', 'Diff_', 'T+S+R'), ('dengue_index', 'None', 'RelDiff_', 'T+S+R'), ('dengue_index', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 14.681, ('TRAINING', {'Signal': 'dengue_index', 'Horizon': 5, 'Transformation': 'Diff_dengue_index', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 15.796, ('TRAINING', {'Signal': 'dengue_index', 'Horizon': 5, 'Transformation': 'RelDiff_dengue_index', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 34.112, ('TRAINING', {'Signal': 'dengue_index', 'Horizon': 5, 'Transformation': '_dengue_index', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 34.302, ('TRAINING', {'Signal': 'dengue_index', 'Horizon': 5, 'Transformation': 'CumSum_dengue_index', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 35.085, ('SIGNAL_TRAINING', {'Signals': ['dengue_index'], 'Transformations': [('dengue_index', 'None', '_', 'T+S+R'), ('dengue_index', 'None', 'Diff_', 'T+S+R'), ('dengue_index', 'None', 'RelDiff_', 'T+S+R'), ('dengue_index', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signals': ['dengue_index'], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('VOTING_MODEL_SELECTION', {'Signal': 'dengue_index'}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION_COMPUTE_VOTING_SCORES', 160))
+DEBUG:pyaf.detailed:DETAIL_MESSAGE('KEPT_DISCARDED_MODELS', 160, 141, 19)
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.384, ('MODEL_SELECTION_COMPUTE_VOTING_SCORES', 160))
 INFO:pyaf.std:PERF_DUMP_START
 INFO:pyaf.std:[
     {
@@ -31,7 +34,7 @@ INFO:pyaf.std:[
         "Forecast_MASE_1": 0.9105,
         "Forecast_MASE_H": 2.9559,
         "Model": "_dengue_index_Lag1Trend_residue_Seasonal_WeekOfYear_residue_NoAR",
-        "Voting": 473.0
+        "Voting": 416.0
     },
     {
         "Category": "NoTransf_Lag1Trend_Seasonal_DayOfWeek_NoAR",
@@ -45,7 +48,7 @@ INFO:pyaf.std:[
         "Forecast_MASE_1": 0.9813,
         "Forecast_MASE_H": 3.9463,
         "Model": "_dengue_index_Lag1Trend_residue_Seasonal_DayOfWeek_residue_NoAR",
-        "Voting": 464.0
+        "Voting": 407.0
     },
     {
         "Category": "NoTransf_Lag1Trend_Seasonal_DayOfMonth_NoAR",
@@ -59,7 +62,7 @@ INFO:pyaf.std:[
         "Forecast_MASE_1": 0.9873,
         "Forecast_MASE_H": 3.9649,
         "Model": "_dengue_index_Lag1Trend_residue_Seasonal_DayOfMonth_residue_NoAR",
-        "Voting": 461.2
+        "Voting": 404.2
     },
     {
         "Category": "NoTransf_Lag1Trend_Seasonal_WeekOfMonth_NoAR",
@@ -73,7 +76,7 @@ INFO:pyaf.std:[
         "Forecast_MASE_1": 0.9981,
         "Forecast_MASE_H": 3.9684,
         "Model": "_dengue_index_Lag1Trend_residue_Seasonal_WeekOfMonth_residue_NoAR",
-        "Voting": 460.2
+        "Voting": 403.2
     },
     {
         "Category": "NoTransf_Lag1Trend_NoCycle_NoAR",
@@ -87,7 +90,7 @@ INFO:pyaf.std:[
         "Forecast_MASE_1": 0.9993,
         "Forecast_MASE_H": 3.9789,
         "Model": "_dengue_index_Lag1Trend_residue_zeroCycle[0.0]_residue_NoAR",
-        "Voting": 457.8
+        "Voting": 400.8
     },
     {
         "Category": "Integration_Lag1Trend_Cycle_None_NoAR",
@@ -101,7 +104,7 @@ INFO:pyaf.std:[
         "Forecast_MASE_1": 0.9993,
         "Forecast_MASE_H": 3.9789,
         "Model": "CumSum_dengue_index_Lag1Trend_residue_Cycle_None_residue_NoAR",
-        "Voting": 457.8
+        "Voting": 400.8
     },
     {
         "Category": "Integration_Lag1Trend_NoCycle_NoAR",
@@ -115,7 +118,7 @@ INFO:pyaf.std:[
         "Forecast_MASE_1": 0.9993,
         "Forecast_MASE_H": 3.9789,
         "Model": "CumSum_dengue_index_Lag1Trend_residue_zeroCycle[0.0]_residue_NoAR",
-        "Voting": 457.8
+        "Voting": 400.8
     },
     {
         "Category": "Difference_Lag1Trend_NoCycle_NoAR",
@@ -129,7 +132,7 @@ INFO:pyaf.std:[
         "Forecast_MASE_1": 0.9993,
         "Forecast_MASE_H": 3.9789,
         "Model": "Diff_dengue_index_Lag1Trend_residue_zeroCycle[0.0]_residue_NoAR",
-        "Voting": 457.8
+        "Voting": 400.8
     },
     {
         "Category": "RelativeDifference_Lag1Trend_NoCycle_NoAR",
@@ -143,7 +146,7 @@ INFO:pyaf.std:[
         "Forecast_MASE_1": 0.9993,
         "Forecast_MASE_H": 3.9789,
         "Model": "RelDiff_dengue_index_Lag1Trend_residue_zeroCycle[0.0]_residue_NoAR",
-        "Voting": 457.8
+        "Voting": 400.8
     },
     {
         "Category": "NoTransf_Lag1Trend_Cycle_5_NoAR",
@@ -157,17 +160,19 @@ INFO:pyaf.std:[
         "Forecast_MASE_1": 1.0022,
         "Forecast_MASE_H": 3.9852,
         "Model": "_dengue_index_Lag1Trend_residue_Cycle_5_residue_NoAR",
-        "Voting": 453.8
+        "Voting": 396.8
     }
 ]
 INFO:pyaf.std:PERF_DUMP_END
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.297, ('MODEL_SELECTION', {'Signal': 'dengue_index', 'Transformations': [('dengue_index', 'None', 'CumSum_', 'T+S+R'), ('dengue_index', 'None', 'Diff_', 'T+S+R'), ('dengue_index', 'None', 'RelDiff_', 'T+S+R'), ('dengue_index', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.412, ('VOTING_MODEL_SELECTION', {'Signal': 'dengue_index'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.414, ('MODEL_SELECTION', {'Signals': ['dengue_index'], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'BestModels': [('dengue_index', '_dengue_index_Lag1Trend_residue_Seasonal_WeekOfYear_residue_NoAR')], 'Cores': 1}))
 INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'dengue_index', 'Model': '_dengue_index_Lag1Trend_residue_Seasonal_WeekOfYear_residue_NoAR'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.009, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'dengue_index', 'Model': '_dengue_index_Lag1Trend_residue_Seasonal_WeekOfYear_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.475, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'dengue_index', 'Model': '_dengue_index_Lag1Trend_residue_Seasonal_WeekOfYear_residue_NoAR'}))
 INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'dengue_index'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.987, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'dengue_index'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.294, ('FINALIZE_TRAINING', {'Signals': ['dengue_index'], 'Transformations': [('dengue_index', [('dengue_index', 'None', 'CumSum_', 'T+S+R'), ('dengue_index', 'None', 'Diff_', 'T+S+R'), ('dengue_index', 'None', 'RelDiff_', 'T+S+R'), ('dengue_index', 'None', '_', 'T+S+R')])], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 33.598, ('TRAINING', {'Signals': ['dengue_index'], 'Horizons': {'dengue_index': 5}}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.22, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'dengue_index'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.695, ('FINALIZE_TRAINING', {'BestModels': [('dengue_index', '_dengue_index_Lag1Trend_residue_Seasonal_WeekOfYear_residue_NoAR')], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 38.209, ('TRAINING', {'Signals': ['dengue_index'], 'Horizons': {'dengue_index': 5}}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='date' TimeMin=2010-01-01T00:00:00.000000 TimeMax=2014-06-11T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=5
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='dengue_index' Length=2034  Min=0.109196 Max=0.377577  Mean=0.202948 StdDev=0.088003
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_dengue_index' Min=0.0 Max=1.0  Mean=0.349324 StdDev=0.327903
@@ -195,9 +200,9 @@ INFO:pyaf.std:SEASONAL_MODEL_VALUES _dengue_index_Lag1Trend_residue_Seasonal_Wee
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:TRAINING_TIME_IN_SECONDS 33.596
+INFO:pyaf.std:TRAINING_TIME_IN_SECONDS 38.202
 INFO:pyaf.std:COMPETITION_DETAIL_START 'dengue_index'
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'dengue_index' 0 {'Transformation': '_dengue_index', 'DecompositionType': 'T+S+R', 'Model': '_dengue_index_Lag1Trend_residue_Seasonal_WeekOfYear_residue_NoAR', 'Voting': 473.0, 'Complexity': 'LSSSS', 'Forecast_MASE_1': 0.9105, 'Forecast_MASE_H': 2.9559}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'dengue_index' 0 {'Transformation': '_dengue_index', 'DecompositionType': 'T+S+R', 'Model': '_dengue_index_Lag1Trend_residue_Seasonal_WeekOfYear_residue_NoAR', 'Voting': 416.0, 'Complexity': 'LSSSS', 'Forecast_MASE_1': 0.9105, 'Forecast_MASE_H': 2.9559}
 INFO:pyaf.std:COMPETITION_DETAIL_END 'dengue_index'
 INFO:pyaf.timing:('OPERATION_START', ('PLOTTING', {'Signals': ['dengue_index']}))
 INFO:pyaf.std:SAVING_PLOT ('Trend', 'outputs/sof_example2_dengue_index_Trend_decomp_output.png')
@@ -207,9 +212,9 @@ INFO:pyaf.std:SAVING_PLOT ('TransformedForecast', 'outputs/sof_example2_dengue_i
 INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/sof_example2_dengue_index_Forecast_decomp_output.png')
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/sof_example2_dengue_index_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/sof_example2_dengue_index_quantiles_output.png')
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 19.405, ('PLOTTING', {'Signals': ['dengue_index']}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 25.562, ('PLOTTING', {'Signals': ['dengue_index']}))
 INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['dengue_index'], 'Horizon': 5}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.704, ('FORECASTING', {'Signals': ['dengue_index'], 'Horizon': 5}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.496, ('FORECASTING', {'Signals': ['dengue_index'], 'Horizon': 5}))
 Forecast Columns  Index(['date', 'dengue_index', 'row_number', 'date_Normalized',
        'scaled_dengue_index', '_dengue_index', '_dengue_index_Lag1Trend',
        '_dengue_index_Lag1Trend_residue',
@@ -274,7 +279,7 @@ Forecasts
 
 <ModelInfo>
 {
-    "Training_Time": 33.596,
+    "Training_Time": 38.202,
     "dengue_index": {
         "Complexity": {
             "AR": "S",
