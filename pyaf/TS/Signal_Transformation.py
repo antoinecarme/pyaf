@@ -327,19 +327,26 @@ class cSignalTransform_RelativeDifferencing(cAbstractSignalTransform):
         pass
 
     def specific_apply(self, sig):
-        # tsutil.print_pyaf_detailed_info("RelDiff_apply_DEBUG_START" , self.mFirstValue, sig.values[0:10]);
+        # tsutil.print_pyaf_detailed_info("RelDiff_apply_DEBUG_START" , self.mFirstValue, sig[0:10]);
         sig_diff = np.diff(sig);
         sig_shifted = sig[:-1]
         rate = np.divide(sig_diff, sig_shifted, out=np.zeros_like(sig_diff), where=sig_shifted!=0)
         rate = np.append([0.0], rate)
+        # tsutil.print_pyaf_detailed_info("RelDiff_apply_DEBUG_END", rate[0:10]);
         return rate;
 
 
     def specific_invert(self, sig):
-        # tsutil.print_pyaf_detailed_info("RelDiff_invert_DEBUG_START" , self.mFirstValue, sig.values[0:10]);
+        # tsutil.print_pyaf_detailed_info("RelDiff_invert_DEBUG_START" , self.mFirstValue, sig[0:10]);
         rate = sig + 1;
-        rate_cum = np.cumprod(rate).clip(-1e7, 1e7);
+        lMaxAbs = np.max(np.abs(rate))
+        rate_cum = np.cumprod(rate / lMaxAbs, dtype=np.float64)
+        lLogMaxAbs_power_n = rate.shape[0] * np.log(lMaxAbs)
+        lMaxAbs_power_n = np.exp(lLogMaxAbs_power_n.clip(-10, 10))
+        rate_cum = rate_cum * lMaxAbs_power_n
+        rate_cum = rate_cum.clip(-1e7, 1e7);
         sig_orig = self.mFirstValue * rate_cum;
+        # tsutil.print_pyaf_detailed_info("RelDiff_invert_DEBUG_END", sig_orig[:10]);
         return sig_orig;
 
     def dump_values(self):
