@@ -8,7 +8,7 @@ python3 benches/run_benchmark_M1Comp.py
 python3 benches/run_benchmark_M2Comp.py
 python3 benches/run_benchmark_M3Comp.py
 python3 benches/run_benchmark_M4Comp.py
-# python3 benches/run_benchmark_MComp.py
+python3 benches/run_benchmark_FPP2.py
 python3 benches/run_benchmark_MWH.py
 python3 benches/run_benchmark_NN3.py
 python3 benches/run_benchmark_NN5.py
