@@ -26,11 +26,11 @@ class cSignalDecomposition:
             if(lSignal not in iInputDS.columns):
                 raise tsutil.PyAF_Error("PYAF_ERROR_SIGNAL_COLUMN_NOT_FOUND " + str(lSignal));
             type2 = iInputDS[lSignal].dtype
-            # print(type2)
+            # tsutil.print_pyaf_detailed_info(type2)
             if(type2.kind != 'i' and type2.kind != 'u' and type2.kind != 'f'):
                 raise tsutil.PyAF_Error("PYAF_ERROR_SIGNAL_COLUMN_TYPE_NOT_ALLOWED '" + str(lSignal) + "' '" + str(type2) + "'");
         type1 = iInputDS[iTime].dtype
-        # print(type1)
+        # tsutil.print_pyaf_detailed_info(type1)
         if(type1.kind != 'M' and type1.kind != 'i' and type1.kind != 'u' and type1.kind != 'f'):
             raise tsutil.PyAF_Error("PYAF_ERROR_TIME_COLUMN_TYPE_NOT_ALLOWED '" + str(iTime) + "' '" + str(type1) + "'");
         # time in exogenous data should be the strictly same type as time in training dataset (join needed)
@@ -76,7 +76,7 @@ class cSignalDecomposition:
         from . import SignalDecomposition_Trainer as tstrainer
 
         self.reinterpret_by_signal_args(iTimes, iSignals, iHorizons, iExogenousData)
-        # print(iInputDS.shape, iInputDS.columns, self.mSignals, self.mDateColumns, self.mHorizons)
+        # tsutil.print_pyaf_detailed_info(iInputDS.shape, iInputDS.columns, self.mSignals, self.mDateColumns, self.mHorizons)
         lTimer = tsutil.cTimer(("TRAINING", {"Signals" : self.mSignals, "Horizons" : self.mHorizons}))
 
         for sig in self.mSignals:
@@ -124,7 +124,7 @@ class cSignalDecomposition:
         for lSignal in self.mSignals:
             logger.info("COMPETITION_DETAIL_START '" + lSignal + "'");
             lShortList_Dict = self.mModelShortListBySignal[lSignal].to_dict(orient = 'index')
-            # print(lShortList_Dict)
+            # tsutil.print_pyaf_detailed_info(lShortList_Dict)
             for k in sorted(lShortList_Dict.keys()):
                 v = lShortList_Dict[k]
                 logger.info("COMPETITION_DETAIL_SHORT_LIST '" + lSignal + "' " + str(k) + " " + str(v));

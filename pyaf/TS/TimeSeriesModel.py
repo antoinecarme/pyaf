@@ -220,23 +220,23 @@ class cTimeSeriesModel:
         # add signal tranformed column
         df1 = self.mTransformation.transformDataset(df1);
         # df1.to_csv("after_transformation.csv");
-        #print("Transformation update : " , df1.columns);
+        # tsutil.print_pyaf_detailed_info("Transformation update : " , df1.columns);
 
         df1 = self.mTimeInfo.transformDataset(df1);
         # df1.to_csv("after_time.csv");
-        # print("TimeInfo update : " , df1.columns);
+        # tsutil.print_pyaf_detailed_info("TimeInfo update : " , df1.columns);
         # compute the trend based on the transformed column and compute trend residue
         df1 = self.mTrend.transformDataset(df1);
-        #print("Trend update : " , df1.columns);
+        # tsutil.print_pyaf_detailed_info("Trend update : " , df1.columns);
         # df1.to_csv("after_trend.csv");
         # compute the cycle and its residue based on the trend residue
         df1 = self.mCycle.transformDataset(df1);
         # df1.to_csv("after_cycle.csv");
-        #print("Cycle update : " , df1.columns);
+        # tsutil.print_pyaf_detailed_info("Cycle update : " , df1.columns);
         # compute the AR componnet and its residue based on the cycle residue
         df1 = self.mAR.transformDataset(df1, horizon_index);
         # df1.to_csv("after_ar.csv");
-        #print("AR update : " , df1.columns);
+        # tsutil.print_pyaf_detailed_info("AR update : " , df1.columns);
         # compute the forecast and its residue (forecast = trend  + cycle + AR)
         df2 = df1;
         lTrendColumn = df2[self.mTrend.mOutName]
@@ -253,7 +253,7 @@ class cTimeSeriesModel:
             df2[lPrefix + 'AR_residue'] = df2[self.mAR.mOutName + '_residue'];
 
         lPrefix2 = str(self.mOriginalSignal) + "_";
-        # print("TimeSeriesModel_forecast_invert");
+        # tsutil.print_pyaf_detailed_info("TimeSeriesModel_forecast_invert");
         df2[lPrefix + 'TransformedForecast'] = self.compute_model_forecast(lTrendColumn, lCycleColumn, lARColumn)
         df2[lPrefix2 + 'Forecast'] = self.mTransformation.invert(df2[lPrefix + 'TransformedForecast']);
 
@@ -270,7 +270,7 @@ class cTimeSeriesModel:
         df1 = self.forecastOneStepAhead(df, 1)
         lForecastColumnName = str(self.mOriginalSignal) + "_Forecast";
         for h in range(0 , iHorizon - 1):
-            # print(df1.info());
+            # tsutil.print_pyaf_detailed_info(df1.info());
             N = df1.shape[0];
             # replace the signal with the forecast in the last line  of the dataset
             lPos = df1.index[N - 1];
@@ -293,8 +293,8 @@ class cTimeSeriesModel:
     
     def forecast(self , df , iHorizon):
         df1 = self.forecast_all_horizons(df, iHorizon)
-        # print(df.head())
-        # print(df1.head())
+        # tsutil.print_pyaf_detailed_info(df.head())
+        # tsutil.print_pyaf_detailed_info(df1.head())
         if(self.mTimeInfo.mOptions.mAddPredictionIntervals):
             df1 = self.addPredictionIntervals(df, df1, iHorizon);
             self.addForecastQuantiles(df, df1, iHorizon);
@@ -326,9 +326,9 @@ class cTimeSeriesModel:
                    for h in range(0 , self.mTimeInfo.mHorizon)]
         lWidths = (lWidths + [np.nan]*iHorizon)[:iHorizon]
         lForcastValues = iForecastFrame.loc[N:N+iHorizon, lForecastColumn]
-        # print(lForcastValues.head(lHorizon))
-        # print(iHorizon, self.mTimeInfo.mHorizon, lHorizon, lForcastValues.shape)
-        # print(lWidths)
+        # tsutil.print_pyaf_detailed_info(lForcastValues.head(lHorizon))
+        # tsutil.print_pyaf_detailed_info(iHorizon, self.mTimeInfo.mHorizon, lHorizon, lForcastValues.shape)
+        # tsutil.print_pyaf_detailed_info(lWidths)
         iForecastFrame.loc[N:N+iHorizon, lLowerBoundName] = lForcastValues - lWidths
         iForecastFrame.loc[N:N+iHorizon, lUpperBoundName] = lForcastValues + lWidths
         return iForecastFrame;
@@ -432,12 +432,12 @@ class cTimeSeriesModel:
     def standardPlots(self, name = None, format = 'png'):
         lOutput =  self.getForecastDatasetForPlots();
         self.plotResidues(name = name, format=format, iOutputDF = lOutput);
-        # print(lOutput.columns)
+        # tsutil.print_pyaf_detailed_info(lOutput.columns)
         lPrefix = str(self.mOriginalSignal) + "_";
         lForecastColumn = lPrefix + 'Forecast';
         lTime = self.mTimeInfo.mTime;            
         lOutput.set_index(lTime, inplace=True, drop=False);
-        # print(lOutput[lTime].dtype);
+        # tsutil.print_pyaf_detailed_info(lOutput[lTime].dtype);
 
         # Add more informative title for this plot.  Investigate Model Esthetics for PyAF #212 
         lTitle = self.get_title_details_for_plots("Prediction Intervals")
@@ -486,7 +486,7 @@ class cTimeSeriesModel:
 
     def getPredictionIntervalPlot(self, df = None):        
         lOutput = df if df is not None else self.getForecastDatasetForPlots();
-        # print(lOutput.columns)
+        # tsutil.print_pyaf_detailed_info(lOutput.columns)
         lPrefix = str(self.mOriginalSignal) + "_";
         lForecastColumn = lPrefix + 'Forecast';
         lTime = self.mTimeInfo.mTime;
@@ -524,5 +524,5 @@ class cTimeSeriesModel:
 
     def clean_dataframes(self):
         self.mTrend.mSignalFrame = self.mTrend.mSignalFrame[[self.mTime, self.mOriginalSignal, self.mSignal]].copy()
-        # print(self.mTrend.mSignalFrame.columns)
+        # tsutil.print_pyaf_detailed_info(self.mTrend.mSignalFrame.columns)
         

@@ -73,8 +73,8 @@ class cCuttingInfo:
         
     def defineCuttingParameters(self):
         lStr = "CUTTING_START SignalVariable='" + self.mSignal +"'";
-        # print(lStr);
-        #print(self.mSignalFrame.head())
+        # tsutil.print_pyaf_detailed_info(lStr);
+        # tsutil.print_pyaf_detailed_info(self.mSignalFrame.head())
         if(self.mOptions.mCustomSplit is not None):
             self.set_split(self.mOptions.mCustomSplit)
         else:
@@ -83,7 +83,7 @@ class cCuttingInfo:
         lStr = "CUTTING_PARAMETERS " + str(self.mTrainSize) + " Estimation = (" + str(self.mEstimStart) + " , " + str(self.mEstimEnd) + ")";
         lStr += " Validation = (" + str(self.mValidStart) + " , " + str(self.mValidEnd) + ")";
         lStr += " Test = (" + str(self.mTestStart) + " , " + str(self.mTestEnd) + ")";
-        #print(lStr);
+        # tsutil.print_pyaf_detailed_info(lStr);
         
         pass
 

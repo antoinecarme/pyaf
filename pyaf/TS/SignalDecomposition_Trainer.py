@@ -54,9 +54,9 @@ class cSignalDecompositionOneTransform:
         assert(iTime in iInputDS.columns)
         assert(iSignal in iInputDS.columns)
 
-        # print("setParams , head", iInputDS.head());
-        # print("setParams , tail", iInputDS.tail());
-        # print("setParams , columns", iInputDS.columns);
+        # tsutil.print_pyaf_detailed_info("setParams , head", iInputDS.head());
+        # tsutil.print_pyaf_detailed_info("setParams , tail", iInputDS.tail());
+        # tsutil.print_pyaf_detailed_info("setParams , columns", iInputDS.columns);
         
         self.mTime = iTime
         self.mOriginalSignal = iSignal;
@@ -105,7 +105,7 @@ class cSignalDecompositionOneTransform:
             iModels[model].updatePerfs();
             
         for (name, model) in iModels.items():
-            # print(name, model.__dict__);
+            # tsutil.print_pyaf_detailed_info(name, model.__dict__);
             lComplexity = model.getComplexity_as_ordering_string();
             lSplit = model.mTimeInfo.mOptions.mCustomSplit
             model_perfs = model.get_perfs_summary()
@@ -351,7 +351,7 @@ class cSignalDecompositionTrainer:
 
         NCores = min(len(args) , self.mOptions.mNbCores) 
         lTimer = tsutil.cTimer(("FINALIZE_TRAINING",
-                                {"BestModels" : [(lSignal, lBestModel) for (lSignal, lBestModel) in self.mBestModels.items()],
+                                {"BestModels" : [(lSignal, lBestModel.mOutName) for (lSignal, lBestModel) in self.mBestModels.items()],
                                  "Cores" : NCores}))
         if(self.mOptions.mParallelMode and NCores > 1):
             from multiprocessing import Pool
@@ -379,7 +379,7 @@ class cSignalDecompositionTrainer:
             
         
     def train_all_transformations(self , iInputDS, iSplits, iTimes, iSignals, iHorizons):
-        # print([transform1.mFormula for transform1 in self.mTransformList]);
+        # tsutil.print_pyaf_detailed_info([transform1.mFormula for transform1 in self.mTransformList]);
         args = [];
         for lSignal in iSignals:
             self.mSigDecBySplitAndTransform[lSignal] = {}

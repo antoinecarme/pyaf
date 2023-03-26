@@ -78,7 +78,7 @@ class cModelSelector_Voting:
                                              'Test_' + self.mOptions.mModelSelection_Criterion + "_1",
                                              'Test_' + self.mOptions.mModelSelection_Criterion + "_H",
                                              "Voting")) 
-        # print(self.mTrPerfDetails.head(self.mTrPerfDetails.shape[0]));
+        # tsutil.print_pyaf_detailed_info(self.mTrPerfDetails.head(self.mTrPerfDetails.shape[0]));
         lIndicator = 'Voting';
         lBestPerf = self.mTrPerfDetails[ lIndicator ].max();
         # allow a loss of one point (0.01 of MAPE) if complexity is reduced.
@@ -92,12 +92,12 @@ class cModelSelector_Voting:
         lTol = 0.99
         lInterestingModels = self.mTrPerfDetails[self.mTrPerfDetails[lIndicator] >= (lBestPerf * lTol)].reset_index(drop=True);
         lInterestingModels.sort_values(by=['Complexity'] , ascending=[False], inplace=True)
-        # print(self.mTransformList);
-        # print(self.mPerfsByModel);
+        # tsutil.print_pyaf_detailed_info(self.mTransformList);
+        # tsutil.print_pyaf_detailed_info(self.mPerfsByModel);
         self.mBestModelName = lInterestingModels['DetailedFormula'].iloc[0]
-        # print("BEST_MODEL", lBestName, lBestModel)
+        # tsutil.print_pyaf_detailed_info("BEST_MODEL", lBestName, lBestModel)
         self.mModelShortList = lInterestingModels[['Transformation', 'DecompositionType', 'Model', lIndicator, 'Complexity', 'Forecast_' + self.mOptions.mModelSelection_Criterion + "_1",  'Forecast_' + self.mOptions.mModelSelection_Criterion + "_H"]] 
-        # print(self.mModelShortList.head());
+        # tsutil.print_pyaf_detailed_info(self.mModelShortList.head());
         return (iSignal, self.mBestModelName, self.mModelShortList)
 
 
@@ -111,7 +111,7 @@ class cModelSelector_Voting:
         lPerfByCategory = self.mTrPerfDetails[lColumns].groupby(by=['Category'] , sort=False)[lIndicator].mean()
         lPerfByCategory_df = pd.DataFrame(lPerfByCategory).reset_index()
         lPerfByCategory_df.columns = ['Category' , lIndicator]
-        print("CROSS_VAL_PERF", lPerfByCategory_df)
+        tsutil.print_pyaf_detailed_info("CROSS_VAL_PERF", lPerfByCategory_df)
         # lPerfByCategory_df.to_csv("perf_time_series_cross_val_by_category.csv")
         lBestPerf = lPerfByCategory_df[ lIndicator ].min();
         lHigherIsBetter = tsperf.cPerf.higher_values_are_better(self.mOptions.mModelSelection_Criterion)
@@ -127,20 +127,20 @@ class cModelSelector_Voting:
         else:
             lInterestingCategories_df = lPerfByCategory_df[lPerfByCategory_df[lIndicator] <= (lBestPerf + 0.01)].reset_index(drop=True);
             
-        # print(lPerfByCategory_df.head());
-        # print(lInterestingCategories_df.head());
-        # print(self.mPerfsByModel);
+        # tsutil.print_pyaf_detailed_info(lPerfByCategory_df.head());
+        # tsutil.print_pyaf_detailed_info(lInterestingCategories_df.head());
+        # tsutil.print_pyaf_detailed_info(self.mPerfsByModel);
         lInterestingCategories = list(lInterestingCategories_df['Category'].unique())
         self.mTrPerfDetails['IC'] = self.mTrPerfDetails['Category'].apply(lambda x :1 if x in lInterestingCategories else 0) 
         lInterestingModels = self.mTrPerfDetails[self.mTrPerfDetails['IC'] == 1].copy()
         lInterestingModels.sort_values(by=['Complexity'] , ascending=True, inplace=True)
-        # print(self.mTransformList);
-        # print(lInterestingModels.head());
+        # tsutil.print_pyaf_detailed_info(self.mTransformList);
+        # tsutil.print_pyaf_detailed_info(lInterestingModels.head());
         lBestName = lInterestingModels['DetailedFormula'].iloc[0];
         lBestSplit = lInterestingModels['Split'].iloc[0];
         self.mBestModelName = lBestName
         self.mModelShortList = lInterestingModels[['Model', 'Category', 'Split', lIndicator, 'IC']]
-        # print("BEST_MODEL", lBestName, self.mBestModel)
+        # tsutil.print_pyaf_detailed_info("BEST_MODEL", lBestName, self.mBestModel)
 
 
 class cModelSelector_Condorcet(cModelSelector_Voting):
@@ -149,6 +149,7 @@ class cModelSelector_Condorcet(cModelSelector_Voting):
         cModelSelector_Voting.__init__(self);
         self.mCondorcetScores = None
         self.mCriteriaValues = None
+        self.mMaxCandidates = 128
 
     def get_criterion_values(self, value):
         lCriterion = self.mOptions.mModelSelection_Criterion
@@ -179,10 +180,10 @@ class cModelSelector_Condorcet(cModelSelector_Voting):
         for h in range(self.mHorizon):
             lValues = [(k, v[h + 1]) for (k,v) in self.mCriteriaValues.items()]
             lValues = sorted(lValues, key = lambda x : x[1])
-            lBestModels = lBestModels + [k[0] for k in lValues[:128]] # 128 best for each horizon
+            lBestModels = lBestModels + [k[0] for k in lValues[:self.mMaxCandidates]] # self.mMaxCandidates best for each horizon
         lBestModels = set(lBestModels)
         lDiscrededModels = [x for x in self.mCriteriaValues.keys() if x not in lBestModels]
-        print("KEPT_DISCARDED_MODELS", len(self.mCriteriaValues.keys()) , len(lBestModels), len(lDiscrededModels))
+        tsutil.print_pyaf_detailed_info("KEPT_DISCARDED_MODELS", len(self.mCriteriaValues.keys()) , len(lBestModels), len(lDiscrededModels))
         for model_name in lDiscrededModels:
             self.mCriteriaValues.pop(model_name)
         
@@ -209,7 +210,7 @@ class cModelSelector_Condorcet(cModelSelector_Voting):
             model_name = value["ModelName"]
             lModels[model_name] = value
             self.mCriteriaValues[model_name] = self.get_criterion_values(value)
-        if(len(self.mCriteriaValues) > 128):
+        if(len(self.mCriteriaValues) > self.mMaxCandidates):
             self.filter_worst_criteria_values()
         for (model_name, ts_model) in lModels.items():
             self.mCondorcetScores[model_name] = self.compute_condorcet_score(model_name)

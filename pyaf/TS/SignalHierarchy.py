@@ -81,7 +81,7 @@ class cSignalHierarchy:
             for col in sorted(self.mStructure[level].keys()):
                 self.mStructure[level][col] = sorted(self.mStructure[level][col])
                     
-        # print(self.mStructure);
+        # tsutil.print_pyaf_detailed_info(self.mStructure);
         pass
     
     def create_SummingMatrix(self):
@@ -103,9 +103,9 @@ class cSignalHierarchy:
                     lNew_index = len(lIndices);
                     lIndices[ col ] = lNew_index;
                     self.mSummingMatrix[ lNew_index ] [ lNew_index ] = 1;
-        # print(self.mSummingMatrix);
+        # tsutil.print_pyaf_detailed_info(self.mSummingMatrix);
         self.mSummingMatrixInverse = np.linalg.pinv(self.mSummingMatrix);
-        # print(self.mSummingMatrixInverse);
+        # tsutil.print_pyaf_detailed_info(self.mSummingMatrixInverse);
 
     def checkData(self , df):
         if(self.mHorizon != int(self.mHorizon)):
@@ -115,14 +115,14 @@ class cSignalHierarchy:
         if(self.mDateColumn not in df.columns):
             raise tsutil.PyAF_Error("PYAF_ERROR_HIERARCHY_TIME_COLUMN_NOT_FOUND " + str(self.mDateColumn));
         type1 = df[self.mDateColumn].dtype
-        # print(type1)
+        # tsutil.print_pyaf_detailed_info(type1)
         if(type1.kind != 'M' and type1.kind != 'i' and type1.kind != 'u' and type1.kind != 'f'):
             raise tsutil.PyAF_Error("PYAF_ERROR_TIME_COLUMN_TYPE_NOT_ALLOWED '" + str(self.mDateColumn) + "' '" + str(type1) + "'");
         # level 0 is the original/physical columns
         for k in self.mStructure[0]:
             if(k not in df.columns) :
                 raise tsutil.PyAF_Error("PYAF_ERROR_HIERARCHY_BASE_COLUMN_NOT_FOUND " + str(k));
-            # print(type2)
+            # tsutil.print_pyaf_detailed_info(type2)
             type2 = df[k].dtype
             if(type2.kind != 'i' and type2.kind != 'u' and type2.kind != 'f'):
                 raise tsutil.PyAF_Error("PYAF_ERROR_HIERARCHY_BASE_SIGNAL_COLUMN_TYPE_NOT_ALLOWED '" + str(k) + "' '" + str(type2) + "'");
@@ -139,7 +139,7 @@ class cSignalHierarchy:
         if(not lMapped):
             i = 0;
             for k in self.mStructure[0]:
-                print("MAPPING_ORIGINAL_COLUMN" , df.columns[i + 1], "=>" , k)
+                tsutil.print_pyaf_detailed_info("MAPPING_ORIGINAL_COLUMN" , df.columns[i + 1], "=>" , k)
                 lAllLevelsDataset[k] = df[df.columns[i + 1]];
                 i = i + 1;
                 
@@ -197,7 +197,7 @@ class cSignalHierarchy:
         assert(iAllLevelsDataset.shape[0] > 0)
         lEngine.train(iAllLevelsDataset, lDateColumns , lSignals, lHorizons, iExogenousData = lExogenousData);
         self.mModels = lEngine
-        # print("CREATED_MODELS", self.mLevels, self.mModels)
+        # tsutil.print_pyaf_detailed_info("CREATED_MODELS", self.mLevels, self.mModels)
 
 
     def fit(self):
@@ -308,8 +308,8 @@ class cSignalHierarchy:
                     for col1 in sorted(self.mStructure[level][col]):
                         self.mAvgHistProp[col][col1] = (lEstim[col1] / lEstim[col]).mean();
                         self.mPropHistAvg[col][col1] = lEstim[col1].mean() / lEstim[col].mean();
-        # print("AvgHitProp\n", self.mAvgHistProp);
-        # print("PropHistAvg\n", self.mPropHistAvg);
+        # tsutil.print_pyaf_detailed_info("AvgHitProp\n", self.mAvgHistProp);
+        # tsutil.print_pyaf_detailed_info("PropHistAvg\n", self.mPropHistAvg);
         pass
         
     def computeTopDownForecastedProportions(self, iForecast_DF):
@@ -320,7 +320,7 @@ class cSignalHierarchy:
                     self.mForecastedProp[col] = {};
                     for col1 in sorted(self.mStructure[level][col]):
                         self.mForecastedProp[col][col1] = (iForecast_DF[col1] / iForecast_DF[col]).mean();
-        # print("ForecastedProp\n", self.mForecastedProp);
+        # tsutil.print_pyaf_detailed_info("ForecastedProp\n", self.mForecastedProp);
         pass
 
     def computeBottomUpForecast(self, iForecast_DF, level, signal, iPrefix = "BU"):
@@ -338,14 +338,14 @@ class cSignalHierarchy:
         logger = tsutil.get_pyaf_hierarchical_logger();
         logger.info("FORECASTING_HIERARCHICAL_MODEL_BOTTOM_UP_METHOD " + "BU");
         lForecast_DF_BU = iForecast_DF.copy()
-        # print("STRUCTURE " , self.mStructure.keys());
+        # tsutil.print_pyaf_detailed_info("STRUCTURE " , self.mStructure.keys());
         for level in sorted(self.mStructure.keys()):
             for signal in sorted(self.mStructure[level].keys()):
                 new_BU_forecast = self.computeBottomUpForecast(lForecast_DF_BU, level, signal);
                 lForecast_DF_BU[str(signal) + "_BU_Forecast"] = new_BU_forecast;
             
-        # print(lForecast_DF_BU.head());
-        # print(lForecast_DF_BU.tail());
+        # tsutil.print_pyaf_detailed_info(lForecast_DF_BU.head());
+        # tsutil.print_pyaf_detailed_info(lForecast_DF_BU.tail());
 
         return lForecast_DF_BU;
 
@@ -412,8 +412,8 @@ class cSignalHierarchy:
         logger.info("FORECASTING_HIERARCHICAL_MODEL_TOP_DOWN_METHOD " + iPrefix);
         lForecast_DF_TD = iForecast_DF.copy()
         lLevelsReversed = sorted(self.mStructure.keys(), reverse=True);
-        # print("TOPDOWN_STRUCTURE", self.mStructure)
-        # print("TOPDOWN_LEVELS", lLevelsReversed)
+        # tsutil.print_pyaf_detailed_info("TOPDOWN_STRUCTURE", self.mStructure)
+        # tsutil.print_pyaf_detailed_info("TOPDOWN_LEVELS", lLevelsReversed)
         # highest levels (fully aggregated)
         lHighestLevel = lLevelsReversed[0];
         for signal in sorted(self.mStructure[lHighestLevel].keys()):
@@ -424,8 +424,8 @@ class cSignalHierarchy:
                     new_TD_forecast = lForecast_DF_TD[str(signal) + "_" + iPrefix + "_Forecast"] * iProp[signal][col];
                     lForecast_DF_TD[str(col) +"_" + iPrefix + "_Forecast"] = new_TD_forecast;
         
-        # print(lForecast_DF_TD.head());
-        # print(lForecast_DF_TD.tail());
+        # tsutil.print_pyaf_detailed_info(lForecast_DF_TD.head());
+        # tsutil.print_pyaf_detailed_info(lForecast_DF_TD.tail());
 
         return lForecast_DF_TD;
 
@@ -438,8 +438,8 @@ class cSignalHierarchy:
         # lower levels .... top-down starting from the middle.
         levels_below = sorted([level for level in self.mStructure.keys()  if (level <= lMidLevel) ],
                               reverse=True);
-        # print("MIDDLE_OUT_STRUCTURE", self.mStructure)
-        # print("MIDDLE_OUT_LEVELS", levels_below)
+        # tsutil.print_pyaf_detailed_info("MIDDLE_OUT_STRUCTURE", self.mStructure)
+        # tsutil.print_pyaf_detailed_info("MIDDLE_OUT_LEVELS", levels_below)
         # mid-lewvel : do nothing ????
         for signal in sorted(self.mStructure[lMidLevel].keys()):
             lForecast_DF_MO[str(signal) +"_" + iPrefix + "_Forecast"] = iForecast_DF[str(signal) + "_Forecast"];
@@ -455,8 +455,8 @@ class cSignalHierarchy:
                 new_MO_forecast = self.computeBottomUpForecast(lForecast_DF_MO, level, signal, iPrefix);
                 lForecast_DF_MO[str(signal) + "_" + iPrefix + "_Forecast"] = new_MO_forecast;
 
-        # print(lForecast_DF_MO.head());
-        # print(lForecast_DF_MO.tail());
+        # tsutil.print_pyaf_detailed_info(lForecast_DF_MO.head());
+        # tsutil.print_pyaf_detailed_info(lForecast_DF_MO.tail());
 
         return lForecast_DF_MO;
 
@@ -472,18 +472,18 @@ class cSignalHierarchy:
         lBaseForecasts = iForecast_DF[lBaseForecastNames];
         # TODO : use linalg.solve here
         S = self.mSummingMatrix;
-        # print(S.shape);
+        # tsutil.print_pyaf_detailed_info(S.shape);
         lInv = np.linalg.inv(S.T.dot(S))
         lOptimalForecasts = S.dot(lInv).dot(S.T).dot(lBaseForecasts.values.T)
-        # print(lBaseForecasts.shape);
-        # print(lOptimalForecasts.shape);
+        # tsutil.print_pyaf_detailed_info(lBaseForecasts.shape);
+        # tsutil.print_pyaf_detailed_info(lOptimalForecasts.shape);
         lOptimalNames = [(str(col) + "_OC_Forecast") for col in lBaseNames];
         df = pd.DataFrame(lOptimalForecasts.T);
         df.columns = lOptimalNames;
         lForecast_DF_OC = pd.concat([iForecast_DF , df] , axis = 1);
         
-        # print(lForecast_DF_OC.head());
-        # print(lForecast_DF_OC.tail());
+        # tsutil.print_pyaf_detailed_info(lForecast_DF_OC.head());
+        # tsutil.print_pyaf_detailed_info(lForecast_DF_OC.tail());
         return lForecast_DF_OC;
 
     def internal_forecast(self , iInputDS, iHorizon):

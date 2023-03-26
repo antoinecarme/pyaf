@@ -51,7 +51,7 @@ class cTimeInfo:
         df[self.mOriginalSignal] = self.mSignalFrame[self.mOriginalSignal]
 
     def get_time_dtype(self):
-        # print(self.mTimeMax, type(self.mTimeMax))
+        # tsutil.print_pyaf_detailed_info(self.mTimeMax, type(self.mTimeMax))
         lType = self.mSignalFrame[self.mTime].dtype;
         return lType;
 
@@ -74,7 +74,7 @@ class cTimeInfo:
         if(self.mNormalizedTimeColumn in df.columns):
             lLastRow[self.mNormalizedTimeColumn] = self.normalizeTime(lNextTime)
             lLastRow[self.mRowNumberColumn] = lLastRow[self.mRowNumberColumn].max() + 1
-        # print(lLastRow.columns ,  df.columns)
+        # tsutil.print_pyaf_detailed_info(lLastRow.columns ,  df.columns)
         # assert(str(lLastRow.columns) == str(df.columns))
 
         df = pd.concat([df, lLastRow], ignore_index=True, verify_integrity = True, sort=False); 
@@ -83,7 +83,7 @@ class cTimeInfo:
             df[self.mRowNumberColumn] = np.arange(0, df.shape[0]);
             df[self.mNormalizedTimeColumn] = self.compute_normalized_date_column(df[self.mTime])
             
-        # print(df.tail());
+        # tsutil.print_pyaf_detailed_info(df.tail());
         return df;
 
 
@@ -102,7 +102,7 @@ class cTimeInfo:
 
 
     def checkDateTypes(self):
-        # print(self.mSignalFrame.info());
+        # tsutil.print_pyaf_detailed_info(self.mSignalFrame.info());
         type1 = self.mSignalFrame[self.mTime].dtype
         if(type1.kind == 'O'):
             raise tsutil.PyAF_Error('Invalid Time Column Type ' + self.mTime + '[' + str(type1) + ']');
@@ -116,8 +116,8 @@ class cTimeInfo:
         self.mTimeDelta = lHelper.adaptTimeDeltaToTimeResolution(self.mResolution , self.mTimeDelta);    
     
     def computeTimeDelta(self):
-        #print(self.mSignalFrame.columns);
-        # print(self.mSignalFrame[self.mTime].head());
+        # tsutil.print_pyaf_detailed_info(self.mSignalFrame.columns);
+        # tsutil.print_pyaf_detailed_info(self.mSignalFrame[self.mTime].head());
         lEstim = self.mSplit.getEstimPart(self.mSignalFrame)
         lTimeBefore = lEstim[self.mTime].shift(1);
         # lTimeBefore.fillna(self.mTimeMin, inplace=True)
@@ -128,9 +128,9 @@ class cTimeInfo:
             else:
                 self.mTimeDelta = 1
             return
-        #print(self.mSignal, self.mTime, N);
-        #print(lEstim[self.mTime].head());
-        #print(lTimeBefore.head());
+        # tsutil.print_pyaf_detailed_info(self.mSignal, self.mTime, N);
+        # tsutil.print_pyaf_detailed_info(lEstim[self.mTime].head());
+        # tsutil.print_pyaf_detailed_info(lTimeBefore.head());
         lDiffs = lEstim[self.mTime][1:N] - lTimeBefore[1:N]
         
         if(self.mOptions.mTimeDeltaComputationMethod == "USER"):
@@ -146,8 +146,8 @@ class cTimeInfo:
         self.adaptTimeDeltaToTimeResolution();
 
     def estimate(self):
-        #print(self.mSignalFrame.columns);
-        #print(self.mSignalFrame[self.mTime].head());
+        # tsutil.print_pyaf_detailed_info(self.mSignalFrame.columns);
+        # tsutil.print_pyaf_detailed_info(self.mSignalFrame[self.mTime].head());
         self.checkDateTypes();
         
         self.mRowNumberColumn = "row_number"
@@ -163,7 +163,7 @@ class cTimeInfo:
             self.mTimeMax = np.datetime64(self.mTimeMax.to_pydatetime());
         self.mTimeMinMaxDiff = self.mTimeMax - self.mTimeMin;
         self.mEstimCount = lEstim.shape[0]
-        # print(self.mTimeMin, self.mTimeMax , self.mTimeMinMaxDiff , (self.mTimeMax - self.mTimeMin)/self.mTimeMinMaxDiff)
+        # tsutil.print_pyaf_detailed_info(self.mTimeMin, self.mTimeMax , self.mTimeMinMaxDiff , (self.mTimeMax - self.mTimeMin)/self.mTimeMinMaxDiff)
         self.computeTimeDelta();
         self.mSignalFrame[self.mNormalizedTimeColumn] = self.compute_normalized_date_column(self.mSignalFrame[self.mTime])
         self.dump();
@@ -190,11 +190,11 @@ class cTimeInfo:
         return lTimeValue;
     
     def nextTime(self, df, iSteps):
-        #print(df.tail(1)[self.mTime]);
+        # tsutil.print_pyaf_detailed_info(df.tail(1)[self.mTime]);
         lLastTime = df[self.mTime].values[-1]
         if(self.isPhysicalTime()):
             lLastTime = pd.Timestamp(lLastTime)
-            # print("NEXT_TIME" , lLastTime, iSteps, self.mTimeDelta);
+            # tsutil.print_pyaf_detailed_info("NEXT_TIME" , lLastTime, iSteps, self.mTimeDelta);
             lNextTime = lLastTime + iSteps * self.mTimeDelta;
             lNextTime = self.cast_to_time_dtype(lNextTime.to_datetime64())
         else:

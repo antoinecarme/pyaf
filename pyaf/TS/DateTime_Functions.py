@@ -81,7 +81,7 @@ class cDateTime_Helper:
         # Future Warning regarding DateTime_Functions - series.dt.weekofyear #153
         lComputer = cDateTime_Helper.get_date_time_computer(iDatePart)
         if(lComputer is None):
-            print("apply_date_time_computer_failures" , iDatePart)
+            tsutil.print_pyaf_detailed_info("apply_date_time_computer_failures" , iDatePart)
         assert(lComputer is not None)
         lOut = lComputer(series)
         return lOut

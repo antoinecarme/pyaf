@@ -42,7 +42,7 @@ class cCroston_Model(tsar.cAbstractAR):
 
 
     def estimate_alpha(self, df):
-        # print("CROSTON_OPTIONS" , self.mOptions.mCrostonOptions.__dict__)
+        # tsutil.print_pyaf_detailed_info("CROSTON_OPTIONS" , self.mOptions.mCrostonOptions.__dict__)
         method = self.mOptions.mCrostonOptions.mMethod
         if(self.mOptions.mCrostonOptions.mAlpha is not None):
             self.mAlpha = self.mOptions.mCrostonOptions.mAlpha
@@ -60,8 +60,8 @@ class cCroston_Model(tsar.cAbstractAR):
                                                      "CROSTON_SEL_" + '_Fit_' + str(alpha))
                 lPerfs[alpha] = lDict[self.mOptions.mCrostonOptions.mAlphaCriterion]
             self.mAlpha = min(lPerfs, key=lPerfs.get)
-            # print(lPerfs)
-            # print("CROSTON_OPTIMIZED_ALPHA" , self.mAlpha)
+            # tsutil.print_pyaf_detailed_info(lPerfs)
+            # tsutil.print_pyaf_detailed_info("CROSTON_OPTIMIZED_ALPHA" , self.mAlpha)
             return
     
     def croston(self, df, horizon_index = 1):
@@ -81,17 +81,17 @@ class cCroston_Model(tsar.cAbstractAR):
         return y
 
     def compute_forecast(self, df, alpha, method, horizon_index = 1):
-        # print(df.shape)
-        # print(df.columns)
-        # print(df[['Date', 'Signal', '_Signal', 'row_number', '_Signal_ConstantTrend_residue_zeroCycle_residue']].tail(12))
+        # tsutil.print_pyaf_detailed_info(df.shape)
+        # tsutil.print_pyaf_detailed_info(df.columns)
+        # tsutil.print_pyaf_detailed_info(df[['Date', 'Signal', '_Signal', 'row_number', '_Signal_ConstantTrend_residue_zeroCycle_residue']].tail(12))
         lCounts_df = df[[self.mTime, self.mCycleResidueName]].copy()
         lCounts_df['index'] = np.arange(lCounts_df.shape[0])
         df1 = lCounts_df.reset_index()
 
         counts = lCounts_df[self.mCycleResidueName] - self.mOffset
         counts = counts[:-(horizon_index)]
-        # print(list(counts.unique()))
-        # print(counts.describe())
+        # tsutil.print_pyaf_detailed_info(list(counts.unique()))
+        # tsutil.print_pyaf_detailed_info(counts.describe())
         # assert(not np.isnan(counts[:-1]).any())
         #  q is often called the “demand” and a the “inter-arrival time”.
         q = counts[abs(counts) > 1e-8]
@@ -123,7 +123,7 @@ class cCroston_Model(tsar.cAbstractAR):
         return df4
         
     def fit(self):
-        #  print("ESTIMATE_CROSTON_MODEL_START" , self.mCycleResidueName);
+        # tsutil.print_pyaf_detailed_info("ESTIMATE_CROSTON_MODEL_START" , self.mCycleResidueName);
 
         self.set_name();
         
@@ -132,7 +132,7 @@ class cCroston_Model(tsar.cAbstractAR):
         self.mSignal = self.mTimeInfo.mSignal;
         lAREstimFrame = self.mSplit.getEstimPart(self.mARFrame)
         self.mOffset = lAREstimFrame[self.mCycleResidueName].min()
-        # print("OFFSET", (self.mCycleResidueName, self.mOffset))
+        # tsutil.print_pyaf_detailed_info("OFFSET", (self.mCycleResidueName, self.mOffset))
         self.estimate_alpha(lAREstimFrame)
         self.mFeatureSelector =  None;
         self.mInputNamesAfterSelection = self.mInputNames;
@@ -141,7 +141,7 @@ class cCroston_Model(tsar.cAbstractAR):
         self.mARFrame[self.mOutName] = lPredicted['forecast']
         self.compute_ar_residue(self.mARFrame)
 
-        # print("ESTIMATE_CROSTON_MODEL_END" , self.mOutName);
+        # tsutil.print_pyaf_detailed_info("ESTIMATE_CROSTON_MODEL_END" , self.mOutName);
 
 
     def transformDataset(self, df, horizon_index = 1):

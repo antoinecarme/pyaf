@@ -35,12 +35,12 @@ class cAbstractCycle:
 
 
     def check_not_nan(self, sig , name):
-        #print("check_not_nan");
+        # tsutil.print_pyaf_detailed_info("check_not_nan");
         if(np.isnan(sig[:-1]).any() or np.isinf(sig[:-1]).any() ):
             logger = tsutil.get_pyaf_logger();
             logger.error("CYCLE_RESIDUE_WITH_NAN_IN_SIGNAL" + str(sig));
             raise tsutil.Internal_PyAF_Error("CYCLE_COLUMN _FOR_TREND_RESIDUE ['"  + name + "'");
-        # print("check_cycle_residue ", (name, self.mDecompositionType, sig[:-1].min(), sig[:-1].max(), sig[:-1].mean(), sig[:-1].std()))
+        # tsutil.print_pyaf_detailed_info("check_cycle_residue ", (name, self.mDecompositionType, sig[:-1].min(), sig[:-1].max(), sig[:-1].mean(), sig[:-1].std()))
         if(sig[:-1].max() > 1e5):
             self.dump_values()
             raise tsutil.Internal_PyAF_Error("Invalid cycle_residue_too_large '" + str(name) + "'");
@@ -62,7 +62,7 @@ class cAbstractCycle:
             lTrendCycle = lTrendCycle.apply(lambda x : x if(abs(x) > 1e-2) else 1e-2)
             df[self.getCycleResidueName()] = lSignal / lTrendCycle
         # df_detail = df[[self.mSignal, self.mTrend.mOutName, self.getCycleName(), self.getCycleResidueName()]]
-        # print("compute_cycle_residue_detail ", (lOutName, self.mDecompositionType, df_detail.describe(include='all').to_dict()))
+        # tsutil.print_pyaf_detailed_info("compute_cycle_residue_detail ", (lOutName, self.mDecompositionType, df_detail.describe(include='all').to_dict()))
         
 
     def compute_target_means_by_cycle_value(self , iCycleFrame, iCycleName):
@@ -227,7 +227,7 @@ class cSeasonalPeriodic(cAbstractCycle):
         self.mCycleFrame[lName] = self.mCycleFrame[lName + '_enc'];
         
         self.mOutName = self.getCycleName()
-        #print("encoding '" + lName + "' " + str(self.mEncodedValueDict));
+        # tsutil.print_pyaf_detailed_info("encoding '" + lName + "' " + str(self.mEncodedValueDict));
         # The longer the seasonal, the more complex it is.
         self.mComplexity = tscomplex.eModelComplexity.Low;
         if(len(self.mEncodedValueDict.keys()) > 31):
@@ -326,7 +326,7 @@ class cBestCycleForTrend(cAbstractCycle):
                                                     "Validation")
                 lCritValue = lCritValues[self.mCriterion]
                 if(lCritValue is None):
-                    print("CYCFLE_CRITERION_VALUES", lCritValues)
+                    tsutil.print_pyaf_detailed_info("CYCFLE_CRITERION_VALUES", lCritValues)
                 if(lPerf.is_acceptable_criterion_value(self.mOptions.mCycle_Criterion, iRefValue = lCritValue)):
                     self.mCyclePerfByLength[lLength] = (round(lCritValue, 3) , len(lEncodedValueDict))
                     if(self.mOptions.mDebugCycles):
@@ -336,7 +336,7 @@ class cBestCycleForTrend(cAbstractCycle):
         pass
 
     def fit(self):
-        # print("cycle_fit" , self.mTrend_residue_name);
+        # tsutil.print_pyaf_detailed_info("cycle_fit" , self.mTrend_residue_name);
         self.mTime = self.mTimeInfo.mTime;
         self.mSignal = self.mTimeInfo.mSignal;
         self.generate_cycles();
@@ -357,8 +357,8 @@ class cBestCycleForTrend(cAbstractCycle):
         if(self.mBestCycleLength is not None):
             lValueCol = df[self.mTimeInfo.mRowNumberColumn].mod(self.mBestCycleLength);
             df['cycle_internal'] = lValueCol;
-            # print("BEST_CYCLE" , self.mBestCycleLength)
-            # print(self.mBestCycleValueDict);
+            # tsutil.print_pyaf_detailed_info("BEST_CYCLE" , self.mBestCycleLength)
+            # tsutil.print_pyaf_detailed_info(self.mBestCycleValueDict);
             lDict = self.mBestCycleValueDict[self.mBestCycleLength];
             df[self.getCycleName()] = lValueCol.map(lDict).fillna(self.mDefaultValue)
         else:

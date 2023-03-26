@@ -28,7 +28,7 @@ class cAbstractTrend:
         self.mComplexity = tscomplex.eModelComplexity.High;
 
     def check_not_nan(self, sig , name):
-        #print("check_not_nan");
+        # tsutil.print_pyaf_detailed_info("check_not_nan");
         if(np.isnan(sig[:-1]).any() or np.isinf(sig[:-1]).any() ):
             logger = tsutil.get_pyaf_logger();
             logger.error("TREND_RESIDUE_WITH_NAN_IN_SIGNAL" + str(sig));
@@ -113,10 +113,10 @@ class cLag1Trend(cAbstractTrend):
         self.mComplexity = tscomplex.eModelComplexity.Low;
         
     def replaceFirstMissingValue(self, df, series):
-        # print(self.mDefaultValue, type(self.mDefaultValue));
+        # tsutil.print_pyaf_detailed_info(self.mDefaultValue, type(self.mDefaultValue));
         # Be explicit here .... some integer index does not work.
         df.loc[df.index[0] , series] = self.mDefaultValue;
-        # print(df.head());
+        # tsutil.print_pyaf_detailed_info(df.head());
         
     def fit_specific(self):
         lEstim = self.mSplit.getEstimPart(self.mTrendFrame);
@@ -294,7 +294,7 @@ class cTrendEstimator:
         pass
 
     def check_residue(self , trend, sig, name):
-        # print("check_trend_residue ", (name, trend.mDecompositionType, sig.min(), sig.max(), sig.mean(), sig .std()))
+        # tsutil.print_pyaf_detailed_info("check_trend_residue ", (name, trend.mDecompositionType, sig.min(), sig.max(), sig.mean(), sig .std()))
         if(np.isnan(sig).any()):
             raise tsutil.Internal_PyAF_Error("Invalid residue_is_nan '" +
                                              str((name, trend.mDecompositionType, sig.min(), sig.max(), sig.mean(), sig .std())) + "'");

@@ -19,7 +19,7 @@ class cSignalGrouping (sighier.cSignalHierarchy):
         
     def tuple_to_string(self, k):
         str1 = "_".join(list(k));
-        # print(k , "=>" , str1);
+        # tsutil.print_pyaf_detailed_info(k , "=>" , str1);
         return str1;
     
     def add_level(self, previous_level):
@@ -38,7 +38,7 @@ class cSignalGrouping (sighier.cSignalHierarchy):
                     if(lNewGroupLabel not in self.mStructure[level]):
                         self.mStructure[level][lNewGroupLabel] = set();
                     self.mStructure[level][lNewGroupLabel].add(lGroupLabel)
-        # print("STRUCTURE_LEVEL" , level, self.mStructure[level]);
+        # tsutil.print_pyaf_detailed_info("STRUCTURE_LEVEL" , level, self.mStructure[level]);
 
     def create_HierarchicalStructure(self):
         
@@ -53,19 +53,19 @@ class cSignalGrouping (sighier.cSignalHierarchy):
         self.mStructure = {};
         array1 = [ sorted(lGroups[k]) for k in self.mHierarchy['GroupOrder'] ];
         prod = itertools.product( *array1 );
-        # print(prod);
+        # tsutil.print_pyaf_detailed_info(prod);
         # prod = itertools.product(['a' , 'b'] , ['1' , '2'] , ['cc' , 'dd']);
         level = 0;
         self.mStructure[level] = {}
         for k in prod:
-            # print("PRODUCT_DETAIL", k);
+            # tsutil.print_pyaf_detailed_info("PRODUCT_DETAIL", k);
             lGroupLabel = self.tuple_to_string(k);
             # Grouping genrates all possible group combinations.
             # Not all columns are mandatory. 
             if(lGroupLabel in self.mTrainingDataset.columns):
                 self.mLabels2Tuples[lGroupLabel] = k;
                 self.mStructure[level][lGroupLabel] = set();
-        # print("STRUCTURE_LEVEL" , level, self.mStructure[level]);
+        # tsutil.print_pyaf_detailed_info("STRUCTURE_LEVEL" , level, self.mStructure[level]);
         while(len(self.mStructure[level]) > 1):
             self.add_level(level);
             level = level + 1;
@@ -75,5 +75,5 @@ class cSignalGrouping (sighier.cSignalHierarchy):
             for col in sorted(self.mStructure[level].keys()):
                 self.mStructure[level][col] = sorted(self.mStructure[level][col])
                 
-        # print("STRUCTURE", self.mStructure);
+        # tsutil.print_pyaf_detailed_info("STRUCTURE", self.mStructure);
         pass

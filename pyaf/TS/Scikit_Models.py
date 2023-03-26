@@ -15,7 +15,7 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
         self.set_name();
 
     def dumpCoefficients(self, iMax=10):
-        # print(self.mScikitModel.__dict__);
+        # tsutil.print_pyaf_detailed_info(self.mScikitModel.__dict__);
         pass
 
     def build_Scikit_Model(self):
@@ -26,7 +26,7 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
 
 
     def fit(self):
-        #  print("ESTIMATE_SCIKIT_MODEL_START" , self.mCycleResidueName);
+        # tsutil.print_pyaf_detailed_info("ESTIMATE_SCIKIT_MODEL_START" , self.mCycleResidueName);
 
         self.build_Scikit_Model();
         
@@ -38,7 +38,7 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
         lARInputs = lAREstimFrame[self.mInputNames].values
 
         lARTarget = lAREstimFrame[series].values
-        # print(len(self.mInputNames), lARInputs.shape , lARTarget.shape)
+        # tsutil.print_pyaf_detailed_info(len(self.mInputNames), lARInputs.shape , lARTarget.shape)
         assert(lARInputs.shape[1] > 0);
         assert(lARTarget.shape[0] > 0);
         assert(lARInputs.shape[1] == len(self.mInputNames))
@@ -54,7 +54,7 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
         try:
             self.mFeatureSelector.fit(lARInputs, lARTarget);
         except Exception as e:
-            print("SCIKIT_MODEL_FEATURE_SELECTION_FAILURE" , self.mOutName, lARInputs.shape, e);
+            tsutil.print_pyaf_detailed_info("SCIKIT_MODEL_FEATURE_SELECTION_FAILURE" , self.mOutName, lARInputs.shape, e);
             if(self.mOptions.mDebug):
                 df1 = pd.DataFrame(lARInputs);
                 df1.columns = self.mInputNames
@@ -73,13 +73,13 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
             self.mInputNamesAfterSelection = self.mInputNames;
 
         assert(len(self.mInputNamesAfterSelection) == lARInputsAfterSelection.shape[1]);
-        # print("FEATURE_SELECTION" , self.mOutName, lARInputs.shape[1] , lARInputsAfterSelection.shape[1]);
+        # tsutil.print_pyaf_detailed_info("FEATURE_SELECTION" , self.mOutName, lARInputs.shape[1] , lARInputsAfterSelection.shape[1]);
         del lARInputs;
 
         try:
             self.mScikitModel.fit(lARInputsAfterSelection, lARTarget)
         except Exception as e:
-            print("SCIKIT_MODEL_FIT_FAILURE" , self.mOutName, lARInputsAfterSelection.shape, e);
+            tsutil.print_pyaf_detailed_info("SCIKIT_MODEL_FIT_FAILURE" , self.mOutName, lARInputsAfterSelection.shape, e);
             if(self.mOptions.mDebug):
                 df1 = pd.DataFrame(lARInputsAfterSelection);
                 df1.columns = self.mInputNamesAfterSelection
@@ -106,7 +106,7 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
 
         self.compute_ar_residue(self.mARFrame)
 
-        # print("ESTIMATE_SCIKIT_MODEL_END" , self.mOutName);
+        # tsutil.print_pyaf_detailed_info("ESTIMATE_SCIKIT_MODEL_END" , self.mOutName);
 
 
     def transformDataset(self, df, horizon_index = 1):

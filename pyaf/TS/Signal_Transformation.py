@@ -28,19 +28,16 @@ def testTransform_one_seed(tr1 , seed_value):
     df['A_scaled'] = sig_scaled
     df['A_transformed'] = sig1
     sig2 = tr1.invert(df['A_transformed'])
-    # print(sig)
-    # print(sig1)
-    # print(sig2)
     n = np.linalg.norm(sig2 - sig)
     lName = tr1.get_name("Test")
     lEps = 1e-6
     lNotOK = (not lName.startswith('Quantized_')) and (n > lEps)
     if (lNotOK):
-        print("'" + lName + "'" , " : ", n)
-        print("A = " , sig.values.tolist())
-        print("A_SCALED = " , sig_scaled.tolist())
-        print("A_TRANSFORMED = " , sig1.tolist())
-        print("A_TRANSFORMED_TR = " , sig2.tolist())    
+        tsutil.print_pyaf_detailed_info("'" + lName + "'" , " : ", n)
+        tsutil.print_pyaf_detailed_info("A = " , sig.values.tolist())
+        tsutil.print_pyaf_detailed_info("A_SCALED = " , sig_scaled.tolist())
+        tsutil.print_pyaf_detailed_info("A_TRANSFORMED = " , sig1.tolist())
+        tsutil.print_pyaf_detailed_info("A_TRANSFORMED_TR = " , sig2.tolist())    
 
         assert(n <= lEps)    
 
@@ -62,7 +59,7 @@ class cAbstractSignalTransform:
 
 
     def checkSignalType(self, sig):
-        # print(df.info());
+        # tsutil.print_pyaf_detailed_info(df.info());
         type2 = sig.dtype
         if(type2.kind == 'O'):
             raise tsutil.PyAF_Error('Invalid Signal Column Type ' + sig.dtype);
@@ -77,29 +74,29 @@ class cAbstractSignalTransform:
         return self.mScaler.inverse_transform(sig1.reshape(-1, 1)).ravel()
         
     def fit(self , sig):
-        # print("FIT_START", self.mOriginalSignal, sig.values[1:5]);
+        # tsutil.print_pyaf_detailed_info("FIT_START", self.mOriginalSignal, sig.values[1:5]);
         self.checkSignalType(sig)
         self.fit_scaling_params(sig.values);
         sig1 = self.scale_signal(sig.values);
         self.specific_fit(sig1);
-        # print("FIT_END", self.mOriginalSignal, sig1.values[1:5]);
+        # tsutil.print_pyaf_detailed_info("FIT_END", self.mOriginalSignal, sig1.values[1:5]);
         pass
 
     def apply(self, sig):
-        # print("APPLY_START", self.mOriginalSignal, sig.values[1:5]);
+        # tsutil.print_pyaf_detailed_info("APPLY_START", self.mOriginalSignal, sig.values[1:5]);
         self.checkSignalType(sig)
         sig1 = self.scale_signal(sig.values);
         sig2 = self.specific_apply(sig1);
-        # print("APPLY_END", self.mOriginalSignal, sig2.values[1:5]);
+        # tsutil.print_pyaf_detailed_info("APPLY_END", self.mOriginalSignal, sig2.values[1:5]);
         if(self.mDebug):
             self.check_not_nan(sig2 , "transform_apply");
         return sig2;
 
     def invert(self, sig1):
-        # print("INVERT_START", self.mOriginalSignal, sig1.values[1:5]);
+        # tsutil.print_pyaf_detailed_info("INVERT_START", self.mOriginalSignal, sig1.values[1:5]);
         sig2 = self.specific_invert(sig1.values);
         rescaled_sig = self.rescale_signal(sig2);
-        # print("INVERT_END", self.mOriginalSignal, rescaled_sig.values[1:5]);
+        # tsutil.print_pyaf_detailed_info("INVERT_END", self.mOriginalSignal, rescaled_sig.values[1:5]);
         return rescaled_sig;
 
     def transformDataset(self, df):
@@ -117,12 +114,10 @@ class cAbstractSignalTransform:
         sig = pd.Series(index = None);
         sig['before_apply'] = sig_before_apply;
         sig['after_apply'] = sig_after_apply;
-        print("dump_apply_invert_head", sig.head());
-        print("dump_apply_invert_tail", sig.tail());
         
     def check_not_nan(self, sig , name):
         if(np.isnan(sig).any()):
-            print("TRANSFORMATION_RESULT_WITH_NAN_IN_SIGNAL" , sig);
+            tsutil.print_pyaf_detailed_info("TRANSFORMATION_RESULT_WITH_NAN_IN_SIGNAL" , sig);
             raise tsutil.Internal_PyAF_Error("Invalid transformation for column '" + name + "'");
         pass
 
@@ -294,7 +289,7 @@ class cSignalTransform_Differencing(cAbstractSignalTransform):
         return "Diff_" + str(iSig);
 
     def specific_fit(self, sig):
-        # print(sig.head());
+        # tsutil.print_pyaf_detailed_info(sig.head());
         self.mFirstValue = sig[0];
         pass
     
@@ -332,7 +327,7 @@ class cSignalTransform_RelativeDifferencing(cAbstractSignalTransform):
         pass
 
     def specific_apply(self, sig):
-        # print("RelDiff_apply_DEBUG_START" , self.mFirstValue, sig.values[0:10]);
+        # tsutil.print_pyaf_detailed_info("RelDiff_apply_DEBUG_START" , self.mFirstValue, sig.values[0:10]);
         sig_diff = np.diff(sig);
         sig_shifted = sig[:-1]
         rate = np.divide(sig_diff, sig_shifted, out=np.zeros_like(sig_diff), where=sig_shifted!=0)
@@ -341,7 +336,7 @@ class cSignalTransform_RelativeDifferencing(cAbstractSignalTransform):
 
 
     def specific_invert(self, sig):
-        # print("RelDiff_invert_DEBUG_START" , self.mFirstValue, sig.values[0:10]);
+        # tsutil.print_pyaf_detailed_info("RelDiff_invert_DEBUG_START" , self.mFirstValue, sig.values[0:10]);
         rate = sig + 1;
         rate_cum = np.cumprod(rate).clip(-1e7, 1e7);
         sig_orig = self.mFirstValue * rate_cum;
@@ -503,7 +498,7 @@ class cTransformationEstimator:
         lName = transf.get_name("");
         lIsApplicable = transf.is_applicable(df[iSignal]);
         if(lIsApplicable):
-            # print("Adding Transformation " , lName);
+            # tsutil.print_pyaf_detailed_info("Adding Transformation " , lName);
             # transf.test()
             self.mTransformList = self.mTransformList + [transf];
 

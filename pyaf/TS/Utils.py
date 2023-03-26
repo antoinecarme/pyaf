@@ -22,7 +22,7 @@ class cMemoize:
         self.mFunction = f
         self.mCache = {}
     def __call__(self, *args):
-        # print("MEMOIZING" , self.mFunction , args)
+        # tsutil.print_pyaf_detailed_info("MEMOIZING" , self.mFunction , args)
         if not args in self.mCache:
             self.mCache[args] = self.mFunction(*args)
         return self.mCache[args]
@@ -60,6 +60,12 @@ def get_pyaf_logger():
         import logging.config
         logging.basicConfig(level=logging.INFO)        
     return logger;
+
+def print_pyaf_detailed_info(*args, **kwargs):
+    import logging;
+    logger = logging.getLogger('pyaf.detailed');
+    logger.setLevel(logging.DEBUG) # LOG EVERYTHING
+    logger.log(logging.DEBUG, "DETAIL_MESSAGE" + str(args))
 
 def get_pyaf_timing_logger():
     import logging;
@@ -123,5 +129,5 @@ def getVersions():
     for module_name in lModules:
         lVersionDict[module_name + "_version"] = get_module_version_when_available(module_name)
     
-    # print([(k, lVersionDict[k]) for k in sorted(lVersionDict)]);
+    # tsutil.print_pyaf_detailed_info([(k, lVersionDict[k]) for k in sorted(lVersionDict)]);
     return lVersionDict;

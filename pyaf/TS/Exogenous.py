@@ -48,10 +48,10 @@ class cExogenousInfo:
         self.mExogenousVariables = self.mExogenousData[1];
         self.mDateVariable = self.mTimeInfo.mTime;
         self.check()
-        # print("preProcessExogenousVariables , columns", self.mExogenousVariables);
+        # tsutil.print_pyaf_detailed_info("preProcessExogenousVariables , columns", self.mExogenousVariables);
         self.updateExogenousVariableInfo();
         self.createEncodedExogenous();
-        # print("preProcessExogenousVariables , dummy columns", self.mEncodedExogenous);
+        # tsutil.print_pyaf_detailed_info("preProcessExogenousVariables , dummy columns", self.mEncodedExogenous);
 
     def addVars(self, df):
         lExogDate = self.mDateVariable;
@@ -95,7 +95,7 @@ class cExogenousInfo:
                     lEncodedVars[exog] = lStandardized
                     self.mEncodedExogenous = self.mEncodedExogenous + [exog];
             else:
-                # print("EXCLUDED" , exog);
+                # tsutil.print_pyaf_detailed_info("EXCLUDED" , exog);
                 pass
         self.mEncodedExogenousDataFrame = pd.DataFrame(lEncodedVars,
                                                        index = self.mExogenousDataFrame.index);
@@ -103,7 +103,7 @@ class cExogenousInfo:
 
     def updateExogenousVariableInfo(self):
         # self.mExogenousDataFrame.info()
-        # print(self.mExogenousDataFrame.describe());
+        # tsutil.print_pyaf_detailed_info(self.mExogenousDataFrame.describe());
         self.mExogenousVariableCategories = {};
         self.mContExogenousStats = {};
         # Compute these stats only on the estimation part.
@@ -115,7 +115,7 @@ class cExogenousInfo:
         lEstimFrame = lEstimFrame[lEstimFrame[self.mDateVariable] <= lTimeMax]
         for exog in self.mExogenousVariables:
             lType = self.mExogenousDataFrame[exog].dtype
-            # print("EXOG_DTYPE" , exog, lType)
+            # tsutil.print_pyaf_detailed_info("EXOG_DTYPE" , exog, lType)
             if((lType == object) or (lType.name == 'category')):
                 # use nan as a category
                 lVC = lEstimFrame[exog].value_counts(dropna = False, sort=False);
@@ -123,10 +123,10 @@ class cExogenousInfo:
                 lVC = lVC.reset_index().sort_values(by=[exog, 'index'], ascending=[False, True]);
                 NCat = self.mOptions.mMaxExogenousCategories;
                 lVC = lVC.head(NCat)
-                # print("EXOGENOUS_DATA", exog, lVC.columns, lVC.head(NCat));
+                # tsutil.print_pyaf_detailed_info("EXOGENOUS_DATA", exog, lVC.columns, lVC.head(NCat));
                 lList = lVC['index'].values
                 lList = sorted(lList.tolist());
-                # print("most_frequent_categories_for" , exog, lList);
+                # tsutil.print_pyaf_detailed_info("most_frequent_categories_for" , exog, lList);
                 if(len(lList) <= 1):
                     self.mExcluded.append(exog);
                 else:

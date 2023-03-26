@@ -29,7 +29,7 @@ def add_patched_legend(ax , names):
         # remove leading '_' => here, this is almost OK: no signal transformation
         patched_name = name.lstrip('_')
         patched_names = patched_names + [ patched_name ]
-    # print("add_patched_legend" , names, patched_names)
+    # tsutil.print_pyaf_detailed_info("add_patched_legend" , names, patched_names)
     ax.legend(patched_names)
 
 def fig_to_png_base64(fig):
@@ -54,7 +54,7 @@ def decomp_plot_internal(df, time, signal, estimator, residue, name = None, form
 
     import matplotlib
     import matplotlib.pyplot as plt
-    # print("MATPLOTLIB_BACKEND",  matplotlib.get_backend())
+    # tsutil.print_pyaf_detailed_info("MATPLOTLIB_BACKEND",  matplotlib.get_backend())
     # matplotlib.use('Agg')
     df1 = df.tail(max(max_length , 4 * horizon));
     if(name is not None):
@@ -196,7 +196,7 @@ def quantiles_plot_internal(df, time, signal, estimator, iQuantiles, name = None
     # Better separate histograms (original issue solution). Assign a fixed height (1 cm) to each histogram.
     fig, axs = plt.subplots(horizon, 1, figsize=(12, horizon / 2.54), squeeze = True)
     # plt.subplots_adjust(hspace=1)
-    # print(axs)
+    # tsutil.print_pyaf_detailed_info(axs)
     if (horizon == 1):
         axs = [axs]
     for h in range(horizon):
@@ -208,7 +208,7 @@ def quantiles_plot_internal(df, time, signal, estimator, iQuantiles, name = None
         if((max(q_values) - min(q_values)) < lEps):
             # Avoid a warning from matplotlib for a constant signal.
             q_values = [min(q_values) - lEps] + [max(q_values) + lEps]
-        # print(h, horizon, lIdx, lTime, q_values)
+        # tsutil.print_pyaf_detailed_info(h, horizon, lIdx, lTime, q_values)
         _, bins1, patches = axs[h].hist(q_values, bins = q_values, weights=[1]*len(q_values), density = True)
         for i, p in enumerate(patches):
             j = (bins1[i] - lMin) / (lMax - lMin)
@@ -293,7 +293,7 @@ def plot_hierarchy_internal(structure , iAnnotations, name):
                     lEdgeLabel = iAnnotations[col + "_" + col1];
                 lEdge = pydot.Edge(node_col, node_col1, color="red", label=lEdgeLabel, fontsize="12.0")
                 graph.add_edge(lEdge)
-    # print(graph.obj_dict)
+    # tsutil.print_pyaf_detailed_info(graph.obj_dict)
     return graph
     
 def plot_hierarchy(structure , iAnnotations, name):

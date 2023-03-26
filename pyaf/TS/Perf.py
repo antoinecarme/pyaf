@@ -60,7 +60,7 @@ class cPerf:
         return lDict
     
     def check_not_nan(self, sig , name):
-        #print("check_not_nan");
+        # tsutil.print_pyaf_detailed_info("check_not_nan");
         if(np.isnan(sig).any()):
             logger = tsutil.get_pyaf_logger();
             logger.error("PERF_WITH_NAN_IN_SIGNAL" + str(sig));
@@ -237,8 +237,8 @@ class cPerf:
         from scipy.stats import pearsonr
         signal_std = np.std(signal);
         estimator_std = np.std(estimator);
-        # print("PEARSONR_DETAIL2" , signal)
-        # print("PEARSONR_DETAIL3" , estimator)
+        # tsutil.print_pyaf_detailed_info("PEARSONR_DETAIL2" , signal)
+        # tsutil.print_pyaf_detailed_info("PEARSONR_DETAIL3" , estimator)
         lEps = 1e-4
         r = 0.0;
         if(signal_std < lEps):
@@ -246,7 +246,7 @@ class cPerf:
         if(estimator_std < lEps):
             return r
         (r , pval) = pearsonr(signal , estimator)
-        #  print("PEARSONR_DETAIL1" , signal_std, estimator_std, r)
+        # tsutil.print_pyaf_detailed_info("PEARSONR_DETAIL1" , signal_std, estimator_std, r)
         self.mPearsonR = round(r, 4)
         return self.mPearsonR;
 
@@ -295,10 +295,10 @@ class cPerf:
         Q = int(100 // NQ)
         lPercentiles = [50 - q for q in range(Q, 50, Q)] + [50] + [50 + q for q in range(Q, 50, Q)]
         lPercentiles = sorted(lPercentiles)
-        # print(lPercentiles)
+        # tsutil.print_pyaf_detailed_info(lPercentiles)
         lSignalQuantiles = np.percentile(signal, lPercentiles)
         lSignalQuantiles = dict(zip(lPercentiles, list(lSignalQuantiles)))
-        # print("SIGNAL_QUANTILES" , (self.mName , lSignalQuantiles))
+        # tsutil.print_pyaf_detailed_info("SIGNAL_QUANTILES" , (self.mName , lSignalQuantiles))
         lPercentiles2 = [50 - q for q in range(Q, 50, Q)] + [50] + [50 + q for q in range(Q, 50, Q)]
         lErrorQuantiles = np.percentile(myerror, lPercentiles2)
         self.mErrorQuantiles = dict(zip(lPercentiles2, list(lErrorQuantiles)))
@@ -315,7 +315,7 @@ class cPerf:
             lLossValues.append(lLossValue_a)
         lCRPS = np.mean(lLossValues)
         self.mCRPS = round( lCRPS , 4 )
-        # print("CRPS" , (self.mName , lCRPS))
+        # tsutil.print_pyaf_detailed_info("CRPS" , (self.mName , lCRPS))
         return self.mCRPS
 
     def compute_L1(self, signal , estimator):

@@ -42,7 +42,7 @@ class cAbstractAR:
         else:
             df[self.mOutName + '_residue'] = lSignal - (lTrend * lCycle * lAR)
         # df_detail = df[[self.mSignal, self.mTrend.mOutName, self.mCycle.mOutName, self.mOutName, self.mOutName + '_residue']]
-        # print("compute_ar_residue_detail ", (self.mOutName, self.mDecompositionType, df_detail.describe(include='all').to_dict()))
+        # tsutil.print_pyaf_detailed_info("compute_ar_residue_detail ", (self.mOutName, self.mDecompositionType, df_detail.describe(include='all').to_dict()))
         
     def plot(self):
         tsplot.decomp_plot(self.mARFrame, self.mTimeInfo.mNormalizedTimeColumn,
@@ -51,7 +51,7 @@ class cAbstractAR:
 
     def register_lag(self, series, p):
         name = series+'_Lag' + str(p);
-        # print("register_lag", (series , p , name))
+        # tsutil.print_pyaf_detailed_info("register_lag", (series , p , name))
         assert(name not in self.mInputNames)
         self.mInputNames.append(name);
         self.mLagsForSeries[series] = self.mLagsForSeries.get(series , [])
@@ -248,7 +248,7 @@ class cAutoRegressiveEstimator:
         self.addLagsForTraining(self.mCycleFrame, cycle_residue);
 
 
-        # print(self.mARFrame.info());
+        # tsutil.print_pyaf_detailed_info(self.mARFrame.info());
 
         lCleanListOfArModels = [];
         for autoreg in self.mARList[cycle_residue]:
@@ -285,7 +285,7 @@ class cAutoRegressiveEstimator:
                 autoreg.computePerf();
 
     def check_not_nan(self, sig , name):
-        #print("check_not_nan");
+        # tsutil.print_pyaf_detailed_info("check_not_nan");
         if(np.isnan(sig[:-1]).any()):
             logger = tsutil.get_pyaf_logger();
             logger.error("CYCLE_RESIDUE_WITH_NAN_IN_SIGNAL" + str(sig));

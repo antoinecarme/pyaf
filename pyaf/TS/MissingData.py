@@ -85,12 +85,12 @@ class cMissingDataImputer:
             lMin = iInputDS[iTime].min()
             lDiffs = iInputDS[iTime] - lMin
             lDiffs = lDiffs.apply(lambda x : x.total_seconds())
-            # print("TIME_MIN" , lMin)
-            # print("TIME" , iInputDS[iTime].describe())
-            # print("TIME_DIFFS" , lDiffs.describe())
+            # tsutil.print_pyaf_detailed_info("TIME_MIN" , lMin)
+            # tsutil.print_pyaf_detailed_info("TIME" , iInputDS[iTime].describe())
+            # tsutil.print_pyaf_detailed_info("TIME_DIFFS" , lDiffs.describe())
             lTime = lDiffs.interpolate(method='linear', limit_direction='both', axis=0)
             lTime = lTime.apply(lambda x : lMin + datetime.timedelta(seconds=x))
-            # print("TIME2" , lTime.describe())
+            # tsutil.print_pyaf_detailed_info("TIME2" , lTime.describe())
             lTime = lTime.astype(type1)
             return lTime
         else:

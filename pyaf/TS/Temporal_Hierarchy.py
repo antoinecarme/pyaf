@@ -76,7 +76,7 @@ class cTemporalHierarchy (sighier.cSignalHierarchy):
             WData = df_resampled[lPeriod]
             # df[[self.mDateColumn , self.mSignal]].info()
             # WData.info()
-            # print("DATE_PERIOD", list(WData[lName])[:30])
+            # tsutil.print_pyaf_detailed_info("DATE_PERIOD", list(WData[lName])[:30])
             df_merge = df[[self.mDateColumn , self.mSignal]].merge(WData, left_on=self.mDateColumn,right_on=lName, how='left', suffixes=('_x', '_Period'), sort=True)
             df[self.mSignal + '_' + lPeriod] = df_merge[self.mSignal + '_Period']
             df[lName] = df_merge[lName]
@@ -105,11 +105,11 @@ class cTemporalHierarchy (sighier.cSignalHierarchy):
             lShift = df_resampled[lPeriod][lName].iloc[0] - df[self.mDateColumn].iloc[0] 
             df_resampled[lPeriod][lName] = df_resampled[lPeriod][lName] - lShift
             lDate_Period = df_resampled[lPeriod][lName]
-            # print("AS_FREQ" , lPeriod , lDate_Period.head())
+            # tsutil.print_pyaf_detailed_info("AS_FREQ" , lPeriod , lDate_Period.head())
             lNewFreq = lHelper.computeTimeFrequency_in_seconds(lDate_Period)
             lHorizon = int(self.mHorizon * lBaseFreq / lNewFreq)
             lHorizon = max(1, lHorizon)
-            # print("AS_FREQ_2" , lPeriod , lBaseFreq , lNewFreq , lHorizon)
+            # tsutil.print_pyaf_detailed_info("AS_FREQ_2" , lPeriod , lBaseFreq , lNewFreq , lHorizon)
             self.mHorizons[lPeriod] = lHorizon
             logger.info("FORECASTING_HIERARCHICAL_TEMPORAL_HORIZONS_FIRST_RESAMPLED_DATA " + str(lPeriod) + " " + str(df_resampled[lPeriod].head(5).to_dict()) )
 
@@ -157,5 +157,5 @@ class cTemporalHierarchy (sighier.cSignalHierarchy):
             if(lLevel > 0):
                 self.mStructure[lLevel][self.mSignal + '_' + lPeriod] = set([self.mSignal + '_' + self.mPeriods[lLevel - 1]])
                 
-        # print(self.mStructure);
+        # tsutil.print_pyaf_detailed_info(self.mStructure);
         pass

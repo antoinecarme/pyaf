@@ -63,7 +63,7 @@ class cModelSelector_OneSignal:
                                              'Fit' + self.mOptions.mModelSelection_Criterion,
                                              'Forecast' + self.mOptions.mModelSelection_Criterion,
                                              'Test' + self.mOptions.mModelSelection_Criterion)) 
-        # print(self.mTrPerfDetails.head(self.mTrPerfDetails.shape[0]));
+        # tsutil.print_pyaf_detailed_info(self.mTrPerfDetails.head(self.mTrPerfDetails.shape[0]));
         lIndicator = 'Forecast' + self.mOptions.mModelSelection_Criterion;
         lBestPerf = self.mTrPerfDetails[ lIndicator ].min();
         lHigherIsBetter = tsperf.cPerf.higher_values_are_better(self.mOptions.mModelSelection_Criterion)
@@ -83,9 +83,9 @@ class cModelSelector_OneSignal:
             lInterestingModels = self.mTrPerfDetails[self.mTrPerfDetails[lIndicator] <= (lBestPerf + 0.01)].reset_index(drop=True);
             
         lInterestingModels.sort_values(by=['Complexity'] , ascending=False, inplace=True)
-        # print(self.mTransformList);
-        # print(lInterestingModels.head());
-        # print(self.mPerfsByModel);
+        # tsutil.print_pyaf_detailed_info(self.mTransformList);
+        # tsutil.print_pyaf_detailed_info(lInterestingModels.head());
+        # tsutil.print_pyaf_detailed_info(self.mPerfsByModel);
         self.mBestModelName = lInterestingModels['DetailedFormula'].iloc[0]
         self.mModelShortList = lInterestingModels[['Transformation', 'DecompositionType', 'Model', lIndicator, 'Complexity']] 
         return (iSignal, self.mBestModelName, self.mModelShortList)
@@ -101,7 +101,7 @@ class cModelSelector_OneSignal:
         lPerfByCategory = self.mTrPerfDetails[lColumns].groupby(by=['Category'] , sort=False)[lIndicator].mean()
         lPerfByCategory_df = pd.DataFrame(lPerfByCategory).reset_index()
         lPerfByCategory_df.columns = ['Category' , lIndicator]
-        print("CROSS_VAL_PERF", lPerfByCategory_df)
+        tsutil.print_pyaf_detailed_info("CROSS_VAL_PERF", lPerfByCategory_df)
         # lPerfByCategory_df.to_csv("perf_time_series_cross_val_by_category.csv")
         lBestPerf = lPerfByCategory_df[ lIndicator ].min();
         lHigherIsBetter = tsperf.cPerf.higher_values_are_better(self.mOptions.mModelSelection_Criterion)
@@ -117,20 +117,20 @@ class cModelSelector_OneSignal:
         else:
             lInterestingCategories_df = lPerfByCategory_df[lPerfByCategory_df[lIndicator] <= (lBestPerf + 0.01)].reset_index(drop=True);
             
-        # print(lPerfByCategory_df.head());
-        # print(lInterestingCategories_df.head());
-        # print(self.mPerfsByModel);
+        # tsutil.print_pyaf_detailed_info(lPerfByCategory_df.head());
+        # tsutil.print_pyaf_detailed_info(lInterestingCategories_df.head());
+        # tsutil.print_pyaf_detailed_info(self.mPerfsByModel);
         lInterestingCategories = list(lInterestingCategories_df['Category'].unique())
         self.mTrPerfDetails['IC'] = self.mTrPerfDetails['Category'].apply(lambda x :1 if x in lInterestingCategories else 0) 
         lInterestingModels = self.mTrPerfDetails[self.mTrPerfDetails['IC'] == 1].copy()
         lInterestingModels.sort_values(by=['Complexity'] , ascending=False, inplace=True)
-        # print(self.mTransformList);
-        # print(lInterestingModels.head());
+        # tsutil.print_pyaf_detailed_info(self.mTransformList);
+        # tsutil.print_pyaf_detailed_info(lInterestingModels.head());
         lBestName = lInterestingModels['DetailedFormula'].iloc[0];
         lBestSplit = lInterestingModels['Split'].iloc[0];
         self.mBestModel = self.mPerfsByModel[lBestName][0][2];
         self.mModelShortList = lInterestingModels[['Model', 'Category', 'Split', lIndicator, 'IC']]
-        # print("BEST_MODEL", lBestName, self.mBestModel)
+        # tsutil.print_pyaf_detailed_info("BEST_MODEL", lBestName, self.mBestModel)
 
 
 def create_model_selector():
