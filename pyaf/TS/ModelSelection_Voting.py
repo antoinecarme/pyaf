@@ -111,7 +111,6 @@ class cModelSelector_Voting:
         lPerfByCategory = self.mTrPerfDetails[lColumns].groupby(by=['Category'] , sort=False)[lIndicator].mean()
         lPerfByCategory_df = pd.DataFrame(lPerfByCategory).reset_index()
         lPerfByCategory_df.columns = ['Category' , lIndicator]
-        tsutil.print_pyaf_detailed_info("CROSS_VAL_PERF", lPerfByCategory_df)
         # lPerfByCategory_df.to_csv("perf_time_series_cross_val_by_category.csv")
         lBestPerf = lPerfByCategory_df[ lIndicator ].min();
         lHigherIsBetter = tsperf.cPerf.higher_values_are_better(self.mOptions.mModelSelection_Criterion)
@@ -121,6 +120,7 @@ class cModelSelector_Voting:
                                 ascending=[not lHigherIsBetter, True],
                                 inplace=True);
         lPerfByCategory_df = lPerfByCategory_df.reset_index(drop=True);
+        tsutil.print_pyaf_detailed_info("CROSS_VAL_PERF", [row for row in lPerfByCategory_df.itertuples(name='CV')][:5])
                 
         if(lHigherIsBetter):
             lInterestingCategories_df = lPerfByCategory_df[lPerfByCategory_df[lIndicator] >= (lBestPerf - 0.01)].reset_index(drop=True);
