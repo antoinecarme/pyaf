@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 
+np.random.seed(1789)
 
 N = 3600
 lRand = 0.1 * np.random.randn(N)

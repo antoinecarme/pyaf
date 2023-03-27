@@ -3,6 +3,8 @@
 import numpy as np
 import pandas as pd
 
+np.random.seed(seed=1789)
+
 N = 360
 df_train = pd.DataFrame({"Date" : pd.date_range(start="2016-01-25", periods=N, freq='D'),
                          "Signal" : (np.arange(N)//40 + np.arange(N) % 21 + np.random.randn(N))})

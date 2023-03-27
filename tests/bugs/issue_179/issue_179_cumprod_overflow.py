@@ -11,6 +11,8 @@ import pyaf.ForecastEngine as autof
 import pyaf.Bench.TS_datasets as tsds
 
 
+np.random.seed(1789)
+
 df = pd.DataFrame()
 N = 1000
 lTimeVar = 'Time'

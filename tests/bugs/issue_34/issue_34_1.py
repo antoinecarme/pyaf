@@ -9,6 +9,9 @@ import pyaf.ForecastEngine as autof
 import logging
 import logging.config
 
+
+np.random.seed(1789)
+
 #logging.config.fileConfig('logging.conf')
 
 logging.basicConfig(level=logging.INFO)

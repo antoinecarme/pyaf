@@ -3,6 +3,8 @@ import pandas as pd
 
 # %matplotlib inline
 
+np.random.seed(1789)
+
 N = 3600
 lRand = 0.1 * np.random.randn(N)
 df_train = pd.DataFrame({"Date" : pd.date_range(start="2016-01-25", periods=N, freq='D'),

@@ -55,6 +55,7 @@ def process_dataset_1(idataset, model_type, debug=False):
     return process_dataset_with_noise(idataset, model_type, 0.01 , debug);
 
 def process_dataset_with_noise(idataset , model_type, sigma, debug=False):
+    np.random.seed(1789)
     
     import warnings
 
