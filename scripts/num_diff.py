@@ -1,7 +1,8 @@
 import numpy as np
 import sys
 
-gSkippedTags = ['pyaf.timing', '_TIME_IN_SECONDS' , "PYAF_SYSTEM_DEPENDENT_", "START_TRAINING", "START_FORECASTING", 
+gSkippedTags = ['pyaf.timing', '_TIME_IN_SECONDS' , "PYAF_SYSTEM_DEPENDENT_",
+                "START_TRAINING", "START_FORECASTING", "system_uname", 
                 "CreationDate" , "Training_Time" , "matplotlib.font_manager"]
 
 
