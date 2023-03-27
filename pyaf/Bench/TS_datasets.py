@@ -51,9 +51,9 @@ class cTimeSeriesDatasetSpec:
         return self.mHorizon;
 
     def save_dataset(self, iFileNamePrefix):
-        self.mFullDataset.to_csv(iFileNamePrefix + "_training.csv")
+        self.mFullDataset.to_csv(iFileNamePrefix + "_training.csv", index = False)
         if(self.mExogenousDataFrame is not None):
-            self.mExogenousDataFrame.to_csv(iFileNamePrefix + "_exogenous.csv")
+            self.mExogenousDataFrame.to_csv(iFileNamePrefix + "_exogenous.csv", index= False)
         
     def load_dataset_if_possible(self, iFileNamePrefix):
         self.mFullDataset = pd.read_csv(iFileNamePrefix + "_training.csv")
