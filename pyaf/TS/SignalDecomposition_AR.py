@@ -129,8 +129,6 @@ class cZeroAR(cAbstractAR):
         # self.mTimeInfo.addVars(self.mARFrame);
         # self.mARFrame[series] = self.mCycleFrame[series]
         self.mARFrame[self.mOutName] = self.mConstantValue;
-        self.mARFrame[self.mCycle.mOutName] = self.mConstantValue;
-        self.mARFrame[self.mTrend.mOutName] = self.mConstantValue;
         self.compute_ar_residue(self.mARFrame)
         assert(self.mARFrame.shape[0] > 0)
                 
@@ -233,6 +231,7 @@ class cAutoRegressiveEstimator:
                             autoreg.register_lag(name, p)
 
         self.mARFrame = pd.concat([self.mARFrame] + lag_dfs, axis = 1)
+        self.mARFrame = self.mARFrame.copy() # Avoid "PerformanceWarning: DataFrame is highly fragmented"
 
 
     # @profile
