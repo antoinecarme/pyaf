@@ -4,28 +4,32 @@ INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal_0.01', 'Hor
 INFO:pyaf.std:PYAF_MODEL_SAMPLING_ACTIVATED (8192, 1960)
 INFO:pyaf.timing:('OPERATION_START', ('TRAINING_EXOGENOUS_DATA', {'Signal': 'Signal_0.01'}))
 INFO:pyaf.timing:('OPERATION_START', ('TRAINING_TRENDS', {'Signal': 'CumSum_Signal_0.01'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.003, ('TRAINING_TRENDS', {'Signal': 'CumSum_Signal_0.01'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.085, ('TRAINING_TRENDS', {'Signal': 'CumSum_Signal_0.01'}))
 INFO:pyaf.timing:('OPERATION_START', ('TRAINING_CYCLES', {'Signal': 'CumSum_Signal_0.01'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.091, ('TRAINING_CYCLES', {'Signal': 'CumSum_Signal_0.01'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.097, ('TRAINING_CYCLES', {'Signal': 'CumSum_Signal_0.01'}))
 INFO:pyaf.timing:('OPERATION_START', ('TRAINING_AR_MODELS', {'Signal': 'CumSum_Signal_0.01'}))
 INFO:pyaf.std:AR_MODEL_ADD_EXOGENOUS 1012 32
 INFO:pyaf.timing:('OPERATION_START', ('TRAINING_AR_MODEL', 'AR', 'CumSum_Signal_0.01_ConstantTrend_residue_Cycle_None_residue'))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.013, ('TRAINING_AR_MODEL', 'AR', 'CumSum_Signal_0.01_ConstantTrend_residue_Cycle_None_residue'))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.1, ('TRAINING_AR_MODEL', 'AR', 'CumSum_Signal_0.01_ConstantTrend_residue_Cycle_None_residue'))
 INFO:pyaf.timing:('OPERATION_START', ('TRAINING_AR_MODEL', 'ARX', 'CumSum_Signal_0.01_ConstantTrend_residue_Cycle_None_residue'))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.2, ('TRAINING_AR_MODEL', 'ARX', 'CumSum_Signal_0.01_ConstantTrend_residue_Cycle_None_residue'))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.424, ('TRAINING_AR_MODELS', {'Signal': 'CumSum_Signal_0.01'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.915, ('TRAINING', {'Signal': 'Signal_0.01', 'Horizon': 12, 'Transformation': 'CumSum_Signal_0.01', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.907, ('TRAINING_EXOGENOUS_DATA', {'Signal': 'Signal_0.01'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.915, ('SIGNAL_TRAINING', {'Signals': ['Signal_0.01'], 'Transformations': [('Signal_0.01', 'None', 'CumSum_', 'T+S+R')], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['Signal_0.01'], 'Transformations': [('Signal_0.01', [('Signal_0.01', 'None', 'CumSum_', 'T+S+R')])], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'Signal_0.01', 'Transformations': [('Signal_0.01', 'None', 'CumSum_', 'T+S+R')]}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.004, ('MODEL_SELECTION', {'Signal': 'Signal_0.01', 'Transformations': [('Signal_0.01', 'None', 'CumSum_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.384, ('TRAINING_AR_MODEL', 'ARX', 'CumSum_Signal_0.01_ConstantTrend_residue_Cycle_None_residue'))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.901, ('TRAINING_AR_MODELS', {'Signal': 'CumSum_Signal_0.01'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 7.223, ('TRAINING', {'Signal': 'Signal_0.01', 'Horizon': 12, 'Transformation': 'CumSum_Signal_0.01', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 7.213, ('TRAINING_EXOGENOUS_DATA', {'Signal': 'Signal_0.01'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 7.223, ('SIGNAL_TRAINING', {'Signals': ['Signal_0.01'], 'Transformations': [('Signal_0.01', 'None', 'CumSum_', 'T+S+R')], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signals': ['Signal_0.01'], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('VOTING_MODEL_SELECTION', {'Signal': 'Signal_0.01'}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION_COMPUTE_VOTING_SCORES', 2))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.0, ('MODEL_SELECTION_COMPUTE_VOTING_SCORES', 2))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.076, ('VOTING_MODEL_SELECTION', {'Signal': 'Signal_0.01'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.076, ('MODEL_SELECTION', {'Signals': ['Signal_0.01'], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'BestModels': [('Signal_0.01', 'CumSum_Signal_0.01_ConstantTrend_residue_Cycle_None_residue_ARX(64)')], 'Cores': 1}))
 INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal_0.01', 'Model': 'CumSum_Signal_0.01_ConstantTrend_residue_Cycle_None_residue_ARX(64)'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.916, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal_0.01', 'Model': 'CumSum_Signal_0.01_ConstantTrend_residue_Cycle_None_residue_ARX(64)'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 5.708, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal_0.01', 'Model': 'CumSum_Signal_0.01_ConstantTrend_residue_Cycle_None_residue_ARX(64)'}))
 INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal_0.01'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.702, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal_0.01'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 9.696, ('FINALIZE_TRAINING', {'Signals': ['Signal_0.01'], 'Transformations': [('Signal_0.01', [('Signal_0.01', 'None', 'CumSum_', 'T+S+R')])], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 14.613, ('TRAINING', {'Signals': ['Signal_0.01'], 'Horizons': {'Signal_0.01': 12}}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 5.016, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal_0.01'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 10.724, ('FINALIZE_TRAINING', {'BestModels': [('Signal_0.01', 'CumSum_Signal_0.01_ConstantTrend_residue_Cycle_None_residue_ARX(64)')], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 18.025, ('TRAINING', {'Signals': ['Signal_0.01'], 'Horizons': {'Signal_0.01': 12}}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2002-03-10T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal_0.01' Length=1012  Min=1.404797 Max=1335.599292  Mean=668.460371 StdDev=385.623644
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='CumSum_Signal_0.01' Min=0.0 Max=505.96839  Mean=168.796914 StdDev=151.00264
@@ -64,13 +68,13 @@ INFO:pyaf.std:AR_MODEL_COEFF 8 exog_13=0_Lag63 -249009301.666281
 INFO:pyaf.std:AR_MODEL_COEFF 9 exog_13=AK_Lag34 -246905807.052436
 INFO:pyaf.std:AR_MODEL_COEFF 10 exog_13=0_Lag34 -246905807.052435
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:TRAINING_TIME_IN_SECONDS 14.612
+INFO:pyaf.std:TRAINING_TIME_IN_SECONDS 18.024
 INFO:pyaf.std:COMPETITION_DETAIL_START 'Signal_0.01'
 INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal_0.01' 0 {'Transformation': 'CumSum_Signal_0.01', 'DecompositionType': 'T+S+R', 'Model': 'CumSum_Signal_0.01_ConstantTrend_residue_Cycle_None_residue_ARX(64)', 'Voting': 5.0, 'Complexity': 'LMSSS', 'Forecast_MASE_1': 0.0295, 'Forecast_MASE_H': 346216501.1953}
 INFO:pyaf.std:COMPETITION_DETAIL_END 'Signal_0.01'
 INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['Signal_0.01'], 'Horizon': 12}))
 INFO:pyaf.std:PYAF_MODEL_SAMPLING_ACTIVATED (8192, 1960)
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 5.197, ('FORECASTING', {'Signals': ['Signal_0.01'], 'Horizon': 12}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.276, ('FORECASTING', {'Signals': ['Signal_0.01'], 'Horizon': 12}))
 TRYING_TO_LOAD_RANDOM_DATASET Signal_1024_D_0_constant_5_cumsum_0.0_20 data/ARTIFICIAL_DATA/1024/Signal_1024_D_0_constant_5_cumsum_0.0_20
 LAOD_FAILED_TRYING_TO_GENERATE_RANDOM_DATASET Signal_1024_D_0_constant_5_cumsum_0.0_20
 GENERATING_RANDOM_DATASET Signal_1024_D_0_constant_5_cumsum_0.0_20
@@ -220,7 +224,7 @@ Forecasts
         },
         "Model_Selection_Criterion": "MASE"
     },
-    "Training_Time": 14.612
+    "Training_Time": 18.024
 }
 </ModelInfo>
 
