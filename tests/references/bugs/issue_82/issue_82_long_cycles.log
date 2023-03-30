@@ -1,19 +1,1593 @@
+/home/circleci/project/tests/bugs/issue_82/issue_82_long_cycles.py:18: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  df[b1.mSignalVar] = df[b1.mName]
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signals': ['Signal'], 'Horizons': {'Signal': 128}}))
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', 'None', '_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 TEST_CYCLES_START 64
 TRYING_TO_LOAD_RANDOM_DATASET Signal_3200_H_0_constant_64_None_0.1_0 data/ARTIFICIAL_DATA/3200/Signal_3200_H_0_constant_64_None_0.1_0
 LAOD_FAILED_TRYING_TO_GENERATE_RANDOM_DATASET Signal_3200_H_0_constant_64_None_0.1_0
 GENERATING_RANDOM_DATASET Signal_3200_H_0_constant_64_None_0.1_0
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-Traceback (most recent call last):
-  File "/home/circleci/project/tests/bugs/issue_82/issue_82_long_cycles.py", line 16, in <module>
-    b1 = tsds.generate_random_TS(N = 3200 , FREQ = 'H', seed = 0, trendtype = "constant", cycle_length = cyc, transform = "None", sigma = 0.1, exog_count = 0, ar_order=0);
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/circleci/project/pyaf/Bench/TS_datasets.py", line 333, in generate_random_TS
-    tsspec = generate_random_TS_real(N , FREQ, seed, trendtype, cycle_length, transform, sigma, exog_count, ar_order)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/circleci/project/pyaf/Bench/TS_datasets.py", line 391, in generate_random_TS_real
-    df_train['Signal'] = apply_transform(pos_signal , transform)
-                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/circleci/project/pyaf/Bench/TS_datasets.py", line 297, in apply_transform
-    transformed = transformed.astype(np.float64)
-                  ^^^^^^^^^^^^^^^^^^
-AttributeError: 'dict' object has no attribute 'astype'
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Horizon': 128, 'Transformation': '_Signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Horizon': 128, 'Transformation': 'Diff_Signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Horizon': 128, 'Transformation': 'RelDiff_Signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Horizon': 128, 'Transformation': 'CumSum_Signal', 'DecompositionType': 'T+S+R'}))
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 176.418, ('TRAINING', {'Signal': 'Signal', 'Horizon': 128, 'Transformation': 'RelDiff_Signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 177.243, ('TRAINING', {'Signal': 'Signal', 'Horizon': 128, 'Transformation': '_Signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 178.138, ('TRAINING', {'Signal': 'Signal', 'Horizon': 128, 'Transformation': 'Diff_Signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 340.824, ('TRAINING', {'Signal': 'Signal', 'Horizon': 128, 'Transformation': 'CumSum_Signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 341.175, ('SIGNAL_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', 'None', '_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signals': ['Signal'], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('VOTING_MODEL_SELECTION', {'Signal': 'Signal'}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION_COMPUTE_VOTING_SCORES', 168))
+DEBUG:pyaf.detailed:DETAIL_MESSAGE('KEPT_DISCARDED_MODELS', 168, 159, 9)
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.75, ('MODEL_SELECTION_COMPUTE_VOTING_SCORES', 168))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.758, ('VOTING_MODEL_SELECTION', {'Signal': 'Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.758, ('MODEL_SELECTION', {'Signals': ['Signal'], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'BestModels': [('Signal', '_Signal_ConstantTrend_residue_Cycle_64_residue_NoAR')], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal', 'Model': '_Signal_ConstantTrend_residue_Cycle_64_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.638, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal', 'Model': '_Signal_ConstantTrend_residue_Cycle_64_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.721, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 9.359, ('FINALIZE_TRAINING', {'BestModels': [('Signal', '_Signal_ConstantTrend_residue_Cycle_64_residue_NoAR')], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 352.378, ('TRAINING', {'Signals': ['Signal'], 'Horizons': {'Signal': 128}}))
+INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2000-04-11T23:00:00.000000 TimeDelta=<DateOffset: hours=1> Horizon=128
+INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=3188  Min=2.466245 Max=4.616119  Mean=3.432993 StdDev=0.431348
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=0.0 Max=1.0  Mean=0.449677 StdDev=0.200639
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
+INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
+INFO:pyaf.std:BEST_DECOMPOSITION  '_Signal_ConstantTrend_residue_Cycle_64_residue_NoAR' [ConstantTrend + Cycle_64 + NoAR]
+INFO:pyaf.std:TREND_DETAIL '_Signal_ConstantTrend' [ConstantTrend]
+INFO:pyaf.std:CYCLE_DETAIL '_Signal_ConstantTrend_residue_Cycle_64' [Cycle_64]
+INFO:pyaf.std:AUTOREG_DETAIL '_Signal_ConstantTrend_residue_Cycle_64_residue_NoAR' [NoAR]
+INFO:pyaf.std:MODEL_PERFS Fit STEP=1 {'MAPE': 0.0331, 'RMSE': 0.1426, 'MAE': 0.1119, 'MASE': 0.2104}
+INFO:pyaf.std:MODEL_PERFS Forecast STEP=1 {'MAPE': 0.0354, 'RMSE': 0.148, 'MAE': 0.1196, 'MASE': 0.2235}
+INFO:pyaf.std:MODEL_PERFS Test STEP=1 {'MAPE': 0.035, 'RMSE': 0.1463, 'MAE': 0.116, 'MASE': 0.2187}
+INFO:pyaf.std:MODEL_PERFS Fit STEP=128 {'MAPE': 0.0331, 'RMSE': 0.1426, 'MAE': 0.1119, 'MASE': 0.2104}
+INFO:pyaf.std:MODEL_PERFS Forecast STEP=128 {'MAPE': 0.0354, 'RMSE': 0.148, 'MAE': 0.1196, 'MASE': 0.2235}
+INFO:pyaf.std:MODEL_PERFS Test STEP=128 {'MAPE': 0.035, 'RMSE': 0.1463, 'MAE': 0.116, 'MASE': 0.2187}
+INFO:pyaf.std:MODEL_COMPLEXITY {'Decomposition': 'S', 'Transformation': 'S', 'Trend': 'S', 'Cycle': 'L', 'AR': 'S'} [LSSSS]
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:CONSTANT_TREND _Signal_ConstantTrend 0.450049
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _Signal_ConstantTrend_residue_Cycle_64 64 -0.018165 {0: -0.241062, 1: 0.099066, 2: -0.205615, 3: -0.11222, 4: -0.08811, 5: 0.233117, 6: 0.112598, 7: -0.042439, 8: -0.236181, 9: -0.035495, 10: -0.029496, 11: -0.182098, 12: 0.333644, 13: -0.258509, 14: 0.116286, 15: 0.093077, 16: -0.051935, 17: 0.200047, 18: -0.01919, 19: -0.112782, 20: 0.098216, 21: -0.033932, 22: -0.158993, 23: -0.1921, 24: -0.18351, 25: -0.084895, 26: 0.250937, 27: -0.143439, 28: 0.24582, 29: -0.256526, 30: 0.351897, 31: -0.159269, 32: 0.190893, 33: -0.29382, 34: -0.106266, 35: 0.09159, 36: -0.048006, 37: 0.221127, 38: 0.22894, 39: 0.00828, 40: -0.105844, 41: -0.136662, 42: -0.132872, 43: 0.145527, 44: 0.033041, 45: -0.308984, 46: -0.186345, 47: 0.300196, 48: 0.366495, 49: 0.062002, 50: 0.036297, 51: -0.217474, 52: 0.272221, 53: -0.043058, 54: 0.086359, 55: 0.350605, 56: -0.189858, 57: 0.236032, 58: 0.290497, 59: 0.008135, 60: 0.077604, 61: -0.307882, 62: -0.304302, 63: 0.097611}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
+INFO:pyaf.std:AR_MODEL_DETAIL_START
+INFO:pyaf.std:AR_MODEL_DETAIL_END
+INFO:pyaf.std:TRAINING_TIME_IN_SECONDS 352.372
+INFO:pyaf.std:COMPETITION_DETAIL_START 'Signal'
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 0 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_ConstantTrend_residue_Cycle_64_residue_NoAR', 'Voting': 10191.0, 'Complexity': 'LSSSS', 'Forecast_MASE_1': 0.2235, 'Forecast_MASE_H': 0.2235}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 1 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_LinearTrend_residue_Cycle_64_residue_NoAR', 'Voting': 10191.0, 'Complexity': 'LSSSS', 'Forecast_MASE_1': 0.2247, 'Forecast_MASE_H': 0.2247}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 2 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_PolyTrend_residue_Cycle_64_residue_NoAR', 'Voting': 10191.0, 'Complexity': 'LMSSS', 'Forecast_MASE_1': 0.2233, 'Forecast_MASE_H': 0.2233}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 3 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_ConstantTrend_residue_Cycle_64_residue_AR(64)', 'Voting': 10191.0, 'Complexity': 'LLSSS', 'Forecast_MASE_1': 0.2282, 'Forecast_MASE_H': 0.2235}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 4 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_LinearTrend_residue_Cycle_64_residue_AR(64)', 'Voting': 10191.0, 'Complexity': 'LLSSS', 'Forecast_MASE_1': 0.2292, 'Forecast_MASE_H': 0.2247}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 5 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_PolyTrend_residue_Cycle_64_residue_AR(64)', 'Voting': 10191.0, 'Complexity': 'LLMSS', 'Forecast_MASE_1': 0.2277, 'Forecast_MASE_H': 0.2233}
+INFO:pyaf.std:COMPETITION_DETAIL_END 'Signal'
+INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['Signal'], 'Horizon': 128}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.317, ('FORECASTING', {'Signals': ['Signal'], 'Horizon': 128}))
+Forecast Columns  Index(['Date', 'Signal', 'row_number', 'Date_Normalized', 'Signal_scaled',
+       '_Signal', '_Signal_ConstantTrend', '_Signal_ConstantTrend_residue',
+       'cycle_internal', '_Signal_ConstantTrend_residue_Cycle_64',
+       '_Signal_ConstantTrend_residue_Cycle_64_residue',
+       '_Signal_ConstantTrend_residue_Cycle_64_residue_NoAR',
+       '_Signal_ConstantTrend_residue_Cycle_64_residue_NoAR_residue',
+       'Signal_Transformed', '_Signal_Trend', '_Signal_Trend_residue',
+       '_Signal_Cycle', '_Signal_Cycle_residue', '_Signal_AR',
+       '_Signal_AR_residue', '_Signal_TransformedForecast',
+       'Signal_TransformedForecast_inverted', 'Signal_Forecast',
+       '_Signal_TransformedResidue', 'Signal_Residue',
+       'Signal_Forecast_Lower_Bound', 'Signal_Forecast_Upper_Bound',
+       'Signal_Forecast_Quantile_5', 'Signal_Forecast_Quantile_10',
+       'Signal_Forecast_Quantile_15', 'Signal_Forecast_Quantile_20',
+       'Signal_Forecast_Quantile_25', 'Signal_Forecast_Quantile_30',
+       'Signal_Forecast_Quantile_35', 'Signal_Forecast_Quantile_40',
+       'Signal_Forecast_Quantile_45', 'Signal_Forecast_Quantile_50',
+       'Signal_Forecast_Quantile_55', 'Signal_Forecast_Quantile_60',
+       'Signal_Forecast_Quantile_65', 'Signal_Forecast_Quantile_70',
+       'Signal_Forecast_Quantile_75', 'Signal_Forecast_Quantile_80',
+       'Signal_Forecast_Quantile_85', 'Signal_Forecast_Quantile_90',
+       'Signal_Forecast_Quantile_95'],
+      dtype='object')
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 3316 entries, 0 to 3315
+Data columns (total 3 columns):
+ #   Column           Non-Null Count  Dtype         
+---  ------           --------------  -----         
+ 0   Date             3316 non-null   datetime64[ns]
+ 1   Signal           3188 non-null   float64       
+ 2   Signal_Forecast  3316 non-null   float64       
+dtypes: datetime64[ns](1), float64(2)
+memory usage: 77.8 KB
+None
+Forecasts
+ [[Timestamp('2000-05-12 20:00:00') nan 4.019035294515157]
+ [Timestamp('2000-05-12 21:00:00') nan 3.34122425550218]
+ [Timestamp('2000-05-12 22:00:00') nan 3.619454452206384]
+ [Timestamp('2000-05-12 23:00:00') nan 4.187550461484467]
+ [Timestamp('2000-05-13 00:00:00') nan 3.0256223901659105]
+ [Timestamp('2000-05-13 01:00:00') nan 3.941233164439313]
+ [Timestamp('2000-05-13 02:00:00') nan 4.058324632665815]
+ [Timestamp('2000-05-13 03:00:00') nan 3.4512823192823654]
+ [Timestamp('2000-05-13 04:00:00') nan 3.6006319864273992]
+ [Timestamp('2000-05-13 05:00:00') nan 2.771884977258332]
+ [Timestamp('2000-05-13 06:00:00') nan 2.7795826158041366]
+ [Timestamp('2000-05-13 07:00:00') nan 3.6436444873399507]
+ [Timestamp('2000-05-13 08:00:00') nan 2.915540065975145]
+ [Timestamp('2000-05-13 09:00:00') nan 3.646773347037179]
+ [Timestamp('2000-05-13 10:00:00') nan 2.991747423033626]
+ [Timestamp('2000-05-13 11:00:00') nan 3.1925354837192033]
+ [Timestamp('2000-05-13 12:00:00') nan 3.2443672288978465]
+ [Timestamp('2000-05-13 13:00:00') nan 3.9349650490501595]
+ [Timestamp('2000-05-13 14:00:00') nan 3.6758655881355087]
+ [Timestamp('2000-05-13 15:00:00') nan 3.342554816437187]
+ [Timestamp('2000-05-13 16:00:00') nan 2.9260337258086704]
+ [Timestamp('2000-05-13 17:00:00') nan 3.357483543429119]
+ [Timestamp('2000-05-13 18:00:00') nan 3.370381623073995]
+ [Timestamp('2000-05-13 19:00:00') nan 3.042306616672135]
+ [Timestamp('2000-05-13 20:00:00') nan 4.151085536283291]
+ [Timestamp('2000-05-13 21:00:00') nan 2.8780321902005594]
+ [Timestamp('2000-05-13 22:00:00') nan 3.683794216901741]
+ [Timestamp('2000-05-13 23:00:00') nan 3.6338982641780966]
+ [Timestamp('2000-05-14 00:00:00') nan 3.3221397368243424]
+ [Timestamp('2000-05-14 01:00:00') nan 3.863868967041444]
+ [Timestamp('2000-05-14 02:00:00') nan 3.392537289862699]
+ [Timestamp('2000-05-14 03:00:00') nan 3.1913261699932987]
+ [Timestamp('2000-05-14 04:00:00') nan 3.6449464491926187]
+ [Timestamp('2000-05-14 05:00:00') nan 3.360844040521704]
+ [Timestamp('2000-05-14 06:00:00') nan 3.0919784531327363]
+ [Timestamp('2000-05-14 07:00:00') nan 3.0208033062904276]
+ [Timestamp('2000-05-14 08:00:00') nan 3.0392711776021613]
+ [Timestamp('2000-05-14 09:00:00') nan 3.2512791137124117]
+ [Timestamp('2000-05-14 10:00:00') nan 3.97327619040879]
+ [Timestamp('2000-05-14 11:00:00') nan 3.1254183871584584]
+ [Timestamp('2000-05-14 12:00:00') nan 3.962276482186889]
+ [Timestamp('2000-05-14 13:00:00') nan 2.882294463023677]
+ [Timestamp('2000-05-14 14:00:00') nan 4.190327579991597]
+ [Timestamp('2000-05-14 15:00:00') nan 3.0913856983406083]
+ [Timestamp('2000-05-14 16:00:00') nan 3.844188407629845]
+ [Timestamp('2000-05-14 17:00:00') nan 2.802117818792252]
+ [Timestamp('2000-05-14 18:00:00') nan 3.205334749954205]
+ [Timestamp('2000-05-14 19:00:00') nan 3.6307011131460385]
+ [Timestamp('2000-05-14 20:00:00') nan 3.330586318964312]
+ [Timestamp('2000-05-14 21:00:00') nan 3.9091896339246746]
+ [Timestamp('2000-05-14 22:00:00') nan 3.9259850709945914]
+ [Timestamp('2000-05-14 23:00:00') nan 3.4515953338088945]
+ [Timestamp('2000-05-15 00:00:00') nan 3.2062419124605563]
+ [Timestamp('2000-05-15 01:00:00') nan 3.1399883056207623]
+ [Timestamp('2000-05-15 02:00:00') nan 3.148136186199206]
+ [Timestamp('2000-05-15 03:00:00') nan 3.7466583527727746]
+ [Timestamp('2000-05-15 04:00:00') nan 3.504828408192823]
+ [Timestamp('2000-05-15 05:00:00') nan 2.7695168812144892]
+ [Timestamp('2000-05-15 06:00:00') nan 3.033174718819017]
+ [Timestamp('2000-05-15 07:00:00') nan 4.079177605685565]
+ [Timestamp('2000-05-15 08:00:00') nan 4.221712596359498]
+ [Timestamp('2000-05-15 09:00:00') nan 3.5670899347087803]
+ [Timestamp('2000-05-15 10:00:00') nan 3.5118271955715374]
+ [Timestamp('2000-05-15 11:00:00') nan 2.966252012910304]
+ [Timestamp('2000-05-15 12:00:00') nan 4.019035294515157]
+ [Timestamp('2000-05-15 13:00:00') nan 3.34122425550218]
+ [Timestamp('2000-05-15 14:00:00') nan 3.619454452206384]
+ [Timestamp('2000-05-15 15:00:00') nan 4.187550461484467]
+ [Timestamp('2000-05-15 16:00:00') nan 3.0256223901659105]
+ [Timestamp('2000-05-15 17:00:00') nan 3.941233164439313]
+ [Timestamp('2000-05-15 18:00:00') nan 4.058324632665815]
+ [Timestamp('2000-05-15 19:00:00') nan 3.4512823192823654]
+ [Timestamp('2000-05-15 20:00:00') nan 3.6006319864273992]
+ [Timestamp('2000-05-15 21:00:00') nan 2.771884977258332]
+ [Timestamp('2000-05-15 22:00:00') nan 2.7795826158041366]
+ [Timestamp('2000-05-15 23:00:00') nan 3.6436444873399507]
+ [Timestamp('2000-05-16 00:00:00') nan 2.915540065975145]
+ [Timestamp('2000-05-16 01:00:00') nan 3.646773347037179]
+ [Timestamp('2000-05-16 02:00:00') nan 2.991747423033626]
+ [Timestamp('2000-05-16 03:00:00') nan 3.1925354837192033]
+ [Timestamp('2000-05-16 04:00:00') nan 3.2443672288978465]
+ [Timestamp('2000-05-16 05:00:00') nan 3.9349650490501595]
+ [Timestamp('2000-05-16 06:00:00') nan 3.6758655881355087]
+ [Timestamp('2000-05-16 07:00:00') nan 3.342554816437187]
+ [Timestamp('2000-05-16 08:00:00') nan 2.9260337258086704]
+ [Timestamp('2000-05-16 09:00:00') nan 3.357483543429119]
+ [Timestamp('2000-05-16 10:00:00') nan 3.370381623073995]
+ [Timestamp('2000-05-16 11:00:00') nan 3.042306616672135]
+ [Timestamp('2000-05-16 12:00:00') nan 4.151085536283291]
+ [Timestamp('2000-05-16 13:00:00') nan 2.8780321902005594]
+ [Timestamp('2000-05-16 14:00:00') nan 3.683794216901741]
+ [Timestamp('2000-05-16 15:00:00') nan 3.6338982641780966]
+ [Timestamp('2000-05-16 16:00:00') nan 3.3221397368243424]
+ [Timestamp('2000-05-16 17:00:00') nan 3.863868967041444]
+ [Timestamp('2000-05-16 18:00:00') nan 3.392537289862699]
+ [Timestamp('2000-05-16 19:00:00') nan 3.1913261699932987]
+ [Timestamp('2000-05-16 20:00:00') nan 3.6449464491926187]
+ [Timestamp('2000-05-16 21:00:00') nan 3.360844040521704]
+ [Timestamp('2000-05-16 22:00:00') nan 3.0919784531327363]
+ [Timestamp('2000-05-16 23:00:00') nan 3.0208033062904276]
+ [Timestamp('2000-05-17 00:00:00') nan 3.0392711776021613]
+ [Timestamp('2000-05-17 01:00:00') nan 3.2512791137124117]
+ [Timestamp('2000-05-17 02:00:00') nan 3.97327619040879]
+ [Timestamp('2000-05-17 03:00:00') nan 3.1254183871584584]
+ [Timestamp('2000-05-17 04:00:00') nan 3.962276482186889]
+ [Timestamp('2000-05-17 05:00:00') nan 2.882294463023677]
+ [Timestamp('2000-05-17 06:00:00') nan 4.190327579991597]
+ [Timestamp('2000-05-17 07:00:00') nan 3.0913856983406083]
+ [Timestamp('2000-05-17 08:00:00') nan 3.844188407629845]
+ [Timestamp('2000-05-17 09:00:00') nan 2.802117818792252]
+ [Timestamp('2000-05-17 10:00:00') nan 3.205334749954205]
+ [Timestamp('2000-05-17 11:00:00') nan 3.6307011131460385]
+ [Timestamp('2000-05-17 12:00:00') nan 3.330586318964312]
+ [Timestamp('2000-05-17 13:00:00') nan 3.9091896339246746]
+ [Timestamp('2000-05-17 14:00:00') nan 3.9259850709945914]
+ [Timestamp('2000-05-17 15:00:00') nan 3.4515953338088945]
+ [Timestamp('2000-05-17 16:00:00') nan 3.2062419124605563]
+ [Timestamp('2000-05-17 17:00:00') nan 3.1399883056207623]
+ [Timestamp('2000-05-17 18:00:00') nan 3.148136186199206]
+ [Timestamp('2000-05-17 19:00:00') nan 3.7466583527727746]
+ [Timestamp('2000-05-17 20:00:00') nan 3.504828408192823]
+ [Timestamp('2000-05-17 21:00:00') nan 2.7695168812144892]
+ [Timestamp('2000-05-17 22:00:00') nan 3.033174718819017]
+ [Timestamp('2000-05-17 23:00:00') nan 4.079177605685565]
+ [Timestamp('2000-05-18 00:00:00') nan 4.221712596359498]
+ [Timestamp('2000-05-18 01:00:00') nan 3.5670899347087803]
+ [Timestamp('2000-05-18 02:00:00') nan 3.5118271955715374]
+ [Timestamp('2000-05-18 03:00:00') nan 2.966252012910304]]
+
+
+<ModelInfo>
+{
+    "Signal": {
+        "Complexity": {
+            "AR": "S",
+            "Cycle": "L",
+            "Decomposition": "S",
+            "Transformation": "S",
+            "Trend": "S"
+        },
+        "Dataset": {
+            "Signal": "Signal",
+            "Time": {
+                "Horizon": 128,
+                "TimeDelta": "<DateOffset: hours=1>",
+                "TimeMax": "2000-05-12 19:00:00",
+                "TimeMin": "2000-01-01 00:00:00",
+                "TimeVariable": "Date"
+            },
+            "Training_Signal_Length": 3188
+        },
+        "Model": {
+            "AR_Model": "NoAR",
+            "Best_Decomposition": "_Signal_ConstantTrend_residue_Cycle_64_residue_NoAR",
+            "Cycle": "Cycle_64",
+            "Signal_Decomposition_Type": "T+S+R",
+            "Signal_Transoformation": "NoTransf",
+            "Trend": "ConstantTrend"
+        },
+        "Model_Performance": {
+            "1": {
+                "AUC": 0.4996,
+                "DiffSMAPE": 0.0348,
+                "ErrorMean": 0.0007,
+                "ErrorStdDev": 0.148,
+                "KS": 0.0539,
+                "KendallTau": 0.7872,
+                "Length": 612,
+                "LnQ": 1.1819,
+                "MAE": 0.1196,
+                "MAPE": 0.0354,
+                "MASE": 0.2235,
+                "MannWhitneyU": 187110.0,
+                "MedAE": 0.1044,
+                "Pearson": 0.9403,
+                "R2": 0.8841,
+                "RMSE": 0.148,
+                "RMSSE": 0.2265,
+                "SMAPE": 0.0353,
+                "Signal": "Signal_Forecast_1"
+            },
+            "128": {
+                "AUC": 0.4996,
+                "DiffSMAPE": 0.0348,
+                "ErrorMean": 0.0007,
+                "ErrorStdDev": 0.148,
+                "KS": 0.0539,
+                "KendallTau": 0.7872,
+                "Length": 612,
+                "LnQ": 1.1819,
+                "MAE": 0.1196,
+                "MAPE": 0.0354,
+                "MASE": 0.2235,
+                "MannWhitneyU": 187110.0,
+                "MedAE": 0.1044,
+                "Pearson": 0.9403,
+                "R2": 0.8841,
+                "RMSE": 0.148,
+                "RMSSE": 0.2265,
+                "SMAPE": 0.0353,
+                "Signal": "Signal_Forecast_128"
+            }
+        },
+        "Model_Selection_Criterion": "MASE"
+    },
+    "Training_Time": 352.372
+}
+</ModelInfo>
+
+
+
+
+<Forecast>
+{"Date":{"3188":"2000-05-12T20:00:00.000","3189":"2000-05-12T21:00:00.000","3190":"2000-05-12T22:00:00.000","3191":"2000-05-12T23:00:00.000","3192":"2000-05-13T00:00:00.000","3193":"2000-05-13T01:00:00.000","3194":"2000-05-13T02:00:00.000","3195":"2000-05-13T03:00:00.000","3196":"2000-05-13T04:00:00.000","3197":"2000-05-13T05:00:00.000","3198":"2000-05-13T06:00:00.000","3199":"2000-05-13T07:00:00.000","3200":"2000-05-13T08:00:00.000","3201":"2000-05-13T09:00:00.000","3202":"2000-05-13T10:00:00.000","3203":"2000-05-13T11:00:00.000","3204":"2000-05-13T12:00:00.000","3205":"2000-05-13T13:00:00.000","3206":"2000-05-13T14:00:00.000","3207":"2000-05-13T15:00:00.000","3208":"2000-05-13T16:00:00.000","3209":"2000-05-13T17:00:00.000","3210":"2000-05-13T18:00:00.000","3211":"2000-05-13T19:00:00.000","3212":"2000-05-13T20:00:00.000","3213":"2000-05-13T21:00:00.000","3214":"2000-05-13T22:00:00.000","3215":"2000-05-13T23:00:00.000","3216":"2000-05-14T00:00:00.000","3217":"2000-05-14T01:00:00.000","3218":"2000-05-14T02:00:00.000","3219":"2000-05-14T03:00:00.000","3220":"2000-05-14T04:00:00.000","3221":"2000-05-14T05:00:00.000","3222":"2000-05-14T06:00:00.000","3223":"2000-05-14T07:00:00.000","3224":"2000-05-14T08:00:00.000","3225":"2000-05-14T09:00:00.000","3226":"2000-05-14T10:00:00.000","3227":"2000-05-14T11:00:00.000","3228":"2000-05-14T12:00:00.000","3229":"2000-05-14T13:00:00.000","3230":"2000-05-14T14:00:00.000","3231":"2000-05-14T15:00:00.000","3232":"2000-05-14T16:00:00.000","3233":"2000-05-14T17:00:00.000","3234":"2000-05-14T18:00:00.000","3235":"2000-05-14T19:00:00.000","3236":"2000-05-14T20:00:00.000","3237":"2000-05-14T21:00:00.000","3238":"2000-05-14T22:00:00.000","3239":"2000-05-14T23:00:00.000","3240":"2000-05-15T00:00:00.000","3241":"2000-05-15T01:00:00.000","3242":"2000-05-15T02:00:00.000","3243":"2000-05-15T03:00:00.000","3244":"2000-05-15T04:00:00.000","3245":"2000-05-15T05:00:00.000","3246":"2000-05-15T06:00:00.000","3247":"2000-05-15T07:00:00.000","3248":"2000-05-15T08:00:00.000","3249":"2000-05-15T09:00:00.000","3250":"2000-05-15T10:00:00.000","3251":"2000-05-15T11:00:00.000","3252":"2000-05-15T12:00:00.000","3253":"2000-05-15T13:00:00.000","3254":"2000-05-15T14:00:00.000","3255":"2000-05-15T15:00:00.000","3256":"2000-05-15T16:00:00.000","3257":"2000-05-15T17:00:00.000","3258":"2000-05-15T18:00:00.000","3259":"2000-05-15T19:00:00.000","3260":"2000-05-15T20:00:00.000","3261":"2000-05-15T21:00:00.000","3262":"2000-05-15T22:00:00.000","3263":"2000-05-15T23:00:00.000","3264":"2000-05-16T00:00:00.000","3265":"2000-05-16T01:00:00.000","3266":"2000-05-16T02:00:00.000","3267":"2000-05-16T03:00:00.000","3268":"2000-05-16T04:00:00.000","3269":"2000-05-16T05:00:00.000","3270":"2000-05-16T06:00:00.000","3271":"2000-05-16T07:00:00.000","3272":"2000-05-16T08:00:00.000","3273":"2000-05-16T09:00:00.000","3274":"2000-05-16T10:00:00.000","3275":"2000-05-16T11:00:00.000","3276":"2000-05-16T12:00:00.000","3277":"2000-05-16T13:00:00.000","3278":"2000-05-16T14:00:00.000","3279":"2000-05-16T15:00:00.000","3280":"2000-05-16T16:00:00.000","3281":"2000-05-16T17:00:00.000","3282":"2000-05-16T18:00:00.000","3283":"2000-05-16T19:00:00.000","3284":"2000-05-16T20:00:00.000","3285":"2000-05-16T21:00:00.000","3286":"2000-05-16T22:00:00.000","3287":"2000-05-16T23:00:00.000","3288":"2000-05-17T00:00:00.000","3289":"2000-05-17T01:00:00.000","3290":"2000-05-17T02:00:00.000","3291":"2000-05-17T03:00:00.000","3292":"2000-05-17T04:00:00.000","3293":"2000-05-17T05:00:00.000","3294":"2000-05-17T06:00:00.000","3295":"2000-05-17T07:00:00.000","3296":"2000-05-17T08:00:00.000","3297":"2000-05-17T09:00:00.000","3298":"2000-05-17T10:00:00.000","3299":"2000-05-17T11:00:00.000","3300":"2000-05-17T12:00:00.000","3301":"2000-05-17T13:00:00.000","3302":"2000-05-17T14:00:00.000","3303":"2000-05-17T15:00:00.000","3304":"2000-05-17T16:00:00.000","3305":"2000-05-17T17:00:00.000","3306":"2000-05-17T18:00:00.000","3307":"2000-05-17T19:00:00.000","3308":"2000-05-17T20:00:00.000","3309":"2000-05-17T21:00:00.000","3310":"2000-05-17T22:00:00.000","3311":"2000-05-17T23:00:00.000","3312":"2000-05-18T00:00:00.000","3313":"2000-05-18T01:00:00.000","3314":"2000-05-18T02:00:00.000","3315":"2000-05-18T03:00:00.000"},"Signal":{"3188":null,"3189":null,"3190":null,"3191":null,"3192":null,"3193":null,"3194":null,"3195":null,"3196":null,"3197":null,"3198":null,"3199":null,"3200":null,"3201":null,"3202":null,"3203":null,"3204":null,"3205":null,"3206":null,"3207":null,"3208":null,"3209":null,"3210":null,"3211":null,"3212":null,"3213":null,"3214":null,"3215":null,"3216":null,"3217":null,"3218":null,"3219":null,"3220":null,"3221":null,"3222":null,"3223":null,"3224":null,"3225":null,"3226":null,"3227":null,"3228":null,"3229":null,"3230":null,"3231":null,"3232":null,"3233":null,"3234":null,"3235":null,"3236":null,"3237":null,"3238":null,"3239":null,"3240":null,"3241":null,"3242":null,"3243":null,"3244":null,"3245":null,"3246":null,"3247":null,"3248":null,"3249":null,"3250":null,"3251":null,"3252":null,"3253":null,"3254":null,"3255":null,"3256":null,"3257":null,"3258":null,"3259":null,"3260":null,"3261":null,"3262":null,"3263":null,"3264":null,"3265":null,"3266":null,"3267":null,"3268":null,"3269":null,"3270":null,"3271":null,"3272":null,"3273":null,"3274":null,"3275":null,"3276":null,"3277":null,"3278":null,"3279":null,"3280":null,"3281":null,"3282":null,"3283":null,"3284":null,"3285":null,"3286":null,"3287":null,"3288":null,"3289":null,"3290":null,"3291":null,"3292":null,"3293":null,"3294":null,"3295":null,"3296":null,"3297":null,"3298":null,"3299":null,"3300":null,"3301":null,"3302":null,"3303":null,"3304":null,"3305":null,"3306":null,"3307":null,"3308":null,"3309":null,"3310":null,"3311":null,"3312":null,"3313":null,"3314":null,"3315":null},"Signal_Forecast":{"3188":4.0190352945,"3189":3.3412242555,"3190":3.6194544522,"3191":4.1875504615,"3192":3.0256223902,"3193":3.9412331644,"3194":4.0583246327,"3195":3.4512823193,"3196":3.6006319864,"3197":2.7718849773,"3198":2.7795826158,"3199":3.6436444873,"3200":2.915540066,"3201":3.646773347,"3202":2.991747423,"3203":3.1925354837,"3204":3.2443672289,"3205":3.9349650491,"3206":3.6758655881,"3207":3.3425548164,"3208":2.9260337258,"3209":3.3574835434,"3210":3.3703816231,"3211":3.0423066167,"3212":4.1510855363,"3213":2.8780321902,"3214":3.6837942169,"3215":3.6338982642,"3216":3.3221397368,"3217":3.863868967,"3218":3.3925372899,"3219":3.19132617,"3220":3.6449464492,"3221":3.3608440405,"3222":3.0919784531,"3223":3.0208033063,"3224":3.0392711776,"3225":3.2512791137,"3226":3.9732761904,"3227":3.1254183872,"3228":3.9622764822,"3229":2.882294463,"3230":4.19032758,"3231":3.0913856983,"3232":3.8441884076,"3233":2.8021178188,"3234":3.20533475,"3235":3.6307011131,"3236":3.330586319,"3237":3.9091896339,"3238":3.925985071,"3239":3.4515953338,"3240":3.2062419125,"3241":3.1399883056,"3242":3.1481361862,"3243":3.7466583528,"3244":3.5048284082,"3245":2.7695168812,"3246":3.0331747188,"3247":4.0791776057,"3248":4.2217125964,"3249":3.5670899347,"3250":3.5118271956,"3251":2.9662520129,"3252":4.0190352945,"3253":3.3412242555,"3254":3.6194544522,"3255":4.1875504615,"3256":3.0256223902,"3257":3.9412331644,"3258":4.0583246327,"3259":3.4512823193,"3260":3.6006319864,"3261":2.7718849773,"3262":2.7795826158,"3263":3.6436444873,"3264":2.915540066,"3265":3.646773347,"3266":2.991747423,"3267":3.1925354837,"3268":3.2443672289,"3269":3.9349650491,"3270":3.6758655881,"3271":3.3425548164,"3272":2.9260337258,"3273":3.3574835434,"3274":3.3703816231,"3275":3.0423066167,"3276":4.1510855363,"3277":2.8780321902,"3278":3.6837942169,"3279":3.6338982642,"3280":3.3221397368,"3281":3.863868967,"3282":3.3925372899,"3283":3.19132617,"3284":3.6449464492,"3285":3.3608440405,"3286":3.0919784531,"3287":3.0208033063,"3288":3.0392711776,"3289":3.2512791137,"3290":3.9732761904,"3291":3.1254183872,"3292":3.9622764822,"3293":2.882294463,"3294":4.19032758,"3295":3.0913856983,"3296":3.8441884076,"3297":2.8021178188,"3298":3.20533475,"3299":3.6307011131,"3300":3.330586319,"3301":3.9091896339,"3302":3.925985071,"3303":3.4515953338,"3304":3.2062419125,"3305":3.1399883056,"3306":3.1481361862,"3307":3.7466583528,"3308":3.5048284082,"3309":2.7695168812,"3310":3.0331747188,"3311":4.0791776057,"3312":4.2217125964,"3313":3.5670899347,"3314":3.5118271956,"3315":2.9662520129}}
+</Forecast>
+
+
+TEST_CYCLES_END 64

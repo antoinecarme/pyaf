@@ -1,18 +1,320 @@
+/home/circleci/project/tests/bugs/issue_70/test_artificial_filter_seasonals_day.py:11: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  df[b1.mSignalVar] = df[b1.mName]
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signals': ['Signal'], 'Horizons': {'Signal': 12}}))
+INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', 'None', '_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 TRYING_TO_LOAD_RANDOM_DATASET Signal_4000_D_0_constant_24_None_0.1_0 data/ARTIFICIAL_DATA/4000/Signal_4000_D_0_constant_24_None_0.1_0
-LAOD_FAILED_TRYING_TO_GENERATE_RANDOM_DATASET Signal_4000_D_0_constant_24_None_0.1_0
-GENERATING_RANDOM_DATASET Signal_4000_D_0_constant_24_None_0.1_0
-TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-Traceback (most recent call last):
-  File "/home/circleci/project/tests/bugs/issue_70/test_artificial_filter_seasonals_day.py", line 8, in <module>
-    b1 = tsds.generate_random_TS(N = 4000 , FREQ = 'D', seed = 0, trendtype = "constant", cycle_length = 24, transform = "None", sigma = 0.1, exog_count = 0);
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/circleci/project/pyaf/Bench/TS_datasets.py", line 333, in generate_random_TS
-    tsspec = generate_random_TS_real(N , FREQ, seed, trendtype, cycle_length, transform, sigma, exog_count, ar_order)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/circleci/project/pyaf/Bench/TS_datasets.py", line 391, in generate_random_TS_real
-    df_train['Signal'] = apply_transform(pos_signal , transform)
-                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/circleci/project/pyaf/Bench/TS_datasets.py", line 297, in apply_transform
-    transformed = transformed.astype(np.float64)
-                  ^^^^^^^^^^^^^^^^^^
-AttributeError: 'dict' object has no attribute 'astype'
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Horizon': 12, 'Transformation': '_Signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Horizon': 12, 'Transformation': 'Diff_Signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Horizon': 12, 'Transformation': 'RelDiff_Signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Horizon': 12, 'Transformation': 'CumSum_Signal', 'DecompositionType': 'T+S+R'}))
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 20.497, ('TRAINING', {'Signal': 'Signal', 'Horizon': 12, 'Transformation': 'Diff_Signal', 'DecompositionType': 'T+S+R'}))
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 22.585, ('TRAINING', {'Signal': 'Signal', 'Horizon': 12, 'Transformation': 'RelDiff_Signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 55.891, ('TRAINING', {'Signal': 'Signal', 'Horizon': 12, 'Transformation': '_Signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 59.399, ('TRAINING', {'Signal': 'Signal', 'Horizon': 12, 'Transformation': 'CumSum_Signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 59.803, ('SIGNAL_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', 'None', '_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signals': ['Signal'], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('VOTING_MODEL_SELECTION', {'Signal': 'Signal'}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION_COMPUTE_VOTING_SCORES', 160))
+DEBUG:pyaf.detailed:DETAIL_MESSAGE('KEPT_DISCARDED_MODELS', 160, 148, 12)
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.885, ('MODEL_SELECTION_COMPUTE_VOTING_SCORES', 160))
+INFO:pyaf.std:PERF_DUMP_START
+INFO:pyaf.std:[
+    {
+        "Category": "NoTransf_LinearTrend_Cycle_24_NoAR",
+        "Complexity": "SSSSS",
+        "DetailedFormula": [
+            "_Signal",
+            "T+S+R",
+            null,
+            "_Signal_LinearTrend_residue_Cycle_24_residue_NoAR"
+        ],
+        "Forecast_MASE_1": 0.2392,
+        "Forecast_MASE_H": 0.2392,
+        "Model": "_Signal_LinearTrend_residue_Cycle_24_residue_NoAR",
+        "Voting": 955.5
+    },
+    {
+        "Category": "NoTransf_PolyTrend_Cycle_24_NoAR",
+        "Complexity": "MSSSS",
+        "DetailedFormula": [
+            "_Signal",
+            "T+S+R",
+            null,
+            "_Signal_PolyTrend_residue_Cycle_24_residue_NoAR"
+        ],
+        "Forecast_MASE_1": 0.2404,
+        "Forecast_MASE_H": 0.2404,
+        "Model": "_Signal_PolyTrend_residue_Cycle_24_residue_NoAR",
+        "Voting": 955.5
+    },
+    {
+        "Category": "NoTransf_LinearTrend_Cycle_24_AR",
+        "Complexity": "LSSSS",
+        "DetailedFormula": [
+            "_Signal",
+            "T+S+R",
+            null,
+            "_Signal_LinearTrend_residue_Cycle_24_residue_AR(64)"
+        ],
+        "Forecast_MASE_1": 0.2417,
+        "Forecast_MASE_H": 0.239,
+        "Model": "_Signal_LinearTrend_residue_Cycle_24_residue_AR(64)",
+        "Voting": 955.5
+    },
+    {
+        "Category": "NoTransf_PolyTrend_Cycle_24_AR",
+        "Complexity": "LMSSS",
+        "DetailedFormula": [
+            "_Signal",
+            "T+S+R",
+            null,
+            "_Signal_PolyTrend_residue_Cycle_24_residue_AR(64)"
+        ],
+        "Forecast_MASE_1": 0.2437,
+        "Forecast_MASE_H": 0.2399,
+        "Model": "_Signal_PolyTrend_residue_Cycle_24_residue_AR(64)",
+        "Voting": 955.5
+    },
+    {
+        "Category": "NoTransf_Lag1Trend_Cycle_24_AR",
+        "Complexity": "LSSSS",
+        "DetailedFormula": [
+            "_Signal",
+            "T+S+R",
+            null,
+            "_Signal_Lag1Trend_residue_Cycle_24_residue_AR(64)"
+        ],
+        "Forecast_MASE_1": 0.2689,
+        "Forecast_MASE_H": 0.2823,
+        "Model": "_Signal_Lag1Trend_residue_Cycle_24_residue_AR(64)",
+        "Voting": 929.5
+    },
+    {
+        "Category": "NoTransf_LinearTrend_NoCycle_AR",
+        "Complexity": "LSSSS",
+        "DetailedFormula": [
+            "_Signal",
+            "T+S+R",
+            null,
+            "_Signal_LinearTrend_residue_zeroCycle[0.0]_residue_AR(64)"
+        ],
+        "Forecast_MASE_1": 0.2855,
+        "Forecast_MASE_H": 0.3627,
+        "Model": "_Signal_LinearTrend_residue_zeroCycle[0.0]_residue_AR(64)",
+        "Voting": 921.0833
+    },
+    {
+        "Category": "NoTransf_LinearTrend_Seasonal_DayOfWeek_AR",
+        "Complexity": "LSSSS",
+        "DetailedFormula": [
+            "_Signal",
+            "T+S+R",
+            null,
+            "_Signal_LinearTrend_residue_Seasonal_DayOfWeek_residue_AR(64)"
+        ],
+        "Forecast_MASE_1": 0.2897,
+        "Forecast_MASE_H": 0.3665,
+        "Model": "_Signal_LinearTrend_residue_Seasonal_DayOfWeek_residue_AR(64)",
+        "Voting": 920.25
+    },
+    {
+        "Category": "NoTransf_LinearTrend_Seasonal_WeekOfMonth_AR",
+        "Complexity": "LSSSS",
+        "DetailedFormula": [
+            "_Signal",
+            "T+S+R",
+            null,
+            "_Signal_LinearTrend_residue_Seasonal_WeekOfMonth_residue_AR(64)"
+        ],
+        "Forecast_MASE_1": 0.29,
+        "Forecast_MASE_H": 0.3716,
+        "Model": "_Signal_LinearTrend_residue_Seasonal_WeekOfMonth_residue_AR(64)",
+        "Voting": 920.25
+    },
+    {
+        "Category": "NoTransf_PolyTrend_Seasonal_DayOfWeek_AR",
+        "Complexity": "LMSSS",
+        "DetailedFormula": [
+            "_Signal",
+            "T+S+R",
+            null,
+            "_Signal_PolyTrend_residue_Seasonal_DayOfWeek_residue_AR(64)"
+        ],
+        "Forecast_MASE_1": 0.2906,
+        "Forecast_MASE_H": 0.3675,
+        "Model": "_Signal_PolyTrend_residue_Seasonal_DayOfWeek_residue_AR(64)",
+        "Voting": 920.25
+    },
+    {
+        "Category": "NoTransf_PolyTrend_NoCycle_AR",
+        "Complexity": "LMSSS",
+        "DetailedFormula": [
+            "_Signal",
+            "T+S+R",
+            null,
+            "_Signal_PolyTrend_residue_zeroCycle[0.0]_residue_AR(64)"
+        ],
+        "Forecast_MASE_1": 0.2864,
+        "Forecast_MASE_H": 0.3637,
+        "Model": "_Signal_PolyTrend_residue_zeroCycle[0.0]_residue_AR(64)",
+        "Voting": 920.25
+    }
+]
+INFO:pyaf.std:PERF_DUMP_END
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.898, ('VOTING_MODEL_SELECTION', {'Signal': 'Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.898, ('MODEL_SELECTION', {'Signals': ['Signal'], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'BestModels': [('Signal', '_Signal_LinearTrend_residue_Cycle_24_residue_NoAR')], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal', 'Model': '_Signal_LinearTrend_residue_Cycle_24_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.895, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal', 'Model': '_Signal_LinearTrend_residue_Cycle_24_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.594, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.489, ('FINALIZE_TRAINING', {'BestModels': [('Signal', '_Signal_LinearTrend_residue_Cycle_24_residue_NoAR')], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 64.198, ('TRAINING', {'Signals': ['Signal'], 'Horizons': {'Signal': 12}}))
+INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2008-09-14T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=12
+INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=3988  Min=15.729285 Max=232.295991  Mean=124.086138 StdDev=58.285074
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=0.0 Max=1.0  Mean=0.500339 StdDev=0.269132
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
+INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
+INFO:pyaf.std:BEST_DECOMPOSITION  '_Signal_LinearTrend_residue_Cycle_24_residue_NoAR' [LinearTrend + Cycle_24 + NoAR]
+INFO:pyaf.std:TREND_DETAIL '_Signal_LinearTrend' [LinearTrend]
+INFO:pyaf.std:CYCLE_DETAIL '_Signal_LinearTrend_residue_Cycle_24' [Cycle_24]
+INFO:pyaf.std:AUTOREG_DETAIL '_Signal_LinearTrend_residue_Cycle_24_residue_NoAR' [NoAR]
+INFO:pyaf.std:MODEL_PERFS Fit STEP=1 {'MAPE': 0.0153, 'RMSE': 1.4724, 'MAE': 1.1724, 'MASE': 0.237}
+INFO:pyaf.std:MODEL_PERFS Forecast STEP=1 {'MAPE': 0.0057, 'RMSE': 1.4562, 'MAE': 1.1615, 'MASE': 0.2392}
+INFO:pyaf.std:MODEL_PERFS Test STEP=1 {'MAPE': 0.0049, 'RMSE': 1.2445, 'MAE': 1.0918, 'MASE': 0.3065}
+INFO:pyaf.std:MODEL_PERFS Fit STEP=12 {'MAPE': 0.0153, 'RMSE': 1.4724, 'MAE': 1.1724, 'MASE': 0.237}
+INFO:pyaf.std:MODEL_PERFS Forecast STEP=12 {'MAPE': 0.0057, 'RMSE': 1.4562, 'MAE': 1.1615, 'MASE': 0.2392}
+INFO:pyaf.std:MODEL_PERFS Test STEP=12 {'MAPE': 0.0049, 'RMSE': 1.2445, 'MAE': 1.0918, 'MASE': 0.3065}
+INFO:pyaf.std:MODEL_COMPLEXITY {'Decomposition': 'S', 'Transformation': 'S', 'Trend': 'S', 'Cycle': 'S', 'AR': 'S'} [SSSSS]
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:LINEAR_RIDGE_TREND LinearTrend (0.035458, array([0.74155]))
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _Signal_LinearTrend_residue_Cycle_24 24 0.000201 {0: -0.027502, 1: -0.017152, 2: -0.009137, 3: 0.018557, 4: 0.024523, 5: 0.0155, 6: -0.022942, 7: 0.030407, 8: -0.018369, 9: 0.000195, 10: -0.032449, 11: -0.018827, 12: -0.016359, 13: 0.031469, 14: 0.005833, 15: 0.011408, 16: -0.021357, 17: 0.001147, 18: -0.0135, 19: -0.008376, 20: 0.020969, 21: 0.01978, 22: 0.01102, 23: 0.018341}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
+INFO:pyaf.std:AR_MODEL_DETAIL_START
+INFO:pyaf.std:AR_MODEL_DETAIL_END
+INFO:pyaf.std:TRAINING_TIME_IN_SECONDS 64.195
+INFO:pyaf.std:COMPETITION_DETAIL_START 'Signal'
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 0 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_LinearTrend_residue_Cycle_24_residue_NoAR', 'Voting': 955.5, 'Complexity': 'SSSSS', 'Forecast_MASE_1': 0.2392, 'Forecast_MASE_H': 0.2392}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 1 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_PolyTrend_residue_Cycle_24_residue_NoAR', 'Voting': 955.5, 'Complexity': 'MSSSS', 'Forecast_MASE_1': 0.2404, 'Forecast_MASE_H': 0.2404}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 2 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_LinearTrend_residue_Cycle_24_residue_AR(64)', 'Voting': 955.5, 'Complexity': 'LSSSS', 'Forecast_MASE_1': 0.2417, 'Forecast_MASE_H': 0.239}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 3 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_PolyTrend_residue_Cycle_24_residue_AR(64)', 'Voting': 955.5, 'Complexity': 'LMSSS', 'Forecast_MASE_1': 0.2437, 'Forecast_MASE_H': 0.2399}
+INFO:pyaf.std:COMPETITION_DETAIL_END 'Signal'
