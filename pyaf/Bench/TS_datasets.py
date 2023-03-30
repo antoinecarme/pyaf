@@ -292,6 +292,7 @@ def apply_transform(signal , transform):
     else :
         tr.fit(signal)
         transformed = tr.invert(signal)
+        transformed = transformed["rescaled"]
         # print(signal.head())
         # print(transformed.head())
     transformed = transformed.astype(np.float64)
