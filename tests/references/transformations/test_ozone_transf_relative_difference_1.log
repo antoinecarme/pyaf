@@ -1,10 +1,12 @@
 INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signals': ['signal2'], 'Horizons': {'signal2': 12}}))
 INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['signal2'], 'Transformations': [('signal2', 'None', 'RelDiff_', 'T+S+R')], 'Cores': 1}))
 INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal2', 'Horizon': 12, 'Transformation': 'RelDiff_signal2', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 10.087, ('TRAINING', {'Signal': 'signal2', 'Horizon': 12, 'Transformation': 'RelDiff_signal2', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 10.087, ('SIGNAL_TRAINING', {'Signals': ['signal2'], 'Transformations': [('signal2', 'None', 'RelDiff_', 'T+S+R')], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['signal2'], 'Transformations': [('signal2', [('signal2', 'None', 'RelDiff_', 'T+S+R')])], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'signal2', 'Transformations': [('signal2', 'None', 'RelDiff_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.71, ('TRAINING', {'Signal': 'signal2', 'Horizon': 12, 'Transformation': 'RelDiff_signal2', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.71, ('SIGNAL_TRAINING', {'Signals': ['signal2'], 'Transformations': [('signal2', 'None', 'RelDiff_', 'T+S+R')], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signals': ['signal2'], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('VOTING_MODEL_SELECTION', {'Signal': 'signal2'}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION_COMPUTE_VOTING_SCORES', 16))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.002, ('MODEL_SELECTION_COMPUTE_VOTING_SCORES', 16))
 INFO:pyaf.std:PERF_DUMP_START
 INFO:pyaf.std:[
     {
@@ -149,15 +151,17 @@ INFO:pyaf.std:[
     }
 ]
 INFO:pyaf.std:PERF_DUMP_END
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.011, ('MODEL_SELECTION', {'Signal': 'signal2', 'Transformations': [('signal2', 'None', 'RelDiff_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.009, ('VOTING_MODEL_SELECTION', {'Signal': 'signal2'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.009, ('MODEL_SELECTION', {'Signals': ['signal2'], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'BestModels': [('signal2', 'RelDiff_signal2_ConstantTrend_residue_Cycle_5_residue_NoAR')], 'Cores': 1}))
 INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'signal2', 'Model': 'RelDiff_signal2_ConstantTrend_residue_Cycle_5_residue_NoAR'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.596, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'signal2', 'Model': 'RelDiff_signal2_ConstantTrend_residue_Cycle_5_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.412, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'signal2', 'Model': 'RelDiff_signal2_ConstantTrend_residue_Cycle_5_residue_NoAR'}))
 INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'signal2'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.611, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'signal2'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.218, ('FINALIZE_TRAINING', {'Signals': ['signal2'], 'Transformations': [('signal2', [('signal2', 'None', 'RelDiff_', 'T+S+R')])], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 13.383, ('TRAINING', {'Signals': ['signal2'], 'Horizons': {'signal2': 12}}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.39, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'signal2'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.802, ('FINALIZE_TRAINING', {'BestModels': [('signal2', 'RelDiff_signal2_ConstantTrend_residue_Cycle_5_residue_NoAR')], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.532, ('TRAINING', {'Signals': ['signal2'], 'Horizons': {'signal2': 12}}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='time' TimeMin=0 TimeMax=949 TimeDelta=1 Horizon=12
-INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='signal2' Length=1200  Min=1.0 Max=8.675889481882477e+94  Mean=4.337944740941239e+92 StdDev=4.510021374694525e+93
+INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='signal2' Length=1200  Min=1.0 Max=8.675889481882477e+94  Mean=4.337944740941239e+92 StdDev=4.510021374694524e+93
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='RelDiff_signal2' Min=0.0 Max=0.2  Mean=0.199833 StdDev=0.005771
 INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'RelDiff_'
@@ -183,7 +187,7 @@ INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES RelDiff_signal2_ConstantTrend_residue_Cyc
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:TRAINING_TIME_IN_SECONDS 13.31
+INFO:pyaf.std:TRAINING_TIME_IN_SECONDS 4.53
 INFO:pyaf.std:COMPETITION_DETAIL_START 'signal2'
 INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'signal2' 0 {'Transformation': 'RelDiff_signal2', 'DecompositionType': 'T+S+R', 'Model': 'RelDiff_signal2_ConstantTrend_residue_Cycle_5_residue_NoAR', 'Voting': 97.5, 'Complexity': 'MSSSS', 'Forecast_MASE_1': 5.9748, 'Forecast_MASE_H': 5.9748}
 INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'signal2' 1 {'Transformation': 'RelDiff_signal2', 'DecompositionType': 'T+S+R', 'Model': 'RelDiff_signal2_ConstantTrend_residue_zeroCycle[0.0]_residue_NoAR', 'Voting': 97.5, 'Complexity': 'MSSSS', 'Forecast_MASE_1': 5.9748, 'Forecast_MASE_H': 5.9748}
@@ -210,9 +214,9 @@ INFO:pyaf.std:SAVING_PLOT ('TransformedForecast', 'outputs/my_airline_RelativeDi
 INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/my_airline_RelativeDifference_signal2_Forecast_decomp_output.png')
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/my_airline_RelativeDifference_signal2_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/my_airline_RelativeDifference_signal2_quantiles_output.png')
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 19.597, ('PLOTTING', {'Signals': ['signal2']}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 6.462, ('PLOTTING', {'Signals': ['signal2']}))
 INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['signal2'], 'Horizon': 12}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.698, ('FORECASTING', {'Signals': ['signal2'], 'Horizon': 12}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.172, ('FORECASTING', {'Signals': ['signal2'], 'Horizon': 12}))
 INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signals': ['signal2'], 'Horizons': {'signal2': 12}}))
 INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['signal2'], 'Transformations': [('signal2', 'None', '_', 'T+S+R'), ('signal2', 'None', 'Diff_', 'T+S+R'), ('signal2', 'None', 'RelDiff_', 'T+S+R'), ('signal2', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
 <class 'pandas.core.frame.DataFrame'>
@@ -230,7 +234,7 @@ memory usage: 18.9 KB
 2     2   0.2   1.4400
 3     3   0.2   1.7280
 4     4   0.2   2.0736
-Forecast Columns  Index(['time', 'signal2', 'row_number', 'time_Normalized', 'scaled_signal2',
+Forecast Columns  Index(['time', 'signal2', 'row_number', 'time_Normalized', 'signal2_scaled',
        'RelDiff_signal2', 'RelDiff_signal2_ConstantTrend',
        'RelDiff_signal2_ConstantTrend_residue', 'cycle_internal',
        'RelDiff_signal2_ConstantTrend_residue_Cycle_5',
@@ -241,17 +245,18 @@ Forecast Columns  Index(['time', 'signal2', 'row_number', 'time_Normalized', 'sc
        'RelDiff_signal2_Trend_residue', 'RelDiff_signal2_Cycle',
        'RelDiff_signal2_Cycle_residue', 'RelDiff_signal2_AR',
        'RelDiff_signal2_AR_residue', 'RelDiff_signal2_TransformedForecast',
-       'signal2_Forecast', 'RelDiff_signal2_TransformedResidue',
-       'signal2_Residue', 'signal2_Forecast_Lower_Bound',
-       'signal2_Forecast_Upper_Bound', 'signal2_Forecast_Quantile_2',
-       'signal2_Forecast_Quantile_8', 'signal2_Forecast_Quantile_14',
-       'signal2_Forecast_Quantile_20', 'signal2_Forecast_Quantile_26',
-       'signal2_Forecast_Quantile_32', 'signal2_Forecast_Quantile_38',
-       'signal2_Forecast_Quantile_44', 'signal2_Forecast_Quantile_50',
-       'signal2_Forecast_Quantile_56', 'signal2_Forecast_Quantile_62',
-       'signal2_Forecast_Quantile_68', 'signal2_Forecast_Quantile_74',
-       'signal2_Forecast_Quantile_80', 'signal2_Forecast_Quantile_86',
-       'signal2_Forecast_Quantile_92', 'signal2_Forecast_Quantile_98'],
+       'signal2_TransformedForecast_inverted', 'signal2_Forecast',
+       'RelDiff_signal2_TransformedResidue', 'signal2_Residue',
+       'signal2_Forecast_Lower_Bound', 'signal2_Forecast_Upper_Bound',
+       'signal2_Forecast_Quantile_2', 'signal2_Forecast_Quantile_8',
+       'signal2_Forecast_Quantile_14', 'signal2_Forecast_Quantile_20',
+       'signal2_Forecast_Quantile_26', 'signal2_Forecast_Quantile_32',
+       'signal2_Forecast_Quantile_38', 'signal2_Forecast_Quantile_44',
+       'signal2_Forecast_Quantile_50', 'signal2_Forecast_Quantile_56',
+       'signal2_Forecast_Quantile_62', 'signal2_Forecast_Quantile_68',
+       'signal2_Forecast_Quantile_74', 'signal2_Forecast_Quantile_80',
+       'signal2_Forecast_Quantile_86', 'signal2_Forecast_Quantile_92',
+       'signal2_Forecast_Quantile_98'],
       dtype='object')
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 1212 entries, 0 to 1211
@@ -282,7 +287,7 @@ Forecasts
 
 <ModelInfo>
 {
-    "Training_Time": 13.31,
+    "Training_Time": 4.53,
     "signal2": {
         "Complexity": {
             "AR": "S",
@@ -384,15 +389,17 @@ memory usage: 18.9 KB
 4     4   0.2   2.0736
 INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal2', 'Horizon': 12, 'Transformation': '_signal2', 'DecompositionType': 'T+S+R'}))
 INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal2', 'Horizon': 12, 'Transformation': 'Diff_signal2', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal2', 'Horizon': 12, 'Transformation': 'RelDiff_signal2', 'DecompositionType': 'T+S+R'}))
 INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal2', 'Horizon': 12, 'Transformation': 'CumSum_signal2', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.206, ('TRAINING', {'Signal': 'signal2', 'Horizon': 12, 'Transformation': 'CumSum_signal2', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.388, ('TRAINING', {'Signal': 'signal2', 'Horizon': 12, 'Transformation': '_signal2', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.589, ('TRAINING', {'Signal': 'signal2', 'Horizon': 12, 'Transformation': 'Diff_signal2', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 12.087, ('TRAINING', {'Signal': 'signal2', 'Horizon': 12, 'Transformation': 'RelDiff_signal2', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 12.5, ('SIGNAL_TRAINING', {'Signals': ['signal2'], 'Transformations': [('signal2', 'None', '_', 'T+S+R'), ('signal2', 'None', 'Diff_', 'T+S+R'), ('signal2', 'None', 'RelDiff_', 'T+S+R'), ('signal2', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
-INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'Signals': ['signal2'], 'Transformations': [('signal2', [('signal2', 'None', 'CumSum_', 'T+S+R'), ('signal2', 'None', 'Diff_', 'T+S+R'), ('signal2', 'None', 'RelDiff_', 'T+S+R'), ('signal2', 'None', '_', 'T+S+R')])], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signal': 'signal2', 'Transformations': [('signal2', 'None', 'CumSum_', 'T+S+R'), ('signal2', 'None', 'Diff_', 'T+S+R'), ('signal2', 'None', 'RelDiff_', 'T+S+R'), ('signal2', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal2', 'Horizon': 12, 'Transformation': 'RelDiff_signal2', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.634, ('TRAINING', {'Signal': 'signal2', 'Horizon': 12, 'Transformation': '_signal2', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.856, ('TRAINING', {'Signal': 'signal2', 'Horizon': 12, 'Transformation': 'Diff_signal2', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.929, ('TRAINING', {'Signal': 'signal2', 'Horizon': 12, 'Transformation': 'CumSum_signal2', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.016, ('TRAINING', {'Signal': 'signal2', 'Horizon': 12, 'Transformation': 'RelDiff_signal2', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.113, ('SIGNAL_TRAINING', {'Signals': ['signal2'], 'Transformations': [('signal2', 'None', '_', 'T+S+R'), ('signal2', 'None', 'Diff_', 'T+S+R'), ('signal2', 'None', 'RelDiff_', 'T+S+R'), ('signal2', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signals': ['signal2'], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('VOTING_MODEL_SELECTION', {'Signal': 'signal2'}))
+INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION_COMPUTE_VOTING_SCORES', 28))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.012, ('MODEL_SELECTION_COMPUTE_VOTING_SCORES', 28))
 INFO:pyaf.std:PERF_DUMP_START
 INFO:pyaf.std:[
     {
@@ -537,15 +544,17 @@ INFO:pyaf.std:[
     }
 ]
 INFO:pyaf.std:PERF_DUMP_END
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.105, ('MODEL_SELECTION', {'Signal': 'signal2', 'Transformations': [('signal2', 'None', 'CumSum_', 'T+S+R'), ('signal2', 'None', 'Diff_', 'T+S+R'), ('signal2', 'None', 'RelDiff_', 'T+S+R'), ('signal2', 'None', '_', 'T+S+R')]}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.026, ('VOTING_MODEL_SELECTION', {'Signal': 'signal2'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.026, ('MODEL_SELECTION', {'Signals': ['signal2'], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'BestModels': [('signal2', '_signal2_Lag1Trend_residue_zeroCycle[0.0]_residue_NoAR')], 'Cores': 1}))
 INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'signal2', 'Model': '_signal2_Lag1Trend_residue_zeroCycle[0.0]_residue_NoAR'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.01, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'signal2', 'Model': '_signal2_Lag1Trend_residue_zeroCycle[0.0]_residue_NoAR'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.712, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'signal2', 'Model': '_signal2_Lag1Trend_residue_zeroCycle[0.0]_residue_NoAR'}))
 INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'signal2'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.388, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'signal2'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.503, ('FINALIZE_TRAINING', {'Signals': ['signal2'], 'Transformations': [('signal2', [('signal2', 'None', 'CumSum_', 'T+S+R'), ('signal2', 'None', 'Diff_', 'T+S+R'), ('signal2', 'None', 'RelDiff_', 'T+S+R'), ('signal2', 'None', '_', 'T+S+R')])], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 17.011, ('TRAINING', {'Signals': ['signal2'], 'Horizons': {'signal2': 12}}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.714, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'signal2'}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.427, ('FINALIZE_TRAINING', {'BestModels': [('signal2', '_signal2_Lag1Trend_residue_zeroCycle[0.0]_residue_NoAR')], 'Cores': 1}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.57, ('TRAINING', {'Signals': ['signal2'], 'Horizons': {'signal2': 12}}))
 INFO:pyaf.std:TIME_DETAIL TimeVariable='time' TimeMin=0 TimeMax=949 TimeDelta=1 Horizon=12
-INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='signal2' Length=1200  Min=1.0 Max=8.675889481882477e+94  Mean=4.337944740941239e+92 StdDev=4.510021374694525e+93
+INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='signal2' Length=1200  Min=1.0 Max=8.675889481882477e+94  Mean=4.337944740941239e+92 StdDev=4.510021374694524e+93
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_signal2' Min=0.0 Max=1.0  Mean=0.005 StdDev=0.051983
 INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
 INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE '_'
@@ -571,7 +580,7 @@ INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _signal2_Lag1Trend_residue_zeroCycle[0.0] 
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:TRAINING_TIME_IN_SECONDS 17.005
+INFO:pyaf.std:TRAINING_TIME_IN_SECONDS 4.568
 INFO:pyaf.std:COMPETITION_DETAIL_START 'signal2'
 INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'signal2' 0 {'Transformation': '_signal2', 'DecompositionType': 'T+S+R', 'Model': '_signal2_Lag1Trend_residue_zeroCycle[0.0]_residue_NoAR', 'Voting': 175.5, 'Complexity': 'SSSSS', 'Forecast_MASE_1': 0.9958, 'Forecast_MASE_H': 5.3047}
 INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'signal2' 1 {'Transformation': 'CumSum_signal2', 'DecompositionType': 'T+S+R', 'Model': 'CumSum_signal2_Lag1Trend_residue_zeroCycle[0.0]_residue_NoAR', 'Voting': 175.5, 'Complexity': 'MSSSS', 'Forecast_MASE_1': 0.9958, 'Forecast_MASE_H': 5.3047}
@@ -585,10 +594,10 @@ INFO:pyaf.std:SAVING_PLOT ('TransformedForecast', 'outputs/my_airline_None_signa
 INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/my_airline_None_signal2_Forecast_decomp_output.png')
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/my_airline_None_signal2_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/my_airline_None_signal2_quantiles_output.png')
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 16.385, ('PLOTTING', {'Signals': ['signal2']}))
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.097, ('PLOTTING', {'Signals': ['signal2']}))
 INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['signal2'], 'Horizon': 12}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.604, ('FORECASTING', {'Signals': ['signal2'], 'Horizon': 12}))
-Forecast Columns  Index(['time', 'signal2', 'row_number', 'time_Normalized', 'scaled_signal2',
+INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.159, ('FORECASTING', {'Signals': ['signal2'], 'Horizon': 12}))
+Forecast Columns  Index(['time', 'signal2', 'row_number', 'time_Normalized', 'signal2_scaled',
        '_signal2', '_signal2_Lag1Trend', '_signal2_Lag1Trend_residue',
        '_signal2_Lag1Trend_residue_zeroCycle[0.0]',
        '_signal2_Lag1Trend_residue_zeroCycle[0.0]_residue',
@@ -597,7 +606,8 @@ Forecast Columns  Index(['time', 'signal2', 'row_number', 'time_Normalized', 'sc
        'signal2_Transformed', '_signal2_Trend', '_signal2_Trend_residue',
        '_signal2_Cycle', '_signal2_Cycle_residue', '_signal2_AR',
        '_signal2_AR_residue', '_signal2_TransformedForecast',
-       'signal2_Forecast', '_signal2_TransformedResidue', 'signal2_Residue',
+       'signal2_TransformedForecast_inverted', 'signal2_Forecast',
+       '_signal2_TransformedResidue', 'signal2_Residue',
        'signal2_Forecast_Lower_Bound', 'signal2_Forecast_Upper_Bound',
        'signal2_Forecast_Quantile_2', 'signal2_Forecast_Quantile_8',
        'signal2_Forecast_Quantile_14', 'signal2_Forecast_Quantile_20',
@@ -638,7 +648,7 @@ Forecasts
 
 <ModelInfo>
 {
-    "Training_Time": 17.005,
+    "Training_Time": 4.568,
     "signal2": {
         "Complexity": {
             "AR": "S",
