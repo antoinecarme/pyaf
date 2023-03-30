@@ -152,9 +152,7 @@ class cSignalDecompositionOneTransform:
 
         lSignal = self.mSignalFrame[self.mOriginalSignal]
         self.mTransformation.fit(lSignal);
-
-        self.mSignalFrame[self.mSignal] = self.mTransformation.apply(lSignal);
-        # self.mSignalFrame[self.mSignal] = self.mSignalFrame[self.mSignal].astype(np.float32);
+        self.mTransformation.transformDataset(self.mSignalFrame)
         
         if(self.mExogenousInfo is not None):
             lTimer2 = None

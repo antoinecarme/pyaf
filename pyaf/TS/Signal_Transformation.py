@@ -85,23 +85,24 @@ class cAbstractSignalTransform:
     def apply(self, sig):
         # tsutil.print_pyaf_detailed_info("APPLY_START", self.mOriginalSignal, sig.values[1:5]);
         self.checkSignalType(sig)
-        sig1 = self.scale_signal(sig.values);
-        sig2 = self.specific_apply(sig1);
+        scaled_sig = self.scale_signal(sig.values);
+        applied_sig = self.specific_apply(scaled_sig);
         # tsutil.print_pyaf_detailed_info("APPLY_END", self.mOriginalSignal, sig2.values[1:5]);
         if(self.mDebug):
             self.check_not_nan(sig2 , "transform_apply");
-        return sig2;
+        return {"scaled" : scaled_sig, "applied" : applied_sig}
 
     def invert(self, sig1):
         # tsutil.print_pyaf_detailed_info("INVERT_START", self.mOriginalSignal, sig1.values[1:5]);
-        sig2 = self.specific_invert(sig1.values);
-        rescaled_sig = self.rescale_signal(sig2);
+        inverted_sig = self.specific_invert(sig1.values);
+        rescaled_sig = self.rescale_signal(inverted_sig);
         # tsutil.print_pyaf_detailed_info("INVERT_END", self.mOriginalSignal, rescaled_sig.values[1:5]);
-        return rescaled_sig;
+        return {"inverted" : inverted_sig, "rescaled" : rescaled_sig}
 
     def transformDataset(self, df):
-        df["scaled_" + self.mOriginalSignal] = self.scale_signal(df[self.mOriginalSignal].values)
-        df[self.get_name(self.mOriginalSignal)] = self.apply(df[self.mOriginalSignal])
+        apply_result = self.apply(df[self.mOriginalSignal])
+        df[self.mOriginalSignal + "_scaled"] = apply_result["scaled"]
+        df[self.get_name(self.mOriginalSignal)] = apply_result["applied"]
         return df;
 
     def test(self):

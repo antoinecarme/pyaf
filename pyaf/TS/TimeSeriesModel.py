@@ -255,7 +255,9 @@ class cTimeSeriesModel:
         lPrefix2 = str(self.mOriginalSignal) + "_";
         # tsutil.print_pyaf_detailed_info("TimeSeriesModel_forecast_invert");
         df2[lPrefix + 'TransformedForecast'] = self.compute_model_forecast(lTrendColumn, lCycleColumn, lARColumn)
-        df2[lPrefix2 + 'Forecast'] = self.mTransformation.invert(df2[lPrefix + 'TransformedForecast']);
+        invert_result = self.mTransformation.invert(df2[lPrefix + 'TransformedForecast'])
+        df2[lPrefix2 + 'TransformedForecast_inverted'] = invert_result["inverted"]
+        df2[lPrefix2 + 'Forecast'] = invert_result["rescaled"]
 
         if(not perf_mode):
             df2[lPrefix + 'TransformedResidue'] =  lSignal - df2[lPrefix + 'TransformedForecast']
