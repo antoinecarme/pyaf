@@ -4,11 +4,12 @@
 # This file is part of the Python Automatic Forecasting (PyAF) library and is made available under
 # the terms of the 3 Clause BSD license
 
-
-
 import pandas as pd
 import numpy as np
 import datetime
+
+from . import Utils as tsutil
+
 
 # this is a specialized missing data imputer for the time and signal
 # it performs a simple interpolation (for the moment)
@@ -33,11 +34,14 @@ class cMissingDataImputer:
         
         if(not self.has_missing_data(iInputDS[iTime])):
             return iInputDS
+
+        lMethod = self.mOptions.mMissingDataOptions.mTimeMissingDataImputation
+        lTimer = tsutil.cTimer(("MISSING_DATA_APPLY_TIME_IMPUTATION", {"Time" : iTime, "Method" : lMethod}))
         
-        elif(self.mOptions.mMissingDataOptions.mTimeMissingDataImputation == "DiscardRow"):
+        if(lMethod == "DiscardRow"):
             iInputDS = iInputDS[iInputDS[iTime].notnull()]
 
-        elif(self.mOptions.mMissingDataOptions.mTimeMissingDataImputation == "Interpolate"):
+        elif(lMethod == "Interpolate"):
             lTime = self.interpolate_time_if_needed(iInputDS , iTime)
             iInputDS[iTime] = lTime
 
@@ -49,28 +53,32 @@ class cMissingDataImputer:
             
         if(not self.has_missing_data(iInputDS[iSignal])):
             return iInputDS
-        elif(self.mOptions.mMissingDataOptions.mSignalMissingDataImputation == "DiscardRow"):
+
+        lMethod = self.mOptions.mMissingDataOptions.mSignalMissingDataImputation
+        lTimer = tsutil.cTimer(("MISSING_DATA_APPLY_SIGNAL_IMPUTATION", {"Signal" : iSignal, "Method" : lMethod}))
+
+        if(lMethod == "DiscardRow"):
             iInputDS = iInputDS[iInputDS[iSignal].notnull()]
 
-        elif(self.mOptions.mMissingDataOptions.mSignalMissingDataImputation == "Interpolate"):
+        elif(lMethod == "Interpolate"):
             lSignal = self.interpolate_signal_if_needed(iInputDS , iSignal)
             iInputDS[iSignal] = lSignal
             
-        elif(self.mOptions.mMissingDataOptions.mSignalMissingDataImputation == "Constant"):
+        elif(lMethod == "Constant"):
             lSignal = iInputDS[iSignal].fillna(self.mOptions.mMissingDataOptions.mConstant, method=None)
             iInputDS[iSignal] = lSignal
             
-        elif(self.mOptions.mMissingDataOptions.mSignalMissingDataImputation == "Mean"):
+        elif(lMethod == "Mean"):
             lMean = iInputDS[iSignal].mean()
             lSignal = iInputDS[iSignal].fillna(lMean, method=None)
             iInputDS[iSignal] = lSignal
             
-        elif(self.mOptions.mMissingDataOptions.mSignalMissingDataImputation == "Median"):
+        elif(lMethod == "Median"):
             lMedian = iInputDS[iSignal].median()
             lSignal = iInputDS[iSignal].fillna(lMedian, method=None)
             iInputDS[iSignal] = lSignal
             
-        elif(self.mOptions.mMissingDataOptions.mSignalMissingDataImputation == "PreviousValue"):
+        elif(lMethod == "PreviousValue"):
             lSignal = iInputDS[iSignal].fillna(method='ffill')
             # replace the first empty values with the first known value
             lSignal = lSignal.fillna(method='bfill')
