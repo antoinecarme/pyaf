@@ -16,13 +16,20 @@ def is_numeric(x):
     except ValueError:
         return False;
     return True;
-   
+
+# some warnings contain hexadecimal address which may change from a run to another.
+# Example : _matplotlib/core.py:807: UserWarning: The label '___OC_Forecast' of <matplotlib.lines.Line2D object at 0x7f571157cd50> starts with '_'. It is thus excluded from the legend.
+def is_hex_address(x):
+    return x.startswith('0x')
+
 # the goal here is to compare the two words inside a JSON and
 # allow some small numeric differences
 # (used to compare dataframe.to_json() in the logs).
 
 def compare_words(word_orig, word_new):
     if(word_orig == word_new):
+        return 0;
+    if(is_hex_address(word_orig) and is_hex_address(word_new)):
         return 0;
     if(is_numeric(word_orig) and is_numeric(word_new)):
         lNumber_orig = float(word_orig);
