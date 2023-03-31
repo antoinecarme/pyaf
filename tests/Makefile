@@ -926,10 +926,30 @@ hierarchical/test_grouped_signals_AllMethods_Exogenous_all_nodes.py  :
 	 $(PYTHON) scripts/num_diff.py  tests/references/hierarchical/test_grouped_signals_AllMethods_Exogenous_all_nodes.log logs/hierarchical_test_grouped_signals_AllMethods_Exogenous_all_nodes.log  >  logs/hierarchical_test_grouped_signals_AllMethods_Exogenous_all_nodes.log.diff
 	 tail -10  logs/hierarchical_test_grouped_signals_AllMethods_Exogenous_all_nodes.log.diff 
 
+hierarchical/test_grouped_signals_AllMethods_Exogenous_all_nodes_force_ARX.py  :  
+	 -$(PYTHON)  tests/hierarchical/test_grouped_signals_AllMethods_Exogenous_all_nodes_force_ARX.py  >  logs/hierarchical_test_grouped_signals_AllMethods_Exogenous_all_nodes_force_ARX.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/hierarchical/test_grouped_signals_AllMethods_Exogenous_all_nodes_force_ARX.log logs/hierarchical_test_grouped_signals_AllMethods_Exogenous_all_nodes_force_ARX.log  >  logs/hierarchical_test_grouped_signals_AllMethods_Exogenous_all_nodes_force_ARX.log.diff
+	 tail -10  logs/hierarchical_test_grouped_signals_AllMethods_Exogenous_all_nodes_force_ARX.log.diff 
+
+hierarchical/test_grouped_signals_AllMethods_Exogenous_all_nodes_force_XGBX.py  :  
+	 -$(PYTHON)  tests/hierarchical/test_grouped_signals_AllMethods_Exogenous_all_nodes_force_XGBX.py  >  logs/hierarchical_test_grouped_signals_AllMethods_Exogenous_all_nodes_force_XGBX.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/hierarchical/test_grouped_signals_AllMethods_Exogenous_all_nodes_force_XGBX.log logs/hierarchical_test_grouped_signals_AllMethods_Exogenous_all_nodes_force_XGBX.log  >  logs/hierarchical_test_grouped_signals_AllMethods_Exogenous_all_nodes_force_XGBX.log.diff
+	 tail -10  logs/hierarchical_test_grouped_signals_AllMethods_Exogenous_all_nodes_force_XGBX.log.diff 
+
 hierarchical/test_grouped_signals_AllMethods_Exogenous_per_node.py  :  
 	 -$(PYTHON)  tests/hierarchical/test_grouped_signals_AllMethods_Exogenous_per_node.py  >  logs/hierarchical_test_grouped_signals_AllMethods_Exogenous_per_node.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/hierarchical/test_grouped_signals_AllMethods_Exogenous_per_node.log logs/hierarchical_test_grouped_signals_AllMethods_Exogenous_per_node.log  >  logs/hierarchical_test_grouped_signals_AllMethods_Exogenous_per_node.log.diff
 	 tail -10  logs/hierarchical_test_grouped_signals_AllMethods_Exogenous_per_node.log.diff 
+
+hierarchical/test_grouped_signals_AllMethods_Exogenous_per_node_force_ARX.py  :  
+	 -$(PYTHON)  tests/hierarchical/test_grouped_signals_AllMethods_Exogenous_per_node_force_ARX.py  >  logs/hierarchical_test_grouped_signals_AllMethods_Exogenous_per_node_force_ARX.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/hierarchical/test_grouped_signals_AllMethods_Exogenous_per_node_force_ARX.log logs/hierarchical_test_grouped_signals_AllMethods_Exogenous_per_node_force_ARX.log  >  logs/hierarchical_test_grouped_signals_AllMethods_Exogenous_per_node_force_ARX.log.diff
+	 tail -10  logs/hierarchical_test_grouped_signals_AllMethods_Exogenous_per_node_force_ARX.log.diff 
+
+hierarchical/test_grouped_signals_AllMethods_Exogenous_per_node_force_XGBX.py  :  
+	 -$(PYTHON)  tests/hierarchical/test_grouped_signals_AllMethods_Exogenous_per_node_force_XGBX.py  >  logs/hierarchical_test_grouped_signals_AllMethods_Exogenous_per_node_force_XGBX.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/hierarchical/test_grouped_signals_AllMethods_Exogenous_per_node_force_XGBX.log logs/hierarchical_test_grouped_signals_AllMethods_Exogenous_per_node_force_XGBX.log  >  logs/hierarchical_test_grouped_signals_AllMethods_Exogenous_per_node_force_XGBX.log.diff
+	 tail -10  logs/hierarchical_test_grouped_signals_AllMethods_Exogenous_per_node_force_XGBX.log.diff 
 
 hierarchical/test_grouped_signals_BU.py  :  
 	 -$(PYTHON)  tests/hierarchical/test_grouped_signals_BU.py  >  logs/hierarchical_test_grouped_signals_BU.log  2>&1
@@ -993,7 +1013,7 @@ hierarchical/test_hierarchy_AU_TD.py  :
 
 
 
- hierarchical :  hierarchical/test_hierarchy_AU_TD.py hierarchical/test_hierarchy_AU_OC.py hierarchical/test_hierarchy_AU_MO.py hierarchical/test_hierarchy_AU_BU.py hierarchical/test_hierarchy_AU_AllMethods_Exogenous_per_node.py hierarchical/test_hierarchy_AU_AllMethods_Exogenous_all_nodes.py hierarchical/test_hierarchy_AU_AllMethods.py hierarchical/test_hierarchy_AU.py hierarchical/test_grouped_signals_TD.py hierarchical/test_grouped_signals_OC.py hierarchical/test_grouped_signals_MO.py hierarchical/test_grouped_signals_BU.py hierarchical/test_grouped_signals_AllMethods_Exogenous_per_node.py hierarchical/test_grouped_signals_AllMethods_Exogenous_all_nodes.py hierarchical/test_grouped_signals_AllMethods_2.py hierarchical/test_grouped_signals_AllMethods.py hierarchical/test_grouped.py  
+ hierarchical :  hierarchical/test_hierarchy_AU_TD.py hierarchical/test_hierarchy_AU_OC.py hierarchical/test_hierarchy_AU_MO.py hierarchical/test_hierarchy_AU_BU.py hierarchical/test_hierarchy_AU_AllMethods_Exogenous_per_node.py hierarchical/test_hierarchy_AU_AllMethods_Exogenous_all_nodes.py hierarchical/test_hierarchy_AU_AllMethods.py hierarchical/test_hierarchy_AU.py hierarchical/test_grouped_signals_TD.py hierarchical/test_grouped_signals_OC.py hierarchical/test_grouped_signals_MO.py hierarchical/test_grouped_signals_BU.py hierarchical/test_grouped_signals_AllMethods_Exogenous_per_node_force_XGBX.py hierarchical/test_grouped_signals_AllMethods_Exogenous_per_node_force_ARX.py hierarchical/test_grouped_signals_AllMethods_Exogenous_per_node.py hierarchical/test_grouped_signals_AllMethods_Exogenous_all_nodes_force_XGBX.py hierarchical/test_grouped_signals_AllMethods_Exogenous_all_nodes_force_ARX.py hierarchical/test_grouped_signals_AllMethods_Exogenous_all_nodes.py hierarchical/test_grouped_signals_AllMethods_2.py hierarchical/test_grouped_signals_AllMethods.py hierarchical/test_grouped.py  
  
 
 individual_components/test_air_passengers_all_autoreg.py  :  
