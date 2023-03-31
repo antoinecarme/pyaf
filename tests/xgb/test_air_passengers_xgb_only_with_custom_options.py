@@ -39,7 +39,7 @@ lEngine.getModelInfo();
 
 lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
 
-lEngine.standardPlots(name = "outputs/my_airline_passengers_svr_only")
+lEngine.standardPlots(name = "outputs/my_airline_passengers_xgb_only")
 
 dfapp_in = df.copy();
 dfapp_in.tail()

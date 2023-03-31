@@ -33,7 +33,7 @@ lEngine.getModelInfo();
 
 lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
 
-lEngine.standardPlots("outputs/my_ozone_svr_only");
+lEngine.standardPlots("outputs/my_ozone_xgb_only");
 
 dfapp_in = df.copy();
 dfapp_in.tail()
