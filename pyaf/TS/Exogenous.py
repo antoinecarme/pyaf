@@ -73,7 +73,7 @@ class cExogenousInfo:
                     lUsed_cat_i = [x for x in used if x.startswith(exog + "=" + str(cat))]
                     if(len(lUsed_cat_i) > 0):
                         lUsed_cat = lUsed_cat + [exog + "=" + str(cat)]
-                dict1 ["Categorical_Variables"][exog] = dict(lList)
+                dict1 ["Categorical_Variables"][exog] = dict([(np.array([x[0]]).item(), x[1].item()) for x in lList])
                 dict1 ["Categorical_Variables_Usage"][exog] = lUsed_cat
             else:
                 lExcluded_cat = lExcluded_cat + [exog]
@@ -178,7 +178,7 @@ class cExogenousInfo:
         lValueCounts_Significant = [x for x in lValueCounts if(x[1] > 5)]
         lValueCounts_ordered = sorted(lValueCounts_Significant, key = lambda x : (-x[1], x[0]))
         lList = lValueCounts_ordered[:NCat]
-        lList = [(x[0] , int(x[1])) for x in lList]
+        lList = [(x[0], x[1]) for x in lList]
         if(len(lList) <= 1):
             self.mExcluded.append(exog);
         else:
