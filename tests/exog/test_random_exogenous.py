@@ -14,8 +14,10 @@ def test_random_exogenous(n , nbex):
 
         b1 = tsds.generate_random_TS(N = 600 , FREQ = 'D', seed = 0, trendtype = "LinearTrend", cycle_length = 12, transform = "", sigma = 0.0, exog_count = 2000, ar_order = 12);
         df = b1.mPastData
+        df['Signal'] = df[b1.mName]
         print(df.head())
         print(b1)
+        b1.mExogenousDataFrame.info()
         H = b1.mHorizon[b1.mSignalVar];
     
         N = df.shape[0];
