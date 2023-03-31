@@ -24,6 +24,13 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
     def set_name(self):
         assert(0);
 
+    def get_used_variables(self):
+        lUsed = []
+        for (series, lList_p) in self.mLagsForSeries.items():
+            used = [p for p in lList_p if (series+'_Lag' + str(p) in self.mInputNamesAfterSelection)]
+            if(len(used) > 0):
+                lUsed = lUsed + [series]
+        return lUsed
 
     def fit(self):
         # tsutil.print_pyaf_detailed_info("ESTIMATE_SCIKIT_MODEL_START" , self.mCycleResidueName);
@@ -113,7 +120,7 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
         series = self.mCycleResidueName; 
         if(self.mExogenousInfo is not None):
             df = self.mExogenousInfo.transformDataset(df);
-        lag_df = self.generateLagsForForecast(df);
+        lag_df = self.generateLagsForForecast(df, selection = self.mInputNamesAfterSelection);
         inputs_after_feat_selection = lag_df[self.mInputNamesAfterSelection].values
         # inputs_after_feat_selection = self.mFeatureSelector.transform(inputs) if self.mFeatureSelector else inputs;
         if(self.mScikitModel is not None):
