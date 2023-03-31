@@ -56,6 +56,9 @@ class cAbstractAR:
         self.mInputNames.append(name);
         self.mLagsForSeries[series] = self.mLagsForSeries.get(series , [])
         self.mLagsForSeries[series].append(p)
+
+    def get_used_variables(self):
+        return [x for x in self.mLagsForSeries.keys()]
         
     def dumpCoefficients(self):
         pass
@@ -83,7 +86,7 @@ class cAbstractAR:
     def getDefaultValue(self, series):
         return self.mDefaultValues[series];
 
-    def generateLagsForForecast(self, df):
+    def generateLagsForForecast(self, df, selection = None):
         lDict = {}
         # lDict[self.mCycleResidueName] = df[self.mCycleResidueName]
         series = self.mCycleResidueName
@@ -92,16 +95,18 @@ class cAbstractAR:
         lSeries = lSeries.values.clip(-1e+10, +1e10)
         for p in self.mLagsForSeries[self.mCycleResidueName]:
             name = series +'_Lag' + str(p);
-            lShiftedSeries = self.shift_series(lSeries, p , self.mDefaultValues[series]); 
-            lDict[name] = lShiftedSeries
+            if(selection is None or name in selection):
+                lShiftedSeries = self.shift_series(lSeries, p , self.mDefaultValues[series]);
+                lDict[name] = lShiftedSeries
         # Exogenous variables lags
         if(self.mExogenousInfo is not None):
             for ex in self.mExogenousInfo.mEncodedExogenous:
                 if(self.mLagsForSeries.get(ex)):
                     for p in self.mLagsForSeries[ex]:
                         name = ex +'_Lag' + str(p);
-                        lShiftedSeries = self.shift_series(df[ex], p , self.mDefaultValues[ex]); 
-                        lDict[name] = lShiftedSeries
+                        if(selection is None or name in selection):
+                            lShiftedSeries = self.shift_series(df[ex], p , self.mDefaultValues[ex]); 
+                            lDict[name] = lShiftedSeries
         cols = lDict.keys()
         lArray = np.concatenate([lDict[k].reshape(-1, 1) for k in lDict.keys()], axis = 1, dtype = lSeries.dtype)
         lag_df = pd.DataFrame(data = lArray, columns= cols, index = df.index, dtype = lSeries.dtype)
@@ -233,7 +238,6 @@ class cAutoRegressiveEstimator:
         self.mARFrame = pd.concat([self.mARFrame] + lag_dfs, axis = 1)
         self.mARFrame = self.mARFrame.copy() # Avoid "PerformanceWarning: DataFrame is highly fragmented"
 
-
     # @profile
     def estimate_ar_models_for_cycle(self, cycle_residue):
         logger = tsutil.get_pyaf_logger();
@@ -276,6 +280,7 @@ class cAutoRegressiveEstimator:
             autoreg.mSplit = self.mSplit;
             autoreg.mDefaultValues = self.mDefaultValues;
             autoreg.mDecompositionType = self.mDecompositionType
+            autoreg.mInputNamesAfterSelection = autoreg.mInputNames
             lTimer = None
             if(self.mOptions.mDebugAR):
                 lTimer = tsutil.cTimer(("TRAINING_AR_MODEL", autoreg.mFormula, autoreg.mCycleResidueName))
