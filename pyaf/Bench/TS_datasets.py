@@ -58,7 +58,7 @@ class cTimeSeriesDatasetSpec:
     def load_dataset_if_possible(self, iFileNamePrefix):
         self.mFullDataset = pd.read_csv(iFileNamePrefix + "_training.csv")
         if(os.path.isfile(iFileNamePrefix + "_exogenous.csv")):
-            self.mExogenousDataFrame = pd.read_csv(iFileNamePrefix + "_exogenous.csv")
+            self.mExogenousDataFrame = pd.read_csv(iFileNamePrefix + "_exogenous.csv", dtype=object)
             self.mExogenousVariables = [x for x in self.mExogenousDataFrame.columns if x.startswith('exog_')]
         
     
