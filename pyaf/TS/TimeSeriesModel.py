@@ -190,7 +190,8 @@ class cTimeSeriesModel:
         logger.info("AR_MODEL_DETAIL_START");
         self.mAR.dumpCoefficients();
         logger.info("AR_MODEL_DETAIL_END");
-        
+        if(self.mAR.mExogenousInfo):
+            self.mAR.mExogenousInfo.info(used = self.mAR.get_used_variables())
     
     def getInfo(self):
         logger = tsutil.get_pyaf_logger();
@@ -367,9 +368,14 @@ class cTimeSeriesModel:
 
     def to_dict(self, iWithOptions = False):
         dict1 = {};
+        lExogData = None
+        if(self.mAR is not None and self.mAR.mExogenousInfo is not None):
+            lExogData = self.mAR.mExogenousInfo.to_dict(used = self.mAR.get_used_variables())
         d1 = { "Time" : self.mTimeInfo.to_dict(),
                "Signal" : self.mOriginalSignal,
-               "Training_Signal_Length" : self.mTimeInfo.mSignalFrame.shape[0]};
+               "Training_Signal_Length" : self.mTimeInfo.mSignalFrame.shape[0],
+               "Exogenous_Data" : lExogData
+              }
         dict1["Dataset"] = d1;
         lTransformation = self.mTransformation.mFormula;
         d2 = { "Best_Decomposition" : self.mOutName,
