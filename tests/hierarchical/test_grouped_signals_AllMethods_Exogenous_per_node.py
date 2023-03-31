@@ -47,6 +47,10 @@ lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H, b1.mHierarchy, lExogenousData
 lEngine.getModelInfo();
 #lEngine.standardPlots("outputs/AU_infant_");
 
+print("\n\n<ModelInfo>")
+print(lEngine.to_json());
+print("</ModelInfo>\n\n")
+
 dfapp_in = df.copy();
 dfapp_in.tail()
 
