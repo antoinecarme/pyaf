@@ -137,14 +137,23 @@ CN_Engine = lEngine.mSignalHierarchy.mModels # __CN is at hierarchical level 2
 
 CN_Engine.getModelInfo()
 
-CN_Engine.standardPlots()
+CN_Engine.standardPlots("outputs/bugs_hier_grouping_issue_55")
 
 lEngine.mOptions.mHierarchicalCombinationMethod = ["BU" , 'TD' , 'MO' , 'OC'];
 dfapp_out = lEngine.forecast(train_df, H);
 
+def strip_leading_underscores_if_needed(col_name):
+    # this is a workaround for some matplotlib bugs. legend cannot contain names starting with '_'
+    patched_name = col_name[2:] if(col_name.startswith('__')) else col_name
+    patched_name = patched_name[1:] if(patched_name.startswith('_')) else patched_name
+    return patched_name
 
-for c in Countries:
-    country = "__" + c
+dfapp_out.columns = [strip_leading_underscores_if_needed(col) for col in dfapp_out.columns]
+
+print(dfapp_out.columns)
+dfapp_out.info()
+
+for country in Countries:
     dfapp_out.plot('Month' , 
                     [country , country + '_Forecast' , 
                      country + '_BU_Forecast',  
@@ -154,12 +163,12 @@ for c in Countries:
                      country + '_OC_Forecast'  ],
                 figsize=(32 , 12)).legend(fontsize=18)
 
-world = '__'
+world = ''
 dfapp_out.plot('Month' , 
-                [world , world + '_Forecast' , 
-                 world + '_BU_Forecast',  
-                 world + '_PHA_TD_Forecast',  
-                 world + '_AHP_TD_Forecast'  ,  
-                 world + '_MO_Forecast' ,
-                 world + '_OC_Forecast'  ],
+                [world , world + 'Forecast' , 
+                 world + 'BU_Forecast',  
+                 world + 'PHA_TD_Forecast',  
+                 world + 'AHP_TD_Forecast'  ,  
+                 world + 'MO_Forecast' ,
+                 world + 'OC_Forecast'  ],
                 figsize=(32 , 12)).legend(fontsize=18)
