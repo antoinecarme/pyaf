@@ -2211,6 +2211,21 @@ temporal_hierarchy/test_temporal_demo_weekly_W_Q_A.py  :
  temporal_hierarchy :  temporal_hierarchy/test_temporal_demo_weekly_W_Q_A.py temporal_hierarchy/test_temporal_demo_weekly_W_2W_M_Q.py temporal_hierarchy/test_temporal_demo_monthly_M_Q_A.py temporal_hierarchy/test_temporal_demo_monthly_M_2M_6M_12M.py temporal_hierarchy/test_temporal_demo_monthly_M_2M_6M.py temporal_hierarchy/test_temporal_demo_minutely_T_H_12H_D.py temporal_hierarchy/test_temporal_demo_minutely_T_H.py temporal_hierarchy/test_temporal_demo_minutely_T_10T_30T_H.py temporal_hierarchy/test_temporal_demo_hourly_H_D.py temporal_hierarchy/test_temporal_demo_hourly_H_6H_12H_D_W.py temporal_hierarchy/test_temporal_demo_hourly_H_6H_12H_D.py temporal_hierarchy/test_temporal_demo_daily_D_W_Q.py temporal_hierarchy/test_temporal_demo_daily_D_W_M_Q.py temporal_hierarchy/test_temporal_demo_daily_D_W_M.py temporal_hierarchy/test_temporal_demo_daily_D_W_2W_Q.py temporal_hierarchy/test_temporal_demo_daily_D_W_2W.py temporal_hierarchy/test_temporal_demo_1.py  
  
 
+time_logging/test_air_passengers_with_time_logging_activated.py  :  
+	 -$(PYTHON)  tests/time_logging/test_air_passengers_with_time_logging_activated.py  >  logs/time_logging_test_air_passengers_with_time_logging_activated.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/time_logging/test_air_passengers_with_time_logging_activated.log logs/time_logging_test_air_passengers_with_time_logging_activated.log  >  logs/time_logging_test_air_passengers_with_time_logging_activated.log.diff
+	 tail -10  logs/time_logging_test_air_passengers_with_time_logging_activated.log.diff 
+
+time_logging/test_ozone_with_time_logging_activated.py  :  
+	 -$(PYTHON)  tests/time_logging/test_ozone_with_time_logging_activated.py  >  logs/time_logging_test_ozone_with_time_logging_activated.log  2>&1
+	 $(PYTHON) scripts/num_diff.py  tests/references/time_logging/test_ozone_with_time_logging_activated.log logs/time_logging_test_ozone_with_time_logging_activated.log  >  logs/time_logging_test_ozone_with_time_logging_activated.log.diff
+	 tail -10  logs/time_logging_test_ozone_with_time_logging_activated.log.diff 
+
+
+
+ time_logging :  time_logging/test_ozone_with_time_logging_activated.py time_logging/test_air_passengers_with_time_logging_activated.py  
+ 
+
 time_res/test_ozone_Daily.py  :  
 	 -$(PYTHON)  tests/time_res/test_ozone_Daily.py  >  logs/time_res_test_ozone_Daily.log  2>&1
 	 $(PYTHON) scripts/num_diff.py  tests/references/time_res/test_ozone_Daily.log logs/time_res_test_ozone_Daily.log  >  logs/time_res_test_ozone_Daily.log.diff
@@ -2354,9 +2369,9 @@ xgb/test_ozone_xgbx_exogenous.py  :
 
 # ********************************************** 
 
-all:  artificial basic_checks bugs cross_validation croston exog expsmooth func HeartRateTimeSeries heroku hierarchical  HourOfWeek model_control perf svr transformations  neuralnet real-life  time_res perfs demos xgb xeon-phi-parallel sampling temporal_hierarchy WeekOfMonth missing_data  probabilistic_forecasting lgbm perf_MedAE perf_LnQ plots multiplicative_seasonal pytorch perf_MASE_RMSSE individual_components 
+all:  artificial basic_checks bugs cross_validation croston exog expsmooth func HeartRateTimeSeries heroku hierarchical  HourOfWeek model_control perf svr transformations  neuralnet real-life  time_res perfs demos xgb xeon-phi-parallel sampling temporal_hierarchy WeekOfMonth missing_data  probabilistic_forecasting lgbm perf_MedAE perf_LnQ plots multiplicative_seasonal pytorch perf_MASE_RMSSE individual_components time_logging 
 	
 
-build-test :  demos basic_checks cross_validation croston exog heroku hierarchical model_control perfs svr transformations func real-life  time_res xgb sampling HourOfWeek WeekOfMonth missing_data lgbm perf_MedAE perf_LnQ multiplicative_seasonal perf_MASE_RMSSE bugs probabilistic_forecasting plots individual_components 
+build-test :  demos basic_checks cross_validation croston exog heroku hierarchical model_control perfs svr transformations func real-life  time_res xgb sampling HourOfWeek WeekOfMonth missing_data lgbm perf_MedAE perf_LnQ multiplicative_seasonal perf_MASE_RMSSE bugs probabilistic_forecasting plots individual_components time_logging 
 	
 
