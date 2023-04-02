@@ -80,14 +80,17 @@ def get_pyaf_hierarchical_logger():
     logger = logging.getLogger('pyaf.hierarchical');
     return logger;
 
-
+def activate_timer_logging():
+    import logging;
+    logger = logging.getLogger('pyaf.timing');
+    logger.setLevel(logging.DEBUG)
 
 class cTimer:
     def __init__(self, iMess = "PYAF_UNKNOWN_OP", iDebug = False):
         self.mMessage = iMess
         self.mStart = datetime.now();
         self.logger = get_pyaf_timing_logger();
-        self.logger.info(("OPERATION_START", self.mMessage))
+        self.logger.debug(("OPERATION_START", self.mMessage))
 
     def get_elapsed_time(self):
         lDelta = datetime.now() - self.mStart
@@ -97,7 +100,7 @@ class cTimer:
     def __del__(self):
         self.mEnd = datetime.now();
         lDelta = self.get_elapsed_time()
-        self.logger.info(("OPERATION_END_ELAPSED" , lDelta, self.mMessage))
+        self.logger.debug(("OPERATION_END_ELAPSED" , lDelta, self.mMessage))
 
 def get_module_version_when_available(module_name):
     try:
