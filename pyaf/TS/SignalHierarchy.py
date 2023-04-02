@@ -62,6 +62,8 @@ class cSignalHierarchy:
         return False
     
     def create_HierarchicalStructure(self):
+        logger = tsutil.get_pyaf_hierarchical_logger();
+        logger.info("CREATE_HIERARCHICAL_STRUCTURE_START");
         self.mLevels = self.mHierarchy['Levels'];
         self.mStructure = {};
         df = self.mHierarchy['Data'];
@@ -82,6 +84,7 @@ class cSignalHierarchy:
                 self.mStructure[level][col] = sorted(self.mStructure[level][col])
                     
         # tsutil.print_pyaf_detailed_info(self.mStructure);
+        logger.info("CREATE_HIERARCHICAL_STRUCTURE_END");
         pass
     
     def create_SummingMatrix(self):
@@ -129,6 +132,8 @@ class cSignalHierarchy:
 
 
     def create_all_levels_dataset(self, df):
+        logger = tsutil.get_pyaf_hierarchical_logger();
+        logger.info("CREATE_ALL_LEVELS_DATASET_START");
         self.checkData(df);
         lAllLevelsDataset = df.copy();
         lMapped = True;
@@ -153,6 +158,7 @@ class cSignalHierarchy:
                         else:
                             new_col = new_col + lAllLevelsDataset[col1];
                     lAllLevelsDataset[col] = new_col;
+        logger.info("CREATE_ALL_LEVELS_DATASET_END");
         return lAllLevelsDataset;
 
 
@@ -174,6 +180,7 @@ class cSignalHierarchy:
 
     def create_all_levels_models_with_one_engine(self, iAllLevelsDataset, H, iDateColumn):
         logger = tsutil.get_pyaf_hierarchical_logger();
+        logger.info("CREATE_ALL_LEVELS_MODELS_WITH_ONE_ENGINE_START");
         lSignals = []
         lDateColumns = {}
         lExogenousData = {}
@@ -198,9 +205,12 @@ class cSignalHierarchy:
         lEngine.train(iAllLevelsDataset, lDateColumns , lSignals, lHorizons, iExogenousData = lExogenousData);
         self.mModels = lEngine
         # tsutil.print_pyaf_detailed_info("CREATED_MODELS", self.mLevels, self.mModels)
+        logger.info("CREATE_ALL_LEVELS_MODELS_WITH_ONE_ENGINE_END");
 
 
     def fit(self):
+        logger = tsutil.get_pyaf_hierarchical_logger();
+        logger.info("TRAINING_HIERARCHICAL_MODEL_START");
         lTimer = tsutil.cTimer(("HIERARCHICAL_TRAINING"))
         self.create_HierarchicalStructure();
         # self.plot();
@@ -211,6 +221,7 @@ class cSignalHierarchy:
         lForecast_DF = self.internal_forecast(self.mTrainingDataset , self.mHorizon)
         self.computePerfOnCombinedForecasts(lForecast_DF.head(lForecast_DF.shape[0] - self.mHorizon));
         self.mTrainingTime = lTimer.get_elapsed_time()
+        logger.info("TRAINING_HIERARCHICAL_MODEL_END " + str(self.mTrainingTime));
 
 
     def getModelInfo(self):
