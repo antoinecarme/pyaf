@@ -73,10 +73,12 @@ class cSignalDecomposition:
         
             
     def train(self , iInputDS, iTimes, iSignals, iHorizons, iExogenousData = None):
+        logger = tsutil.get_pyaf_logger();
         from . import SignalDecomposition_Trainer as tstrainer
 
         self.reinterpret_by_signal_args(iTimes, iSignals, iHorizons, iExogenousData)
         # tsutil.print_pyaf_detailed_info(iInputDS.shape, iInputDS.columns, self.mSignals, self.mDateColumns, self.mHorizons)
+        logger.info("TRAINING_ENGINE_START " + str({"Signals" : self.mSignals, "Horizons" : self.mHorizons}));
         lTimer = tsutil.cTimer(("TRAINING", {"Signals" : self.mSignals, "Horizons" : self.mHorizons}))
 
         for sig in self.mSignals:
@@ -100,16 +102,19 @@ class cSignalDecomposition:
         for (lSignal, lBestModel) in self.mBestModels.items():
             lBestModel.clean_dataframes()
         del lTrainer
+        logger.info("TRAINING_ENGINE_END " + str(self.mTrainingTime));
         
 
 
     def forecast(self , iInputDS, iHorizon):
+        logger = tsutil.get_pyaf_logger();
+        logger.info("FORECASTING_ENGINE_START " + str({"Signals" : self.mSignals, "Horizons" : self.mHorizons}));
         from . import SignalDecomposition_Forecaster as tsforec
         lTimer = tsutil.cTimer(("FORECASTING", {"Signals" : self.mSignals, "Horizon" : iHorizon}))
         lForecaster = tsforec.cSignalDecompositionForecaster()
         lForecastFrame = lForecaster.forecast(self, iInputDS, iHorizon)
         del lForecaster
-        
+        logger.info("FORECASTING_ENGINE_END " + str(lTimer.get_elapsed_time()));
         return lForecastFrame;
 
 
@@ -133,8 +138,6 @@ class cSignalDecomposition:
     def getModelInfo(self):
         for lSignal in self.mSignals:
             self.mBestModels[lSignal].getInfo()
-        logger = tsutil.get_pyaf_logger();
-        logger.info("TRAINING_TIME_IN_SECONDS " + str(self.mTrainingTime));
         self.get_competition_details()
         
 
