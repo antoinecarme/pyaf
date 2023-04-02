@@ -91,6 +91,14 @@ class cTimeInfo:
         lHelper = dtfunc.cDateTime_Helper()
         return lHelper.isPhysicalTime(self.mSignalFrame[self.mTime])
 
+    def get_moving_window_lengths_for_time_resolution(self):
+        if(not self.isPhysicalTime()):
+            return self.mOptions.mMovingWindowLengths or [];
+        if(self.mOptions.mMovingWindowLengths is not None):
+            return self.mOptions.mMovingWindowLengths            
+        lHelper = dtfunc.cDateTime_Helper()
+        return lHelper.get_moving_window_lengths_for_time_resolution(self.mResolution)
+
     
     def analyzeSeasonals(self):
         if(not self.isPhysicalTime()):

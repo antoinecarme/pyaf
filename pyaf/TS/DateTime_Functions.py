@@ -106,7 +106,7 @@ class cDateTime_Helper:
         return eTimeResolution.YEAR;
 
     
-    def get_lags_for_time_resolution(self):
+    def get_lags_for_time_resolution(self, iResolution):
         # self.mOptions.mMaxAROrder is set to 64 by default, Which covers all these resolutions.
         if(not self.isPhysicalTime()):
             return None;
@@ -116,7 +116,17 @@ class cDateTime_Helper:
         lARORder[eTimeResolution.HOUR] = 24
         lARORder[eTimeResolution.DAY] = 31
         lARORder[eTimeResolution.MONTH] = 12
-        return lARORder.get(self.mResolution , None)
+        return lARORder.get(iResolution , None)
+
+    def get_moving_window_lengths_for_time_resolution(self, iResolution):
+        # self.mOptions.mMovingAverageLengths self.mOptions.mMovingMedianLengths 
+        lWindows = {}
+        lWindows[eTimeResolution.SECOND] = [60] # Minute
+        lWindows[eTimeResolution.MINUTE] = [60] # Hour
+        lWindows[eTimeResolution.HOUR] = [12, 24] # Half-Day, Day
+        lWindows[eTimeResolution.DAY] = [5, 7, 30] # Business Week, Week, Month
+        lWindows[eTimeResolution.MONTH] = [3, 6, 12] # 3, 6 and 12 months
+        return lWindows.get(iResolution , [])
 
 
     def adaptTimeDeltaToTimeResolution(self, iResolution, iTimeDelta):

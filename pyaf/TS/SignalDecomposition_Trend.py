@@ -138,10 +138,10 @@ class cMovingAverageTrend(cAbstractTrend):
         self.mWindow = iWindow;
         self.mFormula = self.mOutName;
         self.mComplexity = tscomplex.eModelComplexity.Medium;
-        
-    def fit_specific(self):
         self.mOutName = self.mOutName + "(" + str(self.mWindow) + ")";
         self.mFormula = self.mOutName;
+        
+    def fit_specific(self):
         self.mMean = self.mSplit.getEstimPart(self.mTrendFrame)[self.mSignal].mean()
 
 
@@ -161,10 +161,10 @@ class cMovingMedianTrend(cAbstractTrend):
         self.mWindow = iWindow;
         self.mFormula = self.mOutName;
         self.mComplexity = tscomplex.eModelComplexity.High;
-        
-    def fit_specific(self):
         self.mOutName = self.mOutName + "(" + str(self.mWindow) + ")";
         self.mFormula = self.mOutName;
+        
+    def fit_specific(self):
         self.mMean = self.mSplit.getEstimPart(self.mTrendFrame)[self.mSignal].mean()
 
 
@@ -264,22 +264,22 @@ class cTrendEstimator:
 
         if(N > 2 and self.mOptions.mActiveTrends['PolyTrend']):
             self.mTrendList = self.mTrendList + [cPolyTrend()]
-                
+
+        lWindows = self.mTimeInfo.get_moving_window_lengths_for_time_resolution()
         if(N > 2 and self.mOptions.mActiveTrends['MovingAverage']):
-            for i in self.mOptions.mMovingAverageLengths:
-                if(self.needMovingTrend(self.mSignalFrame , i)):
-                    self.mTrendList = self.mTrendList + [cMovingAverageTrend(i)]
+            for lLength in lWindows:
+                if(self.needMovingTrend(self.mSignalFrame , lLength)):
+                    self.mTrendList = self.mTrendList + [cMovingAverageTrend(lLength)]
 
         if(N > 2 and self.mOptions.mActiveTrends['MovingMedian']):
-            for i in self.mOptions.mMovingMedianLengths:
-                if(self.needMovingTrend(self.mSignalFrame , i)):
-                    self.mTrendList = self.mTrendList + [cMovingMedianTrend(i)]
+            for lLength in lWindows:
+                if(self.needMovingTrend(self.mSignalFrame , lLength)):
+                    self.mTrendList = self.mTrendList + [cMovingMedianTrend(lLength)]
         if(len(self.mTrendList) == 0):
             self.mTrendList = [cConstantTrend()];
             
-        # logger = tsutil.get_pyaf_logger();
-        # logger.info("ACTIVE_TRENDS" + str(self.mOptions.mActiveTrends));
-        # logger.info("TRENDS" + str([tr.mOutName for tr in self.mTrendList]));
+        # tsutil.print_pyaf_detailed_info("ACTIVE_TRENDS" + str(self.mOptions.mActiveTrends));
+        # tsutil.print_pyaf_detailed_info("TRENDS" + str([tr.mOutName for tr in self.mTrendList]));
 
 
         
