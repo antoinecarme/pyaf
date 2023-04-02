@@ -57,6 +57,7 @@ class cModelControl:
         #  Add Multiplicative Models/Seasonals #178 
         self.mActiveDecompositionTypes = {}
 
+    def set_active_models_for_fast_mode(self):
         # now , set he default models
         self.set_active_transformations(cModelControl.gKnownTransformations[0:4]);
         self.set_active_trends(cModelControl.gKnownTrends[0:4]);
@@ -65,6 +66,14 @@ class cModelControl:
         # Add Multiplicative Models/Seasonals #178.
         # Only additive models are activated by default        
         self.set_active_decomposition_types(['T+S+R']);
+
+    def set_active_models_for_slow_mode(self):
+        self.set_active_transformations(cModelControl.gKnownTransformations);
+        self.set_active_trends(cModelControl.gKnownTrends);
+        self.set_active_periodics(cModelControl.gKnownPeriodics);
+        self.set_active_autoregressions(cModelControl.gKnownAutoRegressions);
+        self.set_active_decomposition_types(cModelControl.gKnownDecompositionTypes);
+
 
     def check_model_type_validity(self, category, allowed_values, value):
         from . import Utils as tsutil
@@ -225,6 +234,7 @@ class cSignalDecomposition_Options(cModelControl):
         
         
     def enable_slow_mode(self):
+        self.set_active_models_for_slow_mode()
         self.mQuantiles = [5, 10, 20]; # quintiles, deciles, and vingtiles;)
         self.mMovingAverageLengths = [5, 7, 12, 24 , 30, 60];
         self.mMovingMedianLengths = [5, 7, 12, 24 , 30, 60];
@@ -232,11 +242,6 @@ class cSignalDecomposition_Options(cModelControl):
         # use unlimited cycle lengths in slow mode
         self.mCycleLengths = None;
 
-        self.set_active_transformations(cModelControl.gKnownTransformations);
-        self.set_active_trends(cModelControl.gKnownTrends);
-        self.set_active_periodics(cModelControl.gKnownPeriodics);
-        self.set_active_autoregressions(cModelControl.gKnownAutoRegressions);
-        self.set_active_decomposition_types(cModelControl.gKnownDecompositionTypes);
         
         self.mMaxAROrder = 64;
         self.mFilterSeasonals = False
@@ -245,6 +250,7 @@ class cSignalDecomposition_Options(cModelControl):
         self.mActivateSampling = False
 
     def enable_fast_mode(self):
+        self.set_active_models_for_fast_mode()
         self.mQuantiles = [5, 10, 20]; # quintiles, deciles, and vingtiles;)
         self.mMovingAverageLengths = [5, 7, 12, 24 , 30, 60];
         self.mMovingMedianLengths = [5, 7, 12, 24 , 30, 60];
@@ -257,6 +263,7 @@ class cSignalDecomposition_Options(cModelControl):
 
     # Add a low-memory mode for Heroku #25
     def enable_low_memory_mode(self):
+        self.set_active_models_for_fast_mode()
         self.mMaxAROrder = 7;
         self.set_active_transformations(['None']);
         self.mParallelMode = False;
