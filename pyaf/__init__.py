@@ -16,4 +16,7 @@ from . import ForecastEngine, HierarchicalForecastEngine
 
 __version__ = '5.0-rc2'
 
+def activate_timer_logging():
+    import pyaf.TS.Utils as tsutil
+    tsutil.activate_timer_logging()
 
