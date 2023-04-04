@@ -236,7 +236,8 @@ class cSignalDecomposition_Options(cModelControl):
         
     def enable_slow_mode(self):
         self.set_active_models_for_slow_mode()
-        self.mQuantiles = [5, 10, 20]; # quintiles, deciles, and vingtiles;)
+        self.mQuantiles = [ 20 ]; # vingtiles + use optimal rule
+        
         # PyAF does not detect complex seasonal patterns #73.
         # use unlimited cycle lengths in slow mode
         self.mCycleLengths = None;
@@ -250,8 +251,7 @@ class cSignalDecomposition_Options(cModelControl):
 
     def enable_fast_mode(self):
         self.set_active_models_for_fast_mode()
-        self.mQuantiles = [5, 10, 20]; # quintiles, deciles, and vingtiles;)
-        
+        self.mQuantiles = [ 20 ]; # vingtiles + use diaconis rule
         self.mCycleLengths = [5, 7, 12, 24 , 30, 60];
 
         self.mMaxAROrder = 64;

@@ -188,14 +188,23 @@ class cSignalTransform_Quantize(cAbstractSignalTransform):
     def get_name(self, iSig):
         return "Quantized_" + str(self.mQuantiles) + "_" + str(iSig);
 
-    def is_applicable(self, sig):
-        N = sig.shape[0];
-        if(N < (5 * self.mQuantiles)) :
-            return False;
-        return True;
+    def get_optimal_bin_number(self, sig):
+        # https://en.wikipedia.org/wiki/Histogram#Variable_bin_widths
+        # This choice of bins is motivated by maximizing the power of a Pearson chi-squared
+        # test testing whether the bins do contain equal numbers of samples.
+        # Q = 2*n^(2/5)
+        N = sig.shape[0]
+        Q = 2.0 * np.power(N , 2.0/5.0)
+        Q = max(1, int(Q))
+        return Q
     
     def specific_fit(self , sig):
+        Q_optimal = self.get_optimal_bin_number(sig)
         Q = self.mQuantiles;
+        Q = min(Q, Q_optimal)
+        # tsutil.print_pyaf_detailed_info(
+        #    "TRANSFORMATION_QUANTIZATION_OPTIMAL_RULE" ,
+        #    sig.shape[0], self.mQuantiles, Q_optimal, Q);
         q = pd.Series(range(0,Q)).apply(lambda x : np.quantile(sig, x/Q))
         self.mCurve = q.to_dict()
         (self.mMin, self.mMax) = (min(self.mCurve.keys()), max(self.mCurve.keys()))
