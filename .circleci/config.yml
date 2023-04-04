@@ -85,7 +85,7 @@ jobs:
           name: Changed Logs
           command: |
             echo "CHANGED_LOGS_START"
-            grep EXEC log.build-test
+            grep -h EXEC_THIS logs/*.log.diff
             echo "CHANGED_LOGS_END"
       - store_artifacts:
             path: /tmp/artifacts
