@@ -68,13 +68,26 @@ jobs:
             export NUMEXPR_NUM_THREADS=1
             export OMP_NUM_THREADS=1
             export NUMEXPR_MAX_THREADS=6
-            make -f tests/Makefile -j 8 build-test
+            make -f tests/Makefile -j 8 build-test &> log.build-test &
+            tail -f log.build-test
       - run:
           name: Upload logs
           command: |
-            python scripts/upload_to_chunk.io.py
+            # python scripts/upload_to_chunk.io.py
             mkdir /tmp/artifacts
-            tar cvfz /tmp/artifacts/last_logs.tar.gz ./logs ./outputs
+            tar cvfz /tmp/artifacts/last_logs.tar.gz log.build-test ./logs ./outputs
+      - run:
+          name: Error Summary
+          command: |
+	    echo "ERROR_SUMMARY_START"
+	    grep Error logs/*.log | grep -v ErrorMean  | grep -v ErrorStdDev  | grep -v ErrorMessage
+	    echo "ERROR_SUMMARY_END"
+      - run:
+          name: Changed Logs
+          command: |
+	    echo "CHANGED_LOGS_START"
+	    grep EXEC log.build-test
+	    echo "CHANGED_LOGS_END"
       - store_artifacts:
             path: /tmp/artifacts
       - run:
