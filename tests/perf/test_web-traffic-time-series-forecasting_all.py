@@ -8,6 +8,7 @@ import pyaf.ForecastEngine as autof
 
 df = pd.read_csv("data/web-traffic-time-series-forecasting/bench_4311.csv")
 df['Date'] = df['Date'].apply(lambda x : datetime.datetime.strptime(x, "%Y-%m-%d"))
+df.columns = [col.replace("43", "Sig_43") for col in df.columns]
 df = df.fillna(0.0)
 
 #df.tail(10)
@@ -29,8 +30,10 @@ H = 60;
 # lEngine.mOptions.enable_slow_mode();
 # lEngine.mOptions.mDebugPerformance = True;
 
-for signal in df.columns[1:]:
-    lEngine.train(df , "Date" , signal, H);
+lSignals = [col for col in df.columns[1:]]
+
+for s in range(1):
+    lEngine.train(df , "Date" , lSignals, H);
     lEngine.getModelInfo();
     
 
@@ -42,7 +45,10 @@ for signal in df.columns[1:]:
     dfapp_out = lEngine.forecast(dfapp_in, H);
     dfapp_out.tail(2 * H)
     print("Forecast Columns " , dfapp_out.columns);
-    Forecast_DF = dfapp_out[["Date" , signal, signal + '_Forecast']]
+    lForecastColumns = ["Date"]
+    for signal in lSignals:
+        lForecastColumns = lForecastColumns + [signal, signal + '_Forecast']
+    Forecast_DF = dfapp_out[ lForecastColumns ]
     print(Forecast_DF.info())
     print("Forecasts\n" , Forecast_DF.tail(H));
 
