@@ -79,13 +79,13 @@ jobs:
           name: Error Summary
           command: |
             echo "ERROR_SUMMARY_START"
-            grep Error logs/*.log | grep -v ErrorMean  | grep -v ErrorStdDev  | grep -v ErrorMessage
+            grep Error logs/*.log | grep -v ErrorMean  | grep -v ErrorStdDev  | grep -v ErrorMessage || true
             echo "ERROR_SUMMARY_END"
       - run:
           name: Changed Logs
           command: |
             echo "CHANGED_LOGS_START"
-            grep -h EXEC_THIS logs/*.log.diff
+            grep -h EXEC_THIS logs/*.log.diff || true
             echo "CHANGED_LOGS_END"
       - store_artifacts:
             path: /tmp/artifacts
