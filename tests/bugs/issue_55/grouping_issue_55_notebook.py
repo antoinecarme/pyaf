@@ -1,4 +1,6 @@
-
+import matplotlib
+matplotlib.use('Agg')
+    
 import pandas as pd
 
 import datetime
@@ -32,7 +34,7 @@ Countries = ['GB', 'US', 'DE', 'BE', 'CN', 'JP', 'CH', 'HK', 'NL', 'CA' , 'OTHER
 len(Wines) * len(Variants) * len(Countries) 
 
 
-from IPython.display import display
+# from IPython.display import display
 
 
 # In[13]:
@@ -133,11 +135,12 @@ print(df_perf)
 
 lEngine.mSignalHierarchy.plot()
 
-CN_Engine = lEngine.mSignalHierarchy.mModels # __CN is at hierarchical level 2
+AllSignals_Engine = lEngine.mSignalHierarchy.mModels # __CN is at hierarchical level 2
 
-CN_Engine.getModelInfo()
+AllSignals_Engine.getModelInfo()
 
-CN_Engine.standardPlots("outputs/bugs_hier_grouping_issue_55")
+CN_Model = AllSignals_Engine.mSignalDecomposition.mBestModels['__CN'] 
+CN_Model.standardPlots("outputs/bugs_hier_grouping_issue_55_CN")
 
 lEngine.mOptions.mHierarchicalCombinationMethod = ["BU" , 'TD' , 'MO' , 'OC'];
 dfapp_out = lEngine.forecast(train_df, H);
@@ -154,21 +157,25 @@ print(dfapp_out.columns)
 dfapp_out.info()
 
 for country in Countries:
-    dfapp_out.plot('Month' , 
-                    [country , country + '_Forecast' , 
-                     country + '_BU_Forecast',  
-                     country + '_PHA_TD_Forecast',  
-                     country + '_AHP_TD_Forecast'  ,  
-                     country + '_MO_Forecast' ,
-                     country + '_OC_Forecast'  ],
-                figsize=(32 , 12)).legend(fontsize=18)
+    plot = dfapp_out.plot('Month' , 
+                          [country , country + '_Forecast' , 
+                           country + '_BU_Forecast',  
+                           country + '_PHA_TD_Forecast',  
+                           country + '_AHP_TD_Forecast'  ,  
+                           country + '_MO_Forecast' ,
+                           country + '_OC_Forecast'  ],
+                          figsize=(32 , 12)).legend(fontsize=18)
+    fig = plot.get_figure()
+    fig.savefig("outputs/bugs_hier_grouping_issue_55_Forecast_" + country + ".png")
 
 world = ''
-dfapp_out.plot('Month' , 
-                [world , world + 'Forecast' , 
-                 world + 'BU_Forecast',  
-                 world + 'PHA_TD_Forecast',  
-                 world + 'AHP_TD_Forecast'  ,  
-                 world + 'MO_Forecast' ,
-                 world + 'OC_Forecast'  ],
-                figsize=(32 , 12)).legend(fontsize=18)
+plot = dfapp_out.plot('Month' , 
+                      [world , world + 'Forecast' , 
+                       world + 'BU_Forecast',  
+                       world + 'PHA_TD_Forecast',  
+                       world + 'AHP_TD_Forecast'  ,  
+                       world + 'MO_Forecast' ,
+                       world + 'OC_Forecast'  ],
+                      figsize=(32 , 12)).legend(fontsize=18)
+fig = plot.get_figure()
+fig.savefig("outputs/bugs_hier_grouping_issue_55_Forecast_world_.png")
