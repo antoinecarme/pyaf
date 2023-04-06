@@ -10,6 +10,7 @@ H = 365
 N = H * 10
 lDateColumn = "Date"
 lSignalVar = "Signal";
+lSignalVar = lSignalVar + "_".join(PERIODS)
 START_TIME = "2001-01-25"
 
 # generate a daily signal covering one year 2016 in a pandas dataframe
@@ -49,6 +50,8 @@ lEngine.mOptions.mHierarchicalCombinationMethod = ["BU" , 'TD' , 'MO' , 'OC'];
 
 lSignalHierarchy = lEngine.train(df_train , lDateColumn, lSignalVar, H, lHierarchy, None);
 lEngine.getModelInfo();
+
+lEngine.standardPlots("outputs/temporal_demo_hourly_" + lSignalVar);
 
 dfapp_in = df_train.copy();
 dfapp_in.info()
