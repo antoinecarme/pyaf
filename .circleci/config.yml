@@ -70,12 +70,6 @@ jobs:
             export NUMEXPR_MAX_THREADS=6
             make -f tests/Makefile -j 8 build-test 
       - run:
-          name: Upload logs
-          command: |
-            # python scripts/upload_to_chunk.io.py
-            mkdir /tmp/artifacts
-            tar cvfz /tmp/artifacts/last_logs.tar.gz ./logs ./outputs
-      - run:
           name: Error Summary
           command: |
             echo "ERROR_SUMMARY_START"
@@ -87,6 +81,18 @@ jobs:
             echo "CHANGED_LOGS_START"
             grep -h EXEC_THIS logs/*.log.diff || true
             echo "CHANGED_LOGS_END"
+      - run:
+          name: Plot Videos
+          command: |
+            echo "PLOT_VIDEOS_START"
+            python scripts/create_plot_movies.py
+            echo "PLOT_VIDEOS_END"
+      - run:
+          name: Upload logs
+          command: |
+            # python scripts/upload_to_chunk.io.py
+            mkdir /tmp/artifacts
+            tar cvfz /tmp/artifacts/last_logs.tar.gz ./logs ./outputs
       - store_artifacts:
             path: /tmp/artifacts
       - run:
