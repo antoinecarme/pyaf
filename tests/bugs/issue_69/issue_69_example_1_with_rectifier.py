@@ -22,6 +22,7 @@ lEngine.mOptions.mForecastRectifier = "relu"
 lEngine.train(iInputDS = df_train, iTime = 'Date', iSignal = 'Signal', iHorizon = 7);
 lEngine.getModelInfo() # => relative error 7% (MAPE)
 
+lEngine.standardPlots("outputs/issue_69_Signal_with_rectifier")
 
 df_forecast = lEngine.forecast(iInputDS = df_train, iHorizon = 7)
 min_forecast = df_forecast['Signal_Forecast'].min()

@@ -23,6 +23,7 @@ lEngine = autof.cForecastEngine()
 lEngine.train(df , 'Date' , 'Close', 7);
 lEngine.getModelInfo();
 
+lEngine.standardPlots("outputs/yahoo_nasdaq_AAPL")
 
 dfapp_out = lEngine.forecast(df, 7);
 #dfapp_out.to_csv("outputs/ozone_apply_out.csv")

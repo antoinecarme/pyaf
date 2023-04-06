@@ -21,7 +21,7 @@ H = b1.mHorizon[stock]
 lEngine.train(df , b1.mTimeVar , b1.mSignalVar , H)
 lEngine.getModelInfo();
 
-
+lEngine.standardPlots("outputs/stock_prices_cac40")
 
 dfapp_in = df.copy();
 dfapp_in.tail()

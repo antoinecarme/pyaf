@@ -22,6 +22,7 @@ def analyze_dataset(name , horizon):
     N = df.shape[0]
     lEngine.train(df , 'Date' , signal , horizon)
     lEngine.getModelInfo()
+    lEngine.standardPlots("outputs/expsmooth_" + name + "_" + str(horizon))
     lPerf_H = lEngine.mSignalDecomposition.mBestModel.mForecastPerfs[signal + "_Forecast_" + str(horizon)]
     print("PERFORMANCE MAPE_FORECAST" , signal, lPerf_H.mMAPE)
     return lEngine

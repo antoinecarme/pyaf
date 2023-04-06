@@ -61,6 +61,8 @@ def test_transform(iTranform, df_train):
     lEngine.train(iInputDS = df_train, iTime = 'Date', iSignal = 'Signal', iHorizon = 7);
     lEngine.getModelInfo() # => relative error 7% (MAPE)
 
+    lEngine.standardPlots("transform_stability_test_" + iTranform)
+    
     # predict one week
     df_forecast = lEngine.forecast(iInputDS = df_train, iHorizon = 7)
 

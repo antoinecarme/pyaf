@@ -16,3 +16,5 @@ lExogenousData = (df_exog , [lExogVar])
 lEngine.train(df_sig , lTimeVar , lSigVar, H, lExogenousData);
 
 lEngine.getModelInfo();
+
+lEngine.standardPlots("outputs/fpp2_insurance_submitted")
