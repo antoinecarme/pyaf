@@ -2372,6 +2372,9 @@ xgb/test_ozone_xgbx_exogenous.py  :
 all:  artificial basic_checks bugs cross_validation croston exog expsmooth func HeartRateTimeSeries heroku hierarchical  HourOfWeek model_control perf svr transformations  neuralnet real-life  time_res perfs demos xgb xeon-phi-parallel sampling temporal_hierarchy WeekOfMonth missing_data  probabilistic_forecasting lgbm perf_MedAE perf_LnQ plots multiplicative_seasonal pytorch perf_MASE_RMSSE individual_components time_logging 
 	
 
-build-test :  demos basic_checks cross_validation croston exog heroku hierarchical model_control perfs svr transformations func real-life  time_res xgb sampling HourOfWeek WeekOfMonth missing_data lgbm perf_MedAE perf_LnQ multiplicative_seasonal perf_MASE_RMSSE bugs probabilistic_forecasting plots individual_components time_logging 
+build-test :  HeartRateTimeSeries HourOfWeek WeekOfMonth basic_checks bugs cross_validation croston demos exog expsmooth func heroku hierarchical individual_components lgbm missing_data model_control multiplicative_seasonal perf_LnQ perf_MASE_RMSSE perf_MedAE perfs plots probabilistic_forecasting real-life sampling svr time_logging time_res transformations xgb 
+	
+
+long-tests :  artificial neuralnet perf pytorch temporal_hierarchy xeon-phi-parallel 
 	
 

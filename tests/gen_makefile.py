@@ -60,4 +60,15 @@ print("all: " , str1 , "\n\t\n");
 
 str2 = "demos basic_checks cross_validation croston exog heroku hierarchical model_control perfs svr transformations func real-life  time_res xgb sampling HourOfWeek WeekOfMonth missing_data lgbm perf_MedAE perf_LnQ multiplicative_seasonal perf_MASE_RMSSE bugs probabilistic_forecasting plots individual_components time_logging";
 
+str2 = str2 + " expsmooth HeartRateTimeSeries"
+str2 = str2.split()
+str2 = " ".join(sorted(str2))
+
 print("build-test : " , str2 , "\n\t\n");
+
+str3 = "artificial neuralnet perf pytorch temporal_hierarchy xeon-phi-parallel"
+
+str3 = str3.split()
+str3 = " ".join(sorted(str3))
+
+print("long-tests : " , str3 , "\n\t\n");
