@@ -62,13 +62,6 @@ class cHierarchicalForecastEngine:
         lForecastPerf.compute(actual, predicted, name);
         return lForecastPerf;
 
-    def generateCode(self, iDSN = None, iDialect = None):
-        from CodeGen import TS_CodeGen_Objects as tscodegen
-        lCodeGenerator = tscodegen.cDecompositionCodeGenObject(iDSN, iDialect);
-        lSQL = lCodeGenerator.generateCode(self);
-        # print("GENERATED_SQL_CODE" , lSQL);
-        return lSQL;
-
     def create_signal_hierarchy(self , iInputDS, iTime, iSignal, iHorizon, iHierarchy, iExogenousData = None):
         lSignalHierarchy = None;
         if(iHierarchy['Type'] == "Grouped"):

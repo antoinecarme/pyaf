@@ -67,7 +67,6 @@ def run_bench_process(a):
         set_process_name(a.getName())
         tester = cGeneric_OneSignal_Tester(a.mTSSpec , a.mBenchName);
         a.mResult = tester;
-        tester.mTestCodeGeneration = False;
         tester.mParallelMode = a.mParallelMode
         tester.testSignal(a.mSignal, a.mHorizon)
         print("BENCHMARK_SUCCESS '" + a.getName() + "'");
@@ -115,7 +114,6 @@ class cGeneric_OneSignal_Tester:
         self.mTestPerfData = {}
         self.mTrainTime = {};
         self.mBenchName = bench_name;
-        self.mTestCodeGeneration = False;
         self.mTestIdempotency = False;
         self.mParallelMode = True;
         self.mPlot = None
@@ -252,13 +250,6 @@ class cGeneric_OneSignal_Tester:
         assert(iModel.to_json() == lReloadedObject.to_json())
         return lReloadedObject;
 
-    def generateCode(self, iSignal, iHorizon):
-        from  pyaf.CodeGen import TS_CodeGenerator as tscodegen
-        lAutoF = self.mAutoForecastBySignal[iSignal  + "_" + str(iHorizon)]
-        lCodeGenerator = tscodegen.cTimeSeriesCodeGenerator();
-        lSQL = lCodeGenerator.testGeneration(lAutoF);
-        del lCodeGenerator;
-
     def getTestPerfs(self, iSignal, iHorizon):
         self.getApplyInDatset(iSignal, iHorizon);
         self.applyModel(iSignal, iHorizon);
@@ -270,8 +261,6 @@ class cGeneric_OneSignal_Tester:
         print(iHorizon , self.mPredicted.head(iHorizon));
         self.reportActualAndPredictedData(iSignal, iHorizon);
         self.computePerfOnForecasts(iSignal, iHorizon);
-        if(self.mTestCodeGeneration):
-            self.generateCode(iSignal, iHorizon);
         
     def dumpForecastPerfs(self, iSignal, iHorizon):
         lAutoF1 = self.mAutoForecastBySignal[iSignal  + "_" + str(iHorizon)]
@@ -378,7 +367,6 @@ class cGeneric_Tester:
         # print("BENCH_DATA" , bench_name, tsspec)
         self.mTSSpec = tsspec;
         self.mBenchName = bench_name;
-        self.mTestCodeGeneration = False;
         self.mTestIdempotency = False;
         self.mType = "OneDataFramePerSignal";
         if(hasattr(self.mTSSpec , "mFullDataset")):
