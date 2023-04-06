@@ -30,6 +30,8 @@ for cyc in lValues:
     lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H);
     lEngine.getModelInfo();
 
+    lEngine.standardPlots("outputs/issue_82_long_cycles_" + str(cyc));
+    
     lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
 
     dfapp_in = df.copy();

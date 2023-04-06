@@ -10,3 +10,5 @@ lEngine = autof.cForecastEngine()
 
 lEngine.train(iInputDS = df_train, iTime = 'time', iSignal = 'signal', iHorizon = 36);
 lEngine.getModelInfo() #
+
+lEngine.standardPlots("outputs/issue_73_1_fast_mode");

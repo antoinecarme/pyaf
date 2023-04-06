@@ -12,3 +12,5 @@ lEngine.mOptions.mCycleLengths = range(2,500);
 
 lEngine.train(iInputDS = df_train, iTime = 'time', iSignal = 'signal', iHorizon = 36);
 lEngine.getModelInfo() #
+
+lEngine.standardPlots("outputs/issue_73_1_slow_mode_more_cycles");

@@ -17,3 +17,4 @@ lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H);
 lEngine.getModelInfo();
 
 
+lEngine.standardPlots("outputs/issue_70_keep_all_seasonals");
