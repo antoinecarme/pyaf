@@ -58,26 +58,23 @@ class cModelSelector_Voting:
             H = value["Horizon"]
 
             lVoting = lVotingScores[ modelname ]
-            row = [lSplit, lTranformName, lDecompType, lModelFormula[3], lModelFormula, lModelCategory, lComplexity,
-                   lFitPerf[lForecastColumn + "_" + str(1)].get(lCriterion),
-                   lFitPerf[lForecastColumn + "_" + str(H)].get(lCriterion), 
-                   lForecastPerf[lForecastColumn + "_" + str(1)].get(lCriterion),
-                   lForecastPerf[lForecastColumn + "_" + str(H)].get(lCriterion),
-                   lTestPerf[lForecastColumn + "_" + str(1)].get(lCriterion),
-                   lTestPerf[lForecastColumn + "_" + str(H)].get(lCriterion),
-                   lVoting]
+            row = [lSplit, lTranformName, lDecompType, lModelFormula[3], lModelFormula, lModelCategory, lComplexity]
+            for h in range(1, H+1):
+                row = row + [lFitPerf[lForecastColumn + "_" + str(h)].get(lCriterion),
+                             lForecastPerf[lForecastColumn + "_" + str(h)].get(lCriterion),
+                             lTestPerf[lForecastColumn + "_" + str(h)].get(lCriterion)]
+            row = row + [ lVoting ]
             rows_list.append(row);
 
-        self.mTrPerfDetails =  pd.DataFrame(rows_list, columns=
-                                            ('Split', 'Transformation', 'DecompositionType',
-                                             'Model', 'DetailedFormula', 'Category', 'Complexity',
-                                             'Fit_' + self.mOptions.mModelSelection_Criterion + "_1",
-                                             'Fit_' + self.mOptions.mModelSelection_Criterion + "_H",
-                                             'Forecast_' + self.mOptions.mModelSelection_Criterion + "_1",
-                                             'Forecast_' + self.mOptions.mModelSelection_Criterion + "_H",
-                                             'Test_' + self.mOptions.mModelSelection_Criterion + "_1",
-                                             'Test_' + self.mOptions.mModelSelection_Criterion + "_H",
-                                             "Voting")) 
+        Cols = ['Split', 'Transformation', 'DecompositionType',
+                'Model', 'DetailedFormula', 'Category', 'Complexity']
+        for h in range(1, H+1):
+            Cols = Cols + ['Fit_' + self.mOptions.mModelSelection_Criterion + "_" + str(h),
+                           'Forecast_' + self.mOptions.mModelSelection_Criterion + "_" + str(h),
+                           'Test_' + self.mOptions.mModelSelection_Criterion + "_" + str(h)]
+            
+        Cols = Cols + ["Voting"]
+        self.mTrPerfDetails =  pd.DataFrame(rows_list, columns= Cols)
         # tsutil.print_pyaf_detailed_info(self.mTrPerfDetails.head(self.mTrPerfDetails.shape[0]));
         lIndicator = 'Voting';
         lBestPerf = self.mTrPerfDetails[ lIndicator ].max();
@@ -96,7 +93,7 @@ class cModelSelector_Voting:
         # tsutil.print_pyaf_detailed_info(self.mPerfsByModel);
         self.mBestModelName = lInterestingModels['DetailedFormula'].iloc[0]
         # tsutil.print_pyaf_detailed_info("BEST_MODEL", lBestName, lBestModel)
-        self.mModelShortList = lInterestingModels[['Transformation', 'DecompositionType', 'Model', lIndicator, 'Complexity', 'Forecast_' + self.mOptions.mModelSelection_Criterion + "_1",  'Forecast_' + self.mOptions.mModelSelection_Criterion + "_H"]] 
+        self.mModelShortList = lInterestingModels[['Transformation', 'DecompositionType', 'Model', lIndicator, 'Complexity', 'Forecast_' + self.mOptions.mModelSelection_Criterion + "_1",  'Forecast_' + self.mOptions.mModelSelection_Criterion + "_" + str(H)]] 
         # tsutil.print_pyaf_detailed_info(self.mModelShortList.head());
         return (iSignal, self.mBestModelName, self.mModelShortList)
 
