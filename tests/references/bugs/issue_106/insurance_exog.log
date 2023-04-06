@@ -1,5 +1,4 @@
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signals': ['Quotes'], 'Horizons': {'Quotes': 4}}))
-INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['Quotes'], 'Transformations': [('Quotes', 'None', '_', 'T+S+R'), ('Quotes', 'None', 'Diff_', 'T+S+R'), ('Quotes', 'None', 'RelDiff_', 'T+S+R'), ('Quotes', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['Quotes'], 'Horizons': {'Quotes': 4}}
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 40 entries, 0 to 39
 Data columns (total 3 columns):
@@ -28,28 +27,7 @@ Data columns (total 2 columns):
  1   TV.advert  40 non-null     float64
 dtypes: float64(2)
 memory usage: 772.0 bytes
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Quotes', 'Horizon': 4, 'Transformation': '_Quotes', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Quotes', 'Horizon': 4, 'Transformation': 'CumSum_Quotes', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Quotes', 'Horizon': 4, 'Transformation': 'RelDiff_Quotes', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Quotes', 'Horizon': 4, 'Transformation': 'Diff_Quotes', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.011, ('TRAINING', {'Signal': 'Quotes', 'Horizon': 4, 'Transformation': '_Quotes', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.012, ('TRAINING', {'Signal': 'Quotes', 'Horizon': 4, 'Transformation': 'CumSum_Quotes', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.101, ('TRAINING', {'Signal': 'Quotes', 'Horizon': 4, 'Transformation': 'RelDiff_Quotes', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.111, ('TRAINING', {'Signal': 'Quotes', 'Horizon': 4, 'Transformation': 'Diff_Quotes', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.299, ('SIGNAL_TRAINING', {'Signals': ['Quotes'], 'Transformations': [('Quotes', 'None', '_', 'T+S+R'), ('Quotes', 'None', 'Diff_', 'T+S+R'), ('Quotes', 'None', 'RelDiff_', 'T+S+R'), ('Quotes', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
-INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signals': ['Quotes'], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_START', ('VOTING_MODEL_SELECTION', {'Signal': 'Quotes'}))
-INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION_COMPUTE_VOTING_SCORES', 32))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.002, ('MODEL_SELECTION_COMPUTE_VOTING_SCORES', 32))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.007, ('VOTING_MODEL_SELECTION', {'Signal': 'Quotes'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.007, ('MODEL_SELECTION', {'Signals': ['Quotes'], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'BestModels': [('Quotes', 'RelDiff_Quotes_ConstantTrend_residue_Cycle_None_residue_ARX(10)')], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Quotes', 'Model': 'RelDiff_Quotes_ConstantTrend_residue_Cycle_None_residue_ARX(10)'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.309, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Quotes', 'Model': 'RelDiff_Quotes_ConstantTrend_residue_Cycle_None_residue_ARX(10)'}))
-INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Quotes'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.292, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Quotes'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.601, ('FINALIZE_TRAINING', {'BestModels': [('Quotes', 'RelDiff_Quotes_ConstantTrend_residue_Cycle_None_residue_ARX(10)')], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.914, ('TRAINING', {'Signals': ['Quotes'], 'Horizons': {'Quotes': 4}}))
+INFO:pyaf.std:TRAINING_ENGINE_END 3.99
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Index' TimeMin=2002.0 TimeMax=2004.25 TimeDelta=0.08333333333333333 Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Quotes' Length=40  Min=8.39468 Max=18.43898  Mean=13.604347 StdDev=2.369165
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='RelDiff_Quotes' Min=-0.330861 Max=0.465304  Mean=0.01401 StdDev=0.151884
@@ -90,12 +68,10 @@ INFO:pyaf.std:EXOGENOUS_VARIABLE_DETAIL_CATEGORICAL_EXCLUDED 0 []
 INFO:pyaf.std:EXOGENOUS_VARIABLE_DETAIL_CONTINUOUS 'TV.advert' {'Mean': 7.933625035714286, 'StdDev': 1.3056987790054533}
 INFO:pyaf.std:EXOGENOUS_VARIABLE_DETAIL_CONTINUOUS_EXCLUDED 0 []
 INFO:pyaf.std:EXOGENOUS_VARIABLE_DETAIL_END
-INFO:pyaf.std:TRAINING_TIME_IN_SECONDS 2.913
 INFO:pyaf.std:COMPETITION_DETAIL_START 'Quotes'
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Quotes' 0 {'Transformation': 'RelDiff_Quotes', 'DecompositionType': 'T+S+R', 'Model': 'RelDiff_Quotes_ConstantTrend_residue_Cycle_None_residue_ARX(10)', 'Voting': 73.0, 'Complexity': 'LMSSS', 'Forecast_MASE_1': 1.9996, 'Forecast_MASE_H': 0.9154}
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Quotes' 1 {'Transformation': 'RelDiff_Quotes', 'DecompositionType': 'T+S+R', 'Model': 'RelDiff_Quotes_ConstantTrend_residue_zeroCycle[0.0]_residue_ARX(10)', 'Voting': 73.0, 'Complexity': 'LMSSS', 'Forecast_MASE_1': 1.9996, 'Forecast_MASE_H': 0.9154}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Quotes' 0 {'Transformation': 'RelDiff_Quotes', 'DecompositionType': 'T+S+R', 'Model': 'RelDiff_Quotes_ConstantTrend_residue_Cycle_None_residue_ARX(10)', 'Voting': 73.0, 'Complexity': 'LMSSS', 'Forecast_MASE_1': 1.9996, 'Forecast_MASE_2': 0.7878, 'Forecast_MASE_3': 0.9525, 'Forecast_MASE_4': 0.9154}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Quotes' 1 {'Transformation': 'RelDiff_Quotes', 'DecompositionType': 'T+S+R', 'Model': 'RelDiff_Quotes_ConstantTrend_residue_zeroCycle[0.0]_residue_ARX(10)', 'Voting': 73.0, 'Complexity': 'LMSSS', 'Forecast_MASE_1': 1.9996, 'Forecast_MASE_2': 0.7878, 'Forecast_MASE_3': 0.9525, 'Forecast_MASE_4': 0.9154}
 INFO:pyaf.std:COMPETITION_DETAIL_END 'Quotes'
-INFO:pyaf.timing:('OPERATION_START', ('PLOTTING', {'Signals': ['Quotes']}))
 INFO:pyaf.std:SAVING_PLOT ('Trend', 'outputs/insurance_Quotes_Trend_decomp_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Cycle', 'outputs/insurance_Quotes_Cycle_decomp_output.png')
 INFO:pyaf.std:SAVING_PLOT ('AR', 'outputs/insurance_Quotes_AR_decomp_output.png')
@@ -103,11 +79,10 @@ INFO:pyaf.std:SAVING_PLOT ('TransformedForecast', 'outputs/insurance_Quotes_Tran
 INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/insurance_Quotes_Forecast_decomp_output.png')
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/insurance_Quotes_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/insurance_Quotes_quantiles_output.png')
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 15.791, ('PLOTTING', {'Signals': ['Quotes']}))
-INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['Quotes'], 'Horizon': 4}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.492, ('FORECASTING', {'Signals': ['Quotes'], 'Horizon': 4}))
-Forecast Columns  Index(['Index', 'Quotes', 'row_number', 'Index_Normalized', 'Quotes_scaled',
-       'RelDiff_Quotes', 'RelDiff_Quotes_ConstantTrend',
+INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['Quotes'], 'Horizons': {'Quotes': 4}}
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.192
+Forecast Columns  Index(['Index', 'Quotes', 'Quotes_scaled', 'RelDiff_Quotes', 'row_number',
+       'Index_Normalized', 'RelDiff_Quotes_ConstantTrend',
        'RelDiff_Quotes_ConstantTrend_residue',
        'RelDiff_Quotes_ConstantTrend_residue_Cycle_None',
        'RelDiff_Quotes_ConstantTrend_residue_Cycle_None_residue', 'TV.advert',
@@ -227,7 +202,7 @@ Forecasts
         },
         "Model_Selection_Criterion": "MASE"
     },
-    "Training_Time": 2.913
+    "Training_Time": 3.99
 }
 </ModelInfo>
 

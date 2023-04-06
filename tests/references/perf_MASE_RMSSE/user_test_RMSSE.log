@@ -1,27 +1,5 @@
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signals': ['y'], 'Horizons': {'y': 48}}))
-INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['y'], 'Transformations': [('y', 'None', '_', 'T+S+R'), ('y', 'None', 'Diff_', 'T+S+R'), ('y', 'None', 'RelDiff_', 'T+S+R'), ('y', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'y', 'Horizon': 48, 'Transformation': '_y', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'y', 'Horizon': 48, 'Transformation': 'RelDiff_y', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'y', 'Horizon': 48, 'Transformation': 'Diff_y', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'y', 'Horizon': 48, 'Transformation': 'CumSum_y', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 15.778, ('TRAINING', {'Signal': 'y', 'Horizon': 48, 'Transformation': 'RelDiff_y', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 16.797, ('TRAINING', {'Signal': 'y', 'Horizon': 48, 'Transformation': '_y', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 17.405, ('TRAINING', {'Signal': 'y', 'Horizon': 48, 'Transformation': 'Diff_y', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 19.092, ('TRAINING', {'Signal': 'y', 'Horizon': 48, 'Transformation': 'CumSum_y', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 19.187, ('SIGNAL_TRAINING', {'Signals': ['y'], 'Transformations': [('y', 'None', '_', 'T+S+R'), ('y', 'None', 'Diff_', 'T+S+R'), ('y', 'None', 'RelDiff_', 'T+S+R'), ('y', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
-INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signals': ['y'], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_START', ('VOTING_MODEL_SELECTION', {'Signal': 'y'}))
-INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION_COMPUTE_VOTING_SCORES', 96))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.605, ('MODEL_SELECTION_COMPUTE_VOTING_SCORES', 96))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.646, ('VOTING_MODEL_SELECTION', {'Signal': 'y'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.647, ('MODEL_SELECTION', {'Signals': ['y'], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'BestModels': [('y', '_y_ConstantTrend_residue_Cycle_24_residue_NoAR')], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'y', 'Model': '_y_ConstantTrend_residue_Cycle_24_residue_NoAR'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.923, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'y', 'Model': '_y_ConstantTrend_residue_Cycle_24_residue_NoAR'}))
-INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'y'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.757, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'y'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.682, ('FINALIZE_TRAINING', {'BestModels': [('y', '_y_ConstantTrend_residue_Cycle_24_residue_NoAR')], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 24.529, ('TRAINING', {'Signals': ['y'], 'Horizons': {'y': 48}}))
+INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['y'], 'Horizons': {'y': 48}}
+INFO:pyaf.std:TRAINING_ENGINE_END 135.597
 INFO:pyaf.std:TIME_DETAIL TimeVariable='ds' TimeMin=2020-07-10T18:00:00.000000 TimeMax=2020-07-24T01:00:00.000000 TimeDelta=<DateOffset: hours=1> Horizon=48
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='y' Length=449  Min=0.0 Max=19.0  Mean=8.290376 StdDev=5.017777
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_y' Min=0.0 Max=1.0  Mean=0.436336 StdDev=0.264094
@@ -49,20 +27,19 @@ INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _y_ConstantTrend_residue_Cycle_24 24 0.01
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:TRAINING_TIME_IN_SECONDS 24.521
 INFO:pyaf.std:COMPETITION_DETAIL_START 'y'
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'y' 0 {'Transformation': '_y', 'DecompositionType': 'T+S+R', 'Model': '_y_ConstantTrend_residue_Cycle_24_residue_NoAR', 'Voting': 2326.5625, 'Complexity': 'SSSSS', 'Forecast_RMSSE_1': 1.8778, 'Forecast_RMSSE_H': 1.8778}
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'y' 1 {'Transformation': '_y', 'DecompositionType': 'T+S+R', 'Model': '_y_ConstantTrend_residue_Seasonal_Hour_residue_NoAR', 'Voting': 2326.5625, 'Complexity': 'SSSSS', 'Forecast_RMSSE_1': 1.8778, 'Forecast_RMSSE_H': 1.8778}
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'y' 2 {'Transformation': '_y', 'DecompositionType': 'T+S+R', 'Model': '_y_LinearTrend_residue_Cycle_24_residue_NoAR', 'Voting': 2326.5625, 'Complexity': 'SSSSS', 'Forecast_RMSSE_1': 1.8746, 'Forecast_RMSSE_H': 1.8746}
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'y' 3 {'Transformation': '_y', 'DecompositionType': 'T+S+R', 'Model': '_y_LinearTrend_residue_Seasonal_Hour_residue_NoAR', 'Voting': 2326.5625, 'Complexity': 'SSSSS', 'Forecast_RMSSE_1': 1.8746, 'Forecast_RMSSE_H': 1.8746}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'y' 0 {'Transformation': '_y', 'DecompositionType': 'T+S+R', 'Model': '_y_ConstantTrend_residue_Cycle_24_residue_NoAR', 'Voting': 2326.5625, 'Complexity': 'SSSSS', 'Forecast_RMSSE_1': 1.8778, 'Forecast_RMSSE_2': 1.8778, 'Forecast_RMSSE_3': 1.8778, 'Forecast_RMSSE_4': 1.8778, 'Forecast_RMSSE_5': 1.8778, 'Forecast_RMSSE_6': 1.8778, 'Forecast_RMSSE_7': 1.8778, 'Forecast_RMSSE_8': 1.8778, 'Forecast_RMSSE_9': 1.8778, 'Forecast_RMSSE_10': 1.8778, 'Forecast_RMSSE_11': 1.8778, 'Forecast_RMSSE_12': 1.8778, 'Forecast_RMSSE_13': 1.8778, 'Forecast_RMSSE_14': 1.8778, 'Forecast_RMSSE_15': 1.8778, 'Forecast_RMSSE_16': 1.8778, 'Forecast_RMSSE_17': 1.8778, 'Forecast_RMSSE_18': 1.8778, 'Forecast_RMSSE_19': 1.8778, 'Forecast_RMSSE_20': 1.8778, 'Forecast_RMSSE_21': 1.8778, 'Forecast_RMSSE_22': 1.8778, 'Forecast_RMSSE_23': 1.8778, 'Forecast_RMSSE_24': 1.8778, 'Forecast_RMSSE_25': 1.8778, 'Forecast_RMSSE_26': 1.8778, 'Forecast_RMSSE_27': 1.8778, 'Forecast_RMSSE_28': 1.8778, 'Forecast_RMSSE_29': 1.8778, 'Forecast_RMSSE_30': 1.8778, 'Forecast_RMSSE_31': 1.8778, 'Forecast_RMSSE_32': 1.8778, 'Forecast_RMSSE_33': 1.8778, 'Forecast_RMSSE_34': 1.8778, 'Forecast_RMSSE_35': 1.8778, 'Forecast_RMSSE_36': 1.8778, 'Forecast_RMSSE_37': 1.8778, 'Forecast_RMSSE_38': 1.8778, 'Forecast_RMSSE_39': 1.8778, 'Forecast_RMSSE_40': 1.8778, 'Forecast_RMSSE_41': 1.8778, 'Forecast_RMSSE_42': 1.8778, 'Forecast_RMSSE_43': 1.8778, 'Forecast_RMSSE_44': 1.8778, 'Forecast_RMSSE_45': 1.8778, 'Forecast_RMSSE_46': 1.8778, 'Forecast_RMSSE_47': 1.8778, 'Forecast_RMSSE_48': 1.8778}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'y' 1 {'Transformation': '_y', 'DecompositionType': 'T+S+R', 'Model': '_y_ConstantTrend_residue_Seasonal_Hour_residue_NoAR', 'Voting': 2326.5625, 'Complexity': 'SSSSS', 'Forecast_RMSSE_1': 1.8778, 'Forecast_RMSSE_2': 1.8778, 'Forecast_RMSSE_3': 1.8778, 'Forecast_RMSSE_4': 1.8778, 'Forecast_RMSSE_5': 1.8778, 'Forecast_RMSSE_6': 1.8778, 'Forecast_RMSSE_7': 1.8778, 'Forecast_RMSSE_8': 1.8778, 'Forecast_RMSSE_9': 1.8778, 'Forecast_RMSSE_10': 1.8778, 'Forecast_RMSSE_11': 1.8778, 'Forecast_RMSSE_12': 1.8778, 'Forecast_RMSSE_13': 1.8778, 'Forecast_RMSSE_14': 1.8778, 'Forecast_RMSSE_15': 1.8778, 'Forecast_RMSSE_16': 1.8778, 'Forecast_RMSSE_17': 1.8778, 'Forecast_RMSSE_18': 1.8778, 'Forecast_RMSSE_19': 1.8778, 'Forecast_RMSSE_20': 1.8778, 'Forecast_RMSSE_21': 1.8778, 'Forecast_RMSSE_22': 1.8778, 'Forecast_RMSSE_23': 1.8778, 'Forecast_RMSSE_24': 1.8778, 'Forecast_RMSSE_25': 1.8778, 'Forecast_RMSSE_26': 1.8778, 'Forecast_RMSSE_27': 1.8778, 'Forecast_RMSSE_28': 1.8778, 'Forecast_RMSSE_29': 1.8778, 'Forecast_RMSSE_30': 1.8778, 'Forecast_RMSSE_31': 1.8778, 'Forecast_RMSSE_32': 1.8778, 'Forecast_RMSSE_33': 1.8778, 'Forecast_RMSSE_34': 1.8778, 'Forecast_RMSSE_35': 1.8778, 'Forecast_RMSSE_36': 1.8778, 'Forecast_RMSSE_37': 1.8778, 'Forecast_RMSSE_38': 1.8778, 'Forecast_RMSSE_39': 1.8778, 'Forecast_RMSSE_40': 1.8778, 'Forecast_RMSSE_41': 1.8778, 'Forecast_RMSSE_42': 1.8778, 'Forecast_RMSSE_43': 1.8778, 'Forecast_RMSSE_44': 1.8778, 'Forecast_RMSSE_45': 1.8778, 'Forecast_RMSSE_46': 1.8778, 'Forecast_RMSSE_47': 1.8778, 'Forecast_RMSSE_48': 1.8778}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'y' 2 {'Transformation': '_y', 'DecompositionType': 'T+S+R', 'Model': '_y_LinearTrend_residue_Cycle_24_residue_NoAR', 'Voting': 2326.5625, 'Complexity': 'SSSSS', 'Forecast_RMSSE_1': 1.8746, 'Forecast_RMSSE_2': 1.8746, 'Forecast_RMSSE_3': 1.8746, 'Forecast_RMSSE_4': 1.8746, 'Forecast_RMSSE_5': 1.8746, 'Forecast_RMSSE_6': 1.8746, 'Forecast_RMSSE_7': 1.8746, 'Forecast_RMSSE_8': 1.8746, 'Forecast_RMSSE_9': 1.8746, 'Forecast_RMSSE_10': 1.8746, 'Forecast_RMSSE_11': 1.8746, 'Forecast_RMSSE_12': 1.8746, 'Forecast_RMSSE_13': 1.8746, 'Forecast_RMSSE_14': 1.8746, 'Forecast_RMSSE_15': 1.8746, 'Forecast_RMSSE_16': 1.8746, 'Forecast_RMSSE_17': 1.8746, 'Forecast_RMSSE_18': 1.8746, 'Forecast_RMSSE_19': 1.8746, 'Forecast_RMSSE_20': 1.8746, 'Forecast_RMSSE_21': 1.8746, 'Forecast_RMSSE_22': 1.8746, 'Forecast_RMSSE_23': 1.8746, 'Forecast_RMSSE_24': 1.8746, 'Forecast_RMSSE_25': 1.8746, 'Forecast_RMSSE_26': 1.8746, 'Forecast_RMSSE_27': 1.8746, 'Forecast_RMSSE_28': 1.8746, 'Forecast_RMSSE_29': 1.8746, 'Forecast_RMSSE_30': 1.8746, 'Forecast_RMSSE_31': 1.8746, 'Forecast_RMSSE_32': 1.8746, 'Forecast_RMSSE_33': 1.8746, 'Forecast_RMSSE_34': 1.8746, 'Forecast_RMSSE_35': 1.8746, 'Forecast_RMSSE_36': 1.8746, 'Forecast_RMSSE_37': 1.8746, 'Forecast_RMSSE_38': 1.8746, 'Forecast_RMSSE_39': 1.8746, 'Forecast_RMSSE_40': 1.8746, 'Forecast_RMSSE_41': 1.8746, 'Forecast_RMSSE_42': 1.8746, 'Forecast_RMSSE_43': 1.8746, 'Forecast_RMSSE_44': 1.8746, 'Forecast_RMSSE_45': 1.8746, 'Forecast_RMSSE_46': 1.8746, 'Forecast_RMSSE_47': 1.8746, 'Forecast_RMSSE_48': 1.8746}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'y' 3 {'Transformation': '_y', 'DecompositionType': 'T+S+R', 'Model': '_y_LinearTrend_residue_Seasonal_Hour_residue_NoAR', 'Voting': 2326.5625, 'Complexity': 'SSSSS', 'Forecast_RMSSE_1': 1.8746, 'Forecast_RMSSE_2': 1.8746, 'Forecast_RMSSE_3': 1.8746, 'Forecast_RMSSE_4': 1.8746, 'Forecast_RMSSE_5': 1.8746, 'Forecast_RMSSE_6': 1.8746, 'Forecast_RMSSE_7': 1.8746, 'Forecast_RMSSE_8': 1.8746, 'Forecast_RMSSE_9': 1.8746, 'Forecast_RMSSE_10': 1.8746, 'Forecast_RMSSE_11': 1.8746, 'Forecast_RMSSE_12': 1.8746, 'Forecast_RMSSE_13': 1.8746, 'Forecast_RMSSE_14': 1.8746, 'Forecast_RMSSE_15': 1.8746, 'Forecast_RMSSE_16': 1.8746, 'Forecast_RMSSE_17': 1.8746, 'Forecast_RMSSE_18': 1.8746, 'Forecast_RMSSE_19': 1.8746, 'Forecast_RMSSE_20': 1.8746, 'Forecast_RMSSE_21': 1.8746, 'Forecast_RMSSE_22': 1.8746, 'Forecast_RMSSE_23': 1.8746, 'Forecast_RMSSE_24': 1.8746, 'Forecast_RMSSE_25': 1.8746, 'Forecast_RMSSE_26': 1.8746, 'Forecast_RMSSE_27': 1.8746, 'Forecast_RMSSE_28': 1.8746, 'Forecast_RMSSE_29': 1.8746, 'Forecast_RMSSE_30': 1.8746, 'Forecast_RMSSE_31': 1.8746, 'Forecast_RMSSE_32': 1.8746, 'Forecast_RMSSE_33': 1.8746, 'Forecast_RMSSE_34': 1.8746, 'Forecast_RMSSE_35': 1.8746, 'Forecast_RMSSE_36': 1.8746, 'Forecast_RMSSE_37': 1.8746, 'Forecast_RMSSE_38': 1.8746, 'Forecast_RMSSE_39': 1.8746, 'Forecast_RMSSE_40': 1.8746, 'Forecast_RMSSE_41': 1.8746, 'Forecast_RMSSE_42': 1.8746, 'Forecast_RMSSE_43': 1.8746, 'Forecast_RMSSE_44': 1.8746, 'Forecast_RMSSE_45': 1.8746, 'Forecast_RMSSE_46': 1.8746, 'Forecast_RMSSE_47': 1.8746, 'Forecast_RMSSE_48': 1.8746}
 INFO:pyaf.std:COMPETITION_DETAIL_END 'y'
-INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['y'], 'Horizon': 48}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.647, ('FORECASTING', {'Signals': ['y'], 'Horizon': 48}))
+INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['y'], 'Horizons': {'y': 48}}
+INFO:pyaf.std:FORECASTING_ENGINE_END 3.902
 
 
 <ModelInfo>
 {
-    "Training_Time": 24.521,
+    "Training_Time": 135.597,
     "y": {
         "Complexity": {
             "AR": "S",
@@ -191,7 +168,6 @@ INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.647, ('FORECASTING', {'Signals': ['
 47 2020-07-12 17:00:00  ...                     NaN
 
 [48 rows x 36 columns]
-INFO:pyaf.timing:('OPERATION_START', ('PLOTTING', {'Signals': ['y']}))
 INFO:pyaf.std:SAVING_PLOT ('Trend', 'outputs/veturilo_RMSSE_y_Trend_decomp_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Cycle', 'outputs/veturilo_RMSSE_y_Cycle_decomp_output.png')
 INFO:pyaf.std:SAVING_PLOT ('AR', 'outputs/veturilo_RMSSE_y_AR_decomp_output.png')
@@ -199,7 +175,6 @@ INFO:pyaf.std:SAVING_PLOT ('TransformedForecast', 'outputs/veturilo_RMSSE_y_Tran
 INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/veturilo_RMSSE_y_Forecast_decomp_output.png')
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/veturilo_RMSSE_y_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/veturilo_RMSSE_y_quantiles_output.png')
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 7.565, ('PLOTTING', {'Signals': ['y']}))
                      ds   y  ...  y_Forecast_Quantile_83  y_Forecast_Quantile_94
 449 2020-07-29 11:00:00 NaN  ...                8.116667               11.266667
 450 2020-07-29 12:00:00 NaN  ...                6.533333                9.683333

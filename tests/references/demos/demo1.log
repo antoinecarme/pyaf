@@ -1,27 +1,5 @@
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signals': ['Signal'], 'Horizons': {'Signal': 7}}))
-INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', 'None', '_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Horizon': 7, 'Transformation': '_Signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Horizon': 7, 'Transformation': 'Diff_Signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Horizon': 7, 'Transformation': 'CumSum_Signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Horizon': 7, 'Transformation': 'RelDiff_Signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.874, ('TRAINING', {'Signal': 'Signal', 'Horizon': 7, 'Transformation': 'Diff_Signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.895, ('TRAINING', {'Signal': 'Signal', 'Horizon': 7, 'Transformation': 'RelDiff_Signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.381, ('TRAINING', {'Signal': 'Signal', 'Horizon': 7, 'Transformation': 'CumSum_Signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.7, ('TRAINING', {'Signal': 'Signal', 'Horizon': 7, 'Transformation': '_Signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.767, ('SIGNAL_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', 'None', '_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
-INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signals': ['Signal'], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_START', ('VOTING_MODEL_SELECTION', {'Signal': 'Signal'}))
-INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION_COMPUTE_VOTING_SCORES', 112))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.067, ('MODEL_SELECTION_COMPUTE_VOTING_SCORES', 112))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.075, ('VOTING_MODEL_SELECTION', {'Signal': 'Signal'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.076, ('MODEL_SELECTION', {'Signals': ['Signal'], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'BestModels': [('Signal', '_Signal_LinearTrend_residue_Seasonal_DayOfWeek_residue_AR(64)')], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal', 'Model': '_Signal_LinearTrend_residue_Seasonal_DayOfWeek_residue_AR(64)'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.272, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal', 'Model': '_Signal_LinearTrend_residue_Seasonal_DayOfWeek_residue_AR(64)'}))
-INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.257, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.529, ('FINALIZE_TRAINING', {'BestModels': [('Signal', '_Signal_LinearTrend_residue_Seasonal_DayOfWeek_residue_AR(64)')], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.381, ('TRAINING', {'Signals': ['Signal'], 'Horizons': {'Signal': 7}}))
+INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['Signal'], 'Horizons': {'Signal': 7}}
+INFO:pyaf.std:TRAINING_ENGINE_END 16.779
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2016-01-25T00:00:00.000000 TimeMax=2016-11-05T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=7
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=365  Min=-0.621978 Max=28.875373  Mean=13.928616 StdDev=6.679781
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=0.0 Max=1.0  Mean=0.493285 StdDev=0.226454
@@ -59,14 +37,13 @@ INFO:pyaf.std:AR_MODEL_COEFF 8 _Signal_LinearTrend_residue_Seasonal_DayOfWeek_re
 INFO:pyaf.std:AR_MODEL_COEFF 9 _Signal_LinearTrend_residue_Seasonal_DayOfWeek_residue_Lag49 -0.156988
 INFO:pyaf.std:AR_MODEL_COEFF 10 _Signal_LinearTrend_residue_Seasonal_DayOfWeek_residue_Lag7 -0.150105
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:TRAINING_TIME_IN_SECONDS 4.376
 INFO:pyaf.std:COMPETITION_DETAIL_START 'Signal'
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 0 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_LinearTrend_residue_Seasonal_DayOfWeek_residue_AR(64)', 'Voting': 429.0, 'Complexity': 'LSSSS', 'Forecast_MASE_1': 0.4561, 'Forecast_MASE_H': 2.329}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 0 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_LinearTrend_residue_Seasonal_DayOfWeek_residue_AR(64)', 'Voting': 429.0, 'Complexity': 'LSSSS', 'Forecast_MASE_1': 0.4561, 'Forecast_MASE_2': 0.4808, 'Forecast_MASE_3': 0.5711, 'Forecast_MASE_4': 0.6612, 'Forecast_MASE_5': 0.9796, 'Forecast_MASE_6': 1.3784, 'Forecast_MASE_7': 2.329}
 INFO:pyaf.std:COMPETITION_DETAIL_END 'Signal'
-INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['Signal'], 'Horizon': 7}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.12, ('FORECASTING', {'Signals': ['Signal'], 'Horizon': 7}))
-Index(['Date', 'Signal', 'row_number', 'Date_Normalized', 'Signal_scaled',
-       '_Signal', '_Signal_LinearTrend', '_Signal_LinearTrend_residue',
+INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['Signal'], 'Horizons': {'Signal': 7}}
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.598
+Index(['Date', 'Signal', 'Signal_scaled', '_Signal', 'row_number',
+       'Date_Normalized', '_Signal_LinearTrend', '_Signal_LinearTrend_residue',
        '_Signal_LinearTrend_residue_Seasonal_DayOfWeek',
        '_Signal_LinearTrend_residue_Seasonal_DayOfWeek_residue',
        '_Signal_LinearTrend_residue_Seasonal_DayOfWeek_residue_AR(64)',

@@ -1,21 +1,5 @@
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signals': ['Signal'], 'Horizons': {'Signal': 7}}))
-INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', 'None', '_', 'T+S+R')], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Horizon': 7, 'Transformation': '_Signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.79, ('TRAINING', {'Signal': 'Signal', 'Horizon': 7, 'Transformation': '_Signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.791, ('SIGNAL_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', 'None', '_', 'T+S+R')], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signals': ['Signal'], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_START', ('VOTING_MODEL_SELECTION', {'Signal': 'Signal'}))
-INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION_COMPUTE_VOTING_SCORES', 2))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.0, ('MODEL_SELECTION_COMPUTE_VOTING_SCORES', 2))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.003, ('VOTING_MODEL_SELECTION', {'Signal': 'Signal'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.003, ('MODEL_SELECTION', {'Signals': ['Signal'], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'BestModels': [('Signal', '_Signal_LinearTrend_residue_zeroCycle[0.0]_residue_CROSTON(0.1)')], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal', 'Model': '_Signal_LinearTrend_residue_zeroCycle[0.0]_residue_CROSTON(0.1)'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.096, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal', 'Model': '_Signal_LinearTrend_residue_zeroCycle[0.0]_residue_CROSTON(0.1)'}))
-INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.997, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.094, ('FINALIZE_TRAINING', {'BestModels': [('Signal', '_Signal_LinearTrend_residue_zeroCycle[0.0]_residue_CROSTON(0.1)')], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.892, ('TRAINING', {'Signals': ['Signal'], 'Horizons': {'Signal': 7}}))
+INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['Signal'], 'Horizons': {'Signal': 7}}
+INFO:pyaf.std:TRAINING_ENGINE_END 6.704
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2016-01-25T00:00:00.000000 TimeMax=2016-11-05T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=7
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=365  Min=0.00274 Max=1.183946  Mean=0.504012 StdDev=0.290118
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=0.0 Max=1.0  Mean=0.424374 StdDev=0.245612
@@ -45,11 +29,9 @@ INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:CROSTON_ALPHA 0.1
 INFO:pyaf.std:CROSTON_METHOD SBA
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:TRAINING_TIME_IN_SECONDS 3.891
 INFO:pyaf.std:COMPETITION_DETAIL_START 'Signal'
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 0 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_LinearTrend_residue_zeroCycle[0.0]_residue_CROSTON(0.1)', 'Voting': 4.0, 'Complexity': 'LSSSS', 'Forecast_L2_1': 0.0184, 'Forecast_L2_H': 0.0176}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 0 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_LinearTrend_residue_zeroCycle[0.0]_residue_CROSTON(0.1)', 'Voting': 4.0, 'Complexity': 'LSSSS', 'Forecast_L2_1': 0.0184, 'Forecast_L2_2': 0.0186, 'Forecast_L2_3': 0.0186, 'Forecast_L2_4': 0.0182, 'Forecast_L2_5': 0.0179, 'Forecast_L2_6': 0.0177, 'Forecast_L2_7': 0.0176}
 INFO:pyaf.std:COMPETITION_DETAIL_END 'Signal'
-INFO:pyaf.timing:('OPERATION_START', ('PLOTTING', {'Signals': ['Signal']}))
 INFO:pyaf.std:SAVING_PLOT ('Trend', 'outputs/croston_SBA_linear_trend_Signal_Trend_decomp_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Cycle', 'outputs/croston_SBA_linear_trend_Signal_Cycle_decomp_output.png')
 INFO:pyaf.std:SAVING_PLOT ('AR', 'outputs/croston_SBA_linear_trend_Signal_AR_decomp_output.png')
@@ -57,11 +39,10 @@ INFO:pyaf.std:SAVING_PLOT ('TransformedForecast', 'outputs/croston_SBA_linear_tr
 INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/croston_SBA_linear_trend_Signal_Forecast_decomp_output.png')
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/croston_SBA_linear_trend_Signal_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/croston_SBA_linear_trend_Signal_quantiles_output.png')
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 13.712, ('PLOTTING', {'Signals': ['Signal']}))
-INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['Signal'], 'Horizon': 7}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.604, ('FORECASTING', {'Signals': ['Signal'], 'Horizon': 7}))
-Index(['Date', 'Signal', 'row_number', 'Date_Normalized', 'Signal_scaled',
-       '_Signal', '_Signal_LinearTrend', '_Signal_LinearTrend_residue',
+INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['Signal'], 'Horizons': {'Signal': 7}}
+INFO:pyaf.std:FORECASTING_ENGINE_END 1.084
+Index(['Date', 'Signal', 'Signal_scaled', '_Signal', 'row_number',
+       'Date_Normalized', '_Signal_LinearTrend', '_Signal_LinearTrend_residue',
        '_Signal_LinearTrend_residue_zeroCycle[0.0]',
        '_Signal_LinearTrend_residue_zeroCycle[0.0]_residue',
        '_Signal_LinearTrend_residue_zeroCycle[0.0]_residue_CROSTON(0.1)',

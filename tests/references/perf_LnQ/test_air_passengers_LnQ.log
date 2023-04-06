@@ -1,27 +1,5 @@
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}))
-INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['AirPassengers'], 'Transformations': [('AirPassengers', 'None', '_', 'T+S+R'), ('AirPassengers', 'None', 'Diff_', 'T+S+R'), ('AirPassengers', 'None', 'RelDiff_', 'T+S+R'), ('AirPassengers', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'AirPassengers', 'Horizon': 12, 'Transformation': '_AirPassengers', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'AirPassengers', 'Horizon': 12, 'Transformation': 'Diff_AirPassengers', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'AirPassengers', 'Horizon': 12, 'Transformation': 'RelDiff_AirPassengers', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'AirPassengers', 'Horizon': 12, 'Transformation': 'CumSum_AirPassengers', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.492, ('TRAINING', {'Signal': 'AirPassengers', 'Horizon': 12, 'Transformation': '_AirPassengers', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.696, ('TRAINING', {'Signal': 'AirPassengers', 'Horizon': 12, 'Transformation': 'Diff_AirPassengers', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.072, ('TRAINING', {'Signal': 'AirPassengers', 'Horizon': 12, 'Transformation': 'CumSum_AirPassengers', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.334, ('TRAINING', {'Signal': 'AirPassengers', 'Horizon': 12, 'Transformation': 'RelDiff_AirPassengers', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.383, ('SIGNAL_TRAINING', {'Signals': ['AirPassengers'], 'Transformations': [('AirPassengers', 'None', '_', 'T+S+R'), ('AirPassengers', 'None', 'Diff_', 'T+S+R'), ('AirPassengers', 'None', 'RelDiff_', 'T+S+R'), ('AirPassengers', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
-INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signals': ['AirPassengers'], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_START', ('VOTING_MODEL_SELECTION', {'Signal': 'AirPassengers'}))
-INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION_COMPUTE_VOTING_SCORES', 64))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.049, ('MODEL_SELECTION_COMPUTE_VOTING_SCORES', 64))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.057, ('VOTING_MODEL_SELECTION', {'Signal': 'AirPassengers'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.057, ('MODEL_SELECTION', {'Signals': ['AirPassengers'], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'BestModels': [('AirPassengers', 'Diff_AirPassengers_ConstantTrend_residue_Cycle_12_residue_NoAR')], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'AirPassengers', 'Model': 'Diff_AirPassengers_ConstantTrend_residue_Cycle_12_residue_NoAR'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.452, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'AirPassengers', 'Model': 'Diff_AirPassengers_ConstantTrend_residue_Cycle_12_residue_NoAR'}))
-INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'AirPassengers'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.408, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'AirPassengers'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.861, ('FINALIZE_TRAINING', {'BestModels': [('AirPassengers', 'Diff_AirPassengers_ConstantTrend_residue_Cycle_12_residue_NoAR')], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.311, ('TRAINING', {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}))
+INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
+INFO:pyaf.std:TRAINING_ENGINE_END 16.68
 INFO:pyaf.std:TIME_DETAIL TimeVariable='time' TimeMin=1949.0 TimeMax=1956.91666666667 TimeDelta=0.08333333333336763 Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='AirPassengers' Length=132  Min=104 Max=559  Mean=262.492424 StdDev=106.221146
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='Diff_AirPassengers' Min=-0.221978 Max=0.167033  Mean=0.004878 StdDev=0.068427
@@ -49,11 +27,9 @@ INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES Diff_AirPassengers_ConstantTrend_residue_
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:TRAINING_TIME_IN_SECONDS 4.307
 INFO:pyaf.std:COMPETITION_DETAIL_START 'AirPassengers'
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'AirPassengers' 0 {'Transformation': 'Diff_AirPassengers', 'DecompositionType': 'T+S+R', 'Model': 'Diff_AirPassengers_ConstantTrend_residue_Cycle_12_residue_NoAR', 'Voting': 393.5833, 'Complexity': 'MSSSS', 'Forecast_LnQ_1': 0.2011, 'Forecast_LnQ_H': 0.2011}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'AirPassengers' 0 {'Transformation': 'Diff_AirPassengers', 'DecompositionType': 'T+S+R', 'Model': 'Diff_AirPassengers_ConstantTrend_residue_Cycle_12_residue_NoAR', 'Voting': 393.5833, 'Complexity': 'MSSSS', 'Forecast_LnQ_1': 0.2011, 'Forecast_LnQ_2': 0.2011, 'Forecast_LnQ_3': 0.2011, 'Forecast_LnQ_4': 0.2011, 'Forecast_LnQ_5': 0.2011, 'Forecast_LnQ_6': 0.2011, 'Forecast_LnQ_7': 0.2011, 'Forecast_LnQ_8': 0.2011, 'Forecast_LnQ_9': 0.2011, 'Forecast_LnQ_10': 0.2011, 'Forecast_LnQ_11': 0.2011, 'Forecast_LnQ_12': 0.2011}
 INFO:pyaf.std:COMPETITION_DETAIL_END 'AirPassengers'
-INFO:pyaf.timing:('OPERATION_START', ('PLOTTING', {'Signals': ['AirPassengers']}))
 INFO:pyaf.std:SAVING_PLOT ('Trend', 'outputs/my_airline_passengers_LnQ_AirPassengers_Trend_decomp_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Cycle', 'outputs/my_airline_passengers_LnQ_AirPassengers_Cycle_decomp_output.png')
 INFO:pyaf.std:SAVING_PLOT ('AR', 'outputs/my_airline_passengers_LnQ_AirPassengers_AR_decomp_output.png')
@@ -61,12 +37,10 @@ INFO:pyaf.std:SAVING_PLOT ('TransformedForecast', 'outputs/my_airline_passengers
 INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/my_airline_passengers_LnQ_AirPassengers_Forecast_decomp_output.png')
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/my_airline_passengers_LnQ_AirPassengers_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/my_airline_passengers_LnQ_AirPassengers_quantiles_output.png')
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 5.42, ('PLOTTING', {'Signals': ['AirPassengers']}))
-INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['AirPassengers'], 'Horizon': 12}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.259, ('FORECASTING', {'Signals': ['AirPassengers'], 'Horizon': 12}))
-Forecast Columns  Index(['time', 'AirPassengers', 'row_number', 'time_Normalized',
-       'AirPassengers_scaled', 'Diff_AirPassengers',
-       'Diff_AirPassengers_ConstantTrend',
+INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
+INFO:pyaf.std:FORECASTING_ENGINE_END 1.1
+Forecast Columns  Index(['time', 'AirPassengers', 'AirPassengers_scaled', 'Diff_AirPassengers',
+       'row_number', 'time_Normalized', 'Diff_AirPassengers_ConstantTrend',
        'Diff_AirPassengers_ConstantTrend_residue', 'cycle_internal',
        'Diff_AirPassengers_ConstantTrend_residue_Cycle_12',
        'Diff_AirPassengers_ConstantTrend_residue_Cycle_12_residue',
@@ -203,7 +177,7 @@ Forecasts
         },
         "Model_Selection_Criterion": "LnQ"
     },
-    "Training_Time": 4.307
+    "Training_Time": 16.68
 }
 </ModelInfo>
 

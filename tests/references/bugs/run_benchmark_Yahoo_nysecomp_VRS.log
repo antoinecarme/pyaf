@@ -1,27 +1,5 @@
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signals': ['VRS'], 'Horizons': {'VRS': 1}}))
-INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['VRS'], 'Transformations': [('VRS', 'None', '_', 'T+S+R'), ('VRS', 'None', 'Diff_', 'T+S+R'), ('VRS', 'None', 'RelDiff_', 'T+S+R'), ('VRS', 'None', 'CumSum_', 'T+S+R')], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'VRS', 'Horizon': 1, 'Transformation': '_VRS', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.595, ('TRAINING', {'Signal': 'VRS', 'Horizon': 1, 'Transformation': '_VRS', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'VRS', 'Horizon': 1, 'Transformation': 'Diff_VRS', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.41, ('TRAINING', {'Signal': 'VRS', 'Horizon': 1, 'Transformation': 'Diff_VRS', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'VRS', 'Horizon': 1, 'Transformation': 'RelDiff_VRS', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.508, ('TRAINING', {'Signal': 'VRS', 'Horizon': 1, 'Transformation': 'RelDiff_VRS', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'VRS', 'Horizon': 1, 'Transformation': 'CumSum_VRS', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.598, ('TRAINING', {'Signal': 'VRS', 'Horizon': 1, 'Transformation': 'CumSum_VRS', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.112, ('SIGNAL_TRAINING', {'Signals': ['VRS'], 'Transformations': [('VRS', 'None', '_', 'T+S+R'), ('VRS', 'None', 'Diff_', 'T+S+R'), ('VRS', 'None', 'RelDiff_', 'T+S+R'), ('VRS', 'None', 'CumSum_', 'T+S+R')], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signals': ['VRS'], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_START', ('VOTING_MODEL_SELECTION', {'Signal': 'VRS'}))
-INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION_COMPUTE_VOTING_SCORES', 16))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.0, ('MODEL_SELECTION_COMPUTE_VOTING_SCORES', 16))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.009, ('VOTING_MODEL_SELECTION', {'Signal': 'VRS'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.01, ('MODEL_SELECTION', {'Signals': ['VRS'], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'BestModels': [('VRS', 'Diff_VRS_PolyTrend_residue_zeroCycle[0.0]_residue_NoAR')], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'VRS', 'Model': 'Diff_VRS_PolyTrend_residue_zeroCycle[0.0]_residue_NoAR'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.189, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'VRS', 'Model': 'Diff_VRS_PolyTrend_residue_zeroCycle[0.0]_residue_NoAR'}))
-INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'VRS'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.2, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'VRS'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.39, ('FINALIZE_TRAINING', {'BestModels': [('VRS', 'Diff_VRS_PolyTrend_residue_zeroCycle[0.0]_residue_NoAR')], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.6, ('TRAINING', {'Signals': ['VRS'], 'Horizons': {'VRS': 1}}))
+INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['VRS'], 'Horizons': {'VRS': 1}}
+INFO:pyaf.std:TRAINING_ENGINE_END 1.119
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2016-07-20T00:00:00.000000 TimeMax=2016-07-26T00:00:00.000000 TimeDelta=<DateOffset: days=2> Horizon=1
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='VRS' Length=5  Min=11.53 Max=11.8  Mean=11.644 StdDev=0.110743
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='Diff_VRS' Min=-0.555556 Max=0.0  Mean=-0.2 StdDev=0.19682
@@ -49,13 +27,12 @@ INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES Diff_VRS_PolyTrend_residue_zeroCycle[0.0] 
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:TRAINING_TIME_IN_SECONDS 2.598
 INFO:pyaf.std:COMPETITION_DETAIL_START 'VRS'
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'VRS' 0 {'Transformation': 'Diff_VRS', 'DecompositionType': 'T+S+R', 'Model': 'Diff_VRS_PolyTrend_residue_zeroCycle[0.0]_residue_NoAR', 'Voting': 15.0, 'Complexity': 'MMSSS', 'Forecast_MASE_1': 0.1151, 'Forecast_MASE_H': 0.1151}
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'VRS' 1 {'Transformation': 'RelDiff_VRS', 'DecompositionType': 'T+S+R', 'Model': 'RelDiff_VRS_PolyTrend_residue_zeroCycle[0.0]_residue_NoAR', 'Voting': 15.0, 'Complexity': 'MMSSS', 'Forecast_MASE_1': 0.1156, 'Forecast_MASE_H': 0.1156}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'VRS' 0 {'Transformation': 'Diff_VRS', 'DecompositionType': 'T+S+R', 'Model': 'Diff_VRS_PolyTrend_residue_zeroCycle[0.0]_residue_NoAR', 'Voting': 15.0, 'Complexity': 'MMSSS', 'Forecast_MASE_1': 0.1151}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'VRS' 1 {'Transformation': 'RelDiff_VRS', 'DecompositionType': 'T+S+R', 'Model': 'RelDiff_VRS_PolyTrend_residue_zeroCycle[0.0]_residue_NoAR', 'Voting': 15.0, 'Complexity': 'MMSSS', 'Forecast_MASE_1': 0.1156}
 INFO:pyaf.std:COMPETITION_DETAIL_END 'VRS'
-INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['VRS'], 'Horizon': 1}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.097, ('FORECASTING', {'Signals': ['VRS'], 'Horizon': 1}))
+INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['VRS'], 'Horizons': {'VRS': 1}}
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.011
 ACQUIRED_YAHOO_LINKS 37
 load_yahoo_stock_prices nysecomp 1
 BENCH_TYPE YAHOO_STOCKS_nysecomp OneDataFramePerSignal
@@ -83,33 +60,33 @@ Data columns (total 2 columns):
 dtypes: datetime64[ns](1), float64(1)
 memory usage: 212.0 bytes
 None
-   Split Transformation DecompositionType  ... Test_MASE_1 Test_MASE_H Voting
-0   None       Diff_VRS             T+S+R  ...      0.1151      0.1151   15.0
-1   None    RelDiff_VRS             T+S+R  ...      0.1156      0.1156   15.0
-2   None     CumSum_VRS             T+S+R  ...      0.2087      0.2087   13.0
-3   None           _VRS             T+S+R  ...      0.3048      0.3048   12.0
-4   None           _VRS             T+S+R  ...      0.5099      0.5099   11.0
-5   None       Diff_VRS             T+S+R  ...      0.5748      0.5748   10.0
-6   None       Diff_VRS             T+S+R  ...      0.5687      0.5687   10.0
-7   None    RelDiff_VRS             T+S+R  ...      0.5780      0.5780   10.0
-8   None    RelDiff_VRS             T+S+R  ...      0.5726      0.5726   10.0
-9   None           _VRS             T+S+R  ...      0.8000      0.8000    6.0
-10  None       Diff_VRS             T+S+R  ...      0.8000      0.8000    6.0
-11  None    RelDiff_VRS             T+S+R  ...      0.8000      0.8000    6.0
-12  None     CumSum_VRS             T+S+R  ...      0.8889      0.8889    3.0
-13  None     CumSum_VRS             T+S+R  ...      1.0490      1.0490    2.0
-14  None     CumSum_VRS             T+S+R  ...      1.3037      1.3037    1.0
-15  None           _VRS             T+S+R  ...      1.5526      1.5526    0.0
+   Split Transformation DecompositionType  ... Forecast_MASE_1 Test_MASE_1 Voting
+0   None       Diff_VRS             T+S+R  ...          0.1151      0.1151   15.0
+1   None    RelDiff_VRS             T+S+R  ...          0.1156      0.1156   15.0
+2   None     CumSum_VRS             T+S+R  ...          0.2087      0.2087   13.0
+3   None           _VRS             T+S+R  ...          0.3048      0.3048   12.0
+4   None           _VRS             T+S+R  ...          0.5099      0.5099   11.0
+5   None       Diff_VRS             T+S+R  ...          0.5748      0.5748   10.0
+6   None       Diff_VRS             T+S+R  ...          0.5687      0.5687   10.0
+7   None    RelDiff_VRS             T+S+R  ...          0.5780      0.5780   10.0
+8   None    RelDiff_VRS             T+S+R  ...          0.5726      0.5726   10.0
+9   None           _VRS             T+S+R  ...          0.8000      0.8000    6.0
+10  None       Diff_VRS             T+S+R  ...          0.8000      0.8000    6.0
+11  None    RelDiff_VRS             T+S+R  ...          0.8000      0.8000    6.0
+12  None     CumSum_VRS             T+S+R  ...          0.8889      0.8889    3.0
+13  None     CumSum_VRS             T+S+R  ...          1.0490      1.0490    2.0
+14  None     CumSum_VRS             T+S+R  ...          1.3037      1.3037    1.0
+15  None           _VRS             T+S+R  ...          1.5526      1.5526    0.0
 
-[16 rows x 14 columns]
-  Split Transformation DecompositionType  ... Test_MASE_1 Test_MASE_H Voting
-0  None       Diff_VRS             T+S+R  ...      0.1151      0.1151   15.0
-1  None    RelDiff_VRS             T+S+R  ...      0.1156      0.1156   15.0
-2  None     CumSum_VRS             T+S+R  ...      0.2087      0.2087   13.0
-3  None           _VRS             T+S+R  ...      0.3048      0.3048   12.0
-4  None           _VRS             T+S+R  ...      0.5099      0.5099   11.0
+[16 rows x 11 columns]
+  Split Transformation DecompositionType  ... Forecast_MASE_1 Test_MASE_1 Voting
+0  None       Diff_VRS             T+S+R  ...          0.1151      0.1151   15.0
+1  None    RelDiff_VRS             T+S+R  ...          0.1156      0.1156   15.0
+2  None     CumSum_VRS             T+S+R  ...          0.2087      0.2087   13.0
+3  None           _VRS             T+S+R  ...          0.3048      0.3048   12.0
+4  None           _VRS             T+S+R  ...          0.5099      0.5099   11.0
 
-[5 rows x 14 columns]
+[5 rows x 11 columns]
 1 0    11.55
 Name: VRS, dtype: float64
 1 0    11.688057
@@ -117,7 +94,7 @@ Name: VRS_Forecast, dtype: float64
 FORECAST_DETAIL_ACTUAL Yahoo_Stock_Price_nysecomp.VRS VRS [11.55]
 FORECAST_DETAIL_PREDICTED Yahoo_Stock_Price_nysecomp.VRS VRS [11.688057142857142]
 BENCHMARK_PERF_DETAIL_SIGNAL_HORIZON Yahoo_Stock_Price_nysecomp.VRS VRS 5 1
-BENCHMARK_PERF_DETAIL_BENCH_TIME_IN_SECONDS PYAF_SYSTEM_DEPENDENT_ Yahoo_Stock_Price_nysecomp.VRS VRS 7.589761734008789
+BENCHMARK_PERF_DETAIL_BENCH_TIME_IN_SECONDS PYAF_SYSTEM_DEPENDENT_ Yahoo_Stock_Price_nysecomp.VRS VRS 2.9708876609802246
 BENCHMARK_PERF_DETAIL_BEST_MODEL Yahoo_Stock_Price_nysecomp.VRS VRS PolyTrend + NoCycle + NoAR
 BENCHMARK_PERF_DETAIL_PERF_COUNT Yahoo_Stock_Price_nysecomp.VRS VRS 1
 BENCHMARK_PERF_DETAIL_PERF_MAPE_SMAPE_MASE Yahoo_Stock_Price_nysecomp.VRS VRS 0.012 0.0119 0.0

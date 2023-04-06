@@ -1,5 +1,4 @@
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signals': ['Close'], 'Horizons': {'Close': 7}}))
-INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['Close'], 'Transformations': [('Close', 'None', '_', 'T+S+R'), ('Close', 'None', 'Diff_', 'T+S+R'), ('Close', 'None', 'RelDiff_', 'T+S+R'), ('Close', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['Close'], 'Horizons': {'Close': 7}}
 <class 'pandas.core.frame.DataFrame'>
 Int64Index: 1258 entries, 1257 to 0
 Data columns (total 9 columns):
@@ -24,29 +23,8 @@ memory usage: 98.3+ KB
 1253        1253   AAPL  51.622111  ...  390.980003 2011-08-03  392.570000
 
 [5 rows x 9 columns]
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Close', 'Horizon': 7, 'Transformation': 'Diff_Close', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Close', 'Horizon': 7, 'Transformation': '_Close', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Close', 'Horizon': 7, 'Transformation': 'RelDiff_Close', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Close', 'Horizon': 7, 'Transformation': 'CumSum_Close', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.539, ('TRAINING', {'Signal': 'Close', 'Horizon': 7, 'Transformation': 'RelDiff_Close', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 5.753, ('TRAINING', {'Signal': 'Close', 'Horizon': 7, 'Transformation': 'Diff_Close', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 9.662, ('TRAINING', {'Signal': 'Close', 'Horizon': 7, 'Transformation': 'CumSum_Close', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 9.849, ('TRAINING', {'Signal': 'Close', 'Horizon': 7, 'Transformation': '_Close', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 9.974, ('SIGNAL_TRAINING', {'Signals': ['Close'], 'Transformations': [('Close', 'None', '_', 'T+S+R'), ('Close', 'None', 'Diff_', 'T+S+R'), ('Close', 'None', 'RelDiff_', 'T+S+R'), ('Close', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
-INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signals': ['Close'], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_START', ('VOTING_MODEL_SELECTION', {'Signal': 'Close'}))
-INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION_COMPUTE_VOTING_SCORES', 168))
 DEBUG:pyaf.detailed:DETAIL_MESSAGE('KEPT_DISCARDED_MODELS', 168, 146, 22)
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.208, ('MODEL_SELECTION_COMPUTE_VOTING_SCORES', 168))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.221, ('VOTING_MODEL_SELECTION', {'Signal': 'Close'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.222, ('MODEL_SELECTION', {'Signals': ['Close'], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'BestModels': [('Close', '_Close_Lag1Trend_residue_zeroCycle[0.0]_residue_NoAR')], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Close', 'Model': '_Close_Lag1Trend_residue_zeroCycle[0.0]_residue_NoAR'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.474, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Close', 'Model': '_Close_Lag1Trend_residue_zeroCycle[0.0]_residue_NoAR'}))
-INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Close'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.477, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Close'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.952, ('FINALIZE_TRAINING', {'BestModels': [('Close', '_Close_Lag1Trend_residue_zeroCycle[0.0]_residue_NoAR')], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 11.158, ('TRAINING', {'Signals': ['Close'], 'Horizons': {'Close': 7}}))
+INFO:pyaf.std:TRAINING_ENGINE_END 55.703
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2011-07-28T00:00:00.000000 TimeMax=2015-07-20T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=7
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Close' Length=1258  Min=90.279999 Max=702.100021  Mean=337.341653 StdDev=207.088144
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Close' Min=0.0 Max=1.0  Mean=0.403814 StdDev=0.338479
@@ -74,18 +52,17 @@ INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES _Close_Lag1Trend_residue_zeroCycle[0.0] 0.
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:TRAINING_TIME_IN_SECONDS 11.153
 INFO:pyaf.std:COMPETITION_DETAIL_START 'Close'
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Close' 0 {'Transformation': '_Close', 'DecompositionType': 'T+S+R', 'Model': '_Close_Lag1Trend_residue_zeroCycle[0.0]_residue_NoAR', 'Voting': 580.0, 'Complexity': 'SSSSS', 'Forecast_MASE_1': 0.9998, 'Forecast_MASE_H': 2.6457}
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Close' 1 {'Transformation': 'CumSum_Close', 'DecompositionType': 'T+S+R', 'Model': 'CumSum_Close_Lag1Trend_residue_Cycle_None_residue_NoAR', 'Voting': 580.0, 'Complexity': 'MSSSS', 'Forecast_MASE_1': 0.9998, 'Forecast_MASE_H': 2.6457}
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Close' 2 {'Transformation': 'CumSum_Close', 'DecompositionType': 'T+S+R', 'Model': 'CumSum_Close_Lag1Trend_residue_zeroCycle[0.0]_residue_NoAR', 'Voting': 580.0, 'Complexity': 'MSSSS', 'Forecast_MASE_1': 0.9998, 'Forecast_MASE_H': 2.6457}
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Close' 3 {'Transformation': 'Diff_Close', 'DecompositionType': 'T+S+R', 'Model': 'Diff_Close_Lag1Trend_residue_zeroCycle[0.0]_residue_NoAR', 'Voting': 580.0, 'Complexity': 'MSSSS', 'Forecast_MASE_1': 0.9998, 'Forecast_MASE_H': 2.6457}
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Close' 4 {'Transformation': 'RelDiff_Close', 'DecompositionType': 'T+S+R', 'Model': 'RelDiff_Close_Lag1Trend_residue_zeroCycle[0.0]_residue_NoAR', 'Voting': 580.0, 'Complexity': 'MSSSS', 'Forecast_MASE_1': 0.9998, 'Forecast_MASE_H': 2.6457}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Close' 0 {'Transformation': '_Close', 'DecompositionType': 'T+S+R', 'Model': '_Close_Lag1Trend_residue_zeroCycle[0.0]_residue_NoAR', 'Voting': 580.0, 'Complexity': 'SSSSS', 'Forecast_MASE_1': 0.9998, 'Forecast_MASE_2': 1.4499, 'Forecast_MASE_3': 1.8043, 'Forecast_MASE_4': 2.0854, 'Forecast_MASE_5': 2.2841, 'Forecast_MASE_6': 2.4885, 'Forecast_MASE_7': 2.6457}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Close' 1 {'Transformation': 'CumSum_Close', 'DecompositionType': 'T+S+R', 'Model': 'CumSum_Close_Lag1Trend_residue_Cycle_None_residue_NoAR', 'Voting': 580.0, 'Complexity': 'MSSSS', 'Forecast_MASE_1': 0.9998, 'Forecast_MASE_2': 1.4499, 'Forecast_MASE_3': 1.8043, 'Forecast_MASE_4': 2.0854, 'Forecast_MASE_5': 2.2841, 'Forecast_MASE_6': 2.4885, 'Forecast_MASE_7': 2.6457}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Close' 2 {'Transformation': 'CumSum_Close', 'DecompositionType': 'T+S+R', 'Model': 'CumSum_Close_Lag1Trend_residue_zeroCycle[0.0]_residue_NoAR', 'Voting': 580.0, 'Complexity': 'MSSSS', 'Forecast_MASE_1': 0.9998, 'Forecast_MASE_2': 1.4499, 'Forecast_MASE_3': 1.8043, 'Forecast_MASE_4': 2.0854, 'Forecast_MASE_5': 2.2841, 'Forecast_MASE_6': 2.4885, 'Forecast_MASE_7': 2.6457}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Close' 3 {'Transformation': 'Diff_Close', 'DecompositionType': 'T+S+R', 'Model': 'Diff_Close_Lag1Trend_residue_zeroCycle[0.0]_residue_NoAR', 'Voting': 580.0, 'Complexity': 'MSSSS', 'Forecast_MASE_1': 0.9998, 'Forecast_MASE_2': 1.4499, 'Forecast_MASE_3': 1.8043, 'Forecast_MASE_4': 2.0854, 'Forecast_MASE_5': 2.2841, 'Forecast_MASE_6': 2.4885, 'Forecast_MASE_7': 2.6457}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Close' 4 {'Transformation': 'RelDiff_Close', 'DecompositionType': 'T+S+R', 'Model': 'RelDiff_Close_Lag1Trend_residue_zeroCycle[0.0]_residue_NoAR', 'Voting': 580.0, 'Complexity': 'MSSSS', 'Forecast_MASE_1': 0.9998, 'Forecast_MASE_2': 1.4499, 'Forecast_MASE_3': 1.8043, 'Forecast_MASE_4': 2.0854, 'Forecast_MASE_5': 2.2841, 'Forecast_MASE_6': 2.4885, 'Forecast_MASE_7': 2.6457}
 INFO:pyaf.std:COMPETITION_DETAIL_END 'Close'
-INFO:pyaf.timing:('OPERATION_START', ('FORECASTING', {'Signals': ['Close'], 'Horizon': 7}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.154, ('FORECASTING', {'Signals': ['Close'], 'Horizon': 7}))
-Forecast Columns  Index(['Date', 'Close', 'row_number', 'Date_Normalized', 'Close_scaled',
-       '_Close', '_Close_Lag1Trend', '_Close_Lag1Trend_residue',
+INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['Close'], 'Horizons': {'Close': 7}}
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.599
+Forecast Columns  Index(['Date', 'Close', 'Close_scaled', '_Close', 'row_number',
+       'Date_Normalized', '_Close_Lag1Trend', '_Close_Lag1Trend_residue',
        '_Close_Lag1Trend_residue_zeroCycle[0.0]',
        '_Close_Lag1Trend_residue_zeroCycle[0.0]_residue',
        '_Close_Lag1Trend_residue_zeroCycle[0.0]_residue_NoAR',

@@ -1,9 +1,4 @@
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signals': ['signal'], 'Horizons': {'signal': 36}}))
-INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', 'None', '_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 36, 'Transformation': '_signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 36, 'Transformation': 'Diff_signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 36, 'Transformation': 'RelDiff_signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon': 36, 'Transformation': 'CumSum_signal', 'DecompositionType': 'T+S+R'}))
+INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['signal'], 'Horizons': {'signal': 36}}
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
   return bound(*args, **kwds)
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
@@ -158,7 +153,6 @@ INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'signal', 'Horizon'
   return bound(*args, **kwds)
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
   return bound(*args, **kwds)
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 35.594, ('TRAINING', {'Signal': 'signal', 'Horizon': 36, 'Transformation': 'CumSum_signal', 'DecompositionType': 'T+S+R'}))
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
   return bound(*args, **kwds)
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
@@ -211,23 +205,7 @@ INFO:pyaf.timing:('OPERATION_END_ELAPSED', 35.594, ('TRAINING', {'Signal': 'sign
   return bound(*args, **kwds)
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
   return bound(*args, **kwds)
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 40.691, ('TRAINING', {'Signal': 'signal', 'Horizon': 36, 'Transformation': 'Diff_signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 41.391, ('TRAINING', {'Signal': 'signal', 'Horizon': 36, 'Transformation': '_signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 42.814, ('TRAINING', {'Signal': 'signal', 'Horizon': 36, 'Transformation': 'RelDiff_signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 43.702, ('SIGNAL_TRAINING', {'Signals': ['signal'], 'Transformations': [('signal', 'None', '_', 'T+S+R'), ('signal', 'None', 'Diff_', 'T+S+R'), ('signal', 'None', 'RelDiff_', 'T+S+R'), ('signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
-INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signals': ['signal'], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_START', ('VOTING_MODEL_SELECTION', {'Signal': 'signal'}))
-INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION_COMPUTE_VOTING_SCORES', 64))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.116, ('MODEL_SELECTION_COMPUTE_VOTING_SCORES', 64))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.121, ('VOTING_MODEL_SELECTION', {'Signal': 'signal'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.121, ('MODEL_SELECTION', {'Signals': ['signal'], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'BestModels': [('signal', '_signal_ConstantTrend_residue_Cycle_336_residue_NoAR')], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'signal', 'Model': '_signal_ConstantTrend_residue_Cycle_336_residue_NoAR'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 2.891, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'signal', 'Model': '_signal_ConstantTrend_residue_Cycle_336_residue_NoAR'}))
-INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'signal'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 4.19, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'signal'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 7.082, ('FINALIZE_TRAINING', {'BestModels': [('signal', '_signal_ConstantTrend_residue_Cycle_336_residue_NoAR')], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 50.966, ('TRAINING', {'Signals': ['signal'], 'Horizons': {'signal': 36}}))
+INFO:pyaf.std:TRAINING_ENGINE_END 71.599
 INFO:pyaf.std:TIME_DETAIL TimeVariable='time' TimeMin=1.0 TimeMax=10.5089285714286 TimeDelta=0.002976190476190485 Horizon=36
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='signal' Length=4032  Min=18640 Max=38777  Mean=29617.136161 StdDev=5566.669347
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_signal' Min=0.0 Max=1.0  Mean=0.545123 StdDev=0.27644
@@ -255,7 +233,6 @@ INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _signal_ConstantTrend_residue_Cycle_336 3
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:TRAINING_TIME_IN_SECONDS 50.958
 INFO:pyaf.std:COMPETITION_DETAIL_START 'signal'
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'signal' 0 {'Transformation': '_signal', 'DecompositionType': 'T+S+R', 'Model': '_signal_ConstantTrend_residue_Cycle_336_residue_NoAR', 'Voting': 1163.8611, 'Complexity': 'LSSSS', 'Forecast_MASE_1': 0.8394, 'Forecast_MASE_H': 0.8394}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'signal' 0 {'Transformation': '_signal', 'DecompositionType': 'T+S+R', 'Model': '_signal_ConstantTrend_residue_Cycle_336_residue_NoAR', 'Voting': 1163.8611, 'Complexity': 'LSSSS', 'Forecast_MASE_1': 0.8394, 'Forecast_MASE_2': 0.8394, 'Forecast_MASE_3': 0.8394, 'Forecast_MASE_4': 0.8394, 'Forecast_MASE_5': 0.8394, 'Forecast_MASE_6': 0.8394, 'Forecast_MASE_7': 0.8394, 'Forecast_MASE_8': 0.8394, 'Forecast_MASE_9': 0.8394, 'Forecast_MASE_10': 0.8394, 'Forecast_MASE_11': 0.8394, 'Forecast_MASE_12': 0.8394, 'Forecast_MASE_13': 0.8394, 'Forecast_MASE_14': 0.8394, 'Forecast_MASE_15': 0.8394, 'Forecast_MASE_16': 0.8394, 'Forecast_MASE_17': 0.8394, 'Forecast_MASE_18': 0.8394, 'Forecast_MASE_19': 0.8394, 'Forecast_MASE_20': 0.8394, 'Forecast_MASE_21': 0.8394, 'Forecast_MASE_22': 0.8394, 'Forecast_MASE_23': 0.8394, 'Forecast_MASE_24': 0.8394, 'Forecast_MASE_25': 0.8394, 'Forecast_MASE_26': 0.8394, 'Forecast_MASE_27': 0.8394, 'Forecast_MASE_28': 0.8394, 'Forecast_MASE_29': 0.8394, 'Forecast_MASE_30': 0.8394, 'Forecast_MASE_31': 0.8394, 'Forecast_MASE_32': 0.8394, 'Forecast_MASE_33': 0.8394, 'Forecast_MASE_34': 0.8394, 'Forecast_MASE_35': 0.8394, 'Forecast_MASE_36': 0.8394}
 INFO:pyaf.std:COMPETITION_DETAIL_END 'signal'

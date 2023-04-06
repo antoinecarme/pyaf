@@ -4,13 +4,8 @@ Try using .loc[row_indexer,col_indexer] = value instead
 
 See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
   df[b1.mSignalVar] = df[b1.mName]
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signals': ['Signal'], 'Horizons': {'Signal': 12}}))
-INFO:pyaf.timing:('OPERATION_START', ('SIGNAL_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', 'None', '_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
+INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['Signal'], 'Horizons': {'Signal': 12}}
 TRYING_TO_LOAD_RANDOM_DATASET Signal_4000_D_0_constant_24_None_0.1_0 data/ARTIFICIAL_DATA/4000/Signal_4000_D_0_constant_24_None_0.1_0
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Horizon': 12, 'Transformation': '_Signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Horizon': 12, 'Transformation': 'Diff_Signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Horizon': 12, 'Transformation': 'RelDiff_Signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Horizon': 12, 'Transformation': 'CumSum_Signal', 'DecompositionType': 'T+S+R'}))
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
   return bound(*args, **kwds)
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
@@ -113,7 +108,6 @@ INFO:pyaf.timing:('OPERATION_START', ('TRAINING', {'Signal': 'Signal', 'Horizon'
   return bound(*args, **kwds)
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
   return bound(*args, **kwds)
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 20.497, ('TRAINING', {'Signal': 'Signal', 'Horizon': 12, 'Transformation': 'Diff_Signal', 'DecompositionType': 'T+S+R'}))
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
   return bound(*args, **kwds)
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
@@ -122,15 +116,7 @@ INFO:pyaf.timing:('OPERATION_END_ELAPSED', 20.497, ('TRAINING', {'Signal': 'Sign
   return bound(*args, **kwds)
 /home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/core/fromnumeric.py:57: RuntimeWarning: overflow encountered in accumulate
   return bound(*args, **kwds)
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 22.585, ('TRAINING', {'Signal': 'Signal', 'Horizon': 12, 'Transformation': 'RelDiff_Signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 55.891, ('TRAINING', {'Signal': 'Signal', 'Horizon': 12, 'Transformation': '_Signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 59.399, ('TRAINING', {'Signal': 'Signal', 'Horizon': 12, 'Transformation': 'CumSum_Signal', 'DecompositionType': 'T+S+R'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 59.803, ('SIGNAL_TRAINING', {'Signals': ['Signal'], 'Transformations': [('Signal', 'None', '_', 'T+S+R'), ('Signal', 'None', 'Diff_', 'T+S+R'), ('Signal', 'None', 'RelDiff_', 'T+S+R'), ('Signal', 'None', 'CumSum_', 'T+S+R')], 'Cores': 4}))
-INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION', {'Signals': ['Signal'], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_START', ('VOTING_MODEL_SELECTION', {'Signal': 'Signal'}))
-INFO:pyaf.timing:('OPERATION_START', ('MODEL_SELECTION_COMPUTE_VOTING_SCORES', 160))
 DEBUG:pyaf.detailed:DETAIL_MESSAGE('KEPT_DISCARDED_MODELS', 160, 148, 12)
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.885, ('MODEL_SELECTION_COMPUTE_VOTING_SCORES', 160))
 INFO:pyaf.std:PERF_DUMP_START
 INFO:pyaf.std:[
     {
@@ -143,7 +129,17 @@ INFO:pyaf.std:[
             "_Signal_LinearTrend_residue_Cycle_24_residue_NoAR"
         ],
         "Forecast_MASE_1": 0.2392,
-        "Forecast_MASE_H": 0.2392,
+        "Forecast_MASE_10": 0.2392,
+        "Forecast_MASE_11": 0.2392,
+        "Forecast_MASE_12": 0.2392,
+        "Forecast_MASE_2": 0.2392,
+        "Forecast_MASE_3": 0.2392,
+        "Forecast_MASE_4": 0.2392,
+        "Forecast_MASE_5": 0.2392,
+        "Forecast_MASE_6": 0.2392,
+        "Forecast_MASE_7": 0.2392,
+        "Forecast_MASE_8": 0.2392,
+        "Forecast_MASE_9": 0.2392,
         "Model": "_Signal_LinearTrend_residue_Cycle_24_residue_NoAR",
         "Voting": 955.5
     },
@@ -157,7 +153,17 @@ INFO:pyaf.std:[
             "_Signal_PolyTrend_residue_Cycle_24_residue_NoAR"
         ],
         "Forecast_MASE_1": 0.2404,
-        "Forecast_MASE_H": 0.2404,
+        "Forecast_MASE_10": 0.2404,
+        "Forecast_MASE_11": 0.2404,
+        "Forecast_MASE_12": 0.2404,
+        "Forecast_MASE_2": 0.2404,
+        "Forecast_MASE_3": 0.2404,
+        "Forecast_MASE_4": 0.2404,
+        "Forecast_MASE_5": 0.2404,
+        "Forecast_MASE_6": 0.2404,
+        "Forecast_MASE_7": 0.2404,
+        "Forecast_MASE_8": 0.2404,
+        "Forecast_MASE_9": 0.2404,
         "Model": "_Signal_PolyTrend_residue_Cycle_24_residue_NoAR",
         "Voting": 955.5
     },
@@ -171,7 +177,17 @@ INFO:pyaf.std:[
             "_Signal_LinearTrend_residue_Cycle_24_residue_AR(64)"
         ],
         "Forecast_MASE_1": 0.2417,
-        "Forecast_MASE_H": 0.239,
+        "Forecast_MASE_10": 0.239,
+        "Forecast_MASE_11": 0.239,
+        "Forecast_MASE_12": 0.239,
+        "Forecast_MASE_2": 0.2389,
+        "Forecast_MASE_3": 0.2389,
+        "Forecast_MASE_4": 0.239,
+        "Forecast_MASE_5": 0.239,
+        "Forecast_MASE_6": 0.239,
+        "Forecast_MASE_7": 0.239,
+        "Forecast_MASE_8": 0.239,
+        "Forecast_MASE_9": 0.239,
         "Model": "_Signal_LinearTrend_residue_Cycle_24_residue_AR(64)",
         "Voting": 955.5
     },
@@ -185,7 +201,17 @@ INFO:pyaf.std:[
             "_Signal_PolyTrend_residue_Cycle_24_residue_AR(64)"
         ],
         "Forecast_MASE_1": 0.2437,
-        "Forecast_MASE_H": 0.2399,
+        "Forecast_MASE_10": 0.2399,
+        "Forecast_MASE_11": 0.2399,
+        "Forecast_MASE_12": 0.2399,
+        "Forecast_MASE_2": 0.2395,
+        "Forecast_MASE_3": 0.2399,
+        "Forecast_MASE_4": 0.2399,
+        "Forecast_MASE_5": 0.2399,
+        "Forecast_MASE_6": 0.2399,
+        "Forecast_MASE_7": 0.2399,
+        "Forecast_MASE_8": 0.2399,
+        "Forecast_MASE_9": 0.2399,
         "Model": "_Signal_PolyTrend_residue_Cycle_24_residue_AR(64)",
         "Voting": 955.5
     },
@@ -199,7 +225,17 @@ INFO:pyaf.std:[
             "_Signal_Lag1Trend_residue_Cycle_24_residue_AR(64)"
         ],
         "Forecast_MASE_1": 0.2689,
-        "Forecast_MASE_H": 0.2823,
+        "Forecast_MASE_10": 0.2741,
+        "Forecast_MASE_11": 0.276,
+        "Forecast_MASE_12": 0.2823,
+        "Forecast_MASE_2": 0.2611,
+        "Forecast_MASE_3": 0.2583,
+        "Forecast_MASE_4": 0.2592,
+        "Forecast_MASE_5": 0.2623,
+        "Forecast_MASE_6": 0.2672,
+        "Forecast_MASE_7": 0.2708,
+        "Forecast_MASE_8": 0.2738,
+        "Forecast_MASE_9": 0.2741,
         "Model": "_Signal_Lag1Trend_residue_Cycle_24_residue_AR(64)",
         "Voting": 929.5
     },
@@ -213,7 +249,17 @@ INFO:pyaf.std:[
             "_Signal_LinearTrend_residue_zeroCycle[0.0]_residue_AR(64)"
         ],
         "Forecast_MASE_1": 0.2855,
-        "Forecast_MASE_H": 0.3627,
+        "Forecast_MASE_10": 0.3467,
+        "Forecast_MASE_11": 0.3535,
+        "Forecast_MASE_12": 0.3627,
+        "Forecast_MASE_2": 0.276,
+        "Forecast_MASE_3": 0.2816,
+        "Forecast_MASE_4": 0.287,
+        "Forecast_MASE_5": 0.2953,
+        "Forecast_MASE_6": 0.3079,
+        "Forecast_MASE_7": 0.319,
+        "Forecast_MASE_8": 0.3298,
+        "Forecast_MASE_9": 0.3392,
         "Model": "_Signal_LinearTrend_residue_zeroCycle[0.0]_residue_AR(64)",
         "Voting": 921.0833
     },
@@ -227,7 +273,17 @@ INFO:pyaf.std:[
             "_Signal_LinearTrend_residue_Seasonal_DayOfWeek_residue_AR(64)"
         ],
         "Forecast_MASE_1": 0.2897,
-        "Forecast_MASE_H": 0.3665,
+        "Forecast_MASE_10": 0.3503,
+        "Forecast_MASE_11": 0.357,
+        "Forecast_MASE_12": 0.3665,
+        "Forecast_MASE_2": 0.2798,
+        "Forecast_MASE_3": 0.2854,
+        "Forecast_MASE_4": 0.2908,
+        "Forecast_MASE_5": 0.299,
+        "Forecast_MASE_6": 0.312,
+        "Forecast_MASE_7": 0.3223,
+        "Forecast_MASE_8": 0.3333,
+        "Forecast_MASE_9": 0.3427,
         "Model": "_Signal_LinearTrend_residue_Seasonal_DayOfWeek_residue_AR(64)",
         "Voting": 920.25
     },
@@ -241,7 +297,17 @@ INFO:pyaf.std:[
             "_Signal_LinearTrend_residue_Seasonal_WeekOfMonth_residue_AR(64)"
         ],
         "Forecast_MASE_1": 0.29,
-        "Forecast_MASE_H": 0.3716,
+        "Forecast_MASE_10": 0.3553,
+        "Forecast_MASE_11": 0.3626,
+        "Forecast_MASE_12": 0.3716,
+        "Forecast_MASE_2": 0.2807,
+        "Forecast_MASE_3": 0.2889,
+        "Forecast_MASE_4": 0.2922,
+        "Forecast_MASE_5": 0.3018,
+        "Forecast_MASE_6": 0.3174,
+        "Forecast_MASE_7": 0.3283,
+        "Forecast_MASE_8": 0.338,
+        "Forecast_MASE_9": 0.3477,
         "Model": "_Signal_LinearTrend_residue_Seasonal_WeekOfMonth_residue_AR(64)",
         "Voting": 920.25
     },
@@ -255,7 +321,17 @@ INFO:pyaf.std:[
             "_Signal_PolyTrend_residue_Seasonal_DayOfWeek_residue_AR(64)"
         ],
         "Forecast_MASE_1": 0.2906,
-        "Forecast_MASE_H": 0.3675,
+        "Forecast_MASE_10": 0.351,
+        "Forecast_MASE_11": 0.3578,
+        "Forecast_MASE_12": 0.3675,
+        "Forecast_MASE_2": 0.2811,
+        "Forecast_MASE_3": 0.2863,
+        "Forecast_MASE_4": 0.2915,
+        "Forecast_MASE_5": 0.2995,
+        "Forecast_MASE_6": 0.3124,
+        "Forecast_MASE_7": 0.3226,
+        "Forecast_MASE_8": 0.334,
+        "Forecast_MASE_9": 0.3433,
         "Model": "_Signal_PolyTrend_residue_Seasonal_DayOfWeek_residue_AR(64)",
         "Voting": 920.25
     },
@@ -269,21 +345,23 @@ INFO:pyaf.std:[
             "_Signal_PolyTrend_residue_zeroCycle[0.0]_residue_AR(64)"
         ],
         "Forecast_MASE_1": 0.2864,
-        "Forecast_MASE_H": 0.3637,
+        "Forecast_MASE_10": 0.3473,
+        "Forecast_MASE_11": 0.3543,
+        "Forecast_MASE_12": 0.3637,
+        "Forecast_MASE_2": 0.2768,
+        "Forecast_MASE_3": 0.2823,
+        "Forecast_MASE_4": 0.2876,
+        "Forecast_MASE_5": 0.2958,
+        "Forecast_MASE_6": 0.3083,
+        "Forecast_MASE_7": 0.3192,
+        "Forecast_MASE_8": 0.3303,
+        "Forecast_MASE_9": 0.3396,
         "Model": "_Signal_PolyTrend_residue_zeroCycle[0.0]_residue_AR(64)",
         "Voting": 920.25
     }
 ]
 INFO:pyaf.std:PERF_DUMP_END
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.898, ('VOTING_MODEL_SELECTION', {'Signal': 'Signal'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 0.898, ('MODEL_SELECTION', {'Signals': ['Signal'], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_START', ('FINALIZE_TRAINING', {'BestModels': [('Signal', '_Signal_LinearTrend_residue_Cycle_24_residue_NoAR')], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_START', ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal', 'Model': '_Signal_LinearTrend_residue_Cycle_24_residue_NoAR'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.895, ('UPDATE_BEST_MODEL_PERFS', {'Signal': 'Signal', 'Model': '_Signal_LinearTrend_residue_Cycle_24_residue_NoAR'}))
-INFO:pyaf.timing:('OPERATION_START', ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 1.594, ('COMPUTE_PREDICTION_INTERVALS', {'Signal': 'Signal'}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 3.489, ('FINALIZE_TRAINING', {'BestModels': [('Signal', '_Signal_LinearTrend_residue_Cycle_24_residue_NoAR')], 'Cores': 1}))
-INFO:pyaf.timing:('OPERATION_END_ELAPSED', 64.198, ('TRAINING', {'Signals': ['Signal'], 'Horizons': {'Signal': 12}}))
+INFO:pyaf.std:TRAINING_ENGINE_END 81.602
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2008-09-14T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=3988  Min=15.729285 Max=232.295991  Mean=124.086138 StdDev=58.285074
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=0.0 Max=1.0  Mean=0.500339 StdDev=0.269132
@@ -311,10 +389,9 @@ INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _Signal_LinearTrend_residue_Cycle_24 24 0
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:TRAINING_TIME_IN_SECONDS 64.195
 INFO:pyaf.std:COMPETITION_DETAIL_START 'Signal'
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 0 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_LinearTrend_residue_Cycle_24_residue_NoAR', 'Voting': 955.5, 'Complexity': 'SSSSS', 'Forecast_MASE_1': 0.2392, 'Forecast_MASE_H': 0.2392}
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 1 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_PolyTrend_residue_Cycle_24_residue_NoAR', 'Voting': 955.5, 'Complexity': 'MSSSS', 'Forecast_MASE_1': 0.2404, 'Forecast_MASE_H': 0.2404}
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 2 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_LinearTrend_residue_Cycle_24_residue_AR(64)', 'Voting': 955.5, 'Complexity': 'LSSSS', 'Forecast_MASE_1': 0.2417, 'Forecast_MASE_H': 0.239}
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 3 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_PolyTrend_residue_Cycle_24_residue_AR(64)', 'Voting': 955.5, 'Complexity': 'LMSSS', 'Forecast_MASE_1': 0.2437, 'Forecast_MASE_H': 0.2399}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 0 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_LinearTrend_residue_Cycle_24_residue_NoAR', 'Voting': 955.5, 'Complexity': 'SSSSS', 'Forecast_MASE_1': 0.2392, 'Forecast_MASE_2': 0.2392, 'Forecast_MASE_3': 0.2392, 'Forecast_MASE_4': 0.2392, 'Forecast_MASE_5': 0.2392, 'Forecast_MASE_6': 0.2392, 'Forecast_MASE_7': 0.2392, 'Forecast_MASE_8': 0.2392, 'Forecast_MASE_9': 0.2392, 'Forecast_MASE_10': 0.2392, 'Forecast_MASE_11': 0.2392, 'Forecast_MASE_12': 0.2392}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 1 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_PolyTrend_residue_Cycle_24_residue_NoAR', 'Voting': 955.5, 'Complexity': 'MSSSS', 'Forecast_MASE_1': 0.2404, 'Forecast_MASE_2': 0.2404, 'Forecast_MASE_3': 0.2404, 'Forecast_MASE_4': 0.2404, 'Forecast_MASE_5': 0.2404, 'Forecast_MASE_6': 0.2404, 'Forecast_MASE_7': 0.2404, 'Forecast_MASE_8': 0.2404, 'Forecast_MASE_9': 0.2404, 'Forecast_MASE_10': 0.2404, 'Forecast_MASE_11': 0.2404, 'Forecast_MASE_12': 0.2404}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 2 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_LinearTrend_residue_Cycle_24_residue_AR(64)', 'Voting': 955.5, 'Complexity': 'LSSSS', 'Forecast_MASE_1': 0.2417, 'Forecast_MASE_2': 0.2389, 'Forecast_MASE_3': 0.2389, 'Forecast_MASE_4': 0.239, 'Forecast_MASE_5': 0.239, 'Forecast_MASE_6': 0.239, 'Forecast_MASE_7': 0.239, 'Forecast_MASE_8': 0.239, 'Forecast_MASE_9': 0.239, 'Forecast_MASE_10': 0.239, 'Forecast_MASE_11': 0.239, 'Forecast_MASE_12': 0.239}
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 3 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_PolyTrend_residue_Cycle_24_residue_AR(64)', 'Voting': 955.5, 'Complexity': 'LMSSS', 'Forecast_MASE_1': 0.2437, 'Forecast_MASE_2': 0.2395, 'Forecast_MASE_3': 0.2399, 'Forecast_MASE_4': 0.2399, 'Forecast_MASE_5': 0.2399, 'Forecast_MASE_6': 0.2399, 'Forecast_MASE_7': 0.2399, 'Forecast_MASE_8': 0.2399, 'Forecast_MASE_9': 0.2399, 'Forecast_MASE_10': 0.2399, 'Forecast_MASE_11': 0.2399, 'Forecast_MASE_12': 0.2399}
 INFO:pyaf.std:COMPETITION_DETAIL_END 'Signal'
