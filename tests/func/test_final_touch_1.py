@@ -17,7 +17,7 @@ if __name__ == '__main__':
     lEngine.getModelInfo()
     lPerfs = lEngine.mSignalDecomposition.mTrPerfDetailsBySignal['Signal']
     print(lPerfs.columns)
-    print(lPerfs[['Model' , 'Forecast_MASE_1', 'Forecast_MASE_H']].values);
+    print(lPerfs[['Model' , 'Forecast_MASE_1', 'Forecast_MASE_2']].values);
 
     lEngine.standardPlots("outputs/FT_1_sixteen_rows_")
     
