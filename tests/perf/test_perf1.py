@@ -28,6 +28,7 @@ for cyc in lValues:
     lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H);
     lEngine.getModelInfo();
 
+    lEngine.standardPlots("outputs/perf_test_perf1_cycles_" + str(cyc));
     lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
 
     dfapp_in = df.copy();

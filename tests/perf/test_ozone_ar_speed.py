@@ -40,6 +40,9 @@ def buildModel(df, ar_order, H):
     lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H);
     lEngine.getModelInfo();
 
+    lEngine.standardPlots("outputs/perf_test_ozone_ar_speed_" + str(ar_order));
+    
+
 
 def run_test():
     df = b1.mPastData    

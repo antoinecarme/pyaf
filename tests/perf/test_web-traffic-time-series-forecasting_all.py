@@ -36,6 +36,7 @@ for s in range(1):
     lEngine.train(df , "Date" , lSignals, H);
     lEngine.getModelInfo();
     
+    lEngine.standardPlots("outputs/perf_web-traffic-time-series-forecasting_all_");
 
     lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
 

@@ -30,6 +30,8 @@ def test_nbrows_cycle(nbrows , cyc):
     lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H);
     lEngine.getModelInfo();
 
+    lEngine.standardPlots("outputs/perf_test_cycles_" + str(nbrows) + "_" + str(cyc));
+    
     lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
 
     dfapp_in = df.copy();
