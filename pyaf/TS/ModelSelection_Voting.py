@@ -93,7 +93,7 @@ class cModelSelector_Voting:
         # tsutil.print_pyaf_detailed_info(self.mPerfsByModel);
         self.mBestModelName = lInterestingModels['DetailedFormula'].iloc[0]
         # tsutil.print_pyaf_detailed_info("BEST_MODEL", lBestName, lBestModel)
-        self.mModelShortList = lInterestingModels[['Transformation', 'DecompositionType', 'Model', lIndicator, 'Complexity', 'Forecast_' + self.mOptions.mModelSelection_Criterion + "_1",  'Forecast_' + self.mOptions.mModelSelection_Criterion + "_" + str(H)]] 
+        self.mModelShortList = lInterestingModels[['Transformation', 'DecompositionType', 'Model', lIndicator, 'Complexity'] + ['Forecast_' + self.mOptions.mModelSelection_Criterion + "_" + str(h) for h in range(1, H+1)]] 
         # tsutil.print_pyaf_detailed_info(self.mModelShortList.head());
         return (iSignal, self.mBestModelName, self.mModelShortList)
 
