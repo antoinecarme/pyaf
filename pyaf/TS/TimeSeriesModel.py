@@ -215,7 +215,7 @@ class cTimeSeriesModel:
         assert(self.mTime in df.columns)
         assert(self.mOriginalSignal in df.columns)
         lPrefix = self.mSignal + "_";
-        df1 = df;
+        df1 = df[ [self.mTime, self.mOriginalSignal] ].copy();
         # df1.to_csv("before.csv");
         # add new line with new time value, row_number and nromalized time
         # add signal tranformed column

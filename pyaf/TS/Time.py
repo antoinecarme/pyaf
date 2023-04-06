@@ -47,8 +47,6 @@ class cTimeInfo:
         df[self.mRowNumberColumn] = self.mSignalFrame[self.mRowNumberColumn]
         df[self.mTime] = self.mSignalFrame[self.mTime]
         df[self.mNormalizedTimeColumn] = self.mSignalFrame[self.mNormalizedTimeColumn]
-        df[self.mSignal] = self.mSignalFrame[self.mSignal]
-        df[self.mOriginalSignal] = self.mSignalFrame[self.mOriginalSignal]
 
     def get_time_dtype(self):
         # tsutil.print_pyaf_detailed_info(self.mTimeMax, type(self.mTimeMax))

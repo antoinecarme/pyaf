@@ -138,6 +138,7 @@ class cZeroCycle(cAbstractCycle):
             # multiplicative models
             self.mConstantValue = 1.0
 
+        self.mCycleFrame[self.mSignal] = self.mTrendFrame[self.mSignal]
         self.mCycleFrame[self.mTrend.mOutName] = self.mTrendFrame[self.mTrend.mOutName]
         self.mCycleFrame[self.mTrend_residue_name] = self.mTrendFrame[self.mTrend_residue_name]
         self.mCycleFrame[self.getCycleName()] = self.mConstantValue
@@ -215,6 +216,7 @@ class cSeasonalPeriodic(cAbstractCycle):
         self.mSignal = self.mTimeInfo.mSignal;
         self.mTimeInfo.addVars(self.mCycleFrame);
         lName = self.getCycleName();
+        self.mCycleFrame[self.mSignal] = self.mTrendFrame[self.mSignal]
         self.mCycleFrame[self.mTrend_residue_name] = self.mTrendFrame[self.mTrend_residue_name]
         self.mCycleFrame[self.mTrend.mOutName] = self.mTrendFrame[self.mTrend.mOutName]
         self.mCycleFrame[lName] = self.compute_date_parts(self.mTrendFrame[self.mTime])
@@ -297,6 +299,7 @@ class cBestCycleForTrend(cAbstractCycle):
 
     def generate_cycles(self):
         self.mTimeInfo.addVars(self.mCycleFrame);
+        self.mCycleFrame[self.mSignal] = self.mTrendFrame[self.mSignal]
         self.mCycleFrame[self.mTrend_residue_name] = self.mTrendFrame[self.mTrend_residue_name]
         self.mCycleFrame[self.mTrend.mOutName] = self.mTrendFrame[self.mTrend.mOutName]
         self.mDefaultValue = self.compute_target_means_default_value();
@@ -456,6 +459,7 @@ class cCycleEstimator:
         self.mSignal = self.mTimeInfo.mSignal;
         self.mCycleFrame = pd.DataFrame(index = self.mTrendFrame.index);
         self.mTimeInfo.addVars(self.mCycleFrame);
+        self.mCycleFrame[self.mSignal] = self.mTrendFrame[self.mSignal]
         for trend in self.mTrendList:
             lTrend_residue_name = trend.mOutName + '_residue'
             self.mCycleFrame[lTrend_residue_name] = self.mTrendFrame[lTrend_residue_name]

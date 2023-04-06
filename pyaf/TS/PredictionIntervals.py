@@ -48,7 +48,7 @@ class cPredictionIntervalsEstimator:
         df = self.mModel.mTrend.mSignalFrame.reset_index();
         N = df.shape[0];
         (lOriginalFit, lOriginalForecast, lOriginalTest) = self.mModel.mTimeInfo.mSplit.cutFrame(df);
-        df1 = df;
+        df1 = df[ [lTimeColumn , lSignalColumn] ];
         for h in range(0 , self.mHorizon):
             df2 = self.mModel.forecastOneStepAhead(df1, horizon_index = h+1, perf_mode = True);
             df2 = df2.head(N);

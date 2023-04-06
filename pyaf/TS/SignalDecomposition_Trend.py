@@ -70,7 +70,8 @@ class cAbstractTrend:
         self.mOutName = self.mSignal + "_" + self.mOutName;
         self.mTrendFrame = pd.DataFrame(index = self.mTimeInfo.mSignalFrame.index)
         self.mTimeInfo.addVars(self.mTrendFrame);
-
+        self.mTrendFrame[self.mSignal] = self.mSignalFrame[self.mSignal]
+        
     def fit(self):
         self.fit_specific()
         self.mTrendFrame[self.mOutName] = self.compute(self.mTrendFrame)
@@ -288,11 +289,6 @@ class cTrendEstimator:
             tsplot.decomp_plot(self.mTrendFrame, self.mTimeInfo.mNormalizedTimeColumn, self.mSignal, trend.mOutName , trend.mOutName + '_residue', horizon = self.mTimeInfo.mHorizon);
             
 
-    def addTrendInputVariables(self):
-        for trend in self.mTrendList:
-            trend.addTrendInputVariables()
-        pass
-
     def check_residue(self , trend, sig, name):
         # tsutil.print_pyaf_detailed_info("check_trend_residue ", (name, trend.mDecompositionType, sig.min(), sig.max(), sig.mean(), sig .std()))
         if(np.isnan(sig).any()):
@@ -311,10 +307,12 @@ class cTrendEstimator:
         self.mSignal = self.mTimeInfo.mSignal;
         self.mTrendFrame = pd.DataFrame(index = self.mSignalFrame.index)
         self.mTimeInfo.addVars(self.mTrendFrame);
+        self.mTrendFrame[self.mSignal] = self.mSignalFrame[self.mSignal]
         for trend in self.mTrendList:
             trend.mOptions = self.mOptions
             trend.mDecompositionType = self.mDecompositionType
             trend.mTrendFrame = self.mTrendFrame.copy()
+            trend.addTrendInputVariables();
             trend.fit();
             if(trend.mOptions.mDebugPerformance):
                 trend.computePerf();
@@ -331,7 +329,6 @@ class cTrendEstimator:
             trend.mSignalFrame = self.mSignalFrame;
             trend.mTimeInfo = self.mTimeInfo;            
             trend.mSplit = self.mSplit
-        self.addTrendInputVariables();
         self.estimateTrends()
         for trend in self.mTrendList:
             del trend.mTrendFrame

@@ -245,6 +245,7 @@ class cAutoRegressiveEstimator:
         self.mTimeInfo.addVars(self.mARFrame);
         self.mCycleFrame[cycle_residue] = self.mCycleFrame[cycle_residue]            
         self.mARFrame[cycle_residue] = self.mCycleFrame[cycle_residue]            
+        self.mARFrame[self.mTimeInfo.mSignal] = self.mCycleFrame[self.mTimeInfo.mSignal]
 
         self.mDefaultValues = {};
 

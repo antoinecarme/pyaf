@@ -152,7 +152,7 @@ class cSignalDecompositionOneTransform:
 
         lSignal = self.mSignalFrame[self.mOriginalSignal]
         self.mTransformation.fit(lSignal);
-        self.mTransformation.transformDataset(self.mSignalFrame)
+        self.mSignalFrame = self.mTransformation.transformDataset(self.mSignalFrame)
         
         if(self.mExogenousInfo is not None):
             lTimer2 = None
