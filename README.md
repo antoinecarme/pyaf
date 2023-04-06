@@ -157,7 +157,7 @@ It can be installed from PyPI for the latest official release:
    
 The development version is also available by executing:
 
-	pip install scipy pandas scikit-learn matplotlib pydot dill sqlalchemy xgboost statsmodels
+	pip install scipy pandas scikit-learn matplotlib pydot xgboost statsmodels
 	pip install --upgrade git+git://github.com/antoinecarme/pyaf.git
 
 
