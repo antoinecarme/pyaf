@@ -19,7 +19,9 @@ def buildModel(arg):
         
     print("TEST_CYCLES_START", nbrows, freq, cyc)
     b1 = tsds.generate_random_TS(N = nbrows , FREQ = freq, seed = 0, trendtype = "constant", cycle_length = cyc, transform = "", sigma = 0.1, exog_count = 0);
-    df = b1.mPastData[[b1.mTimeVar , b1.mSignalVar]].copy()
+    df = b1.mPastData
+    df['Signal'] = df[b1.mName]
+    df = df[[b1.mTimeVar , b1.mSignalVar]].copy()
     lSignal = 'Signal_Cycle_' + str(nbrows) + "_" + str(freq) + "_" + str(cyc)
     df.columns = [b1.mTimeVar, lSignal]
     print(df.head())
@@ -37,7 +39,9 @@ def buildModel(arg):
     H = 12;
     lEngine.train(df , b1.mTimeVar , lSignal, H);
     lEngine.getModelInfo();
-        
+
+    lName = b1.mName
+    lEngine.standardPlots("outputs/periodicities_test_" + lName);    
     lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
     
     dfapp_in = df.copy();
