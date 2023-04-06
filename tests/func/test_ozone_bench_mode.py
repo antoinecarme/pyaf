@@ -26,6 +26,8 @@ H = b1.mHorizon;
 lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H);
 lEngine.getModelInfo();
 
+lEngine.standardPlots("outputs/func_ozone_bench_mode")
+
 dfapp_in = df;
 # dfapp_in.tail()
 

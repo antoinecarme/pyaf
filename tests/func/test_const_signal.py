@@ -24,6 +24,8 @@ H = b1.mHorizon[b1.mSignalVar];
 lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H);
 lEngine.getModelInfo();
 
+lEngine.standardPlots("outputs/func_const_signal")
+
 lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mResolution
 
 dfapp_in = df.copy();
