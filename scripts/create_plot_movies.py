@@ -10,9 +10,9 @@ def generate_video(video_type):
     images = []
     for f in glob.glob("outputs/*" + video_type + "*_output.png"):
         print("CREATE_TEST_MOVIE", f)
-        lArray = iio.imread(f, pilmode='L').astype(np.uint8)
+        lArray = iio.imread(f, pilmode="RGB").astype(np.uint8)
         images.append(lArray)
-    max_shape = (max([x.shape[0] for x in images]), max([x.shape[1] for x in images]))
+    max_shape = (max([x.shape[0] for x in images]), max([x.shape[1] for x in images]), 3)
     resized_images = []
     for im in images:
         img = im
