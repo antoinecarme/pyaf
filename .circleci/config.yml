@@ -35,7 +35,7 @@ jobs:
       - run:
           name: Install Python Packages (most recent versions) 
           command: |
-            pip install --progress-bar off numpy scipy pandas scikit-learn matplotlib pydot jupyter xgboost ipython lightgbm statsmodels torch skorch setproctitle urllib3 objgraph imageio
+            pip install --progress-bar off numpy scipy pandas scikit-learn matplotlib pydot jupyter xgboost ipython lightgbm statsmodels torch skorch setproctitle urllib3 objgraph imageio imageio_ffmpeg
       - run:
           name: Initial Cleanup
           command: |
@@ -85,7 +85,7 @@ jobs:
           name: Plot Videos
           command: |
             echo "PLOT_VIDEOS_START"
-            python scripts/create_plot_movies.py
+            # python scripts/create_plot_movies.py
             echo "PLOT_VIDEOS_END"
       - run:
           name: Upload logs
