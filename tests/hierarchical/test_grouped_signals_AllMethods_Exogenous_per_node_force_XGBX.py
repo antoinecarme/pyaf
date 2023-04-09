@@ -46,7 +46,7 @@ lExogenousData = create_exog_data(b1)
 lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H, b1.mHierarchy, lExogenousData);
 
 lEngine.getModelInfo();
-#lEngine.standardPlots("outputs/AU_infant_");
+lEngine.mSignalHierarchy.plot("outputs/grouped_signals_AllMethods_Exogenous_per_node_force_XGBX_hierarchy");
 
 print("\n\n<ModelInfo>")
 print(lEngine.to_json());

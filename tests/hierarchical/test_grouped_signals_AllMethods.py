@@ -26,7 +26,7 @@ lEngine.mOptions.set_active_autoregressions([]);
 lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H, b1.mHierarchy, None);
 
 lEngine.getModelInfo();
-#lEngine.standardPlots("outputs/AU_infant_");
+lEngine.mSignalHierarchy.plot("outputs/grouped_signals_AllMethods_2");
 
 dfapp_in = df.copy();
 dfapp_in.tail()

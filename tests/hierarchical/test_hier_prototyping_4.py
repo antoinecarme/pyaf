@@ -20,4 +20,5 @@ H = b1.mHorizon;
 lEngine.mOptions.mDebugPerformance = True;
 lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H, b1.mHierarchy, None);
 lEngine.getModelInfo();
+lEngine.mSignalHierarchy.plot("outputs/test_hier_prototyping_4");
 

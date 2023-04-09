@@ -22,7 +22,7 @@ H = b1.mHorizon;
 lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H, b1.mHierarchy, None);
 
 lEngine.getModelInfo();
-#lEngine.standardPlots("outputs/AU");
+lEngine.mSignalHierarchy.plot("outputs/test_hierarchy_AU_MO");
 
 dfapp_in = df.copy();
 dfapp_in.tail()

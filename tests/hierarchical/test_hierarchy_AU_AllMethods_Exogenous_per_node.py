@@ -52,7 +52,7 @@ lExogenousData = create_exog_data(b1)
 lEngine.train(df , b1.mTimeVar , b1.mSignalVar, H, b1.mHierarchy, iExogenousData = lExogenousData);
 
 lEngine.getModelInfo();
-#lEngine.standardPlots("outputs/AU");
+lEngine.mSignalHierarchy.plot("outputs/test_hierarchy_AU_AllMethods_Exogenous_per_node");
 
 dfapp_in = df.copy();
 dfapp_in.tail()
