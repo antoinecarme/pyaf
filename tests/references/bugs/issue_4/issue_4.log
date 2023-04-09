@@ -24,7 +24,7 @@ memory usage: 98.3+ KB
 
 [5 rows x 9 columns]
 DEBUG:pyaf.detailed:DETAIL_MESSAGE('KEPT_DISCARDED_MODELS', 168, 146, 22)
-INFO:pyaf.std:TRAINING_ENGINE_END 55.703
+INFO:pyaf.std:TRAINING_ENGINE_END 56.086
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2011-07-28T00:00:00.000000 TimeMax=2015-07-20T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=7
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Close' Length=1258  Min=90.279999 Max=702.100021  Mean=337.341653 StdDev=207.088144
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Close' Min=0.0 Max=1.0  Mean=0.403814 StdDev=0.338479
@@ -59,8 +59,15 @@ INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Close' 2 {'Transformation': 'CumSum
 INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Close' 3 {'Transformation': 'Diff_Close', 'DecompositionType': 'T+S+R', 'Model': 'Diff_Close_Lag1Trend_residue_zeroCycle[0.0]_residue_NoAR', 'Voting': 580.0, 'Complexity': 'MSSSS', 'Forecast_MASE_1': 0.9998, 'Forecast_MASE_2': 1.4499, 'Forecast_MASE_3': 1.8043, 'Forecast_MASE_4': 2.0854, 'Forecast_MASE_5': 2.2841, 'Forecast_MASE_6': 2.4885, 'Forecast_MASE_7': 2.6457}
 INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Close' 4 {'Transformation': 'RelDiff_Close', 'DecompositionType': 'T+S+R', 'Model': 'RelDiff_Close_Lag1Trend_residue_zeroCycle[0.0]_residue_NoAR', 'Voting': 580.0, 'Complexity': 'MSSSS', 'Forecast_MASE_1': 0.9998, 'Forecast_MASE_2': 1.4499, 'Forecast_MASE_3': 1.8043, 'Forecast_MASE_4': 2.0854, 'Forecast_MASE_5': 2.2841, 'Forecast_MASE_6': 2.4885, 'Forecast_MASE_7': 2.6457}
 INFO:pyaf.std:COMPETITION_DETAIL_END 'Close'
+INFO:pyaf.std:SAVING_PLOT ('Trend', 'outputs/yahoo_nasdaq_AAPL_Close_Trend_decomp_output.png')
+INFO:pyaf.std:SAVING_PLOT ('Cycle', 'outputs/yahoo_nasdaq_AAPL_Close_Cycle_decomp_output.png')
+INFO:pyaf.std:SAVING_PLOT ('AR', 'outputs/yahoo_nasdaq_AAPL_Close_AR_decomp_output.png')
+INFO:pyaf.std:SAVING_PLOT ('TransformedForecast', 'outputs/yahoo_nasdaq_AAPL_Close_TransformedForecast_decomp_output.png')
+INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/yahoo_nasdaq_AAPL_Close_Forecast_decomp_output.png')
+INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/yahoo_nasdaq_AAPL_Close_prediction_intervals_output.png')
+INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/yahoo_nasdaq_AAPL_Close_quantiles_output.png')
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['Close'], 'Horizons': {'Close': 7}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 0.599
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.471
 Forecast Columns  Index(['Date', 'Close', 'Close_scaled', '_Close', 'row_number',
        'Date_Normalized', '_Close_Lag1Trend', '_Close_Lag1Trend_residue',
        '_Close_Lag1Trend_residue_zeroCycle[0.0]',
@@ -69,9 +76,9 @@ Forecast Columns  Index(['Date', 'Close', 'Close_scaled', '_Close', 'row_number'
        '_Close_Lag1Trend_residue_zeroCycle[0.0]_residue_NoAR_residue',
        'Close_Transformed', '_Close_Trend', '_Close_Trend_residue',
        '_Close_Cycle', '_Close_Cycle_residue', '_Close_AR',
-       '_Close_AR_residue', '_Close_TransformedForecast',
-       'Close_TransformedForecast_inverted', 'Close_Forecast',
-       '_Close_TransformedResidue', 'Close_Residue',
+       '_Close_AR_residue', '_Close_TransformedForecast', '_Close_Detrended',
+       '_Close_Deseasonalized', 'Close_TransformedForecast_inverted',
+       'Close_Forecast', '_Close_TransformedResidue', 'Close_Residue',
        'Close_Forecast_Lower_Bound', 'Close_Forecast_Upper_Bound',
        'Close_Forecast_Quantile_2', 'Close_Forecast_Quantile_8',
        'Close_Forecast_Quantile_14', 'Close_Forecast_Quantile_20',

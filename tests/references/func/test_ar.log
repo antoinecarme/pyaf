@@ -5,7 +5,7 @@ Try using .loc[row_indexer,col_indexer] = value instead
 See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
   df['Signal'] = df[b1.mName]
 INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['Signal'], 'Horizons': {'Signal': 10}}
-INFO:pyaf.std:TRAINING_ENGINE_END 3.896
+INFO:pyaf.std:TRAINING_ENGINE_END 3.689
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2000-08-27T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=10
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=310  Min=12.507062 Max=140.875137  Mean=76.045998 StdDev=37.32632
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=0.0 Max=1.0  Mean=0.494975 StdDev=0.290776
@@ -54,7 +54,7 @@ INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/my_random_ar_Signal_Forecast_dec
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/my_random_ar_Signal_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/my_random_ar_Signal_quantiles_output.png')
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['Signal'], 'Horizons': {'Signal': 10}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 0.423
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.274
 TRYING_TO_LOAD_RANDOM_DATASET Signal_320_D_0_constant_0_None_0.1_20 data/ARTIFICIAL_DATA/320/Signal_320_D_0_constant_0_None_0.1_20
 LAOD_FAILED_TRYING_TO_GENERATE_RANDOM_DATASET Signal_320_D_0_constant_0_None_0.1_20
 GENERATING_RANDOM_DATASET Signal_320_D_0_constant_0_None_0.1_20
@@ -69,6 +69,7 @@ Forecast Columns  Index(['Date', 'Signal', 'Signal_scaled', '_Signal', 'row_numb
        'Signal_Transformed', '_Signal_Trend', '_Signal_Trend_residue',
        '_Signal_Cycle', '_Signal_Cycle_residue', '_Signal_AR',
        '_Signal_AR_residue', '_Signal_TransformedForecast',
+       '_Signal_Detrended', '_Signal_Deseasonalized',
        'Signal_TransformedForecast_inverted', 'Signal_Forecast',
        '_Signal_TransformedResidue', 'Signal_Residue',
        'Signal_Forecast_Lower_Bound', 'Signal_Forecast_Upper_Bound',
@@ -176,7 +177,7 @@ Forecasts
         },
         "Model_Selection_Criterion": "MASE"
     },
-    "Training_Time": 3.896
+    "Training_Time": 3.689
 }
 </ModelInfo>
 

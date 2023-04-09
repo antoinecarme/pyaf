@@ -1,5 +1,5 @@
 INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['Signal'], 'Horizons': {'Signal': 2}}
-INFO:pyaf.std:TRAINING_ENGINE_END 0.494
+INFO:pyaf.std:TRAINING_ENGINE_END 0.53
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=0 TimeMax=15 TimeDelta=1 Horizon=2
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=16  Min=1 Max=31  Mean=16.0 StdDev=9.219544
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=0.0 Max=1.0  Mean=0.5 StdDev=0.307318
@@ -38,7 +38,7 @@ INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/FT_2_sixteen_rows__Signal_Foreca
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/FT_2_sixteen_rows__Signal_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/FT_2_sixteen_rows__Signal_quantiles_output.png')
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['Signal'], 'Horizons': {'Signal': 2}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 0.075
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.108
     Date  Signal
 0      0       1
 1      1       3
@@ -71,6 +71,7 @@ Index(['Date', 'Signal', 'Signal_scaled', '_Signal', 'row_number',
        'Signal_Transformed', '_Signal_Trend', '_Signal_Trend_residue',
        '_Signal_Cycle', '_Signal_Cycle_residue', '_Signal_AR',
        '_Signal_AR_residue', '_Signal_TransformedForecast',
+       '_Signal_Detrended', '_Signal_Deseasonalized',
        'Signal_TransformedForecast_inverted', 'Signal_Forecast',
        '_Signal_TransformedResidue', 'Signal_Residue',
        'Signal_Forecast_Lower_Bound', 'Signal_Forecast_Upper_Bound',
@@ -97,12 +98,14 @@ CHECK_COLUMN_DATA 16 _Signal_Cycle_residue float64 [0.0, 0.0, 0.0, 0.0, 0.0, 0.0
 CHECK_COLUMN_DATA 17 _Signal_AR float64 [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 CHECK_COLUMN_DATA 18 _Signal_AR_residue float64 [0.0, 0.067, 0.133, 0.2, 0.267, 0.333, 0.4, 0.467, 0.533, 0.6, 0.667, 0.733, 0.8, 0.867, 0.933, 1.0, nan, nan]
 CHECK_COLUMN_DATA 19 _Signal_TransformedForecast float64 [0.0, 0.067, 0.133, 0.2, 0.267, 0.333, 0.4, 0.467, 0.533, 0.6, 0.667, 0.733, 0.8, 0.867, 0.933, 1.0, 1.067, 1.133]
-CHECK_COLUMN_DATA 20 Signal_TransformedForecast_inverted float64 [0.0, 0.067, 0.133, 0.2, 0.267, 0.333, 0.4, 0.467, 0.533, 0.6, 0.667, 0.733, 0.8, 0.867, 0.933, 1.0, 1.067, 1.133]
-CHECK_COLUMN_DATA 21 Signal_Forecast float64 [1.0, 3.0, 5.0, 7.0, 9.0, 11.0, 13.0, 15.0, 17.0, 19.0, 21.0, 23.0, 25.0, 27.0, 29.0, 31.0, 33.0, 35.0]
-CHECK_COLUMN_DATA 22 _Signal_TransformedResidue float64 [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, nan, nan]
-CHECK_COLUMN_DATA 23 Signal_Residue float64 [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, nan, nan]
-CHECK_COLUMN_DATA 24 Signal_Forecast_Lower_Bound float64 [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, 33.0, 35.0]
-CHECK_COLUMN_DATA 25 Signal_Forecast_Upper_Bound float64 [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, 33.0, 35.0]
-CHECK_COLUMN_DATA 26 Signal_Forecast_Quantile_25 float64 [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, 33.0, 35.0]
-CHECK_COLUMN_DATA 27 Signal_Forecast_Quantile_50 float64 [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, 33.0, 35.0]
-CHECK_COLUMN_DATA 28 Signal_Forecast_Quantile_75 float64 [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, 33.0, 35.0]
+CHECK_COLUMN_DATA 20 _Signal_Detrended float64 [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+CHECK_COLUMN_DATA 21 _Signal_Deseasonalized float64 [0.0, 0.067, 0.133, 0.2, 0.267, 0.333, 0.4, 0.467, 0.533, 0.6, 0.667, 0.733, 0.8, 0.867, 0.933, 1.0, 1.067, 1.133]
+CHECK_COLUMN_DATA 22 Signal_TransformedForecast_inverted float64 [0.0, 0.067, 0.133, 0.2, 0.267, 0.333, 0.4, 0.467, 0.533, 0.6, 0.667, 0.733, 0.8, 0.867, 0.933, 1.0, 1.067, 1.133]
+CHECK_COLUMN_DATA 23 Signal_Forecast float64 [1.0, 3.0, 5.0, 7.0, 9.0, 11.0, 13.0, 15.0, 17.0, 19.0, 21.0, 23.0, 25.0, 27.0, 29.0, 31.0, 33.0, 35.0]
+CHECK_COLUMN_DATA 24 _Signal_TransformedResidue float64 [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, nan, nan]
+CHECK_COLUMN_DATA 25 Signal_Residue float64 [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, nan, nan]
+CHECK_COLUMN_DATA 26 Signal_Forecast_Lower_Bound float64 [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, 33.0, 35.0]
+CHECK_COLUMN_DATA 27 Signal_Forecast_Upper_Bound float64 [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, 33.0, 35.0]
+CHECK_COLUMN_DATA 28 Signal_Forecast_Quantile_25 float64 [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, 33.0, 35.0]
+CHECK_COLUMN_DATA 29 Signal_Forecast_Quantile_50 float64 [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, 33.0, 35.0]
+CHECK_COLUMN_DATA 30 Signal_Forecast_Quantile_75 float64 [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, 33.0, 35.0]

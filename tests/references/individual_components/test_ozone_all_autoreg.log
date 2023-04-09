@@ -1,5 +1,5 @@
 INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['Ozone'], 'Horizons': {'Ozone': 12}}
-INFO:pyaf.std:TRAINING_ENGINE_END 2.697
+INFO:pyaf.std:TRAINING_ENGINE_END 3.438
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01T00:00:00.000000 TimeMax=1967-09-01T00:00:00.000000 TimeDelta=<DateOffset: months=1> Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Length=204  Min=1.2 Max=8.7  Mean=3.835784 StdDev=1.491559
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Ozone' Min=0.0 Max=1.0  Mean=0.351438 StdDev=0.198875
@@ -38,9 +38,9 @@ INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/my_ozone_autoreg_NoAR__Ozone_For
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/my_ozone_autoreg_NoAR__Ozone_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/my_ozone_autoreg_NoAR__Ozone_quantiles_output.png')
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['Ozone'], 'Horizons': {'Ozone': 12}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 0.305
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.221
 INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['Ozone'], 'Horizons': {'Ozone': 12}}
-INFO:pyaf.std:TRAINING_ENGINE_END 2.203
+INFO:pyaf.std:TRAINING_ENGINE_END 1.565
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01T00:00:00.000000 TimeMax=1967-09-01T00:00:00.000000 TimeDelta=<DateOffset: months=1> Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Length=204  Min=1.2 Max=8.7  Mean=3.835784 StdDev=1.491559
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Ozone' Min=0.0 Max=1.0  Mean=0.351438 StdDev=0.198875
@@ -89,7 +89,7 @@ INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/my_ozone_autoreg_AR__Ozone_Forec
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/my_ozone_autoreg_AR__Ozone_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/my_ozone_autoreg_AR__Ozone_quantiles_output.png')
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['Ozone'], 'Horizons': {'Ozone': 12}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 0.423
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.302
      Month  Ozone       Time
 0  1955-01    2.7 1955-01-01
 1  1955-02    2.0 1955-02-01
@@ -104,9 +104,9 @@ Forecast Columns  Index(['Time', 'Ozone', 'Ozone_scaled', '_Ozone', 'row_number'
        '_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_residue_NoAR_residue',
        'Ozone_Transformed', '_Ozone_Trend', '_Ozone_Trend_residue',
        '_Ozone_Cycle', '_Ozone_Cycle_residue', '_Ozone_AR',
-       '_Ozone_AR_residue', '_Ozone_TransformedForecast',
-       'Ozone_TransformedForecast_inverted', 'Ozone_Forecast',
-       '_Ozone_TransformedResidue', 'Ozone_Residue',
+       '_Ozone_AR_residue', '_Ozone_TransformedForecast', '_Ozone_Detrended',
+       '_Ozone_Deseasonalized', 'Ozone_TransformedForecast_inverted',
+       'Ozone_Forecast', '_Ozone_TransformedResidue', 'Ozone_Residue',
        'Ozone_Forecast_Lower_Bound', 'Ozone_Forecast_Upper_Bound',
        'Ozone_Forecast_Quantile_2', 'Ozone_Forecast_Quantile_18',
        'Ozone_Forecast_Quantile_34', 'Ozone_Forecast_Quantile_50',
@@ -215,7 +215,7 @@ Forecasts
         },
         "Model_Selection_Criterion": "MASE"
     },
-    "Training_Time": 2.697
+    "Training_Time": 3.438
 }
 </ModelInfo>
 
@@ -235,9 +235,9 @@ Forecast Columns  Index(['Time', 'Ozone', 'Ozone_scaled', '_Ozone', 'row_number'
        '_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_residue_AR(51)_residue',
        'Ozone_Transformed', '_Ozone_Trend', '_Ozone_Trend_residue',
        '_Ozone_Cycle', '_Ozone_Cycle_residue', '_Ozone_AR',
-       '_Ozone_AR_residue', '_Ozone_TransformedForecast',
-       'Ozone_TransformedForecast_inverted', 'Ozone_Forecast',
-       '_Ozone_TransformedResidue', 'Ozone_Residue',
+       '_Ozone_AR_residue', '_Ozone_TransformedForecast', '_Ozone_Detrended',
+       '_Ozone_Deseasonalized', 'Ozone_TransformedForecast_inverted',
+       'Ozone_Forecast', '_Ozone_TransformedResidue', 'Ozone_Residue',
        'Ozone_Forecast_Lower_Bound', 'Ozone_Forecast_Upper_Bound',
        'Ozone_Forecast_Quantile_2', 'Ozone_Forecast_Quantile_18',
        'Ozone_Forecast_Quantile_34', 'Ozone_Forecast_Quantile_50',
@@ -256,24 +256,8 @@ dtypes: datetime64[ns](1), float64(2)
 memory usage: 5.2 KB
 None
 Forecasts
-           Time  Ozone  Ozone_Forecast
-204 1972-01-01    NaN        0.392930
-205 1972-02-01    NaN        0.589452
-206 1972-03-01    NaN        1.356571
-207 1972-04-01    NaN        1.327784
-208 1972-05-01    NaN        1.938573
-209 1972-06-01    NaN        3.064996
-210 1972-07-01    NaN        3.054315
-211 1972-08-01    NaN        3.240745
-212 1972-09-01    NaN        3.100088
-213 1972-10-01    NaN        2.861680
-214 1972-11-01    NaN        1.494913
-215 1972-12-01    NaN        0.714732
-
-
-<ModelInfo>
-INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['Ozone'], 'Horizons': {'Ozone': 12}}
-INFO:pyaf.std:TRAINING_ENGINE_END 2.242
+ INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['Ozone'], 'Horizons': {'Ozone': 12}}
+INFO:pyaf.std:TRAINING_ENGINE_END 1.913
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01T00:00:00.000000 TimeMax=1967-09-01T00:00:00.000000 TimeDelta=<DateOffset: months=1> Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Length=204  Min=1.2 Max=8.7  Mean=3.835784 StdDev=1.491559
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Ozone' Min=0.0 Max=1.0  Mean=0.351438 StdDev=0.198875
@@ -312,7 +296,23 @@ INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/my_ozone_autoreg_SVR__Ozone_Fore
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/my_ozone_autoreg_SVR__Ozone_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/my_ozone_autoreg_SVR__Ozone_quantiles_output.png')
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['Ozone'], 'Horizons': {'Ozone': 12}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 0.615
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.293
+          Time  Ozone  Ozone_Forecast
+204 1972-01-01    NaN        0.392930
+205 1972-02-01    NaN        0.589452
+206 1972-03-01    NaN        1.356571
+207 1972-04-01    NaN        1.327784
+208 1972-05-01    NaN        1.938573
+209 1972-06-01    NaN        3.064996
+210 1972-07-01    NaN        3.054315
+211 1972-08-01    NaN        3.240745
+212 1972-09-01    NaN        3.100088
+213 1972-10-01    NaN        2.861680
+214 1972-11-01    NaN        1.494913
+215 1972-12-01    NaN        0.714732
+
+
+<ModelInfo>
 {
     "Ozone": {
         "Complexity": {
@@ -387,7 +387,7 @@ INFO:pyaf.std:FORECASTING_ENGINE_END 0.615
         },
         "Model_Selection_Criterion": "MASE"
     },
-    "Training_Time": 2.203
+    "Training_Time": 1.565
 }
 </ModelInfo>
 
@@ -407,9 +407,9 @@ Forecast Columns  Index(['Time', 'Ozone', 'Ozone_scaled', '_Ozone', 'row_number'
        '_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_residue_SVR(51)_residue',
        'Ozone_Transformed', '_Ozone_Trend', '_Ozone_Trend_residue',
        '_Ozone_Cycle', '_Ozone_Cycle_residue', '_Ozone_AR',
-       '_Ozone_AR_residue', '_Ozone_TransformedForecast',
-       'Ozone_TransformedForecast_inverted', 'Ozone_Forecast',
-       '_Ozone_TransformedResidue', 'Ozone_Residue',
+       '_Ozone_AR_residue', '_Ozone_TransformedForecast', '_Ozone_Detrended',
+       '_Ozone_Deseasonalized', 'Ozone_TransformedForecast_inverted',
+       'Ozone_Forecast', '_Ozone_TransformedResidue', 'Ozone_Residue',
        'Ozone_Forecast_Lower_Bound', 'Ozone_Forecast_Upper_Bound',
        'Ozone_Forecast_Quantile_2', 'Ozone_Forecast_Quantile_18',
        'Ozone_Forecast_Quantile_34', 'Ozone_Forecast_Quantile_50',
@@ -519,7 +519,7 @@ INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['Ozone'], 'Horizons': {'Ozone':
         },
         "Model_Selection_Criterion": "MASE"
     },
-    "Training_Time": 2.242
+    "Training_Time": 1.913
 }
 </ModelInfo>
 
@@ -531,7 +531,7 @@ INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['Ozone'], 'Horizons': {'Ozone':
 </Forecast>
 
 
-INFO:pyaf.std:TRAINING_ENGINE_END 11.914
+INFO:pyaf.std:TRAINING_ENGINE_END 4.904
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01T00:00:00.000000 TimeMax=1967-09-01T00:00:00.000000 TimeDelta=<DateOffset: months=1> Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Length=204  Min=1.2 Max=8.7  Mean=3.835784 StdDev=1.491559
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Ozone' Min=0.0 Max=1.0  Mean=0.351438 StdDev=0.198875
@@ -576,7 +576,7 @@ INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/my_ozone_autoreg_MLP__Ozone_Fore
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/my_ozone_autoreg_MLP__Ozone_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/my_ozone_autoreg_MLP__Ozone_quantiles_output.png')
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['Ozone'], 'Horizons': {'Ozone': 12}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 0.405
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.32
 INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['Ozone'], 'Horizons': {'Ozone': 12}}
 Forecast Columns  Index(['Time', 'Ozone', 'Ozone_scaled', '_Ozone', 'row_number',
        'Time_Normalized', '_Ozone_LinearTrend', '_Ozone_LinearTrend_residue',
@@ -586,9 +586,9 @@ Forecast Columns  Index(['Time', 'Ozone', 'Ozone_scaled', '_Ozone', 'row_number'
        '_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_residue_MLP(51)_residue',
        'Ozone_Transformed', '_Ozone_Trend', '_Ozone_Trend_residue',
        '_Ozone_Cycle', '_Ozone_Cycle_residue', '_Ozone_AR',
-       '_Ozone_AR_residue', '_Ozone_TransformedForecast',
-       'Ozone_TransformedForecast_inverted', 'Ozone_Forecast',
-       '_Ozone_TransformedResidue', 'Ozone_Residue',
+       '_Ozone_AR_residue', '_Ozone_TransformedForecast', '_Ozone_Detrended',
+       '_Ozone_Deseasonalized', 'Ozone_TransformedForecast_inverted',
+       'Ozone_Forecast', '_Ozone_TransformedResidue', 'Ozone_Residue',
        'Ozone_Forecast_Lower_Bound', 'Ozone_Forecast_Upper_Bound',
        'Ozone_Forecast_Quantile_2', 'Ozone_Forecast_Quantile_18',
        'Ozone_Forecast_Quantile_34', 'Ozone_Forecast_Quantile_50',
@@ -697,7 +697,7 @@ Forecasts
         },
         "Model_Selection_Criterion": "MASE"
     },
-    "Training_Time": 11.914
+    "Training_Time": 4.904
 }
 </ModelInfo>
 
@@ -709,7 +709,7 @@ Forecasts
 </Forecast>
 
 
-INFO:pyaf.std:TRAINING_ENGINE_END 2.599
+INFO:pyaf.std:TRAINING_ENGINE_END 1.912
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01T00:00:00.000000 TimeMax=1967-09-01T00:00:00.000000 TimeDelta=<DateOffset: months=1> Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Length=204  Min=1.2 Max=8.7  Mean=3.835784 StdDev=1.491559
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Ozone' Min=0.0 Max=1.0  Mean=0.351438 StdDev=0.198875
@@ -756,9 +756,9 @@ INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/my_ozone_autoreg_LSTM__Ozone_For
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/my_ozone_autoreg_LSTM__Ozone_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/my_ozone_autoreg_LSTM__Ozone_quantiles_output.png')
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['Ozone'], 'Horizons': {'Ozone': 12}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 1.174
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.334
 INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['Ozone'], 'Horizons': {'Ozone': 12}}
-INFO:pyaf.std:TRAINING_ENGINE_END 3.508
+INFO:pyaf.std:TRAINING_ENGINE_END 2.619
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01T00:00:00.000000 TimeMax=1967-09-01T00:00:00.000000 TimeDelta=<DateOffset: months=1> Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Length=204  Min=1.2 Max=8.7  Mean=3.835784 StdDev=1.491559
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Ozone' Min=0.0 Max=1.0  Mean=0.351438 StdDev=0.198875
@@ -797,7 +797,7 @@ INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/my_ozone_autoreg_XGB__Ozone_Fore
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/my_ozone_autoreg_XGB__Ozone_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/my_ozone_autoreg_XGB__Ozone_quantiles_output.png')
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['Ozone'], 'Horizons': {'Ozone': 12}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 0.39
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.292
 Forecast Columns  Index(['Time', 'Ozone', 'Ozone_scaled', '_Ozone', 'row_number',
        'Time_Normalized', '_Ozone_LinearTrend', '_Ozone_LinearTrend_residue',
        '_Ozone_LinearTrend_residue_Seasonal_MonthOfYear',
@@ -806,9 +806,9 @@ Forecast Columns  Index(['Time', 'Ozone', 'Ozone_scaled', '_Ozone', 'row_number'
        '_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_residue_LSTM(51)_residue',
        'Ozone_Transformed', '_Ozone_Trend', '_Ozone_Trend_residue',
        '_Ozone_Cycle', '_Ozone_Cycle_residue', '_Ozone_AR',
-       '_Ozone_AR_residue', '_Ozone_TransformedForecast',
-       'Ozone_TransformedForecast_inverted', 'Ozone_Forecast',
-       '_Ozone_TransformedResidue', 'Ozone_Residue',
+       '_Ozone_AR_residue', '_Ozone_TransformedForecast', '_Ozone_Detrended',
+       '_Ozone_Deseasonalized', 'Ozone_TransformedForecast_inverted',
+       'Ozone_Forecast', '_Ozone_TransformedResidue', 'Ozone_Residue',
        'Ozone_Forecast_Lower_Bound', 'Ozone_Forecast_Upper_Bound',
        'Ozone_Forecast_Quantile_2', 'Ozone_Forecast_Quantile_18',
        'Ozone_Forecast_Quantile_34', 'Ozone_Forecast_Quantile_50',
@@ -917,7 +917,7 @@ Forecasts
         },
         "Model_Selection_Criterion": "MASE"
     },
-    "Training_Time": 2.599
+    "Training_Time": 1.912
 }
 </ModelInfo>
 
@@ -937,9 +937,9 @@ Forecast Columns  Index(['Time', 'Ozone', 'Ozone_scaled', '_Ozone', 'row_number'
        '_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_residue_XGB(51)_residue',
        'Ozone_Transformed', '_Ozone_Trend', '_Ozone_Trend_residue',
        '_Ozone_Cycle', '_Ozone_Cycle_residue', '_Ozone_AR',
-       '_Ozone_AR_residue', '_Ozone_TransformedForecast',
-       'Ozone_TransformedForecast_inverted', 'Ozone_Forecast',
-       '_Ozone_TransformedResidue', 'Ozone_Residue',
+       '_Ozone_AR_residue', '_Ozone_TransformedForecast', '_Ozone_Detrended',
+       '_Ozone_Deseasonalized', 'Ozone_TransformedForecast_inverted',
+       'Ozone_Forecast', '_Ozone_TransformedResidue', 'Ozone_Residue',
        'Ozone_Forecast_Lower_Bound', 'Ozone_Forecast_Upper_Bound',
        'Ozone_Forecast_Quantile_2', 'Ozone_Forecast_Quantile_18',
        'Ozone_Forecast_Quantile_34', 'Ozone_Forecast_Quantile_50',
@@ -975,7 +975,7 @@ Forecasts
 
 <ModelInfo>
 INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['Ozone'], 'Horizons': {'Ozone': 12}}
-INFO:pyaf.std:TRAINING_ENGINE_END 1.794
+INFO:pyaf.std:TRAINING_ENGINE_END 1.319
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01T00:00:00.000000 TimeMax=1967-09-01T00:00:00.000000 TimeDelta=<DateOffset: months=1> Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Length=204  Min=1.2 Max=8.7  Mean=3.835784 StdDev=1.491559
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Ozone' Min=0.0 Max=1.0  Mean=0.351438 StdDev=0.198875
@@ -1014,7 +1014,7 @@ INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/my_ozone_autoreg_CROSTON__Ozone_
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/my_ozone_autoreg_CROSTON__Ozone_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/my_ozone_autoreg_CROSTON__Ozone_quantiles_output.png')
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['Ozone'], 'Horizons': {'Ozone': 12}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 0.389
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.221
 {
     "Ozone": {
         "Complexity": {
@@ -1089,7 +1089,7 @@ INFO:pyaf.std:FORECASTING_ENGINE_END 0.389
         },
         "Model_Selection_Criterion": "MASE"
     },
-    "Training_Time": 3.508
+    "Training_Time": 2.619
 }
 </ModelInfo>
 
@@ -1109,9 +1109,9 @@ Forecast Columns  Index(['Time', 'Ozone', 'Ozone_scaled', '_Ozone', 'row_number'
        '_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_residue_NoAR_residue',
        'Ozone_Transformed', '_Ozone_Trend', '_Ozone_Trend_residue',
        '_Ozone_Cycle', '_Ozone_Cycle_residue', '_Ozone_AR',
-       '_Ozone_AR_residue', '_Ozone_TransformedForecast',
-       'Ozone_TransformedForecast_inverted', 'Ozone_Forecast',
-       '_Ozone_TransformedResidue', 'Ozone_Residue',
+       '_Ozone_AR_residue', '_Ozone_TransformedForecast', '_Ozone_Detrended',
+       '_Ozone_Deseasonalized', 'Ozone_TransformedForecast_inverted',
+       'Ozone_Forecast', '_Ozone_TransformedResidue', 'Ozone_Residue',
        'Ozone_Forecast_Lower_Bound', 'Ozone_Forecast_Upper_Bound',
        'Ozone_Forecast_Quantile_2', 'Ozone_Forecast_Quantile_18',
        'Ozone_Forecast_Quantile_34', 'Ozone_Forecast_Quantile_50',
@@ -1147,7 +1147,7 @@ Forecasts
 
 <ModelInfo>
 INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['Ozone'], 'Horizons': {'Ozone': 12}}
-INFO:pyaf.std:TRAINING_ENGINE_END 2.681
+INFO:pyaf.std:TRAINING_ENGINE_END 2.171
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time' TimeMin=1955-01-01T00:00:00.000000 TimeMax=1967-09-01T00:00:00.000000 TimeDelta=<DateOffset: months=1> Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Ozone' Length=204  Min=1.2 Max=8.7  Mean=3.835784 StdDev=1.491559
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Ozone' Min=0.0 Max=1.0  Mean=0.351438 StdDev=0.198875
@@ -1186,7 +1186,7 @@ INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/my_ozone_autoreg_LGB__Ozone_Fore
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/my_ozone_autoreg_LGB__Ozone_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/my_ozone_autoreg_LGB__Ozone_quantiles_output.png')
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['Ozone'], 'Horizons': {'Ozone': 12}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 0.41
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.327
 {
     "Ozone": {
         "Complexity": {
@@ -1261,7 +1261,7 @@ INFO:pyaf.std:FORECASTING_ENGINE_END 0.41
         },
         "Model_Selection_Criterion": "MASE"
     },
-    "Training_Time": 1.794
+    "Training_Time": 1.319
 }
 </ModelInfo>
 
@@ -1281,9 +1281,9 @@ Forecast Columns  Index(['Time', 'Ozone', 'Ozone_scaled', '_Ozone', 'row_number'
        '_Ozone_LinearTrend_residue_Seasonal_MonthOfYear_residue_LGB(51)_residue',
        'Ozone_Transformed', '_Ozone_Trend', '_Ozone_Trend_residue',
        '_Ozone_Cycle', '_Ozone_Cycle_residue', '_Ozone_AR',
-       '_Ozone_AR_residue', '_Ozone_TransformedForecast',
-       'Ozone_TransformedForecast_inverted', 'Ozone_Forecast',
-       '_Ozone_TransformedResidue', 'Ozone_Residue',
+       '_Ozone_AR_residue', '_Ozone_TransformedForecast', '_Ozone_Detrended',
+       '_Ozone_Deseasonalized', 'Ozone_TransformedForecast_inverted',
+       'Ozone_Forecast', '_Ozone_TransformedResidue', 'Ozone_Residue',
        'Ozone_Forecast_Lower_Bound', 'Ozone_Forecast_Upper_Bound',
        'Ozone_Forecast_Quantile_2', 'Ozone_Forecast_Quantile_18',
        'Ozone_Forecast_Quantile_34', 'Ozone_Forecast_Quantile_50',
@@ -1392,7 +1392,7 @@ Forecasts
         },
         "Model_Selection_Criterion": "MASE"
     },
-    "Training_Time": 2.681
+    "Training_Time": 2.171
 }
 </ModelInfo>
 

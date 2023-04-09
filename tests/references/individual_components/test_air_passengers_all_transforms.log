@@ -1,5 +1,5 @@
 INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
-INFO:pyaf.std:TRAINING_ENGINE_END 1.901
+INFO:pyaf.std:TRAINING_ENGINE_END 1.507
 INFO:pyaf.std:TIME_DETAIL TimeVariable='time' TimeMin=1949.0 TimeMax=1956.91666666667 TimeDelta=0.08333333333336763 Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='AirPassengers' Length=132  Min=104 Max=559  Mean=262.492424 StdDev=106.221146
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_AirPassengers' Min=0.0 Max=1.0  Mean=0.348335 StdDev=0.233453
@@ -38,9 +38,9 @@ INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/my_airline_passengers_transforms
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/my_airline_passengers_transforms_None__AirPassengers_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/my_airline_passengers_transforms_None__AirPassengers_quantiles_output.png')
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 0.396
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.216
 INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
-INFO:pyaf.std:TRAINING_ENGINE_END 2.101
+INFO:pyaf.std:TRAINING_ENGINE_END 1.414
 INFO:pyaf.std:TIME_DETAIL TimeVariable='time' TimeMin=1949.0 TimeMax=1956.91666666667 TimeDelta=0.08333333333336763 Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='AirPassengers' Length=132  Min=104 Max=559  Mean=262.492424 StdDev=106.221146
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='Diff_AirPassengers' Min=-0.221978 Max=0.167033  Mean=0.004878 StdDev=0.068427
@@ -79,7 +79,7 @@ INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/my_airline_passengers_transforms
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/my_airline_passengers_transforms_Difference__AirPassengers_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/my_airline_passengers_transforms_Difference__AirPassengers_quantiles_output.png')
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 0.25
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.287
 Forecast Columns  Index(['time', 'AirPassengers', 'AirPassengers_scaled', '_AirPassengers',
        'row_number', 'time_Normalized', '_AirPassengers_LinearTrend',
        '_AirPassengers_LinearTrend_residue', 'cycle_internal',
@@ -91,6 +91,7 @@ Forecast Columns  Index(['time', 'AirPassengers', 'AirPassengers_scaled', '_AirP
        '_AirPassengers_Trend_residue', '_AirPassengers_Cycle',
        '_AirPassengers_Cycle_residue', '_AirPassengers_AR',
        '_AirPassengers_AR_residue', '_AirPassengers_TransformedForecast',
+       '_AirPassengers_Detrended', '_AirPassengers_Deseasonalized',
        'AirPassengers_TransformedForecast_inverted', 'AirPassengers_Forecast',
        '_AirPassengers_TransformedResidue', 'AirPassengers_Residue',
        'AirPassengers_Forecast_Lower_Bound',
@@ -217,7 +218,7 @@ Forecasts
         },
         "Model_Selection_Criterion": "MASE"
     },
-    "Training_Time": 1.901
+    "Training_Time": 1.507
 }
 </ModelInfo>
 
@@ -230,7 +231,7 @@ Forecasts
 
 
 Forecast Columns  INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
-INFO:pyaf.std:TRAINING_ENGINE_END 1.512
+INFO:pyaf.std:TRAINING_ENGINE_END 1.604
 INFO:pyaf.std:TIME_DETAIL TimeVariable='time' TimeMin=1949.0 TimeMax=1956.91666666667 TimeDelta=0.08333333333336763 Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='AirPassengers' Length=132  Min=104 Max=559  Mean=262.492424 StdDev=106.221146
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='RelDiff_AirPassengers' Min=-0.2 Max=0.25  Mean=0.015427 StdDev=0.106964
@@ -269,7 +270,7 @@ INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/my_airline_passengers_transforms
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/my_airline_passengers_transforms_RelativeDifference__AirPassengers_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/my_airline_passengers_transforms_RelativeDifference__AirPassengers_quantiles_output.png')
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 0.425
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.213
 Index(['time', 'AirPassengers', 'AirPassengers_scaled', 'Diff_AirPassengers',
        'row_number', 'time_Normalized', 'Diff_AirPassengers_LinearTrend',
        'Diff_AirPassengers_LinearTrend_residue', 'cycle_internal',
@@ -282,6 +283,7 @@ Index(['time', 'AirPassengers', 'AirPassengers_scaled', 'Diff_AirPassengers',
        'Diff_AirPassengers_Cycle_residue', 'Diff_AirPassengers_AR',
        'Diff_AirPassengers_AR_residue',
        'Diff_AirPassengers_TransformedForecast',
+       'Diff_AirPassengers_Detrended', 'Diff_AirPassengers_Deseasonalized',
        'AirPassengers_TransformedForecast_inverted', 'AirPassengers_Forecast',
        'Diff_AirPassengers_TransformedResidue', 'AirPassengers_Residue',
        'AirPassengers_Forecast_Lower_Bound',
@@ -408,7 +410,7 @@ Forecasts
         },
         "Model_Selection_Criterion": "MASE"
     },
-    "Training_Time": 2.101
+    "Training_Time": 1.414
 }
 </ModelInfo>
 
@@ -421,7 +423,7 @@ Forecasts
 
 
 Forecast Columns  INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
-INFO:pyaf.std:TRAINING_ENGINE_END 1.339
+INFO:pyaf.std:TRAINING_ENGINE_END 1.09
 INFO:pyaf.std:TIME_DETAIL TimeVariable='time' TimeMin=1949.0 TimeMax=1956.91666666667 TimeDelta=0.08333333333336763 Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='AirPassengers' Length=132  Min=104 Max=559  Mean=262.492424 StdDev=106.221146
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='CumSum_AirPassengers' Min=0.017582 Max=45.98022  Mean=14.9834 StdDev=13.589008
@@ -460,7 +462,7 @@ INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/my_airline_passengers_transforms
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/my_airline_passengers_transforms_Integration__AirPassengers_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/my_airline_passengers_transforms_Integration__AirPassengers_quantiles_output.png')
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 0.508
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.398
 Index(['time', 'AirPassengers', 'AirPassengers_scaled',
        'RelDiff_AirPassengers', 'row_number', 'time_Normalized',
        'RelDiff_AirPassengers_LinearTrend',
@@ -474,6 +476,8 @@ Index(['time', 'AirPassengers', 'AirPassengers_scaled',
        'RelDiff_AirPassengers_Cycle_residue', 'RelDiff_AirPassengers_AR',
        'RelDiff_AirPassengers_AR_residue',
        'RelDiff_AirPassengers_TransformedForecast',
+       'RelDiff_AirPassengers_Detrended',
+       'RelDiff_AirPassengers_Deseasonalized',
        'AirPassengers_TransformedForecast_inverted', 'AirPassengers_Forecast',
        'RelDiff_AirPassengers_TransformedResidue', 'AirPassengers_Residue',
        'AirPassengers_Forecast_Lower_Bound',
@@ -600,7 +604,7 @@ Forecasts
         },
         "Model_Selection_Criterion": "MASE"
     },
-    "Training_Time": 1.512
+    "Training_Time": 1.604
 }
 </ModelInfo>
 
@@ -625,6 +629,7 @@ Index(['time', 'AirPassengers', 'AirPassengers_scaled', 'CumSum_AirPassengers',
        'CumSum_AirPassengers_Cycle_residue', 'CumSum_AirPassengers_AR',
        'CumSum_AirPassengers_AR_residue',
        'CumSum_AirPassengers_TransformedForecast',
+       'CumSum_AirPassengers_Detrended', 'CumSum_AirPassengers_Deseasonalized',
        'AirPassengers_TransformedForecast_inverted', 'AirPassengers_Forecast',
        'CumSum_AirPassengers_TransformedResidue', 'AirPassengers_Residue',
        'AirPassengers_Forecast_Lower_Bound',
@@ -751,7 +756,7 @@ Forecasts
         },
         "Model_Selection_Criterion": "MASE"
     },
-    "Training_Time": 1.339
+    "Training_Time": 1.09
 }
 </ModelInfo>
 
@@ -763,7 +768,7 @@ Forecasts
 </Forecast>
 
 
-INFO:pyaf.std:TRAINING_ENGINE_END 4.226
+INFO:pyaf.std:TRAINING_ENGINE_END 2.981
 INFO:pyaf.std:TIME_DETAIL TimeVariable='time' TimeMin=1949.0 TimeMax=1956.91666666667 TimeDelta=0.08333333333336763 Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='AirPassengers' Length=132  Min=104 Max=559  Mean=262.492424 StdDev=106.221146
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='Box_Cox_0.0_AirPassengers' Min=-1.681759 Max=0.0  Mean=-0.839613 StdDev=0.414644
@@ -802,9 +807,9 @@ INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/my_airline_passengers_transforms
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/my_airline_passengers_transforms_BoxCox__AirPassengers_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/my_airline_passengers_transforms_BoxCox__AirPassengers_quantiles_output.png')
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 0.4
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.217
 INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
-INFO:pyaf.std:TRAINING_ENGINE_END 1.778
+INFO:pyaf.std:TRAINING_ENGINE_END 1.416
 INFO:pyaf.std:TIME_DETAIL TimeVariable='time' TimeMin=1949.0 TimeMax=1956.91666666667 TimeDelta=0.08333333333336763 Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='AirPassengers' Length=132  Min=104 Max=559  Mean=262.492424 StdDev=106.221146
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='Quantized_20_AirPassengers' Min=0 Max=13  Mean=7.0 StdDev=4.050814
@@ -843,7 +848,7 @@ INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/my_airline_passengers_transforms
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/my_airline_passengers_transforms_Quantization__AirPassengers_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/my_airline_passengers_transforms_Quantization__AirPassengers_quantiles_output.png')
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 0.52
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.268
 Forecast Columns  Index(['time', 'AirPassengers', 'AirPassengers_scaled',
        'Box_Cox_0.0_AirPassengers', 'row_number', 'time_Normalized',
        'Box_Cox_0.0_AirPassengers_LinearTrend',
@@ -858,6 +863,8 @@ Forecast Columns  Index(['time', 'AirPassengers', 'AirPassengers_scaled',
        'Box_Cox_0.0_AirPassengers_Cycle_residue',
        'Box_Cox_0.0_AirPassengers_AR', 'Box_Cox_0.0_AirPassengers_AR_residue',
        'Box_Cox_0.0_AirPassengers_TransformedForecast',
+       'Box_Cox_0.0_AirPassengers_Detrended',
+       'Box_Cox_0.0_AirPassengers_Deseasonalized',
        'AirPassengers_TransformedForecast_inverted', 'AirPassengers_Forecast',
        'Box_Cox_0.0_AirPassengers_TransformedResidue', 'AirPassengers_Residue',
        'AirPassengers_Forecast_Lower_Bound',
@@ -984,7 +991,7 @@ Forecasts
         },
         "Model_Selection_Criterion": "MASE"
     },
-    "Training_Time": 4.226
+    "Training_Time": 2.981
 }
 </ModelInfo>
 
@@ -997,7 +1004,7 @@ Forecasts
 
 
 Forecast Columns  INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
-INFO:pyaf.std:TRAINING_ENGINE_END 3.403
+INFO:pyaf.std:TRAINING_ENGINE_END 1.508
 INFO:pyaf.std:TIME_DETAIL TimeVariable='time' TimeMin=1949.0 TimeMax=1956.91666666667 TimeDelta=0.08333333333336763 Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='AirPassengers' Length=132  Min=104 Max=559  Mean=262.492424 StdDev=106.221146
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='Logit_AirPassengers' Min=-16.118096 Max=16.118096  Mean=-0.834954 StdDev=2.376028
@@ -1036,7 +1043,7 @@ INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/my_airline_passengers_transforms
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/my_airline_passengers_transforms_Logit__AirPassengers_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/my_airline_passengers_transforms_Logit__AirPassengers_quantiles_output.png')
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 0.312
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.293
 Index(['time', 'AirPassengers', 'AirPassengers_scaled',
        'Quantized_20_AirPassengers', 'row_number', 'time_Normalized',
        'Quantized_20_AirPassengers_LinearTrend',
@@ -1052,6 +1059,8 @@ Index(['time', 'AirPassengers', 'AirPassengers_scaled',
        'Quantized_20_AirPassengers_AR',
        'Quantized_20_AirPassengers_AR_residue',
        'Quantized_20_AirPassengers_TransformedForecast',
+       'Quantized_20_AirPassengers_Detrended',
+       'Quantized_20_AirPassengers_Deseasonalized',
        'AirPassengers_TransformedForecast_inverted', 'AirPassengers_Forecast',
        'Quantized_20_AirPassengers_TransformedResidue',
        'AirPassengers_Residue', 'AirPassengers_Forecast_Lower_Bound',
@@ -1178,7 +1187,7 @@ Forecasts
         },
         "Model_Selection_Criterion": "MASE"
     },
-    "Training_Time": 1.778
+    "Training_Time": 1.416
 }
 </ModelInfo>
 
@@ -1191,7 +1200,7 @@ Forecasts
 
 
 Forecast Columns  INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
-INFO:pyaf.std:TRAINING_ENGINE_END 1.995
+INFO:pyaf.std:TRAINING_ENGINE_END 1.509
 INFO:pyaf.std:TIME_DETAIL TimeVariable='time' TimeMin=1949.0 TimeMax=1956.91666666667 TimeDelta=0.08333333333336763 Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='AirPassengers' Length=132  Min=104 Max=559  Mean=262.492424 StdDev=106.221146
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='Fisher_AirPassengers' Min=0.0 Max=8.405621  Mean=0.457703 StdDev=0.768109
@@ -1230,7 +1239,7 @@ INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/my_airline_passengers_transforms
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/my_airline_passengers_transforms_Fisher__AirPassengers_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/my_airline_passengers_transforms_Fisher__AirPassengers_quantiles_output.png')
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 0.59
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.212
 Index(['time', 'AirPassengers', 'AirPassengers_scaled', 'Logit_AirPassengers',
        'row_number', 'time_Normalized', 'Logit_AirPassengers_LinearTrend',
        'Logit_AirPassengers_LinearTrend_residue',
@@ -1243,6 +1252,7 @@ Index(['time', 'AirPassengers', 'AirPassengers_scaled', 'Logit_AirPassengers',
        'Logit_AirPassengers_Cycle_residue', 'Logit_AirPassengers_AR',
        'Logit_AirPassengers_AR_residue',
        'Logit_AirPassengers_TransformedForecast',
+       'Logit_AirPassengers_Detrended', 'Logit_AirPassengers_Deseasonalized',
        'AirPassengers_TransformedForecast_inverted', 'AirPassengers_Forecast',
        'Logit_AirPassengers_TransformedResidue', 'AirPassengers_Residue',
        'AirPassengers_Forecast_Lower_Bound',
@@ -1369,7 +1379,7 @@ Forecasts
         },
         "Model_Selection_Criterion": "MASE"
     },
-    "Training_Time": 3.403
+    "Training_Time": 1.508
 }
 </ModelInfo>
 
@@ -1382,7 +1392,7 @@ Forecasts
 
 
 Forecast Columns  INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
-INFO:pyaf.std:TRAINING_ENGINE_END 2.875
+INFO:pyaf.std:TRAINING_ENGINE_END 1.274
 INFO:pyaf.std:TIME_DETAIL TimeVariable='time' TimeMin=1949.0 TimeMax=1956.91666666667 TimeDelta=0.08333333333336763 Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='AirPassengers' Length=132  Min=104 Max=559  Mean=262.492424 StdDev=106.221146
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='Anscombe_AirPassengers' Min=1.224745 Max=2.345208  Mean=1.67931 StdDev=0.270661
@@ -1421,7 +1431,7 @@ INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/my_airline_passengers_transforms
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/my_airline_passengers_transforms_Anscombe__AirPassengers_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/my_airline_passengers_transforms_Anscombe__AirPassengers_quantiles_output.png')
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 0.485
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.412
 Index(['time', 'AirPassengers', 'AirPassengers_scaled', 'Fisher_AirPassengers',
        'row_number', 'time_Normalized', 'Fisher_AirPassengers_LinearTrend',
        'Fisher_AirPassengers_LinearTrend_residue', 'cycle_internal',
@@ -1434,6 +1444,7 @@ Index(['time', 'AirPassengers', 'AirPassengers_scaled', 'Fisher_AirPassengers',
        'Fisher_AirPassengers_Cycle_residue', 'Fisher_AirPassengers_AR',
        'Fisher_AirPassengers_AR_residue',
        'Fisher_AirPassengers_TransformedForecast',
+       'Fisher_AirPassengers_Detrended', 'Fisher_AirPassengers_Deseasonalized',
        'AirPassengers_TransformedForecast_inverted', 'AirPassengers_Forecast',
        'Fisher_AirPassengers_TransformedResidue', 'AirPassengers_Residue',
        'AirPassengers_Forecast_Lower_Bound',
@@ -1560,7 +1571,7 @@ Forecasts
         },
         "Model_Selection_Criterion": "MASE"
     },
-    "Training_Time": 1.995
+    "Training_Time": 1.509
 }
 </ModelInfo>
 
@@ -1585,6 +1596,8 @@ Forecast Columns  Index(['time', 'AirPassengers', 'AirPassengers_scaled',
        'Anscombe_AirPassengers_Cycle_residue', 'Anscombe_AirPassengers_AR',
        'Anscombe_AirPassengers_AR_residue',
        'Anscombe_AirPassengers_TransformedForecast',
+       'Anscombe_AirPassengers_Detrended',
+       'Anscombe_AirPassengers_Deseasonalized',
        'AirPassengers_TransformedForecast_inverted', 'AirPassengers_Forecast',
        'Anscombe_AirPassengers_TransformedResidue', 'AirPassengers_Residue',
        'AirPassengers_Forecast_Lower_Bound',
@@ -1711,7 +1724,7 @@ Forecasts
         },
         "Model_Selection_Criterion": "MASE"
     },
-    "Training_Time": 2.875
+    "Training_Time": 1.274
 }
 </ModelInfo>
 

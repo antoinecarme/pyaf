@@ -9,7 +9,7 @@ TRYING_TO_LOAD_RANDOM_DATASET Signal_320_D_0_constant_12_None_0.0_20 data/ARTIFI
 LAOD_FAILED_TRYING_TO_GENERATE_RANDOM_DATASET Signal_320_D_0_constant_12_None_0.0_20
 GENERATING_RANDOM_DATASET Signal_320_D_0_constant_12_None_0.0_20
 TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:TRAINING_ENGINE_END 23.692
+INFO:pyaf.std:TRAINING_ENGINE_END 22.605
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2000-08-27T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=10
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=310  Min=13.522213 Max=166.553417  Mean=90.013223 StdDev=43.196553
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=0.0 Max=1.0  Mean=0.499839 StdDev=0.282273
@@ -45,8 +45,15 @@ INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 3 {'Transformation': 'Diff_
 INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 4 {'Transformation': 'Diff_Signal', 'DecompositionType': 'T+S+R', 'Model': 'Diff_Signal_Lag1Trend_residue_Cycle_12_residue_AR(64)', 'Voting': 610.5, 'Complexity': 'LMSSS', 'Forecast_MASE_1': 0.0, 'Forecast_MASE_2': 0.0, 'Forecast_MASE_3': 0.0, 'Forecast_MASE_4': 0.0, 'Forecast_MASE_5': 0.0, 'Forecast_MASE_6': 0.0, 'Forecast_MASE_7': 0.0, 'Forecast_MASE_8': 0.0, 'Forecast_MASE_9': 0.0, 'Forecast_MASE_10': 0.0}
 INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 5 {'Transformation': 'CumSum_Signal', 'DecompositionType': 'T+S+R', 'Model': 'CumSum_Signal_PolyTrend_residue_Cycle_12_residue_AR(64)', 'Voting': 606.5, 'Complexity': 'LMMSS', 'Forecast_MASE_1': 0.0011, 'Forecast_MASE_2': 0.0017, 'Forecast_MASE_3': 0.0022, 'Forecast_MASE_4': 0.0028, 'Forecast_MASE_5': 0.0033, 'Forecast_MASE_6': 0.0041, 'Forecast_MASE_7': 0.0051, 'Forecast_MASE_8': 0.0067, 'Forecast_MASE_9': 0.0097, 'Forecast_MASE_10': 0.0138}
 INFO:pyaf.std:COMPETITION_DETAIL_END 'Signal'
+INFO:pyaf.std:SAVING_PLOT ('Trend', 'outputs/func_test_cycle_Signal_Trend_decomp_output.png')
+INFO:pyaf.std:SAVING_PLOT ('Cycle', 'outputs/func_test_cycle_Signal_Cycle_decomp_output.png')
+INFO:pyaf.std:SAVING_PLOT ('AR', 'outputs/func_test_cycle_Signal_AR_decomp_output.png')
+INFO:pyaf.std:SAVING_PLOT ('TransformedForecast', 'outputs/func_test_cycle_Signal_TransformedForecast_decomp_output.png')
+INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/func_test_cycle_Signal_Forecast_decomp_output.png')
+INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/func_test_cycle_Signal_prediction_intervals_output.png')
+INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/func_test_cycle_Signal_quantiles_output.png')
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['Signal'], 'Horizons': {'Signal': 10}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 0.308
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.805
 Forecast Columns  Index(['Date', 'Signal', 'Signal_scaled', '_Signal', 'row_number',
        'Date_Normalized', '_Signal_Lag1Trend', '_Signal_Lag1Trend_residue',
        'cycle_internal', '_Signal_Lag1Trend_residue_Cycle_12',
@@ -56,6 +63,7 @@ Forecast Columns  Index(['Date', 'Signal', 'Signal_scaled', '_Signal', 'row_numb
        'Signal_Transformed', '_Signal_Trend', '_Signal_Trend_residue',
        '_Signal_Cycle', '_Signal_Cycle_residue', '_Signal_AR',
        '_Signal_AR_residue', '_Signal_TransformedForecast',
+       '_Signal_Detrended', '_Signal_Deseasonalized',
        'Signal_TransformedForecast_inverted', 'Signal_Forecast',
        '_Signal_TransformedResidue', 'Signal_Residue',
        'Signal_Forecast_Lower_Bound', 'Signal_Forecast_Upper_Bound',
@@ -163,7 +171,7 @@ Forecasts
         },
         "Model_Selection_Criterion": "MASE"
     },
-    "Training_Time": 23.692
+    "Training_Time": 22.605
 }
 </ModelInfo>
 
