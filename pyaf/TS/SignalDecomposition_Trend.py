@@ -41,18 +41,16 @@ class cAbstractTrend:
             self.check_not_nan(self.mTrendFrame[self.mOutName + '_residue'], self.mOutName + '_residue')
         # self.mTrendFrame.to_csv(self.mOutName + '_residue' + ".csv");
 
-        self.mTrendFitPerf = tsperf.cPerf();
-        self.mTrendForecastPerf = tsperf.cPerf();
-        (lFrameFit, lFrameForecast, lFrameTest) = self.mSplit.cutFrame(self.mTrendFrame);
-        self.mTrendFitPerf.computeCriterionValues(lFrameFit[self.mSignal] ,
-                                                  lFrameFit[self.mOutName],
-                                                  [self.mTimeInfo.mOptions.mModelSelection_Criterion],
-                                                  self.mOutName)
-        self.mTrendForecastPerf.computeCriterionValues(lFrameForecast[self.mSignal] ,
-                                                       lFrameForecast[self.mOutName],
-                                                       [self.mTimeInfo.mOptions.mModelSelection_Criterion],
-                                                       self.mOutName)
-
+        self.mTrendPerfs = {}
+        lCutting = self.mSplit.cutFrame(self.mTrendFrame);
+        for(lDataset , lDF) in lCutting.items():
+            lPerf = tsperf.cPerf();
+            lPerf.computeCriterionValues(lDF[self.mSignal] ,
+                                         lDF[self.mOutName],
+                                         [self.mTimeInfo.mOptions.mModelSelection_Criterion],
+                                         self.mOutName + "_" + str(lDataset))
+            self.mTrendPerfs[lDataset] = lPerf
+            
 
     def compute_trend_residue(self, df):
         target = df[self.mSignal]

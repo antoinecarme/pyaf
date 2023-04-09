@@ -64,19 +64,15 @@ class cAbstractAR:
         pass
     
     def computePerf(self):
-        self.mARFitPerf= tsperf.cPerf();
-        self.mARForecastPerf= tsperf.cPerf();
-        (lFrameFit, lFrameForecast, lFrameTest) = self.mSplit.cutFrame(self.mARFrame);
-        self.mARFitPerf.computeCriterionValues(
-            lFrameFit[self.mCycleResidueName],
-            lFrameFit[self.mOutName],
-            [self.mTimeInfo.mOptions.mModelSelection_Criterion],
-            self.mOutName)
-        self.mARForecastPerf.computeCriterionValues(
-            lFrameForecast[self.mCycleResidueName],
-            lFrameForecast[self.mOutName],
-            [self.mTimeInfo.mOptions.mModelSelection_Criterion],
-            self.mOutName)
+        self.mARPerfs = {}
+        lCutting = self.mSplit.cutFrame(self.mARFrame);
+        for(lDataset , lDF) in lCutting.items():
+            lPerf = tsperf.cPerf();
+            lPerf.computeCriterionValues(lDF[self.mCycleResidueName],
+                                         lDF[self.mOutName],
+                                         [self.mTimeInfo.mOptions.mModelSelection_Criterion],
+                                         self.mOutName + "_" + str(lDataset))
+            self.mARPerfs[lDataset] = lPerf
 
     def shift_series(self, series, p, idefault):
         N = series.shape[0];

@@ -13,6 +13,7 @@ from . import Perf as tsperf
 from . import Plots as tsplot
 from . import Utils as tsutil
 from . import Complexity as tscomplex
+from . import TimeSeries_Cutting as tscut
 
 class cAbstractCycle:
     def __init__(self , trend):
@@ -89,27 +90,22 @@ class cAbstractCycle:
         if(self.mOptions.mDebug):
             self.check_not_nan(self.mCycleFrame[self.getCycleResidueName()], self.getCycleResidueName())
         # self.mCycleFrame.to_csv(self.getCycleResidueName() + ".csv");
-        self.mCycleFitPerf = tsperf.cPerf();
-        self.mCycleForecastPerf = tsperf.cPerf();
+        self.mCyclePerfs = {}
         # self.mCycleFrame[[self.mTrend_residue_name, self.getCycleName()]].to_csv(self.getCycleName() + ".csv");
-        (lFrameFit, lFrameForecast, lFrameTest) = self.mSplit.cutFrame(self.mCycleFrame);
-        
-        self.mCycleFitPerf.computeCriterionValues(
-            lFrameFit[self.mTrend_residue_name], lFrameFit[self.getCycleName()],
-            [self.mOptions.mCycle_Criterion], self.getCycleName())
-        self.mCycleForecastPerf.computeCriterionValues(
-            lFrameForecast[self.mTrend_residue_name], lFrameForecast[self.getCycleName()],
-            [self.mOptions.mCycle_Criterion], self.getCycleName())
+        lCutting = self.mSplit.cutFrame(self.mCycleFrame);
+        for(lDataset , lDF) in lCutting.items():
+            lPerf = tsperf.cPerf();
+            lPerf.computeCriterionValues(
+                lDF[self.mTrend_residue_name], lDF[self.getCycleName()],
+                [self.mOptions.mCycle_Criterion], self.getCycleName() + "_" + str(lDataset))
+            self.mCyclePerfs[lDataset] = lPerf
         self.dumpCyclePerf()
 
     
     def dumpCyclePerf(self):
         if(self.mOptions.mDebugCycles):
             logger = tsutil.get_pyaf_logger();
-            lDict = {
-                "Fit" : self.mCycleFitPerf.getCriterionValue(self.mOptions.mCycle_Criterion),
-                "Forecast" : self.mCycleForecastPerf.getCriterionValue(self.mOptions.mCycle_Criterion),
-            }
+            lDict = self.mCyclePerfs
             logger.info("CYCLE_PERF_DETAIL " + self.mOptions.mCycle_Criterion  + " " + self.mOutName +  " " + str(lDict))
 
 
@@ -479,6 +475,7 @@ class cCycleEstimator:
     def filterSeasonals(self):
         logger = tsutil.get_pyaf_logger();
         logger.debug("CYCLE_TRAINING_FILTER_SEASONALS_START")
+        lForecastDataset = tscut.eDatasetType.Forecast
         for trend in self.mTrendList:
             lPerfs = {}
             lTrend_residue_name = trend.mOutName + '_residue'
@@ -487,8 +484,8 @@ class cCycleEstimator:
             for cycle in self.mCycleList[trend]:
                 if(isinstance(cycle , cSeasonalPeriodic)):
                     # check that the MAPE is not above 1.0
-                    if(cycle.mCycleForecastPerf.is_acceptable_criterion_value(self.mOptions.mCycle_Criterion)):
-                        lCritValue = cycle.mCycleForecastPerf.getCriterionValue(self.mOptions.mCycle_Criterion)
+                    if(cycle.mCyclePerfs[lForecastDataset].is_acceptable_criterion_value(self.mOptions.mCycle_Criterion)):
+                        lCritValue = cycle.mCyclePerfs[lForecastDataset].getCriterionValue(self.mOptions.mCycle_Criterion)
                         lCategories = len(cycle.mEncodedValueDict.keys())
                         lPerfs[cycle.mOutName] = (round(lCritValue, 3), lCategories)
                         lSeasonals[cycle.mOutName] = cycle
@@ -502,7 +499,7 @@ class cCycleEstimator:
             lSortingMethod_By_MAPE = lambda x : (x[1][0], x[0]) 
             lData = sorted(lData, key = lSortingMethod_By_MAPE) # MAPE => MASE
             assert(len(lData) > 0)
-            lBestPerf = lSeasonals[ lData[0][0] ].mCycleForecastPerf
+            lBestPerf = lSeasonals[ lData[0][0] ].mCyclePerfs[lForecastDataset]
             lBestCriterion = lData[0][1]
             lData_smallest = [x for x in lData if lBestPerf.is_close_criterion_value(self.mOptions.mCycle_Criterion,
                                                                                      x[1][0],
