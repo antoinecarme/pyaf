@@ -123,9 +123,9 @@ class cPredictionIntervalsEstimator:
             df2 = df2.head(N);
             forecast_cut_dfs = self.mModel.mTimeInfo.mSplit.cutFrame(df2);
             self.compute_whole_perfs(original_cut_dfs, forecast_cut_dfs, h)
-            self.compute_detrended_perfs(original_cut_dfs, forecast_cut_dfs, h)
-            self.compute_deseasonalized_perfs(original_cut_dfs, forecast_cut_dfs, h)
-            self.compute_transformed_perfs(original_cut_dfs, forecast_cut_dfs, h)
+            # self.compute_detrended_perfs(original_cut_dfs, forecast_cut_dfs, h)
+            #self.compute_deseasonalized_perfs(original_cut_dfs, forecast_cut_dfs, h)
+            # self.compute_transformed_perfs(original_cut_dfs, forecast_cut_dfs, h)
             
             df1 = df2[[lTimeColumn , lForecastColumn,
                        self.mModel.mTimeInfo.mRowNumberColumn,
