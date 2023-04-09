@@ -13,6 +13,7 @@ from . import Plots as tsplot
 from . import Perf as tsperf
 from . import Utils as tsutil
 from . import Complexity as tscomplex
+from . import TimeSeries_Cutting as tscut
 
 
 def to_str(x):
@@ -26,9 +27,6 @@ class cTimeSeriesModel:
         self.mTrend = trend;
         self.mCycle = cycle;
         self.mAR = autoreg;
-        self.mFitPerformances = {}
-        self.mForecastPerformances = {}
-        self.mTestPerformances = {}
         self.mOutName = self.mAR.mOutName;
         self.mOriginalSignal = self.mTransformation.mOriginalSignal;
         self.mTimeInfo = self.mTrend.mTimeInfo;
@@ -84,9 +82,9 @@ class cTimeSeriesModel:
         lPredictionIntervalsEstimator.computePerformances();
         lForecastColumn = str(self.mOriginalSignal) + "_Forecast";
                     
-        self.mFitPerfs = lPredictionIntervalsEstimator.mFitPerformances
-        self.mForecastPerfs = lPredictionIntervalsEstimator.mForecastPerformances
-        self.mTestPerfs = lPredictionIntervalsEstimator.mTestPerformances
+        self.mFitPerfs = lPredictionIntervalsEstimator.mPerformances["whole"][tscut.eDatasetType.Fit]
+        self.mForecastPerfs = lPredictionIntervalsEstimator.mPerformances["whole"][tscut.eDatasetType.Forecast]
+        self.mTestPerfs = lPredictionIntervalsEstimator.mPerformances["whole"][tscut.eDatasetType.Test]
 
     def get_perfs_summary(self):
         output = {"Fit" : {}, "Forecast" : {}, "Test" : {}}
@@ -201,7 +199,7 @@ class cTimeSeriesModel:
         self.perf_info()
         self.decomposition_detail_info()
 
-    def compute_model_forecast(self, iTrendValue, iCycleValue, iARValue):
+    def compute_transformed_forecast(self, iTrendValue, iCycleValue, iARValue):
         if(self.mDecompositionType in ['TS+R']):
             return iTrendValue * iCycleValue + iARValue
         if(self.mDecompositionType in ['TSR']):
@@ -210,6 +208,26 @@ class cTimeSeriesModel:
             lARValue = iARValue.clip(-100, 100)
             return lTrendValue * lCycleValue * lARValue
         return iTrendValue + iCycleValue + iARValue
+    
+    def compute_detrended_signal(self, iTrendValue, iCycleValue, iARValue):
+        if(self.mDecompositionType in ['TS+R']):
+            # T and S are not easily separable. remove T*S ("TrendCycle component"). Can do better ?
+            return iARValue
+        if(self.mDecompositionType in ['TSR']):
+            lCycleValue = iCycleValue.clip(-100, 100)
+            lARValue = iARValue.clip(-100, 100)
+            return lCycleValue * lARValue
+        return iCycleValue + iARValue
+
+    def compute_deseasonalized_signal(self, iTrendValue, iCycleValue, iARValue):
+        if(self.mDecompositionType in ['TS+R']):
+            # T and S are not easily separable. remove T*S ("TrendCycle component"). Can do better ?
+            return iARValue
+        if(self.mDecompositionType in ['TSR']):
+            lTrendValue = iTrendValue.clip(-100, 100)
+            lARValue = iARValue.clip(-100, 100)
+            return lTrendValue * lARValue
+        return iTrendValue + iARValue
 
     def forecastOneStepAhead(self , df , horizon_index = 1, perf_mode = False):
         assert(self.mTime in df.columns)
@@ -255,7 +273,9 @@ class cTimeSeriesModel:
 
         lPrefix2 = str(self.mOriginalSignal) + "_";
         # tsutil.print_pyaf_detailed_info("TimeSeriesModel_forecast_invert");
-        df2[lPrefix + 'TransformedForecast'] = self.compute_model_forecast(lTrendColumn, lCycleColumn, lARColumn)
+        df2[lPrefix + 'TransformedForecast'] = self.compute_transformed_forecast(lTrendColumn, lCycleColumn, lARColumn)
+        df2[lPrefix + 'Detrended'] = self.compute_detrended_signal(lTrendColumn, lCycleColumn, lARColumn)
+        df2[lPrefix + 'Deseasonalized'] = self.compute_deseasonalized_signal(lTrendColumn, lCycleColumn, lARColumn)
         invert_result = self.mTransformation.invert(df2[lPrefix + 'TransformedForecast'])
         df2[lPrefix2 + 'TransformedForecast_inverted'] = invert_result["inverted"]
         df2[lPrefix2 + 'Forecast'] = invert_result["rescaled"]
@@ -325,7 +345,7 @@ class cTimeSeriesModel:
         lConfidence = 1.96 ; # 0.95
         # the prediction intervals are only computed for the training horizon
         lHorizon = min(iHorizon , self.mTimeInfo.mHorizon);
-        lWidths = [lConfidence * self.mPredictionIntervalsEstimator.mForecastPerformances[lForecastColumn + "_" + str(h + 1)].mL2
+        lWidths = [lConfidence * self.mPredictionIntervalsEstimator.mPerformances["whole"][tscut.eDatasetType.Forecast][lForecastColumn + "_" + str(h + 1)].mL2
                    for h in range(0 , self.mTimeInfo.mHorizon)]
         lWidths = (lWidths + [np.nan]*iHorizon)[:iHorizon]
         lForcastValues = iForecastFrame.loc[N:N+iHorizon, lForecastColumn]
@@ -345,11 +365,11 @@ class cTimeSeriesModel:
 
         # the prediction intervals are only computed for the training horizon
         lHorizon = min(iHorizon , self.mTimeInfo.mHorizon);
-        lPerfs = [self.mPredictionIntervalsEstimator.mForecastPerformances[lForecastColumn + "_" + str(h + 1)]
+        lPerfs = [self.mPredictionIntervalsEstimator.mPerformances["whole"][tscut.eDatasetType.Forecast][lForecastColumn + "_" + str(h + 1)]
                    for h in range(0 , self.mTimeInfo.mHorizon)]
         lForcastValues = iForecastFrame.loc[N:N+iHorizon, lForecastColumn]
         
-        lQuantiles = self.mPredictionIntervalsEstimator.mForecastPerformances[lForecastColumn + "_1"].mErrorQuantiles.keys()
+        lQuantiles = self.mPredictionIntervalsEstimator.mPerformances["whole"][tscut.eDatasetType.Forecast][lForecastColumn + "_1"].mErrorQuantiles.keys()
         lQuantiles = sorted(lQuantiles)
         for q in lQuantiles:
             iForecastFrame[lQuantileName + str(q)] = np.nan
@@ -451,17 +471,18 @@ class cTimeSeriesModel:
 
         # Add more informative title for this plot.  Investigate Model Esthetics for PyAF #212 
         lTitle = self.get_title_details_for_plots("Prediction Intervals")
-        tsplot.prediction_interval_plot(lOutput,
-                                        lTime, self.mOriginalSignal,
-                                        lForecastColumn,
-                                        lForecastColumn + '_Lower_Bound',
-                                        lForecastColumn + '_Upper_Bound',
-                                        name = name,
-                                        format= format, horizon = self.mTimeInfo.mHorizon,
-                                        title = lTitle);
+        if(self.mTimeInfo.mOptions.mAddPredictionIntervals):
+            tsplot.prediction_interval_plot(lOutput,
+                                            lTime, self.mOriginalSignal,
+                                            lForecastColumn,
+                                            lForecastColumn + '_Lower_Bound',
+                                            lForecastColumn + '_Upper_Bound',
+                                            name = name,
+                                            format= format, horizon = self.mTimeInfo.mHorizon,
+                                            title = lTitle);
         
         if(self.mTimeInfo.mOptions.mAddPredictionIntervals):
-            lQuantiles = self.mPredictionIntervalsEstimator.mForecastPerformances[lForecastColumn + "_1"].mErrorQuantiles.keys()
+            lQuantiles = self.mPredictionIntervalsEstimator.mPerformances["whole"][tscut.eDatasetType.Forecast][lForecastColumn + "_1"].mErrorQuantiles.keys()
             lQuantiles = sorted(lQuantiles)
             tsplot.quantiles_plot(lOutput,
                                   lTime, self.mOriginalSignal,
@@ -517,7 +538,7 @@ class cTimeSeriesModel:
         lPrefix = self.mOriginalSignal + "_";
         lTime = self.mTime;
         lForecastColumn = lPrefix + 'Forecast';
-        lQuantiles = self.mPredictionIntervalsEstimator.mForecastPerformances[lForecastColumn + "_1"].mErrorQuantiles.keys()
+        lQuantiles = self.mPredictionIntervalsEstimator.mPerformances["whole"][tscut.eDatasetType.Forecast][lForecastColumn + "_1"].mErrorQuantiles.keys()
         lQuantiles = sorted(lQuantiles)
         return tsplot.quantiles_plot_as_png_base64(lOutput,
                                                    lTime, self.mOriginalSignal,
