@@ -6,8 +6,15 @@
 
 import pandas as pd
 import numpy as np
+from enum import IntEnum
 
 from . import Utils as tsutil
+
+class eDatasetType(IntEnum):
+    Fit = 1
+    Forecast = 2
+    Test = 3
+
 
 class cCuttingInfo:
     def __init__(self):
@@ -88,10 +95,12 @@ class cCuttingInfo:
         pass
 
     def cutFrame(self, df):
-        lFrameFit = df[self.mEstimStart : self.mEstimEnd];
-        lFrameForecast = df[self.mValidStart : self.mValidEnd];
-        lFrameTest = df[self.mTestStart : self.mTestEnd];
-        return (lFrameFit, lFrameForecast, lFrameTest)
+        lDict = {
+            eDatasetType.Fit : df[self.mEstimStart : self.mEstimEnd],
+            eDatasetType.Forecast : df[self.mValidStart : self.mValidEnd],
+            eDatasetType.Test : df[self.mTestStart : self.mTestEnd]
+        }
+        return lDict
 
     def getEstimPart(self, df):
         lFrameFit = df[self.mEstimStart : self.mEstimEnd];
