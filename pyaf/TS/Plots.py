@@ -299,7 +299,7 @@ def plot_hierarchy_internal(structure , iAnnotations, name):
 def plot_hierarchy(structure , iAnnotations, name):
     graph = plot_hierarchy_internal(structure , iAnnotations, name)
     if(name is not None):
-        graph.write_png(name);
+        graph.write_png(name + ".png");
     else:
         from IPython.display import Image, display
         plot1 = Image(graph.create_png())
