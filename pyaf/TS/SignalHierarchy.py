@@ -12,6 +12,7 @@ from . import Options as tsopts
 from . import Perf as tsperf
 from . import Utils as tsutil
 from . import Plots as tsplot
+from . import TimeSeries_Cutting as tscut
 
 import copy
 
@@ -238,10 +239,11 @@ class cSignalHierarchy:
             for level in sorted(self.mStructure.keys()):
                 for signal in sorted(self.mStructure[level].keys()):
                     lEngine = self.mModels
-                    lMAPE = 'MAPE = %.4f' % self.mValidPerfs[str(signal) + "_Forecast"].mMAPE
+                    lValidPerfs = self.mPerformances[signal][tscut.eDatasetType.Forecast]
+                    lMAPE = 'MAPE = %.4f' % lValidPerfs[str(signal) + "_Forecast"].mMAPE
                     lReconciledMAPEs = [ ]
                     for lPrefix in lPrefixes:
-                        lMAPE_Rec = self.mValidPerfs[str(signal) + "_" + lPrefix + "_Forecast"].mMAPE
+                        lMAPE_Rec = lValidPerfs[str(signal) + "_" + lPrefix + "_Forecast"].mMAPE
                         lReconciledMAPEs.append('MAPE_' + lPrefix + ' = %.4f' % lMAPE_Rec);
                     lAnnotations[signal] = [signal , lMAPE ] + lReconciledMAPEs;
                     for col1 in sorted(self.mStructure[level][signal]):
@@ -263,7 +265,7 @@ class cSignalHierarchy:
     def standardPlots(self , name = None):
         lEngine = self.mModels
         lEngine.standardPlots(name + "_Hierarchy_Level_Signal_");
-        self.plot(name + "_Hierarchical_Structure.png")
+        self.plot(name + "_Hierarchical_Structure")
 
     def getPlotsAsDict(self):
         lDict = {}
@@ -377,46 +379,46 @@ class cSignalHierarchy:
             lPrefixes = lPrefixes + ['AHP_TD', 'PHA_TD'];
         return lPrefixes
 
+    def computePerfOnCombinedForecasts_one_node(self, iForecast_DF, iPrefixes, signal):
+        logger = tsutil.get_pyaf_hierarchical_logger();
+        lForecast_DF = self.get_clean_signal_and_forecasts(iForecast_DF, signal, iPrefixes)
+        lColumns = [signal , str(signal) + "_Forecast"] + [str(signal) + "_" + lPrefix + "_Forecast" for lPrefix in iPrefixes]
+        lEngine = self.mModels
+        self.mPerformances[signal] = {}
+        lSplit = lEngine.mSignalDecomposition.mBestModel.mTimeInfo.mSplit
+        forecast_cut_dfs = lSplit.cutFrame(lForecast_DF);
+        for (lDataset, lDF) in forecast_cut_dfs.items():
+            self.mPerformances[signal][lDataset] = {}
+            lDF1 = lDF[lColumns]
+            if(self.discard_nans_in_aggregate_signals()):
+                lDF1 = lDF1.dropna()
+            lPerf = lEngine.computePerf(lDF1[signal], lDF1[str(signal) + "_Forecast"], signal)
+            self.mPerformances[signal][lDataset][str(signal) + "_Forecast"] = lPerf
+            for lPrefix in iPrefixes:
+                lName = str(signal) + "_" + lPrefix + "_Forecast"
+                lPerf_Combined = lEngine.computePerf(lDF1[signal], lDF1[lName], lName)
+                self.mPerformances[signal][lDataset][lName] = lPerf_Combined
+            for (sig , perf) in sorted(self.mPerformances[signal][lDataset].items()):
+                logger.info("REPORT_COMBINED_FORECASTS_PERF "  + str((lDataset.name, sig)) + " " + str(perf.to_dict()))
+        
     def computePerfOnCombinedForecasts(self, iForecast_DF):
         logger = tsutil.get_pyaf_hierarchical_logger();
         logger.info("FORECASTING_HIERARCHICAL_MODEL_OPTIMAL_COMBINATION_METHOD");
         lEngine = self.mModels
         lPrefixes = self.get_reconciled_forecast_prefixes()
         
-        self.mEstimPerfs = {}
-        self.mValidPerfs = {}
-        lPerfs = {};
+        self.mPerformances = {}
+        for lDataset in self.mPerformances.keys():
+            self.mPerformances[lDataset]["local"] = {} 
+            for lPrefix in lPrefixes:
+                self.mPerformances[lPrefix] = {}
         logger.info("STRUCTURE " + str(sorted(list(self.mStructure.keys()))));
         logger.info("DATASET_COLUMNS "  + str(iForecast_DF.columns));
         for level in sorted(self.mStructure.keys()):
             logger.info("STRUCTURE_LEVEL " + str((level, sorted(list(self.mStructure[level].keys())))));
             for signal in sorted(self.mStructure[level].keys()):
-                lForecast_DF = self.get_clean_signal_and_forecasts(iForecast_DF, signal, lPrefixes)                
-                lFrameFit = self.getEstimPart(lForecast_DF);
-                lFrameValid = self.getValidPart(lForecast_DF);
-                lColumns = [signal , str(signal) + "_Forecast"] + [str(signal) + "_" + lPrefix + "_Forecast" for lPrefix in lPrefixes]
-                lFrameFit = lFrameFit[lColumns]
-                lFrameValid = lFrameValid[lColumns]
-                if(self.discard_nans_in_aggregate_signals()):
-                    lFrameFit = lFrameFit.dropna()
-                    lFrameValid = lFrameValid.dropna()
-                lPerfFit = lEngine.computePerf(lFrameFit[signal], lFrameFit[str(signal) + "_Forecast"], signal)
-                lPerfValid = lEngine.computePerf(lFrameValid[signal], lFrameValid[str(signal) + "_Forecast"], signal)
-                self.mEstimPerfs[str(signal) + "_Forecast"] = lPerfFit
-                self.mValidPerfs[str(signal) + "_Forecast"] = lPerfValid
-                for iPrefix in lPrefixes:
-                    lName = str(signal) + "_" + iPrefix + "_Forecast"
-                    lPerfFit_Combined = lEngine.computePerf(lFrameFit[signal], lFrameFit[lName], lName)
-                    lPerfValid_Combined = lEngine.computePerf(lFrameValid[signal], lFrameValid[lName], lName)
-                    lPerfs[str(signal) + "_" + iPrefix] = (lPerfFit , lPerfValid, lPerfFit_Combined, lPerfValid_Combined);
-                    self.mEstimPerfs[lName] = lPerfFit_Combined
-                    self.mValidPerfs[lName] = lPerfValid_Combined
+                self.computePerfOnCombinedForecasts_one_node(iForecast_DF, lPrefixes, signal)
                                 
-        for (sig , perf) in sorted(lPerfs.items()):
-            logger.info("REPORT_COMBINED_FORECASTS_FIT_PERF "  + str(perf[2].to_dict()))
-            logger.info("REPORT_COMBINED_FORECASTS_VALID_PERF " + str(perf[3].to_dict()))
-        return lPerfs;
-
 
     def computeTopDownForecasts(self, iForecast_DF , iProp , iPrefix):
         logger = tsutil.get_pyaf_hierarchical_logger();
