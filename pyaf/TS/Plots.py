@@ -299,6 +299,7 @@ def plot_hierarchy_internal(structure , iAnnotations, name):
 def plot_hierarchy(structure , iAnnotations, name):
     graph = plot_hierarchy_internal(structure , iAnnotations, name)
     if(name is not None):
+        log_saving_plot_message("Hierarchical_Structure", name + '.png')
         graph.write_png(name + ".png");
     else:
         from IPython.display import Image, display
