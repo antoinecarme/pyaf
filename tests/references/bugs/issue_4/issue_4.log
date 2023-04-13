@@ -1,19 +1,19 @@
 INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['Close'], 'Horizons': {'Close': 7}}
 <class 'pandas.core.frame.DataFrame'>
-Int64Index: 1258 entries, 1257 to 0
+Index: 1258 entries, 1257 to 0
 Data columns (total 9 columns):
- #   Column      Non-Null Count  Dtype         
----  ------      --------------  -----         
- 0   Unnamed: 0  1258 non-null   int64         
- 1   Symbol      1258 non-null   object        
- 2   Adj_Close   1258 non-null   float64       
- 3   High        1258 non-null   float64       
- 4   Low         1258 non-null   float64       
- 5   Volume      1258 non-null   int64         
- 6   Open        1258 non-null   float64       
- 7   Date        1258 non-null   datetime64[ns]
- 8   Close       1258 non-null   float64       
-dtypes: datetime64[ns](1), float64(5), int64(2), object(1)
+ #   Column      Non-Null Count  Dtype        
+---  ------      --------------  -----        
+ 0   Unnamed: 0  1258 non-null   int64        
+ 1   Symbol      1258 non-null   object       
+ 2   Adj_Close   1258 non-null   float64      
+ 3   High        1258 non-null   float64      
+ 4   Low         1258 non-null   float64      
+ 5   Volume      1258 non-null   int64        
+ 6   Open        1258 non-null   float64      
+ 7   Date        1258 non-null   datetime64[s]
+ 8   Close       1258 non-null   float64      
+dtypes: datetime64[s](1), float64(5), int64(2), object(1)
 memory usage: 98.3+ KB
       Unnamed: 0 Symbol  Adj_Close  ...        Open       Date       Close
 1257        1257   AAPL  51.523488  ...  391.619991 2011-07-28  391.819996
@@ -24,7 +24,7 @@ memory usage: 98.3+ KB
 
 [5 rows x 9 columns]
 DEBUG:pyaf.detailed:DETAIL_MESSAGE('KEPT_DISCARDED_MODELS', 168, 146, 22)
-INFO:pyaf.std:TRAINING_ENGINE_END 56.086
+INFO:pyaf.std:TRAINING_ENGINE_END 46.081
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2011-07-28T00:00:00.000000 TimeMax=2015-07-20T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=7
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Close' Length=1258  Min=90.279999 Max=702.100021  Mean=337.341653 StdDev=207.088144
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Close' Min=0.0 Max=1.0  Mean=0.403814 StdDev=0.338479
@@ -67,7 +67,7 @@ INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/yahoo_nasdaq_AAPL_Close_Forecast
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/yahoo_nasdaq_AAPL_Close_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/yahoo_nasdaq_AAPL_Close_quantiles_output.png')
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['Close'], 'Horizons': {'Close': 7}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 0.471
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.123
 Forecast Columns  Index(['Date', 'Close', 'Close_scaled', '_Close', 'row_number',
        'Date_Normalized', '_Close_Lag1Trend', '_Close_Lag1Trend_residue',
        '_Close_Lag1Trend_residue_zeroCycle[0.0]',
@@ -93,12 +93,12 @@ Forecast Columns  Index(['Date', 'Close', 'Close_scaled', '_Close', 'row_number'
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 1265 entries, 0 to 1264
 Data columns (total 3 columns):
- #   Column          Non-Null Count  Dtype         
----  ------          --------------  -----         
- 0   Date            1265 non-null   datetime64[ns]
- 1   Close           1258 non-null   float64       
- 2   Close_Forecast  1265 non-null   float64       
-dtypes: datetime64[ns](1), float64(2)
+ #   Column          Non-Null Count  Dtype        
+---  ------          --------------  -----        
+ 0   Date            1265 non-null   datetime64[s]
+ 1   Close           1258 non-null   float64      
+ 2   Close_Forecast  1265 non-null   float64      
+dtypes: datetime64[s](1), float64(2)
 memory usage: 29.8 KB
 Forecasts
             Date       Close  Close_Forecast
@@ -116,3 +116,4 @@ Forecasts
 1262 2016-08-01         NaN      102.949997
 1263 2016-08-02         NaN      102.949997
 1264 2016-08-03         NaN      102.949997
+EXECUTION_TIME_DETAIL = {'CMD':'timeout 480 python tests/bugs/issue_4/issue_4.py', 'ElapsedTimeSecs':(75.18, 0.63, 26.75), 'MAX_MEM_KB':311756, 'CPU_PRCNT':'36%', 'FILES_IN':8, 'FILES_OUT':1664, 'EXIT_STATUS':0}

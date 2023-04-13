@@ -11,12 +11,12 @@ Data columns (total 5 columns):
  #   Column       Non-Null Count  Dtype         
 ---  ------       --------------  -----         
  0   Time_Hourly  10000 non-null  datetime64[ns]
- 1   Hour         10000 non-null  int64         
- 2   Day          10000 non-null  int64         
- 3   Week         10000 non-null  int64         
+ 1   Hour         10000 non-null  int32         
+ 2   Day          10000 non-null  int32         
+ 3   Week         10000 non-null  int32         
  4   Signal       10000 non-null  float64       
-dtypes: datetime64[ns](1), float64(1), int64(3)
-memory usage: 390.8 KB
+dtypes: datetime64[ns](1), float64(1), int32(3)
+memory usage: 273.6 KB
 None
 INFO:pyaf.std:PERF_DUMP_START
 INFO:pyaf.std:[
@@ -382,7 +382,7 @@ INFO:pyaf.std:[
     }
 ]
 INFO:pyaf.std:PERF_DUMP_END
-INFO:pyaf.std:TRAINING_ENGINE_END 93.571
+INFO:pyaf.std:TRAINING_ENGINE_END 84.89
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Time_Hourly' TimeMin=2000-03-16T08:00:00.000000 TimeMax=2000-12-13T13:00:00.000000 TimeDelta=<DateOffset: hours=1> Horizon=24
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=8192  Min=1.650435 Max=18.089719  Mean=7.255393 StdDev=4.280787
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=0.0 Max=1.0  Mean=0.340949 StdDev=0.2604
@@ -423,7 +423,7 @@ INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 8 {'Transformation': 'Diff_
 INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 9 {'Transformation': 'RelDiff_Signal', 'DecompositionType': 'T+S+R', 'Model': 'RelDiff_Signal_Lag1Trend_residue_zeroCycle[0.0]_residue_NoAR', 'Voting': 1487.5, 'Complexity': 'MSSSS', 'Forecast_MASE_1': 1.0009, 'Forecast_MASE_2': 1.0166, 'Forecast_MASE_3': 1.047, 'Forecast_MASE_4': 1.0628, 'Forecast_MASE_5': 1.1162, 'Forecast_MASE_6': 1.124, 'Forecast_MASE_7': 1.1312, 'Forecast_MASE_8': 1.1813, 'Forecast_MASE_9': 1.2045, 'Forecast_MASE_10': 1.2181, 'Forecast_MASE_11': 1.2323, 'Forecast_MASE_12': 1.2712, 'Forecast_MASE_13': 1.2981, 'Forecast_MASE_14': 1.2958, 'Forecast_MASE_15': 1.3302, 'Forecast_MASE_16': 1.3787, 'Forecast_MASE_17': 1.3963, 'Forecast_MASE_18': 1.4052, 'Forecast_MASE_19': 1.4258, 'Forecast_MASE_20': 1.4503, 'Forecast_MASE_21': 1.4782, 'Forecast_MASE_22': 1.4962, 'Forecast_MASE_23': 1.5479, 'Forecast_MASE_24': 1.5307}
 INFO:pyaf.std:COMPETITION_DETAIL_END 'Signal'
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['Signal'], 'Horizons': {'Signal': 24}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 1.109
+INFO:pyaf.std:FORECASTING_ENGINE_END 1.005
 Forecast Columns  Index(['Time_Hourly', 'Signal', 'Signal_scaled', '_Signal', 'row_number',
        'Time_Hourly_Normalized', '_Signal_Lag1Trend',
        '_Signal_Lag1Trend_residue', '_Signal_Lag1Trend_residue_zeroCycle[0.0]',
@@ -562,7 +562,7 @@ Forecasts
         },
         "Model_Selection_Criterion": "MASE"
     },
-    "Training_Time": 93.571
+    "Training_Time": 84.89
 }
 </ModelInfo>
 
@@ -581,3 +581,4 @@ INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/ozone_WeekOfMnth_Time_Hourly_Si
 </Forecast>
 
 
+EXECUTION_TIME_DETAIL = {'CMD':'timeout 480 python tests/WeekOfMonth/test_Business_WeekOfMonth.py', 'ElapsedTimeSecs':(107.26, 0.88, 59.78), 'MAX_MEM_KB':324272, 'CPU_PRCNT':'56%', 'FILES_IN':8, 'FILES_OUT':3408, 'EXIT_STATUS':0}
