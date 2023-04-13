@@ -82,8 +82,10 @@ class cTimeInfo:
             else:
                 # append an empty new value
                 lNewColumns[col] = np.append(df[col].values, [np.nan])
-        lOtherCols = set(lChangedColumns.keys()) - set(lNewColumns.keys())
-        for col in lOtherCols:
+        if(self.mNormalizedTimeColumn not in df.columns):
+            # Avoid unnecessary column order changes.
+            lOtherCols = [self.mRowNumberColumn, self.mNormalizedTimeColumn]
+            for col in lOtherCols:
                 lNewColumns[col] = lChangedColumns[col]
                 
         df1 = pd.DataFrame(lNewColumns)
