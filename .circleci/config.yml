@@ -99,7 +99,5 @@ jobs:
           name: Jupyter Notebooks
           command: |
             pip install .
-            jupyter nbconvert --to notebook --ExecutePreprocessor.timeout=None --execute docs/sample_code.ipynb
-            jupyter nbconvert --to notebook --ExecutePreprocessor.timeout=None --execute docs/PyAF_Introduction.ipynb
-            jupyter nbconvert --to notebook --ExecutePreprocessor.timeout=None --execute docs/PyAF_Exogenous.ipynb
+	    make -f docs/Makefile -j 8 all
 
