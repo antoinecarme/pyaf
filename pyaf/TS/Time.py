@@ -66,27 +66,26 @@ class cTimeInfo:
         self.checkDateTypesForNewDataset(df);
         # new row
         lNextTime = self.nextTime(df, 1)
-        lNewTimeColumn = np.append(df[self.mTime].values, [lNextTime])
         lNextRowNumber = df.index.max() + 1
-        lChangedColumns = {
-            self.mRowNumberColumn : np.arange(0, df.shape[0] + 1),
-            self.mTime : lNewTimeColumn,
-            self.mSignal : np.append(df[self.mSignal].values, [np.nan]),
-            self.mNormalizedTimeColumn : self.compute_normalized_date_column(lNewTimeColumn)
+        lNextValues = {
+            self.mRowNumberColumn : df.shape[0] + 1,
+            self.mTime : lNextTime,
+            self.mSignal : np.nan,
+            self.mNormalizedTimeColumn : self.normalizeTime(lNextTime)
         }
         lNewColumns = {}
         # keep column order.
         for col in df.columns:
-            if col in lChangedColumns.keys():
-                lNewColumns[col] = lChangedColumns[col]
-            else:
-                # append an empty new value
-                lNewColumns[col] = np.append(df[col].values, [np.nan])
+            # append an empty new value by default
+            lNewValue = np.nan
+            if col in lNextValues.keys():
+                lNewValue = lNextValues[col]
+            lNewColumns[col] = np.append(df[col].values, [ lNewValue ])
         if(self.mNormalizedTimeColumn not in df.columns):
             # Avoid unnecessary column order changes.
-            lOtherCols = [self.mRowNumberColumn, self.mNormalizedTimeColumn]
-            for col in lOtherCols:
-                lNewColumns[col] = lChangedColumns[col]
+            lNewTimeColumn = np.append(df[self.mTime].values, [lNextTime])
+            lNewColumns[self.mRowNumberColumn] = np.arange(0, df.shape[0] + 1);
+            lNewColumns[self.mNormalizedTimeColumn] = self.compute_normalized_date_column(lNewTimeColumn)
                 
         df1 = pd.DataFrame(lNewColumns)
         # Goal here : profiling/perf. Avoid reindexing. Keep this as the last op.
