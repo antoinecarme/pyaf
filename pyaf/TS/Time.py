@@ -65,24 +65,31 @@ class cTimeInfo:
     def transformDataset(self, df):
         self.checkDateTypesForNewDataset(df);
         # new row
-        lLastRow = df.tail(1).copy();
         lNextTime = self.nextTime(df, 1)
-        lLastRow[self.mTime] = lNextTime
-        lLastRow[self.mSignal] = np.nan
-        if(self.mNormalizedTimeColumn in df.columns):
-            lLastRow[self.mNormalizedTimeColumn] = self.normalizeTime(lNextTime)
-            lLastRow[self.mRowNumberColumn] = lLastRow[self.mRowNumberColumn].max() + 1
-        # tsutil.print_pyaf_detailed_info(lLastRow.columns ,  df.columns)
-        # assert(str(lLastRow.columns) == str(df.columns))
-
-        df = pd.concat([df, lLastRow], ignore_index=True, verify_integrity = True, sort=False); 
-        
-        if(self.mNormalizedTimeColumn not in df.columns):
-            df[self.mRowNumberColumn] = np.arange(0, df.shape[0]);
-            df[self.mNormalizedTimeColumn] = self.compute_normalized_date_column(df[self.mTime])
-            
-        # tsutil.print_pyaf_detailed_info(df.tail());
-        return df;
+        lNewTimeColumn = np.append(df[self.mTime].values, [lNextTime])
+        lNextRowNumber = df.index.max() + 1
+        lChangedColumns = {
+            self.mRowNumberColumn : np.arange(0, df.shape[0] + 1),
+            self.mTime : lNewTimeColumn,
+            self.mSignal : np.append(df[self.mSignal].values, [np.nan]),
+            self.mNormalizedTimeColumn : self.compute_normalized_date_column(lNewTimeColumn)
+        }
+        lNewColumns = {}
+        # keep column order.
+        for col in df.columns:
+            if col in lChangedColumns.keys():
+                lNewColumns[col] = lChangedColumns[col]
+            else:
+                # append an empty new value
+                lNewColumns[col] = np.append(df[col].values, [np.nan])
+        lOtherCols = set(lChangedColumns.keys()) - set(lNewColumns.keys())
+        for col in lOtherCols:
+                lNewColumns[col] = lChangedColumns[col]
+                
+        df1 = pd.DataFrame(lNewColumns)
+        # Goal here : profiling/perf. Avoid reindexing. Keep this as the last op.
+        df1.index = df.index.tolist() + [lNextRowNumber]
+        return df1;
 
 
     def isPhysicalTime(self):
