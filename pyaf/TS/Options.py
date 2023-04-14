@@ -80,77 +80,65 @@ class cModelControl:
         
         if(value not in allowed_values):
             raise tsutil.PyAF_Error("INVALID_MODEL_TYPE Invalid '" + category + "' Type '" + value + "'. Allowed '" + category + "' Values : " + str(allowed_values));
-        
+
+    def generic_model_activation(self, iTypes, iToBeActivated, default_model):
+        lActivatedModels = {}
+        for model_type in iTypes:
+            if(model_type in iToBeActivated):
+                lActivatedModels[model_type] = True;
+            else:
+                lActivatedModels[model_type] = False;
+        if(True not in lActivatedModels.values()):
+            # default
+            lActivatedModels[default_model] = True;
+        return lActivatedModels
         
     def set_active_decomposition_types(self, iDecompTypes):
         for dec_type in iDecompTypes:
             self.check_model_type_validity('DecompositionType', cModelControl.gKnownDecompositionTypes, dec_type)
             
-        self.mActiveDecompositionTypes = {};
-        for decomp_type in cModelControl.gKnownDecompositionTypes:
-            if(decomp_type in iDecompTypes):
-                self.mActiveDecompositionTypes[decomp_type] = True;
-            else:
-                self.mActiveDecompositionTypes[decomp_type] = False;
-        if(True not in self.mActiveDecompositionTypes.values()):
-            # default
-            self.mActiveTransformations['T+S+R'] = True;
+        self.mActiveDecompositionTypes = self.generic_model_activation(
+            cModelControl.gKnownDecompositionTypes,
+            iDecompTypes,
+            'T+S+R'
+        )
             
     def set_active_transformations(self, transformations):
         for transformation in transformations:
             self.check_model_type_validity('Transformation', cModelControl.gKnownTransformations, transformation)
             
-        self.mActiveTransformations = {};
-        for transformation in cModelControl.gKnownTransformations:
-            if(transformation in transformations):
-                self.mActiveTransformations[transformation] = True;
-            else:
-                self.mActiveTransformations[transformation] = False;
-        if(True not in self.mActiveTransformations.values()):
-            # default
-            self.mActiveTransformations['None'] = True;
+        self.mActiveTransformations = self.generic_model_activation(
+            cModelControl.gKnownTransformations,
+            transformations,
+            'None')
+        
     
     def set_active_trends(self, trends):
         for trend in trends:
             self.check_model_type_validity('Trend', cModelControl.gKnownTrends, trend)
             
-        self.mActiveTrends = {};
-        for trend in cModelControl.gKnownTrends:
-            if(trend in trends):
-                self.mActiveTrends[trend] = True;
-            else:
-                self.mActiveTrends[trend] = False;
-        if(True not in self.mActiveTrends.values()):
-            # default
-            self.mActiveTrends['ConstantTrend'] = True;                
+        self.mActiveTrends = self.generic_model_activation(
+            cModelControl.gKnownTrends,
+            trends,
+            'ConstantTrend')
     
     def set_active_periodics(self, periodics):
         for period in periodics:
             self.check_model_type_validity('Periodic', cModelControl.gKnownPeriodics, period)
             
-        self.mActivePeriodics = {};
-        for period in cModelControl.gKnownPeriodics:
-            if(period in periodics):
-                self.mActivePeriodics[period] = True;
-            else:
-                self.mActivePeriodics[period] = False;
-        if(True not in self.mActivePeriodics.values()):
-            # default
-            self.mActivePeriodics['NoCycle'] = True;
+        self.mActivePeriodics = self.generic_model_activation(
+            cModelControl.gKnownPeriodics,
+            periodics,
+            'NoCycle')
                     
     def set_active_autoregressions(self, autoregs):
         for autoreg in autoregs:
             self.check_model_type_validity('AutoRegression', cModelControl.gKnownAutoRegressions, autoreg)
             
-        self.mActiveAutoRegressions = {};
-        for autoreg in cModelControl.gKnownAutoRegressions:
-            if(autoreg in autoregs):
-                self.mActiveAutoRegressions[autoreg] = True;
-            else:
-                self.mActiveAutoRegressions[autoreg] = False;                
-        if(True not in self.mActiveAutoRegressions.values()):
-            # default
-            self.mActiveAutoRegressions['NoAR'] = True;
+        self.mActiveAutoRegressions = self.generic_model_activation(
+            cModelControl.gKnownAutoRegressions,
+            autoregs,
+            'NoAR')
 
     def disable_all_transformations(self):
         self.set_active_transformations([]);
