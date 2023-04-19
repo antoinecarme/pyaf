@@ -37,6 +37,8 @@ class cMissingDataImputer:
 
         lMethod = self.mOptions.mMissingDataOptions.mTimeMissingDataImputation
         lTimer = tsutil.cTimer(("MISSING_DATA_APPLY_TIME_IMPUTATION", {"Time" : iTime, "Method" : lMethod}))
+        if(not lMethod in ["DiscardRow" , 'Interpolate']):
+            raise tsutil.PyAF_Error("PYAF_ERROR_UNKNOWN_TIME_MISSING_VALUE_IMPUTATION_METHOD '" + str(lMethod) + "'");
         
         if(lMethod == "DiscardRow"):
             iInputDS = iInputDS[iInputDS[iTime].notnull()]
@@ -56,6 +58,9 @@ class cMissingDataImputer:
 
         lMethod = self.mOptions.mMissingDataOptions.mSignalMissingDataImputation
         lTimer = tsutil.cTimer(("MISSING_DATA_APPLY_SIGNAL_IMPUTATION", {"Signal" : iSignal, "Method" : lMethod}))
+        if(not lMethod in ["DiscardRow" , 'Interpolate' , 'Constant' , 'Mean', 'Median', 'PreviousValue']):
+            raise tsutil.PyAF_Error("PYAF_ERROR_UNKNOWN_SIGNAL_MISSING_VALUE_IMPUTATION_METHOD '" + str(lMethod) + "'");
+
 
         if(lMethod == "DiscardRow"):
             iInputDS = iInputDS[iInputDS[iSignal].notnull()]
