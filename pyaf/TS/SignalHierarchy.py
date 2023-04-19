@@ -213,6 +213,7 @@ class cSignalHierarchy:
         logger = tsutil.get_pyaf_hierarchical_logger();
         logger.info("TRAINING_HIERARCHICAL_MODEL_START");
         lTimer = tsutil.cTimer(("HIERARCHICAL_TRAINING"))
+        self.check_combination_methods()
         self.create_HierarchicalStructure();
         # self.plot();
         self.create_SummingMatrix();
@@ -370,6 +371,16 @@ class cSignalHierarchy:
         lForecast_DF = iForecast_DF[lColumns]
         return lForecast_DF
 
+    def check_combination_methods(self):
+        lCombinationMethods = self.mOptions.mHierarchicalCombinationMethod;
+        if type(lCombinationMethods) is not list:
+            lCombinationMethods = [lCombinationMethods];
+        for lMethod in lCombinationMethods:
+            if(not lMethod in ["BU" , 'TD' , 'MO' , 'OC']):
+                raise tsutil.PyAF_Error("PYAF_ERROR_HIERARCHY_UNKNOWN_RECONCILIATION_METHOD '" + str(lMethod) + "'");
+
+
+    
     def get_reconciled_forecast_prefixes(self):
         lCombinationMethods = self.mOptions.mHierarchicalCombinationMethod;
         if type(lCombinationMethods) is not list:
@@ -508,6 +519,7 @@ class cSignalHierarchy:
             lCombinationMethods = [lCombinationMethods];
         logger = tsutil.get_pyaf_hierarchical_logger();
         logger.info("FORECASTING_HIERARCHICAL_MODEL_COMBINATION_METHODS " + str(lCombinationMethods));
+        self.check_combination_methods()
 
         for lMethod in lCombinationMethods:
             if(lMethod == "BU"):            
