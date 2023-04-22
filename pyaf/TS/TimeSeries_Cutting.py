@@ -110,6 +110,14 @@ class cCuttingInfo:
         lFrameValid = df[self.mValidStart : self.mValidEnd];
         return lFrameValid;
 
+    def add_dataset_indicators(self, df):
+        lCutting = self.cutFrame(df)
+        for (lDataset, lFrame) in lCutting.items():
+            lColumnName = "dataset_indicator_" + lDataset.name
+            df[lColumnName] = np.nan
+            df.loc[lFrame.index, lColumnName] = 1.0
+        print(df)
+        return df
 
     def info(self):
         lStr2 += " Estimation = (" + str(self.mEstimStart) + " , " + str(self.mEstimEnd) + ")";
