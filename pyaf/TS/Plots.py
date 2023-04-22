@@ -73,7 +73,8 @@ def decomp_plot_internal(df, time, signal, estimator, residue, name = None, form
     df1 = df.tail(max(max_length , 4 * horizon));
     if(name is not None):
         plt.switch_backend('Agg')
-    fig, axs = plt.subplots(ncols=2, figsize=(32, 16))
+    fig, axs = plt.subplots(ncols=2, figsize=(12, 8),
+                            gridspec_kw={'width_ratios': [4, 1]})
 
     lColor = COMPONENT_COLOR;
     if(name is not None and name.endswith("Forecast")):
