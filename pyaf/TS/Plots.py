@@ -22,6 +22,20 @@ UPPER_COLOR='grey'
 LOWER_COLOR='black'
 
 
+def add_watermark(fig):
+    import matplotlib, pyaf, os
+    import matplotlib.pyplot as plt
+    lDict = {}
+    lDict["URI"] = "https://pypi.org/project/pyaf/"
+    lDict["Version"] =  pyaf.__version__
+    from datetime import datetime
+    lDict["Date"] = datetime.today().strftime('%Y-%m-%d')
+    lDict["PID"] = os.getpid()
+    lWaterMark = "Generated with PyAF. " + str(lDict)
+    fig.tight_layout()
+    plt.figtext(0.002, 0.002, lWaterMark, rotation = 'vertical', alpha = 0.2, fontsize = 6)
+    return 
+
 def add_patched_legend(ax , names):
     # matplotlib does not like labels starting with '_'
     patched_names = []
@@ -78,6 +92,7 @@ def decomp_plot_internal(df, time, signal, estimator, residue, name = None, form
     resid = residues[~np.isnan(residues)]
     scistats.probplot(resid, dist="norm", plot=axs[1])
 
+    add_watermark(fig)
     return fig
 
 def decomp_plot(df, time, signal, estimator, residue, name = None, format='png', max_length = 1000, horizon = 1, title = None) :
@@ -110,7 +125,6 @@ def prediction_interval_plot_internal(df, time, signal, estimator, lower, upper,
     assert(lower in df.columns)
     assert(upper in df.columns)
 
-
     df1 = df.tail(max(max_length, 4 * horizon)).copy();
     lMin = np.mean(df1[signal]) -  np.std(df1[signal]) * 10;
     lMax = np.mean(df1[signal]) +  np.std(df1[signal]) * 10;
@@ -122,25 +136,29 @@ def prediction_interval_plot_internal(df, time, signal, estimator, lower, upper,
     lEstimtorValue = df1[estimator][lLastSignalPos];
     df1.loc[lLastSignalPos , lower] = lEstimtorValue;
     df1.loc[lLastSignalPos , upper] = lEstimtorValue;
-
+    
     import matplotlib
     # matplotlib.use('Agg')
     import matplotlib.pyplot as plt
+    
     if(name is not None):
         plt.switch_backend('Agg')
     fig, axs = plt.subplots(ncols=1, figsize=(16, 8))
+    
     if(title is not None):
         axs.set_title(title + "\n")
     else:
         axs.set_title("Prediction Intervals\n")
-        
+
     df1.plot.line(time, [signal, estimator, lower, upper],
                   color=[SIGNAL_COLOR, FORECAST_COLOR, LOWER_COLOR, UPPER_COLOR],
                   ax=axs, grid = True, legend=False)
     add_patched_legend(axs , [signal, estimator, lower, upper])
 
     axs.fill_between(df1[time].values, df1[lower], df1[upper], color=SHADED_COLOR, alpha=.2)
-
+    
+    add_watermark(fig)
+    
     return fig
 
 def prediction_interval_plot(df, time, signal, estimator, lower, upper, name = None, format='png', max_length = 1000, horizon = 1, title = None) :
@@ -233,6 +251,7 @@ def quantiles_plot_internal(df, time, signal, estimator, iQuantiles, name = None
             axs[h].set_xlabel('')
             axs[h].set_xticklabels([])
 
+    add_watermark(fig)
     return fig
 
 def quantiles_plot(df, time, signal, estimator, iQuantiles, name = None, format='png', horizon = 1, title = None) :
