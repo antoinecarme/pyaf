@@ -116,7 +116,6 @@ class cCuttingInfo:
             lColumnName = "dataset_indicator_" + lDataset.name
             df[lColumnName] = np.nan
             df.loc[lFrame.index, lColumnName] = 1.0
-        print(df)
         return df
 
     def info(self):
