@@ -305,7 +305,9 @@ class cTimeSeriesModel:
         assert((N0 + iHorizon) == df1.shape[0])
         N1 = df1.shape[0];
         lPrefix = self.mSignal + "_";
-        lFieldsToErase = [ self.mOriginalSignal, self.mSignal, self.mOriginalSignal + "_Transformed", 
+        lFieldsToErase = [ self.mOriginalSignal, self.mSignal,
+                           self.mOriginalSignal + "_scaled", 
+                           self.mOriginalSignal + "_Transformed", 
                            self.mTrend.mOutName + '_residue', lPrefix + 'Trend_residue',
                            self.mCycle.mOutName + '_residue', lPrefix + 'Cycle_residue',
                            self.mAR.mOutName + '_residue',  lPrefix + 'AR_residue',
@@ -458,7 +460,7 @@ class cTimeSeriesModel:
             if(lCriterion != "MAPE"):
                 lTitle = lTitle + lCriterion + "_" + str(h) + " = " + str(lPerf.getCriterionValue(lCriterion)) + " "
         return lTitle
-            
+
     def standardPlots(self, name = None, format = 'png'):
         lOutput =  self.getForecastDatasetForPlots();
         self.plotResidues(name = name, format=format, iOutputDF = lOutput);
@@ -466,6 +468,7 @@ class cTimeSeriesModel:
         lPrefix = str(self.mOriginalSignal) + "_";
         lForecastColumn = lPrefix + 'Forecast';
         lTime = self.mTimeInfo.mTime;            
+        self.mTimeInfo.mSplit.add_dataset_indicators(lOutput)
         lOutput.set_index(lTime, inplace=True, drop=False);
         # tsutil.print_pyaf_detailed_info(lOutput[lTime].dtype);
 
@@ -521,6 +524,7 @@ class cTimeSeriesModel:
         lPrefix = str(self.mOriginalSignal) + "_";
         lForecastColumn = lPrefix + 'Forecast';
         lTime = self.mTimeInfo.mTime;
+        self.mTimeInfo.mSplit.add_dataset_indicators(lOutput)
         lOutput.set_index(lTime, inplace=True, drop=False);
         # Add more informative title for this plot.  Investigate Model Esthetics for PyAF #212 
         lTitle = self.get_title_details_for_plots("Prediction Intervals")
