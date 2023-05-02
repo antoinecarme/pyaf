@@ -14,7 +14,7 @@ check_python_version_for_pyaf()
 
 from . import ForecastEngine, HierarchicalForecastEngine
 
-__version__ = '5.0-rc2'
+__version__ = '5.0-rc3'
 
 def activate_timer_logging():
     import pyaf.TS.Utils as tsutil
