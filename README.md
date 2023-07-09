@@ -2,8 +2,7 @@
 PyAF (Python Automatic Forecasting)
 ===================================
 
-[![CircleCI](https://circleci.com/gh/antoinecarme/pyaf/tree/master.svg?style=shield)](https://circleci.com/gh/antoinecarme/pyaf/tree/master)
-
+[![Github/CI/CD](https://github.com/antoinecarme/pyaf/actions/workflows/python-app.yml/badge.svg)](https://circleci.com/gh/antoinecarme/pyaf/tree/master)
 
 PyAF is an Open Source Python library for Automatic Forecasting built on top of
 popular data science python modules: NumPy, SciPy, Pandas and scikit-learn.
