@@ -1,0 +1,57 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+
+name: Python application
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.11"
+    - name: Install Debian Packages
+      run: |
+          sudo apt update
+          sudo apt-get install -y graphviz python3-sklearn python3-pandas python3-matplotlib jupyter-notebook python3-ipython python3-scipy python3-numpy python3-pydot python3-setproctitle python3-objgraph python3-urllib3 python3-imageio time
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install flake8 pytest
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        pip install --progress-bar off numpy scipy pandas scikit-learn matplotlib pydot jupyter xgboost ipython lightgbm statsmodels torch skorch setproctitle urllib3 objgraph imageio imageio_ffmpeg
+    - name: Check Installed Versions
+        run :|
+            export PYTHONPATH=$PYTHONPATH:.
+            python ./tests/bugs/issue_36/display_version_info.py
+    - name: Basic Tests
+        run :|
+            export PYTHONPATH=$PYTHONPATH:.
+            export MKL_NUM_THREADS=1
+            export NUMEXPR_NUM_THREADS=1
+            export OMP_NUM_THREADS=1
+            export NUMEXPR_MAX_THREADS=8
+            python tests/demos/demo1.py
+            python tests/func/test_ozone.py
+            python tests/func/test_air_passengers.py
+    - name: Build Tests
+        run :|
+            export PYTHONPATH=$PYTHONPATH:.
+            export MKL_NUM_THREADS=1
+            export NUMEXPR_NUM_THREADS=1
+            export OMP_NUM_THREADS=1
+            export NUMEXPR_MAX_THREADS=6
+            make -f tests/Makefile -j 8 build-test 
