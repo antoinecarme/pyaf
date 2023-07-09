@@ -1,7 +1,4 @@
-# This workflow will install Python dependencies, run tests and lint with a single version of Python
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
-
-name: Python application
+name: PyAF build tests
 
 on:
   push:
@@ -23,6 +20,11 @@ jobs:
       uses: actions/setup-python@v3
       with:
         python-version: "3.11"
+    - name: Test Machine Info
+      run: |
+            df
+            free
+            cat /proc/cpuinfo
     - name: Install Debian Packages
       run: |
           sudo apt update
@@ -33,6 +35,10 @@ jobs:
         pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         pip install --progress-bar off numpy scipy pandas scikit-learn matplotlib pydot jupyter xgboost ipython lightgbm statsmodels torch skorch setproctitle urllib3 objgraph imageio imageio_ffmpeg
+    - name: Initial Cleanup
+      run : |
+            mkdir -p logs
+            fc-cache 	
     - name: Check Installed Versions
       run : |
             export PYTHONPATH=$PYTHONPATH:.
@@ -55,3 +61,17 @@ jobs:
             export OMP_NUM_THREADS=1
             export NUMEXPR_MAX_THREADS=6
             make -f tests/Makefile -j 8 build-test 
+    - name: Error Summary
+      run : |
+            echo "ERROR_SUMMARY_START"
+            grep Error logs/*.log | grep -v ErrorMean  | grep -v ErrorStdDev  | grep -v ErrorMessage || true
+            echo "ERROR_SUMMARY_END"
+    - name: Changed Logs
+      run : |
+            echo "CHANGED_LOGS_START"
+            grep -h EXEC_THIS logs/*.log.diff || true
+            echo "CHANGED_LOGS_END"
+    - name: Jupyter Notebooks
+      run : |
+            pip install .
+            make -f docs/Makefile -j 8 all
