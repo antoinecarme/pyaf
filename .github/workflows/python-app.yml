@@ -34,11 +34,11 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         pip install --progress-bar off numpy scipy pandas scikit-learn matplotlib pydot jupyter xgboost ipython lightgbm statsmodels torch skorch setproctitle urllib3 objgraph imageio imageio_ffmpeg
     - name: Check Installed Versions
-        run :|
+      run : |
             export PYTHONPATH=$PYTHONPATH:.
             python ./tests/bugs/issue_36/display_version_info.py
     - name: Basic Tests
-        run :|
+      run : |
             export PYTHONPATH=$PYTHONPATH:.
             export MKL_NUM_THREADS=1
             export NUMEXPR_NUM_THREADS=1
@@ -48,7 +48,7 @@ jobs:
             python tests/func/test_ozone.py
             python tests/func/test_air_passengers.py
     - name: Build Tests
-        run :|
+      run : |
             export PYTHONPATH=$PYTHONPATH:.
             export MKL_NUM_THREADS=1
             export NUMEXPR_NUM_THREADS=1
