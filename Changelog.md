@@ -1,21 +1,44 @@
 
+
 RELEASE 5.0 (released on 2023-07-14)
-(all coming fixes will go in the 5.0-FIXES branch)
 
-	1. Python 3.11 support
-	2. Better support for long temr models.
-	3. Improved Model Selection Procedure.
-	4. Improved Model Complexity Definition #223
-	5. Improved Plots (titles + model formula/details)
-	6. Improved Quantile Plots color maps #225
-	7. New Platforms : RISC-V Hardware Platform Validation #208
-	8. New Perf Measures : Outlier-resistant forecasting Performance Measures #209 + Add Differentiable Variant of SMAPE Performance Measure #221
-	9. Use PyTorch as the reference deep learning framework/architecture for future projects #211
-	10. Experimentations : Investigate Model Esthetics for PyAF #212, Automate Prototyping Activities - R-based Models #217
-	11. Bugs fixed : Failure to build a multiplicative ozone model with Lag1 trend #220, Bad plot for shaded area around prediction intervals in hourly data #216
-	12. Run some Sanity Checks for PyAF 5.0 #224
-	13. Use MASE by default for PyAF Model Selection #229
-
+1. Python 3.11 Support :
+	Python 3.11 support #227
+2. New Hardware Support :
+	RISC-V Hardware Platform Validation #208
+3. New Performance Measures :
+	Outlier-resistant forecasting Performance Measures #209,
+	Add Differentiable Variant of SMAPE Performance Measure #221
+4. Model Selection Improvement :
+	Investigate Model Esthetics for PyAF #212,
+	Investigate Large Horizon Models #213 ,
+	Revisit Model Complexity Definition #223,
+	Use MASE by default for PyAF Model Selection #229
+5. Signal Transformation Improvements :
+	Use MaxAbsScaler for some Multiplicative Signal Transformations #235,
+	Pyaf 5.0 Final Touch 8 : Use an Optimal Choice Rule for the Quantization Signal transform #239
+6. Generic Modeling :
+	PyAF 5.0 Final Touch 1 : discard some non-significant components #230,
+	PyAF 5.0 Final Touch 2: Disable alpha in ridge regressions #231,
+	Pyaf 5.0 Final Touch 5 : Add more info about Exogenous Data Used in ARX Models #236,
+	Pyaf 5.0 Final Touch 7 : Improve the Guess of Window Length for Moving Average Trends #238
+7. Plotting Functions Improvements and Bug Fixes :
+	Bad plot for shaded area around prediction intervals in hourly data #216,
+	Forecast Quantiles Plots Improved  #225,
+	Pyaf 5.0 Final Touch 3 : report plot filenames in the logs #232
+8. New Docs :
+	Provide some UML docs for PyAF integrators #233
+9.  Bug Fixes :
+	Failure to build a multiplicative ozone model with Lag1 trend #220
+10. PyAF "Forecast Tasks" :
+	Use PyTorch as the reference deep learning framework/architecture for future projects #211,
+	Automate Prototyping Activities - R-based Models #217
+11. Recurrent Tasks :
+	Re-run the Benchmarking process for PyAF 5.0 #222,
+	Run some Sanity Checks for PyAF 5.0 #224,
+	Pyaf 5.0 Final Touch 4 : Add More Tests #234,
+	Pyaf 5.0 Final Touch 6 : Disable Timing Loggers by default #237
+	
 -------------------
 
 RELEASE 4.0 (released on 2022-07-14)
