@@ -109,7 +109,7 @@ https://otexts.com/fpp2/regression-evaluation.html
 4. X11 decomposition : The process is entirely automatic and tends to be highly robust to outliers and level shifts in the time series. https://otexts.com/fpp2/x11.html
 5. STL decomposition : outliers may affect the remainder component. https://otexts.com/fpp2/stl.html
 6. Referenced in https://github.com/antoinecarme/pyaf/issues/230
-7. Outliers removal : estimate the trends/cycles/AR models with an estimation dataset that does not contain the outliers 
+7. Outliers removal : estimate the trends/cycles/AR models with an estimation dataset that does not contain the outliers. Can be capped without removal ?
 8. Outliers Reporting. Scatter Plots ? https://otexts.com/fpp2/scatterplots.html
 9. Generic view (not only for time series): https://en.wikipedia.org/wiki/Outlier
 10. Detection method : Tukey's fences, based on measures such as the interquartile range. range = [Q1 - k * (Q3 - Q1) , Q3 + k * (Q3 - Q1)], k > 0. Simple, non-parametric, robust.
