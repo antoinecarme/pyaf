@@ -78,7 +78,7 @@ self.serialize() => to_dict every where + json
 http://stackoverflow.com/questions/10302261/forecasting-time-series-data ~~~~ OK
 
 ## better graphics
-https://stanford.edu/~mwaskom/software/seaborn/
+https://stanford.edu/~mwaskom/software/seaborn/. Let someone else do that !!!
 
 ## ~~GitHub Topics
 autoregressive benchmark cycles data-frame exogenous forecasting heroku hierarchical horizon  jupyter machine-learning-library pandas restful-api scikit-learn seasonal sql sql-generation time-series trends 
@@ -97,4 +97,18 @@ In cooperation with our technical sponsor, we will provide you with a set of dif
 1. Prediction Interval Quality
 2. ~~Multiplicative Decompositions (log transform ?)~~. 2022-05-09 OK (#178 : https://github.com/antoinecarme/pyaf/issues/178)
 3. ~~PyTorch~~ : 2022-05-09 OK (#199 : https://github.com/antoinecarme/pyaf/issues/199)
+
+## 2023-07-14
+
+### Outliers in Time Series
+
+1. Outliers detection. https://otexts.com/fpp2/missing-outliers.html
+2. In ARX Models, category 1 : data quality / wrong input. Can be removed. https://otexts.com/fpp2/regression-evaluation.html
+3. In ARX Models, category 2 : Natural, Simply different data. Should not be removed.
+https://otexts.com/fpp2/regression-evaluation.html
+4. X11 decomposition : The process is entirely automatic and tends to be highly robust to outliers and level shifts in the time series. https://otexts.com/fpp2/x11.html
+5. STL decomposition : outliers may affect the remainder component. https://otexts.com/fpp2/stl.html
+6. Referenced in https://github.com/antoinecarme/pyaf/issues/230
+7. Outliers removal : estimate the trends/cycles/AR models with an estimation dataset that does not contain the outliers 
+8. Outliers Reporting. Scatter Plots ? https://otexts.com/fpp2/scatterplots.html
 
