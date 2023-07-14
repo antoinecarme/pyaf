@@ -113,6 +113,7 @@ https://otexts.com/fpp2/regression-evaluation.html
 8. Outliers Reporting. Scatter Plots ? https://otexts.com/fpp2/scatterplots.html
 9. Generic view (not only for time series): https://en.wikipedia.org/wiki/Outlier
 10. Detection method : Tukey's fences, based on measures such as the interquartile range. range = [Q1 - k * (Q3 - Q1) , Q3 + k * (Q3 - Q1)], k > 0. Simple, non-parametric, robust.
-11. Flags/forecast outputs : Tukey uses k = 1.5 to flag as "outlier" and k=3 to flag as "far out"
+11. Flags/forecast outputs : Tukey uses k = 1.5 to flag as "outlier" and k=3 to flag as "far out".
+12. k value can be used as a training option to remove more-or-less outliers. Default : 3 ?
 12. Interquartile range (IQR = Q3 - Q1):  middle 50%.  https://en.wikipedia.org/wiki/Interquartile_range
 13. IQR is a Robust measure of scale : for N(0, sigma) , IQR = 1.349 sigma. https://en.wikipedia.org/wiki/Robust_measures_of_scale
