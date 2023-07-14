@@ -611,9 +611,34 @@ demos/demo1.py  :
 	 $(DEBERIFER) scripts/num_diff.py  tests/references/demos/demo1.log logs/demos_demo1.log  >  logs/demos_demo1.log.diff
 	 tail -10  logs/demos_demo1.log.diff 
 
+demos/demo1_bus_daily_with_plots.py  :  
+	 -$(RUNNER)  tests/demos/demo1_bus_daily_with_plots.py  >  logs/demos_demo1_bus_daily_with_plots.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/demos/demo1_bus_daily_with_plots.log logs/demos_demo1_bus_daily_with_plots.log  >  logs/demos_demo1_bus_daily_with_plots.log.diff
+	 tail -10  logs/demos_demo1_bus_daily_with_plots.log.diff 
+
+demos/demo1_daily_with_plots.py  :  
+	 -$(RUNNER)  tests/demos/demo1_daily_with_plots.py  >  logs/demos_demo1_daily_with_plots.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/demos/demo1_daily_with_plots.log logs/demos_demo1_daily_with_plots.log  >  logs/demos_demo1_daily_with_plots.log.diff
+	 tail -10  logs/demos_demo1_daily_with_plots.log.diff 
+
+demos/demo1_hourly_with_plots.py  :  
+	 -$(RUNNER)  tests/demos/demo1_hourly_with_plots.py  >  logs/demos_demo1_hourly_with_plots.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/demos/demo1_hourly_with_plots.log logs/demos_demo1_hourly_with_plots.log  >  logs/demos_demo1_hourly_with_plots.log.diff
+	 tail -10  logs/demos_demo1_hourly_with_plots.log.diff 
+
+demos/demo1_minutely_with_plots.py  :  
+	 -$(RUNNER)  tests/demos/demo1_minutely_with_plots.py  >  logs/demos_demo1_minutely_with_plots.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/demos/demo1_minutely_with_plots.log logs/demos_demo1_minutely_with_plots.log  >  logs/demos_demo1_minutely_with_plots.log.diff
+	 tail -10  logs/demos_demo1_minutely_with_plots.log.diff 
+
+demos/demo1_monthly_with_plots.py  :  
+	 -$(RUNNER)  tests/demos/demo1_monthly_with_plots.py  >  logs/demos_demo1_monthly_with_plots.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/demos/demo1_monthly_with_plots.log logs/demos_demo1_monthly_with_plots.log  >  logs/demos_demo1_monthly_with_plots.log.diff
+	 tail -10  logs/demos_demo1_monthly_with_plots.log.diff 
 
 
- demos :  demos/demo1.py  
+
+ demos :  demos/demo1_monthly_with_plots.py demos/demo1_minutely_with_plots.py demos/demo1_hourly_with_plots.py demos/demo1_daily_with_plots.py demos/demo1_bus_daily_with_plots.py demos/demo1.py  
  
 
 exog/test_ozone_exogenous.py  :  
@@ -625,6 +650,11 @@ exog/test_ozone_exogenous_ARX.py  :
 	 -$(RUNNER)  tests/exog/test_ozone_exogenous_ARX.py  >  logs/exog_test_ozone_exogenous_ARX.log  2>&1
 	 $(DEBERIFER) scripts/num_diff.py  tests/references/exog/test_ozone_exogenous_ARX.log logs/exog_test_ozone_exogenous_ARX.log  >  logs/exog_test_ozone_exogenous_ARX.log.diff
 	 tail -10  logs/exog_test_ozone_exogenous_ARX.log.diff 
+
+exog/test_ozone_exogenous_ARX_with_missing.py  :  
+	 -$(RUNNER)  tests/exog/test_ozone_exogenous_ARX_with_missing.py  >  logs/exog_test_ozone_exogenous_ARX_with_missing.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/exog/test_ozone_exogenous_ARX_with_missing.log logs/exog_test_ozone_exogenous_ARX_with_missing.log  >  logs/exog_test_ozone_exogenous_ARX_with_missing.log.diff
+	 tail -10  logs/exog_test_ozone_exogenous_ARX_with_missing.log.diff 
 
 exog/test_ozone_exogenous_LGBX.py  :  
 	 -$(RUNNER)  tests/exog/test_ozone_exogenous_LGBX.py  >  logs/exog_test_ozone_exogenous_LGBX.log  2>&1
@@ -651,6 +681,11 @@ exog/test_ozone_exogenous_XGBX.py  :
 	 $(DEBERIFER) scripts/num_diff.py  tests/references/exog/test_ozone_exogenous_XGBX.log logs/exog_test_ozone_exogenous_XGBX.log  >  logs/exog_test_ozone_exogenous_XGBX.log.diff
 	 tail -10  logs/exog_test_ozone_exogenous_XGBX.log.diff 
 
+exog/test_ozone_exogenous_other_index.py  :  
+	 -$(RUNNER)  tests/exog/test_ozone_exogenous_other_index.py  >  logs/exog_test_ozone_exogenous_other_index.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/exog/test_ozone_exogenous_other_index.log logs/exog_test_ozone_exogenous_other_index.log  >  logs/exog_test_ozone_exogenous_other_index.log.diff
+	 tail -10  logs/exog_test_ozone_exogenous_other_index.log.diff 
+
 exog/test_ozone_exogenous_profile.py  :  
 	 -$(RUNNER)  tests/exog/test_ozone_exogenous_profile.py  >  logs/exog_test_ozone_exogenous_profile.log  2>&1
 	 $(DEBERIFER) scripts/num_diff.py  tests/references/exog/test_ozone_exogenous_profile.log logs/exog_test_ozone_exogenous_profile.log  >  logs/exog_test_ozone_exogenous_profile.log.diff
@@ -668,7 +703,7 @@ exog/test_random_exogenous.py  :
 
 
 
- exog :  exog/test_random_exogenous.py exog/test_ozone_exogenous_with_categorical.py exog/test_ozone_exogenous_profile.py exog/test_ozone_exogenous_XGBX.py exog/test_ozone_exogenous_SVRX.py exog/test_ozone_exogenous_MLPX.py exog/test_ozone_exogenous_LSTMX.py exog/test_ozone_exogenous_LGBX.py exog/test_ozone_exogenous_ARX.py exog/test_ozone_exogenous.py  
+ exog :  exog/test_random_exogenous.py exog/test_ozone_exogenous_with_categorical.py exog/test_ozone_exogenous_profile.py exog/test_ozone_exogenous_other_index.py exog/test_ozone_exogenous_XGBX.py exog/test_ozone_exogenous_SVRX.py exog/test_ozone_exogenous_MLPX.py exog/test_ozone_exogenous_LSTMX.py exog/test_ozone_exogenous_LGBX.py exog/test_ozone_exogenous_ARX_with_missing.py exog/test_ozone_exogenous_ARX.py exog/test_ozone_exogenous.py  
  
 
 expsmooth/expsmooth_dataset_ausgdp.py  :  
@@ -966,6 +1001,11 @@ hierarchical/test_grouped_signals_AllMethods_Exogenous_per_node_force_XGBX.py  :
 	 $(DEBERIFER) scripts/num_diff.py  tests/references/hierarchical/test_grouped_signals_AllMethods_Exogenous_per_node_force_XGBX.log logs/hierarchical_test_grouped_signals_AllMethods_Exogenous_per_node_force_XGBX.log  >  logs/hierarchical_test_grouped_signals_AllMethods_Exogenous_per_node_force_XGBX.log.diff
 	 tail -10  logs/hierarchical_test_grouped_signals_AllMethods_Exogenous_per_node_force_XGBX.log.diff 
 
+hierarchical/test_grouped_signals_AllMethods_wrong_method.py  :  
+	 -$(RUNNER)  tests/hierarchical/test_grouped_signals_AllMethods_wrong_method.py  >  logs/hierarchical_test_grouped_signals_AllMethods_wrong_method.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/hierarchical/test_grouped_signals_AllMethods_wrong_method.log logs/hierarchical_test_grouped_signals_AllMethods_wrong_method.log  >  logs/hierarchical_test_grouped_signals_AllMethods_wrong_method.log.diff
+	 tail -10  logs/hierarchical_test_grouped_signals_AllMethods_wrong_method.log.diff 
+
 hierarchical/test_grouped_signals_BU.py  :  
 	 -$(RUNNER)  tests/hierarchical/test_grouped_signals_BU.py  >  logs/hierarchical_test_grouped_signals_BU.log  2>&1
 	 $(DEBERIFER) scripts/num_diff.py  tests/references/hierarchical/test_grouped_signals_BU.log logs/hierarchical_test_grouped_signals_BU.log  >  logs/hierarchical_test_grouped_signals_BU.log.diff
@@ -1026,9 +1066,14 @@ hierarchical/test_hierarchy_AU_TD.py  :
 	 $(DEBERIFER) scripts/num_diff.py  tests/references/hierarchical/test_hierarchy_AU_TD.log logs/hierarchical_test_hierarchy_AU_TD.log  >  logs/hierarchical_test_hierarchy_AU_TD.log.diff
 	 tail -10  logs/hierarchical_test_hierarchy_AU_TD.log.diff 
 
+hierarchical/test_hierarchy_AU_wrong_method.py  :  
+	 -$(RUNNER)  tests/hierarchical/test_hierarchy_AU_wrong_method.py  >  logs/hierarchical_test_hierarchy_AU_wrong_method.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/hierarchical/test_hierarchy_AU_wrong_method.log logs/hierarchical_test_hierarchy_AU_wrong_method.log  >  logs/hierarchical_test_hierarchy_AU_wrong_method.log.diff
+	 tail -10  logs/hierarchical_test_hierarchy_AU_wrong_method.log.diff 
 
 
- hierarchical :  hierarchical/test_hierarchy_AU_TD.py hierarchical/test_hierarchy_AU_OC.py hierarchical/test_hierarchy_AU_MO.py hierarchical/test_hierarchy_AU_BU.py hierarchical/test_hierarchy_AU_AllMethods_Exogenous_per_node.py hierarchical/test_hierarchy_AU_AllMethods_Exogenous_all_nodes.py hierarchical/test_hierarchy_AU_AllMethods.py hierarchical/test_hierarchy_AU.py hierarchical/test_grouped_signals_TD.py hierarchical/test_grouped_signals_OC.py hierarchical/test_grouped_signals_MO.py hierarchical/test_grouped_signals_BU.py hierarchical/test_grouped_signals_AllMethods_Exogenous_per_node_force_XGBX.py hierarchical/test_grouped_signals_AllMethods_Exogenous_per_node_force_ARX.py hierarchical/test_grouped_signals_AllMethods_Exogenous_per_node.py hierarchical/test_grouped_signals_AllMethods_Exogenous_all_nodes_force_XGBX.py hierarchical/test_grouped_signals_AllMethods_Exogenous_all_nodes_force_ARX.py hierarchical/test_grouped_signals_AllMethods_Exogenous_all_nodes.py hierarchical/test_grouped_signals_AllMethods_2.py hierarchical/test_grouped_signals_AllMethods.py hierarchical/test_grouped.py  
+
+ hierarchical :  hierarchical/test_hierarchy_AU_wrong_method.py hierarchical/test_hierarchy_AU_TD.py hierarchical/test_hierarchy_AU_OC.py hierarchical/test_hierarchy_AU_MO.py hierarchical/test_hierarchy_AU_BU.py hierarchical/test_hierarchy_AU_AllMethods_Exogenous_per_node.py hierarchical/test_hierarchy_AU_AllMethods_Exogenous_all_nodes.py hierarchical/test_hierarchy_AU_AllMethods.py hierarchical/test_hierarchy_AU.py hierarchical/test_grouped_signals_TD.py hierarchical/test_grouped_signals_OC.py hierarchical/test_grouped_signals_MO.py hierarchical/test_grouped_signals_BU.py hierarchical/test_grouped_signals_AllMethods_wrong_method.py hierarchical/test_grouped_signals_AllMethods_Exogenous_per_node_force_XGBX.py hierarchical/test_grouped_signals_AllMethods_Exogenous_per_node_force_ARX.py hierarchical/test_grouped_signals_AllMethods_Exogenous_per_node.py hierarchical/test_grouped_signals_AllMethods_Exogenous_all_nodes_force_XGBX.py hierarchical/test_grouped_signals_AllMethods_Exogenous_all_nodes_force_ARX.py hierarchical/test_grouped_signals_AllMethods_Exogenous_all_nodes.py hierarchical/test_grouped_signals_AllMethods_2.py hierarchical/test_grouped_signals_AllMethods.py hierarchical/test_grouped.py  
  
 
 individual_components/test_air_passengers_all_autoreg.py  :  
@@ -1346,9 +1391,19 @@ missing_data/test_missing_data_ozone_generic.py  :
 	 $(DEBERIFER) scripts/num_diff.py  tests/references/missing_data/test_missing_data_ozone_generic.log logs/missing_data_test_missing_data_ozone_generic.log  >  logs/missing_data_test_missing_data_ozone_generic.log.diff
 	 tail -10  logs/missing_data_test_missing_data_ozone_generic.log.diff 
 
+missing_data/test_missing_data_ozone_wrong_sig_method.py  :  
+	 -$(RUNNER)  tests/missing_data/test_missing_data_ozone_wrong_sig_method.py  >  logs/missing_data_test_missing_data_ozone_wrong_sig_method.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/missing_data/test_missing_data_ozone_wrong_sig_method.log logs/missing_data_test_missing_data_ozone_wrong_sig_method.log  >  logs/missing_data_test_missing_data_ozone_wrong_sig_method.log.diff
+	 tail -10  logs/missing_data_test_missing_data_ozone_wrong_sig_method.log.diff 
+
+missing_data/test_missing_data_ozone_wrong_time_method.py  :  
+	 -$(RUNNER)  tests/missing_data/test_missing_data_ozone_wrong_time_method.py  >  logs/missing_data_test_missing_data_ozone_wrong_time_method.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/missing_data/test_missing_data_ozone_wrong_time_method.log logs/missing_data_test_missing_data_ozone_wrong_time_method.log  >  logs/missing_data_test_missing_data_ozone_wrong_time_method.log.diff
+	 tail -10  logs/missing_data_test_missing_data_ozone_wrong_time_method.log.diff 
 
 
- missing_data :  missing_data/test_missing_data_ozone_generic.py missing_data/test_missing_data_ozone_None_PreviousValue.py missing_data/test_missing_data_ozone_None_None.py missing_data/test_missing_data_ozone_None_Median.py missing_data/test_missing_data_ozone_None_Mean.py missing_data/test_missing_data_ozone_None_Interpolate.py missing_data/test_missing_data_ozone_None_DiscardRow.py missing_data/test_missing_data_ozone_None_Constant.py missing_data/test_missing_data_ozone_Interpolate_PreviousValue.py missing_data/test_missing_data_ozone_Interpolate_None.py missing_data/test_missing_data_ozone_Interpolate_Median.py missing_data/test_missing_data_ozone_Interpolate_Mean.py missing_data/test_missing_data_ozone_Interpolate_Interpolate.py missing_data/test_missing_data_ozone_Interpolate_DiscardRow.py missing_data/test_missing_data_ozone_Interpolate_Constant.py missing_data/test_missing_data_ozone_DiscardRow_PreviousValue.py missing_data/test_missing_data_ozone_DiscardRow_None.py missing_data/test_missing_data_ozone_DiscardRow_Median.py missing_data/test_missing_data_ozone_DiscardRow_Mean.py missing_data/test_missing_data_ozone_DiscardRow_Interpolate.py missing_data/test_missing_data_ozone_DiscardRow_DiscardRow.py missing_data/test_missing_data_ozone_DiscardRow_Constant.py missing_data/test_missing_data_air_passengers_generic.py missing_data/test_missing_data_air_passengers_None_PreviousValue.py missing_data/test_missing_data_air_passengers_None_None.py missing_data/test_missing_data_air_passengers_None_Median.py missing_data/test_missing_data_air_passengers_None_Mean.py missing_data/test_missing_data_air_passengers_None_Interpolate.py missing_data/test_missing_data_air_passengers_None_DiscardRow.py missing_data/test_missing_data_air_passengers_None_Constant.py missing_data/test_missing_data_air_passengers_Interpolate_PreviousValue.py missing_data/test_missing_data_air_passengers_Interpolate_None.py missing_data/test_missing_data_air_passengers_Interpolate_Median.py missing_data/test_missing_data_air_passengers_Interpolate_Mean.py missing_data/test_missing_data_air_passengers_Interpolate_Interpolate.py missing_data/test_missing_data_air_passengers_Interpolate_DiscardRow.py missing_data/test_missing_data_air_passengers_Interpolate_Constant.py missing_data/test_missing_data_air_passengers_DiscardRow_PreviousValue.py missing_data/test_missing_data_air_passengers_DiscardRow_None.py missing_data/test_missing_data_air_passengers_DiscardRow_Median.py missing_data/test_missing_data_air_passengers_DiscardRow_Mean.py missing_data/test_missing_data_air_passengers_DiscardRow_Interpolate.py missing_data/test_missing_data_air_passengers_DiscardRow_DiscardRow.py missing_data/test_missing_data_air_passengers_DiscardRow_Constant.py missing_data/gen_ozone_tests.py missing_data/gen_air_passengers_tests.py  
+
+ missing_data :  missing_data/test_missing_data_ozone_wrong_time_method.py missing_data/test_missing_data_ozone_wrong_sig_method.py missing_data/test_missing_data_ozone_generic.py missing_data/test_missing_data_ozone_None_PreviousValue.py missing_data/test_missing_data_ozone_None_None.py missing_data/test_missing_data_ozone_None_Median.py missing_data/test_missing_data_ozone_None_Mean.py missing_data/test_missing_data_ozone_None_Interpolate.py missing_data/test_missing_data_ozone_None_DiscardRow.py missing_data/test_missing_data_ozone_None_Constant.py missing_data/test_missing_data_ozone_Interpolate_PreviousValue.py missing_data/test_missing_data_ozone_Interpolate_None.py missing_data/test_missing_data_ozone_Interpolate_Median.py missing_data/test_missing_data_ozone_Interpolate_Mean.py missing_data/test_missing_data_ozone_Interpolate_Interpolate.py missing_data/test_missing_data_ozone_Interpolate_DiscardRow.py missing_data/test_missing_data_ozone_Interpolate_Constant.py missing_data/test_missing_data_ozone_DiscardRow_PreviousValue.py missing_data/test_missing_data_ozone_DiscardRow_None.py missing_data/test_missing_data_ozone_DiscardRow_Median.py missing_data/test_missing_data_ozone_DiscardRow_Mean.py missing_data/test_missing_data_ozone_DiscardRow_Interpolate.py missing_data/test_missing_data_ozone_DiscardRow_DiscardRow.py missing_data/test_missing_data_ozone_DiscardRow_Constant.py missing_data/test_missing_data_air_passengers_generic.py missing_data/test_missing_data_air_passengers_None_PreviousValue.py missing_data/test_missing_data_air_passengers_None_None.py missing_data/test_missing_data_air_passengers_None_Median.py missing_data/test_missing_data_air_passengers_None_Mean.py missing_data/test_missing_data_air_passengers_None_Interpolate.py missing_data/test_missing_data_air_passengers_None_DiscardRow.py missing_data/test_missing_data_air_passengers_None_Constant.py missing_data/test_missing_data_air_passengers_Interpolate_PreviousValue.py missing_data/test_missing_data_air_passengers_Interpolate_None.py missing_data/test_missing_data_air_passengers_Interpolate_Median.py missing_data/test_missing_data_air_passengers_Interpolate_Mean.py missing_data/test_missing_data_air_passengers_Interpolate_Interpolate.py missing_data/test_missing_data_air_passengers_Interpolate_DiscardRow.py missing_data/test_missing_data_air_passengers_Interpolate_Constant.py missing_data/test_missing_data_air_passengers_DiscardRow_PreviousValue.py missing_data/test_missing_data_air_passengers_DiscardRow_None.py missing_data/test_missing_data_air_passengers_DiscardRow_Median.py missing_data/test_missing_data_air_passengers_DiscardRow_Mean.py missing_data/test_missing_data_air_passengers_DiscardRow_Interpolate.py missing_data/test_missing_data_air_passengers_DiscardRow_DiscardRow.py missing_data/test_missing_data_air_passengers_DiscardRow_Constant.py missing_data/gen_ozone_tests.py missing_data/gen_air_passengers_tests.py  
  
 
 model_control/test_ozone_all_models_enabled.py  :  
@@ -1519,6 +1574,181 @@ neuralnet/test_ozone_tensorflow.py  :
 
 
  neuralnet :  neuralnet/test_ozone_tensorflow.py neuralnet/test_ozone_rnn_only_MLP.py neuralnet/test_ozone_rnn_only_LSTM.py neuralnet/test_ozone_rnn_only.py neuralnet/test_ozone__GPU_theano.py neuralnet/test_ozone__GPU_tensorflow.py neuralnet/test_ozone__CPU_theano.py neuralnet/test_ozone_GPU.py neuralnet/test_air_passengers_tensorflow.py neuralnet/test_air_passengers_rnn_only.py neuralnet/test_air_passengers_GPU_theano.py neuralnet/test_air_passengers_GPU_tensorflow.py neuralnet/test_air_passengers_GPU.py neuralnet/test_air_passengers_CPU_theano.py  
+ 
+
+outliers/test_cran_fpp2_gold.py  :  
+	 -$(RUNNER)  tests/outliers/test_cran_fpp2_gold.py  >  logs/outliers_test_cran_fpp2_gold.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/outliers/test_cran_fpp2_gold.log logs/outliers_test_cran_fpp2_gold.log  >  logs/outliers_test_cran_fpp2_gold.log.diff
+	 tail -10  logs/outliers_test_cran_fpp2_gold.log.diff 
+
+outliers/test_cran_tsoutliers_bde9915_euprin.py  :  
+	 -$(RUNNER)  tests/outliers/test_cran_tsoutliers_bde9915_euprin.py  >  logs/outliers_test_cran_tsoutliers_bde9915_euprin.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/outliers/test_cran_tsoutliers_bde9915_euprin.log logs/outliers_test_cran_tsoutliers_bde9915_euprin.log  >  logs/outliers_test_cran_tsoutliers_bde9915_euprin.log.diff
+	 tail -10  logs/outliers_test_cran_tsoutliers_bde9915_euprin.log.diff 
+
+outliers/test_cran_tsoutliers_bde9915_gipi.py  :  
+	 -$(RUNNER)  tests/outliers/test_cran_tsoutliers_bde9915_gipi.py  >  logs/outliers_test_cran_tsoutliers_bde9915_gipi.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/outliers/test_cran_tsoutliers_bde9915_gipi.log logs/outliers_test_cran_tsoutliers_bde9915_gipi.log  >  logs/outliers_test_cran_tsoutliers_bde9915_gipi.log.diff
+	 tail -10  logs/outliers_test_cran_tsoutliers_bde9915_gipi.log.diff 
+
+outliers/test_cran_tsoutliers_bde9915_metipi.py  :  
+	 -$(RUNNER)  tests/outliers/test_cran_tsoutliers_bde9915_metipi.py  >  logs/outliers_test_cran_tsoutliers_bde9915_metipi.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/outliers/test_cran_tsoutliers_bde9915_metipi.log logs/outliers_test_cran_tsoutliers_bde9915_metipi.log  >  logs/outliers_test_cran_tsoutliers_bde9915_metipi.log.diff
+	 tail -10  logs/outliers_test_cran_tsoutliers_bde9915_metipi.log.diff 
+
+outliers/test_cran_tsoutliers_hicp_000000.py  :  
+	 -$(RUNNER)  tests/outliers/test_cran_tsoutliers_hicp_000000.py  >  logs/outliers_test_cran_tsoutliers_hicp_000000.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/outliers/test_cran_tsoutliers_hicp_000000.log logs/outliers_test_cran_tsoutliers_hicp_000000.log  >  logs/outliers_test_cran_tsoutliers_hicp_000000.log.diff
+	 tail -10  logs/outliers_test_cran_tsoutliers_hicp_000000.log.diff 
+
+outliers/test_cran_tsoutliers_hicp_010000.py  :  
+	 -$(RUNNER)  tests/outliers/test_cran_tsoutliers_hicp_010000.py  >  logs/outliers_test_cran_tsoutliers_hicp_010000.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/outliers/test_cran_tsoutliers_hicp_010000.log logs/outliers_test_cran_tsoutliers_hicp_010000.log  >  logs/outliers_test_cran_tsoutliers_hicp_010000.log.diff
+	 tail -10  logs/outliers_test_cran_tsoutliers_hicp_010000.log.diff 
+
+outliers/test_cran_tsoutliers_hicp_011000.py  :  
+	 -$(RUNNER)  tests/outliers/test_cran_tsoutliers_hicp_011000.py  >  logs/outliers_test_cran_tsoutliers_hicp_011000.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/outliers/test_cran_tsoutliers_hicp_011000.log logs/outliers_test_cran_tsoutliers_hicp_011000.log  >  logs/outliers_test_cran_tsoutliers_hicp_011000.log.diff
+	 tail -10  logs/outliers_test_cran_tsoutliers_hicp_011000.log.diff 
+
+outliers/test_cran_tsoutliers_hicp_011200.py  :  
+	 -$(RUNNER)  tests/outliers/test_cran_tsoutliers_hicp_011200.py  >  logs/outliers_test_cran_tsoutliers_hicp_011200.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/outliers/test_cran_tsoutliers_hicp_011200.log logs/outliers_test_cran_tsoutliers_hicp_011200.log  >  logs/outliers_test_cran_tsoutliers_hicp_011200.log.diff
+	 tail -10  logs/outliers_test_cran_tsoutliers_hicp_011200.log.diff 
+
+outliers/test_cran_tsoutliers_hicp_011300.py  :  
+	 -$(RUNNER)  tests/outliers/test_cran_tsoutliers_hicp_011300.py  >  logs/outliers_test_cran_tsoutliers_hicp_011300.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/outliers/test_cran_tsoutliers_hicp_011300.log logs/outliers_test_cran_tsoutliers_hicp_011300.log  >  logs/outliers_test_cran_tsoutliers_hicp_011300.log.diff
+	 tail -10  logs/outliers_test_cran_tsoutliers_hicp_011300.log.diff 
+
+outliers/test_cran_tsoutliers_hicp_011600.py  :  
+	 -$(RUNNER)  tests/outliers/test_cran_tsoutliers_hicp_011600.py  >  logs/outliers_test_cran_tsoutliers_hicp_011600.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/outliers/test_cran_tsoutliers_hicp_011600.log logs/outliers_test_cran_tsoutliers_hicp_011600.log  >  logs/outliers_test_cran_tsoutliers_hicp_011600.log.diff
+	 tail -10  logs/outliers_test_cran_tsoutliers_hicp_011600.log.diff 
+
+outliers/test_cran_tsoutliers_hicp_011700.py  :  
+	 -$(RUNNER)  tests/outliers/test_cran_tsoutliers_hicp_011700.py  >  logs/outliers_test_cran_tsoutliers_hicp_011700.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/outliers/test_cran_tsoutliers_hicp_011700.log logs/outliers_test_cran_tsoutliers_hicp_011700.log  >  logs/outliers_test_cran_tsoutliers_hicp_011700.log.diff
+	 tail -10  logs/outliers_test_cran_tsoutliers_hicp_011700.log.diff 
+
+outliers/test_cran_tsoutliers_hicp_FOODPR.py  :  
+	 -$(RUNNER)  tests/outliers/test_cran_tsoutliers_hicp_FOODPR.py  >  logs/outliers_test_cran_tsoutliers_hicp_FOODPR.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/outliers/test_cran_tsoutliers_hicp_FOODPR.log logs/outliers_test_cran_tsoutliers_hicp_FOODPR.log  >  logs/outliers_test_cran_tsoutliers_hicp_FOODPR.log.diff
+	 tail -10  logs/outliers_test_cran_tsoutliers_hicp_FOODPR.log.diff 
+
+outliers/test_cran_tsoutliers_hicp_FOODUN.py  :  
+	 -$(RUNNER)  tests/outliers/test_cran_tsoutliers_hicp_FOODUN.py  >  logs/outliers_test_cran_tsoutliers_hicp_FOODUN.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/outliers/test_cran_tsoutliers_hicp_FOODUN.log logs/outliers_test_cran_tsoutliers_hicp_FOODUN.log  >  logs/outliers_test_cran_tsoutliers_hicp_FOODUN.log.diff
+	 tail -10  logs/outliers_test_cran_tsoutliers_hicp_FOODUN.log.diff 
+
+outliers/test_cran_tsoutliers_hicp_IGXE00.py  :  
+	 -$(RUNNER)  tests/outliers/test_cran_tsoutliers_hicp_IGXE00.py  >  logs/outliers_test_cran_tsoutliers_hicp_IGXE00.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/outliers/test_cran_tsoutliers_hicp_IGXE00.log logs/outliers_test_cran_tsoutliers_hicp_IGXE00.log  >  logs/outliers_test_cran_tsoutliers_hicp_IGXE00.log.diff
+	 tail -10  logs/outliers_test_cran_tsoutliers_hicp_IGXE00.log.diff 
+
+outliers/test_cran_tsoutliers_hicp_NRGY00.py  :  
+	 -$(RUNNER)  tests/outliers/test_cran_tsoutliers_hicp_NRGY00.py  >  logs/outliers_test_cran_tsoutliers_hicp_NRGY00.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/outliers/test_cran_tsoutliers_hicp_NRGY00.log logs/outliers_test_cran_tsoutliers_hicp_NRGY00.log  >  logs/outliers_test_cran_tsoutliers_hicp_NRGY00.log.diff
+	 tail -10  logs/outliers_test_cran_tsoutliers_hicp_NRGY00.log.diff 
+
+outliers/test_cran_tsoutliers_hicp_SERV00.py  :  
+	 -$(RUNNER)  tests/outliers/test_cran_tsoutliers_hicp_SERV00.py  >  logs/outliers_test_cran_tsoutliers_hicp_SERV00.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/outliers/test_cran_tsoutliers_hicp_SERV00.log logs/outliers_test_cran_tsoutliers_hicp_SERV00.log  >  logs/outliers_test_cran_tsoutliers_hicp_SERV00.log.diff
+	 tail -10  logs/outliers_test_cran_tsoutliers_hicp_SERV00.log.diff 
+
+outliers/test_cran_tsoutliers_ipi_Austria.py  :  
+	 -$(RUNNER)  tests/outliers/test_cran_tsoutliers_ipi_Austria.py  >  logs/outliers_test_cran_tsoutliers_ipi_Austria.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/outliers/test_cran_tsoutliers_ipi_Austria.log logs/outliers_test_cran_tsoutliers_ipi_Austria.log  >  logs/outliers_test_cran_tsoutliers_ipi_Austria.log.diff
+	 tail -10  logs/outliers_test_cran_tsoutliers_ipi_Austria.log.diff 
+
+outliers/test_cran_tsoutliers_ipi_Belgium.py  :  
+	 -$(RUNNER)  tests/outliers/test_cran_tsoutliers_ipi_Belgium.py  >  logs/outliers_test_cran_tsoutliers_ipi_Belgium.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/outliers/test_cran_tsoutliers_ipi_Belgium.log logs/outliers_test_cran_tsoutliers_ipi_Belgium.log  >  logs/outliers_test_cran_tsoutliers_ipi_Belgium.log.diff
+	 tail -10  logs/outliers_test_cran_tsoutliers_ipi_Belgium.log.diff 
+
+outliers/test_cran_tsoutliers_ipi_Cyprus.py  :  
+	 -$(RUNNER)  tests/outliers/test_cran_tsoutliers_ipi_Cyprus.py  >  logs/outliers_test_cran_tsoutliers_ipi_Cyprus.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/outliers/test_cran_tsoutliers_ipi_Cyprus.log logs/outliers_test_cran_tsoutliers_ipi_Cyprus.log  >  logs/outliers_test_cran_tsoutliers_ipi_Cyprus.log.diff
+	 tail -10  logs/outliers_test_cran_tsoutliers_ipi_Cyprus.log.diff 
+
+outliers/test_cran_tsoutliers_ipi_Estonia.py  :  
+	 -$(RUNNER)  tests/outliers/test_cran_tsoutliers_ipi_Estonia.py  >  logs/outliers_test_cran_tsoutliers_ipi_Estonia.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/outliers/test_cran_tsoutliers_ipi_Estonia.log logs/outliers_test_cran_tsoutliers_ipi_Estonia.log  >  logs/outliers_test_cran_tsoutliers_ipi_Estonia.log.diff
+	 tail -10  logs/outliers_test_cran_tsoutliers_ipi_Estonia.log.diff 
+
+outliers/test_cran_tsoutliers_ipi_Finland.py  :  
+	 -$(RUNNER)  tests/outliers/test_cran_tsoutliers_ipi_Finland.py  >  logs/outliers_test_cran_tsoutliers_ipi_Finland.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/outliers/test_cran_tsoutliers_ipi_Finland.log logs/outliers_test_cran_tsoutliers_ipi_Finland.log  >  logs/outliers_test_cran_tsoutliers_ipi_Finland.log.diff
+	 tail -10  logs/outliers_test_cran_tsoutliers_ipi_Finland.log.diff 
+
+outliers/test_cran_tsoutliers_ipi_France.py  :  
+	 -$(RUNNER)  tests/outliers/test_cran_tsoutliers_ipi_France.py  >  logs/outliers_test_cran_tsoutliers_ipi_France.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/outliers/test_cran_tsoutliers_ipi_France.log logs/outliers_test_cran_tsoutliers_ipi_France.log  >  logs/outliers_test_cran_tsoutliers_ipi_France.log.diff
+	 tail -10  logs/outliers_test_cran_tsoutliers_ipi_France.log.diff 
+
+outliers/test_cran_tsoutliers_ipi_Germany.py  :  
+	 -$(RUNNER)  tests/outliers/test_cran_tsoutliers_ipi_Germany.py  >  logs/outliers_test_cran_tsoutliers_ipi_Germany.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/outliers/test_cran_tsoutliers_ipi_Germany.log logs/outliers_test_cran_tsoutliers_ipi_Germany.log  >  logs/outliers_test_cran_tsoutliers_ipi_Germany.log.diff
+	 tail -10  logs/outliers_test_cran_tsoutliers_ipi_Germany.log.diff 
+
+outliers/test_cran_tsoutliers_ipi_Greece.py  :  
+	 -$(RUNNER)  tests/outliers/test_cran_tsoutliers_ipi_Greece.py  >  logs/outliers_test_cran_tsoutliers_ipi_Greece.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/outliers/test_cran_tsoutliers_ipi_Greece.log logs/outliers_test_cran_tsoutliers_ipi_Greece.log  >  logs/outliers_test_cran_tsoutliers_ipi_Greece.log.diff
+	 tail -10  logs/outliers_test_cran_tsoutliers_ipi_Greece.log.diff 
+
+outliers/test_cran_tsoutliers_ipi_Italy.py  :  
+	 -$(RUNNER)  tests/outliers/test_cran_tsoutliers_ipi_Italy.py  >  logs/outliers_test_cran_tsoutliers_ipi_Italy.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/outliers/test_cran_tsoutliers_ipi_Italy.log logs/outliers_test_cran_tsoutliers_ipi_Italy.log  >  logs/outliers_test_cran_tsoutliers_ipi_Italy.log.diff
+	 tail -10  logs/outliers_test_cran_tsoutliers_ipi_Italy.log.diff 
+
+outliers/test_cran_tsoutliers_ipi_Latvia.py  :  
+	 -$(RUNNER)  tests/outliers/test_cran_tsoutliers_ipi_Latvia.py  >  logs/outliers_test_cran_tsoutliers_ipi_Latvia.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/outliers/test_cran_tsoutliers_ipi_Latvia.log logs/outliers_test_cran_tsoutliers_ipi_Latvia.log  >  logs/outliers_test_cran_tsoutliers_ipi_Latvia.log.diff
+	 tail -10  logs/outliers_test_cran_tsoutliers_ipi_Latvia.log.diff 
+
+outliers/test_cran_tsoutliers_ipi_Luxembourg.py  :  
+	 -$(RUNNER)  tests/outliers/test_cran_tsoutliers_ipi_Luxembourg.py  >  logs/outliers_test_cran_tsoutliers_ipi_Luxembourg.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/outliers/test_cran_tsoutliers_ipi_Luxembourg.log logs/outliers_test_cran_tsoutliers_ipi_Luxembourg.log  >  logs/outliers_test_cran_tsoutliers_ipi_Luxembourg.log.diff
+	 tail -10  logs/outliers_test_cran_tsoutliers_ipi_Luxembourg.log.diff 
+
+outliers/test_cran_tsoutliers_ipi_Malta.py  :  
+	 -$(RUNNER)  tests/outliers/test_cran_tsoutliers_ipi_Malta.py  >  logs/outliers_test_cran_tsoutliers_ipi_Malta.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/outliers/test_cran_tsoutliers_ipi_Malta.log logs/outliers_test_cran_tsoutliers_ipi_Malta.log  >  logs/outliers_test_cran_tsoutliers_ipi_Malta.log.diff
+	 tail -10  logs/outliers_test_cran_tsoutliers_ipi_Malta.log.diff 
+
+outliers/test_cran_tsoutliers_ipi_Netherlands.py  :  
+	 -$(RUNNER)  tests/outliers/test_cran_tsoutliers_ipi_Netherlands.py  >  logs/outliers_test_cran_tsoutliers_ipi_Netherlands.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/outliers/test_cran_tsoutliers_ipi_Netherlands.log logs/outliers_test_cran_tsoutliers_ipi_Netherlands.log  >  logs/outliers_test_cran_tsoutliers_ipi_Netherlands.log.diff
+	 tail -10  logs/outliers_test_cran_tsoutliers_ipi_Netherlands.log.diff 
+
+outliers/test_cran_tsoutliers_ipi_Portugal.py  :  
+	 -$(RUNNER)  tests/outliers/test_cran_tsoutliers_ipi_Portugal.py  >  logs/outliers_test_cran_tsoutliers_ipi_Portugal.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/outliers/test_cran_tsoutliers_ipi_Portugal.log logs/outliers_test_cran_tsoutliers_ipi_Portugal.log  >  logs/outliers_test_cran_tsoutliers_ipi_Portugal.log.diff
+	 tail -10  logs/outliers_test_cran_tsoutliers_ipi_Portugal.log.diff 
+
+outliers/test_cran_tsoutliers_ipi_Slovakia.py  :  
+	 -$(RUNNER)  tests/outliers/test_cran_tsoutliers_ipi_Slovakia.py  >  logs/outliers_test_cran_tsoutliers_ipi_Slovakia.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/outliers/test_cran_tsoutliers_ipi_Slovakia.log logs/outliers_test_cran_tsoutliers_ipi_Slovakia.log  >  logs/outliers_test_cran_tsoutliers_ipi_Slovakia.log.diff
+	 tail -10  logs/outliers_test_cran_tsoutliers_ipi_Slovakia.log.diff 
+
+outliers/test_cran_tsoutliers_ipi_Slovenia.py  :  
+	 -$(RUNNER)  tests/outliers/test_cran_tsoutliers_ipi_Slovenia.py  >  logs/outliers_test_cran_tsoutliers_ipi_Slovenia.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/outliers/test_cran_tsoutliers_ipi_Slovenia.log logs/outliers_test_cran_tsoutliers_ipi_Slovenia.log  >  logs/outliers_test_cran_tsoutliers_ipi_Slovenia.log.diff
+	 tail -10  logs/outliers_test_cran_tsoutliers_ipi_Slovenia.log.diff 
+
+outliers/test_cran_tsoutliers_ipi_Spain.py  :  
+	 -$(RUNNER)  tests/outliers/test_cran_tsoutliers_ipi_Spain.py  >  logs/outliers_test_cran_tsoutliers_ipi_Spain.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/outliers/test_cran_tsoutliers_ipi_Spain.log logs/outliers_test_cran_tsoutliers_ipi_Spain.log  >  logs/outliers_test_cran_tsoutliers_ipi_Spain.log.diff
+	 tail -10  logs/outliers_test_cran_tsoutliers_ipi_Spain.log.diff 
+
+outliers/tsoutliers_generic.py  :  
+	 -$(RUNNER)  tests/outliers/tsoutliers_generic.py  >  logs/outliers_tsoutliers_generic.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/outliers/tsoutliers_generic.log logs/outliers_tsoutliers_generic.log  >  logs/outliers_tsoutliers_generic.log.diff
+	 tail -10  logs/outliers_tsoutliers_generic.log.diff 
+
+
+
+ outliers :  outliers/tsoutliers_generic.py outliers/test_cran_tsoutliers_ipi_Spain.py outliers/test_cran_tsoutliers_ipi_Slovenia.py outliers/test_cran_tsoutliers_ipi_Slovakia.py outliers/test_cran_tsoutliers_ipi_Portugal.py outliers/test_cran_tsoutliers_ipi_Netherlands.py outliers/test_cran_tsoutliers_ipi_Malta.py outliers/test_cran_tsoutliers_ipi_Luxembourg.py outliers/test_cran_tsoutliers_ipi_Latvia.py outliers/test_cran_tsoutliers_ipi_Italy.py outliers/test_cran_tsoutliers_ipi_Greece.py outliers/test_cran_tsoutliers_ipi_Germany.py outliers/test_cran_tsoutliers_ipi_France.py outliers/test_cran_tsoutliers_ipi_Finland.py outliers/test_cran_tsoutliers_ipi_Estonia.py outliers/test_cran_tsoutliers_ipi_Cyprus.py outliers/test_cran_tsoutliers_ipi_Belgium.py outliers/test_cran_tsoutliers_ipi_Austria.py outliers/test_cran_tsoutliers_hicp_SERV00.py outliers/test_cran_tsoutliers_hicp_NRGY00.py outliers/test_cran_tsoutliers_hicp_IGXE00.py outliers/test_cran_tsoutliers_hicp_FOODUN.py outliers/test_cran_tsoutliers_hicp_FOODPR.py outliers/test_cran_tsoutliers_hicp_011700.py outliers/test_cran_tsoutliers_hicp_011600.py outliers/test_cran_tsoutliers_hicp_011300.py outliers/test_cran_tsoutliers_hicp_011200.py outliers/test_cran_tsoutliers_hicp_011000.py outliers/test_cran_tsoutliers_hicp_010000.py outliers/test_cran_tsoutliers_hicp_000000.py outliers/test_cran_tsoutliers_bde9915_metipi.py outliers/test_cran_tsoutliers_bde9915_gipi.py outliers/test_cran_tsoutliers_bde9915_euprin.py outliers/test_cran_fpp2_gold.py  
  
 
 perf/gen_ar_speed_tests.py  :  
@@ -2384,10 +2614,10 @@ xgb/test_ozone_xgbx_exogenous.py  :
 
 # ********************************************** 
 
-all:  artificial basic_checks bugs cross_validation croston exog expsmooth func HeartRateTimeSeries heroku hierarchical  HourOfWeek model_control perf svr transformations  neuralnet real-life  time_res perfs demos xgb xeon-phi-parallel sampling temporal_hierarchy WeekOfMonth missing_data  probabilistic_forecasting lgbm perf_MedAE perf_LnQ plots multiplicative_seasonal pytorch perf_MASE_RMSSE individual_components time_logging 
+all:  artificial basic_checks bugs cross_validation croston exog expsmooth func HeartRateTimeSeries heroku hierarchical  HourOfWeek model_control perf svr transformations  neuralnet real-life  time_res perfs demos xgb xeon-phi-parallel sampling temporal_hierarchy WeekOfMonth missing_data  probabilistic_forecasting lgbm perf_MedAE perf_LnQ plots multiplicative_seasonal pytorch perf_MASE_RMSSE individual_components time_logging outliers 
 	
 
-build-test :  HeartRateTimeSeries HourOfWeek WeekOfMonth basic_checks bugs cross_validation croston demos exog expsmooth func heroku hierarchical individual_components lgbm missing_data model_control multiplicative_seasonal perf_LnQ perf_MASE_RMSSE perf_MedAE perfs plots probabilistic_forecasting real-life sampling svr time_logging time_res transformations xgb 
+build-test :  HeartRateTimeSeries HourOfWeek WeekOfMonth basic_checks bugs cross_validation croston demos exog expsmooth func heroku hierarchical individual_components lgbm missing_data model_control multiplicative_seasonal outliers perf_LnQ perf_MASE_RMSSE perf_MedAE perfs plots probabilistic_forecasting real-life sampling svr time_logging time_res transformations xgb 
 	
 
 long-tests :  artificial neuralnet perf pytorch temporal_hierarchy xeon-phi-parallel 
