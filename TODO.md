@@ -118,12 +118,12 @@ https://otexts.com/fpp2/regression-evaluation.html
 13. Interquartile range (IQR = Q3 - Q1):  middle 50%.  https://en.wikipedia.org/wiki/Interquartile_range
 14. IQR is a Robust measure of scale : for N(0, sigma) , IQR = 1.349 sigma. https://en.wikipedia.org/wiki/Robust_measures_of_scale
 15. Add more candidates with and without oultiers (ARX and ARXO)? Not sure. KISS.
-16. tsoutliers : The tsoutliers() function in the forecast package for R is useful for identifying anomalies in a time series. Excellent !!!
+16. tsoutliers : The tsoutliers() function in the forecast package for R is useful for identifying anomalies in a time series. Excellent !!! http://cran.r-project.org/web/packages/tsoutliers/
 17. tsoutliers : This package implements a procedure based on the approach described in Chen and Liu (1993) for automatic detection of outliers in time series. Innovational outliers, additive outliers, level shifts, temporary changes and seasonal level shifts are considered
 18.  Joint Estimation of Model Parameters and Outlier Effects in Time Series. Chung Chen & Lon-Mu Liu.  Journal of the American Statistical Association Volume 88, 1993 - Issue 421
 19. http://cran.r-project.org/web/packages/tsoutliers/tsoutliers.pdf
-20. tsoutliers: Custom processing for outliers. Iterative MSTL + Smoothing trends + IQR + linear interpolation.  https://robjhyndman.com/hyndsight/tsoutliers
-21. tsoutliers Gold price dataset (fpp2 package) : The gold price data contains daily morning gold prices in US dollars from 1 January 1985 to 31 March 1989.
 22. tsoutliers hicp dataset : Harmonised indices of consumer prices in the Euro area.
 23. tsoutliers ipi dataset : Industrial production indices in the manufacturing sector of European Monetary Union countries.
-24. tsoutliers bde9915 dataset : seasonal outliers ? Kaiser, R., and Maravall, A. (1999). Seasonal Outliers in Time Series. Banco de España, Servicio de Estudios. Working paper number 9915.
+24.tsoutliers bde9915 dataset : seasonal outliers ? Kaiser, R., and Maravall, A. (1999). Seasonal Outliers in Time Series. Banco de España, Servicio de Estudios. Working paper number 9915.
+20. forecast package (tsoutliers function, clean.R): Custom processing for outliers. Iterative MSTL + Smoothing trends + IQR + linear interpolation.  https://robjhyndman.com/hyndsight/tsoutliers
+21. fpp2 Gold price dataset : The gold price data contains daily morning gold prices in US dollars from 1 January 1985 to 31 March 1989.
