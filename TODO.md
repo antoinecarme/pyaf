@@ -126,4 +126,4 @@ https://otexts.com/fpp2/regression-evaluation.html
 21. tsoutliers Gold price dataset (fpp2 package) : The gold price data contains daily morning gold prices in US dollars from 1 January 1985 to 31 March 1989.
 22. tsoutliers hicp dataset : Harmonised indices of consumer prices in the Euro area.
 23. tsoutliers ipi dataset : Industrial production indices in the manufacturing sector of European Monetary Union countries.
-24.tsoutliers bde9915 dataset : seasonal outliers ? Kaiser, R., and Maravall, A. (1999). Seasonal Outliers in Time Series. Banco de España, Servicio de Estudios. Working paper number 9915.
+24. tsoutliers bde9915 dataset : seasonal outliers ? Kaiser, R., and Maravall, A. (1999). Seasonal Outliers in Time Series. Banco de España, Servicio de Estudios. Working paper number 9915.
