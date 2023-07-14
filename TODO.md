@@ -117,4 +117,4 @@ https://otexts.com/fpp2/regression-evaluation.html
 12. k value can be used as a training option to remove more-or-less outliers. Default : 3 ?
 13. Interquartile range (IQR = Q3 - Q1):  middle 50%.  https://en.wikipedia.org/wiki/Interquartile_range
 14. IQR is a Robust measure of scale : for N(0, sigma) , IQR = 1.349 sigma. https://en.wikipedia.org/wiki/Robust_measures_of_scale
-15. Add more candidates with and without oultiers (ARX and ARXO)? Not sure.
+15. Add more candidates with and without oultiers (ARX and ARXO)? Not sure. KISS.
