@@ -127,3 +127,11 @@ https://otexts.com/fpp2/regression-evaluation.html
 24.tsoutliers bde9915 dataset : seasonal outliers ? Kaiser, R., and Maravall, A. (1999). Seasonal Outliers in Time Series. Banco de España, Servicio de Estudios. Working paper number 9915.
 20. forecast package (tsoutliers function, clean.R): Custom processing for outliers. Iterative MSTL + Smoothing trends + IQR + linear interpolation.  https://robjhyndman.com/hyndsight/tsoutliers
 21. fpp2 Gold price dataset : The gold price data contains daily morning gold prices in US dollars from 1 January 1985 to 31 March 1989.
+22. 
+
+### Custom Performance Measures
+
+Add the possibility to customize the performance measures over the given horzion. 
+
+One may want to optimize weekly forecasts on a daily model (not take into account small changes within the same week and take forecast aggregates on 7 days).
+
