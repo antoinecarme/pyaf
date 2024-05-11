@@ -135,3 +135,7 @@ Add the possibility to customize the performance measures over the given horzion
 
 One may want to optimize weekly forecasts on a daily model (not take into account small changes within the same week and take forecast aggregates on 7 days).
 
+
+https://arxiv.org/pdf/2310.10688
+A DECODER-ONLY FOUNDATION MODEL FOR TIME-SERIES FORECASTING
+
