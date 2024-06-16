@@ -17,7 +17,7 @@ df = pd.DataFrame()
 N = 1000
 lTimeVar = 'Time'
 lSignalVar = 'Signal'
-df[lTimeVar] = pd.date_range("2018-01-01", periods=N, freq="H")
+df[lTimeVar] = pd.date_range("2018-01-01", periods=N, freq="h")
 df[lSignalVar] = np.random.random(df.shape[0]) 
 df.info()
 print(df.head())
