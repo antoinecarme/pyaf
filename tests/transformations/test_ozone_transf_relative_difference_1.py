@@ -11,6 +11,7 @@ def create_df():
     df.info();
     N = df.shape[0];
     df['signal2'] = 1;
+    df['signal2'] = df['signal2'].astype(np.float64)
     for i in range(N-1):
         df.loc[i+1, 'signal2'] = df.loc[i, 'signal2'] * (df.loc[i, 'rate'] + 1);
     print(df.head())
