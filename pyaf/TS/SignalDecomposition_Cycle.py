@@ -220,7 +220,6 @@ class cSeasonalPeriodic(cAbstractCycle):
         self.mEncodedValueDict = self.compute_target_means_by_cycle_value(self.mCycleFrame, self.getCycleName())
 
         self.mCycleFrame[lName + '_enc'] = self.mCycleFrame[lName].map(self.mEncodedValueDict).fillna(self.mDefaultValue)
-        self.mCycleFrame[lName + '_enc'].fillna(self.mDefaultValue, inplace=True);
         self.mCycleFrame[lName + '_NotEncoded'] = self.mCycleFrame[lName];
         self.mCycleFrame[lName] = self.mCycleFrame[lName + '_enc'];
         
