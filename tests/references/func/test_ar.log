@@ -1,11 +1,5 @@
-/home/circleci/project/tests/func/test_ar.py:12: SettingWithCopyWarning: 
-A value is trying to be set on a copy of a slice from a DataFrame.
-Try using .loc[row_indexer,col_indexer] = value instead
-
-See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
-  df['Signal'] = df[b1.mName]
 INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['Signal'], 'Horizons': {'Signal': 10}}
-INFO:pyaf.std:TRAINING_ENGINE_END 3.689
+INFO:pyaf.std:TRAINING_ENGINE_END 0.974
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2000-08-27T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=10
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=310  Min=12.507062 Max=140.875137  Mean=76.045998 StdDev=37.32632
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=0.0 Max=1.0  Mean=0.494975 StdDev=0.290776
@@ -54,11 +48,8 @@ INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/my_random_ar_Signal_Forecast_dec
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/my_random_ar_Signal_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/my_random_ar_Signal_quantiles_output.png')
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['Signal'], 'Horizons': {'Signal': 10}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 0.274
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.196
 TRYING_TO_LOAD_RANDOM_DATASET Signal_320_D_0_constant_0_None_0.1_20 data/ARTIFICIAL_DATA/320/Signal_320_D_0_constant_0_None_0.1_20
-LAOD_FAILED_TRYING_TO_GENERATE_RANDOM_DATASET Signal_320_D_0_constant_0_None_0.1_20
-GENERATING_RANDOM_DATASET Signal_320_D_0_constant_0_None_0.1_20
-TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
 Forecast Columns  Index(['Date', 'Signal', 'Signal_scaled', '_Signal', 'row_number',
        'Date_Normalized', '_Signal_ConstantTrend',
        '_Signal_ConstantTrend_residue',
@@ -90,16 +81,16 @@ dtypes: datetime64[ns](1), float64(2)
 memory usage: 7.6 KB
 None
 Forecasts
- [[Timestamp('2000-11-06 00:00:00') nan 139.5983649517971]
- [Timestamp('2000-11-07 00:00:00') nan 140.1052459654737]
- [Timestamp('2000-11-08 00:00:00') nan 140.6927997568275]
- [Timestamp('2000-11-09 00:00:00') nan 141.80097448844575]
- [Timestamp('2000-11-10 00:00:00') nan 141.3854852224174]
- [Timestamp('2000-11-11 00:00:00') nan 142.1071628775953]
- [Timestamp('2000-11-12 00:00:00') nan 142.49391260927985]
- [Timestamp('2000-11-13 00:00:00') nan 142.67926031093018]
- [Timestamp('2000-11-14 00:00:00') nan 142.5413934966829]
- [Timestamp('2000-11-15 00:00:00') nan 143.14461857795064]]
+ [[Timestamp('2000-11-06 00:00:00') nan 139.59836495179715]
+ [Timestamp('2000-11-07 00:00:00') nan 140.10524596547378]
+ [Timestamp('2000-11-08 00:00:00') nan 140.69279975682758]
+ [Timestamp('2000-11-09 00:00:00') nan 141.80097448844586]
+ [Timestamp('2000-11-10 00:00:00') nan 141.38548522241754]
+ [Timestamp('2000-11-11 00:00:00') nan 142.10716287759539]
+ [Timestamp('2000-11-12 00:00:00') nan 142.49391260927996]
+ [Timestamp('2000-11-13 00:00:00') nan 142.67926031093032]
+ [Timestamp('2000-11-14 00:00:00') nan 142.54139349668307]
+ [Timestamp('2000-11-15 00:00:00') nan 143.1446185779508]]
 
 
 <ModelInfo>
@@ -177,7 +168,7 @@ Forecasts
         },
         "Model_Selection_Criterion": "MASE"
     },
-    "Training_Time": 3.689
+    "Training_Time": 0.974
 }
 </ModelInfo>
 
@@ -189,3 +180,4 @@ Forecasts
 </Forecast>
 
 
+EXECUTION_TIME_DETAIL = {'CMD':'timeout 480 python tests/func/test_ar.py', 'ElapsedTimeSecs':(8.01, 0.26, 7.75), 'MAX_MEM_KB':213880, 'CPU_PRCNT':'99%', 'FILES_IN':0, 'FILES_OUT':1304, 'EXIT_STATUS':0}

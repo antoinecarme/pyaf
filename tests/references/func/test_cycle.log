@@ -1,15 +1,6 @@
-/home/circleci/project/tests/func/test_cycle.py:12: SettingWithCopyWarning: 
-A value is trying to be set on a copy of a slice from a DataFrame.
-Try using .loc[row_indexer,col_indexer] = value instead
-
-See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
-  df['Signal'] = df[b1.mName]
 INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['Signal'], 'Horizons': {'Signal': 10}}
 TRYING_TO_LOAD_RANDOM_DATASET Signal_320_D_0_constant_12_None_0.0_20 data/ARTIFICIAL_DATA/320/Signal_320_D_0_constant_12_None_0.0_20
-LAOD_FAILED_TRYING_TO_GENERATE_RANDOM_DATASET Signal_320_D_0_constant_12_None_0.0_20
-GENERATING_RANDOM_DATASET Signal_320_D_0_constant_12_None_0.0_20
-TREND 0.0976270078546495 0.43037873274483895 0.20552675214328775
-INFO:pyaf.std:TRAINING_ENGINE_END 22.605
+INFO:pyaf.std:TRAINING_ENGINE_END 5.516
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-01T00:00:00.000000 TimeMax=2000-08-27T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=10
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=310  Min=13.522213 Max=166.553417  Mean=90.013223 StdDev=43.196553
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=0.0 Max=1.0  Mean=0.499839 StdDev=0.282273
@@ -53,7 +44,7 @@ INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/func_test_cycle_Signal_Forecast_
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/func_test_cycle_Signal_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/func_test_cycle_Signal_quantiles_output.png')
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['Signal'], 'Horizons': {'Signal': 10}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 0.805
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.144
 Forecast Columns  Index(['Date', 'Signal', 'Signal_scaled', '_Signal', 'row_number',
        'Date_Normalized', '_Signal_Lag1Trend', '_Signal_Lag1Trend_residue',
        'cycle_internal', '_Signal_Lag1Trend_residue_Cycle_12',
@@ -86,14 +77,14 @@ None
 Forecasts
  [[Timestamp('2000-11-06 00:00:00') nan 167.03523016024272]
  [Timestamp('2000-11-07 00:00:00') nan 169.6040789751639]
- [Timestamp('2000-11-08 00:00:00') nan 162.78126801763034]
- [Timestamp('2000-11-09 00:00:00') nan 167.43715233754145]
- [Timestamp('2000-11-10 00:00:00') nan 170.0060011524626]
- [Timestamp('2000-11-11 00:00:00') nan 164.22670794742402]
- [Timestamp('2000-11-12 00:00:00') nan 166.7955567623452]
- [Timestamp('2000-11-13 00:00:00') nan 164.14681681479155]
- [Timestamp('2000-11-14 00:00:00') nan 166.71566562971273]
- [Timestamp('2000-11-15 00:00:00') nan 170.32803219712886]]
+ [Timestamp('2000-11-08 00:00:00') nan 162.78126801763037]
+ [Timestamp('2000-11-09 00:00:00') nan 167.4371523375415]
+ [Timestamp('2000-11-10 00:00:00') nan 170.00600115246263]
+ [Timestamp('2000-11-11 00:00:00') nan 164.22670794742407]
+ [Timestamp('2000-11-12 00:00:00') nan 166.79555676234526]
+ [Timestamp('2000-11-13 00:00:00') nan 164.14681681479158]
+ [Timestamp('2000-11-14 00:00:00') nan 166.71566562971276]
+ [Timestamp('2000-11-15 00:00:00') nan 170.3280321971289]]
 
 
 <ModelInfo>
@@ -127,28 +118,7 @@ Forecasts
         },
         "Model_Performance": {
             "1": {
-                "AUC": 0.5007,
-                "DiffSMAPE": 0.0,
-                "ErrorMean": -0.0,
-                "ErrorStdDev": 0.0,
-                "KS": 0.0167,
-                "KendallTau": 1.0,
-                "Length": 60,
-                "LnQ": 0.0,
-                "MAE": 0.0,
-                "MAPE": 0.0,
-                "MASE": 0.0,
-                "MannWhitneyU": 1802.5,
-                "MedAE": 0.0,
-                "Pearson": 1.0,
-                "R2": 1.0,
-                "RMSE": 0.0,
-                "RMSSE": 0.0,
-                "SMAPE": 0.0,
-                "Signal": "Signal_Forecast_1"
-            },
-            "10": {
-                "AUC": 0.4994,
+                "AUC": 0.4999,
                 "DiffSMAPE": 0.0,
                 "ErrorMean": 0.0,
                 "ErrorStdDev": 0.0,
@@ -159,7 +129,28 @@ Forecasts
                 "MAE": 0.0,
                 "MAPE": 0.0,
                 "MASE": 0.0,
-                "MannWhitneyU": 1798.0,
+                "MannWhitneyU": 1799.5,
+                "MedAE": 0.0,
+                "Pearson": 1.0,
+                "R2": 1.0,
+                "RMSE": 0.0,
+                "RMSSE": 0.0,
+                "SMAPE": 0.0,
+                "Signal": "Signal_Forecast_1"
+            },
+            "10": {
+                "AUC": 0.4992,
+                "DiffSMAPE": 0.0,
+                "ErrorMean": 0.0,
+                "ErrorStdDev": 0.0,
+                "KS": 0.0167,
+                "KendallTau": 1.0,
+                "Length": 60,
+                "LnQ": 0.0,
+                "MAE": 0.0,
+                "MAPE": 0.0,
+                "MASE": 0.0,
+                "MannWhitneyU": 1797.0,
                 "MedAE": 0.0,
                 "Pearson": 1.0,
                 "R2": 1.0,
@@ -171,7 +162,7 @@ Forecasts
         },
         "Model_Selection_Criterion": "MASE"
     },
-    "Training_Time": 22.605
+    "Training_Time": 5.516
 }
 </ModelInfo>
 
@@ -183,3 +174,4 @@ Forecasts
 </Forecast>
 
 
+EXECUTION_TIME_DETAIL = {'CMD':'timeout 480 python tests/func/test_cycle.py', 'ElapsedTimeSecs':(12.56, 0.48, 23.54), 'MAX_MEM_KB':214896, 'CPU_PRCNT':'191%', 'FILES_IN':0, 'FILES_OUT':1568, 'EXIT_STATUS':0}

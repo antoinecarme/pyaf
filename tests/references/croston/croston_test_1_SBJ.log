@@ -1,5 +1,5 @@
 INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['Signal'], 'Horizons': {'Signal': 7}}
-INFO:pyaf.std:TRAINING_ENGINE_END 6.16
+INFO:pyaf.std:TRAINING_ENGINE_END 1.226
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2016-01-25T00:00:00.000000 TimeMax=2016-11-05T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=7
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=365  Min=0.0 Max=97.0  Mean=1.052055 StdDev=8.398632
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=0.0 Max=1.0  Mean=0.010846 StdDev=0.086584
@@ -38,13 +38,13 @@ INFO:pyaf.std:SAVING_PLOT ('AR', 'outputs/croston_SBJ_no_trend_Signal_AR_decomp_
 INFO:pyaf.std:SAVING_PLOT ('TransformedForecast', 'outputs/croston_SBJ_no_trend_Signal_TransformedForecast_decomp_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/croston_SBJ_no_trend_Signal_Forecast_decomp_output.png')
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/croston_SBJ_no_trend_Signal_prediction_intervals_output.png')
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/lib/histograms.py:883: RuntimeWarning: divide by zero encountered in divide
+/usr/lib/python3/dist-packages/numpy/lib/histograms.py:885: RuntimeWarning: divide by zero encountered in divide
   return n/db/n.sum(), bin_edges
-/home/circleci/.pyenv/versions/3.11.2/lib/python3.11/site-packages/numpy/lib/histograms.py:883: RuntimeWarning: invalid value encountered in divide
+/usr/lib/python3/dist-packages/numpy/lib/histograms.py:885: RuntimeWarning: invalid value encountered in divide
   return n/db/n.sum(), bin_edges
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/croston_SBJ_no_trend_Signal_quantiles_output.png')
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['Signal'], 'Horizons': {'Signal': 7}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 0.918
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.195
 Index(['Date', 'Signal', 'Signal_scaled', '_Signal', 'row_number',
        'Date_Normalized', '_Signal_ConstantTrend',
        '_Signal_ConstantTrend_residue',
@@ -96,3 +96,4 @@ min        2.027831
 75%       12.971660
 max       49.263158
 Name: Signal_Forecast, dtype: float64
+EXECUTION_TIME_DETAIL = {'CMD':'timeout 480 python tests/croston/croston_test_1_SBJ.py', 'ElapsedTimeSecs':(8.73, 0.27, 8.44), 'MAX_MEM_KB':219604, 'CPU_PRCNT':'99%', 'FILES_IN':0, 'FILES_OUT':1032, 'EXIT_STATUS':0}
