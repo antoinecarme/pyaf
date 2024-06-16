@@ -9,8 +9,8 @@ import matplotlib.pyplot as plt
 def prepare_dataset():
     df = pd.read_csv("data/real-life/veturilo.csv", parse_dates=True, usecols=["ts","qnty"], index_col="ts" )
     df.qnty.unique()
-    df.qnty = df.qnty.replace("?", np.NaN).fillna(method='ffill').astype('uint8')
-    df = df.qnty.resample("H").mean().to_frame()
+    df.qnty = df.qnty.replace("?", np.NaN).ffill().astype('uint8')
+    df = df.qnty.resample("h").mean().to_frame()
     
     df_predict = df.iloc[:]
 
