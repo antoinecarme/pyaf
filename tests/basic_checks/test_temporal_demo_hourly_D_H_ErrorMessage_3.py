@@ -4,8 +4,8 @@ import pyaf
 import numpy as np
 import pandas as pd
 
-DATA_FREQ = 'H'
-PERIODS = ["T" , "H"]
+DATA_FREQ = 'h'
+PERIODS = ["min" , "h"]
 H = 365
 N = H * 10
 lDateColumn = "Date"
