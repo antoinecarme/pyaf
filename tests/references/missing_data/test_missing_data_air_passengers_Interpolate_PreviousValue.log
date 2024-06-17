@@ -1,5 +1,5 @@
 INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
-INFO:pyaf.std:TRAINING_ENGINE_END 12.901
+INFO:pyaf.std:TRAINING_ENGINE_END 10.321
 INFO:pyaf.std:TIME_DETAIL TimeVariable='time' TimeMin=1949.0 TimeMax=1956.9166666666702 TimeDelta=0.08333333333337004 Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='AirPassengers' Length=132  Min=112.0 Max=559.0  Mean=262.545455 StdDev=105.662295
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_AirPassengers' Min=0.0 Max=1.0  Mean=0.336791 StdDev=0.236381
@@ -9,18 +9,18 @@ INFO:pyaf.std:BEST_DECOMPOSITION  '_AirPassengers_LinearTrend_residue_Cycle_None
 INFO:pyaf.std:TREND_DETAIL '_AirPassengers_LinearTrend' [LinearTrend]
 INFO:pyaf.std:CYCLE_DETAIL '_AirPassengers_LinearTrend_residue_Cycle_None' [Cycle_None]
 INFO:pyaf.std:AUTOREG_DETAIL '_AirPassengers_LinearTrend_residue_Cycle_None_residue_AR(33)' [AR]
-INFO:pyaf.std:MODEL_PERFS Fit STEP=1 {'MAPE': 0.0565, 'RMSE': 13.7212, 'MAE': 11.048, 'MASE': 0.6443}
-INFO:pyaf.std:MODEL_PERFS Forecast STEP=1 {'MAPE': 0.0504, 'RMSE': 22.7943, 'MAE': 18.1285, 'MASE': 0.5657}
-INFO:pyaf.std:MODEL_PERFS Test STEP=1 {'MAPE': 0.0635, 'RMSE': 32.681, 'MAE': 26.4742, 'MASE': 0.5883}
-INFO:pyaf.std:MODEL_PERFS Fit STEP=12 {'MAPE': 0.1074, 'RMSE': 31.2115, 'MAE': 23.8072, 'MASE': 1.3884}
-INFO:pyaf.std:MODEL_PERFS Forecast STEP=12 {'MAPE': 0.1222, 'RMSE': 66.0532, 'MAE': 49.2032, 'MASE': 1.5355}
-INFO:pyaf.std:MODEL_PERFS Test STEP=12 {'MAPE': 0.1363, 'RMSE': 77.4401, 'MAE': 62.4557, 'MASE': 1.3879}
+INFO:pyaf.std:MODEL_PERFS Fit STEP=1 {'MAPE': np.float64(0.0565), 'RMSE': np.float64(13.7212), 'MAE': np.float64(11.048), 'MASE': np.float64(0.6443)}
+INFO:pyaf.std:MODEL_PERFS Forecast STEP=1 {'MAPE': np.float64(0.0504), 'RMSE': np.float64(22.7943), 'MAE': np.float64(18.1285), 'MASE': np.float64(0.5657)}
+INFO:pyaf.std:MODEL_PERFS Test STEP=1 {'MAPE': np.float64(0.0635), 'RMSE': np.float64(32.681), 'MAE': np.float64(26.4742), 'MASE': np.float64(0.5883)}
+INFO:pyaf.std:MODEL_PERFS Fit STEP=12 {'MAPE': np.float64(0.1074), 'RMSE': np.float64(31.2115), 'MAE': np.float64(23.8072), 'MASE': np.float64(1.3884)}
+INFO:pyaf.std:MODEL_PERFS Forecast STEP=12 {'MAPE': np.float64(0.1222), 'RMSE': np.float64(66.0532), 'MAE': np.float64(49.2032), 'MASE': np.float64(1.5355)}
+INFO:pyaf.std:MODEL_PERFS Test STEP=12 {'MAPE': np.float64(0.1363), 'RMSE': np.float64(77.4401), 'MAE': np.float64(62.4557), 'MASE': np.float64(1.3879)}
 INFO:pyaf.std:MODEL_COMPLEXITY {'Decomposition': 'S', 'Transformation': 'S', 'Trend': 'S', 'Cycle': 'S', 'AR': 'L'} [LSSSS]
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:LINEAR_RIDGE_TREND LinearTrend (-0.013785, array([0.482175]))
+INFO:pyaf.std:LINEAR_RIDGE_TREND LinearTrend (np.float64(-0.013785), array([0.482175]))
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
 INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _AirPassengers_LinearTrend_residue_Cycle_None None 0.004095 {}
@@ -49,7 +49,7 @@ INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/air_passengers_missing_data_Inte
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/air_passengers_missing_data_Interpolate_PreviousValue_AirPassengers_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/air_passengers_missing_data_Interpolate_PreviousValue_AirPassengers_quantiles_output.png')
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 0.412
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.721
 Forecast Columns  Index(['time', 'AirPassengers', 'AirPassengers_scaled', '_AirPassengers',
        'row_number', 'time_Normalized', '_AirPassengers_LinearTrend',
        '_AirPassengers_LinearTrend_residue',
@@ -172,7 +172,7 @@ Forecasts
         },
         "Model_Selection_Criterion": "MASE"
     },
-    "Training_Time": 12.901
+    "Training_Time": 10.321
 }
 </ModelInfo>
 
@@ -184,3 +184,4 @@ Forecasts
 </Forecast>
 
 
+EXECUTION_TIME_DETAIL = {'CMD':'timeout 480 python tests/missing_data/test_missing_data_air_passengers_Interpolate_PreviousValue.py', 'ElapsedTimeSecs':(26.16, 0.51, 13.03), 'MAX_MEM_KB':223896, 'CPU_PRCNT':'51%', 'FILES_IN':8, 'FILES_OUT':1696, 'EXIT_STATUS':0}

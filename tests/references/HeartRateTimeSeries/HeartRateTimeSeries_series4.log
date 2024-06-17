@@ -229,7 +229,7 @@ INFO:pyaf.std:[
     }
 ]
 INFO:pyaf.std:PERF_DUMP_END
-INFO:pyaf.std:TRAINING_ENGINE_END 27.322
+INFO:pyaf.std:TRAINING_ENGINE_END 19.275
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=0 TimeMax=750 TimeDelta=1 Horizon=10
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='HeartRate' Length=949  Min=52.9153 Max=77.4244  Mean=58.72698 StdDev=3.540011
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='Diff_HeartRate' Min=-0.704041 Max=0.632883  Mean=-0.000118 StdDev=0.057999
@@ -239,18 +239,18 @@ INFO:pyaf.std:BEST_DECOMPOSITION  'Diff_HeartRate_LinearTrend_residue_Cycle_None
 INFO:pyaf.std:TREND_DETAIL 'Diff_HeartRate_LinearTrend' [LinearTrend]
 INFO:pyaf.std:CYCLE_DETAIL 'Diff_HeartRate_LinearTrend_residue_Cycle_None' [Cycle_None]
 INFO:pyaf.std:AUTOREG_DETAIL 'Diff_HeartRate_LinearTrend_residue_Cycle_None_residue_NoAR' [NoAR]
-INFO:pyaf.std:MODEL_PERFS Fit STEP=1 {'MAPE': 0.0421, 'RMSE': 3.5952, 'MAE': 2.5326, 'MASE': 3.4353}
-INFO:pyaf.std:MODEL_PERFS Forecast STEP=1 {'MAPE': 0.0463, 'RMSE': 3.367, 'MAE': 2.7928, 'MASE': 2.8918}
-INFO:pyaf.std:MODEL_PERFS Test STEP=1 {'MAPE': 0.0495, 'RMSE': 3.4078, 'MAE': 3.0297, 'MASE': 2.1374}
-INFO:pyaf.std:MODEL_PERFS Fit STEP=10 {'MAPE': 0.0421, 'RMSE': 3.5952, 'MAE': 2.5326, 'MASE': 3.4353}
-INFO:pyaf.std:MODEL_PERFS Forecast STEP=10 {'MAPE': 0.0463, 'RMSE': 3.367, 'MAE': 2.7928, 'MASE': 2.8918}
-INFO:pyaf.std:MODEL_PERFS Test STEP=10 {'MAPE': 0.0495, 'RMSE': 3.4078, 'MAE': 3.0297, 'MASE': 2.1374}
+INFO:pyaf.std:MODEL_PERFS Fit STEP=1 {'MAPE': np.float64(0.0421), 'RMSE': np.float64(3.5952), 'MAE': np.float64(2.5326), 'MASE': np.float64(3.4353)}
+INFO:pyaf.std:MODEL_PERFS Forecast STEP=1 {'MAPE': np.float64(0.0463), 'RMSE': np.float64(3.367), 'MAE': np.float64(2.7928), 'MASE': np.float64(2.8918)}
+INFO:pyaf.std:MODEL_PERFS Test STEP=1 {'MAPE': np.float64(0.0495), 'RMSE': np.float64(3.4078), 'MAE': np.float64(3.0297), 'MASE': np.float64(2.1374)}
+INFO:pyaf.std:MODEL_PERFS Fit STEP=10 {'MAPE': np.float64(0.0421), 'RMSE': np.float64(3.5952), 'MAE': np.float64(2.5326), 'MASE': np.float64(3.4353)}
+INFO:pyaf.std:MODEL_PERFS Forecast STEP=10 {'MAPE': np.float64(0.0463), 'RMSE': np.float64(3.367), 'MAE': np.float64(2.7928), 'MASE': np.float64(2.8918)}
+INFO:pyaf.std:MODEL_PERFS Test STEP=10 {'MAPE': np.float64(0.0495), 'RMSE': np.float64(3.4078), 'MAE': np.float64(3.0297), 'MASE': np.float64(2.1374)}
 INFO:pyaf.std:MODEL_COMPLEXITY {'Decomposition': 'S', 'Transformation': 'M', 'Trend': 'S', 'Cycle': 'S', 'AR': 'S'} [MSSSS]
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:DIFFERENCING_TRANSFORMATION Difference 0.26003402817728904
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:LINEAR_RIDGE_TREND LinearTrend (-0.000163, array([0.000246]))
+INFO:pyaf.std:LINEAR_RIDGE_TREND LinearTrend (np.float64(-0.000163), array([0.000246]))
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
 INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES Diff_HeartRate_LinearTrend_residue_Cycle_None None 8.6e-05 {}
@@ -269,7 +269,7 @@ INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/HeartRateTimeSeries_series4_Hear
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/HeartRateTimeSeries_series4_HeartRate_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/HeartRateTimeSeries_series4_HeartRate_quantiles_output.png')
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['HeartRate'], 'Horizons': {'HeartRate': 10}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 0.41
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.354
 Forecast Columns  Index(['Date', 'HeartRate', 'HeartRate_scaled', 'Diff_HeartRate', 'row_number',
        'Date_Normalized', 'Diff_HeartRate_LinearTrend',
        'Diff_HeartRate_LinearTrend_residue',
@@ -408,7 +408,7 @@ Forecasts
         },
         "Model_Selection_Criterion": "MASE"
     },
-    "Training_Time": 27.322
+    "Training_Time": 19.275
 }
 </ModelInfo>
 
@@ -420,3 +420,4 @@ Forecasts
 </Forecast>
 
 
+EXECUTION_TIME_DETAIL = {'CMD':'timeout 480 python tests/HeartRateTimeSeries/HeartRateTimeSeries_series4.py', 'ElapsedTimeSecs':(38.74, 0.59, 13.33), 'MAX_MEM_KB':229188, 'CPU_PRCNT':'35%', 'FILES_IN':8, 'FILES_OUT':1568, 'EXIT_STATUS':0}

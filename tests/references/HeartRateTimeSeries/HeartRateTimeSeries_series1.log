@@ -229,7 +229,7 @@ INFO:pyaf.std:[
     }
 ]
 INFO:pyaf.std:PERF_DUMP_END
-INFO:pyaf.std:TRAINING_ENGINE_END 28.991
+INFO:pyaf.std:TRAINING_ENGINE_END 20.65
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=0 TimeMax=1430 TimeDelta=1 Horizon=10
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='HeartRate' Length=1799  Min=73.4366 Max=106.756  Mean=92.600743 StdDev=5.485826
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_HeartRate' Min=0.0 Max=1.0  Mean=0.575165 StdDev=0.164644
@@ -239,12 +239,12 @@ INFO:pyaf.std:BEST_DECOMPOSITION  '_HeartRate_Lag1Trend_residue_Cycle_5_residue_
 INFO:pyaf.std:TREND_DETAIL '_HeartRate_Lag1Trend' [Lag1Trend]
 INFO:pyaf.std:CYCLE_DETAIL '_HeartRate_Lag1Trend_residue_Cycle_5' [Cycle_5]
 INFO:pyaf.std:AUTOREG_DETAIL '_HeartRate_Lag1Trend_residue_Cycle_5_residue_NoAR' [NoAR]
-INFO:pyaf.std:MODEL_PERFS Fit STEP=1 {'MAPE': 0.0096, 'RMSE': 1.3415, 'MAE': 0.8835, 'MASE': 0.9993}
-INFO:pyaf.std:MODEL_PERFS Forecast STEP=1 {'MAPE': 0.0105, 'RMSE': 1.6596, 'MAE': 0.9578, 'MASE': 0.9979}
-INFO:pyaf.std:MODEL_PERFS Test STEP=1 {'MAPE': 0.0069, 'RMSE': 1.0148, 'MAE': 0.6976, 'MASE': 0.9989}
-INFO:pyaf.std:MODEL_PERFS Fit STEP=10 {'MAPE': 0.0415, 'RMSE': 5.0017, 'MAE': 3.8263, 'MASE': 4.3276}
-INFO:pyaf.std:MODEL_PERFS Forecast STEP=10 {'MAPE': 0.0442, 'RMSE': 5.2626, 'MAE': 4.0598, 'MASE': 4.23}
-INFO:pyaf.std:MODEL_PERFS Test STEP=10 {'MAPE': 0.0305, 'RMSE': 3.4024, 'MAE': 3.1173, 'MASE': 4.4636}
+INFO:pyaf.std:MODEL_PERFS Fit STEP=1 {'MAPE': np.float64(0.0096), 'RMSE': np.float64(1.3415), 'MAE': np.float64(0.8835), 'MASE': np.float64(0.9993)}
+INFO:pyaf.std:MODEL_PERFS Forecast STEP=1 {'MAPE': np.float64(0.0105), 'RMSE': np.float64(1.6596), 'MAE': np.float64(0.9578), 'MASE': np.float64(0.9979)}
+INFO:pyaf.std:MODEL_PERFS Test STEP=1 {'MAPE': np.float64(0.0069), 'RMSE': np.float64(1.0148), 'MAE': np.float64(0.6976), 'MASE': np.float64(0.9989)}
+INFO:pyaf.std:MODEL_PERFS Fit STEP=10 {'MAPE': np.float64(0.0415), 'RMSE': np.float64(5.0017), 'MAE': np.float64(3.8263), 'MASE': np.float64(4.3276)}
+INFO:pyaf.std:MODEL_PERFS Forecast STEP=10 {'MAPE': np.float64(0.0442), 'RMSE': np.float64(5.2626), 'MAE': np.float64(4.0598), 'MASE': np.float64(4.23)}
+INFO:pyaf.std:MODEL_PERFS Test STEP=10 {'MAPE': np.float64(0.0305), 'RMSE': np.float64(3.4024), 'MAE': np.float64(3.1173), 'MASE': np.float64(4.4636)}
 INFO:pyaf.std:MODEL_COMPLEXITY {'Decomposition': 'S', 'Transformation': 'S', 'Trend': 'S', 'Cycle': 'S', 'AR': 'S'} [SSSSS]
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
@@ -253,7 +253,7 @@ INFO:pyaf.std:TREND_DETAIL_START
 INFO:pyaf.std:LAG1_TREND Lag1Trend 0.325129
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _HeartRate_Lag1Trend_residue_Cycle_5 5 0.0 {0: 0.0, 1: 0.00062, 2: 0.000149, 3: 0.0, 4: -6e-05}
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _HeartRate_Lag1Trend_residue_Cycle_5 5 0.0 {0: np.float64(0.0), 1: np.float64(0.00062), 2: np.float64(0.000149), 3: np.float64(0.0), 4: np.float64(-6e-05)}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
@@ -273,7 +273,7 @@ INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/HeartRateTimeSeries_series1_Hear
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/HeartRateTimeSeries_series1_HeartRate_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/HeartRateTimeSeries_series1_HeartRate_quantiles_output.png')
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['HeartRate'], 'Horizons': {'HeartRate': 10}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 0.513
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.401
 Forecast Columns  Index(['Date', 'HeartRate', 'HeartRate_scaled', '_HeartRate', 'row_number',
        'Date_Normalized', '_HeartRate_Lag1Trend',
        '_HeartRate_Lag1Trend_residue', 'cycle_internal',
@@ -413,7 +413,7 @@ Forecasts
         },
         "Model_Selection_Criterion": "MASE"
     },
-    "Training_Time": 28.991
+    "Training_Time": 20.65
 }
 </ModelInfo>
 
@@ -425,3 +425,4 @@ Forecasts
 </Forecast>
 
 
+EXECUTION_TIME_DETAIL = {'CMD':'timeout 480 python tests/HeartRateTimeSeries/HeartRateTimeSeries_series1.py', 'ElapsedTimeSecs':(40.12, 0.61, 14.25), 'MAX_MEM_KB':231852, 'CPU_PRCNT':'37%', 'FILES_IN':8, 'FILES_OUT':1824, 'EXIT_STATUS':0}

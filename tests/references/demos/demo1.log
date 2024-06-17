@@ -1,5 +1,5 @@
 INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['Signal'], 'Horizons': {'Signal': 7}}
-INFO:pyaf.std:TRAINING_ENGINE_END 20.977
+INFO:pyaf.std:TRAINING_ENGINE_END 15.875
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2016-01-25T00:00:00.000000 TimeMax=2016-11-05T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=7
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=365  Min=-0.621978 Max=28.875373  Mean=13.928616 StdDev=6.679781
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=0.0 Max=1.0  Mean=0.493285 StdDev=0.226454
@@ -9,21 +9,21 @@ INFO:pyaf.std:BEST_DECOMPOSITION  '_Signal_LinearTrend_residue_Seasonal_DayOfWee
 INFO:pyaf.std:TREND_DETAIL '_Signal_LinearTrend' [LinearTrend]
 INFO:pyaf.std:CYCLE_DETAIL '_Signal_LinearTrend_residue_Seasonal_DayOfWeek' [Seasonal_DayOfWeek]
 INFO:pyaf.std:AUTOREG_DETAIL '_Signal_LinearTrend_residue_Seasonal_DayOfWeek_residue_AR(64)' [AR]
-INFO:pyaf.std:MODEL_PERFS Fit STEP=1 {'MAPE': 0.2876, 'RMSE': 1.532, 'MAE': 1.1597, 'MASE': 0.512}
-INFO:pyaf.std:MODEL_PERFS Forecast STEP=1 {'MAPE': 0.0725, 'RMSE': 1.3958, 'MAE': 1.1409, 'MASE': 0.4561}
-INFO:pyaf.std:MODEL_PERFS Test STEP=1 {'MAPE': 0.1226, 'RMSE': 1.9135, 'MAE': 1.6213, 'MASE': 0.799}
-INFO:pyaf.std:MODEL_PERFS Fit STEP=7 {'MAPE': 1.0653, 'RMSE': 7.7534, 'MAE': 6.3378, 'MASE': 2.798}
-INFO:pyaf.std:MODEL_PERFS Forecast STEP=7 {'MAPE': 0.3901, 'RMSE': 7.1446, 'MAE': 5.8267, 'MASE': 2.329}
-INFO:pyaf.std:MODEL_PERFS Test STEP=7 {'MAPE': 0.3127, 'RMSE': 4.0685, 'MAE': 3.8282, 'MASE': 1.8866}
+INFO:pyaf.std:MODEL_PERFS Fit STEP=1 {'MAPE': np.float64(0.2876), 'RMSE': np.float64(1.532), 'MAE': np.float64(1.1597), 'MASE': np.float64(0.512)}
+INFO:pyaf.std:MODEL_PERFS Forecast STEP=1 {'MAPE': np.float64(0.0725), 'RMSE': np.float64(1.3958), 'MAE': np.float64(1.1409), 'MASE': np.float64(0.4561)}
+INFO:pyaf.std:MODEL_PERFS Test STEP=1 {'MAPE': np.float64(0.1226), 'RMSE': np.float64(1.9135), 'MAE': np.float64(1.6213), 'MASE': np.float64(0.799)}
+INFO:pyaf.std:MODEL_PERFS Fit STEP=7 {'MAPE': np.float64(1.0653), 'RMSE': np.float64(7.7534), 'MAE': np.float64(6.3378), 'MASE': np.float64(2.798)}
+INFO:pyaf.std:MODEL_PERFS Forecast STEP=7 {'MAPE': np.float64(0.3901), 'RMSE': np.float64(7.1446), 'MAE': np.float64(5.8267), 'MASE': np.float64(2.329)}
+INFO:pyaf.std:MODEL_PERFS Test STEP=7 {'MAPE': np.float64(0.3127), 'RMSE': np.float64(4.0685), 'MAE': np.float64(3.8282), 'MASE': np.float64(1.8866)}
 INFO:pyaf.std:MODEL_COMPLEXITY {'Decomposition': 'S', 'Transformation': 'S', 'Trend': 'S', 'Cycle': 'S', 'AR': 'L'} [LSSSS]
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:LINEAR_RIDGE_TREND LinearTrend (0.331173, array([0.253058]))
+INFO:pyaf.std:LINEAR_RIDGE_TREND LinearTrend (np.float64(0.331173), array([0.253058]))
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:SEASONAL_MODEL_VALUES _Signal_LinearTrend_residue_Seasonal_DayOfWeek -0.008027 {0: -0.094801, 1: -0.052666, 2: -0.020561, 3: -0.003969, 4: 0.028771, 5: 0.06641, 6: 0.111065}
+INFO:pyaf.std:SEASONAL_MODEL_VALUES _Signal_LinearTrend_residue_Seasonal_DayOfWeek -0.008027 {0: np.float64(-0.094801), 1: np.float64(-0.052666), 2: np.float64(-0.020561), 3: np.float64(-0.003969), 4: np.float64(0.028771), 5: np.float64(0.06641), 6: np.float64(0.111065)}
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
 INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_COEFF 1 _Signal_LinearTrend_residue_Seasonal_DayOfWeek_residue_Lag1 0.410275
@@ -41,7 +41,7 @@ INFO:pyaf.std:COMPETITION_DETAIL_START 'Signal'
 INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Signal' 0 {'Transformation': '_Signal', 'DecompositionType': 'T+S+R', 'Model': '_Signal_LinearTrend_residue_Seasonal_DayOfWeek_residue_AR(64)', 'Voting': 429.0, 'Complexity': 'LSSSS', 'Forecast_MASE_1': 0.4561, 'Forecast_MASE_2': 0.4808, 'Forecast_MASE_3': 0.5711, 'Forecast_MASE_4': 0.6612, 'Forecast_MASE_5': 0.9796, 'Forecast_MASE_6': 1.3784, 'Forecast_MASE_7': 2.329}
 INFO:pyaf.std:COMPETITION_DETAIL_END 'Signal'
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['Signal'], 'Horizons': {'Signal': 7}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 0.596
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.384
 Index(['Date', 'Signal', 'Signal_scaled', '_Signal', 'row_number',
        'Date_Normalized', '_Signal_LinearTrend', '_Signal_LinearTrend_residue',
        '_Signal_LinearTrend_residue_Seasonal_DayOfWeek',
@@ -67,3 +67,4 @@ Index(['Date', 'Signal', 'Signal_scaled', '_Signal', 'row_number',
  '2017-01-30T00:00:00.000000000']
 [16.40745709 17.62048306 19.01652924 20.07862339 21.45407041 21.98155846
  22.47559885]
+EXECUTION_TIME_DETAIL = {'CMD':'timeout 480 python tests/demos/demo1.py', 'ElapsedTimeSecs':(23.24, 0.49, 11.62), 'MAX_MEM_KB':160632, 'CPU_PRCNT':'52%', 'FILES_IN':0, 'FILES_OUT':24, 'EXIT_STATUS':0}

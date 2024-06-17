@@ -27,7 +27,7 @@ Data columns (total 2 columns):
  1   TV.advert  40 non-null     float64
 dtypes: float64(2)
 memory usage: 772.0 bytes
-INFO:pyaf.std:TRAINING_ENGINE_END 5.181
+INFO:pyaf.std:TRAINING_ENGINE_END 3.946
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Index' TimeMin=2002.0 TimeMax=2004.25 TimeDelta=0.08333333333333333 Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Quotes' Length=40  Min=8.39468 Max=18.43898  Mean=13.604347 StdDev=2.369165
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Quotes' Min=0.0 Max=1.0  Mean=0.518669 StdDev=0.235872
@@ -38,12 +38,12 @@ INFO:pyaf.std:BEST_DECOMPOSITION  '_Quotes_ConstantTrend_residue_Cycle_None_resi
 INFO:pyaf.std:TREND_DETAIL '_Quotes_ConstantTrend' [ConstantTrend]
 INFO:pyaf.std:CYCLE_DETAIL '_Quotes_ConstantTrend_residue_Cycle_None' [Cycle_None]
 INFO:pyaf.std:AUTOREG_DETAIL '_Quotes_ConstantTrend_residue_Cycle_None_residue_SVRX(10)' [SVRX]
-INFO:pyaf.std:MODEL_PERFS Fit STEP=1 {'MAPE': 0.078, 'RMSE': 1.0971, 'MAE': 1.0129, 'MASE': 0.7351}
-INFO:pyaf.std:MODEL_PERFS Forecast STEP=1 {'MAPE': 0.1189, 'RMSE': 1.8706, 'MAE': 1.4975, 'MASE': 1.0928}
-INFO:pyaf.std:MODEL_PERFS Test STEP=1 {'MAPE': 0.1683, 'RMSE': 3.0332, 'MAE': 2.8409, 'MASE': 1.2325}
-INFO:pyaf.std:MODEL_PERFS Fit STEP=4 {'MAPE': 0.087, 'RMSE': 1.2211, 'MAE': 1.1227, 'MASE': 0.8148}
-INFO:pyaf.std:MODEL_PERFS Forecast STEP=4 {'MAPE': 0.1198, 'RMSE': 1.9083, 'MAE': 1.5003, 'MASE': 1.0948}
-INFO:pyaf.std:MODEL_PERFS Test STEP=4 {'MAPE': 0.1768, 'RMSE': 3.1439, 'MAE': 2.9714, 'MASE': 1.2891}
+INFO:pyaf.std:MODEL_PERFS Fit STEP=1 {'MAPE': np.float64(0.078), 'RMSE': np.float64(1.0971), 'MAE': np.float64(1.0129), 'MASE': np.float64(0.7351)}
+INFO:pyaf.std:MODEL_PERFS Forecast STEP=1 {'MAPE': np.float64(0.1189), 'RMSE': np.float64(1.8706), 'MAE': np.float64(1.4975), 'MASE': np.float64(1.0928)}
+INFO:pyaf.std:MODEL_PERFS Test STEP=1 {'MAPE': np.float64(0.1683), 'RMSE': np.float64(3.0332), 'MAE': np.float64(2.8409), 'MASE': np.float64(1.2325)}
+INFO:pyaf.std:MODEL_PERFS Fit STEP=4 {'MAPE': np.float64(0.087), 'RMSE': np.float64(1.2211), 'MAE': np.float64(1.1227), 'MASE': np.float64(0.8148)}
+INFO:pyaf.std:MODEL_PERFS Forecast STEP=4 {'MAPE': np.float64(0.1198), 'RMSE': np.float64(1.9083), 'MAE': np.float64(1.5003), 'MASE': np.float64(1.0948)}
+INFO:pyaf.std:MODEL_PERFS Test STEP=4 {'MAPE': np.float64(0.1768), 'RMSE': np.float64(3.1439), 'MAE': np.float64(2.9714), 'MASE': np.float64(1.2891)}
 INFO:pyaf.std:MODEL_COMPLEXITY {'Decomposition': 'S', 'Transformation': 'S', 'Trend': 'S', 'Cycle': 'S', 'AR': 'L'} [LSSSS]
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
@@ -58,7 +58,7 @@ INFO:pyaf.std:AR_MODEL_DETAIL_START
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:EXOGENOUS_VARIABLE_DETAIL_START
 INFO:pyaf.std:EXOGENOUS_VARIABLE_DETAIL_CATEGORICAL_EXCLUDED 0 []
-INFO:pyaf.std:EXOGENOUS_VARIABLE_DETAIL_CONTINUOUS 'TV.advert' {'Mean': 7.933625035714286, 'StdDev': 1.3056987790054533}
+INFO:pyaf.std:EXOGENOUS_VARIABLE_DETAIL_CONTINUOUS 'TV.advert' {'Mean': np.float64(7.933625035714286), 'StdDev': np.float64(1.3056987790054533)}
 INFO:pyaf.std:EXOGENOUS_VARIABLE_DETAIL_CONTINUOUS_EXCLUDED 0 []
 INFO:pyaf.std:EXOGENOUS_VARIABLE_DETAIL_END
 INFO:pyaf.std:COMPETITION_DETAIL_START 'Quotes'
@@ -73,7 +73,7 @@ INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/insurance_svrx_Quotes_Forecast_d
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/insurance_svrx_Quotes_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/insurance_svrx_Quotes_quantiles_output.png')
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['Quotes'], 'Horizons': {'Quotes': 4}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 0.197
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.124
 Forecast Columns  Index(['Index', 'Quotes', 'Quotes_scaled', '_Quotes', 'row_number',
        'Index_Normalized', '_Quotes_ConstantTrend',
        '_Quotes_ConstantTrend_residue',
@@ -195,7 +195,7 @@ Forecasts
         },
         "Model_Selection_Criterion": "MASE"
     },
-    "Training_Time": 5.181
+    "Training_Time": 3.946
 }
 </ModelInfo>
 
@@ -207,3 +207,4 @@ Forecasts
 </Forecast>
 
 
+EXECUTION_TIME_DETAIL = {'CMD':'timeout 480 python tests/bugs/issue_106/insurance_exog_svrx.py', 'ElapsedTimeSecs':(16.29, 0.50, 6.70), 'MAX_MEM_KB':225240, 'CPU_PRCNT':'44%', 'FILES_IN':8, 'FILES_OUT':1544, 'EXIT_STATUS':0}

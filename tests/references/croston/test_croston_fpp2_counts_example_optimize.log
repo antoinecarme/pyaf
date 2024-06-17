@@ -1,5 +1,5 @@
 INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['Signal'], 'Horizons': {'Signal': 7}}
-INFO:pyaf.std:TRAINING_ENGINE_END 11.896
+INFO:pyaf.std:TRAINING_ENGINE_END 7.695
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2000-01-31T00:00:00.000000 TimeMax=2002-12-31T00:00:00.000000 TimeDelta=<DateOffset: days=30> Horizon=7
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=36  Min=0.0 Max=11.0  Mean=1.055556 StdDev=2.332672
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=0.0 Max=1.0  Mean=0.09596 StdDev=0.212061
@@ -9,12 +9,12 @@ INFO:pyaf.std:BEST_DECOMPOSITION  '_Signal_ConstantTrend_residue_zeroCycle[0.0]_
 INFO:pyaf.std:TREND_DETAIL '_Signal_ConstantTrend' [ConstantTrend]
 INFO:pyaf.std:CYCLE_DETAIL '_Signal_ConstantTrend_residue_zeroCycle[0.0]' [NoCycle]
 INFO:pyaf.std:AUTOREG_DETAIL '_Signal_ConstantTrend_residue_zeroCycle[0.0]_residue_CROSTON(None)' [CROSTON]
-INFO:pyaf.std:MODEL_PERFS Fit STEP=1 {'MAPE': 7541083280.6766, 'RMSE': 2.337, 'MAE': 1.4844, 'MASE': 0.764, 'L2': 2.337}
-INFO:pyaf.std:MODEL_PERFS Forecast STEP=1 {'MAPE': 7541083280.6766, 'RMSE': 2.337, 'MAE': 1.4844, 'MASE': 0.764, 'L2': 2.337}
-INFO:pyaf.std:MODEL_PERFS Test STEP=1 {'MAPE': 7541083280.6766, 'RMSE': 2.337, 'MAE': 1.4844, 'MASE': 0.764, 'L2': 2.337}
-INFO:pyaf.std:MODEL_PERFS Fit STEP=7 {'MAPE': 178626029.9621, 'RMSE': 2.5512, 'MAE': 1.0656, 'MASE': 0.5484, 'L2': 2.5512}
-INFO:pyaf.std:MODEL_PERFS Forecast STEP=7 {'MAPE': 178626029.9621, 'RMSE': 2.5512, 'MAE': 1.0656, 'MASE': 0.5484, 'L2': 2.5512}
-INFO:pyaf.std:MODEL_PERFS Test STEP=7 {'MAPE': 178626029.9621, 'RMSE': 2.5512, 'MAE': 1.0656, 'MASE': 0.5484, 'L2': 2.5512}
+INFO:pyaf.std:MODEL_PERFS Fit STEP=1 {'MAPE': np.float64(7541083280.6766), 'RMSE': np.float64(2.337), 'MAE': np.float64(1.4844), 'MASE': np.float64(0.764), 'L2': np.float64(2.337)}
+INFO:pyaf.std:MODEL_PERFS Forecast STEP=1 {'MAPE': np.float64(7541083280.6766), 'RMSE': np.float64(2.337), 'MAE': np.float64(1.4844), 'MASE': np.float64(0.764), 'L2': np.float64(2.337)}
+INFO:pyaf.std:MODEL_PERFS Test STEP=1 {'MAPE': np.float64(7541083280.6766), 'RMSE': np.float64(2.337), 'MAE': np.float64(1.4844), 'MASE': np.float64(0.764), 'L2': np.float64(2.337)}
+INFO:pyaf.std:MODEL_PERFS Fit STEP=7 {'MAPE': np.float64(178626029.9621), 'RMSE': np.float64(2.5512), 'MAE': np.float64(1.0656), 'MASE': np.float64(0.5484), 'L2': np.float64(2.5512)}
+INFO:pyaf.std:MODEL_PERFS Forecast STEP=7 {'MAPE': np.float64(178626029.9621), 'RMSE': np.float64(2.5512), 'MAE': np.float64(1.0656), 'MASE': np.float64(0.5484), 'L2': np.float64(2.5512)}
+INFO:pyaf.std:MODEL_PERFS Test STEP=7 {'MAPE': np.float64(178626029.9621), 'RMSE': np.float64(2.5512), 'MAE': np.float64(1.0656), 'MASE': np.float64(0.5484), 'L2': np.float64(2.5512)}
 INFO:pyaf.std:MODEL_COMPLEXITY {'Decomposition': 'S', 'Transformation': 'S', 'Trend': 'S', 'Cycle': 'S', 'AR': 'L'} [LSSSS]
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
@@ -40,7 +40,7 @@ INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/fpp2_croston_optimize_None__Sign
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/fpp2_croston_optimize_None__Signal_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/fpp2_croston_optimize_None__Signal_quantiles_output.png')
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['Signal'], 'Horizons': {'Signal': 7}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 1.009
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.897
 Index(['Date', 'Signal', 'Signal_scaled', '_Signal', 'row_number',
        'Date_Normalized', '_Signal_ConstantTrend',
        '_Signal_ConstantTrend_residue',
@@ -91,3 +91,4 @@ min       0.000000
 75%       1.198818
 max       1.239630
 Name: Signal_Forecast, dtype: float64
+EXECUTION_TIME_DETAIL = {'CMD':'timeout 480 python tests/croston/test_croston_fpp2_counts_example_optimize.py', 'ElapsedTimeSecs':(39.11, 0.48, 6.97), 'MAX_MEM_KB':241184, 'CPU_PRCNT':'19%', 'FILES_IN':8, 'FILES_OUT':1288, 'EXIT_STATUS':0}

@@ -229,7 +229,7 @@ INFO:pyaf.std:[
     }
 ]
 INFO:pyaf.std:PERF_DUMP_END
-INFO:pyaf.std:TRAINING_ENGINE_END 18.79
+INFO:pyaf.std:TRAINING_ENGINE_END 13.579
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2011-11-01T00:00:00.000000 TimeMax=2011-12-10T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=10
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Used' Length=61  Min=550 Max=800  Mean=627.885246 StdDev=51.324458
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Used' Min=0.0 Max=1.0  Mean=0.311541 StdDev=0.205298
@@ -239,18 +239,18 @@ INFO:pyaf.std:BEST_DECOMPOSITION  '_Used_LinearTrend_residue_Cycle_None_residue_
 INFO:pyaf.std:TREND_DETAIL '_Used_LinearTrend' [LinearTrend]
 INFO:pyaf.std:CYCLE_DETAIL '_Used_LinearTrend_residue_Cycle_None' [Cycle_None]
 INFO:pyaf.std:AUTOREG_DETAIL '_Used_LinearTrend_residue_Cycle_None_residue_NoAR' [NoAR]
-INFO:pyaf.std:MODEL_PERFS Fit STEP=1 {'MAPE': 0.048, 'RMSE': 37.8731, 'MAE': 29.737, 'MASE': 0.8349}
-INFO:pyaf.std:MODEL_PERFS Forecast STEP=1 {'MAPE': 0.0393, 'RMSE': 32.0516, 'MAE': 25.2388, 'MASE': 0.9348}
-INFO:pyaf.std:MODEL_PERFS Test STEP=1 {'MAPE': 0.1117, 'RMSE': 95.6602, 'MAE': 79.4656, 'MASE': 1.4079}
-INFO:pyaf.std:MODEL_PERFS Fit STEP=10 {'MAPE': 0.048, 'RMSE': 37.8731, 'MAE': 29.737, 'MASE': 0.8349}
-INFO:pyaf.std:MODEL_PERFS Forecast STEP=10 {'MAPE': 0.0393, 'RMSE': 32.0516, 'MAE': 25.2388, 'MASE': 0.9348}
-INFO:pyaf.std:MODEL_PERFS Test STEP=10 {'MAPE': 0.1117, 'RMSE': 95.6602, 'MAE': 79.4656, 'MASE': 1.4079}
+INFO:pyaf.std:MODEL_PERFS Fit STEP=1 {'MAPE': np.float64(0.048), 'RMSE': np.float64(37.8731), 'MAE': np.float64(29.737), 'MASE': np.float64(0.8349)}
+INFO:pyaf.std:MODEL_PERFS Forecast STEP=1 {'MAPE': np.float64(0.0393), 'RMSE': np.float64(32.0516), 'MAE': np.float64(25.2388), 'MASE': np.float64(0.9348)}
+INFO:pyaf.std:MODEL_PERFS Test STEP=1 {'MAPE': np.float64(0.1117), 'RMSE': np.float64(95.6602), 'MAE': np.float64(79.4656), 'MASE': np.float64(1.4079)}
+INFO:pyaf.std:MODEL_PERFS Fit STEP=10 {'MAPE': np.float64(0.048), 'RMSE': np.float64(37.8731), 'MAE': np.float64(29.737), 'MASE': np.float64(0.8349)}
+INFO:pyaf.std:MODEL_PERFS Forecast STEP=10 {'MAPE': np.float64(0.0393), 'RMSE': np.float64(32.0516), 'MAE': np.float64(25.2388), 'MASE': np.float64(0.9348)}
+INFO:pyaf.std:MODEL_PERFS Test STEP=10 {'MAPE': np.float64(0.1117), 'RMSE': np.float64(95.6602), 'MAE': np.float64(79.4656), 'MASE': np.float64(1.4079)}
 INFO:pyaf.std:MODEL_COMPLEXITY {'Decomposition': 'S', 'Transformation': 'S', 'Trend': 'S', 'Cycle': 'S', 'AR': 'S'} [SSSSS]
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:LINEAR_RIDGE_TREND LinearTrend (0.250893, array([0.027615]))
+INFO:pyaf.std:LINEAR_RIDGE_TREND LinearTrend (np.float64(0.250893), array([0.027615]))
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
 INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES _Used_LinearTrend_residue_Cycle_None None -0.045408 {}
@@ -271,7 +271,7 @@ INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/sof_example_Used_Forecast_decomp
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/sof_example_Used_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/sof_example_Used_quantiles_output.png')
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['Used'], 'Horizons': {'Used': 10}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 0.295
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.421
 Forecast Columns  Index(['Date', 'Used', 'Used_scaled', '_Used', 'row_number', 'Date_Normalized',
        '_Used_LinearTrend', '_Used_LinearTrend_residue',
        '_Used_LinearTrend_residue_Cycle_None',
@@ -327,7 +327,7 @@ Forecasts
 
 <ModelInfo>
 {
-    "Training_Time": 18.79,
+    "Training_Time": 13.579,
     "Used": {
         "Complexity": {
             "AR": "S",
@@ -412,3 +412,4 @@ Forecasts
 </Forecast>
 
 
+EXECUTION_TIME_DETAIL = {'CMD':'timeout 480 python tests/real-life/test_sof_example.py', 'ElapsedTimeSecs':(42.18, 0.59, 13.85), 'MAX_MEM_KB':221616, 'CPU_PRCNT':'34%', 'FILES_IN':16, 'FILES_OUT':1464, 'EXIT_STATUS':0}

@@ -24,7 +24,7 @@ memory usage: 98.3+ KB
 
 [5 rows x 9 columns]
 DEBUG:pyaf.detailed:DETAIL_MESSAGE('KEPT_DISCARDED_MODELS', 168, 146, 22)
-INFO:pyaf.std:TRAINING_ENGINE_END 46.081
+INFO:pyaf.std:TRAINING_ENGINE_END 36.651
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2011-07-28T00:00:00.000000 TimeMax=2015-07-20T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=7
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Close' Length=1258  Min=90.279999 Max=702.100021  Mean=337.341653 StdDev=207.088144
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Close' Min=0.0 Max=1.0  Mean=0.403814 StdDev=0.338479
@@ -34,12 +34,12 @@ INFO:pyaf.std:BEST_DECOMPOSITION  '_Close_Lag1Trend_residue_zeroCycle[0.0]_resid
 INFO:pyaf.std:TREND_DETAIL '_Close_Lag1Trend' [Lag1Trend]
 INFO:pyaf.std:CYCLE_DETAIL '_Close_Lag1Trend_residue_zeroCycle[0.0]' [NoCycle]
 INFO:pyaf.std:AUTOREG_DETAIL '_Close_Lag1Trend_residue_zeroCycle[0.0]_residue_NoAR' [NoAR]
-INFO:pyaf.std:MODEL_PERFS Fit STEP=1 {'MAPE': 0.018, 'RMSE': 19.1098, 'MAE': 5.5126, 'MASE': 0.999}
-INFO:pyaf.std:MODEL_PERFS Forecast STEP=1 {'MAPE': 0.0129, 'RMSE': 1.8972, 'MAE': 1.3764, 'MASE': 0.9998}
-INFO:pyaf.std:MODEL_PERFS Test STEP=1 {'MAPE': 0.0137, 'RMSE': 2.4644, 'MAE': 1.3857, 'MASE': 0.8607}
-INFO:pyaf.std:MODEL_PERFS Fit STEP=7 {'MAPE': 0.0764, 'RMSE': 50.227, 'MAE': 18.6467, 'MASE': 3.3792}
-INFO:pyaf.std:MODEL_PERFS Forecast STEP=7 {'MAPE': 0.0344, 'RMSE': 4.7224, 'MAE': 3.6422, 'MASE': 2.6457}
-INFO:pyaf.std:MODEL_PERFS Test STEP=7 {'MAPE': 0.0239, 'RMSE': 2.4666, 'MAE': 2.3786, 'MASE': 1.4774}
+INFO:pyaf.std:MODEL_PERFS Fit STEP=1 {'MAPE': np.float64(0.018), 'RMSE': np.float64(19.1098), 'MAE': np.float64(5.5126), 'MASE': np.float64(0.999)}
+INFO:pyaf.std:MODEL_PERFS Forecast STEP=1 {'MAPE': np.float64(0.0129), 'RMSE': np.float64(1.8972), 'MAE': np.float64(1.3764), 'MASE': np.float64(0.9998)}
+INFO:pyaf.std:MODEL_PERFS Test STEP=1 {'MAPE': np.float64(0.0137), 'RMSE': np.float64(2.4644), 'MAE': np.float64(1.3857), 'MASE': np.float64(0.8607)}
+INFO:pyaf.std:MODEL_PERFS Fit STEP=7 {'MAPE': np.float64(0.0764), 'RMSE': np.float64(50.227), 'MAE': np.float64(18.6467), 'MASE': np.float64(3.3792)}
+INFO:pyaf.std:MODEL_PERFS Forecast STEP=7 {'MAPE': np.float64(0.0344), 'RMSE': np.float64(4.7224), 'MAE': np.float64(3.6422), 'MASE': np.float64(2.6457)}
+INFO:pyaf.std:MODEL_PERFS Test STEP=7 {'MAPE': np.float64(0.0239), 'RMSE': np.float64(2.4666), 'MAE': np.float64(2.3786), 'MASE': np.float64(1.4774)}
 INFO:pyaf.std:MODEL_COMPLEXITY {'Decomposition': 'S', 'Transformation': 'S', 'Trend': 'S', 'Cycle': 'S', 'AR': 'S'} [SSSSS]
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_MODEL_VALUES NoTransf None
@@ -67,7 +67,7 @@ INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/yahoo_nasdaq_AAPL_Close_Forecast
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/yahoo_nasdaq_AAPL_Close_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/yahoo_nasdaq_AAPL_Close_quantiles_output.png')
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['Close'], 'Horizons': {'Close': 7}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 0.123
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.29
 Forecast Columns  Index(['Date', 'Close', 'Close_scaled', '_Close', 'row_number',
        'Date_Normalized', '_Close_Lag1Trend', '_Close_Lag1Trend_residue',
        '_Close_Lag1Trend_residue_zeroCycle[0.0]',
@@ -116,4 +116,4 @@ Forecasts
 1262 2016-08-01         NaN      102.949997
 1263 2016-08-02         NaN      102.949997
 1264 2016-08-03         NaN      102.949997
-EXECUTION_TIME_DETAIL = {'CMD':'timeout 480 python tests/bugs/issue_4/issue_4.py', 'ElapsedTimeSecs':(75.18, 0.63, 26.75), 'MAX_MEM_KB':311756, 'CPU_PRCNT':'36%', 'FILES_IN':8, 'FILES_OUT':1664, 'EXIT_STATUS':0}
+EXECUTION_TIME_DETAIL = {'CMD':'timeout 480 python tests/bugs/issue_4/issue_4.py', 'ElapsedTimeSecs':(66.29, 0.64, 22.71), 'MAX_MEM_KB':232692, 'CPU_PRCNT':'35%', 'FILES_IN':8, 'FILES_OUT':1192, 'EXIT_STATUS':0}
