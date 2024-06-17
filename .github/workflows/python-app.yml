@@ -67,7 +67,12 @@ jobs:
       run : |
             echo "ERROR_SUMMARY_START"
             grep Error logs/*.log | grep -v ErrorMean  | grep -v ErrorStdDev  | grep -v ErrorMessage || true
-            echo "ERROR_SUMMARY_END"
+            echo "ERROR_SUMMARY_END"	  
+    - name: Build test logs artifacts
+      uses: actions/upload-artifact@v3
+      with:
+          name: buld-test-report
+          path: logs/
     - name: Changed Logs
       run : |
             echo "CHANGED_LOGS_START"
