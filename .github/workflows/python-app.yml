@@ -73,6 +73,11 @@ jobs:
       with:
           name: build-test-report
           path: logs/
+    - name: Build test outputs (forecast outputs + images + notebooks)
+      uses: actions/upload-artifact@v4
+      with:
+          name: build-test-output
+          path: outputs/
     - name: Changed Logs
       run : |
             echo "CHANGED_LOGS_START"
