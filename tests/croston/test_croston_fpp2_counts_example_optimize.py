@@ -4,7 +4,7 @@ def create_dataset():
     lCounts = "0 2 0 1 0 11 0 0 0 0 2 0 6 3 0 0 0 0 0 7 0 0 0 0 0 0 0 3 1 0 0 1 0 1 0 0".split()
     lCounts = [float(c) for c in lCounts]
     N = len(lCounts)
-    lDates = pd.date_range(start="2000-01-01", periods=N, freq='m')
+    lDates = pd.date_range(start="2000-01-01", periods=N, freq='ME')
 
     df = pd.DataFrame({"Date" : lDates, "Signal" : lCounts})
     return df

@@ -1,5 +1,5 @@
 INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['VRS'], 'Horizons': {'VRS': 1}}
-INFO:pyaf.std:TRAINING_ENGINE_END 1.119
+INFO:pyaf.std:TRAINING_ENGINE_END 1.242
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2016-07-20T00:00:00.000000 TimeMax=2016-07-26T00:00:00.000000 TimeDelta=<DateOffset: days=2> Horizon=1
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='VRS' Length=5  Min=11.53 Max=11.8  Mean=11.644 StdDev=0.110743
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='Diff_VRS' Min=-0.555556 Max=0.0  Mean=-0.2 StdDev=0.19682
@@ -9,18 +9,18 @@ INFO:pyaf.std:BEST_DECOMPOSITION  'Diff_VRS_PolyTrend_residue_zeroCycle[0.0]_res
 INFO:pyaf.std:TREND_DETAIL 'Diff_VRS_PolyTrend' [PolyTrend]
 INFO:pyaf.std:CYCLE_DETAIL 'Diff_VRS_PolyTrend_residue_zeroCycle[0.0]' [NoCycle]
 INFO:pyaf.std:AUTOREG_DETAIL 'Diff_VRS_PolyTrend_residue_zeroCycle[0.0]_residue_NoAR' [NoAR]
-INFO:pyaf.std:MODEL_PERFS Fit STEP=1 {'MAPE': 0.0007, 'RMSE': 0.0102, 'MAE': 0.0078, 'MASE': 0.1151}
-INFO:pyaf.std:MODEL_PERFS Forecast STEP=1 {'MAPE': 0.0007, 'RMSE': 0.0102, 'MAE': 0.0078, 'MASE': 0.1151}
-INFO:pyaf.std:MODEL_PERFS Test STEP=1 {'MAPE': 0.0007, 'RMSE': 0.0102, 'MAE': 0.0078, 'MASE': 0.1151}
-INFO:pyaf.std:MODEL_PERFS Fit STEP=1 {'MAPE': 0.0007, 'RMSE': 0.0102, 'MAE': 0.0078, 'MASE': 0.1151}
-INFO:pyaf.std:MODEL_PERFS Forecast STEP=1 {'MAPE': 0.0007, 'RMSE': 0.0102, 'MAE': 0.0078, 'MASE': 0.1151}
-INFO:pyaf.std:MODEL_PERFS Test STEP=1 {'MAPE': 0.0007, 'RMSE': 0.0102, 'MAE': 0.0078, 'MASE': 0.1151}
+INFO:pyaf.std:MODEL_PERFS Fit STEP=1 {'MAPE': np.float64(0.0007), 'RMSE': np.float64(0.0102), 'MAE': np.float64(0.0078), 'MASE': np.float64(0.1151)}
+INFO:pyaf.std:MODEL_PERFS Forecast STEP=1 {'MAPE': np.float64(0.0007), 'RMSE': np.float64(0.0102), 'MAE': np.float64(0.0078), 'MASE': np.float64(0.1151)}
+INFO:pyaf.std:MODEL_PERFS Test STEP=1 {'MAPE': np.float64(0.0007), 'RMSE': np.float64(0.0102), 'MAE': np.float64(0.0078), 'MASE': np.float64(0.1151)}
+INFO:pyaf.std:MODEL_PERFS Fit STEP=1 {'MAPE': np.float64(0.0007), 'RMSE': np.float64(0.0102), 'MAE': np.float64(0.0078), 'MASE': np.float64(0.1151)}
+INFO:pyaf.std:MODEL_PERFS Forecast STEP=1 {'MAPE': np.float64(0.0007), 'RMSE': np.float64(0.0102), 'MAE': np.float64(0.0078), 'MASE': np.float64(0.1151)}
+INFO:pyaf.std:MODEL_PERFS Test STEP=1 {'MAPE': np.float64(0.0007), 'RMSE': np.float64(0.0102), 'MAE': np.float64(0.0078), 'MASE': np.float64(0.1151)}
 INFO:pyaf.std:MODEL_COMPLEXITY {'Decomposition': 'S', 'Transformation': 'M', 'Trend': 'M', 'Cycle': 'S', 'AR': 'S'} [MMSSS]
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:DIFFERENCING_TRANSFORMATION Difference 1.0
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
 INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:POLYNOMIAL_RIDGE_TREND PolyTrend (0.035979, array([-2.487407,  3.205714, -0.773333]))
+INFO:pyaf.std:POLYNOMIAL_RIDGE_TREND PolyTrend (np.float64(0.035979), array([-2.487407,  3.205714, -0.773333]))
 INFO:pyaf.std:TREND_DETAIL_END
 INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
 INFO:pyaf.std:ZERO_CYCLE_MODEL_VALUES Diff_VRS_PolyTrend_residue_zeroCycle[0.0] 0.0 {}
@@ -32,7 +32,7 @@ INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'VRS' 0 {'Transformation': 'Diff_VRS
 INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'VRS' 1 {'Transformation': 'RelDiff_VRS', 'DecompositionType': 'T+S+R', 'Model': 'RelDiff_VRS_PolyTrend_residue_zeroCycle[0.0]_residue_NoAR', 'Voting': 15.0, 'Complexity': 'MMSSS', 'Forecast_MASE_1': 0.1156}
 INFO:pyaf.std:COMPETITION_DETAIL_END 'VRS'
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['VRS'], 'Horizons': {'VRS': 1}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 0.011
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.049
 ACQUIRED_YAHOO_LINKS 37
 load_yahoo_stock_prices nysecomp 1
 BENCH_TYPE YAHOO_STOCKS_nysecomp OneDataFramePerSignal
@@ -91,12 +91,13 @@ None
 Name: VRS, dtype: float64
 1 0    11.688057
 Name: VRS_Forecast, dtype: float64
-FORECAST_DETAIL_ACTUAL Yahoo_Stock_Price_nysecomp.VRS VRS [11.55]
-FORECAST_DETAIL_PREDICTED Yahoo_Stock_Price_nysecomp.VRS VRS [11.688057142857142]
+FORECAST_DETAIL_ACTUAL Yahoo_Stock_Price_nysecomp.VRS VRS [np.float64(11.55)]
+FORECAST_DETAIL_PREDICTED Yahoo_Stock_Price_nysecomp.VRS VRS [np.float64(11.688057142857142)]
 BENCHMARK_PERF_DETAIL_SIGNAL_HORIZON Yahoo_Stock_Price_nysecomp.VRS VRS 5 1
-BENCHMARK_PERF_DETAIL_BENCH_TIME_IN_SECONDS PYAF_SYSTEM_DEPENDENT_ Yahoo_Stock_Price_nysecomp.VRS VRS 2.9708876609802246
+BENCHMARK_PERF_DETAIL_BENCH_TIME_IN_SECONDS PYAF_SYSTEM_DEPENDENT_ Yahoo_Stock_Price_nysecomp.VRS VRS 3.982139825820923
 BENCHMARK_PERF_DETAIL_BEST_MODEL Yahoo_Stock_Price_nysecomp.VRS VRS PolyTrend + NoCycle + NoAR
 BENCHMARK_PERF_DETAIL_PERF_COUNT Yahoo_Stock_Price_nysecomp.VRS VRS 1
 BENCHMARK_PERF_DETAIL_PERF_MAPE_SMAPE_MASE Yahoo_Stock_Price_nysecomp.VRS VRS 0.012 0.0119 0.0
 BENCHMARK_PERF_DETAIL_PERF_L1_L2_R2 Yahoo_Stock_Price_nysecomp.VRS VRS 0.1381 0.1381 -190597745.9388
 BENCHMARK_SUCCESS 'YAHOO_STOCKS_nysecomp_VRS_1'
+EXECUTION_TIME_DETAIL = {'CMD':'timeout 480 python tests/bugs/run_benchmark_Yahoo_nysecomp_VRS.py', 'ElapsedTimeSecs':(8.05, 0.28, 2.34), 'MAX_MEM_KB':154164, 'CPU_PRCNT':'32%', 'FILES_IN':840, 'FILES_OUT':96, 'EXIT_STATUS':0}

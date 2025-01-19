@@ -1,14 +1,14 @@
 INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 7}}
 REQUEST_DETAILS [('CSVFile', 'https://vincentarelbundock.github.io/Rdatasets/csv/datasets/AirPassengers.csv'), ('DateFormat', None), ('Horizon', 7), ('Name', 'model_air_by_tests'), ('Present', ''), ('SignalVar', 'AirPassengers'), ('TimeVar', 'time')]
 None
-DATASET_DETECTED_COLUMNS Index(['Unnamed: 0', 'time', 'value'], dtype='object')
-DATASET_FINAL_COLUMNS Index(['Unnamed: 0', 'time', 'value', 'AirPassengers'], dtype='object')
-TRAIN_PARAMS (144, 4) Index(['Unnamed: 0', 'time', 'value', 'AirPassengers'], dtype='object') time AirPassengers 7
-INFO:pyaf.std:TRAINING_ENGINE_END 18.715
+DATASET_DETECTED_COLUMNS Index(['rownames', 'time', 'value'], dtype='object')
+DATASET_FINAL_COLUMNS Index(['rownames', 'time', 'value', 'AirPassengers'], dtype='object')
+TRAIN_PARAMS (144, 4) Index(['rownames', 'time', 'value', 'AirPassengers'], dtype='object') time AirPassengers 7
+INFO:pyaf.std:TRAINING_ENGINE_END 2.183
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 7}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 0.998
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.102
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 7}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 1.093
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.102
 Forecast Columns  Index(['time', 'AirPassengers', 'AirPassengers_scaled', '_AirPassengers',
        'row_number', 'time_Normalized', '_AirPassengers_LinearTrend',
        '_AirPassengers_LinearTrend_residue', 'cycle_internal',
@@ -128,7 +128,7 @@ Forecasts
         },
         "Model_Selection_Criterion": "MASE"
     },
-    "Training_Time": 18.715
+    "Training_Time": 2.183
 }
 </ModelInfo>
 
@@ -140,3 +140,4 @@ Forecasts
 </Forecast>
 
 
+EXECUTION_TIME_DETAIL = {'CMD':'timeout 480 python tests/heroku/test_air_passengers_heroku.py', 'ElapsedTimeSecs':(3.95, 0.43, 8.22), 'MAX_MEM_KB':146692, 'CPU_PRCNT':'218%', 'FILES_IN':0, 'FILES_OUT':24, 'EXIT_STATUS':0}

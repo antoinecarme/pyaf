@@ -1,5 +1,5 @@
 INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['Quotes'], 'Horizons': {'Quotes': 4}}
-INFO:pyaf.std:TRAINING_ENGINE_END 3.988
+INFO:pyaf.std:TRAINING_ENGINE_END 3.289
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Index' TimeMin=2002.0 TimeMax=2004.25 TimeDelta=0.08333333333333333 Horizon=4
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Quotes' Length=40  Min=8.39468 Max=18.43898  Mean=13.604347 StdDev=2.369165
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='RelDiff_Quotes' Min=-0.330861 Max=0.465304  Mean=0.01401 StdDev=0.151884
@@ -10,12 +10,12 @@ INFO:pyaf.std:BEST_DECOMPOSITION  'RelDiff_Quotes_ConstantTrend_residue_Cycle_No
 INFO:pyaf.std:TREND_DETAIL 'RelDiff_Quotes_ConstantTrend' [ConstantTrend]
 INFO:pyaf.std:CYCLE_DETAIL 'RelDiff_Quotes_ConstantTrend_residue_Cycle_None' [Cycle_None]
 INFO:pyaf.std:AUTOREG_DETAIL 'RelDiff_Quotes_ConstantTrend_residue_Cycle_None_residue_ARX(10)' [ARX]
-INFO:pyaf.std:MODEL_PERFS Fit STEP=1 {'MAPE': 0.2235, 'RMSE': 4.3871, 'MAE': 2.9647, 'MASE': 2.1517}
-INFO:pyaf.std:MODEL_PERFS Forecast STEP=1 {'MAPE': 0.202, 'RMSE': 2.999, 'MAE': 2.7401, 'MASE': 1.9996}
-INFO:pyaf.std:MODEL_PERFS Test STEP=1 {'MAPE': 0.4584, 'RMSE': 7.6569, 'MAE': 7.5354, 'MASE': 3.2691}
-INFO:pyaf.std:MODEL_PERFS Fit STEP=4 {'MAPE': 0.2239, 'RMSE': 3.835, 'MAE': 2.8867, 'MASE': 2.0951}
-INFO:pyaf.std:MODEL_PERFS Forecast STEP=4 {'MAPE': 0.089, 'RMSE': 1.6779, 'MAE': 1.2545, 'MASE': 0.9154}
-INFO:pyaf.std:MODEL_PERFS Test STEP=4 {'MAPE': 0.3356, 'RMSE': 5.6888, 'MAE': 5.5275, 'MASE': 2.398}
+INFO:pyaf.std:MODEL_PERFS Fit STEP=1 {'MAPE': np.float64(0.2235), 'RMSE': np.float64(4.3871), 'MAE': np.float64(2.9647), 'MASE': np.float64(2.1517)}
+INFO:pyaf.std:MODEL_PERFS Forecast STEP=1 {'MAPE': np.float64(0.202), 'RMSE': np.float64(2.999), 'MAE': np.float64(2.7401), 'MASE': np.float64(1.9996)}
+INFO:pyaf.std:MODEL_PERFS Test STEP=1 {'MAPE': np.float64(0.4584), 'RMSE': np.float64(7.6569), 'MAE': np.float64(7.5354), 'MASE': np.float64(3.2691)}
+INFO:pyaf.std:MODEL_PERFS Fit STEP=4 {'MAPE': np.float64(0.2239), 'RMSE': np.float64(3.835), 'MAE': np.float64(2.8867), 'MASE': np.float64(2.0951)}
+INFO:pyaf.std:MODEL_PERFS Forecast STEP=4 {'MAPE': np.float64(0.089), 'RMSE': np.float64(1.6779), 'MAE': np.float64(1.2545), 'MASE': np.float64(0.9154)}
+INFO:pyaf.std:MODEL_PERFS Test STEP=4 {'MAPE': np.float64(0.3356), 'RMSE': np.float64(5.6888), 'MAE': np.float64(5.5275), 'MASE': np.float64(2.398)}
 INFO:pyaf.std:MODEL_COMPLEXITY {'Decomposition': 'S', 'Transformation': 'M', 'Trend': 'S', 'Cycle': 'S', 'AR': 'L'} [LMSSS]
 INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
 INFO:pyaf.std:REALTIVE_DIFFERENCING_TRANSFORMATION RelativeDifference 0.7034364156802599
@@ -37,10 +37,18 @@ INFO:pyaf.std:AR_MODEL_COEFF 7 TV.advert_Lag9 -0.018569
 INFO:pyaf.std:AR_MODEL_DETAIL_END
 INFO:pyaf.std:EXOGENOUS_VARIABLE_DETAIL_START
 INFO:pyaf.std:EXOGENOUS_VARIABLE_DETAIL_CATEGORICAL_EXCLUDED 0 []
-INFO:pyaf.std:EXOGENOUS_VARIABLE_DETAIL_CONTINUOUS 'TV.advert' {'Mean': 7.933625035714286, 'StdDev': 1.3056987790054533}
+INFO:pyaf.std:EXOGENOUS_VARIABLE_DETAIL_CONTINUOUS 'TV.advert' {'Mean': np.float64(7.933625035714286), 'StdDev': np.float64(1.3056987790054533)}
 INFO:pyaf.std:EXOGENOUS_VARIABLE_DETAIL_CONTINUOUS_EXCLUDED 0 []
 INFO:pyaf.std:EXOGENOUS_VARIABLE_DETAIL_END
 INFO:pyaf.std:COMPETITION_DETAIL_START 'Quotes'
 INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Quotes' 0 {'Transformation': 'RelDiff_Quotes', 'DecompositionType': 'T+S+R', 'Model': 'RelDiff_Quotes_ConstantTrend_residue_Cycle_None_residue_ARX(10)', 'Voting': 73.0, 'Complexity': 'LMSSS', 'Forecast_MASE_1': 1.9996, 'Forecast_MASE_2': 0.7878, 'Forecast_MASE_3': 0.9525, 'Forecast_MASE_4': 0.9154}
 INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'Quotes' 1 {'Transformation': 'RelDiff_Quotes', 'DecompositionType': 'T+S+R', 'Model': 'RelDiff_Quotes_ConstantTrend_residue_zeroCycle[0.0]_residue_ARX(10)', 'Voting': 73.0, 'Complexity': 'LMSSS', 'Forecast_MASE_1': 1.9996, 'Forecast_MASE_2': 0.7878, 'Forecast_MASE_3': 0.9525, 'Forecast_MASE_4': 0.9154}
 INFO:pyaf.std:COMPETITION_DETAIL_END 'Quotes'
+INFO:pyaf.std:SAVING_PLOT ('Trend', 'outputs/fpp2_insurance_submitted_Quotes_Trend_decomp_output.png')
+INFO:pyaf.std:SAVING_PLOT ('Cycle', 'outputs/fpp2_insurance_submitted_Quotes_Cycle_decomp_output.png')
+INFO:pyaf.std:SAVING_PLOT ('AR', 'outputs/fpp2_insurance_submitted_Quotes_AR_decomp_output.png')
+INFO:pyaf.std:SAVING_PLOT ('TransformedForecast', 'outputs/fpp2_insurance_submitted_Quotes_TransformedForecast_decomp_output.png')
+INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/fpp2_insurance_submitted_Quotes_Forecast_decomp_output.png')
+INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/fpp2_insurance_submitted_Quotes_prediction_intervals_output.png')
+INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/fpp2_insurance_submitted_Quotes_quantiles_output.png')
+EXECUTION_TIME_DETAIL = {'CMD':'timeout 480 python tests/bugs/issue_106/submitted_script.py', 'ElapsedTimeSecs':(17.02, 0.48, 6.60), 'MAX_MEM_KB':225600, 'CPU_PRCNT':'41%', 'FILES_IN':8, 'FILES_OUT':1544, 'EXIT_STATUS':0}

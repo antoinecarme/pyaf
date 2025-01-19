@@ -5,7 +5,7 @@ if __name__ == '__main__':
     # generate a daily signal covering one year 2016 in a pandas dataframe
     N = 365
     np.random.seed(seed=1960)
-    df_train = pd.DataFrame({"Date" : pd.date_range(start="2016-01-25", periods=N, freq='H'),
+    df_train = pd.DataFrame({"Date" : pd.date_range(start="2016-01-25", periods=N, freq='h'),
                              "Signal" : (np.arange(N)//40 + np.arange(N) % 21 + np.random.randn(N))})
     # print(df_train.head(N))
     

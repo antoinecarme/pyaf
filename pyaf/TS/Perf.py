@@ -157,7 +157,7 @@ class cPerf:
     def compute_LnQ(self, signal , estimator):
         min_signal , min_estimator = signal.min() , estimator.min()
         # return +inf if the signals are not strictly positive (discard the model)
-        self.mLnQ = np.Inf
+        self.mLnQ = np.inf
         if(min_signal > 0.0 and min_estimator > 0.0):
             log_diff = np.log(estimator) - np.log(signal)
             self.mLnQ = np.sum(log_diff * log_diff)

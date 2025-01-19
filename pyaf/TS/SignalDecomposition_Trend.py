@@ -145,7 +145,7 @@ class cMovingAverageTrend(cAbstractTrend):
 
 
     def compute(self, df):
-        Y_pred = df[self.mSignal].shift(1).rolling(self.mWindow).mean().fillna(method='bfill');
+        Y_pred = df[self.mSignal].shift(1).rolling(self.mWindow).mean().ffill();
         Y_pred.fillna(self.mMean , inplace=True)
         return Y_pred
 
@@ -168,7 +168,7 @@ class cMovingMedianTrend(cAbstractTrend):
 
 
     def compute(self, df):
-        Y_pred = df[self.mSignal].shift(1).rolling(self.mWindow).median().fillna(method='bfill');
+        Y_pred = df[self.mSignal].shift(1).rolling(self.mWindow).median().ffill();
         Y_pred.fillna(self.mMean , inplace=True)
         return Y_pred
 

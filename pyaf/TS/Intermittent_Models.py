@@ -113,7 +113,7 @@ class cCroston_Model(tsar.cAbstractAR):
         for h in range(horizon_index):
             lCounts_df.loc[-(h+1), self.mCycleResidueName] = None
         df3 = df1.merge(df2 , how='left', on=('index' , 'index'))
-        df4 = df3.fillna(method='ffill')
+        df4 = df3.ffill()
         # fill first empty fit data with zero counts (when signal starts with zeros)
         i = 0
         while(np.isnan(df4.loc[i , 'forecast'])):

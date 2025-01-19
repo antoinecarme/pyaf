@@ -84,9 +84,9 @@ class cMissingDataImputer:
             iInputDS[iSignal] = lSignal
             
         elif(lMethod == "PreviousValue"):
-            lSignal = iInputDS[iSignal].fillna(method='ffill')
+            lSignal = iInputDS[iSignal].ffill()
             # replace the first empty values with the first known value
-            lSignal = lSignal.fillna(method='bfill')
+            lSignal = lSignal.bfill()
             iInputDS[iSignal] = lSignal
             
         return iInputDS
