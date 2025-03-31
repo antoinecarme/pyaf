@@ -1,3 +1,12 @@
+#     #####             ####   ######       PyAF
+#     ##  ##  ##   ##  ##  ##  ##           Python Automatic Forecasting
+#     #####    ## ##   ######  ####   
+#     ##        ##     ##  ##  ##           Version 5.x
+#     ##       ##      ##  ##  ##           https://github.com/antoinecarme/pyaf
+#             ##
+# SPDX-FileCopyrightText: Copyright (c) (2017-) Antoine CARME <Antoine.Carme@outlook.com>
+# SPDX-License-Identifier: BSD-3-Clause ( https://spdx.org/licenses/BSD-3-Clause.html )
+
 import numpy as np
 import pandas as pd
 from . import SignalDecomposition_AR as tsar
