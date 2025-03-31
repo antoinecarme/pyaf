@@ -18,10 +18,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Python 3.11
+    - name: Set up Python 3.13
       uses: actions/setup-python@v5
       with:
-        python-version: "3.11"
+        python-version: "3.13"
     - name: Test Machine Info
       run: |
             df
@@ -36,7 +36,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-        pip install --progress-bar off numpy scipy pandas scikit-learn==1.6.0rc1 matplotlib pydot jupyter xgboost ipython lightgbm statsmodels torch skorch setproctitle urllib3 objgraph imageio imageio_ffmpeg
+        pip install --progress-bar off numpy scipy pandas scikit-learn matplotlib pydot jupyter xgboost ipython lightgbm statsmodels torch skorch setproctitle urllib3 objgraph imageio imageio_ffmpeg
     - name: Initial Cleanup
       run : |
             mkdir -p logs
