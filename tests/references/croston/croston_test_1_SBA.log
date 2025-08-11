@@ -1,5 +1,5 @@
 INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['Signal'], 'Horizons': {'Signal': 7}}
-INFO:pyaf.std:TRAINING_ENGINE_END 4.519
+INFO:pyaf.std:TRAINING_ENGINE_END 5.804
 INFO:pyaf.std:TIME_DETAIL TimeVariable='Date' TimeMin=2016-01-25T00:00:00.000000 TimeMax=2016-11-05T00:00:00.000000 TimeDelta=<DateOffset: days=1> Horizon=7
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='Signal' Length=365  Min=0.0 Max=97.0  Mean=1.052055 StdDev=8.398632
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_Signal' Min=0.0 Max=1.0  Mean=0.010846 StdDev=0.086584
@@ -38,13 +38,17 @@ INFO:pyaf.std:SAVING_PLOT ('AR', 'outputs/croston_SBA_no_trend_Signal_AR_decomp_
 INFO:pyaf.std:SAVING_PLOT ('TransformedForecast', 'outputs/croston_SBA_no_trend_Signal_TransformedForecast_decomp_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/croston_SBA_no_trend_Signal_Forecast_decomp_output.png')
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/croston_SBA_no_trend_Signal_prediction_intervals_output.png')
-/opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/numpy/lib/_histograms_impl.py:895: RuntimeWarning: divide by zero encountered in divide
-  return n/db/n.sum(), bin_edges
-/opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/numpy/lib/_histograms_impl.py:895: RuntimeWarning: invalid value encountered in divide
-  return n/db/n.sum(), bin_edges
+/opt/hostedtoolcache/Python/3.13.5/x64/lib/python3.13/site-packages/numpy/lib/_histograms_impl.py:897: RuntimeWarning: divide by zero encountered in divide
+  return n / db / n.sum(), bin_edges
+/opt/hostedtoolcache/Python/3.13.5/x64/lib/python3.13/site-packages/numpy/lib/_histograms_impl.py:897: RuntimeWarning: invalid value encountered in divide
+  return n / db / n.sum(), bin_edges
+/opt/hostedtoolcache/Python/3.13.5/x64/lib/python3.13/site-packages/matplotlib/transforms.py:2437: RuntimeWarning: invalid value encountered in dot
+  return Affine2D(np.dot(self._b.get_affine().get_matrix(),
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/croston_SBA_no_trend_Signal_quantiles_output.png')
+/opt/hostedtoolcache/Python/3.13.5/x64/lib/python3.13/site-packages/matplotlib/transforms.py:2437: RuntimeWarning: invalid value encountered in dot
+  return Affine2D(np.dot(self._b.get_affine().get_matrix(),
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['Signal'], 'Horizons': {'Signal': 7}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 0.552
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.69
 Index(['Date', 'Signal', 'Signal_scaled', '_Signal', 'row_number',
        'Date_Normalized', '_Signal_ConstantTrend',
        '_Signal_ConstantTrend_residue',
@@ -96,4 +100,4 @@ min        2.033464
 75%       13.007692
 max       49.400000
 Name: Signal_Forecast, dtype: float64
-EXECUTION_TIME_DETAIL = {'CMD':'timeout 480 python tests/croston/croston_test_1_SBA.py', 'ElapsedTimeSecs':(36.67, 0.35, 7.43), 'MAX_MEM_KB':230388, 'CPU_PRCNT':'21%', 'FILES_IN':8, 'FILES_OUT':1040, 'EXIT_STATUS':0}
+EXECUTION_TIME_DETAIL = {'CMD':'timeout 480 python tests/croston/croston_test_1_SBA.py', 'ElapsedTimeSecs':(38.70, 0.39, 8.31), 'MAX_MEM_KB':243704, 'CPU_PRCNT':'22%', 'FILES_IN':8, 'FILES_OUT':1032, 'EXIT_STATUS':0}
