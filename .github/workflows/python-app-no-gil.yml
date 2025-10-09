@@ -14,16 +14,17 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python 3.14
-    - uses: actions/setup-python@v5    
+      uses: actions/setup-python@v5    
         if: "!endsWith(matrix.python-version, '-dev')"
         with:
           python-version: ${{ matrix.python-version }}
-    - uses: deadsnakes/action@v3.2.0
+    - name : Setup free threded python
+      uses: deadsnakes/action@v3.2.0
         if: endsWith(matrix.python-version, '-dev')
         with:
           python-version: ${{ matrix.python-version }}
           # debug: true  # Optional, to select a Python debug build
-          # nogil: true  # Optional, to select a free-threaded Python build (3.13+ only)
+          nogil: true  # Optional, to select a free-threaded Python build (3.13+ only)
     - name: Test Machine Info
       run: |
             df
