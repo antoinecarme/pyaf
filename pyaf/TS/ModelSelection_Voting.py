@@ -41,6 +41,7 @@ class cModelSelector_Voting:
         lVotingScores = self.compute_voting_scores(iPerfsByModel)
         lCriterion = self.mOptions.mModelSelection_Criterion
         rows_list = []
+        common_horizon = 0
         for (model , value) in sorted(iPerfsByModel.items()):
             lTranformName = value["Signal"]
             lDecompType = value["DecompositionType"];
@@ -56,6 +57,7 @@ class cModelSelector_Voting:
             lForecastPerf = value["ForecastPerf"]
             lTestPerf = value["TestPerf"]
             H = value["Horizon"]
+            common_horizon = H
 
             lVoting = lVotingScores[ modelname ]
             row = [lSplit, lTranformName, lDecompType, lModelFormula[3], lModelFormula, lModelCategory, lComplexity]
@@ -68,7 +70,7 @@ class cModelSelector_Voting:
 
         Cols = ['Split', 'Transformation', 'DecompositionType',
                 'Model', 'DetailedFormula', 'Category', 'Complexity']
-        for h in range(1, H+1):
+        for h in range(1, common_horizon+1):
             Cols = Cols + ['Fit_' + self.mOptions.mModelSelection_Criterion + "_" + str(h),
                            'Forecast_' + self.mOptions.mModelSelection_Criterion + "_" + str(h),
                            'Test_' + self.mOptions.mModelSelection_Criterion + "_" + str(h)]
