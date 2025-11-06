@@ -62,15 +62,13 @@ class cSignalDecompositionForecaster:
 
         NCores = min(len(args) , iDecomsposition.mOptions.mNbCores) 
         if(iDecomsposition.mOptions.mParallelMode and  NCores > 1):
-            from multiprocessing import Pool
-            pool = Pool(NCores)
-        
-            for res in pool.imap(forecast_one_signal, args):
-                (lTimeInfo, lForecastFrame_i) = res
-                lForecastFrame = self.merge_frames(lForecastFrame, lForecastFrame_i, lTimeInfo)
-                del lForecastFrame_i
-            pool.close()
-            pool.join()
+            import concurrent.futures
+            with concurrent.futures.ThreadPoolExecutor(max_workers=NCores) as executor:
+                future_to_arg = {executor.submit(forecast_one_signal, arg, 60): arg for arg in args}
+                for future in concurrent.futures.as_completed(future_to_arg):
+                    (lTimeInfo, lForecastFrame_i) = future_to_arg[future]
+                    lForecastFrame = self.merge_frames(lForecastFrame, lForecastFrame_i, lTimeInfo)
+                    del lForecastFrame_i
         else:
             for arg in args:
                 res = forecast_one_signal(arg)
