@@ -28,6 +28,7 @@ class cAbstractAR:
         self.mInputNames = [];
         self.mExogenousInfo = iExogenousInfo;
         self.mLagsForSeries = {cycle_residue_name : []}
+        self.mLagEncoder = None
 
     def compute_ar_residue(self, df):
         target = df[self.mCycleResidueName].values
@@ -86,9 +87,11 @@ class cAbstractAR:
         lDict = {}
         # lDict[self.mCycleResidueName] = df[self.mCycleResidueName]
         series = self.mCycleResidueName
-        lSeries = df[self.mCycleResidueName]
+        lSeries = df[self.mCycleResidueName].values
+        if(self.mLagEncoder is not None):            
+            lSeries = self.mLagEncoder.transform(lSeries.reshape(-1, 1)).flatten()            
         #  Investigate Large Horizon Models #213 : The model can produce overflows in its inputs when iterated. 
-        lSeries = lSeries.values.clip(-1e+10, +1e10)
+        lSeries = lSeries.clip(-1e+10, +1e10)
         for p in self.mLagsForSeries[self.mCycleResidueName]:
             name = series +'_Lag' + str(p);
             if(selection is None or name in selection):
@@ -149,6 +152,7 @@ class cAutoRegressiveEstimator:
         self.mARFrame = None
         self.mARList = {}
         self.mExogenousInfo = None;
+        self.mLagEncoders = {}
         
     def plotAR(self):
         for trend in self.mTrendList:
@@ -169,15 +173,24 @@ class cAutoRegressiveEstimator:
         new_values = np.append([ series[0] ]*p, series[0:N-p])
         return new_values
 
-    def generateLagsForTraining(self, df, series, pMinMax):
+    def generateLagsForTraining(self, df, series, pMinMax, iEncode = False):
+        lSeries = df[series].values;
+        lCanApplyQuantileTransform = iEncode and (self.mOptions.mLagEncoding is not None)
+        if(lCanApplyQuantileTransform):            
+            from sklearn.preprocessing import QuantileTransformer
+            df_Estim = self.mSplit.getEstimPart(df)
+            NQ = int(min(20, np.sqrt(df_Estim.shape[0]))) # optimal quantiles number heuristics : sqrt(N)
+            qt = QuantileTransformer(n_quantiles=NQ, random_state=self.mOptions.mSeed)
+            qt.fit(df_Estim[series].values.reshape(-1, 1))
+            self.mLagEncoders[series] = qt
+            lSeries = qt.transform(lSeries.reshape(-1, 1))            
         (pmin, pmax) = pMinMax
-        lSeries = df[series];
-        self.mDefaultValues[series] = lSeries.values[0];
+        self.mDefaultValues[series] = lSeries[0];
         lDict = {}
         lags = []
         for p in range(pmin, pmax+1):
             name = series+'_Lag' + str(p)
-            lShiftedSeries = self.shift_series(lSeries.values, p)
+            lShiftedSeries = self.shift_series(lSeries, p)
             lShiftedEstim = self.mSplit.getEstimPart(lShiftedSeries);
             lAcceptable = self.is_not_constant(lShiftedEstim);
             if(lAcceptable):
@@ -206,12 +219,13 @@ class cAutoRegressiveEstimator:
 
     def addLagsForTraining(self, df, cycle_residue):
         P = self.get_nb_lags();
-        lag_df, lags = self.generateLagsForTraining(df, cycle_residue, (1, P));
+        lag_df, lags = self.generateLagsForTraining(df, cycle_residue, (1, P), iEncode = True);
         lag_dfs = [lag_df]
         for autoreg in self.mARList[cycle_residue]:
             for lag in lags:
                 (name , p) = lag
                 autoreg.register_lag(name, p)
+                autoreg.mLagEncoder = self.mLagEncoders.get(cycle_residue)
 
         # Exogenous variables lags
         lUseExog = False # Exog variables can be configured but not used ("AR" activated and "ARX" disabled).
