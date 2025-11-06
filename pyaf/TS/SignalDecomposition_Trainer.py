@@ -241,7 +241,6 @@ class cTraining_Arg:
 
 
 def run_transform_thread(arg):
-    print("run_transform_thread", arg.mSignal, arg.mHorizon, arg.mTransformation, arg.mDecompositionType)
     arg.mSigDec.train(arg.mInputDS, arg.mSplit, arg.mTime, arg.mSignal, arg.mHorizon, arg.mTransformation, arg.mDecompositionType);
     return arg;
 
@@ -310,9 +309,6 @@ class cSignalDecompositionTrainer:
                     lPerfsByModel[model] = value
             args = args + [(lSignal, lPerfsByModel, self.mOptions)]
 
-        assert(len(args) > 0)
-        for arg in args:
-            print("run_model_selection", arg[0])
         self.mPerfsByModel = {}
         self.mTrPerfDetails = {}
         self.mModelShortList = {}
