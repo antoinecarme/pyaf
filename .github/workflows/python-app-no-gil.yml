@@ -43,7 +43,7 @@ jobs:
     - name: Check Installed Versions
       run : |
             export PYTHONPATH=$PYTHONPATH:.
-	    export PYTHON_GIL=0
+            export PYTHON_GIL=0
             python ./tests/bugs/issue_36/display_version_info.py
     - name: Basic Tests
       run : |
@@ -52,7 +52,7 @@ jobs:
             export NUMEXPR_NUM_THREADS=1
             export OMP_NUM_THREADS=1
             export NUMEXPR_MAX_THREADS=8
-	    export PYTHON_GIL=0
+            export PYTHON_GIL=0
             python tests/demos/demo1.py
             python tests/func/test_ozone.py
             python tests/func/test_air_passengers.py
@@ -63,7 +63,7 @@ jobs:
             export NUMEXPR_NUM_THREADS=1
             export OMP_NUM_THREADS=1
             export NUMEXPR_MAX_THREADS=6
-	    export PYTHON_GIL=0
+            export PYTHON_GIL=0
             make -f tests/Makefile -j 8 build-test 
     - name: Error Summary
       run : |
