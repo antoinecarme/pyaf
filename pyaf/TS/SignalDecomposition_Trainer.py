@@ -45,6 +45,8 @@ class cSignalDecompositionOneTransform:
         self.mSignal = None
         self.mTimeInfo = tsti.cTimeInfo();
         self.mTransformation = tstransf.cSignalTransform_None();
+        self.mModelsByName = {};
+        self.mPerfsByModel = {}
 
         
     def setParams(self , iInputDS, iTime, iSignal, iHorizon, iTransformation,
@@ -99,7 +101,6 @@ class cSignalDecompositionOneTransform:
 
     def updatePerfsForAllModels(self , iModels):
         # lTimer = tsutil.cTimer(("UPDATE_PERFS_FOR_ALL_MODELS", {"Signal" : self.mOriginalSignal, "Transformation" : self.mSignal, "DecompositionType" : self.mDecompositionType}, len(iModels)))
-        self.mPerfsByModel = {}
         for model in iModels.keys():
             # lTimer2 = tsutil.cTimer(("UPDATE_PERFS_FOR_MODEL", model))
             iModels[model].updatePerfs();
@@ -208,7 +209,6 @@ class cSignalDecompositionOneTransform:
 
 
         # forecast perfs
-        self.mModelsByName = {};
         for trend in lAREstimator.mTrendList:
             for cycle in lAREstimator.mCycleList[trend]:
                 cycle_residue = cycle.getCycleResidueName();
@@ -241,6 +241,7 @@ class cTraining_Arg:
 
 
 def run_transform_thread(arg):
+    print("run_transform_thread", arg.mSignal, arg.mHorizon, arg.mTransformation, arg.mDecompositionType)
     arg.mSigDec.train(arg.mInputDS, arg.mSplit, arg.mTime, arg.mSignal, arg.mHorizon, arg.mTransformation, arg.mDecompositionType);
     return arg;
 
@@ -309,6 +310,9 @@ class cSignalDecompositionTrainer:
                     lPerfsByModel[model] = value
             args = args + [(lSignal, lPerfsByModel, self.mOptions)]
 
+        assert(len(args) > 0)
+        for arg in args:
+            print("run_model_selection", arg[0])
         self.mPerfsByModel = {}
         self.mTrPerfDetails = {}
         self.mModelShortList = {}
@@ -318,19 +322,16 @@ class cSignalDecompositionTrainer:
                                 {"Signals" : [lSignal for (lSignal , sigdecs) in self.mSigDecBySplitAndTransform.items()],
                                  "Cores" : NCores}))
         if(self.mOptions.mParallelMode and NCores > 1):
-            from multiprocessing import Pool
-            pool = Pool(NCores)
-        
-            for res in pool.imap(run_model_selection_one_signal, args):
-                (lSignal, lBestModelName, lPerfDetails, lModelShortList) = res
-                assert(self.mPerfsByModel.get(lSignal) is None)
-                self.mPerfsByModel[lSignal] = lPerfsByModel;
-                self.mBestModels[lSignal] = lModelsByName[lBestModelName]
-                self.mTrPerfDetails[lSignal] = lPerfDetails
-                self.mModelShortList[lSignal] = lModelShortList
-            pool.close()
-            pool.join()
-            del pool
+            import concurrent.futures
+            with concurrent.futures.ThreadPoolExecutor(max_workers=NCores) as executor:
+                future_to_arg = {executor.submit(run_model_selection_one_signal, arg): arg for arg in args}
+                for future in concurrent.futures.as_completed(future_to_arg):
+                    (lSignal, lBestModelName, lPerfDetails, lModelShortList) = future_to_arg[future]
+                    assert(self.mPerfsByModel.get(lSignal) is None)
+                    self.mPerfsByModel[lSignal] = lPerfsByModel;
+                    self.mBestModels[lSignal] = lModelsByName[lBestModelName]
+                    self.mTrPerfDetails[lSignal] = lPerfDetails
+                    self.mModelShortList[lSignal] = lModelShortList
         else:
             for arg in args:
                 res = run_model_selection_one_signal(arg)
@@ -352,15 +353,12 @@ class cSignalDecompositionTrainer:
                                 {"BestModels" : [(lSignal, lBestModel.mOutName) for (lSignal, lBestModel) in self.mBestModels.items()],
                                  "Cores" : NCores}))
         if(self.mOptions.mParallelMode and NCores > 1):
-            from multiprocessing import Pool
-            pool = Pool(NCores)
-        
-            for res in pool.imap(run_finalize_training_one_signal, args):
-                (lSignal, lBestModel) = res
-                self.mBestModels[lSignal] = lBestModel
-            pool.close()
-            pool.join()
-            del pool
+            import concurrent.futures
+            with concurrent.futures.ThreadPoolExecutor(max_workers=NCores) as executor:
+                future_to_arg = {executor.submit(run_finalize_training_one_signal, arg): arg for arg in args}
+                for future in concurrent.futures.as_completed(future_to_arg):
+                    (lSignal, lBestModel) = future_to_arg[future]
+                    self.mBestModels[lSignal] = lBestModel
         else:
             for arg in args:
                 res = run_finalize_training_one_signal(arg)
@@ -409,16 +407,16 @@ class cSignalDecompositionTrainer:
         lTimer = tsutil.cTimer(("SIGNAL_TRAINING",{"Signals" : iSignals,
                                                    "Transformations" : [arg.mName for arg in args],
                                                    "Cores" : NCores}))
-        
+
+        assert(len(args) > 0)
         if(self.mOptions.mParallelMode and NCores > 1):
-            from multiprocessing import Pool
-            pool = Pool(NCores)
-            for res in pool.imap(run_transform_thread, args):
-                lSignal = res.mName[0]
-                self.mSigDecBySplitAndTransform[lSignal][res.mName] = res.mSigDec;
-            pool.close()
-            pool.join()
-            del pool
+            import concurrent.futures
+            with concurrent.futures.ThreadPoolExecutor(max_workers=NCores) as executor:
+                future_to_arg = {executor.submit(run_transform_thread, arg): arg for arg in args}
+                for future in concurrent.futures.as_completed(future_to_arg):
+                    res = future_to_arg[future]
+                    lSignal = res.mName[0]
+                    self.mSigDecBySplitAndTransform[lSignal][res.mName] = res.mSigDec;
         else:
             for arg in args:
                 res = run_transform_thread(arg)
