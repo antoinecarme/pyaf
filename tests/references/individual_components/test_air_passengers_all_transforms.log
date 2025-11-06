@@ -1,5 +1,5 @@
 INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
-INFO:pyaf.std:TRAINING_ENGINE_END 1.717
+INFO:pyaf.std:TRAINING_ENGINE_END 2.206
 INFO:pyaf.std:TIME_DETAIL TimeVariable='time' TimeMin=1949.0 TimeMax=1956.91666666667 TimeDelta=0.08333333333336763 Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='AirPassengers' Length=132  Min=104 Max=559  Mean=262.492424 StdDev=106.221146
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='_AirPassengers' Min=0.0 Max=1.0  Mean=0.348335 StdDev=0.233453
@@ -38,9 +38,9 @@ INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/my_airline_passengers_transforms
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/my_airline_passengers_transforms_None__AirPassengers_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/my_airline_passengers_transforms_None__AirPassengers_quantiles_output.png')
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 0.34
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.307
 INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
-INFO:pyaf.std:TRAINING_ENGINE_END 2.065
+INFO:pyaf.std:TRAINING_ENGINE_END 1.964
 INFO:pyaf.std:TIME_DETAIL TimeVariable='time' TimeMin=1949.0 TimeMax=1956.91666666667 TimeDelta=0.08333333333336763 Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='AirPassengers' Length=132  Min=104 Max=559  Mean=262.492424 StdDev=106.221146
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='Diff_AirPassengers' Min=-0.221978 Max=0.167033  Mean=0.004878 StdDev=0.068427
@@ -79,7 +79,7 @@ INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/my_airline_passengers_transforms
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/my_airline_passengers_transforms_Difference__AirPassengers_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/my_airline_passengers_transforms_Difference__AirPassengers_quantiles_output.png')
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 0.245
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.356
 Forecast Columns  Index(['time', 'AirPassengers', 'AirPassengers_scaled', '_AirPassengers',
        'row_number', 'time_Normalized', '_AirPassengers_LinearTrend',
        '_AirPassengers_LinearTrend_residue', 'cycle_internal',
@@ -218,7 +218,7 @@ Forecasts
         },
         "Model_Selection_Criterion": "MASE"
     },
-    "Training_Time": 1.717
+    "Training_Time": 2.206
 }
 </ModelInfo>
 
@@ -230,8 +230,28 @@ Forecasts
 </Forecast>
 
 
-Forecast Columns  INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
-INFO:pyaf.std:TRAINING_ENGINE_END 1.598
+Forecast Columns  Index(['time', 'AirPassengers', 'AirPassengers_scaled', 'Diff_AirPassengers',
+       'row_number', 'time_Normalized', 'Diff_AirPassengers_LinearTrend',
+       'Diff_AirPassengers_LinearTrend_residue', 'cycle_internal',
+       'Diff_AirPassengers_LinearTrend_residue_Cycle_12',
+       'Diff_AirPassengers_LinearTrend_residue_Cycle_12_residue',
+       'Diff_AirPassengers_LinearTrend_residue_Cycle_12_residue_NoAR',
+       'Diff_AirPassengers_LinearTrend_residue_Cycle_12_residue_NoAR_residue',
+       'AirPassengers_Transformed', 'Diff_AirPassengers_Trend',
+       'Diff_AirPassengers_Trend_residue', 'Diff_AirPassengers_Cycle',
+       'Diff_AirPassengers_Cycle_residue', 'Diff_AirPassengers_AR',
+       'Diff_AirPassengers_AR_residue',
+       'Diff_AirPassengers_TransformedForecast',
+       'Diff_AirPassengers_Detrended', 'Diff_AirPassengers_Deseasonalized',
+       'AirPassengers_TransformedForecast_inverted', 'AirPassengers_Forecast',
+       'Diff_AirPassengers_TransformedResidue', 'AirPassengers_Residue',
+       'AirPassengers_Forecast_Lower_Bound',
+       'AirPassengers_Forecast_Upper_Bound',
+       'AirPassengers_Forecast_Quantile_25',
+       'AirPassengers_Forecast_Quantile_50',
+       'AirPassengers_Forecast_Quantile_75'],
+      dtype='object')INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
+INFO:pyaf.std:TRAINING_ENGINE_END 2.1
 INFO:pyaf.std:TIME_DETAIL TimeVariable='time' TimeMin=1949.0 TimeMax=1956.91666666667 TimeDelta=0.08333333333336763 Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='AirPassengers' Length=132  Min=104 Max=559  Mean=262.492424 StdDev=106.221146
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='RelDiff_AirPassengers' Min=-0.2 Max=0.25  Mean=0.015427 StdDev=0.106964
@@ -270,28 +290,8 @@ INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/my_airline_passengers_transforms
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/my_airline_passengers_transforms_RelativeDifference__AirPassengers_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/my_airline_passengers_transforms_RelativeDifference__AirPassengers_quantiles_output.png')
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 0.244
-Index(['time', 'AirPassengers', 'AirPassengers_scaled', 'Diff_AirPassengers',
-       'row_number', 'time_Normalized', 'Diff_AirPassengers_LinearTrend',
-       'Diff_AirPassengers_LinearTrend_residue', 'cycle_internal',
-       'Diff_AirPassengers_LinearTrend_residue_Cycle_12',
-       'Diff_AirPassengers_LinearTrend_residue_Cycle_12_residue',
-       'Diff_AirPassengers_LinearTrend_residue_Cycle_12_residue_NoAR',
-       'Diff_AirPassengers_LinearTrend_residue_Cycle_12_residue_NoAR_residue',
-       'AirPassengers_Transformed', 'Diff_AirPassengers_Trend',
-       'Diff_AirPassengers_Trend_residue', 'Diff_AirPassengers_Cycle',
-       'Diff_AirPassengers_Cycle_residue', 'Diff_AirPassengers_AR',
-       'Diff_AirPassengers_AR_residue',
-       'Diff_AirPassengers_TransformedForecast',
-       'Diff_AirPassengers_Detrended', 'Diff_AirPassengers_Deseasonalized',
-       'AirPassengers_TransformedForecast_inverted', 'AirPassengers_Forecast',
-       'Diff_AirPassengers_TransformedResidue', 'AirPassengers_Residue',
-       'AirPassengers_Forecast_Lower_Bound',
-       'AirPassengers_Forecast_Upper_Bound',
-       'AirPassengers_Forecast_Quantile_25',
-       'AirPassengers_Forecast_Quantile_50',
-       'AirPassengers_Forecast_Quantile_75'],
-      dtype='object')
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.301
+
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 144 entries, 0 to 143
 Data columns (total 5 columns):
@@ -410,7 +410,7 @@ Forecasts
         },
         "Model_Selection_Criterion": "MASE"
     },
-    "Training_Time": 2.065
+    "Training_Time": 1.964
 }
 </ModelInfo>
 
@@ -422,8 +422,43 @@ Forecasts
 </Forecast>
 
 
-Forecast Columns  INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
-INFO:pyaf.std:TRAINING_ENGINE_END 1.54
+Forecast Columns  Index(['time', 'AirPassengers', 'AirPassengers_scaled',
+       'RelDiff_AirPassengers', 'row_number', 'time_Normalized',
+       'RelDiff_AirPassengers_LinearTrend',
+       'RelDiff_AirPassengers_LinearTrend_residue', 'cycle_internal',
+       'RelDiff_AirPassengers_LinearTrend_residue_Cycle_12',
+       'RelDiff_AirPassengers_LinearTrend_residue_Cycle_12_residue',
+       'RelDiff_AirPassengers_LinearTrend_residue_Cycle_12_residue_NoAR',
+       'RelDiff_AirPassengers_LinearTrend_residue_Cycle_12_residue_NoAR_residue',
+       'AirPassengers_Transformed', 'RelDiff_AirPassengers_Trend',
+       'RelDiff_AirPassengers_Trend_residue', 'RelDiff_AirPassengers_Cycle',
+       'RelDiff_AirPassengers_Cycle_residue', 'RelDiff_AirPassengers_AR',
+       'RelDiff_AirPassengers_AR_residue',
+       'RelDiff_AirPassengers_TransformedForecast',
+       'RelDiff_AirPassengers_Detrended',
+       'RelDiff_AirPassengers_Deseasonalized',
+       'AirPassengers_TransformedForecast_inverted', 'AirPassengers_Forecast',
+       'RelDiff_AirPassengers_TransformedResidue', 'AirPassengers_Residue',
+       'AirPassengers_Forecast_Lower_Bound',
+       'AirPassengers_Forecast_Upper_Bound',
+       'AirPassengers_Forecast_Quantile_25',
+       'AirPassengers_Forecast_Quantile_50',
+       'AirPassengers_Forecast_Quantile_75'],
+      dtype='object')
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 144 entries, 0 to 143
+Data columns (total 5 columns):
+ #   Column                              Non-Null Count  Dtype  
+---  ------                              --------------  -----  
+ 0   time                                144 non-null    float64
+ 1   AirPassengers                       132 non-null    float64
+ 2   AirPassengers_Forecast              144 non-null    float64
+ 3   AirPassengers_Forecast_Lower_Bound  12 non-null     float64
+ 4   AirPassengers_Forecast_Upper_Bound  12 non-null     float64
+dtypes: float64(5)
+memory usage: 5.8 KB
+INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
+INFO:pyaf.std:TRAINING_ENGINE_END 1.484
 INFO:pyaf.std:TIME_DETAIL TimeVariable='time' TimeMin=1949.0 TimeMax=1956.91666666667 TimeDelta=0.08333333333336763 Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='AirPassengers' Length=132  Min=104 Max=559  Mean=262.492424 StdDev=106.221146
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='CumSum_AirPassengers' Min=0.017582 Max=45.98022  Mean=14.9834 StdDev=13.589008
@@ -462,42 +497,7 @@ INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/my_airline_passengers_transforms
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/my_airline_passengers_transforms_Integration__AirPassengers_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/my_airline_passengers_transforms_Integration__AirPassengers_quantiles_output.png')
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 0.572
-Index(['time', 'AirPassengers', 'AirPassengers_scaled',
-       'RelDiff_AirPassengers', 'row_number', 'time_Normalized',
-       'RelDiff_AirPassengers_LinearTrend',
-       'RelDiff_AirPassengers_LinearTrend_residue', 'cycle_internal',
-       'RelDiff_AirPassengers_LinearTrend_residue_Cycle_12',
-       'RelDiff_AirPassengers_LinearTrend_residue_Cycle_12_residue',
-       'RelDiff_AirPassengers_LinearTrend_residue_Cycle_12_residue_NoAR',
-       'RelDiff_AirPassengers_LinearTrend_residue_Cycle_12_residue_NoAR_residue',
-       'AirPassengers_Transformed', 'RelDiff_AirPassengers_Trend',
-       'RelDiff_AirPassengers_Trend_residue', 'RelDiff_AirPassengers_Cycle',
-       'RelDiff_AirPassengers_Cycle_residue', 'RelDiff_AirPassengers_AR',
-       'RelDiff_AirPassengers_AR_residue',
-       'RelDiff_AirPassengers_TransformedForecast',
-       'RelDiff_AirPassengers_Detrended',
-       'RelDiff_AirPassengers_Deseasonalized',
-       'AirPassengers_TransformedForecast_inverted', 'AirPassengers_Forecast',
-       'RelDiff_AirPassengers_TransformedResidue', 'AirPassengers_Residue',
-       'AirPassengers_Forecast_Lower_Bound',
-       'AirPassengers_Forecast_Upper_Bound',
-       'AirPassengers_Forecast_Quantile_25',
-       'AirPassengers_Forecast_Quantile_50',
-       'AirPassengers_Forecast_Quantile_75'],
-      dtype='object')
-<class 'pandas.core.frame.DataFrame'>
-RangeIndex: 144 entries, 0 to 143
-Data columns (total 5 columns):
- #   Column                              Non-Null Count  Dtype  
----  ------                              --------------  -----  
- 0   time                                144 non-null    float64
- 1   AirPassengers                       132 non-null    float64
- 2   AirPassengers_Forecast              144 non-null    float64
- 3   AirPassengers_Forecast_Lower_Bound  12 non-null     float64
- 4   AirPassengers_Forecast_Upper_Bound  12 non-null     float64
-dtypes: float64(5)
-memory usage: 5.8 KB
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.678
 None
 Forecasts
              time  ...  AirPassengers_Forecast_Upper_Bound
@@ -604,7 +604,7 @@ Forecasts
         },
         "Model_Selection_Criterion": "MASE"
     },
-    "Training_Time": 1.598
+    "Training_Time": 2.1
 }
 </ModelInfo>
 
@@ -616,8 +616,7 @@ Forecasts
 </Forecast>
 
 
-Forecast Columns  INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
-Index(['time', 'AirPassengers', 'AirPassengers_scaled', 'CumSum_AirPassengers',
+Forecast Columns  Index(['time', 'AirPassengers', 'AirPassengers_scaled', 'CumSum_AirPassengers',
        'row_number', 'time_Normalized', 'CumSum_AirPassengers_LinearTrend',
        'CumSum_AirPassengers_LinearTrend_residue',
        'CumSum_AirPassengers_LinearTrend_residue_Cycle_None',
@@ -678,7 +677,8 @@ Forecasts
 142  1960.833333  ...                          551.664626
 143  1960.916667  ...                          551.664626
 
-[24 rows x 5 columns]
+[24 rows x 5 columns]INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
+
 
 
 <ModelInfo>
@@ -756,7 +756,7 @@ Forecasts
         },
         "Model_Selection_Criterion": "MASE"
     },
-    "Training_Time": 1.54
+    "Training_Time": 1.484
 }
 </ModelInfo>
 
@@ -768,7 +768,7 @@ Forecasts
 </Forecast>
 
 
-INFO:pyaf.std:TRAINING_ENGINE_END 4.343
+INFO:pyaf.std:TRAINING_ENGINE_END 4.255
 INFO:pyaf.std:TIME_DETAIL TimeVariable='time' TimeMin=1949.0 TimeMax=1956.91666666667 TimeDelta=0.08333333333336763 Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='AirPassengers' Length=132  Min=104 Max=559  Mean=262.492424 StdDev=106.221146
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='Box_Cox_0.0_AirPassengers' Min=-1.681759 Max=0.0  Mean=-0.839613 StdDev=0.414644
@@ -807,9 +807,9 @@ INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/my_airline_passengers_transforms
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/my_airline_passengers_transforms_BoxCox__AirPassengers_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/my_airline_passengers_transforms_BoxCox__AirPassengers_quantiles_output.png')
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 0.269
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.314
 INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
-INFO:pyaf.std:TRAINING_ENGINE_END 1.624
+INFO:pyaf.std:TRAINING_ENGINE_END 1.91
 INFO:pyaf.std:TIME_DETAIL TimeVariable='time' TimeMin=1949.0 TimeMax=1956.91666666667 TimeDelta=0.08333333333336763 Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='AirPassengers' Length=132  Min=104 Max=559  Mean=262.492424 StdDev=106.221146
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='Quantized_20_AirPassengers' Min=0 Max=13  Mean=7.0 StdDev=4.050814
@@ -848,7 +848,7 @@ INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/my_airline_passengers_transforms
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/my_airline_passengers_transforms_Quantization__AirPassengers_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/my_airline_passengers_transforms_Quantization__AirPassengers_quantiles_output.png')
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 0.282
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.364
 Forecast Columns  Index(['time', 'AirPassengers', 'AirPassengers_scaled',
        'Box_Cox_0.0_AirPassengers', 'row_number', 'time_Normalized',
        'Box_Cox_0.0_AirPassengers_LinearTrend',
@@ -991,7 +991,7 @@ Forecasts
         },
         "Model_Selection_Criterion": "MASE"
     },
-    "Training_Time": 4.343
+    "Training_Time": 4.255
 }
 </ModelInfo>
 
@@ -1003,8 +1003,32 @@ Forecasts
 </Forecast>
 
 
-Forecast Columns  INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
-INFO:pyaf.std:TRAINING_ENGINE_END 1.245
+Forecast Columns  Index(['time', 'AirPassengers', 'AirPassengers_scaled',
+       'Quantized_20_AirPassengers', 'row_number', 'time_Normalized',
+       'Quantized_20_AirPassengers_LinearTrend',
+       'Quantized_20_AirPassengers_LinearTrend_residue', 'cycle_internal',
+       'Quantized_20_AirPassengers_LinearTrend_residue_Cycle_12',
+       'Quantized_20_AirPassengers_LinearTrend_residue_Cycle_12_residue',
+       'Quantized_20_AirPassengers_LinearTrend_residue_Cycle_12_residue_NoAR',
+       'Quantized_20_AirPassengers_LinearTrend_residue_Cycle_12_residue_NoAR_residue',
+       'AirPassengers_Transformed', 'Quantized_20_AirPassengers_Trend',
+       'Quantized_20_AirPassengers_Trend_residue',
+       'Quantized_20_AirPassengers_Cycle',
+       'Quantized_20_AirPassengers_Cycle_residue',
+       'Quantized_20_AirPassengers_AR',
+       'Quantized_20_AirPassengers_AR_residue',
+       'Quantized_20_AirPassengers_TransformedForecast',
+       'Quantized_20_AirPassengers_Detrended',
+       'Quantized_20_AirPassengers_Deseasonalized',
+       'AirPassengers_TransformedForecast_inverted', 'AirPassengers_Forecast',
+       'Quantized_20_AirPassengers_TransformedResidue',
+       'AirPassengers_Residue', 'AirPassengers_Forecast_Lower_Bound',
+       'AirPassengers_Forecast_Upper_Bound',
+       'AirPassengers_Forecast_Quantile_25',
+       'AirPassengers_Forecast_Quantile_50',
+       'AirPassengers_Forecast_Quantile_75'],
+      dtype='object')INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
+INFO:pyaf.std:TRAINING_ENGINE_END 1.535
 INFO:pyaf.std:TIME_DETAIL TimeVariable='time' TimeMin=1949.0 TimeMax=1956.91666666667 TimeDelta=0.08333333333336763 Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='AirPassengers' Length=132  Min=104 Max=559  Mean=262.492424 StdDev=106.221146
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='Logit_AirPassengers' Min=-16.118096 Max=16.118096  Mean=-0.834954 StdDev=2.376028
@@ -1043,32 +1067,8 @@ INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/my_airline_passengers_transforms
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/my_airline_passengers_transforms_Logit__AirPassengers_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/my_airline_passengers_transforms_Logit__AirPassengers_quantiles_output.png')
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 0.489
-Index(['time', 'AirPassengers', 'AirPassengers_scaled',
-       'Quantized_20_AirPassengers', 'row_number', 'time_Normalized',
-       'Quantized_20_AirPassengers_LinearTrend',
-       'Quantized_20_AirPassengers_LinearTrend_residue', 'cycle_internal',
-       'Quantized_20_AirPassengers_LinearTrend_residue_Cycle_12',
-       'Quantized_20_AirPassengers_LinearTrend_residue_Cycle_12_residue',
-       'Quantized_20_AirPassengers_LinearTrend_residue_Cycle_12_residue_NoAR',
-       'Quantized_20_AirPassengers_LinearTrend_residue_Cycle_12_residue_NoAR_residue',
-       'AirPassengers_Transformed', 'Quantized_20_AirPassengers_Trend',
-       'Quantized_20_AirPassengers_Trend_residue',
-       'Quantized_20_AirPassengers_Cycle',
-       'Quantized_20_AirPassengers_Cycle_residue',
-       'Quantized_20_AirPassengers_AR',
-       'Quantized_20_AirPassengers_AR_residue',
-       'Quantized_20_AirPassengers_TransformedForecast',
-       'Quantized_20_AirPassengers_Detrended',
-       'Quantized_20_AirPassengers_Deseasonalized',
-       'AirPassengers_TransformedForecast_inverted', 'AirPassengers_Forecast',
-       'Quantized_20_AirPassengers_TransformedResidue',
-       'AirPassengers_Residue', 'AirPassengers_Forecast_Lower_Bound',
-       'AirPassengers_Forecast_Upper_Bound',
-       'AirPassengers_Forecast_Quantile_25',
-       'AirPassengers_Forecast_Quantile_50',
-       'AirPassengers_Forecast_Quantile_75'],
-      dtype='object')
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.593
+
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 144 entries, 0 to 143
 Data columns (total 5 columns):
@@ -1187,7 +1187,7 @@ Forecasts
         },
         "Model_Selection_Criterion": "MASE"
     },
-    "Training_Time": 1.624
+    "Training_Time": 1.91
 }
 </ModelInfo>
 
@@ -1199,8 +1199,41 @@ Forecasts
 </Forecast>
 
 
-Forecast Columns  INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
-INFO:pyaf.std:TRAINING_ENGINE_END 3.218
+Forecast Columns  Index(['time', 'AirPassengers', 'AirPassengers_scaled', 'Logit_AirPassengers',
+       'row_number', 'time_Normalized', 'Logit_AirPassengers_LinearTrend',
+       'Logit_AirPassengers_LinearTrend_residue',
+       'Logit_AirPassengers_LinearTrend_residue_Cycle_None',
+       'Logit_AirPassengers_LinearTrend_residue_Cycle_None_residue',
+       'Logit_AirPassengers_LinearTrend_residue_Cycle_None_residue_NoAR',
+       'Logit_AirPassengers_LinearTrend_residue_Cycle_None_residue_NoAR_residue',
+       'AirPassengers_Transformed', 'Logit_AirPassengers_Trend',
+       'Logit_AirPassengers_Trend_residue', 'Logit_AirPassengers_Cycle',
+       'Logit_AirPassengers_Cycle_residue', 'Logit_AirPassengers_AR',
+       'Logit_AirPassengers_AR_residue',
+       'Logit_AirPassengers_TransformedForecast',
+       'Logit_AirPassengers_Detrended', 'Logit_AirPassengers_Deseasonalized',
+       'AirPassengers_TransformedForecast_inverted', 'AirPassengers_Forecast',
+       'Logit_AirPassengers_TransformedResidue', 'AirPassengers_Residue',
+       'AirPassengers_Forecast_Lower_Bound',
+       'AirPassengers_Forecast_Upper_Bound',
+       'AirPassengers_Forecast_Quantile_25',
+       'AirPassengers_Forecast_Quantile_50',
+       'AirPassengers_Forecast_Quantile_75'],
+      dtype='object')
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 144 entries, 0 to 143
+Data columns (total 5 columns):
+ #   Column                              Non-Null Count  Dtype  
+---  ------                              --------------  -----  
+ 0   time                                144 non-null    float64
+ 1   AirPassengers                       132 non-null    float64
+ 2   AirPassengers_Forecast              144 non-null    float64
+ 3   AirPassengers_Forecast_Lower_Bound  12 non-null     float64
+ 4   AirPassengers_Forecast_Upper_Bound  12 non-null     float64
+dtypes: float64(5)
+memory usage: 5.8 KB
+INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
+INFO:pyaf.std:TRAINING_ENGINE_END 3.28
 INFO:pyaf.std:TIME_DETAIL TimeVariable='time' TimeMin=1949.0 TimeMax=1956.91666666667 TimeDelta=0.08333333333336763 Horizon=12
 INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='AirPassengers' Length=132  Min=104 Max=559  Mean=262.492424 StdDev=106.221146
 INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='Fisher_AirPassengers' Min=0.0 Max=8.405621  Mean=0.457703 StdDev=0.768109
@@ -1239,40 +1272,7 @@ INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/my_airline_passengers_transforms
 INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/my_airline_passengers_transforms_Fisher__AirPassengers_prediction_intervals_output.png')
 INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/my_airline_passengers_transforms_Fisher__AirPassengers_quantiles_output.png')
 INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 0.246
-Index(['time', 'AirPassengers', 'AirPassengers_scaled', 'Logit_AirPassengers',
-       'row_number', 'time_Normalized', 'Logit_AirPassengers_LinearTrend',
-       'Logit_AirPassengers_LinearTrend_residue',
-       'Logit_AirPassengers_LinearTrend_residue_Cycle_None',
-       'Logit_AirPassengers_LinearTrend_residue_Cycle_None_residue',
-       'Logit_AirPassengers_LinearTrend_residue_Cycle_None_residue_NoAR',
-       'Logit_AirPassengers_LinearTrend_residue_Cycle_None_residue_NoAR_residue',
-       'AirPassengers_Transformed', 'Logit_AirPassengers_Trend',
-       'Logit_AirPassengers_Trend_residue', 'Logit_AirPassengers_Cycle',
-       'Logit_AirPassengers_Cycle_residue', 'Logit_AirPassengers_AR',
-       'Logit_AirPassengers_AR_residue',
-       'Logit_AirPassengers_TransformedForecast',
-       'Logit_AirPassengers_Detrended', 'Logit_AirPassengers_Deseasonalized',
-       'AirPassengers_TransformedForecast_inverted', 'AirPassengers_Forecast',
-       'Logit_AirPassengers_TransformedResidue', 'AirPassengers_Residue',
-       'AirPassengers_Forecast_Lower_Bound',
-       'AirPassengers_Forecast_Upper_Bound',
-       'AirPassengers_Forecast_Quantile_25',
-       'AirPassengers_Forecast_Quantile_50',
-       'AirPassengers_Forecast_Quantile_75'],
-      dtype='object')
-<class 'pandas.core.frame.DataFrame'>
-RangeIndex: 144 entries, 0 to 143
-Data columns (total 5 columns):
- #   Column                              Non-Null Count  Dtype  
----  ------                              --------------  -----  
- 0   time                                144 non-null    float64
- 1   AirPassengers                       132 non-null    float64
- 2   AirPassengers_Forecast              144 non-null    float64
- 3   AirPassengers_Forecast_Lower_Bound  12 non-null     float64
- 4   AirPassengers_Forecast_Upper_Bound  12 non-null     float64
-dtypes: float64(5)
-memory usage: 5.8 KB
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.309
 None
 Forecasts
              time  ...  AirPassengers_Forecast_Upper_Bound
@@ -1379,7 +1379,7 @@ Forecasts
         },
         "Model_Selection_Criterion": "MASE"
     },
-    "Training_Time": 1.245
+    "Training_Time": 1.535
 }
 </ModelInfo>
 
@@ -1391,48 +1391,7 @@ Forecasts
 </Forecast>
 
 
-Forecast Columns  INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
-INFO:pyaf.std:TRAINING_ENGINE_END 1.461
-INFO:pyaf.std:TIME_DETAIL TimeVariable='time' TimeMin=1949.0 TimeMax=1956.91666666667 TimeDelta=0.08333333333336763 Horizon=12
-INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='AirPassengers' Length=132  Min=104 Max=559  Mean=262.492424 StdDev=106.221146
-INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='Anscombe_AirPassengers' Min=1.224745 Max=2.345208  Mean=1.67931 StdDev=0.270661
-INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
-INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'Anscombe_'
-INFO:pyaf.std:BEST_DECOMPOSITION  'Anscombe_AirPassengers_LinearTrend_residue_Cycle_12_residue_NoAR' [LinearTrend + Cycle_12 + NoAR]
-INFO:pyaf.std:TREND_DETAIL 'Anscombe_AirPassengers_LinearTrend' [LinearTrend]
-INFO:pyaf.std:CYCLE_DETAIL 'Anscombe_AirPassengers_LinearTrend_residue_Cycle_12' [Cycle_12]
-INFO:pyaf.std:AUTOREG_DETAIL 'Anscombe_AirPassengers_LinearTrend_residue_Cycle_12_residue_NoAR' [NoAR]
-INFO:pyaf.std:MODEL_PERFS Fit STEP=1 {'MAPE': np.float64(0.0423), 'RMSE': np.float64(13.3251), 'MAE': np.float64(9.0904), 'MASE': np.float64(0.4863)}
-INFO:pyaf.std:MODEL_PERFS Forecast STEP=1 {'MAPE': np.float64(0.0655), 'RMSE': np.float64(34.4776), 'MAE': np.float64(26.3738), 'MASE': np.float64(0.712)}
-INFO:pyaf.std:MODEL_PERFS Test STEP=1 {'MAPE': np.float64(0.0607), 'RMSE': np.float64(38.7276), 'MAE': np.float64(27.8593), 'MASE': np.float64(0.6191)}
-INFO:pyaf.std:MODEL_PERFS Fit STEP=12 {'MAPE': np.float64(0.0423), 'RMSE': np.float64(13.3251), 'MAE': np.float64(9.0904), 'MASE': np.float64(0.4863)}
-INFO:pyaf.std:MODEL_PERFS Forecast STEP=12 {'MAPE': np.float64(0.0655), 'RMSE': np.float64(34.4776), 'MAE': np.float64(26.3738), 'MASE': np.float64(0.712)}
-INFO:pyaf.std:MODEL_PERFS Test STEP=12 {'MAPE': np.float64(0.0607), 'RMSE': np.float64(38.7276), 'MAE': np.float64(27.8593), 'MASE': np.float64(0.6191)}
-INFO:pyaf.std:MODEL_COMPLEXITY {'Decomposition': 'S', 'Transformation': 'L', 'Trend': 'S', 'Cycle': 'S', 'AR': 'S'} [LSSSS]
-INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
-INFO:pyaf.std:ANSCOMBE_TRANSFORMATION Anscombe 0.375
-INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
-INFO:pyaf.std:TREND_DETAIL_START
-INFO:pyaf.std:LINEAR_RIDGE_TREND LinearTrend (np.float64(1.248341), array([0.618313]))
-INFO:pyaf.std:TREND_DETAIL_END
-INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
-INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES Anscombe_AirPassengers_LinearTrend_residue_Cycle_12 12 -0.008937 {0: np.float64(-0.040924), 1: np.float64(-0.039716), 2: np.float64(0.021734), 3: np.float64(-0.008937), 4: np.float64(-0.006392), 5: np.float64(0.053514), 6: np.float64(0.099103), 7: np.float64(0.106312), 8: np.float64(0.027237), 9: np.float64(-0.045244), 10: np.float64(-0.134362), 11: np.float64(-0.049112)}
-INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
-INFO:pyaf.std:AR_MODEL_DETAIL_START
-INFO:pyaf.std:AR_MODEL_DETAIL_END
-INFO:pyaf.std:COMPETITION_DETAIL_START 'AirPassengers'
-INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'AirPassengers' 0 {'Transformation': 'Anscombe_AirPassengers', 'DecompositionType': 'T+S+R', 'Model': 'Anscombe_AirPassengers_LinearTrend_residue_Cycle_12_residue_NoAR', 'Voting': 0, 'Complexity': 'LSSSS', 'Forecast_MASE_1': 0.712, 'Forecast_MASE_2': 0.712, 'Forecast_MASE_3': 0.712, 'Forecast_MASE_4': 0.712, 'Forecast_MASE_5': 0.712, 'Forecast_MASE_6': 0.712, 'Forecast_MASE_7': 0.712, 'Forecast_MASE_8': 0.712, 'Forecast_MASE_9': 0.712, 'Forecast_MASE_10': 0.712, 'Forecast_MASE_11': 0.712, 'Forecast_MASE_12': 0.712}
-INFO:pyaf.std:COMPETITION_DETAIL_END 'AirPassengers'
-INFO:pyaf.std:SAVING_PLOT ('Trend', 'outputs/my_airline_passengers_transforms_Anscombe__AirPassengers_Trend_decomp_output.png')
-INFO:pyaf.std:SAVING_PLOT ('Cycle', 'outputs/my_airline_passengers_transforms_Anscombe__AirPassengers_Cycle_decomp_output.png')
-INFO:pyaf.std:SAVING_PLOT ('AR', 'outputs/my_airline_passengers_transforms_Anscombe__AirPassengers_AR_decomp_output.png')
-INFO:pyaf.std:SAVING_PLOT ('TransformedForecast', 'outputs/my_airline_passengers_transforms_Anscombe__AirPassengers_TransformedForecast_decomp_output.png')
-INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/my_airline_passengers_transforms_Anscombe__AirPassengers_Forecast_decomp_output.png')
-INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/my_airline_passengers_transforms_Anscombe__AirPassengers_prediction_intervals_output.png')
-INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/my_airline_passengers_transforms_Anscombe__AirPassengers_quantiles_output.png')
-INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
-INFO:pyaf.std:FORECASTING_ENGINE_END 0.402
-Index(['time', 'AirPassengers', 'AirPassengers_scaled', 'Fisher_AirPassengers',
+Forecast Columns  Index(['time', 'AirPassengers', 'AirPassengers_scaled', 'Fisher_AirPassengers',
        'row_number', 'time_Normalized', 'Fisher_AirPassengers_LinearTrend',
        'Fisher_AirPassengers_LinearTrend_residue', 'cycle_internal',
        'Fisher_AirPassengers_LinearTrend_residue_Cycle_12',
@@ -1493,7 +1452,48 @@ Forecasts
 142  1960.833333  ...                          475.093203
 143  1960.916667  ...                          495.270738
 
-[24 rows x 5 columns]
+[24 rows x 5 columns]INFO:pyaf.std:TRAINING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
+INFO:pyaf.std:TRAINING_ENGINE_END 1.728
+INFO:pyaf.std:TIME_DETAIL TimeVariable='time' TimeMin=1949.0 TimeMax=1956.91666666667 TimeDelta=0.08333333333336763 Horizon=12
+INFO:pyaf.std:SIGNAL_DETAIL_ORIG SignalVariable='AirPassengers' Length=132  Min=104 Max=559  Mean=262.492424 StdDev=106.221146
+INFO:pyaf.std:SIGNAL_DETAIL_TRANSFORMED TransformedSignalVariable='Anscombe_AirPassengers' Min=1.224745 Max=2.345208  Mean=1.67931 StdDev=0.270661
+INFO:pyaf.std:DECOMPOSITION_TYPE 'T+S+R'
+INFO:pyaf.std:BEST_TRANSOFORMATION_TYPE 'Anscombe_'
+INFO:pyaf.std:BEST_DECOMPOSITION  'Anscombe_AirPassengers_LinearTrend_residue_Cycle_12_residue_NoAR' [LinearTrend + Cycle_12 + NoAR]
+INFO:pyaf.std:TREND_DETAIL 'Anscombe_AirPassengers_LinearTrend' [LinearTrend]
+INFO:pyaf.std:CYCLE_DETAIL 'Anscombe_AirPassengers_LinearTrend_residue_Cycle_12' [Cycle_12]
+INFO:pyaf.std:AUTOREG_DETAIL 'Anscombe_AirPassengers_LinearTrend_residue_Cycle_12_residue_NoAR' [NoAR]
+INFO:pyaf.std:MODEL_PERFS Fit STEP=1 {'MAPE': np.float64(0.0423), 'RMSE': np.float64(13.3251), 'MAE': np.float64(9.0904), 'MASE': np.float64(0.4863)}
+INFO:pyaf.std:MODEL_PERFS Forecast STEP=1 {'MAPE': np.float64(0.0655), 'RMSE': np.float64(34.4776), 'MAE': np.float64(26.3738), 'MASE': np.float64(0.712)}
+INFO:pyaf.std:MODEL_PERFS Test STEP=1 {'MAPE': np.float64(0.0607), 'RMSE': np.float64(38.7276), 'MAE': np.float64(27.8593), 'MASE': np.float64(0.6191)}
+INFO:pyaf.std:MODEL_PERFS Fit STEP=12 {'MAPE': np.float64(0.0423), 'RMSE': np.float64(13.3251), 'MAE': np.float64(9.0904), 'MASE': np.float64(0.4863)}
+INFO:pyaf.std:MODEL_PERFS Forecast STEP=12 {'MAPE': np.float64(0.0655), 'RMSE': np.float64(34.4776), 'MAE': np.float64(26.3738), 'MASE': np.float64(0.712)}
+INFO:pyaf.std:MODEL_PERFS Test STEP=12 {'MAPE': np.float64(0.0607), 'RMSE': np.float64(38.7276), 'MAE': np.float64(27.8593), 'MASE': np.float64(0.6191)}
+INFO:pyaf.std:MODEL_COMPLEXITY {'Decomposition': 'S', 'Transformation': 'L', 'Trend': 'S', 'Cycle': 'S', 'AR': 'S'} [LSSSS]
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_START
+INFO:pyaf.std:ANSCOMBE_TRANSFORMATION Anscombe 0.375
+INFO:pyaf.std:SIGNAL_TRANSFORMATION_DETAIL_END
+INFO:pyaf.std:TREND_DETAIL_START
+INFO:pyaf.std:LINEAR_RIDGE_TREND LinearTrend (np.float64(1.248341), array([0.618313]))
+INFO:pyaf.std:TREND_DETAIL_END
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_START
+INFO:pyaf.std:BEST_CYCLE_LENGTH_VALUES Anscombe_AirPassengers_LinearTrend_residue_Cycle_12 12 -0.008937 {0: np.float64(-0.040924), 1: np.float64(-0.039716), 2: np.float64(0.021734), 3: np.float64(-0.008937), 4: np.float64(-0.006392), 5: np.float64(0.053514), 6: np.float64(0.099103), 7: np.float64(0.106312), 8: np.float64(0.027237), 9: np.float64(-0.045244), 10: np.float64(-0.134362), 11: np.float64(-0.049112)}
+INFO:pyaf.std:CYCLE_MODEL_DETAIL_END
+INFO:pyaf.std:AR_MODEL_DETAIL_START
+INFO:pyaf.std:AR_MODEL_DETAIL_END
+INFO:pyaf.std:COMPETITION_DETAIL_START 'AirPassengers'
+INFO:pyaf.std:COMPETITION_DETAIL_SHORT_LIST 'AirPassengers' 0 {'Transformation': 'Anscombe_AirPassengers', 'DecompositionType': 'T+S+R', 'Model': 'Anscombe_AirPassengers_LinearTrend_residue_Cycle_12_residue_NoAR', 'Voting': 0, 'Complexity': 'LSSSS', 'Forecast_MASE_1': 0.712, 'Forecast_MASE_2': 0.712, 'Forecast_MASE_3': 0.712, 'Forecast_MASE_4': 0.712, 'Forecast_MASE_5': 0.712, 'Forecast_MASE_6': 0.712, 'Forecast_MASE_7': 0.712, 'Forecast_MASE_8': 0.712, 'Forecast_MASE_9': 0.712, 'Forecast_MASE_10': 0.712, 'Forecast_MASE_11': 0.712, 'Forecast_MASE_12': 0.712}
+INFO:pyaf.std:COMPETITION_DETAIL_END 'AirPassengers'
+INFO:pyaf.std:SAVING_PLOT ('Trend', 'outputs/my_airline_passengers_transforms_Anscombe__AirPassengers_Trend_decomp_output.png')
+INFO:pyaf.std:SAVING_PLOT ('Cycle', 'outputs/my_airline_passengers_transforms_Anscombe__AirPassengers_Cycle_decomp_output.png')
+INFO:pyaf.std:SAVING_PLOT ('AR', 'outputs/my_airline_passengers_transforms_Anscombe__AirPassengers_AR_decomp_output.png')
+INFO:pyaf.std:SAVING_PLOT ('TransformedForecast', 'outputs/my_airline_passengers_transforms_Anscombe__AirPassengers_TransformedForecast_decomp_output.png')
+INFO:pyaf.std:SAVING_PLOT ('Forecast', 'outputs/my_airline_passengers_transforms_Anscombe__AirPassengers_Forecast_decomp_output.png')
+INFO:pyaf.std:SAVING_PLOT ('PredictionIntervals', 'outputs/my_airline_passengers_transforms_Anscombe__AirPassengers_prediction_intervals_output.png')
+INFO:pyaf.std:SAVING_PLOT ('Quantiles', 'outputs/my_airline_passengers_transforms_Anscombe__AirPassengers_quantiles_output.png')
+INFO:pyaf.std:FORECASTING_ENGINE_START {'Signals': ['AirPassengers'], 'Horizons': {'AirPassengers': 12}}
+INFO:pyaf.std:FORECASTING_ENGINE_END 0.201
+
 
 
 <ModelInfo>
@@ -1571,7 +1571,7 @@ Forecasts
         },
         "Model_Selection_Criterion": "MASE"
     },
-    "Training_Time": 3.218
+    "Training_Time": 3.28
 }
 </ModelInfo>
 
@@ -1724,7 +1724,7 @@ Forecasts
         },
         "Model_Selection_Criterion": "MASE"
     },
-    "Training_Time": 1.461
+    "Training_Time": 1.728
 }
 </ModelInfo>
 
@@ -1736,4 +1736,4 @@ Forecasts
 </Forecast>
 
 
-EXECUTION_TIME_DETAIL = {'CMD':'timeout 480 python tests/individual_components/test_air_passengers_all_transforms.py', 'ElapsedTimeSecs':(94.45, 0.78, 34.99), 'MAX_MEM_KB':241116, 'CPU_PRCNT':'37%', 'FILES_IN':8, 'FILES_OUT':14952, 'EXIT_STATUS':0}
+EXECUTION_TIME_DETAIL = {'CMD':'timeout 480 python tests/individual_components/test_air_passengers_all_transforms.py', 'ElapsedTimeSecs':(102.12, 0.81, 39.27), 'MAX_MEM_KB':265564, 'CPU_PRCNT':'39%', 'FILES_IN':8, 'FILES_OUT':14952, 'EXIT_STATUS':0}
