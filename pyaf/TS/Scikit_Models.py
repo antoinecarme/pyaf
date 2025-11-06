@@ -1,3 +1,12 @@
+#     #####             ####   ######       PyAF
+#     ##  ##  ##   ##  ##  ##  ##           Python Automatic Forecasting
+#     #####    ## ##   ######  ####   
+#     ##        ##     ##  ##  ##           Version 5.x
+#     ##       ##      ##  ##  ##           https://github.com/antoinecarme/pyaf
+#             ##
+# SPDX-FileCopyrightText: Copyright (c) (2017-) Antoine CARME <Antoine.Carme@outlook.com>
+# SPDX-License-Identifier: BSD-3-Clause ( https://spdx.org/licenses/BSD-3-Clause.html )
+
 import numpy as np
 import pandas as pd
 from . import SignalDecomposition_AR as tsar
@@ -45,6 +54,8 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
         lARInputs = lAREstimFrame[self.mInputNames].values
 
         lARTarget = lAREstimFrame[series].values
+        if(self.mLagEncoder is not None):
+            lARTarget = self.mLagEncoder.transform(lARTarget.reshape(-1, 1)).flatten()
         # tsutil.print_pyaf_detailed_info(len(self.mInputNames), lARInputs.shape , lARTarget.shape)
         assert(lARInputs.shape[1] > 0);
         assert(lARTarget.shape[0] > 0);
@@ -110,6 +121,8 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
             if(self.mDecompositionType in ['TSR']):
                 self.mARFrame[self.mOutName] = 1.0
                 
+        if(self.mLagEncoder is not None):
+            self.mARFrame[self.mOutName] = self.mLagEncoder.inverse_transform(self.mARFrame[self.mOutName].values.reshape(-1, 1)).flatten()
 
         self.compute_ar_residue(self.mARFrame)
 
@@ -131,6 +144,8 @@ class cAbstract_Scikit_Model(tsar.cAbstractAR):
             if(self.mDecompositionType in ['TSR']):
                 df[self.mOutName] = 1.0
 
+        if(self.mLagEncoder is not None):
+            df[self.mOutName] = self.mLagEncoder.inverse_transform(df[self.mOutName].values.reshape(-1, 1)).flatten()
             
         self.compute_ar_residue(df)
         return df;
@@ -144,6 +159,9 @@ class cAutoRegressiveModel(cAbstract_Scikit_Model):
 
     def dumpCoefficients(self, iMax=10):
         logger = tsutil.get_pyaf_logger();
+        if(self.mLagEncoder is not None):
+            logger.info("AR_MODEL_LAG_ENCODNG_QUANTILES " + str(self.mLagEncoder.quantiles_.flatten().tolist()));
+            
         lDict = dict(zip(self.mInputNamesAfterSelection , self.mScikitModel.coef_.round(6)));
         lDict1 = dict(zip(self.mInputNamesAfterSelection , abs(self.mScikitModel.coef_.round(6))));
         i = 1;

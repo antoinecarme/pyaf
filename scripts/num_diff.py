@@ -54,7 +54,7 @@ def compare_lines(line_orig, line_new):
         return 0;
 
     import re
-    lRegex  = '[\[?,:"{}\]\= \n\t]'
+    lRegex  = r'[?,:"{}[]= \n\t()]'
     split_orig = re.split(lRegex, line_orig)
     split_new = re.split(lRegex, line_new)
     # print("SPLIT_ORIG", split_orig)

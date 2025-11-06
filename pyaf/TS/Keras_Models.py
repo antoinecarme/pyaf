@@ -1,3 +1,12 @@
+#     #####             ####   ######       PyAF
+#     ##  ##  ##   ##  ##  ##  ##           Python Automatic Forecasting
+#     #####    ## ##   ######  ####   
+#     ##        ##     ##  ##  ##           Version 5.x
+#     ##       ##      ##  ##  ##           https://github.com/antoinecarme/pyaf
+#             ##
+# SPDX-FileCopyrightText: Copyright (c) (2017-) Antoine CARME <Antoine.Carme@outlook.com>
+# SPDX-License-Identifier: BSD-3-Clause ( https://spdx.org/licenses/BSD-3-Clause.html )
+
 import numpy as np
 import pandas as pd
 from . import SignalDecomposition_AR as tsar
@@ -30,15 +39,6 @@ class cAbstract_RNN_Model(tsar.cAbstractAR):
     def build_RNN_Architecture(self, iARInputs, iARTarget):
         assert(0);
 
-    def fit_inputs_and_targets_scalers(self, iARInputs, iARTarget):
-        from sklearn.preprocessing import StandardScaler
-
-        self.mStandardScaler_Input = StandardScaler()
-        self.mStandardScaler_Target = StandardScaler()
-        lARInputs = self.mStandardScaler_Input.fit_transform(iARInputs)
-        lARTarget = self.mStandardScaler_Target.fit_transform(iARTarget.reshape(-1, 1))
-        return (lARInputs, lARTarget)
-
     def get_default_keras_options(self):
         lDict = {}
         return lDict
@@ -61,11 +61,9 @@ class cAbstract_RNN_Model(tsar.cAbstractAR):
 
     def predict_keras_model(self, iARInputs):
         lTimer = tsutil.cTimer(("PREDICTING_KERAS_MODEL", self.mOutName))
-        lARInputs = self.mStandardScaler_Input.transform(iARInputs)
-        lARInputs = self.reshape_inputs(lARInputs)
+        lARInputs = iARInputs
         lPredicted = self.mModel.predict(lARInputs);
         lPredicted = np.reshape(lPredicted, (-1, 1))
-        lPredicted = self.mStandardScaler_Target.inverse_transform(lPredicted)
         return lPredicted
 
     def fit(self):
@@ -78,8 +76,8 @@ class cAbstract_RNN_Model(tsar.cAbstractAR):
 
         lARInputs = lAREstimFrame[self.mInputNames].values
         lARTarget = lAREstimFrame[series].values
-
-        (lARInputs, lARTarget) = self.fit_inputs_and_targets_scalers(lARInputs, lARTarget)
+        if(self.mLagEncoder is not None):
+            lARTarget = self.mLagEncoder.transform(lARTarget.reshape(-1, 1)).flatten()
 
         self.build_RNN_Architecture(lARInputs, lARTarget);
 
@@ -95,6 +93,9 @@ class cAbstract_RNN_Model(tsar.cAbstractAR):
         lPredicted = self.predict_keras_model(lFullARInputs);
 
         self.mARFrame[self.mOutName] = lPredicted
+        if(self.mLagEncoder is not None):
+            self.mARFrame[self.mOutName] = self.mLagEncoder.inverse_transform(self.mARFrame[self.mOutName].values.reshape(-1, 1)).flatten()
+            
         self.compute_ar_residue(self.mARFrame)
 
     def transformDataset(self, df, horizon_index = 1):
@@ -107,6 +108,8 @@ class cAbstract_RNN_Model(tsar.cAbstractAR):
         lPredicted = self.predict_keras_model(inputs)
 
         df[self.mOutName] = lPredicted;
+        if(self.mLagEncoder is not None):
+            df[self.mOutName] = self.mLagEncoder.inverse_transform(df[self.mOutName].values.reshape(-1, 1)).flatten()
         self.compute_ar_residue(df)
         return df;
 

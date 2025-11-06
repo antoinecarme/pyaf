@@ -1,8 +1,12 @@
-# Copyright (C) 2016 Antoine Carme <Antoine.Carme@outlook.com>
-# All rights reserved.
+#     #####             ####   ######       PyAF
+#     ##  ##  ##   ##  ##  ##  ##           Python Automatic Forecasting
+#     #####    ## ##   ######  ####   
+#     ##        ##     ##  ##  ##           Version 5.x
+#     ##       ##      ##  ##  ##           https://github.com/antoinecarme/pyaf
+#             ##
+# SPDX-FileCopyrightText: Copyright (c) (2017-) Antoine CARME <Antoine.Carme@outlook.com>
+# SPDX-License-Identifier: BSD-3-Clause ( https://spdx.org/licenses/BSD-3-Clause.html )
 
-# This file is part of the Python Automatic Forecasting (PyAF) library and is made available under
-# the terms of the 3 Clause BSD license
 
 import pandas as pd
 import numpy as np
@@ -174,34 +178,79 @@ class cMissingDataOptions:
         self.mSignalMissingDataImputation = None  # [None , "DiscardRow", "Interpolate", "Mean", "Median" , "Constant" , "PreviousValue"]
         self.mTimeMissingDataImputation = None  # [None , "DiscardRow", "Interpolate"]
         self.mConstant = 0.0
-        
-class cSignalDecomposition_Options(cModelControl):
-    
+
+class cExogenousDataModelingOptions :
     def __init__(self):
-        super().__init__();
-        self.mParallelMode = True;
-        self.mNbCores = 8;
-        self.mSeed = 1960
-        self.mEstimRatio = 0.8; # to be deprecated when cross validation is OK.
-        self.mCustomSplit = None
-        self.mAddPredictionIntervals = True
-        self.mActivateSampling = True # sampling can be used for very large time series
-        self.mSamplingThreshold = 8192 # Time series larger than this threshold will be sampled.
-        self.enable_fast_mode();
+        self.mMaxExogenousCategories = 5;
+        self.mExogenousDataEncoding = None
+
+class cDateColumnModelingOptions :
+    def __init__(self):
         self.mTimeDeltaComputationMethod = "AVG"; # can be "AVG", "MODE", "USER"
         self.mUserTimeDelta = None;
         self.mBusinessDaysOnly = False;
-        self.mMaxExogenousCategories = 5;
+
+class cBoxCoxModelingOptions :
+    def __init__(self):
         self.mNoBoxCoxOrders = [];
         self.mBoxCoxOrders = [-2.0, -1.0 , 0.0,  2.0];
         self.mExtensiveBoxCoxOrders = [-2, -1, -0.5, -0.33 , -0.25 , 0.0, 2, 0.5, 0.33 , 0.25];
-        self.mMaxFeatureForAutoreg = 1000;
-        self.mModelSelection_Criterion = "MASE";
+
+class cSignalSplitOptions :
+    def __init__(self):
+        self.mEstimRatio = 0.8; # to be deprecated when cross validation is OK.
+        self.mCustomSplit = None
+
+class cCycleModelingOptions :
+    def __init__(self):
         self.mCycle_Criterion = "MASE";
         self.mCycle_Criterion_Threshold = None;
         self.mCycle_Encoding_Scheme = "Target_Median"; # "Target_Mean" or "Target_Median"
+        self.mFilterSeasonals = True
+        self.mCycleLengths = [5, 7, 12, 24 , 30, 60];
+
+class cTrendModelingOptions :
+    def __init__(self):
+        self.mMovingWindowLengths = None # [5, 7, 12, 24 , 30, 60];
+
+class cAutoRegModelingOptions :
+    def __init__(self):
+        self.mMaxAROrder = 64;
+        self.mMaxFeatureForAutoreg = 1000;
+        self.mLagEncoding = "QuantileTransformer" # or "StandardScaler"
+
+    def create_lag_encoder(self):
+        if(self.mLagEncoding == "StandardScaler"):
+            from sklearn.preprocessing import StandardScaler
+            return StandardScaler()
+        if(self.mLagEncoding == "QuantileTransformer"):
+            from sklearn.preprocessing import QuantileTransformer
+            return QuantileTransformer()
+        return None # do no encoding by default
+
+
+        
+class cModelSelectionOptions :
+    def __init__(self):
+        self.mModelSelection_Criterion = "MASE";
+        self.mVotingMethod = "Condorcet" # Or None for Legacy Method (backward compatibility with PyAF 4.0). 
+        
+        
+class cSamplingOptions :
+    def __init__(self):
+        self.mSeed = 1960
+        self.mActivateSampling = True # sampling can be used for very large time series
+        self.mSamplingThreshold = 8192 # Time series larger than this threshold will be sampled.
+
+
+class cForecastOptions :
+    def __init__(self):
+        self.mAddPredictionIntervals = True
         self.mHierarchicalCombinationMethod = "BU";
         self.mForecastRectifier = None # can be "relu" to force positive forecast values
+
+class cNonMandatoryModelsOptions :
+    def __init__(self):
         self.mXGBOptions = None
         self.mLGBMOptions = None
         self.mCrossValidationOptions = cCrossValidationOptions()
@@ -210,8 +259,86 @@ class cSignalDecomposition_Options(cModelControl):
         self.mDL_Backends = ("PyTorch", ) # Pytorch is the only supported backend for now
         self.mPytorch_Options = None
         self.mKeras_Options = None
-        self.mVotingMethod = "Condorcet" # Or None for Legacy Method (backward compatibility with PyAF 4.0). 
-        self.mMovingWindowLengths = None # [5, 7, 12, 24 , 30, 60];
+
+    def has_module_installed(self, module_name):
+        import importlib
+        spec = importlib.util.find_spec(module_name)
+        return spec is not None
+
+    def get_available_DL_Backend(self):
+        # pick the first available backend
+        for lBackend in self.mDL_Backends:
+            if(lBackend == "PyTorch"):
+                if(self.has_module_installed("torch")):
+                    return lBackend
+            if(lBackend == "Keras"):
+                if(self.has_module_installed("tensorflow")):
+                    return lBackend
+        return None        
+
+    def getPytorchOrKerasClass(self, iModel):
+        lBackend = self.get_available_DL_Backend()
+        if(lBackend == "PyTorch"):
+            from . import Pytorch_Models as tspytorch
+            lDict = {"LSTM" : tspytorch.cLSTM_Model, "MLP" : tspytorch.cMLP_Model}
+            return lDict.get(iModel)
+        if(lBackend == "Keras"):
+            from . import Keras_Models as tskeras
+            lDict = {"LSTM" : tskeras.cLSTM_Model, "MLP" : tskeras.cMLP_Model}
+            return lDict.get(iModel)
+        return None
+    
+    def hasPytorchOrKerasInstalled(self, iModel):
+        return self.has_module_installed('torch') or self.has_module_installed('tensorflow')
+
+    def  canBuildXGBoostModel(self, iModel):
+        return self.has_module_installed('xgboost')
+
+    def  canBuildLightGBMModel(self, iModel):
+        return self.has_module_installed('lightgbm')
+        
+
+class cParallelizationOptions :
+    def __init__(self):
+        self.mParallelMode = True;
+        self.mNbCores = 8;
+    
+        
+class cSignalDecomposition_Options(cAutoRegModelingOptions,
+                                   cBoxCoxModelingOptions,
+                                   cCrossValidationOptions,
+                                   cCrostonOptions,
+                                   cCycleModelingOptions,
+                                   cDateColumnModelingOptions,
+                                   cExogenousDataModelingOptions,
+                                   cForecastOptions,
+                                   cMissingDataOptions,
+                                   cModelControl,
+                                   cModelSelectionOptions,
+                                   cNonMandatoryModelsOptions,
+                                   cParallelizationOptions,
+                                   cSamplingOptions,
+                                   cSignalSplitOptions,
+                                   cTrendModelingOptions ):
+    
+    def __init__(self):
+        cModelControl.__init__(self)
+        cAutoRegModelingOptions.__init__(self)
+        cBoxCoxModelingOptions.__init__(self)
+        cCrossValidationOptions.__init__(self)
+        cCrostonOptions.__init__(self)
+        cCycleModelingOptions.__init__(self)
+        cDateColumnModelingOptions.__init__(self)
+        cExogenousDataModelingOptions.__init__(self)
+        cForecastOptions.__init__(self)
+        cMissingDataOptions.__init__(self)
+        cModelSelectionOptions.__init__(self)
+        cNonMandatoryModelsOptions.__init__(self)
+        cParallelizationOptions.__init__(self)
+        cSamplingOptions.__init__(self)
+        cSignalSplitOptions.__init__(self)
+        cTrendModelingOptions.__init__(self)
+        self.enable_fast_mode();
         self.disableDebuggingOptions();
 
     def disableDebuggingOptions(self):
@@ -254,39 +381,3 @@ class cSignalDecomposition_Options(cModelControl):
         self.mParallelMode = False;
         self.mFilterSeasonals = True
         
-    def has_module_installed(self, module_name):
-        import importlib
-        spec = importlib.util.find_spec(module_name)
-        return spec is not None
-
-    def get_available_DL_Backend(self):
-        # pick the first available backend
-        for lBackend in self.mDL_Backends:
-            if(lBackend == "PyTorch"):
-                if(self.has_module_installed("torch")):
-                    return lBackend
-            if(lBackend == "Keras"):
-                if(self.has_module_installed("tensorflow")):
-                    return lBackend
-        return None        
-
-    def getPytorchOrKerasClass(self, iModel):
-        lBackend = self.get_available_DL_Backend()
-        if(lBackend == "PyTorch"):
-            from . import Pytorch_Models as tspytorch
-            lDict = {"LSTM" : tspytorch.cLSTM_Model, "MLP" : tspytorch.cMLP_Model}
-            return lDict.get(iModel)
-        if(lBackend == "Keras"):
-            from . import Keras_Models as tskeras
-            lDict = {"LSTM" : tskeras.cLSTM_Model, "MLP" : tskeras.cMLP_Model}
-            return lDict.get(iModel)
-        return None
-    
-    def hasPytorchOrKerasInstalled(self, iModel):
-        return self.has_module_installed('torch') or self.has_module_installed('tensorflow')
-
-    def  canBuildXGBoostModel(self, iModel):
-        return self.has_module_installed('xgboost')
-
-    def  canBuildLightGBMModel(self, iModel):
-        return self.has_module_installed('lightgbm')

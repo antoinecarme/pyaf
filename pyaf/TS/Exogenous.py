@@ -1,8 +1,12 @@
-# Copyright (C) 2016 Antoine Carme <Antoine.Carme@outlook.com>
-# All rights reserved.
+#     #####             ####   ######       PyAF
+#     ##  ##  ##   ##  ##  ##  ##           Python Automatic Forecasting
+#     #####    ## ##   ######  ####   
+#     ##        ##     ##  ##  ##           Version 5.x
+#     ##       ##      ##  ##  ##           https://github.com/antoinecarme/pyaf
+#             ##
+# SPDX-FileCopyrightText: Copyright (c) (2017-) Antoine CARME <Antoine.Carme@outlook.com>
+# SPDX-License-Identifier: BSD-3-Clause ( https://spdx.org/licenses/BSD-3-Clause.html )
 
-# This file is part of the Python Automatic Forecasting (PyAF) library and is made available under
-# the terms of the 3 Clause BSD license
 
 
 
