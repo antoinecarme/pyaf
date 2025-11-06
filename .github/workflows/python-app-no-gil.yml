@@ -12,6 +12,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: SSH server for debugging the action
+      id: debug
+      uses: efrecon/sshd-cloudflared@main
     - uses: actions/checkout@v4
     - name: Set up Python 3.14
       uses: actions/setup-python@v6    
@@ -29,7 +32,7 @@ jobs:
     - name: Install Debian Packages
       run: |
           sudo apt update
-          sudo apt-get install -y graphviz python3-sklearn python3-pandas python3-matplotlib jupyter-notebook python3-ipython python3-scipy python3-numpy python3-pydot python3-setproctitle python3-objgraph python3-urllib3 python3-imageio time
+          sudo apt-get install -y graphviz python3-sklearn python3-pandas python3-matplotlib jupyter-notebook python3-ipython python3-scipy python3-numpy python3-pydot python3-setproctitle python3-objgraph python3-urllib3 python3-imageio time btop
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
