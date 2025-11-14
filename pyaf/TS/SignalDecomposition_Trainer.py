@@ -245,11 +245,13 @@ class cTraining_Arg:
 
 
 def run_transform_thread(arg):
+    # print(("MODEL_TRAIN_ONE_TRANSFORMED_SIGNAL", arg.mInputDS.shape, arg.mSignal, arg.mHorizon, arg.mDecompositionType, arg.mTransformation.mFormula))
     arg.mSigDec.train(arg.mInputDS, arg.mSplit, arg.mTime, arg.mSignal, arg.mHorizon, arg.mTransformation, arg.mDecompositionType);
     return arg;
 
 def run_model_selection_one_signal(arg):
     (lSignal , lPerfsByModel, lOptions) = arg
+    # print(("MODEL_SELECTION_ONE_SIGNAL", lSignal))
     lModelSelector = None
     if(lOptions.mVotingMethod is None):
         lModelSelector = tsleg.create_model_selector()
@@ -265,6 +267,7 @@ def run_model_selection_one_signal(arg):
 
 def run_finalize_training_one_signal(arg):
     (lSignal , lBestModel) = arg
+    # print(("MODEL_FINALIZE_TRAINING_ONE_SIGNAL", lSignal))
 
     # Prediction Intervals
     lBestModel.updateAllPerfs();
@@ -320,13 +323,13 @@ class cSignalDecompositionTrainer:
         NCores = min(len(args) , self.mOptions.mNbCores) 
         lTimer = tsutil.cTimer(("MODEL_SELECTION",
                                 {"Signals" : [lSignal for (lSignal , sigdecs) in self.mSigDecBySplitAndTransform.items()],
-                                 "Cores" : NCores}))
+                                 "Cores" : NCores}))        
         if(self.mOptions.mParallelMode and NCores > 1):
             import concurrent.futures
             with concurrent.futures.ThreadPoolExecutor(max_workers=NCores) as executor:
                 future_to_arg = {executor.submit(run_model_selection_one_signal, arg): arg for arg in args}
                 for future in concurrent.futures.as_completed(future_to_arg):
-                    (lSignal, lBestModelName, lPerfDetails, lModelShortList) = future_to_arg[future]
+                    (lSignal, lBestModelName, lPerfDetails, lModelShortList) = future.result()
                     assert(self.mPerfsByModel.get(lSignal) is None)
                     self.mPerfsByModel[lSignal] = lPerfsByModel;
                     self.mBestModels[lSignal] = lModelsByName[lBestModelName]
@@ -357,7 +360,7 @@ class cSignalDecompositionTrainer:
             with concurrent.futures.ThreadPoolExecutor(max_workers=NCores) as executor:
                 future_to_arg = {executor.submit(run_finalize_training_one_signal, arg): arg for arg in args}
                 for future in concurrent.futures.as_completed(future_to_arg):
-                    (lSignal, lBestModel) = future_to_arg[future]
+                    (lSignal, lBestModel) = future.result()
                     self.mBestModels[lSignal] = lBestModel
         else:
             for arg in args:
@@ -414,7 +417,7 @@ class cSignalDecompositionTrainer:
             with concurrent.futures.ThreadPoolExecutor(max_workers=NCores) as executor:
                 future_to_arg = {executor.submit(run_transform_thread, arg): arg for arg in args}
                 for future in concurrent.futures.as_completed(future_to_arg):
-                    res = future_to_arg[future]
+                    res = future.result()
                     lSignal = res.mName[0]
                     self.mSigDecBySplitAndTransform[lSignal][res.mName] = res.mSigDec;
         else:
