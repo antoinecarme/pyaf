@@ -35,12 +35,12 @@ jobs:
             mkdir -p logs
     - name: Check Installed Versions
       run : |
-            export PYTHONPATH=$PYTHONPATH:.
+            # export PYTHONPATH=$PYTHONPATH:.
             export PYTHON_GIL=1
             python ./tests/bugs/issue_36/display_version_info.py
     - name: Basic Tests
       run : |
-            export PYTHONPATH=$PYTHONPATH:.
+            # export PYTHONPATH=$PYTHONPATH:.
             export MKL_NUM_THREADS=1
             export NUMEXPR_NUM_THREADS=1
             export OMP_NUM_THREADS=1
@@ -51,7 +51,7 @@ jobs:
             python tests/func/test_air_passengers.py
     - name: Build Tests
       run : |
-            export PYTHONPATH=$PYTHONPATH:.
+            # export PYTHONPATH=$PYTHONPATH:.
             export MKL_NUM_THREADS=1
             export NUMEXPR_NUM_THREADS=1
             export OMP_NUM_THREADS=1
