@@ -14,10 +14,12 @@ from . import Utils as tsutil
 
 
 def forecast_one_signal(arg):
-    (lSignal, iDecomsposition, iInputDS, iHorizon) = arg
-    lBestModel = iDecomsposition.mBestModels[lSignal]
+    (lSignal, iDecomposition, iInputDS, iHorizon) = arg
+    lTimer = tsutil.cTimer(("MODEL_FORECAST_ONE_SIGNAL", {"Signal" : [lSignal], "Decomposition" : iDecomposition, "Horizon" : iHorizon }))
+    # print(("MODEL_FORECAST_ONE_SIGNAL", {"Signal" : [lSignal], "Decomposition" : iDecomposition, "Horizon" : iHorizon }))
+    lBestModel = iDecomposition.mBestModels[lSignal]
     lMissingImputer = tsmiss.cMissingDataImputer()
-    lMissingImputer.mOptions = iDecomsposition.mOptions
+    lMissingImputer.mOptions = iDecomposition.mOptions
     lInputDS = iInputDS[[lBestModel.mTime, lSignal]].copy()
     lInputDS = lMissingImputer.apply(lInputDS, lBestModel.mTime, lBestModel.mOriginalSignal)
     lForecastFrame_i = lBestModel.forecast(lInputDS, iHorizon);
@@ -48,10 +50,10 @@ class cSignalDecompositionForecaster:
         lForecastFrame = iFullFrame.merge(lOneSignalFrame, how='left', left_on=lTime, right_on=iTimeInfo.mTime);
         return lForecastFrame
     
-    def forecast(self, iDecomsposition, iInputDS, iHorizons):
-        lOptions = iDecomsposition.mOptions
+    def forecast(self, iDecomposition, iInputDS, iHorizons):
+        lOptions = iDecomposition.mOptions
         lHorizons = {}
-        for sig in iDecomsposition.mSignals:
+        for sig in iDecomposition.mSignals:
             if(dict == type(iHorizons)):
                 lHorizons[sig] = iHorizons[sig]
             else:
@@ -61,20 +63,21 @@ class cSignalDecompositionForecaster:
         
         lForecastFrame = None
         args = [];
-        for lSignal in iDecomsposition.mSignals:
-            args = args + [(lSignal, iDecomsposition, iInputDS, lHorizons[lSignal])]
+        for lSignal in iDecomposition.mSignals:
+            args = args + [(lSignal, iDecomposition, iInputDS, lHorizons[lSignal])]
 
-        NCores = min(len(args) , iDecomsposition.mOptions.mNbCores) 
-        if(iDecomsposition.mOptions.mParallelMode and  NCores > 1):
-            from multiprocessing import Pool
-            pool = Pool(NCores)
-        
-            for res in pool.imap(forecast_one_signal, args):
-                (lTimeInfo, lForecastFrame_i) = res
-                lForecastFrame = self.merge_frames(lForecastFrame, lForecastFrame_i, lTimeInfo)
-                del lForecastFrame_i
-            pool.close()
-            pool.join()
+        NCores = min(len(args) , iDecomposition.mOptions.mNbCores) 
+        lTimer = tsutil.cTimer(("MODEL_FORECAST",
+                                {"Signals" : [lSignal for lSignal in iDecomposition.mSignals],
+                                 "Cores" : NCores}))
+        if(iDecomposition.mOptions.mParallelMode and  NCores > 1):
+            import concurrent.futures
+            with concurrent.futures.ThreadPoolExecutor(max_workers=NCores) as executor:
+                future_to_arg = {executor.submit(forecast_one_signal, arg): arg for arg in args}
+                for future in concurrent.futures.as_completed(future_to_arg):
+                    (lTimeInfo, lForecastFrame_i) = future.result()
+                    lForecastFrame = self.merge_frames(lForecastFrame, lForecastFrame_i, lTimeInfo)
+                    del lForecastFrame_i
         else:
             for arg in args:
                 res = forecast_one_signal(arg)

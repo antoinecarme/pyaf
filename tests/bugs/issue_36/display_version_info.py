@@ -34,8 +34,8 @@ def getVersions():
     import lightgbm
     lVersionDict["lightgbm_version"] = lightgbm.__version__
     
-    import torch
-    lVersionDict["torch_version"] = torch.__version__
+    # import torch
+    # lVersionDict["torch_version"] = torch.__version__
     
     print([(k, lVersionDict[k]) for k in sorted(lVersionDict)]);
     return lVersionDict;

@@ -210,8 +210,8 @@ class cExogenousInfo:
         lEstimFrame = lEstimFrame[lEstimFrame[self.mDateVariable] <= lTimeMax]
         for exog in self.mExogenousVariables:
             lType = self.mExogenousDataFrame[exog].dtype
-            # tsutil.print_pyaf_detailed_info("EXOG_DTYPE" , exog, lType)
-            if((lType == object) or (lType.name == 'category')):
+            # tsutil.print_pyaf_detailed_info("EXOG_DTYPE" , exog, lType.name , lType)
+            if((lType == object) or (lType == "str") or (lType.name == 'category')):
                 self.updateExogenousVariableInfo_Categorical(exog, lEstimFrame[exog])
             else:
                 self.updateExogenousVariableInfo_Continuous(exog, lEstimFrame[exog])
