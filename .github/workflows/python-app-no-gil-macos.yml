@@ -30,6 +30,7 @@ jobs:
     - name: Install dependencies
       run: |
         brew install libomp
+        brew install coreutils # macos needs this
         python -m pip install --upgrade pip
         pip install flake8 pytest xgboost
         pip install -r requirements.txt
@@ -61,6 +62,7 @@ jobs:
             export OMP_NUM_THREADS=1
             export NUMEXPR_MAX_THREADS=6
             export PYTHON_GIL=1
+            alias timeout=gtimeout # macos needs this
             make -f tests/Makefile -j 8 build-test 
     - name: Error Summary
       run : |
