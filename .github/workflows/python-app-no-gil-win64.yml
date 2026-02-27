@@ -38,28 +38,28 @@ jobs:
             mkdir -p logs
     - name: Check Installed Versions
       run : |
-            # export PYTHONPATH=$PYTHONPATH:.
-            export PYTHON_GIL=1
+            set PYTHONPATH=.
+            set PYTHON_GIL=1
             python ./tests/bugs/issue_36/display_version_info.py
     - name: Basic Tests
       run : |
-            # export PYTHONPATH=$PYTHONPATH:.
-            export MKL_NUM_THREADS=1
-            export NUMEXPR_NUM_THREADS=1
-            export OMP_NUM_THREADS=1
-            export NUMEXPR_MAX_THREADS=8
-            export PYTHON_GIL=1
+            set PYTHONPATH=.
+            set MKL_NUM_THREADS=1
+            set NUMEXPR_NUM_THREADS=1
+            set OMP_NUM_THREADS=1
+            set NUMEXPR_MAX_THREADS=8
+            set PYTHON_GIL=1
             python tests/demos/demo1.py
             python tests/func/test_ozone.py
             python tests/func/test_air_passengers.py
     - name: Build Tests
       run : |
-            # export PYTHONPATH=$PYTHONPATH:.
-            export MKL_NUM_THREADS=1
-            export NUMEXPR_NUM_THREADS=1
-            export OMP_NUM_THREADS=1
-            export NUMEXPR_MAX_THREADS=6
-            export PYTHON_GIL=1
+            set PYTHONPATH=.
+            set MKL_NUM_THREADS=1
+            set NUMEXPR_NUM_THREADS=1
+            set OMP_NUM_THREADS=1
+            set NUMEXPR_MAX_THREADS=6
+            set PYTHON_GIL=1
             make -f tests/Makefile -j 8 build-test 
     - name: Error Summary
       run : |
