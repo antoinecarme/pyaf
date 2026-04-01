@@ -17,9 +17,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
     - name: Set up Python 3.13
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: "3.13"
         cache: 'pip'
@@ -70,12 +70,12 @@ jobs:
             grep Error logs/*.log | grep -v ErrorMean  | grep -v ErrorStdDev  | grep -v ErrorMessage || true
             echo "ERROR_SUMMARY_END"	  
     - name: Build test logs artifacts
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
           name: build-test-report
           path: logs/
     - name: Build test outputs (forecast outputs + images + notebooks)
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
           name: build-test-output
           path: outputs/
