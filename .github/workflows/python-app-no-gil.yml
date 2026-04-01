@@ -13,21 +13,16 @@ jobs:
 
     steps:
     
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
     - name: Setup tmate session
       uses: mxschmitt/action-tmate@v3
       # timeout-minutes: 1
       with:
         detached: true
     - name: Set up Python 3.14
-      uses: actions/setup-python@v6    
-    - name : Setup free threded python
-      uses: deadsnakes/action@v3.2.0
+      uses: actions/setup-python@v6
       with:
-        python-version: 3.14
-        # debug: true  # Optional, to select a Python debug build
-        nogil: true  # Optional, to select a free-threaded Python build (3.13+ only)
-        cache: 'pip'
+	python-version: '3.14t'
     - name: Test Machine Info
       run: |
             df
@@ -78,12 +73,12 @@ jobs:
             grep Error logs/*.log | grep -v ErrorMean  | grep -v ErrorStdDev  | grep -v ErrorMessage || true
             echo "ERROR_SUMMARY_END"	  
     - name: Build test logs artifacts
-      uses: actions/upload-artifact@v5
+      uses: actions/upload-artifact@v6
       with:
           name: build-test-report
           path: logs/
     - name: Build test outputs (forecast outputs + images + notebooks)
-      uses: actions/upload-artifact@v5
+      uses: actions/upload-artifact@v6
       with:
           name: build-test-output
           path: outputs/
