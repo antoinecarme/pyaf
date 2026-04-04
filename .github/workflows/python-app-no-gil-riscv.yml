@@ -1,0 +1,94 @@
+name: PyAF build tests - NOGIL - RISCV
+
+on:
+  push:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+
+    runs-on: ubuntu-24.04-riscv
+    
+    steps:
+    
+    - uses: actions/checkout@v6
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
+      # timeout-minutes: 1
+      with:
+        detached: true
+    - name: Set up Python 3.14
+      uses: actions/setup-python@v6
+      with:
+        python-version: '3.14t'
+    - name: Test Machine Info
+      run: |
+            df
+            free
+            lscpu
+            cat /proc/cpuinfo
+    - name: Install Debian Packages
+      run: |
+          sudo apt update
+          sudo apt-get install -y graphviz python3-sklearn python3-pandas python3-matplotlib jupyter-notebook python3-ipython python3-scipy python3-numpy python3-pydot python3-setproctitle python3-objgraph python3-urllib3 python3-imageio time btop
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install flake8 pytest
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        pip install --progress-bar off numpy scipy pandas scikit-learn matplotlib pydot jupyter xgboost ipython lightgbm statsmodels setproctitle urllib3 objgraph imageio imageio_ffmpeg
+    - name: Initial Cleanup
+      run : |
+            mkdir -p logs
+            fc-cache 	
+    - name: Check Installed Versions
+      run : |
+            export PYTHONPATH=$PYTHONPATH:.
+            export PYTHON_GIL=0
+            python ./tests/bugs/issue_36/display_version_info.py
+    - name: Basic Tests
+      run : |
+            export PYTHONPATH=$PYTHONPATH:.
+            export MKL_NUM_THREADS=1
+            export NUMEXPR_NUM_THREADS=1
+            export OMP_NUM_THREADS=1
+            export NUMEXPR_MAX_THREADS=8
+            export PYTHON_GIL=0
+            python tests/demos/demo1.py
+            python tests/func/test_ozone.py
+            python tests/func/test_air_passengers.py
+    - name: Build Tests
+      run : |
+            export PYTHONPATH=$PYTHONPATH:.
+            export MKL_NUM_THREADS=1
+            export NUMEXPR_NUM_THREADS=1
+            export OMP_NUM_THREADS=1
+            export NUMEXPR_MAX_THREADS=6
+            export PYTHON_GIL=0
+            make -f tests/Makefile -j 8 build-test 
+    - name: Error Summary
+      run : |
+            echo "ERROR_SUMMARY_START"
+            grep Error logs/*.log | grep -v ErrorMean  | grep -v ErrorStdDev  | grep -v ErrorMessage || true
+            echo "ERROR_SUMMARY_END"	  
+    - name: Build test logs artifacts
+      uses: actions/upload-artifact@v6
+      with:
+          name: build-test-report
+          path: logs/
+    - name: Build test outputs (forecast outputs + images + notebooks)
+      uses: actions/upload-artifact@v6
+      with:
+          name: build-test-output
+          path: outputs/
+    - name: Changed Logs
+      run : |
+            echo "CHANGED_LOGS_START"
+            grep -h EXEC_THIS logs/*.log.diff || true
+            echo "CHANGED_LOGS_END"
+    - name: Jupyter Notebooks
+      run : |
+            pip install .
+            make -f docs/Makefile -j 8 all
