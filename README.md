@@ -206,6 +206,7 @@ The python code is not yet fully documented. This is a top priority (TODO).
 
 Communication
 ----------------
-
+PyAF is referenced as [doi: 10.5281/zenodo.20931145](https://zenodo.org/records/20931145). A [citation file format](CITATION.cff) description is available.
+https://zenodo.org/records/20931145
 Comments, appreciations, remarks, etc .... are welcome. Your feedback is
 welcome if you use this library in a project or a publication.
