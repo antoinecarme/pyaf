@@ -209,7 +209,7 @@ class cPerf:
         
     def compute_MWU(self, signal , estimator):
         self.mMWU = self.pre_compute_MWU_if_needed(signal, estimator)
-        return self.mAUC
+        return self.mMWU
         
     def compute_AUC(self, signal , estimator):
         lMWU = self.pre_compute_MWU_if_needed(signal, estimator)
@@ -356,7 +356,7 @@ class cPerf:
             "LnQ": self.compute_LnQ,
             "RMSSE": self.compute_RMSSE,
             "KS": self.compute_KS,
-            "Kendalltau": self.compute_Kendall,
+            "KendallTau": self.compute_Kendall,
             "MWU": self.compute_MWU,
             "AUC": self.compute_AUC,
             "CRPS": self.compute_CRPS
