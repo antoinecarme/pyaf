@@ -51,6 +51,36 @@ HourOfWeek/test_Business_Hourly_WeekEnd.py  :
  HourOfWeek :  HourOfWeek/test_Business_Hourly_WeekEnd.py HourOfWeek/test_Business_Hourly_MondayMorning.py HourOfWeek/test_Business_Hourly_LunchTime.py  
  
 
+Kendall_KS_MWU_AUC_Perfs/test_ozone_Kendall_KS_MWU_AUC_Perfs.py  :  
+	 -$(RUNNER)  tests/Kendall_KS_MWU_AUC_Perfs/test_ozone_Kendall_KS_MWU_AUC_Perfs.py  >  logs/Kendall_KS_MWU_AUC_Perfs_test_ozone_Kendall_KS_MWU_AUC_Perfs.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/Kendall_KS_MWU_AUC_Perfs/test_ozone_Kendall_KS_MWU_AUC_Perfs.log logs/Kendall_KS_MWU_AUC_Perfs_test_ozone_Kendall_KS_MWU_AUC_Perfs.log  >  logs/Kendall_KS_MWU_AUC_Perfs_test_ozone_Kendall_KS_MWU_AUC_Perfs.log.diff
+	 tail -10  logs/Kendall_KS_MWU_AUC_Perfs_test_ozone_Kendall_KS_MWU_AUC_Perfs.log.diff 
+
+Kendall_KS_MWU_AUC_Perfs/test_ozone_Optimized_By_AUC.py  :  
+	 -$(RUNNER)  tests/Kendall_KS_MWU_AUC_Perfs/test_ozone_Optimized_By_AUC.py  >  logs/Kendall_KS_MWU_AUC_Perfs_test_ozone_Optimized_By_AUC.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/Kendall_KS_MWU_AUC_Perfs/test_ozone_Optimized_By_AUC.log logs/Kendall_KS_MWU_AUC_Perfs_test_ozone_Optimized_By_AUC.log  >  logs/Kendall_KS_MWU_AUC_Perfs_test_ozone_Optimized_By_AUC.log.diff
+	 tail -10  logs/Kendall_KS_MWU_AUC_Perfs_test_ozone_Optimized_By_AUC.log.diff 
+
+Kendall_KS_MWU_AUC_Perfs/test_ozone_Optimized_By_KS.py  :  
+	 -$(RUNNER)  tests/Kendall_KS_MWU_AUC_Perfs/test_ozone_Optimized_By_KS.py  >  logs/Kendall_KS_MWU_AUC_Perfs_test_ozone_Optimized_By_KS.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/Kendall_KS_MWU_AUC_Perfs/test_ozone_Optimized_By_KS.log logs/Kendall_KS_MWU_AUC_Perfs_test_ozone_Optimized_By_KS.log  >  logs/Kendall_KS_MWU_AUC_Perfs_test_ozone_Optimized_By_KS.log.diff
+	 tail -10  logs/Kendall_KS_MWU_AUC_Perfs_test_ozone_Optimized_By_KS.log.diff 
+
+Kendall_KS_MWU_AUC_Perfs/test_ozone_Optimized_By_Kendall_Tau.py  :  
+	 -$(RUNNER)  tests/Kendall_KS_MWU_AUC_Perfs/test_ozone_Optimized_By_Kendall_Tau.py  >  logs/Kendall_KS_MWU_AUC_Perfs_test_ozone_Optimized_By_Kendall_Tau.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/Kendall_KS_MWU_AUC_Perfs/test_ozone_Optimized_By_Kendall_Tau.log logs/Kendall_KS_MWU_AUC_Perfs_test_ozone_Optimized_By_Kendall_Tau.log  >  logs/Kendall_KS_MWU_AUC_Perfs_test_ozone_Optimized_By_Kendall_Tau.log.diff
+	 tail -10  logs/Kendall_KS_MWU_AUC_Perfs_test_ozone_Optimized_By_Kendall_Tau.log.diff 
+
+Kendall_KS_MWU_AUC_Perfs/test_ozone_Optimized_By_Mann_Whittney_U.py  :  
+	 -$(RUNNER)  tests/Kendall_KS_MWU_AUC_Perfs/test_ozone_Optimized_By_Mann_Whittney_U.py  >  logs/Kendall_KS_MWU_AUC_Perfs_test_ozone_Optimized_By_Mann_Whittney_U.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/Kendall_KS_MWU_AUC_Perfs/test_ozone_Optimized_By_Mann_Whittney_U.log logs/Kendall_KS_MWU_AUC_Perfs_test_ozone_Optimized_By_Mann_Whittney_U.log  >  logs/Kendall_KS_MWU_AUC_Perfs_test_ozone_Optimized_By_Mann_Whittney_U.log.diff
+	 tail -10  logs/Kendall_KS_MWU_AUC_Perfs_test_ozone_Optimized_By_Mann_Whittney_U.log.diff 
+
+
+
+ Kendall_KS_MWU_AUC_Perfs :  Kendall_KS_MWU_AUC_Perfs/test_ozone_Optimized_By_Mann_Whittney_U.py Kendall_KS_MWU_AUC_Perfs/test_ozone_Optimized_By_Kendall_Tau.py Kendall_KS_MWU_AUC_Perfs/test_ozone_Optimized_By_KS.py Kendall_KS_MWU_AUC_Perfs/test_ozone_Optimized_By_AUC.py Kendall_KS_MWU_AUC_Perfs/test_ozone_Kendall_KS_MWU_AUC_Perfs.py  
+ 
+
 WeekOfMonth/test_Business_DayOfNthWeek.py  :  
 	 -$(RUNNER)  tests/WeekOfMonth/test_Business_DayOfNthWeek.py  >  logs/WeekOfMonth_test_Business_DayOfNthWeek.log  2>&1
 	 $(DEBERIFER) scripts/num_diff.py  tests/references/WeekOfMonth/test_Business_DayOfNthWeek.log logs/WeekOfMonth_test_Business_DayOfNthWeek.log  >  logs/WeekOfMonth_test_Business_DayOfNthWeek.log.diff
@@ -156,6 +186,11 @@ basic_checks/platform_info.py  :
 	 $(DEBERIFER) scripts/num_diff.py  tests/references/basic_checks/platform_info.log logs/basic_checks_platform_info.log  >  logs/basic_checks_platform_info.log.diff
 	 tail -10  logs/basic_checks_platform_info.log.diff 
 
+basic_checks/test_kendall_mwu_model_selection.py  :  
+	 -$(RUNNER)  tests/basic_checks/test_kendall_mwu_model_selection.py  >  logs/basic_checks_test_kendall_mwu_model_selection.log  2>&1
+	 $(DEBERIFER) scripts/num_diff.py  tests/references/basic_checks/test_kendall_mwu_model_selection.log logs/basic_checks_test_kendall_mwu_model_selection.log  >  logs/basic_checks_test_kendall_mwu_model_selection.log.diff
+	 tail -10  logs/basic_checks_test_kendall_mwu_model_selection.log.diff 
+
 basic_checks/test_pearson.py  :  
 	 -$(RUNNER)  tests/basic_checks/test_pearson.py  >  logs/basic_checks_test_pearson.log  2>&1
 	 $(DEBERIFER) scripts/num_diff.py  tests/references/basic_checks/test_pearson.log logs/basic_checks_test_pearson.log  >  logs/basic_checks_test_pearson.log.diff
@@ -178,7 +213,7 @@ basic_checks/test_temporal_demo_hourly_D_H_ErrorMessage_3.py  :
 
 
 
- basic_checks :  basic_checks/test_temporal_demo_hourly_D_H_ErrorMessage_3.py basic_checks/test_temporal_demo_hourly_D_H_ErrorMessage_2.py basic_checks/test_temporal_demo_hourly_D_H_ErrorMessage.py basic_checks/test_pearson.py basic_checks/platform_info.py basic_checks/issue_46_wrong_type_signal_column.py basic_checks/issue_46_wrong_type_date_column.py basic_checks/issue_46_one_or_two_rows.py basic_checks/issue_46_non_existant_time_column.py basic_checks/issue_46_non_existant_signal_column.py basic_checks/issue_46_negative_horizon.py basic_checks/issue_46_min_max_issues.py basic_checks/hierarchy_checks_unkonwn_base_column.py basic_checks/hierarchy_checks_non_existant_date_column.py basic_checks/hierarchy_checks_non_existant_base_column.py basic_checks/hierarchy_checks_date_column_bad_storage.py basic_checks/hierarchy_checks_base_column_bad_storage.py basic_checks/hierarchy_checks_bad_horizon.py basic_checks/hierarchy_checks.py  
+ basic_checks :  basic_checks/test_temporal_demo_hourly_D_H_ErrorMessage_3.py basic_checks/test_temporal_demo_hourly_D_H_ErrorMessage_2.py basic_checks/test_temporal_demo_hourly_D_H_ErrorMessage.py basic_checks/test_pearson.py basic_checks/test_kendall_mwu_model_selection.py basic_checks/platform_info.py basic_checks/issue_46_wrong_type_signal_column.py basic_checks/issue_46_wrong_type_date_column.py basic_checks/issue_46_one_or_two_rows.py basic_checks/issue_46_non_existant_time_column.py basic_checks/issue_46_non_existant_signal_column.py basic_checks/issue_46_negative_horizon.py basic_checks/issue_46_min_max_issues.py basic_checks/hierarchy_checks_unkonwn_base_column.py basic_checks/hierarchy_checks_non_existant_date_column.py basic_checks/hierarchy_checks_non_existant_base_column.py basic_checks/hierarchy_checks_date_column_bad_storage.py basic_checks/hierarchy_checks_base_column_bad_storage.py basic_checks/hierarchy_checks_bad_horizon.py basic_checks/hierarchy_checks.py  
  
 
 bugs/run_benchmark_M1Comp_MNB71_18.py  :  
@@ -2614,10 +2649,10 @@ xgb/test_ozone_xgbx_exogenous.py  :
 
 # ********************************************** 
 
-all:  artificial basic_checks bugs cross_validation croston exog expsmooth func HeartRateTimeSeries heroku hierarchical  HourOfWeek model_control perf svr transformations  neuralnet real-life  time_res perfs demos xgb xeon-phi-parallel sampling temporal_hierarchy WeekOfMonth missing_data  probabilistic_forecasting lgbm perf_MedAE perf_LnQ plots multiplicative_seasonal pytorch perf_MASE_RMSSE individual_components time_logging outliers 
+all:  artificial basic_checks bugs cross_validation croston exog expsmooth func HeartRateTimeSeries heroku hierarchical  HourOfWeek model_control perf svr transformations  neuralnet real-life  time_res perfs demos xgb xeon-phi-parallel sampling temporal_hierarchy WeekOfMonth missing_data  probabilistic_forecasting lgbm perf_MedAE perf_LnQ plots multiplicative_seasonal pytorch perf_MASE_RMSSE individual_components time_logging outliers Kendall_KS_MWU_AUC_Perfs 
 	
 
-build-test :  HeartRateTimeSeries HourOfWeek WeekOfMonth basic_checks bugs cross_validation croston demos exog expsmooth func heroku hierarchical individual_components lgbm missing_data model_control multiplicative_seasonal outliers perf_LnQ perf_MASE_RMSSE perf_MedAE perfs plots probabilistic_forecasting real-life sampling svr time_logging time_res transformations xgb 
+build-test :  HeartRateTimeSeries HourOfWeek Kendall_KS_MWU_AUC_Perfs WeekOfMonth basic_checks bugs cross_validation croston demos exog expsmooth func heroku hierarchical individual_components lgbm missing_data model_control multiplicative_seasonal outliers perf_LnQ perf_MASE_RMSSE perf_MedAE perfs plots probabilistic_forecasting real-life sampling svr time_logging time_res transformations xgb 
 	
 
 long-tests :  artificial neuralnet perf pytorch temporal_hierarchy xeon-phi-parallel 

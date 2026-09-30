@@ -41,6 +41,7 @@ str1 = str1 + " perf_MASE_RMSSE"
 str1 = str1 + " individual_components"
 str1 = str1 + " time_logging"
 str1 = str1 + " outliers"
+str1 = str1 + " Kendall_KS_MWU_AUC_Perfs"
 subdirs = str1.split();
 
 print('export TIME=EXECUTION_TIME_DETAIL = {\'CMD\':\'%C\', \'ElapsedTimeSecs\':(%e, %S, %U), \'MAX_MEM_KB\':%M, \'CPU_PRCNT\':\'%P\', \'FILES_IN\':%I, \'FILES_OUT\':%O, \'EXIT_STATUS\':%x}\n');
@@ -65,6 +66,7 @@ str2 = "demos basic_checks cross_validation croston exog heroku hierarchical mod
 
 str2 = str2 + " expsmooth HeartRateTimeSeries"
 str2 = str2 + " outliers"
+str2 = str2 + " Kendall_KS_MWU_AUC_Perfs"
 str2 = str2.split()
 str2 = " ".join(sorted(str2))
 
